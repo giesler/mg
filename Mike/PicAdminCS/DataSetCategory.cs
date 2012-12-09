@@ -78,6 +78,8 @@ namespace PicAdminCS {
             
             private DataColumn columnCategoryName;
             
+            private DataColumn columnCategoryDescription;
+            
             private DataColumn columnCategoryPath;
             
             internal CategoryDataTable() : 
@@ -110,6 +112,12 @@ namespace PicAdminCS {
                 }
             }
             
+            internal DataColumn CategoryDescriptionColumn {
+                get {
+                    return this.columnCategoryDescription;
+                }
+            }
+            
             internal DataColumn CategoryPathColumn {
                 get {
                     return this.columnCategoryPath;
@@ -134,12 +142,13 @@ namespace PicAdminCS {
                 this.Rows.Add(row);
             }
             
-            public CategoryRow AddCategoryRow(int CategoryParentID, string CategoryName, string CategoryPath) {
+            public CategoryRow AddCategoryRow(int CategoryParentID, string CategoryName, string CategoryDescription, string CategoryPath) {
                 CategoryRow rowCategoryRow = ((CategoryRow)(this.NewRow()));
                 rowCategoryRow.ItemArray = new object[] {
                         null,
                         CategoryParentID,
                         CategoryName,
+                        CategoryDescription,
                         CategoryPath};
                 this.Rows.Add(rowCategoryRow);
                 return rowCategoryRow;
@@ -157,17 +166,17 @@ namespace PicAdminCS {
             private void InitClass() {
                 this.columnCategoryID = new DataColumn("CategoryID", typeof(int), "", System.Data.MappingType.Element);
                 this.columnCategoryID.AutoIncrement = true;
-				this.columnCategoryID.AutoIncrementSeed = 1000;
                 this.columnCategoryID.AllowDBNull = false;
                 this.columnCategoryID.ReadOnly = true;
                 this.columnCategoryID.Unique = true;
                 this.Columns.Add(this.columnCategoryID);
                 this.columnCategoryParentID = new DataColumn("CategoryParentID", typeof(int), "", System.Data.MappingType.Element);
-                this.columnCategoryParentID.AllowDBNull = false;
                 this.Columns.Add(this.columnCategoryParentID);
                 this.columnCategoryName = new DataColumn("CategoryName", typeof(string), "", System.Data.MappingType.Element);
                 this.columnCategoryName.AllowDBNull = false;
                 this.Columns.Add(this.columnCategoryName);
+                this.columnCategoryDescription = new DataColumn("CategoryDescription", typeof(string), "", System.Data.MappingType.Element);
+                this.Columns.Add(this.columnCategoryDescription);
                 this.columnCategoryPath = new DataColumn("CategoryPath", typeof(string), "", System.Data.MappingType.Element);
                 this.Columns.Add(this.columnCategoryPath);
                 this.PrimaryKey = new DataColumn[] {
@@ -244,7 +253,12 @@ namespace PicAdminCS {
             
             public int CategoryParentID {
                 get {
-                    return ((int)(this[this.tableCategory.CategoryParentIDColumn]));
+                    try {
+                        return ((int)(this[this.tableCategory.CategoryParentIDColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCategory.CategoryParentIDColumn] = value;
@@ -260,6 +274,20 @@ namespace PicAdminCS {
                 }
             }
             
+            public string CategoryDescription {
+                get {
+                    try {
+                        return ((string)(this[this.tableCategory.CategoryDescriptionColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCategory.CategoryDescriptionColumn] = value;
+                }
+            }
+            
             public string CategoryPath {
                 get {
                     try {
@@ -272,6 +300,22 @@ namespace PicAdminCS {
                 set {
                     this[this.tableCategory.CategoryPathColumn] = value;
                 }
+            }
+            
+            public bool IsCategoryParentIDNull() {
+                return this.IsNull(this.tableCategory.CategoryParentIDColumn);
+            }
+            
+            public void SetCategoryParentIDNull() {
+                this[this.tableCategory.CategoryParentIDColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsCategoryDescriptionNull() {
+                return this.IsNull(this.tableCategory.CategoryDescriptionColumn);
+            }
+            
+            public void SetCategoryDescriptionNull() {
+                this[this.tableCategory.CategoryDescriptionColumn] = System.Convert.DBNull;
             }
             
             public bool IsCategoryPathNull() {

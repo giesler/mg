@@ -72,9 +72,8 @@ namespace PicAdminCS
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
+			// Set the connection string
+			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
 		}
 
 		/// <summary>
@@ -596,7 +595,7 @@ namespace PicAdminCS
 
 			if (strFileName.Length > 0) 
 			{
-				LoadImage("\\\\stan\\c$\\Inetpub\\msn2.net\\Pictures\\" + 
+				LoadImage("\\\\kenny\\inetpub\\pictures\\" + 
 					strFileName.Replace("/", "\\") );
 			}
 
@@ -606,15 +605,23 @@ namespace PicAdminCS
 		public bool LoadImage(String strFilename) 
 		{
 
-			Image img = Image.FromFile(strFilename);
+			try 
+			{
+
+				Image img = Image.FromFile(strFilename);
 			
-			panelPic.Width = (int) ( ( (float) img.Width / (float) img.Height) * (float) panelPic.Height );
-			pbPic.Width = panelPic.Width;
-			pbPic.Height = panelPic.Height;
+				panelPic.Width = (int) ( ( (float) img.Width / (float) img.Height) * (float) panelPic.Height );
+				pbPic.Width = panelPic.Width;
+				pbPic.Height = panelPic.Height;
 
-			pbPic.Image = img;
-
-			return true;
+				pbPic.Image = img;
+				return true;
+			}
+			catch (System.IO.FileNotFoundException fnfe) 
+			{
+				pbPic.Image = null;
+				return false;
+			}
 
 		}
 

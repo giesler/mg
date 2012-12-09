@@ -52,6 +52,10 @@ namespace PicAdminCS
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
+			// Set the connection string
+			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+
+			// Load all people
 			daPerson.Fill(dsPerson, "Person");
 
 			// load initial tree state

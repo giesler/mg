@@ -179,6 +179,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "fEditCategory.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "fEditCategory.resx"
+                    DependentUpon = "fEditCategory.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "fEditPerson.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -210,7 +220,7 @@
                 />
                 <File
                     RelPath = "fPicture.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

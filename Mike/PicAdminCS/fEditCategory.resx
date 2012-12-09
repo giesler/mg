@@ -27,28 +27,25 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <data name="daCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 39</value>
-  </data>
-  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="cn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>765, 54</value>
+    <value>151, 17</value>
   </data>
-  <data name="sqlInsertCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="dsCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>376, 16</value>
   </data>
-  <data name="sqlInsertCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="daCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>566, 32</value>
   </data>
   <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlInsertCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlInsertCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
@@ -57,20 +54,14 @@
   <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="dvCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>549, 54</value>
+  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="dsCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>442, 54</value>
-  </data>
-  <data name="contextMenu1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 54</value>
+  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="$this.Name">
-    <value>CategoryTree</value>
-  </data>
-  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
-    <value>106</value>
+    <value>fEditCategory</value>
   </data>
   <resheader name="ResMimeType">
     <value>text/microsoft-resx</value>

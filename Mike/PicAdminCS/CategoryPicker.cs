@@ -277,7 +277,11 @@ namespace PicAdminCS
 			li.Tag = cr;
 
 			// add to dsCategory
-			dsCategory.Category.AddCategoryRow(cr.CategoryParentID, cr.CategoryName, cr.CategoryPath);
+			DataSetCategory.CategoryRow newcr = dsCategory.Category.NewCategoryRow();
+			newcr.CategoryParentID  = cr.CategoryParentID;
+			newcr.CategoryName		= cr.CategoryName;
+			newcr.CategoryPath      = cr.CategoryPath;
+			dsCategory.Category.AddCategoryRow(newcr);
 
 			// add to arCategory if not there
 			if (!arCategory.Contains(cr.CategoryID))
