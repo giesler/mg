@@ -171,13 +171,23 @@
                 />
                 <File
                     RelPath = "xmserver.cs"
-                    SubType = "Code"
+                    SubType = "Component"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmserver.resx"
+                    DependentUpon = "xmserver.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "xmserverinstaller.cs"
                     SubType = "Component"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmserverinstaller.resx"
+                    DependentUpon = "xmserverinstaller.cs"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

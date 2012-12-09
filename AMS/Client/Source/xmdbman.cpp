@@ -262,7 +262,13 @@ bool CXMDBManager::_ScanDirectory(CString path)
 				if (xmfile)
 					mCallback->AfterFileAdded(xmfile);
 				else
+				{
 					mCallback->OnFileAddError(str, &md5);
+
+					#ifdef _INTERNAL
+					ErrorFiles.AddTail(str);
+					#endif
+				}
 			}
 		}
 	}

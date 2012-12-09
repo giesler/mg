@@ -22,9 +22,24 @@ namespace XMedia
 				return true;
 			}
 
-			//database is not connected, open it
-			string con;
-			con = "Initial Catalog=xmcatalog;Data Source=amstest;User Id=sa;Password=%makeme$%";
+			//build connection string
+			string con = String.Format(
+							"Data Source={0};Initial Catalog={1}",
+							XMConfig.DBServer,
+							XMConfig.DBDatabase);
+			if (XMConfig.DBUseNT)
+			{
+				con += ";Integrated Security=SSPI";
+			}
+			else
+			{
+				con += String.Format(
+					";User Id={0};Password={1}",
+					XMConfig.DBUsername,
+					XMConfig.DBPassword);
+			}
+
+			//open database
 			try 
 			{
 				mConnection.ConnectionString = con;

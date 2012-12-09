@@ -3,25 +3,25 @@ namespace XMedia
     using System;
     using System.Collections;
 	using System.ComponentModel;
-    //beta2: using System.Core;
     using System.Configuration.Install;
+	using System.ServiceProcess;
 
     [RunInstaller(true)]
-    public class XMServerInstaller : System.Configuration.Install.Installer
+    public class XMServerInstaller : Installer
     {
-		private System.ServiceProcess.ServiceInstaller mInstaller;
-		private System.ServiceProcess.ServiceProcessInstaller mProcessInstaller;
+		private ServiceInstaller mInstaller;
+		private ServiceProcessInstaller mProcessInstaller;
 
         public XMServerInstaller()
         {
 			//create installers
-			mInstaller = new System.ServiceProcess.ServiceInstaller();
-			mProcessInstaller = new System.ServiceProcess.ServiceProcessInstaller();
+			mInstaller = new ServiceInstaller();
+			mProcessInstaller = new ServiceProcessInstaller();
 
 			//setup installer properties
+			mProcessInstaller.Account = ServiceAccount.LocalSystem;
 			mInstaller.ServiceName = "XMedia Server";
-			mProcessInstaller.Username = null;
-			mProcessInstaller.Password = null;
+			mInstaller.StartType = ServiceStartMode.Automatic;
 
 			//register installers
 			Installers.Add(mProcessInstaller);

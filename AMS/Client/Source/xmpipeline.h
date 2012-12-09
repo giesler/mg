@@ -390,6 +390,9 @@ public:
 	//MOTD
 	bool MotdIsNew();
 	void MotdShow();
+#ifdef _INTERNAL
+	void FakeMotd(LPCSTR msg);
+#endif
 
 protected:
 	

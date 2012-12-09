@@ -395,6 +395,9 @@ public:
 	//bool DownloadDirExists();
 	bool ScanDirectory(char* path);
 	void CancelScan();
+	#ifdef _INTERNAL
+	CStringList ErrorFiles;
+	#endif
 
 	//misc
 	void Lock();

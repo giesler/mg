@@ -213,6 +213,9 @@ void CXMClientManager::OnWin32MsgReview(UINT msg, WPARAM wparam, LPARAM lparam)
 
 void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 {
+	try
+	{
+
 	//what type of message?
 	CXMMessage *response;
 	if (strcmp(msg->GetFor(false), XMMSG_PING)==0)
@@ -227,19 +230,46 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		if (msg->GetType()==XM_REQUEST)
 		{
 			//file request
-			OnFileRequest(ses, msg);
+			/// DEBUG {
+			try
+			{
+				OnFileRequest(ses, msg);
+			}
+			catch(...)
+			{
+				sm()->FakeMotd("OnFileRequest Exception");
+			}
+			/// } DEBUG
 		}
 		else
 		{
 			//what type of request?
 			if (strcmp(msg->GetField("message")->GetValue(false), "file")==0)
 			{
-				OnFileReceived(ses, msg);
+				/// DEBUG {
+				try
+				{
+					OnFileReceived(ses, msg);
+				}
+				catch(...)
+				{
+					sm()->FakeMotd("OnFileReceived Exception");
+				}
+				/// } DEBUG
 			}
 			else
 			{
 				//assume "busy" or "error"
-				OnFileBusy(ses, msg);
+				/// DEBUG {
+				try
+				{
+					OnFileBusy(ses, msg);
+				}
+				catch(...)
+				{
+					sm()->FakeMotd("OnFileBusy Exception");
+				}
+				/// } DEBUG
 			}
 		}
 	}
@@ -251,6 +281,12 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 
 	//always delete message
 	delete msg;
+
+	}
+	catch(...)
+	{
+		sm()->FakeMotd("Exception in OnMsgReceived");
+	}
 }
 
 void CXMClientManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
@@ -368,28 +404,6 @@ void CXMClientManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 					//received, then this is an error
 					if(mDownloads[i].mState!=DSS_CLOSING)
 					{
-						/*
-						//send error
-						SendUpdate(	XM_CMU_DOWNLOAD_ERROR,
-									mDownloads[i].mItem->mMD5,
-									mDownloads[i].mWidth,
-									mDownloads[i].mHeight,
-									mDownloads[i].mIsThumb,
-									0);
-
-						//unclamp thumbnail
-						if (!mDownloads[i].mIsThumb)
-						{
-							dbman()->Lock();
-							DWORD x = dbman()->FindCachedFileByParent(mDownloads[i].mItem->mMD5);
-							if (x != -1)
-							{
-								dbman()->UnclampCachedFile(x);
-							}
-							dbman()->Unlock();
-						}
-						*/
-
 						//mark the current host busy
 						mDownloads[i].mItem->mHosts[mDownloads[i].mCurrentHost].IsBusy = true;
 
@@ -503,6 +517,7 @@ void CXMClientManager::OnFileBusy(CXMSession *ses, CXMMessage *msg)
 void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 {
 	//extract data from message
+	
 	CMD5 md5(msg->GetField("md5")->GetValue(false));
 	DWORD width = atol(msg->GetField("width")->GetValue(false));
 	DWORD height = atol(msg->GetField("height")->GetValue(false));
@@ -513,6 +528,10 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	CXMMessage *reply;
 	CXMDBFile *f = db()->FindFile(md5.GetValue(), false);
 	db()->Unlock();
+
+	/// DEBUG {
+	try {
+
 	if (!f)
 	{
 		//we dont have it
@@ -540,12 +559,26 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 		return;
 	}
 	
+	
+	}
+	catch(...)
+	{
+		Unlock();
+		sm()->FakeMotd("Exception in OnFileRequest Setup");
+		return;
+	}
+	/// } DEBUG
+
 	//do we have an open spot?
 	for(BYTE i=0;i<mUploadSlotCount;i++)
 	{
 		if (mUploadSlots[i].mState == USS_OPEN)
 		{
 			//create reply message
+			
+			/// DEBUG {
+			try {
+			
 			reply = msg->CreateReply();
 			reply->GetField("md5")->SetValue(CMD5(f->GetMD5()).GetString());
 			reply->GetField("message")->SetValue("file");
@@ -554,9 +587,22 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 			mUploadSlots[i].mIsThumb =	((f->GetWidth() != width) ||
 										 (f->GetHeight() != height)) &&
 										(width!=0 && height!=0);
+
+			}
+			catch(...)
+			{
+				Unlock();
+				sm()->FakeMotd("Exception in OnFileRequest: Create Reply");
+				return;
+			}
+			/// } DEBUG
+
 			if (mUploadSlots[i].mIsThumb)
 			{
 				//send as thumbnail
+				/// DEBUG {
+				try {
+
 				CXMDBThumb *t = f->GetThumb(width, height);
 				if (!t) 
 				{
@@ -585,10 +631,24 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 
 				//send 
 				reply->Send();
+
+				}
+				catch(...)
+				{
+					Unlock();
+					sm()->FakeMotd("Exception in OnFileRequest: Thumbnail");
+					return;
+				}
+				/// } DEBUG
 			}
 			else
 			{
 				//send full size
+
+				/// DEBUG {
+				try
+				{
+
 				reply->GetField("width")->SetValue(f->GetWidth());
 				reply->GetField("height")->SetValue(f->GetHeight());
 				reply->GetField("size")->SetValue(f->GetFileSize());
@@ -630,7 +690,20 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 
 				//send file
 				reply->Send();
+
+				}
+				catch(...)
+				{
+					Unlock();
+					sm()->FakeMotd("Esception in OnFileRequest: File");
+					return;
+				}
+				/// } DEBUG
 			}
+
+			/// DEBUG {
+			try
+			{
 
 			//do we need to clear the session currently
 			//in this slot?
@@ -652,9 +725,23 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 			//file sent, exit
 			Unlock();
 			return;
+
+			}
+			catch(...)
+			{
+				Unlock();
+				sm()->FakeMotd("Esception in OnFileRequest: Finish");
+				return;
+			}
+			/// } DEBUG
+
 		}
 	}
 	Unlock();
+
+	/// DEBUG {
+	try
+	{
 
 	//no open slots
 	reply = msg->CreateReply();
@@ -662,6 +749,14 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	reply->GetField("md5")->SetValue(md5.GetString());
 	reply->Send();
 	ses->Close();
+
+	}
+	catch(...)
+	{
+		sm()->FakeMotd("Esception in OnFileRequest: Busy");
+		return;
+	}
+	/// } DEBUG
 }
 
 DWORD CXMClientManager::AddCompletedFile()

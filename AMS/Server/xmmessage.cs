@@ -19,7 +19,7 @@ namespace XMedia
 	public class XMMediaListing
 	{
 		public bool Full;
-		public /*beta2:*/ArrayList MediaItems = new /*beta2:*/ArrayList();
+		public ArrayList MediaItems = new ArrayList();
 
 		public XmlElement ToXml(XmlDocument doc)
 		{
@@ -289,33 +289,12 @@ namespace XMedia
 
 		public XMMessageField GetField(string name)
 		{
-			//search for the named field
-			/*
-			foreach(XMMessageField field in Fields)
-			{
-				if (field.Name==name)
-				{
-					return field.Value;
-				}
-			}
-			return null;
-			*/
 			return (XMMessageField)Fields[name];
 		}
 
 		public void SetField(string name, object newval)
 		{
 			//try to find an existing field first
-			/*
-			foreach(XMMessageField field in Fields)
-			{
-				if (field.Name==name)
-				{
-					field.Value = newval;
-					return;
-				}
-			}
-			*/
 			XMMessageField field = (XMMessageField)Fields[name];
 			if (field!=null)
 			{
@@ -449,7 +428,7 @@ namespace XMedia
 			string u, p;
 			try 
 			{
-				dr = /*beta2:*/Convert.ToInt32(GetField("datarate").Value);
+				dr = Convert.ToInt32(GetField("datarate").Value);
 			}
 			catch
 			{
@@ -463,7 +442,7 @@ namespace XMedia
 			catch
 			{
 				//version not given (version 0.50)
-				Connection.Version = "0.50";
+				Connection.Version = XMConfig.MiscDefaultVersion;
 			}
 			try 
 			{
@@ -493,7 +472,7 @@ namespace XMedia
 			bool auLatest = true;
 			bool auRequired = true;
 			string auVersion = "";
-			if (Connection.Version != "0.70")		//NOTE: current version
+			if (Connection.Version != XMConfig.MiscCurrentVersion)		//NOTE: current version
 			{
 				//fetch the record
 				auLatest = false;
@@ -555,8 +534,8 @@ namespace XMedia
 			//set limiters on the queries?
 			if(!Connection.Paying)
 			{
-				msg.SetField("limitindex", XMConnection.LimiterIndex);
-				msg.SetField("limitfilter", XMConnection.LimiterFilter);
+				msg.SetField("limitindex", XMConfig.QueryLimitIndex);
+				msg.SetField("limitfilter", XMConfig.QueryLimitFilter);
 			}
 
 			//optional auto-upgrade info?
@@ -596,8 +575,8 @@ namespace XMedia
 			//are we allowed to execute this query?
 			if (!Connection.Paying)
 			{
-				if ((Query.QueryMask.CountBits(true)>XMConnection.LimiterIndex) ||
-					(Query.RejectionMask.CountBits(false)>XMConnection.LimiterFilter)	)
+				if ((Query.QueryMask.CountBits(true)>XMConfig.QueryLimitIndex) ||
+					(Query.RejectionMask.CountBits(false)>XMConfig.QueryLimitFilter)	)
 				{
 					msg = CreateReply();
 					msg.Action = "error";
@@ -640,16 +619,6 @@ namespace XMedia
 				//parse the string
 				//ArrayList sc = new ArrayList();
 				string[] s = ((string)field.Value).Split(';');
-				/*
-				int i = 0;
-				int j = s.IndexOf(';', i);
-				while (j!=-1)
-				{
-					sc.Add(s.Substring(i, j-i));
-					i = j+1;
-					j = s.IndexOf(';', i);
-				}
-				*/
 				if (s.Length<1)
 				{
 					//nothing
@@ -731,22 +700,12 @@ namespace XMedia
 				//remove from media storage
 				sql = "delete from mediastorage where userid = " + Connection.UserID.ToStringDB();
 				mListingADO.SqlExecNoResults(sql);
-
-				//remove from media index
-				//sql = "delete from mediaindex where userid = " + Connection.UserID.ToStringDB();
-				//mListingADO.SqlExec(sql);
-			}
-			else
-			{
-				//Debugger.Break();
 			}
 			
 			//walk list of media items
 			XMGuid md5;
 			StringBuilder sb;
 			int c = 0;
-			/*TEMP*/// int j = 0;
-			/*TEMP*/// SqlDataReader rstemp;
 			foreach(XMMediaItem mi in Listing.MediaItems)
 			{
 				try 
@@ -761,29 +720,9 @@ namespace XMedia
 							", @width="		+ mi.Width				.ToString() +
 							", @height="	+ mi.Height				.ToString() + 
 							", @filesize="	+ mi.FileSize			.ToString();
-
-						///<TEMP>
-						//XMAdo ado = new XMAdo();
-						//ado.EnsureConnection();
-						mListingADO/*ado*/.SqlExecNoResults(sql);
-						///</TEMP>
+						mListingADO.SqlExecNoResults(sql);
 						c++;
 
-						///<TEMP>
-						/*
-						j++;
-						sql = "select count(*) from mediastorage where userid=0x9A564D7321999DE9C8A8F5BC831141CB";
-						rstemp = mListingADO.SqlExec(sql);
-						rstemp.Read();
-						if ((int)rstemp[0] != j)
-						{
-							//aha!
-							Debug.Assert(false);
-							j--;
-						}
-						rstemp.Close();
-						*/
-						///</TEMP>
 					}
 					else if(mi.Action=="remove")
 					{
@@ -840,12 +779,6 @@ namespace XMedia
 					//safely ignore this.
 					XMLog.WriteLine(e.Message, "DoListing", EventLogEntryType.Warning);
 				}
-			}
-			
-			//print out number of items we added
-			if (Connection.Username=="cache")
-			{
-				Trace.WriteLine(String.Format("*** added {0} items for cache", c));
 			}
 		}
     }

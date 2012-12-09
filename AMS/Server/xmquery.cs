@@ -34,7 +34,9 @@ namespace XMedia
 		//who has this file online?
 		private XMMediaItemHost[] mServers = new XMMediaItemHost[5];
 		private byte mServersCount = 0;
-		private DateTime mServersAge = (DateTime.Now - TimeSpan.FromMinutes(11));
+		private DateTime mServersAge = (DateTime.Now
+											- XMConfig.QueryStorageTimeout
+											- TimeSpan.FromMinutes(1));
 
 		public byte GetServersCount(XMAdo ado)
 		{
@@ -45,7 +47,7 @@ namespace XMedia
 		private void RebuildServers(XMAdo ado)
 		{
 			//check time difference
-			if (DateTime.Now.Subtract(mServersAge).Minutes > 10)
+			if ((DateTime.Now - mServersAge) > XMConfig.QueryStorageTimeout)
 			{
 				//more than 10 minutes old.. rebuild
 				string sql = "exec sp_getmediastorage 0x" + Md5;
@@ -627,9 +629,9 @@ namespace XMedia
 			if (item.Indices.Length < 1)
 				return true;
 
-			//if 5 or more fields are already indexed, we
+			//if more than 5 fields are already indexed, we
 			//skip this file
-			return (item.IndexedFieldCount < 5);
+			return (item.IndexedFieldCount <= XMConfig.QueryContestFieldCutoff);
 		}
 
 		/// <summary>
@@ -760,7 +762,7 @@ namespace XMedia
 					if (msg!=null)
 					{
 						//clear the results
-						ret = new /*beta2:*/ArrayList(20);
+						ret = new ArrayList(XMConfig.QueryResultsCutoff);
 						c = 0;
 
 						//loop until:
@@ -768,10 +770,10 @@ namespace XMedia
 						//	* we search too many records
 						//	* we search EVERY record
 						start = item;
-						while (	(c < 5000) &&				//max of 5k items searched
-								(ret.Count < 20) &&			//max of 20 results
-								(item.Next!=start) &&		//don't loop in 1 query
-								!(msg.Query.Contest && ret.Count > 0) //only 1 result for contest
+						while (	(c < XMConfig.QuerySearchCutoff) &&				//max of 5k items searched
+								(ret.Count < XMConfig.QueryResultsCutoff) &&	//max of 20 results
+								(item.Next!=start) &&							//don't loop
+								!(msg.Query.Contest && ret.Count > 0)			//only 1 result for contest
 						)
 						{
 							//keep picture?
@@ -809,7 +811,7 @@ namespace XMedia
 					{
 						//there were no messages, pause
 						//for jsut a moment
-						Thread.Sleep(1000);
+						Thread.Sleep(TimeSpan.FromMilliseconds(100));
 					}
 				}
 				catch (Exception e)
@@ -1098,10 +1100,10 @@ namespace XMedia
 			} while(item.Next != mFirstItem);
 			TimeSpan elapsed = DateTime.Now - start;
 			string str = String.Format(
-				"Built media list.\nIndexed Media: {0}\nUnindexed Media: {1}\nElapsed Time: {2} seconds",
+				"Built media list.\n\tIndexed Media: {0}\n\tUnindexed Media: {1}\n\tElapsed Time: {2} seconds",
 				countIndexed,
 				countUnindexed,
-				elapsed.TotalSeconds);
+				Convert.ToInt32(elapsed.TotalSeconds));
 			XMLog.WriteLine(str, "QueryEngine");
 		}
 
@@ -1148,13 +1150,6 @@ namespace XMedia
 					i.Rating		= Convert.ToByte(rs["_Rating"]);
 					i.Setting		= Convert.ToByte(rs["_Setting"]);
 					i.Skin			= Convert.ToByte(rs["_Skin"]);
-
-					//contest, or other?
-					/*
-					i.Source = (Convert.ToDouble(rs.Fields["Score"].Value) != 0)?
-						XMIndex.SourceEnum.Contest:
-						XMIndex.SourceEnum.Other;
-					*/
 
 					//add to temp store
 					temp.Add(i);

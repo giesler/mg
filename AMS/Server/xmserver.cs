@@ -31,12 +31,6 @@ namespace XMedia
 			}
 		}
 
-		/*
-		#if NOSERVICE
-		protected EventLog EventLog = new EventLog();
-		#endif
-		*/
-
         public XMServer()
         {
  			#if SERVICE
@@ -51,9 +45,9 @@ namespace XMedia
 			XMGuid.Init();
 
 			#if SERVICE
-				System.ServiceProcess.ServiceBase[] ServicesToRun;
-				ServicesToRun = new System.ServiceProcess.ServiceBase[] { new XMServer() };
-				System.ServiceProcess.ServiceBase.Run(ServicesToRun);
+				ServiceBase[] ServicesToRun;
+				ServicesToRun = new ServiceBase[] { new XMServer() };
+				ServiceBase.Run(ServicesToRun);
 			#else
 				//create the object and run it
 				XMServer server = new XMServer();
@@ -78,9 +72,19 @@ namespace XMedia
 			XMConnection.StaticInit();
 			XMLog.StaticInit();
 
+			//print init stuff
+			XMLog.WriteLine(String.Format(
+				"AMS Server Starting:\n\tDatabase: {0} on {1}\n\tQuery Processors: {2}\n\tPort: {3}",
+				XMConfig.DBDatabase,
+				XMConfig.DBServer,
+				XMConfig.QueryProcessorCount,
+				XMConfig.NetServerPort),
+				"XMServer",
+				EventLogEntryType.Information);
+
 			//load data, start a processor
 			mEngine.Rebuild();
-			mEngine.SetProcessorCount(1);
+			mEngine.SetProcessorCount(XMConfig.QueryProcessorCount);
 
 			//start listen server
 			if (mListener!=null)
@@ -92,12 +96,12 @@ namespace XMedia
 			mListener.Start();
 
 			//start timer for connection checking
-			mTimerConnections = new System.Timers.Timer(2*60*1000);	//2 minutes	
+			mTimerConnections = new System.Timers.Timer(XMConfig.NetConnectionCheckInterval.TotalMilliseconds);	//2 minutes	
 			mTimerConnections.Elapsed += new System.Timers.ElapsedEventHandler(ElapsedConnections);
 			mTimerConnections.Start();
 
 			//start timer for media rebuilds
-			mTimerMediaRebuild = new System.Timers.Timer(42*60*1000); //42 minutes (yes, 42!)
+			mTimerMediaRebuild = new System.Timers.Timer(XMConfig.QueryMediaRebuildInterval.TotalMilliseconds); //42 minutes (yes, 42!)
 			mTimerMediaRebuild.Elapsed += new System.Timers.ElapsedEventHandler(ElapsedMediaRebuild);
 			mTimerMediaRebuild.Start();
         }
@@ -222,7 +226,7 @@ namespace XMedia
 				mSocket = new Socket(	/*beta2:*/AddressFamily.InterNetwork, 
 										/*beta2:*/SocketType.Stream, 
 										/*beta2:*/ProtocolType.Tcp);
-				mSocket.Bind(new IPEndPoint(IPAddress.Any, 25346));
+				mSocket.Bind(new IPEndPoint(IPAddress.Any, XMConfig.NetServerPort));
 				mSocket.Listen(4);
 			}
 			catch(SocketException se)

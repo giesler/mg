@@ -272,7 +272,7 @@ namespace XMedia
 			{
 				//must be null session id, and no recent activity
 				if (c.SessionID == null &&
-					c.LastActivity < DateTime.Now.AddMinutes(-10))
+					c.LastActivity < (DateTime.Now - XMConfig.NetDormantTimeout))
 				{
 					//probobly some sort of mis-hap during login, before the
 					//session id could get set. if something happens after
@@ -288,7 +288,7 @@ namespace XMedia
 					//the open connection if more than 15 minutes elapses without
 					//any activity, giving a maximum of 5 minutes for the client
 					//to respond before disconnection.
-					if (c.LastActivity < DateTime.Now.AddMinutes(-20))
+					if (c.LastActivity < (DateTime.Now - XMConfig.NetLinkDeadTimeout))
 					{
 						XMLog.WriteLine("Closing link-dead connection: " + c.Username, "CheckConnections");
 						c.Close();

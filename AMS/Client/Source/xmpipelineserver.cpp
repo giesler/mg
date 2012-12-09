@@ -252,7 +252,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		if (mMotdType)
 			free(mMotdType);
 		if (mMotdMsg)
-			free(mMotdType);
+			free(mMotdMsg);
 		if (mMotdQuestion)
 			free(mMotdQuestion);
 		if (mMotdChoices)
@@ -354,6 +354,33 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 	//always delete msg
 	delete msg;
 }
+
+/// DEBUG {
+#ifdef _INTERNAL
+void CXMServerManager::FakeMotd(LPCSTR msg)
+{
+	//free any existing stuff
+	if (mMotdType)
+		free(mMotdType);
+	if (mMotdMsg)
+		free(mMotdMsg);
+	if (mMotdQuestion)
+		free(mMotdQuestion);
+	if (mMotdChoices)
+		free(mMotdChoices);
+
+	//copy into vars
+	mMotdType = strdup("none");
+	mMotdMsg = strdup(msg);
+	mMotdQuestion = strdup("");
+	mMotdChoices = strdup("");
+
+	//send update
+	mMotdNew = true;
+	SendEvent(XM_SERVERMSG, XM_SMU_MOTD_RECEIVED, NULL);
+}
+#endif
+/// } DEBUG
 
 void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 {
@@ -1441,6 +1468,33 @@ void CLoginDialog::DoLogin()
 		StatusEntry("Waiting for database to finish loading...", false);
 		return;
 	}
+
+	//Any files that could not be added should likely be deleted,
+	//but only if its not auto-login!
+	#ifdef _INTERNAL
+	if (!config()->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE))
+	{
+		//any errors?
+		if (!dbman()->ErrorFiles.IsEmpty())
+		{
+			CString msg;
+			msg.Format("There were %d files that could not be added. Delete those files?",
+						dbman()->ErrorFiles.GetCount());
+			int retval = AfxMessageBox(msg, MB_YESNO|MB_ICONQUESTION, 0);
+			if (retval == IDYES)
+			{
+				POSITION pos = dbman()->ErrorFiles.GetHeadPosition();
+				CString str;
+				while (pos)
+				{
+					str = dbman()->ErrorFiles.GetNext(pos);
+					DeleteFile(str);
+				}
+			}
+			dbman()->ErrorFiles.RemoveAll();
+		}
+	}
+	#endif
 
 	//start login
 	if(sm()->ServerIsOpen())
