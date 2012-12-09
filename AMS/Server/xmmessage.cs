@@ -641,8 +641,8 @@ namespace XMedia
 			}
 
 			//execute query
-			if (!mListingADO.EnsureConnection()) throw new Exception("No database.");
-			SqlDataReader rs = mListingADO.SqlExec(sql);
+			XMAdo mAdo = XMAdo.FromPool();
+			SqlDataReader rs = mAdo.SqlExec(sql);
 
 			//convert to listing
 			XMMediaItem mi = new XMMediaItem();
@@ -655,6 +655,7 @@ namespace XMedia
 				ml.MediaItems.Add(mi);
 			}
 			rs.Close();
+			mAdo.ReturnToPool();
 
 			//send message
 			XMMessage msg = this.CreateReply();
@@ -668,19 +669,8 @@ namespace XMedia
 			
 		}
 
-		protected static XMAdo mListingADO;
 		protected void DoListing()
 		{
-			//check our connection
-			if (mListingADO==null)
-			{
-				mListingADO = new XMAdo();
-			}
-			if (!mListingADO.EnsureConnection())
-			{
-				throw new Exception("No database.");
-			}
-
 			//ensure listing was found
 			XMMessage msg;
 			if (Listing==null)
@@ -699,7 +689,7 @@ namespace XMedia
 			{
 				//remove from media storage
 				sql = "delete from mediastorage where userid = " + Connection.UserID.ToStringDB();
-				mListingADO.SqlExecNoResults(sql);
+				XMAdo.PooledSqlExecNoResults(sql);
 			}
 			
 			//walk list of media items
@@ -720,7 +710,7 @@ namespace XMedia
 							", @width="		+ mi.Width				.ToString() +
 							", @height="	+ mi.Height				.ToString() + 
 							", @filesize="	+ mi.FileSize			.ToString();
-						mListingADO.SqlExecNoResults(sql);
+						XMAdo.PooledSqlExecNoResults(sql);
 						c++;
 
 					}
@@ -728,7 +718,7 @@ namespace XMedia
 					{
 						sql = "exec sp_deletemediastorage @md5=" + md5.ToStringDB()
 								+ ", @uid=" + Connection.UserID.ToStringDB();
-						mListingADO.SqlExecNoResults(sql);
+						XMAdo.PooledSqlExecNoResults(sql);
 					}
 					
 					//insert each index
@@ -770,7 +760,7 @@ namespace XMedia
 						else
 							sb.Append(0);
 						
-						mListingADO.SqlExecNoResults(sb.ToString());
+						XMAdo.PooledSqlExecNoResults(sb.ToString());
 					}
 				}
 				catch(Exception e)

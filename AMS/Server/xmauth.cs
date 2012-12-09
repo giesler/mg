@@ -12,24 +12,6 @@ namespace XMedia
     /// </summary>
     public class XMAuth
     {
-		//sql connection
-		private static XMAdo mAdo;
-
-		//helper for ado connection
-		private static bool EnsureConnection()
-		{
-			if (mAdo==null)
-			{
-				mAdo = new XMAdo();
-			}
-
-			return mAdo.EnsureConnection();
-		}
-
-        public XMAuth()
-        {
-        }
-
 		/// <summary>
 		/// Retrieve auto update information during login
 		/// </summary>
@@ -38,16 +20,14 @@ namespace XMedia
 		/// <param name="required">Can the old version still be used?</param>
 		public static bool AutoUpdateCheck(string version, ref string newVersion, ref bool required)
 		{
-			if (!EnsureConnection())
-			{
-				return false;
-			}
-
 			//fetch new data
 			string sql = "select newversion, required from versions where oldversion='" + version + "'";
+			XMAdo mAdo = XMAdo.FromPool();
 			SqlDataReader rs = mAdo.SqlExec(sql);
 			if (!rs.Read())
 			{
+				rs.Close();
+				mAdo.ReturnToPool();
 				return false;
 			}
 
@@ -55,6 +35,7 @@ namespace XMedia
 			newVersion = rs["newversion"].ToString();
 			required = Convert.ToBoolean(rs["required"]);
 			rs.Close();
+			mAdo.ReturnToPool();
 			return true;
 		}
 
@@ -63,15 +44,9 @@ namespace XMedia
 		/// </summary>
 		static public void KickAll()
 		{
-			if (!EnsureConnection())
-			{
-				return;
-			}
-
 			try 
 			{	
-			string sql = "update users set online=0, accesstoken=null";
-			mAdo.SqlExecNoResults(sql);
+				XMAdo.PooledSqlExecNoResults("update users set online=0, accesstoken=null");
 			}
 			catch
 			{
@@ -87,17 +62,14 @@ namespace XMedia
 		/// <param name="md5">[out] MD5 sum of <path></param>
 		public static bool AutoUpdateFile(string version, ref string path, ref XMGuid md5, ref int size)
 		{
-			if (!EnsureConnection())
-			{
-				return false;
-			}
-
 			//fetch new data
 			string sql = "select path, md5, length from versions where oldversion='" + version + "'";
+			XMAdo mAdo = XMAdo.FromPool();
 			SqlDataReader rs = mAdo.SqlExec(sql);
 			if (!rs.Read())
 			{
 				rs.Close();
+				mAdo.ReturnToPool();
 				return false;
 			}
 
@@ -106,17 +78,12 @@ namespace XMedia
 			md5 = new XMGuid((byte[])rs["md5"]);
 			size = Convert.ToInt32(rs["length"]);
 			rs.Close();
+			mAdo.ReturnToPool();
 			return true;
 		}
 
 		public static XMGuid Login(XMConnection con, int datarate, string username, string password)
 		{
-			if (!EnsureConnection())
-			{
-				//failed to open connection
-				throw new Exception("No database.");
-			}
-
 			//is session already logged in?
 			if (con.SessionID!=null)
 			{
@@ -130,14 +97,17 @@ namespace XMedia
 				from users u
 				where u.login='{0}'",
 				username);
+			XMAdo mAdo = XMAdo.FromPool();
 			SqlDataReader rs = mAdo.SqlExec(sql);
 			if (rs==null)
 			{
+				mAdo.ReturnToPool();
 				throw new Exception("Query failed.");
 			}
 			if (!rs.Read())
 			{
 				rs.Close();
+				mAdo.ReturnToPool();
 				throw new Exception("Invalid login.");
 			}
 
@@ -151,6 +121,8 @@ namespace XMedia
 				XMGuid passLocal = new XMGuid(password);
 				if (!passDB.Equals(passLocal))
 				{
+					rs.Close();
+					mAdo.ReturnToPool();
 					throw new Exception("Invalid login.");
 				}
 			}
@@ -172,7 +144,11 @@ namespace XMedia
 				}
 
 				if (alreadyLoggedIn)
+				{
+					rs.Close();
+					mAdo.ReturnToPool();
 					throw new Exception("You are already logged in to a different computer.  Only one simultaneous login is allowed per username.  If you want to run AMS on more than one computer, you may create new accounts as you need them.");
+				}
 			}
 
 			//get the userid, create the session id
@@ -202,7 +178,8 @@ namespace XMedia
 			sb.Append(")");
 			mAdo.SqlExecNoResults(sb.ToString());
 			mAdo.SqlExecNoResults("update users set datarate=" + datarate.ToString() + ", hostip='" + con.HostIP.ToString() + "', accesstoken = " + session.ToStringDB() + 
-					"where userid = " + user.ToStringDB());
+					" where userid = " + user.ToStringDB());
+			mAdo.ReturnToPool();
 
 			return session;
 		}
@@ -220,41 +197,31 @@ namespace XMedia
 			{
 				sql = "update users set online=0 where userid=" + con.UserID.ToStringDB();
 			}
-			if (mAdo.EnsureConnection())
-			{
-				mAdo.SqlExecNoResults(sql);
-			}
+			XMAdo.PooledSqlExecNoResults(sql);
 		}
 
 		public static void KillSession(XMGuid sid)
 		{
 			//remove any working data for a session
 			string sql = "exec sp_clearsessiondata " + sid.ToStringDB();
-			if (EnsureConnection()) 
-			{
-				mAdo.SqlExecNoResults(sql);	
-			}
+			XMAdo.PooledSqlExecNoResults(sql);	
 		}
 
 		public static bool Authenticate(XMConnection con, string session)
 		{
-			if (!EnsureConnection())
-			{
-				//failed to open connection
-				throw (new Exception("No database."));
-			}
-
 			//if session if older than 30 minutes, force another login
 			/*
-			 * if (con.LastActivity.AddMinutes(30).CompareTo(DateTime.Now)<0)
+			if (con.LastActivity.AddMinutes(30).CompareTo(DateTime.Now)<0)
 			{
 				//timed out
 				return false;
 			}
 
 			//verify the session id
+			XMAdo mAdo = XMAdo.FromPool();
 			string sql = String.Format(
 				"select max(datestamp) from userslogins where accesstoken = {0}
+			mAdo.ReturnToPool();
 			*/
 			return true;
 		}
@@ -264,9 +231,7 @@ namespace XMedia
 		/// onlne actually has an open connection.
 		/// </summary>
 		public static void CheckConnections()
-		{
-			//Trace.WriteLine("Checking connections...");
-			
+		{	
 			//kill any dorment connections
 			foreach(XMConnection c in XMConnection.Connections)
 			{
@@ -297,47 +262,41 @@ namespace XMedia
 				
 			}
 
-			//open db cnnection
-			if (!EnsureConnection())
-				return;
-
 			//get all users where online=1
-			DataView rs;
+			XMAdo mAdo = XMAdo.FromPool();
+			SqlDataReader rs = null;
 			try
 			{
-				rs = mAdo.SqlExecDataView("select * from users where online=1");
+				rs = mAdo.SqlExec("select accesstoken from users where online=1");
 			}
 			catch(Exception e)
 			{
 				XMLog.WriteLine(e.Message, "CheckConnections", EventLogEntryType.Error);
+				mAdo.ReturnToPool();
 				return;
 			}
 
 			//walk recordset
-			XMGuid uid = null;
 			XMGuid at = null;
-			//IPAddress ip;
 			bool kill;
-			object[] cons = XMConnection.Connections;
-			for (int i=0;i<rs.Count;i++)
+			XMConnection[] cons = (XMConnection[])XMConnection.Connections;
+			while(rs.Read())
 			{
 				kill = true;
 				try
 				{
 					//get accesstoken and ip
-					uid = new XMGuid((byte[])rs[i]["userid"]);
-					at = new XMGuid((byte[])rs[i]["accesstoken"]);
-					//ip = IPAddress.Parse((string)rs.Fields["hostip"].Value);
+					at = new XMGuid((byte[])rs["accesstoken"]);
+					Debug.WriteLine("Looking for SessionId: " + at.ToString());
 
 					//search open connections
 					//note: we don't need to sync since this array was copied
-					foreach(XMConnection c in cons)
+					foreach(XMConnection c3 in cons)
 					{
 						//test this connection
-						if (c.SessionID != null)
+						if (c3.SessionID != null)
 						{
-							if (c.SessionID.Equals(at)/* &&
-								c.HostIP.Equals(ip)*/)
+							if (c3.SessionID.Equals(at))
 							{
 								//connection is alive
 								kill = false;
@@ -346,26 +305,31 @@ namespace XMedia
 						}
 						else
 						{
-							Trace.WriteLine("CheckConnections: Skipping null session id.");
+							Debug.WriteLine("CheckConnections: Skipping null session id.");
 						}
 					}
 				}
 				catch(Exception e)
 				{
 					//we can continue, but make sure to move this user offline
-					Trace.WriteLine("Error checking for connection:\n"+e.ToString());
+					Debug.WriteLine("Error checking for connection:\n"+e.ToString());
 					kill = true;
 				}
 
 				//if we couldn't find the connection, or there was an error
 				//we will set the online flag to 0
-				if (kill && uid!=null)
+				if (kill==true)
 				{
-					XMLog.WriteLine("Kicking user: " + rs[i]["login"], "CheckConnections", EventLogEntryType.Warning);
-					string str = String.Format("update users set online=0, accesstoken=null where userid={0}", uid.ToStringDB());				
-					mAdo.SqlExecNoResults(str);
+					XMLog.WriteLine("Kicking user with accesstoken: " + at.ToStringDB(), "CheckConnections", EventLogEntryType.Warning);
+					string str = String.Format("update users set online=0, accesstoken=null where accesstoken={0}", at.ToStringDB());				
+					
+					XMAdo.PooledSqlExecNoResults(str);
 				}
 			}
+			
+			//done with recordset
+			rs.Close();
+			mAdo.ReturnToPool();
 		}
     }
 }

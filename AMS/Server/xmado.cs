@@ -1,6 +1,7 @@
 namespace XMedia
 {
     using System;
+	using System.Collections;
 	using System.Diagnostics;
 	using System.Data;
 	using System.Data.SqlClient;
@@ -8,8 +9,70 @@ namespace XMedia
 
 	public class XMAdo
 	{
-		private SqlConnection mConnection;
+		//connection pooling
+		private static ArrayList mPool = new ArrayList(16);
+		private bool mInPool = false;
+		private SqlDataReader mLastQuery = null;
+		public static XMAdo FromPool()
+		{
+			//look into the pool for a connection
+			lock(mPool)
+			{
+				foreach(XMAdo a in mPool)
+				{
+					//is it free?
+					if (a.mInPool)
+					{
+						a.mInPool = false;
+						a.EnsureConnection();
+						return a;
+					}
+				}
+			}
+			
+			//no connections are in the pool, create a new one
+			XMAdo ado = new XMAdo();
+			ado.mInPool = false;
+			ado.EnsureConnection();
+			lock (mPool)
+			{
+				mPool.Add(ado);
+			}
+			return ado;
+		}
+		public void ReturnToPool()
+		{
+			//make sure the last query we did is closed
+			EnsureLastQueryClosed();
+		
+			//lock the pool and set out flag
+			lock (mPool)
+			{
+				mInPool = true;
+			}
+		}
+		private void EnsureLastQueryClosed()
+		{
+			//just make the last query we did is closed
+			//before we try another one
+			if (mLastQuery != null)
+			{
+				if (!mLastQuery.IsClosed)
+				{
+					mLastQuery.Close();
+				}
+				mLastQuery = null;
+			}
+		}
+		public static void PooledSqlExecNoResults(string s)
+		{
+			//helper that handles all pooling calls
+			XMAdo a = FromPool();
+			a.SqlExecNoResults(s);
+			a.ReturnToPool();
+		}
 
+		private SqlConnection mConnection;
 		public bool EnsureConnection()
 		{
 			//make sure that our database is connected
@@ -19,6 +82,7 @@ namespace XMedia
 			}
 			if (mConnection.State == ConnectionState.Open)
 			{
+				//already connected
 				return true;
 			}
 
@@ -59,28 +123,37 @@ namespace XMedia
 		public SqlDataReader SqlExec(string s)
 		{
 			//helper function
+			EnsureLastQueryClosed();
 			SqlCommand cmd = mConnection.CreateCommand();
 			cmd.CommandText = s;
 			cmd.CommandType = CommandType.Text;
-			return cmd.ExecuteReader();
+			mLastQuery = cmd.ExecuteReader();
+			return mLastQuery;
 		}
 
 		public void SqlExecNoResults(string s)
 		{
 			//helper function
+			EnsureLastQueryClosed();
 			SqlCommand cmd = mConnection.CreateCommand();
 			cmd.CommandText = s;
 			cmd.CommandType = CommandType.Text;
 			cmd.ExecuteNonQuery();
 		}
 
-		public DataView SqlExecDataView(string s)
+		public DataTable SqlExecDataTable(string s)
 		{
 			//helper function
+			EnsureLastQueryClosed();
 			DataSet ds = new DataSet();
 			SqlDataAdapter cmd = new SqlDataAdapter(s, mConnection);
 			cmd.Fill(ds);
-			return ds.Tables[0].DefaultView;
+			return ds.Tables[0];
+		}
+
+		public DataView SqlExecDataView(string s)
+		{
+			return SqlExecDataTable(s).DefaultView;
 		}
 	}
 

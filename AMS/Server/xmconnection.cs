@@ -78,7 +78,7 @@ namespace XMedia
 
 		/// <summary>
 		/// Opens a *new* connection, sends the ping, waits for a response.
-		/// NOTE: This function times out after 750 milliseconds, returning false.
+		/// NOTE: This function times out after 750*2 milliseconds, returning false.
 		/// </summary>
 		/// <returns>Returns false if the connection could not be made, or if
 		/// no data was received on the connection after sending the ping.</returns>
@@ -89,12 +89,11 @@ namespace XMedia
 									SocketType.Stream, 
 									ProtocolType.Tcp);
 			IAsyncResult ar = me.BeginConnect(
-				new IPEndPoint(/*IPAddress.Parse("10.1.1.25")*/ HostIP, XMConfig.NetClientPort),
+				new IPEndPoint(HostIP, XMConfig.NetClientPort),
 				null, null);
 			if (!ar.AsyncWaitHandle.WaitOne(XMConfig.NetPingTimeout, false))
 			{
 				//took too long
-				//me.EndConnect(ar);	
 				return false;
 			}
 			
@@ -117,7 +116,6 @@ namespace XMedia
 			if (!ar.AsyncWaitHandle.WaitOne(XMConfig.NetPingTimeout, true))
 			{
 				//took too long, give up
-				//me.EndReceive(ar);
 				me.Close();
 				return false;
 			}
