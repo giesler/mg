@@ -145,7 +145,7 @@
 		<content format="text/xml">
 			<field name="results">
 				<results>
-					<item md5="..." width="n" height="n" size="n">
+					<item md5="..." width="n" height="n" size="n" sponsor="n">
 						<source ip="123.23.126.213" speed="1-5" />
 						<source ip="211.65.32.6" speed="1-5" />
 					</item>

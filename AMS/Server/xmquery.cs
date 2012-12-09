@@ -26,6 +26,7 @@ namespace XMedia
 		public string Action;
 		public string Md5;
 		public int Width, Height, FileSize;
+		public int Sponsor;
 		public XMIndex[] Indices;
 
 		//helper data
@@ -124,6 +125,7 @@ namespace XMedia
 			e.SetAttribute("width", Width.ToString());
 			e.SetAttribute("height", Height.ToString());
 			e.SetAttribute("size", FileSize.ToString());
+			e.SetAttribute("sponsor", Sponsor.ToString());
 
 			//create an entry for each ip
 			XmlElement f;
@@ -1115,6 +1117,7 @@ namespace XMedia
 			mi.Width = Convert.ToInt32(rs["width"]);
 			mi.Height = Convert.ToInt32(rs["height"]);
 			mi.FileSize = Convert.ToInt32(rs["filesize"]);
+			mi.Sponsor = Convert.ToInt32(rs["sponsor"]);
 
 			//get each index until we come to a new md5 or eof
 			bool eof = false;
