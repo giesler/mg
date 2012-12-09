@@ -33,6 +33,10 @@ namespace pics.Controls
 		protected override void CreateChildControls() 
 		{
 
+			String strAppPath = HttpContext.Current.Request.ApplicationPath;
+			if (!strAppPath.Equals("/"))  
+				strAppPath = strAppPath + "/";
+
 			System.Web.UI.WebControls.Image image = new System.Web.UI.WebControls.Image();
 			
 			// Create the image object
@@ -43,7 +47,7 @@ namespace pics.Controls
 			if (filename == null)
 				throw new Exception("Filename is blank");
 
-			image.ImageUrl = HttpContext.Current.Request.ApplicationPath + "/piccache/" + filename;
+			image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
 
 			// If we have height / width, set them
 			if (height > 0)
