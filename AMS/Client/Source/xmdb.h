@@ -436,7 +436,7 @@ protected:
 
 class CXMAsyncResizer
 {
-friend DWORD WINAPI AsyncResizerThreadProc(LPVOID lpParameter);
+friend UINT __stdcall AsyncResizerThreadProc(LPVOID lpParameter);
 
 public:
 	struct WorkItem
@@ -496,7 +496,7 @@ private:
 	//threading
 	CRITICAL_SECTION mcsLock;
 	HANDLE mhThread;
-	DWORD mdwThreadId;
+	UINT mdwThreadId;
 	bool mbKill;
 
 };

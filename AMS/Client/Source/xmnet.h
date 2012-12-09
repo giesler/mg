@@ -171,7 +171,7 @@ private:
 	//win32 threadings
 	HWND mhOwner, mhSelf;			//owner window, and our window
 	HANDLE mhThread;				//handle to our thread
-	DWORD mdwThreadID;				//threadid of our thread
+	UINT mdwThreadID;				//threadid of our thread
 
 	//windows message helper functions
 	void PostState(int oldstate);

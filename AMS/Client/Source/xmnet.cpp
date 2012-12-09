@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "xmclient.h"
 #include "xmnet.h"
+#include <process.h>
 
 //send/receive params
 #define SEND_CHUNK		4096
@@ -60,14 +61,14 @@ LRESULT APIENTRY SessionWndProc(
 	}
 }
 
-DWORD WINAPI SessionThreadProc(LPVOID lpParameter)
+UINT __stdcall SessionThreadProc(LPVOID lpParameter)
 {
 	//resolve parameter to a session, then
 	//pass control to the session
 	CXMSession *session = (CXMSession*)lpParameter;
 	DWORD temp = session->Alpha();
 	session->Release();
-	return temp;
+	return (UINT)temp;
 
 	//NOTE: we hold a reference on session until its
 	//threadproc exits.. this keeps the socket from
@@ -100,7 +101,7 @@ bool CXMSession::InitOnce()
 bool CXMSession::Alpha()
 {	
 	fd_set set;
-	timeval timeout = {2, 0};	//2 seconds				
+	timeval timeout = {2, 0};	//2 seconds	
 
 	//from now until connection is complete, we
 	//are in "opening" state
@@ -397,7 +398,8 @@ bool CXMSession::InitWindow()
 bool CXMSession::InitThread()
 {
 	//create thread (suspended)
-	mhThread = CreateThread(NULL,				//security attributes
+	mhThread = /*CreateThread*/
+	(HANDLE)_beginthreadex(	NULL,				//security attributes
 							NULL,				//default stack size (1 page commited, 1mb reserved)
 							SessionThreadProc,	//thread function
 							(void*)this,		//parameter
@@ -880,8 +882,8 @@ bool CXMSession::SendChunk()
 
 		//get next chunk
 		//TEMP:BEGIN
-		chunksize = netout.Pop(&chunk, /*SEND_CHUNK*/256);
-		Sleep(100);
+		chunksize = netout.Pop(&chunk, SEND_CHUNK/*256*/);
+		//Sleep(100);
 		//TEMP:END
 
 		//was there anything?

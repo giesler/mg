@@ -7,6 +7,7 @@
 #include "xmnet.h"
 #include "xmpipeline.h"
 #include "xmdb.h"
+#include <process.h>
 
 // ----------------------------------------------------------------------- XMPiplineBase
 
@@ -21,10 +22,10 @@ LRESULT APIENTRY PipelineWndProc(
 }
 
 //Simply pass control to the pipeline
-DWORD WINAPI PipelineThreadProc(LPVOID lpParameter)
+UINT __stdcall PipelineThreadProc(LPVOID lpParameter)
 {
 	CXMPipelineBase *pl = (CXMPipelineBase*)lpParameter;
-	return pl->Alpha();
+	return (UINT)pl->Alpha();
 }
 
 bool CXMPipelineBase::InitOnce()
@@ -85,7 +86,8 @@ void CXMPipelineBase::Start()
 	if (!mhThread)
 	{
 		//Open up the thread
-		mhThread = CreateThread(NULL,				//security attributes
+		mhThread = /*CreateThread*/
+		(HANDLE)_beginthreadex(	NULL,				//security attributes
 								NULL,				//default stack size (1 page commited, 1mb reserved)
 								PipelineThreadProc,	//thread function
 								(void*)this,		//parameter
@@ -106,11 +108,11 @@ void CXMPipelineBase::Stop()
 		PostThreadMessage(mdwThreadID, WM_QUIT, 0, 0);
 		
 		//wait for thread to exit
-		if (WaitForSingleObject(mhThread, 100)==
+		if (WaitForSingleObject(mhThread, 1000)==
 			WAIT_TIMEOUT)
 		{
 			//kill the thread
-			TerminateThread(mhThread, 0);
+			//TerminateThread(mhThread, 0);
 		}
 		CloseHandle(mhThread);
 		mhThread = NULL;

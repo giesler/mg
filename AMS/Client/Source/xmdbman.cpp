@@ -2,6 +2,7 @@
 #include "xmclient.h"
 #include "xmnet.h"
 #include "xmdb.h"
+#include <process.h>
 
 CXMDBManager::CXMDBManager()
 {
@@ -603,11 +604,11 @@ void CXMDBManager::CacheFile(CMD5& md5, CMD5& parent, BYTE* file, SIZE_T length,
 // ----------------------------------------------------------------------------------------------
 //																					Async Resizer
 
-DWORD WINAPI AsyncResizerThreadProc(LPVOID lpParameter)
+UINT __stdcall AsyncResizerThreadProc(LPVOID lpParameter)
 {
 	//call the alpha function
 	CXMAsyncResizer* par = (CXMAsyncResizer*)lpParameter;
-	return par->Alpha();
+	return (UINT)par->Alpha();
 }
 
 CXMAsyncResizer::CXMAsyncResizer()
@@ -628,7 +629,13 @@ CXMAsyncResizer::CXMAsyncResizer()
 	
 	//start thread
 	mbKill = false;
-	mhThread = CreateThread(NULL, NULL, AsyncResizerThreadProc, (LPVOID)this, 0, &mdwThreadId);
+	mhThread = /* CreateThread */
+	(HANDLE)_beginthreadex(	NULL,
+							0,
+							AsyncResizerThreadProc,
+							(LPVOID)this,
+							0,
+							&mdwThreadId);
 	SetThreadPriority(mhThread, THREAD_PRIORITY_BELOW_NORMAL);
 }
 

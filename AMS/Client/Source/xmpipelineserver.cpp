@@ -7,9 +7,10 @@
 #include "xmnet.h"
 #include "xmpipeline.h"
 #include "xmdb.h"
+#include <process.h>
 
-DWORD WINAPI LoginThreadProc(LPVOID lpParameter);
-DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter);
+UINT __stdcall LoginThreadProc(LPVOID lpParameter);
+UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
 
 // ------------------------------------------------------------------------------- Utility
 
@@ -162,7 +163,13 @@ void CXMServerManager::OnWin32MsgPreview(UINT msg, WPARAM wparam, LPARAM lparam)
 					//we must do this asyncronously, otherwise the
 					//server managers message pump will not run and
 					//the login will never complete
-					mRcThread = CreateThread(NULL, 0, ReconnectThreadProc, NULL, 0, &mRcThreadId);
+					mRcThread = /*CreateThread*/
+					(HANDLE)_beginthreadex(	NULL,
+											0,
+											ReconnectThreadProc,
+											NULL,
+											0,
+											&mRcThreadId);
 				}
 			}
 		}
@@ -1237,7 +1244,7 @@ CLoginDialog::~CLoginDialog()
 	//release the thread handle?
 	if (m_hThread)
 	{
-		TerminateThread(m_hThread, 1);
+		WaitForSingleObject(m_hThread, 1000);
 		CloseHandle(m_hThread);
 	}
 	DeleteCriticalSection(&m_cs);
@@ -1400,7 +1407,13 @@ BOOL CLoginDialog::OnInitDialog(void)
 	}
 
 	//start the worker thread
-	m_hThread = CreateThread(NULL, NULL, LoginThreadProc, (LPVOID)this, NULL, &m_dwThreadId);
+	m_hThread = /*CreateThread*/
+	(HANDLE)_beginthreadex(	NULL,
+							NULL,
+							LoginThreadProc,
+							(LPVOID)this,
+							NULL,
+							&m_dwThreadId);
 	if (!m_hThread)
 	{
 		AfxMessageBox("Error starting worker thread!");
@@ -1863,14 +1876,14 @@ private:
 	CLoginDialog *mdlg;
 };
 
-DWORD WINAPI LoginThreadProc(LPVOID lpParameter)
+UINT __stdcall LoginThreadProc(LPVOID lpParameter)
 {
 	//cast parameter to login dialog
 	CLoginDialog *dlg = (CLoginDialog*)lpParameter;
 
 	//start the worker
 	CXMLoginWorker worker;
-	return worker.Alpha(dlg);
+	return (UINT)worker.Alpha(dlg);
 }
 
 
@@ -2020,7 +2033,7 @@ void CXMServerManager::ReconnectAuto()
 }
 
 //thread proc for reconnect asyncronously
-DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter)
+UINT __stdcall ReconnectThreadProc(LPVOID lpParameter)
 {
 	//all we do is start the reconnect dialog
 	if (!sm()->ReconnectTry())
@@ -2028,5 +2041,5 @@ DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter)
 		//restart the timer
 		sm()->ReconnectAuto();
 	}
-	return 0;
+	return (UINT)0;
 }

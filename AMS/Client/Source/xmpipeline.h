@@ -27,11 +27,11 @@ events to multiple targets.
    --------------------------------------------------------------------- */
 
 #define PIPELINEWNDCLASS "CXMPipelineBase_WndClass"
-DWORD WINAPI PipelineThreadProc(LPVOID lpParameter);
+UINT __stdcall PipelineThreadProc(LPVOID lpParameter);
 
 class CXMPipelineBase
 {
-friend DWORD WINAPI PipelineThreadProc(LPVOID lpParameter);
+friend UINT __stdcall PipelineThreadProc(LPVOID lpParameter);
 public:
 
 	//register wnd class
@@ -67,7 +67,7 @@ protected:
 	//threading implementation
 	HWND mhWnd;
 	HANDLE mhThread;
-	DWORD mdwThreadID;
+	UINT mdwThreadID;
 	CRITICAL_SECTION mcsLock;
 	DWORD Alpha();
 
@@ -344,7 +344,7 @@ XM_SMU_MOTD_SENT
 
 class CXMServerManager : public CXMPipelineBase
 {
-friend DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter);
+friend UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
 public:
 
 	//construction
@@ -414,7 +414,7 @@ protected:
 	int  mRcElapsed;					//minutes elapsed since reconnect timer started
 	bool mRcGoodLogin;					//set to false if a login fails
 	HANDLE mRcThread;
-	DWORD mRcThreadId;
+	UINT mRcThreadId;
 
 	//login data
 	char mLoginMsg[MAX_PATH];
@@ -495,7 +495,7 @@ private:
 	bool m_bWorkerDone;
 	bool m_bWorkerFail;
 	HANDLE m_hThread;
-	DWORD m_dwThreadId;
+	UINT m_dwThreadId;
 	CRITICAL_SECTION m_cs;
 
 	//controls
