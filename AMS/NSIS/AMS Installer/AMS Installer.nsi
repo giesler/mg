@@ -1,7 +1,7 @@
 ; NOTE: this .NSI script is designed for NSIS v1.3+
 
 Name "Adult Media Swapper"
-OutFile "AMSInstall_051.exe"
+OutFile "AMSInstall_055.exe"
 Icon "amsinst.ico"
 UninstallIcon "amsuninst.ico"
 

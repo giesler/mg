@@ -1,7 +1,7 @@
 ; NOTE: this .NSI script is designed for NSIS v1.3+
 
 Name "Adult Media Swapper Update"
-OutFile "AMSUpdate_051.exe"
+OutFile "AMSUpdate_060.exe"
 Icon "amsinst.ico"
 
 Function .onInit

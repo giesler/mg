@@ -161,7 +161,7 @@ int ExecuteEntry(entry *entries, int pos)
       update_status_text("Wait...","");
       log_printf2("Sleep(%d)",x);
 	  y = 0;
-	  while (x > y) {
+	  while (x > y) { 
 		  static MSG msg;
 		  while (PeekMessage(&msg,NULL,WM_PAINT,WM_PAINT,PM_REMOVE))
 			  DispatchMessage(&msg);
@@ -1002,30 +1002,6 @@ int ExecuteEntry(entry *entries, int pos)
 			SetWindowText(hwndStatus, buf4);
 			SetDlgItemText(hwndStatus, IDC_STATUS, buf3);
 			
-/*			RECT vp;
-			char classname[4]="_au";
-			{
-				static WNDCLASS wc;
-				wc.style = CS_VREDRAW | CS_HREDRAW;
-				wc.lpfnWndProc = verStatusProc;
-				wc.hInstance = g_hInstance;
-				wc.hIcon = LoadIcon(g_hInstance,MAKEINTRESOURCE(IDI_ICON2));
-				wc.hCursor = LoadCursor(NULL,IDC_ARROW);
-				wc.lpszClassName = classname;
-				//wc.hbrBackground = (HBRUSH) CreateBrushIndirect() GetStockObject(GRAY_BRUSH);
-				// GetSysColor(COLOR_3DFACE)
-				if (!RegisterClass(&wc)) {
-					MessageBox(g_hwnd, "Error creating window", g_caption, MB_ICONWARNING);
-					return 0;
-				}
-			}
-
-			// get window size
-			SystemParametersInfo(SPI_GETWORKAREA, 0, &vp, 0);
-			
-			hwndStatus = CreateWindow(classname,buf4,WS_VISIBLE|WS_OVERLAPPED|WS_CAPTION,
-				(vp.bottom-vp.top)/2-50,(vp.right-vp.left)/2-150 ,300,100, GetDesktopWindow(),NULL,g_hInstance,NULL);
-*/
 			ShowWindow(hwndStatus, SW_SHOW);
 			UpdateWindow(hwndStatus);
 			

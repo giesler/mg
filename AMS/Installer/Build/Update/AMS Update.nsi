@@ -1,7 +1,7 @@
 ; NOTE: this .NSI script is designed for NSIS v1.3+
 
 Name "Adult Media Swapper Update"
-OutFile "AMSUpdate_060.exe"
+OutFile "AMSUpdate_061.exe"
 Icon "amsinst.ico"
 
 Function .onInit
@@ -29,7 +29,7 @@ Function .onInit
   Sleep 500
   Exec '"$INSTDIR\AMSClient.exe"'
   CloseStatus
-  Delete "$EXEDIR\AMSUpdate_060.exe"
+  Delete "$EXEDIR\AMSUpdate_061.exe"
   Abort "Install Complete"
 
 ProgramNotFound:

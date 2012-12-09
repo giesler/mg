@@ -1018,18 +1018,6 @@ int CEXEBuild::write_output(void)
     printf("CRC (0x%08X):                4 / 4 bytes\n",crc);
   }
 
-  // mpg code mod start
-  
-  CMD5 md5;
-  md5.FromFile(build_output_filename);
-  printf("MD5:  ");
-  printf(md5.GetString());
-  printf("\n");
-  
-  
-  // mpg code mod end
-  
-  
   printline(57);
   {
     int pc=MulDiv(ftell(fp),1000,total_usize);
@@ -1037,7 +1025,18 @@ int CEXEBuild::write_output(void)
   }
   fclose(fp);
 
-
+  // mpg code mod start
+  
+  CMD5 md5;
+  md5.FromFile(build_output_filename);
+  printf("\nMD5:  ");
+  printf(md5.GetString());
+  printf("\n");
+  
+  // mpg code mod end
+  
+  
+  
   print_warnings();
   return PS_OK;
 }
