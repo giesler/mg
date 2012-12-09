@@ -83,7 +83,7 @@ namespace XMedia
 			
 			//receive something.. anything will do
 			IAsyncResult ar = me.BeginReceive(buf, 0, buf.Length, null, null);
-			if (!ar.AsyncWaitHandle.WaitOne(2000, true))
+			if (!ar.AsyncWaitHandle.WaitOne(750, true))
 			{
 				//took too long, give up
 				return false;
@@ -280,10 +280,16 @@ namespace XMedia
 	
 			//if we have a session id, remove that sessions entries
 			//from the media storage table
-			if (!SessionID.Equals(new XMGuid()))
+			try
 			{
-				//release session
-				XMAuth.KillSession(SessionID);
+				if (!SessionID.Equals(new XMGuid()))
+				{
+					//release session
+					XMAuth.KillSession(SessionID);
+				}
+			}
+			catch
+			{
 			}
 
 			return;

@@ -207,7 +207,7 @@ namespace XMedia
 
 			try 
 			{	
-			string sql = "update users set online=0";
+			string sql = "update users set online=0, accesstoken=null";
 			mAdo.SqlExec(sql);
 			}
 			catch
@@ -306,7 +306,7 @@ namespace XMedia
 			//if we can't make a connection back to the client, then
 			//don't let it share any files.. no one will get them
 			string sql;
-			if (con.Ping())
+			if (true/*con.Ping()*/)
 			{
 				sql = "update users set online=1 where userid=" + con.UserID.ToStringDB();
 			}

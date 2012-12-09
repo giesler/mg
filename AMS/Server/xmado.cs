@@ -21,7 +21,7 @@ namespace XMedia
 
 			//database is not connected, open it
 			string con;
-			con = "PROVIDER=SQLOLEDB;Initial Catalog=xmcatalog;Data Source=(local);Integrated Security=SSPI";
+			con = "PROVIDER=SQLOLEDB;Initial Catalog=xmcatalog;Data Source=amsdb01;Integrated Security=SSPI";
 			try 
 			{
 				mConnection.Open(con, "", "", 0);

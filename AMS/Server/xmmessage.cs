@@ -473,6 +473,8 @@ namespace XMedia
 			string auVersion = "";
 			if (Connection.Version != "0.60")		//NOTE: current version
 			{
+				Trace.WriteLine("Old Version: " + Connection.Version);
+
 				//fetch the record
 				auLatest = false;
 				if (!XMAuth.AutoUpdateCheck(Connection.Version, ref auVersion, ref auRequired))
