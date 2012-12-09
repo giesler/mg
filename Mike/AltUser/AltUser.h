@@ -24,7 +24,7 @@ class CAltUserApp : public CWinApp
 public:
 	CAltUserApp();
 	
-	void DisplayError();
+	void DisplayError(CString strTitle);
 
 // Overrides
 	// ClassWizard generated virtual function overrides
