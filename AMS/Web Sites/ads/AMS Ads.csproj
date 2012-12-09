@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "AMS Ads"
+                AssemblyName = "AMSAds"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -87,7 +87,7 @@
         <Files>
             <Include>
                 <File
-                    RelPath = "AMS Ads.vsdisco"
+                    RelPath = "AMSAds.vsdisco"
                     BuildAction = "None"
                 />
                 <File

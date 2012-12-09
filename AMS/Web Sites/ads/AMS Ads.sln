@@ -1,12 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS Ads", "http://ams/AMS Ads/AMS Ads.csproj", "{C71AEB9D-C227-4FD5-82BD-A17AFB7BA4AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ads", "http://ams/ads/ads.csproj", "{C71AEB9D-C227-4FD5-82BD-A17AFB7BA4AA}"
 EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
 		SccNumberOfProjects = 2
-		SccProjectUniqueName0 = http://ams/AMS\u0020Ads/AMS\u0020Ads.csproj
-		SccProjectName0 = $/AMS/Web\u0020Sites/AMS\u0020Ads
-		SccLocalPath0 = http://ams/AMS\u0020Ads
+		SccProjectUniqueName0 = http://ams/ads/amsads.csproj
+		SccProjectName0 = $/AMS/Web\u0020Sites/ads
+		SccLocalPath0 = http://ams/ads
 		SccProvider0 = PCP:{00000000-0000-0000-0000-000000000000}
 		SccLocalPath1 = .
 		SolutionUniqueID = {19210DF9-C6E0-4DF4-B199-EF7F0E6BE373}
