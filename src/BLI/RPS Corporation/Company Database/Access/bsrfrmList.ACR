@@ -1,0 +1,668 @@
+Version =19
+VersionRequired =19
+Checksum =409233305
+Begin Report
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =9072
+    ItemSuffix =300
+    Top =855
+    Right =11115
+    Bottom =5955
+    MaxRecords =20000
+    ShortcutMenuBar ="FCReportShortcutBar"
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x3dc9a6f31de4e140
+    End
+    RecordSource ="dbo.tblBSCAI"
+    Caption ="ISSA List"
+    BeforeInsert ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Tab
+            FontName ="Tahoma"
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="ID"
+        End
+        Begin PageHeader
+            Height =0
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0x9fdf34a3ccb4904bb6f6eed714af6858
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =4560
+            Name ="Detail0"
+            GUID = Begin
+                0x8fbe76bfa5e08748a48b9d53552d3180
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =840
+                    Width =600
+                    Height =240
+                    TabIndex =4
+                    Name ="Code"
+                    ControlSource ="Code"
+                    GUID = Begin
+                        0x516ff041320dad499c981fef892a6f3b
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1500
+                            Top =840
+                            Width =600
+                            Height =240
+                            FontWeight =400
+                            Name ="Label282"
+                            Caption ="Code:"
+                            GUID = Begin
+                                0x5b34a9436f33864e945545e82177a823
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =480
+                    Width =780
+                    Height =240
+                    Name ="Title"
+                    ControlSource ="Title"
+                    GUID = Begin
+                        0x8d638ed528f37145ade08afa15708d56
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            TextAlign =1
+                            Left =2220
+                            Top =180
+                            Width =540
+                            Height =240
+                            FontWeight =400
+                            Name ="Label283"
+                            Caption ="Title:"
+                            GUID = Begin
+                                0x63cdd72bda08ea4ba82da05172891a39
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =3060
+                    Top =480
+                    Height =240
+                    TabIndex =1
+                    Name ="FirstName"
+                    ControlSource ="FirstName"
+                    GUID = Begin
+                        0x1af5839b705f7d45903232cb40f5d74e
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            TextAlign =1
+                            Left =3060
+                            Top =180
+                            Width =1020
+                            Height =240
+                            FontWeight =400
+                            Name ="Label284"
+                            Caption ="FirstName:"
+                            GUID = Begin
+                                0x68ae11be739fed4ea31adebf0b188129
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =4560
+                    Top =480
+                    Height =240
+                    TabIndex =2
+                    Name ="LastName"
+                    ControlSource ="LastName"
+                    GUID = Begin
+                        0x8b921c2e349b5144abd5e23c7a9c4fae
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            TextAlign =1
+                            Left =4560
+                            Top =180
+                            Width =1020
+                            Height =240
+                            FontWeight =400
+                            Name ="Label285"
+                            Caption ="LastName:"
+                            GUID = Begin
+                                0x9083723668235241ab8c9ec2b925189a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =6060
+                    Top =480
+                    Width =780
+                    Height =240
+                    TabIndex =3
+                    Name ="Suffix"
+                    ControlSource ="Suffix"
+                    GUID = Begin
+                        0x05f33097f6491c4c894ff89feb7192e3
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            TextAlign =1
+                            Left =6060
+                            Top =180
+                            Width =660
+                            Height =240
+                            FontWeight =400
+                            Name ="Label286"
+                            Caption ="Suffix:"
+                            GUID = Begin
+                                0xc6d35cf33eb839469f879e4fed07bab7
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =1200
+                    Width =2340
+                    Height =240
+                    TabIndex =5
+                    Name ="Company"
+                    ControlSource ="Company"
+                    GUID = Begin
+                        0x0f95ff028f19664baed61a810650bd43
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1200
+                            Top =1200
+                            Width =900
+                            Height =240
+                            FontWeight =400
+                            Name ="Label287"
+                            Caption ="Company:"
+                            GUID = Begin
+                                0x23750fa7db07854b844c6bf9aac359ca
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =1560
+                    Width =2340
+                    Height =240
+                    TabIndex =6
+                    Name ="Division"
+                    ControlSource ="Division"
+                    GUID = Begin
+                        0x52f79e5b39a9364dbf6099d8c75d3835
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1260
+                            Top =1560
+                            Width =840
+                            Height =240
+                            FontWeight =400
+                            Name ="Label288"
+                            Caption ="Division:"
+                            GUID = Begin
+                                0xdb5e4682b82c0449839791e36d73976f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =1920
+                    Width =2340
+                    Height =240
+                    TabIndex =7
+                    Name ="Address"
+                    ControlSource ="Address"
+                    GUID = Begin
+                        0x61a70f44128b894c8a82f940e5020c82
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1200
+                            Top =1920
+                            Width =840
+                            Height =240
+                            FontWeight =400
+                            Name ="Label289"
+                            Caption ="Address:"
+                            GUID = Begin
+                                0xdf16cbdc13994b448dcbeff25402247e
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =2280
+                    Width =2340
+                    Height =240
+                    TabIndex =8
+                    Name ="Address2"
+                    ControlSource ="Address2"
+                    GUID = Begin
+                        0x73b684bfb90dad42a72cd4a0ecccbbba
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1140
+                            Top =2280
+                            Width =900
+                            Height =240
+                            FontWeight =400
+                            Name ="Label290"
+                            Caption ="Address2:"
+                            GUID = Begin
+                                0xee83389e86514b4a9fcd0ddaf55dcee7
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =2640
+                    Height =240
+                    TabIndex =9
+                    Name ="City"
+                    ControlSource ="City"
+                    GUID = Begin
+                        0xc271feb60c4c074db293540cf79ba94f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1560
+                            Top =2640
+                            Width =480
+                            Height =240
+                            FontWeight =400
+                            Name ="Label291"
+                            Caption ="City:"
+                            GUID = Begin
+                                0xe925b4f2e28ebc46a73f2a7a24ed81d1
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =4680
+                    Top =2640
+                    Width =720
+                    Height =240
+                    TabIndex =10
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0xa1f54907d9a0a94a8a56020deb99eae9
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =3900
+                            Top =2640
+                            Width =600
+                            Height =240
+                            FontWeight =400
+                            Name ="Label292"
+                            Caption ="State:"
+                            GUID = Begin
+                                0xb405433d3ab35349bd2aa820af5ca7f7
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =6120
+                    Top =2640
+                    Height =240
+                    TabIndex =11
+                    Name ="Zip"
+                    ControlSource ="Zip"
+                    GUID = Begin
+                        0xc6a618e8bc71bc4089fbe76558354747
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =5520
+                            Top =2640
+                            Width =420
+                            Height =240
+                            FontWeight =400
+                            Name ="Label293"
+                            Caption ="Zip:"
+                            GUID = Begin
+                                0x5f1985cc529ea24f8209648e4012d65b
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =3000
+                    Height =240
+                    TabIndex =12
+                    Name ="StateFullName"
+                    ControlSource ="StateFullName"
+                    GUID = Begin
+                        0x75f05e70aaa184429d5e451f4ec279b8
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =660
+                            Top =3000
+                            Width =1380
+                            Height =240
+                            FontWeight =400
+                            Name ="Label294"
+                            Caption ="StateFullName:"
+                            GUID = Begin
+                                0xbd05dbca43a58c4e86f368f57e938957
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =6120
+                    Top =3000
+                    Height =240
+                    TabIndex =13
+                    Name ="Country"
+                    ControlSource ="Country"
+                    GUID = Begin
+                        0xdb7fa246f2425845a56e177cad41a69a
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =5160
+                            Top =3000
+                            Width =780
+                            Height =240
+                            FontWeight =400
+                            Name ="Label295"
+                            Caption ="Country:"
+                            GUID = Begin
+                                0x3043e8de48f23244a3df426e5b786507
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =3360
+                    Height =240
+                    TabIndex =14
+                    Name ="Phone"
+                    ControlSource ="Phone"
+                    GUID = Begin
+                        0xb9924b99d71e3b438226f73055f06c7a
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1380
+                            Top =3360
+                            Width =660
+                            Height =240
+                            FontWeight =400
+                            Name ="Label296"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0x2048f2f882c65b4696ae3dfec2dd7c24
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =6120
+                    Top =3360
+                    Height =240
+                    TabIndex =15
+                    Name ="Fax"
+                    ControlSource ="Fax"
+                    GUID = Begin
+                        0xf243f1db2541fa418c2e0f3d525ecd39
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =5520
+                            Top =3360
+                            Width =420
+                            Height =240
+                            FontWeight =400
+                            Name ="Label297"
+                            Caption ="Fax:"
+                            GUID = Begin
+                                0xdb201edfb7fe6249bdee27ca934d96a9
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =3720
+                    Height =240
+                    TabIndex =16
+                    Name ="TollFree"
+                    ControlSource ="TollFree"
+                    GUID = Begin
+                        0x925b2d2caecbda4cbdff2de98cb2584e
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1200
+                            Top =3720
+                            Width =840
+                            Height =240
+                            FontWeight =400
+                            Name ="Label298"
+                            Caption ="TollFree:"
+                            GUID = Begin
+                                0x5f0677f82ea2e848b3b571845c14c5c8
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    Left =2220
+                    Top =4080
+                    Width =2340
+                    Height =240
+                    TabIndex =17
+                    Name ="Email"
+                    ControlSource ="Email"
+                    GUID = Begin
+                        0x9ba6a98b733f45498c6065bd4837cd6c
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =1440
+                            Top =4080
+                            Width =600
+                            Height =240
+                            FontWeight =400
+                            Name ="Label299"
+                            Caption ="Email:"
+                            GUID = Begin
+                                0x4a48c7d103e5294fa459306e2cbf0e96
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            ForceNewPage =2
+            Height =0
+            Name ="GroupFooter0"
+            GUID = Begin
+                0xe2f30800fcc50c45b1110b874a481b1a
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooterSection"
+            GUID = Begin
+                0xa6c4a5dbfba8764d9c75d80b7aa8faa1
+            End
+            Begin
+                Begin Line
+                    Top =60
+                    Width =9072
+                    Name ="Line268"
+                    GUID = Begin
+                        0x845483707394e14aa9580b441f55b67e
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    BackStyle =0
+                    TextAlign =1
+                    Top =60
+                    Width =2592
+                    Height =240
+                    Name ="Text270"
+                    Caption ="Factory Cat"
+                    GUID = Begin
+                        0xa87b991a90fd3442b21afc508fd9d379
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    TextAlign =3
+                    Left =6336
+                    Top =60
+                    Width =2736
+                    Height =240
+                    Name ="Field271"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x3349b8d52e8aed4e82311ccd2403d82a
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons

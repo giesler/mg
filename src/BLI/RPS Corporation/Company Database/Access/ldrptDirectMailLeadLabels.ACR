@@ -1,0 +1,200 @@
+Version =19
+VersionRequired =19
+Checksum =-15985321
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =12
+    Width =3780
+    ItemSuffix =6
+    Left =600
+    Top =330
+    Right =5820
+    Bottom =3465
+    OnNoData ="[Event Procedure]"
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x313a331c75fee140
+    End
+    InputParameters ="GetSPVar(\"FromDate\"), GetSPVar(\"ToDate\"), GetSPVar(\"ActiveInactive\"), GetS"
+        "PVar(\"DealerName\"), GetSPVar(\"CompanyName\"), GetSPVar(\"ResponseMethod\"), G"
+        "etSPVar(\"LeadType\")"
+    RecordSource ="dbo.ldsprptLeadsReports"
+    Caption ="Leads: Direct Mail Lead Labels"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x68010000a0050000680100001803000000000000c40e0000a005000000000000 ,
+        0x03000000b400000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4570736f6e205374796c757320434f4c4f522036303000 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003900010077696e73706f6f6c005c5c6368656573655c4570736f6e20 ,
+        0x5374796c757320434f4c4f5220363030204553432f502032004c5054313a0000 ,
+        0x000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            FontWeight =300
+            FontName ="Arial"
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Name ="Detail1"
+            GUID = Begin
+                0x4cd604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =240
+                    Width =3240
+                    Name ="Field2"
+                    ControlSource ="=Trim([Contact])"
+                    GUID = Begin
+                        0x4dd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =720
+                    Width =3240
+                    TabIndex =1
+                    Name ="Field3"
+                    ControlSource ="=Trim([Address])"
+                    GUID = Begin
+                        0x4ed604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =960
+                    Width =3240
+                    TabIndex =2
+                    Name ="Field4"
+                    ControlSource ="=Trim([City] & \", \" & [State] & \"  \" & [Zip])"
+                    GUID = Begin
+                        0x4fd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =480
+                    Width =3240
+                    TabIndex =3
+                    Name ="Field5"
+                    ControlSource ="=Trim([CompanyName])"
+                    GUID = Begin
+                        0x50d604e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "The criteria you specified did not find any leads.", vbExclamation
+  Cancel = True
+  Exit Sub
+  
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errHandler
+
+  Dim fR As New Form_ldfrptLeadReport
+  If mbTomCat Then
+    Me.Caption = "TC Direct Mail Lead Labels"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 1) ORDER BY DealerName"
+    SetSPVar "LeadType", 2
+  ElseIf mbFCPurchased Then
+    Me.Caption = "Pur Direct Mail Lead Labels"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) ORDER BY DealerName"
+    SetSPVar "LeadType", 1
+  Else
+    Me.Caption = "FC Direct Mail Lead Labels"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 0) ORDER BY DealerName"
+    SetSPVar "LeadType", 0
+  End If
+  fR.chkPageBreak.Visible = False
+  fR.Caption = Me.Caption
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+  
+  SetSPVar "FromDate", fR.datFrom
+  SetSPVar "ToDate", fR.datTo
+  SetSPVar "ActiveInactive", fR.txtActiveInactive
+  SetSPVar "DealerName", fR.comDealerName
+  SetSPVar "CompanyName", fR.txtCompanyName
+  SetSPVar "ResponseMethod", fR.txtResponseMethod
+  
+  Set fR = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

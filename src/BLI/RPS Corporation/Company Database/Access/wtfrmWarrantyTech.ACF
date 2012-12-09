@@ -1,0 +1,491 @@
+Version =19
+VersionRequired =19
+Checksum =969773730
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    OrderByOn = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    GridX =24
+    GridY =24
+    Width =8640
+    ItemSuffix =282
+    Top =855
+    Right =8670
+    Bottom =5880
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0x78508aabad06e240
+    End
+    RecordSource ="SELECT dbo.tblWarrantyTech.* FROM dbo.tblWarrantyTech WHERE (WarrantyTechType = "
+        "0)"
+    Caption ="Part Sales"
+    BeforeInsert ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =5040
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x35cd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =3
+                    ListWidth =2880
+                    Left =1714
+                    Top =1020
+                    Width =3150
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0xf6fa9fc22f513446bdb08b6e3d24cf8c
+                    End
+                    Name ="cmbDealerID"
+                    ControlSource ="DealerID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT DealerID, DealerName, StreetAddress FROM dbo.tblAllDealers WHERE (Current"
+                        "Dealer = 1) AND (DealerType = 0) ORDER BY DealerName"
+                    ColumnWidths ="0;1440;1440"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =660
+                            Top =1020
+                            Width =900
+                            Height =240
+                            FontWeight =400
+                            Name ="Label263"
+                            Caption ="Dealer:"
+                            GUID = Begin
+                                0x45f4ca07c9fa984e859e757322a27fd5
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1740
+                    Top =300
+                    BackColor =-2147483633
+                    Name ="txtReferenceNum"
+                    ControlSource ="ReferenceNum"
+                    GUID = Begin
+                        0x53e35fbdc0740a42aa3e372ea6fa396c
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =180
+                            Top =300
+                            Width =1410
+                            Height =240
+                            FontWeight =400
+                            Name ="Label276"
+                            Caption ="Reference #:"
+                            GUID = Begin
+                                0x2b09e35fc30f2e49bd7ebf72c3e0b597
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1740
+                    Top =660
+                    TabIndex =1
+                    Name ="txtTechDate"
+                    ControlSource ="TechDate"
+                    DefaultValue ="=Date()"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x48102e3c69881b419fe3a03d9b2ca48d
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =596
+                            Top =660
+                            Width =990
+                            Height =240
+                            FontWeight =400
+                            Name ="Label277"
+                            Caption ="Date:"
+                            GUID = Begin
+                                0x2398f62ea4913a4ab51ceddefd79648b
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1740
+                    Top =1740
+                    Width =3120
+                    TabIndex =4
+                    Name ="txtSerialNumber"
+                    ControlSource ="SerialNumber"
+                    GUID = Begin
+                        0x045dc3d77680354eae3185386fe02a28
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =311
+                            Top =1740
+                            Width =1275
+                            Height =240
+                            FontWeight =400
+                            Name ="Label279"
+                            Caption ="Serial Number:"
+                            GUID = Begin
+                                0x5b709e5933efc74d8dc34d3a2fe2fa4e
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OverlapFlags =85
+                    Left =1740
+                    Top =2100
+                    Width =5160
+                    Height =1086
+                    TabIndex =5
+                    Name ="txtProblem"
+                    ControlSource ="Problem"
+                    GUID = Begin
+                        0x71112d3b65d11242b8ac78d5ccafd7be
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =761
+                            Top =2100
+                            Width =825
+                            Height =240
+                            FontWeight =400
+                            Name ="Label280"
+                            Caption ="Problem:"
+                            GUID = Begin
+                                0xbf997fb4fb108741ba9c79fc4b579e97
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OverlapFlags =85
+                    Left =1744
+                    Top =3300
+                    Width =5160
+                    Height =1086
+                    TabIndex =6
+                    Name ="txtResolution"
+                    ControlSource ="Resolution"
+                    GUID = Begin
+                        0x20348029a22e704da3f35a64f725066f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =540
+                            Top =3300
+                            Width =1050
+                            Height =240
+                            FontWeight =400
+                            Name ="Label281"
+                            Caption ="Resolution:"
+                            GUID = Begin
+                                0x13de99c49f121447907b498ff137dfef
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =3
+                    ListWidth =2880
+                    Left =1740
+                    Top =1380
+                    Width =3120
+                    TabIndex =3
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"20\""
+                    GUID = Begin
+                        0x3db0c30c2e3e1e47b8b10b70aebde998
+                    End
+                    Name ="cmbModelID"
+                    ControlSource ="ModelID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT ModelID, Model, Description FROM dbo.tblModels WHERE (ModelType = 0) ORDE"
+                        "R BY Model"
+                    ColumnWidths ="0;1080;1800"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =731
+                            Top =1380
+                            Width =855
+                            Height =240
+                            FontWeight =400
+                            Name ="Label278"
+                            Caption ="Model:"
+                            GUID = Begin
+                                0x09d36f1774ff5848a9e574fa7d658467
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Const bTCMode = False
+
+Private Sub Form_Activate()
+On Error GoTo errHandler
+
+'  Dim newMenu As CommandBarPopup
+'  Set newMenu = CBAddMenu(Me.Toolbar, "Print")
+'  newMenu.BeginGroup = True
+'  newMenu.Tag = "custom"
+'  Call CBAddMenuControl(newMenu, "Current record", "=PrintCurRecord()")
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Activate"
+Exit Sub
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+On Error GoTo errHandler
+
+  Me.Toolbar = "FCFormToolBar"
+  Dim blnCancel As Boolean
+  Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+  If blnCancel Then Cancel = True
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_ApplyFilter"
+Exit Sub
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+On Error GoTo errHandler
+
+  Me!WarrantyTechType = IIf(bTCMode, 1, 0)
+  
+  Dim maxnum
+  If IsNull(Me.txtReferenceNum) Then
+    If bTCMode Then
+      maxnum = Nz(DMax("ReferenceNum", "tblWarrantyTech", "WarrantyTechType = 1"), 0)
+    Else
+      maxnum = Nz(DMax("ReferenceNum", "tblWarrantyTech", "WarrantyTechType = 0"), 0)
+    End If
+    Me.txtReferenceNum = IIf(maxnum < 1000, 1000, maxnum + 1)
+  End If
+  
+  If IsNull(Me!WarrantyTechID) Then Exit Sub
+  
+  If IsNull(Me!DealerID) Then
+    MsgBox "You must select a dealer!", vbExclamation
+    Cancel = True
+    Exit Sub
+  End If
+  
+  If IsNull(Me.txtTechDate) Then
+    MsgBox "You must enter a date!", vbExclamation
+    Cancel = True
+    Exit Sub
+  End If
+  
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_BeforeInsert"
+Exit Sub
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+On Error GoTo errHandler
+
+  If IsNull(Me!DealerID) Then
+    MsgBox "You must select a dealer!", vbExclamation
+    Cancel = True
+    Exit Sub
+  End If
+
+  If IsNull(Me.txtTechDate) Then
+    MsgBox "You must enter a date!", vbExclamation
+    Cancel = True
+    Exit Sub
+  End If
+  
+  If MsgBox("Are you sure you want to save changes for this record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_BeforeUpdate"
+Exit Sub
+End Sub
+
+Public Function PrintCurRecord()
+On Error GoTo errHandler
+
+  DoCmd.RunCommand acCmdSaveRecord
+  If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+  
+  If flgDebug Then
+'    DoCmd.OpenReport "dlrptDealers", acViewPreview, , "DealerID = " & Me!DealerID
+  Else
+'    DoCmd.OpenReport "dlrptDealers", acViewNormal, , "DealerID = " & Me!DealerID
+  End If
+
+Exit Function
+errHandler:
+ErrHand Me.Name, "PrintCurRecord"
+Exit Function
+End Function
+
+Private Sub Form_Deactivate()
+On Error GoTo errHandler
+
+  Dim ctl As CommandBarControl
+  For Each ctl In Application.CommandBars(Me.Toolbar).Controls
+    If ctl.Tag = "custom" Then ctl.Delete
+  Next ctl
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Deactivate"
+Exit Sub
+End Sub
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+
+  Me.Toolbar = "FCFormServerFilter"
+  
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo errHandler
+
+  Me.ServerFilter = ""
+
+  If bTCMode Then
+    Me.Caption = "Tom Cat Warranty Tech"
+    Me.RecordSource = "SELECT dbo.tblWarrantyTech.* FROM dbo.tblWarrantyTech WHERE WarrantyTechType = 1"
+    Me.cmbDealerID.RowSource = "SELECT DealerID, DealerName, StreetAddress FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 1) ORDER BY DealerName"
+    Me.cmbModelID.RowSource = "SELECT ModelID, Model, Description FROM dbo.tblModels WHERE (ModelType = 1) ORDER BY Model"
+  Else
+    Me.Caption = "Factory Cat Part Sales"
+    Me.RecordSource = "SELECT dbo.tblWarrantyTech.* FROM dbo.tblWarrantyTech WHERE WarrantyTechType = 0"
+    Me.cmbDealerID.RowSource = "SELECT DealerID, DealerName, StreetAddress FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 0) ORDER BY DealerName"
+    Me.cmbModelID.RowSource = "SELECT ModelID, Model, Description FROM dbo.tblModels WHERE (ModelType = 0) ORDER BY Model"
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Load"
+Exit Sub
+End Sub

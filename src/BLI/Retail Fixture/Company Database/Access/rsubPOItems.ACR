@@ -1,0 +1,138 @@
+Version =19
+VersionRequired =19
+Checksum =-432006835
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =6120
+    DatasheetFontHeight =10
+    ItemSuffix =8
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x47dcb15d7ef6e140
+    End
+    NameMap = Begin
+        0x0acc0e55
+    End
+    RecordSource ="SELECT Tbl_PO_Items.* FROM Tbl_Catalog RIGHT OUTER JOIN Tbl_PO_Items ON Tbl_Cata"
+        "log.Material = Tbl_PO_Items.Material WHERE (((Tbl_Catalog.Hide)=0))"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000400b0000ee00000000000000 ,
+        0x020000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c4e434d494c4653315c4e434d494c48503553493100000000000000000000 ,
+        0x010401039c007000037301000100010000000000000001000f00580202000100 ,
+        0x5802020000004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000000000000000000000000000000000002000ffff ,
+        0xffff2503000000000000ffffffffffffffff0000120004001100ffff01000300 ,
+        0x00000100ffff010001000000ffff01000200ffffffffffffffffffffffffffff ,
+        0xffffffffffffffffffffffffffffffff00000000180000000000102710271027 ,
+        0x000010270000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002800010077696e73706f6f6c005c5c4e434d494c4653315c4e434d49 ,
+        0x4c485035534931004e5049363444374435000000000000000000000000000000 ,
+        0x0000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportHeader"
+            Begin
+                Begin Label
+                    Left =300
+                    Width =1200
+                    Height =225
+                    Name ="Label1"
+                    Caption ="MATERIAL #"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =1500
+                    Width =840
+                    Height =225
+                    Name ="Label2"
+                    Caption ="QTY"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =300
+                    Top =240
+                    Width =2100
+                    Name ="Line4"
+                End
+                Begin Label
+                    Left =3540
+                    Width =1200
+                    Height =225
+                    Name ="Label5"
+                    Caption ="MATERIAL #"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =4740
+                    Width =840
+                    Height =225
+                    Name ="Label6"
+                    Caption ="QTY"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =3540
+                    Top =240
+                    Width =2100
+                    Name ="Line7"
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    Left =300
+                    Width =1200
+                    Name ="Material"
+                    ControlSource ="Material"
+                    StatusBarText ="Catalog/Material #"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =1500
+                    Width =840
+                    TabIndex =1
+                    Name ="Text3"
+                    ControlSource ="Quanity"
+                    StatusBarText ="Catalog/Material #"
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter"
+        End
+    End
+End

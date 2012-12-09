@@ -1,0 +1,185 @@
+Version =19
+VersionRequired =19
+Checksum =93959
+Begin Form
+    AllowFilters = NotDefault
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    AllowAdditions = NotDefault
+    AllowEdits = NotDefault
+    DefaultView =0
+    AllowUpdating =2
+    ScrollBars =0
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =720
+    DatasheetFontHeight =10
+    ItemSuffix =1
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xe4b38a6b17ade140
+    End
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin Section
+            Height =480
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin Image
+                    Width =720
+                    Height =480
+                    Name ="Image0"
+                    PictureData = Begin
+                        0x2800000020000000200000000100180000000000000c00000000000000000000 ,
+                        0x0000000000000000ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6cececececececececececececececececececed6d6cecececececece ,
+                        0xcecececececed6d6ced6d6ced6d6ced6d6cececececece9c9c9c9c9c9c9c9c9c ,
+                        0x9c9c9c9c9c9c9c9c9ccecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6cece ,
+                        0xce9c9c9c9c9c9c9c9c9c9c9c9c636363636363cececece9c9c9c9c9c9c63639c ,
+                        0x63639c9c9cced6d6ced6d6ced6d6cecece9c9c9c9c6363ce6363ce9c63ce9c9c ,
+                        0xce9c9cce9c9c9c63636363639c9c9cced6d6ced6d6ced6d6ced6d6cecece9c9c ,
+                        0x9cce9c9cce9c9cce9c63ce63639c63639c31319c9c9c9c6363ce63639c31319c ,
+                        0x31319c6363ced6d6ced6d6ced6d6ce9c9cce9c9cce9c9cce9c9cffceceffcece ,
+                        0xffceceffceceffcece9c9c9c633131cecececed6d6ced6d6cececece9c9cce9c ,
+                        0x9cce9c9cce9c9cce6363ce6363ce63639c63639c9c9c9c3131ce63639c31319c ,
+                        0x31319c6363ced6d6ced6d6cececece9c9cce9c9cce9c9cce9c9cce9c9ccecece ,
+                        0xffceceffceceffceceffcece636363636363ced6d6ced6d6ce9c9cce9c9cce9c ,
+                        0x9cce9c9cce63639c63639c63639c6363636363cecece9c3131ce63639c31319c ,
+                        0x31319c9c9cced6d6ced6d6ce9c9cce9c9cce9c9c9c6363633131633131633131 ,
+                        0x9c63639c6363ffceceffcecececece313131cecececed6d6ce9c9cce9c9cce9c ,
+                        0x9c9c6363313131313131313131313131633131cecece9c3131ce63639c31319c ,
+                        0x31319c9c9cced6d6ced6d6ce9c9cce9c9c9c63633100003100009c9c9ccecece ,
+                        0xcecececececece9c9cffceceffcece313131ce9c9ccececece9c9cce9c9cce9c ,
+                        0x9c633131ced6d6ced6d6ced6d6ced6d6ced6d6ced6d69c3131ce63639c31319c ,
+                        0x31319c9c9cced6d6ced6d6ce9c9cce63639c6363000000636363ced6d6ced6d6 ,
+                        0xced6d6ced6d6cececeffceceffcece6331319c9c9ccececeffceceffcece9c63 ,
+                        0x639c9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6d69c3131ce6363ce31319c ,
+                        0x31319c9c9cced6d6ced6d6ce9c63ce6363636363000000636363ced6d6ced6d6 ,
+                        0xced6d6ced6d6cececeffceceffcece6363639c9c9ccececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d69c3131ce6363ce63319c ,
+                        0x31319c9c9cced6d6ced6d6ce9c63ce63639c6363000000636363ced6d6ced6d6 ,
+                        0xced6d6ced6d6cececeffceceffcece6363639c9c9ccececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce3131ce6363ce63639c ,
+                        0x31319c9c9cced6d6ced6d6ce9c63ce63639c6363000000636363ced6d6ced6d6 ,
+                        0xced6d6ced6d6cececeffceceffcece6363639c9c9ccececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6ced6d6cececece6331ce6363ce63639c ,
+                        0x31319c9c9cced6d6ced6d6ce9c63ce63639c6363000000636363ced6d6ced6d6 ,
+                        0xced6d6ced6d6ce9c9cffceceffcece6363639c9c9ccececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6ced6d6cececece6363ce6363ce63639c ,
+                        0x3131ce9c9cced6d6ced6d6ce9c63ce63639c6363000000636363cecece9c9c9c ,
+                        0x9c9c9c9c9c9c9c9c9cffceceffcece6331319c9c9ccececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6ced6d6cececece6363ce6363ce63639c ,
+                        0x3131cecececed6d6ced6d6ce9c9cce63639c6363310000633131ce9c9c9c6363 ,
+                        0x9c31319c6331ce9c9cffcecece9c9c313131ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ced6d6cececece9c9cce6363ce9c9cce636363 ,
+                        0x3131cecececed6d6ced6d6ce9c9cce63639c6363310000633131ce9c9cce9c9c ,
+                        0xce9c9cce9c9cce9c9ccecece6363639c9c9cced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6cecece9c63639c3131ce6363ce6363ce636363 ,
+                        0x6331ced6d6ced6d6ced6d6ce9c9cce63639c6331310000313131ce9c9cce9c9c ,
+                        0xce9c9cce9c9cce9c9c9c6363636363ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9c9c6363ce9c9cce9c9cce63639c63639c ,
+                        0x9c9cced6d6ced6d6ced6d6ce9c9cce63639c3131310000313131cececece9c63 ,
+                        0xce63639c63639c63639c9c9cced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9cce9c9cce9c9cce9c9cce6363636363ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ce9c9cce31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9cce9c9cce9c9cce63639c6363cececece ,
+                        0xd6d6ced6d6ced6d6ced6d6ce9c9c9c31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ffcecece9c9cce9c9cce9c9cced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ce9c9c9c31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6cecececececececece9c9c9c9c9c9ccececece ,
+                        0xd6d6ced6d6ced6d6ced6d6ce9c9c9c31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d69c9c9c633131313131313131313131636363ce ,
+                        0xcececed6d6ced6d6ced6d6ce9c9c9c31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9c9c63639c63636363636331316331319c ,
+                        0x9c9cced6d6ced6d6ced6d6ce9c9c9c31319c3131310000313131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece6363 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9cce9c9cce9c9cce9c9cce9c9c9c63639c ,
+                        0x9c9cced6d6ced6d6ced6d6cecece9c31319c3131310000633131ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececeffceceffcece9c63 ,
+                        0x63cecececed6d6ced6d6ced6d6ce9c9ccececece9c9cce9c9cce9c9cce9c63ce ,
+                        0x9c9cced6d6ced6d6ced6d6ced6d6ce9c9cce9c9c9c9c9ccecececed6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ffcececececece9c9c9c9c ,
+                        0x9cced6d6ced6d6ced6d6ced6d6ced6d6ffcecececececececece9c9c9c9c9cce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6
+                    End
+                    ObjectPalette = Begin
+                        0x000300010000000020000000400000006000000080000000a0000000c0000000 ,
+                        0xe00000000020000020200000402000006020000080200000a0200000c0200000 ,
+                        0xe02000000040000020400000404000006040000080400000a0400000c0400000 ,
+                        0xe04000000060000020600000406000006060000080600000a0600000c0600000 ,
+                        0xe06000000080000020800000408000006080000080800000a0800000c0800000 ,
+                        0xe080000000a0000020a0000040a0000060a0000080a00000a0a00000c0a00000 ,
+                        0xe0a0000000c0000020c0000040c0000060c0000080c00000a0c00000c0c00000 ,
+                        0xe0c0000000e0000020e0000040e0000060e0000080e00000a0e00000c0e00000 ,
+                        0xe0e000000000400020004000400040006000400080004000a0004000c0004000 ,
+                        0xe00040000020400020204000402040006020400080204000a0204000c0204000 ,
+                        0xe02040000040400020404000404040006040400080404000a0404000c0404000 ,
+                        0xe04040000060400020604000406040006060400080604000a0604000c0604000 ,
+                        0xe06040000080400020804000408040006080400080804000a0804000c0804000 ,
+                        0xe080400000a0400020a0400040a0400060a0400080a04000a0a04000c0a04000 ,
+                        0xe0a0400000c0400020c0400040c0400060c0400080c04000a0c04000c0c04000 ,
+                        0xe0c0400000e0400020e0400040e0400060e0400080e04000a0e04000c0e04000 ,
+                        0xe0e040000000800020008000400080006000800080008000a0008000c0008000 ,
+                        0xe00080000020800020208000402080006020800080208000a0208000c0208000 ,
+                        0xe02080000040800020408000404080006040800080408000a0408000c0408000 ,
+                        0xe04080000060800020608000406080006060800080608000a0608000c0608000 ,
+                        0xe06080000080800020808000408080006080800080808000a0808000c0808000 ,
+                        0xe080800000a0800020a0800040a0800060a0800080a08000a0a08000c0a08000 ,
+                        0xe0a0800000c0800020c0800040c0800060c0800080c08000a0c08000c0c08000 ,
+                        0xe0c0800000e0800020e0800040e0800060e0800080e08000a0e08000c0e08000 ,
+                        0xe0e080000000c0002000c0004000c0006000c0008000c000a000c000c000c000 ,
+                        0xe000c0000020c0002020c0004020c0006020c0008020c000a020c000c020c000 ,
+                        0xe020c0000040c0002040c0004040c0006040c0008040c000a040c000c040c000 ,
+                        0xe040c0000060c0002060c0004060c0006060c0008060c000a060c000c060c000 ,
+                        0xe060c0000080c0002080c0004080c0006080c0008080c000a080c000c080c000 ,
+                        0xe080c00000a0c00020a0c00040a0c00060a0c00080a0c000a0a0c000c0a0c000 ,
+                        0xe0a0c00000c0c00020c0c00040c0c00060c0c00080c0c000a0c0c000c0c0c000 ,
+                        0xe0c0c00000e0c00020e0c00040e0c00060e0c00080e0c000a0e0c000c0e0c000 ,
+                        0xe0e0c00000000000
+                    End
+                    Picture ="C:\\bli.ico"
+                    GUID = Begin
+                        0x5ecf695ce872c74a9549000f93850b2c
+                    End
+                End
+            End
+        End
+    End
+End

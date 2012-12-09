@@ -1,0 +1,56 @@
+Version =19
+VersionRequired =19
+Checksum =550451985
+Begin Form
+    NavigationButtons = NotDefault
+    AllowUpdating =4
+    ScrollBars =2
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =4200
+    DatasheetFontHeight =10
+    ItemSuffix =2
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x02858e1d79c9e140
+    End
+    RecordSource ="dbo.tblEmpAddr"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin Section
+            Height =600
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1380
+                    Top =60
+                    Width =2700
+                    Height =480
+                    Name ="EAddrDesc"
+                    ControlSource ="EAddrDesc"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Top =60
+                    Width =1320
+                    TabIndex =1
+                    Name ="EAddrNote"
+                    ControlSource ="EAddrNote"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End

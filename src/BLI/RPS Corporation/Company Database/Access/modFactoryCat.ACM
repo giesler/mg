@@ -1,0 +1,386 @@
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Const mstrModName = "modFactoryCat"
+
+Function SecureAuthorize() As Boolean
+On Error GoTo errHandler
+
+  SecureAuthorize = False
+  
+  Dim f As Form_zfrmSecureAuthorize
+  Set f = New Form_zfrmSecureAuthorize
+  f.mblnSecAdmin = mbSecAdminAccess
+  mbSecAdminAccess = False
+  Pause f
+  
+  SecureAuthorize = Not f.mblnCancel
+  
+  Set f = Nothing
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "SecureAuthorize"
+Exit Function
+End Function
+
+Function SundayOfDate(theDate As String) As String
+On Error GoTo errHandler
+
+  Dim theDateVal As Double, sunDateVal As Double, theWeekDay  As Integer
+  
+  theDateVal = CVDate(theDate)
+  theWeekDay = Weekday(theDateVal)
+  
+  Select Case theWeekDay
+    Case 1
+      SundayOfDate = CVDate(theDateVal)
+    Case 2
+      SundayOfDate = CVDate(theDateVal - 1)
+    Case 3
+      SundayOfDate = CVDate(theDateVal - 2)
+    Case 4
+      SundayOfDate = CVDate(theDateVal - 3)
+    Case 5
+      SundayOfDate = CVDate(theDateVal - 4)
+    Case 6
+      SundayOfDate = CVDate(theDateVal - 5)
+    Case 7
+      SundayOfDate = CVDate(theDateVal - 6)
+    Case Else
+      MsgBox "ERROR in SundayOfDate Function", 16
+  End Select
+  
+Exit Function
+errHandler:
+ErrHand mstrModName, "SundayOfDate"
+Exit Function
+End Function
+
+Public Function SecondaryAdminPW()
+On Error GoTo errHandler
+
+  If cnStandalone Then
+    MsgBox "This feature is not supported in the standalone version of the database.", vbExclamation
+    Exit Function
+  End If
+
+  Select Case LCase(GetNTUserName)
+    Case "irene", "bli", "mike", "mike giesler", "mpgiesle"
+      Dim fSecAd As Form_zfrmSecurePW
+      Set fSecAd = New Form_zfrmSecurePW
+      Pause fSecAd
+      Set fSecAd = Nothing
+    Case Else
+      MsgBox "Only Irene can run the security administration functions.", vbExclamation
+  End Select
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "SecondaryAdminPW"
+Exit Function
+End Function
+
+Public Function RunSecurityAdmin()
+On Error GoTo errHandler
+
+  If cnStandalone Then
+    MsgBox "This feature is not supported in the standalone version of the database.", vbExclamation
+    Exit Function
+  End If
+  
+  Dim x As Long, strSrv As String
+  
+  PrivIniRegister gstrIniSection, GetDBDir & "database.ini"
+  strSrv = PrivGetString("ServerDBPath", "none")
+  If strSrv = "none" Then
+    PrivPutString "ServerDBPath", gstrServerDBPath
+    strSrv = gstrServerDBPath
+  End If
+  
+  Select Case LCase(GetNTUserName)
+    Case "irene", "bli", "mike", "mike giesler", "mpgiesle"
+      If Not FileExists(strSrv & "\fcdbsec.exe") Then
+        MsgBox "The security administration program could not be found.", vbExclamation
+      Else
+        x = Shell(strSrv & "\fcdbsec.exe", vbNormalFocus)
+      End If
+    Case Else
+      MsgBox "Only Irene can run the database security administration program.", vbExclamation
+  End Select
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "RunSecurityAdmin"
+Exit Function
+End Function
+
+Public Sub VendorInfo(Optional VendorID As Variant, Optional VendorName As Variant)
+On Error GoTo errHandler
+
+  Dim fV As Form_fdlgVendorInfo
+  
+  Set fV = New Form_fdlgVendorInfo
+  If IsMissing(VendorID) Then
+    fV.Filter = "VendorName = '" & VendorName & "'"
+  Else
+    fV.Filter = "VendorID = " & VendorID
+  End If
+  fV.FilterOn = True
+  Pause fV
+
+Exit Sub
+errHandler:
+ErrHand mstrModName, "VendorInfo"
+Exit Sub
+End Sub
+
+
+Public Function ProcessTitles(stblName As String) As Boolean
+On Error GoTo errHandler
+  
+  ' ----- Process include names
+  Dim rstItems As Recordset, numItems As Integer, i As Integer
+  Dim strSQL As String
+  
+  ProcessTitles = False
+  Set rstItems = New Recordset
+  rstItems.Open "fcmail.dbo.tblMailInclude", gConn, adOpenStatic, adLockReadOnly
+  If rstItems.BOF And rstItems.EOF Then
+    MsgBox "There are no include names, function ended.", vbCritical
+    rstItems.Close
+    Set rstItems = Nothing
+    Exit Function
+  End If
+  rstItems.MoveLast
+  numItems = rstItems.RecordCount
+  rstItems.MoveFirst
+  
+  Call OpenStatusForm("Processing include names...", numItems)
+  
+  i = 0
+  Do While Not rstItems.EOF
+    i = i + 1
+    strSQL = "UPDATE [" & stblName & "] SET Include = 1 " _
+        & "WHERE (Title Like '%" & rstItems!Title & "%')"
+    CurrentProject.Connection.Execute strSQL
+    UpdateStatusForm i
+    rstItems.MoveNext
+  Loop
+  
+  rstItems.Close
+  Set rstItems = Nothing
+  CloseStatusForm
+  
+  
+  ' remove items not marked to include
+  OpenWaitForm "Removing names not included..."
+  CurrentProject.Connection.Execute "Delete From [" & stblName & "] Where Include = 0"
+  CloseWaitForm
+  
+  ' Go through deletes now
+  Set rstItems = New Recordset
+  rstItems.Open "fcmail.dbo.tblMailExclude", CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+  If rstItems.BOF And rstItems.EOF Then
+      MsgBox "There are no exclude names, function ended.", vbCritical
+      rstItems.Close
+      Set rstItems = Nothing
+      Exit Function
+  End If
+  rstItems.MoveLast
+  numItems = rstItems.RecordCount
+  rstItems.MoveFirst
+  
+  Call OpenStatusForm("Deleting exclude names...", numItems)
+  
+  i = 0
+  Do While Not rstItems.EOF
+    i = i + 1
+    strSQL = "Delete From [" & stblName & "] " _
+        & "WHERE (Title Like '%" & rstItems!Title & "%')"
+    CurrentProject.Connection.Execute strSQL
+    UpdateStatusForm i
+    rstItems.MoveNext
+  Loop
+  
+  rstItems.Close
+  Set rstItems = Nothing
+  CloseStatusForm
+  ProcessTitles = True
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "ProcessTitles"
+Exit Function
+End Function
+
+Public Function UpdatePartSort()
+On Error GoTo UpdatePartSort_Err
+
+If MsgBox("Are you sure you want to update part sort keys?", vbQuestion + vbYesNo) = vbNo Then Exit Function
+
+OpenWaitForm "Initializing...."
+Dim r As Recordset, iCur As Integer, iCnt As Integer
+Dim cnn As Connection
+Set cnn = New Connection
+cnn.Open CurrentProject.Connection.ConnectionString
+Set r = New Recordset
+r.Open "dbo.tblParts", cnn, adOpenKeyset, adLockOptimistic
+r.MoveLast
+iCnt = r.RecordCount
+r.MoveFirst
+CloseWaitForm
+
+OpenStatusForm "Updating records....", iCnt
+cnn.BeginTrans
+With r
+Do While Not .EOF
+  !RPSPNSort = PartNumSortField(!RPSPartNum)
+  .Update
+  .MoveNext
+  iCur = iCur + 1
+  If iCur Mod 10 = 0 Then UpdateStatusForm iCur
+Loop
+End With
+
+cnn.CommitTrans
+
+r.Close
+Set r = Nothing
+cnn.Close
+Set cnn = Nothing
+
+CloseStatusForm
+
+MsgBox "The updates completed succesfully.", vbInformation
+
+UpdatePartSort = True
+
+Exit Function
+UpdatePartSort_Err:
+ErrHand "modUpdateParts", "UpdatePartSort"
+Exit Function
+End Function
+
+Public Function UpdatePartSortCall()
+On Error Resume Next
+
+  UpdatePartSort
+
+End Function
+
+Public Function PartNumSortField(sIn As String) As String
+On Error GoTo errHandler
+
+  Dim sOut As String, sLeft As String, sRight As String, sTmp As String
+  
+  If InStr(sIn, "-") = 0 Then
+    sLeft = sIn
+  Else
+    sLeft = Left$(sIn, InStr(sIn, "-") - 1)
+    sRight = Mid$(sIn, InStr(sIn, "-") + 1)
+  End If
+  
+  If Len(sLeft) > 0 Then
+    If IsNumeric(sLeft) Then
+      sLeft = Val(sLeft) * 10 + 1000000
+    ElseIf Val(sLeft) = 0 Then
+      sLeft = "2" & ZeroPad(7 - Len(sLeft) - 1) & CStr(Val(sLeft)) & Right$(sLeft, 1)
+    Else
+      sLeft = "1" & ZeroPad(7 - Len(sLeft) - 1) & CStr(Val(sLeft)) & Right$(sLeft, 1)
+    End If
+  Else
+    sLeft = "00000000"
+  End If
+  
+  If Len(sRight) > 0 Then
+    If IsNumeric(sRight) Then
+      sRight = CStr(Val(sRight) * 10 + 1000000) & "000"
+    ElseIf Val(sRight) = 0 Then
+      sTmp = CStr(Val(sRight))
+      sTmp = Mid(sRight, Len(sTmp) + 1)
+      sTmp = sTmp & ZeroPad(4 - Len(sTmp))
+      sRight = "2" & ZeroPad(7 - Len(sRight) - 1) & CStr(Val(sRight)) & sTmp
+    Else
+      'chop out numeric part of string, keep text part
+      sTmp = CStr(Val(sRight))
+      sTmp = Mid(sRight, Len(sTmp) + 1)
+      sTmp = sTmp & ZeroPad(4 - Len(sTmp))
+      sRight = "1" & ZeroPad(7 - Len(CStr(Val(sRight))) - 2) & CStr(Val(sRight)) & sTmp
+    End If
+  Else
+    sRight = "00000000"
+  End If
+  
+  PartNumSortField = sLeft & "-" & sRight
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "PartNumSortField"
+Exit Function
+End Function
+
+Private Function ZeroPad(iLength As Integer) As String
+
+  Dim i As Integer
+  For i = 1 To iLength
+    ZeroPad = ZeroPad & "0"
+  Next i
+
+End Function
+
+Public Function Main()
+On Error GoTo errHandler
+  
+  If Not cnStandalone Then
+    CheckSQLUpdate
+  End If
+  
+  OpenStatusForm "Loading...", 7
+  
+  If Not cnStandalone Then
+    UpdateStatusForm 1
+    CheckVersion
+    UpdateStatusForm 2
+  End If
+  UpdateStatusForm 3
+  
+  DoCmd.OpenForm "fSwitchboard", acNormal, , , , acHidden
+  Dim fSwitch As Form_fSwitchboard
+  Set fSwitch = Forms("fSwitchboard")
+  
+  fSwitch.lblVersion.Caption = "Version: " & Format(cnVersionMajor, "0.00") & IIf(cnVersionMinor > 0, "." & cnVersionMinor, "") & ",  " _
+    & Format(cnVersionDate, "mmm d, yy")
+  fSwitch.lblUser.Caption = GetNTUserName() & " "
+  UpdateStatusForm 4
+  
+  Dim iQty As Long
+  iQty = DCount("UserID", "tblSecurity", "UserID = '" + GetNTUserName() + "'")
+  UpdateStatusForm 5
+  If iQty = 0 Then
+    MsgBox "Your account has not been set up to access any database functions.  Please ask to be set up in the database.  Until your access is enabled, you cannot use any functions in the database.", vbExclamation
+  Else
+    Dim n As Node
+    Set n = fSwitch.tvSwitchboard.Nodes.Add(, , "id:1", "Databases")
+    n.Image = "closedfolder"
+    n.Tag = "sw:1, 2"
+    fSwitch.AddSwitchboard 1, n
+    UpdateStatusForm 6
+    n.Expanded = True
+    n.Selected = True
+    fSwitch.InitSwitch
+    UpdateStatusForm 7
+  End If
+  
+  CloseStatusForm
+  fSwitch.Visible = True
+  fSwitch.SetFocus
+  DoCmd.Maximize
+  
+  Set fSwitch = Nothing
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "Main"
+Exit Function
+End Function

@@ -1,0 +1,408 @@
+Version =19
+VersionRequired =19
+Checksum =1013864825
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10800
+    ItemSuffix =32
+    Right =11865
+    Bottom =6045
+    OnNoData ="[Event Procedure]"
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x0466bf43b300e240
+    End
+    InputParameters ="GetSPVar(\"DealerType\")"
+    RecordSource ="dbo.dlsprptAdvertAlloc"
+    Caption ="Dealer Report: Advertising Allocation"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000302a0000f000000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393532430000000000000000 ,
+        0x01041b409c00a80603df001e0100010079002c00640001000700fdff02000100 ,
+        0x0000030000007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a65742039353243004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="DealerName"
+        End
+        Begin BreakLevel
+            ControlSource ="AdvertYear"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =720
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x94d804e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Width =10800
+                    Height =360
+                    FontSize =12
+                    Name ="lblHeading"
+                    Caption ="Advertising Allocations"
+                    GUID = Begin
+                        0x95d804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =360
+                    Width =2880
+                    Height =240
+                    FontSize =9
+                    Name ="Field17"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0x96d804e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =480
+            Name ="PageHeader0"
+            GUID = Begin
+                0x97d804e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =720
+                    Top =120
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="Name of Dealer"
+                    GUID = Begin
+                        0x98d804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =3840
+                    Top =120
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Label23"
+                    Caption ="Year"
+                    GUID = Begin
+                        0x9ad804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =5520
+                    Top =120
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Label25"
+                    Caption ="Total"
+                    GUID = Begin
+                        0x9bd804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =360
+                    Width =10800
+                    Name ="Line21"
+                    GUID = Begin
+                        0x9cd804e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x9dd804e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    Left =720
+                    Width =3000
+                    Height =240
+                    FontSize =8
+                    Name ="Name of Dealer"
+                    ControlSource ="DealerName"
+                    EventProcPrefix ="Name_of_Dealer"
+                    GUID = Begin
+                        0x9ed804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextAlign =2
+                    Left =3840
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Text24"
+                    ControlSource ="AdvertYear"
+                    GUID = Begin
+                        0x9fd804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    Left =5520
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Text26"
+                    ControlSource ="ExtAmount"
+                    GUID = Begin
+                        0xa0d804e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =360
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x7312dcb94fa5d84f811507dea0f7f820
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    Left =5520
+                    Top =60
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    Name ="Text29"
+                    ControlSource ="=Sum([ExtAmount])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xfc915f0a4a6cc94e96dbc4561b650688
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    Left =2280
+                    Top =60
+                    Width =3000
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Text30"
+                    ControlSource ="=\"Total for \" & [DealerName]"
+                    GUID = Begin
+                        0xa1d08a3893ace94e9d8866f9424ec6f6
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =5460
+                    Top =60
+                    Width =1620
+                    Name ="Line31"
+                    GUID = Begin
+                        0xd79dd2c52affcc419335ebf69c7ef184
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0xa1d804e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8760
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0xa2d804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3960
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xa3d804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Left =120
+                    Top =120
+                    Width =2037
+                    Height =240
+                    FontSize =8
+                    Name ="Text20"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xa4d804e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =120
+                    Width =10800
+                    Name ="Line22"
+                    GUID = Begin
+                        0xa5d804e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0xa6d804e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "There is no data available for this report.", vbExclamation
+  Cancel = True
+  
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+
+  If mbTomCat Then
+    Me.lblHeading.Caption = "Tom Cat Dealer Advertising Allocations"
+    SetSPVar "DealerType", 1
+  Else
+    Me.lblHeading.Caption = "Factory Cat Dealer Advertising Allocations"
+    SetSPVar "DealerType", 0
+  End If
+  
+End Sub

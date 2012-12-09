@@ -1,0 +1,277 @@
+Version =19
+VersionRequired =19
+Checksum =-943163881
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5100
+    ItemSuffix =31
+    Left =1515
+    Top =2055
+    Right =11175
+    Bottom =7485
+    RecSrcDt = Begin
+        0xaae1216ff4c7e140
+    End
+    Caption ="Quote Sub Item Edit"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =1980
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =2880
+                    Top =1620
+                    Width =906
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1320
+                    Top =120
+                    Width =3060
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkSSItemGroup"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkInvnGrp, InvnGrpDesc\015\012FROM dbo.tblInvnGrp\015\012ORDER BY InvnGr"
+                        "pDesc"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Inventory group"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =1110
+                            Height =240
+                            Name ="Label22"
+                            Caption ="Group:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =480
+                    Width =3060
+                    TabIndex =1
+                    Name ="txtSSItemDesc"
+                    StatusBarText ="Description"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =480
+                            Width =1110
+                            Height =240
+                            Name ="Label23"
+                            Caption ="Description:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =840
+                    TabIndex =2
+                    Name ="txtSSItemCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Cost of inventory item"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =1110
+                            Height =240
+                            Name ="Label24"
+                            Caption ="Cost:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =1200
+                    TabIndex =3
+                    Name ="txtSSItemPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Cost of inventory item"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x6bc1d2c822c417498e041fb91c408e33
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =1200
+                            Width =1110
+                            Height =240
+                            Name ="Label27"
+                            Caption ="Price:"
+                            FontName ="Tahoma"
+                            GUID = Begin
+                                0xe90c81568c10764bbd47c49e8153e6af
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3840
+                    Top =1620
+                    Width =906
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x785b303083c2cb4ab0b6b223d54372ed
+                    End
+                End
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =85
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =300
+                    Top =1620
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =6
+                    Name ="cmdAltItem"
+                    Caption ="&Alternate Item"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xf36f5efdbad49e4aa7dcf8e00e8288e3
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Public blnCancel As Boolean
+
+Private Sub cmdAltItem_Click()
+
+If IsNull(Me.comafkSSItemGroup) Then
+  MsgBox "You must select a group!", vbExclamation
+  Me.comafkSSItemGroup.SetFocus
+  Exit Sub
+End If
+
+Dim fA As New Form_frmSaleSubItemReplace, sSQL As String, rstInvn As New Recordset
+Dim cLI As ListItem
+sSQL = "SELECT apkInvn, InvnDesc FROM tblInvn WHERE afkInvnGroup = " & Me.comafkSSItemGroup
+sSQL = sSQL & " AND afkInvnSItem = 0 AND afkInvnIItem = 0"
+rstInvn.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+
+Do While Not rstInvn.EOF
+  Set cLI = fA.lvInvn.ListItems.Add(, "i:" & rstInvn!apkInvn, rstInvn!InvnDesc)
+  rstInvn.MoveNext
+Loop
+
+Pause fA
+If Not fA.blnCancel Then
+  Set cLI = fA.lvInvn.SelectedItem
+  MsgBox "Selected item: " & cLI.Text, vbInformation
+End If
+
+End Sub
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub
+
+Private Sub Form_Load()
+
+If InStr(Me.OpenArgs, "READONLY") Then
+  Me.RecordsetType = conSnapshot
+  Me.AllowEdits = False
+  Me.AllowAdditions = False
+  Me.AllowDeletions = False
+End If
+
+End Sub

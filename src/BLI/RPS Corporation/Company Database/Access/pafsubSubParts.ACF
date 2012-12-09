@@ -1,0 +1,312 @@
+Version =19
+VersionRequired =19
+Checksum =2050841852
+Begin Form
+    ShortcutMenu = NotDefault
+    NavigationButtons = NotDefault
+    OrderByOn = NotDefault
+    AllowUpdating =4
+    ScrollBars =2
+    GridX =24
+    GridY =24
+    Width =8118
+    ItemSuffix =191
+    Left =375
+    Top =1320
+    Right =8820
+    Bottom =4725
+    RecSrcDt = Begin
+        0x534f20397dc5e140
+    End
+    RecordSource ="dbo.tblPartsSubParts"
+    BeforeUpdate ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin FormHeader
+            Height =240
+            BackColor =8421376
+            Name ="FormHeader1"
+            GUID = Begin
+                0x6a0ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    Width =870
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Text12"
+                    Caption ="Sub #:"
+                    GUID = Begin
+                        0x6b0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =1008
+                    Width =1860
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Text13"
+                    Caption ="Sub Description:"
+                    GUID = Begin
+                        0x6c0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    Left =5952
+                    Width =870
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Text14"
+                    Caption ="Sub Cost:"
+                    GUID = Begin
+                        0x6d0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =3120
+                    Width =1620
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Text15"
+                    Caption ="Sub Source:"
+                    GUID = Begin
+                        0x6e0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =4800
+                    Width =1140
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Text16"
+                    Caption ="Sub Src P/N:"
+                    GUID = Begin
+                        0x6f0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =223
+                    Left =6816
+                    Width =435
+                    Height =240
+                    ForeColor =16777215
+                    Name ="txtQty"
+                    Caption ="Qty"
+                    GUID = Begin
+                        0x700ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =7248
+                    Width =870
+                    Height =240
+                    ForeColor =16777215
+                    Name ="Label19"
+                    Caption ="Ext Cost"
+                    GUID = Begin
+                        0x710ec088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =480
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x720ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    Left =1020
+                    Width =2100
+                    Height =480
+                    TabIndex =1
+                    Name ="txtSubDesc"
+                    ControlSource ="SubDescription"
+                    GUID = Begin
+                        0x730ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    Left =5940
+                    Width =900
+                    TabIndex =4
+                    Name ="txtSubCost"
+                    ControlSource ="SubCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x740ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =3120
+                    Width =1680
+                    Height =480
+                    TabIndex =2
+                    Name ="txtSubSource"
+                    ControlSource ="SubSource"
+                    GUID = Begin
+                        0x750ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =4800
+                    Width =1140
+                    TabIndex =3
+                    Name ="txtSubSrcPN"
+                    ControlSource ="SubSourcePartNum"
+                    GUID = Begin
+                        0x760ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    Width =1020
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x770ec088b84ad311bb05004033532b7f
+                    End
+                    Name ="comSubNum"
+                    ControlSource ="SubNum"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselRPSPartNum"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =6840
+                    Width =420
+                    TabIndex =5
+                    Name ="txtSubQty"
+                    ControlSource ="SubQty"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x780ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =7260
+                    Width =840
+                    TabIndex =6
+                    BackColor =-2147483633
+                    Name ="txtSubExtCost"
+                    ControlSource ="SubExtCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x790ec088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =240
+            BackColor =-2147483633
+            Name ="FormFooter2"
+            GUID = Begin
+                0x7a0ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =7212
+                    Width =870
+                    BackColor =-2147483633
+                    Name ="Text21"
+                    ControlSource ="=Sum([SubExtCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x7b0ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =6060
+                    Width =1005
+                    Height =210
+                    FontWeight =700
+                    Name ="Label22"
+                    Caption ="Total:"
+                    GUID = Begin
+                        0x7c0ec088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub comSubNum_Click()
+
+If IsNull(Me.comSubNum) Then Exit Sub
+
+Dim rstPI As New Recordset
+rstPI.Open "tblParts", CurrentProject.Connection, adOpenStatic
+
+rstPI.Find "RPSPartNum = " & Chr(34) & Me.comSubNum & Chr(34)
+If Not rstPI.EOF Then
+    Me.txtSubCost = rstPI!CostEach
+    Me.txtSubDesc = rstPI![PartName]
+    Me.txtSubSrcPN = rstPI![ManfPartNum]
+    Me.txtSubSource = rstPI![VendorName]
+End If
+rstPI.Close
+Set rstPI = Nothing
+
+End Sub
+
+Private Sub txtSubCost_AfterUpdate()
+Me.txtSubExtCost = Me.txtSubCost * Me.txtSubQty
+End Sub
+
+Private Sub txtSubQty_AfterUpdate()
+Me.txtSubExtCost = Me.txtSubCost * Me.txtSubQty
+End Sub

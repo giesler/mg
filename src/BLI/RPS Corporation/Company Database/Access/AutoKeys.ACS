@@ -1,0 +1,29 @@
+Version =196611
+ColumnsShown =1
+Begin
+End
+Begin
+    MacroName ="^{F11}"
+    Action ="RunCode"
+    Argument ="=UpdatePartSortCall()"
+End
+Begin
+    MacroName ="{F12}"
+    Action ="OpenForm"
+    Argument ="fSwitchboard"
+    Argument ="0"
+    Argument =""
+    Argument =""
+    Argument ="-1"
+    Argument ="0"
+End
+Begin
+    MacroName ="{F6}"
+    Action ="OpenForm"
+    Argument ="fSwitchboard"
+    Argument ="0"
+    Argument =""
+    Argument =""
+    Argument ="-1"
+    Argument ="0"
+End

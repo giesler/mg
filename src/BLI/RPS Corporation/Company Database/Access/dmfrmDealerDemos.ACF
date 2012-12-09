@@ -1,0 +1,819 @@
+Version =19
+VersionRequired =19
+Checksum =1889302000
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    GridX =24
+    GridY =24
+    Width =11520
+    ItemSuffix =276
+    Left =795
+    Top =1635
+    Right =12315
+    Bottom =6300
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0xa65228aa58c3e140
+    End
+    RecordSource ="dbo.tblDealerDemos"
+    Caption ="Dealer Demos"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =4680
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0xe4cc04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =93
+                    Left =288
+                    Top =1560
+                    Width =6624
+                    Height =960
+                    BorderColor =8421504
+                    Name ="Box231"
+                    GUID = Begin
+                        0xe5cc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =432
+                    Top =1440
+                    Width =1440
+                    Height =240
+                    FontWeight =400
+                    BackColor =-2147483633
+                    Name ="Text232"
+                    Caption ="Address Info"
+                    GUID = Begin
+                        0xe6cc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =93
+                    Left =2448
+                    Top =600
+                    Width =2742
+                    Height =240
+                    Name ="customer Name"
+                    ControlSource ="CustomerName"
+                    EventProcPrefix ="customer_Name"
+                    GUID = Begin
+                        0xe8cc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =93
+                            Left =579
+                            Top =600
+                            Width =1725
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text243"
+                            Caption ="Customer Name:"
+                            GUID = Begin
+                                0xe7cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =93
+                    Left =2460
+                    Top =960
+                    Width =2292
+                    Height =240
+                    TabIndex =1
+                    Name ="Contact Name"
+                    ControlSource ="ContactName"
+                    EventProcPrefix ="Contact_Name"
+                    GUID = Begin
+                        0xeacc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =93
+                            Left =720
+                            Top =960
+                            Width =1596
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text244"
+                            Caption ="Contact Name:"
+                            GUID = Begin
+                                0xe9cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1584
+                    Top =1800
+                    Width =5040
+                    Height =240
+                    TabIndex =3
+                    Name ="Address"
+                    ControlSource ="Address"
+                    GUID = Begin
+                        0xeccc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =576
+                            Top =1800
+                            Width =864
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text245"
+                            Caption ="Address:"
+                            GUID = Begin
+                                0xebcc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1584
+                    Top =2160
+                    Height =240
+                    TabIndex =4
+                    Name ="City"
+                    ControlSource ="City"
+                    GUID = Begin
+                        0xeecc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =873
+                            Top =2160
+                            Width =567
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text246"
+                            Caption ="City:"
+                            GUID = Begin
+                                0xedcc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =3888
+                    Top =2160
+                    Width =576
+                    Height =240
+                    TabIndex =5
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0xf0cc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =3168
+                            Top =2160
+                            Width =576
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text247"
+                            Caption ="State:"
+                            GUID = Begin
+                                0xefcc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =5184
+                    Top =2160
+                    Height =240
+                    TabIndex =6
+                    Name ="Zip"
+                    ControlSource ="Zip"
+                    GUID = Begin
+                        0xf2cc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =4608
+                            Top =2160
+                            Width =432
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text248"
+                            Caption ="Zip:"
+                            GUID = Begin
+                                0xf1cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =93
+                    Left =288
+                    Top =2760
+                    Width =6624
+                    Height =1800
+                    BorderColor =8421504
+                    Name ="Box249"
+                    GUID = Begin
+                        0xf3cc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =567
+                    Top =2640
+                    Width =1020
+                    Height =240
+                    FontWeight =400
+                    BackColor =-2147483633
+                    Name ="Text250"
+                    Caption ="Demo Info"
+                    GUID = Begin
+                        0xf4cc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =93
+                    Left =6624
+                    Top =960
+                    Width =1872
+                    Height =240
+                    TabIndex =2
+                    Name ="Phone"
+                    ControlSource ="phone"
+                    GUID = Begin
+                        0xf6cc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =93
+                            Left =5184
+                            Top =960
+                            Width =1296
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text252"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0xf5cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =2304
+                    Top =3000
+                    Height =240
+                    TabIndex =7
+                    Name ="txtDemoDate"
+                    ControlSource ="DateOfDemo"
+                    Format ="Short Date"
+                    GUID = Begin
+                        0xf8cc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =864
+                            Top =3000
+                            Width =1296
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text253"
+                            Caption ="Date of Demo:"
+                            GUID = Begin
+                                0xf7cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =2304
+                    Top =3360
+                    Width =4464
+                    Height =480
+                    TabIndex =8
+                    Name ="Equipment Demoed"
+                    ControlSource ="EquipmentDemoed"
+                    EventProcPrefix ="Equipment_Demoed"
+                    GUID = Begin
+                        0xfacc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =432
+                            Top =3360
+                            Width =1728
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text254"
+                            Caption ="Equipment Demoed:"
+                            GUID = Begin
+                                0xf9cc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =2304
+                    Top =3960
+                    Width =4455
+                    Height =480
+                    TabIndex =9
+                    Name ="Notes"
+                    ControlSource ="Notes"
+                    GUID = Begin
+                        0xfccc04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =1149
+                            Top =3960
+                            Width =1011
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text255"
+                            Caption ="Notes:"
+                            GUID = Begin
+                                0xfbcc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =93
+                    Left =7056
+                    Top =1560
+                    Width =2019
+                    Height =3000
+                    BorderColor =8421504
+                    Name ="Box256"
+                    GUID = Begin
+                        0xfdcc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =7200
+                    Top =1440
+                    Width =1440
+                    Height =240
+                    FontWeight =400
+                    BackColor =-2147483633
+                    Name ="Text257"
+                    Caption ="Purchase Info"
+                    GUID = Begin
+                        0xfecc04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =3720
+                    Width =645
+                    TabIndex =16
+                    Name ="Model 40"
+                    ControlSource ="Model40"
+                    EventProcPrefix ="Model_40"
+                    GUID = Begin
+                        0x00cd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =3720
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text259"
+                            Caption ="Model 40:"
+                            GUID = Begin
+                                0xffcc04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =2640
+                    Width =645
+                    TabIndex =13
+                    Name ="Model 27"
+                    ControlSource ="Model27"
+                    EventProcPrefix ="Model_27"
+                    GUID = Begin
+                        0x02cd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =2640
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text260"
+                            Caption ="Model 27:"
+                            GUID = Begin
+                                0x01cd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =2280
+                    Width =645
+                    TabIndex =12
+                    Name ="Model 10"
+                    ControlSource ="Model10"
+                    EventProcPrefix ="Model_10"
+                    GUID = Begin
+                        0x04cd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =2280
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text261"
+                            Caption ="Model 10:"
+                            GUID = Begin
+                                0x03cd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =215
+                    Left =8397
+                    Top =1800
+                    TabIndex =10
+                    Name ="chkPurchased"
+                    ControlSource ="Purchased"
+                    GUID = Begin
+                        0x05cd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =1800
+                            Width =1050
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text265"
+                            Caption ="Purchased:"
+                            GUID = Begin
+                                0x06cd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =93
+                    TextAlign =1
+                    ColumnCount =2
+                    ListWidth =2880
+                    Left =2446
+                    Top =240
+                    Width =2800
+                    Height =240
+                    TabIndex =11
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"0\";\"0\""
+                    GUID = Begin
+                        0x08cd04e92849d311bb05004033532b7f
+                    End
+                    Name ="comDealerNumber"
+                    ControlSource ="fkDealerID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselDealer"
+                    ColumnWidths ="0;2880"
+                    BaseInfo ="\"dbo.qselDealer\";\"\""
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =93
+                            Left =432
+                            Top =240
+                            Width =1860
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text269"
+                            Caption ="Dealer Name:"
+                            GUID = Begin
+                                0x07cd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =3360
+                    Width =645
+                    TabIndex =15
+                    Name ="Model 39"
+                    ControlSource ="Model39"
+                    EventProcPrefix ="Model_39"
+                    GUID = Begin
+                        0x0acd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =3360
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text271"
+                            Caption ="Model 39:"
+                            GUID = Begin
+                                0x09cd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =3000
+                    Width =645
+                    TabIndex =14
+                    Name ="Model 34"
+                    ControlSource ="Model34"
+                    EventProcPrefix ="Model_34"
+                    GUID = Begin
+                        0x0ccd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =3000
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text272"
+                            Caption ="Model 34:"
+                            GUID = Begin
+                                0x0bcd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =8284
+                    Top =4080
+                    Width =645
+                    TabIndex =17
+                    Name ="Model 48"
+                    ControlSource ="Model48"
+                    EventProcPrefix ="Model_48"
+                    GUID = Begin
+                        0x0ecd04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =7200
+                            Top =4080
+                            Width =930
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text273"
+                            Caption ="Model 48:"
+                            GUID = Begin
+                                0x0dcd04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    OverlapFlags =87
+                    Left =7200
+                    Top =2160
+                    Width =1728
+                    BorderColor =8421504
+                    Name ="Line274"
+                    GUID = Begin
+                        0x0fcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =247
+                    Left =288
+                    Top =120
+                    Width =8784
+                    Height =1200
+                    BorderColor =8421504
+                    Name ="Box275"
+                    GUID = Begin
+                        0x10cd04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub Form_Activate()
+Dim newMenu As CommandBarPopup
+Set newMenu = CBAddMenu(Me.Toolbar, "Print")
+newMenu.BeginGroup = True
+newMenu.Tag = "custom"
+Call CBAddMenuControl(newMenu, "Current record", "=PrintCurRecord()")
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+Me.Toolbar = "FCFormToolBar"
+Dim blnCancel As Boolean
+Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+If blnCancel Then Cancel = True
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+
+  If MsgBox("Are you sure you want to save changes for this record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+
+End Sub
+
+Public Function PrintCurRecord()
+On Error GoTo PrintCurRecord_Err
+
+DoCmd.RunCommand acCmdSaveRecord
+If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+
+If flgDebug Then
+    DoCmd.OpenReport "dmrfrmDealerDemos", acViewPreview, , "DealerDemoID = " & Me!DealerDemoID
+Else
+    DoCmd.OpenReport "dmrfrmDealerDemos", acViewNormal, , "DealerDemoID = " & Me!DealerDemoID
+End If
+
+Exit Function
+PrintCurRecord_Err:
+ErrHand Me.Name, "PrintCurRecord"
+Exit Function
+
+End Function
+
+Private Sub Form_Deactivate()
+On Error GoTo Form_Deactivate_Err
+Dim ctl As CommandBarControl
+For Each ctl In Application.CommandBars(Me.Toolbar).Controls
+  If ctl.Tag = "custom" Then ctl.Delete
+Next ctl
+Exit Sub
+Form_Deactivate_Err:
+ErrHand Me.Name, "Form_Deactivate"
+Exit Sub
+End Sub
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+Me.Toolbar = "FCFormServerFilter"
+End Sub

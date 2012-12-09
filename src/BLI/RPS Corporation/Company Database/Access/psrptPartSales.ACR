@@ -1,0 +1,617 @@
+Version =19
+VersionRequired =19
+Checksum =-1575426107
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10680
+    ItemSuffix =94
+    Left =1200
+    Top =720
+    Right =9525
+    Bottom =6120
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xacd612a9d803e240
+    End
+    InputParameters ="GetSPVar(\"FromDate\"), GetSPVar(\"ToDate\"), GetSPVar(\"DealerName\"), GetType("
+        ")"
+    RecordSource ="dbo.psrptPartSales"
+    Caption ="Part Sales Report"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000180300000000000070230000ef00000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393530432053657269657300 ,
+        0x01041b409c00a80603df001e0100010079002c00640001000700fdff02000100 ,
+        0x0000030000007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011003100010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a6574203935304320536572696573004c5054313a00000000000000000000 ,
+        0x00000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="DealerName"
+        End
+        Begin PageHeader
+            Height =1260
+            Name ="PageHeader0"
+            GUID = Begin
+                0x8cd404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =120
+                    Top =840
+                    Width =720
+                    Height =285
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Dealer"
+                    GUID = Begin
+                        0x90d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =1200
+                    Width =10680
+                    Name ="Line48"
+                    GUID = Begin
+                        0x91d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =10560
+                    Height =240
+                    FontWeight =400
+                    Name ="lblDates"
+                    GUID = Begin
+                        0x93d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =5115
+                    Top =840
+                    Width =1350
+                    Height =285
+                    FontSize =9
+                    Name ="Label71"
+                    Caption ="Parts"
+                    GUID = Begin
+                        0x94e2d85ba4c27f44ab2bd997bbad2c18
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =10560
+                    Height =360
+                    FontSize =12
+                    Name ="txtHeading"
+                    Caption ="Part Sales Report"
+                    GUID = Begin
+                        0x2741cda1c2793b4cbe671b458a006bda
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =1860
+                    Top =840
+                    Width =1680
+                    Height =285
+                    FontSize =9
+                    Name ="Label79"
+                    Caption ="Dealer PO #"
+                    GUID = Begin
+                        0xbf56a162eaafa1458f2b92b8adaf5bb7
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =840
+                    Top =840
+                    Width =1020
+                    Height =285
+                    FontSize =9
+                    Name ="Label81"
+                    Caption ="Sale Date"
+                    GUID = Begin
+                        0x991a8d0e8b1d0349966db813cb3ffad6
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =6465
+                    Top =840
+                    Width =1350
+                    Height =285
+                    FontSize =9
+                    Name ="Label83"
+                    Caption ="Freight"
+                    GUID = Begin
+                        0xbacb9e6d105e794f81b840f6c8ae03d9
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =7815
+                    Top =840
+                    Width =1350
+                    Height =285
+                    FontSize =9
+                    Name ="Label86"
+                    Caption ="Misc"
+                    GUID = Begin
+                        0x8d89643c1c1fd9469d0168278e4ec4a8
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =9165
+                    Top =840
+                    Width =1350
+                    Height =285
+                    FontSize =9
+                    Name ="Label89"
+                    Caption ="Total"
+                    GUID = Begin
+                        0xc450ae3fb4260e4684073c1e23c1d39e
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =3540
+                    Top =840
+                    Width =1560
+                    Height =285
+                    FontSize =9
+                    Name ="Label92"
+                    Caption ="Invoice #"
+                    GUID = Begin
+                        0xb8ddea41af52f544afaade85b71dbe44
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =360
+            Name ="DealerHeader"
+            GUID = Begin
+                0x94d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextAlign =1
+                    Left =60
+                    Top =60
+                    Width =6540
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    Name ="Date of Order"
+                    ControlSource ="DealerName"
+                    EventProcPrefix ="Date_of_Order"
+                    GUID = Begin
+                        0x99d404e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x95d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =5115
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    Name ="Text72"
+                    ControlSource ="AmountParts"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x1ca15eed9b27b441b9abfea7765dc04e
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    TextAlign =2
+                    Left =1860
+                    Width =1680
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Text80"
+                    ControlSource ="DealerPO"
+                    GUID = Begin
+                        0x611d6fcdbe3ea947817d0e7bac8a8ad0
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    TextAlign =2
+                    Left =840
+                    Width =1020
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Text82"
+                    ControlSource ="SaleDate"
+                    GUID = Begin
+                        0x4f4cb69298ef6149850a6db9cdff20a6
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =6465
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Text84"
+                    ControlSource ="AmountFreight"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xfa64bd3173424c44a130886777a0a7e6
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =7815
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Text87"
+                    ControlSource ="AmountMisc"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x79f24613d6f3ba4ea209b740dd10a70c
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =9165
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Text90"
+                    ControlSource ="AmountTotal"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xccb7e4c4e03a284392ad15cfdca3b617
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    TextAlign =2
+                    Left =3540
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    TabIndex =6
+                    Name ="Text93"
+                    ControlSource ="InvoiceNum"
+                    GUID = Begin
+                        0xa2a6697f0810754d91e94267ce5610a3
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =420
+            Name ="GroupFooter1"
+            GUID = Begin
+                0xa0d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =900
+                    Width =9713
+                    Name ="Line64"
+                    GUID = Begin
+                        0xa3d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =480
+                    Top =60
+                    Width =3765
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    Name ="Text70"
+                    ControlSource ="=[DealerName] & \" Totals:\""
+                    GUID = Begin
+                        0xcd6319e22abfea48bd92cdcf6e81f7f4
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =5115
+                    Top =45
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Text74"
+                    ControlSource ="=Sum([AmountParts])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x8e31e3a25d6eb64aa2e23618cedf1bee
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =6465
+                    Top =45
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Text85"
+                    ControlSource ="=Sum([AmountFreight])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xcae1c4873776ae479a2eaa7bfc87c4e3
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =7815
+                    Top =45
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    TabIndex =3
+                    Name ="Text88"
+                    ControlSource ="=Sum([AmountMisc])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xb1e1e0a5d0be994bb0788c0f25d0e50e
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    Left =9165
+                    Top =45
+                    Width =1350
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    TabIndex =4
+                    Name ="Text91"
+                    ControlSource ="=Sum([AmountTotal])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xe31b164be2bdc94db0f27c4a573130a1
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter2"
+            GUID = Begin
+                0xa5d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8040
+                    Top =60
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xa7d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =60
+                    Width =2277
+                    Height =240
+                    FontSize =8
+                    Name ="Text20"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xa8d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =10680
+                    Name ="Line21"
+                    GUID = Begin
+                        0xa9d404e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errorHandler
+
+  Dim fR As New Form_frptEnterDatesDealer
+  fR.chkPageBreak.Visible = True
+  If mbTomCat Then
+    Me.Caption = "TC Part Sales Report"
+    Me.txtHeading.Caption = "Tom Cat Part Sales Report"
+    iType = 1
+    fR.comDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 1 GROUP BY DealerName ORDER BY DealerName"
+  Else
+    Me.Caption = "FC Part Sales Report"
+    Me.txtHeading.Caption = "Factory Cat Part Sales Report"
+    iType = 0
+    fR.comDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 0 GROUP BY DealerName ORDER BY DealerName"
+  End If
+  
+  fR.Caption = Me.Caption
+  fR.lblDates.Caption = "Sale Date:"
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+
+  SetSPVar "DealerName", fR.comDealerName
+  SetSPVar "FromDate", fR.datFrom
+  SetSPVar "ToDate", fR.datTo
+  
+  If fR.datFrom <> "" Or fR.datTo <> "" Then
+    Me.lblDates.Caption = FormatFromTo(fR.datFrom, fR.datTo)
+  End If
+
+  If fR.chkPageBreak Then
+    Me.DealerHeader.ForceNewPage = 1
+  Else
+    Me.DealerHeader.ForceNewPage = 0
+  End If
+
+  Set fR = Nothing
+
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

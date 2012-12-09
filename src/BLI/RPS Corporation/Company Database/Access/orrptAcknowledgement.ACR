@@ -1,0 +1,730 @@
+Version =19
+VersionRequired =19
+Checksum =-116005007
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =9360
+    ItemSuffix =55
+    Left =1185
+    Top =930
+    Right =12330
+    Bottom =8265
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x2eaa0aab98f1e140
+    End
+    InputParameters ="@iOrderID = GetOrderID(), @sFromDate = GetFromDate(), @sToDate = GetToDate(), @i"
+        "OrderType = GetType()"
+    RecordSource ="dbo.orsprptAcknowledgement"
+    Caption ="Orders: Machine Order Confirmation"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xa0050000400b0000a0050000a005000000000000902400001518000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393532430000000000000000 ,
+        0x01041b409c00a80603df001e0100010079002c00640001000700fdff02000100 ,
+        0x0000030000007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a65742039353243004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextAlign =3
+            TextFontFamily =18
+            FontSize =10
+            FontWeight =700
+            FontName ="Times New Roman"
+        End
+        Begin BoundObjectFrame
+            OldBorderStyle =0
+            LabelAlign =3
+            LabelX =-124
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            LabelAlign =3
+            TextFontFamily =18
+            Height =300
+            LabelX =-124
+            FontSize =10
+            FontName ="Times New Roman"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader3"
+            GUID = Begin
+                0xd8d404e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageHeader
+            Height =1140
+            Name ="PageHeader0"
+            GUID = Begin
+                0xd9d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =120
+                    Width =9345
+                    Height =480
+                    FontSize =14
+                    Name ="lblHead"
+                    Caption ="Machine Order Confirmation"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xdad404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =720
+                    Width =9345
+                    Height =240
+                    Name ="Field33"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xdbd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =120
+                    Width =9345
+                    Name ="Line36"
+                    GUID = Begin
+                        0xdcd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =1080
+                    Width =9345
+                    Name ="Line37"
+                    GUID = Begin
+                        0xddd404e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =6165
+            Name ="Detail1"
+            GUID = Begin
+                0xded404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =3000
+                    Top =5880
+                    Width =2760
+                    Height =285
+                    FontSize =8
+                    FontWeight =400
+                    Name ="lblPreparedBy"
+                    Caption ="Irene Mopps"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xdfd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =120
+                    Width =4320
+                    Height =240
+                    ColumnWidth =1995
+                    Name ="Dealer"
+                    ControlSource ="Dealer"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xe1d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =2040
+                            Top =120
+                            Width =720
+                            Height =240
+                            Name ="Text7"
+                            Caption ="Dealer:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xe0d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =2880
+                    Top =600
+                    Width =1080
+                    Height =240
+                    ColumnWidth =1260
+                    TabIndex =1
+                    Name ="Date of Order"
+                    ControlSource ="OrderDate"
+                    FontName ="Arial"
+                    EventProcPrefix ="Date_of_Order"
+                    GUID = Begin
+                        0xe3d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =960
+                            Top =600
+                            Width =1800
+                            Height =240
+                            Name ="Text9"
+                            Caption ="Date of Order:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xe2d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =6600
+                    Top =600
+                    Width =1800
+                    Height =240
+                    ColumnWidth =1605
+                    TabIndex =2
+                    Name ="Purchase Order #"
+                    ControlSource ="PurchaseOrder"
+                    FontName ="Arial"
+                    EventProcPrefix ="Purchase_Order__"
+                    GUID = Begin
+                        0xe5d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =4560
+                            Top =600
+                            Width =1920
+                            Height =240
+                            Name ="Text11"
+                            Caption ="Purchase Order #:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xe4d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =960
+                    Width =4320
+                    Height =240
+                    ColumnWidth =1950
+                    TabIndex =3
+                    Name ="Name"
+                    ControlSource ="ShipName"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xe7d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =1320
+                            Top =960
+                            Width =1440
+                            Height =285
+                            Name ="Text13"
+                            Caption ="Ship Name:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xe6d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =1320
+                    Width =4320
+                    Height =240
+                    ColumnWidth =1920
+                    TabIndex =4
+                    Name ="Street Address"
+                    ControlSource ="StreetAddress"
+                    FontName ="Arial"
+                    EventProcPrefix ="Street_Address"
+                    GUID = Begin
+                        0xe9d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =1560
+                            Top =1320
+                            Width =1200
+                            Height =240
+                            Name ="Text15"
+                            Caption ="Address:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xe8d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =1680
+                    Width =4320
+                    Height =240
+                    ColumnWidth =2310
+                    TabIndex =5
+                    Name ="City/State/Zip"
+                    ControlSource ="CityStateZip"
+                    FontName ="Arial"
+                    EventProcPrefix ="City_State_Zip"
+                    GUID = Begin
+                        0xebd404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =960
+                            Top =1680
+                            Width =1800
+                            Height =240
+                            Name ="Text17"
+                            Caption ="City/State/Zip:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xead404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =720
+                    Top =2880
+                    Width =960
+                    Height =240
+                    ColumnWidth =810
+                    TabIndex =6
+                    Name ="Quantity"
+                    ControlSource ="Quantity"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xecd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =1875
+                    Top =2880
+                    Width =705
+                    Height =240
+                    ColumnWidth =615
+                    TabIndex =7
+                    Name ="Model"
+                    ControlSource ="Model"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xedd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextFontFamily =34
+                    Left =2760
+                    Top =2880
+                    Width =4320
+                    Height =360
+                    ColumnWidth =3600
+                    TabIndex =8
+                    Name ="Description"
+                    ControlSource ="Description"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xeed404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =7200
+                    Top =2880
+                    Width =1200
+                    Height =240
+                    TabIndex =9
+                    Name ="Price"
+                    ControlSource ="Price"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xefd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextFontFamily =34
+                    Left =2760
+                    Top =3480
+                    Width =5640
+                    Height =360
+                    TabIndex =10
+                    Name ="Options"
+                    ControlSource ="Options"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf0d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =2880
+                    Top =4320
+                    Width =1080
+                    Height =240
+                    ColumnWidth =1335
+                    TabIndex =11
+                    Name ="Promised Date"
+                    ControlSource ="PromisedDate"
+                    FontName ="Arial"
+                    EventProcPrefix ="Promised_Date"
+                    GUID = Begin
+                        0xf2d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =480
+                            Top =4320
+                            Width =2280
+                            Height =285
+                            Name ="Text29"
+                            Caption ="Expected Ship Date:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xf1d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =5040
+                    Width =3120
+                    Height =240
+                    ColumnWidth =1560
+                    TabIndex =12
+                    Name ="Ship"
+                    ControlSource ="=[ShipVia] & \" \" & [CollectPrepaid]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf4d404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =1320
+                            Top =5040
+                            Width =1440
+                            Height =240
+                            Name ="Text31"
+                            Caption ="Ship Via:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xf3d404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =720
+                    Top =2400
+                    Width =960
+                    Height =240
+                    Name ="Text39"
+                    Caption ="Quantity"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf5d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =1860
+                    Top =2400
+                    Width =720
+                    Height =240
+                    Name ="Text40"
+                    Caption ="Model"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf6d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =2760
+                    Top =2400
+                    Width =1620
+                    Height =240
+                    Name ="Text41"
+                    Caption ="Description"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf7d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =7200
+                    Top =2400
+                    Width =1200
+                    Height =285
+                    Name ="Text42"
+                    Caption ="Price Each"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf8d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Left =840
+                    Top =2760
+                    Width =7560
+                    Name ="Line43"
+                    GUID = Begin
+                        0xf9d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Left =840
+                    Top =2280
+                    Width =7560
+                    Name ="Line44"
+                    GUID = Begin
+                        0xfad404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Left =840
+                    Top =3960
+                    Width =7560
+                    Name ="Line45"
+                    GUID = Begin
+                        0xfbd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =1020
+                    Top =5640
+                    Width =1635
+                    Height =285
+                    Name ="Text46"
+                    Caption ="Prepared by:"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xfcd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Left =2880
+                    Top =5880
+                    Width =3000
+                    Name ="Line47"
+                    GUID = Begin
+                        0xfdd404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =2880
+                    Top =4680
+                    Width =3000
+                    Height =240
+                    TabIndex =13
+                    Name ="Field51"
+                    ControlSource ="Terms"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xffd404e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextFontFamily =34
+                            Left =1800
+                            Top =4680
+                            Width =960
+                            Height =285
+                            Name ="Text52"
+                            Caption ="Terms:"
+                            FontName ="Arial"
+                            GUID = Begin
+                                0xfed404e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =0
+            Name ="PageFooter2"
+            GUID = Begin
+                0x00d504e92849d311bb05004033532b7f
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x01d504e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errorHandler
+
+  Dim fR As New Form_orfrptAcknowledgement
+  Dim strFilter As String
+  If mbTomCat Then
+    iType = 1
+    fR.Caption = "Tom Cat Acknowledgement Report"
+    Me.lblHead.Caption = "Tom Cat Machine Order Confirmation"
+    fR.comOrderID.RowSource = "SELECT OrderID, OrderNumber, OrderDate, Dealer " _
+      & "FROM tblAllOrders WHERE OrderType = 1 ORDER BY tblOrders.OrderNumber"
+  Else
+    iType = 0
+    fR.Caption = "FC Acknowledgement Report"
+    Me.lblHead.Caption = "Factory Cat Machine Order Confirmation"
+    fR.comOrderID.RowSource = "SELECT OrderID, OrderNumber, OrderDate, Dealer " _
+      & "FROM tblAllOrders WHERE OrderType = 0 ORDER BY tblOrders.OrderNumber"
+  End If
+
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+
+  sOrderID = fR.comOrderID
+  datFromDate = fR.datFrom
+  datToDate = fR.datTo
+  Me.lblPreparedBy.Caption = Nz(fR.comPreparedBy, "Irene Mopps")
+
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

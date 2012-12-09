@@ -1,0 +1,185 @@
+VERSION 5.00
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Begin VB.Form frmZL 
+   Caption         =   "BLI Computers ZL Compression Utility"
+   ClientHeight    =   2415
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   6000
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   2415
+   ScaleWidth      =   6000
+   StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "E&xit"
+      Height          =   375
+      Left            =   4800
+      TabIndex        =   10
+      Top             =   1920
+      Width           =   855
+   End
+   Begin VB.CommandButton cmdRun 
+      Caption         =   "&Run"
+      Height          =   375
+      Left            =   3840
+      TabIndex        =   9
+      Top             =   1920
+      Width           =   855
+   End
+   Begin VB.Frame Frame1 
+      Caption         =   " Options "
+      Height          =   1695
+      Left            =   240
+      TabIndex        =   0
+      Top             =   120
+      Width           =   5415
+      Begin VB.CommandButton cmdBrowseDest 
+         Caption         =   "..."
+         Height          =   255
+         Left            =   5040
+         TabIndex        =   8
+         Top             =   1200
+         Width           =   255
+      End
+      Begin VB.CommandButton cmdBrowseSource 
+         Caption         =   "..."
+         Height          =   255
+         Left            =   5040
+         TabIndex        =   7
+         Top             =   840
+         Width           =   255
+      End
+      Begin VB.TextBox txtDestFile 
+         Height          =   285
+         Left            =   1320
+         TabIndex        =   4
+         Top             =   1200
+         Width           =   3615
+      End
+      Begin VB.TextBox txtSourceFile 
+         Height          =   285
+         Left            =   1320
+         TabIndex        =   3
+         Top             =   840
+         Width           =   3615
+      End
+      Begin VB.OptionButton optExpand 
+         Caption         =   "&Expand"
+         Height          =   255
+         Left            =   2160
+         TabIndex        =   2
+         Top             =   240
+         Width           =   1935
+      End
+      Begin VB.OptionButton optCompress 
+         Caption         =   "&Compress"
+         Height          =   255
+         Left            =   240
+         TabIndex        =   1
+         Top             =   240
+         Width           =   1575
+      End
+      Begin VB.Label c 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Dest File:"
+         Height          =   255
+         Left            =   240
+         TabIndex        =   6
+         Top             =   1200
+         Width           =   975
+      End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Source File:"
+         Height          =   255
+         Left            =   240
+         TabIndex        =   5
+         Top             =   840
+         Width           =   975
+      End
+   End
+   Begin VB.Timer tmrTime 
+      Left            =   720
+      Top             =   1920
+   End
+   Begin MSComDlg.CommonDialog cdlg1 
+      Left            =   120
+      Top             =   1560
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _Version        =   393216
+   End
+   Begin VB.Label lblHelp 
+      Caption         =   "For help contact BLI Computers at (414) 633-2411."
+      Height          =   375
+      Left            =   240
+      TabIndex        =   11
+      Top             =   1920
+      Width           =   2415
+   End
+End
+Attribute VB_Name = "frmZL"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Private Sub cmdBrowseDest_Click()
+
+With Me.cdlg1
+    .DialogTitle = "Select the destination file..."
+    .ShowOpen
+    If .FileName <> "" Then
+        Me.txtDestFile.Text = .FileName
+    End If
+End With
+
+End Sub
+
+Private Sub cmdBrowseSource_Click()
+
+With Me.cdlg1
+    .DialogTitle = "Select the source file..."
+    .ShowOpen
+    If .FileName <> "" Then
+        Me.txtSourceFile.Text = .FileName
+        If Me.txtDestFile.Text = "" Then
+            Me.txtDestFile.Text = Me.txtSourceFile.Text
+         End If
+    End If
+End With
+
+End Sub
+
+Private Sub cmdExit_Click()
+End
+End Sub
+
+Private Sub cmdRun_Click()
+
+Dim zl1 As New zl, result As Boolean
+
+If Not FileExists(Me.txtSourceFile.Text) Then
+   MsgBox "The specified source file does not exist.", vbExclamation
+   Exit Sub
+ElseIf FileExists(Me.txtDestFile.Text) Then
+   MsgBox "The specified destination file already exists.", vbExclamation
+   Exit Sub
+End If
+
+If Me.optCompress Then
+    result = zl1.Compress(Me.txtSourceFile, Me.txtDestFile)
+Else
+    result = zl1.Expand(Me.txtSourceFile, Me.txtDestFile)
+End If
+
+If Not result Then
+    If zl1.bolCancelled Then
+        MsgBox "Action cancelled.", vbExclamation
+    Else
+        MsgBox "Action failed.", vbExclamation
+    End If
+End If
+
+Set zl1 = Nothing
+
+End Sub

@@ -1,0 +1,191 @@
+Version =19
+VersionRequired =19
+Checksum =948181895
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5616
+    ItemSuffix =8
+    Right =1260
+    Bottom =615
+    RecSrcDt = Begin
+        0x89fa5e8880d4e140
+    End
+    RecordSource ="dbo.tblOrderPrepByList"
+    Caption ="Models"
+    Begin
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin FormHeader
+            Height =900
+            BackColor =-2147483633
+            Name ="FormHeader1"
+            GUID = Begin
+                0xafcb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =147
+                    Top =120
+                    Width =5322
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    BackColor =-2147483633
+                    ForeColor =128
+                    Name ="Text3"
+                    Caption ="Prepared By Names Edit Screen"
+                    GUID = Begin
+                        0xb0cb04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =1500
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0xb1cb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1920
+                    Top =300
+                    Width =3360
+                    Name ="PrepByName"
+                    ControlSource ="PrepByName"
+                    GUID = Begin
+                        0x840ff808800b5d49b4fc74ae0efc5e7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =480
+                            Top =300
+                            Width =1050
+                            Height =240
+                            Name ="Label5"
+                            Caption ="Name:"
+                            GUID = Begin
+                                0x73e8db562f239b4e8f49282f2c1174d1
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =1980
+                    Top =780
+                    Width =2520
+                    TabIndex =1
+                    Name ="chkMakeDefault"
+                    ControlSource ="PrepByDefault"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x2e6b2466631cc74db0c5271fd897d26c
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =247
+                            Left =2210
+                            Top =750
+                            Width =2355
+                            Height =240
+                            Name ="Label7"
+                            Caption ="Default Name"
+                            GUID = Begin
+                                0x30531f7ad1860645948236b79cb15c80
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =720
+            BackColor =-2147483633
+            Name ="FormFooter2"
+            GUID = Begin
+                0xb8cb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =2160
+                    Top =120
+                    Width =1290
+                    Height =480
+                    Name ="btnClose"
+                    Caption ="&Close"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0xb9cb04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub btnClose_Click()
+On Error GoTo Err_btnClose_Click
+
+
+    DoCmd.Close
+
+Exit_btnClose_Click:
+    Exit Sub
+
+Err_btnClose_Click:
+    MsgBox Error$
+    Resume Exit_btnClose_Click
+    
+End Sub
+
+Private Sub chkMakeDefault_Click()
+
+Dim sSQL As String, sName As String, rst As Recordset
+
+If Me.chkMakeDefault Then
+  sSQL = "Update dbo.tblOrderPrepByList set PrepByDefault = 0 where PrepByName <> '" & Me.PrepByName & "'"
+  CurrentProject.Connection.Execute sSQL
+  sName = Me.PrepByName
+  Me.Requery
+  Set rst = Me.RecordsetClone
+  rst.Find "PrepByName = '" & sName & "'"
+  Me.Bookmark = rst.Bookmark
+  rst.Close
+End If
+
+End Sub

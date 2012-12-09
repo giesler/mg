@@ -1,0 +1,251 @@
+Version =19
+VersionRequired =19
+Checksum =-1174963896
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5700
+    DatasheetFontHeight =10
+    ItemSuffix =27
+    Left =3105
+    Top =2175
+    Right =8805
+    Bottom =3780
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xf83381d078c9e140
+    End
+    RecordSource ="dbo.tblLaborPur"
+    Caption ="Labor Purchase"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =1620
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =3600
+                    Top =1260
+                    Width =960
+                    Height =300
+                    TabIndex =5
+                    Name ="cmdSave"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =4680
+                    Top =1260
+                    Width =960
+                    Height =300
+                    TabIndex =6
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1680
+                    Top =60
+                    Width =1200
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkLPurSM"
+                    ControlSource ="afkLPurSM"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkEmp, EmpName\015\012FROM dbo.tblEmp\015\012WHERE EmpHide = 0\015\012OR"
+                        "DER BY EmpSort"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Salesman for this purchase"
+                    DefaultValue ="=CurUserID()"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =60
+                            Width =1320
+                            Height =240
+                            Name ="Label20"
+                            Caption ="Salesman:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1680
+                    Top =420
+                    Width =1200
+                    TabIndex =1
+                    Name ="txtLPurHours"
+                    ControlSource ="LPurHours"
+                    StatusBarText ="Number of hours purchased"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Top =420
+                            Width =1560
+                            Height =240
+                            Name ="Label21"
+                            Caption ="Hours Purchased:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3720
+                    Top =420
+                    Width =1200
+                    TabIndex =2
+                    Name ="txtLPurCost"
+                    ControlSource ="LPurCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Total cost of hours purchased"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3060
+                            Top =420
+                            Width =540
+                            Height =240
+                            Name ="Label22"
+                            Caption ="Cost:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1680
+                    Top =780
+                    Width =1200
+                    TabIndex =3
+                    Name ="txtLPurDate"
+                    ControlSource ="LPurDate"
+                    Format ="Short Date"
+                    StatusBarText ="Date labor was purchased"
+                    DefaultValue ="=Date()"
+                    FontName ="Tahoma"
+                    InputMask ="99/99/00;0;_"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =780
+                            Width =1320
+                            Height =240
+                            Name ="Label23"
+                            Caption ="Purchase Date:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    Left =1680
+                    Top =1140
+                    TabIndex =4
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkLPurInv"
+                    ControlSource ="afkLPurInv"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkInv, InvNumber FROM dbo.tblInvoice ORDER BY InvNumber"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Sale Number from tblSale"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =1140
+                            Width =1500
+                            Height =240
+                            Name ="Label26"
+                            Caption ="Invoice #:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+If Me.Dirty Then Me.Undo
+Me.Visible = False
+End Sub
+
+Private Sub cmdSave_Click()
+blnCancel = Not Me.Dirty
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = False
+End Sub

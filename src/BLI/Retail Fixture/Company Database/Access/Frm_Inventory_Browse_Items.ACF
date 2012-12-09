@@ -1,0 +1,119 @@
+Version =19
+VersionRequired =19
+Checksum =2066666176
+Begin Form
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    AllowAdditions = NotDefault
+    ScrollBars =2
+    ViewsAllowed =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =12
+    Width =8160
+    DatasheetFontHeight =10
+    ItemSuffix =9
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xc8e157fd9f7ee140
+    End
+    RecordSource ="Tbl_Catalog"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =6600
+                    Width =720
+                    TabIndex =1
+                    BorderColor =4210752
+                    Name ="Quanity"
+                    ControlSource ="Inventory"
+                    StatusBarText ="Quanity Entered"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =93
+                    ColumnCount =2
+                    ListWidth =3210
+                    Width =2280
+                    ColumnWidth =5535
+                    TabIndex =2
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"510\""
+                    Name ="Heading_Number"
+                    ControlSource ="Heading_Number"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT DISTINCTROW [Tbl_Catalog_Headings].[Heading_Number], [Tbl_Catalog_Heading"
+                        "s].[Heading_Desc] FROM [Tbl_Catalog_Headings];"
+                    ColumnWidths ="0;3210"
+                    StatusBarText ="heading the item falls under"
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =7320
+                    Width =840
+                    TabIndex =3
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="Committed"
+                    ControlSource ="Committed"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =2280
+                    Width =1080
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="Material"
+                    ControlSource ="Material"
+                    StatusBarText ="Material # (Catalog #)"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =3360
+                    Width =3240
+                    ColumnWidth =855
+                    TabIndex =4
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="Text7"
+                    ControlSource ="Description"
+                    StatusBarText ="Material Number (Catalog #)"
+                End
+            End
+        End
+    End
+End

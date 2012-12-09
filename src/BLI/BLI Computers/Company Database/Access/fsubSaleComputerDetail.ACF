@@ -1,0 +1,616 @@
+Version =19
+VersionRequired =19
+Checksum =850921251
+Begin Form
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    ViewsAllowed =1
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5415
+    ItemSuffix =51
+    Left =225
+    Top =1515
+    Right =5565
+    Bottom =4455
+    RecSrcDt = Begin
+        0x015c7b2279c9e140
+    End
+    RecordSource ="dbo.tblCustComp"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2955
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin Tab
+                    OverlapFlags =85
+                    Style =1
+                    Top =60
+                    Width =5415
+                    Height =2895
+                    Name ="tabCInfo"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            AccessKey =66
+                            Left =135
+                            Top =510
+                            Width =5145
+                            Height =2310
+                            Name ="pagBasic"
+                            Caption ="&Basic Info"
+                            Begin
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =180
+                                    Top =780
+                                    Width =2220
+                                    Name ="CCompName"
+                                    ControlSource ="CCompName"
+                                    StatusBarText ="Name"
+                                    AfterUpdate ="[Event Procedure]"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =223
+                                            TextAlign =1
+                                            Left =180
+                                            Top =540
+                                            Width =1440
+                                            Height =240
+                                            Name ="Label32"
+                                            Caption ="Computer Name:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =180
+                                    Top =1320
+                                    Width =2220
+                                    TabIndex =1
+                                    Name ="CCompSerialNo"
+                                    ControlSource ="CCompSerialNo"
+                                    StatusBarText ="Computer Serial Number"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =223
+                                            TextAlign =1
+                                            Left =180
+                                            Top =1080
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label17"
+                                            Caption ="Serial No.:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin ComboBox
+                                    LimitToList = NotDefault
+                                    OverlapFlags =215
+                                    TextAlign =1
+                                    ColumnCount =2
+                                    Left =180
+                                    Top =1860
+                                    Width =2220
+                                    TabIndex =2
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                                    Name ="afkCCompSale"
+                                    ControlSource ="afkCCompSale"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="dbo.qselSale"
+                                    ColumnWidths ="0;1440"
+                                    StatusBarText ="Reference invoice number"
+                                    FontName ="Tahoma"
+                                    BaseInfo ="\"dbo.qselSale\";\"\""
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =223
+                                            TextAlign =1
+                                            Left =180
+                                            Top =1620
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label18"
+                                            Caption ="Ref Inv No.:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin ComboBox
+                                    RowSourceTypeInt =1
+                                    OverlapFlags =223
+                                    Left =180
+                                    Top =2400
+                                    Width =2220
+                                    TabIndex =3
+                                    Name ="CCompType"
+                                    ControlSource ="CCompType"
+                                    RowSourceType ="Value List"
+                                    RowSource ="386;486;Pentium;Pentium II"
+                                    StatusBarText ="Type"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =223
+                                            TextAlign =1
+                                            Left =180
+                                            Top =2160
+                                            Width =1680
+                                            Height =240
+                                            Name ="Label19"
+                                            Caption ="Computer Type:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =3840
+                                    Top =1140
+                                    Width =1080
+                                    TabIndex =4
+                                    Name ="CCompProcType"
+                                    ControlSource ="CCompProcType"
+                                    StatusBarText ="Processor Type"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =2700
+                                            Top =1140
+                                            Width =1020
+                                            Height =240
+                                            Name ="Label20"
+                                            Caption ="Proc Type:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =3840
+                                    Top =1500
+                                    Width =1080
+                                    TabIndex =5
+                                    Name ="CCompProcSpeed"
+                                    ControlSource ="CCompProcSpeed"
+                                    StatusBarText ="Processor Speed"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =2700
+                                            Top =1500
+                                            Width =1020
+                                            Height =240
+                                            Name ="Label23"
+                                            Caption ="Proc Speed:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =2640
+                                    Top =780
+                                    Width =2280
+                                    TabIndex =6
+                                    Name ="CCompMonitor"
+                                    ControlSource ="CCompMonitor"
+                                    StatusBarText ="Monitor"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =223
+                                            TextAlign =1
+                                            Left =2640
+                                            Top =540
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label24"
+                                            Caption ="Monitor:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin ComboBox
+                                    RowSourceTypeInt =1
+                                    OverlapFlags =215
+                                    Left =3840
+                                    Top =1860
+                                    Width =1080
+                                    TabIndex =7
+                                    Name ="CCompMouse"
+                                    ControlSource ="CCompMouse"
+                                    RowSourceType ="Value List"
+                                    RowSource ="Serial;PS/2;None"
+                                    StatusBarText ="Mouse"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =2820
+                                            Top =1860
+                                            Width =900
+                                            Height =240
+                                            Name ="Label25"
+                                            Caption ="Mouse:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =3840
+                                    Top =2220
+                                    Width =1080
+                                    TabIndex =8
+                                    Name ="CCompNetCard"
+                                    ControlSource ="CCompNetCard"
+                                    StatusBarText ="Network Card"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =2400
+                                            Top =2220
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label26"
+                                            Caption ="Network Card:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =3360
+                                    Top =2580
+                                    Width =540
+                                    TabIndex =9
+                                    Name ="CCompHardDrive"
+                                    ControlSource ="CCompHardDrive"
+                                    StatusBarText ="Hard Drive"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =2760
+                                            Top =2580
+                                            Width =525
+                                            Height =240
+                                            Name ="Label33"
+                                            Caption ="HD:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =215
+                                    Left =4680
+                                    Top =2580
+                                    Width =540
+                                    TabIndex =10
+                                    Name ="CCompRAM"
+                                    ControlSource ="CCompRAM"
+                                    StatusBarText ="RAM"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =4020
+                                            Top =2580
+                                            Width =570
+                                            Height =240
+                                            Name ="Label34"
+                                            Caption ="RAM:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =120
+                            Top =510
+                            Width =5160
+                            Height =2310
+                            Name ="pagMoreInfo"
+                            Caption ="More Info"
+                            Begin
+                                Begin TextBox
+                                    DecimalPlaces =0
+                                    OverlapFlags =247
+                                    Left =1860
+                                    Top =540
+                                    Width =600
+                                    Name ="CCompComPorts"
+                                    ControlSource ="CCompComPorts"
+                                    StatusBarText ="Com Ports"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =420
+                                            Top =540
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label35"
+                                            Caption ="Com Ports:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    DecimalPlaces =0
+                                    OverlapFlags =247
+                                    Left =3960
+                                    Top =540
+                                    Width =600
+                                    TabIndex =1
+                                    Name ="CCompParallelPorts"
+                                    ControlSource ="CCompParallelPorts"
+                                    StatusBarText ="Parallel Ports"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =2700
+                                            Top =540
+                                            Width =1185
+                                            Height =240
+                                            Name ="Label36"
+                                            Caption ="Parallel Ports:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =247
+                                    Left =900
+                                    Top =930
+                                    TabIndex =2
+                                    Name ="CComp3Floppy"
+                                    ControlSource ="CComp3Floppy"
+                                    StatusBarText ="3.5\" Floppy Drive"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            Left =1130
+                                            Top =900
+                                            Width =885
+                                            Height =240
+                                            Name ="Label37"
+                                            Caption ="3.5\" Floppy"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =3000
+                                    Top =930
+                                    TabIndex =3
+                                    Name ="CComp5Floopy"
+                                    ControlSource ="CComp5Floopy"
+                                    StatusBarText ="5.25\" Floppy Drive"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =3230
+                                            Top =900
+                                            Width =975
+                                            Height =240
+                                            Name ="Label38"
+                                            Caption ="5.25\" Floppy"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin ComboBox
+                                    OverlapFlags =247
+                                    Left =1560
+                                    Top =1260
+                                    TabIndex =4
+                                    Name ="CCompOS"
+                                    ControlSource ="CCompOS"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="Win 95; Win 98; Win98SE, WinNT4Wk, WinNT4Svr,Win2000Pro, Win2000Svr"
+                                    StatusBarText ="Operating System"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =120
+                                            Top =1260
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label39"
+                                            Caption ="Operating System:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =1560
+                                    Top =1620
+                                    TabIndex =5
+                                    Name ="CCompWindows"
+                                    ControlSource ="CCompWindows"
+                                    StatusBarText ="Windows version"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =120
+                                            Top =1620
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label43"
+                                            Caption ="Windows:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =1620
+                                    Top =1980
+                                    TabIndex =6
+                                    Name ="CCompPrinter"
+                                    ControlSource ="CCompPrinter"
+                                    StatusBarText ="Printer"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =180
+                                            Top =1980
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label40"
+                                            Caption ="Printer:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =3240
+                                    Top =1380
+                                    TabIndex =7
+                                    Name ="CCompModem"
+                                    ControlSource ="CCompModem"
+                                    StatusBarText ="Modem"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            TextAlign =1
+                                            Left =3240
+                                            Top =1140
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label41"
+                                            Caption ="Modem:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =3240
+                                    Top =1980
+                                    TabIndex =8
+                                    Name ="CCompOtherDevices"
+                                    ControlSource ="CCompOtherDevices"
+                                    StatusBarText ="Other devices"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            TextAlign =1
+                                            Left =3240
+                                            Top =1740
+                                            Width =1365
+                                            Height =240
+                                            Name ="Label42"
+                                            Caption ="Other Devices:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =78
+                            Left =135
+                            Top =510
+                            Width =5145
+                            Height =2313
+                            Name ="pageNotes"
+                            Caption ="&Notes"
+                            Begin
+                                Begin TextBox
+                                    EnterKeyBehavior = NotDefault
+                                    ScrollBars =2
+                                    OverlapFlags =247
+                                    Left =240
+                                    Top =540
+                                    Width =5040
+                                    Height =2283
+                                    Name ="CCompNotes"
+                                    ControlSource ="CCompNotes"
+                                    StatusBarText ="Notes"
+                                    FontName ="Tahoma"
+                                End
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub CCompName_AfterUpdate()
+On Error Resume Next
+
+If IsNull(Parent![txtSItemDesc]) Then
+    Parent![txtSItemDesc] = Me.CCompName
+End If
+    
+End Sub

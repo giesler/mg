@@ -1,0 +1,248 @@
+Version =19
+VersionRequired =19
+Checksum =1695511215
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5340
+    ItemSuffix =52
+    Left =3840
+    Top =1470
+    Right =8880
+    Bottom =6375
+    RecSrcDt = Begin
+        0x8ee27efc78c9e140
+    End
+    RecordSource ="dbo.tblInvoicePay"
+    Caption ="Payment Edit"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin ToggleButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =2160
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =3780
+                    Top =120
+                    TabIndex =1
+                    BackColor =-2147483633
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkPayEmp"
+                    ControlSource ="afkIPayEmp"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselEmp"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Salesman entering payment"
+                    FontName ="Tahoma"
+                    BaseInfo ="\"dbo.qselEmp\";\"\""
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2640
+                            Top =120
+                            Width =1020
+                            Height =240
+                            Name ="Label45"
+                            Caption ="Employee:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OverlapFlags =85
+                    AccessKey =78
+                    Left =1200
+                    Top =840
+                    Width =4020
+                    Height =768
+                    TabIndex =3
+                    Name ="txtIPayNote"
+                    ControlSource ="IPayNote"
+                    StatusBarText ="Note about payment"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =420
+                            Top =840
+                            Width =660
+                            Height =240
+                            Name ="Label46"
+                            Caption ="&Note:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =68
+                    Left =1200
+                    Top =120
+                    Width =1020
+                    Name ="txtIPayDate"
+                    ControlSource ="IPayDate"
+                    Format ="Short Date"
+                    StatusBarText ="Date amount was paid"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =480
+                            Top =120
+                            Width =600
+                            Height =240
+                            Name ="Label47"
+                            Caption ="&Date:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =80
+                    Left =1200
+                    Top =480
+                    Width =1020
+                    TabIndex =2
+                    Name ="txtIPayAmt"
+                    ControlSource ="IPayAmt"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Payment amount"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =480
+                            Width =960
+                            Height =240
+                            Name ="Label48"
+                            Caption ="&Payment:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3360
+                    Top =1740
+                    Width =846
+                    Height =366
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =4320
+                    Top =1740
+                    Width =846
+                    Height =366
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Public blnCancel As Boolean
+Public blnAdd As Boolean
+
+Private Sub cmdCancel_Click()
+On Error GoTo cmdCancel_Err
+
+If blnAdd Then blnCancel = True
+If Me.Dirty Then Me.Undo
+blnCancel = True
+Me.Visible = False
+
+Exit Sub
+cmdCancel_Err:
+ErrHand Me.Name, "cmdCancel"
+Exit Sub
+End Sub
+
+Private Sub cmdOK_Click()
+On Error GoTo btnClose_Err
+
+blnCancel = Not Me.Dirty
+DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = False
+
+Exit Sub
+btnClose_Err:
+ErrHand Me.Name, "cmdClose"
+Exit Sub
+End Sub

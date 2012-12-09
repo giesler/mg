@@ -1,0 +1,146 @@
+Version =19
+VersionRequired =19
+Checksum =979333892
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =1560
+    DatasheetFontHeight =10
+    ItemSuffix =16
+    Left =1395
+    Top =1380
+    Right =8940
+    Bottom =4905
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x30cfe74a11c8e140
+    End
+    RecordSource ="tblInvoicePay"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a00500000000000080160000c003000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x0004010494004000036600060100010079037903000001000700680101000100 ,
+        0x6801010000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000013010000020000000000000000000000010040004d53554403034361 ,
+        0x6e6f6e20427562626c652d4a657420424a2d3230306500000000000000008000 ,
+        0x0000000000000000000000000000640000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin CheckBox
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="IPayDate"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportHeader"
+            Begin
+                Begin Label
+                    BackStyle =1
+                    Width =1560
+                    Height =240
+                    Name ="Label331"
+                    Caption ="Payments Received"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =240
+                    Width =1560
+                    Name ="Line12"
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    TextAlign =1
+                    Width =540
+                    Name ="SPayDate"
+                    ControlSource ="IPayDate"
+                    Format ="m/d"
+                    StatusBarText ="Date amount was paid"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =540
+                    Width =1020
+                    TabIndex =1
+                    Name ="txtSPayAmt"
+                    ControlSource ="IPayAmt"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Payment amount"
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportFooter"
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    Left =540
+                    Width =1020
+                    Name ="txtSPayAmtSum"
+                    ControlSource ="=Sum([IPayAmt])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Payment amount"
+                End
+                Begin Label
+                    BackStyle =1
+                    Width =540
+                    Height =240
+                    Name ="Label14"
+                    Caption ="Total:"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =540
+                    Width =1020
+                    Name ="Line15"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit

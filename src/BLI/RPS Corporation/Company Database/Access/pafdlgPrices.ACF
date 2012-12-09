@@ -1,0 +1,428 @@
+Version =19
+VersionRequired =19
+Checksum =1296639614
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5460
+    ItemSuffix =46
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Update Prices"
+    OnOpen ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Tahoma"
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin Tab
+            FontName ="Tahoma"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =4260
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x540dc088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3120
+                    Top =3780
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =6
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x550dc088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =4152
+                    Top =3780
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =7
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x560dc088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =5340
+                    Height =660
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="The below multipliers are used when calculating prices on the Parts 'Purchasing'"
+                        " tab.  Changing these values will affect parts when the costs are updated.  To u"
+                        "pdate all parts now, check the appropriate boxes below."
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x570dc088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =4
+                    OverlapFlags =85
+                    TextAlign =3
+                    Left =3900
+                    Top =900
+                    Width =900
+                    Name ="txtDNetMult"
+                    Format ="Fixed"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xd87b80b9e267d046a1d86fbac2cb6323
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =480
+                            Top =900
+                            Width =3300
+                            Height =240
+                            Name ="Label34"
+                            Caption ="Dealer Net Cost Each Multiplier:"
+                            GUID = Begin
+                                0x1d14ad40abb7b64f8402a1de06a6d268
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =4
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =3900
+                    Top =1260
+                    Width =900
+                    TabIndex =1
+                    Name ="txtDNetMultFab"
+                    Format ="Fixed"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xbd41f7e1a5509849a946c215ac049f85
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =480
+                            Top =1260
+                            Width =3405
+                            Height =240
+                            Name ="Label36"
+                            Caption ="Dealer Net Cost Each Multiplier (Fab Vendors):"
+                            GUID = Begin
+                                0x03985ff29304c241a5fe377a9fd7df06
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =3900
+                    Top =1620
+                    Width =900
+                    TabIndex =2
+                    Name ="txtDNetMin"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xac642f204761ac43ab5375174b296922
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =480
+                            Top =1620
+                            Width =3405
+                            Height =240
+                            Name ="Label38"
+                            Caption ="Dealer Net Minimum Price:"
+                            GUID = Begin
+                                0xd64c434b3dc4bf43b7fc8fa46aed1c90
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    DecimalPlaces =4
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =3900
+                    Top =1980
+                    Width =900
+                    TabIndex =3
+                    Name ="txtSugListMult"
+                    Format ="Fixed"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xa18a2eed23559d4d97c345e7053fad1f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =480
+                            Top =1980
+                            Width =3405
+                            Height =240
+                            Name ="Label40"
+                            Caption ="Suggested List Dealer Net Multiplier:"
+                            GUID = Begin
+                                0xa325e998deeb584689859537381b9776
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =300
+                    Top =2430
+                    Width =5040
+                    Height =480
+                    TabIndex =4
+                    Name ="chkUpdatePurchasing"
+                    DefaultValue ="False"
+                    GUID = Begin
+                        0xf7def80fb127234b85d02d0ccfb8a080
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =530
+                            Top =2400
+                            Width =4575
+                            Height =510
+                            Name ="Label42"
+                            Caption ="Update ALL Purchasing Dealer Net and Suggested List prices using above multiplie"
+                                "rs"
+                            GUID = Begin
+                                0x242effe440b83549aac95aa5b1792830
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =300
+                    Top =3060
+                    Width =5040
+                    Height =480
+                    TabIndex =5
+                    Name ="chkUpdateSales"
+                    DefaultValue ="False"
+                    GUID = Begin
+                        0x63e2b8986b9f834eacc60b9a1cc58a4c
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =530
+                            Top =3030
+                            Width =4575
+                            Height =510
+                            Name ="Label45"
+                            Caption ="Update ALL Sales Dealer Net and Suggested List prices using above multipliers"
+                            GUID = Begin
+                                0x8942b44812e2cd479619c95bcea8dfa6
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+Public blnSpecific As Boolean
+Private blnDirty As Boolean
+
+Private Sub cmdCancel_Click()
+
+  DoCmd.Close acForm, Me.Name
+  
+End Sub
+
+Private Sub cmdOK_Click()
+On Error GoTo errorHandler
+
+  Dim strMsg As String, strSQL As String, blnFlag As Boolean
+  blnFlag = False
+  
+  ' save multipliers, mins
+  If blnDirty Then
+    strMsg = "Are you sure you want to save any changes to the multipliers?"
+    If MsgBox(strMsg, vbQuestion + vbYesNo) = vbYes Then
+      strSQL = "update tblDBProperties set PropertyValue = '" + CStr(Me.txtDNetMult) + "' where PropertyName = 'Parts.DNetMult'"
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblDBProperties set PropertyValue = '" + CStr(Me.txtDNetMultFab) + "' where PropertyName = 'Parts.DNetMultFab'"
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblDBProperties set PropertyValue = '" + CStr(Me.txtDNetMin) + "' where PropertyName = 'Parts.DNetMin'"
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblDBProperties set PropertyValue = '" + CStr(Me.txtSugListMult) + "' where PropertyName = 'Parts.SugListMult'"
+      CurrentProject.Connection.Execute strSQL
+      blnFlag = True
+    End If
+  End If
+  
+  If Me.chkUpdatePurchasing Then
+    strMsg = "Are you sure you want to update the purchasing prices?"
+    If MsgBox(strMsg, vbQuestion + vbYesNo) = vbYes Then
+      OpenWaitForm "Updating prices..."
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set DealerNet = CostEach * " + CStr(Me.txtDNetMult)
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set DealerNet = CostEach * " + CStr(Me.txtDNetMultFab)
+      strSQL = strSQL + " from tblParts inner join tblVendors ON tblParts.VendorName = tblVendors.VendorName "
+      strSQL = strSQL + " where tblVendors.FabricatedParts = 1"
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set DealerNet = " + CStr(Me.txtDNetMin)
+      strSQL = strSQL + " where DealerNet > 0 and DealerNet < " + CStr(Me.txtDNetMin)
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set SuggestedList = DealerNet * " + CStr(Me.txtSugListMult)
+      CurrentProject.Connection.Execute strSQL
+      blnFlag = True
+      CloseWaitForm
+    End If
+  End If
+
+  If Me.chkUpdateSales Then
+    strMsg = "Are you sure you want to update the sales prices?"
+    If MsgBox(strMsg, vbQuestion + vbYesNo) = vbYes Then
+      OpenWaitForm "Updating prices..."
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set USADealerNet = CostEach * " + CStr(Me.txtDNetMult)
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set USADealerNet = CostEach * " + CStr(Me.txtDNetMultFab)
+      strSQL = strSQL + " from tblParts inner join tblVendors ON tblParts.VendorName = tblVendors.VendorName "
+      strSQL = strSQL + " where tblVendors.FabricatedParts = 1"
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set USADealerNet = " + CStr(Me.txtDNetMin)
+      strSQL = strSQL + " where USADealerNet > 0 and USADealerNet < " + CStr(Me.txtDNetMin)
+      CurrentProject.Connection.Execute strSQL
+      strSQL = "update tblParts "
+      strSQL = strSQL + "set USASuggestedList = USADealerNet * " + CStr(Me.txtSugListMult)
+      CurrentProject.Connection.Execute strSQL
+      blnFlag = True
+      CloseWaitForm
+    End If
+  End If
+      
+      
+  If blnFlag Then
+    MsgBox "The database has been updated.  Anyone with the Parts form open will not see the changes until they close and reopen the Parts form.", vbInformation
+    DoCmd.Close acForm, Me.Name
+  End If
+  
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "cmdOK_Click"
+Exit Sub
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+
+  If Not SecureAuthorize() Then
+    Cancel = True
+    Exit Sub
+  End If
+
+  Me.txtDNetMult = Val(DLookup("PropertyValue", "tblDBProperties", "PropertyName='Parts.DNetMult'"))
+  Me.txtDNetMultFab = Val(DLookup("PropertyValue", "tblDBProperties", "PropertyName='Parts.DNetMultFab'"))
+  Me.txtDNetMin = Val(DLookup("PropertyValue", "tblDBProperties", "PropertyName='Parts.DNetMin'"))
+  Me.txtSugListMult = Val(DLookup("PropertyValue", "tblDBProperties", "PropertyName='Parts.SugListMult'"))
+
+End Sub
+
+Private Sub txtDNetMin_AfterUpdate()
+blnDirty = True
+End Sub
+
+Private Sub txtDNetMult_AfterUpdate()
+blnDirty = True
+End Sub
+
+Private Sub txtDNetMultFab_AfterUpdate()
+blnDirty = True
+End Sub
+
+Private Sub txtSugListMult_AfterUpdate()
+blnDirty = True
+End Sub

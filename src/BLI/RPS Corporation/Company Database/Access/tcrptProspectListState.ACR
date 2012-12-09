@@ -1,0 +1,549 @@
+Version =19
+VersionRequired =19
+Checksum =-131285843
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =14280
+    ItemSuffix =54
+    Right =10785
+    Bottom =6120
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x1212a4a43903e240
+    End
+    RecordSource ="SELECT CompanyName, FirstName, LastName, City, State, Phone, Notes, Active FROM "
+        "dbo.tblProspects"
+    Caption ="Tom Cat Prospects by State"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x6801000068010000180300006801000000000000c8370000f000000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393532430000000000000000 ,
+        0x01041b409c00a80603df001e0200010079002c00640001000700fdff02000100 ,
+        0x0000030000007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a65742039353243004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =18
+            FontSize =10
+            FontWeight =700
+            FontName ="Times New Roman"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =18
+            Height =300
+            FontSize =10
+            FontName ="Times New Roman"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="State"
+        End
+        Begin BreakLevel
+            ControlSource ="CompanyName"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader3"
+            GUID = Begin
+                0xe4a5892e09f3ce418ab649bfbf9fc820
+            End
+        End
+        Begin PageHeader
+            Height =780
+            Name ="PageHeader0"
+            GUID = Begin
+                0x04ffc1cef0201244bb5ddc4f545b7636
+            End
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Left =360
+                    Top =420
+                    Width =2280
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="Company Name"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xb07657077359444f95f01717dffdfc07
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =3240
+                    Top =420
+                    Width =1200
+                    Height =240
+                    FontSize =9
+                    Name ="Text7"
+                    Caption ="First Name"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xd0768e3a8f182346ab2e0d22426385c9
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =5640
+                    Top =420
+                    Width =1500
+                    Height =240
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Phone"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf6ea65fb79f5234d8c014e265a5f88ce
+                    End
+                End
+                Begin Line
+                    Top =705
+                    Width =14280
+                    Name ="Line23"
+                    GUID = Begin
+                        0x609c342ae9a0d943a1e204537acf4436
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =705
+                    Width =14280
+                    Name ="Line24"
+                    GUID = Begin
+                        0xbe0205c545eb3d41a8f732147b1585d5
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Width =14280
+                    Height =360
+                    FontSize =11
+                    Name ="lblHeading"
+                    Caption ="Tom Cat Prospects"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x6e3e850b4db894478fc09cf3d2ad0921
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =4440
+                    Top =420
+                    Width =1200
+                    Height =240
+                    FontSize =9
+                    Name ="Label35"
+                    Caption ="Last Name"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x803777efb51fe9499400eb46809f9269
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =7140
+                    Top =420
+                    Width =1440
+                    Height =240
+                    FontSize =9
+                    Name ="Label43"
+                    Caption ="City"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x0c81c2d0807af6458b5c75a7b0ba6e9a
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =8580
+                    Top =420
+                    Width =660
+                    Height =240
+                    FontSize =9
+                    Name ="Label44"
+                    Caption ="State"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x5e80d0c78ae4e244aade12f71a2ba430
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =9240
+                    Top =420
+                    Width =5040
+                    Height =240
+                    FontSize =9
+                    Name ="Label47"
+                    Caption ="Note"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7e37736bbd9f1b478e8e12826ef79a7c
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =420
+                    Width =360
+                    Height =240
+                    FontSize =9
+                    Name ="Label52"
+                    Caption ="A/I"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x50b1499017e95943bf49c8287df5d58e
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =480
+            Name ="GroupHeader0"
+            GUID = Begin
+                0x025994473ad72347b72501c266dd63bc
+            End
+            Begin
+                Begin Line
+                    Top =420
+                    Width =14280
+                    Name ="Line51"
+                    GUID = Begin
+                        0x71f10c0a5b9a7345861449a4bbd74123
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =60
+                    Top =120
+                    Width =2280
+                    Height =240
+                    FontSize =9
+                    FontWeight =700
+                    Name ="Label49"
+                    ControlSource ="=\"State: \" & [State]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf3c23aa8db03154babad5862096805f3
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x1ce1af453746d74e85f4ed6102d082a4
+            End
+            Begin
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =360
+                    Width =2880
+                    Height =240
+                    FontSize =8
+                    Name ="Company Name"
+                    ControlSource ="CompanyName"
+                    FontName ="Arial"
+                    EventProcPrefix ="Company_Name"
+                    GUID = Begin
+                        0x880c89e2dfc1ef45adb407eb22c4020d
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =3240
+                    Width =1200
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Date of Lead"
+                    ControlSource ="FirstName"
+                    FontName ="Arial"
+                    EventProcPrefix ="Date_of_Lead"
+                    GUID = Begin
+                        0x4f4b2e0fd0250342937ac4eaf674ecd1
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =5640
+                    Width =1500
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="txtPhone"
+                    ControlSource ="Phone"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x14753061a94ca244b7de3c35095dab4e
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =4440
+                    Width =1200
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Text36"
+                    ControlSource ="LastName"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xb97a3fad3ece6943bdbd624d659fc09a
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =7140
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Text45"
+                    ControlSource ="City"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xae63929555ccce4c907e1ea269eafa7d
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =8580
+                    Width =660
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Text46"
+                    ControlSource ="State"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xa77d41969ae85e4e963d23b953174fc2
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =9240
+                    Width =5040
+                    Height =240
+                    FontSize =8
+                    TabIndex =6
+                    Name ="Text48"
+                    ControlSource ="Notes"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x413cf5e131ef944aa0b97fa5543e558b
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =360
+                    Height =240
+                    FontSize =8
+                    TabIndex =7
+                    Name ="Text53"
+                    ControlSource ="=IIf([Active],\"A\",\"I\")"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xa1c40d7e7bf5ce41b65e746e35859bf9
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =240
+            Name ="GroupFooter1"
+            GUID = Begin
+                0x45371df0d25f1341a9e434ba21c094c9
+            End
+            Begin
+                Begin Line
+                    Top =60
+                    Width =14280
+                    Name ="Line27"
+                    GUID = Begin
+                        0x433af3281869ca49a3d6985b91be0c14
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x574d1955739829489792a68138b296e4
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =10440
+                    Top =120
+                    Width =3840
+                    Height =240
+                    FontSize =8
+                    Name ="Field18"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xddad3a09500135459864bd11fcdafda6
+                    End
+                End
+                Begin Line
+                    Top =120
+                    Width =14280
+                    Name ="Line26"
+                    GUID = Begin
+                        0x77c20ce72175784fa7b6b86ac26141b9
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Top =120
+                    Width =2040
+                    Height =240
+                    FontSize =8
+                    Name ="Text30"
+                    Caption ="RPS Corporation"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x2f7947fb87ba0945b5abfa7e5e14bbfb
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =4620
+                    Top =120
+                    Width =3840
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field31"
+                    ControlSource ="=\"Printed \" & Date()"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf7195c4b636660409440aa11817a81ed
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x954e43d27aaeb5428a22845ee43eb909
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim sMsg As String
+sMsg = "Include only active prospects on this report?"
+
+If MsgBox(sMsg, vbQuestion + vbYesNo, Me.Caption) = vbYes Then
+  Me.ServerFilter = "Active = 1"
+Else
+  Me.ServerFilter = ""
+End If
+  
+End Sub

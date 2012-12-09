@@ -1,0 +1,159 @@
+Version =19
+VersionRequired =19
+Checksum =-1759788369
+Begin Form
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    AllowEdits = NotDefault
+    AllowUpdating =2
+    ScrollBars =2
+    ViewsAllowed =1
+    GridX =24
+    GridY =24
+    Width =6600
+    ItemSuffix =20
+    Left =1800
+    Top =5625
+    Right =8685
+    Bottom =6810
+    RecSrcDt = Begin
+        0xf2110a1779c9e140
+    End
+    RecordSource ="dbo.tblOrder"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    FontUnderline = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    TextAlign =1
+                    Width =1140
+                    TabIndex =1
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    ForeColor =10040115
+                    Name ="OrderNumber"
+                    ControlSource ="OrderNumber"
+                    StatusBarText ="Order number (internal use)"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1140
+                    Width =1260
+                    TabIndex =2
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="OrderInvNum"
+                    ControlSource ="OrderInvNum"
+                    StatusBarText ="Order invoice number/PO"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =2400
+                    Width =960
+                    TabIndex =3
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="OrderDate"
+                    ControlSource ="OrderDate"
+                    Format ="Short Date"
+                    StatusBarText ="Order date"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =3360
+                    Width =960
+                    TabIndex =4
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="OrderRcvdDate"
+                    ControlSource ="OrderRcvdDate"
+                    Format ="Short Date"
+                    StatusBarText ="Order received date"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =4320
+                    Width =1140
+                    TabIndex =5
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="OrderTotal"
+                    ControlSource ="OrderTotal"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Order total"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =5460
+                    Width =1140
+                    TabIndex =6
+                    BackColor =-2147483633
+                    BorderColor =4210752
+                    Name ="OrderShipping"
+                    ControlSource ="OrderShipping"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Order shipping total"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Transparent = NotDefault
+                    OverlapFlags =247
+                    TextFontFamily =34
+                    Width =6600
+                    Height =240
+                    Name ="cmdOpenOrder"
+                    Caption ="Command19"
+                    OnClick ="=OpenOrderDetail([apkOrder])"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End

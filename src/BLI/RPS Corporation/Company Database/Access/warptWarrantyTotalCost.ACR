@@ -1,0 +1,836 @@
+Version =19
+VersionRequired =19
+Checksum =1273152779
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10680
+    ItemSuffix =49
+    Left =795
+    Top =390
+    Right =9525
+    Bottom =5100
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x30f5f34e57f7e140
+    End
+    InputParameters ="GetDealerName(), GetFromDate(), GetToDate(),  GetOpenFlag(), GetFromDate2(), Get"
+        "ToDate2(), GetFromDate3(), GetToDate3(), GetType()"
+    RecordSource ="dbo.wasprptWarrantyTotalCost"
+    Caption ="Warranty: Total Cost of Warranty"
+    OnOpen ="[Event Procedure]"
+    OnClose ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000b7290000ef00000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393530432053657269657300 ,
+        0x01041b409c00a80603df001e0100010079002c00640001000700fdff02000100 ,
+        0x0000030000007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011003100010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a6574203935304320536572696573004c5054313a00000000000000000000 ,
+        0x00000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="Dealer"
+        End
+        Begin BreakLevel
+            ControlSource ="Model"
+        End
+        Begin BreakLevel
+            ControlSource ="MachineSerialNumber"
+        End
+        Begin BreakLevel
+            ControlSource ="DateOfFailure"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader5"
+            GUID = Begin
+                0xbccd04e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageHeader
+            Height =1155
+            Name ="PageHeader0"
+            GUID = Begin
+                0xbfcd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextAlign =3
+                    Left =5280
+                    Top =720
+                    Width =840
+                    Height =420
+                    Name ="Text38"
+                    Caption ="Hours On \015\012Machine "
+                    GUID = Begin
+                        0xcacd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =10680
+                    Height =420
+                    FontSize =14
+                    FontWeight =700
+                    Name ="lblHead"
+                    Caption ="Warranty Report - Total Cost of Warranty"
+                    GUID = Begin
+                        0xbdcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =420
+                    Width =10680
+                    Height =240
+                    FontWeight =700
+                    Name ="lblHeading"
+                    GUID = Begin
+                        0xbecd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    Left =60
+                    Top =915
+                    Width =720
+                    Height =240
+                    Name ="Text11"
+                    Caption ="Model #"
+                    GUID = Begin
+                        0xc1cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    Left =780
+                    Top =915
+                    Width =1440
+                    Height =240
+                    Name ="Text16"
+                    Caption ="Serial #"
+                    GUID = Begin
+                        0xc2cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =2
+                    Left =2220
+                    Top =915
+                    Width =1020
+                    Height =240
+                    Name ="Text17"
+                    Caption ="Failure Date"
+                    GUID = Begin
+                        0xc3cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =3
+                    Left =6120
+                    Top =915
+                    Width =1080
+                    Height =240
+                    Name ="Text18"
+                    Caption ="Labor Amount"
+                    GUID = Begin
+                        0xc4cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =3
+                    Left =7200
+                    Top =915
+                    Width =1080
+                    Height =240
+                    Name ="Text19"
+                    Caption ="Parts Amount"
+                    GUID = Begin
+                        0xc5cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =3
+                    Left =8280
+                    Top =915
+                    Width =1200
+                    Height =240
+                    Name ="Text20"
+                    Caption ="Travel Amount"
+                    GUID = Begin
+                        0xc6cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =3
+                    Left =9480
+                    Top =720
+                    Width =1200
+                    Height =435
+                    Name ="Text21"
+                    Caption ="Total Cost  \015\012 of Failure  "
+                    GUID = Begin
+                        0xc7cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =1140
+                    Width =10680
+                    Name ="Line13"
+                    GUID = Begin
+                        0xc9cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =2
+                    Left =3240
+                    Top =915
+                    Width =1020
+                    Height =240
+                    Name ="Label43"
+                    Caption ="CM Date"
+                    GUID = Begin
+                        0xb1f73de16a43764db7ebeda2bf1bbba3
+                    End
+                End
+                Begin Label
+                    BackStyle =0
+                    TextAlign =3
+                    Left =4260
+                    Top =915
+                    Width =1020
+                    Height =240
+                    Name ="Label45"
+                    Caption ="CM Amount"
+                    GUID = Begin
+                        0xcc6557bdc565104d9add20701dac6ca2
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =420
+            Name ="GroupHeader7"
+            GUID = Begin
+                0xc0cd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextFontFamily =34
+                    Top =60
+                    Width =4320
+                    Height =360
+                    FontSize =11
+                    FontWeight =700
+                    Name ="Dealer"
+                    ControlSource ="Dealer"
+                    GUID = Begin
+                        0xc8cd04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0xcbcd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Left =60
+                    Width =720
+                    Name ="Model"
+                    ControlSource ="Model"
+                    GUID = Begin
+                        0xcccd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =780
+                    TabIndex =1
+                    Name ="Machine Serial Number"
+                    ControlSource ="MachineSerialNumber"
+                    EventProcPrefix ="Machine_Serial_Numbe"
+                    GUID = Begin
+                        0xcdcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =2220
+                    Width =1020
+                    TabIndex =2
+                    Name ="Date of Failure"
+                    ControlSource ="DateOfFailure"
+                    EventProcPrefix ="Date_of_Failure"
+                    GUID = Begin
+                        0xcecd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =5880
+                    Width =1320
+                    TabIndex =3
+                    Name ="Labor Cost"
+                    ControlSource ="LaborCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    EventProcPrefix ="Labor_Cost"
+                    GUID = Begin
+                        0xcfcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =7200
+                    Width =1080
+                    TabIndex =4
+                    Name ="SumOfPartCost"
+                    ControlSource ="ExtPartCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd0cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =8280
+                    Width =1200
+                    TabIndex =5
+                    Name ="Travel"
+                    ControlSource ="Travel"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd1cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9480
+                    Width =1200
+                    FontWeight =700
+                    TabIndex =6
+                    Name ="Field22"
+                    ControlSource ="=[laborcost]+[ExtPartCost]+[travel]"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd2cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =240
+                    Width =10680
+                    BorderColor =12632256
+                    Name ="Line12"
+                    GUID = Begin
+                        0xd3cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =5280
+                    Width =600
+                    TabIndex =7
+                    Name ="Hours"
+                    ControlSource ="Hours"
+                    GUID = Begin
+                        0xd4cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =3240
+                    Width =1020
+                    TabIndex =8
+                    Name ="Text44"
+                    ControlSource ="CreditMemoDate"
+                    GUID = Begin
+                        0x946321e1419b784cb993caa254ce9fe5
+                    End
+                End
+                Begin TextBox
+                    Left =4260
+                    Width =1020
+                    TabIndex =9
+                    Name ="Text46"
+                    ControlSource ="CreditMemoAmt"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x5cb8c3c5f793d044a0125d8c5a112711
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =480
+            Name ="GroupFooter4"
+            GUID = Begin
+                0xd5cd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5880
+                    Top =120
+                    Width =1320
+                    FontWeight =700
+                    Name ="Field24"
+                    ControlSource ="=Sum([laborcost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd6cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7200
+                    Top =120
+                    Width =1080
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Field27"
+                    ControlSource ="=Sum([ExtPartCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd7cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8280
+                    Top =120
+                    Width =1200
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Field28"
+                    ControlSource ="=Sum([travel])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd8cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9480
+                    Top =120
+                    Width =1200
+                    FontWeight =700
+                    TabIndex =3
+                    BorderColor =8421504
+                    ForeColor =16711680
+                    Name ="Field29"
+                    ControlSource ="=Sum([laborcost])+Sum([ExtPartCost])+Sum([travel])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd9cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Top =120
+                    Width =4200
+                    FontWeight =700
+                    TabIndex =4
+                    Name ="Field36"
+                    ControlSource ="=[dealer] & \" Total:\""
+                    GUID = Begin
+                        0xdacd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5280
+                    Top =120
+                    Width =600
+                    FontWeight =700
+                    TabIndex =5
+                    Name ="Field41"
+                    ControlSource ="=Sum([hours])"
+                    GUID = Begin
+                        0xdbcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =4260
+                    Top =120
+                    Width =1020
+                    FontWeight =700
+                    TabIndex =6
+                    Name ="Text47"
+                    ControlSource ="=Sum([CreditMemoAmt])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x4a0b411d4732144d9684ee2ef3874203
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0xdccd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8760
+                    Top =120
+                    Width =1872
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0xddcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3960
+                    Top =120
+                    Width =2592
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xdecd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Top =120
+                    Width =1917
+                    Height =240
+                    FontWeight =700
+                    Name ="Text32"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xdfcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =10680
+                    Name ="Line23"
+                    GUID = Begin
+                        0xe0cd04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =600
+            Name ="ReportFooter6"
+            GUID = Begin
+                0xe1cd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5880
+                    Top =360
+                    Width =1320
+                    FontWeight =700
+                    Name ="Field30"
+                    ControlSource ="=Sum([laborcost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xe2cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Top =360
+                    Width =4200
+                    Height =240
+                    FontWeight =700
+                    Name ="Text31"
+                    Caption ="Total Warranty Costs Overall: "
+                    GUID = Begin
+                        0xe3cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7200
+                    Top =360
+                    Width =1080
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Field32"
+                    ControlSource ="=Sum([ExtPartCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xe4cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8280
+                    Top =360
+                    Width =1200
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Field33"
+                    ControlSource ="=Sum([travel])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xe5cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9480
+                    Top =360
+                    Width =1200
+                    FontWeight =700
+                    TabIndex =3
+                    BorderColor =8421504
+                    ForeColor =16711680
+                    Name ="Field34"
+                    ControlSource ="=Sum([laborcost])+Sum([ExtPartCost])+Sum([travel])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xe6cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    BorderLineStyle =3
+                    Top =240
+                    Width =10680
+                    Name ="Line35"
+                    GUID = Begin
+                        0xe7cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5280
+                    Top =360
+                    Width =600
+                    FontWeight =700
+                    TabIndex =4
+                    Name ="Field42"
+                    ControlSource ="=Sum([hours])"
+                    GUID = Begin
+                        0xe8cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =4260
+                    Top =360
+                    Width =1020
+                    FontWeight =700
+                    TabIndex =5
+                    Name ="Text48"
+                    ControlSource ="=Sum([CreditMemoAmt])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x1f98cb4627e1f847b4055879542b2230
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub Report_Close()
+DoCmd.Close acForm, "fdlgEnterDates"
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fR As New Form_wafrptWarrantyTotalCost
+
+If mbTomCat Then
+  iType = 1
+  Me.Caption = "TC Warranty: Total Cost"
+  Me.lblHead.Caption = "Tom Cat Total Cost of Warranty"
+  fR.comDealer.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 1) GROUP BY DealerName ORDER BY DealerName"
+Else
+  iType = 0
+  Me.Caption = "FC Warranty: Total Cost"
+  Me.lblHead.Caption = "Factory Cat Total Cost of Warranty"
+  fR.comDealer.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 0) GROUP BY DealerName ORDER BY DealerName"
+End If
+
+fR.Caption = Me.Caption
+fR.Visible = True
+Pause fR
+If fR.blnCancel Then
+  Cancel = True
+  Set fR = Nothing
+  Exit Sub
+End If
+
+Dim strMsg As String
+
+datFromDate = fR.datFrom
+datToDate = fR.datTo
+datFromDate2 = fR.datEnteredFrom
+datToDate2 = fR.datEnteredTo
+datFromDate3 = fR.datCMFrom
+datToDate3 = fR.datCMTo
+sDealerName = fR.comDealer
+iOpenFlag = fR.lstOpenWarranty
+
+If fR.datFrom <> "" Or fR.datTo <> "" Then
+  strMsg = "Date of Failure: " & FormatFromTo(fR.datFrom, fR.datTo)
+End If
+
+If fR.datEnteredFrom <> "" Or fR.datEnteredTo <> "" Then
+  If strMsg <> "" Then strMsg = strMsg & ", "
+  strMsg = strMsg & "Date entered: " & FormatFromTo(fR.datEnteredFrom, fR.datEnteredTo)
+End If
+
+If fR.datCMFrom <> "" Or fR.datCMTo <> "" Then
+  If strMsg <> "" Then strMsg = strMsg & ", "
+  strMsg = strMsg & "CM Date: " & FormatFromTo(fR.datCMFrom, fR.datCMTo)
+End If
+
+If fR.comDealer <> "" Then
+  If strMsg <> "" Then strMsg = strMsg & ", "
+  strMsg = strMsg & "Dealer: " & fR.comDealer
+End If
+
+If Not IsNull(fR.lstOpenWarranty) Then
+  If strMsg <> "" Then strMsg = strMsg & ", "
+  strMsg = strMsg & fR.lstOpenWarranty.Column(1)
+End If
+
+If strMsg <> "" Then
+  Me.lblHeading.Caption = strMsg
+End If
+
+If fR.chkPageBreak Then
+  Me.GroupHeader7.ForceNewPage = 1
+End If
+
+Set fR = Nothing
+
+
+End Sub

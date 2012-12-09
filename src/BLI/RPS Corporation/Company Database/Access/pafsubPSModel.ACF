@@ -1,0 +1,61 @@
+Version =19
+VersionRequired =19
+Checksum =1715347767
+Begin Form
+    NavigationButtons = NotDefault
+    DefaultView =2
+    AllowUpdating =4
+    ViewsAllowed =2
+    ItemSuffix =10
+    Left =3285
+    Top =1050
+    Right =5490
+    Bottom =4395
+    RecSrcDt = Begin
+        0x8ab4f046dfd1e140
+    End
+    RecordSource ="dbo.tblProdSchedItems"
+    Begin
+        Begin Section
+            Height =4320
+            Name ="Detail0"
+            GUID = Begin
+                0x230ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1872
+                    Top =1680
+                    ColumnWidth =960
+                    TabIndex =1
+                    Name ="Quantity"
+                    ControlSource ="Quantity"
+                    GUID = Begin
+                        0x240ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    ListWidth =2880
+                    Left =1872
+                    Top =960
+                    Width =1060
+                    ColumnWidth =915
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"3\";\"2\""
+                    GUID = Begin
+                        0x250ec088b84ad311bb05004033532b7f
+                    End
+                    Name ="Model"
+                    ControlSource ="Model"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselModel"
+                    ColumnWidths ="720;2160"
+                End
+            End
+        End
+    End
+End

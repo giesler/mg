@@ -1,0 +1,250 @@
+Version =19
+VersionRequired =19
+Checksum =-887664862
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =3120
+    DatasheetFontHeight =10
+    ItemSuffix =12
+    Left =675
+    Top =1455
+    Right =4035
+    Bottom =4680
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xe4220c108d6de140
+    End
+    Caption ="Invoices"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =3960
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =65
+                    Left =540
+                    Top =2700
+                    Width =1980
+                    TabIndex =4
+                    Name ="cmdBrowseAll"
+                    Caption ="Browse &All"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =540
+                    Top =3480
+                    Width =1980
+                    TabIndex =5
+                    Name ="cmdClose"
+                    Caption ="&Cancel"
+                    OnClick ="=CloseForm()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =70
+                    Left =540
+                    Top =1260
+                    Width =1980
+                    TabIndex =1
+                    Name ="cmdFindInvoice"
+                    Caption ="&Find Invoice"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =540
+                    Top =720
+                    Width =1980
+                    Name ="cmdNewPO"
+                    Caption ="&Create From PO"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin Line
+                    BorderWidth =2
+                    OverlapFlags =85
+                    Top =3300
+                    Width =3120
+                    BorderColor =4210752
+                    Name ="Line5"
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =66
+                    Left =540
+                    Top =1800
+                    Width =1980
+                    TabIndex =2
+                    Name ="cmdBrowseRecent"
+                    Caption ="&Browse Since..."
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x92cfb3d87765a746a7ba758e198808a5
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1740
+                    Top =2280
+                    Width =840
+                    TabIndex =3
+                    Name ="txtOrderDate"
+                    Format ="Short Date"
+                    DefaultValue ="=Date()-365"
+                    InputMask ="99/99/00;0;_1"
+                    GUID = Begin
+                        0xc52ac7047d937841bc23f6e16868a048
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =540
+                            Top =2280
+                            Width =1095
+                            Height =240
+                            Name ="Label9"
+                            Caption ="Order Date:"
+                            FontName ="Tahoma"
+                            GUID = Begin
+                                0xe96ffca2c857fd419ea06805d5c4084f
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =2
+                    Width =3120
+                    Height =480
+                    FontSize =14
+                    FontWeight =700
+                    ForeColor =128
+                    Name ="Label - Page"
+                    Caption ="Invoices"
+                    FontName ="Tahoma"
+                    EventProcPrefix ="Label___Page"
+                    GUID = Begin
+                        0x867d9ad3558b34419c32c1b292080545
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    OverlapFlags =85
+                    Top =540
+                    Width =3120
+                    BorderColor =4210752
+                    Name ="Line6"
+                    GUID = Begin
+                        0x0e3b4d6c834dc045ba138d41a0203d37
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdBrowseAll_Click()
+On Error GoTo errHandler
+
+  DoCmd.Close acForm, Me.Name
+  DoCmd.Close acForm, "Frm_Invoice"
+  DoCmd.OpenForm "Frm_Invoice"
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdBrowseAll"
+Exit Sub
+End Sub
+
+Private Sub cmdBrowseRecent_Click()
+On Error GoTo errHandler
+
+  Dim txtRecent As String
+  txtRecent = Me.txtOrderDate
+  DoCmd.Close acForm, Me.Name
+  DoCmd.Close acForm, "Frm_Invoice"
+  DoCmd.OpenForm "Frm_Invoice", acNormal, , "Date_Ordered > '" + txtRecent + "'", , , "Recent Invoices"
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdBrowseRecent_Click"
+Exit Sub
+End Sub
+
+Private Sub cmdFindInvoice_Click()
+On Error GoTo errHandler
+    
+  DoCmd.Close acForm, Me.Name
+  DoCmd.OpenForm "Frm_Invoice_Search"
+    
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdFindPO"
+Exit Sub
+End Sub
+
+Private Sub cmdNewPO_Click()
+On Error GoTo errHandler
+    
+  DoCmd.Close acForm, Me.Name
+  DoCmd.OpenForm "Frm_Invoice_Build"
+    
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdFindPO"
+Exit Sub
+End Sub

@@ -1,0 +1,549 @@
+Version =19
+VersionRequired =19
+Checksum =-875688987
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =10800
+    DatasheetFontHeight =10
+    ItemSuffix =51
+    DatasheetGridlinesColor =12632256
+    Toolbar ="RFReportToolBar"
+    RecSrcDt = Begin
+        0x20ecd99991f6e140
+    End
+    InputParameters ="GetSPVar(\"ID\")"
+    RecordSource ="dbo.sp_Report_WorkOrder"
+    Caption ="Work Order"
+    MenuBar ="RFReportMenuBar"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xd0020000d0020000d00200001803000000000000302a0000e001000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin UnboundObjectFrame
+            OldBorderStyle =1
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="ID"
+        End
+        Begin PageHeader
+            Height =5040
+            Name ="PageHeader"
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Left =8880
+                    Top =240
+                    Width =1920
+                    Height =480
+                    FontWeight =700
+                    Name ="Label3"
+                    Caption ="3000 Wolff Street \015\012Racine, WI  53404"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =8880
+                    Top =720
+                    Width =1920
+                    Height =480
+                    FontWeight =700
+                    Name ="Label4"
+                    Caption ="Phone (414) 619-3040\015\012Fax (414) 619-3059"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =4365
+                    Top =1440
+                    Width =2055
+                    Height =480
+                    FontSize =18
+                    FontWeight =700
+                    Name ="Label5"
+                    Caption ="Work Order"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8340
+                    Top =1920
+                    Width =2340
+                    Height =270
+                    FontSize =10
+                    FontWeight =700
+                    Name ="PO"
+                    ControlSource ="PO"
+                End
+                Begin Label
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8340
+                    Top =1680
+                    Width =2340
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label19"
+                    Caption ="PO #"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =120
+                    Top =1920
+                    Width =1680
+                    Height =270
+                    FontSize =10
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Text20"
+                    ControlSource ="Date_Ordered"
+                    Format ="Short Date"
+                End
+                Begin Label
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =120
+                    Top =1680
+                    Width =1680
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label21"
+                    Caption ="Date Ordered"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =8160
+                    Top =2640
+                    Width =2520
+                    Height =270
+                    FontSize =10
+                    TabIndex =2
+                    Name ="Ship_Date"
+                    ControlSource ="Ship_Date"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =8160
+                    Top =3000
+                    Width =2520
+                    Height =270
+                    FontSize =10
+                    TabIndex =3
+                    Name ="Ship_via"
+                    ControlSource ="Ship_via"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1800
+                    Top =2640
+                    Width =2760
+                    Height =270
+                    FontSize =10
+                    TabIndex =4
+                    Name ="Ship_Name"
+                    ControlSource ="Ship_Name"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1800
+                    Top =3000
+                    Width =2760
+                    Height =270
+                    FontSize =10
+                    TabIndex =5
+                    Name ="city_state"
+                    ControlSource ="city_state"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =120
+                    Top =2640
+                    Width =1560
+                    Height =240
+                    FontSize =10
+                    Name ="Label27"
+                    Caption ="STORE"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =120
+                    Top =3000
+                    Width =1560
+                    Height =240
+                    FontSize =10
+                    Name ="Label28"
+                    Caption ="CITY/STATE"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =6480
+                    Top =2640
+                    Width =1560
+                    Height =240
+                    FontSize =10
+                    Name ="Label29"
+                    Caption ="SHIP DATE"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =6480
+                    Top =3000
+                    Width =1560
+                    Height =240
+                    FontSize =10
+                    Name ="Label31"
+                    Caption ="SHIP VIA"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =120
+                    Top =3360
+                    Width =1560
+                    Height =240
+                    FontSize =10
+                    Name ="Label32"
+                    Caption ="COMMENTS"
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    BorderWidth =1
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1800
+                    Top =3360
+                    Width =8880
+                    Height =993
+                    FontSize =10
+                    TabIndex =6
+                    Name ="Comments"
+                    ControlSource ="Comments"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =240
+                    Top =4560
+                    Width =720
+                    Height =360
+                    FontSize =10
+                    Name ="Label38"
+                    Caption ="QTY"
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1200
+                    Top =4560
+                    Width =6000
+                    Height =360
+                    FontSize =10
+                    Name ="Label39"
+                    Caption ="SHELF TYPE"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7447
+                    Top =4560
+                    Width =2160
+                    Height =360
+                    FontSize =10
+                    Name ="Label40"
+                    Caption ="PRODUCT WEIGHT"
+                End
+                Begin Line
+                    Left =240
+                    Top =4920
+                    Width =9360
+                    Name ="Line41"
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =691
+                    Width =10800
+                    Name ="Line0"
+                End
+                Begin Subform
+                    OldBorderStyle =0
+                    Width =7140
+                    Height =1047
+                    TabIndex =7
+                    Name ="subLogo"
+                    SourceObject ="Report.rsubLogo"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =4980
+                    Top =2640
+                    Width =1320
+                    Height =270
+                    FontSize =10
+                    TabIndex =8
+                    Name ="Ship_StoreNo"
+                    ControlSource ="Ship_StoreNo"
+                    GUID = Begin
+                        0x7ad7f4e6992cd3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =4620
+                            Top =2640
+                            Width =300
+                            Height =270
+                            FontSize =10
+                            Name ="Label50"
+                            Caption ="#:"
+                            GUID = Begin
+                                0x7bd7f4e6992cd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =480
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =240
+                    Width =720
+                    Height =360
+                    FontSize =10
+                    Name ="txtQuanity"
+                    ControlSource ="Quanity"
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =1200
+                    Width =6000
+                    Height =360
+                    FontSize =10
+                    TabIndex =1
+                    Name ="Description"
+                    ControlSource ="MatDescription"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7440
+                    Width =960
+                    Height =360
+                    FontSize =10
+                    TabIndex =2
+                    Name ="Weight"
+                    ControlSource ="Weight"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8640
+                    Width =960
+                    Height =360
+                    FontSize =10
+                    TabIndex =3
+                    Name ="Text37"
+                    ControlSource ="ExtWeight"
+                End
+                Begin Subform
+                    Left =1200
+                    Top =420
+                    Width =6135
+                    Height =1
+                    TabIndex =4
+                    Name ="subPOSubItems"
+                    SourceObject ="Report.rsubPOSubItems"
+                    LinkChildFields ="afkItemNum"
+                    LinkMasterFields ="apkPOItem"
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            ForceNewPage =2
+            Height =540
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x8a083c4445fd064d8faeb05eff6d03a5
+            End
+            Begin
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =7440
+                    Top =60
+                    Width =2160
+                    Name ="Line42"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8400
+                    Top =180
+                    Width =1200
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Text43"
+                    ControlSource ="=Sum([ExtWeight])"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5760
+                    Top =180
+                    Width =2640
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label45"
+                    Caption ="TOTAL WEIGHT: "
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter"
+            Begin
+                Begin Line
+                    BorderWidth =1
+                    Width =10695
+                    Name ="Line55"
+                    GUID = Begin
+                        0x8b8e09ae9977cd469c5acf45b0ba8edc
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3240
+                    Top =60
+                    Width =4200
+                    Name ="Text54"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x3273ea2c31e1954ab5b64df21bb94430
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =60
+                    Top =60
+                    Width =3120
+                    Height =240
+                    Name ="Text56"
+                    Caption ="Retail Fixture, LLC."
+                    GUID = Begin
+                        0x6a8d4781dd59424787f033cea46b466f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7500
+                    Top =60
+                    Width =3120
+                    TabIndex =1
+                    Name ="Text57"
+                    ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
+                    GUID = Begin
+                        0x5f985e9a4a34e7418aaa0ba3e43cd6f7
+                    End
+                End
+            End
+        End
+    End
+End

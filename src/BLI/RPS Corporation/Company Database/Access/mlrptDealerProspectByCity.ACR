@@ -1,0 +1,334 @@
+Version =19
+VersionRequired =19
+Checksum =800705592
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10080
+    ItemSuffix =32
+    Left =720
+    Top =270
+    Right =8715
+    Bottom =5340
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x2acd84bacec5e140
+    End
+    InputParameters ="@sState = GetState(), @sCounty = GetCounty()"
+    RecordSource ="dbo.mlsprptDealerProspect"
+    Caption ="Maillist: Dealer Prospect by City/Zip"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x380400003804000038040000380400000000000060270000df01000001000000 ,
+        0x010000006801000000000000a10700000100000000000000
+    End
+    PrtDevMode = Begin
+        0x4570736f6e205374796c757320434f4c4f5220393030204553432f5020320000 ,
+        0x010400059c00900243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x2200000030026000771acc870000000000000000000000000100000000000000 ,
+        0x0000000000000000090000000100000001000000000003000000000003000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000600000004f535045414182820300000001000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x0000000000000000000000000000000089270000000000000300000002000000 ,
+        0x050000000200000001000000
+    End
+    PrtDevNames = Begin
+        0x080011003000010077696e73706f6f6c004570736f6e205374796c757320434f ,
+        0x4c4f5220393030204553432f502032004550534f4e0000000000000000000000 ,
+        0x000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="MailCity"
+        End
+        Begin BreakLevel
+            ControlSource ="MailZip"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =720
+            Name ="ReportHeader3"
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =10080
+                    Height =360
+                    FontSize =12
+                    Name ="Text23"
+                    Caption ="Dealer Prospect Report - By City/Zip"
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =6780
+                    Height =240
+                    FontWeight =400
+                    Name ="lblCrit"
+                    GUID = Begin
+                        0x9c5db78e4d12be4395cc6815c2983be6
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =480
+            Name ="PageHeader0"
+            Begin
+                Begin Label
+                    Top =120
+                    Width =2760
+                    Height =285
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="Company Name, Contact Name"
+                End
+                Begin Label
+                    Left =3120
+                    Top =120
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Address"
+                End
+                Begin Label
+                    Left =6360
+                    Top =120
+                    Width =960
+                    Height =240
+                    FontSize =9
+                    Name ="Text15"
+                    Caption ="Phone #"
+                End
+                Begin Label
+                    Left =7920
+                    Top =120
+                    Width =1080
+                    Height =240
+                    FontSize =9
+                    Name ="Text17"
+                    Caption ="SIC Code"
+                End
+                Begin Label
+                    Left =9000
+                    Top =120
+                    Width =960
+                    Height =240
+                    FontSize =9
+                    Name ="Text19"
+                    Caption ="Plant Size"
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =480
+                    Width =10080
+                    Name ="Line28"
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =480
+            Name ="Detail1"
+            Begin
+                Begin TextBox
+                    Width =3120
+                    Height =240
+                    FontSize =9
+                    Name ="Company Name"
+                    ControlSource ="CompName"
+                    EventProcPrefix ="Company_Name"
+                End
+                Begin TextBox
+                    Left =3120
+                    Width =3240
+                    Height =240
+                    FontSize =9
+                    TabIndex =1
+                    Name ="Address"
+                    ControlSource ="MailAddress"
+                End
+                Begin TextBox
+                    Left =3120
+                    Top =240
+                    Width =3240
+                    Height =240
+                    FontSize =9
+                    TabIndex =2
+                    Name ="CityST"
+                    ControlSource ="=[MailCity] & \", \" & [MailState]"
+                End
+                Begin TextBox
+                    Left =6360
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    TabIndex =3
+                    Name ="Phone #"
+                    ControlSource ="Phone"
+                    InputMask ="!\\(999\") \"000\\-0000;;_"
+                    EventProcPrefix ="Phone__"
+                End
+                Begin TextBox
+                    Left =7920
+                    Width =1080
+                    Height =240
+                    FontSize =9
+                    TabIndex =4
+                    Name ="SIC Code"
+                    ControlSource ="SICCode"
+                    EventProcPrefix ="SIC_Code"
+                End
+                Begin TextBox
+                    Left =9000
+                    Width =960
+                    Height =240
+                    FontSize =9
+                    TabIndex =5
+                    Name ="Plant Size"
+                    ControlSource ="PlantSqFt"
+                    EventProcPrefix ="Plant_Size"
+                End
+                Begin Subform
+                    OldBorderStyle =0
+                    Left =240
+                    Top =240
+                    Width =2895
+                    Height =239
+                    TabIndex =6
+                    Name ="subProspectContact"
+                    SourceObject ="Report.mlrsubProspectContact"
+                    LinkChildFields ="fkCompID"
+                    LinkMasterFields ="CompID"
+                    GUID = Begin
+                        0xaf7e3af2d164374e9fe4c6b36e93aa94
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8160
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3240
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =1152
+                    Height =240
+                    FontSize =8
+                    Name ="Text82"
+                    Caption ="Factory Cat"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =10080
+                    Name ="Line21"
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fR As New Form_frptEnterState
+fR.Caption = "Dealer Prospect By City"
+fR.Visible = True
+Pause fR
+If fR.blnCancel Then
+  Cancel = True
+  Exit Sub
+End If
+
+sState = fR.txtState
+sCounty = fR.comCounty
+
+If fR.txtState <> "" Then
+  Me.lblCrit.Caption = "State: " & fR.txtState
+  If fR.comCounty <> "" Then
+    Me.lblCrit.Caption = Me.lblCrit.Caption & ", County: " & fR.comCounty
+  End If
+End If
+
+End Sub

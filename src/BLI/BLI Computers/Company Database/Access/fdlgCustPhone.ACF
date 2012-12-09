@@ -1,0 +1,211 @@
+Version =19
+VersionRequired =19
+Checksum =1910121785
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =4740
+    ItemSuffix =47
+    Left =2160
+    Top =2985
+    Right =11820
+    Bottom =8415
+    RecSrcDt = Begin
+        0xe8f283b178c9e140
+    End
+    RecordSource ="dbo.tblCustPhone"
+    Caption ="Phone Number"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2220
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1980
+                    Top =1800
+                    Width =1266
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3360
+                    Top =1800
+                    Width =1266
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    AccessKey =77
+                    Left =3180
+                    Top =150
+                    Width =845
+                    TabIndex =1
+                    Name ="chkCPhoneMain"
+                    ControlSource ="CPhoneMain"
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =3410
+                            Top =120
+                            Width =555
+                            Height =240
+                            Name ="Label44"
+                            Caption ="&Main"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =78
+                    Left =1320
+                    Top =480
+                    Width =3240
+                    TabIndex =2
+                    Name ="txtCPhoneNumber"
+                    ControlSource ="CPhoneNumber"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =480
+                            Width =1020
+                            Height =240
+                            Name ="Label45"
+                            Caption ="&Number:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =69
+                    Left =1320
+                    Top =840
+                    Width =3240
+                    Height =720
+                    TabIndex =3
+                    Name ="txtCPhoneNote"
+                    ControlSource ="CPhoneNote"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =840
+                            Width =1020
+                            Height =240
+                            Name ="Label46"
+                            Caption ="Not&e:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =1320
+                    Top =120
+                    Name ="comCPhoneDesc"
+                    ControlSource ="CPhoneDesc"
+                    RowSourceType ="Value List"
+                    RowSource ="\"Main\";\"Fax\";\"Mobile\";\"Pager\";\"Toll Free\";\"Modem\";\"Home\";\"Work\""
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =120
+                            Width =1020
+                            Height =240
+                            Name ="Label43"
+                            Caption ="&Catagory:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+If Me.Dirty Then Me.Undo
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = Not Me.Dirty
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = False
+End Sub

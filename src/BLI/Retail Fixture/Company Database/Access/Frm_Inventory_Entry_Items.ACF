@@ -1,0 +1,64 @@
+Version =19
+VersionRequired =19
+Checksum =-404909791
+Begin Form
+    ViewsAllowed =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =12
+    Width =5040
+    DatasheetFontHeight =10
+    ItemSuffix =3
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x7b5c904c3874e140
+    End
+    RecordSource ="Tbl_Temp_Inventory_Entry_Items"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =4320
+                    Width =720
+                    TabIndex =1
+                    Name ="Quanity"
+                    ControlSource ="Quanity"
+                    StatusBarText ="Quanity Entered"
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    ColumnCount =2
+                    ListRows =15
+                    ListWidth =5760
+                    Width =4320
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    Name ="Material"
+                    ControlSource ="Material"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT Tbl_Catalog.Material, Tbl_Catalog.Description FROM Tbl_Catalog;"
+                    ColumnWidths ="864;4896"
+                    StatusBarText ="Material # (Catalog #)"
+                End
+            End
+        End
+    End
+End

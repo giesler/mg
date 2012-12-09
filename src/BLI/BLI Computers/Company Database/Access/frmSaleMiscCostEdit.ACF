@@ -1,0 +1,253 @@
+Version =19
+VersionRequired =19
+Checksum =1194321949
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5340
+    ItemSuffix =42
+    Left =4965
+    Top =2775
+    Right =10305
+    Bottom =5100
+    RecSrcDt = Begin
+        0x7936f91279c9e140
+    End
+    RecordSource ="dbo.tblSaleItem"
+    Caption ="Add Misc Cost"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin ToggleButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =1920
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3420
+                    Top =1500
+                    Width =846
+                    Height =366
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    OverlapFlags =85
+                    AccessKey =68
+                    Left =1170
+                    Top =480
+                    Width =4050
+                    Height =900
+                    TabIndex =2
+                    Name ="txtItemDesc"
+                    ControlSource ="SItemDesc"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =480
+                            Width =1005
+                            Height =240
+                            Name ="Label22"
+                            Caption ="&Description:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1140
+                    Top =120
+                    Width =1020
+                    Name ="txtItemPrice"
+                    ControlSource ="SItemPrice"
+                    AfterUpdate ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =915
+                            Height =240
+                            Name ="Label24"
+                            Caption ="Price:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =4380
+                    Top =1500
+                    Width =846
+                    Height =366
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =81
+                    Left =3120
+                    Top =120
+                    Width =960
+                    TabIndex =1
+                    Name ="txtItemQty"
+                    ControlSource ="SItemQty"
+                    StatusBarText ="Quantity of item"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2280
+                            Top =120
+                            Width =705
+                            Height =240
+                            Name ="Label41"
+                            Caption ="&Qty:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+On Error GoTo cmdCancel_Err
+
+If Me.Dirty Then
+  If MsgBox("Are you sure you want to cancel this entry?", vbQuestion + vbYesNo) = vbNo Then
+    Exit Sub
+  End If
+
+  Me.Undo
+End If
+
+blnCancel = True
+Me.Visible = False
+
+Exit Sub
+cmdCancel_Err:
+ErrHand Me.Name, "cmdCancel"
+Exit Sub
+
+End Sub
+
+Private Sub cmdOK_Click()
+On Error GoTo cmdOK_Err
+
+If Me.Dirty Then
+  Me!SItemCost = 0
+  Me!SItemExtCost = 0
+  Me!SItemExtPrice = Me!SItemQty * Me!SItemPrice
+  DoCmd.RunCommand acCmdSaveRecord
+  blnCancel = False
+  Me.Visible = False
+Else
+  blnCancel = True
+  Me.Visible = False
+End If
+
+Exit Sub
+cmdOK_Err:
+ErrHand Me.Name, "cmdOK"
+Exit Sub
+
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo Form_Load_Err
+
+If InStr(UCase(Me.OpenArgs), "EDIT") Then
+  Me.Caption = "Edit Misc Cost"
+ElseIf InStr(UCase(Me.OpenArgs), "VIEW") Then
+  With Me
+    .Caption = "View Misc Cost"
+    .AllowAdditions = False
+    .AllowDeletions = False
+    .AllowEdits = False
+    .RecordsetType = conSnapshot
+  End With
+End If
+
+Exit Sub
+Form_Load_Err:
+ErrHand Me.Name, "Form_Load"
+Exit Sub
+
+End Sub

@@ -1,0 +1,465 @@
+Version =19
+VersionRequired =19
+Checksum =-590082607
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =12
+    Width =10680
+    ItemSuffix =43
+    Right =1260
+    Bottom =615
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x7b8275ea6fc5e140
+    End
+    InputParameters ="@sToDate = GetToDate(), @sPOID = GetPOID()"
+    RecordSource ="dbo.ppqrptPOCosts"
+    Caption ="Prod Parts: PO Costs"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000b7290000ef00000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x010400059c00300243ef800501000100ea0a6f08640001000f00680101000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x22000000300200007ac2dbaf0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000200000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =18
+            FontSize =10
+            FontWeight =700
+            FontName ="Times New Roman"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =18
+            Height =300
+            FontSize =10
+            FontName ="Times New Roman"
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="POID"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPartNum"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =600
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x4fd004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Width =10560
+                    Height =360
+                    FontSize =12
+                    Name ="Text27"
+                    Caption ="Cost of Parts"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x50d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Top =360
+                    Width =2880
+                    Height =240
+                    Name ="Field28"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x51d004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =585
+            Name ="PageHeader0"
+            GUID = Begin
+                0x52d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Left =1200
+                    Top =240
+                    Width =960
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="RPS P/N"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x53d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =2520
+                    Top =240
+                    Width =1080
+                    Height =240
+                    FontSize =9
+                    Name ="Text7"
+                    Caption ="Vendor P/N"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x54d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =240
+                    Width =1200
+                    Height =240
+                    FontSize =9
+                    Name ="Text16"
+                    Caption ="PO #"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x55d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =4440
+                    Top =240
+                    Width =1800
+                    Height =240
+                    FontSize =9
+                    Name ="Text21"
+                    Caption ="Part Description"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x56d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9240
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text23"
+                    Caption ="Value"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x57d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =120
+                    Width =10680
+                    Name ="Line32"
+                    GUID = Begin
+                        0x58d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =120
+                    Width =10680
+                    Name ="Line33"
+                    GUID = Begin
+                        0x59d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =480
+                    Width =10680
+                    Name ="Line34"
+                    GUID = Begin
+                        0x5ad004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =480
+                    Width =10560
+                    Name ="Line35"
+                    GUID = Begin
+                        0x5bd004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x5cd004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    CanGrow = NotDefault
+                    TextFontFamily =34
+                    Left =1200
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="RPS Part Number"
+                    ControlSource ="RPSPartNum"
+                    FontName ="Arial"
+                    EventProcPrefix ="RPS_Part_Number"
+                    GUID = Begin
+                        0x5dd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextFontFamily =34
+                    Left =2520
+                    Width =1920
+                    Height =240
+                    FontSize =9
+                    TabIndex =1
+                    Name ="Vendor Part Number"
+                    ControlSource ="VendorPartNumber"
+                    FontName ="Arial"
+                    EventProcPrefix ="Vendor_Part_Number"
+                    GUID = Begin
+                        0x5ed004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =1200
+                    Height =240
+                    FontSize =9
+                    TabIndex =2
+                    Name ="Purchase Order #"
+                    ControlSource ="POID"
+                    FontName ="Arial"
+                    EventProcPrefix ="Purchase_Order__"
+                    GUID = Begin
+                        0x5fd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextFontFamily =34
+                    Left =4440
+                    Width =4800
+                    Height =240
+                    FontSize =9
+                    TabIndex =3
+                    Name ="Part Description"
+                    ControlSource ="PartDescription"
+                    FontName ="Arial"
+                    EventProcPrefix ="Part_Description"
+                    GUID = Begin
+                        0x60d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    TabIndex =4
+                    Name ="SumOfCost Each"
+                    ControlSource ="CostEach"
+                    FontName ="Arial"
+                    EventProcPrefix ="SumOfCost_Each"
+                    GUID = Begin
+                        0x61d004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x62d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    Left =8520
+                    Width =2160
+                    Name ="Line36"
+                    GUID = Begin
+                        0x63d004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x64d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8760
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x65d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3960
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field41"
+                    ControlSource ="=\"Printed \" & Date()"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x66d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Top =120
+                    Width =1152
+                    Height =240
+                    FontSize =8
+                    Name ="Text63"
+                    Caption ="Factory Cat"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x67d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =10680
+                    Name ="Line29"
+                    GUID = Begin
+                        0x68d004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =480
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x69d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    Left =8520
+                    Top =120
+                    Width =2160
+                    Name ="Line17"
+                    GUID = Begin
+                        0x6ad004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9240
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    FontWeight =700
+                    Name ="GrandTotal_Value"
+                    ControlSource ="=Sum([CostEach])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="arial"
+                    GUID = Begin
+                        0x6bd004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fR As New Form_ppfrptPOCosts
+fR.Visible = True
+Pause fR
+
+If fR.blnCancel Then
+  Cancel = True
+  Exit Sub
+End If
+
+datToDate = fR.txtEndDate
+sPOID = fR.comPO
+
+End Sub

@@ -1,0 +1,216 @@
+Version =19
+VersionRequired =19
+Checksum =1768258777
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =4980
+    ItemSuffix =32
+    Left =2160
+    Top =2985
+    Right =11820
+    Bottom =8415
+    RecSrcDt = Begin
+        0x8de6dbd578c9e140
+    End
+    RecordSource ="dbo.tblOrder"
+    Caption ="Order Info"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2100
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1980
+                    Top =1620
+                    Width =1296
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="=CloseForm()"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =1680
+                    Top =120
+                    TabIndex =1
+                    BackColor =-2147483633
+                    Name ="OrderNumber"
+                    ControlSource ="OrderNumber"
+                    StatusBarText ="Order number (internal use)"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =120
+                            Width =1320
+                            Height =240
+                            Name ="Label26"
+                            Caption ="OrderNumber:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1680
+                    Top =480
+                    Width =3000
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="afkOrderVendor"
+                    ControlSource ="afkOrderVendor"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkVendor, VendorName\015\012FROM dbo.tblVendor\015\012ORDER BY VendorNam"
+                        "e"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Vendor Name"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =480
+                            Width =1320
+                            Height =240
+                            Name ="Label27"
+                            Caption ="Vendor:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1680
+                    Top =840
+                    TabIndex =3
+                    Name ="OrderInvNum"
+                    ControlSource ="OrderInvNum"
+                    StatusBarText ="Order invoice number/PO"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =840
+                            Width =1320
+                            Height =240
+                            Name ="Label28"
+                            Caption ="Invoice # / PO:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1680
+                    Top =1200
+                    Width =900
+                    TabIndex =4
+                    Name ="OrderDate"
+                    ControlSource ="OrderDate"
+                    StatusBarText ="Order date"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =1200
+                            Width =1320
+                            Height =240
+                            Name ="Label29"
+                            Caption ="Date:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3540
+                    Top =1200
+                    Width =1140
+                    TabIndex =5
+                    Name ="OrderTotal"
+                    ControlSource ="OrderTotal"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Order total"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2760
+                            Top =1200
+                            Width =660
+                            Height =240
+                            Name ="Label30"
+                            Caption ="Total:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =80
+                    TextFontFamily =34
+                    Left =240
+                    Top =1620
+                    Width =1200
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =6
+                    Name ="cmdOpenOrder"
+                    Caption ="O&pen Order"
+                    OnClick ="=OpenOrderDetail([apkOrder])"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End

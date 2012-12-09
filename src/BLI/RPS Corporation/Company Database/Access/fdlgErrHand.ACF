@@ -1,0 +1,295 @@
+Version =19
+VersionRequired =19
+Checksum =208473090
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    AllowEdits = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5040
+    ItemSuffix =66
+    Left =2160
+    Top =2985
+    Right =11820
+    Bottom =8415
+    RecSrcDt = Begin
+        0xcf4c6bddb5cae140
+    End
+    Caption ="Database Error"
+    OnOpen ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2580
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3900
+                    Top =1140
+                    Width =966
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =600
+                    Width =4920
+                    Height =480
+                    Name ="lblErrorInfo"
+                    Caption ="Error Information"
+                    GUID = Begin
+                        0x27b3fa43f152ba41ae1bc7a523b0abd0
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =120
+                    Top =1140
+                    Width =1200
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdAdvanced"
+                    Caption ="&Advanced"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xf8bd9726ff6efc4898917ff1ad911d04
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =120
+                    Top =1620
+                    Width =720
+                    Height =240
+                    Name ="Label52"
+                    Caption ="Error #:"
+                    GUID = Begin
+                        0xab0f47f529a95d4f9a9ce5dc7db265c0
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =1
+                    Left =120
+                    Top =1860
+                    Width =1440
+                    Height =240
+                    Name ="lblErrNumber"
+                    Caption ="no."
+                    GUID = Begin
+                        0x1e6c98d83b2e4f4dbf540be28cb667cf
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =1800
+                    Top =1620
+                    Width =1020
+                    Height =240
+                    Name ="Label54"
+                    Caption ="Location"
+                    GUID = Begin
+                        0xf4fc3125679a89459d381e72aff9a710
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =1800
+                    Top =1860
+                    Width =1440
+                    Height =240
+                    Name ="lblLocation"
+                    Caption ="no."
+                    GUID = Begin
+                        0x770b6615d061ba47a3f81e0ffc8d014d
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =3480
+                    Top =1620
+                    Width =1080
+                    Height =240
+                    Name ="Label57"
+                    Caption ="Function:"
+                    GUID = Begin
+                        0xc3ab87d0bb2b4449b0d9e22279dcdbb5
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =3480
+                    Top =1860
+                    Width =1440
+                    Height =240
+                    Name ="lblFunction"
+                    Caption ="no."
+                    GUID = Begin
+                        0x6324ac335595b84f9b88172985ab7e2d
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =4920
+                    Height =480
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="There was an error in a database procedure just called.  If this error continues"
+                        ", please contact support.  The error is below."
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xf1febaba34d47949934ca2595008a78a
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =1560
+                    Width =5040
+                    Name ="line1"
+                    GUID = Begin
+                        0xf81f6b4c91c28c47ad5ff11bf488db91
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =2580
+                    Width =5040
+                    Name ="line2"
+                    GUID = Begin
+                        0xfd25a8b952441d4c98ab558a6d342834
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =3180
+                    Top =2280
+                    Width =1680
+                    Height =240
+                    FontSize =7
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="cmdSave"
+                    Caption ="Save error to text file"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x40f8c2dc6f77da448afe4e37d1f88d6b
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdAdvanced_Click()
+Me.cmdOK.SetFocus
+Me.cmdAdvanced.Enabled = False
+DoCmd.MoveSize , , , Me.line2.Top + 350
+End Sub
+
+Private Sub cmdOK_Click()
+Me.Visible = False
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo cmdSave_Err
+
+Dim sFilt As String, msOf As MSA_OPENFILENAME, fn As Long
+
+sFilt = MSA_ConvertFilterString("Text Files|*.txt|All Files|*.*")
+msOf.strFilter = sFilt
+msOf.strDefaultExtension = "txt"
+msOf.strDialogTitle = "Save an error file"
+msOf.strInitialDir = GetDBDir
+msOf.strInitialFile = CurrentProject.Name & " Error Log.txt"
+
+If MSA_GetSaveFileName(msOf) Then
+  fn = FreeFile
+  Open msOf.strFullPathReturned For Append As fn
+  Print #fn, "Date/Time: " & Date & ", " & Time
+  Print #fn, "Project: " & CurrentProject.Name
+  Print #fn, "Current user: " & GetNTUserName()
+  Print #fn, "Error information: " & Me.lblErrorInfo.Caption
+  Print #fn, "Error number: " & Me.lblErrNumber.Caption
+  Print #fn, "Location: " & Me.lblLocation.Caption
+  Print #fn, "Function: " & Me.lblFunction.Caption
+  Print #fn, "--------------------------------------------------------------"
+  Close fn
+End If
+
+Exit Sub
+cmdSave_Err:
+ErrHand Me.Name, "cmdSave"
+Exit Sub
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+'On Error Resume Next
+DoCmd.MoveSize , , , Me.line1.Top + 350
+End Sub

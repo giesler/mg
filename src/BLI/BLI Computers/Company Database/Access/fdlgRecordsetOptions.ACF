@@ -1,0 +1,556 @@
+Version =19
+VersionRequired =19
+Checksum =-1026402251
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    TabularFamily =0
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =4980
+    DatasheetFontHeight =10
+    ItemSuffix =40
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xca71809ed3c9e140
+    End
+    Caption ="Recordset Options"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Tahoma"
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Tahoma"
+        End
+        Begin OptionButton
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =5520
+            BackColor =-2147483633
+            Name ="Detail"
+            GUID = Begin
+                0x996f90357f2e484bbfe4ef00ff513342
+            End
+            Begin
+                Begin OptionGroup
+                    OverlapFlags =85
+                    Left =180
+                    Top =600
+                    Width =2160
+                    Height =1560
+                    Name ="fraCursorType"
+                    DefaultValue ="2"
+                    GUID = Begin
+                        0x7f16030300d4d64b89e1bbad11f61143
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =1
+                            OverlapFlags =215
+                            Left =300
+                            Top =480
+                            Width =960
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label1"
+                            Caption ="Cursor Type"
+                            GUID = Begin
+                                0xdb1857ac11efb64d80b2f51193d77297
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =838
+                            OptionValue =0
+                            Name ="Option3"
+                            GUID = Begin
+                                0x8d451fb73b94fd45806c24818ffe3083
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =810
+                                    Width =1575
+                                    Height =240
+                                    Name ="Label4"
+                                    Caption ="adOpenForwardOnly"
+                                    GUID = Begin
+                                        0x8fe63c3c2b522449b10ba0e382c54761
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =1168
+                            OptionValue =1
+                            Name ="Option5"
+                            GUID = Begin
+                                0x5bbe799ec4ab284297037a4006740e8b
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =1140
+                                    Width =1140
+                                    Height =240
+                                    Name ="Label6"
+                                    Caption ="adOpenKeyset"
+                                    GUID = Begin
+                                        0x8eaf7813016a5848a136f4941df91b27
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =1498
+                            OptionValue =2
+                            Name ="Option7"
+                            GUID = Begin
+                                0xdcb1eff6bf3f07408b11c4ef0c16f797
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =1470
+                                    Width =1245
+                                    Height =240
+                                    Name ="Label8"
+                                    Caption ="adOpenDynamic"
+                                    GUID = Begin
+                                        0x8aa59f7738522340b6dc5e2fa0ee1822
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =1828
+                            OptionValue =3
+                            Name ="Option9"
+                            GUID = Begin
+                                0x00b987b465e4344fb622dc6b6533ddee
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =1800
+                                    Width =1050
+                                    Height =240
+                                    Name ="Label10"
+                                    Caption ="adOpenStatic"
+                                    GUID = Begin
+                                        0xa7e0d2cf92159b4f849e07d9fbe6ed80
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin OptionGroup
+                    OverlapFlags =85
+                    Left =2460
+                    Top =600
+                    Width =2280
+                    Height =1560
+                    TabIndex =1
+                    Name ="fraLockType"
+                    DefaultValue ="2"
+                    GUID = Begin
+                        0x2f30ccc4a0fe9e44880b519948284181
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =1
+                            OverlapFlags =215
+                            Left =2580
+                            Top =480
+                            Width =795
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label12"
+                            Caption ="Lock Type"
+                            GUID = Begin
+                                0xfc6b0297accce74d9bca0743d05aeff5
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2646
+                            Top =838
+                            OptionValue =0
+                            Name ="Option14"
+                            GUID = Begin
+                                0x899f601490eb774f87d2ed239576d1f1
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2876
+                                    Top =810
+                                    Width =1275
+                                    Height =240
+                                    Name ="Label15"
+                                    Caption ="adLockReadOnly"
+                                    GUID = Begin
+                                        0xf779d5b847137e4b98ba4e668865b7c7
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2646
+                            Top =1168
+                            OptionValue =1
+                            Name ="Option16"
+                            GUID = Begin
+                                0xa6839cd23a25ee478d4f5b514c90ef6f
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2876
+                                    Top =1140
+                                    Width =1320
+                                    Height =240
+                                    Name ="Label17"
+                                    Caption ="adLockPessimistic"
+                                    GUID = Begin
+                                        0x7be87aa9cd714d418fb41d3be021fdc2
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2646
+                            Top =1498
+                            OptionValue =2
+                            Name ="Option18"
+                            GUID = Begin
+                                0x7d9da70d282deb4dbdc6ff1460bbac50
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2876
+                                    Top =1470
+                                    Width =1260
+                                    Height =240
+                                    Name ="Label19"
+                                    Caption ="adLockOptimistic"
+                                    GUID = Begin
+                                        0x8eba12f093390147a81d48d3dc4f8cea
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2646
+                            Top =1828
+                            OptionValue =3
+                            Name ="Option20"
+                            GUID = Begin
+                                0x52785863c0818341b319bc450401b1c0
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2876
+                                    Top =1800
+                                    Width =1665
+                                    Height =240
+                                    Name ="Label21"
+                                    Caption ="adLockBatchOptimistic"
+                                    GUID = Begin
+                                        0x75fcd0d84825574abdb58ccbff449c97
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin OptionGroup
+                    OverlapFlags =85
+                    Left =180
+                    Top =2400
+                    Width =2160
+                    Height =900
+                    TabIndex =2
+                    Name ="fraCusorLocation"
+                    DefaultValue ="1"
+                    GUID = Begin
+                        0x85cb9c55536b3d46b2c70b191da1abc3
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =1
+                            OverlapFlags =215
+                            Left =300
+                            Top =2280
+                            Width =1200
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label23"
+                            Caption ="Cursor Location"
+                            GUID = Begin
+                                0x12acd18ccd572141a33f26032285f779
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =2638
+                            OptionValue =0
+                            Name ="Option25"
+                            GUID = Begin
+                                0xa301cde7edf81a4cb76a2b27dfb76f59
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =2610
+                                    Width =930
+                                    Height =240
+                                    Name ="Label26"
+                                    Caption ="adUseClient"
+                                    GUID = Begin
+                                        0xd15a0847562fa54384fdbeb32ebd19e7
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =366
+                            Top =2968
+                            OptionValue =1
+                            Name ="Option27"
+                            GUID = Begin
+                                0xbfb1417b6252784fba1c09da64ffbfff
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =596
+                                    Top =2940
+                                    Width =1005
+                                    Height =240
+                                    Name ="Label28"
+                                    Caption ="adUseServer"
+                                    GUID = Begin
+                                        0x6ef7b4e204870d459e5a48dd7a3a489e
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin OptionGroup
+                    OverlapFlags =85
+                    Left =2520
+                    Top =2400
+                    Width =2220
+                    Height =900
+                    TabIndex =3
+                    Name ="fraConnection"
+                    DefaultValue ="0"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x5c6cc0a0a4fb9a45ba65e34e47390de5
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =1
+                            OverlapFlags =215
+                            Left =2640
+                            Top =2280
+                            Width =885
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label30"
+                            Caption ="Connection"
+                            GUID = Begin
+                                0x0bcba309a960ee45922d5590a272b074
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2706
+                            Top =2638
+                            OptionValue =0
+                            Name ="Option32"
+                            GUID = Begin
+                                0xebdb439c818e394e9840c3aaba7476ed
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2936
+                                    Top =2610
+                                    Width =630
+                                    Height =240
+                                    Name ="Label33"
+                                    Caption ="Current"
+                                    GUID = Begin
+                                        0xd34de9f4ee22c5408be0bb3528c233a9
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =2706
+                            Top =2968
+                            OptionValue =1
+                            Name ="Option34"
+                            GUID = Begin
+                                0x8d8723208006be42a68f5479fe67e9e5
+                            End
+                            Begin
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =2936
+                                    Top =2940
+                                    Width =390
+                                    Height =240
+                                    Name ="Label35"
+                                    Caption ="New"
+                                    GUID = Begin
+                                        0x6a1171d26fcdb44dbce6fa0936f7ace6
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =120
+                    Top =120
+                    Width =4740
+                    Height =240
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="lblMsg"
+                    GUID = Begin
+                        0xcd4ce256f85a1d4fa63b87ab82fecb0e
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =3360
+                    Top =5040
+                    Width =1200
+                    TabIndex =5
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x9b8b9e397402e04a9c9e67fdb918c315
+                    End
+                End
+                Begin TextBox
+                    Enabled = NotDefault
+                    OverlapFlags =85
+                    Left =180
+                    Top =3720
+                    Width =4560
+                    Height =1200
+                    TabIndex =4
+                    Name ="txtConnString"
+                    GUID = Begin
+                        0xd9c1807372c9b547b8632589309828f6
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =1
+                            Left =180
+                            Top =3420
+                            Width =1800
+                            Height =240
+                            Name ="Label39"
+                            Caption ="Connection String"
+                            GUID = Begin
+                                0x9f9c6f983cd72d4caf975ae417014865
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub cmdOK_Click()
+Me.Visible = False
+End Sub
+
+Private Sub fraConnection_Click()
+
+Select Case Me.fraConnection
+  Case 0
+    Me.txtConnString.Enabled = False
+  Case 1
+    Me.txtConnString.Enabled = True
+End Select
+
+End Sub

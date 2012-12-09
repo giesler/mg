@@ -1,0 +1,213 @@
+Version =19
+VersionRequired =19
+Checksum =-1534909744
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =10776
+    DatasheetFontHeight =10
+    ItemSuffix =10
+    Left =270
+    Right =12480
+    Bottom =3375
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x62f9428214c8e140
+    End
+    RecordSource ="tblLaborPur"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0x3804000038040000380400003804000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x010400059c00300243ef800501000100ea0a6f08640001000f00680101000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x22000000300200007ac2dbaf0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000200000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =420
+            Name ="ReportHeader"
+            Begin
+                Begin Line
+                    BorderWidth =1
+                    Left =120
+                    Top =360
+                    Width =10656
+                    Name ="Line22"
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =2
+                    Left =180
+                    Top =60
+                    Width =840
+                    Height =240
+                    Name ="Label255"
+                    Caption ="Date"
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =1
+                    Left =1140
+                    Top =60
+                    Width =1200
+                    Height =240
+                    Name ="Label4"
+                    Caption ="Invoice"
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =3
+                    Left =2400
+                    Top =60
+                    Width =1140
+                    Height =240
+                    Name ="Label5"
+                    Caption ="Hours"
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =3
+                    Left =3780
+                    Top =60
+                    Width =1260
+                    Height =240
+                    Name ="Label6"
+                    Caption ="Cost"
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =3
+                    Left =5280
+                    Top =60
+                    Width =1260
+                    Height =240
+                    Name ="Label7"
+                    Caption ="Price/Hour"
+                End
+            End
+        End
+        Begin PageHeader
+            Height =0
+            Name ="PageHeader"
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    TextAlign =2
+                    Left =180
+                    Width =840
+                    Name ="LPurDate"
+                    ControlSource ="LPurDate"
+                    StatusBarText ="Date labor was purchased"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =2340
+                    Width =1140
+                    TabIndex =1
+                    Name ="LPurHours"
+                    ControlSource ="LPurHours"
+                    StatusBarText ="Number of hours purchased"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =3780
+                    Width =1260
+                    TabIndex =2
+                    Name ="LPurCost"
+                    ControlSource ="LPurCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Total cost of hours purchased"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =5280
+                    Width =1260
+                    TabIndex =3
+                    Name ="Text8"
+                    ControlSource ="=[LPurCost]/[LPurHours]"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Total cost of hours purchased"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    TextAlign =1
+                    ColumnCount =2
+                    Left =1140
+                    Width =1200
+                    TabIndex =4
+                    BorderColor =4210752
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="afkLPurSale"
+                    ControlSource ="afkLPurInv"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkInv, InvNumber FROM tblInvoice"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Sale Number from tblSale"
+                End
+            End
+        End
+        Begin PageFooter
+            Height =0
+            Name ="PageFooter"
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter"
+        End
+    End
+End

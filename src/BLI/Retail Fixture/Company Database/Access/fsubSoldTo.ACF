@@ -1,0 +1,228 @@
+Version =19
+VersionRequired =19
+Checksum =-1966646182
+Begin Form
+    RecordSelectors = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    ViewsAllowed =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =7860
+    DatasheetFontHeight =10
+    ItemSuffix =13
+    Left =585
+    Top =2145
+    Right =8895
+    Bottom =4875
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xddb63e6e5da4e140
+    End
+    RecordSource ="tblSold"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =2640
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =120
+                    Width =3030
+                    Name ="SoldName"
+                    ControlSource ="SoldName"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =120
+                            Width =825
+                            Height =240
+                            Name ="Label109"
+                            Caption ="Name:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =480
+                    Width =3030
+                    TabIndex =1
+                    Name ="SoldAddress1"
+                    ControlSource ="SoldAddress1"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =480
+                            Width =825
+                            Height =240
+                            Name ="Label110"
+                            Caption ="Address1:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =840
+                    Width =3030
+                    TabIndex =2
+                    Name ="SoldAddress2"
+                    ControlSource ="SoldAddress2"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =840
+                            Width =825
+                            Height =240
+                            Name ="Label111"
+                            Caption ="Address2:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =1200
+                    Width =2025
+                    TabIndex =3
+                    Name ="SoldCity"
+                    ControlSource ="SoldCity"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =1200
+                            Width =825
+                            Height =240
+                            Name ="Label112"
+                            Caption ="City:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =1560
+                    Width =870
+                    TabIndex =4
+                    Name ="SoldState"
+                    ControlSource ="SoldState"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =60
+                            Top =1560
+                            Width =825
+                            Height =240
+                            Name ="Label113"
+                            Caption ="State:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2748
+                    Top =1560
+                    TabIndex =5
+                    Name ="SoldZip"
+                    ControlSource ="SoldZip"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2028
+                            Top =1560
+                            Width =585
+                            Height =240
+                            Name ="Label114"
+                            Caption ="Zip:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =1920
+                    Width =3600
+                    Height =600
+                    TabIndex =6
+                    Name ="SoldDiscount"
+                    ControlSource ="SoldDiscount"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =1920
+                            Width =780
+                            Height =420
+                            Name ="Label10"
+                            Caption ="Discount Note:"
+                        End
+                    End
+                End
+                Begin Subform
+                    OverlapFlags =87
+                    Left =4680
+                    Top =480
+                    Width =3060
+                    Height =2040
+                    TabIndex =7
+                    Name ="fsubSoldAttention"
+                    SourceObject ="Form.fsubSoldAttention"
+                    LinkChildFields ="SoldID"
+                    LinkMasterFields ="SoldID"
+                    GUID = Begin
+                        0x44e044b20b2fc94b934c426364aa9f9c
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            Left =4680
+                            Top =240
+                            Width =2040
+                            Height =240
+                            Name ="fsubSoldAttention Label"
+                            Caption ="Sold To Attention"
+                            EventProcPrefix ="fsubSoldAttention_Label"
+                            GUID = Begin
+                                0xadf44af94920ef49aef9a1eca946202f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End

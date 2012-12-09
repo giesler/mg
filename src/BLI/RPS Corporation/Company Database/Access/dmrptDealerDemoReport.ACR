@@ -1,0 +1,378 @@
+Version =19
+VersionRequired =19
+Checksum =1513503531
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =12
+    Width =10800
+    ItemSuffix =25
+    Left =795
+    Top =330
+    Right =9120
+    Bottom =5730
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xc363f05e59c3e140
+    End
+    RecordSource ="dbo.dmqrptDealerDemoReport"
+    Caption ="Demos Report"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000302a00002c01000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x4570736f6e205374796c757320434f4c4f5220393030204553432f5020320000 ,
+        0x010400059c00900243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x2200000030026000771acc870000000000000000000000000100000000000000 ,
+        0x0000000000000000090000000100000001000000000003000000000003000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000600000004f535045414182820300000001000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x0000000000000000000000000000000089270000000000000300000002000000 ,
+        0x050000000200000001000000
+    End
+    PrtDevNames = Begin
+        0x080011003000010077696e73706f6f6c004570736f6e205374796c757320434f ,
+        0x4c4f5220393030204553432f502032004550534f4e0000000000000000000000 ,
+        0x000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            ControlSource ="DealerName"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =840
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x21d704e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =10794
+                    Height =360
+                    FontSize =12
+                    Name ="Text14"
+                    Caption ="Dealer Demo Report"
+                    GUID = Begin
+                        0x22d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =2880
+                    FontSize =9
+                    Name ="Field15"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0x23d704e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =463
+            Name ="PageHeader0"
+            GUID = Begin
+                0x24d704e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =1680
+                    Height =285
+                    Name ="Text7"
+                    Caption ="Customer Name"
+                    GUID = Begin
+                        0x25d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =2640
+                    Top =120
+                    Width =1440
+                    Height =285
+                    Name ="Text9"
+                    Caption ="Date of Demo"
+                    GUID = Begin
+                        0x26d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =4080
+                    Top =120
+                    Width =1170
+                    Height =285
+                    Name ="Text11"
+                    Caption ="Purchased"
+                    GUID = Begin
+                        0x27d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =5280
+                    Top =120
+                    Width =2025
+                    Height =285
+                    Name ="Text13"
+                    Caption ="Equipment Demoed"
+                    GUID = Begin
+                        0x28d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =3
+                    Top =434
+                    Width =10794
+                    Name ="Line19"
+                    GUID = Begin
+                        0x29d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =9120
+                    Top =120
+                    Width =825
+                    Height =285
+                    Name ="Text21"
+                    Caption ="Results"
+                    GUID = Begin
+                        0x2ad704e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =360
+            Name ="GroupHeader5"
+            GUID = Begin
+                0x2bd704e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Width =3960
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Name of Dealer"
+                    ControlSource ="DealerName"
+                    EventProcPrefix ="Name_of_Dealer"
+                    GUID = Begin
+                        0x2cd704e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =300
+            Name ="Detail1"
+            GUID = Begin
+                0x2dd704e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Width =2736
+                    Name ="Customer Name"
+                    ControlSource ="CustomerName"
+                    EventProcPrefix ="Customer_Name"
+                    GUID = Begin
+                        0x2ed704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =2640
+                    Width =1455
+                    TabIndex =1
+                    Name ="Date of Demo"
+                    ControlSource ="DateOfDemo"
+                    EventProcPrefix ="Date_of_Demo"
+                    GUID = Begin
+                        0x2fd704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =4080
+                    Width =1224
+                    TabIndex =2
+                    Name ="Purchased"
+                    ControlSource ="Purchased"
+                    Format ="Yes/No"
+                    GUID = Begin
+                        0x30d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    Left =5280
+                    Width =3720
+                    TabIndex =3
+                    Name ="Equipment Demoed"
+                    ControlSource ="EquipmentDemoed"
+                    EventProcPrefix ="Equipment_Demoed"
+                    GUID = Begin
+                        0x31d704e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =405
+            Name ="PageFooter2"
+            GUID = Begin
+                0x32d704e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =7920
+                    Top =120
+                    Width =2760
+                    Height =240
+                    FontSize =8
+                    Name ="Field16"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x33d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =3
+                    Top =60
+                    Width =10794
+                    Name ="Line20"
+                    GUID = Begin
+                        0x34d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =2160
+                    Height =285
+                    FontSize =8
+                    Name ="Text23"
+                    Caption ="Factory Cat"
+                    GUID = Begin
+                        0x35d704e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =3840
+                    Top =120
+                    Width =2760
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field24"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x36d704e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x37d704e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fR As New Form_frptEnterDealer
+fR.Caption = "Dealer Demo Report"
+fR.Visible = True
+Pause fR
+If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+End If
+
+Dim strFilter As String
+
+If fR.comDealerName <> "" Then
+    strFilter = "DealerName = " & Chr(34) & fR.comDealerName & Chr(34)
+End If
+
+If strFilter <> "" Then
+    Me.Filter = strFilter
+    Me.FilterOn = True
+Else
+    Me.FilterOn = False
+End If
+
+Set fR = Nothing
+
+End Sub

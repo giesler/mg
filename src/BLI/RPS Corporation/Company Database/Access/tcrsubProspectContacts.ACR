@@ -1,0 +1,174 @@
+Version =19
+VersionRequired =19
+Checksum =1140685402
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =0
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =8460
+    DatasheetFontHeight =10
+    ItemSuffix =6
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xc1d971bc12dbe140
+    End
+    RecordSource ="dbo.tblProspectContacts"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x4570736f6e205374796c757320434f4c4f5220363030204553432f5020320000 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003000010077696e73706f6f6c004570736f6e205374796c757320434f ,
+        0x4c4f5220363030204553432f502032004c5054313a0000000000000000000000 ,
+        0x000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="ContactDate"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =225
+            Name ="ReportHeader"
+            GUID = Begin
+                0x8ab0cb0eb5aa24439237e9cc4a110df6
+            End
+            Begin
+                Begin Label
+                    Left =180
+                    Width =1005
+                    Height =225
+                    Name ="Label3"
+                    Caption ="Date"
+                    GUID = Begin
+                        0x33533df5343fdd41810e7f63b88dee64
+                    End
+                End
+                Begin Label
+                    Left =1260
+                    Width =1005
+                    Height =225
+                    Name ="Label4"
+                    Caption ="Subject"
+                    GUID = Begin
+                        0x6e86eed076848f448e29ffa9139f175f
+                    End
+                End
+                Begin Label
+                    Left =7020
+                    Width =1005
+                    Height =225
+                    Name ="Label5"
+                    Caption ="Initials"
+                    GUID = Begin
+                        0x2bd6232c578b5c4a931de139ff4623da
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail"
+            GUID = Begin
+                0xfe88bd3573a1244eb8259dc6a54ae123
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    Left =1260
+                    Width =5760
+                    BorderColor =8421504
+                    Name ="ContactSubject"
+                    ControlSource ="ContactSubject"
+                    GUID = Begin
+                        0x88dd5a672a2153449c243c94ef9a2b37
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =7020
+                    TabIndex =1
+                    BorderColor =8421504
+                    Name ="ContactInitials"
+                    ControlSource ="ContactInitials"
+                    GUID = Begin
+                        0x0e74557a193d614fae4080b8e44cfd01
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Left =180
+                    Width =1080
+                    TabIndex =2
+                    BorderColor =8421504
+                    Name ="ContactDate"
+                    ControlSource ="ContactDate"
+                    Format ="Short Date"
+                    GUID = Begin
+                        0x19655995e3353c47b1ce1d119e881369
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =60
+            Name ="ReportFooter"
+            GUID = Begin
+                0x8ef7227b4e594c488986be54a32f6f89
+            End
+        End
+    End
+End

@@ -1,0 +1,328 @@
+Version =19
+VersionRequired =19
+Checksum =-2021369508
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =3900
+    DatasheetFontHeight =10
+    ItemSuffix =25
+    Left =5445
+    Top =2655
+    Right =9585
+    Bottom =5100
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x5f7321f98b66e140
+    End
+    Caption ="Change Password"
+    OnOpen ="[Event Procedure]"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2220
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =2160
+                    Top =1740
+                    Width =1260
+                    TabIndex =5
+                    Name ="btnCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2085
+                    Top =540
+                    TabIndex =1
+                    Name ="txtOldPassword"
+                    FontName ="Tahoma"
+                    InputMask ="Password"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =435
+                            Top =540
+                            Width =1410
+                            Height =240
+                            Name ="Label10"
+                            Caption =" Current Password:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    Left =900
+                    Top =1740
+                    Width =1200
+                    TabIndex =4
+                    Name ="cmdLogin"
+                    Caption ="Change"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    OverlapFlags =85
+                    Left =420
+                    Top =1800
+                    Width =360
+                    Height =300
+                    TabIndex =6
+                    Name ="txtNumTries"
+                    DefaultValue ="3"
+                    FontName ="Tahoma"
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2085
+                    Top =900
+                    TabIndex =2
+                    Name ="txtNewPassword"
+                    FontName ="Tahoma"
+                    InputMask ="Password"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =615
+                            Top =900
+                            Width =1230
+                            Height =240
+                            Name ="Label20"
+                            Caption =" New Password:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2085
+                    Top =1260
+                    TabIndex =3
+                    Name ="txtVeriftyPassword"
+                    FontName ="Tahoma"
+                    InputMask ="Password"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1260
+                            Width =1665
+                            Height =240
+                            Name ="Label22"
+                            Caption =" Verify Password:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin ComboBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    ListWidth =1440
+                    Left =2100
+                    Top =180
+                    BackColor =-2147483633
+                    Name ="cmbUserID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkEmp, EmpName\015\012FROM dbp/tblEmp\015\012WHERE EmpHide = 0\015\012OR"
+                        "DER BY EmpSort\015\012"
+                    ColumnWidths ="0;1440"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =660
+                            Top =180
+                            Width =1200
+                            Height =240
+                            Name ="User Name:_Label"
+                            Caption ="User Name:"
+                            FontName ="Tahoma"
+                            EventProcPrefix ="User_Name__Label"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Dim flgNew As Boolean
+
+Private Sub btnCancel_Click()
+On Error Resume Next
+DoCmd.Close
+End Sub
+
+
+
+Private Sub cmbUserID_NotInList(NewData As String, Response As Integer)
+On Error Resume Next
+MsgBox "You must be a user of the database.  See an administrator to add your name if you are not already a user.", vbCritical, "Database Login"
+Response = acDataErrContinue
+End Sub
+
+
+
+Private Sub cmdLogin_Click()
+On Error GoTo cmdLogin_Err
+
+If IsNull(Me.txtNewPassword) Then
+    MsgBox "Enter a new password.", vbExclamation
+    Me.txtNewPassword.SetFocus
+    Exit Sub
+ElseIf IsNull(Me.txtVeriftyPassword) Then
+    MsgBox "Enter your new password again to verify it.", vbExclamation
+    Me.txtVeriftyPassword.SetFocus
+    Exit Sub
+End If
+
+If Me.txtNewPassword = "amdcamp" Or Me.txtNewPassword = "camping" Then
+    MsgBox "Can't use that password.", vbExclamation
+    Me.txtNewPassword = ""
+    Me.txtVeriftyPassword = ""
+    Me.txtNewPassword.SetFocus
+    Exit Sub
+End If
+
+If Len(Me.txtNewPassword) < 4 Then
+    MsgBox "Your password must be at least 4 characters.", vbExclamation
+    Me.txtNewPassword = ""
+    Me.txtVeriftyPassword = ""
+    Me.txtNewPassword.SetFocus
+    Exit Sub
+End If
+
+
+If Me![txtNewPassword] <> Me![txtVeriftyPassword] Then
+    MsgBox "Your new password does not match your verify password!", vbCritical
+    Me!txtNewPassword.SetFocus
+    Exit Sub
+End If
+If Not flgNew And IsNull(Me![txtOldPassword]) Then
+    MsgBox "You must enter your old password!", vbCritical
+    Exit Sub
+End If
+
+OpenWaitForm ("Changing password...")
+Dim DPass, numUserID As Long, strNewPassword As String, strSQL As String
+
+numUserID = Me!cmbUserID
+strNewPassword = Me!txtNewPassword
+DPass = DLookup("EmpPassword", "tblEmp", "apkEmp = " & numUserID)
+
+If Not flgNew Then
+    'verify password
+    If IsNull(DPass) Then
+        CloseWaitForm
+        MsgBox "There was an error retreiving your password.", vbCritical
+        Exit Sub
+    End If
+
+    If DPass <> Me!txtOldPassword Then
+        CloseWaitForm
+        Me!txtNumTries = Me!txtNumTries - 1
+        If Me!txtNumTries = 0 Then
+            MsgBox "Three strikes and you're out.", vbCritical, "Hacker!"
+            DoCmd.Quit
+        Else
+            MsgBox "Your old password is incorrect.", vbCritical
+            Me!txtOldPassword.SetFocus
+        End If
+        Exit Sub
+    End If
+End If
+
+strSQL = "UPDATE tblEmp SET EmpPassword = '" & strNewPassword & "' WHERE apkEmp = " & numUserID
+DoCmd.SetWarnings False
+DoCmd.RunSQL strSQL
+DoCmd.SetWarnings True
+CloseWaitForm
+DoCmd.Close acForm, Me.Name
+MsgBox "Your password has been changed.", vbInformation
+Exit Sub
+
+cmdLogin_Err:
+ErrHand Me.Name, "cmdLogin"
+Exit Sub
+
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+On Error GoTo Form_Open_Err
+
+Me.cmbUserID = CurUserID
+If InStr(Me.OpenArgs, "New") Then
+    flgNew = True
+    Me.txtOldPassword.Enabled = False
+    Me.btnCancel.Enabled = False
+End If
+
+
+Exit Sub
+
+Form_Open_Err:
+ErrHand Me.Name, "Form_Open"
+Exit Sub
+
+End Sub

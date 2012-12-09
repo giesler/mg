@@ -1,0 +1,777 @@
+Version =19
+VersionRequired =19
+Checksum =-2126029967
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    GridX =24
+    GridY =24
+    Width =11520
+    ItemSuffix =258
+    Left =795
+    Top =2025
+    Right =8715
+    Bottom =4320
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0xeca299654ffae140
+    End
+    RecordSource ="tblMajorAccounts"
+    Caption ="Major Accounts"
+    OnCurrent ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =5190
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x3e0ac088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =4
+                    ListWidth =5760
+                    Left =3120
+                    Top =3060
+                    Width =3720
+                    TabIndex =11
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0x400ac088b84ad311bb05004033532b7f
+                    End
+                    Name ="afkMADealer"
+                    ControlSource ="fkMADealerID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselDealerID"
+                    ColumnWidths ="0;2160;2160;1080"
+                    BaseInfo ="\"dbo.qselDealerID\";\"\""
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1140
+                            Top =3060
+                            Width =1800
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label234"
+                            Caption ="Selling Dealer:"
+                            GUID = Begin
+                                0x3f0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =120
+                    Width =3750
+                    Name ="MACompName"
+                    ControlSource ="MACompName"
+                    GUID = Begin
+                        0x420ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =360
+                            Top =120
+                            Width =2625
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label235"
+                            Caption ="Customer's Company Name:"
+                            GUID = Begin
+                                0x410ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =420
+                    Width =3750
+                    TabIndex =1
+                    Name ="MAHeadqAddress"
+                    ControlSource ="MAHeadqAddress"
+                    GUID = Begin
+                        0x440ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =720
+                            Top =420
+                            Width =2220
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label236"
+                            Caption ="Headquarters Address:"
+                            GUID = Begin
+                                0x430ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =720
+                    Width =1800
+                    TabIndex =2
+                    Name ="MACity"
+                    ControlSource ="MACity"
+                    GUID = Begin
+                        0x460ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1560
+                            Top =720
+                            Width =1425
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label237"
+                            Caption ="City, State  Zip:"
+                            GUID = Begin
+                                0x450ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =4980
+                    Top =720
+                    Width =735
+                    TabIndex =3
+                    Name ="MAState"
+                    ControlSource ="MAState"
+                    GUID = Begin
+                        0x470ac088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =5760
+                    Top =720
+                    Width =1140
+                    TabIndex =4
+                    Name ="MAZip"
+                    ControlSource ="MAZip"
+                    GUID = Begin
+                        0x480ac088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =1080
+                    Width =3750
+                    TabIndex =5
+                    Name ="MAPurContact"
+                    ControlSource ="MAPurContact"
+                    GUID = Begin
+                        0x4a0ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =960
+                            Top =1080
+                            Width =2010
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label240"
+                            Caption ="Purchasing Contact:"
+                            GUID = Begin
+                                0x490ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =1380
+                    Width =3750
+                    TabIndex =6
+                    Name ="MAManageContact"
+                    ControlSource ="MAManageContact"
+                    GUID = Begin
+                        0x4c0ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =840
+                            Top =1380
+                            Width =2145
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label241"
+                            Caption ="Management Contact:"
+                            GUID = Begin
+                                0x4b0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =1740
+                    Width =3750
+                    TabIndex =7
+                    Name ="MAPhone"
+                    ControlSource ="MAPhone"
+                    GUID = Begin
+                        0x4e0ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =2100
+                            Top =1740
+                            Width =885
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label242"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0x4d0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =2040
+                    Width =3750
+                    TabIndex =8
+                    Name ="MAFax"
+                    ControlSource ="MAFax"
+                    GUID = Begin
+                        0x500ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =2340
+                            Top =2040
+                            Width =645
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label243"
+                            Caption ="Fax:"
+                            GUID = Begin
+                                0x4f0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3120
+                    Top =2400
+                    TabIndex =9
+                    Name ="MANumLocations"
+                    ControlSource ="MANumLocations"
+                    GUID = Begin
+                        0x520ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =840
+                            Top =2400
+                            Width =2100
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label244"
+                            Caption ="Number of Locations:"
+                            GUID = Begin
+                                0x510ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    Left =3120
+                    Top =2700
+                    TabIndex =10
+                    GUID = Begin
+                        0x540ac088b84ad311bb05004033532b7f
+                    End
+                    Name ="MALocations"
+                    ControlSource ="MALocations"
+                    RowSourceType ="Value List"
+                    RowSource ="\"Regional\";\"National\";\"International\""
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =960
+                            Top =2700
+                            Width =2010
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Label245"
+                            Caption ="Customer Locations:"
+                            GUID = Begin
+                                0x530ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Tab
+                    OverlapFlags =85
+                    Left =105
+                    Top =3420
+                    Width =8700
+                    Height =1770
+                    TabIndex =12
+                    Name ="TabCtl253"
+                    GUID = Begin
+                        0x550ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            AccessKey =69
+                            Left =240
+                            Top =3825
+                            Width =8430
+                            Height =1230
+                            Name ="Page254"
+                            Caption ="S&erial #s"
+                            GUID = Begin
+                                0x560ac088b84ad311bb05004033532b7f
+                            End
+                            Begin
+                                Begin TextBox
+                                    EnterKeyBehavior = NotDefault
+                                    ScrollBars =2
+                                    OverlapFlags =215
+                                    Left =2010
+                                    Top =3840
+                                    Width =6630
+                                    Height =1206
+                                    Name ="MASerialNums"
+                                    ControlSource ="MASerialNums"
+                                    GUID = Begin
+                                        0x580ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =215
+                                            Left =480
+                                            Top =3840
+                                            Width =1335
+                                            Height =720
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label246"
+                                            Caption ="Serial #s of Equip Sold to Date:"
+                                            GUID = Begin
+                                                0x570ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =73
+                            Left =240
+                            Top =3825
+                            Width =8430
+                            Height =1230
+                            Name ="Page255"
+                            Caption ="&Initial PO"
+                            GUID = Begin
+                                0x590ac088b84ad311bb05004033532b7f
+                            End
+                            Begin
+                                Begin TextBox
+                                    EnterKeyBehavior = NotDefault
+                                    ScrollBars =2
+                                    OverlapFlags =247
+                                    Left =1995
+                                    Top =3840
+                                    Width =6645
+                                    Height =1206
+                                    Name ="MAInitialPO"
+                                    ControlSource ="MAInitialPO"
+                                    GUID = Begin
+                                        0x5b0ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =247
+                                            Left =420
+                                            Top =3840
+                                            Width =1380
+                                            Height =600
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label247"
+                                            Caption ="Initial PO Includes:"
+                                            GUID = Begin
+                                                0x5a0ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =83
+                            Left =240
+                            Top =3825
+                            Width =8430
+                            Height =1230
+                            Name ="Page256"
+                            Caption ="RP&S Info"
+                            GUID = Begin
+                                0x5c0ac088b84ad311bb05004033532b7f
+                            End
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =247
+                                    Left =2115
+                                    Top =3825
+                                    Name ="chkMAApproved"
+                                    ControlSource ="MAApproved"
+                                    OnClick ="[Event Procedure]"
+                                    GUID = Begin
+                                        0x5d0ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =247
+                                            Left =795
+                                            Top =3825
+                                            Width =1155
+                                            Height =240
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label248"
+                                            Caption ="Approved:"
+                                            GUID = Begin
+                                                0x5e0ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =2055
+                                    Top =4125
+                                    TabIndex =1
+                                    Name ="txtMADateApproved"
+                                    ControlSource ="MADateApproved"
+                                    Format ="Short Date"
+                                    GUID = Begin
+                                        0x1cc34d6c37aeb64bbbf75c02e2b20642
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            Left =375
+                                            Top =4125
+                                            Width =1560
+                                            Height =240
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label257"
+                                            Caption ="Date Approved:"
+                                            GUID = Begin
+                                                0x2ec03f43074faa4faa54e61392a02b8c
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =247
+                                    Left =2115
+                                    Top =4425
+                                    TabIndex =2
+                                    Name ="MADenied"
+                                    ControlSource ="MADenied"
+                                    GUID = Begin
+                                        0x5f0ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =247
+                                            Left =975
+                                            Top =4425
+                                            Width =945
+                                            Height =240
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label249"
+                                            Caption ="Denied:"
+                                            GUID = Begin
+                                                0x600ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    OverlapFlags =247
+                                    Left =2040
+                                    Top =4800
+                                    TabIndex =3
+                                    Name ="MAAccountNum"
+                                    ControlSource ="MAAccountNum"
+                                    GUID = Begin
+                                        0x620ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =247
+                                            Left =240
+                                            Top =4800
+                                            Width =1680
+                                            Height =240
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label250"
+                                            Caption ="Major Account #:"
+                                            GUID = Begin
+                                                0x610ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    EnterKeyBehavior = NotDefault
+                                    ScrollBars =2
+                                    OverlapFlags =247
+                                    Left =3750
+                                    Top =4125
+                                    Width =4860
+                                    Height =921
+                                    TabIndex =4
+                                    Name ="MANotes"
+                                    ControlSource ="MANotes"
+                                    GUID = Begin
+                                        0x640ac088b84ad311bb05004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            BackStyle =0
+                                            OverlapFlags =247
+                                            TextAlign =1
+                                            Left =3735
+                                            Top =3825
+                                            Width =735
+                                            Height =240
+                                            FontWeight =400
+                                            BackColor =-2147483633
+                                            Name ="Label252"
+                                            Caption ="Notes:"
+                                            GUID = Begin
+                                                0x630ac088b84ad311bb05004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub chkMAApproved_Click()
+
+If Me!MAApproved Then
+  Me.txtMADateApproved.Enabled = True
+Else
+  Me.txtMADateApproved = ""
+  Me.txtMADateApproved.Enabled = False
+End If
+
+End Sub
+
+Private Sub Form_Activate()
+Dim newMenu As CommandBarPopup
+Set newMenu = CBAddMenu(Me.Toolbar, "Print")
+newMenu.BeginGroup = True
+newMenu.Tag = "custom"
+Call CBAddMenuControl(newMenu, "Current record", "=PrintCurRecord()")
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+Me.Toolbar = "FCFormToolBar"
+Dim blnCancel As Boolean
+Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+If blnCancel Then Cancel = True
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+  
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Private Sub Form_Current()
+On Error Resume Next
+
+If Me!MAApproved Then
+  Me.txtMADateApproved.Enabled = True
+Else
+  Me.txtMADateApproved.Enabled = False
+End If
+
+End Sub
+
+Private Sub Form_Deactivate()
+On Error GoTo Form_Deactivate_Err
+Dim ctl As CommandBarControl
+For Each ctl In Application.CommandBars(Me.Toolbar).Controls
+  If ctl.Tag = "custom" Then ctl.Delete
+Next ctl
+Exit Sub
+Form_Deactivate_Err:
+ErrHand Me.Name, "Form_Deactivate"
+Exit Sub
+End Sub
+
+Public Function PrintCurRecord()
+On Error GoTo PrintCurRecord_Err
+
+DoCmd.RunCommand acCmdSaveRecord
+If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+
+If flgDebug Then
+    DoCmd.OpenReport "marptMajorAccountInfoPage", acViewPreview, , "MajorAccountID = " & Me!MajorAccountID
+Else
+    DoCmd.OpenReport "marptMajorAccountInfoPage", acViewNormal, , "MajorAccountID = " & Me!MajorAccountID
+End If
+
+Exit Function
+PrintCurRecord_Err:
+ErrHand Me.Name, "PrintCurRecord"
+Exit Function
+
+End Function
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+Me.Toolbar = "FCFormServerFilter"
+End Sub
+
+Private Sub Form_Load()
+Me.ServerFilter = ""
+End Sub

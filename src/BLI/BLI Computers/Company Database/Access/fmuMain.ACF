@@ -1,0 +1,1323 @@
+Version =19
+VersionRequired =19
+Checksum =-1670065665
+Begin Form
+    AutoResize = NotDefault
+    RecordSelectors = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    PictureSizeMode =1
+    PictureType =1
+    GridX =24
+    GridY =24
+    Width =20160
+    ItemSuffix =193
+    Left =2295
+    Top =375
+    Right =11205
+    Bottom =6180
+    Toolbar ="BLIFormToolbar"
+    RecSrcDt = Begin
+        0xe7ec0009dc65e140
+    End
+    Caption ="Main Menu"
+    OnOpen ="[Event Procedure]"
+    OnClose ="[Event Procedure]"
+    MenuBar ="BLIFormMenuBar"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ListBox
+            SpecialEffect =2
+        End
+        Begin Chart
+            SpecialEffect =2
+            OldBorderStyle =1
+        End
+        Begin Section
+            Height =12600
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =1710
+                    Top =240
+                    Width =8925
+                    Height =555
+                    FontSize =16
+                    FontWeight =700
+                    ForeColor =-2147483634
+                    Name ="Label192"
+                    Caption ="bli computers, inc."
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x5d436ac2f5ed0f4391ce17e63d091030
+                    End
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =7845
+                    Top =2955
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box76"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =7905
+                    Top =3015
+                    Width =2700
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label77"
+                    Caption ="Management"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =4785
+                    Top =4455
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box25"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =7845
+                    Top =1095
+                    Width =2820
+                    Height =1620
+                    BackColor =8421376
+                    Name ="Box23"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =4785
+                    Top =1095
+                    Width =2820
+                    Height =1620
+                    BackColor =8421376
+                    Name ="Box22"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =82
+                    TextFontFamily =34
+                    Left =4905
+                    Top =1935
+                    Width =2640
+                    TabIndex =5
+                    Name ="cmdBrowseOrders"
+                    Caption ="Old O&rders"
+                    OnClick ="=OldOrders()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000bf00000000bf0000bfbf00000000bf00bf00bf0000bfbf00 ,
+                        0xc0c0c00080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =66
+                    TextFontFamily =34
+                    Left =7965
+                    Top =1935
+                    Width =2640
+                    TabIndex =8
+                    Name ="cmdBusinessCustomers"
+                    Caption ="&Business Customers"
+                    OnClick ="=BusinessCustomers()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003000100000000bf00000000bf0000bfbf00000000bf00bf00bf0000bfbf00 ,
+                        0xc0c0c000c0dcc000a4c8f0000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000000000000fffbf000 ,
+                        0xa0a0a40080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =69
+                    TextFontFamily =34
+                    Left =4905
+                    Top =1575
+                    Width =2640
+                    TabIndex =4
+                    Name ="cmdNewOrder"
+                    Caption ="N&ew Order"
+                    OnClick ="=NewOrder()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003000100000000bf00000000bf0000bfbf00000000bf00bf00bf0000bfbf00 ,
+                        0xc0c0c000c0dcc000a4c8f0000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000000000000fffbf000 ,
+                        0xa0a0a40080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =76
+                    TextFontFamily =34
+                    Left =4905
+                    Top =4935
+                    Width =2640
+                    TabIndex =14
+                    Name ="cmdPriceListing"
+                    Caption ="Price &Listing"
+                    OnClick ="=PriceListing()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003000100000000bf00000000bf0000bfbf00000000bf00bf00bf0000bfbf00 ,
+                        0xc0c0c000c0dcc000a4c8f0000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000000000000fffbf000 ,
+                        0xa0a0a40080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =10920
+                    Top =120
+                    Width =600
+                    Height =600
+                    Name ="cmdExitDatabase"
+                    OnClick ="=ExitDatabase()"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880888888 ,
+                        0x8888888888888888888888880088888888888888888888888888888030888888 ,
+                        0x8888888888888888888888033088888888888888888888888888803330888888 ,
+                        0x8888888888888888888803333088888888888888888888888000333330000000 ,
+                        0x00000888888888888880333330ffff0888888888888888888880333330ffff08 ,
+                        0x88888888888888888880333300ffff0888888888888888888880333330ffff08 ,
+                        0x88888488888888888880333330ffff0888884488888888888880333330ffff08 ,
+                        0x88844488888888888880333330ffff0888444444488888888880333330ffff08 ,
+                        0x84444444488888888880333330ffff0884444444488888888880333330ffff08 ,
+                        0x8844444448888888888033330fffff08888444888888800088803330ffffff08 ,
+                        0x88884488888880ff8880330fffffff0888888488888880ff888030ffffffff08 ,
+                        0x888888888888800088800fffffffff0888888888888888888880000000000008 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =4845
+                    Top =1155
+                    Width =2700
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Text26"
+                    Caption ="Orders"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =7905
+                    Top =1155
+                    Width =2700
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Text29"
+                    Caption ="Customers"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =80
+                    TextFontFamily =34
+                    Left =4905
+                    Top =5295
+                    Width =2640
+                    TabIndex =15
+                    Name ="cmdPriceReports"
+                    Caption =" Price Re&ports"
+                    OnClick ="=PriceReports()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =4845
+                    Top =4515
+                    Width =2700
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Text37"
+                    Caption ="Component Prices"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =83
+                    TextFontFamily =34
+                    Left =60
+                    Top =4380
+                    Width =1320
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =20
+                    Name ="cmdNotes"
+                    Caption ="Note&s"
+                    OnClick ="=Notes()"
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003000100000000bf00000000bf0000bfbf00000000bf00bf00bf0000bfbf00 ,
+                        0xc0c0c000c0dcc000a4c8f0000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000000000000fffbf000 ,
+                        0xa0a0a40080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin Label
+                    SpecialEffect =3
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =60
+                    Top =900
+                    Width =1350
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="lblMike"
+                    Caption ="Mike"
+                    FontName ="Tahoma"
+                End
+                Begin Line
+                    OverlapFlags =93
+                    SpecialEffect =5
+                    Left =1440
+                    Top =840
+                    Width =0
+                    Height =11520
+                    Name ="Line53"
+                End
+                Begin Line
+                    OverlapFlags =87
+                    SpecialEffect =5
+                    Top =840
+                    Width =20160
+                    Name ="Line5"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =72
+                    TextFontFamily =34
+                    Left =7965
+                    Top =2295
+                    Width =2640
+                    TabIndex =9
+                    Name ="cmdHomeCustomers"
+                    Caption ="&Home Customers"
+                    OnClick ="=HomeCustomers()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =7965
+                    Top =1575
+                    Width =2640
+                    TabIndex =7
+                    Name ="cmdNewCustomer"
+                    Caption ="New &Customer"
+                    OnClick ="=NewCustomer()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =71
+                    TextFontFamily =34
+                    Left =60
+                    Top =4740
+                    Width =1320
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =21
+                    Name ="cmdLogin"
+                    Caption ="Lo&gin"
+                    OnClick ="=Login()"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =1725
+                    Top =2955
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box61"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    TextFontFamily =34
+                    Left =1845
+                    Top =3795
+                    Width =2640
+                    TabIndex =11
+                    Name ="cmdViewCurrentCalls"
+                    Caption ="Old Sales Orders"
+                    OnClick ="=OldSales()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    TextFontFamily =34
+                    Left =1845
+                    Top =3435
+                    Width =2640
+                    TabIndex =10
+                    Name ="cmdNewSaleOrder"
+                    Caption ="New Sales Order"
+                    OnClick ="=NewSale(0)"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =1770
+                    Top =3015
+                    Width =2715
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label64"
+                    Caption ="Sales Orders"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    Visible = NotDefault
+                    OverlapFlags =85
+                    Left =4410
+                    Top =5775
+                    Width =4020
+                    Height =240
+                    FontWeight =700
+                    ForeColor =255
+                    Name ="lblCalls"
+                    Caption ="You have n unviewed calls."
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =75
+                    TextFontFamily =34
+                    Left =7965
+                    Top =3435
+                    Width =2640
+                    TabIndex =16
+                    Name ="cmdChecking"
+                    Caption ="Chec&king"
+                    OnClick ="=Checking()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =86
+                    TextFontFamily =34
+                    Left =4905
+                    Top =2295
+                    Width =2640
+                    TabIndex =6
+                    Name ="cmdVendors"
+                    Caption ="&Vendors"
+                    OnClick ="=Vendors()"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    Visible = NotDefault
+                    SpecialEffect =3
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =60
+                    Top =2160
+                    Width =1350
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="lblOther"
+                    Caption ="Other"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =1725
+                    Top =1095
+                    Width =2820
+                    Height =1620
+                    BackColor =8421376
+                    Name ="Box83"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =1740
+                    Top =1155
+                    Width =2775
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label84"
+                    Caption ="Invoices"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =93
+                    AccessKey =73
+                    TextFontFamily =34
+                    Left =4905
+                    Top =3435
+                    Width =2640
+                    TabIndex =12
+                    Name ="cmdInventoryListing"
+                    Caption ="&Inventory Listing"
+                    OnClick ="=InventoryListing()"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =223
+                    Left =4785
+                    Top =2955
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box86"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =4845
+                    Top =3015
+                    Width =2700
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label87"
+                    Caption ="Inventory"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =89
+                    TextFontFamily =34
+                    Left =4905
+                    Top =3795
+                    Width =2640
+                    TabIndex =13
+                    Name ="cmdInventoryReports"
+                    Caption ="Inventor&y Reports"
+                    OnClick ="=InventoryReports()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =78
+                    TextFontFamily =34
+                    Left =1845
+                    Top =1575
+                    Width =2640
+                    TabIndex =1
+                    Name ="cmdNewInvoice"
+                    Caption ="&New Invoice"
+                    OnClick ="=NewInvoice(0)"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =85
+                    TextFontFamily =34
+                    Left =1845
+                    Top =2295
+                    Width =2640
+                    TabIndex =3
+                    Name ="cmdUnpaidInvoices"
+                    Caption ="&Unpaid Invoices"
+                    OnClick ="=UnpaidInvoices()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1845
+                    Top =1935
+                    Width =2640
+                    TabIndex =2
+                    Name ="cmdOldInvoices"
+                    Caption ="&Old Invoices"
+                    OnClick ="=OldInvoices()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =93
+                    AccessKey =81
+                    TextFontFamily =34
+                    Left =1845
+                    Top =4935
+                    Width =2640
+                    TabIndex =18
+                    Name ="cmdNewPriceQuote"
+                    Caption ="New Price &Quote"
+                    OnClick ="=NewPriceQuote(0)"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =93
+                    AccessKey =68
+                    TextFontFamily =34
+                    Left =1845
+                    Top =5295
+                    Width =2640
+                    TabIndex =19
+                    Name ="cmdOldPriceQuotes"
+                    Caption =" Ol&d Price Quotes"
+                    OnClick ="=OldPriceQuotes()"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    TextFontFamily =34
+                    Left =7965
+                    Top =3795
+                    Width =2640
+                    TabIndex =17
+                    Name ="cmdManagementReports"
+                    Caption ="Reports"
+                    OnClick ="=ManagementReports()"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =223
+                    Left =1725
+                    Top =4455
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box147"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =1770
+                    Top =4515
+                    Width =2715
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label148"
+                    Caption ="Quotes"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    SpecialEffect =3
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =60
+                    Top =1320
+                    Width =1350
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="lblGreg"
+                    Caption ="Greg"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =60
+                    Top =4020
+                    Width =1320
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =22
+                    Name ="cmdReleaseNotes"
+                    Caption ="Release Notes"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =60
+                    Top =3660
+                    Width =1320
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =23
+                    Name ="cmdUtilities"
+                    Caption ="Utilites"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =7965
+                    Top =4935
+                    Width =2640
+                    TabIndex =24
+                    Name ="cmdLaborSheets"
+                    Caption ="Labor Sheets"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Visible = NotDefault
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =7965
+                    Top =5295
+                    Width =2640
+                    TabIndex =25
+                    Name ="Command175"
+                    OnClick ="=OldPriceQuotes()"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =223
+                    Left =7845
+                    Top =4455
+                    Width =2820
+                    Height =1260
+                    BackColor =8421376
+                    Name ="Box176"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =7890
+                    Top =4515
+                    Width =2715
+                    Height =300
+                    FontSize =11
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="Label177"
+                    Caption ="Labor"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    SpecialEffect =3
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =60
+                    Top =1740
+                    Width =1350
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    BackColor =-2147483635
+                    ForeColor =-2147483634
+                    Name ="lblNick"
+                    Caption ="Nick"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xaaf1e573bf4ee348a0919bf23e916885
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =60
+                    Top =5220
+                    Width =1320
+                    Height =240
+                    Name ="lblVersion"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x8ed1717a348c0248a9c0f2cb778f4a23
+                    End
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =2
+                    Left =60
+                    Top =5460
+                    Width =1320
+                    Height =240
+                    Name ="lblDBDate"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xd0244c5ad4599a489a57f8c23be656d9
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =2
+                    OverlapFlags =215
+                    Left =60
+                    Top =5220
+                    Width =1320
+                    Height =480
+                    Name ="Box188"
+                    GUID = Begin
+                        0x9f65a583597b1b4ab505cbbdba5cfdab
+                    End
+                End
+                Begin Image
+                    Left =300
+                    Top =60
+                    Width =900
+                    Height =720
+                    Name ="Image189"
+                    PictureData = Begin
+                        0x2800000030000000300000000100180000000000001b00000000000000000000 ,
+                        0x0000000000000000ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6cecececececececececececececececececececececed6d6ced6d6 ,
+                        0xced6d6cececececececececececececed6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6cececececececececececececececececececececece ,
+                        0xcececececececececececececececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6cececececece9c9c9c9c9c9c9c9c9c9c9c9c9c9c ,
+                        0x9c9c9c9c9c9c9c9c9c9ccececececece9c9c9c9c9c9c9c9c9c9c9c9c9c9c9cce ,
+                        0xcecececececed6d6ced6d6ced6d6ced6d6ced6d6cececececece9c9c9c9c9c9c ,
+                        0x9c63639c63639c63639c63636363636363636363639c63639c9c9c9c9c9ccece ,
+                        0xceced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cecece9c9c9c9c ,
+                        0x9c9c9c63639c63639c9c9c9c63639c6363636363633131636363cececece9c9c ,
+                        0x9c63639c63639c6363636363633131636363cecececed6d6ced6d6ced6d6ced6 ,
+                        0xd6cecece9c9c9c9c63639c63639c6363ce6363ce6363ce9c9cce9c9cce9c9cce ,
+                        0x9c9cce9c9c9c63636331316363639c9c9ccecececed6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6cecece9c9c9c9c6363ce9c9cce9c9cce9c9cce6363ce63639c63 ,
+                        0x639c63639c3131636363cecece9c63639c3131ce63639c31319c31319c313163 ,
+                        0x3131cecececed6d6ced6d6ced6d6ced6d6cecece9c9c9cce6363ce9c9cce9c9c ,
+                        0xce9c9cffceceffceceffceceffceceffceceffceceffcecece9c9c6331316331 ,
+                        0x319c9c9ccecececed6d6ced6d6ced6d6ced6d6cecece9c9c9cce9c9cce9c9cce ,
+                        0x9c9cce9c9cce9c63ce6363ce6363ce6363ce63639c6363636363cecece9c6363 ,
+                        0x9c3131ce63639c31319c31319c3131633131cecececed6d6ced6d6ced6d6cece ,
+                        0xcece9c9cce9c9cce9c9cce9c9cce9c9cce9c9cffceceffceceffceceffceceff ,
+                        0xceceffceceffceceffcecececece636363636363cecececed6d6ced6d6ced6d6 ,
+                        0xcecece9c9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce6363ce6363ce63 ,
+                        0x63ce63639c6363636363cecece9c6363ce3131ce63639c31319c31319c313163 ,
+                        0x6363cecececed6d6ced6d6ced6d6cece9cce9c9cce9c9cce9c9cce9c9cce9c9c ,
+                        0xce9c9cce9c9cce9c9ccececeffceceffceceffceceffceceffceceffcece9c9c ,
+                        0x9c3131319c9c9ccecececed6d6ced6d6cececece9c9cce9c9cce9c9cce9c9cce ,
+                        0x9c9c9c63639c63639c63639c63639c63639c63639c6363636363cecece9c6363 ,
+                        0xce6363ce63639c31319c31319c3131636363cecececed6d6ced6d6cececece9c ,
+                        0x9cce9c9cce9c9cce9c9c9c63636363636331316331319c63639c63639c6363ce ,
+                        0x6363ce9c63ffceceffceceffceceffcece636363313131cecececed6d6ced6d6 ,
+                        0xce9c9cffcecece9c9cce9c9cce9c9c9c63636331313131313100003100003100 ,
+                        0x00310000310000636363cecece9c6331ce6363ce63639c31319c31319c313163 ,
+                        0x6363ced6d6ced6d6ced6d6cececece6363ce9c9cce9c9c9c6363633131310000 ,
+                        0x0000003100006331316363636363636363639c6363ce9c9cffceceffceceffce ,
+                        0xce9c9c9c3131319c9c9cced6d6cececece9c9cffcecece9c9cce9c9c9c636331 ,
+                        0x3131636363cececececececececececececececececececed6d6ced6d69c6331 ,
+                        0xce6363ce63639c31319c31319c31319c6363ced6d6ced6d6ced6d6cececece63 ,
+                        0x63ce9c63ce9c9c636363310000000000313131cecececed6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6cececece9c9cffceceffcecece9c9c3131319c9c9cced6d6cecece ,
+                        0xce9c9cffcecece9c9cce9c9c3131319c9c9cced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d69c6331ce6363ce6363ce31319c31319c31319c ,
+                        0x6363ced6d6ced6d6ced6d6cececece6363ce6363ce6363633131000000000000 ,
+                        0x9c9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffce ,
+                        0xcececece313131636363ced6d6ce9c9cce9c9cffceceffcece9c9c9c313131ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d69c3131 ,
+                        0xce6363ce6363ce31319c31319c31319c9c9cced6d6ced6d6ced6d6cececece63 ,
+                        0x63ce6363ce63636331310000000000009c9c9cced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ce9c9cffceceffcecececece313131636363ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c6363313131cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ffcece9c3131ce6363ce6363ce6331ce31319c31319c ,
+                        0x9c9cced6d6ced6d6ced6d6cececece6363ce6363ce6363633131000000000000 ,
+                        0x9c9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffce ,
+                        0xcececece313131636363ced6d6ce9c9cffceceffceceffcece9c6363313131ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ffcecece3131 ,
+                        0xce6363ce6363ce6363ce31319c31319c9c9cced6d6ced6d6ced6d6cececece63 ,
+                        0x63ce6363ce63636331310000000000009c9c9cced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ce9c9cffceceffcecececece313131636363ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c6363313131cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6cececece6331ce6363ce6363ce6363ce63316331319c ,
+                        0x9c9cced6d6ced6d6ced6d6cececece6363ce6363ce6363633131000000000000 ,
+                        0x9c9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffce ,
+                        0xcececece313131636363ced6d6ce9c9cffceceffceceffcece9c6363633131ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececece6331 ,
+                        0xce6363ce6363ce6363ce63636331319c9c9cced6d6ced6d6ced6d6cececece63 ,
+                        0x63ce6363ce6363633131000000000000636363cecececed6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6cececece9c9cffceceffcecececece313131636363ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c6363633131cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6cececece6363ce6363ce6363ce6363ce63636331319c ,
+                        0x9c9cced6d6ced6d6ced6d6cececece6363ce6363ce6363633131310000000000 ,
+                        0x636363cecececed6d6cececececececececececececececece9c9cffceceffce ,
+                        0xcececece313131636363ced6d6ce9c9cffceceffceceffcece9c9c9c633131ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececece6363 ,
+                        0xce6363ce6363ce6363ce63636331319c9c9cced6d6ced6d6ced6d6cececece63 ,
+                        0x63ce6363ce6363633131310000000000636363cececececece9c9c9c9c9c9c9c ,
+                        0x9c9c9c9c9c9c9c9cce9c9cffceceffcecece9c9c3131319c9c9cced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6cececece6363ce6363ce9c9cce6363ce63636331319c ,
+                        0x9c9cced6d6ced6d6ced6d6cececece6363ce6363ce6363633131310000000000 ,
+                        0x636363cecece9c63636363636363636363639c6363ce6363ffceceffceceffce ,
+                        0xce9c9c9c310000cecececed6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececece9c9cce6363 ,
+                        0xce6363ce9c9cce6363ce6363633131cecececed6d6ced6d6ced6d6cececece63 ,
+                        0x63ce6363ce63639c3131310000000000636363cececece6363ce6363ce6363ce ,
+                        0x6363ce6363ce9c9cffceceffcecece9c9c633131636363ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6cececececece9c9c9c9c6363ce6363ce9c63ce6363ce6363ce6363633131ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ce6363ce6363ce63639c3131310000000000 ,
+                        0x636363cececece9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce9c9c9c63 ,
+                        0x63313131cecececed6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ce9c9c9c63639c31319c3131ce6363 ,
+                        0xce9c9cce6363ce63639c6363636363ced6d6ced6d6ced6d6ced6d6ced6d6ce63 ,
+                        0x63ce6363ce63639c3131310000000000636363cececece9c63ce9c9cce9c9cce ,
+                        0x9c9cce9c9cce9c9cce9c9c9c6363313131cecececed6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ce63639c6363ce6363ce9c9cce9c9cce6363ce6363ce63636331319c9c9cce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce6363ce6363ce63639c3131310000000000 ,
+                        0x636363cececece6363ce9c9cce9c9cce9c9cce9c9cce9c9c636363313131cece ,
+                        0xceced6d6ced6d6ced6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ce6363ce9c9cce9c9cce9c9cce9c9c ,
+                        0xce6363ce63639c6363636363ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce63 ,
+                        0x63ce6331ce63639c3131310000000000636363cececece9c9cce9c9cce9c9c9c ,
+                        0x9c9c9c9c9c9c9c9ccecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ce9c63ce9c9cce9c9cce9c9cce9c9cce9c639c6363633131cecececed6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce6363ce3131ce63639c3131310000000000 ,
+                        0x636363cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ce9c9cce9c9cce9c9cce9c9cce9c9c ,
+                        0x9c6363636363cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce63 ,
+                        0x639c3131ce63319c3131310000000000636363cecececed6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ce9c9cce9c9cce9c9c9c63639c63639c9c9cced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce63639c3131ce31319c3131310000000000 ,
+                        0x636363cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6cececececececececececece ,
+                        0xcececececececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce63 ,
+                        0x639c31319c31319c3131310000000000633131cecececed6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6cecececececececece9c9c9c9c9c9c9c9c9c9c9c9c9c9c9ccecececed6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce63639c31319c31319c3131310000000000 ,
+                        0x313131cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6cecece9c6363636363636363636363636331 ,
+                        0x6331316331316363639c9c9ccecececed6d6ced6d6ced6d6ced6d6ced6d6ce9c ,
+                        0x639c31319c31319c3131313100000000313131cecececed6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6cece ,
+                        0xce9c6363310000310000310000310000310000310000310000633131cececece ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce9c9c9c31319c31319c3131313100000000 ,
+                        0x313131cecececed6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ce9c9cffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6cececece9c9cce9c9cce9c9cce9c9c9c6363 ,
+                        0x9c6363636363633131633131cecececed6d6ced6d6ced6d6ced6d6ced6d6ce9c ,
+                        0x9c9c31319c31319c3131313100000000313131ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce9c9c ,
+                        0xffceceffceceffcece9c9c9c636363cecececed6d6ced6d6ced6d6ced6d6cece ,
+                        0xcece9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce9c9cce6363636363cececece ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ce9c9c9c31319c31319c3131633131000000 ,
+                        0x313131ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6cececeffceceffceceffcece9c9c9c636363ce ,
+                        0xcececed6d6ced6d6ced6d6ced6d6ced6d6ce9c9cce9c9cffcecece9c9cce9c9c ,
+                        0xce9c9cce9c9cce9c9c636363cecececed6d6ced6d6ced6d6ced6d6ced6d6ce9c ,
+                        0x9c9c31319c31319c3131633100000000cecececed6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6cecece ,
+                        0xffceceffceceffcece9c9c9c9c9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ce9c9cce9c9cffcecece9c9cce9c9cce9c9cce9c9cce9c9c9c6363ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ffcececececececececececececece ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ffcecececececececece9c9c9c9c9ccececece ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ffceceffcececececececece ,
+                        0xcececece9c9cce9c9cce9c9cced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6 ,
+                        0xced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6 ,
+                        0xd6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ced6d6ce ,
+                        0xd6d6ced6d6ced6d6
+                    End
+                    ObjectPalette = Begin
+                        0x000300010000000020000000400000006000000080000000a0000000c0000000 ,
+                        0xe00000000020000020200000402000006020000080200000a0200000c0200000 ,
+                        0xe02000000040000020400000404000006040000080400000a0400000c0400000 ,
+                        0xe04000000060000020600000406000006060000080600000a0600000c0600000 ,
+                        0xe06000000080000020800000408000006080000080800000a0800000c0800000 ,
+                        0xe080000000a0000020a0000040a0000060a0000080a00000a0a00000c0a00000 ,
+                        0xe0a0000000c0000020c0000040c0000060c0000080c00000a0c00000c0c00000 ,
+                        0xe0c0000000e0000020e0000040e0000060e0000080e00000a0e00000c0e00000 ,
+                        0xe0e000000000400020004000400040006000400080004000a0004000c0004000 ,
+                        0xe00040000020400020204000402040006020400080204000a0204000c0204000 ,
+                        0xe02040000040400020404000404040006040400080404000a0404000c0404000 ,
+                        0xe04040000060400020604000406040006060400080604000a0604000c0604000 ,
+                        0xe06040000080400020804000408040006080400080804000a0804000c0804000 ,
+                        0xe080400000a0400020a0400040a0400060a0400080a04000a0a04000c0a04000 ,
+                        0xe0a0400000c0400020c0400040c0400060c0400080c04000a0c04000c0c04000 ,
+                        0xe0c0400000e0400020e0400040e0400060e0400080e04000a0e04000c0e04000 ,
+                        0xe0e040000000800020008000400080006000800080008000a0008000c0008000 ,
+                        0xe00080000020800020208000402080006020800080208000a0208000c0208000 ,
+                        0xe02080000040800020408000404080006040800080408000a0408000c0408000 ,
+                        0xe04080000060800020608000406080006060800080608000a0608000c0608000 ,
+                        0xe06080000080800020808000408080006080800080808000a0808000c0808000 ,
+                        0xe080800000a0800020a0800040a0800060a0800080a08000a0a08000c0a08000 ,
+                        0xe0a0800000c0800020c0800040c0800060c0800080c08000a0c08000c0c08000 ,
+                        0xe0c0800000e0800020e0800040e0800060e0800080e08000a0e08000c0e08000 ,
+                        0xe0e080000000c0002000c0004000c0006000c0008000c000a000c000c000c000 ,
+                        0xe000c0000020c0002020c0004020c0006020c0008020c000a020c000c020c000 ,
+                        0xe020c0000040c0002040c0004040c0006040c0008040c000a040c000c040c000 ,
+                        0xe040c0000060c0002060c0004060c0006060c0008060c000a060c000c060c000 ,
+                        0xe060c0000080c0002080c0004080c0006080c0008080c000a080c000c080c000 ,
+                        0xe080c00000a0c00020a0c00040a0c00060a0c00080a0c000a0a0c000c0a0c000 ,
+                        0xe0a0c00000c0c00020c0c00040c0c00060c0c00080c0c000a0c0c000c0c0c000 ,
+                        0xe0c0c00000e0c00020e0c00040e0c00060e0c00080e0c000a0e0c000c0e0c000 ,
+                        0xe0e0c00000000000
+                    End
+                    Picture ="C:\\bli48.ico"
+                    GUID = Begin
+                        0xd3ed2a97dcf18c419709e3b01d5af015
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =1725
+                    Top =225
+                    Width =8925
+                    Height =555
+                    FontSize =16
+                    FontWeight =700
+                    ForeColor =-2147483635
+                    Name ="Label190"
+                    Caption ="bli computers, inc."
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x0e56eb5dbcfa0144af7e9f04bdae11af
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub cmdLaborSheets_Click()
+DoCmd.OpenForm "frmLabor"
+End Sub
+
+
+Private Sub cmdReleaseNotes_Click()
+DoCmd.OpenForm "zfdlgReleaseNotes"
+End Sub
+
+Private Sub cmdUtilities_Click()
+DoCmd.OpenForm "frmUtilities"
+End Sub
+
+Private Sub Form_Close()
+CloseCurrentDatabase
+End Sub
+
+Private Sub Form_Load()
+DoCmd.Maximize
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+On Error GoTo Form_Open_Err
+
+glCurUserID = 0
+glLocalTaxRate = 0.051
+
+CheckVersion
+Me.lblVersion.Caption = GetDBVersion
+Me.lblDBDate.Caption = GetDBDate
+
+If Not CurrentProject.IsConnected Then
+  Dim msg As String
+  msg = "There was a problem connecting to the database server." & vbCrLf
+  msg = msg & "You are currently logged on as '" & GetNTUserName & "'.  "
+  msg = msg & "If you have not been granted access, that is why you see this message.  Click 'OK' and go get access then try using the database again.  "
+  msg = msg & "Otherwise, click 'Cancel' to edit the connection properties."
+  If MsgBox(msg, vbExclamation + vbOKCancel) = vbOK Then
+    Application.Quit
+  Else
+    DoCmd.RunCommand acCmdConnection
+  End If
+End If
+
+
+DoCmd.OpenForm "fdlgLogin", , , , , acDialog
+
+'Me.TimerInterval = 30000
+DoCmd.Maximize
+
+
+Exit Sub
+Form_Open_Err:
+Select Case Err
+    Case 3044     'path not valid
+        MsgBox "The attachments are not linked correctly - the data database was not found.", vbCritical
+        CloseWaitForm
+        CloseCurrentDatabase
+        Exit Sub
+    Case Else
+        ErrHand Me.Name, "Form_Open"
+        Exit Sub
+End Select
+
+
+End Sub

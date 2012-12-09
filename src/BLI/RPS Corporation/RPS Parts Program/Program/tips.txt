@@ -1,0 +1,7 @@
+The Parts Listing contains a spreadsheet like view of the parts.
+You can use 'Export' to export the data in a variety of formats for use in other programs.
+To search for a part, click Part Info on the toolbar, then enter a part in the lower right.
+Click 'Reports' on the toolbar to select from a variety of reports.
+In the 'View' menu, choose 'Options' to change settings.
+You can export any report as a web page.  Simply click the second toolbar button when you are in print preview view of a report.
+You can update your parts from RPS by choosing 'Update Parts' in the Tools menu.

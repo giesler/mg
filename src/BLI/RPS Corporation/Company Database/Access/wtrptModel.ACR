@@ -1,0 +1,505 @@
+Version =19
+VersionRequired =19
+Checksum =-262101763
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =14172
+    ItemSuffix =103
+    Left =1200
+    Top =720
+    Right =9765
+    Bottom =6360
+    OnNoData ="[Event Procedure]"
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x34b8e886ae06e240
+    End
+    InputParameters ="GetSPVar(\"FromDate\"), GetSPVar(\"ToDate\"), GetSPVar(\"DealerName\"), GetSPVar"
+        "(\"ModelID\"), GetType()"
+    RecordSource ="dbo.wtsprptWarrantyTech"
+    Caption ="Warranty Tech Report"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d002000018030000d002000000000000b7290000ef00000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4850204465736b4a657420393530432053657269657300 ,
+        0x01041b409c00a80603df001e0200010000000000640001000700fdff02000100 ,
+        0x0000030000004c65747465722028382e35207820313120696e2e292000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000001000000 ,
+        0x030000000100000001000000000000000000000000000000000000003c836587 ,
+        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000052030000 ,
+        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
+        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
+        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
+        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
+        0x7600650072007400000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000000000000000000000000000 ,
+        0x3c836587
+    End
+    PrtDevNames = Begin
+        0x080011003100010077696e73706f6f6c005c5c6368656573655c485020446573 ,
+        0x6b4a6574203935304320536572696573004c5054313a00000000000000000000 ,
+        0x00000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="Model"
+        End
+        Begin PageHeader
+            Height =1260
+            Name ="PageHeader0"
+            GUID = Begin
+                0x8cd404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =60
+                    Top =840
+                    Width =780
+                    Height =285
+                    Name ="Text9"
+                    Caption ="Model"
+                    GUID = Begin
+                        0x90d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =1200
+                    Width =14160
+                    Name ="Line48"
+                    GUID = Begin
+                        0x91d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =14040
+                    Height =240
+                    FontWeight =400
+                    Name ="lblDates"
+                    GUID = Begin
+                        0x93d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =14040
+                    Height =360
+                    FontSize =12
+                    Name ="txtHeading"
+                    Caption ="Warranty Tech Report"
+                    GUID = Begin
+                        0x2741cda1c2793b4cbe671b458a006bda
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =840
+                    Top =840
+                    Width =1320
+                    Height =285
+                    Name ="Label89"
+                    Caption ="Reference #"
+                    GUID = Begin
+                        0xc450ae3fb4260e4684073c1e23c1d39e
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =2160
+                    Top =840
+                    Width =960
+                    Height =285
+                    Name ="Label92"
+                    Caption ="Date"
+                    GUID = Begin
+                        0x166983ce73261e4cbaff5b767c607919
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =3120
+                    Top =840
+                    Width =2160
+                    Height =285
+                    Name ="Label94"
+                    Caption ="Dealer"
+                    GUID = Begin
+                        0x17505d410c74654bb490ccd22a0edea0
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =5280
+                    Top =840
+                    Width =1800
+                    Height =285
+                    Name ="Label96"
+                    Caption ="Serial Number"
+                    GUID = Begin
+                        0x25c6f23f0ced5f458b946751bc333b06
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =7080
+                    Top =840
+                    Width =3480
+                    Height =285
+                    Name ="Label98"
+                    Caption ="Problem"
+                    GUID = Begin
+                        0xbbf3155914e0f14f9a187578529bfa8e
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =10560
+                    Top =840
+                    Width =3480
+                    Height =285
+                    Name ="Label100"
+                    Caption ="Resolution"
+                    GUID = Begin
+                        0xc2bb78d4d7b5c14294912d80e128c54a
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =360
+            Name ="SortGroupHeader"
+            GUID = Begin
+                0x94d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    TextAlign =1
+                    Left =60
+                    Top =60
+                    Width =6540
+                    Height =240
+                    FontSize =9
+                    FontWeight =700
+                    Name ="Date of Order"
+                    ControlSource ="Model"
+                    EventProcPrefix ="Date_of_Order"
+                    GUID = Begin
+                        0x99d404e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x95d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =1
+                    Left =840
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    Name ="Text90"
+                    ControlSource ="ReferenceNum"
+                    GUID = Begin
+                        0xccb7e4c4e03a284392ad15cfdca3b617
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =2160
+                    Width =960
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Text93"
+                    ControlSource ="TechDate"
+                    GUID = Begin
+                        0x9bf787c0475d1a4c808c1fc9c24f1459
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =3120
+                    Width =2160
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Text95"
+                    ControlSource ="DealerName"
+                    GUID = Begin
+                        0xa12ed467a0a742438f4f2a69ff2022b2
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =5280
+                    Width =1800
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Text97"
+                    ControlSource ="SerialNumber"
+                    GUID = Begin
+                        0xf1a982fe8bd2c94ba1efc2ec65ef1001
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =7080
+                    Width =3480
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Text99"
+                    ControlSource ="Problem"
+                    GUID = Begin
+                        0x5f5524e80f92ea4f8a021d96726786ce
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =10560
+                    Width =3480
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Text101"
+                    ControlSource ="Resolution"
+                    GUID = Begin
+                        0x49159ec4539e684484895d060b436ced
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =120
+            Name ="GroupFooter1"
+            GUID = Begin
+                0xa0d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =14160
+                    Name ="Line102"
+                    GUID = Begin
+                        0xd68dc37d45e897469795fb5c387cc9c6
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter2"
+            GUID = Begin
+                0xa5d404e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =11580
+                    Top =60
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xa7d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =60
+                    Width =2277
+                    Height =240
+                    FontSize =8
+                    Name ="Text20"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xa8d404e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =14160
+                    Name ="Line21"
+                    GUID = Begin
+                        0xa9d404e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "There are no records for the criteria you entered.", vbExclamation
+  Cancel = True
+  
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errorHandler
+
+  Dim fR As New Form_wtfrptWarrantyTech
+  fR.chkPageBreak.Visible = True
+  fR.lblPageBreak.Caption = "Page Break by Model"
+  If mbTomCat Then
+    Me.Caption = "TC Warranty Tech by Model"
+    Me.txtHeading.Caption = "Tom Cat Warranty Tech by Model Report"
+    iType = 1
+    fR.cmbDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 1 GROUP BY DealerName ORDER BY DealerName"
+    fR.cmbModelID.RowSource = "SELECT ModelID, Model, Description FROM dbo.tblModels WHERE (ModelType = 1) ORDER BY Model"
+  Else
+    Me.Caption = "FC Warranty Tech by Model"
+    Me.txtHeading.Caption = "Factory Cat Warranty Tech by Model Report"
+    iType = 0
+    fR.cmbDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 0 GROUP BY DealerName ORDER BY DealerName"
+    fR.cmbModelID.RowSource = "SELECT ModelID, Model, Description FROM dbo.tblModels WHERE (ModelType = 0) ORDER BY Model"
+  End If
+  
+  fR.Caption = Me.Caption
+  fR.lblDates.Caption = "Tech Date:"
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+
+  SetSPVar "DealerName", fR.cmbDealerName
+  SetSPVar "ModelID", fR.cmbModelID
+  SetSPVar "FromDate", fR.datFrom
+  SetSPVar "ToDate", fR.datTo
+  
+  If fR.datFrom <> "" Or fR.datTo <> "" Then
+    Me.lblDates.Caption = FormatFromTo(fR.datFrom, fR.datTo)
+  End If
+
+  If fR.chkPageBreak Then
+    Me.SortGroupHeader.ForceNewPage = 1
+  Else
+    Me.SortGroupHeader.ForceNewPage = 0
+  End If
+
+  Set fR = Nothing
+
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

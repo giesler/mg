@@ -1,0 +1,132 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=\\pdc\Data\bli\vb\FC Parts\Package
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 1|Files Added]
+\\pdc\Data\bli\vb\FC Parts\fcdata.mdb=
+\\pdc\Data\bli\vb\FC Parts\tips.txt=
+
+[Package|Standard Setup Package 1|Files Removed]
+
+[Package|Standard Setup Package 1|Files In Project]
+\\pdc\Data\bli\vb\FC Parts\RPSParts.exe=Yes
+D:\WINNT\system32\msvbvm60.dll=Yes
+D:\WINNT\system32\oleaut32.dll=Yes
+D:\WINNT\system32\olepro32.dll=Yes
+D:\WINNT\system32\asycfilt.dll=Yes
+D:\WINNT\system32\stdole2.tlb=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\WINNT\system32\comdlg32.ocx=Yes
+D:\WINNT\system32\MSCOMCTL.OCX=Yes
+D:\WINNT\system32\MSCOMCT2.OCX=Yes
+D:\WINNT\system32\COMCT332.OCX=Yes
+D:\Program Files\Common Files\Designer\MSDERUN.DLL=Yes
+D:\WINNT\system32\MSHFLXGD.OCX=Yes
+D:\WINNT\system32\MSSTDFMT.DLL=Yes
+D:\WINNT\system32\MSBIND.DLL=Yes
+D:\WINNT\system32\MSDBRPTR.DLL=Yes
+D:\WINNT\system32\MSINET.OCX=Yes
+D:\WINNT\system32\tabctl32.ocx=Yes
+D:\WINNT\system32\MSWINSCK.OCX=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+D:\WINNT\system32\VB6STKIT.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+\\pdc\Data\bli\vb\FC Parts\fcdata.mdb=Yes
+\\pdc\Data\bli\vb\FC Parts\tips.txt=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+\\pdc\Data\bli\vb\FC Parts\RPSParts.exe=$(AppPath)
+D:\WINNT\system32\msvbvm60.dll=$(WinSysPathSysFile)
+D:\WINNT\system32\oleaut32.dll=$(WinSysPathSysFile)
+D:\WINNT\system32\olepro32.dll=$(WinSysPathSysFile)
+D:\WINNT\system32\asycfilt.dll=$(WinSysPathSysFile)
+D:\WINNT\system32\stdole2.tlb=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\WINNT\system32\comdlg32.ocx=$(WinSysPath)
+D:\WINNT\system32\MSCOMCTL.OCX=$(WinSysPath)
+D:\WINNT\system32\MSCOMCT2.OCX=$(WinSysPath)
+D:\WINNT\system32\COMCT332.OCX=$(WinSysPath)
+D:\Program Files\Common Files\Designer\MSDERUN.DLL=$(CommonFiles)\designer
+D:\WINNT\system32\MSHFLXGD.OCX=$(WinSysPath)
+D:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+D:\WINNT\system32\MSBIND.DLL=$(WinSysPath)
+D:\WINNT\system32\MSDBRPTR.DLL=$(WinSysPath)
+D:\WINNT\system32\MSINET.OCX=$(WinSysPath)
+D:\WINNT\system32\tabctl32.ocx=$(WinSysPath)
+D:\WINNT\system32\MSWINSCK.OCX=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+D:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+\\pdc\Data\bli\vb\FC Parts\fcdata.mdb=$(AppPath)
+\\pdc\Data\bli\vb\FC Parts\tips.txt=$(AppPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+\\pdc\Data\bli\vb\FC Parts\RPSParts.exe=No
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+\\pdc\Data\bli\vb\FC Parts\fcdata.mdb=No
+\\pdc\Data\bli\vb\FC Parts\tips.txt=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=RPS Dealer Parts
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=RPS Dealer Parts
+PrivateGroup0=True
+Parent0=$(Programs)
+Group1=$(Start Menu)
+PrivateGroup1=True
+Parent1=
+
+[Package|Standard Setup Package 1|RPS Dealer Parts]
+Icon1=RPSParts.exe
+Title1=RPS Dealer Parts
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Standard Setup Package 1|$(Start Menu)]
+Icon1=RPSParts.exe
+Title1=RPS Dealer Parts
+StartIn1=$(AppPath)
+Key1=Icon3
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=\\pdc\Data\bli\vb\FC Parts\Package
+ProjectFolder=\\pdc\Data\bli\vb\FC Parts
+ServerSideCab=
+File1=\\pdc\Data\bli\vb\FC Parts\Package\setup.exe
+File2=\\pdc\Data\bli\vb\FC Parts\Package\Setup.Lst
+File3=\\pdc\Data\bli\vb\FC Parts\Package\RPSParts.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

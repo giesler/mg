@@ -1,0 +1,134 @@
+VERSION 5.00
+Begin VB.PropertyPage Settings 
+   Caption         =   "Settings"
+   ClientHeight    =   3495
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   3015
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3495
+   ScaleWidth      =   3015
+   Begin VB.TextBox txtsRemoteFile 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   9
+      Top             =   2970
+      Width           =   2700
+   End
+   Begin VB.TextBox txtsLocalFile 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   7
+      Top             =   2320
+      Width           =   2700
+   End
+   Begin VB.TextBox txtsPassword 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   5
+      Top             =   1670
+      Width           =   2700
+   End
+   Begin VB.TextBox txtsUserName 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   3
+      Top             =   1020
+      Width           =   2700
+   End
+   Begin VB.TextBox txtsServer 
+      Height          =   330
+      Left            =   90
+      TabIndex        =   1
+      Top             =   370
+      Width           =   2700
+   End
+   Begin VB.Label lblsRemoteFile 
+      Caption         =   "sRemoteFile:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   8
+      Top             =   2720
+      Width           =   2700
+   End
+   Begin VB.Label lblsLocalFile 
+      Caption         =   "sLocalFile:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   6
+      Top             =   2070
+      Width           =   2700
+   End
+   Begin VB.Label lblsPassword 
+      Caption         =   "sPassword:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   4
+      Top             =   1420
+      Width           =   2700
+   End
+   Begin VB.Label lblsUserName 
+      Caption         =   "sUserName:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   2
+      Top             =   770
+      Width           =   2700
+   End
+   Begin VB.Label lblsServer 
+      Caption         =   "sServer:"
+      Height          =   240
+      Left            =   90
+      TabIndex        =   0
+      Top             =   120
+      Width           =   2700
+   End
+End
+Attribute VB_Name = "Settings"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Private Sub txtsRemoteFile_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtsLocalFile_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtsPassword_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtsUserName_Change()
+    Changed = True
+End Sub
+
+
+Private Sub txtsServer_Change()
+    Changed = True
+End Sub
+
+
+Private Sub PropertyPage_ApplyChanges()
+    SelectedControls(0).sRemoteFile = txtsRemoteFile.Text
+    SelectedControls(0).sLocalFile = txtsLocalFile.Text
+    SelectedControls(0).sPassword = txtsPassword.Text
+    SelectedControls(0).sUserName = txtsUserName.Text
+    SelectedControls(0).sServer = txtsServer.Text
+End Sub
+
+
+Private Sub PropertyPage_SelectionChanged()
+    txtsRemoteFile.Text = SelectedControls(0).sRemoteFile
+    txtsLocalFile.Text = SelectedControls(0).sLocalFile
+    txtsPassword.Text = SelectedControls(0).sPassword
+    txtsUserName.Text = SelectedControls(0).sUserName
+    txtsServer.Text = SelectedControls(0).sServer
+End Sub
+
+

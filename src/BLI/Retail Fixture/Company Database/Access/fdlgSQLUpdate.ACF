@@ -1,0 +1,410 @@
+Version =19
+VersionRequired =19
+Checksum =-1680020022
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5100
+    ItemSuffix =73
+    Left =2160
+    Top =2985
+    Right =11820
+    Bottom =8415
+    TimerInterval =1000
+    RecSrcDt = Begin
+        0xcf4c6bddb5cae140
+    End
+    Caption ="Database Update"
+    OnOpen ="[Event Procedure]"
+    OnTimer ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2880
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3900
+                    Top =1140
+                    Width =966
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =4920
+                    Height =795
+                    Name ="lblMessage"
+                    Caption ="There is a database structure update that must be applied to the database.  \015"
+                        "\012\015\012Please wait..."
+                    GUID = Begin
+                        0x27b3fa43f152ba41ae1bc7a523b0abd0
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =120
+                    Top =1140
+                    Width =1200
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdAdvanced"
+                    Caption ="&Advanced"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xf8bd9726ff6efc4898917ff1ad911d04
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =1560
+                    Width =5040
+                    Name ="line1"
+                    GUID = Begin
+                        0xf81f6b4c91c28c47ad5ff11bf488db91
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Left =60
+                    Top =2880
+                    Width =5040
+                    Name ="line2"
+                    GUID = Begin
+                        0xfd25a8b952441d4c98ab558a6d342834
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    Left =1560
+                    Top =1200
+                    Width =1920
+                    Height =240
+                    Name ="lblTime"
+                    Caption ="Time Remaining:"
+                    GUID = Begin
+                        0xb190ccc7f386fe4f8a5c7c93c16b2838
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =2220
+                    Width =3600
+                    TabIndex =2
+                    Name ="txtUpdateFile"
+                    GUID = Begin
+                        0x0fc48f5d67c4ad4bad5b6899c9f5555f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =120
+                            Top =2220
+                            Width =1140
+                            Height =240
+                            Name ="Label67"
+                            Caption ="Update FIle:"
+                            GUID = Begin
+                                0x742de581654c6d4995ca0fad25c4c9d8
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =66
+                    TextFontFamily =34
+                    Left =4020
+                    Top =2520
+                    Width =900
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdBrowse"
+                    Caption ="&Browse"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x744f8b2cdd52d24eb93dfb30fd49cfbb
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    AccessKey =82
+                    Left =1380
+                    Top =2580
+                    Width =2460
+                    Height =180
+                    TabIndex =4
+                    Name ="chkRename"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x2bed88b6c9635d43abda3fd98d73d0a3
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =1610
+                            Top =2550
+                            Width =2295
+                            Height =240
+                            Name ="Label70"
+                            Caption ="&Rename when complete"
+                            GUID = Begin
+                                0x6247b9f778960648818f37803c8d1059
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =1680
+                    Width =4860
+                    Height =405
+                    Name ="Label71"
+                    Caption ="DO NOT ADJUST THESE SETTINGS UNLESS INSTRUCTED BY BLI COMPUTERS!"
+                    GUID = Begin
+                        0xf42cc45a70c5b044b68b1f3315457f51
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    Visible = NotDefault
+                    OverlapFlags =215
+                    AccessKey =71
+                    TextFontFamily =34
+                    Left =2880
+                    Top =1140
+                    Width =966
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdGo"
+                    Caption ="&Go"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x8d83c1b0cd0feb4680257a3f048d1d61
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Const intMax = 5
+Private intCur As Integer
+
+Private Sub cmdAdvanced_Click()
+    
+  Me.lblTime.Caption = ""
+  Me.cmdGo.Visible = True
+  Me.TimerInterval = 0
+  Me.cmdGo.SetFocus
+  Me.cmdAdvanced.Enabled = False
+  Me.chkRename = False
+  DoCmd.MoveSize , , , Me.Line2.Top + 350
+
+End Sub
+
+Private Sub cmdGo_Click()
+
+  RunSQLUpdate Me.txtUpdateFile, Me.chkRename
+  Me.Visible = False
+
+End Sub
+
+Private Sub cmdOK_Click()
+  
+  If MsgBox("Are you sure you want to cancel this update?  Only cancel if asked to by BLI.", vbQuestion + vbYesNo + vbDefaultButton2) = vbYes Then
+    Me.Visible = False
+  End If
+  
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+  
+  DoCmd.MoveSize , , , Me.Line1.Top + 350
+  intCur = 0
+  Me.lblTime.Caption = "Time Remaining: " + CStr(intMax - intCur)
+  
+End Sub
+
+Private Sub Form_Timer()
+
+  intCur = intCur + 1
+  If intCur > intMax Then
+    Dim x
+    Me.TimerInterval = 0
+    If Not FileExists(Me.txtUpdateFile) Then
+      MsgBox "The update file could not be found.  Please verify the file is present.", vbExclamation
+    Else
+      cmdGo_Click
+    End If
+  Else
+    Me.lblTime.Caption = "Time Remaining: " + CStr(intMax - intCur)
+  End If
+
+End Sub
+
+Public Sub RunSQLUpdate(pstrFile As String, pblnRename As Boolean)
+On Error GoTo errHandler
+
+  ' Open a new connection
+  Dim cnn As ADODB.Connection
+  Set cnn = New ADODB.Connection
+  cnn.Open gConn.ConnectionString, gstrDBOUser, gstrDBOPassword
+  
+  Dim sSQL As String, fn As Long, sTmp As String, fLen As Long
+  Dim iVal As Integer, blnCancel As Boolean, fn2 As Long
+  Dim blnSkip As Boolean
+
+  OpenStatusForm "Running database update...", 100
+  
+  fn = FreeFile
+  Open pstrFile For Input As fn
+  fLen = FileLen(pstrFile)
+
+  'Ignore header line
+  Line Input #fn, sTmp
+  cnn.BeginTrans
+  cnn.CommandTimeout = 240
+
+  Do While Not EOF(fn)
+    Line Input #fn, sTmp
+    iVal = Int((Loc(fn) * 128 / fLen) * 100)
+    UpdateStatusForm IIf(iVal > 100, 100, iVal)
+    If UCase(sTmp) = "GO" Then
+      sSQL = Trim(sSQL)
+      On Error Resume Next
+      blnSkip = False
+      Do While Not blnSkip
+        blnSkip = True
+        If Len(sSQL) > 0 Then cnn.Execute sSQL
+        If Err.Number <> 0 Then
+          blnCancel = HandleSQLError(sSQL, blnSkip, Err.Number, Err.Description)
+          If blnCancel Then GoTo errHandler2
+        End If
+      Loop
+      On Error GoTo errHandler
+      sSQL = ""
+    ElseIf Len(sTmp) = 0 Then
+    ElseIf Left(sTmp, 2) = "/*" Then
+    ElseIf InStr(UCase(sTmp), "BEGIN TRANSACTION") Then
+    ElseIf InStr(UCase(sTmp), "COMMIT") Then
+    Else
+      sSQL = sSQL & vbCrLf & sTmp
+    End If
+  Loop
+
+  Close fn
+
+  If pblnRename Then
+    FileCopy pstrFile, pstrFile & ".old"
+    Kill pstrFile
+  End If
+
+  UpdateStatusForm 100, "Saving changes..."
+  cnn.CommitTrans
+  CloseStatusForm
+  Me.Visible = False
+  
+Exit Sub
+errHandler:
+Close fn
+ErrHand Me.Name, "RunSQLUpdate"
+errHandler2:
+CloseStatusForm
+fn2 = FreeFile
+Open GetDBDir() & "sqltool.log" For Output As fn2
+Print #fn2, "Error: " & Err & ", " & Err.Description
+Print #fn2, "Current SQL: " & sSQL
+Close fn2
+Exit Sub
+End Sub
+
+Public Function HandleSQLError(sSQL As String, blnSkip As Boolean, iError As Long, sDesc As String) As Boolean
+
+  HandleSQLError = False
+  Dim fE As Form_fdlgSQLError
+  Set fE = New Form_fdlgSQLError
+  fE.lblErrNumber.Caption = CStr(iError)
+  fE.lblErrorInfo.Caption = sDesc
+  fE.txtSQL = sSQL
+  fE.Visible = True
+  Pause fE
+  Select Case fE.fraContinue
+    Case 1    'abort
+      HandleSQLError = True
+    Case 2    'retry
+      blnSkip = False
+      HandleSQLError = False
+    Case 3    'ignore
+      blnSkip = True
+      HandleSQLError = False
+  End Select
+  sSQL = fE.txtSQL
+  Set fE = Nothing
+
+End Function

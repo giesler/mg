@@ -1,0 +1,104 @@
+Version =19
+VersionRequired =19
+Checksum =-900528369
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =4440
+    DatasheetFontHeight =10
+    ItemSuffix =3
+    Left =6120
+    Top =4935
+    Right =12345
+    Bottom =7590
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xdd6da2d7db65e140
+    End
+    Caption ="Connection Manager"
+    DatasheetFontName ="Arial"
+    OnLoad ="[Event Procedure]"
+    OnError ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =1380
+            BackColor =-2147483633
+            Name ="Detail"
+            GUID = Begin
+                0xddcc04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =1440
+                    Top =900
+                    Name ="cmdConnectionInfo"
+                    Caption ="Connection Info"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x2ec6d1719f49ac4da0db26770800573d
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =180
+                    Top =120
+                    Width =3960
+                    Height =660
+                    Name ="lblConnection"
+                    Caption ="Connection..."
+                    GUID = Begin
+                        0x926a8d59a45d284e8ba543a55ac4bf17
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdConnectionInfo_Click()
+DoCmd.RunCommand acCmdConnection
+DoCmd.OpenForm "Switchboard"
+End Sub
+
+Private Sub Form_Error(DataErr As Integer, Response As Integer)
+MsgBox "Err: " & DataErr & ", " & Error(DataErr), vbExclamation
+
+End Sub
+
+Private Sub Form_Load()
+Me.lblConnection.Caption = CurrentProject.Connection.ConnectionString
+End Sub

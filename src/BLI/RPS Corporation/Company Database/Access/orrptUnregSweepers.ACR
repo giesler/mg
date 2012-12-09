@@ -1,0 +1,401 @@
+Version =19
+VersionRequired =19
+Checksum =1121060889
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =8943
+    ItemSuffix =24
+    Left =735
+    Top =300
+    Right =9915
+    Bottom =7290
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x736ff5a59af1e140
+    End
+    InputParameters ="@iOrderType = GetType()"
+    RecordSource ="dbo.orsprptUnregSweepers"
+    Caption ="Orders: Unregistered Sweepers"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="Dealer"
+        End
+        Begin BreakLevel
+            ControlSource ="Model"
+        End
+        Begin BreakLevel
+            ControlSource ="SerialNumber"
+        End
+        Begin BreakLevel
+            ControlSource ="PurchaseOrder"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader3"
+            GUID = Begin
+                0xa3d204e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageHeader
+            Height =1154
+            Name ="PageHeader0"
+            GUID = Begin
+                0xa4d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =1560
+                    Top =840
+                    Width =1515
+                    Height =285
+                    FontSize =8
+                    Name ="Text7"
+                    Caption ="Serial Number"
+                    GUID = Begin
+                        0xa5d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =3840
+                    Top =840
+                    Width =1830
+                    Height =285
+                    FontSize =8
+                    Name ="Text9"
+                    Caption ="Purchase Order #"
+                    GUID = Begin
+                        0xa6d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =5904
+                    Top =840
+                    Width =1440
+                    Height =285
+                    FontSize =8
+                    Name ="Text11"
+                    Caption ="Date of Order"
+                    GUID = Begin
+                        0xa7d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =7416
+                    Top =840
+                    Width =1440
+                    Height =285
+                    FontSize =8
+                    Name ="Text13"
+                    Caption ="Shipped Date"
+                    GUID = Begin
+                        0xa8d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =1154
+                    Width =8943
+                    Name ="Line19"
+                    GUID = Begin
+                        0xa9d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =420
+                    Width =2880
+                    FontSize =9
+                    Name ="Field15"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0xaad204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Width =8943
+                    Name ="Line17"
+                    GUID = Begin
+                        0xabd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Top =120
+                    Width =8520
+                    FontSize =11
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="txtHeading"
+                    ControlSource ="=\"Unregistered Sweepers - \" & [dealer]"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0xacd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =120
+                    Top =840
+                    Width =1320
+                    Height =285
+                    FontSize =8
+                    Name ="Text22"
+                    Caption ="Model"
+                    GUID = Begin
+                        0xadd204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0xaed204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Left =1560
+                    Width =2160
+                    Height =240
+                    ColumnWidth =1380
+                    FontSize =8
+                    Name ="Serial Number"
+                    ControlSource ="SerialNumber"
+                    EventProcPrefix ="Serial_Number"
+                    GUID = Begin
+                        0xafd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =3840
+                    Width =2040
+                    Height =240
+                    ColumnWidth =1605
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Purchase Order #"
+                    ControlSource ="PurchaseOrder"
+                    EventProcPrefix ="Purchase_Order__"
+                    GUID = Begin
+                        0xb0d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =5904
+                    Height =240
+                    ColumnWidth =1260
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Date of Order"
+                    ControlSource ="OrderDate"
+                    EventProcPrefix ="Date_of_Order"
+                    GUID = Begin
+                        0xb1d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =7416
+                    Height =240
+                    ColumnWidth =1260
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Shipped Date"
+                    ControlSource ="ShippedDate"
+                    EventProcPrefix ="Shipped_Date"
+                    GUID = Begin
+                        0xb2d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Left =120
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Field23"
+                    ControlSource ="Model"
+                    GUID = Begin
+                        0xb3d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            ForceNewPage =2
+            Height =0
+            Name ="GroupFooter5"
+            GUID = Begin
+                0xb4d204e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0xb5d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =6960
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0xb6d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =2760
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xb7d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =2217
+                    Height =240
+                    FontSize =8
+                    Name ="Text65"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xb8d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =8880
+                    Name ="Line21"
+                    GUID = Begin
+                        0xb9d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0xbad204e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errorHandler
+
+  If mbTomCat Then
+    Me.Caption = "TC Orders: Unregistered Sweepers"
+    Me.txtHeading.ControlSource = "=""Tom Cat Unregistered Sweepers for "" & [Dealer]"
+    iType = 1
+  Else
+    Me.Caption = "FC Orders: Unregistered Sweepers"
+    Me.txtHeading.ControlSource = "=""Factory Cat Unregistered Sweepers for "" & [Dealer]"
+    iType = 0
+  End If
+
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

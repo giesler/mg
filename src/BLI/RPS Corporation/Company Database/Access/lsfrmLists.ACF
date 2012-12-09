@@ -1,0 +1,390 @@
+Version =19
+VersionRequired =19
+Checksum =-1088115441
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    GridX =24
+    GridY =24
+    Width =9375
+    ItemSuffix =231
+    Left =795
+    Top =1635
+    Right =8715
+    Bottom =4320
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0xe6b4f6604ffae140
+    End
+    ServerFilter ="((dbo.tblLists.DateListOrdered>'1/1/99'))"
+    RecordSource ="tblLists"
+    Caption ="Lists"
+    BeforeInsert ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =5280
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x0a0ac088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2304
+                    Top =600
+                    Height =240
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0x0c0ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1152
+                            Top =600
+                            Width =1008
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text219"
+                            Caption ="State:"
+                            GUID = Begin
+                                0x0b0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =5328
+                    Top =600
+                    Height =240
+                    TabIndex =1
+                    Name ="County"
+                    ControlSource ="County"
+                    GUID = Begin
+                        0x0e0ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =4176
+                            Top =600
+                            Width =1008
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text220"
+                            Caption ="County:"
+                            GUID = Begin
+                                0x0d0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2304
+                    Top =1440
+                    Height =240
+                    TabIndex =3
+                    Name ="txtDateOrder"
+                    ControlSource ="DateListOrdered"
+                    Format ="Short Date"
+                    GUID = Begin
+                        0x100ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =291
+                            Top =1440
+                            Width =1869
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text222"
+                            Caption ="Date List Ordered:"
+                            GUID = Begin
+                                0x0f0ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2304
+                    Top =1800
+                    Height =240
+                    TabIndex =4
+                    Name ="txtDateMail"
+                    ControlSource ="LastDateMailed"
+                    Format ="Short Date"
+                    GUID = Begin
+                        0x120ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =291
+                            Top =1800
+                            Width =1869
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text223"
+                            Caption ="Last Date Mailed:"
+                            GUID = Begin
+                                0x110ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2307
+                    Top =2640
+                    Height =240
+                    TabIndex =6
+                    Name ="List Company"
+                    ControlSource ="ListCompany"
+                    EventProcPrefix ="List_Company"
+                    GUID = Begin
+                        0x140ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =432
+                            Top =2640
+                            Width =1731
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text225"
+                            Caption ="List Company:"
+                            GUID = Begin
+                                0x130ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2304
+                    Top =3000
+                    Width =4170
+                    Height =840
+                    TabIndex =7
+                    Name ="Notes"
+                    ControlSource ="Notes"
+                    GUID = Begin
+                        0x160ac088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1440
+                            Top =3000
+                            Width =720
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text226"
+                            Caption ="Notes:"
+                            GUID = Begin
+                                0x150ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    ListWidth =2920
+                    Left =2304
+                    Top =960
+                    Width =2880
+                    Height =240
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0x180ac088b84ad311bb05004033532b7f
+                    End
+                    Name ="Field227"
+                    ControlSource ="fkDealerID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT MIN(DealerID) AS Expr1, DealerName FROM dbo.tblAllDealers GROUP BY Dealer"
+                        "Name ORDER BY DealerName"
+                    ColumnWidths ="0;2670"
+                    BaseInfo ="\"SELECT MIN(DealerID) AS Expr1, DealerName FROM dbo.tblAllDealers GROUP BY Deal"
+                        "erName ORDER BY DealerName\";\"\""
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1296
+                            Top =960
+                            Width =864
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text228"
+                            Caption ="Dealer:"
+                            GUID = Begin
+                                0x170ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    ListWidth =1180
+                    Left =2320
+                    Top =2160
+                    Width =1180
+                    Height =240
+                    TabIndex =5
+                    ColumnInfo ="\"\";\"\";\"10\";\"20\""
+                    GUID = Begin
+                        0x1a0ac088b84ad311bb05004033532b7f
+                    End
+                    Name ="Field229"
+                    ControlSource ="Flier"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselModel"
+                    ColumnWidths ="930"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1296
+                            Top =2160
+                            Width =870
+                            Height =240
+                            FontWeight =400
+                            BackColor =-2147483633
+                            Name ="Text230"
+                            Caption ="Flier:"
+                            GUID = Begin
+                                0x190ac088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+Me.Toolbar = "FCFormToolBar"
+Dim blnCancel As Boolean
+Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+If blnCancel Then Cancel = True
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+
+  If IsNull(Me![list company]) Then Exit Sub
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+
+End Sub
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+Me.Toolbar = "FCFormServerFilter"
+End Sub
+
+Private Sub Form_Load()
+Me.ServerFilter = ""
+End Sub

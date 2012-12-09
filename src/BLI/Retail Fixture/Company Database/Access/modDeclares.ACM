@@ -1,0 +1,18 @@
+Option Compare Database
+Option Explicit
+
+' -----------------------------------------------------------------------------------
+' Database specific declares
+' -----------------------------------------------------------------------------------
+
+Public Const gstrIniSection = "RFC Database"
+Public Const gstrUpdateSQL = "rfcdata Update %s.sql"
+Public Const gstrAdminUsers = "bli;cindy;darlene;mike;mpgiesle;giesler"
+Public Const gstrServerDBPath = "\\server1\database"
+Public Const gstrServerUpdateEXE = "\\server1\database\dbupdate\dbupdate.exe"
+Public Const gstrDBOUser = "bli_dbo"
+Public Const gstrDBOPassword = "120960011014"
+
+Public Const cnVersionMajor = 3.17
+Public Const cnVersionMinor = 0
+Public Const cnVersionDate = #1/15/2001#

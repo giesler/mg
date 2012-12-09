@@ -1,0 +1,193 @@
+Version =19
+VersionRequired =19
+Checksum =214234888
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =3780
+    ItemSuffix =7
+    Left =720
+    Top =270
+    Right =8715
+    Bottom =5340
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xd85677e532d6e140
+    End
+    RecordSource ="SELECT Code, Title, FirstName, LastName, Suffix, Address, Address2, City, State,"
+        " Zip, Country, Company FROM dbo.tblISSA"
+    Caption ="ISSA List: Mailling Labels"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x68010000a0050000680100001803000000000000c40e0000a005000001000000 ,
+        0x03000000b400000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            FontWeight =300
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="State"
+        End
+        Begin BreakLevel
+            ControlSource ="Company"
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Name ="Detail1"
+            GUID = Begin
+                0x46d604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =180
+                    Width =3240
+                    Name ="Field2"
+                    ControlSource ="=Trim(Trim([Title]) & \" \" & Trim([FirstName]) & \" \" & Trim([LastName]) & \" "
+                        "\" & Trim([Suffix]))"
+                    GUID = Begin
+                        0x47d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =660
+                    Width =3240
+                    TabIndex =1
+                    Name ="Field3"
+                    ControlSource ="=Trim([Address])"
+                    GUID = Begin
+                        0x48d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =1140
+                    Width =3240
+                    TabIndex =2
+                    Name ="Field4"
+                    ControlSource ="=Trim([City] & \", \" & [State] & \"  \" & [Zip])"
+                    GUID = Begin
+                        0x49d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =420
+                    Width =3240
+                    TabIndex =3
+                    Name ="Field5"
+                    ControlSource ="=Trim([Company])"
+                    GUID = Begin
+                        0x4ad604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =900
+                    Width =3240
+                    TabIndex =4
+                    Name ="Text6"
+                    ControlSource ="=Trim([Address2])"
+                    GUID = Begin
+                        0x5df7270941c73e4faf7b011be6fc5d56
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fR As New Form_isfrptStateCode, sFilt As String
+fR.Caption = "ISSA List"
+fR.Visible = True
+Pause fR
+If fR.blnCancel Then
+  Cancel = True
+  Exit Sub
+End If
+
+If fR.txtState <> "" Then
+  sFilt = "State = '" & fR.txtState & "'"
+End If
+
+If fR.txtCode <> "" Then
+  If sFilt <> "" Then sFilt = sFilt & " AND "
+  sFilt = sFilt & "Code = '" & fR.txtCode & "'"
+End If
+
+Me.ServerFilter = sFilt
+Set fR = Nothing
+
+End Sub

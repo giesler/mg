@@ -1,0 +1,903 @@
+Version =19
+VersionRequired =19
+Checksum =2088152526
+Begin Report
+    LayoutForPrint = NotDefault
+    FastLaserPrinting = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10716
+    ItemSuffix =342
+    Left =1305
+    Top =855
+    Right =8970
+    Bottom =5610
+    ShortcutMenuBar ="BLIReportShortcutBar"
+    Toolbar ="BLIReportToolbar"
+    RecSrcDt = Begin
+        0x03dcf2c412c8e140
+    End
+    RecordSource ="SELECT tblQuote.*, tblQuoteItem.* FROM tblQuoteItem INNER JOIN tblQuote ON tblQu"
+        "oteItem.afkQItemQuote = tblQuote.apkQuote"
+    Caption ="Quote"
+    MenuBar ="BLIReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d00200004a03000000000000dc290000f100000001000000 ,
+        0x010000006801000000000000a10700000000000000000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x010400059c00300243ef800501000100ea0a6f08640001000f00680101000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x22000000300200007ac2dbaf0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000200000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin Image
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CheckBox
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ListBox
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin UnboundObjectFrame
+            OldBorderStyle =1
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="apkQuote"
+        End
+        Begin BreakLevel
+            ControlSource ="QItemOrder"
+        End
+        Begin PageHeader
+            Height =2340
+            Name ="PageHeader0"
+            Begin
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1920
+                    Top =780
+                    Width =1620
+                    Height =420
+                    Name ="Text2"
+                    Caption ="(262) 633-2411\015\012(262) 633-8744"
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =9180
+                    Top =720
+                    Height =300
+                    FontSize =10
+                    FontWeight =700
+                    Name ="txtSaleDate"
+                    ControlSource ="QuoteDate"
+                    Format ="m/d/yy"
+                End
+                Begin Label
+                    Left =192
+                    Top =1980
+                    Width =4035
+                    Height =240
+                    Name ="Text16"
+                    Caption ="Description"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =9399
+                    Top =1980
+                    Width =1140
+                    Height =240
+                    Name ="Text17"
+                    Caption ="Ext Price"
+                End
+                Begin Line
+                    BorderWidth =1
+                    Left =60
+                    Top =2280
+                    Width =10656
+                    Name ="Line22"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =1560
+                    Top =780
+                    Width =366
+                    Height =420
+                    Name ="Text42"
+                    Caption ="Tel:\015\012Fax:"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7860
+                    Top =720
+                    Width =1260
+                    Height =300
+                    FontSize =10
+                    Name ="Label127"
+                    Caption ="Date:"
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =3960
+                    Top =120
+                    Width =1740
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Text6"
+                    Caption ="Quote For:"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =1560
+                    Top =1200
+                    Width =2280
+                    Height =225
+                    Name ="Label194"
+                    Caption ="http://www.blicomputers.com"
+                End
+                Begin Label
+                    TextAlign =2
+                    Left =8700
+                    Top =1980
+                    Width =540
+                    Height =240
+                    Name ="Label201"
+                    Caption ="Qty"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =7395
+                    Top =1980
+                    Width =1140
+                    Height =240
+                    Name ="Label205"
+                    Caption ="Price Each"
+                End
+                Begin Image
+                    Left =120
+                    Top =120
+                    Width =1320
+                    Height =1080
+                    Name ="Image249"
+                    PictureData = Begin
+                        0x0e0000001c084696010000005800000000000000000000004a00000042000000 ,
+                        0x0000000000000000c0070000ec06000020454d46000001001c3300000d000000 ,
+                        0x010000000000000000000000000000002003000058020000d30000009e000000 ,
+                        0x46000000cc180000be180000474449430100008000030000b427061b00000000 ,
+                        0xa6180000010009000003530c00000000140c00000000050000000c0243004b00 ,
+                        0x0400000003010800050000000b0200000000050000000c0243004b0009000000 ,
+                        0x26060f0008005f464d52495426200900000026060f0008005f464d5249422020 ,
+                        0x040000000701030005000000090200000000050000000102ffffff00140c0000 ,
+                        0x430f2000cc00000043004b000000000043004b0000000000280000004b000000 ,
+                        0x430000000100080000000000e413000000000000000000000001000000000000 ,
+                        0x0000000000000800000808000800000008080000080808000808100010000000 ,
+                        0x1008000010080800101008001010100018080000180808001810080018101000 ,
+                        0x210800002908000021080800211008002110100021181000291408002d180c00 ,
+                        0x3118100018101800181818002118180029181800292118002121210029212100 ,
+                        0x3121100031181800312118003121210031292100391810003921100039211800 ,
+                        0x422110003d211c0039292100422921004a2918005a2918006331100063391000 ,
+                        0x31292900313131003929290039312900442b2300423129003d31310042393100 ,
+                        0x522921004a3121004f2e26005231290052312e005a3d29004f39330056413b00 ,
+                        0x63311800633918006b3918006b3921006b422100734221006331290063392900 ,
+                        0x6b3929006b42290073422900734a290063393100634231006b42310073423100 ,
+                        0x634a31006b4a3100734a31007b4a31007b523100634239006b4239006b4a3900 ,
+                        0x734a39007b4a39007b52390084523900845a3900634a42006b4a420073524200 ,
+                        0x7b52420084524200845a4200846342006b524a0073524a007b524a00735a4a00 ,
+                        0x7b5a4a00845a4a0084634a00735a52007b5e52007f63560084635a007b636300 ,
+                        0x846b5a008c5a42008c6342008c5a4a008c634a008c6352008c6b52008c635a00 ,
+                        0x8c6b5a0094635200946b520094635a00946b5a0094735a009c6b5a009c735a00 ,
+                        0x7b6b630084636300846b63008c6b63008c7363008c6b6b008c737300946b6300 ,
+                        0x94736300947b630094736b00947b6b00947b73009c7363009c7b63009c736b00 ,
+                        0xa57b63009c7b6b00a57b6b00a5846b009c7373009c7b7300a57b7300a5847300 ,
+                        0x9c7b7b00a07f7b00ad847300a58c73009c8c8400a5847b00ad847b00a9887f00 ,
+                        0xad8c7300ad8c7b00ad8c8400ad8c8c00b58c8400b58c8c00ad947b00ad948400 ,
+                        0xad948c00ad949400b5948400b5948c00b5949400bd948c00bd949400ad9c9400 ,
+                        0xad9c9c00ad9ca500b59c8c00b59c9400b59c9c00bd9c8c00bd9c9400bd9c9c00 ,
+                        0xada5a500b5a59c00bda59400bda59c00c6a59400c6a59c00bdad9c00c6ad9c00 ,
+                        0xbda5a500c6a5a500bdada500c6ada500ceada500c6b5a500b5adad00bdadad00 ,
+                        0xc6adad00ceadad00bdb5ad00c6b5ad00ceb5ad00c6bdad00cebdad00bdb5b500 ,
+                        0xc6b5b500ceb5b500c6bdb500cebdb500d6bdb500c6bdbd00d6bdbd00d6c6bd00 ,
+                        0xdec6bd00c6c6c600cec6c600d6c6c600dec6c600decec600c6c6ce00cecece00 ,
+                        0xd6cece00decece00e7cece00ded6ce00e7d6ce00ced6d600d6d6d600e7d6d600 ,
+                        0xe7ded600efded600d6dede00dedede00e7dede00efdede00efe7de00dee7e700 ,
+                        0xe7e7e700efe7e700f7e7e700efefe700f7efe700efe7ef00efefef00f7efef00 ,
+                        0xf7f7ef00f7eff700f7f7f700fff7f700fffff700ffffff00fff7ff00ffffff00 ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfd00fdd9d9fdfdfdfdfdfdd9d9d9fdfdfdfdfdfddffd ,
+                        0xd9fdfdfdfdfdfdd9d9d9fdfdfdfdfdfdd9fdd9fdfdfdfdfdd9d9d9fdfdfdfdfd ,
+                        0xdedfd9fdfdfdfdfddfdffdfdfdfdfdfdfdd9e6fdfdfdfd00fde6d9d9fdfdfdfd ,
+                        0xfdfdd9fdd9fdfdfdfdfdd9dffddffdfdfdfdfdd9fdd9fdfdfdfdfdfdd9fdd9fd ,
+                        0xfdfdfdfdfdd9fdfdfdfdfdfdfdd9fdfdfdfdfdfdd9fdd9fdfdfdfdfdfdfdd9fd ,
+                        0xfdfdfd00fdfdd9fdfdfdfdfdfdfddefdd9fdfdfdfdfdfdd9d9d9fdfdfdfdfdfd ,
+                        0xdefde6fdfdfdfdfdfdd9fdd9fdfdfdfdfdfdd9fdfdfdfdfdfdded9d9fdfdfdfd ,
+                        0xe6d9dffdfdfdfdfdfdfdfdd9fdfdfd00fdfdfdd9fdfdfdfdfdfdfddefdd9fdfd ,
+                        0xfdfdfdfdd9d9d9fdfdfdfdfdfdd5fdfdfdfdfdfdfddefdd9fdfdfdfdfdfddffd ,
+                        0xfdfdfdfdfdfdd9fdfdfdfdfdfdd9d9fdfdfdfdfdfdfdd9fdfdfdfd00fdfdfdde ,
+                        0xfdd9fdfdfdfdfdd9fdd9fdfdfdfdfdfddefdfdd9fdfdfdfdfdd9fdfdfdfdfdfd ,
+                        0xfdfddefdd9fdfdfdfdfdfdd9fdfdfdfdfdfddefdfdfdfdfdfdfdd9d5d9fdfdfd ,
+                        0xfdfdd5dffdfdfd00fdfdfdfdd9d9fdfdfdfdfdfdd9d9fdfdfdfdfdfdfdd9fdde ,
+                        0xfdfdfdfdfdfddefdfdfdfdfdfdfdfddedffdfdfdfdfdfdfdd9fdfdfdfdfdfdd9 ,
+                        0xdefdfdfdfdfdfdd9fdd9fdfdfdfdfdd9d9fdfd00fdfdfdfd150000fdfdfdfdfd ,
+                        0x036434fdfdfdfdfdfd00fd22fdfdfdfdfdfd21fdfdfdfdfdfdfdfd00000bfdfd ,
+                        0xfdfdfdfd00fdfdfdfdfdfd0300fdfdfdfdfdfd03fd03fdfdfdfdfdfd0009fd00 ,
+                        0xfdfdfdfd03fdfdfdfdfdfdfd03fd6efdfdfdfdfdfd000006fdfdfdfdfdfd21fd ,
+                        0xfdfdfdfdfdfdfd00fd03fdfdfdfdfdfd00fdfdfdfdfdfd03fdfdfdfdfdfdfd03 ,
+                        0xfd03fdfdfdfdfdfdfd09fd00fdfdfdfd03fdfdfdfdfdfdfd03fd00fdfdfdfdfd ,
+                        0xfd000b03fdfdfdfdfdfd270303fdfdfdfdfdfd00fd03fdfdfdfdfdfd00fdfdfd ,
+                        0xfdfdfd030bfdfdfdfdfdfd030327fdfdfdfdfdfd0300fd00fdfdfdfd03fd00fd ,
+                        0xfdfdfdfd03fd00fdfdfdfdfdfd3efd2bfdfdfdfdfdfd27fd03fdfdfdfdfdfd00 ,
+                        0xfd03fdfdfdfdfdfd00fdfdfdfdfdfd03fdfdfdfdfdfdfd03fd03fdfdfdfdfdfd ,
+                        0x00fdfd00fdfdfdfd0003fdfdfdfdfdfd4c0300fdfdfdfdfdfd00fd00fdfdfdfd ,
+                        0xfdfd270303fdfdfdfdfdfd00fd03fdfdfdfdfd1b0322fdfdfdfdfd0303fdfdfd ,
+                        0xfdfdfd0303fdfdfdfdfdfdfd0327fd00fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd00fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xd4d1d3d7dbdde7ecf0f1f7fafafaf6fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdc175696969695c685a5a5854fdfdfdfdfdfd444a4b4b4a4b455cfd00 ,
+                        0xfdfdfdfdfdfdfdfdfdbbbbc1c8cbd1d4d7d7dde7e8f2f5f6fafafaf7e8e7fdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfd88887e7c76756969696961615a5a5a4b91fdfd ,
+                        0xfdfd434b4e4b4b4a4b524b00fdfdfdfdfdfdfdfdb5b6bbbbc5c8cbd7d7d7dde7 ,
+                        0xe7ecf2f5fafafaf7f1e8fdfdfdfdfdfdfdfdfdfdfdfdfdfda88f8f88877c7574 ,
+                        0x7469695a5c685a5a4b89fdfdfdfd4e4b4b4a4b4b4a595200fdfdfdfdfdfdfda4 ,
+                        0xabacb6bbc1c1cbd1d4d7dde1e3e8f0f2f6fafafaf7f1e8fdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd91978f8e887c787c7474696961695a5a5a528ffdfdfdfd444b4b4b4a4a ,
+                        0x4a5a5300fdfdfdfdfdfd9fa2a8b5b6bac0c1c1ccd1d3d7dddde7e7ecf5f7fafa ,
+                        0xfaf6f0e86afdfdfdfdfdfdfdfdfda29f9d9691918d7e7c7675756a69695a685a ,
+                        0x5291fdfdfdfd444b4a4e4b4a4a5a6800fdfdfdfdfdac9f9fa7aba8acbbbbc2cb ,
+                        0xcbd1d6d7dbe7e8e8f2f7f7fafafaf1ecf0fdfdfdfdfdfdfdfdfda29f9f969591 ,
+                        0x887e887b75757469695c5c5a5291fdfdfdfd444b4a4b4b4b4a5a5c00fdfdfdfd ,
+                        0xfd979f9fa2ababb6bbbbc0cbd1c3a29e97d7e8e7f0f5f7fafafaf5f0e8fdfdfd ,
+                        0xfdfdfdfdfdfda7a29f979592888888757c8775756969615a5491fdfdfdfd4452 ,
+                        0x524b4b4a4b685a00fdfdfdfd889697979fa2a8abc8d7ddfafdfdfdfdfdfdfdfd ,
+                        0x2ef5f2f7fafafaf7f149fdfdfdfdfdfdfdbbb5a8a2a0979697bbb69ea3fdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfd4e4b524a4b4b4b696900fdfdfdfd9191979d9fa2a7ab ,
+                        0xbbc8d7fdfdfdfdfdfdfdfdfdfddbf0f7fafafaf7f54561fdfdfdfdfdfdbbb2ab ,
+                        0xa89f9797d1cbc2fdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4e4b524b4a4b4b747400 ,
+                        0xfdfdfdfd919196979d9fa2a8b6bbfdfdfdfdfdfdfdfdfdfdfdfdecf5f7fafafa ,
+                        0xf6ab49fdfdfdfdfdd1bbb6ababa29f9ed4d1e6fdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfd4452524b524a4a747500fdfdfdfd88919192979e9f88fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdf0f5f7fafafaf74bfdfdfdfdfdc3c3bbbaaca8a297ecfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfd4b52524b4b4f4b7c7e00fdfdfdfd88889192 ,
+                        0x979d9f7cfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdf0f0f5fafafaf749fdfdfdfdfd ,
+                        0xd1cbbebbb6a8a4a2f5fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4b54594b524b ,
+                        0x4a888f00fdfdfd958888919195979776fdfdfdfdfdfdfdfdfdfdfdfdfdfdfde8 ,
+                        0xf0f2f7fafafa4492fdfdfdfdd1d1c2bbb7b5a8bbfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfd4e59544b4b4b4b888f00fdfdfd6e7c88888f91979769fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfde7e7f0f5f7fafa4b5afdfdfdfdd4d1c8c1c0acabd1 ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4f58545259524b969700fdfdfd75 ,
+                        0x877f888f9192965cfdfdfdfdfdfdfdfdfdfdfdfdfdfdfde7e7e8f2f7f7fa6144 ,
+                        0xfdfdfdfddbd4cbc8c1bbacccfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4e5a ,
+                        0x584b524b4b9da200fdfdfd747c7c88888e92975afdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfde1e7ecf0f5f7fa6144fdfdfdfddbd7d1cbcbbbb6c8fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfd585a5a4b52524b9fa800fdfdfd6976767c88888f9159 ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfddbe1e7e8f0f2f76944fdfdfdfdddddd6d1 ,
+                        0xcbc2bbc8fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd525a5a54594b4ba8b600 ,
+                        0xfdfdfd6975767c888d8e924bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7dde1e7f0 ,
+                        0xf0f74a49fdfdfdfde7e1d7d4d1c1c0c1fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfd58686052595a52c2c200fdfdfd6976767c7c7c88914bfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdd7dddde7ecf0f52e44fdfdfdfde7e7dbd7d5c8c1c1fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfd525a5a5a595959c3cb00fdfdfd617475767c ,
+                        0x88878f4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd4dbdde1e7e8f54549fdfdfdfd ,
+                        0xf0e7dddddbd1cbbdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd596161605a5a ,
+                        0x53dbd700fdfdfd697475757c7c88884bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7 ,
+                        0xd7dbdde3e7f1455afdfdfdfdf1f0e7ddd7d3d1bdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfd6861695a605a53e7e100fdfdfd6875757577757e884bfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdd1d4d7dbe1e7f54a7cfdfdfdfdf7f1e7e1ddd7d3be ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd695c5c615a5a5af6e700fdfdfd68 ,
+                        0x69747575787c7c4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdc3cbd1d7d7dbe14b52fd ,
+                        0xfdfdfdfdfaf6e8ece3dbd4bbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd696969 ,
+                        0x695c5a5a4afaf700fdfdfd5a697475757576874bfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdc2c1cbd1d3d5d7dd524bfdfdfdfdfdfafaf1ece7e0d7bbfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd9575746969695c5a5a8efafa00fdfdfd5a6969747575757c4b ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdbbbbc2c8ccd1d4d7dd6158fdfdfdfdfdfafaf5e8 ,
+                        0xecddd7bbfdfdfdfdfdfdfdfdfdfdfdfdfdfd7576777574696a5c5a5cf0f7fa00 ,
+                        0xfdfdfd596269697474757c45fdfd879191929d9e9fa7a8abbab9bbc2c8cbd1d4 ,
+                        0xd774bafdfdfdfdfdfafafaf7f1e7e1bbfdfdfdfdfdfdfdfdfd979d97928f887c ,
+                        0x787b747469696261e7ecfd00fdfdfd52615c696a74757545fdfd879191929797 ,
+                        0x9fa2a2a8acb6b6bdc1c8d1d39174fdfdfdfdfdfdfafafaf6f5e7e7bbfdfdfdfd ,
+                        0xfdfdfdfdfd979797918f8f887c76757569695c5ce0e7fd00fdfdfd525c5c6969 ,
+                        0x6975754bfdfd78888f91979797a2a2a8b6bab6bbc2c5ccbb9da3fdfdfdfdfdfd ,
+                        0xf7fafafaf6f0e7bbfdfdfdfdfdfdfdfdfd9f9f97929188887c877575746a6976 ,
+                        0xd7fdfd00fdfdfd525c5a6869696e754bfdfd788888919297979f9fa7a8b5abbb ,
+                        0xbbc1ddc5a8fdfdfdfdfdfdfdf5f4fafafaf5f0bafdfdfdfdfdfdfdfdfda2a29f ,
+                        0x9795918f887c767c757cb6c0fdfdfd00fdfdfd525a5a61626a6e754afdfd7788 ,
+                        0x888f919297979f9fa4ababb6b4f7e8d4fdfdfdfdfdfdfdfdf2f5fafafaf7f1be ,
+                        0xfdfdfdfdfdfdfdfdfda3a4a297979191888d7c7b75abb6bbfdfdfd00fdfdfd52 ,
+                        0x5a5a69696974754bfdfd758888889691929d9fa0a2a2b5c3dde8f6fdfdfdfdfd ,
+                        0xfdfdfdfdf0f2f6fafafaf5bbfdfdfdfdfdfdfdfdfda8a8a2a097958f8e887c7c ,
+                        0x9ea2abfdfdfdfd00fdfdfd4a5a5a5a616969694afdfdfd4a4b4b4a4b4b5a5c6a ,
+                        0x88959fbbfdfdfdfdfdfdfdfdfdfdfdfdecf0f5f7fafafac1fdfdfdfdfdfdfdfd ,
+                        0xfda8aca896877469757c88888ffdfdfdfdfdfd00fdfdfd4a5a5a615c6869694a ,
+                        0xfdfdfd4e4b494b494e586061c3fdfdfdfdfdfdfdfdfdfdfdfdfdfdfde7e8f0f4 ,
+                        0xf6fafabdfdfdfdfdfdfdfdfdfdfd4a525a6169697474fdfdfdfdfdfdfdfdfd00 ,
+                        0xfdfdfd4a545a5a615a68694bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfde7ecf0f5f7fafac2fdfdfdfdfdfdfdfdfdfdfd5a7795fdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfd00fdfdfd4b5452585a615c5c4bfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfde1e7f0f0f0f6fabbfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd4e5a525a58 ,
+                        0x5a62614bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xdddde7f0f2f7fabbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd00fdfdfd4b5959595a5a695c4afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfde0dde7e7f0f4f7bbfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd45524b595a5a5a614bfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7dbe7e7ecf0f1ba ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd49 ,
+                        0x5952525a58605a4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdd5d7e1e7e7ecf0acfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd00fdfdfd494f4b5259595a5a4afdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd4d7dde1e7e8f0abfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd444b4b52525a5a5a4a ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd1d7dbd7 ,
+                        0xe1e7e8a8fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00 ,
+                        0xfdfdfd4452524b595a5a5a4afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdd1d3d7dbe0e3eca7fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfd00fdfdfd44524b5252524b5a4afdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdcbd1d6d7e0e7e7a2fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd444b4a4b52 ,
+                        0x525a594afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xc8cbd3d4d7dde19ffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd00fdfdfd444b4b4b4a5259544afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdc5c8d1d7d7dddd9ffdfdfdfdfdfdfdfdfdece7dd ,
+                        0xd4d4d1c1bbbbacaba29f97969674fd00fdfdfd444b4b4b524b4b4b4bfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdc1c5d1d1d7dbdd9f ,
+                        0xfdfdfdfdfdfdfdfdfdece7ddd7d7d1cbc2c0acaba89fa097975a9d00fdfdfd44 ,
+                        0x4b4a4b4a4b52524bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdc0c1c8ccd1d4d79ffdfdfdfdfdfdfdfdfdf5f0e7e1ddd4d1cbc5bbb6 ,
+                        0xaca2a29f97695300fdfdfd444b4a4a4b4b52594bfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdbbc0c8cbcbd4d497fdfdfdfdfdfdfdfd ,
+                        0xfdf6f1ece1dddbd3cbc8bbb6b6a8a7a197755a00fdfdfd444b4a4a4b4b4b4b4a ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdbbbbc1c8 ,
+                        0xcbd3d69dfdfdfdfdfdfdfdfdfdf6f7f0e7e7ddd4d1cbc1bbb6aba8a29d7c6900 ,
+                        0xfdfdfd444b4a4a4b4b514f4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdb6b6c1c0c1d1d197fdfdfdfdfdfdfdfdfdfafaf6f0e7e1d7 ,
+                        0xd4d7cbc1c1acb5a89f977c00fdfdfd984b4a4a4b4b4b4b4afdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd75888888888e8e6afdfdfdfd ,
+                        0xfdfdfdfdfdfdacb6bbbbc1c2c3cbd3d7dbe0d3c1a8a29100fdfdfdfd444b4b4a ,
+                        0x4a4a4b4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfd454b4a4b4a4b4afdfdfdfdfdfdfdfdfdfdfd68757c889da7b5d1d7e7faf7e7 ,
+                        0xc2b697000300000000006563110000000c000000080000000b00000010000000 ,
+                        0x4b0000004300000009000000100000004b000000430000000900000010000000 ,
+                        0x4b00000043000000110000000c000000080000000a0000001000000000000000 ,
+                        0x0000000009000000100000004b00000043000000150000000c00000003000000 ,
+                        0x510000006019000000000000000000004a000000420000000000000000000000 ,
+                        0x00000000000000004b00000043000000500000002c0500007c050000e4130000 ,
+                        0x000000002000cc004b00000043000000280000004b0000004300000001000800 ,
+                        0x00000000e4130000000000000000000000010000000000000000000000000800 ,
+                        0x0008080008000000080800000808080008081000100000001008000010080800 ,
+                        0x1010080010101000180800001808080018100800181010002108000029080000 ,
+                        0x21080800211008002110100021181000291408002d180c003118100018101800 ,
+                        0x1818180021181800291818002921180021212100292121003121100031181800 ,
+                        0x312118003121210031292100391810003921100039211800422110003d211c00 ,
+                        0x39292100422921004a2918005a29180063311000633910003129290031313100 ,
+                        0x3929290039312900442b2300423129003d31310042393100522921004a312100 ,
+                        0x4f2e26005231290052312e005a3d29004f39330056413b006331180063391800 ,
+                        0x6b3918006b3921006b4221007342210063312900633929006b3929006b422900 ,
+                        0x73422900734a290063393100634231006b42310073423100634a31006b4a3100 ,
+                        0x734a31007b4a31007b523100634239006b4239006b4a3900734a39007b4a3900 ,
+                        0x7b52390084523900845a3900634a42006b4a4200735242007b52420084524200 ,
+                        0x845a4200846342006b524a0073524a007b524a00735a4a007b5a4a00845a4a00 ,
+                        0x84634a00735a52007b5e52007f63560084635a007b636300846b5a008c5a4200 ,
+                        0x8c6342008c5a4a008c634a008c6352008c6b52008c635a008c6b5a0094635200 ,
+                        0x946b520094635a00946b5a0094735a009c6b5a009c735a007b6b630084636300 ,
+                        0x846b63008c6b63008c7363008c6b6b008c737300946b630094736300947b6300 ,
+                        0x94736b00947b6b00947b73009c7363009c7b63009c736b00a57b63009c7b6b00 ,
+                        0xa57b6b00a5846b009c7373009c7b7300a57b7300a58473009c7b7b00a07f7b00 ,
+                        0xad847300a58c73009c8c8400a5847b00ad847b00a9887f00ad8c7300ad8c7b00 ,
+                        0xad8c8400ad8c8c00b58c8400b58c8c00ad947b00ad948400ad948c00ad949400 ,
+                        0xb5948400b5948c00b5949400bd948c00bd949400ad9c9400ad9c9c00ad9ca500 ,
+                        0xb59c8c00b59c9400b59c9c00bd9c8c00bd9c9400bd9c9c00ada5a500b5a59c00 ,
+                        0xbda59400bda59c00c6a59400c6a59c00bdad9c00c6ad9c00bda5a500c6a5a500 ,
+                        0xbdada500c6ada500ceada500c6b5a500b5adad00bdadad00c6adad00ceadad00 ,
+                        0xbdb5ad00c6b5ad00ceb5ad00c6bdad00cebdad00bdb5b500c6b5b500ceb5b500 ,
+                        0xc6bdb500cebdb500d6bdb500c6bdbd00d6bdbd00d6c6bd00dec6bd00c6c6c600 ,
+                        0xcec6c600d6c6c600dec6c600decec600c6c6ce00cecece00d6cece00decece00 ,
+                        0xe7cece00ded6ce00e7d6ce00ced6d600d6d6d600e7d6d600e7ded600efded600 ,
+                        0xd6dede00dedede00e7dede00efdede00efe7de00dee7e700e7e7e700efe7e700 ,
+                        0xf7e7e700efefe700f7efe700efe7ef00efefef00f7efef00f7f7ef00f7eff700 ,
+                        0xf7f7f700fff7f700fffff700ffffff00fff7ff00ffffff000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000000000000fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd00fdd9d9fdfdfdfdfdfdd9d9d9fdfdfdfdfdfddffdd9fdfdfd ,
+                        0xfdfdfdd9d9d9fdfdfdfdfdfdd9fdd9fdfdfdfdfdd9d9d9fdfdfdfdfddedfd9fd ,
+                        0xfdfdfdfddfdffdfdfdfdfdfdfdd9e6fdfdfdfd00fde6d9d9fdfdfdfdfdfdd9fd ,
+                        0xd9fdfdfdfdfdd9dffddffdfdfdfdfdd9fdd9fdfdfdfdfdfdd9fdd9fdfdfdfdfd ,
+                        0xfdd9fdfdfdfdfdfdfdd9fdfdfdfdfdfdd9fdd9fdfdfdfdfdfdfdd9fdfdfdfd00 ,
+                        0xfdfdd9fdfdfdfdfdfdfddefdd9fdfdfdfdfdfdd9d9d9fdfdfdfdfdfddefde6fd ,
+                        0xfdfdfdfdfdd9fdd9fdfdfdfdfdfdd9fdfdfdfdfdfdded9d9fdfdfdfde6d9dffd ,
+                        0xfdfdfdfdfdfdfdd9fdfdfd00fdfdfdd9fdfdfdfdfdfdfddefdd9fdfdfdfdfdfd ,
+                        0xd9d9d9fdfdfdfdfdfdd5fdfdfdfdfdfdfddefdd9fdfdfdfdfdfddffdfdfdfdfd ,
+                        0xfdfdd9fdfdfdfdfdfdd9d9fdfdfdfdfdfdfdd9fdfdfdfd00fdfdfddefdd9fdfd ,
+                        0xfdfdfdd9fdd9fdfdfdfdfdfddefdfdd9fdfdfdfdfdd9fdfdfdfdfdfdfdfddefd ,
+                        0xd9fdfdfdfdfdfdd9fdfdfdfdfdfddefdfdfdfdfdfdfdd9d5d9fdfdfdfdfdd5df ,
+                        0xfdfdfd00fdfdfdfdd9d9fdfdfdfdfdfdd9d9fdfdfdfdfdfdfdd9fddefdfdfdfd ,
+                        0xfdfddefdfdfdfdfdfdfdfddedffdfdfdfdfdfdfdd9fdfdfdfdfdfdd9defdfdfd ,
+                        0xfdfdfdd9fdd9fdfdfdfdfdd9d9fdfd00fdfdfdfd150000fdfdfdfdfd036434fd ,
+                        0xfdfdfdfdfd00fd22fdfdfdfdfdfd21fdfdfdfdfdfdfdfd00000bfdfdfdfdfdfd ,
+                        0x00fdfdfdfdfdfd0300fdfdfdfdfdfd03fd03fdfdfdfdfdfd0009fd00fdfdfdfd ,
+                        0x03fdfdfdfdfdfdfd03fd6efdfdfdfdfdfd000006fdfdfdfdfdfd21fdfdfdfdfd ,
+                        0xfdfdfd00fd03fdfdfdfdfdfd00fdfdfdfdfdfd03fdfdfdfdfdfdfd03fd03fdfd ,
+                        0xfdfdfdfdfd09fd00fdfdfdfd03fdfdfdfdfdfdfd03fd00fdfdfdfdfdfd000b03 ,
+                        0xfdfdfdfdfdfd270303fdfdfdfdfdfd00fd03fdfdfdfdfdfd00fdfdfdfdfdfd03 ,
+                        0x0bfdfdfdfdfdfd030327fdfdfdfdfdfd0300fd00fdfdfdfd03fd00fdfdfdfdfd ,
+                        0x03fd00fdfdfdfdfdfd3efd2bfdfdfdfdfdfd27fd03fdfdfdfdfdfd00fd03fdfd ,
+                        0xfdfdfdfd00fdfdfdfdfdfd03fdfdfdfdfdfdfd03fd03fdfdfdfdfdfd00fdfd00 ,
+                        0xfdfdfdfd0003fdfdfdfdfdfd4c0300fdfdfdfdfdfd00fd00fdfdfdfdfdfd2703 ,
+                        0x03fdfdfdfdfdfd00fd03fdfdfdfdfd1b0322fdfdfdfdfd0303fdfdfdfdfdfd03 ,
+                        0x03fdfdfdfdfdfdfd0327fd00fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd00fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfdfdfdfdfdfdfdfdfdfdd4d1d3d7 ,
+                        0xdbdde7ecf0f1f7fafafaf6fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xc175696969695c685a5a5854fdfdfdfdfdfd444a4b4b4a4b455cfd00fdfdfdfd ,
+                        0xfdfdfdfdfdbbbbc1c8cbd1d4d7d7dde7e8f2f5f6fafafaf7e8e7fdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfd88887e7c76756969696961615a5a5a4b91fdfdfdfd434b ,
+                        0x4e4b4b4a4b524b00fdfdfdfdfdfdfdfdb5b6bbbbc5c8cbd7d7d7dde7e7ecf2f5 ,
+                        0xfafafaf7f1e8fdfdfdfdfdfdfdfdfdfdfdfdfdfda88f8f88877c75747469695a ,
+                        0x5c685a5a4b89fdfdfdfd4e4b4b4a4b4b4a595200fdfdfdfdfdfdfda4abacb6bb ,
+                        0xc1c1cbd1d4d7dde1e3e8f0f2f6fafafaf7f1e8fdfdfdfdfdfdfdfdfdfdfdfd91 ,
+                        0x978f8e887c787c7474696961695a5a5a528ffdfdfdfd444b4b4b4a4a4a5a5300 ,
+                        0xfdfdfdfdfdfd9fa2a8b5b6bac0c1c1ccd1d3d7dddde7e7ecf5f7fafafaf6f0e8 ,
+                        0x6afdfdfdfdfdfdfdfdfda29f9d9691918d7e7c7675756a69695a685a5291fdfd ,
+                        0xfdfd444b4a4e4b4a4a5a6800fdfdfdfdfdac9f9fa7aba8acbbbbc2cbcbd1d6d7 ,
+                        0xdbe7e8e8f2f7f7fafafaf1ecf0fdfdfdfdfdfdfdfdfda29f9f969591887e887b ,
+                        0x75757469695c5c5a5291fdfdfdfd444b4a4b4b4b4a5a5c00fdfdfdfdfd979f9f ,
+                        0xa2ababb6bbbbc0cbd1c3a29e97d7e8e7f0f5f7fafafaf5f0e8fdfdfdfdfdfdfd ,
+                        0xfdfda7a29f979592888888757c8775756969615a5491fdfdfdfd4452524b4b4a ,
+                        0x4b685a00fdfdfdfd889697979fa2a8abc8d7ddfafdfdfdfdfdfdfdfd2ef5f2f7 ,
+                        0xfafafaf7f149fdfdfdfdfdfdfdbbb5a8a2a0979697bbb69ea3fdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfd4e4b524a4b4b4b696900fdfdfdfd9191979d9fa2a7abbbc8d7fd ,
+                        0xfdfdfdfdfdfdfdfdfddbf0f7fafafaf7f54561fdfdfdfdfdfdbbb2aba89f9797 ,
+                        0xd1cbc2fdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4e4b524b4a4b4b747400fdfdfdfd ,
+                        0x919196979d9fa2a8b6bbfdfdfdfdfdfdfdfdfdfdfdfdecf5f7fafafaf6ab49fd ,
+                        0xfdfdfdfdd1bbb6ababa29f9ed4d1e6fdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4452 ,
+                        0x524b524a4a747500fdfdfdfd88919192979e9f88fdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdf0f5f7fafafaf74bfdfdfdfdfdc3c3bbbaaca8a297ecfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfd4b52524b4b4f4b7c7e00fdfdfdfd88889192979d9f7c ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdf0f0f5fafafaf749fdfdfdfdfdd1cbbebb ,
+                        0xb6a8a4a2f5fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4b54594b524b4a888f00 ,
+                        0xfdfdfd958888919195979776fdfdfdfdfdfdfdfdfdfdfdfdfdfdfde8f0f2f7fa ,
+                        0xfafa4492fdfdfdfdd1d1c2bbb7b5a8bbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfd4e59544b4b4b4b888f00fdfdfd6e7c88888f91979769fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfde7e7f0f5f7fafa4b5afdfdfdfdd4d1c8c1c0acabd1fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfd4f58545259524b969700fdfdfd75877f888f ,
+                        0x9192965cfdfdfdfdfdfdfdfdfdfdfdfdfdfdfde7e7e8f2f7f7fa6144fdfdfdfd ,
+                        0xdbd4cbc8c1bbacccfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd4e5a584b524b ,
+                        0x4b9da200fdfdfd747c7c88888e92975afdfdfdfdfdfdfdfdfdfdfdfdfdfdfde1 ,
+                        0xe7ecf0f5f7fa6144fdfdfdfddbd7d1cbcbbbb6c8fdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfd585a5a4b52524b9fa800fdfdfd6976767c88888f9159fdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfddbe1e7e8f0f2f76944fdfdfdfdddddd6d1cbc2bbc8 ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd525a5a54594b4ba8b600fdfdfd69 ,
+                        0x75767c888d8e924bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7dde1e7f0f0f74a49 ,
+                        0xfdfdfdfde7e1d7d4d1c1c0c1fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd5868 ,
+                        0x6052595a52c2c200fdfdfd6976767c7c7c88914bfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdd7dddde7ecf0f52e44fdfdfdfde7e7dbd7d5c8c1c1fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfd525a5a5a595959c3cb00fdfdfd617475767c88878f4b ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd4dbdde1e7e8f54549fdfdfdfdf0e7dddd ,
+                        0xdbd1cbbdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd596161605a5a53dbd700 ,
+                        0xfdfdfd697475757c7c88884bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7d7dbdde3 ,
+                        0xe7f1455afdfdfdfdf1f0e7ddd7d3d1bdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfd6861695a605a53e7e100fdfdfd6875757577757e884bfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdd1d4d7dbe1e7f54a7cfdfdfdfdf7f1e7e1ddd7d3befdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfd695c5c615a5a5af6e700fdfdfd6869747575 ,
+                        0x787c7c4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdc3cbd1d7d7dbe14b52fdfdfdfdfd ,
+                        0xfaf6e8ece3dbd4bbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd696969695c5a5a ,
+                        0x4afaf700fdfdfd5a697475757576874bfdfdfdfdfdfdfdfdfdfdfdfdfdc2c1cb ,
+                        0xd1d3d5d7dd524bfdfdfdfdfdfafaf1ece7e0d7bbfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd9575746969695c5a5a8efafa00fdfdfd5a6969747575757c4bfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdbbbbc2c8ccd1d4d7dd6158fdfdfdfdfdfafaf5e8ecddd7bb ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfd7576777574696a5c5a5cf0f7fa00fdfdfd59 ,
+                        0x6269697474757c45fdfd879191929d9e9fa7a8abbab9bbc2c8cbd1d4d774bafd ,
+                        0xfdfdfdfdfafafaf7f1e7e1bbfdfdfdfdfdfdfdfdfd979d97928f887c787b7474 ,
+                        0x69696261e7ecfd00fdfdfd52615c696a74757545fdfd8791919297979fa2a2a8 ,
+                        0xacb6b6bdc1c8d1d39174fdfdfdfdfdfdfafafaf6f5e7e7bbfdfdfdfdfdfdfdfd ,
+                        0xfd979797918f8f887c76757569695c5ce0e7fd00fdfdfd525c5c69696975754b ,
+                        0xfdfd78888f91979797a2a2a8b6bab6bbc2c5ccbb9da3fdfdfdfdfdfdf7fafafa ,
+                        0xf6f0e7bbfdfdfdfdfdfdfdfdfd9f9f97929188887c877575746a6976d7fdfd00 ,
+                        0xfdfdfd525c5a6869696e754bfdfd788888919297979f9fa7a8b5abbbbbc1ddc5 ,
+                        0xa8fdfdfdfdfdfdfdf5f4fafafaf5f0bafdfdfdfdfdfdfdfdfda2a29f9795918f ,
+                        0x887c767c757cb6c0fdfdfd00fdfdfd525a5a61626a6e754afdfd7788888f9192 ,
+                        0x97979f9fa4ababb6b4f7e8d4fdfdfdfdfdfdfdfdf2f5fafafaf7f1befdfdfdfd ,
+                        0xfdfdfdfdfda3a4a297979191888d7c7b75abb6bbfdfdfd00fdfdfd525a5a6969 ,
+                        0x6974754bfdfd758888889691929d9fa0a2a2b5c3dde8f6fdfdfdfdfdfdfdfdfd ,
+                        0xf0f2f6fafafaf5bbfdfdfdfdfdfdfdfdfda8a8a2a097958f8e887c7c9ea2abfd ,
+                        0xfdfdfd00fdfdfd4a5a5a5a616969694afdfdfd4a4b4b4a4b4b5a5c6a88959fbb ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdecf0f5f7fafafac1fdfdfdfdfdfdfdfdfda8aca8 ,
+                        0x96877469757c88888ffdfdfdfdfdfd00fdfdfd4a5a5a615c6869694afdfdfd4e ,
+                        0x4b494b494e586061c3fdfdfdfdfdfdfdfdfdfdfdfdfdfdfde7e8f0f4f6fafabd ,
+                        0xfdfdfdfdfdfdfdfdfdfd4a525a6169697474fdfdfdfdfdfdfdfdfd00fdfdfd4a ,
+                        0x545a5a615a68694bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfde7ecf0f5f7fafac2fdfdfdfdfdfdfdfdfdfdfd5a7795fdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd00fdfdfd4b5452585a615c5c4bfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfde1e7f0f0f0f6fabbfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd4e5a525a585a62614b ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfddddde7f0 ,
+                        0xf2f7fabbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00 ,
+                        0xfdfdfd4b5959595a5a695c4afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfde0dde7e7f0f4f7bbfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfd00fdfdfd45524b595a5a5a614bfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd7dbe7e7ecf0f1bafdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd495952525a ,
+                        0x58605a4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xd5d7e1e7e7ecf0acfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfd00fdfdfd494f4b5259595a5a4afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdd4d7dde1e7e8f0abfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd444b4b52525a5a5a4afdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdd1d7dbd7e1e7e8a8 ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd44 ,
+                        0x52524b595a5a5a4afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdd1d3d7dbe0e3eca7fdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfd00fdfdfd44524b5252524b5a4afdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdcbd1d6d7e0e7e7a2fdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00fdfdfd444b4a4b52525a594a ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdc8cbd3d4 ,
+                        0xd7dde19ffdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd00 ,
+                        0xfdfdfd444b4b4b4a5259544afdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdc5c8d1d7d7dddd9ffdfdfdfdfdfdfdfdfdece7ddd4d4d1c1 ,
+                        0xbbbbacaba29f97969674fd00fdfdfd444b4b4b524b4b4b4bfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdc1c5d1d1d7dbdd9ffdfdfdfd ,
+                        0xfdfdfdfdfdece7ddd7d7d1cbc2c0acaba89fa097975a9d00fdfdfd444b4a4b4a ,
+                        0x4b52524bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xc0c1c8ccd1d4d79ffdfdfdfdfdfdfdfdfdf5f0e7e1ddd4d1cbc5bbb6aca2a29f ,
+                        0x97695300fdfdfd444b4a4a4b4b52594bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdbbc0c8cbcbd4d497fdfdfdfdfdfdfdfdfdf6f1ec ,
+                        0xe1dddbd3cbc8bbb6b6a8a7a197755a00fdfdfd444b4a4a4b4b4b4b4afdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdbbbbc1c8cbd3d69d ,
+                        0xfdfdfdfdfdfdfdfdfdf6f7f0e7e7ddd4d1cbc1bbb6aba8a29d7c6900fdfdfd44 ,
+                        0x4b4a4a4b4b514f4bfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdb6b6c1c0c1d1d197fdfdfdfdfdfdfdfdfdfafaf6f0e7e1d7d4d7cbc1 ,
+                        0xc1acb5a89f977c00fdfdfd984b4a4a4b4b4b4b4afdfdfdfdfdfdfdfdfdfdfdfd ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd75888888888e8e6afdfdfdfdfdfdfdfd ,
+                        0xfdfdacb6bbbbc1c2c3cbd3d7dbe0d3c1a8a29100fdfdfdfd444b4b4a4a4a4b4b ,
+                        0xfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd454b4a ,
+                        0x4b4a4b4afdfdfdfdfdfdfdfdfdfdfd68757c889da7b5d1d7e7faf7e7c2b69700 ,
+                        0x4b0000001000000000000000050000000e000000140000000000000010000000 ,
+                        0x14000000
+                    End
+                    Picture ="E:\\bli\\New Logo\\75x67-invoice logo.gif"
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =9180
+                    Top =420
+                    Height =300
+                    FontSize =10
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="SaleNumber"
+                    ControlSource ="QuoteNumber"
+                    StatusBarText ="Unique invoice number, generated by code"
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =7860
+                            Top =420
+                            Width =1260
+                            Height =285
+                            FontSize =10
+                            Name ="Label253"
+                            Caption ="Quote #:"
+                        End
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =1560
+                    Top =120
+                    Width =1860
+                    Height =660
+                    Name ="Text1"
+                    Caption ="BLI Computers, Inc.\015\0124900 Spring Street   #4\015\012Racine, WI  53406-2920"
+                End
+                Begin Subform
+                    OldBorderStyle =0
+                    Left =3960
+                    Top =360
+                    Width =3735
+                    Height =1499
+                    TabIndex =2
+                    Name ="subSaleCust"
+                    SourceObject ="Report.rsubSaleCust"
+                    LinkChildFields ="apkCust"
+                    LinkMasterFields ="afkQuoteCust"
+                    GUID = Begin
+                        0x50465411f0bcb642b4342520a82158f1
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Left =120
+                    Top =1620
+                    Width =3720
+                    FontWeight =700
+                    TabIndex =3
+                    Name ="QuoteTitle"
+                    ControlSource ="QuoteTitle"
+                    GUID = Begin
+                        0x3c7a64831ef9da4389cd9a4b27414787
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7860
+                    Top =120
+                    Width =2760
+                    Height =285
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label341"
+                    Caption ="Price Quote"
+                    GUID = Begin
+                        0xba7b5bd35643f34e97dc5d2fcbbf5873
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =245
+            Name ="Detail1"
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    Left =120
+                    Width =7140
+                    Name ="Item Description"
+                    ControlSource ="QItemDesc"
+                    EventProcPrefix ="Item_Description"
+                End
+                Begin TextBox
+                    CanShrink = NotDefault
+                    TextAlign =3
+                    Left =9336
+                    Width =1290
+                    TabIndex =1
+                    Name ="ExtPrice"
+                    ControlSource ="QItemExtPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                End
+                Begin Subform
+                    OldBorderStyle =0
+                    Left =480
+                    Top =240
+                    Width =7200
+                    Height =1
+                    TabIndex =2
+                    Name ="rsubInvn"
+                    SourceObject ="Report.rsubQuoteItemDetail"
+                    LinkChildFields ="afkQuoteQItem;chkTrue"
+                    LinkMasterFields ="apkQItem;QItemDetailFlag"
+                End
+                Begin TextBox
+                    CanShrink = NotDefault
+                    TextAlign =2
+                    Left =8700
+                    Width =540
+                    TabIndex =3
+                    Name ="Text202"
+                    ControlSource ="QItemQty"
+                End
+                Begin TextBox
+                    CanShrink = NotDefault
+                    TextAlign =3
+                    Left =7320
+                    Width =1290
+                    TabIndex =4
+                    Name ="Price"
+                    ControlSource ="QItemPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    Left =480
+                    Top =245
+                    Width =6780
+                    Height =0
+                    TabIndex =5
+                    Name ="SItemNote"
+                    ControlSource ="QItemNote"
+                    GUID = Begin
+                        0x9f44e61490605f478cb6b2186b2daea2
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =180
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x7bb67ebb265b5843a9026255064079c6
+            End
+            Begin
+                Begin Line
+                    BorderWidth =1
+                    Top =60
+                    Width =10656
+                    Name ="Line261"
+                    GUID = Begin
+                        0xded8cbd4d8fc1a4f97656240fef3cfa2
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    Left =180
+                    Top =180
+                    Width =9660
+                    Height =0
+                    Name ="txtNotes"
+                    ControlSource ="QuoteNote"
+                    GUID = Begin
+                        0x95657e9376cd2140a2bf7bb167870afc
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =2160
+            Name ="PageFooter2"
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    Left =7620
+                    Top =1800
+                    Width =2880
+                    Name ="Field40"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                End
+                Begin Line
+                    BorderWidth =1
+                    Left =60
+                    Top =60
+                    Width =10650
+                    Name ="Line53"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =9306
+                    Top =180
+                    Width =1320
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="txtSaleSubTotal"
+                    ControlSource ="QuoteTotal"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Total of all items and labor"
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =7860
+                            Top =180
+                            Width =1320
+                            Height =240
+                            FontWeight =700
+                            BorderColor =4210752
+                            Name ="Label254"
+                            Caption ="Total:"
+                        End
+                    End
+                End
+                Begin Label
+                    Left =264
+                    Top =180
+                    Width =6180
+                    Height =240
+                    Name ="Text51"
+                    Caption ="1 Year Warranty on all Parts and Labor"
+                    GUID = Begin
+                        0x994f2890be5c2942a233075a0beac620
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =240
+                    Top =480
+                    Width =3645
+                    Height =225
+                    Name ="Label204"
+                    Caption ="* Note: Total does not include sales tax."
+                    GUID = Begin
+                        0xe7a7d40d10bb3a4db76860cb4955ba8c
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7860
+                    Top =540
+                    Width =2760
+                    Height =480
+                    BorderColor =4210752
+                    Name ="Label340"
+                    Caption ="This is not an invoice.\015\012Do not remit this amount."
+                    GUID = Begin
+                        0xf3077298a78e914f9e4ca995211d033b
+                    End
+                End
+            End
+        End
+    End
+End

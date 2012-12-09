@@ -1,0 +1,430 @@
+Version =19
+VersionRequired =19
+Checksum =-1357067110
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10125
+    ItemSuffix =37
+    Left =1005
+    Top =720
+    Right =11760
+    Bottom =6675
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x67bb56fa79c5e140
+    End
+    InputParameters ="@sVendorName = GetVendorName(), @sModel = GetModel()"
+    RecordSource ="dbo.pasprptBillOfMaterials"
+    Caption ="Parts: Bill of Material - Open Releases"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d002000018030000000000008c2700009302000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x4661780000000000000000000000000000000000000000000000000000000000 ,
+        0x010400049c0058010327010001000100ea0a6f08640001000100c80001000100 ,
+        0xc800010000004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000044666178 ,
+        0x0000000001000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011001500010077696e73706f6f6c00466178004d534641583a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPNSort"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =780
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x2ed204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Width =10080
+                    Height =480
+                    FontSize =14
+                    Name ="lblHead"
+                    Caption ="Bill of Materials - Open Releases"
+                    GUID = Begin
+                        0x2fd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =9960
+                    Height =240
+                    FontWeight =400
+                    Name ="lblCrit"
+                    GUID = Begin
+                        0x30d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =480
+            Name ="PageHeader0"
+            GUID = Begin
+                0x31d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    Top =120
+                    Width =960
+                    Height =240
+                    Name ="Text5"
+                    Caption ="RPS P/N"
+                    GUID = Begin
+                        0x32d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    Left =1080
+                    Top =120
+                    Width =1200
+                    Height =240
+                    Name ="Text7"
+                    Caption ="Part Name"
+                    GUID = Begin
+                        0x33d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    Left =5040
+                    Top =120
+                    Width =1440
+                    Height =240
+                    Name ="Text14"
+                    Caption ="Vendor name"
+                    GUID = Begin
+                        0x35d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =7200
+                    Top =120
+                    Width =1080
+                    Height =240
+                    Name ="Text16"
+                    Caption ="Cost Each"
+                    GUID = Begin
+                        0x36d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =3
+                    Top =480
+                    Width =10080
+                    Name ="Line23"
+                    GUID = Begin
+                        0x37d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =9240
+                    Top =120
+                    Width =885
+                    Height =285
+                    Name ="Label31"
+                    Caption ="Ext Cost"
+                    GUID = Begin
+                        0x38d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =660
+            Name ="Detail1"
+            GUID = Begin
+                0x39d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Top =60
+                    Width =960
+                    Height =240
+                    FontSize =8
+                    Name ="RPS P/N"
+                    ControlSource ="RPSPartNum"
+                    EventProcPrefix ="RPS_P_N"
+                    GUID = Begin
+                        0x3ad204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =1080
+                    Top =60
+                    Width =3840
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Part Name"
+                    ControlSource ="PartName"
+                    Format =">"
+                    EventProcPrefix ="Part_Name"
+                    GUID = Begin
+                        0x3bd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =5040
+                    Top =60
+                    Width =2160
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Vendor name"
+                    ControlSource ="VendorName"
+                    EventProcPrefix ="Vendor_name"
+                    GUID = Begin
+                        0x3dd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =7200
+                    Top =60
+                    Width =1200
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Cost Each"
+                    ControlSource ="CostEach"
+                    EventProcPrefix ="Cost_Each"
+                    GUID = Begin
+                        0x3ed204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =600
+                    Width =10080
+                    Name ="Line30"
+                    GUID = Begin
+                        0x3fd204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =9000
+                    Top =60
+                    Width =1080
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Text32"
+                    ControlSource ="ExtCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x40d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Subform
+                    CanShrink = NotDefault
+                    Left =1080
+                    Top =300
+                    Width =9000
+                    Height =240
+                    TabIndex =5
+                    BorderColor =4210752
+                    Name ="Child35"
+                    SourceObject ="Report.parsubBillOfMaterialsPParts"
+                    LinkChildFields ="RPSPartNum"
+                    LinkMasterFields ="RPSPartNum"
+                    GUID = Begin
+                        0x41d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x42d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8160
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x43d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3480
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field28"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x44d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =1152
+                    Height =240
+                    FontSize =8
+                    Name ="Text63"
+                    Caption ="Factory Cat"
+                    GUID = Begin
+                        0x45d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =10080
+                    Name ="Line29"
+                    GUID = Begin
+                        0x46d204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =360
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x47d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    Left =8160
+                    Top =120
+                    Width =1920
+                    Name ="Line25"
+                    GUID = Begin
+                        0x48d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =8160
+                    Top =60
+                    Width =1800
+                    Height =240
+                    FontWeight =700
+                    Name ="Field26"
+                    ControlSource ="=Sum([ExtCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x49d204e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =5040
+                    Top =60
+                    Width =2160
+                    Height =285
+                    Name ="Text27"
+                    Caption ="Total Cost"
+                    GUID = Begin
+                        0x4ad204e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fC As New Form_pafrptBillOfMaterials
+Dim strFilt As String, strSQL As String
+
+fC.Caption = Me.Caption
+fC.Visible = True
+While fC.Visible
+    DoEvents
+Wend
+If fC.blnCancel Then
+    Cancel = True
+    Set fC = Nothing
+    Exit Sub
+End If
+
+sModel = fC.comModel
+sVendorName = fC.comVendor
+
+If fC.comModel <> "" Then
+    Me.lblCrit.Caption = "Model " & fC.comModel
+End If
+
+If fC.comVendor <> "" Then
+    If Me.lblCrit.Caption <> "" Then Me.lblCrit.Caption = Me.lblCrit.Caption & ", "
+    Me.lblCrit.Caption = Me.lblCrit.Caption & "Vendor: " & fC.comVendor
+End If
+
+Set fC = Nothing
+
+End Sub

@@ -1,0 +1,363 @@
+Version =19
+VersionRequired =19
+Checksum =-1139842232
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5880
+    ItemSuffix =38
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Model Qty"
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2700
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x3008c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3780
+                    Top =2340
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3108c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =4632
+                    Top =2340
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3208c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =120
+                    Width =1620
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xa86c23e18c0e3a489500fdd2e229dd91
+                    End
+                    Name ="comNumber"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselRPSPartNum"
+                    OnClick ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =1095
+                            Height =240
+                            Name ="Label25"
+                            Caption ="RPS P/N:"
+                            GUID = Begin
+                                0x63767064ffff5f4da6b11249397a6e21
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =2940
+                    Top =1920
+                    Width =780
+                    TabIndex =7
+                    Name ="txtQty"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0xf488ac434a725b41a305800886809b88
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2400
+                            Top =1920
+                            Width =435
+                            Height =240
+                            Name ="Label35"
+                            Caption ="Qty:"
+                            GUID = Begin
+                                0x54d8263778631944baa597b1d1fd9a45
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =4800
+                    Top =1920
+                    Width =960
+                    TabIndex =8
+                    BackColor =-2147483633
+                    Name ="txtExtCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xcdad1bee59f68d48b07a9a873d6497a5
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3900
+                            Top =1920
+                            Width =795
+                            Height =240
+                            Name ="Label37"
+                            Caption ="Ext Cost:"
+                            GUID = Begin
+                                0x270cd1cf0359c64fa4bd3f428c2fe0ed
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1320
+                    Top =1920
+                    Width =960
+                    TabIndex =6
+                    Name ="txtCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    AfterUpdate ="[Event Procedure]"
+                    GUID = Begin
+                        0x0767ae4c8d67dd42b26d96b47183489b
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1920
+                            Width =1035
+                            Height =240
+                            Name ="Label33"
+                            Caption ="Cost:"
+                            GUID = Begin
+                                0x30e29a47662b58498b4f8ac634651b5e
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1320
+                    Top =1020
+                    Width =4440
+                    Height =420
+                    TabIndex =4
+                    Name ="txtSource"
+                    GUID = Begin
+                        0x4c8d0ba9033e544c8415c64237eadb18
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1020
+                            Width =1035
+                            Height =240
+                            Name ="Label29"
+                            Caption ="Source:"
+                            GUID = Begin
+                                0x16885f8a3c8af54a93114317c977dc8f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1320
+                    Top =480
+                    Width =4440
+                    Height =420
+                    TabIndex =3
+                    Name ="txtDescription"
+                    GUID = Begin
+                        0x8e09edabad73d9448ef2df5794dc64a8
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =480
+                            Width =1035
+                            Height =240
+                            Name ="Label27"
+                            Caption ="Description:"
+                            GUID = Begin
+                                0x948b60db0004274d9eb99210fd2a3b39
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1320
+                    Top =1560
+                    Width =1620
+                    TabIndex =5
+                    Name ="txtSourcePN"
+                    GUID = Begin
+                        0x762950b5b918054fb08f73d2d1971f0c
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1560
+                            Width =1035
+                            Height =240
+                            Name ="Label31"
+                            Caption ="Source P/N:"
+                            GUID = Begin
+                                0x1a8fdae285b0af45946f14fae014cfbe
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub
+
+Private Sub comNumber_Click()
+On Error GoTo comNumber_Err
+
+Dim sSQL As String, r As Recordset
+
+sSQL = "select PartName, VendorName, ManfPartNum, CostEach from dbo.tblParts where RPSPartNum = '" & Me.comNumber & "'"
+Set r = New Recordset
+r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+If Not r.BOF And Not r.EOF Then
+  Me.txtDescription = r!PartName
+  Me.txtSource = r!VendorName
+  Me.txtSourcePN = r!ManfPartNum
+  Me.txtCost = r!CostEach
+End If
+r.Close
+Set r = Nothing
+Me.txtExtCost = Nz(Me.txtCost, 0) * Nz(Me.txtQty, 0)
+Me.txtQty.SetFocus
+
+Exit Sub
+comNumber_Err:
+ErrHand Me.Name, "comNumber"
+Exit Sub
+End Sub
+
+Private Sub txtCost_AfterUpdate()
+Me.txtExtCost = Nz(Me.txtCost, 0) * Nz(Me.txtQty, 0)
+End Sub
+
+Private Sub txtQty_AfterUpdate()
+Me.txtExtCost = Nz(Me.txtCost, 0) * Nz(Me.txtQty, 0)
+End Sub

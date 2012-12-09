@@ -1,0 +1,124 @@
+Version =19
+VersionRequired =19
+Checksum =-389135976
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =0
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =1320
+    DatasheetFontHeight =10
+    ItemSuffix =2
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x1b1e72a436fee140
+    End
+    RecordSource ="SELECT wp.WarrantyID, pa.RPSPartNum \015\012FROM dbo.tblWarrantyParts wp INNER J"
+        "OIN dbo.tblParts pa ON wp.PartID = pa.PartID"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a00500000000000027050000ef00000001000000 ,
+        0x040000000000000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4570736f6e205374796c757320434f4c4f522036303000 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003900010077696e73706f6f6c005c5c6368656573655c4570736f6e20 ,
+        0x5374796c757320434f4c4f5220363030204553432f502032004c5054313a0000 ,
+        0x000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPartNum"
+        End
+        Begin PageHeader
+            Height =240
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0xc8088adbc7668f49bfef85fbda5570f3
+            End
+            Begin
+                Begin Label
+                    Width =1260
+                    Height =240
+                    Name ="Label1"
+                    Caption ="Parts"
+                    GUID = Begin
+                        0xd2ac6ffabfca5e4c9370bf0ca1d04cce
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            GUID = Begin
+                0xb1d33adb31514e4f9df26d0e1b7a487d
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    Width =1320
+                    BorderColor =4210752
+                    Name ="RPSPartNum"
+                    ControlSource ="RPSPartNum"
+                    GUID = Begin
+                        0x48ae6df464470045b39414d35d957290
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =0
+            Name ="PageFooterSection"
+            GUID = Begin
+                0x524272fcee694d489f1c32a799a054cb
+            End
+        End
+    End
+End

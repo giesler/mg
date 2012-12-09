@@ -1,0 +1,338 @@
+Version =19
+VersionRequired =19
+Checksum =476894945
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =1
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =9500
+    DatasheetFontHeight =10
+    ItemSuffix =18
+    DatasheetGridlinesColor =12632256
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xfa797adf5ac7e140
+    End
+    RecordSource ="SELECT dbo.tblToDo.* FROM dbo.tblToDo WHERE (ToDoDone = 0)"
+    Caption ="BLI Nag Sheet"
+    MenuBar ="FCReportMenuBar"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xd0020000d0020000d002000018030000000000001c250000e001000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x010400059c00300243ef800501000100ea0a6f08640001000f00680101000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x22000000300200007ac2dbaf0000000000000000000000000000000000000000 ,
+        0x0000000000000000060000000200000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextAlign =1
+            TextFontFamily =18
+            FontSize =9
+            FontWeight =700
+            FontName ="Times New Roman"
+        End
+        Begin Rectangle
+            BackStyle =0
+        End
+        Begin Image
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CheckBox
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =18
+            BackStyle =0
+            FontName ="Times New Roman"
+        End
+        Begin ListBox
+            TextFontFamily =18
+            OldBorderStyle =0
+            FontName ="Times New Roman"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =18
+            BackStyle =0
+            FontName ="Times New Roman"
+        End
+        Begin Subform
+            OldBorderStyle =0
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            ControlSource ="ToDoArea"
+        End
+        Begin BreakLevel
+            ControlSource ="ToDoEnteredDate"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =420
+            Name ="ReportHeader"
+            GUID = Begin
+                0x795e25e0899a374c91a304d6c4d87d31
+            End
+            Begin
+                Begin Label
+                    BackStyle =1
+                    TextFontFamily =34
+                    Width =6480
+                    Height =420
+                    FontSize =12
+                    Name ="Label8"
+                    Caption ="BLI Nag Sheet"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3a4f3f083517e6448b837e32ff8be28a
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =405
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0x4909df8772eb7640a3b007f41bc50048
+            End
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Top =60
+                    Width =1860
+                    Height =285
+                    FontSize =10
+                    Name ="ToDoArea_Label"
+                    Caption ="Area"
+                    FontName ="Arial"
+                    Tag ="DetachedLabel"
+                    GUID = Begin
+                        0xd8fbcb76e3f00447bf10d739b185849d
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =1860
+                    Top =60
+                    Width =900
+                    Height =285
+                    FontSize =10
+                    Name ="ToDoEnteredDate_Label"
+                    Caption ="Date"
+                    FontName ="Arial"
+                    Tag ="DetachedLabel"
+                    GUID = Begin
+                        0xe0d61098664c2a4c891c1633fac096f0
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =2760
+                    Top =60
+                    Width =5640
+                    Height =285
+                    FontSize =10
+                    Name ="ToDoNote_Label"
+                    Caption ="Note"
+                    FontName ="Arial"
+                    Tag ="DetachedLabel"
+                    GUID = Begin
+                        0xe2bd5c2bee21b54a922486ecf4d89daa
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    Top =405
+                    Width =9360
+                    Name ="Line13"
+                    GUID = Begin
+                        0xf9ec810d9ba1974a835944ca6903b6ee
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8400
+                    Top =60
+                    Width =900
+                    Height =285
+                    FontSize =10
+                    Name ="Label16"
+                    Caption ="Done"
+                    FontName ="Arial"
+                    Tag ="DetachedLabel"
+                    GUID = Begin
+                        0xc4fb7db914d4a447b321d8873fc4f175
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="GroupHeader0"
+            GUID = Begin
+                0x629c7462747b604a94613393270da7ef
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =540
+            Name ="Detail"
+            GUID = Begin
+                0xfb1e78ba3582f94eaedfb6dcf4ad642d
+            End
+            Begin
+                Begin TextBox
+                    HideDuplicates = NotDefault
+                    DecimalPlaces =0
+                    TextFontFamily =34
+                    Top =180
+                    Width =1860
+                    Height =270
+                    Name ="ToDoArea"
+                    ControlSource ="ToDoArea"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x2d8046d3f12d184fb96176820b73367b
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =1860
+                    Top =180
+                    Width =900
+                    TabIndex =1
+                    Name ="ToDoEnteredDate"
+                    ControlSource ="ToDoEnteredDate"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xaee6085503d25e4f96abe70335a47787
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextFontFamily =34
+                    Left =2760
+                    Top =180
+                    Width =5640
+                    Height =270
+                    TabIndex =2
+                    Name ="ToDoNote"
+                    ControlSource ="ToDoNote"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xb09dc88b4da208418ef53209e26e24b7
+                    End
+                End
+                Begin CheckBox
+                    Left =8820
+                    Top =240
+                    TabIndex =3
+                    Name ="Check14"
+                    ControlSource ="ToDoDone"
+                    GUID = Begin
+                        0xd7809e8af273284fbe4369abc70966a2
+                    End
+                End
+                Begin Line
+                    Top =540
+                    Width =9420
+                    Name ="Line17"
+                    GUID = Begin
+                        0x9eb1fe9a84269646b27d3c2229c6ce17
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =330
+            Name ="PageFooterSection"
+            GUID = Begin
+                0x5dd90ab231e59c4986abb57a0e149add
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Top =60
+                    Width =4560
+                    Height =270
+                    Name ="Text9"
+                    ControlSource ="=Now()"
+                    Format ="Long Date"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xb0637d4c9a320042993e2732e080201e
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =4680
+                    Top =60
+                    Width =4560
+                    Height =270
+                    TabIndex =1
+                    Name ="Text10"
+                    ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xf5e6488c5350ee479067207fba5db1dc
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter"
+            GUID = Begin
+                0xf3e8e597ff92ce46932117f53e669b42
+            End
+        End
+    End
+End
