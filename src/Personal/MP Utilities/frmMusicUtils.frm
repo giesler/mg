@@ -407,14 +407,18 @@ End Sub
 
 Private Sub Form_Load()
 
+  Dim strTemp As String
+  
   If Command = "" Then
     MsgBox "This program can only be started with a file.", vbExclamation
     End
   End If
   
-  Me.lblDirectory.Caption = Left(Command, InStrRev(Command, "\"))
-  Me.lblFile.Caption = Mid(Command, InStrRev(Command, "\") + 1)
+  strTemp = Replace(Command, Chr(34), "")
+  
+  Me.lblDirectory.Caption = Left(strTemp, InStrRev(Command, "\"))
+  Me.lblFile.Caption = Mid(strTemp, InStrRev(Command, "\") + 1)
   Me.objEmbeddedMP.autoStart = False
-  Me.objEmbeddedMP.Open Command
+  Me.objEmbeddedMP.Open strTemp
   
 End Sub
