@@ -53,41 +53,6 @@ BOOL CAltUserApp::InitInstance()
 	{
 */
 	
-	// first enable token priv
-
-   HANDLE hProcToken = NULL;
-
-   TOKEN_PRIVILEGES    tp;
-
-   // Initialize structures.
-   ZeroMemory(&tp, sizeof(tp));
-
-  // Retrieve a handle to the process token with the proper access.
-  if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY 
-        | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_SESSIONID 
-        | TOKEN_ADJUST_DEFAULT | TOKEN_ASSIGN_PRIMARY
-        | TOKEN_DUPLICATE, &hProcToken)) {
-	    DisplayError(L"OpenProcessToken");
-      return false;
-    }
-
-	// Look up the LUID for the TCB Name privilege.
-  if (!LookupPrivilegeValue(NULL, SE_TCB_NAME, 
-        &tp.Privileges[0].Luid)) {
-    DisplayError("LookupPrivilegeValue");
-		return false;
-  }
-
-  // Enable the TCB Name privilege in the process token.
-  tp.PrivilegeCount = 1;
-  tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-  if (!AdjustTokenPrivileges(hProcToken, FALSE, &tp, 0, NULL, 0)) {
-   DisplayError("Adjust Token Privs");
-   return false;
-	}
-  
-
-
 	// figure out outlook command line
 	HRESULT hResult; HKEY hKey; char chData[255]; DWORD lDataLen = 255;
 	CString sOutlookCmd = "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\OUTLOOK.EXE";
@@ -104,7 +69,6 @@ BOOL CAltUserApp::InitInstance()
 	
 	int lReturn;
 	STARTUPINFO sInfo; PROCESS_INFORMATION pInfo; STARTUPINFOW swInfo;
-	HANDLE hProcess;
 	swInfo.dwFlags = STARTF_USESHOWWINDOW;
 	swInfo.wShowWindow = SW_MAXIMIZE;
 	ZeroMemory(&sInfo, sizeof(sInfo));
@@ -123,19 +87,6 @@ BOOL CAltUserApp::InitInstance()
 	BSTR bsCmdLine = strCmdLine.AllocSysString();
 
 	PROFILEINFO pi; ZeroMemory(&pi, sizeof(pi)); pi.dwSize = sizeof(pi);
-	HANDLE hToken;
-	
-	// Log on user
-	if (!LogonUser(strUser.AllocSysString(), strDomain.AllocSysString(), strPwd.AllocSysString(), LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_WINNT50, &hToken)) {
-		DisplayError("Log On User");
-		return false;
-	}
-	// Load profile
-	if (!LoadUserProfile(hToken, &pi)) {
-		DisplayError("Load Profile");
-		return false;
-	}
-
 
 
 	lReturn = CreateProcessWithLogonW(bsUser,  // user
@@ -153,20 +104,13 @@ BOOL CAltUserApp::InitInstance()
 	}
 	
 	// Get process and wait for it to end
-	hProcess = pInfo.hProcess;
-	WaitForSingleObject(hProcess, INFINITE);
+//	HANDLE hProcess;
+//	hProcess = pInfo.hProcess;
+//	WaitForSingleObject(hProcess, INFINITE);
 
-	// Unload profile
-	AfxMessageBox("Unloading profile...");
-	if (!UnloadUserProfile(hToken, pi.hProfile)) {
-		DisplayError("Unloading Profile");
-		return false;
-	}
-
-	if (hToken) CloseHandle(hToken);
-	if (hProcToken) CloseHandle(hProcToken);
 	if (pInfo.hProcess) CloseHandle(pInfo.hProcess);
 	if (pInfo.hThread) CloseHandle(pInfo.hThread);
+
 
 		// TODO: Place code here to handle when the dialog is
 		//  dismissed with OK
