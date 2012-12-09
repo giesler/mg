@@ -5,6 +5,7 @@ namespace Cards
     using System.Collections;
     using System.ComponentModel;
     using System.WinForms;
+	using System.Timers;
 
     /// <summary>
     ///    Summary description for StartupForm.
@@ -29,6 +30,9 @@ namespace Cards
 		private System.WinForms.GroupBox JoinBox;
 		private System.WinForms.GroupBox HostBox;
 
+		protected PingClient mPinger;
+		protected System.Timers.Timer mTimer;
+
         public StartupForm()
         {
             //
@@ -36,9 +40,16 @@ namespace Cards
             //
             InitializeComponent();
 
-            //
-            // TODO: Add any constructor code after InitializeComponent call
-            //
+			//begint the ping process
+            mPinger = new PingClient();
+			mPinger.Start();
+
+			//setup timer to check pinger results
+			mTimer = new System.Timers.Timer();
+			mTimer.Tick += new EventHandler(this.Timer_OnTick);
+			mTimer.Interval = 100;
+			mTimer.AutoReset = true;
+			mTimer.Start();
         }
 #region FormDesigner Code
 
@@ -49,6 +60,10 @@ namespace Cards
         {
             base.Dispose();
             components.Dispose();
+			
+			//stop the ping client
+			mPinger.Stop();
+			mTimer.Stop();
         }
 
         /// <summary>
@@ -135,6 +150,7 @@ namespace Cards
 			this.BorderStyle = System.WinForms.FormBorderStyle.FixedDialog;
 			this.MinimizeBox = false;
 			this.ClientSize = new System.Drawing.Size (410, 303);
+			this.Closed += new EventHandler(this.Form_OnClosed);
 			this.Controls.Add (this.JoinBox);
 			this.Controls.Add (this.HostBox);
 			JoinBox.Controls.Add (this.JoinButton);
@@ -148,6 +164,29 @@ namespace Cards
 		}
 
 #endregion
+
+		protected void Timer_OnTick(object sender, EventArgs e)
+		{
+			//check for any new ping returns
+			while (mPinger.Count > 0)
+			{
+				//add results to listview
+				PingResponse resp = mPinger.Pop();
+				ListItem li = new ListItem();
+				li.Text = resp.Name;
+				li.SubItems[1] = resp.Private.ToString();
+				li.SubItems[2] = resp.CurrentPlayers.ToString();
+				li.SubItems[3] = resp.MaxPlayers.ToString();
+				ServersListView.ListItems.Add(li);
+			}
+		}
+
+		protected void Form_OnClosed(object sender, EventArgs e)
+		{
+			//stop the ping client
+			mPinger.Stop();
+			mTimer.Stop();
+		}
 
 		protected void JoinButton_Click (object sender, System.EventArgs e)
 		{
