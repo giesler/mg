@@ -1,4 +1,4 @@
-Attribute VB_Name = "modUpdate"
+Attribute VB_Name = "modSHUtilities"
 
 Option Explicit
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
