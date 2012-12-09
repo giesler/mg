@@ -16,6 +16,15 @@ strOffset = "../../"
 <h3>News</h3>
  
 <p>
+<font size="-1" color="gray"><i>June 23, 2:00 PM Central</i></font><br>
+Our last upgrade solved the sharing problem (only half of the available database was 
+being shared. Now we are working on the problem of clients dropping unexpectedly. Expect 
+a new client to be pushed out this weekend or early next week.<br><br>
+Check back here often because we will soon be announcing a monthly contest with GeForce&copy; 
+video cards as prizes!
+</p> 
+ 
+<p>
 <font size="-1" color="gray"><i>June 21, 8:00 PM Central</i></font><br>
 AMS will be down for upgrades on June 22nd from 8:00AM to 10:00AM Central 
 time.
