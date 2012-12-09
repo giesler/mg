@@ -8,6 +8,7 @@ vti_textindexood:IR|0
 vti_sourcecontrolcookie:SX|D:\\vss\\srcsafe.ini
 vti_sourcecontrolproject:SR|$/Mike/Webs/giesler.org
 vti_navbuttonnextlabel:SR|Next
+vti_dontpatchmoveddocs:SW|1
 vti_approvallevels:VR|Content\\ Review Legal\\ Review Code\\ Review Manager\\ Review
 vti_timecreated:TR|07 Apr 2001 17:42:48 -0000
 vti_extenderversion:SR|4.0.2.4324
