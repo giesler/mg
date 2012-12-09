@@ -62,7 +62,15 @@ namespace XMedia
 			Socket me = new Socket(	AddressFamily.InterNetwork, 
 									SocketType.Stream, 
 									ProtocolType.Tcp);
-			me.Connect(new IPEndPoint(HostIP, 25347));
+			IAsyncResult ar = me.BeginConnect(
+				new IPEndPoint(/*IPAddress.Parse("10.1.1.25")*/ HostIP, 25347 /* 25348 */),
+				null, null);
+			if (!ar.AsyncWaitHandle.WaitOne(750, false))
+			{
+				//took too long
+				//me.EndConnect(ar);	
+				return false;
+			}
 			
 			//create the message
 			XMMessage msg = new XMMessage();
@@ -79,14 +87,17 @@ namespace XMedia
 			me.Send(buf, buf.Length, 0);
 			
 			//receive something.. anything will do
-			IAsyncResult ar = me.BeginReceive(buf, 0, buf.Length, SocketFlags.None, null, null);
+			ar = me.BeginReceive(buf, 0, buf.Length, SocketFlags.None, null, null);
 			if (!ar.AsyncWaitHandle.WaitOne(750, true))
 			{
 				//took too long, give up
+				//me.EndReceive(ar);
+				me.Close();
 				return false;
 			}
 
 			//success
+			me.Close();
 			return true;
 		}
 

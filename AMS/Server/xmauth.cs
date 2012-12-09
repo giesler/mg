@@ -318,14 +318,14 @@ namespace XMedia
 			//if we can't make a connection back to the client, then
 			//don't let it share any files.. no one will get them
 			string sql;
-			//if (true/*con.Ping()*/)
-			//{
+			if (con.Ping())
+			{
 				sql = "update users set online=1 where userid=" + con.UserID.ToStringDB();
-			//}
-			//else
-			//{
-			//	sql = "update users set online=0 where userid=" + con.UserID.ToStringDB();
-			//}
+			}
+			else
+			{
+				sql = "update users set online=0 where userid=" + con.UserID.ToStringDB();
+			}
 			if (mAdo.EnsureConnection())
 			{
 				mAdo.SqlExec(sql);
