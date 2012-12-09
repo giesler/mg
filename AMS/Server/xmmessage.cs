@@ -409,6 +409,10 @@ namespace XMedia
 					DoPing();
 					break;
 
+				case "collections":
+
+					break;
+
 				default:
 					break;
 			}
@@ -546,9 +550,15 @@ namespace XMedia
 			//are proboly changed computers or something, and we need everytyhing
 			msg.SetField("listingsize", Connection.FileCount==files?"partial":"full");
 
-			if (Connection.Username=="cache")
+			//read this user's collection list from the database
+			try
 			{
-				Trace.WriteLine(String.Format("*** asking cache for {0}", msg.GetField("listingsize").Value));
+				msg.SetField("collections", Connection.Collections);
+			}
+			catch
+			{
+				//error reading collections
+				XMLog.WriteLine("Could not read collection data.", "XMMessage", EventLogEntryType.Warning);
 			}
 
 			//set limiters on the queries?

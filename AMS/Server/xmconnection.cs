@@ -9,6 +9,8 @@ namespace XMedia
 	using System.Xml;
 	using System.IO;
 	using System.Diagnostics;
+	using System.Text;
+	using System.Data.SqlClient;
 
     /// <summary>
     ///    Summary description for xmconnection.
@@ -62,6 +64,46 @@ namespace XMedia
 			msg.SetField("choices", "");
 			msg.Send();
 			*/
+		}
+
+		/// <summary>
+		/// Return a formated string describing the user's list
+		/// of owned collections.
+		/// </summary>
+		public string Collections
+		{
+			get
+			{
+				XMAdo ado = XMAdo.FromPool();
+				SqlDataReader rs;
+				StringBuilder sb;
+				try
+				{
+					//query database
+					rs = ado.SqlExec("select * from collections where userid=" + UserID.ToStringDB());
+					if (!rs.Read())
+					{
+						//nothing
+						rs.Close();
+						ado.ReturnToPool();
+						return "";
+					}
+
+					//build string
+					sb = new StringBuilder(512);
+					do
+					{
+						sb.AppendFormat("{0},{1};", rs["collectionid"], rs["name"]);
+					} while (rs.Read());
+					ado.ReturnToPool();
+					return sb.ToString();
+				}
+				catch(Exception e)
+				{
+					ado.ReturnToPool();
+					throw e;
+				}
+			}
 		}
 
 		/// <summary>

@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.0.9254"
+        ProductVersion = "7.0.9372"
         SchemaVersion = "1.0"
     >
         <Build>
@@ -14,7 +14,6 @@
                 DefaultHTMLPageLayout = "Flow"
                 DefaultTargetSchema = "IE32Nav30"
                 DelaySign = "false"
-                NoStandardLibraries = "false"
                 OutputType = "WinExe"
                 RootNamespace = "XMServer"
                 StartupObject = ""
@@ -171,23 +170,13 @@
                 />
                 <File
                     RelPath = "xmserver.cs"
-                    SubType = "Code"
+                    SubType = "Component"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "xmserver.resx"
-                    DependentUpon = "xmserver.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "xmserverinstaller.cs"
                     SubType = "Component"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "xmserverinstaller.resx"
-                    DependentUpon = "xmserverinstaller.cs"
-                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>
