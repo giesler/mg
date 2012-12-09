@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pic Admin", "Pic Admin.vbproj", "{F25D5BC7-BD2A-4365-805A-E9C5283BDCB4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Debug.ActiveCfg = Debug|.NET
+		Debug.Build.0 = Debug|.NET
+		Release.ActiveCfg = Release|.NET
+		Release.Build.0 = Release|.NET
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccProjectName0 = \u0022$/Mike/Pic\u0020Admin\u0022,\u0020IVDAAAAA
+		SccAuxPath0 = \\\\cheese\\vss
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:SourceSafe
+		CanCheckoutShared = false
+		SccProjectUniqueName1 = Pic\u0020Admin.vbproj
+		SccLocalPath1 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Release
+		ConfigName.1 = Debug
+		DoSign = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
