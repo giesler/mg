@@ -16,7 +16,7 @@ Begin VB.Form frmMPUtility
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton cmdBrowse 
-      Caption         =   "&Browse"
+      Caption         =   "C&hange"
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -142,7 +142,7 @@ Begin VB.Form frmMPUtility
       Width           =   4695
    End
    Begin VB.CheckBox chkCopyFile 
-      Caption         =   "&Copy file to MP3 drive"
+      Caption         =   "Co&py file to MP3 drive"
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -256,7 +256,7 @@ Begin VB.Form frmMPUtility
       Left            =   960
       TabIndex        =   10
       Top             =   600
-      Width           =   855
+      Width           =   845
    End
    Begin VB.Label Label2 
       Caption         =   "Directory:"
@@ -273,7 +273,7 @@ Begin VB.Form frmMPUtility
       Left            =   960
       TabIndex        =   9
       Top             =   360
-      Width           =   855
+      Width           =   845
    End
    Begin VB.Label lblDirectory 
       Caption         =   "<dir>"
@@ -416,8 +416,8 @@ Private Sub Form_Load()
   
   strTemp = Replace(Command, Chr(34), "")
   
-  Me.lblDirectory.Caption = Left(strTemp, InStrRev(Command, "\"))
-  Me.lblFile.Caption = Mid(strTemp, InStrRev(Command, "\") + 1)
+  Me.lblDirectory.Caption = Left(strTemp, InStrRev(strTemp, "\"))
+  Me.lblFile.Caption = Mid(strTemp, InStrRev(strTemp, "\") + 1)
   Me.objEmbeddedMP.autoStart = False
   Me.objEmbeddedMP.Open strTemp
   
