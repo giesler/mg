@@ -82,7 +82,7 @@ bool CXMClientManager::OnInitialize()
 	}
 
 	//setup download slots
-	mDownloadCount = mMaxDownloads + mMaxUploads;
+	mDownloadCount = mMaxDownloads + mMaxThumbnails;
 	mDownloads = (DownloadSlot*)malloc(mDownloadCount*sizeof(DownloadSlot));
 	memset(mDownloads, 0, mDownloadCount*sizeof(DownloadSlot));
 	for (BYTE i=0;i<mDownloadCount;i++) {
