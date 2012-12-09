@@ -1,0 +1,197 @@
+Version =19
+VersionRequired =19
+Checksum =898941522
+Begin Form
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowUpdating =4
+    ScrollBars =2
+    ViewsAllowed =1
+    PictureAlignment =5
+    PictureSizeMode =1
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =4980
+    DatasheetFontHeight =10
+    ItemSuffix =10
+    DatasheetGridlinesColor =12632256
+    PaintPalette = Begin
+        0x000359000000000000ccff0005cdff000aceff000fcfff0014d0ff001ad1ff00 ,
+        0x1fd2ff0024d3ff0029d4ff002ed5ff0034d6ff0039d7ff003ed8ff0043d9ff00 ,
+        0x48daff004edbff0053dcff0058ddff005ddeff0062dfff0068e0ff006de1ff00 ,
+        0x72e2ff0077e3ff007ce4ff0082e6ff0087e7ff008ce8ff0091e9ff0096eaff00 ,
+        0x9cebff00a1ecff00a6edff00abeeff00b0efff00b6f0ff00bbf1ff00c0f2ff00 ,
+        0xc5f3ff00caf4ff00cccccc00cfcfcf00d0f5ff00d1d1d100d4d4d400d5f6ff00 ,
+        0xd6d6d600d9d9d900daf7ff00dbdbdb00dedede00dff8ff00e0e0e000e3e3e300 ,
+        0xe4f9ff00e5e5e500e8e8e800eafaff00ebebeb00ededed00effbff00f0f0f000 ,
+        0xf2f2f200f4fcff00f5f5f500f7f7f700f9fdff00fafafa00fcfcfc00ffffff00 ,
+        0x800000000080000080800000000080008000800000808000c0c0c000c0dcc000 ,
+        0xa6caf000fffbf000a0a0a40080808000ff00000000ff0000ffff00000000ff00 ,
+        0xff00ff0000ffff0000000000
+    End
+    RecSrcDt = Begin
+        0xeb448329d5b1e140
+    End
+    RecordSource ="tblCatalogSubItems"
+    Caption ="fsubCatalogSubItems"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Arial"
+        End
+        Begin Rectangle
+            BackStyle =0
+            BorderWidth =1
+        End
+        Begin Line
+            BorderWidth =1
+        End
+        Begin Image
+            SpecialEffect =1
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin OptionButton
+            SpecialEffect =1
+            LabelX =230
+            LabelY =-30
+        End
+        Begin CheckBox
+            SpecialEffect =1
+            BorderWidth =3
+            LabelX =230
+            LabelY =-30
+        End
+        Begin OptionGroup
+            BorderColor =12632256
+        End
+        Begin BoundObjectFrame
+            SpecialEffect =1
+            OldBorderStyle =0
+            BackStyle =0
+        End
+        Begin TextBox
+            BackStyle =0
+            BorderColor =12632256
+            FontName ="Arial"
+        End
+        Begin ListBox
+            SpecialEffect =1
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            BackStyle =0
+            BorderColor =12632256
+            FontName ="Arial"
+        End
+        Begin Subform
+            SpecialEffect =1
+        End
+        Begin UnboundObjectFrame
+            SpecialEffect =1
+            BackStyle =0
+        End
+        Begin ToggleButton
+            FontSize =8
+            FontWeight =400
+            FontName ="Arial"
+        End
+        Begin Tab
+            BackStyle =0
+        End
+        Begin FormHeader
+            Height =255
+            BackColor =-2147483633
+            Name ="FormHeader"
+            Begin
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =3
+                    Left =4260
+                    Width =720
+                    Height =255
+                    Name ="ItemQty Label"
+                    Caption ="Qty"
+                    Tag ="DetachedLabel"
+                    EventProcPrefix ="ItemQty_Label"
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Width =3120
+                    Height =255
+                    Name ="ItemDesc Label"
+                    Caption ="Description"
+                    Tag ="DetachedLabel"
+                    EventProcPrefix ="ItemDesc_Label"
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =3120
+                    Width =1140
+                    Height =255
+                    Name ="ItemPrice Label"
+                    Caption ="Price"
+                    Tag ="DetachedLabel"
+                    EventProcPrefix ="ItemPrice_Label"
+                End
+            End
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =93
+                    BackStyle =1
+                    Left =4260
+                    Width =720
+                    ColumnWidth =2310
+                    TabIndex =2
+                    BorderColor =0
+                    Name ="txtItemQty"
+                    ControlSource ="ItemQty"
+                    StatusBarText ="Quantity of item"
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    OverlapFlags =93
+                    BackStyle =1
+                    Width =3120
+                    ColumnWidth =3000
+                    BorderColor =0
+                    Name ="txtItemDesc"
+                    ControlSource ="ItemDesc"
+                    StatusBarText ="Item description"
+                End
+                Begin TextBox
+                    OverlapFlags =87
+                    BackStyle =1
+                    Left =3120
+                    Width =1140
+                    ColumnWidth =2310
+                    TabIndex =1
+                    BorderColor =0
+                    Name ="txtItemPrice"
+                    ControlSource ="ItemPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Item price"
+                End
+            End
+        End
+        Begin FormFooter
+            Height =0
+            Name ="FormFooter"
+        End
+    End
+End
