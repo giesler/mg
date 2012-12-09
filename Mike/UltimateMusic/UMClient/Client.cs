@@ -47,6 +47,8 @@ namespace UMClient
 			mediaServer.ProgressEvent += new ProgressEventHandler(ProgressEvent);
 			mediaServer.PongEvent += new PongEventHandler(PongEvent);
 			mediaServer.VolumeEvent += new VolumeEventHandler(VolumeEvent);
+			mediaServer.RateChanged += new RateEventHandler(RateEvent);
+			mediaServer.BalanceChanged += new BalanceEventHandler(BalanceEvent);
 
 			mediaServer.AddedToQueueEvent += new AddedToQueueEventHandler(AddedToQueueEvent);
 			mediaServer.RemovedFromQueueEvent += new RemovedFromQueueEventHandler(RemovedFromQueueEvent);
@@ -111,6 +113,18 @@ namespace UMClient
 		public void VolumeEvent(object sender, MediaVolumeEventArgs e) 
 		{
 			umPlayer.Volume_Changed(e.Volume);
+		}
+
+		[OneWay]
+		public void RateEvent(object sender, MediaRateEventArgs e) 
+		{
+			umPlayer.Rate_Changed(e.Rate);
+		}
+
+		[OneWay]
+		public void BalanceEvent(object sender, MediaBalanceEventArgs e) 
+		{
+			umPlayer.Balance_Changed(e.Balance);
 		}
 
 		[OneWay]

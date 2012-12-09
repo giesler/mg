@@ -36,8 +36,9 @@ namespace UMServer
 			while (playerThread.IsAlive) 
 				Thread.Sleep(100);
 
+#if !DEBUG
 			Next();
-
+#endif
 		}
 
 		private void PlayerThreadStart() 
@@ -53,6 +54,8 @@ namespace UMServer
 			dxPlayer.PausedEvent		+= new DXPausedEventHandler(PausedEvent);
 			dxPlayer.ProgressEvent		+= new DXProgressEventHandler(DXProgressEvent);
 			dxPlayer.VolumeChanged		+= new DXVolumeChangedEventHandler(DXVolumeEvent);
+			dxPlayer.RateChanged		+= new DXRateChangedEventHandler(DXRateChanged);
+			dxPlayer.BalanceChanged		+= new DXBalanceChangedEventHandler(DXBalanceChanged);
 		}
 
 		private void LoadMediaCollection() 
@@ -132,6 +135,18 @@ namespace UMServer
 		{
 			get { return dxPlayer.Volume; }
 			set { dxPlayer.Volume = value; }
+		}
+
+		public double Rate 
+		{
+			get { return dxPlayer.Rate; }
+			set { dxPlayer.Rate = value; }
+		}
+
+		public int Balance 
+		{
+			get { return dxPlayer.Balance; }
+			set { dxPlayer.Balance = value; }
 		}
 
 		/// <summary>
@@ -352,6 +367,26 @@ namespace UMServer
 		}
 
 		#endregion
+
+		#region Media related properties 
+		
+		public event RateEventHandler RateChanged;
+
+		private void DXRateChanged(object sender, DXRateEventArgs e) 
+		{
+			if (RateChanged != null)
+				RateChanged(this, new MediaRateEventArgs(e.Rate));
+		}
+
+		public event BalanceEventHandler BalanceChanged;
+
+		private void DXBalanceChanged(object sender, DXBalanceEventArgs e) 
+		{
+			if (BalanceChanged != null)
+				BalanceChanged(this, new MediaBalanceEventArgs(e.Balance));
+		}
+
+		#endregion
 	}
 
 	#region Events raised by MediaServer
@@ -364,8 +399,12 @@ namespace UMServer
 	public delegate void PlayingSongEventHandler(object sender, MediaEventArgs e);
 	public delegate void PausedSongEventHandler(object sender, MediaEventArgs e);
 	public delegate void StoppedSongEventHandler(object sender, MediaEventArgs e);
+
+	/* Other properties */
 	public delegate void ProgressEventHandler(object sender, MediaProgressEventArgs e);
 	public delegate void VolumeEventHandler(object sender, MediaVolumeEventArgs e);
+	public delegate void RateEventHandler(object sender, MediaRateEventArgs e);
+	public delegate void BalanceEventHandler(object sender, MediaBalanceEventArgs e);
 
 	/* Queue related events */
 	public delegate void AddedToQueueEventHandler(object sender, QueueEventArgs e);
@@ -486,6 +525,39 @@ namespace UMServer
 		}
 	}
 
+	[Serializable]
+	public class MediaRateEventArgs: EventArgs
+	{
+		private double rate;
+
+		public MediaRateEventArgs(double rate) 
+		{
+			this.rate = rate;
+		}
+
+		public double Rate 
+		{
+			get { return rate; }
+		}
+	}
+
+
+	[Serializable]
+	public class MediaBalanceEventArgs: EventArgs
+	{
+		private int balance;
+
+		public MediaBalanceEventArgs(int balance) 
+		{
+			this.balance = balance;
+		}
+
+		public int Balance 
+		{
+			get { return balance; }
+		}
+	}
+	
 	#endregion
 
 	#region Collection related classes
@@ -578,7 +650,6 @@ namespace UMServer
 		}
 	}
 
-	[Serializable]
 	public class MediaCollectionEntry 
 	{
 		private int mediaId;

@@ -11,7 +11,7 @@ namespace UMClient
 	/// </summary>
 	public class MediaBar : System.Windows.Forms.Form
 	{
-		private System.Windows.Forms.Label labelNowPlaying;
+		public System.Windows.Forms.Label labelNowPlaying;
 		private System.ComponentModel.IContainer components;
 
 		private int startX, startY;
@@ -19,7 +19,6 @@ namespace UMClient
 		public System.Windows.Forms.Button buttonPause;
 		public System.Windows.Forms.Button buttonNext;
 		private System.Windows.Forms.Button buttonClose;
-		public System.Windows.Forms.Timer timerPaused;
 		private bool moving = false;
 		private UMPlayer umPlayer;
 
@@ -63,13 +62,11 @@ namespace UMClient
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			this.labelNowPlaying = new System.Windows.Forms.Label();
 			this.buttonPlayStop = new System.Windows.Forms.Button();
 			this.buttonPause = new System.Windows.Forms.Button();
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.buttonClose = new System.Windows.Forms.Button();
-			this.timerPaused = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// labelNowPlaying
@@ -86,18 +83,18 @@ namespace UMClient
 			// buttonPlayStop
 			// 
 			this.buttonPlayStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonPlayStop.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonPlayStop.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonPlayStop.Location = new System.Drawing.Point(208, 0);
 			this.buttonPlayStop.Name = "buttonPlayStop";
-			this.buttonPlayStop.Size = new System.Drawing.Size(20, 16);
+			this.buttonPlayStop.Size = new System.Drawing.Size(22, 16);
 			this.buttonPlayStop.TabIndex = 1;
-			this.buttonPlayStop.Text = ">";
+			this.buttonPlayStop.Text = "[]";
 			this.buttonPlayStop.Click += new System.EventHandler(this.buttonPlayStop_Click);
 			// 
 			// buttonPause
 			// 
 			this.buttonPause.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonPause.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonPause.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonPause.Location = new System.Drawing.Point(232, 0);
 			this.buttonPause.Name = "buttonPause";
 			this.buttonPause.Size = new System.Drawing.Size(20, 16);
@@ -108,7 +105,7 @@ namespace UMClient
 			// buttonNext
 			// 
 			this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonNext.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonNext.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonNext.Location = new System.Drawing.Point(256, 0);
 			this.buttonNext.Name = "buttonNext";
 			this.buttonNext.Size = new System.Drawing.Size(25, 16);
@@ -126,11 +123,6 @@ namespace UMClient
 			this.buttonClose.TabIndex = 4;
 			this.buttonClose.Text = "X";
 			this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-			// 
-			// timerPaused
-			// 
-			this.timerPaused.Interval = 500;
-			this.timerPaused.Tick += new System.EventHandler(this.timerPaused_Tick);
 			// 
 			// MediaBar
 			// 

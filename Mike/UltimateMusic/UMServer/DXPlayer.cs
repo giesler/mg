@@ -20,7 +20,6 @@ namespace UMServer
 
 		public DXPlayer()
 		{
-			filegraphManager = new FilgraphManagerClass();			
 			timer = new Timer(1000);
 			timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
 		}
@@ -55,8 +54,11 @@ namespace UMServer
 
 		public void Stop() 
 		{
-			filegraphManager.Stop();
-			filegraphManager.CurrentPosition = 0;
+			if (initialized) 
+			{
+				filegraphManager.Stop();
+				filegraphManager.CurrentPosition = 0;
+			}
 			timer.Enabled = false;
 			if (StoppedEvent != null) 
 			{
@@ -139,7 +141,8 @@ namespace UMServer
 			set 
 			{
 				mediaVolume = (int) (0 - ((1.0 - value) * 2000.0));
-				filegraphManager.Volume = mediaVolume;
+				if (initialized)
+					filegraphManager.Volume = mediaVolume;
 				if (VolumeChanged != null) 
 					VolumeChanged(this, new DXVolumeEventArgs(value));
 			}
@@ -151,31 +154,42 @@ namespace UMServer
 		{
 			get 
 			{
-				return filegraphManager.Balance;
+				if (!initialized)
+					return 0;
+				else
+					return filegraphManager.Balance;
 			}
 			set 
 			{
 				mediaBalance = value;
-				filegraphManager.Balance = value;
+				if (initialized)
+					filegraphManager.Balance = value;
 				if (BalanceChanged != null)
 					BalanceChanged(this, new DXBalanceEventArgs(value));
 			}
 		}
 
-		public event DXSpeedChangedEventHandler SpeedChanged;
+		public event DXRateChangedEventHandler RateChanged;
 	
-		public double Speed 
+		public double Rate 
 		{
 			get 
 			{
-				return filegraphManager.Rate;
+				if (!initialized)
+					return 1.0;
+				else
+					return filegraphManager.Rate;
 			}
 			set 
 			{
-				mediaRate = value;
-				filegraphManager.Rate = value;
-				if (SpeedChanged != null)
-					SpeedChanged(this, new DXSpeedEventArgs(value));
+				if (value > 0 && initialized) 
+				{
+					mediaRate = value;
+					if (initialized)
+						filegraphManager.Rate = value;
+					if (RateChanged != null)
+						RateChanged(this, new DXRateEventArgs(value));
+				}
 			}
 		}
 
@@ -203,7 +217,7 @@ namespace UMServer
 	public delegate void DXEndOfStreamEventHandler(object sender, EventArgs e);
 	public delegate void DXVolumeChangedEventHandler(object sender, DXVolumeEventArgs e);
 	public delegate void DXBalanceChangedEventHandler(object sender, DXBalanceEventArgs e);
-	public delegate void DXSpeedChangedEventHandler(object sender, DXSpeedEventArgs e);
+	public delegate void DXRateChangedEventHandler(object sender, DXRateEventArgs e);
 
 	#endregion
 
@@ -241,31 +255,31 @@ namespace UMServer
 
 	public class DXBalanceEventArgs: EventArgs 
 	{
-		private double balance;
+		private int balance;
 
-		public DXBalanceEventArgs(double balance) 
+		public DXBalanceEventArgs(int balance) 
 		{
 			this.balance = balance;
 		}
 
-		public double Balance 
+		public int Balance 
 		{
 			get { return balance; }
 		}
 	}
 
-	public class DXSpeedEventArgs: EventArgs 
+	public class DXRateEventArgs: EventArgs 
 	{
-		private double speed;
+		private double rate;
 
-		public DXSpeedEventArgs(double speed) 
+		public DXRateEventArgs(double rate) 
 		{
-			this.speed = speed;
+			this.rate = rate;
 		}
 
-		public double Speed 
+		public double Rate
 		{
-			get { return speed; }
+			get { return rate; }
 		}
 	}
 

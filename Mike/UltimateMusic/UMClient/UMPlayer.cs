@@ -35,8 +35,6 @@ namespace UMClient
 		private System.Windows.Forms.Label labelName;
 		private System.Windows.Forms.Label labelArtist;
 		private System.Windows.Forms.Timer timerPaused;
-		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.TextBox textBoxLog;
 		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxSearch;
@@ -68,7 +66,6 @@ namespace UMClient
 		private System.Windows.Forms.MenuItem menuSearchQueueAfter;
 		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.Timer timerPing;
-		private System.Windows.Forms.CheckBox checkBoxShowLog;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.PictureBox pictureBoxVolume;
 		private System.Windows.Forms.PictureBox pictureBoxVolumeContainer;
@@ -76,18 +73,40 @@ namespace UMClient
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private System.Windows.Forms.MenuItem menuQueueEditInfo;
 		private System.Windows.Forms.MenuItem menuSearchEditInfo;
-		private System.Windows.Forms.Timer timerProgress;
 		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.ListBox listBoxFiles;
-		private System.Windows.Forms.Button buttonSelectFiles;
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.Button buttonAdd;
 		private System.Windows.Forms.OpenFileDialog addFileDialog;
-		private System.Windows.Forms.Button buttonSelectDir;
-		private System.Windows.Forms.CheckBox checkBoxSubDirs;
 		private MediaBar mediaBar;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.TrackBar trackBarBalance;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TrackBar trackBarRate;
+		private System.Windows.Forms.Button buttonAddFile;
+		private System.Windows.Forms.Button buttonRemoveFile;
+		private System.Windows.Forms.ContextMenu contextMenuAddFile;
+		private System.Windows.Forms.MenuItem menuItemAddFile;
+		private System.Windows.Forms.MenuItem menuItemAddDirectory;
+		private System.Windows.Forms.MenuItem menuItemAddTree;
 		private string walkDirectory;
+		private bool directoryRecursive;
+		private System.Windows.Forms.Label labelRate;
+		private System.Windows.Forms.ListView listViewFiles;
+		private System.Windows.Forms.ColumnHeader columnHeader10;
+		private System.Windows.Forms.TabPage tabPage7;
+		private System.Windows.Forms.CheckBox checkBoxShowLog;
+		private System.Windows.Forms.TextBox textBoxLog;
+		private Status directoryAddStatus = null;
+		private System.Windows.Forms.ContextMenu contextMenuMediaCollection;
+		private System.Windows.Forms.MenuItem menuItemColPlayNow;
+		private System.Windows.Forms.MenuItem menuItem8;
+		private System.Windows.Forms.MenuItem menuItemColEditInfo;
+		private System.Windows.Forms.MenuItem menuItemColQueueTop;
+		private System.Windows.Forms.MenuItem menuItemColQueueBottom;
+		private System.Windows.Forms.MenuItem menuItem9;
+		private System.Windows.Forms.MenuItem menuColQueueAfter;
+		private DataSetMedia dsMedia;
 
 		public UMPlayer()
 		{
@@ -133,6 +152,15 @@ namespace UMClient
 
 			// set the volume bar
 			Volume_Changed(client.mediaServer.Volume);
+			Balance_Changed(client.mediaServer.Balance);
+			Rate_Changed(client.mediaServer.Rate);		
+			UMPlayer_Resize(this, new EventArgs());
+
+			// Load the media list
+			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+			SqlDataAdapter da = new SqlDataAdapter("select * from Media", cn);
+			dsMedia = new DataSetMedia();
+			da.Fill(dsMedia, "Media");
 
 		}
 
@@ -149,14 +177,18 @@ namespace UMClient
 			buttonPlayStop.Enabled = true;
 			timerPaused.Enabled = false;
 
+			mediaBar.labelNowPlaying.Visible = true;
 			mediaBar.CurrentSong = entry.Name;
 			mediaBar.buttonPlayStop.Text = "[]";
 			mediaBar.buttonPause.Enabled = true;
-			mediaBar.timerPaused.Enabled = false;
 		}
 
 		public void Stopped() 
 		{
+			timerPaused.Enabled = false;
+			mediaBar.labelNowPlaying.Visible = true;
+			labelName.Visible = true;
+
 			buttonPlayStop.Text = ">";
 			buttonPlayStop.Enabled = true;
 			buttonPause.Enabled = false;
@@ -174,7 +206,6 @@ namespace UMClient
 
 			mediaBar.buttonPlayStop.Enabled = true;
 			mediaBar.buttonPause.Enabled = true;
-			mediaBar.timerPaused.Enabled = true;
 		}
 
 		public void Progress(double progress) 
@@ -185,6 +216,16 @@ namespace UMClient
 		public void Volume_Changed(double volume) 
 		{
 			pictureBoxVolume.Width = Convert.ToInt32(((volume) * (double) (pictureBoxVolumeContainer.Width-4)));
+		}
+
+		public void Rate_Changed(double rate) 
+		{
+            trackBarRate.Value = (int) (rate * 100);
+		}
+		
+		public void Balance_Changed(int balance) 
+		{
+			trackBarBalance.Value = balance;
 		}
 
 		#endregion
@@ -221,6 +262,7 @@ namespace UMClient
 
 		public void ReloadQueue() 
 		{
+			
 			MediaCollection queueMedia = client.mediaServer.CurrentQueue();
 			// Clear the current queue
 			listViewQueue.Items.Clear();
@@ -253,8 +295,6 @@ namespace UMClient
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(UMPlayer));
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
-																																								new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "not working yet!", System.Drawing.SystemColors.WindowText, System.Drawing.SystemColors.Window, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0))))}, -1);
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.pictureBoxProgress = new System.Windows.Forms.PictureBox();
 			this.panel2 = new System.Windows.Forms.Panel();
@@ -305,24 +345,40 @@ namespace UMClient
 			this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+			this.contextMenuMediaCollection = new System.Windows.Forms.ContextMenu();
+			this.menuItemColPlayNow = new System.Windows.Forms.MenuItem();
+			this.menuItem8 = new System.Windows.Forms.MenuItem();
+			this.menuItemColQueueTop = new System.Windows.Forms.MenuItem();
+			this.menuItemColQueueBottom = new System.Windows.Forms.MenuItem();
+			this.menuColQueueAfter = new System.Windows.Forms.MenuItem();
+			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.menuItemColEditInfo = new System.Windows.Forms.MenuItem();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.treeViewCollection = new System.Windows.Forms.TreeView();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.listViewFiles = new System.Windows.Forms.ListView();
+			this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+			this.buttonRemoveFile = new System.Windows.Forms.Button();
+			this.buttonAddFile = new System.Windows.Forms.Button();
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.buttonSelectDir = new System.Windows.Forms.Button();
-			this.buttonSelectFiles = new System.Windows.Forms.Button();
-			this.listBoxFiles = new System.Windows.Forms.ListBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.checkBoxShowLog = new System.Windows.Forms.CheckBox();
 			this.textBoxLog = new System.Windows.Forms.TextBox();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.labelRate = new System.Windows.Forms.Label();
+			this.trackBarRate = new System.Windows.Forms.TrackBar();
+			this.label4 = new System.Windows.Forms.Label();
+			this.trackBarBalance = new System.Windows.Forms.TrackBar();
 			this.timerPaused = new System.Windows.Forms.Timer(this.components);
 			this.timerPing = new System.Windows.Forms.Timer(this.components);
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-			this.timerProgress = new System.Windows.Forms.Timer(this.components);
 			this.addFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.checkBoxSubDirs = new System.Windows.Forms.CheckBox();
+			this.contextMenuAddFile = new System.Windows.Forms.ContextMenu();
+			this.menuItemAddFile = new System.Windows.Forms.MenuItem();
+			this.menuItemAddDirectory = new System.Windows.Forms.MenuItem();
+			this.menuItemAddTree = new System.Windows.Forms.MenuItem();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
@@ -331,7 +387,10 @@ namespace UMClient
 			this.tabPage4.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage5.SuspendLayout();
-			this.tabPage3.SuspendLayout();
+			this.tabPage7.SuspendLayout();
+			this.tabPage6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarRate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarBalance)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -483,6 +542,7 @@ namespace UMClient
 			this.statusBar1.ShowPanels = true;
 			this.statusBar1.Size = new System.Drawing.Size(512, 22);
 			this.statusBar1.TabIndex = 1;
+			this.statusBar1.Visible = false;
 			// 
 			// statusBarPanel1
 			// 
@@ -496,13 +556,15 @@ namespace UMClient
 																					  this.tabPage4,
 																					  this.tabPage2,
 																					  this.tabPage5,
-																					  this.tabPage3});
+																					  this.tabPage7,
+																					  this.tabPage6});
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 80);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(512, 264);
 			this.tabControl1.TabIndex = 2;
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
 			// tabPage1
 			// 
@@ -561,6 +623,7 @@ namespace UMClient
 																							this.columnHeader3});
 			this.listViewQueue.ContextMenu = this.contextMenuQueueItems;
 			this.listViewQueue.FullRowSelect = true;
+			this.listViewQueue.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewQueue.HideSelection = false;
 			this.listViewQueue.Name = "listViewQueue";
 			this.listViewQueue.Size = new System.Drawing.Size(456, 238);
@@ -645,6 +708,7 @@ namespace UMClient
 																							 this.columnHeader6});
 			this.listViewSearch.ContextMenu = this.contextMenuSearchItems;
 			this.listViewSearch.FullRowSelect = true;
+			this.listViewSearch.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewSearch.HideSelection = false;
 			this.listViewSearch.Location = new System.Drawing.Point(0, 32);
 			this.listViewSearch.Name = "listViewSearch";
@@ -741,6 +805,8 @@ namespace UMClient
 			this.textBoxSearch.Size = new System.Drawing.Size(360, 20);
 			this.textBoxSearch.TabIndex = 1;
 			this.textBoxSearch.Text = "";
+			this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
+			this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
 			// 
 			// label1
 			// 
@@ -768,14 +834,14 @@ namespace UMClient
 																								 this.columnHeader7,
 																								 this.columnHeader8,
 																								 this.columnHeader9});
+			this.listViewCollection.ContextMenu = this.contextMenuMediaCollection;
 			this.listViewCollection.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewCollection.FullRowSelect = true;
+			this.listViewCollection.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewCollection.HideSelection = false;
-			this.listViewCollection.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-																							   listViewItem1});
-			this.listViewCollection.Location = new System.Drawing.Point(124, 0);
+			this.listViewCollection.Location = new System.Drawing.Point(195, 0);
 			this.listViewCollection.Name = "listViewCollection";
-			this.listViewCollection.Size = new System.Drawing.Size(380, 238);
+			this.listViewCollection.Size = new System.Drawing.Size(309, 238);
 			this.listViewCollection.TabIndex = 2;
 			this.listViewCollection.View = System.Windows.Forms.View.Details;
 			// 
@@ -794,9 +860,62 @@ namespace UMClient
 			this.columnHeader9.Text = "Duration";
 			this.columnHeader9.Width = 100;
 			// 
+			// contextMenuMediaCollection
+			// 
+			this.contextMenuMediaCollection.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																									   this.menuItemColPlayNow,
+																									   this.menuItem8,
+																									   this.menuItemColEditInfo});
+			// 
+			// menuItemColPlayNow
+			// 
+			this.menuItemColPlayNow.Index = 0;
+			this.menuItemColPlayNow.Text = "&Play Now";
+			this.menuItemColPlayNow.Click += new System.EventHandler(this.menuItemColPlayNow_Click);
+			// 
+			// menuItem8
+			// 
+			this.menuItem8.Index = 1;
+			this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItemColQueueTop,
+																					  this.menuItemColQueueBottom,
+																					  this.menuColQueueAfter});
+			this.menuItem8.Text = "&Add To Queue";
+			// 
+			// menuItemColQueueTop
+			// 
+			this.menuItemColQueueTop.Index = 0;
+			this.menuItemColQueueTop.Text = "&Top of Queue";
+			this.menuItemColQueueTop.Click += new System.EventHandler(this.menuItemColQueueTop_Click);
+			// 
+			// menuItemColQueueBottom
+			// 
+			this.menuItemColQueueBottom.Index = 1;
+			this.menuItemColQueueBottom.Text = "&Bottom of Queue";
+			this.menuItemColQueueBottom.Click += new System.EventHandler(this.menuItemColQueueBottom_Click);
+			// 
+			// menuColQueueAfter
+			// 
+			this.menuColQueueAfter.Index = 2;
+			this.menuColQueueAfter.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																							  this.menuItem9});
+			this.menuColQueueAfter.Text = "&After";
+			this.menuColQueueAfter.Popup += new System.EventHandler(this.menuColQueueAfter_Popup);
+			// 
+			// menuItem9
+			// 
+			this.menuItem9.Index = 0;
+			this.menuItem9.Text = "Song list";
+			// 
+			// menuItemColEditInfo
+			// 
+			this.menuItemColEditInfo.Index = 2;
+			this.menuItemColEditInfo.Text = "&Edit Info";
+			this.menuItemColEditInfo.Click += new System.EventHandler(this.menuItemColEditInfo_Click);
+			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(121, 0);
+			this.splitter1.Location = new System.Drawing.Point(192, 0);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(3, 238);
 			this.splitter1.TabIndex = 1;
@@ -805,24 +924,26 @@ namespace UMClient
 			// treeViewCollection
 			// 
 			this.treeViewCollection.Dock = System.Windows.Forms.DockStyle.Left;
+			this.treeViewCollection.HideSelection = false;
 			this.treeViewCollection.ImageIndex = -1;
 			this.treeViewCollection.Name = "treeViewCollection";
 			this.treeViewCollection.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-																						   new System.Windows.Forms.TreeNode("By Artist"),
-																						   new System.Windows.Forms.TreeNode("By Name")});
+																						   new System.Windows.Forms.TreeNode("By Artist", new System.Windows.Forms.TreeNode[] {
+																																												  new System.Windows.Forms.TreeNode("Loading")})});
 			this.treeViewCollection.SelectedImageIndex = -1;
-			this.treeViewCollection.Size = new System.Drawing.Size(121, 238);
+			this.treeViewCollection.Size = new System.Drawing.Size(192, 238);
 			this.treeViewCollection.TabIndex = 0;
+			this.treeViewCollection.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCollection_AfterSelect);
+			this.treeViewCollection.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewCollection_BeforeExpand);
 			// 
 			// tabPage5
 			// 
 			this.tabPage5.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.checkBoxSubDirs,
+																				   this.listViewFiles,
+																				   this.buttonRemoveFile,
+																				   this.buttonAddFile,
 																				   this.buttonAdd,
 																				   this.checkBox1,
-																				   this.buttonSelectDir,
-																				   this.buttonSelectFiles,
-																				   this.listBoxFiles,
 																				   this.label3});
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
@@ -830,8 +951,52 @@ namespace UMClient
 			this.tabPage5.TabIndex = 5;
 			this.tabPage5.Text = "Add Songs";
 			// 
+			// listViewFiles
+			// 
+			this.listViewFiles.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																							this.columnHeader10});
+			this.listViewFiles.FullRowSelect = true;
+			this.listViewFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.listViewFiles.HideSelection = false;
+			this.listViewFiles.Location = new System.Drawing.Point(8, 24);
+			this.listViewFiles.Name = "listViewFiles";
+			this.listViewFiles.Size = new System.Drawing.Size(456, 176);
+			this.listViewFiles.TabIndex = 9;
+			this.listViewFiles.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader10
+			// 
+			this.columnHeader10.Text = "File";
+			this.columnHeader10.Width = 250;
+			// 
+			// buttonRemoveFile
+			// 
+			this.buttonRemoveFile.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+			this.buttonRemoveFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.buttonRemoveFile.Location = new System.Drawing.Point(472, 64);
+			this.buttonRemoveFile.Name = "buttonRemoveFile";
+			this.buttonRemoveFile.Size = new System.Drawing.Size(24, 23);
+			this.buttonRemoveFile.TabIndex = 8;
+			this.buttonRemoveFile.Text = "x";
+			this.buttonRemoveFile.Click += new System.EventHandler(this.buttonRemoveFile_Click);
+			// 
+			// buttonAddFile
+			// 
+			this.buttonAddFile.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+			this.buttonAddFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.buttonAddFile.Location = new System.Drawing.Point(472, 32);
+			this.buttonAddFile.Name = "buttonAddFile";
+			this.buttonAddFile.Size = new System.Drawing.Size(24, 23);
+			this.buttonAddFile.TabIndex = 7;
+			this.buttonAddFile.Text = "+";
+			this.buttonAddFile.Click += new System.EventHandler(this.buttonAddFile_Click);
+			// 
 			// buttonAdd
 			// 
+			this.buttonAdd.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonAdd.Location = new System.Drawing.Point(416, 208);
 			this.buttonAdd.Name = "buttonAdd";
@@ -841,40 +1006,12 @@ namespace UMClient
 			// 
 			// checkBox1
 			// 
-			this.checkBox1.Location = new System.Drawing.Point(8, 136);
+			this.checkBox1.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+			this.checkBox1.Location = new System.Drawing.Point(8, 208);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(480, 24);
+			this.checkBox1.Size = new System.Drawing.Size(248, 24);
 			this.checkBox1.TabIndex = 4;
 			this.checkBox1.Text = "&Delete files after they are added";
-			// 
-			// buttonSelectDir
-			// 
-			this.buttonSelectDir.Enabled = false;
-			this.buttonSelectDir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonSelectDir.Location = new System.Drawing.Point(392, 104);
-			this.buttonSelectDir.Name = "buttonSelectDir";
-			this.buttonSelectDir.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.buttonSelectDir.Size = new System.Drawing.Size(96, 23);
-			this.buttonSelectDir.TabIndex = 3;
-			this.buttonSelectDir.Text = "Select dir...";
-			this.buttonSelectDir.Click += new System.EventHandler(this.buttonSelectDir_Click);
-			// 
-			// buttonSelectFiles
-			// 
-			this.buttonSelectFiles.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonSelectFiles.Location = new System.Drawing.Point(288, 104);
-			this.buttonSelectFiles.Name = "buttonSelectFiles";
-			this.buttonSelectFiles.Size = new System.Drawing.Size(96, 23);
-			this.buttonSelectFiles.TabIndex = 2;
-			this.buttonSelectFiles.Text = "Select files...";
-			this.buttonSelectFiles.Click += new System.EventHandler(this.buttonSelectFiles_Click);
-			// 
-			// listBoxFiles
-			// 
-			this.listBoxFiles.Location = new System.Drawing.Point(8, 32);
-			this.listBoxFiles.Name = "listBoxFiles";
-			this.listBoxFiles.Size = new System.Drawing.Size(488, 69);
-			this.listBoxFiles.TabIndex = 1;
 			// 
 			// label3
 			// 
@@ -884,23 +1021,23 @@ namespace UMClient
 			this.label3.TabIndex = 0;
 			this.label3.Text = "Select the songs you would like to add below, then click \'Add\'.";
 			// 
-			// tabPage3
+			// tabPage7
 			// 
-			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
+			this.tabPage7.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.checkBoxShowLog,
 																				   this.textBoxLog});
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(504, 238);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Activity Log";
+			this.tabPage7.Location = new System.Drawing.Point(4, 22);
+			this.tabPage7.Name = "tabPage7";
+			this.tabPage7.Size = new System.Drawing.Size(504, 238);
+			this.tabPage7.TabIndex = 7;
+			this.tabPage7.Text = "Log";
 			// 
 			// checkBoxShowLog
 			// 
-			this.checkBoxShowLog.Location = new System.Drawing.Point(8, 8);
+			this.checkBoxShowLog.Location = new System.Drawing.Point(8, 7);
 			this.checkBoxShowLog.Name = "checkBoxShowLog";
 			this.checkBoxShowLog.Size = new System.Drawing.Size(488, 24);
-			this.checkBoxShowLog.TabIndex = 1;
+			this.checkBoxShowLog.TabIndex = 3;
 			this.checkBoxShowLog.Text = "&Show Activity";
 			// 
 			// textBoxLog
@@ -908,14 +1045,73 @@ namespace UMClient
 			this.textBoxLog.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxLog.Location = new System.Drawing.Point(8, 32);
+			this.textBoxLog.Location = new System.Drawing.Point(8, 31);
 			this.textBoxLog.Multiline = true;
 			this.textBoxLog.Name = "textBoxLog";
 			this.textBoxLog.ReadOnly = true;
 			this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.textBoxLog.Size = new System.Drawing.Size(488, 200);
-			this.textBoxLog.TabIndex = 0;
+			this.textBoxLog.TabIndex = 2;
 			this.textBoxLog.Text = "";
+			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.labelRate,
+																				   this.trackBarRate,
+																				   this.label4,
+																				   this.trackBarBalance});
+			this.tabPage6.Location = new System.Drawing.Point(4, 22);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Size = new System.Drawing.Size(504, 238);
+			this.tabPage6.TabIndex = 6;
+			this.tabPage6.Text = "More";
+			// 
+			// labelRate
+			// 
+			this.labelRate.Location = new System.Drawing.Point(32, 104);
+			this.labelRate.Name = "labelRate";
+			this.labelRate.TabIndex = 3;
+			this.labelRate.Text = "Rate";
+			this.labelRate.DoubleClick += new System.EventHandler(this.labelRate_DoubleClick);
+			// 
+			// trackBarRate
+			// 
+			this.trackBarRate.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.trackBarRate.LargeChange = 10;
+			this.trackBarRate.Location = new System.Drawing.Point(24, 128);
+			this.trackBarRate.Maximum = 200;
+			this.trackBarRate.Minimum = 1;
+			this.trackBarRate.Name = "trackBarRate";
+			this.trackBarRate.Size = new System.Drawing.Size(456, 45);
+			this.trackBarRate.TabIndex = 2;
+			this.trackBarRate.TickFrequency = 20;
+			this.trackBarRate.Value = 1;
+			this.trackBarRate.Scroll += new System.EventHandler(this.trackBarRate_Scroll);
+			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(32, 16);
+			this.label4.Name = "label4";
+			this.label4.TabIndex = 1;
+			this.label4.Text = "Balance";
+			this.label4.DoubleClick += new System.EventHandler(this.label4_DoubleClick);
+			// 
+			// trackBarBalance
+			// 
+			this.trackBarBalance.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.trackBarBalance.LargeChange = 1000;
+			this.trackBarBalance.Location = new System.Drawing.Point(24, 40);
+			this.trackBarBalance.Maximum = 5000;
+			this.trackBarBalance.Minimum = -5000;
+			this.trackBarBalance.Name = "trackBarBalance";
+			this.trackBarBalance.Size = new System.Drawing.Size(456, 45);
+			this.trackBarBalance.SmallChange = 100;
+			this.trackBarBalance.TabIndex = 0;
+			this.trackBarBalance.TickFrequency = 1000;
+			this.trackBarBalance.Scroll += new System.EventHandler(this.trackBarBalance_Scroll);
 			// 
 			// timerPaused
 			// 
@@ -933,24 +1129,36 @@ namespace UMClient
 			this.notifyIcon1.Visible = true;
 			this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
 			// 
-			// timerProgress
-			// 
-			this.timerProgress.Interval = 1000;
-			this.timerProgress.Tick += new System.EventHandler(this.timerProgress_Tick);
-			// 
 			// addFileDialog
 			// 
 			this.addFileDialog.Filter = "Media Files (*.mp3, *.wma)|*.mp3;*.wma|All Files (*.*)|*.*";
 			this.addFileDialog.Multiselect = true;
 			this.addFileDialog.Title = "Add file(s)";
 			// 
-			// checkBoxSubDirs
+			// contextMenuAddFile
 			// 
-			this.checkBoxSubDirs.Location = new System.Drawing.Point(8, 104);
-			this.checkBoxSubDirs.Name = "checkBoxSubDirs";
-			this.checkBoxSubDirs.Size = new System.Drawing.Size(248, 24);
-			this.checkBoxSubDirs.TabIndex = 6;
-			this.checkBoxSubDirs.Text = "Include subdirectories when adding directory";
+			this.contextMenuAddFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																							   this.menuItemAddFile,
+																							   this.menuItemAddDirectory,
+																							   this.menuItemAddTree});
+			// 
+			// menuItemAddFile
+			// 
+			this.menuItemAddFile.Index = 0;
+			this.menuItemAddFile.Text = "&Files...";
+			this.menuItemAddFile.Click += new System.EventHandler(this.menuItemAddFile_Click);
+			// 
+			// menuItemAddDirectory
+			// 
+			this.menuItemAddDirectory.Index = 1;
+			this.menuItemAddDirectory.Text = "&Single directory...";
+			this.menuItemAddDirectory.Click += new System.EventHandler(this.menuItemAddDirectory_Click);
+			// 
+			// menuItemAddTree
+			// 
+			this.menuItemAddTree.Index = 2;
+			this.menuItemAddTree.Text = "&Directory and subdirectories...";
+			this.menuItemAddTree.Click += new System.EventHandler(this.menuItemAddTree_Click);
 			// 
 			// UMPlayer
 			// 
@@ -962,6 +1170,7 @@ namespace UMClient
 																		  this.panel1});
 			this.Name = "UMPlayer";
 			this.Text = "Ultimate Music Player";
+			this.Resize += new System.EventHandler(this.UMPlayer_Resize);
 			this.Load += new System.EventHandler(this.UMPlayer_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
@@ -971,7 +1180,10 @@ namespace UMClient
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
-			this.tabPage3.ResumeLayout(false);
+			this.tabPage7.ResumeLayout(false);
+			this.tabPage6.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.trackBarRate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBarBalance)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -980,6 +1192,7 @@ namespace UMClient
 		private void timerPaused_Tick(object sender, System.EventArgs e)
 		{
 			labelName.Visible = !labelName.Visible;
+			mediaBar.labelNowPlaying.Visible = !mediaBar.labelNowPlaying.Visible;
 		}
 
 		public void Pause() 
@@ -1006,7 +1219,7 @@ namespace UMClient
 
 		private void buttonPlayStop_Click(object sender, System.EventArgs e)
 		{
-			if (client.mediaServer.CurrentPlayState == MediaServer.PlayState.Playing) 
+			if (client.mediaServer.CurrentPlayState != MediaServer.PlayState.Stopped) 
 			{
 				client.mediaServer.Stop();
 			} 
@@ -1070,7 +1283,7 @@ namespace UMClient
 
 		private void menuItem1_Click(object sender, System.EventArgs e)
 		{
-            MediaListViewItem item = (MediaListViewItem) listViewSearch.SelectedItems[0];
+			MediaListViewItem item = (MediaListViewItem) listViewSearch.SelectedItems[0];
 			client.mediaServer.AddToQueue(item.MediaEntry.MediaId, 0);
 			client.mediaServer.Next();
 		}
@@ -1233,7 +1446,7 @@ namespace UMClient
 			if (editor.ShowDialog() == DialogResult.OK) 
 			{
 				// set up db connection
-				string sql = "update Media set Name = @Name, Artist = @Artist where ID = @MediaID";
+				string sql = "update Media set Name = @Name, Artist = @Artist, Album = @Album, Genre = @Genre, Comments = @Comments where ID = @MediaID";
 				SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
 				SqlCommand cmd = new SqlCommand(sql, cn);
 
@@ -1241,6 +1454,9 @@ namespace UMClient
                 cmd.Parameters.Add("@Name", editor.MediaName);
 				cmd.Parameters.Add("@Artist", editor.Artist);
 				cmd.Parameters.Add("@MediaID", mediaId);
+				cmd.Parameters.Add("@Album", editor.Album);
+				cmd.Parameters.Add("@Genre", editor.Genre);
+				cmd.Parameters.Add("@Comments", editor.Comments);
 
 				// save to database
 				cn.Open();
@@ -1270,24 +1486,112 @@ namespace UMClient
 			EditMediaInfo(item.MediaEntry.MediaId, item);
 		}
 
-		private void timerProgress_Tick(object sender, System.EventArgs e)
+		private void buttonAdd_Click(object sender, System.EventArgs e)
 		{
-		
+			ArrayList addFiles = new ArrayList();
+
+			foreach (ListViewItem item in listViewFiles.Items) 
+			{
+				string file		  = item.Tag.ToString();
+				string sourcePath = file.Substring(0, file.LastIndexOf(@"\")-1);
+				string sourceFile = file.Substring(file.LastIndexOf(@"\")+1);
+
+				if (File.Exists(@"\\sp\dfs\Music\" + sourceFile)) 
+				{
+					string message = String.Format("The file '{0}' already exists in the music collection.  This file will be skipped.  Click 'Cancel' to abort adding files.",
+						sourceFile);
+					if (MessageBox.Show(message, "File already exists", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+						return;
+				} 
+				else 
+				{
+					addFiles.Add(file);
+				}
+			}
+
+			Status status = new Status("Adding files...", addFiles.Count);
+			DataSetMedia dsMedia = new DataSetMedia();
+
+			foreach (string file in addFiles) 
+			{
+				string sourcePath = file.Substring(0, file.LastIndexOf(@"\")-1);
+				string sourceFile = file.Substring(file.LastIndexOf(@"\")+1);
+
+				File.Copy(file, @"\\sp\dfs\Music\" + sourceFile, true);
+
+				string name = sourceFile.Substring(0, sourceFile.LastIndexOf(".")-1);
+				string artist = "";
+				if (name.IndexOf("-") > 0) 
+				{
+					// TODO:  Parse name and artist here!
+				}
+
+				// TODO: Load the song to get the duration
+                // Add to database
+                DataSetMedia.MediaRow row = dsMedia.Media.NewMediaRow();
+				row.Filename = @"\\sp\dfs\Music\" + sourceFile;
+				
+			}
 		}
 
-		private void buttonSelectFiles_Click(object sender, System.EventArgs e)
+		private void trackBarBalance_Scroll(object sender, System.EventArgs e)
+		{
+			client.mediaServer.Balance = trackBarBalance.Value;
+		}
+
+		private void trackBarRate_Scroll(object sender, System.EventArgs e)
+		{
+			client.mediaServer.Rate = ((double)trackBarRate.Value / 100.0);
+		}
+
+		private void buttonRemoveFile_Click(object sender, System.EventArgs e)
+		{
+			ArrayList removeList = new ArrayList();
+			foreach (ListViewItem item in listViewFiles.SelectedItems) 
+			{
+				removeList.Add(item.Tag);
+			}
+
+			foreach (string file in removeList) 
+			{
+				foreach (ListViewItem item in listViewFiles.Items) 
+				{
+					if (item.Tag.Equals(file)) 
+					{
+						listViewFiles.Items.Remove(item);
+						continue;
+					}
+				}
+			}
+		}
+
+		private void buttonAddFile_Click(object sender, System.EventArgs e)
+		{
+			contextMenuAddFile.Show(buttonAddFile, new Point(buttonAddFile.Width/2, buttonAddFile.Height/2 ));
+		}
+
+		private void menuItemAddFile_Click(object sender, System.EventArgs e)
 		{
 			if (addFileDialog.ShowDialog() != DialogResult.Cancel) 
 			{
 				foreach (string file in addFileDialog.FileNames) 
 				{
-					if (!listBoxFiles.Items.Contains(file))
-						listBoxFiles.Items.Add(file);
+					AddFile(file);
 				}
 			}
 		}
 
-		private void buttonSelectDir_Click(object sender, System.EventArgs e)
+		private void menuItemAddDirectory_Click(object sender, System.EventArgs e)
+		{
+			AddDirectory(false);
+		}
+
+		private void menuItemAddTree_Click(object sender, System.EventArgs e)
+		{
+			AddDirectory(true);
+		}
+
+		private void AddDirectory(bool recursive) 
 		{
 			Shell32.ShellClass sh = new Shell32.ShellClass();
 
@@ -1296,55 +1600,224 @@ namespace UMClient
 			if (folder != null) 
 			{
 				walkDirectory = folder.Self.Path;
+				directoryRecursive = recursive;
 
-				Status status = new Status("Searching for files...");
 				Thread thread = new Thread(new ThreadStart(WalkSubDirsThread));
                 
+				directoryAddStatus = new Status("Searching for files...", thread);
 				thread.Start();
-
-				while (thread.IsAlive) 
-				{
-					if (status.Cancel) 
-					{
-						thread.Abort();
-					}
-					Thread.Sleep(100);
-					
-				}
+				
 			}
 
-			
+		}
+
+		private void AddFile(string file) 
+		{
+			bool found = false;
+			foreach (ListViewItem item in listViewFiles.Items) 
+			{
+				if (item.Tag.Equals(file)) 
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found) 
+			{
+				ListViewItem item = new ListViewItem(file);
+				item.Tag = file;
+				listViewFiles.Items.Add(item);
+			}
 		}
 
 		private void WalkSubDirsThread() 
 		{
-			WalkSubDirs(walkDirectory);
+			WalkSubDirs(walkDirectory, directoryRecursive);
+			directoryAddStatus.Visible = false;
+			directoryAddStatus = null;
 		}
 
-		private void WalkSubDirs(string path) 
+		private void WalkSubDirs(string path, bool recursive) 
 		{
-			foreach (string file in Directory.GetFiles(path, "*.wma"))
+			try 
 			{
-				if (!listBoxFiles.Items.Contains(file))
-					listBoxFiles.Items.Add(file);
-			}
-			foreach (string file in Directory.GetFiles(path, "*.mp3"))
-			{
-				if (!listBoxFiles.Items.Contains(file))
-					listBoxFiles.Items.Add(file);
-			}
+				foreach (string file in Directory.GetFiles(path, "*.wma"))
+				{
+					AddFile(file);
+				}
+				foreach (string file in Directory.GetFiles(path, "*.mp3"))
+				{
+					AddFile(file);
+				}
 
-			foreach(string subDirectory in Directory.GetDirectories(path)) 
+				if (recursive) 
+				{
+					foreach(string subDirectory in Directory.GetDirectories(path)) 
+					{
+						directoryAddStatus.Message = "Looking in " + path + "...";
+						WalkSubDirs(subDirectory, true);
+					}
+				}
+			} 
+			catch (UnauthorizedAccessException) 
 			{
-				WalkSubDirs(subDirectory);
+				// ignore
 			}
 
 		}
 
-		private void buttonAdd_Click(object sender, System.EventArgs e)
+		private void label4_DoubleClick(object sender, System.EventArgs e)
 		{
-			MessageBox.Show("Not working yet.");
+			client.mediaServer.Balance = 0;
 		}
+
+		private void labelRate_DoubleClick(object sender, System.EventArgs e)
+		{
+			client.mediaServer.Rate = 1.0;
+		}
+
+		private void UMPlayer_Resize(object sender, System.EventArgs e)
+		{
+			// Resize the file listview columns
+			listViewFiles.Columns[0].Width = listViewFiles.Width - 22;
+
+			listViewQueue.Columns[0].Width = (int)((listViewQueue.Width-22) * 0.50);
+			listViewQueue.Columns[1].Width = (int)((listViewQueue.Width-22) * 0.30);
+			listViewQueue.Columns[2].Width = (int)((listViewQueue.Width-22) * 0.20);
+
+			listViewSearch.Columns[0].Width = (int)((listViewSearch.Width-22) * 0.50);
+			listViewSearch.Columns[1].Width = (int)((listViewSearch.Width-22) * 0.30);
+			listViewSearch.Columns[2].Width = (int)((listViewSearch.Width-22) * 0.20);
+
+			listViewCollection.Columns[0].Width = (int)((listViewCollection.Width-22) * 0.50);
+			listViewCollection.Columns[1].Width = (int)((listViewCollection.Width-22) * 0.30);
+			listViewCollection.Columns[2].Width = (int)((listViewCollection.Width-22) * 0.20);
+		}
+
+		private void textBoxSearch_Enter(object sender, System.EventArgs e)
+		{
+			this.AcceptButton = buttonSearch;
+		}
+
+		private void textBoxSearch_Leave(object sender, System.EventArgs e)
+		{
+            this.AcceptButton = null;		
+		}
+
+		private void tabControl1_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			// If the search tab, set focus in the search box
+			if (tabControl1.SelectedIndex == 1) 
+			{
+				textBoxSearch.Focus();
+			}
+		}
+
+		private void treeViewCollection_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
+		{
+			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+
+			// Check if we have to load children
+			if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Text.Equals("Loading")) 
+			{
+				e.Node.Nodes.Clear();
+				SqlCommand cmd = new SqlCommand();
+				cmd.Connection = cn;
+
+				if (e.Node.Text.Equals("By Artist")) 
+				{
+					cmd.CommandText = "select Artist from media where Artist <> '' group by Artist";
+				} 
+                
+                cn.Open();
+				SqlDataReader dr = cmd.ExecuteReader();
+				while (dr.Read()) 
+				{
+					e.Node.Nodes.Add(new ArtistTreeNode(dr[0].ToString()));
+				}
+				dr.Close();
+				cn.Close();
+
+			}
+		}
+
+		private void treeViewCollection_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
+		{
+			if (e.Node is ArtistTreeNode) 
+			{
+				listViewCollection.Items.Clear();
+
+				ArtistTreeNode artistNode = e.Node as ArtistTreeNode;
+
+				DataView dv = new DataView(dsMedia.Media, "Artist = '" + artistNode.Artist.Replace("'", "''") + "'", "Name", DataViewRowState.CurrentRows);
+				foreach (DataRowView rowView in dv) 
+				{
+					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
+					listViewCollection.Items.Add(new MediaListViewItem(client.mediaCollection[row.ID]));
+				}
+
+			}
+		}
+
+		private void menuItemColPlayNow_Click(object sender, System.EventArgs e)
+		{
+			MediaListViewItem item = (MediaListViewItem) listViewCollection.SelectedItems[0];
+
+			client.mediaServer.MoveInQueue(item.MediaEntry.MediaId, item.Index, 0);
+			client.mediaServer.Next();
+		}
+
+		private void menuItemColEditInfo_Click(object sender, System.EventArgs e)
+		{
+			MediaListViewItem item = (MediaListViewItem) listViewCollection.SelectedItems[0];
+			if (item == null)
+				return;
+
+			EditMediaInfo(item.MediaEntry.MediaId, item);
+		}
+
+		private void menuItemColQueueTop_Click(object sender, System.EventArgs e)
+		{
+			foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
+			{
+				client.mediaServer.AddToQueue(item.MediaEntry.MediaId, 0);
+			}
+		}
+
+		private void menuItemColQueueBottom_Click(object sender, System.EventArgs e)
+		{
+			foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
+			{
+				client.mediaServer.AddToQueue(item.MediaEntry.MediaId);
+			}
+		}
+
+		private void menuColQueueAfter_Popup(object sender, System.EventArgs e)
+		{
+			menuColQueueAfter.MenuItems.Clear();
+
+			foreach (MediaListViewItem item in listViewQueue.Items)
+			{
+				MenuItem menuItem = new MenuItem(item.Text);
+				menuItem.Visible = true;
+				menuItem.Click += new EventHandler(menuColQueueAfterItem_Click);
+				menuColQueueAfter.MenuItems.Add(menuItem);
+			}
+
+		}
+
+		private void menuColQueueAfterItem_Click(object sender, System.EventArgs e) 
+		{
+			MenuItem menuItem = (MenuItem) sender;
+
+			int offset = 1;
+			foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
+			{
+				client.mediaServer.AddToQueue(item.MediaEntry.MediaId, menuItem.Index + offset);
+				offset++;
+			}
+		}
+
 
 	}
 
@@ -1371,4 +1844,20 @@ namespace UMClient
 		}
 	}
 
+	public class ArtistTreeNode: TreeNode 
+	{
+		private string artist;
+
+		public ArtistTreeNode(string artist) : base() 
+		{
+			this.artist = artist;
+			this.Text = artist;
+		}
+
+		public string Artist 
+		{
+			get { return artist; }
+			set { artist = value; }
+		}
+	}
 }

@@ -46,6 +46,10 @@ namespace UMClient
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
+
+#if DEBUG
+			radioButtonInProcess.Checked = true;
+#endif
 		}
 
 		/// <summary>
