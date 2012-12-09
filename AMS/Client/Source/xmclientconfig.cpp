@@ -144,7 +144,7 @@ public:
 protected:
 	
 	//vars
-	CMD5 moldPassword;
+	CString moldPassword;
 	CString moldPasswordGuess;
 	CString mnewPassword;
 	CString mverifyPassword;
@@ -179,7 +179,8 @@ protected:
 			moldPasswordGuess.UnlockBuffer();
 
 			//compare old passwod
-			if (!moldPassword.IsEqual(md5))
+			if (moldPassword != moldPasswordGuess &&
+				!CMD5(moldPassword).IsEqual(md5))
 			{
 				AfxMessageBox("Incorrect password.");
 				pDX->Fail();

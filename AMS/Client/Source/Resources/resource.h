@@ -40,6 +40,8 @@
 #define IDR_MAINFRAME                   128
 #define IDC_ADVERT                      128
 #define IDR_XMClientTYPE                129
+#define IDC_SCORE                       129
+#define IDC_CONTEST                     130
 #define IDD_DB                          132
 #define IDD_LOGIN                       134
 #define IDD_INDEX_PICTURE               136
@@ -81,6 +83,7 @@
 #define IDD_SAVESEARCH                  179
 #define IDD_AU                          182
 #define IDD_RECONNECT                   183
+#define IDD_CONTEST                     184
 #define IDC_FILES                       1000
 #define IDC_PICSIZE                     1001
 #define IDC_DBPATH                      1002
@@ -322,6 +325,9 @@
 #define IDC_PWD_LABEL                   1233
 #define IDC_INSTRUCTIONS                1234
 #define IDC_AL_PWD_CHANGE               1235
+#define IDC_SKIP                        1238
+#define IDC_CONTESTHELP                 1239
+#define IDC_STATUC                      1240
 #define ID_ZOOMIN                       32778
 #define ID_ZOOMOUT                      32779
 #define ID_DOWNLOAD                     32781
@@ -348,14 +354,15 @@
 #define ID_TRAY_SHOW                    32803
 #define ID_TRAY_OPTIONS                 32805
 #define ID_FIT                          32806
+#define ID_CONTEST                      32807
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        184
-#define _APS_NEXT_COMMAND_VALUE         32807
-#define _APS_NEXT_CONTROL_VALUE         1236
-#define _APS_NEXT_SYMED_VALUE           129
+#define _APS_NEXT_RESOURCE_VALUE        185
+#define _APS_NEXT_COMMAND_VALUE         32808
+#define _APS_NEXT_CONTROL_VALUE         1241
+#define _APS_NEXT_SYMED_VALUE           131
 #endif
 #endif

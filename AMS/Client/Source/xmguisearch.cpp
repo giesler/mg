@@ -239,7 +239,7 @@ void CMainFrame::UpdateCompletedDownloadsTab()
 	TCITEM ti;
 	ti.mask = TCIF_TEXT;
 	ti.pszText = sz;
-	mTabs.SetItem(1, &ti);
+	mTabs.SetItem(2, &ti);
 }
 
 

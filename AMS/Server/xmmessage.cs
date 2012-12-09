@@ -378,7 +378,6 @@ namespace XMedia
 			}
 
 			//perform action
-			Trace.WriteLine("Message: " + Action);
 			switch(Action)
 			{
 				case "login":		//initial login request
@@ -492,7 +491,7 @@ namespace XMedia
 			bool auLatest = true;
 			bool auRequired = true;
 			string auVersion = "";
-			if (Connection.Version != "0.60")		//NOTE: current version
+			if (Connection.Version != "0.70")		//NOTE: current version
 			{
 				//fetch the record
 				auLatest = false;

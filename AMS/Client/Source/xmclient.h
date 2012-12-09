@@ -411,6 +411,7 @@ bool DoPasswordCheck();
 //utility function
 IXMLDOMDocument* CreateXmlDocument();
 void BuildFilePath(char* buf, const char* filename);
+CString BuildSavedFilename(CMD5 md5);
 
 //COM helpers
 inline void COM_CALL(HRESULT _hr) {

@@ -464,18 +464,18 @@ void CXMClientManager::OnFileBusy(CXMSession *ses, CXMMessage *msg)
 	for (DWORD i=0;i<mDownloadCount;i++)
 	{
 		if ((mDownloads[i].mSession==ses) &&
-			(mDownloads[i].mItem->mMD5.IsEqual(md5)) && 
+			(mDownloads[i].mItem->mMD5.IsEqual(md5)) /* &&
 			(mDownloads[i].mWidth==width) &&
 			(mDownloads[i].mHeight==height) &&
-			(mDownloads[i].mState!=DSS_OPEN))
+			(mDownloads[i].mState!=DSS_OPEN)*/)
 		{
 			//mark the current host busy
 			item = mDownloads[i].mItem;
 			item->mHosts[mDownloads[i].mCurrentHost].IsBusy = true;
 
 			//close the current session
-			ses->Release();
 			ses->Close();
+			//ses->Release();
 
 			//try again
 			mDownloads[i].mState = DSS_WAITING;
@@ -507,6 +507,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 		reply = msg->CreateReply();
 		reply->GetField("message")->SetValue("error");
 		reply->GetField("error")->SetValue("File not found.");
+		reply->GetField("md5")->SetValue(md5.GetString());
 		reply->Send();
 		ses->Close();
 		Unlock();
@@ -516,7 +517,15 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	//is it shared?
 	if (f->GetFlag(DFF_REMOVED))
 	{
-
+		//we dont have it
+		reply = msg->CreateReply();
+		reply->GetField("message")->SetValue("error");
+		reply->GetField("error")->SetValue("File not found.");
+		reply->GetField("md5")->SetValue(md5.GetString());
+		reply->Send();
+		ses->Close();
+		Unlock();
+		return;
 	}
 	
 	//do we have an open spot?
@@ -544,6 +553,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 					reply = msg->CreateReply();
 					reply->GetField("message")->SetValue("error");
 					reply->GetField("error")->SetValue("Unable to create thumbnail.");
+					reply->GetField("md5")->SetValue(md5.GetString());
 					reply->Send();
 					ses->Close();
 					Unlock();
@@ -579,6 +589,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 					reply = msg->CreateReply();
 					reply->GetField("message")->SetValue("error");
 					reply->GetField("error")->SetValue("Error sending file.");
+					reply->GetField("md5")->SetValue(md5.GetString());
 					reply->Send();
 					Unlock();
 					return;
@@ -599,6 +610,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 					reply = msg->CreateReply();
 					reply->GetField("message")->SetValue("error");
 					reply->GetField("error")->SetValue("Bad MD5 on disk.");
+					reply->GetField("md5")->SetValue(md5.GetString());
 					reply->Send();
 					Unlock();
 					return;
@@ -635,6 +647,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	//no open slots
 	reply = msg->CreateReply();
 	reply->GetField("message")->SetValue("busy");
+	reply->GetField("md5")->SetValue(md5.GetString());
 	reply->Send();
 	ses->Close();
 }
@@ -681,7 +694,7 @@ void CXMClientManager::BeginDownload(DWORD i)
 	//find a new host
 	if ((mDownloads[i].mCurrentHost=
 		mDownloads[i].mItem->FindHost())
-		== -1)
+		== (BYTE)-1)
 	{
 		//error, update ui
 		SendUpdate(	XM_CMU_DOWNLOAD_ERROR,
@@ -1050,7 +1063,7 @@ void CXMClientManager::RemoveCompletedFile(DWORD i)
 	{
 		dbman()->Lock();
 		DWORD x = dbman()->FindCachedFileByParent(mCompleted[i].mMD5);
-		if (x != 0)
+		if (x != -1)
 		{
 			dbman()->UnclampCachedFile(x);
 		}

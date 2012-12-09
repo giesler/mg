@@ -116,7 +116,8 @@ public:
 
 			//compare to md5 of password
 			CMD5 pass = m_strPassword;
-			if (!md5.IsEqual(pass))
+			if (!md5.IsEqual(pass) &&
+				m_strPassword != m_strGuess)
 			{
 				//one less try
 				m_iTry--;
@@ -168,7 +169,7 @@ CXMClientApp::CXMClientApp()
 
 char* CXMClientApp::Version()
 {
-	return "0.60";
+	return "0.70";
 }
 	
 
@@ -389,6 +390,22 @@ IXMLDOMDocument* CreateXmlDocument()
 		return NULL;
 	return pXml;
 }
+
+
+CString BuildSavedFilename(CMD5 md5)
+{
+	CString retval;
+	char szmd5[9];
+	md5tohex(szmd5, md5.GetValue(), 4);
+	szmd5[8] = '\0';
+	retval.Format(
+			"%s\\%s - %s.jpg",
+			config()->GetField(FIELD_DB_SAVE_PATH, false),
+			CTime::GetCurrentTime().Format("%y%m%d"),
+			szmd5);
+	return retval;
+}
+
 
 // -------------------------------------------------------------------------- MD5
 

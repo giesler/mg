@@ -8,6 +8,512 @@
 #include "xmpipeline.h"
 #include "xmgui.h"
 
+// ------------------------------------------------------------------------- CONTEST
+
+class CContestDialog : public CDialog
+{
+public:
+	
+	//constructor
+	CContestDialog(CWnd *pwnd)
+		: CDialog(IDD_CONTEST, pwnd)
+	{
+		mState = CONTEST_UNKNOWN;
+		mCurrentQuery = 0;
+		mFile = NULL;
+		memset(&mCF, 0, sizeof(CXMClientManager::CompletedFile));
+	}
+	~CContestDialog()
+	{
+		//free memory
+		if (mCF.mBuffer)
+			free(mCF.mBuffer);
+	}
+
+	//subscribe, start first dl
+	BOOL OnInitDialog()
+	{
+		//load the basic bitmaps
+		if (!mBmpWaiting.LoadBitmap(IDB_THUMBNAIL_WAITING) ||
+			!mBmpDownloading.LoadBitmap(IDB_THUMBNAIL_DOWNLOADING) ||
+			!mBmpError.LoadBitmap(IDB_THUMBNAIL_ERROR))
+		{
+			AfxMessageBox("Error loading standard bitmaps!");
+			EndDialog(IDCANCEL);
+			return FALSE;
+		}
+
+		//subscribe
+		sm()->Subscribe(m_hWnd, true);
+		cm()->Subscribe(m_hWnd, true);
+
+		//simply 'skip' the current picture
+		OnSkip();
+
+		return FALSE;
+	}
+
+	//unsubscribe
+	void OnDestroy()
+	{
+		sm()->UnSubscribe(m_hWnd);
+		cm()->UnSubscribe(m_hWnd);
+	}
+
+private:
+
+	//state data
+	enum StateTag
+	{
+		CONTEST_IDLE,
+		CONTEST_QUERYING,
+		CONTEST_WAITING,
+		CONTEST_DOWNLOADING,
+		CONTEST_ERROR,
+		CONTEST_UNKNOWN
+	} mState;
+	void SetState(StateTag newState)
+	{
+		//set the new state
+		mState = newState;
+
+		//get the controls
+		CStatic *preview = (CStatic*)GetDlgItem(IDC_PREVIEW);
+		CButton *index = (CButton*)GetDlgItem(IDC_INDEX);
+		CButton *skip = (CButton*)GetDlgItem(IDC_SKIP);
+
+		CString sSkip = "Skip Picture", sNext = "Next Picture";
+
+		switch(newState)
+		{
+		case CONTEST_IDLE:
+			index->EnableWindow(TRUE);
+			skip->EnableWindow(TRUE);
+			skip->SetWindowText(sSkip);
+			SetStatus("Ready.");
+			break;
+		
+		case CONTEST_QUERYING:
+			index->EnableWindow(FALSE);
+			skip->EnableWindow(FALSE);
+			skip->SetWindowText(sSkip);
+			preview->SetBitmap(mBmpWaiting);
+			SetStatus("Querying for picture...");
+			break;
+		
+		case CONTEST_WAITING:
+			index->EnableWindow(FALSE);
+			skip->EnableWindow(TRUE);
+			preview->SetBitmap(mBmpWaiting);
+			skip->SetWindowText(sSkip);
+			SetStatus("Waiting for download to begin...");
+			break;
+
+		case CONTEST_DOWNLOADING:
+			index->EnableWindow(FALSE);
+			skip->EnableWindow(TRUE);
+			preview->SetBitmap(mBmpDownloading);
+			skip->SetWindowText(sSkip);
+			SetStatus("Downloading file...");
+			break;
+
+		case CONTEST_ERROR:
+			index->EnableWindow(FALSE);
+			skip->EnableWindow(TRUE);
+			skip->SetWindowText(sSkip);
+			preview->SetBitmap(mBmpError);
+			break;
+
+		case CONTEST_UNKNOWN:
+			index->EnableWindow(FALSE);
+			skip->EnableWindow(TRUE);
+			skip->SetWindowText(sSkip);
+			preview->SetBitmap(mBmpError);
+			break;
+		}
+	}
+	void SetStatus(const char *msg)
+	{
+		::SetWindowText(::GetDlgItem(m_hWnd, IDC_STATUS), msg);
+	}
+	
+	//download state
+	CMD5 mCurrentPic;
+	DWORD mCurrentQuery;
+
+	//picture/file data
+	CXMDBFile *mFile;
+	CXMClientManager::CompletedFile mCF;
+	
+	//image handles
+	CBitmap	mBmpWaiting,
+			mBmpDownloading,
+			mBmpError;
+
+	afx_msg void OnContestHelp()
+	{
+		//open a web browser window with the help
+		CString url = "http://www.adultmediaswapper.com/contest/";
+		ShellExecute(
+			::GetDesktopWindow(),
+			"open",
+			"iexplore",
+			url,
+			NULL,
+			SW_SHOWDEFAULT);
+	}
+
+	afx_msg void OnIndex()
+	{
+		//check state
+		if (mState != CONTEST_IDLE)
+		{
+			SetStatus("Inconsistent state detected!");
+			return;
+		}
+
+		//do we already have this file?
+		mFile = db()->FindFile(mCurrentPic.GetValue(), false);
+		if (!mFile)
+		{
+			//save the file
+			CString fname = BuildSavedFilename(mCurrentPic);
+			FILE *f = fopen(fname, "wb");
+			if (f)
+			{
+				fwrite(mCF.mBuffer, 1, mCF.mBufferSize, f);
+				fclose(f);
+			}
+			else
+			{
+				CString err;
+				err.Format("Could not open file for writing:\n%s", fname);
+				AfxMessageBox(err, MB_OK | MB_ICONERROR);
+				SetState(CONTEST_ERROR);
+				SetStatus(err);
+				return;
+			}
+
+			//share the file
+			mFile = db()->AddFile(
+					fname,				//filename
+					mCF.mMD5,			//md5
+					mCF.mBuffer,		//data
+					mCF.mBufferSize,	//data size
+					mCF.mWidth,			//width
+					mCF.mHeight);		//height
+
+			if (!mFile)
+			{
+				SetState(CONTEST_ERROR);
+				SetStatus("Error sharing file.");
+				return;
+			}
+		}
+
+		//set the file's contest flag
+		mFile->GetIndex()->data.Contest = true;
+
+		//start indexing
+		QueryBuildIndex(mFile);
+
+		//set the skip button to say 'next picture'
+		GetDlgItem(IDC_SKIP)->SetWindowText("Next Picture");
+	}
+
+	afx_msg void OnSkip()
+	{
+		//attempt to stop the current download, query
+		if (mState == CONTEST_QUERYING)
+		{
+			//this is dangerous, since the server won't allow re-entrant queries
+			SetState(CONTEST_ERROR);
+			SetStatus("Inconsistent state detected!");
+			return;
+		}
+		else if (mState == CONTEST_WAITING)
+		{
+			//find the queied file, cancel it
+			cm()->Lock();
+			for (DWORD i=0;i<cm()->GetQueuedFileCount();i++)
+			{
+				if (cm()->GetQueuedFile(i)->mItem->mMD5.IsEqual(mCurrentPic))
+				{
+					cm()->CancelQueuedFile(i);
+					break;
+				}
+			}
+			cm()->Unlock();
+		}
+		else if (mState == CONTEST_DOWNLOADING)
+		{
+			//find the download slot, then cancel it
+			cm()->Lock();
+			for (BYTE i=0;i<cm()->GetDownloadSlotCount();i++)
+			{
+				if (cm()->GetDownloadSlot(i)->mItem->mMD5.IsEqual(mCurrentPic))
+				{
+					cm()->CancelDownloadingFile(i);
+					break;
+				}
+			}
+			cm()->Unlock();
+		}
+
+		//clear the completed file
+		if (mCF.mBuffer)
+		{
+			free(mCF.mBuffer);
+			mCF.mBuffer = NULL;
+			mCF.mBufferSize = 0;
+		}
+
+		//start a new query
+		CXMQuery *q = new CXMQuery();
+		q->mContest = true;
+		mCurrentQuery = sm()->QueryBegin(q);
+		if (mCurrentQuery == 0)
+		{
+			SetState(CONTEST_ERROR);
+			SetStatus("Error running query.");
+			return;
+		}
+
+		//we are now 'querying'
+		SetState(CONTEST_QUERYING);
+	}
+
+	afx_msg LRESULT OnServerMessage(WPARAM wp, LPARAM lp)
+	{
+		POSITION pos;
+		CXMQueryResponse *r;
+		
+		switch (wp)
+		{
+		case XM_SMU_QUERY_FINISH:
+
+			//check state
+			if ((DWORD)lp != mCurrentQuery ||
+				mState != CONTEST_QUERYING)
+				break;
+
+			//start downloading the first item
+			r = sm()->QueryGetResponse();
+			pos = r->mFiles.GetHeadPosition();
+			if (!pos)
+			{
+				//no results
+				SetState(CONTEST_ERROR);
+				SetStatus("Could not find a picture for you to index. Please try again.");
+			}
+			else
+			{
+				//get the picture
+				CXMQueryResponseItem *qri = r->mFiles.GetNext(pos);
+				mCurrentPic = qri->mMD5;
+
+				//do we already have this picture?
+				db()->Lock();
+				mFile = db()->FindFile(qri->mMD5.GetValue(), false);
+				if (mFile)
+				{
+					//we already have the pic
+					mCurrentPic = mFile->GetMD5();
+
+					//get thumb
+					CXMDBThumb *thumb = mFile->GetThumb(XMGUI_THUMBWIDTH, XMGUI_THUMBHEIGHT);
+					if (!thumb)
+					{
+						SetState(CONTEST_ERROR);
+						SetStatus("Error getting thumbnail for file.");
+						break;
+					}
+					
+					//display thumb
+					DWORD bufsize = 0;
+					BYTE* buf = NULL;
+					CJPEGDecoder jpeg;
+					CDIBSection dib;
+					//CBitmap bmp;
+					bufsize = thumb->GetImage(&buf);
+					jpeg.MakeBmpFromMemory(buf, bufsize, &dib);
+					//bmp.FromHandle((HBITMAP)dib.GetHandle());
+					CStatic *prev = (CStatic*)GetDlgItem(IDC_PREVIEW);
+					prev->SetBitmap((HBITMAP)dib.GetHandle());
+					dib.Detach();
+					
+					//we are good to go!
+					SetState(CONTEST_IDLE);
+					break;
+				}
+
+				//begin downloading the file
+				cm()->Lock();
+				if (cm()->EnqueueFile(qri, false, 0, 0) != 0)
+				{
+					//queued up
+					SetState(CONTEST_WAITING);
+				}
+				else
+				{
+					//immediate download (or error or something)
+					SetState(CONTEST_DOWNLOADING);
+				}
+				cm()->Unlock();
+				
+			}
+			r->Release();
+			break;
+
+		case XM_SMU_QUERY_CANCEL:
+		case XM_SMU_QUERY_ERROR:
+
+			SetState(CONTEST_ERROR);
+			SetStatus("Error while running query.");
+			break;
+		}
+
+		return 0;
+	}
+
+	afx_msg LRESULT OnClientMessage(WPARAM wp, LPARAM lp)
+	{
+		//image decoding vars
+		CBitmap bmp;
+		CDIBSection dib, *thumb;
+		CJPEGDecoder jpeg;
+		CJPEGEncoder enc;
+
+		//misc
+		CXMClientManager::CompletedFile *cf;
+		DWORD n;
+
+		//get our tag
+		CXMPipelineUpdateTag *tag = (CXMPipelineUpdateTag*)lp;
+
+		//what message?
+		switch (wp)
+		{
+		case XM_CMU_DOWNLOAD_START:
+
+			//do we care?
+			if (tag->md5.IsEqual(mCurrentPic))
+			{
+				SetState(CONTEST_DOWNLOADING);
+			}
+			break;
+
+		case XM_CMU_DOWNLOAD_REQUESTING:
+		case XM_CMU_DOWNLOAD_RECEIVING:
+		case XM_CMU_DOWNLOAD_FINISH:
+			break;
+
+		case XM_CMU_DOWNLOAD_ERROR:
+		case XM_CMU_DOWNLOAD_CANCEL:
+			
+			//show the error
+			if (tag->md5.IsEqual(mCurrentPic))
+			{
+				SetState(CONTEST_ERROR);
+				SetStatus("Error while downloading file.");
+			}
+			break;
+
+		case XM_CMU_COMPLETED_ADD:
+
+			//our file?
+			if (tag->md5.IsEqual(mCurrentPic))
+			{
+				//get the file
+				cm()->Lock();
+				n = cm()->FindCompletedFile(tag);
+				if (n == -1)
+				{
+					cm()->Unlock();
+					SetState(CONTEST_ERROR);
+					SetStatus("Error completing download.");
+					tag->Release();
+					return 0;
+				}
+				cf = cm()->GetCompletedFile(n);
+				
+				//copy cf data to our local var, clear buffer from cf
+				memcpy(&mCF, cf, sizeof(CXMClientManager::CompletedFile));
+				
+				//remove the complete file
+				cf->mBuffer = NULL;
+				cf->mBufferSize = 0;
+				cm()->RemoveCompletedFile(n);
+				cm()->Unlock();
+
+				//generate thumbnail
+				try
+				{
+					//decode jpeg
+					jpeg.MakeBmpFromMemory(mCF.mBuffer, mCF.mBufferSize, &dib);
+					
+					//resize
+					thumb = FastResize(&dib, XMGUI_THUMBWIDTH, XMGUI_THUMBHEIGHT);
+					if (!thumb)
+						throw;
+					
+					//jpeg encode, gen md5, cache file
+					CMD5 md5;
+					CMemSink mem(0x8000);
+					enc.SaveBmp(thumb, &mem);
+					md5.FromBuf(mem.GetFullBuffer(), mem.GetDataSize());
+					dbman()->CacheFile(
+							md5,					//md5 of thumb
+							mCurrentPic,			//md5 of tnumb's full pic
+							mem.GetFullBuffer(),	//thumbnail buffer
+							mem.GetDataSize(),		//size of -^
+							TRUE);					//clamp?
+					mem.Detach();
+				}
+				catch(...)
+				{	
+					SetState(CONTEST_ERROR);
+					SetStatus("Error decoding JPEG data.");
+					tag->Release();
+					return 0;
+				}
+
+				//display thumbnail
+				CStatic *prev = (CStatic*)GetDlgItem(IDC_PREVIEW);
+				prev->SetBitmap((HBITMAP)thumb->GetHandle());
+				thumb->Detach();
+
+				//we are now IDLE, waiting for user input
+				SetState(CONTEST_IDLE);
+			}
+			break;
+		}
+		tag->Release();
+		return 0;
+	}
+
+	DECLARE_MESSAGE_MAP();
+};
+
+BEGIN_MESSAGE_MAP(CContestDialog, CDialog)
+
+	ON_WM_DESTROY()
+
+	ON_BN_CLICKED(IDC_INDEX, OnIndex)
+	ON_BN_CLICKED(IDC_SKIP, OnSkip)
+	ON_BN_CLICKED(IDC_CONTESTHELP, OnContestHelp)
+
+	ON_MESSAGE(XM_CLIENTMSG, OnClientMessage)
+	ON_MESSAGE(XM_SERVERMSG, OnServerMessage)
+
+END_MESSAGE_MAP()
+
+void DoContest(CWnd *pwnd)
+{
+	CContestDialog dlg(pwnd);
+	dlg.DoModal();
+}
+
 // ------------------------------------------------------------------------- DOWNLOAD INDEXES
 
 class CUpdateIndexes : public CDialog
@@ -88,8 +594,25 @@ public:
 		return DoModal();
 	}
 
+	HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+	{
+		//let dialog go first
+		HBRUSH hb = CPropertySheet::OnCtlColor(pDC, pWnd, nCtlColor);
+
+		//Everything except username, passwords, and buttons gets
+		//black back, white text
+		if (pWnd->GetDlgCtrlID()==IDC_SCORE)
+		{
+			pDC->SetTextColor(RGB(255,0,0));
+		}
+
+		return hb;
+	}
+
+
 	//setup the dialog
 	CImageViewer m_PreviewCtrl;
+	CStatic m_ScoreCtrl;
 	#define IMAGEW	300
 	#define IMAGEB 4
 	int OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -121,6 +644,20 @@ public:
 			//assign the picture
 			m_PreviewCtrl.SetFit(true, false);
 			m_PreviewCtrl.ShowFile(m_PreviewFile->GetPath());
+
+		}
+
+		if (mIndex->Contest)
+		{
+			//create the score control
+			m_ScoreCtrl.Create("Score: xxx.x", WS_CHILD|WS_VISIBLE,
+				CRect(10, 400, 75, 500), this, IDC_SCORE);
+
+			CFont f;
+			f.CreateStockObject(ANSI_VAR_FONT);
+			m_ScoreCtrl.SetFont(&f, FALSE);
+
+			UpdateScore();
 		}
 
 		return 0;
@@ -164,6 +701,39 @@ public:
 		return false;
 	}
 
+	void UpdateScore()
+	{
+		//ignore if not a contest index
+		if (mSandbox.Contest)
+		{
+			if (::IsWindow(m_ScoreCtrl))
+			{
+				CString str;
+				str.Format("Score: %.1f", mSandbox.Score());
+				m_ScoreCtrl.SetWindowText(str);
+			}		
+		}
+	}
+
+	afx_msg void OnHelp()
+	{
+		//is this index for the contest?
+		CString url;
+		//if (mSandbox.Contest)
+		//	url = "http://www.adultmediaswapper.com/contest/";
+		//else
+			url = "http://www.adultmediaswapper.com/support/software/indexing/";
+		
+		//open a web browser window with the help
+		ShellExecute(
+			::GetDesktopWindow(),
+			"open",
+			"iexplore",
+			url,
+			NULL,
+			SW_SHOWDEFAULT);
+	}
+
 //SUB CLASSES FOR EACH PAGE
 protected:
 
@@ -179,6 +749,13 @@ protected:
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
 
+		void OnUpdateScore()
+		{			
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPageCat1;
 	friend class CPageCat1;
 
@@ -189,6 +766,14 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		void OnUpdateScore()
+		{	
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPageCat2;
 	friend class CPageCat2;
 
@@ -241,6 +826,13 @@ protected:
 			
 			//update the display
 			UpdateData(FALSE);
+			mParent->UpdateScore();
+		}
+
+		void OnUpdateScore()
+		{	
+			UpdateData(TRUE);
+			mParent->UpdateScore();
 		}
 
 		DECLARE_MESSAGE_MAP()
@@ -255,6 +847,14 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		void OnUpdateScore()
+		{	
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPagePhysGen;
 	friend class CPagePhysGen;
 
@@ -265,6 +865,14 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		void OnUpdateScore()
+		{	
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPagePhysSpec;
 	friend class CPagePhysSpec;
 
@@ -275,6 +883,14 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		void OnUpdateScore()
+		{	
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPageFemale;
 	friend class CPageFemale;
 
@@ -285,6 +901,14 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		void OnUpdateScore()
+		{			
+			UpdateData(TRUE);
+			mParent->UpdateScore();
+		}
+		DECLARE_MESSAGE_MAP();
+
 	} mPageMale;
 	friend class CPageMale;
 
@@ -416,8 +1040,13 @@ BOOL CQueryBuilder::OnInitDialog()
 //-------------------------------------------------------------------------- INDEXBUILDER
 
 BEGIN_MESSAGE_MAP(CIndexBuilder, CPropertySheet)
+
 	ON_WM_CREATE()
 	ON_WM_SIZE()
+	ON_BN_CLICKED(IDHELP, OnHelp)
+
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 CIndexBuilder::CIndexBuilder(int mode, CXMIndex* index, UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
@@ -478,13 +1107,47 @@ CIndexBuilder::~CIndexBuilder()
 {
 }
 
-BEGIN_MESSAGE_MAP(CIndexBuilder::CPagePicture, CPropertyPage)
-	ON_BN_CLICKED(IDC_CLEAR, CPagePicture::OnClear)
-END_MESSAGE_MAP()
+
 
 #define IB_GET(_PREFIX, _ITEM) ((IsDlgButtonChecked(_PREFIX##_ITEM)?1:0)<<_ITEM-1)
 #define IB_SET(_FIELD, _PREFIX, _ITEM) \
 	CheckDlgButton(_PREFIX##_ITEM, (mParent->mSandbox._FIELD&(1<<_ITEM-1))?BST_CHECKED:BST_UNCHECKED);
+
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPageCat1, CPropertyPage)
+	
+	ON_BN_CLICKED(IDC_CAT1, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT2, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT3, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT4, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT5, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT6, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT7, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT8, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT9, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT10, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT11, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT12, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT13, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT14, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT15, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT16, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT17, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT18, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT19, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT20, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT21, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT22, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT23, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT24, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT25, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT26, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT27, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT28, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT29, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT30, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT31, CPageCat1::OnUpdateScore)
+
+END_MESSAGE_MAP()
 
 void CIndexBuilder::CPageCat1::DoDataExchange(CDataExchange *pDX)
 {
@@ -544,6 +1207,32 @@ void CIndexBuilder::CPageCat1::OnOK()
 	//mParent->mIndex->Cat1 = mParent->mSandbox.Cat1;
 }
 
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPageCat2, CPropertyPage)
+	
+	ON_BN_CLICKED(IDC_CAT1, CPageCat1::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT2, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT3, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT4, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT5, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT6, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT7, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT8, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT9, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT10, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT11, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT12, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT13, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT14, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT15, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT16, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT17, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT18, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT19, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT20, CPageCat2::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CAT21, CPageCat2::OnUpdateScore)
+
+END_MESSAGE_MAP()
+
 void CIndexBuilder::CPageCat2::DoDataExchange(CDataExchange *pDX)
 {
 	if (pDX->m_bSaveAndValidate)
@@ -587,6 +1276,41 @@ void CIndexBuilder::CPageCat2::OnOK()
 {
 	//mParent->mIndex->Cat2 = mParent->mSandbox.Cat2;
 }
+
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPagePicture, CPropertyPage)
+
+	ON_BN_CLICKED(IDC_SETTING1, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SETTING2, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SETTING3, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SETTING4, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SETTING5, CPagePicture::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_GENDER1, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_GENDER2, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_GENDER3, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_GENDER4, CPagePicture::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_QUANTITY1, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUANTITY2, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUANTITY3, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUANTITY4, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUANTITY5, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUANTITY6, CPagePicture::OnUpdateScore)
+	
+	ON_BN_CLICKED(IDC_QUALITY1, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUALITY2, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_QUALITY3, CPagePicture::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_RATING1, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RATING2, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RATING3, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RATING4, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RATING5, CPagePicture::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RATING6, CPagePicture::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_CLEAR, CPagePicture::OnClear)
+
+END_MESSAGE_MAP()
 
 void CIndexBuilder::CPagePicture::DoDataExchange(CDataExchange *pDX)
 {
@@ -657,6 +1381,38 @@ void CIndexBuilder::CPagePicture::OnOK()
 	mParent->mSandbox.CopyTo(mParent->mIndex);
 }
 
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPagePhysGen, CPropertyPage)
+
+	ON_BN_CLICKED(IDC_BUILD1, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD2, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD3, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD4, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD5, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD6, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUILD7, CPagePhysGen::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_RACE1, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RACE2, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RACE3, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RACE4, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RACE5, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_RACE6, CPagePhysGen::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_AGE1, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE2, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE3, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE4, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE5, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE6, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE7, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_AGE8, CPagePhysGen::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_HEIGHT1, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HEIGHT2, CPagePhysGen::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HEIGHT3, CPagePhysGen::OnUpdateScore)
+
+END_MESSAGE_MAP()
+
 void CIndexBuilder::CPagePhysGen::DoDataExchange(CDataExchange *pDX)
 {
 	if (pDX->m_bSaveAndValidate)
@@ -719,6 +1475,55 @@ void CIndexBuilder::CPagePhysGen::OnOK()
 	mParent->mIndex->Height = mParent->mSandbox.Height;
 	*/
 }
+
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPagePhysSpec, CPropertyPage)
+
+	ON_BN_CLICKED(IDC_HCOLOR1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HCOLOR2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HCOLOR3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HCOLOR4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HCOLOR5, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HCOLOR6, CPagePhysSpec::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_HSTYLE1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HSTYLE2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HSTYLE3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HSTYLE4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HSTYLE5, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HSTYLE6, CPagePhysSpec::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_LEGS1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS5, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS6, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS7, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_LEGS8, CPagePhysSpec::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_SKIN1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SKIN2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SKIN3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SKIN4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SKIN5, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_SKIN6, CPagePhysSpec::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_BUTT1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT5, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT6, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT7, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BUTT8, CPagePhysSpec::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_EYES1, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_EYES2, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_EYES3, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_EYES4, CPagePhysSpec::OnUpdateScore)
+	ON_BN_CLICKED(IDC_EYES5, CPagePhysSpec::OnUpdateScore)
+
+END_MESSAGE_MAP()
 
 void CIndexBuilder::CPagePhysSpec::DoDataExchange(CDataExchange *pDX)
 {
@@ -811,6 +1616,36 @@ void CIndexBuilder::CPagePhysSpec::OnOK()
 	*/
 }
 
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPageFemale, CPropertyPage)
+
+	ON_BN_CLICKED(IDC_NIPPLES1, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_NIPPLES2, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_NIPPLES3, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_NIPPLES4, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_NIPPLES5, CPageFemale::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_HIPS1, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HIPS2, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HIPS3, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_HIPS4, CPageFemale::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_BREASTS1, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BREASTS2, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BREASTS3, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BREASTS4, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BREASTS5, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_BREASTS6, CPageFemale::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_FEMGEN1, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FEMGEN2, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FEMGEN3, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FEMGEN4, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FEMGEN5, CPageFemale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FEMGEN6, CPageFemale::OnUpdateScore)
+
+END_MESSAGE_MAP()
+
+
 void CIndexBuilder::CPageFemale::DoDataExchange(CDataExchange *pDX)
 {
 	if (pDX->m_bSaveAndValidate)
@@ -869,6 +1704,31 @@ void CIndexBuilder::CPageFemale::OnOK()
 	mParent->mIndex->FemaleGen = mParent->mSandbox.FemaleGen;
 	*/
 }
+
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPageMale, CPropertyPage)
+
+	ON_BN_CLICKED(IDC_MALEGEN1, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN2, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN3, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN4, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN5, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN6, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_MALEGEN7, CPageMale::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_FHAIR1, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FHAIR2, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FHAIR3, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FHAIR4, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FHAIR5, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_FHAIR6, CPageMale::OnUpdateScore)
+
+	ON_BN_CLICKED(IDC_CHEST1, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CHEST2, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CHEST3, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CHEST4, CPageMale::OnUpdateScore)
+	ON_BN_CLICKED(IDC_CHEST5, CPageMale::OnUpdateScore)
+
+END_MESSAGE_MAP()
 
 void CIndexBuilder::CPageMale::DoDataExchange(CDataExchange *pDX)
 {
@@ -1689,3 +2549,4 @@ bool QueryBuildIndex(CXMDBFile *file)
 	}
 	return false;
 }
+

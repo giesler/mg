@@ -836,6 +836,23 @@ BEGIN
                     IDC_STATIC,7,7,169,16
 END
 
+IDD_CONTEST DIALOG DISCARDABLE  0, 0, 333, 110
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Contest"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Current Picture",IDC_STATIC,7,7,64,8
+    CONTROL         158,IDC_PREVIEW,"Static",SS_BITMAP | WS_BORDER,7,20,85,
+                    60
+    PUSHBUTTON      "Index Picture...",IDC_INDEX,98,20,59,40
+    PUSHBUTTON      "Skip Picture",IDC_SKIP,98,65,59,15
+    LTEXT           "Win cool prizes by indexing pictures! For help with the Contest, press the button below.\nRemember, all indexing is checked for accuracy.",
+                    IDC_STATIC,174,20,145,33
+    PUSHBUTTON      "Contest Information",IDC_CONTESTHELP,207,60,80,14
+    GROUPBOX        "Instructions",IDC_STATIC,165,7,161,75
+    EDITTEXT        IDC_STATUS,7,91,319,12,ES_READONLY | NOT WS_BORDER
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -844,8 +861,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,6,0,0
- PRODUCTVERSION 0,6,0,0
+ FILEVERSION 0,7,0,0
+ PRODUCTVERSION 0,7,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -863,14 +880,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Adult Media Swapper Client Executable\0"
-            VALUE "FileVersion", "0, 6, 0, 0\0"
+            VALUE "FileVersion", "0, 7, 0, 0\0"
             VALUE "InternalName", "AMSClient\0"
             VALUE "LegalCopyright", "Copyright (C) 2001 Line 2 Systems, Inc.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "amsclient.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Adult Media Swapper\0"
-            VALUE "ProductVersion", "0, 6, 0, 0\0"
+            VALUE "ProductVersion", "0, 7, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -1088,6 +1105,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 23
     END
+
+    IDD_CONTEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 326
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -1149,6 +1174,7 @@ BEGIN
     BEGIN
         MENUITEM "&Shared Files...",            ID_SHARED
         MENUITEM "Fast Indexer...",             ID_INDEXER
+        MENUITEM "&Contest...",                 ID_CONTEST
     END
     POPUP "&Help"
     BEGIN

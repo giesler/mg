@@ -203,15 +203,16 @@ float CXMIndex::Score()
 	// score(n) = 1.2n^(n/100)
 	// where n is the number of fields indexed (sans cat1,2)
 	int n = CountFields(false);
-	float s = (float)pow((float)1.2*(float)n, (float)n/(float)100);
+	float s = (float)pow((float)n, (float)1.2+((float)n/(float)100));
 
 	//catagory: 1st bit = 10 pts, 2nd bit = 5 pts, each additional = 1 pt.
 	int i = 0;
-	_COUNT32(Cat1, i);
-	_COUNT32(Cat2, i);
-	s += ((i--)>0)?10:0;			//add 10 pts if i > 0, decrement i
-	s += ((i--)>0)?5:0;			//add 5 pts if i > 0, decrement i
-	s += (i>0)?i:0;				//add i pts if i > 0
+	n = 0;
+	_COUNT32(Cat1, n);
+	_COUNT32(Cat2, n);
+	s += ((n--)>0)?10:0;			//add 10 pts if i > 0, decrement i
+	s += ((n--)>0)?5:0;			//add 5 pts if i > 0, decrement i
+	s += (n>0)?n:0;				//add i pts if i > 0
 
 	return s;
 }

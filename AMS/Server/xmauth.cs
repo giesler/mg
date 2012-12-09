@@ -152,9 +152,22 @@ namespace XMedia
 
 			//check the accesstoken.. if it ISNT null, this person is already
 			//logged in
+			bool alreadyLoggedIn;
 			if (rs.Fields["accesstoken"].Value != DBNull.Value)
 			{
-				throw new Exception("You are already logged in to a different computer.  Only one simultaneous login is allowed per username.  If you want to run AMS on more than one computer, you may create new accounts as you need them.");
+				//is the old ip same as the new ip?
+				alreadyLoggedIn = true;
+				if (rs.Fields["hostip"].Value != DBNull.Value)
+				{
+					if (rs.Fields["hostip"].Value.ToString() == con.HostIP.ToString())
+					{
+						//its ok
+						alreadyLoggedIn = false;
+					}
+				}
+
+				if (alreadyLoggedIn)
+					throw new Exception("You are already logged in to a different computer.  Only one simultaneous login is allowed per username.  If you want to run AMS on more than one computer, you may create new accounts as you need them.");
 			}
 
 			//get the userid, create the session id

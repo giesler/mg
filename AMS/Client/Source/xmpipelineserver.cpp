@@ -1682,7 +1682,7 @@ void CLoginDialog::StatusSetWorkerDone()
 	m_dwThreadId = 0;
 
 	//were we waiting for this?
-	if (m_bWaitingForLogin)
+	if (m_bWaitingForLogin && !dbman()->IsDatabaseNew())
 		DoLogin();
 	else
 		StatusEntry("Enter login id and password.", false);

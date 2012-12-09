@@ -469,25 +469,18 @@ LRESULT CCompletedView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 void CCompletedView::OnSave()
 {
 	//prefix files with path and today's date
-	CString prefix;
-	prefix.Format(
-			"%s\\%s - ",
-			config()->GetField(FIELD_DB_SAVE_PATH, false),
-			CTime::GetCurrentTime().Format("%y%m%d"));
 
 	//loop through selected listviw items
 	CString fname;
-	char szmd5[9];
+	
 	int i = mThumbs.GetNextItem(-1, LVNI_SELECTED);
 	tag t;
 	while (i != -1)
 	{
 		//last part of file is first 4 bytes of the md5
 		t = (tag)mThumbs.GetItemData(i);
-		md5tohex(szmd5, t->mMD5.GetValue(), 4);
-		szmd5[8] = '\0';
-		fname.Format("%s%s.jpg", prefix, szmd5);
-
+		fname = BuildSavedFilename(t->mMD5.GetValue());
+		
 		//open the file
 		FILE *f = fopen(fname, "wb");
 		if (f)
@@ -497,7 +490,10 @@ void CCompletedView::OnSave()
 		}
 		else
 		{
-			ASSERT(FALSE);
+			CString err;
+			err.Format("Could not open file for writing:\n%s", fname);
+			AfxMessageBox(err, MB_OK | MB_ICONERROR);
+			return;
 		}
 
 		//share the file

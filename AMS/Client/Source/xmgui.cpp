@@ -36,13 +36,14 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_OPTIONS, OnOptions)
 	ON_COMMAND(ID_INDEXER, OnFastIndexer)
 	ON_COMMAND(ID_EXIT, OnExit)
+	ON_COMMAND(ID_CONTEST, OnContest)
+	ON_BN_CLICKED(IDC_CONTEST, OnContest)
 
 	//tray input
 	ON_MESSAGE(XM_TRAYICON, OnTrayNotification)
 	ON_COMMAND(ID_TRAY_SHOW, OnTrayShow)
 	ON_COMMAND(ID_TRAY_OPTIONS, OnTrayOptions)
 	ON_REGISTERED_MESSAGE(WM_TASKBARCREATED, OnTaskBarCreated)
-
 
 	//gray out invalid command
 	ON_UPDATE_COMMAND_UI(ID_CONNECT, OnUpdateConnect)
@@ -275,8 +276,22 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		return -1;
 	}
-	mAdvert.Navigate("http://www.adultmediaswapper.com/ad/");
+	mAdvert.Navigate("http://ads.adultmediaswapper.com/request");
 	
+	//create contest button
+	if (!mContest.Create(
+			"Contest!",
+			WS_CHILD|WS_VISIBLE,
+			CRect(XMGUI_TOPOFADD, XMGUI_TOPOFADD, XMGUI_LOGOSIZE, XMGUI_LOGOSIZE-25),
+			this,
+			IDC_CONTEST))
+	{
+		return -1;
+	}
+	CFont f;
+	f.CreateStockObject(ANSI_VAR_FONT);
+	mContest.SetFont(&f);
+
 	//create splitter
 	if (!mSplitter.Create(
 			this,
@@ -432,6 +447,11 @@ void CMainFrame::OnDestroy()
 
 // ---------------------------------------------------------------------------------- User Input
 
+void CMainFrame::OnContest()
+{
+	DoContest(this);
+}
+
 void CMainFrame::OnExit()
 {
 	mClosing = true;
@@ -451,7 +471,7 @@ void CMainFrame::OnHelp()
 		::GetDesktopWindow(),
 		"open",
 		"iexplore",
-		"http://www.adultmediaswapper.com/",
+		"http://www.adultmediaswapper.com/support/software/",
 		NULL,
 		SW_SHOWDEFAULT);
 }
@@ -1678,7 +1698,7 @@ void CXMWebView::GoHome()
 
 	//ams.com?sid=<sessionid>
 	CString str;
-	str.Format("http://www.adultmediaswapper.com/?sid=%s", sm()->LoginGetSession().GetString());
+	str.Format("http://welcome.adultmediaswapper.com/?at=%s", sm()->LoginGetSession().GetString());
 	mWeb.Navigate(str);
 }
 

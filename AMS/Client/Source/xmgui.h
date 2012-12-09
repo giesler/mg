@@ -30,7 +30,13 @@
 //#define XMGUI_THUMBWIDTH		124	//4:3
 //#define XMGUI_THUMBHEIGHT		93
 
-// ---------------------------------------------------------------------------- Query Builders
+// ------------------------------------------------------------------------------------ Contest
+// xmguiquery.cpp
+
+void DoContest(CWnd *pwnd);
+
+
+// ----------------------------------------------------------------------------- Query Builders
 // xmguiquery.cpp
 
 #define XMGUI_INDEXMODE_SEARCH	0
@@ -42,7 +48,7 @@ bool QueryBuildIndex(CXMDBFile* file);
 void QueryFastIndexer();
 bool QueryDownloadIndexes(CWnd *parent);
 
-// ---------------------------------------------------------------------------------- Web Browser
+// -------------------------------------------------------------------------------- Web Browser
 // xmgui.cpp
 
 class CAdvert : public CWnd
@@ -693,6 +699,7 @@ public:
 protected:
 	
 	//user input
+	afx_msg void OnContest();
 	afx_msg void OnSharedFiles();
 	afx_msg void OnConnect();
 	afx_msg void OnDisconnect();
@@ -729,6 +736,7 @@ protected:
 	CXMGUIStatus mStatus;
 	CAdvert mAdvert;				//IDC_ADVERT
 	CTrayIcon mTray;
+	CButton mContest;				//IDC_CONTEST
 
 	//IDC_NETMON
 	//IDC_BANNER

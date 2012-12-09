@@ -92,6 +92,11 @@ bool CXMDBManager::DatabaseStartupEarly()
 	return true;
 }
 
+bool CXMDBManager::IsDatabaseNew()
+{
+	return mIsDatabaseNew;
+}
+
 bool CXMDBManager::DatabaseStartup()
 {
 	//db setup
@@ -103,17 +108,20 @@ bool CXMDBManager::DatabaseStartup()
 	CreateDirectory(config()->GetField(FIELD_DB_SAVE_PATH, false), NULL);
 	
 	//open database
-	TRACE("Opening database...\n");
+	mIsDatabaseNew = false;
 	if (!mDB->Open())
 	{
+		//database did not exist.. make sure we don't try auto-login
+		mIsDatabaseNew = true;	
+
 		//error opening the database, try to create
-		TRACE("Failed.. new database.\n");
 		if (!mDB->New()) 
 		{
 			//error creating new database
 			CString str;
 			str.Format("Error creating databse:\n%s", config()->GetField(FIELD_DB_FILE, false));
 			AfxMessageBox(str, MB_OK | MB_ICONERROR, 0);
+			return false;
 		}
 	}
 	return true;
@@ -353,6 +361,9 @@ char* CXMDBManager::BuildFileListing(bool full)
 				//if it wasnt known before, it is now
 				file->SetFlag(DFF_KNOWN, true);
 				file->GetIndex()->flags &= ~DIF_DIRTY;
+
+				//reset the contest flag
+				file->GetIndex()->data.Contest = false;
 
 				//free com objects
 				COMFREE(node);

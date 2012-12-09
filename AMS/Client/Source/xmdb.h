@@ -22,6 +22,7 @@ public:
 	void Reset();
 	virtual void Close();
 	BYTE* GetFullBuffer();
+	void Detach();
 };
 
 //------------------------------------------------------------------
@@ -397,6 +398,7 @@ public:
 	void Lock();
 	void Unlock();
 	char* BuildFileListing(bool full);
+	bool IsDatabaseNew();
 
 protected:
 
@@ -412,6 +414,7 @@ protected:
 	IXMDBManagerCallback *mCallback;
 	CXMDB *mDB;
 	bool mCancelFlag;
+	bool mIsDatabaseNew;
 };
 
 // -------------------------------------------------------------------------- Async Resize

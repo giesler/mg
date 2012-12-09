@@ -12,6 +12,7 @@
 #include <sys/types.h> 
 #include <sys/stat.h>
 
+
 //	------------------------------------------------------------------------- Mem Sink
 
 CMemSink::CMemSink(SIZE_T size)
@@ -49,6 +50,12 @@ void CMemSink::Close()
 BYTE* CMemSink::GetFullBuffer()
 {
 	return m_pStartData;
+}
+
+void CMemSink::Detach()
+{
+	m_pStartData = NULL;
+	m_nCurPos = 0;
 }
 
 //helper function for sorting
@@ -752,6 +759,25 @@ CXMDBFile* CXMDB::AddFile(const char* path, CMD5& md5, BYTE* buf, DWORD bufsize,
 	//create a new file from the given buffer
 	Lock();
 	CXMDBFile *file = NULL;
+
+	//do we already have this file?
+	file = FindFile(md5.GetValue(), true);
+	if (file)
+	{
+		//is the file removed?
+		if (file->GetFlag(DFF_REMOVED))
+		{
+			//turn off removed flag, reset known
+			file->SetFlag(DFF_REMOVED, false);
+			file->SetFlag(DFF_KNOWN, false);
+		}
+
+		//set the path to whatever we were given
+		strncpy((char*)file->mDiskFile.path, path, MAX_PATH);
+
+		return file;
+	}
+
 	try {
 		file = new CXMDBFile(this, path, md5, buf, bufsize, width, height);
 	}
@@ -963,7 +989,7 @@ inline void CXMDBFile::InitShared(CXMDB *db)
 	mThumbs = 0;
 	memset(&mDiskFile, 0, sizeof(mDiskFile));
 
-	mDiskFile.index.data.Contest = true;
+	mDiskFile.index.data.Contest = false;
 }
 
 bool CXMDBFile::InitFromDB(FILE* file)
@@ -976,7 +1002,7 @@ bool CXMDBFile::InitFromDB(FILE* file)
 	// why the heck does contest show up as 0xCD?
 	// actually, it doesent anymore, but this code 
 	// won't hurt, will it?
-	if(mDiskFile.index.data.Contest == 0xCD)
+	if((int)mDiskFile.index.data.Contest == 0xCD)
 		mDiskFile.index.data.Contest = false;
 
 	//are we already removed?

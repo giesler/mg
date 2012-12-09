@@ -188,7 +188,7 @@ namespace XMedia
 			// score(n) = 1.2n^(n/100)
 			// where n is the number of fields indexed (sans cat1,2)
 			int n = CountFields(false);
-			float s = (float)Math.Pow(1.2*n, n/100);
+			float s = (float)Math.Pow(n, (float)1.2+((float)n/(float)100));
 			
 			//catagory: 1st bit = 10 pts, 2nd bit = 5 pts, each additional = 1 pt.
 			int i = 0;
@@ -408,11 +408,13 @@ namespace XMedia
 							break;
 					}
 
-					//contest index?
-					Source = (e.GetAttribute("source")=="contest")
-						?SourceEnum.Contest:SourceEnum.Other;
+
 				}
 			}
+
+			//contest index?
+			Source = (index.GetAttribute("source")=="contest")
+						?SourceEnum.Contest:SourceEnum.Other;
 		}
 
 		/// <summary>
@@ -627,7 +629,7 @@ namespace XMedia
 
 			//if 6 or more fields are already indexed, we
 			//skip this file
-			return (item.IndexedFieldCount < 6);
+			return (item.IndexedFieldCount < 5);
 		}
 
 		/// <summary>
@@ -770,11 +772,11 @@ namespace XMedia
 						//	* we search too many records
 						//	* we search EVERY record
 						start = item;
-						item = item.Next;
+						//item = item.Next;
 						while (	(c < 5000) &&			//max of 5k items searched
 								(ret.Count < 20) &&		//max of 20 results
-								(item!=start) &&		//don't loop in 1 query
-								!(msg.Query.Contest && ret.Count > 1) //only 1 result for contest
+								(item.Next!=start) &&		//don't loop in 1 query
+								!(msg.Query.Contest && ret.Count > 0) //only 1 result for contest
 						)
 						{
 							//keep picture?
@@ -1150,6 +1152,13 @@ namespace XMedia
 					i.Rating		= /*beta2:*/Convert.ToByte(rs.Fields["_Rating"]		.Value);
 					i.Setting		= /*beta2:*/Convert.ToByte(rs.Fields["_Setting"]	.Value);
 					i.Skin			= /*beta2:*/Convert.ToByte(rs.Fields["_Skin"]		.Value);
+
+					//contest, or other?
+					/*
+					i.Source = (Convert.ToDouble(rs.Fields["Score"].Value) != 0)?
+						XMIndex.SourceEnum.Contest:
+						XMIndex.SourceEnum.Other;
+					*/
 
 					//add to temp store
 					temp.Add(i);
