@@ -48,7 +48,7 @@ function checkform() {
 </p>
 
 <p>
-The AMS download is approxiately 900kb.  It will only take a few minutes to download.
+The AMS version 0.60 download is approxiately 900kb.  It will only take a few minutes to download.
 </p>
 
 <form name="f" id="f" method="post" action="default.asp">
