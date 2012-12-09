@@ -48,6 +48,8 @@ namespace PicAdminCS
 
 			if (max <= 0) 
 				progressBar1.Visible = false;
+			
+			this.lblStatus.Refresh();
 		}
 
 		/// <summary>
@@ -63,6 +65,12 @@ namespace PicAdminCS
 				}
 			}
 			base.Dispose( disposing );
+		}
+
+		public void ShowStatusForm() 
+		{
+			this.Show();
+			this.Refresh();
 		}
 
 		public int Max 

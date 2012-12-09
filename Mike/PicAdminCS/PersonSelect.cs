@@ -237,6 +237,12 @@ namespace PicAdminCS
 			}
 		}
 
+		public void ClearSelectedPerson() 
+		{
+			pr = null;
+			txtPersonName.Text = "";
+		}
+
 		public int SelectedPersonID 
 		{
 			get 
@@ -252,6 +258,7 @@ namespace PicAdminCS
 					return;
 
 				// fill the da with the selected row
+				dsPerson.Clear();
 				daPerson.SelectCommand.Parameters["@PersonID"].Value = value;
 				daPerson.Fill(dsPerson, "Person");
 

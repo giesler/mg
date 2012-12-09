@@ -13,11 +13,29 @@
 						</xsd:sequence>
 					</xsd:complexType>
 				</xsd:element>
+				<xsd:element name="CategoryGroup">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CategoryGroupID" type="xsd:int" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="1" />
+							<xsd:element name="CategoryID" type="xsd:int" minOccurs="0" />
+							<xsd:element name="GroupID" type="xsd:int" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
 			</xsd:choice>
 		</xsd:complexType>
 		<xsd:unique name="Constraint1" msdata:PrimaryKey="true">
 			<xsd:selector xpath=".//Category" />
 			<xsd:field xpath="CategoryID" />
 		</xsd:unique>
+		<xsd:unique name="CategoryGroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//CategoryGroup" />
+			<xsd:field xpath="CategoryID" />
+			<xsd:field xpath="GroupID" />
+		</xsd:unique>
+		<xsd:keyref name="CategoryCategoryGroup" refer="Constraint1">
+			<xsd:selector xpath=".//CategoryGroup" />
+			<xsd:field xpath="CategoryID" />
+		</xsd:keyref>
 	</xsd:element>
 </xsd:schema>

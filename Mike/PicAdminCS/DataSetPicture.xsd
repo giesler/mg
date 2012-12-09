@@ -13,6 +13,7 @@
 							<xsd:element name="Publish" type="xsd:boolean" minOccurs="0" />
 							<xsd:element name="PictureBy" type="xsd:int" minOccurs="0" />
 							<xsd:element name="PictureSort" type="xsd:int" minOccurs="0" />
+							<xsd:element name="Rating" type="xsd:int" minOccurs="0" />
 						</xsd:sequence>
 					</xsd:complexType>
 				</xsd:element>
@@ -33,6 +34,15 @@
 						</xsd:sequence>
 					</xsd:complexType>
 				</xsd:element>
+				<xsd:element name="PictureGroup">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PictureID" type="xsd:int" minOccurs="0" />
+							<xsd:element name="GroupID" type="xsd:int" minOccurs="0" />
+							<xsd:element name="PictureGroupID" type="xsd:int" minOccurs="0" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="1" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
 			</xsd:choice>
 		</xsd:complexType>
 		<xsd:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -49,12 +59,21 @@
 			<xsd:field xpath="PictureID" />
 			<xsd:field xpath="PersonID" />
 		</xsd:unique>
+		<xsd:unique name="PictureGroup_Constraint1" msdata:ConstraintName="Constraint3" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//PictureGroup" />
+			<xsd:field xpath="PictureID" />
+			<xsd:field xpath="GroupID" />
+		</xsd:unique>
 		<xsd:keyref name="PicturePictureCategory" refer="Constraint1">
 			<xsd:selector xpath=".//PictureCategory" />
 			<xsd:field xpath="PictureID" />
 		</xsd:keyref>
 		<xsd:keyref name="PicturePicturePerson" refer="Constraint1">
 			<xsd:selector xpath=".//PicturePerson" />
+			<xsd:field xpath="PictureID" />
+		</xsd:keyref>
+		<xsd:keyref name="PicturePictureGroup" refer="Constraint1">
+			<xsd:selector xpath=".//PictureGroup" />
 			<xsd:field xpath="PictureID" />
 		</xsd:keyref>
 	</xsd:element>

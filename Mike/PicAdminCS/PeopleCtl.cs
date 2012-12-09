@@ -335,6 +335,7 @@ namespace PicAdminCS
 
 
 			fEditPerson p = new fEditPerson();
+			p.NewPerson();
 			p.ShowDialog();
 
 			if (!p.Cancel) 
@@ -353,9 +354,12 @@ namespace PicAdminCS
 
 				// add the new row to our ds
 				DataSetPerson.PersonRow prNew = dsPerson.Person.NewPersonRow();
-				prNew.LastName = pr.LastName;
-				prNew.FirstName = pr.FirstName;
-				prNew.FullName  = pr.FullName;
+				if (!pr.IsLastNameNull())
+					prNew.LastName = pr.LastName;
+				if (!pr.IsFirstNameNull())
+					prNew.FirstName = pr.FirstName;
+				if (!pr.IsFullNameNull())
+					prNew.FullName  = pr.FullName;
 				prNew.PersonID  = pr.PersonID;
 				dsPerson.Person.AddPersonRow(prNew);
 

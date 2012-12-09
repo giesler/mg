@@ -21,6 +21,10 @@ namespace PicAdminCS {
         
         private CategoryDataTable tableCategory;
         
+        private CategoryGroupDataTable tableCategoryGroup;
+        
+        private DataRelation relationCategoryCategoryGroup;
+        
         public DataSetCategory() {
             this.InitClass();
         }
@@ -35,6 +39,14 @@ namespace PicAdminCS {
         public CategoryDataTable Category {
             get {
                 return this.tableCategory;
+            }
+        }
+        
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public CategoryGroupDataTable CategoryGroup {
+            get {
+                return this.tableCategoryGroup;
             }
         }
         
@@ -62,13 +74,28 @@ namespace PicAdminCS {
             this.Namespace = "http://www.tempuri.org/DataSetCategory.xsd";
             this.tableCategory = new CategoryDataTable();
             this.Tables.Add(this.tableCategory);
+            this.tableCategoryGroup = new CategoryGroupDataTable();
+            this.Tables.Add(this.tableCategoryGroup);
+            this.tableCategoryGroup.Constraints.Add(new System.Data.ForeignKeyConstraint("CategoryCategoryGroup", new DataColumn[] {
+                            this.tableCategory.CategoryIDColumn}, new DataColumn[] {
+                            this.tableCategoryGroup.CategoryIDColumn}));
+            this.relationCategoryCategoryGroup = new DataRelation("CategoryCategoryGroup", new DataColumn[] {
+                        this.tableCategory.CategoryIDColumn}, new DataColumn[] {
+                        this.tableCategoryGroup.CategoryIDColumn}, false);
+            this.Relations.Add(this.relationCategoryCategoryGroup);
         }
         
         private bool ShouldSerializeCategory() {
             return false;
         }
         
+        private bool ShouldSerializeCategoryGroup() {
+            return false;
+        }
+        
         public delegate void CategoryRowChangeEventHandler(object sender, CategoryRowChangeEvent e);
+        
+        public delegate void CategoryGroupRowChangeEventHandler(object sender, CategoryGroupRowChangeEvent e);
         
         public class CategoryDataTable : DataTable, System.Collections.IEnumerable {
             
@@ -325,6 +352,10 @@ namespace PicAdminCS {
             public void SetCategoryPathNull() {
                 this[this.tableCategory.CategoryPathColumn] = System.Convert.DBNull;
             }
+            
+            public CategoryGroupRow[] GetCategoryGroupRows() {
+                return ((CategoryGroupRow[])(this.GetChildRows(this.Table.ChildRelations["CategoryCategoryGroup"])));
+            }
         }
         
         public class CategoryRowChangeEvent : EventArgs {
@@ -339,6 +370,218 @@ namespace PicAdminCS {
             }
             
             public CategoryRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        public class CategoryGroupDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnCategoryGroupID;
+            
+            private DataColumn columnCategoryID;
+            
+            private DataColumn columnGroupID;
+            
+            internal CategoryGroupDataTable() : 
+                    base("CategoryGroup") {
+                this.InitClass();
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn CategoryGroupIDColumn {
+                get {
+                    return this.columnCategoryGroupID;
+                }
+            }
+            
+            internal DataColumn CategoryIDColumn {
+                get {
+                    return this.columnCategoryID;
+                }
+            }
+            
+            internal DataColumn GroupIDColumn {
+                get {
+                    return this.columnGroupID;
+                }
+            }
+            
+            public CategoryGroupRow this[int index] {
+                get {
+                    return ((CategoryGroupRow)(this.Rows[index]));
+                }
+            }
+            
+            public event CategoryGroupRowChangeEventHandler CategoryGroupRowChanged;
+            
+            public event CategoryGroupRowChangeEventHandler CategoryGroupRowChanging;
+            
+            public event CategoryGroupRowChangeEventHandler CategoryGroupRowDeleted;
+            
+            public event CategoryGroupRowChangeEventHandler CategoryGroupRowDeleting;
+            
+            public void AddCategoryGroupRow(CategoryGroupRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public CategoryGroupRow AddCategoryGroupRow(CategoryRow parentCategoryRowByCategoryCategoryGroup, int GroupID) {
+                CategoryGroupRow rowCategoryGroupRow = ((CategoryGroupRow)(this.NewRow()));
+                rowCategoryGroupRow.ItemArray = new object[] {
+                        null,
+                        parentCategoryRowByCategoryCategoryGroup[0],
+                        GroupID};
+                this.Rows.Add(rowCategoryGroupRow);
+                return rowCategoryGroupRow;
+            }
+            
+            public CategoryGroupRow FindByCategoryIDGroupID(int CategoryID, int GroupID) {
+                return ((CategoryGroupRow)(this.Rows.Find(new object[] {
+                            CategoryID,
+                            GroupID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            private void InitClass() {
+                this.columnCategoryGroupID = new DataColumn("CategoryGroupID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnCategoryGroupID.AutoIncrement = true;
+                this.columnCategoryGroupID.AllowDBNull = false;
+                this.Columns.Add(this.columnCategoryGroupID);
+                this.columnCategoryID = new DataColumn("CategoryID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnCategoryID.AllowDBNull = false;
+                this.Columns.Add(this.columnCategoryID);
+                this.columnGroupID = new DataColumn("GroupID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnGroupID.AllowDBNull = false;
+                this.Columns.Add(this.columnGroupID);
+                this.PrimaryKey = new DataColumn[] {
+                        this.columnCategoryID,
+                        this.columnGroupID};
+            }
+            
+            public CategoryGroupRow NewCategoryGroupRow() {
+                return ((CategoryGroupRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                // We need to ensure that all Rows in the tabled are typed rows.
+                // Table calls newRow whenever it needs to create a row.
+                // So the following conditions are covered by Row newRow(Record record)
+                // * Cursor calls table.addRecord(record) 
+                // * table.addRow(object[] values) calls newRow(record)    
+                return new CategoryGroupRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(CategoryGroupRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.CategoryGroupRowChanged != null)) {
+                    this.CategoryGroupRowChanged(this, new CategoryGroupRowChangeEvent(((CategoryGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.CategoryGroupRowChanging != null)) {
+                    this.CategoryGroupRowChanging(this, new CategoryGroupRowChangeEvent(((CategoryGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.CategoryGroupRowDeleted != null)) {
+                    this.CategoryGroupRowDeleted(this, new CategoryGroupRowChangeEvent(((CategoryGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.CategoryGroupRowDeleting != null)) {
+                    this.CategoryGroupRowDeleting(this, new CategoryGroupRowChangeEvent(((CategoryGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemoveCategoryGroupRow(CategoryGroupRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        public class CategoryGroupRow : DataRow {
+            
+            private CategoryGroupDataTable tableCategoryGroup;
+            
+            internal CategoryGroupRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableCategoryGroup = ((CategoryGroupDataTable)(this.Table));
+            }
+            
+            public int CategoryGroupID {
+                get {
+                    return ((int)(this[this.tableCategoryGroup.CategoryGroupIDColumn]));
+                }
+                set {
+                    this[this.tableCategoryGroup.CategoryGroupIDColumn] = value;
+                }
+            }
+            
+            public int CategoryID {
+                get {
+                    return ((int)(this[this.tableCategoryGroup.CategoryIDColumn]));
+                }
+                set {
+                    this[this.tableCategoryGroup.CategoryIDColumn] = value;
+                }
+            }
+            
+            public int GroupID {
+                get {
+                    return ((int)(this[this.tableCategoryGroup.GroupIDColumn]));
+                }
+                set {
+                    this[this.tableCategoryGroup.GroupIDColumn] = value;
+                }
+            }
+            
+            public CategoryRow CategoryRow {
+                get {
+                    return ((CategoryRow)(this.GetParentRow(this.Table.ParentRelations["CategoryCategoryGroup"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["CategoryCategoryGroup"]);
+                }
+            }
+        }
+        
+        public class CategoryGroupRowChangeEvent : EventArgs {
+            
+            private CategoryGroupRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            public CategoryGroupRowChangeEvent(CategoryGroupRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public CategoryGroupRow Row {
                 get {
                     return this.eventRow;
                 }

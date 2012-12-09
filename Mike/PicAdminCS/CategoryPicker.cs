@@ -289,6 +289,11 @@ namespace PicAdminCS
 
 		}
 
+		public void ClearSelectedCategories() 
+		{
+            lvCategories.Items.Clear();
+		}
+
 		private void categoryTree1_DoubleClickCategory(object sender, PicAdminCS.CategoryTreeEventArgs e)
 		{
             btnAddCategory_Click(sender, e);

@@ -172,6 +172,7 @@ namespace PicAdminCS
 			// mnuPictureListMoveDown
 			// 
 			this.mnuPictureListMoveDown.Index = 4;
+			this.mnuPictureListMoveDown.Shortcut = System.Windows.Forms.Shortcut.CtrlD;
 			this.mnuPictureListMoveDown.Text = "Move D&own";
 			this.mnuPictureListMoveDown.Click += new System.EventHandler(this.mnuPictureListMoveDown_Click);
 			// 
@@ -326,6 +327,7 @@ namespace PicAdminCS
 			// mnuPictureListDelete
 			// 
 			this.mnuPictureListDelete.Index = 1;
+			this.mnuPictureListDelete.Shortcut = System.Windows.Forms.Shortcut.Del;
 			this.mnuPictureListDelete.Text = "&Delete";
 			this.mnuPictureListDelete.Click += new System.EventHandler(this.mnuPictureListDelete_Click);
 			// 
@@ -337,6 +339,7 @@ namespace PicAdminCS
 			// mnuPictureListMoveUp
 			// 
 			this.mnuPictureListMoveUp.Index = 3;
+			this.mnuPictureListMoveUp.Shortcut = System.Windows.Forms.Shortcut.CtrlU;
 			this.mnuPictureListMoveUp.Text = "Move &Up";
 			this.mnuPictureListMoveUp.Click += new System.EventHandler(this.mnuPictureListMoveUp_Click);
 			// 
@@ -425,6 +428,7 @@ namespace PicAdminCS
 			this.Menu = this.mainMenu1;
 			this.Name = "fMain";
 			this.Text = "Pic Admin";
+			this.Closing += new System.ComponentModel.CancelEventHandler(this.fMain_Closing);
 			this.Load += new System.EventHandler(this.fMain_Load);
 			this.panelPic.ResumeLayout(false);
 			this.tabControl1.ResumeLayout(false);
@@ -538,7 +542,7 @@ namespace PicAdminCS
 			String strSQL = "select PictureID, PictureDate, Title, Filename, Publish, PictureSort from Picture ";
 			if (strWhereClause.Length > 0)
 				strSQL += "WHERE " + strWhereClause;
-			strSQL = strSQL + " ORDER BY Filename";
+			strSQL = strSQL + " ORDER BY PictureDate, PictureSort";
 
 			// create dataadapter and ds
 			DataSetPicture dsPicTemp = new DataSetPicture();
@@ -600,7 +604,28 @@ namespace PicAdminCS
 				String strFile = "\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text;
 				strFile = strFile.Replace("/", "\\");
 
-				imgCurImage = Image.FromFile(strFile);
+				if (!File.Exists(strFile)) 
+				{
+					MessageBox.Show("The file '" + strFile + "' was not found.", "Loading Picture", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
+				// figure out the temp location, create directory if needed
+				String strTempFile = System.Environment.GetEnvironmentVariable("TEMP") 
+										+ "\\_pics\\" + li.SubItems[3].Text;
+				strTempFile = strTempFile.Replace("/", "\\");
+				String strTempDir = strTempFile.Substring(0, strTempFile.LastIndexOf("\\"));
+				if (!Directory.Exists(strTempDir)) 
+					Directory.CreateDirectory(strTempDir);
+
+				// copy file to temp location
+				if (!File.Exists(strTempFile) ||
+						File.GetLastWriteTime(strTempFile) < File.GetLastWriteTime(strFile))
+					File.Copy(strFile, strTempFile, true);
+
+				System.Threading.Thread.Sleep(100);
+
+				imgCurImage = Image.FromFile(strTempFile);
 			
 				panelPic.Width = (int) ( ( (float) imgCurImage.Width / (float) imgCurImage.Height) 
 					* (float) panelPic.Height );
@@ -629,7 +654,8 @@ namespace PicAdminCS
 		private void lvPics_DoubleClick(object sender, System.EventArgs e)
 		{
 			ListViewItem li;
-			
+			fStatus fStat = new fStatus(this, "Loading picture...", 0);
+
 			if (lvPics.SelectedItems.Count == 0) return;
 
 			li = lvPics.SelectedItems[0];
@@ -638,20 +664,27 @@ namespace PicAdminCS
 
 			f.MainForm = this;
 			f.LoadPicture(Convert.ToInt32(li.Text));
-			f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + 
-				li.SubItems[3].Text.Replace("/", "\\") );
-			
+//			f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text.Replace("/", "\\") );
+			fStat.Hide();
+
 			f.ShowDialog();
 
 			if (!f.mblnCancel) 
 			{
 				li.SubItems[2].Text = f.Title;
+				if (f.Publish)
+					li.SubItems[4].Text = "x";
+				else
+					li.SubItems[4].Text = "";
+
 				if (pbPic.Image == null)
 					LoadImage();
 			}
 
 			while (f.MovePrevious || f.MoveNext) 
 			{
+				fStat.ShowStatusForm();
+
 				// Check if we should move to previous item, if not exit
 				if (f.MovePrevious) 
 				{
@@ -671,18 +704,25 @@ namespace PicAdminCS
 
 				// Load the selected picture
 				f.LoadPicture(Convert.ToInt32(li.Text));
-				f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + 
-					li.SubItems[3].Text.Replace("/", "\\") );
+				//f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text.Replace("/", "\\") );
 	
+				fStat.Hide();
 				f.ShowDialog();
 
 				// If not cancelling, update title
 				if (!f.mblnCancel) 
+				{
 					li.SubItems[2].Text = f.Title;
+					if (f.Publish)
+						li.SubItems[4].Text = "x";
+					else
+						li.SubItems[4].Text = "";
+				}
 				else
 					break;
 
 			}
+			fStat.Hide();
 
 		}
 
@@ -859,6 +899,22 @@ namespace PicAdminCS
 				imgCurImage = null;
 			}
 			pbPic.Image = null;
+		}
+
+		private void fMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (Directory.Exists(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache"))
+			{
+				if (imgCurImage != null) 
+				{   
+					imgCurImage.Dispose();
+					imgCurImage = null;
+				}
+				pbPic.Image = null;
+				fStatus fStat = new fStatus(null, "Cleaning up...", 0);
+				Directory.Delete(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache\\", true);
+				fStat.Hide();
+			}
 		}
 
 

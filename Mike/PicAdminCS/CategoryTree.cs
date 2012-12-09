@@ -60,10 +60,10 @@ namespace PicAdminCS
 			TreeNode nRoot = new TreeNode("Categories");
 			nRoot.Tag = (DataSetCategory.CategoryRow) dvCategory[0].Row;
 			tvCategory.Nodes.Add(nRoot);
-			nRoot.Expand();	
 
             // load first level
 			FillChildren(nRoot, 2);
+			nRoot.Expand();	
 
 		}
 
@@ -264,7 +264,7 @@ namespace PicAdminCS
 			}
 
 			fEditCategory ec = new fEditCategory();
-			ec.ParentCategoryID = ((DataSetCategory.CategoryRow)n.Tag).CategoryID;
+			ec.NewCategory(((DataSetCategory.CategoryRow)n.Tag).CategoryID);
 
 			ec.ShowDialog();
 

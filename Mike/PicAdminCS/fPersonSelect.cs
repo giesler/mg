@@ -90,6 +90,7 @@ namespace PicAdminCS
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(240, 216);
 			this.peopleCtl1.TabIndex = 3;
+			this.peopleCtl1.DoubleClickPerson += new PicAdminCS.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnCancel
 			// 
@@ -139,6 +140,11 @@ namespace PicAdminCS
 		{
 			mblnCancel = true;
 			Visible = false;
+		}
+
+		private void peopleCtl1_DoubleClickPerson(object sender, PicAdminCS.PersonCtlEventArgs e)
+		{
+			btnOK_Click(sender, e);
 		}
 
 		public bool Cancel

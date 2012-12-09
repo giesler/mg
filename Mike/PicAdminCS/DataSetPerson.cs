@@ -21,6 +21,10 @@ namespace PicAdminCS {
         
         private PersonDataTable tablePerson;
         
+        private PersonGroupDataTable tablePersonGroup;
+        
+        private DataRelation relationPersonPersonGroup;
+        
         public DataSetPerson() {
             this.InitClass();
         }
@@ -35,6 +39,14 @@ namespace PicAdminCS {
         public PersonDataTable Person {
             get {
                 return this.tablePerson;
+            }
+        }
+        
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PersonGroupDataTable PersonGroup {
+            get {
+                return this.tablePersonGroup;
             }
         }
         
@@ -62,13 +74,28 @@ namespace PicAdminCS {
             this.Namespace = "http://www.tempuri.org/DataSetPerson.xsd";
             this.tablePerson = new PersonDataTable();
             this.Tables.Add(this.tablePerson);
+            this.tablePersonGroup = new PersonGroupDataTable();
+            this.Tables.Add(this.tablePersonGroup);
+            this.tablePersonGroup.Constraints.Add(new System.Data.ForeignKeyConstraint("PersonPersonGroup", new DataColumn[] {
+                            this.tablePerson.PersonIDColumn}, new DataColumn[] {
+                            this.tablePersonGroup.PersonIDColumn}));
+            this.relationPersonPersonGroup = new DataRelation("PersonPersonGroup", new DataColumn[] {
+                        this.tablePerson.PersonIDColumn}, new DataColumn[] {
+                        this.tablePersonGroup.PersonIDColumn}, false);
+            this.Relations.Add(this.relationPersonPersonGroup);
         }
         
         private bool ShouldSerializePerson() {
             return false;
         }
         
+        private bool ShouldSerializePersonGroup() {
+            return false;
+        }
+        
         public delegate void PersonRowChangeEventHandler(object sender, PersonRowChangeEvent e);
+        
+        public delegate void PersonGroupRowChangeEventHandler(object sender, PersonGroupRowChangeEvent e);
         
         public class PersonDataTable : DataTable, System.Collections.IEnumerable {
             
@@ -79,6 +106,8 @@ namespace PicAdminCS {
             private DataColumn columnFirstName;
             
             private DataColumn columnFullName;
+            
+            private DataColumn columnEmail;
             
             internal PersonDataTable() : 
                     base("Person") {
@@ -116,6 +145,12 @@ namespace PicAdminCS {
                 }
             }
             
+            internal DataColumn EmailColumn {
+                get {
+                    return this.columnEmail;
+                }
+            }
+            
             public PersonRow this[int index] {
                 get {
                     return ((PersonRow)(this.Rows[index]));
@@ -134,13 +169,14 @@ namespace PicAdminCS {
                 this.Rows.Add(row);
             }
             
-            public PersonRow AddPersonRow(string LastName, string FirstName, string FullName) {
+            public PersonRow AddPersonRow(string LastName, string FirstName, string FullName, string Email) {
                 PersonRow rowPersonRow = ((PersonRow)(this.NewRow()));
                 rowPersonRow.ItemArray = new object[] {
                         null,
                         LastName,
                         FirstName,
-                        FullName};
+                        FullName,
+                        Email};
                 this.Rows.Add(rowPersonRow);
                 return rowPersonRow;
             }
@@ -167,6 +203,8 @@ namespace PicAdminCS {
                 this.Columns.Add(this.columnFirstName);
                 this.columnFullName = new DataColumn("FullName", typeof(string), "", System.Data.MappingType.Element);
                 this.Columns.Add(this.columnFullName);
+                this.columnEmail = new DataColumn("Email", typeof(string), "", System.Data.MappingType.Element);
+                this.Columns.Add(this.columnEmail);
                 this.PrimaryKey = new DataColumn[] {
                         this.columnPersonID};
             }
@@ -281,6 +319,20 @@ namespace PicAdminCS {
                 }
             }
             
+            public string Email {
+                get {
+                    try {
+                        return ((string)(this[this.tablePerson.EmailColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePerson.EmailColumn] = value;
+                }
+            }
+            
             public bool IsLastNameNull() {
                 return this.IsNull(this.tablePerson.LastNameColumn);
             }
@@ -304,6 +356,18 @@ namespace PicAdminCS {
             public void SetFullNameNull() {
                 this[this.tablePerson.FullNameColumn] = System.Convert.DBNull;
             }
+            
+            public bool IsEmailNull() {
+                return this.IsNull(this.tablePerson.EmailColumn);
+            }
+            
+            public void SetEmailNull() {
+                this[this.tablePerson.EmailColumn] = System.Convert.DBNull;
+            }
+            
+            public PersonGroupRow[] GetPersonGroupRows() {
+                return ((PersonGroupRow[])(this.GetChildRows(this.Table.ChildRelations["PersonPersonGroup"])));
+            }
         }
         
         public class PersonRowChangeEvent : EventArgs {
@@ -318,6 +382,219 @@ namespace PicAdminCS {
             }
             
             public PersonRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        public class PersonGroupDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnPersonGroupID;
+            
+            private DataColumn columnPersonID;
+            
+            private DataColumn columnGroupID;
+            
+            internal PersonGroupDataTable() : 
+                    base("PersonGroup") {
+                this.InitClass();
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn PersonGroupIDColumn {
+                get {
+                    return this.columnPersonGroupID;
+                }
+            }
+            
+            internal DataColumn PersonIDColumn {
+                get {
+                    return this.columnPersonID;
+                }
+            }
+            
+            internal DataColumn GroupIDColumn {
+                get {
+                    return this.columnGroupID;
+                }
+            }
+            
+            public PersonGroupRow this[int index] {
+                get {
+                    return ((PersonGroupRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PersonGroupRowChangeEventHandler PersonGroupRowChanged;
+            
+            public event PersonGroupRowChangeEventHandler PersonGroupRowChanging;
+            
+            public event PersonGroupRowChangeEventHandler PersonGroupRowDeleted;
+            
+            public event PersonGroupRowChangeEventHandler PersonGroupRowDeleting;
+            
+            public void AddPersonGroupRow(PersonGroupRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public PersonGroupRow AddPersonGroupRow(PersonRow parentPersonRowByPersonPersonGroup, int GroupID) {
+                PersonGroupRow rowPersonGroupRow = ((PersonGroupRow)(this.NewRow()));
+                rowPersonGroupRow.ItemArray = new object[] {
+                        null,
+                        parentPersonRowByPersonPersonGroup[0],
+                        GroupID};
+                this.Rows.Add(rowPersonGroupRow);
+                return rowPersonGroupRow;
+            }
+            
+            public PersonGroupRow FindByPersonIDGroupID(int PersonID, int GroupID) {
+                return ((PersonGroupRow)(this.Rows.Find(new object[] {
+                            PersonID,
+                            GroupID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            private void InitClass() {
+                this.columnPersonGroupID = new DataColumn("PersonGroupID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnPersonGroupID.AutoIncrement = true;
+                this.columnPersonGroupID.AllowDBNull = false;
+                this.columnPersonGroupID.ReadOnly = true;
+                this.Columns.Add(this.columnPersonGroupID);
+                this.columnPersonID = new DataColumn("PersonID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnPersonID.AllowDBNull = false;
+                this.Columns.Add(this.columnPersonID);
+                this.columnGroupID = new DataColumn("GroupID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnGroupID.AllowDBNull = false;
+                this.Columns.Add(this.columnGroupID);
+                this.PrimaryKey = new DataColumn[] {
+                        this.columnPersonID,
+                        this.columnGroupID};
+            }
+            
+            public PersonGroupRow NewPersonGroupRow() {
+                return ((PersonGroupRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                // We need to ensure that all Rows in the tabled are typed rows.
+                // Table calls newRow whenever it needs to create a row.
+                // So the following conditions are covered by Row newRow(Record record)
+                // * Cursor calls table.addRecord(record) 
+                // * table.addRow(object[] values) calls newRow(record)    
+                return new PersonGroupRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(PersonGroupRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PersonGroupRowChanged != null)) {
+                    this.PersonGroupRowChanged(this, new PersonGroupRowChangeEvent(((PersonGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PersonGroupRowChanging != null)) {
+                    this.PersonGroupRowChanging(this, new PersonGroupRowChangeEvent(((PersonGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PersonGroupRowDeleted != null)) {
+                    this.PersonGroupRowDeleted(this, new PersonGroupRowChangeEvent(((PersonGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PersonGroupRowDeleting != null)) {
+                    this.PersonGroupRowDeleting(this, new PersonGroupRowChangeEvent(((PersonGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemovePersonGroupRow(PersonGroupRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        public class PersonGroupRow : DataRow {
+            
+            private PersonGroupDataTable tablePersonGroup;
+            
+            internal PersonGroupRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePersonGroup = ((PersonGroupDataTable)(this.Table));
+            }
+            
+            public int PersonGroupID {
+                get {
+                    return ((int)(this[this.tablePersonGroup.PersonGroupIDColumn]));
+                }
+                set {
+                    this[this.tablePersonGroup.PersonGroupIDColumn] = value;
+                }
+            }
+            
+            public int PersonID {
+                get {
+                    return ((int)(this[this.tablePersonGroup.PersonIDColumn]));
+                }
+                set {
+                    this[this.tablePersonGroup.PersonIDColumn] = value;
+                }
+            }
+            
+            public int GroupID {
+                get {
+                    return ((int)(this[this.tablePersonGroup.GroupIDColumn]));
+                }
+                set {
+                    this[this.tablePersonGroup.GroupIDColumn] = value;
+                }
+            }
+            
+            public PersonRow PersonRow {
+                get {
+                    return ((PersonRow)(this.GetParentRow(this.Table.ParentRelations["PersonPersonGroup"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PersonPersonGroup"]);
+                }
+            }
+        }
+        
+        public class PersonGroupRowChangeEvent : EventArgs {
+            
+            private PersonGroupRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            public PersonGroupRowChangeEvent(PersonGroupRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public PersonGroupRow Row {
                 get {
                     return this.eventRow;
                 }

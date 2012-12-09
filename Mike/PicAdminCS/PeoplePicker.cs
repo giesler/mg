@@ -71,12 +71,12 @@ namespace PicAdminCS
 		{
 			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
 			this.btnAdd = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.lvPeople = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRemove = new System.Windows.Forms.Button();
+			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.SuspendLayout();
@@ -100,12 +100,24 @@ namespace PicAdminCS
 			this.btnAdd.Text = ">";
 			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 			// 
+			// panel1
+			// 
+			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				 this.lvPeople,
+																				 this.panel2});
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(200, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(280, 192);
+			this.panel1.TabIndex = 2;
+			// 
 			// lvPeople
 			// 
 			this.lvPeople.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																					   this.columnHeader1});
 			this.lvPeople.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvPeople.FullRowSelect = true;
+			this.lvPeople.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvPeople.HideSelection = false;
 			this.lvPeople.Location = new System.Drawing.Point(32, 0);
 			this.lvPeople.Name = "lvPeople";
@@ -118,25 +130,6 @@ namespace PicAdminCS
 			// 
 			this.columnHeader1.Text = "People";
 			this.columnHeader1.Width = 400;
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(192, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(8, 192);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
-			// 
-			// panel1
-			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.lvPeople,
-																				 this.panel2});
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(200, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(280, 192);
-			this.panel1.TabIndex = 2;
 			// 
 			// panel2
 			// 
@@ -158,6 +151,14 @@ namespace PicAdminCS
 			this.btnRemove.TabIndex = 0;
 			this.btnRemove.Text = "<";
 			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(192, 0);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(8, 192);
+			this.splitter1.TabIndex = 1;
+			this.splitter1.TabStop = false;
 			// 
 			// PersonPicker
 			// 
@@ -192,6 +193,11 @@ namespace PicAdminCS
 
 			ListViewItem li = lvPeople.Items.Add(cr.FullName.ToString());
 			li.Tag = cr;
+		}
+
+		public void ClearSelectedPeople() 
+		{
+			lvPeople.Items.Clear();
 		}
 
 		private void btnAdd_Click(object sender, System.EventArgs e)
@@ -239,7 +245,8 @@ namespace PicAdminCS
 				PersonPickerEventArgs ex = new PersonPickerEventArgs();
 				ex.PersonID = ((DataSetPerson.PersonRow)li.Tag).PersonID;
 				lvPeople.Items.Remove(li);
-				RemovedPerson (this, ex);
+				if (RemovedPerson != null)
+					RemovedPerson (this, ex);
 			}
 		}
 

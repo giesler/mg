@@ -27,11 +27,11 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <data name="dsPerson.Location" type="System.Drawing.Point, System.Drawing">
-    <value>482, 17</value>
+  <data name="contextMenu1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
   </data>
-  <data name="daPersonGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>633, 44</value>
+  <data name="daGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 23</value>
   </data>
   <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -40,7 +40,7 @@
     <value>False</value>
   </data>
   <data name="cn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>419, 17</value>
+    <value>632, 23</value>
   </data>
   <data name="sqlInsertCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -60,38 +60,11 @@
   <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sqlDeleteCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlDeleteCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="daPerson.Location" type="System.Drawing.Point, System.Drawing">
-    <value>291, 47</value>
-  </data>
-  <data name="sqlInsertCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlInsertCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlSelectCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlSelectCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlUpdateCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlUpdateCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="errorProvider1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 36</value>
+  <data name="dsGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>695, 23</value>
   </data>
   <data name="$this.Name">
-    <value>fEditPerson</value>
+    <value>GroupControl</value>
   </data>
   <resheader name="ResMimeType">
     <value>text/microsoft-resx</value>
