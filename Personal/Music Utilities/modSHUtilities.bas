@@ -15,7 +15,7 @@ Option Explicit
 Public fs As Scripting.FileSystemObject
 
 Public Type SHFILEOPSTRUCT
-   hwnd        As Long
+   hWnd        As Long
    wFunc       As Long
    pFrom       As String
    pTo         As String
@@ -161,7 +161,7 @@ Private Declare Function GetDesktopWindow Lib "User32" () As Long
 
 Private Declare Function ShellExecute Lib "shell32.dll" _
     Alias "ShellExecuteA" _
-   (ByVal hwnd As Long, ByVal lpOperation As String, _
+   (ByVal hWnd As Long, ByVal lpOperation As String, _
     ByVal lpFile As String, ByVal lpParameters As String, _
     ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
     
@@ -194,7 +194,7 @@ Public Function CopySourceToDest(strSource As String, strDest As String) As Long
 
 End Function
 
-Public Function GetBrowseFolder(msg) As String
+Public Function GetBrowseFolder(msg As String, hWnd As Long) As String
 
    Dim pidl As Long
    Dim pos As Integer
@@ -206,7 +206,7 @@ Public Function GetBrowseFolder(msg) As String
   'indicates success (1), retrieve the user's
   'selection contained in pidl
    With bi
-      .hOwner = frmUpdate.hwnd
+      .hOwner = hWnd
       .pidlRoot = CSIDL_DESKTOP
       .lpszTitle = msg
       .ulFlags = BIF_RETURNONLYFSDIRS
@@ -223,7 +223,7 @@ Public Function GetBrowseFolder(msg) As String
 
 End Function
 
-Public Function FileOpenDialog(strTitle As String, strStartIn As String) As String
+Public Function FileOpenDialog(strTitle As String, strStartIn As String, hWnd As Long) As String
 
   'used in call setup
    Dim sFilters As String
@@ -242,7 +242,7 @@ Public Function FileOpenDialog(strTitle As String, strStartIn As String) As Stri
       'size of the OFN structure
       .nStructSize = Len(OFN)
       'window owning the dialog
-      .hWndOwner = frmUpdate.hwnd
+      .hWndOwner = hWnd
       'filters (patterns) for the dropdown combo
       .sFilter = sFilters
       'index to the initial filter
