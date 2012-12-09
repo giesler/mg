@@ -85,6 +85,7 @@
 #define IDD_RECONNECT                   183
 #define IDD_CONTEST                     184
 #define IDR_DL                          185
+#define IDB_CONTEST_80                  186
 #define IDC_FILES                       1000
 #define IDC_PICSIZE                     1001
 #define IDC_DBPATH                      1002
@@ -362,7 +363,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        186
+#define _APS_NEXT_RESOURCE_VALUE        187
 #define _APS_NEXT_COMMAND_VALUE         32809
 #define _APS_NEXT_CONTROL_VALUE         1241
 #define _APS_NEXT_SYMED_VALUE           131

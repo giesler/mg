@@ -1131,6 +1131,7 @@ IDB_THUMBNAIL_WAITING   BITMAP  DISCARDABLE     "Thumbnail_Waiting.bmp"
 IDB_TABS                BITMAP  DISCARDABLE     "Tabs.bmp"
 IDB_SHRINKLEFT          BITMAP  DISCARDABLE     "Shrink_Left.bmp"
 IDB_SHRINKDOWN          BITMAP  DISCARDABLE     "Shrink_Down.bmp"
+IDB_CONTEST_80          BITMAP  DISCARDABLE     "Contest 80x80.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
