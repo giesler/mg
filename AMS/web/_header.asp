@@ -1,9 +1,9 @@
-<table width="100%" cellpadding="0" cellspacing="0" background="<%=strOffset%>images/top_wash.gif">
+<table width="100%" cellpadding="0" cellspacing="0" background="<%=strOffset%>img/top_wash.gif">
 	<tr>
-		<td width="108" rowSpan=2><a href="<%=strOffset%>home/"><img src="<%=strOffset%>images/logo_wash.jpg" width="130" height="120" border="0"></a></td>
-		<td width="500" height="100"><img src="<%=strOffset%>images/header.jpg" width="500" height="100"></td>
-		<td align="right" height="100"><a href="<%=strOffset%>download/"><img src="<%=strOffset%>images/download_now.jpg" width="140" height="100" border="0"></a></td>
-		<td width="5" height="100"><img src="<%=strOffset%>images/trans.gif" width="5" height="100"></td>
+		<td width="108" rowSpan=2><a href="<%=strOffset%>home/"><img src="<%=strOffset%>img/logo_wash.jpg" width="130" height="120" border="0"></a></td>
+		<td width="500" height="100"><img src="<%=strOffset%>img/header.jpg" width="500" height="100"></td>
+		<td align="right" height="100"><a href="<%=strOffset%>download/"><img src="<%=strOffset%>img/download_now.jpg" width="140" height="100" border="0"></a></td>
+		<td width="5" height="100"><img src="<%=strOffset%>img/trans.gif" width="5" height="100"></td>
 	</tr><tr>
 		<td colspan=3 height="20" bgcolor="white"><img src="<%=strOffset%>imgage/trans.gif" width="5" height="5"></td>
 	</tr>
@@ -33,15 +33,15 @@ function TreeHTML(parent, out, level)
 		out = out & "<tr>"
 		
 		for i = 1 to level-1
-			out = out & "<td width=""10""><img src=""" & strOffset & "images/trans.gif"" width=""10"" height=""5""></td>"
+			out = out & "<td width=""10""><img src=""" & strOffset & "img/trans.gif"" width=""10"" height=""5""></td>"
 		next 
 	    
 	    if instr(strCurPage, strCurURL) > 0 then
-			out = out & "<td><img src=""" & strOffset & "images/minus.gif"">&nbsp;</td>"
+			out = out & "<td><img src=""" & strOffset & "img/minus.gif"">&nbsp;</td>"
 		else
 			out = out & "<td>"
 			out = out & "<a class=""clsMenu"" href=""" & strOffset & strCurURL & """>"
-			out = out & "<img border=""0"" src=""" & strOffset & "images/plus.gif""></a>&nbsp;</td>"
+			out = out & "<img border=""0"" src=""" & strOffset & "img/plus.gif""></a>&nbsp;</td>"
 		end if
 	    
 	    ' see if in area now
@@ -92,6 +92,6 @@ TreeHTML objXMLDocEl, out, 0
 			<br>
 			<img src="img/trans.gif" height="100" width="1">
 		</td>
-		<td width="8" bgcolor="white"><img src="<%=strOffset%>images/trans.gif" height="8" width="8"></td>
+		<td width="8" bgcolor="white"><img src="<%=strOffset%>img/trans.gif" height="8" width="8"></td>
 		<td bgcolor="White" valign="top">
 			<!-- main content -->

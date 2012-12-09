@@ -51,7 +51,6 @@ the left to navigate to the file or folder you would like.</p>
 %>
 <p class="req">An unknown error has occurred.  Please use the links on the lef tto navigate to the file or 
 folder you would like.</p>
-<%=Request.Querystring%>
 <%
 end select
 %>

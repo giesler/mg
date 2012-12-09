@@ -1,22 +1,41 @@
 <%@ Language=VBScript %>
 <%
 Option Explicit
-dim strOffset
+dim strOffset, strFile, strOnLoad
 strOffset = "../../"
+strFile = "../bld/AMSInstall_050.exe"
+
+if Request.Form("agree") = "n" then
+	Response.Redirect("http://www.google.com")
+elseif Request.Form("agree") = "y" then
+	strOnLoad = "onLoad=""window.location.href='" & strFile & "'"";"
+end if
 %>
 <html>
 <head>
 <title>Adult Media Swapper - Download</title>
 <link rel="stylesheet" type="text/css" href="../../ams.css">
 </head>
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19>
+<% if Request.Form("agree") = "" then %>
+<script language="javascript">
+function checkform() {
+	if (!f.agree(0).checked && ! f.agree(1).checked) {
+		alert('You must agree before you can download AMS.');
+		return false;
+	}
+	return true;
+}
+</script>
+<% end if %>
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19 <%=strOnLoad%>>
 
 <!-- #include file="../../_header.asp"-->
 
-<h3>Download</h3>
+<% if Request.Form("agree") = "" then %>
+
+<h3>Before you download the Adult Media Swapper application, you must read and agree to the following disclaimer:</h3>
 
 <p>
-<h3>Before you download the Adult Media Swapper application, you must read and agree with the following disclaimer:</h3>
 <ol>
 	<li>You are at least 18 years of age or the minimum age required to view sexually explicit material for your local jurisdiction, whichever is greater.</li>
 	<li>You are not offended by sexually explicit images, video, audio, or other media of a graphic nature. 
@@ -28,23 +47,38 @@ strOffset = "../../"
 </ol>
 </p>
 
-<form>
+<p>
+The AMS download is approxiately 900kb.  It will only take a few minutes to download.
+</p>
+
+<form name="f" id="f" method="post" action="default.asp">
 <blockquote>
-	<table bgcolor="#f0f0f0" width="400" cellpadding="3">
+	<table bgcolor="#f0f0f0" cellpadding="3">
 		<tr>
-			<td><input type="radio" name="agree"></td>
-			<td class="clsText">I agree to these terms and conditions</td>
+			<td><input type="radio" name="agree" value="y" id="agreey"></td>
+			<td class="clsText"><label for="agreey">I agree to these terms and conditions</label></td>
 		</tr><tr>
-			<td><input type="radio" name="agree"></td>
-			<td class="clsText">I agree to these terms and conditions</td>
+			<td><input type="radio" name="agree" value="n" id="agreen"></td>
+			<td class="clsText"><label for="agreen">I do not agree to these terms and conditions</label></td>
 		</tr><tr>
-			<td colSpan="2"><input type="submit" value="Download"></td>
+			<td colSpan="2" align="right"><input type="submit" value="Download" onclick="return checkform()"></td>
 		</tr>
 	</table>
 </blockquote>
 </form>
 
-<!-- #include file="../_footer.asp"-->
+<% else %>
+
+<h3>Download</h3>
+
+<p>
+Your download should begin shortly.  If it does not start automatically, click <a href="<%=strFile%>">here</a> 
+to start your download.
+</p>
+
+<% end if %>
+
+<!-- #include file="../../_footer.asp"-->
 
 </body>
 </html>

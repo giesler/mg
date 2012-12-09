@@ -117,7 +117,7 @@ function checkform() {
 
 <% if blnValidValues then %>
 
-<h3>Download</h3>
+<h3>Signup</h3>
 
 <p>
 Your new username is <b><%=Request.Form("un")%></b><br>
@@ -125,7 +125,7 @@ Your new password is not displayed for security reasons.
 </p>
 
 <p>
-<a href="bld/AMSInstall_050.exe">Click here to download AMS</a>
+<a href="get/">Click here to download AMS</a>
 </p>
 
 <% else %>
@@ -201,7 +201,7 @@ end if
 			will <i>not</i> be shared or used for any other purpose.</td></tr></table>
 		</td>
 	</tr><tr>
-		<td colspan="2"><img src="../../images/trans.gif" height="10"></td>
+		<td colspan="2"><img src="../../img/trans.gif" height="10"></td>
 	</tr><tr>
 		<td colspan="2" align="right"><input type="submit" value="Continue >>" onclick="return checkform()"></td>
 	</tr>

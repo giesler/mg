@@ -15,7 +15,7 @@
 
 Sub Application_OnStart
 
-	Application("cnString") = "Provider=SQLOLEDB.1;Password=%1x73-ba|m5q{;Persist Security Info=True;User ID=amsweb;Initial Catalog=xmcatalog;Data Source=amstest;Application Name=www"
+	Application("cnString") = "Provider=SQLOLEDB.1;Password=%1x73-ba|m5q{;Persist Security Info=True;User ID=amsweb;Initial Catalog=xmcatalog;Data Source=amswebdbsvr;Application Name=www"
 	Application("strVDir") = "new/"
 	
 End Sub

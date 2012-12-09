@@ -24,7 +24,7 @@ In order to use AMS you will need a username and password.
 </p>
 
 <p>
-<a href="bld/AMSInstall_050.exe">Click here if you already have an AMS username and password</a>
+<a href="get/">Click here if you already have an AMS username and password</a>
 </p>
 
 <!-- #include file="../_footer.asp"-->
