@@ -61,13 +61,41 @@ function ShowHide(id) {
 </head>
 	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" background="_themes/mikes-website/blackbg.gif" bgcolor="#000000" text="#FFFFFF" link="#FFFF00" vlink="#FFFF99" alink="#FFCC99" onLoad="javascript:frmGoogle.q.focus()"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
 
-<p align="center"><font size="6"><strong></strong></font><br>
-</p>
-<p align="center">&nbsp;</p>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="100" bgcolor="#000000"><a href="../Default.asp"><img border="0" src="../_borders/mikespage.gif"></a></td>
+    <td bgcolor="#000000" width="20"><img border="0" src="../_borders/black20x30filler.gif"></td>
+    <td bgcolor="#C00000" background="../_borders/bl-red_fade_top.jpg" width="400" height="30"><font size="6"><strong>Frequent Links</strong></font></td>
+    <td bgcolor="#C00000" align="right" valign="middle"><a href="http://giesler.org"><img border="0" src="../_borders/giesler.png" alt="Go to giesler.org" width="22" height="30"></a>&nbsp;
+    </td>
+  </tr>
+</table>
 
 </td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="1%">
 
-
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100" bgcolor="#C00000" height="100%">
+    <tr>
+      <td valign="top" align="center" bgcolor="#000000" width="100" height="20"><img border="0" src="../_borders/black100x20filler.gif" width="100" height="20"></td>
+    </tr>
+    <tr>
+      <td background="../_borders/bl-red_fade_side.jpg" valign="top" align="center" bgcolor="#000000" width="100" height="400">
+        <nobr>[&nbsp;<a href="../">Home</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../stuff/index.html">Up</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../aboutme/index.html">About&nbsp;Me</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../family/index.html">Family</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../friends/index.html">Friends</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../sara/index.html">Sara</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../camping/index.html">Camping</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../pictures/index.html">Pictures</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="../email/index.html">Email</a>&nbsp;]</nobr>
+        <p>&nbsp;</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="center" width="100" height="200"><a href="../stuff/toc.html"><img border="0" src="../_borders/border_toc-ad.gif" width="48" height="31"></a></td>
+    </tr>
+    <tr>
+      <td width="100" valign="bottom" align="center">
+        <p>&nbsp;</p>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
 
 </td><td valign="top" width="24"></td><!--msnavigation--><td valign="top"> 
 		 
@@ -715,7 +743,26 @@ function RenderWeather(oWea) {
 		
 	<!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td>
 
-
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" height="30">
+    <tr>
+      <td width="100%" valign="middle" align="center" bgcolor="#C00000">
+        <div align="center">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td valign="middle" align="center" width="100"><a href="http://www.microsoft.com/windows2000" target="_blank"><img border="0" src="../_borders/w2ksplash.gif" width="31" height="20" alt="Powered by Windows 2000"></a></td>
+              <td valign="middle" align="center"><font size="1"> <a href="http://mike.giesler.org">mike.giesler.org</a>,
+                a <a href="http://giesler.org">giesler.org</a> site</font></td>
+              <td valign="middle" align="right" width="100"><img border="0" src="../_borders/border_copyright.gif" width="80" height="27"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
 
 </td></tr><!--msnavigation--></table></body>
 </html>
