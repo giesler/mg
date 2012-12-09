@@ -229,7 +229,7 @@ bool CXMSession::Alpha()
 
 						if (mhostPort == (UINT)config()->GetFieldLong(FIELD_SERVER_PORT))
 						{
-							TRACE("*** Unexpected FD_CLOSE received from server.\n");
+							//TRACE("*** Unexpected FD_CLOSE received from server.\n");
 						}
 					}
 
@@ -240,7 +240,7 @@ bool CXMSession::Alpha()
 					if (ReceiveChunk()<1)
 					{
 						//connection is dead
-						TRACE("*** FD_READ: Connection is closed.\n");
+						//TRACE("*** FD_READ: Connection is closed.\n");
 						PostMessage(XM_CLOSE, NULL, NULL);
 					}
 					break;
@@ -250,7 +250,7 @@ bool CXMSession::Alpha()
 					if(!SendChunk())
 					{
 						//send failed.. connectio prolly dead
-						TRACE("*** FD_WRITE: Connection is closed.\n");
+						//TRACE("*** FD_WRITE: Connection is closed.\n");
 						PostMessage(XM_CLOSE, NULL, NULL);
 					}
 					break;

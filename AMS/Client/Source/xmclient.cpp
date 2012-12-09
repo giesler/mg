@@ -169,7 +169,7 @@ CXMClientApp::CXMClientApp()
 
 char* CXMClientApp::Version()
 {
-	return "0.70";
+	return "0.80";
 }
 	
 

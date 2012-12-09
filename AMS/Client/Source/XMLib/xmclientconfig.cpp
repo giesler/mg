@@ -683,6 +683,7 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml, char* version)
 	//upgrade stuff
 	char *sz;
 	bool upgrade = false;
+	_bstr_t upgradeVersion;
 
 	//dont allow access to the config during
 	//this operations
@@ -698,7 +699,9 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml, char* version)
 		//versions are different
 		//HACK: do better checking
 		upgrade = true;
+		upgradeVersion = var.bstrVal;
 	}
+	VariantClear(&var);
 
 	//load all field nodes
 	COM_SINGLECALL(xml->getElementsByTagName(_bstr_t("field"), &nodes));
@@ -747,23 +750,26 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml, char* version)
 	if (upgrade)
 	{
 		//convert any auto-login password to an md5
-		CMD5 md5;
-		sz = GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
-		if (strlen(sz) > 0)
+		if (_stricmp(upgradeVersion, "0.60")==0)
 		{
-			md5.FromBuf((BYTE*)sz, strlen(sz));
-			SetField(FIELD_LOGIN_AUTO_PASSWORD, md5.GetString());
-		}
-		sz = NULL;
+			CMD5 md5;
+			sz = GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+			if (strlen(sz) > 0)
+			{
+				md5.FromBuf((BYTE*)sz, strlen(sz));
+				SetField(FIELD_LOGIN_AUTO_PASSWORD, md5.GetString());
+			}
+			sz = NULL;
 
-		//convert password protect password to md5
-		sz = GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
-		if (strlen(sz) > 0)
-		{
-			md5.FromBuf((BYTE*)sz, strlen(sz));
-			SetField(FIELD_LOGIN_PROTECT_PASSWORD, md5.GetString());
+			//convert password protect password to md5
+			sz = GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
+			if (strlen(sz) > 0)
+			{
+				md5.FromBuf((BYTE*)sz, strlen(sz));
+				SetField(FIELD_LOGIN_PROTECT_PASSWORD, md5.GetString());
+			}
+			sz = NULL;
 		}
-		sz = NULL;
 	}
 
 	EXIT();

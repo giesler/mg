@@ -10,7 +10,7 @@ const UINT WM_TASKBARCREATED =
     ::RegisterWindowMessage(_T("TaskbarCreated"));
 
 #define XMADVERT_URL "http://ads.adultmediaswapper.com/request/"
-#define XMADVERT_MINIBANNERURL "http://ads.adultmediaswapper.com/logo/"
+#define XMADVERT_MINIBANNERURL "http://ads.adultmediaswapper.com/clientlogo/"
 
 // --------------------------------------------------------------------- MESSAGE MAP
 
@@ -285,13 +285,14 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 			NULL,
 			"MiniBanner",
 			WS_CHILD|WS_VISIBLE,
-			CRect(XMGUI_FOLDBORDER, XMGUI_TOPOFADD, XMGUI_MINIBANNERWIDTH+XMGUI_FOLDBORDER, XMGUI_LOGOSIZE),
+			CRect(XMGUI_FOLDBORDER, XMGUI_TOPOFADD, XMGUI_MINIBANNERWIDTH+XMGUI_FOLDBORDER, XMGUI_LOGOSIZE+XMGUI_TOPOFADD),
 			this,
 			IDC_MINIBANNER,
 			NULL))
 	{
 		return -1;
 	}
+	mMiniBanner.ModifyStyleEx(WS_EX_CLIENTEDGE | WS_EX_WINDOWEDGE, 0, 0);
 	mMiniBanner.Navigate(XMADVERT_MINIBANNERURL);
 
 	//create splitter
