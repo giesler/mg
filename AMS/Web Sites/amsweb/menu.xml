@@ -6,10 +6,10 @@
 		<m name="Privacy Policy" url="about/privacy/" />
 	</m>
 	<m name="Download" url="download/" />
+	<m name="News" url="news/" />
 	<m name="Support" url="support/">
 		<m name="System Status" url="support/status/" />
 		<m name="Known Issues" url="support/known/" />
-		<m name="News" url="support/news/" />
 		<m name="Software Support" url="support/software/">
 			<m name="FAQ" url="support/software/faq/" />
 			<m name="Requirements" url="support/software/req/" />

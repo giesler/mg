@@ -50,72 +50,67 @@ strOffset = "../"
 		</h4>
 		<ul>
 			<li>
-				Third place prize: <a href="http://shop.microsoft.com/Referral/Productinfo.asp?siteID=10557">
-					Microsoft© WheelMouse® Optical</a> USB & PS/2 optical mouse</li>
+				Third place prize: <a href="http://www.dlink.com/products/usb/dsbr100/">D-Link© 
+					DSB-R100</a> USB Digital Radio Tuner</li>
 			<li>
-				Second place prize: <a href="http://www.altecmm.com/webapp/commerce/command/ProductDisplay?prrfnbr=10175&prmenbr=9490&from=">
-					Altec Lansing© ATP3 Flat Panel Speaker System</a></li>
+				Second place prize: <a href="http://www.dlink.com/products/usb/dsc100/">D-Link© 
+					DSC-100</a> USB Digital Camera / Webcam</li>
 			<li>
-				First place prize: <a href="http://www.storagebysony.com/categories/dvd.html#">Sony© 
-					16x Internal IDE DVD Drive</a></li>
+				First place prize: <a href="http://www.dlink.com/products/usb/dsbt100/">D-Link© 
+					DSB-T100</a> USB TV Tuner/Video Capture Device</li>
 			<li>
 				Random drawing: Every member with at least 1,000 points will be added to a 
-				random drawing for a <a href="http://consumer.usa.canon.com/scanners/csn656u/index.html">
-					Canon© CanoScan® N656u</a> USB flatbed scanner</li>
+				random drawing for a <a href="http://www.dlink.com/products/multimedia/dmp110/">D-Link© 
+					DMP-100</a> MP3 Player</li>
 		</ul>
 		<br>
-		</ol> </p>
 		<br>
 		<h4>
 			There are some rules to this contest:
 		</h4>
-		<p>
-			<ol>
-				<li>
-					You must have a valid e-mail address to win. If we can’t contact you, the prize 
-					will go to the runner-up. Check your <a href="../account/">Account Information</a>
-					to verify the e-mail address that we have on record.</li>
-				<li>
-					<b>Indexes must be accurate.</b> We screen all of the indexes and will 
-					disqualify anyone who is inaccurately describing pictures. Be sure to read the <a href="../support/software/indexing/">
-						Indexing FAQ</a> for details on how to correctly index files.</li>
-				<li>
-					Each person you refer must sign up using a unique IP address, have a valid 
-					e-mail address, and sign on to AMS at least once before points are credited to 
-					your account.</li>
-				<li>
-					This contest is only open to users in the United States or Canada. We will not 
-					ship any prizes outside of this area.</li>
-				<li>
-					The contest ends on midnight, Central time, on the last day of the month.</li>
-				<li>
-					You have one week to respond to our e-mail to claim your prize. We send out 
-					e-mail to the winners within two business days after the contest has ended to 
-					give us time to verify indexing accuracy.</li>
-			</ol>
-		</p>
+		<ol>
+			<li>
+				You must have a valid e-mail address to win. If we can’t contact you, the prize 
+				will go to the runner-up. Check your <a href="../account/">Account Information</a>
+				to verify the e-mail address that we have on record.</li>
+			<li>
+				<b>Indexes must be accurate.</b> We screen all of the indexes and will 
+				disqualify anyone who is inaccurately describing pictures. Be sure to read the <a href="../support/software/indexing/">
+					Indexing FAQ</a> for details on how to correctly index files.</li>
+			<li>
+				Each person you refer must sign up using a unique IP address, have a valid 
+				e-mail address, and sign on to AMS at least once before points are credited to 
+				your account.</li>
+			<li>
+				This contest is only open to users in the United States or Canada. We will not 
+				ship any prizes outside of this area.</li>
+			<li>
+				The contest ends on midnight, Central time, on the last day of the month.</li>
+			<li>
+				You have one week to respond to our e-mail to claim your prize. We send out 
+				e-mail to the winners within two business days after the contest has ended to 
+				give us time to verify indexing accuracy.</li>
+		</ol>
 		<br>
 		<h4>
 			Contest Tips:
 		</h4>
-		<p>
-			<ul>
-				<li>
-					Make sure anyone you refer is using your correct e-mail address when signing 
-					up. Check your <a href="../account/">Account Information</a> to verify the 
-					e-mail address that we have on record.</li>
-				<li>
-					To get the most points possible, make sure you index each picture as completely 
-					as possible. Scoring is done on a weighted curve, meaning you’ll get more 
-					points for indexing one picture completely then by indexing three pictures 
-					partially.</li>
-				<li>
-					<b>Be accurate!</b> Read the <a href="../support/software/indexing/">Indexing FAQ</a>
-					first to get an understanding of how to index files properly. If in doubt, 
-					error on the side of caution. You don’t want to get inadvertently disqualified 
-					for some simple mistakes.</li>
-			</ul>
-		</p>
+		<ul>
+			<li>
+				Make sure anyone you refer is using your correct e-mail address when signing 
+				up. Check your <a href="../account/">Account Information</a> to verify the 
+				e-mail address that we have on record.</li>
+			<li>
+				To get the most points possible, make sure you index each picture as completely 
+				as possible. Scoring is done on a weighted curve, meaning you’ll get more 
+				points for indexing one picture completely then by indexing three pictures 
+				partially.</li>
+			<li>
+				<b>Be accurate!</b> Read the <a href="../support/software/indexing/">Indexing FAQ</a>
+				first to get an understanding of how to index files properly. If in doubt, 
+				error on the side of caution. You don’t want to get inadvertently disqualified 
+				for some simple mistakes.</li>
+		</ul>
 		<br>
 		<h4>
 			Scoring:
@@ -173,7 +168,6 @@ strOffset = "../"
 				The manufacture's of these prizes are in no way or form endorsing Adult Media 
 				Swapper.</li>
 		</ul>
-		</p>
 		<br>
 		<P>
 			<i>All company names and products are trademarks of their respective owners.</i>

@@ -230,6 +230,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "news\default.asp"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "support\default.asp"
                     BuildAction = "Content"
                 />

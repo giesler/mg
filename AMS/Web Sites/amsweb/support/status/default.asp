@@ -17,12 +17,6 @@ strOffset = "../../"
 		<p>
 			All servers are currently up.
 		</p>
-		<p>
-			We have, occasionally, been experiencing problems. Please bear with us while we 
-			expand our systems to meet the increasing demand. If you ever have a problem 
-			connecting or using any of our systems, please try again at a later time. 
-			Thanks!
-		</p>
 		<!-- #include file="../../_footer.asp"-->
 	</body>
 </html>

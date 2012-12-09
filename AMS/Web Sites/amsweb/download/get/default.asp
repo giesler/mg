@@ -5,12 +5,12 @@ dim strOffset, strFile, strOnLoad, strSite, strAltSite
 strOffset = "../../"
 strSite = "http://download1.adultmediaswapper.com/"
 strAltSite = "http://download.adultmediaswapper.com/"
-strFile = "AMSInstall_080.exe"
+strFile = "AMSInstall_081.exe"
 
 if Request.Form("agree") = "n" then
 	Response.Redirect("http://www.google.com")
 elseif Request.Form("agree") = "y" then
-	strOnLoad = "onLoad=""window.location.href='" & strSite & strFile & "'"";"
+	strOnLoad = "onLoad=""startdl()"""
 end if
 %>
 <html>
@@ -28,8 +28,14 @@ function checkform() {
 	return true;
 }
 	</script>
+	<% else %>
+	<script language="javascript">
+function startdl() {
+	window.location.href='<%=strSite & strFile%>';
+}
+	</script>
 	<% end if %>
-	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19 <%=strOnLoad%>">
+	<body <%=strOnLoad%> topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
 		<!-- #include file="../../_header.asp"-->
 		<% if Request.Form("agree") = "" then %>
 		<h3>
@@ -59,7 +65,7 @@ function checkform() {
 			</ol>
 		</p>
 		<p>
-			The AMS version 0.80 download is approxiately 900kb. It will only take a few 
+			The AMS version 0.81 download is approxiately 900kb. It will only take a few 
 			minutes to download.
 		</p>
 		<form name="f" id="f" method="post" action="default.asp">

@@ -2,7 +2,7 @@
 <%
 Option Explicit
 dim strOffset
-strOffset = "../../"
+strOffset = "../"
 
 dim cn, rs, strTemp
 set cn = Server.CreateObject("ADODB.Connection")
@@ -16,10 +16,10 @@ rs.Open "sp_Web_GetNews 10", cn
 <html>
 	<head>
 		<title>Adult Media Swapper - News</title>
-		<link rel="stylesheet" type="text/css" href="../../ams.css">
+		<link rel="stylesheet" type="text/css" href="../ams.css">
 	</head>
 	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
-		<!-- #include file="../../_header.asp"-->
+		<!-- #include file="../_header.asp"-->
 		<h3>
 			News
 		</h3>
@@ -35,6 +35,6 @@ rs.Open "sp_Web_GetNews 10", cn
 		rs.Close
 		cn.Close
 		%>
-		<!-- #include file="../../_footer.asp"-->
+		<!-- #include file="../_footer.asp"-->
 	</body>
 </html>
