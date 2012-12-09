@@ -171,7 +171,7 @@
                 />
                 <File
                     RelPath = "xmserver.cs"
-                    SubType = "Code"
+                    SubType = "Component"
                     BuildAction = "Compile"
                 />
                 <File

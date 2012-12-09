@@ -404,6 +404,7 @@ public:
 	void Unlock();
 	char* BuildFileListing(bool full);
 	bool IsDatabaseNew();
+	DWORD ServerFileCount();
 
 protected:
 

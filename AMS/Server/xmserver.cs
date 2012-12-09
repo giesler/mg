@@ -64,6 +64,13 @@ namespace XMedia
         protected override void OnStart(string[] args)
 		#endif
         {
+			//spawn the server starter
+			Thread me = new Thread(new ThreadStart(this.Alpha));
+			me.Start();
+        }
+        
+		public void Alpha()
+		{
 			//1. Load parameters
 			//2. Load query processors
 			//3. Begin listening
@@ -104,7 +111,7 @@ namespace XMedia
 			mTimerMediaRebuild = new System.Timers.Timer(XMConfig.QueryMediaRebuildInterval.TotalMilliseconds); //42 minutes (yes, 42!)
 			mTimerMediaRebuild.Elapsed += new System.Timers.ElapsedEventHandler(ElapsedMediaRebuild);
 			mTimerMediaRebuild.Start();
-        }
+		}
  
 		public void ElapsedConnections(object o, System.Timers.ElapsedEventArgs args)
 		{

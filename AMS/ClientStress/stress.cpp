@@ -64,6 +64,15 @@ int media::count;
 
 // --------------------------------------------------------------------------------- CONNECTION
 
+namespace stats 
+{
+	CRITICAL_SECTION _lock;
+	void lock() { EnterCriticalSection(&_lock); }
+	void unlock() { LeaveCriticalSection(&_lock); }
+
+	DWORD files = 0;
+	DWORD failed = 0;
+}
 
 class connection
 {
@@ -112,15 +121,17 @@ public:
 			SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 			if (connect(s, (sockaddr*)&client, sizeof(client)) == SOCKET_ERROR)
 			{
-				printf("Error connecting socket: %d.\n", WSAGetLastError());
-				//cont = false;
+				//printf("Error connecting socket: %d.\n", WSAGetLastError());
+				stats::lock();
+				stats::failed++;
+				stats::unlock();
 				closesocket(s);
 				return -1;
 			}
 
 			//what width should we use?
 			DWORD w, h;
-			if ( (c->media->width & 0xF) < 0xA )
+			if ( (c->media->width & 0xF) < 0x8 )
 			{
 				//full size 25%
 				w = c->media->width;
@@ -151,9 +162,11 @@ public:
 			//printf(msg);
 			if (SOCKET_ERROR == send(s, msg, strlen(msg)+1, 0))
 			{
-				printf("Error sending message: %d.\n", WSAGetLastError());
+				//printf("Error sending message: %d.\n", WSAGetLastError());
 				closesocket(s);
-				//cont = false;
+				stats::lock();
+				stats::failed++;
+				stats::unlock();
 				return -1;
 			}
 
@@ -162,6 +175,11 @@ public:
 
 			shutdown(s, SD_SEND);
 			closesocket(s);
+
+			//success
+			stats::lock();
+			stats::files++;
+			stats::unlock();
 		}
 		__finally
 		{
@@ -194,6 +212,7 @@ public:
 		all = new connection[count];
 		memset(all, 0, sizeof(all));
 		InitializeCriticalSection(&_lock);
+		InitializeCriticalSection(&stats::_lock);
 		return true;
 	}
 };
@@ -253,7 +272,7 @@ public:
 		
 	HANDLE thread;
 
-	static time_t begin;
+	static time_t	begin;
 
 	static UINT __stdcall alpha(LPVOID p)
 	{
@@ -314,7 +333,21 @@ public:
 
 	static void cmd_stats()
 	{
-		printf("NOT DONE YET!\n");
+		//calculate
+		printf("Calculating...");
+		stats::lock();
+		time_t now = time(NULL);
+		double elapsed = difftime(now, controller::begin);
+		double tps = stats::files / elapsed;
+		stats::unlock();
+		printf("done.\n");
+
+		//print
+		printf("Begin:              %s", ctime(&controller::begin));
+		printf("End:                %s", ctime(&now));
+		printf("Total Transactions: %u\n", stats::files);
+		printf("Total Errors:       %u\n", stats::failed);
+		printf("Transactions/Sec:   %.1f\n", tps);
 	}
 
 	static void loop()
@@ -408,6 +441,7 @@ int main(int argc, char* argv[])
 
 	//cleanup
 	DeleteCriticalSection(&connection::_lock);
+	DeleteCriticalSection(&stats::_lock);
 	WSACleanup();
 	return 0;
 }

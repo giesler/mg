@@ -1343,7 +1343,7 @@ CXMSessionManager::CXMSessionManager()
 	msockListener = NULL;
 	mList = NULL;
 	mListCount = 0;
-
+	mHandlerFactory = this;
 	InitializeCriticalSection(&mcsSync);
 }
 
@@ -1356,6 +1356,8 @@ CXMSessionManager::~CXMSessionManager()
 		Stop();
 	if (mList)
 		free(mList);
+	if (mHandlerFactory)
+		mHandlerFactory->Release();
 
 	DeleteCriticalSection(&mcsSync);
 }
@@ -1397,7 +1399,7 @@ bool CXMSessionManager::Listen(HWND hOwner)
 		goto fail;
 
 	//turn on listen mode
-	if (listen(msockListener, 0xFFFF)==SOCKET_ERROR)	//maximum backlog!
+	if (listen(msockListener, 255)==SOCKET_ERROR)	//maximum backlog!
 		goto fail;
 
 	//listen for events
@@ -1470,7 +1472,7 @@ bool CXMSessionManager::ReviewMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 						if (newSock!=INVALID_SOCKET) {
 
 							//setup new session
-							IXMSessionHandler *handler = new CXMSessionHWNDHandler(mhOwner);
+							IXMSessionHandler *handler = mHandlerFactory->CreateHandler();
 							session = new CXMSession(handler);
 							handler->Release();
 							if (session->Accept(newSock)) {
@@ -1676,3 +1678,30 @@ bool CXMSessionManager::FreeAll()
 	Unlock();
 	return temp;
 }
+
+void CXMSessionManager::SetSessionHandlerFactory(IXMSessionHandlerFactory *factory)
+{
+	//release our current factory?
+	Lock();
+	if (mHandlerFactory)
+		mHandlerFactory->Release();
+
+	//assign new factory
+	mHandlerFactory = factory;
+	mHandlerFactory->AddRef();
+	Unlock();
+}
+
+IXMSessionHandler* CXMSessionManager::CreateHandler()
+{
+	return new CXMSessionHWNDHandler(mhOwner);
+}
+
+void CXMSessionManager::AddRef()
+{
+}
+
+void CXMSessionManager::Release()
+{
+}
+

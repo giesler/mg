@@ -297,6 +297,22 @@ nextfile:
 	return true;
 }
 
+DWORD CXMDBManager::ServerFileCount()
+{
+	db()->Lock();
+	DWORD n = 0;
+	CXMDBFile *f;
+	for (DWORD i=0;i<db()->GetFileCount();i++)
+	{
+		f = db()->GetFile(i);
+		if ((f->GetFlag(DFF_KNOWN) && !f->GetFlag(DFF_REMOVED)) ||
+			(!f->GetFlag(DFF_KNOWN) && f->GetFlag(DFF_REMOVED)))
+			n++;
+	}
+	db()->Unlock();
+	return n;
+}
+
 #define COMFREE(pi) if (pi) pi->Release(); pi = NULL
 #define COMCALL(call) if (FAILED(call)) throw
 

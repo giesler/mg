@@ -1,9 +1,14 @@
 #pragma once
 
+#include <msxml2.h>
+#include "paintlib.h"
 
 //thumbnail size 4:3
 #define XMGUI_THUMBWIDTH		124
 #define XMGUI_THUMBHEIGHT		93
+
+//define our version number
+#define XMLIB_VERSION			"0.1"
 
 // -------------------------------------------------------------------------- MD5
 

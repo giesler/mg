@@ -13,6 +13,13 @@ namespace XMedia
 		private static ArrayList mPool = new ArrayList(16);
 		private bool mInPool = false;
 		private SqlDataReader mLastQuery = null;
+		public static int PoolSize()
+		{
+			lock(mPool)
+			{
+				return mPool.Count;
+			}
+		}
 		public static XMAdo FromPool()
 		{
 			//look into the pool for a connection
@@ -37,6 +44,7 @@ namespace XMedia
 			lock (mPool)
 			{
 				mPool.Add(ado);
+				XMLog.WriteLine("Creating new connection. Total: " + mPool.Count, "Database", EventLogEntryType.Warning);
 			}
 			return ado;
 		}
@@ -88,7 +96,7 @@ namespace XMedia
 
 			//build connection string
 			string con = String.Format(
-							"Data Source={0};Initial Catalog={1}",
+							"Pooling=false;Data Source={0};Initial Catalog={1}",
 							XMConfig.DBServer,
 							XMConfig.DBDatabase);
 			if (XMConfig.DBUseNT)
@@ -102,6 +110,7 @@ namespace XMedia
 					XMConfig.DBUsername,
 					XMConfig.DBPassword);
 			}
+			//NOTE (9/5/01): turned off SQL Client connection pooling!
 
 			//open database
 			try 

@@ -90,6 +90,7 @@ class CXMSessionManager;
 //LIBRARY INCLUDES
 #pragma comment(lib, "ws2_32.lib")
 
+// ------------------------------------------------------------------------- NET BUFFER
 
 class CXMNetBuffer
 {
@@ -123,6 +124,9 @@ private:
 	int mLockCount;			//tracks locking
 };
 
+
+// ---------------------------------------------------------------------- SESSION HANDLER
+
 class IXMSessionHandler
 {
 public:
@@ -134,7 +138,15 @@ public:
     virtual void Release()=0;
 };
 
-//handler interacce implementation
+class IXMSessionHandlerFactory
+{
+public:
+	virtual IXMSessionHandler*	CreateHandler()=0;
+	virtual void AddRef()=0;
+	virtual void Release()=0;
+};
+
+//handler interface implementation
 class CXMSessionHWNDHandler : public IXMSessionHandler
 {
 public:
@@ -155,6 +167,8 @@ protected:
 	HWND m_hwndWindow;
 	UINT m_refCount;
 };
+
+// ------------------------------------------------------------------ SESSION
 
 class CXMSession
 {
@@ -272,7 +286,9 @@ private:
 	static void TxRxReceive();
 };
 
-class CXMSessionManager
+// ------------------------------------------------------------------ SESSION MANAGER
+
+class CXMSessionManager : IXMSessionHandlerFactory
 {
 public:
 	CXMSessionManager();
@@ -283,6 +299,7 @@ public:
 	void Unlock();
 
 	//listen operations
+	void SetSessionHandlerFactory(IXMSessionHandlerFactory *factory);
 	bool Listen(HWND hOwner);
 	bool Stop();
 
@@ -303,10 +320,17 @@ public:
 	int FindByThreadID(DWORD dw);
 	CXMSession* GetSession(int i);
 
+	//handler factory imp
+	IXMSessionHandler* CreateHandler();
+	void AddRef();
+	void Release();
+
 private:
 	CRITICAL_SECTION mcsSync;	//sync object
 	HWND mhOwner;				//owner handle
 	SOCKET msockListener;		//listener socket
 	CXMSession** mList;			//buffer for sessions
 	int mListCount;				//number of sessions
+
+	IXMSessionHandlerFactory *mHandlerFactory;
 };

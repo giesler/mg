@@ -337,6 +337,9 @@ CXMMessage::CXMMessage(CXMSession *newSession)
 
 	mQueryResponse = NULL;
 	mMediaListing = NULL;
+
+	//ref count the session
+	mSession->AddRef();
 }
 
 CXMMessage::~CXMMessage()
@@ -359,6 +362,9 @@ CXMMessage::~CXMMessage()
 	if (mBinaryBuf) free(mBinaryBuf);
 	if (mQueryResponse) mQueryResponse->Release();
 	if (mMediaListing) mMediaListing->Release();
+
+	//decrement session refcount
+	mSession->Release();
 }
 
 //---------------------------------------------------------------------
@@ -482,6 +488,11 @@ bool CXMMessage::HasField(char *index)
 
 	//not found
 	return false;
+}
+
+bool CXMMessage::CompareField(char *index, char* value)
+{
+	return stricmp(GetField(index)->GetValue(false), value)==0;
 }
 
 //---------------------------------------------------------------------

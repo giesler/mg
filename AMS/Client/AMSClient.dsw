@@ -24,6 +24,27 @@ Package=<4>
 
 ###############################################################################
 
+Project: "AMSFileServer"=.\Source\FileServer\AMSFileServer.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libjpeg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name paintlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name xmlib
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "libjpeg"=.\Source\Paintlib\win\libjpeg\libjpeg.dsp - Package Owner=<4>
 
 Package=<5>
@@ -44,9 +65,6 @@ Package=<5>
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name libjpeg
-    End Project Dependency
 }}}
 
 ###############################################################################

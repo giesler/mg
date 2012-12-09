@@ -275,11 +275,11 @@ namespace XMedia
 				mAdo.ReturnToPool();
 				return;
 			}
-
+			
 			//walk recordset
 			XMGuid at = null;
 			bool kill;
-			XMConnection[] cons = (XMConnection[])XMConnection.Connections;
+			object[] cons = XMConnection.Connections;
 			while(rs.Read())
 			{
 				kill = true;
@@ -326,6 +326,7 @@ namespace XMedia
 					XMAdo.PooledSqlExecNoResults(str);
 				}
 			}
+
 			
 			//done with recordset
 			rs.Close();

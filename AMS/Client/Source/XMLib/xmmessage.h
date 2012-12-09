@@ -99,6 +99,7 @@ public:
 	CXMMessageField* GetField(int index);
 	CXMMessageField* GetField(char* index);
 	bool HasField(char *index);
+	bool CompareField(char* index, char* value);
 
 	//binary access
 	DWORD GetBinarySize();

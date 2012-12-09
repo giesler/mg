@@ -911,18 +911,7 @@ bool CXMServerManager::Login(const char *username, CMD5 *password)
 	//count the number of files that the server should know about.. the server checks
 	//this against its databse and tells us if it wants our entire db, or just the
 	//new stuff
-	db()->Lock();
-	DWORD n = 0;
-	CXMDBFile *f;
-	for (DWORD i=0;i<db()->GetFileCount();i++)
-	{
-		f = db()->GetFile(i);
-		if ((f->GetFlag(DFF_KNOWN) && !f->GetFlag(DFF_REMOVED)) ||
-			(!f->GetFlag(DFF_KNOWN) && f->GetFlag(DFF_REMOVED)))
-			n++;
-	}
-	TRACE("*** file count: %d/%d\n", n, db()->GetFileCount());
-	db()->Unlock();
+	DWORD n = dbman()->ServerFileCount();
 	
 	//send the login message
 	CXMMessage *msg = new CXMMessage(mServer);

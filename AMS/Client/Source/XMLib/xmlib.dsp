@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\..\Intermediate\Release\xmlib"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Od /I "..\\" /I "..\jpeg" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "_INTERNAL" /D "_WINDOWS" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Od /I "..\\" /I "..\jpeg" /I "..\xmlib" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "_INTERNAL" /D "_WINDOWS" /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -88,7 +88,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "..\..\Intermediate\Distro\xmlib"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "..\ ..\jpeg" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Od /I "..\\" /I "..\jpeg" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "_DISTRO" /D "_WINDOWS" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Od /I "..\\" /I "..\jpeg" /I "..\xmlib" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "_DISTRO" /D "_WINDOWS" /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -159,6 +159,10 @@ SOURCE=.\xmlib.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\xmmessage.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\xmnet.h
 # End Source File
 # Begin Source File
@@ -166,9 +170,5 @@ SOURCE=.\xmnet.h
 SOURCE=.\xmquery.h
 # End Source File
 # End Group
-# Begin Source File
-
-SOURCE=.\Readme.txt
-# End Source File
 # End Target
 # End Project
