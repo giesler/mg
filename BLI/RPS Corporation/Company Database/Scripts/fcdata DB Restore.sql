@@ -13,7 +13,7 @@ PRINT 'Restoring database...'
 go
 
 RESTORE DATABASE fcdata 
-	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\fcdata_db_200101251900.BAK' 
+	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\0911fcdata' 
 	WITH  FILE = 1,  NOUNLOAD ,  STATS = 10,  RECOVERY ,  REPLACE ,  
 	MOVE N'fcdata_log' TO N'D:\SQL Data Files\MSSQL\DATA\fcdata.ldf',  
 	MOVE N'fcdata_data' TO N'D:\SQL Data Files\MSSQL\DATA\fcdata.mdf'
