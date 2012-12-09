@@ -114,7 +114,15 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "account\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "account\modify\default.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "account\modify\email.asp"
                     BuildAction = "Content"
                 />
                 <File
@@ -122,11 +130,27 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "account\modify\pw.asp"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "account\modify\pwsend.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "account\modify\subscribe.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "account\modify\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "banners\control.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "contest\default.asp"
                     BuildAction = "Content"
                 />
                 <File
@@ -142,20 +166,31 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "download\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "download\get\default.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "download\get\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "feature\default.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "feature\Logo_16x16.JPG"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "feature\Logo_16x8.JPG"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "home\default.asp"
-                    BuildAction = "Content"
-                />
-                <Folder RelPath = "images\" />
-                <File
-                    RelPath = "img\bottom_left.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\bottom_right.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -168,10 +203,6 @@
                 />
                 <File
                     RelPath = "img\header.jpg"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\left_wash.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -191,18 +222,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "img\right_wash.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\top_left.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\top_right.gif"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "img\top_wash.gif"
                     BuildAction = "Content"
                 />
@@ -219,40 +238,80 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\copyright\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\copyright\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\known\default.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\known\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\news\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\news\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\software\default.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\software\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\software\faq\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\software\faq\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\software\indexing\default.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\software\indexing\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\software\kb\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\software\kb\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\software\manual\default.asp"
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\software\manual\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\software\req\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\software\req\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\software\suggest\default.asp"
@@ -263,8 +322,16 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\software\suggest\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\software\techinfo\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\software\techinfo\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "support\software\tutorial\checkbox.GIF"
@@ -319,8 +386,16 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "support\software\tutorial\vssver.scc"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "support\status\default.asp"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "support\status\vssver.scc"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "webmasters\default.asp"

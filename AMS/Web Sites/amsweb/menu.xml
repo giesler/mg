@@ -25,5 +25,6 @@
 	<m name="Account Info" url="account/">
 		<m name="Modify" url="account/modify/" />
 	</m>
+	<m name="Contest" url="contest/" />
 	<m name="Webmasters" url="webmasters/" />
 </menu>

@@ -3,37 +3,112 @@
 Option Explicit
 dim strOffset
 strOffset = "../"
+
+' check if a login attempt
+dim cn, rs, blnBadLogin, id
+if Request("un") <> "" then
+	set cn = Server.CreateObject("ADODB.Connection")
+	cn.Open Application("cnString")
+	set rs = cn.Execute("sp_Web_GetAccountInfo '" & Replace(Request.Form("un"),"'","''") & "', '" & Replace(Request.Form("pwd"),"'","''") & "'")
+	if rs.BOF and rs.EOF then
+		blnBadLogin = true
+	else
+		id = rs.Fields("UserIDString").Value
+		
+	end if
+	rs.Close
+	cn.Close
+	
+	if not blnBadLogin then 
+		response.Redirect("modify/?id=" & mid(id, 3))
+	end if
+
+end if
 %>
 <html>
-<head>
-<title>Adult Media Swapper - Account Info</title>
-<link rel="stylesheet" type="text/css" href="../ams.css">
-</head>
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19>
+	<head>
+		<title>Adult Media Swapper - Account Info</title>
+		<link rel="stylesheet" type="text/css" href="../ams.css">
+			<script language="javascript">
 
-<!-- #include file="../_header.asp"-->
+function checkform() {
 
-<h3>Account Information</h3>
-
-<p>
-Adult Media Swapper is completely FREE for the duration of the beta. Unfortunately, man cannot 
-live on banner advertising alone.
-</p>
-
-<p>
-When beta testing is completed, AMS will charge a small fee for advanced search capabilities (more then three simultaneous 
-search terms.) Basic searching (three or less search terms) will continue to be free.
-</p>
-
-<p>
-So don't panic, you will still be able use AMS free of charge after version 1.0 arrives.
-</p>
-
-<p>
-<a href="modify/">Click here to update account information.</a>
-</p>
-
-<!-- #include file="../_footer.asp"-->
-
-</body>
+	if (f.un.value == '') {
+		alert('You must enter a username.');
+		f.un.focus();
+		return false;
+	}
+	if (f.un.value.length < 4) {
+		alert('Your username must be at least 4 characters!');
+		f.un.focus();
+		return false;
+	}
+	if (f.pwd.value == '') {
+		alert('You must enter a password.');
+		f.pwd.focus();
+		return false;
+	}
+	if (f.pwd.value.length < 5) {
+		alert('Your password must be at least 5 characters!');
+		f.pwd.focus();
+		return false;
+	}
+	return true;
+}
+			</script>
+	</head>
+	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
+		<!-- #include file="../_header.asp"-->
+		<h3>
+			Account Information
+		</h3>
+		<p>
+			Here is where you can change your account preferences or sign up for advanced 
+			services.
+		</p>
+		<p>
+			If you need to create a new account, please do so <a href="../download/new.ams">here</a>.
+		</p>
+		<p>
+			Registering for Adult Media Swapper is completely <b>FREE.</b> AMS does not 
+			share any account information with outside advertisers. Please see our <a href="../about/privacy/">
+				Privacy Policy</a> for more details.
+		</p>
+		<p>
+			Login below to update your account information.
+		</p>
+		<% if blnBadLogin then %>
+		<p class="req">
+			The username and password entered was not recognized.
+		</p>
+		<% end if %>
+		<form method="post" name="f" id="f" action="default.asp">
+			<blockquote>
+				<table bgcolor="#f0f0f0" width="200" cellpadding="3">
+					<tr>
+						<td class="clsText">
+							User&nbsp;name:
+						</td>
+						<td>
+							<input type="text" name="un" size="30" value="" maxlength="32" ID="Text1">
+						</td>
+					</tr>
+					<tr>
+						<td class="clsText">
+							Password:
+						</td>
+						<td>
+							<input type="password" size="30" name="pwd" maxlength="32" ID="Password1">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+							<input type="submit" value="Continue >>" onclick="return checkform()" ID="Submit1" NAME="Submit1">
+						</td>
+					</tr>
+				</table>
+			</blockquote>
+		</form>
+		<!-- #include file="../_footer.asp"-->
+	</body>
 </html>

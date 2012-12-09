@@ -1,7 +1,7 @@
 <!--==Visual InterDev Generated - startspan==-->
 <!--METADATA TYPE="TypeLib" NAME="Microsoft XML, v3.0" UUID="{F5078F18-C551-11D3-89B9-0000F81FE221}" VERSION="3.0"-->
 <!--==Visual InterDev Generated - endspan==-->
-<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+<script language="VBScript" runat="Server">
 
 'You can add special event handlers in this file that will get run automatically when
 'special Active Server Pages events occur. To create these handlers, just create a
@@ -15,7 +15,7 @@
 
 Sub Application_OnStart
 
-	Application("cnString") = "Provider=SQLOLEDB.1;Password=%1x73-ba|m5q{;Persist Security Info=True;User ID=amsweb;Initial Catalog=xmcatalog;Data Source=amswebdbsvr;Application Name=www"
+	Application("cnString") = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=True;Initial Catalog=xmcatalog;Data Source=amsdb01;Application Name=www"
 	
 End Sub
 
@@ -25,5 +25,4 @@ End Sub
 'Application_OnStart    Runs once when the first page of your application is run for the first time by any user
 'Application_OnEnd      Runs once when the web server shuts down
 
-</SCRIPT>
-
+</script>

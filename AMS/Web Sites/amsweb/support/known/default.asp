@@ -18,10 +18,6 @@ strOffset = "../../"
 <p>
 The following are the currently known issues with the AMS program:
 <ul>
-	<li><b>The network status indicators for maximum concurrent uploads and downloads are not accurate.  Although the 
-		entries in the options dialog are respected, the values reported by the indicators at the bottom of the screen 
-		are inaccurate.</b><br>
-		Solution: There is currently no workaround.</li>
 	<li><b>During each network event (login, query, file download, etc.), a single Windows Handle is leaked, 
 		along with a small amount of memory.</b><br>
 		Solution: There is currently no workaround.  The leak is not significant during normal program use, however 

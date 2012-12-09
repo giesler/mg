@@ -1,27 +1,37 @@
 <table width="100%" cellpadding="0" cellspacing="0" background="<%=strOffset%>img/top_wash.gif">
 	<tr>
-		<td width="108" rowSpan=2><a href="<%=strOffset%>"><img src="<%=strOffset%>img/logo_wash.jpg" width="130" height="120" border="0"></a></td>
-		<td width="500" height="100"><img src="<%=strOffset%>img/header.jpg" width="500" height="100"></td>
-		<td align="right" height="100"><a href="<%=strOffset%>download/"><img src="<%=strOffset%>img/download_now.jpg" width="140" height="100" border="0"></a></td>
-		<td width="5" height="100"><img src="<%=strOffset%>img/trans.gif" width="5" height="100"></td>
-	</tr><tr>
-		<td colspan=3 height="20" bgcolor="white"><img src="<%=strOffset%>imgage/trans.gif" width="5" height="5"></td>
+		<td width="108" rowspan="2">
+			<a href="<%=strOffset%>"><img src="<%=strOffset%>img/logo_wash.jpg" width="130" height="120" border="0"></a>
+		</td>
+		<td width="500" height="100">
+			<img src="<%=strOffset%>img/header.jpg" width="500" height="100">
+		</td>
+		<td align="right" height="100">
+			<a href="<%=strOffset%>download/"><img src="<%=strOffset%>img/download_now.jpg" width="140" height="100" border="0"></a>
+		</td>
+		<td width="5" height="100">
+			<img src="<%=strOffset%>img/trans.gif" width="5" height="100">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" height="20" bgcolor="white">
+			<img src="<%=strOffset%>img/trans.gif" width="5" height="5">
+		</td>
 	</tr>
 </table>
-
 <table width="100%" align="center" cellpadding="0" cellspacing="0">
 	<tr>
-		<td width="8" bgcolor="white"></td>
+		<td width="8" bgcolor="white">
+		</td>
 		<td width="125" bgcolor="white" valign="top">
-
-<%
+			<%
 
 dim strCurPage, blnAtRoot, strOriginalPage
 strCurPage = Replace(Lcase(Request.ServerVariables("PATH_INFO")), "default.asp", "")
 strOriginalPage = strCurPage
 
 ' compensate for root page request
-blnAtRoot = (strCurPage = "/")
+blnAtRoot = (strCurPage = "/" or strCurPage = "/amsweb/")
 
 if instr(strCurPage, "?") > 0 then
 	strCurPage = left(strCurPage, Instr(strCurPage, "?")-1)
@@ -102,12 +112,13 @@ on error goto 0
 TreeHTML objXMLDocEl, out, 0
 %>
 			<table cellpadding="0" cellspacing="0" border="0">
-			<%=out%>
+				<%=out%>
 			</table>
-
 			<br>
 			<img src="img/trans.gif" height="100" width="1">
 		</td>
-		<td width="8" bgcolor="white"><img src="<%=strOffset%>img/trans.gif" height="8" width="8"></td>
+		<td width="8" bgcolor="white">
+			<img src="<%=strOffset%>img/trans.gif" height="8" width="8">
+		</td>
 		<td bgcolor="White" valign="top">
-			<!-- main content -->
+<!-- main content -->
