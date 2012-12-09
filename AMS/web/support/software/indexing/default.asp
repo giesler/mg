@@ -6,70 +6,79 @@ strOffset = "../../../"
 %>
 <html>
 <head>
-<title>Adult Media Swapper - Technical Information</title>
+<title>Adult Media Swapper - Indexing Files</title>
 <link rel="stylesheet" type="text/css" href="../../../ams.css">
 </head>
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19>
 
 <!-- #include file="../../../_header.asp"-->
 
-<h3>Technical Information</h3>
- 
-<p>
-<i><b>How does AMS work?</b></i>
-</p>
+<h3>Indexing Instructions:</h3>
 
-<p>
-AMS is a part client-server, part peer-to-peer application that allows for detailed adult media searching.
-</p>
+<p>This indexing tutorial is to help our users accurately index and categorize files within Adult Media Swapper.</p>
 
-<p>
-<i><b>How can I block AMS from my network?</b></i>
-</p>
+<p>Adult Media Swapper uses human entered indexes to perform all of its searching. The more accurate and complete 
+these indexes are, the higher quality and more frequent the results are.</p>
 
-<p>
-AMS logs in and submits queries over TCP port 8881. The easiest way of blocking AMS in your network is to 
-prevent outgoing traffic on ports 25346 and port 25347, as well as blocking the DNS address *.adultmediaswapper.com. 
-This will prevent any AMS client from being able to operate. 
-</p>
+<p>Keep in mind, the categories and indexes we choose are not an exhaustive list of all possible. Rather, it is 
+a balance between grinding our servers to a halt with complicated searches and having the most popular features 
+listed. If you have any suggestions for additional categories, please submit them to the 
+<a href="../suggest/">suggestions</a> page.</p>
 
-<p>
-<i><b>How does AMS work?</b></i>
-</p>
+<p><b>Basic Indexing Rules:</b><ol>
+<li>Don’t fill in anything for attributes you can’t see. If you can’t see their butt, don’t check anything in the butt category.</li>
+<li>Judge each picture in a series individually. You may know the person in the picture has medium breasts, but if they are laying down and the breasts look small, check the small box. Remember, other people may only see this one picture, and not the rest of the series.</li></ol></p>
 
-<p>
-AMS is made from four distinct pieces:
-</p>
 
-<ol>
-	<li>AMS Client (Also referred to as media server.)</li>
-	<li>Index Server</li>
-	<li>Database Server</li>
-	<li>Banner Server</li>
-</ol>
+<p><b>Picture:</b> (Basic information about the picture)<ol>
+<li>Setting (Picture setting)</li>
+<ul><li>Outdoors</li>
+<li>Indoors</li>
+<li>Studio (Professional studio)</li>
+<li>Water</li>
+<li>Public (Other people around)</li></ul>
+<li>Gender (Self explanatory)</li>
+<li>Quantity (Total people in the picture)</li>
+<li>Quality (Picture quality)</li>
+<ul><li>Low (Fuzzy picture, small, etc.)</li>
+<li>Medium (Normal quality)</li>
+<li>High (Superb quality and focus)</li></ul>
+<li>Rating (Similar to movie ratings)</li>
+<ul><li>PG (Fully clothed, very tame)</li>
+<li>PG-13 (Partially clothed, or fully clothed but explicit poses)</li>
+<li>R (Tamely naked, or partially clothed but explicit poses)</li>
+<li>NC-17 (Naked with explicit poses)</li>
+<li>X (Naked with explicit poses and toys, fingers, intercourse, etc.)</li>
+<li>XXX (Naked with explicit toys, fingers, intercourse, cumshots, etc.)</li></ul></ol></p>
 
-<p>
-The AMS client is what runs on your computer. Its client functions include submitting queries to the index 
-server and receiving results, displaying banners, and contacting other media servers to request thumbnails and pictures. its server functions include 
-uploading locally created indexes to the index server, and serving thumbnails and media to other clients that request them. 
-</p>
+<p><b>Physical 1:</b> (Common physical information)<ol>
+<li>Build (Slim, fat or buff?)
+<li>Race (Self explanatory)
+<li>Age (Self explanatory)
+<li>Height (Self explanatory)</ol></p>
 
-<p>
-The index server is what performs all the searches. It receives a query from a client that it then runs against 
-its list of all files. When it finds matches, it returns to the client the location of the computer hosting that file. It is then the client's 
-responsibility to retrieve that file.
-</p>
+<p><b>Physical 2:</b> (Common physical information 2)<ol>
+<li>Hair Color (Self explanatory)</li>
+<li>Hair Style (Self explanatory)</li>
+<li>Legs (Long, short, thick, thin)</li>
+<li>Skin (Skin tone - vanilla to chocolate)</li>
+<li>Butt (Firm, flabby, tiny, hairy, etc.)</li>
+<li>Eyes (Eye color)</li></ol></p>
 
-<p>
-The database server stores the master index of all files. The index servers pull an updated list from the 
-database server periodically. The database server also stores user accounts and performance logs.
-</p>
+<p><b>Female:</b> (Female specific information)<ol>
+<li>Nipples (Nipple size)</li>
+<li>Hips (Narrow through full)</li>
+<li>Breasts (Breast size and shape)</li>
+<li>Female Genitals (Are they spread, shaved, hairy, or covered?)</li></ol></p>
 
-<p>
-The banner server is in charge of serving relevant advertising to the clients. It uses some logic to decide what 
-advertisement to show. If you just did a search for Asian women, chances are you will see a banner featuring an Asian website. We randomize results slightly to 
-insure that all of our sponsor's banners are shown.
-</p>
+<p><b>Male:</b> (Male specific information)<ol>
+<li>Male Genitals (Small, large, erect, limp, etc.)</li>
+<li>Facial Hair (Self explanatory)</li>
+<li>Chest (Chiseled, or wimpy?)</li></ol></p>
+
+<p><b>Categories 1:</b> (Miscellaneous categories and fetishes)</p>
+
+<p><b>Categories 2:</b> (Miscellaneous categories and fetishes 2)</p>
 
 <!-- #include file="../../../_footer.asp"-->
 

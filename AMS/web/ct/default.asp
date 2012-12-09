@@ -12,5 +12,5 @@ cn.Open Application("cnString")
 cn.Execute strSQL
 cn.close
 set cn = nothing
-Response.Redirect("../home/")
+Response.Redirect("../")
 %>

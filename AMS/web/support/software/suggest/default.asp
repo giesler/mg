@@ -17,7 +17,8 @@ strOffset = "../../../"
  
 <p>
 We welcome your comments and suggestions.  Although we do read every comment or suggestion sent to us, we 
-cannot guarantee a response.
+cannot guarantee a response.  You do not need to enter an email address, but if you would like a response from 
+us, be sure to fill it in.
 </p>
 
 <form action="suggest.asp" method="post">

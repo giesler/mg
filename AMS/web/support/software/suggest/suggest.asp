@@ -9,7 +9,7 @@ dim cn
 
 set cn = Server.CreateObject("ADODB.Connection")
 cn.Open Application("cnString")
-cn.Execute "sp_websuggest '" & Replace(Request.Form("type"),"'","''") & "', '" & Replace(Request.Form("txt"),"'","''") & "'"
+cn.Execute "sp_websuggest '" & Replace(Request.Form("type"),"'","''") & "', '" & Replace(Request.Form("txt"),"'","''") & "', '" & Replace(Request.Form("email"),"'","''") & "'"
 cn.Close
 set cn = nothing
 	
