@@ -1232,6 +1232,7 @@ CXMMessage* CXMMessage::CreateReply()
 	msg->SetFor(mFor);
 	msg->SetReply(mSequence);
 	msg->SetType(XM_RESPONSE);
+	msg->SetContentFormat("text/xml");
 
 	return msg;
 }

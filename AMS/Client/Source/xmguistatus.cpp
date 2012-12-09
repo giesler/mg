@@ -276,8 +276,8 @@ int CXMGUIStatus::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	mFiles.SetImageList(const_cast<CImageList*>(mThumbsImages.SILGetImageList()), LVSIL_NORMAL);
 
 	//setup the max values for the progress controls
-	mDownloadsRibbon.mMaxValue = cm()->GetDownloadSlotCount()+1;
-	mUploadsRibbon.mMaxValue = cm()->GetUploadSlotCount()+1;
+	mDownloadsRibbon.mMaxValue = cm()->GetDownloadSlotCount();
+	mUploadsRibbon.mMaxValue = cm()->GetUploadSlotCount();
 
 	//is the server connected?
 	mLightServer.mLit = sm()->ServerIsOpen();

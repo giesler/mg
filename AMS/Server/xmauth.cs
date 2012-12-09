@@ -284,7 +284,7 @@ namespace XMedia
 
 			//check the accesstoken.. if it ISNT null, this person is already
 			//logged in
-			if (rs.Fields["accesstoken"].Value == DBNull.Value)
+			if (rs.Fields["accesstoken"].Value != DBNull.Value)
 			{
 				throw new Exception("You are already logged in to a different computer.  Only one simultaneous login is allowed per username.  If you want to run AMS on more than one computer, you may create new accounts as you need them.");
 			}
@@ -325,7 +325,7 @@ namespace XMedia
 			//if we can't make a connection back to the client, then
 			//don't let it share any files.. no one will get them
 			string sql;
-			if (con.Ping())
+			if (con.ExternalPing())
 			{
 				sql = "update users set online=1 where userid=" + con.UserID.ToStringDB();
 			}
@@ -387,9 +387,27 @@ namespace XMedia
 				if (c.SessionID == null &&
 					c.LastActivity < DateTime.Now.AddMinutes(-10))
 				{
-					XMLog.WriteLine("Closing dorment connection.", "CheckConnections");
+					//probobly some sort of mis-hap during login, before the
+					//session id could get set. if something happens after
+					//the session id is set, it will be caught by the next
+					//test after 20 minutes.
+					XMLog.WriteLine("Closing dorment connection: " + c.Username, "CheckConnections");
 					c.Close();
 				}
+				else
+				{
+					//if the last activity is older than 20 minutes, we assume
+					//that the connection has gone dead.. "ping"s are sent over
+					//the open connection if more than 15 minutes elapses without
+					//any activity, giving a maximum of 5 minutes for the client
+					//to respond before disconnection.
+					if (c.LastActivity < DateTime.Now.AddMinutes(-20))
+					{
+						XMLog.WriteLine("Closing link-dead connection: " + c.Username, "CheckConnections");
+						c.Close();
+					}
+				}
+				
 			}
 
 			//open db cnnection

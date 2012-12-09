@@ -344,6 +344,7 @@ XM_SMU_MOTD_SENT
 
 class CXMServerManager : public CXMPipelineBase
 {
+friend DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter);
 public:
 
 	//construction
@@ -399,9 +400,19 @@ protected:
 	HWND mwndProgress;
 
 	//reconnect
-	bool ReconnectTry();	//entry point from ServerIsOpen()
-	bool mRcExpectDead;		//if true, manually disconnected therefore don't try reconnect
-	int  mRcAttempts;		//count of unsuccessfull reconnect attempts
+	void ReconnectAuto();
+	void ReconnectStop();
+#ifdef _INTERNAL
+	bool ReconnectTry(int retries=32767);	//internal builds (run on server) try pretty much forever
+#else
+	bool ReconnectTry(int retries=4);	//entry point from ServerIsOpen()
+#endif
+	bool mRcExpectDead;					//if true, manually disconnected therefore don't try reconnect
+	int  mRcAttempts;					//count of unsuccessfull reconnect attempts
+	int  mRcElapsed;					//minutes elapsed since reconnect timer started
+	bool mRcGoodLogin;					//set to false if a login fails
+	HANDLE mRcThread;
+	DWORD mRcThreadId;
 
 	//login data
 	char mLoginMsg[MAX_PATH];

@@ -20,9 +20,20 @@ namespace XMedia
 		protected int mLastSeq;
 		protected Queue mOutbound = new Queue();
 
+		/// <summary>
+		/// When false, the Alpha loop will send keep-alive (ping) requests
+		/// after 15 minutes of inactivity, and set the flag.  When a 
+		/// response is received, ProccessMessage will reset this flag.
+		/// </summary>
+		protected bool KeepAliveInTransit = false;
+		public void ResetKeepAlive()
+		{
+			KeepAliveInTransit = false;
+		}
+
 		//track data about client
 		protected Socket mClient;
-		public string Username;
+		public string Username = "<unknown>";
 		public DateTime LastActivity;
 		public XMGuid SessionID;
 		public XMGuid UserID;
@@ -55,8 +66,25 @@ namespace XMedia
 			*/
 		}
 
-		//open a NEW connection, send the ping, wait for a response
-		public bool Ping()
+		/// <summary>
+		/// Send a XMMSG_PING over the current connection.
+		/// </summary>
+		public void InternalPing()
+		{
+			XMMessage ping = new XMMessage();
+			ping.Connection = this;
+			ping.Action = "ping";
+			ping.SetField("reason", "keep-alive");
+			ping.Send();
+		}
+
+		/// <summary>
+		/// Opens a *new* connection, sends the ping, waits for a response.
+		/// NOTE: This function times out after 750 milliseconds, returning false.
+		/// </summary>
+		/// <returns>Returns false if the connection could not be made, or if
+		/// no data was received on the connection after sending the ping.</returns>
+		public bool ExternalPing()
 		{
 			//setup the outbound socket
 			Socket me = new Socket(	AddressFamily.InterNetwork, 
@@ -140,6 +168,9 @@ namespace XMedia
 
         public XMConnection(Socket newSocket)
         {  
+			//set our last activity date
+			LastActivity = DateTime.Now;
+
 			//store socket reference
 			mClient = newSocket;
 
@@ -217,6 +248,15 @@ namespace XMedia
 					}	
 				}
 
+				//do we need to send any keep-alive requests?
+				if (!KeepAliveInTransit &&
+					LastActivity < DateTime.Now.AddMinutes(-15))
+				{
+					KeepAliveInTransit = true;
+					InternalPing();
+				}
+
+				//read data from the buffer
 				if (mClient.Poll(10*1000, SelectMode.SelectRead))
 				{
 					//data available, read it until there is less
@@ -255,8 +295,6 @@ namespace XMedia
 								try 
 								{
 									ProcessMessage(msg);
-
-	
 								}
 								catch(Exception e)
 								{

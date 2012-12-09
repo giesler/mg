@@ -264,6 +264,8 @@ public:
 
 #define FIELD_NET_DATARATE				"net/datarate"
 #define FIELD_NET_CLIENTPORT			"net/clientport"
+#define FIELD_NET_RECONNECT_ENABLE		"net/reconnect/enable"
+#define FIELD_NET_RECONNECT_DELAY		"net/reconnect/delay"
 
 #define FIELD_PIPELINE_AUTO_UPLOAD		"pipeline/auto/upload"
 #define FIELD_PIPELINE_AUTO_DOWNLOAD	"pipeline/auto/download"

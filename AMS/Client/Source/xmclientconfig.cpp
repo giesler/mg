@@ -1,5 +1,6 @@
-/* CXMClientConfig Implementation
-* (c)2000, 2001 XMedia Inc. */
+
+// CXMClientConfig Implementation
+// (c)2000, 2001 XMedia Inc.
 
 #include "stdafx.h"
 #include "xmclient.h"
@@ -266,6 +267,8 @@ private:
 		BOOL mAutoLogin_Enable;
 		CString mAutoLogin_Username;
 		CString mAutoLogin_Password;
+		BOOL mReconnect_Enable;
+		int mReconnect_Delay;
 		void LoadData()
 		{
 			mPwdProtect_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_PROTECT_ENABLE);
@@ -273,13 +276,18 @@ private:
 			mAutoLogin_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE);
 			mAutoLogin_Username = mSandbox->GetField(FIELD_LOGIN_AUTO_USERNAME, false);
 			mAutoLogin_Password = mSandbox->GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+			mReconnect_Enable = mSandbox->GetFieldBool(FIELD_NET_RECONNECT_ENABLE);
+			mReconnect_Delay = (int)mSandbox->GetFieldLong(FIELD_NET_RECONNECT_DELAY);
 		}
 		void DoDataExchange(CDataExchange *pDX)
 		{
 			DDX_Check(pDX, IDC_PWDPROTECT, mPwdProtect_Enable);
 			DDX_Check(pDX, IDC_AUTOLOGIN, mAutoLogin_Enable);
+			DDX_Check(pDX, IDC_RECONNECT, mReconnect_Enable);
+			DDX_Text(pDX, IDC_RECONNCT_DELAY, mReconnect_Delay);
 			DDX_Text(pDX, IDC_USERNAME, mAutoLogin_Username);
 			DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
+			DDV_MinMaxInt(pDX, mReconnect_Delay, 1, 1440);
 			if (!pDX->m_bSaveAndValidate)
 			{
 				OnEnableControls();
@@ -300,6 +308,8 @@ private:
 			mSandbox->SetField(FIELD_LOGIN_AUTO_ENABLE, mAutoLogin_Enable?"true":"false");
 			mSandbox->SetField(FIELD_LOGIN_AUTO_USERNAME, mAutoLogin_Username);
 			mSandbox->SetField(FIELD_LOGIN_AUTO_PASSWORD, mAutoLogin_Password);
+			mSandbox->SetField(FIELD_NET_RECONNECT_ENABLE, mReconnect_Enable?"true":"false");
+			mSandbox->SetField(FIELD_NET_RECONNECT_DELAY, mReconnect_Delay);
 		}
 		void OnEnableControls()
 		{
@@ -313,6 +323,12 @@ private:
 			GetDlgItem(IDC_STATIC_PASSWORD)->EnableWindow(temp);
 			GetDlgItem(IDC_USERNAME)->EnableWindow(temp);
 			GetDlgItem(IDC_PASSWORD)->EnableWindow(temp);
+
+			//reconnect
+			temp = (IsDlgButtonChecked(IDC_RECONNECT)==BST_CHECKED);
+			GetDlgItem(IDC_STATIC_RECONNECT1)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_RECONNECT2)->EnableWindow(temp);
+			GetDlgItem(IDC_RECONNCT_DELAY)->EnableWindow(temp);
 		}
 		DECLARE_MESSAGE_MAP();
 	} mPageGeneral;
@@ -391,6 +407,15 @@ private:
 					AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
 					pDX->Fail();
 				}
+				else if (!CreateDirectory(mPath, NULL))
+				{
+					//does the dir already exist?
+					if (GetLastError()!=ERROR_ALREADY_EXISTS)
+					{
+						AfxMessageBox("Unable to create the saved files folder.  Please make sure it is a valid drive on which a folder can be created.");
+						pDX->Fail();
+					}
+				}
 			}
 			if (!pDX->m_bSaveAndValidate)
 			{
@@ -463,6 +488,15 @@ private:
 						//must specify a drive letter
 						AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
 						pDX->Fail();
+					}
+					else if (!CreateDirectory(mPath, NULL))
+					{
+						//does the dir already exist?
+						if (GetLastError()!=ERROR_ALREADY_EXISTS)
+						{
+							AfxMessageBox("Unable to create the shared files folder.  Please make sure it is a valid drive on which a folder can be created.");
+							pDX->Fail();
+						}
 					}
 				}
 			}
@@ -554,6 +588,7 @@ BEGIN_MESSAGE_MAP(CPreferences::PageGeneral, CPropertyPage)
 	ON_BN_CLICKED(IDC_CHANGEPWD, CPreferences::PageGeneral::OnChangePassword)
 	ON_BN_CLICKED(IDC_PWDPROTECT, CPreferences::PageGeneral::OnEnableControls)
 	ON_BN_CLICKED(IDC_AUTOLOGIN, CPreferences::PageGeneral::OnEnableControls)
+	ON_BN_CLICKED(IDC_RECONNECT, CPreferences::PageGeneral::OnEnableControls)
 END_MESSAGE_MAP()
 
 BEGIN_MESSAGE_MAP(CPreferences::PageSearching, CPropertyPage)
@@ -1125,6 +1160,7 @@ bool CXMClientConfig::New()
 {
 	ENTER();
 
+	//version 0.50
 	SetField(FIELD_HASRUN, "false");
 	SetField(FIELD_SERVER_ADDRESS, "query1.adultmediaswapper.com");
 	SetField(FIELD_SERVER_PORT, "25346");
@@ -1159,6 +1195,10 @@ bool CXMClientConfig::New()
 	SetField(FIELD_GUI_STATUS_SPLIT, "196");
 	SetField(FIELD_GUI_TREE_FOLDED, "false");
 	SetField(FIELD_GUI_STATUS_FOLDED, "false");
+
+	//version 0.70
+	SetField(FIELD_NET_RECONNECT_ENABLE, "true");
+	SetField(FIELD_NET_RECONNECT_DELAY, "15");
 
 	EXIT();
 	return true;

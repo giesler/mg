@@ -9,8 +9,9 @@
 #include "xmdb.h"
 
 DWORD WINAPI LoginThreadProc(LPVOID lpParameter);
+DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter);
 
-// ------------------------------------------------------------------------------- utility
+// ------------------------------------------------------------------------------- Utility
 
 #define KB	(1024)
 #define MB	(KB*1024)
@@ -84,6 +85,10 @@ CXMServerManager::CXMServerManager()
 	//reconnect data
 	mRcAttempts = 0;
 	mRcExpectDead = true;
+	mRcElapsed = 0;
+	mRcGoodLogin = false;	
+	mRcThread = NULL;
+	mRcThreadId = 0;
 }
 
 CXMServerManager::~CXMServerManager()
@@ -123,9 +128,41 @@ bool CXMServerManager::OnInitialize() {
 void CXMServerManager::OnWin32MsgPreview(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//should we forward progress messages?
-	if (msg==XM_PROGRESS && mwndProgress)
+	if (msg == XM_PROGRESS && mwndProgress)
 	{
 		::PostMessage(mwndProgress, msg, wparam, lparam);
+	}
+	else if (msg == WM_TIMER)
+	{
+		//is it our event id?
+		if (wparam == 8712)
+		{
+			//another minute has ticked by
+			mRcElapsed++;
+
+			//should we now try a reconnect?
+			if (mRcElapsed >= config()->GetFieldLong(FIELD_NET_RECONNECT_DELAY))
+			{
+				//stop the timer
+				ReconnectStop();
+
+				//do we still want to try a reconnect?
+				if (!mRcExpectDead || mRcGoodLogin)
+				{
+					//free the current thread handle
+					if (mRcThread)
+					{
+						CloseHandle(mRcThread);
+						mRcThread = NULL;
+					}
+
+					//we must do this asyncronously, otherwise the
+					//server managers message pump will not run and
+					//the login will never complete
+					mRcThread = CreateThread(NULL, 0, ReconnectThreadProc, NULL, 0, &mRcThreadId);
+				}
+			}
+		}
 	}
 }
 
@@ -147,6 +184,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		{
 			//reset reconnect data
 			mRcExpectDead = true;
+			mRcGoodLogin = false;
 
 			//login failed, upgrade needed?
 			if (stricmp(msg->GetField("au/required")->GetValue(false), "true")==0)
@@ -168,6 +206,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		{
 			//reset reconnect data
 			mRcExpectDead = false;
+			mRcGoodLogin = true;
 			mRcAttempts = 0;
 
 			//login received
@@ -294,6 +333,13 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		mAuComplete = true;
 		SendEvent(XM_SERVERMSG, XM_SMU_AU_COMPLETE, NULL);
 	}
+	else if (stricmp(msg->GetFor(false), XMMSG_PING)==0)
+	{
+		//send a ping response
+		CXMMessage *reply = msg->CreateReply();
+		reply->GetField("success")->SetValue("1");
+		reply->Send();
+	}
 	else
 	{
 		//unknown message type
@@ -347,6 +393,10 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 	else if (stricmp(msg->GetFor(false), XMMSG_AU)==0)
 	{
 		SendEvent(XM_SERVERMSG, XM_SMU_AU_SENT, NULL);
+	}
+	else if (stricmp(msg->GetFor(false), XMMSG_PING)==0)
+	{
+		//ping response sent
 	}
 	else
 	{
@@ -416,6 +466,14 @@ void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 		else
 			SendEvent(XM_SERVERMSG, XM_SMU_SERVER_ERROR, NULL);
 		mServerShuttingDown = false;
+
+		//should we try to start the auto-reconnect?
+		if (config()->GetFieldBool(FIELD_NET_RECONNECT_ENABLE) &&
+			!mRcExpectDead &&
+			mRcGoodLogin)
+		{
+			ReconnectAuto();
+		}
 		
 		break;
 	}
@@ -572,6 +630,9 @@ bool CXMServerManager::ServerClose()
 		if(	(mServer->GetState()==XM_OPEN) ||
 			(mServer->GetState()==XM_OPENING))
 		{
+			//we shouldnt try to auto-reconnect
+			mRcExpectDead = true;
+
 			//close.. updates handled by state change
 			mServer->Close();
 			Unlock();
@@ -757,6 +818,9 @@ CXMQueryResponse* CXMServerManager::QueryGetResponse()
 
 bool CXMServerManager::LoginUI()
 {
+	//stop any pending auto-reconnects
+	ReconnectStop();
+
 	//true: logon succesfull
 	//false: error, or canceled before login
 	return (CLoginDialog().DoModal()==IDOK);
@@ -1824,15 +1888,19 @@ BEGIN_MESSAGE_MAP(CReconnectDialog, CDialog)
 END_MESSAGE_MAP()
 
 //return val: if true, connection now open
-bool CXMServerManager::ReconnectTry()
+bool CXMServerManager::ReconnectTry(int retries)
 {
 	//were we expecting to be down?
 	if (mRcExpectDead)
 		return false;
 
 	//have we already tried?
-	if (mRcAttempts > 0)
+	if (mRcAttempts > retries)
+	{
+		//turn off auto-reconnect
+		ReconnectStop();
 		return false;
+	}
 
 	//start the reconnect
 	CReconnectDialog dlg(NULL);
@@ -1841,4 +1909,30 @@ bool CXMServerManager::ReconnectTry()
 
 	//success
 	return dlg.mConnected;
+}
+
+//stop any pending reconnects
+void CXMServerManager::ReconnectStop()
+{
+	mRcElapsed = 0;
+	KillTimer(mhWnd, 8712);
+}
+
+//start the timed reconnect
+void CXMServerManager::ReconnectAuto()
+{
+	mRcElapsed = 0;
+	SetTimer(mhWnd, 8712, 60000 /* 1 minute */, NULL);
+}
+
+//thread proc for reconnect asyncronously
+DWORD WINAPI ReconnectThreadProc(LPVOID lpParameter)
+{
+	//all we do is start the reconnect dialog
+	if (!sm()->ReconnectTry())
+	{
+		//restart the timer
+		sm()->ReconnectAuto();
+	}
+	return 0;
 }

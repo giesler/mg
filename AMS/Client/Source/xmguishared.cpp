@@ -46,7 +46,7 @@ private:
 	//messages
 	DECLARE_MESSAGE_MAP();
 
-	#define MAXFILESIZE 4096
+	#define MAXFILESIZE 32768
 	afx_msg void OnAddFiles()
 	{
 		//setup the data structure

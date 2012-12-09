@@ -389,6 +389,7 @@ public:
 	CXMDB* GetDatabase();
 
 	//scan functions
+	//bool DownloadDirExists();
 	bool ScanDirectory(char* path);
 	void CancelScan();
 

@@ -118,7 +118,7 @@ bool CXMClientManager::OnInitialize()
 	{
 		mMaxUploads = (BYTE)config()->GetFieldLong(FIELD_PIPELINE_MAXUP);
 	}
-
+	
 	//setup the upload slots
 	mUploadSlotCount = mMaxUploads;
 	mUploadSlots = (UploadSlot*)malloc(mUploadSlotCount*sizeof(UploadSlot));

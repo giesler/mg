@@ -140,6 +140,7 @@ namespace XMedia
 							break;
 
 						case "request":
+						case "response":
 							Action = el.GetAttribute("for");
 							break;
 
@@ -215,8 +216,7 @@ namespace XMedia
 			catch (Exception e)
 			{
 				//generic error handler
-				EventLog el = new EventLog();
-				el.WriteEntry("While proccessing a message: " + e.Message, EventLogEntryType.Error);
+				XMLog.WriteLine("Error unpacking message: " + e.Message, "XMMessage.LoadXxml");
 			}
 		}
 
@@ -404,9 +404,20 @@ namespace XMedia
 					DoAutoUpdate();
 					break;
 
+				case "ping":		//ping response was received
+					DoPing();
+					break;
+
 				default:
 					break;
 			}
+		}
+
+		protected void DoPing()
+		{
+			//simply reset the ping-in-transit flag, the last activity
+			//field will be updated by XMConnection.Alpha
+			Connection.ResetKeepAlive();
 		}
 
 		protected void DoAutoUpdate()

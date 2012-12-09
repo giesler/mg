@@ -584,26 +584,35 @@ BEGIN
     LTEXT           "Static",IDC_STATUS,208,184,190,8
 END
 
-IDD_PREFS_GENERAL DIALOG DISCARDABLE  0, 0, 265, 186
+IDD_PREFS_GENERAL DIALOG DISCARDABLE  0, 0, 303, 215
 STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "General"
 FONT 8, "MS Sans Serif"
 BEGIN
-    GROUPBOX        "Password Protection",IDC_STATIC,7,7,251,82
+    GROUPBOX        "Password Protection",IDC_STATIC,7,7,289,82
     LTEXT           "You may password protect AMS.  When password protected, AMS requests the user to enter a password before proceeding to the login screen.  NOTE:  This password is not related to your AMS login password, which is required to gain access to the AMS network.",
-                    IDC_STATIC,15,23,222,36
+                    IDC_STATIC,14,23,263,36
     CONTROL         "Passwod Protect AMS",IDC_PWDPROTECT,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,16,66,88,12
     PUSHBUTTON      "&Change Password...",IDC_CHANGEPWD,113,65,82,14
-    GROUPBOX        "Automatic Login",IDC_STATIC,7,95,251,84
+    GROUPBOX        "Automatic Login",IDC_STATIC,7,98,140,110
     LTEXT           "With automatic login, the program sends your login information to the server as soon as it starts, eliminating the need for you to type it in every time.",
-                    IDC_STATIC,15,111,218,25
+                    IDC_STATIC,16,112,121,33
     CONTROL         "Enable Automatic Login",IDC_AUTOLOGIN,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,142,92,11
-    RTEXT           "Username:",IDC_STATIC_USERNAME,115,143,43,11
-    RTEXT           "Password:",IDC_STATIC_PASSWORD,115,161,43,11
-    EDITTEXT        IDC_USERNAME,165,140,70,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_PASSWORD,166,159,70,12,ES_PASSWORD | ES_AUTOHSCROLL
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,151,92,11
+    RTEXT           "Username:",IDC_STATIC_USERNAME,14,169,43,11
+    RTEXT           "Password:",IDC_STATIC_PASSWORD,14,188,43,11
+    EDITTEXT        IDC_USERNAME,63,167,70,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PASSWORD,64,185,70,12,ES_PASSWORD | ES_AUTOHSCROLL
+    GROUPBOX        "Automatic Reconnect",IDC_STATIC,158,98,138,110
+    LTEXT           "Enabling automatic reconnect will cause AMS to reconnect to the server when that connection is lost.",
+                    IDC_STATIC,168,111,116,28
+    CONTROL         "Enable Automatic Reconnect",IDC_RECONNECT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,169,143,106,11
+    EDITTEXT        IDC_RECONNCT_DELAY,185,177,34,12,ES_AUTOHSCROLL
+    LTEXT           "Delay before reconnect:",IDC_STATIC_RECONNECT1,185,164,
+                    80,10
+    LTEXT           "minutes",IDC_STATIC_RECONNECT2,223,180,32,10
 END
 
 IDD_PREFS_SEARCHING DIALOG DISCARDABLE  0, 0, 265, 186
@@ -963,9 +972,9 @@ BEGIN
     IDD_PREFS_GENERAL, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 258
+        RIGHTMARGIN, 296
         TOPMARGIN, 7
-        BOTTOMMARGIN, 179
+        BOTTOMMARGIN, 208
     END
 
     IDD_PREFS_SEARCHING, DIALOG

@@ -67,7 +67,6 @@ DWORD WINAPI SessionThreadProc(LPVOID lpParameter)
 	CXMSession *session = (CXMSession*)lpParameter;
 	DWORD temp = session->Alpha();
 	session->Release();
-	//TRACE("Returning %d\n", temp);
 	return temp;
 
 	//NOTE: we hold a reference on session until its
@@ -193,7 +192,6 @@ bool CXMSession::Alpha()
 
 				case FD_WRITE:
 					//socket is ready for writing
-					TRACE("SendChunk - ");
 					SendChunk();
 					break;
 
@@ -261,10 +259,7 @@ bool CXMSession::Alpha()
 
 			//this will cause the pump to break
 			//the next time around
-			//TRACE("Posting quit message on thread %d...\n", GetCurrentThreadId());
 			PostQuitMessage(0);	
-			//TRACE("...done.\n");
-			//ASSERT(FALSE);
 			
 			//hack: for some reason, when a connection is cut postquitmessage seems
 			//to have no affect, and GetMessage() will block, so we need to send the
@@ -361,7 +356,6 @@ CXMSession::~CXMSession()
 		free(mhostAddress);
 	}
 
-	//TRACE("~CXMSession()\n");
 }
 
 bool CXMSession::InitCOM()
@@ -903,7 +897,6 @@ bool CXMSession::SendChunk()
 
 			//check error
 			if (WSAGetLastError()==WSAEWOULDBLOCK) {
-				TRACE("WouldBlock - ");
 				return true;
 			}
 			return false;
@@ -928,11 +921,6 @@ bool CXMSession::SendChunk()
 				return false;
 			}
 		}
-
-		//sleep for 300 ms
-		//temp:
-		//Sleep(500);
-		TRACE("Looping - ");
 
 		//set the tx light
 		TxRxSend();
