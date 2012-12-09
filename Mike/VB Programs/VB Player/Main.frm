@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}#1.0#0"; "msdxm.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
 Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmMain 
    Caption         =   "vbplayer"
    ClientHeight    =   5760
@@ -52,23 +52,25 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":047A
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "lblFind"
-      Tab(2).Control(1)=   "txtFind"
-      Tab(2).Control(2)=   "cmdFind"
-      Tab(2).Control(3)=   "lvFind"
+      Tab(2).Control(0)=   "lvFind"
+      Tab(2).Control(1)=   "cmdFind"
+      Tab(2).Control(2)=   "txtFind"
+      Tab(2).Control(3)=   "lblFind"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Utilities"
       TabPicture(3)   =   "Main.frx":0496
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label4"
+      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "cmdNewFileCheck"
+      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Options"
       TabPicture(4)   =   "Main.frx":04B2
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "fraMainWindow"
+      Tab(4).Control(0)=   "fraSongBar"
       Tab(4).Control(0).Enabled=   0   'False
-      Tab(4).Control(1)=   "fraSongBar"
+      Tab(4).Control(1)=   "fraMainWindow"
       Tab(4).Control(1).Enabled=   0   'False
       Tab(4).ControlCount=   2
       Begin VB.Frame fraSongBar 
@@ -972,7 +974,7 @@ On Error GoTo errHandler
     Dim fs As FileSystemObject, strRootPath As String, intCount As Long
     Dim fld As Folder, rs As ADODB.Recordset, rsAddList As ADODB.Recordset, strSQL As String
     
-    strRootPath = InputBox("Enter the root path", "New File Check", "\\stan\music")
+    strRootPath = InputBox("Enter the root path", "New File Check", "\\sp\music")
     
     If strRootPath = "" Then Exit Sub
 
