@@ -16,7 +16,8 @@ strOffset = "../../"
 <h3>News</h3>
  
 <p>
-There are currently no news items.
+AMS will be down for upgrades on June 22nd from 8:00AM to 10:00AM Central 
+time.
 </p>
 
 <!-- #include file="../../_footer.asp"-->
