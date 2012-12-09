@@ -17,7 +17,7 @@ vti_timecreated:TR|04 Aug 2001 03:07:35 -0000
 vti_extenderversion:SR|4.0.2.4426
 vti_navbuttonprevlabel:SR|Back
 vti_longfilenames:IX|1
-vti_welcomenames:VX|Default.htm Default.asp Default.aspx index.html index.aspx
+vti_welcomenames:VX|Default.htm Default.asp index.html index.aspx Default.aspx
 vti_oldestcompatibleversion:SR|2.0.0.0
 vti_vidthemename:SW|
 vti_restartmanual:IX|0
