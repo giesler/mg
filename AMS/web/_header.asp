@@ -37,11 +37,20 @@ function TreeHTML(parent, out, level)
 		next 
 	    
 	    if instr(strCurPage, strCurURL) > 0 then
-			out = out & "<td><img src=""" & strOffset & "img/minus.gif"">&nbsp;</td>"
+			if parent.hasChildNodes then
+				out = out & "<td><a class=""clsMenu"" href=""" & strOffset & strCurURL & """>"
+				out = out & "<img src=""" & strOffset & "img/minus.gif"" border=""0""></a>&nbsp;</td>"
+			else
+				out = out & "<td><img src=""" & strOffset & "img/trans.gif"">&nbsp;</td>"
+			end if
 		else
 			out = out & "<td>"
-			out = out & "<a class=""clsMenu"" href=""" & strOffset & strCurURL & """>"
-			out = out & "<img border=""0"" src=""" & strOffset & "img/plus.gif""></a>&nbsp;</td>"
+			if parent.hasChildNodes then
+				out = out & "<a class=""clsMenu"" href=""" & strOffset & strCurURL & """>"
+				out = out & "<img border=""0"" src=""" & strOffset & "img/plus.gif""></a>&nbsp;</td>"
+			else
+				out = out & "<img border=""0"" src=""" & strOffset & "img/trans.gif""></a>&nbsp;</td>"
+			end if
 		end if
 	    
 	    ' see if in area now

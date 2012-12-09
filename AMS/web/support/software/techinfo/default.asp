@@ -29,7 +29,8 @@ AMS is a part client-server, part peer-to-peer application that allows for detai
 
 <p>
 AMS logs in and submits queries over TCP port 8881. The easiest way of blocking AMS in your network is to 
-prevent outgoing traffic on port 8881, as well as blocking the DNS address *.adultmediaswapper.com. This will prevent any AMS client from being able to operate. 
+prevent outgoing traffic on ports 25346 and port 25347, as well as blocking the DNS address *.adultmediaswapper.com. 
+This will prevent any AMS client from being able to operate. 
 </p>
 
 <p><br><br></p>

@@ -16,7 +16,7 @@ strOffset = "../../../"
 <h3>Knowledge Base</h3>
  
 <p>
-Under construction.
+This area is currently under construction.
 </p>
 
 <!-- #include file="../../../_footer.asp"-->

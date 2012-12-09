@@ -27,6 +27,11 @@ To get started immediately with AMS visit the <A href="../download/">Download</a
 </p>
 
 <p>
+If you'd like to first see more about using AMS, click 
+<a href="../support/software/tutorial/">here</a> to see a short tutorial on using AMS!
+</p>
+
+<p>
 For more information about AMS and to answer frequently asked questions, please visit 
 <a href="../about/">About AMS</A>.
 </p>

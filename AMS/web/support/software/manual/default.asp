@@ -16,7 +16,8 @@ strOffset = "../../../"
 <h3>Online Manual</h3>
  
 <p>
-Under construction.
+The online manual is currently being updated to reflect the 
+latest version of AMS.  Please check back again soon!
 </p>
 
 <!-- #include file="../../../_footer.asp"-->

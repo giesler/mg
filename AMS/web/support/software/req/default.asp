@@ -24,7 +24,7 @@ To run AMS we recommend a minimum of:
 	<li>48mb Memory</li>
 	<li>50mb Free Hard Drive space*</li>
 	<li>Internet Connection at 28.8 baud</li>
-	<li>Windows 95™ or higher**</li>
+	<li>Windows 95™ or higher ** or Windows NT 4.0 or higher **</li>
 	<li>Internet Explorer™ 4.01 or higher</li>
 </ul>
 
@@ -54,7 +54,8 @@ To participate in media sharing with AMS, we also recommend:
 <p class="clsFooter">
 <br>
 * Minimum hard drive requirements does not include room for storing files.<BR>
-** Additional OS patches may be needed to run under Windows 95™  Setup will detect updates needed.
+** Additional OS patches may be needed to run under Windows 95™.  Setup will detect what 
+updates you will need.  Windows NT 4.0 must have Service Pack 4 or greater.
 </p>
 
 <!-- #include file="../../../_footer.asp"-->

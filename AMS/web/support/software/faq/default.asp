@@ -16,7 +16,15 @@ strOffset = "../../../"
 <h3>Frequently Asked Questions</h3>
  
 <p>
-Under construction.
+This area is currently under construction.
+</p>
+
+<p>
+<a href="../tutorial/">Click here</a> for a short tutorial on using AMS
+</p>
+
+<p>
+<a href="../../known/">Click here</a> for a list of known issues.
 </p>
 
 <!-- #include file="../../../_footer.asp"-->
