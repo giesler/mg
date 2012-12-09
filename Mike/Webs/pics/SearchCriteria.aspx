@@ -1,6 +1,6 @@
-<%@ Page language="c#" Codebehind="SearchCriteria.aspx.cs" AutoEventWireup="false" Inherits="pics.SearchCriteria" smartNavigation="True" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
+<%@ Page language="c#" Codebehind="SearchCriteria.aspx.cs" AutoEventWireup="false" Inherits="pics.SearchCriteria" smartNavigation="False" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

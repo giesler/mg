@@ -213,21 +213,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "SearchCriteria1.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "SearchCriteria1.aspx.cs"
-                    DependentUpon = "SearchCriteria1.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SearchCriteria1.aspx.resx"
-                    DependentUpon = "SearchCriteria1.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "SearchResults.aspx"
                     BuildAction = "Content"
                 />
