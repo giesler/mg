@@ -24,7 +24,7 @@ CFG=Autorun - Win32 Debug
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""$/Autorun/v2/App", CWBAAAAA"
+# PROP Scc_ProjName ""$/Mike/VBSW/v2/App", CLEAAAAA"
 # PROP Scc_LocalPath "."
 CPP=cl.exe
 MTL=midl.exe
