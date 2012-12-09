@@ -79,7 +79,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                 />
             </References>
         </Build>
@@ -87,6 +87,7 @@
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -266,22 +267,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "WebForm1.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "WebForm1.aspx.cs"
-                    DependentUpon = "WebForm1.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebForm1.aspx.resx"
-                    DependentUpon = "WebForm1.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Admin\AuthNewLogin.aspx"
                     BuildAction = "Content"
                 />
@@ -424,6 +409,10 @@
                 />
                 <File
                     RelPath = "Images\msn2_small_panel.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\sideVerticalLine.gif"
                     BuildAction = "Content"
                 />
                 <File

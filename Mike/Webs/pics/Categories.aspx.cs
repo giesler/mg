@@ -25,12 +25,11 @@ namespace pics
 		protected string currentCategoryId;
 		protected int startRecord;
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
-		protected System.Web.UI.WebControls.HyperLink parentCategory;
 		protected System.Web.UI.WebControls.Label currentCategory;
 		protected System.Web.UI.WebControls.DataList subCategories;
-		protected System.Web.UI.WebControls.Panel backPanel;
 		protected System.Web.UI.WebControls.Panel childCategoryList;
 		protected System.Web.UI.WebControls.Label categoriesInLabel;
+		protected System.Web.UI.WebControls.Panel youAreHerePanel;
 		protected System.Web.UI.WebControls.Panel pnlthumbs;
 
 		public Categories()
@@ -61,29 +60,12 @@ namespace pics
 				DataSetCategory.CategoryRow categoryRow = (DataSetCategory.CategoryRow) currentNodeInfo[0].Row;
 
 				// set this info on the page
+				
 				currentCategory.Text = categoryRow.CategoryName;
 				lblCurrentCategory.Text = categoryRow.CategoryName;
 				if (!categoryRow.IsCategoryDescriptionNull())
 					lblCategoryDesc.Text = categoryRow.CategoryDescription;
                 
-                // get the info on the parent
-				if (currentCategoryId.Equals(rootCategoryId)) 
-				{
-					backPanel.Visible = false;
-					categoriesInLabel.Visible = false;
-				}
-				else 
-				{
-					// create a view to get basic info
-					DataView parentNodeInfo = new DataView(dsCat.Category);
-					parentNodeInfo.RowFilter = "CategoryID = " + categoryRow.CategoryParentID.ToString();
-					if (parentNodeInfo.Count > 0) 
-					{
-						DataSetCategory.CategoryRow parentRow = (DataSetCategory.CategoryRow) parentNodeInfo[0].Row;
-						parentCategory.Text = parentRow.CategoryName;
-						parentCategory.NavigateUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + parentRow.CategoryID.ToString();
-					}
-				}
 
 				// child areas
 				DataView childNodeInfo  = new DataView(dsCat.Category);
@@ -112,6 +94,47 @@ namespace pics
 					childCategoryList.Visible = false;
 
 				LoadPictures();
+
+				// Now load the 'you are here' control
+				ArrayList arrayHere = new ArrayList();
+				DataSetCategory.CategoryRow row = categoryRow;
+				while (row.CategoryID != Convert.ToInt32(rootCategoryId)) 
+				{
+					// create a view to find the parent
+                    DataView parentView = new DataView(dsCat.Category);
+					parentView.RowFilter = "CategoryID = " + row.CategoryParentID.ToString();
+
+					// add the parent to the array
+					row = (DataSetCategory.CategoryRow) parentView[0].Row;
+					arrayHere.Add(row.CategoryID);
+				}
+
+				// Now output in reverse order
+				for (int i = arrayHere.Count-1; i >= 0; i--) 
+				{
+					// find the title of this node
+					DataView itemView = new DataView(dsCat.Category);
+					itemView.RowFilter = "CategoryID = " + arrayHere[i].ToString();
+					DataSetCategory.CategoryRow itemRow = (DataSetCategory.CategoryRow) itemView[0].Row;
+
+					// create a link to this page
+					HyperLink link = new HyperLink();
+					link.Text = itemRow.CategoryName;
+					link.NavigateUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + itemRow.CategoryID.ToString();
+					youAreHerePanel.Controls.Add(link);
+
+					// add a divider
+					Literal lit = new Literal();
+					lit.Text = " \\ ";
+					youAreHerePanel.Controls.Add(lit);
+				}
+
+				// And add the current category
+				Label curCategory = new Label();
+				curCategory.Text = categoryRow.CategoryName;
+				curCategory.Font.Bold = true;
+				youAreHerePanel.Controls.Add(curCategory);
+				
 			}
 
 		}

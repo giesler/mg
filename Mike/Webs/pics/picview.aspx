@@ -11,8 +11,7 @@
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Zoom In">
-		</pics:header>
+		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Zoom In"></pics:header>
 		<form id="picview" method="post" runat="server">
 			<p align="center">
 				<asp:Label ID="lblTitle" Runat="server">[Title]</asp:Label>
@@ -33,11 +32,13 @@
 					<asp:Label id="lblPictureDesc" Runat="server">[Description]</asp:Label>
 				</P>
 			</asp:Panel>
+			<hr color="gainsboro" SIZE="1">
 			<asp:Panel ID="pnlPeople" Runat="server" Width="100%">
 				<I>
 					<asp:DataList id="dlPerson" Runat="server" Width="100%" RepeatLayout="Flow" RepeatDirection="Horizontal">
 						<ItemTemplate>
-							<asp:Label ID="lblPersonFullName" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'></asp:Label>
+							<asp:Label ID="lblPersonFullName" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'>
+							</asp:Label>
 						</ItemTemplate>
 						<SeparatorTemplate>
 							,

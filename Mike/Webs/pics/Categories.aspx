@@ -3,6 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
+		<title>MSN2 Pictures</title>
 		<meta content="False" name="vs_showGrid">
 		<meta content="Microsoft Visual Studio 7.0" name="GENERATOR">
 		<meta content="C#" name="CODE_LANGUAGE">
@@ -10,59 +11,40 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body topmargin="0" leftmargin="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - By Category">
-		</pics:header>
+	<body text="#ffffff" vLink="#ffff99" aLink="#ffcc99" link="#ffff00" bgColor="#650d00" leftMargin="0" topMargin="0">
+		<pics:header id="ctlHeader" header="Pictures - By Category" size="small" runat="server"></pics:header>
 		<form id="Form1" method="post" runat="server">
-			<table cellSpacing="2" cellPadding="0" width="100%" border="0">
+			<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">You are here: </asp:panel>
+			<hr color="gainsboro" SIZE="1">
+			<table cellSpacing="2" cellPadding="0" width="100%" border="0" height="100%">
 				<tr>
-					<td width="10%" rowspan="3" valign="top">
-						<asp:Panel ID="backPanel" Runat="server" CssClass="note">
-							<I>Go to</I>
-							<BR>
-							<asp:HyperLink id="parentCategory" Runat="server">Categories</asp:HyperLink>
-						</asp:Panel>
-						<br>
-						<br>
-						<asp:Panel ID="childCategoryList" Runat="server" CssClass="note">
-							<I>
+					<td style="BORDER-RIGHT: gainsboro thin solid" vAlign="top" width="100" rowSpan="3"><asp:panel id="childCategoryList" CssClass="note" Runat="server"><I>
 								<asp:Label id="categoriesInLabel" Runat="server">Categories in<br></asp:Label>
-								<asp:Label id="currentCategory" Runat="server">[current category]</asp:Label>
-								:</I>
-							<br>
-							<br>
-						</asp:Panel>
-					</td>
-					<td rowspan="4">
-						&nbsp;
+								<asp:Label id="currentCategory" Runat="server">[current category]</asp:Label>:</I>
+							<BR>
+							<BR>
+						</asp:panel></td>
+					<td rowSpan="4">&nbsp;
 					</td>
 					<td vAlign="top" height="10%">
-						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td>
-									<asp:label id="lblCurrentCategory" Runat="server" Font-Bold="true" Font-Size="12">Current Category Title</asp:label>
-								</td>
-								<td align="right">
-									<asp:HyperLink ID="lnkSlideshow" Runat="server" Visible="False">Slideshow</asp:HyperLink>
+								<td><asp:label id="lblCurrentCategory" Runat="server" Font-Size="12" Font-Bold="true">Current Category Title</asp:label></td>
+								<td align="right"><asp:hyperlink id="lnkSlideshow" Runat="server" Visible="False">Slideshow</asp:hyperlink></td>
+							</tr>
+							<tr>
+								<td colSpan="2"><asp:label id="lblCategoryDesc" Runat="server"></asp:label>
+									<hr color="gainsboro" SIZE="1">
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<asp:label id="lblCategoryDesc" Runat="server"></asp:label>
-						<hr color="gainsboro" size="1">
-					</td>
-				</tr>
-				<tr>
-					<td vAlign="top" height="90%">
-						<asp:Panel Runat="server" ID="pnlthumbs"></asp:Panel>
-					</td>
+					<td vAlign="top" height="90%"><asp:panel id="pnlthumbs" Runat="server"></asp:panel></td>
 				</tr>
 			</table>
-			<p>
-			</p>
+			<p></p>
 		</form>
 	</body>
 </HTML>
