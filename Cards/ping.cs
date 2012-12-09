@@ -50,7 +50,7 @@ namespace Cards
 			int retval;
 			do
 			{
-				if (l.Poll(1000*1, SelectMode.SelectRead))
+				if (l.Poll(1000*10, SelectMode.SelectRead))
 				{
 					//something to read
 					retval = l.ReceiveFrom(buf, buf.Length, 0, ref e);
@@ -66,6 +66,57 @@ namespace Cards
 
 	public class PingClient
 	{
-		
+		public const int Port = 4001;
+		protected bool mStop;
+		protected Thread mThread;
+		protected Queue mServers;
+
+		public PingClient()
+		{
+			//create objects
+			mThread = new Thread(new ThreadStart(this.Alpha));
+			mServers = new Queue();
+			mStop = false;s
+		}
+
+		public void Start()
+		{
+			//start thread
+			mThread.Start();
+		}
+
+		public void Alpha()
+		{
+			//create listening socket
+			ObjectList connections = new ObjectList();
+			Socket sock = new Socket(AddressFamily.AfINet, 
+									SocketType.SockDgram,
+									ProtocolType.ProtUDP);
+			sock.Bind(new IPEndPoint(IPAddress.InaddrAny, Port));
+
+			//wait for responses
+			bool s;
+			byte[] buf = new byte[2048];
+			IPEndPoint ip = new IPEndPoint(0, 0);
+			EndPoint e = (EndPoint)ip;
+			do
+			{
+				//check for any packets to read
+				if (sock.Poll(1000*10, SelectMode.SelectRead))
+				{
+					//read datagram
+					sock.ReceiveFrom(buf, buf.Length, 0, ref e);
+
+					//read parameters
+					//string length (4), string, private (1),
+					//current players (4), max players (4)
+				}
+
+				Monitor.Enter(this);
+				s = mStop;
+				Monitor.Exit(this);
+
+			} while (s); 
+		}
 	}
 }
