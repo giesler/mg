@@ -233,6 +233,7 @@ bool CCompletedView::InsertItem(tag t)
 		if (cacheindex!=-1)
 		{
 			//decode
+			//AfxMessageBox("Cached file found.");
 			cf = dbman()->GetCachedFile(cacheindex);
 			dib = new CDIBSection();
 			jpeg.MakeBmpFromMemory(cf->file, cf->size, dib, 32);
@@ -240,22 +241,26 @@ bool CCompletedView::InsertItem(tag t)
 		else
 		{
 			//decode full image
+			//AfxMessageBox("Resizing new file.");
 			CDIBSection dibsrc;
 			jpeg.MakeBmpFromMemory(t->mBuffer, t->mBufferSize, &dibsrc, 32);
 
 			//resize to thumbnail
 			dib = FastResize(&dibsrc, XMGUI_THUMBWIDTH, XMGUI_THUMBHEIGHT);
 		}
+		//AfxMessageBox("Succesfully decoded...");
 	}
 	catch (...)
 	{
 		AfxMessageBox("Error while decoding JPEG data.");
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 		if (dib)
 		{
-			delete dib;
+			//delete dib;
+			//AfxMessageBox("Done deleting.");
 			dib = NULL;
 		}
+		//AfxMessageBox("Done deleting 2.");
 	}
 	dbman()->Unlock();
 	
@@ -413,6 +418,8 @@ LRESULT CCompletedView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 	//get our tag
 	CXMPipelineUpdateTag *utag = (CXMPipelineUpdateTag*)lParam;
 	tag t;
+	DWORD dw;
+	//CString str;
 	
 	switch (wParam)
 	{
@@ -420,11 +427,17 @@ LRESULT CCompletedView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 
 		//get completed file
 		cm()->Lock();
-		t = cm()->GetCompletedFile(cm()->FindCompletedFile(utag));
-		if (t)
+		dw = cm()->FindCompletedFile(utag);
+		if (dw!=-1)
 		{
-			//insert
-			InsertItem(t);
+			//str.Format("Completed file #%d.", dw);
+			//AfxMessageBox(str);
+			t = cm()->GetCompletedFile(dw);
+			if (t)
+			{
+				//insert
+				InsertItem(t);
+			}
 		}
 		cm()->Unlock();
 		break;

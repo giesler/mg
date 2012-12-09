@@ -146,12 +146,19 @@ private:
 	CXMMessageField** mContent;	//array of message fields
 	int mContentSize;			//allocated size of content buffer
 	DWORD mBinarySize;			//size of binary buffer
-	BYTE mBinaryMD5[16];		//MD5 of buffer
 	void* mBinaryBuf;			//binary buffer pointer
 	DWORD mExpectedBinarySize;	//incoming only, size from <binary> tag
 	bool AllocBuf(DWORD size);	//realloc the binary buffer, freeing if needed
 	void FreeBuf();				//empty binary buf
 	bool UpdateMD5();			//recalculate the md5 of our buffer
+
+	//in interal builds, we don't read the md5 from the
+	//file, so client manager needs to set it manually
+	#ifdef _INTERNAL
+	public:
+	BYTE mBinaryMD5[16];		//MD5 of buffer
+	private:
+	#endif
 
 	//specific content
 	CXMQueryResponse *mQueryResponse;

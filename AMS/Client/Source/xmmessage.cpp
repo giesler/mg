@@ -1185,11 +1185,13 @@ bool CXMMessage::AttachFile(FILE *pfile)
 		pos += retval;
 	}
 
-	//Calculate MD5
+	//Calculate MD5 -- only in distribution builds!
+	#ifdef _DISTRO
 	if (!UpdateMD5()) {
 		FreeBuf();
 		return false;
 	}
+	#endif
 
 	//success
 	return true;

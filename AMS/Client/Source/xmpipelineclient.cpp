@@ -584,6 +584,13 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 					return;
 				}
 
+				//if this is an internal build, we need to manually
+				//set the md5 of the file.. we just hope that it is
+				//what it should be!
+				#ifdef _INTERNAL
+				memcpy(reply->mBinaryMD5, md5.GetValue(), 16);
+				#endif
+
 				//check the md5 of the file against what we expect
 				if(!md5comp(reply->GetBinaryMD5(), md5.GetValue()))
 				{
@@ -694,6 +701,11 @@ void CXMClientManager::BeginDownload(DWORD i)
 	//begin when the session is connected
 	mDownloads[i].mSession = OpenSession(mDownloads[i].mItem->
 		mHosts[mDownloads[i].mCurrentHost].Ip, config()->GetFieldLong(FIELD_NET_CLIENTPORT));
+
+	TRACE("Downloading from host: %s (%d of %d)\n",
+			mDownloads[i].mItem->mHosts[mDownloads[i].mCurrentHost].Ip,
+			mDownloads[i].mCurrentHost+1,
+			mDownloads[i].mItem->mHostsCount);
 
 	//clamp the thumbnail
 	if (!mDownloads[i].mIsThumb)
