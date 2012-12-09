@@ -32,7 +32,7 @@
 										<asp:Label ID="noResults" Runat="server" Visible="False" CssClass="err">There were no results found for your search below.  Please change your search and try again.<br><br></asp:Label>
 									</P>
 									<p>
-										You can search for pictures based on the picture description.
+										<b>Picture Description</b>:  You can search for pictures based on the picture description.
 									</p>
 									<blockquote>
 										<p>
@@ -42,7 +42,7 @@
 									</blockquote>
 									<hr noshade>
 									<p>
-										You can search for pictures based on the date of the picture.
+										<b>Picture Date</b>:  You can search for pictures based on the date of the picture.
 									</p>
 									<blockquote>
 										<p>
@@ -74,7 +74,7 @@
 									</blockquote>
 									<hr noshade>
 									<p>
-										You can search for pictures based on the people in the picture. First, enter 
+										<b>People</b>:  You can search for pictures based on the people in the picture. First, enter 
 										any part of the person's name. Then click 'Find'. This will show anyone with 
 										similiar names. Select the person or persons you would like to include, and 
 										click 'Add'. You can repeat the process to add as many names as you wish.
