@@ -1,0 +1,50 @@
+Build 13, 5/2/2000:
+  Updated Documentation.
+
+Build 12, 4/4/2000:
+  Fixed broken build 11.
+
+Build 11, 3/31/2000 (Version 2.2):
+  Added CBmp::CreateRotatedCopyPoint() (Sven Schuchmann).
+  Added quantization support (Michael Salzlechner and Yaron Mizrahi).
+  Added CBmpDecoder::MakeBmpFromMemory() (Markus Ewald).
+
+Build 10, 3/28/2000:
+  Added zoom mode to PicLook (Bernard Delmée).
+
+Build 9, 3/17/2000:
+  Fixed bug decoding b/w pcx images
+
+Build 8, 3/16/2000:
+  Added PGM decoder (Jose Miguel Buenaposada Biencinto).
+  Added CMemSource class (Patrick Strömstedt).
+  Testdec now allows resizing of its window (Amos Di Gennaro).
+  Corrected bug in Mac Pict decoder.
+
+Build 7, 1/18/2000:
+  Removed MFC from the library.
+  Corrected copy constructor bug.
+
+Build 6, 1/9/2000:
+  Updated workspaces to Visual C++ 6.0.
+  Corrected wierd libtiff callback bug.
+
+Build 5, 1/9/2000:
+  Added support for 8 bpp files to the png encoder.
+
+Build 4, 1/8/2000:
+  Added beta of PNG encoder.
+  Corrected minor error in the bmp decoder.
+
+Build 3, 12/31/1999:
+  Fixed paintX error handling.
+  Corrected error in CBmp::SetPixel for 1 bpp.
+  Corrected interpolation error in 2passscale.h.
+  Corrected error in CDibSection::createCopyHandle().
+
+Build 2, 12/30/1999:
+  Added FromClipboard and CreateFromHBitmap.
+  Renamed ToClipBoard to ToClipboard.
+
+Build 1, 12/29/1999:
+  Change log added.

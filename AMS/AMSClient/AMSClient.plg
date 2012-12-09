@@ -1,0 +1,78 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: AMSClient - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4E8.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /I "Source\Jpeg" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR"Intermediate\Debug\Client/" /Fp"Intermediate\Debug\Client/AMSClient.pch" /YX /Fo"Intermediate\Debug\Client/" /Fd"Intermediate\Debug\Client/" /FD /GZ /c 
+"D:\XMEDIA\AMSCLIENT\Source\xmpipelineserver.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4E8.tmp" 
+Creating temporary file "C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4E9.tmp" with contents
+[
+paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib /nologo /subsystem:windows /incremental:yes /pdb:"Build\Debug\AMSClient.pdb" /debug /machine:I386 /out:"Build\Debug\AMSClient.exe" /pdbtype:sept /libpath:"Build\Debug\Lib" 
+.\Intermediate\Debug\Client\StdAfx.obj
+.\Intermediate\Debug\Client\xmclient.obj
+.\Intermediate\Debug\Client\xmclientconfig.obj
+.\Intermediate\Debug\Client\xmdb.obj
+.\Intermediate\Debug\Client\xmdbman.obj
+.\Intermediate\Debug\Client\xmgui.obj
+.\Intermediate\Debug\Client\xmguibrowsing.obj
+.\Intermediate\Debug\Client\xmguicompleted.obj
+.\Intermediate\Debug\Client\xmguilocal.obj
+.\Intermediate\Debug\Client\xmguiquery.obj
+.\Intermediate\Debug\Client\xmguisearch.obj
+.\Intermediate\Debug\Client\xmguishared.obj
+.\Intermediate\Debug\Client\xmguistatus.obj
+.\Intermediate\Debug\Client\xmmessage.obj
+.\Intermediate\Debug\Client\xmnet.obj
+.\Intermediate\Debug\Client\xmpipeline.obj
+.\Intermediate\Debug\Client\xmpipelineclient.obj
+.\Intermediate\Debug\Client\xmpipelineserver.obj
+.\Intermediate\Debug\Client\xmquery.obj
+.\Intermediate\Debug\Client\XMClient.res
+.\Build\Debug\Lib\libjpeg.lib
+.\Build\Debug\Lib\paintlib.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4E9.tmp"
+<h3>Output Window</h3>
+Compiling...
+xmpipelineserver.cpp
+Linking...
+Creating temporary file "C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4EA.tmp" with contents
+[
+/nologo /o"Build\Debug\AMSClient.bsc" 
+.\Intermediate\Debug\Client\StdAfx.sbr
+.\Intermediate\Debug\Client\xmclient.sbr
+.\Intermediate\Debug\Client\xmclientconfig.sbr
+.\Intermediate\Debug\Client\xmdb.sbr
+.\Intermediate\Debug\Client\xmdbman.sbr
+.\Intermediate\Debug\Client\xmgui.sbr
+.\Intermediate\Debug\Client\xmguibrowsing.sbr
+.\Intermediate\Debug\Client\xmguicompleted.sbr
+.\Intermediate\Debug\Client\xmguilocal.sbr
+.\Intermediate\Debug\Client\xmguiquery.sbr
+.\Intermediate\Debug\Client\xmguisearch.sbr
+.\Intermediate\Debug\Client\xmguishared.sbr
+.\Intermediate\Debug\Client\xmguistatus.sbr
+.\Intermediate\Debug\Client\xmmessage.sbr
+.\Intermediate\Debug\Client\xmnet.sbr
+.\Intermediate\Debug\Client\xmpipeline.sbr
+.\Intermediate\Debug\Client\xmpipelineclient.sbr
+.\Intermediate\Debug\Client\xmpipelineserver.sbr
+.\Intermediate\Debug\Client\xmquery.sbr]
+Creating command line "bscmake.exe @C:\DOCUME~1\Nick\LOCALS~1\Temp\RSP4EA.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+AMSClient.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
