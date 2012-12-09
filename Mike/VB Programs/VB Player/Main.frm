@@ -1,42 +1,205 @@
 VERSION 5.00
 Object = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}#1.0#0"; "msdxm.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Begin VB.Form frmMain 
-   BorderStyle     =   0  'None
    Caption         =   "vbplayer"
-   ClientHeight    =   6825
-   ClientLeft      =   0
-   ClientTop       =   0
-   ClientWidth     =   9135
+   ClientHeight    =   5760
+   ClientLeft      =   165
+   ClientTop       =   735
+   ClientWidth     =   8745
    FillColor       =   &H8000000F&
    ForeColor       =   &H8000000F&
    LinkTopic       =   "Form1"
-   ScaleHeight     =   6825
-   ScaleWidth      =   9135
+   ScaleHeight     =   5760
+   ScaleWidth      =   8745
    StartUpPosition =   3  'Windows Default
-   Begin VB.Frame fraBorderTop 
-      Height          =   30
-      Left            =   0
-      TabIndex        =   27
-      Top             =   240
-      Width           =   9500
-   End
-   Begin MSComctlLib.Slider sldVolume 
-      Height          =   255
-      Left            =   6960
-      TabIndex        =   21
-      Top             =   6360
-      Width           =   1695
-      _ExtentX        =   2990
-      _ExtentY        =   450
+   Begin TabDlg.SSTab SSTab1 
+      Height          =   4215
+      Left            =   240
+      TabIndex        =   10
+      Top             =   1440
+      Width           =   8295
+      _ExtentX        =   14631
+      _ExtentY        =   7435
       _Version        =   393216
-      LargeChange     =   200
-      SmallChange     =   25
-      Min             =   8000
-      Max             =   10000
-      SelStart        =   9000
-      TickFrequency   =   200
-      Value           =   9000
+      Style           =   1
+      TabsPerRow      =   4
+      TabHeight       =   520
+      TabCaption(0)   =   "Queue"
+      TabPicture(0)   =   "Main.frx":0000
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label2"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "lvQueue"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "udQueueCount"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "txtQueueCount"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).ControlCount=   5
+      TabCaption(1)   =   "All Songs"
+      TabPicture(1)   =   "Main.frx":001C
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "lv"
+      Tab(1).ControlCount=   1
+      TabCaption(2)   =   "Fi&nd songs"
+      TabPicture(2)   =   "Main.frx":0038
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlCount=   0
+      Begin VB.TextBox txtQueueCount 
+         Height          =   285
+         Left            =   6000
+         TabIndex        =   16
+         Top             =   3720
+         Width           =   495
+      End
+      Begin ComCtl2.UpDown udQueueCount 
+         Height          =   285
+         Left            =   6496
+         TabIndex        =   15
+         Top             =   3720
+         Width           =   240
+         _ExtentX        =   423
+         _ExtentY        =   503
+         _Version        =   327681
+         Value           =   1
+         BuddyControl    =   "txtQueueCount"
+         BuddyDispid     =   196636
+         OrigLeft        =   6720
+         OrigTop         =   3720
+         OrigRight       =   6960
+         OrigBottom      =   3975
+         Max             =   20
+         Min             =   1
+         SyncBuddy       =   -1  'True
+         BuddyProperty   =   65547
+         Enabled         =   -1  'True
+      End
+      Begin MSComctlLib.ListView lv 
+         Height          =   3495
+         Left            =   -74760
+         TabIndex        =   11
+         Top             =   480
+         Width           =   7815
+         _ExtentX        =   13785
+         _ExtentY        =   6165
+         View            =   3
+         LabelEdit       =   1
+         MultiSelect     =   -1  'True
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   4
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "ID"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Name"
+            Object.Width           =   3528
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Artist"
+            Object.Width           =   3528
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "Path"
+            Object.Width           =   7056
+         EndProperty
+      End
+      Begin MSComctlLib.ListView lvQueue 
+         Height          =   3135
+         Left            =   120
+         TabIndex        =   12
+         Top             =   480
+         Width           =   7935
+         _ExtentX        =   13996
+         _ExtentY        =   5530
+         SortKey         =   4
+         View            =   3
+         LabelEdit       =   1
+         Sorted          =   -1  'True
+         MultiSelect     =   -1  'True
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   5
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "ID"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Name"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Artist"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "Path"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   4
+            Text            =   "Index"
+            Object.Width           =   0
+         EndProperty
+      End
+      Begin VB.Label Label2 
+         Caption         =   "songs"
+         Height          =   255
+         Left            =   6840
+         TabIndex        =   18
+         Top             =   3720
+         Width           =   855
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Queue"
+         Height          =   255
+         Left            =   5280
+         TabIndex        =   17
+         Top             =   3720
+         Width           =   615
+      End
    End
    Begin VB.CommandButton cmdStopPlay 
       Caption         =   "Stop"
@@ -51,8 +214,8 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   7800
-      TabIndex        =   20
-      Top             =   1080
+      TabIndex        =   9
+      Top             =   960
       Width           =   975
    End
    Begin VB.CommandButton cmdPause 
@@ -68,141 +231,20 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   6720
-      TabIndex        =   19
-      Top             =   1080
+      TabIndex        =   8
+      Top             =   960
       Width           =   975
-   End
-   Begin VB.CommandButton cmdPlayNow 
-      Caption         =   "Play &Now"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7080
-      TabIndex        =   17
-      Top             =   4440
-      Width           =   1575
    End
    Begin VB.Timer tmrUpdateSlider 
       Interval        =   500
-      Left            =   6840
-      Top             =   360
-   End
-   Begin VB.CommandButton cmdQueueRemove 
-      Caption         =   "&Remove"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
       Left            =   7080
-      TabIndex        =   15
-      Top             =   2640
-      Width           =   1575
-   End
-   Begin VB.CommandButton cmdQueueDown 
-      Caption         =   "&Down"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7920
-      TabIndex        =   14
-      Top             =   2160
-      Width           =   735
-   End
-   Begin VB.CommandButton cmdQueueUp 
-      Caption         =   "&Up"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7080
-      TabIndex        =   13
-      Top             =   2160
-      Width           =   735
-   End
-   Begin VB.CommandButton cmdAddToQueue 
-      Caption         =   "&Add to Queue"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7080
-      TabIndex        =   12
-      Top             =   3960
-      Width           =   1575
-   End
-   Begin VB.CommandButton cmdQueuePlay 
-      BackColor       =   &H80000012&
-      Caption         =   "&Play Now"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7080
-      MaskColor       =   &H00000000&
-      TabIndex        =   11
-      Top             =   1680
-      Width           =   1575
-   End
-   Begin VB.CommandButton cmdResetQueue 
-      Caption         =   "Reset &Queue"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7080
-      TabIndex        =   10
-      Top             =   3120
-      Width           =   1575
+      Top             =   3000
    End
    Begin VB.TextBox txtLog 
       Height          =   975
       Left            =   120
       MultiLine       =   -1  'True
-      TabIndex        =   9
+      TabIndex        =   5
       Top             =   6840
       Visible         =   0   'False
       Width           =   6735
@@ -210,7 +252,7 @@ Begin VB.Form frmMain
    Begin MSComctlLib.Slider sldCurSong 
       Height          =   255
       Left            =   120
-      TabIndex        =   8
+      TabIndex        =   4
       Top             =   1080
       Width           =   6255
       _ExtentX        =   11033
@@ -223,190 +265,37 @@ Begin VB.Form frmMain
    Begin VB.CommandButton cmdLoadFromDB 
       Caption         =   "&Load from DB"
       Height          =   375
-      Left            =   7920
-      TabIndex        =   2
-      Top             =   360
+      Left            =   4080
+      TabIndex        =   1
+      Top             =   6000
       Visible         =   0   'False
       Width           =   1095
    End
    Begin VB.CommandButton cmdLoadPath 
       Caption         =   "&Load from Path"
       Height          =   375
-      Left            =   6360
-      TabIndex        =   1
-      Top             =   360
+      Left            =   2520
+      TabIndex        =   0
+      Top             =   6000
       Visible         =   0   'False
       Width           =   1335
    End
-   Begin MSComctlLib.ListView lv 
-      Height          =   3255
-      Left            =   120
-      TabIndex        =   0
-      Top             =   3480
-      Width           =   6735
-      _ExtentX        =   11880
-      _ExtentY        =   5741
-      View            =   3
-      MultiSelect     =   -1  'True
-      LabelWrap       =   -1  'True
-      HideSelection   =   0   'False
-      FullRowSelect   =   -1  'True
-      _Version        =   393217
-      ForeColor       =   -2147483640
-      BackColor       =   -2147483643
-      BorderStyle     =   1
-      Appearance      =   1
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      NumItems        =   4
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Text            =   "ID"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   1
-         Text            =   "Name"
-         Object.Width           =   3528
-      EndProperty
-      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   2
-         Text            =   "Artist"
-         Object.Width           =   3528
-      EndProperty
-      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   3
-         Text            =   "Path"
-         Object.Width           =   7056
-      EndProperty
-   End
-   Begin MSComctlLib.ListView lvQueue 
-      Height          =   1455
-      Left            =   120
-      TabIndex        =   4
-      Top             =   1680
-      Width           =   6735
-      _ExtentX        =   11880
-      _ExtentY        =   2566
-      SortKey         =   4
-      View            =   3
-      Sorted          =   -1  'True
-      LabelWrap       =   -1  'True
-      HideSelection   =   0   'False
-      FullRowSelect   =   -1  'True
-      _Version        =   393217
-      ForeColor       =   -2147483640
-      BackColor       =   -2147483643
-      BorderStyle     =   1
-      Appearance      =   1
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      NumItems        =   5
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Text            =   "ID"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   1
-         Text            =   "Name"
-         Object.Width           =   3528
-      EndProperty
-      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   2
-         Text            =   "Artist"
-         Object.Width           =   3528
-      EndProperty
-      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   3
-         Text            =   "Path"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   4
-         Text            =   "Index"
-         Object.Width           =   0
-      EndProperty
-   End
-   Begin VB.Frame fraTop 
-      BackColor       =   &H80000007&
-      BorderStyle     =   0  'None
+   Begin MSComctlLib.Slider sldVolume 
       Height          =   255
-      Left            =   0
-      TabIndex        =   23
-      Top             =   0
-      Width           =   9135
-      Begin VB.Label lblCaption 
-         BackStyle       =   0  'Transparent
-         Caption         =   "vbplayer"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   255
-         Left            =   120
-         TabIndex        =   26
-         Top             =   0
-         Width           =   8535
-      End
-      Begin VB.Label lblMin 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "_"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   255
-         Left            =   8760
-         TabIndex        =   25
-         Top             =   0
-         Width           =   135
-      End
-      Begin VB.Label lblX 
-         Alignment       =   2  'Center
-         BackStyle       =   0  'Transparent
-         Caption         =   "x"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   255
-         Left            =   9000
-         TabIndex        =   24
-         Top             =   0
-         Width           =   135
-      End
+      Left            =   6840
+      TabIndex        =   13
+      Top             =   240
+      Width           =   1695
+      _ExtentX        =   2990
+      _ExtentY        =   450
+      _Version        =   393216
+      LargeChange     =   200
+      SmallChange     =   25
+      Min             =   8000
+      Max             =   10000
+      SelStart        =   9000
+      TickFrequency   =   200
+      Value           =   9000
    End
    Begin VB.Label Label3 
       Caption         =   "Volume"
@@ -420,15 +309,15 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   7080
-      TabIndex        =   22
-      Top             =   6120
+      Left            =   6960
+      TabIndex        =   14
+      Top             =   0
       Width           =   1335
    End
    Begin VB.Label lblID 
       Height          =   255
       Left            =   6480
-      TabIndex        =   18
+      TabIndex        =   7
       Top             =   840
       Visible         =   0   'False
       Width           =   735
@@ -436,7 +325,7 @@ Begin VB.Form frmMain
    Begin MediaPlayerCtl.MediaPlayer wmp 
       Height          =   975
       Left            =   6960
-      TabIndex        =   16
+      TabIndex        =   6
       Top             =   6840
       Visible         =   0   'False
       Width           =   2055
@@ -511,7 +400,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   255
       Left            =   360
-      TabIndex        =   7
+      TabIndex        =   3
       Top             =   360
       Width           =   5295
    End
@@ -527,43 +416,58 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   240
-      TabIndex        =   6
+      TabIndex        =   2
       Top             =   600
       Width           =   6015
    End
-   Begin VB.Label Label2 
-      Caption         =   "Play Queue"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   240
-      TabIndex        =   5
-      Top             =   1440
-      Width           =   2535
+   Begin VB.Menu mnuFile 
+      Caption         =   "&File"
+      Begin VB.Menu mnuFileExit 
+         Caption         =   "E&xit"
+      End
    End
-   Begin VB.Label Label1 
-      Caption         =   "All Songs"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   240
-      TabIndex        =   3
-      Top             =   3240
-      Width           =   2535
+   Begin VB.Menu mnuQueue 
+      Caption         =   "&Queue"
+      Begin VB.Menu mnuQueuePlayNow 
+         Caption         =   "&Play Now"
+         Shortcut        =   ^P
+      End
+      Begin VB.Menu mnuQueueRemove 
+         Caption         =   "&Remove"
+         Shortcut        =   ^R
+      End
+      Begin VB.Menu mnuQueueRemoveVote 
+         Caption         =   "Remove (and vote)"
+         Shortcut        =   ^V
+      End
+      Begin VB.Menu mnuQueueBlank1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuQueueUp 
+         Caption         =   "Move &Up"
+         Shortcut        =   ^U
+      End
+      Begin VB.Menu mnuQueueDown 
+         Caption         =   "Move &Down"
+         Shortcut        =   ^D
+      End
+      Begin VB.Menu mnuQueueBlank2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuQueueReset 
+         Caption         =   "Reset &Queue"
+         Shortcut        =   ^Q
+      End
+   End
+   Begin VB.Menu mnuPlaylist 
+      Caption         =   "&Playlist"
+      Begin VB.Menu mnuPlaylistAddtoQueue 
+         Caption         =   "&Add to Queue"
+         Shortcut        =   ^A
+      End
+      Begin VB.Menu mnuPlaylistPlayNow 
+         Caption         =   "&Play Now"
+      End
    End
 End
 Attribute VB_Name = "frmMain"
@@ -573,20 +477,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Const m_Module = "Main"
+
 Private blnMovingWindow As Boolean
 Private intStartX As Long, intStartY As Long
-
-Private Sub cmdAddToQueue_Click()
-
-    Dim li As ListItem
-    
-    For Each li In lv.ListItems
-        If li.Selected Then
-            AddToQueue li
-        End If
-    Next li
-    
-End Sub
 
 Private Sub cmdLoadFromDB_Click()
 
@@ -701,73 +595,6 @@ Private Sub cmdPause_Click()
     
 End Sub
 
-Private Sub cmdPlayNow_Click()
-
-    PlayCurSong False
-    
-End Sub
-
-Private Sub cmdQueueDown_Click()
-
-    Dim li As ListItem, li2 As ListItem, strTemp As String
-        
-    Set li = lvQueue.SelectedItem
-    If li Is Nothing Then Exit Sub
-    If li.Index = lvQueue.ListItems.Count Then Exit Sub
-    
-    Set li2 = lvQueue.ListItems(li.Index + 1)
-    
-    strTemp = li.SubItems(4)
-    li.SubItems(4) = li2.SubItems(4)
-    li2.SubItems(4) = strTemp
-    
-    lvQueue.Sorted = True
-    lvQueue.Refresh
-
-End Sub
-
-Private Sub cmdQueuePlay_Click()
-
-    PlayCurSong
-    
-End Sub
-
-Private Sub cmdQueueRemove_Click()
-
-    Dim li As ListItem
-    
-    lvQueue.ListItems.Remove lvQueue.SelectedItem.Index
-    
-    UpdateQueue
-
-End Sub
-
-Private Sub cmdQueueUp_Click()
-
-    Dim li As ListItem, li2 As ListItem, strTemp As String
-        
-    Set li = lvQueue.SelectedItem
-    If li Is Nothing Then Exit Sub
-    If li.Index = 1 Then Exit Sub
-    
-    Set li2 = lvQueue.ListItems(li.Index - 1)
-    
-    strTemp = li.SubItems(4)
-    li.SubItems(4) = li2.SubItems(4)
-    li2.SubItems(4) = strTemp
-    
-    lvQueue.Sorted = True
-    lvQueue.Refresh
-    
-End Sub
-
-Private Sub cmdResetQueue_Click()
-
-    lvQueue.ListItems.Clear
-    UpdateQueue
-    
-End Sub
-
 Private Sub cmdStopPlay_Click()
 
     If wmp.PlayState = mpPlaying Then
@@ -785,7 +612,8 @@ Private Sub Form_Load()
 
     Left = GetSetting("VBPlayer", Name, "Left", Left)
     Top = GetSetting("VBPlayer", Name, "Top", Top)
-    
+    udQueueCount.Value = Val(GetSetting("VBPlayer", "Settings", "QueueCount", "5"))
+        
     Show
     Refresh
     cmdLoadFromDB_Click
@@ -798,30 +626,8 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     SaveSetting "VBPlayer", Name, "Left", Left
     SaveSetting "VBPlayer", Name, "Top", Top
-    
+    SaveSetting "VBPlayer", "Settings", "QueueCount", udQueueCount.Value
     End
-    
-End Sub
-
-Private Sub lblCaption_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    intStartX = X
-    intStartY = Y
-    blnMovingWindow = True
-    
-End Sub
-
-Private Sub lblCaption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    If blnMovingWindow Then
-        Move Left - (intStartX - X), Top - (intStartY - Y)
-    End If
-    
-End Sub
-
-Private Sub lblCaption_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    blnMovingWindow = False
     
 End Sub
 
@@ -851,7 +657,10 @@ Private Sub UpdateQueue()
 
     Dim liDest As ListItem, liSrc As ListItem, i As Long
        
-    While lvQueue.ListItems.Count < 5
+    ' make sure there are songs we can use
+    If lv.ListItems.Count = 0 Then Exit Sub
+    
+    While lvQueue.ListItems.Count < udQueueCount.Value
             
         i = Rnd() * lv.ListItems.Count
         Set liSrc = lv.ListItems(i)
@@ -885,6 +694,162 @@ Private Function AddToQueue(liSrc As ListItem) As ListItem
     
 End Function
 
+Private Sub lv_DblClick()
+
+    mnuPlaylistAddtoQueue_Click
+    
+End Sub
+
+Private Sub lv_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+
+    If Button = vbRightButton Then
+        PopupMenu mnuPlaylist, , , , mnuPlaylistAddtoQueue
+    End If
+    
+End Sub
+
+Private Sub lvQueue_DblClick()
+
+    PlayCurSong , lvQueue.SelectedItem.Index
+
+End Sub
+
+Private Sub lvQueue_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+
+    If Button = vbRightButton Then
+        PopupMenu mnuQueue, , , , mnuQueuePlayNow
+    End If
+
+End Sub
+
+Private Sub mnuFileExit_Click()
+
+    Unload Me
+    
+End Sub
+
+Private Sub mnuPlaylistAddtoQueue_Click()
+
+    Dim li As ListItem
+    
+    For Each li In lv.ListItems
+        If li.Selected Then
+            AddToQueue li
+        End If
+    Next li
+
+End Sub
+
+Private Sub mnuPlaylistPlayNow_Click()
+
+    PlayCurSong False
+
+End Sub
+
+Private Sub mnuQueueDown_Click()
+
+    Dim li As ListItem, li2 As ListItem, strTemp As String
+        
+    Set li = lvQueue.SelectedItem
+    If li Is Nothing Then Exit Sub
+    If li.Index = lvQueue.ListItems.Count Then Exit Sub
+    
+    Set li2 = lvQueue.ListItems(li.Index + 1)
+    
+    strTemp = li.SubItems(4)
+    li.SubItems(4) = li2.SubItems(4)
+    li2.SubItems(4) = strTemp
+    
+    lvQueue.Sorted = True
+    lvQueue.Refresh
+
+End Sub
+
+Private Sub mnuQueuePlayNow_Click()
+    PlayCurSong
+End Sub
+
+Private Sub mnuQueueRemove_Click()
+
+    Dim li As ListItem, i As Integer, col As Collection
+    Dim vID As Variant
+    
+    Set li = lvQueue.SelectedItem
+    If li Is Nothing Then Exit Sub
+    
+    Set col = New Collection
+    For Each li In lvQueue.ListItems
+        If li.Selected Then col.Add li.Text, li.Text
+    Next li
+    
+    For Each vID In col
+        Set li = lvQueue.FindItem(vID)
+        If Not li Is Nothing Then
+            lvQueue.ListItems.Remove li.Index
+        End If
+    Next vID
+    
+    UpdateQueue
+
+    On Error Resume Next
+    lvQueue.SelectedItem = lvQueue.ListItems(i)
+
+End Sub
+
+Private Sub mnuQueueRemoveVote_Click()
+
+    Dim li As ListItem, i As Integer, col As Collection
+    Dim vID As Variant
+    
+    Set li = lvQueue.SelectedItem
+    If li Is Nothing Then Exit Sub
+    
+    Set col = New Collection
+    For Each li In lvQueue.ListItems
+        If li.Selected Then col.Add li.Text, li.Text
+    Next li
+    
+    For Each vID In col
+        Set li = lvQueue.FindItem(vID)
+        If Not li Is Nothing Then
+            gConn.Execute "insert into History (mediaid, currentuser, datetime, vote) values (" & li.Text & ", '" & GetNTUserName() & "', '" & Now & "', -1.0)"
+            lvQueue.ListItems.Remove li.Index
+        End If
+    Next vID
+    
+    UpdateQueue
+
+    On Error Resume Next
+    lvQueue.SelectedItem = lvQueue.ListItems(i)
+
+End Sub
+
+Private Sub mnuQueueReset_Click()
+
+    lvQueue.ListItems.Clear
+    UpdateQueue
+
+End Sub
+
+Private Sub mnuQueueUp_Click()
+
+    Dim li As ListItem, li2 As ListItem, strTemp As String
+        
+    Set li = lvQueue.SelectedItem
+    If li Is Nothing Then Exit Sub
+    If li.Index = 1 Then Exit Sub
+    
+    Set li2 = lvQueue.ListItems(li.Index - 1)
+    
+    strTemp = li.SubItems(4)
+    li.SubItems(4) = li2.SubItems(4)
+    li2.SubItems(4) = strTemp
+    
+    lvQueue.Sorted = True
+    lvQueue.Refresh
+
+End Sub
+
 Private Sub sldCurSong_Scroll()
 
     If wmp.PlayState = mpPlaying Then
@@ -907,25 +872,50 @@ Private Sub tmrUpdateSlider_Timer()
     
 End Sub
 
+Private Sub udQueueCount_Change()
+
+    UpdateQueue
+
+End Sub
+
 Private Sub wmp_EndOfStream(ByVal Result As Long)
 
-    If lblID.Caption <> "" Then
-        gConn.Execute "update Media set PlayCount=PlayCount+1 where ID = " & lblID.Caption
-        gConn.Execute "insert into History (mediaid, currentuser, datetime) values (" & lblID.Caption & ", '" & GetNTUserName() & "', '" & Now & "')"
-    End If
-    
     PlayCurSong
     
 End Sub
 
-Private Sub PlayCurSong(Optional blnQueueSong As Boolean = True)
+Private Sub UpdateHistory()
+
+    Dim dVote As Single
+    
+    If lblID.Caption = "" Then
+        Exit Sub
+    End If
+    
+    ' see if within 5% of end
+    dVote = wmp.CurrentPosition / wmp.Duration
+    If dVote > 0.95 Then
+        gConn.Execute "update Media set PlayCount=PlayCount+1 where ID = " & lblID.Caption
+        gConn.Execute "insert into History (mediaid, currentuser, datetime, vote) values (" & lblID.Caption & ", '" & GetNTUserName() & "', '" & Now & "', " & (dVote + 1) & ")"
+    
+    ' see if between 5% and 95%
+    ElseIf dVote > 0.05 Then
+        gConn.Execute "insert into History (mediaid, currentuser, datetime, vote) values (" & lblID.Caption & ", '" & GetNTUserName() & "', '" & Now & "', " & dVote & ")"
+    End If
+
+End Sub
+
+Private Sub PlayCurSong(Optional blnQueueSong As Boolean = True, Optional intIndex As Long = 1)
+On Error GoTo errHandler
+
+    UpdateHistory
 
     Dim li As ListItem
     
     If lvQueue.ListItems.Count = 0 Then Exit Sub
     
     If blnQueueSong Then
-        Set li = lvQueue.ListItems(1)
+        Set li = lvQueue.ListItems(intIndex)
     Else
         Set li = lv.SelectedItem
     End If
@@ -938,13 +928,16 @@ Private Sub PlayCurSong(Optional blnQueueSong As Boolean = True)
     cmdStopPlay.Caption = "Stop"
     sldCurSong.Max = wmp.Duration
     Caption = li.SubItems(1) & IIf(li.SubItems(2) <> "", " - " & li.SubItems(2), "")
-    lblCaption.Caption = Caption
     If blnQueueSong Then
         lvQueue.ListItems.Remove li.Index
     End If
     
     UpdateQueue
     
+Exit Sub
+errHandler:
+ErrHand m_Module, "PlayCurSong"
+Exit Sub
 End Sub
 
 Private Sub wmp_PlayStateChange(ByVal OldState As Long, ByVal NewState As Long)

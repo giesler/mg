@@ -70,3 +70,17 @@ Public Function Nz(vIn, vReplace) As Variant
     End If
 
 End Function
+
+Public Sub ErrHand(strModule As String, strFunction As String)
+
+    Dim intError As Long, strError As String
+    intError = Err.Number
+    strError = Err.Description
+    
+    If intError <> 0 Then
+        MsgBox "An unknown error has occurred.", vbExclamation, strModule & ": " & strFunction
+    Else
+        MsgBox "Error #" & intError & ": " & strError, vbExclamation, strModule & ": " & strFunction
+    End If
+
+End Sub
