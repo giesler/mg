@@ -12,7 +12,7 @@ PRINT 'Restoring database...'
 go
 
 RESTORE DATABASE rfcdata 
-	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\rfcdata_db_200107060200.BAK' 
+	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\rfcdata_db_200109020201.BAK' 
 	WITH  FILE = 1,  NOUNLOAD ,  STATS = 10,  RECOVERY ,  REPLACE ,  
 	MOVE N'rfcdata_log' TO N'D:\SQL Data Files\MSSQL\DATA\rfcdata.ldf',  
 	MOVE N'rfcdata_dat' TO N'D:\SQL Data Files\MSSQL\DATA\rfcdata.mdf'
