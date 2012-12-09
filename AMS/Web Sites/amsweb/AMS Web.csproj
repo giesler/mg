@@ -150,6 +150,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "contest\contest_graph.jpg"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "contest\default.asp"
                     BuildAction = "Content"
                 />
@@ -164,10 +168,6 @@
                 <File
                     RelPath = "download\new.asp"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "download\vssver.scc"
-                    BuildAction = "None"
                 />
                 <File
                     RelPath = "download\get\default.asp"

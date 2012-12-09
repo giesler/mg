@@ -138,7 +138,7 @@ strOffset = "../"
 		<table border="0">
 			<tr>
 				<td>
-					<img src="../img/contest_graph.jpg">
+					<img src="contest_graph.jpg">
 				</td>
 			</tr>
 			<tr>
