@@ -1,0 +1,22 @@
+<xsd:schema id="DataSetCategory" targetNamespace="http://www.tempuri.org/DataSetCategory.xsd" xmlns="http://www.tempuri.org/DataSetCategory.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xsd:element name="DataSetCategory" msdata:IsDataSet="true">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="Category">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" msdata:AutoIncrementSeed="1000" msdata:AutoIncrementStep="1" />
+							<xsd:element name="CategoryParentID" type="xsd:int" />
+							<xsd:element name="CategoryName" type="xsd:string" />
+							<xsd:element name="CategoryPath" type="xsd:string" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+		<xsd:unique name="Constraint1" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//Category" />
+			<xsd:field xpath="CategoryID" />
+		</xsd:unique>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicAdminCS", "PicAdminCS.csproj", "{051F201A-911A-441D-B249-5857DB882AA7}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		SolutionUniqueID = {4ED1CBA8-4098-4E11-975C-8ADB6AAAA932}
+		SccProjectUniqueName1 = PicAdminCS.csproj
+		SccLocalPath1 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug.ActiveCfg = Debug|.NET
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug.Build.0 = Debug|.NET
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release.ActiveCfg = Release|.NET
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

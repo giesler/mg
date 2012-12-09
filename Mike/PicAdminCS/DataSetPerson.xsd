@@ -1,0 +1,22 @@
+<xsd:schema id="DataSetPerson" targetNamespace="http://www.tempuri.org/DataSetPerson.xsd" xmlns="http://www.tempuri.org/DataSetPerson.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xsd:element name="DataSetPerson" msdata:IsDataSet="true">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:element name="Person">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" />
+              <xsd:element name="LastName" type="xsd:string" minOccurs="0" />
+              <xsd:element name="FirstName" type="xsd:string" minOccurs="0" />
+              <xsd:element name="FullName" type="xsd:string" minOccurs="0" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:complexType>
+    <xsd:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xsd:selector xpath=".//Person" />
+      <xsd:field xpath="PersonID" />
+    </xsd:unique>
+  </xsd:element>
+</xsd:schema>

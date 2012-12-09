@@ -1,0 +1,59 @@
+<xsd:schema id="DataSetPicture" targetNamespace="http://www.tempuri.org/DataSetPicture.xsd" xmlns="http://www.tempuri.org/DataSetPicture.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xsd:element name="DataSetPicture" msdata:IsDataSet="true">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="Picture">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PictureID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" />
+							<xsd:element name="Filename" type="xsd:string" minOccurs="0" />
+							<xsd:element name="PictureDate" type="xsd:dateTime" minOccurs="0" />
+							<xsd:element name="Title" type="xsd:string" minOccurs="0" />
+							<xsd:element name="Description" type="xsd:string" minOccurs="0" />
+							<xsd:element name="Publish" type="xsd:boolean" minOccurs="0" />
+							<xsd:element name="PictureBy" type="xsd:int" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="PictureCategory">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PictureID" type="xsd:int" />
+							<xsd:element name="CategoryID" type="xsd:int" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="PicturePerson">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PictureID" type="xsd:int" />
+							<xsd:element name="PersonID" type="xsd:int" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+		<xsd:unique name="Constraint1" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//Picture" />
+			<xsd:field xpath="PictureID" />
+		</xsd:unique>
+		<xsd:unique name="PictureCategory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//PictureCategory" />
+			<xsd:field xpath="PictureID" />
+			<xsd:field xpath="CategoryID" />
+		</xsd:unique>
+		<xsd:unique name="PicturePerson_Constraint1" msdata:ConstraintName="Constraint2" msdata:PrimaryKey="true">
+			<xsd:selector xpath=".//PicturePerson" />
+			<xsd:field xpath="PictureID" />
+			<xsd:field xpath="PersonID" />
+		</xsd:unique>
+		<xsd:keyref name="PicturePictureCategory" refer="Constraint1">
+			<xsd:selector xpath=".//PictureCategory" />
+			<xsd:field xpath="PictureID" />
+		</xsd:keyref>
+		<xsd:keyref name="PicturePicturePerson" refer="Constraint1">
+			<xsd:selector xpath=".//PicturePerson" />
+			<xsd:field xpath="PictureID" />
+		</xsd:keyref>
+	</xsd:element>
+</xsd:schema>
