@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1168170111
+Checksum =2126712624
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -12,12 +12,12 @@ Begin Form
     ViewsAllowed =1
     GridX =24
     GridY =24
-    Width =9639
-    ItemSuffix =159
+    Width =11880
+    ItemSuffix =162
     Left =795
     Top =720
-    Right =11250
-    Bottom =6585
+    Right =11505
+    Bottom =6495
     RecSrcDt = Begin
         0x8595809c7478e140
     End
@@ -28,21 +28,33 @@ Begin Form
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
-        0x4850204c617365724a6574204949500000000000000000000000000000000000 ,
-        0x00040104940040000367000401000100000000000000010001002c0101000100 ,
-        0x2c01020000000000000000000000000000000000000000000000000000000000 ,
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c0034020367000401000100ea0a6f086400010001002c0101000100 ,
+        0x2c01020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000020000000000000000000000010040004d53554402034850 ,
-        0x204c617365724a65742049495000000000000000000000000000000000008001 ,
-        0x000000000000000000000000000064000a000000000000000000000000000000 ,
-        0x0000000000000000
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x080011002100010057494e53504f4f4c004850204c617365724a657420494950 ,
-        0x004c5054323a0000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
     End
     OnLoad ="[Event Procedure]"
     Begin
@@ -109,7 +121,7 @@ Begin Form
                     BorderWidth =2
                     OverlapFlags =87
                     Top =480
-                    Width =9639
+                    Width =11880
                     BorderColor =32768
                     Name ="Line9"
                 End
@@ -118,7 +130,7 @@ Begin Form
                     RowSourceTypeInt =1
                     OverlapFlags =85
                     ListWidth =2145
-                    Left =6900
+                    Left =9600
                     Top =120
                     Width =2160
                     GUID = Begin
@@ -134,7 +146,7 @@ Begin Form
                         Begin Label
                             OverlapFlags =85
                             TextAlign =3
-                            Left =6180
+                            Left =8880
                             Top =120
                             Width =600
                             Height =240
@@ -147,11 +159,58 @@ Begin Form
                         End
                     End
                 End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =5880
+                    Top =120
+                    Width =1200
+                    TabIndex =1
+                    Name ="txtMaterial"
+                    OnEnter ="[Event Procedure]"
+                    OnExit ="[Event Procedure]"
+                    GUID = Begin
+                        0x63b3662f71dac040aedf12c1dc399ae4
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =4680
+                            Top =120
+                            Width =1140
+                            Height =240
+                            Name ="Label160"
+                            Caption ="Find Material:"
+                            GUID = Begin
+                                0x41cc38503fe9ce43901ce91102381ec0
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =70
+                    TextFontFamily =34
+                    Left =7200
+                    Top =120
+                    Width =540
+                    Height =240
+                    FontSize =6
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="cmdFindMaterial"
+                    Caption ="&Find"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x88f47103ca08fa4aabb8e5d7e6623eab
+                    End
+                End
             End
         End
         Begin Section
             CanGrow = NotDefault
-            Height =4800
+            Height =6120
             BackColor =-2147483633
             Name ="Detail0"
             Begin
@@ -161,7 +220,7 @@ Begin Form
                     ColumnCount =4
                     Left =180
                     Top =300
-                    Width =7920
+                    Width =9840
                     Height =1680
                     Name ="lstCatHeadings"
                     RowSourceType ="Table/View/StoredProc"
@@ -169,7 +228,7 @@ Begin Form
                         "Order], Tbl_Catalog_Headings.Heading_Desc AS Description, tblSold.SoldName AS Cu"
                         "stomer FROM Tbl_Catalog_Headings LEFT JOIN tblSold ON Tbl_Catalog_Headings.afkHe"
                         "adCust = tblSold.apkSold ORDER BY Tbl_Catalog_Headings.Heading_Number"
-                    ColumnWidths ="0;720;5055;1860"
+                    ColumnWidths ="0;720;6480;1860"
                     OnDblClick ="[Event Procedure]"
                     DefaultValue ="=Null"
                     OnClick ="[Event Procedure]"
@@ -190,7 +249,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =84
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =360
                     Width =960
                     Height =300
@@ -205,7 +264,7 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =1080
                     Width =960
                     Height =300
@@ -224,12 +283,12 @@ Begin Form
                     ColumnCount =10
                     Left =180
                     Top =2280
-                    Width =7920
-                    Height =2400
+                    Width =9840
+                    Height =3720
                     TabIndex =3
                     Name ="lstCatalogItems"
                     RowSourceType ="Table/View/StoredProc"
-                    ColumnWidths ="0;1080;3240;720;648;360;360;360;360;360"
+                    ColumnWidths ="0;1080;5040;1080;720;360;360;360;360;360"
                     OnDblClick ="[Event Procedure]"
                     DefaultValue ="=Null"
                     Begin
@@ -249,8 +308,8 @@ Begin Form
                     OverlapFlags =95
                     Left =180
                     Top =2280
-                    Width =7920
-                    Height =2400
+                    Width =9840
+                    Height =3720
                     Name ="lblCatSelect"
                     Caption ="Select a catalog heading above."
                 End
@@ -258,7 +317,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =69
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =2340
                     Width =960
                     Height =300
@@ -274,7 +333,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =68
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =3060
                     Width =960
                     Height =300
@@ -290,7 +349,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =78
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =2700
                     Width =960
                     Height =300
@@ -305,7 +364,7 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =34
-                    Left =8160
+                    Left =10140
                     Top =720
                     Width =960
                     Height =300
@@ -319,7 +378,7 @@ Begin Form
                 End
                 Begin Label
                     OverlapFlags =85
-                    Left =8160
+                    Left =10140
                     Top =3480
                     Width =1440
                     Height =1140
@@ -544,6 +603,36 @@ Err_cmdClose_Click:
     
 End Sub
 
+Private Sub cmdFindMaterial_Click()
+On Error GoTo errHandler
+
+    If IsNull(Me.txtMaterial) Or Me.txtMaterial = "" Then
+        MsgBox "You must enter a material to find it!", vbExclamation
+        Exit Sub
+    End If
+    
+    Dim rs As Recordset
+    Set rs = New Recordset
+    
+    rs.Open "select afkCatalogHeading, apkCatalogItem from Tbl_Catalog where material = '" & Me.txtMaterial & "'", gConn, adOpenForwardOnly, adLockReadOnly
+    
+    If rs.BOF And rs.EOF Then
+        MsgBox "The material '" & Me.txtMaterial & "' was not found.", vbExclamation
+    Else
+        Me.lstCatHeadings.Value = rs.Fields("afkCatalogHeading")
+        lstCatHeadings_Click
+        Me.lstCatalogItems.Value = rs.Fields("apkCatalogItem")
+    End If
+    
+    rs.Close
+    Set rs = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdFindMaterial"
+Exit Sub
+End Sub
+
 Private Sub comShow_Click()
 On Error GoTo errHandler
 
@@ -669,4 +758,12 @@ lstCatHeadingsDBCL_Err:
 ErrHand Me.Name, "lstCatHeadings_DBCL"
 Exit Sub
 
+End Sub
+
+Private Sub txtMaterial_Enter()
+    cmdFindMaterial.Default = True
+End Sub
+
+Private Sub txtMaterial_Exit(Cancel As Integer)
+    cmdFindMaterial.Default = False
 End Sub

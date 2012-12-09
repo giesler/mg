@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1533756586
+Checksum =-1061189310
 Begin Form
     MaxButton = NotDefault
     MinButton = NotDefault
@@ -14,13 +14,13 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =8988
+    Width =10560
     DatasheetFontHeight =10
     ItemSuffix =24
     Left =465
-    Top =3945
-    Right =9570
-    Bottom =5610
+    Top =5145
+    Right =11400
+    Bottom =7140
     DatasheetGridlinesColor =12632256
     AfterDelConfirm ="[Event Procedure]"
     RecSrcDt = Begin
@@ -58,7 +58,8 @@ Begin Form
                     Width =576
                     Height =240
                     Name ="lblQuantity"
-                    Caption ="Qnt"
+                    Caption ="Qty"
+                    FontName ="Arial"
                     GUID = Begin
                         0x9065fd0511556940b7899a2475684556
                     End
@@ -67,22 +68,24 @@ Begin Form
                     OverlapFlags =95
                     TextAlign =2
                     Left =576
-                    Width =1005
+                    Width =1290
                     Height =240
                     Name ="lblMaterial"
                     Caption ="Material"
+                    FontName ="Arial"
                     GUID = Begin
                         0x07df81d5b7e08d4b8befdc0ed3d5c53d
                     End
                 End
                 Begin Label
-                    OverlapFlags =215
+                    OverlapFlags =87
                     TextAlign =2
-                    Left =1560
-                    Width =2580
+                    Left =1860
+                    Width =3180
                     Height =240
                     Name ="lblMatDescription"
                     Caption ="Description"
+                    FontName ="Arial"
                     GUID = Begin
                         0x11fbee3cc29b4b469a9dd01f504b0067
                     End
@@ -90,11 +93,12 @@ Begin Form
                 Begin Label
                     OverlapFlags =93
                     TextAlign =2
-                    Left =4176
-                    Width =720
+                    Left =5076
+                    Width =930
                     Height =240
                     Name ="lblUnitPrice"
                     Caption ="Price"
+                    FontName ="Arial"
                     GUID = Begin
                         0xb76de2e8908e7444a4ef2ccc3e8911a9
                     End
@@ -102,47 +106,51 @@ Begin Form
                 Begin Label
                     OverlapFlags =95
                     TextAlign =2
-                    Left =4896
+                    Left =6000
                     Width =585
                     Height =240
                     Name ="lblUnitQuantity"
                     Caption ="Unit"
+                    FontName ="Arial"
                     GUID = Begin
                         0x7ae117360bd2e949bc711873fbe8351f
                     End
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =223
                     TextAlign =2
-                    Left =5472
-                    Width =855
+                    Left =6576
+                    Width =1110
                     Height =240
                     Name ="lblExtPrice"
                     Caption ="Total"
+                    FontName ="Arial"
                     GUID = Begin
                         0x9070cfb1764cc54c98f9b815d01cf2ce
                     End
                 End
                 Begin Label
-                    OverlapFlags =87
+                    OverlapFlags =95
                     TextAlign =2
-                    Left =6336
+                    Left =7680
                     Width =1005
                     Height =240
                     Name ="lblPhaseNum"
                     Caption ="Phase #"
+                    FontName ="Arial"
                     GUID = Begin
                         0x68aa7951dbdf9345a20427d3b582f951
                     End
                 End
                 Begin Label
-                    OverlapFlags =85
+                    OverlapFlags =87
                     TextAlign =1
-                    Left =7344
-                    Width =585
+                    Left =8688
+                    Width =735
                     Height =240
                     Name ="lblWeight"
                     Caption ="Weight"
+                    FontName ="Arial"
                     GUID = Begin
                         0xd90bd56480ac464c9109b613bfa683c7
                     End
@@ -150,11 +158,12 @@ Begin Form
                 Begin Label
                     OverlapFlags =85
                     TextAlign =2
-                    Left =8028
+                    Left =9600
                     Width =960
                     Height =240
                     Name ="lblBreakdown"
                     Caption ="Brkdown"
+                    FontName ="Arial"
                     GUID = Begin
                         0xb5a2fdc1c4021d48a6688a61f02da8f3
                     End
@@ -175,56 +184,60 @@ Begin Form
                     Name ="txtQuantity"
                     ControlSource ="Quanity"
                     StatusBarText ="Quanity of Material"
+                    FontName ="Arial"
                 End
                 Begin TextBox
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
-                    TextAlign =2
-                    Left =4176
-                    Width =720
+                    TextAlign =3
+                    Left =5076
+                    Width =930
                     TabIndex =2
                     Name ="txtUnitPrice"
                     ControlSource ="Unit_Price"
                     Format ="$#,##0.00;($#,##0.00)"
                     StatusBarText ="Unit Price To Charge (Make 0 to Auto-Calculate)"
                     DefaultValue ="\"\""
+                    FontName ="Arial"
                 End
                 Begin TextBox
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =95
                     TextAlign =2
-                    Left =4896
+                    Left =6000
                     Width =576
                     TabIndex =3
                     Name ="txtUnitQuantity"
                     ControlSource ="Unit_Quantiy"
                     StatusBarText ="Unit Quanity"
                     DefaultValue ="\"EA\""
+                    FontName ="Arial"
                 End
                 Begin TextBox
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
                     TextAlign =2
-                    Left =6336
+                    Left =7680
                     Width =1008
                     TabIndex =4
                     Name ="txtPhaseNum"
                     ControlSource ="Phase"
                     StatusBarText ="Phase #"
+                    FontName ="Arial"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
                     SpecialEffect =0
                     OverlapFlags =95
-                    TextAlign =2
+                    TextAlign =1
                     ColumnCount =2
                     ListRows =15
                     ListWidth =5400
                     Left =576
-                    Width =1008
+                    Width =1293
                     TabIndex =1
                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
                     Name ="cmbMaterial"
@@ -234,6 +247,7 @@ Begin Form
                     ColumnWidths ="1080;4320"
                     StatusBarText ="Catalog/Material #"
                     AfterUpdate ="[Event Procedure]"
+                    FontName ="Arial"
                     OnNotInList ="[Event Procedure]"
                 End
                 Begin TextBox
@@ -241,12 +255,13 @@ Begin Form
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =247
-                    Left =1560
-                    Width =2640
+                    Left =1860
+                    Width =3240
                     TabIndex =5
                     Name ="txtMatDescription"
                     ControlSource ="MatDescription"
                     OnEnter ="[Event Procedure]"
+                    FontName ="Arial"
                 End
                 Begin TextBox
                     Locked = NotDefault
@@ -254,19 +269,20 @@ Begin Form
                     DecimalPlaces =2
                     SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =87
-                    TextAlign =2
-                    Left =5472
-                    Width =864
+                    OverlapFlags =247
+                    TextAlign =3
+                    Left =6576
+                    Width =1119
                     TabIndex =6
                     BackColor =-2147483633
                     Name ="txtExtPrice"
                     ControlSource ="=[quanity]*[unit_price]"
                     Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="Arial"
                 End
                 Begin CheckBox
                     OverlapFlags =93
-                    Left =8040
+                    Left =9612
                     Top =45
                     Height =195
                     TabIndex =7
@@ -279,7 +295,7 @@ Begin Form
                     TabStop = NotDefault
                     SpecialEffect =0
                     OverlapFlags =87
-                    Left =8295
+                    Left =9867
                     Width =465
                     TabIndex =8
                     BackColor =-2147483633
@@ -287,21 +303,25 @@ Begin Form
                     Name ="txtEditSubItems"
                     ControlSource ="=IIf([SubItems],\"Edit\",\"\")"
                     OnDblClick ="[Event Procedure]"
+                    FontName ="Arial"
                 End
                 Begin TextBox
                     Locked = NotDefault
                     TabStop = NotDefault
+                    DecimalPlaces =2
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =87
-                    TextAlign =2
-                    Left =7344
-                    Width =576
+                    TextAlign =3
+                    Left =8688
+                    Width =726
                     TabIndex =9
                     BackColor =-2147483633
                     Name ="txtWeight"
                     ControlSource ="=DLookUp(\"[weight]\",\"tbl_catalog\",\"[Material] = '\"+[cmbMaterial]+\"'\")*[t"
                         "xtQuantity]"
+                    Format ="Fixed"
+                    FontName ="Arial"
                     GUID = Begin
                         0x5935954a8e180d458d70a41aa9e58961
                     End
@@ -317,15 +337,15 @@ Begin Form
                     Locked = NotDefault
                     TabStop = NotDefault
                     SpecialEffect =0
-                    OldBorderStyle =1
                     OverlapFlags =85
                     TextAlign =3
-                    Left =5280
-                    Width =1059
+                    Left =6384
+                    Width =1314
                     BackColor =-2147483633
                     BorderColor =4210752
                     Name ="txtTotalPrice"
                     Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="Arial"
                     GUID = Begin
                         0x0e9a2bb901b2bb4b80d0776ffd1f226a
                     End
@@ -333,18 +353,18 @@ Begin Form
                 Begin TextBox
                     Locked = NotDefault
                     TabStop = NotDefault
-                    DecimalPlaces =0
+                    DecimalPlaces =2
                     SpecialEffect =0
-                    OldBorderStyle =1
                     OverlapFlags =85
-                    TextAlign =2
-                    Left =7344
-                    Width =576
+                    TextAlign =3
+                    Left =8688
+                    Width =726
                     TabIndex =1
                     BackColor =-2147483633
                     BorderColor =4210752
                     Name ="txtTotalWeight"
                     Format ="Fixed"
+                    FontName ="Arial"
                     GUID = Begin
                         0xbe9d8bc99f57314d85a168ca78b20d26
                     End

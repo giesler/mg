@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =830292256
+Checksum =-1782275012
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -12,12 +12,12 @@ Begin Form
     Cycle =1
     GridX =24
     GridY =24
-    Width =9639
-    ItemSuffix =240
+    Width =11880
+    ItemSuffix =258
     Left =405
     Top =405
-    Right =10050
-    Bottom =5910
+    Right =12645
+    Bottom =7470
     TimerInterval =500
     MaxRecords =20000
     RecSrcDt = Begin
@@ -35,13 +35,13 @@ Begin Form
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
-        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
-        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340243ef800701000100ea0a6f08640001000f00680102000100 ,
         0x6801020001004c65747465720000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000010000000000000002000000 ,
-        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
-        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
-        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
@@ -57,15 +57,11 @@ Begin Form
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x000000000000000000000000580000004f535045414182820200000000000000 ,
-        0x0100000000000000000000000000000000000000010000000000000004000000 ,
-        0x000000000000000000000000000000006a000000000000000300000001000000 ,
-        0x0f000000
+        0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
-        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
-        0x000000000000000000000000
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
     End
     OnTimer ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
@@ -100,6 +96,9 @@ Begin Form
             SpecialEffect =2
             OldBorderStyle =1
         End
+        Begin Tab
+            FontName ="Tahoma"
+        End
         Begin FormHeader
             CanGrow = NotDefault
             Height =300
@@ -117,6 +116,7 @@ Begin Form
                     ForeColor =128
                     Name ="lblHeading"
                     Caption ="Purchase Orders"
+                    FontName ="Arial"
                     GUID = Begin
                         0x73b539ea99ca054bb110b67b15402264
                     End
@@ -125,7 +125,7 @@ Begin Form
                     BorderWidth =2
                     OverlapFlags =95
                     Top =300
-                    Width =9639
+                    Width =11880
                     BorderColor =32768
                     Name ="Line9"
                     GUID = Begin
@@ -134,13 +134,14 @@ Begin Form
                 End
                 Begin Label
                     OverlapFlags =215
-                    Left =7440
+                    Left =9300
                     Top =60
                     Width =2100
                     Height =240
                     ForeColor =128
                     Name ="lblLoading"
                     Caption ="Loading..."
+                    FontName ="Arial"
                     GUID = Begin
                         0x051c2684f37e90438d98c0b9a3e3b463
                     End
@@ -149,34 +150,33 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =4740
+            Height =6300
             BackColor =-2147483633
             Name ="Detail0"
             Begin
                 Begin TextBox
                     Locked = NotDefault
                     TabStop = NotDefault
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =93
+                    OverlapFlags =85
                     TextAlign =2
-                    Left =7380
-                    Top =300
-                    Width =2100
+                    Left =8820
+                    Top =720
+                    Width =2520
                     FontWeight =700
                     Name ="txtID"
                     ControlSource ="ID"
                     StatusBarText ="Internal Tracking Number (Invoice Number)"
                     OnDblClick ="=OpenFind(\"RFC ID\",\"Whole\",\"txtID\")"
+                    FontName ="Arial"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =87
+                    OverlapFlags =85
                     TextAlign =2
-                    Left =7380
-                    Top =60
-                    Width =2100
+                    Left =8820
+                    Top =120
+                    Width =2520
                     FontWeight =700
                     TabIndex =1
                     BackColor =10092543
@@ -185,195 +185,102 @@ Begin Form
                     BeforeUpdate ="[Event Procedure]"
                     AfterUpdate ="[Event Procedure]"
                     OnDblClick ="=OpenFind(\"Purchase Order\",\"Start\",\"txtPO\")"
+                    FontName ="Arial"
                     ControlTipText ="Purchase Order #"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
                     TextAlign =2
-                    Left =5646
-                    Top =780
-                    Width =864
-                    TabIndex =2
+                    Left =6420
+                    Top =1320
+                    Width =1380
+                    TabIndex =3
                     Name ="txtDateOrdered"
                     ControlSource ="Date_Ordered"
                     Format ="Short Date"
                     OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
                     DefaultValue ="=Date()"
+                    FontName ="Arial"
                     InputMask ="99/99/00;0;_"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =95
+                    OverlapFlags =93
                     TextAlign =2
-                    Left =5646
-                    Top =1020
-                    Width =864
-                    TabIndex =3
+                    Left =6420
+                    Top =1620
+                    Width =1380
+                    TabIndex =4
                     Name ="txtShipDate"
                     ControlSource ="Ship_Date"
                     OnDblClick ="=OpenFind(\"Ship Date\",\"Whole\",\"txtShipDate\")"
+                    FontName ="Arial"
                     InputMask ="99/99/00;0;_"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =95
+                    OverlapFlags =93
                     TextAlign =2
-                    Left =5646
-                    Top =1260
-                    Width =864
-                    TabIndex =4
+                    Left =6420
+                    Top =1920
+                    Width =1380
+                    TabIndex =5
                     Name ="txtArriveDate"
                     ControlSource ="Arrive_Date"
                     OnDblClick ="=OpenFind(\"Arrive Date\",\"Whole\",\"txtArriveDate\")"
+                    FontName ="Arial"
                     InputMask ="99/99/00;0;_"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
-                    Left =7980
-                    Top =600
-                    Width =1500
-                    TabIndex =7
+                    Left =9180
+                    Top =1320
+                    Width =2100
+                    TabIndex =8
                     Name ="txtJobNumber"
                     ControlSource ="Job_Number"
                     OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =93
-                    Left =1317
-                    Top =60
-                    Width =1860
-                    TabIndex =9
-                    Name ="txtShipName"
-                    ControlSource ="Ship_Name"
-                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =1317
-                    Top =300
-                    Width =2865
-                    TabIndex =10
-                    Name ="txtShipAddress1"
-                    ControlSource ="Ship_Address1"
-                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =1317
-                    Top =540
-                    Width =2865
-                    TabIndex =11
-                    Name ="txtShipAddress2"
-                    ControlSource ="Ship_Address2"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =1317
-                    Top =780
-                    TabIndex =12
-                    Name ="txtShipCity"
-                    ControlSource ="Ship_City"
-                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    TextAlign =2
-                    Left =2901
-                    Top =780
-                    Width =435
-                    TabIndex =13
-                    Name ="txtShipState"
-                    ControlSource ="Ship_State"
-                    AfterUpdate ="[Event Procedure]"
-                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    TextAlign =2
-                    Left =3477
-                    Top =780
-                    Width =705
-                    TabIndex =14
-                    Name ="txtShipZip"
-                    ControlSource ="Ship_Zip"
-                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =1317
-                    Top =1020
-                    Width =2865
-                    TabIndex =15
-                    Name ="txtShipAttn"
-                    ControlSource ="Ship_Attn"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =1317
-                    Top =1260
-                    Width =1425
-                    TabIndex =16
-                    Name ="txtShipPhone"
-                    ControlSource ="Ship_Phone"
-                    InputMask ="!\\(999\") \"000\\-0000;0;_"
+                    FontName ="Arial"
+                    OnKeyDown ="[Event Procedure]"
                 End
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =93
-                    Left =1320
-                    Top =2040
-                    Width =5190
-                    Height =663
-                    TabIndex =20
+                    OverlapFlags =85
+                    Left =1080
+                    Top =3000
+                    Width =6720
+                    Height =840
+                    TabIndex =10
                     Name ="txtComments"
                     ControlSource ="Comments"
+                    FontName ="Arial"
                     ControlTipText ="Comments About PO"
                 End
                 Begin CheckBox
                     TabStop = NotDefault
                     OverlapFlags =93
-                    Left =4380
-                    Top =90
-                    Width =1265
-                    TabIndex =29
+                    Left =5460
+                    Top =180
+                    Width =1260
+                    TabIndex =19
                     Name ="chkCreditPO"
                     ControlSource ="Credit"
                     ControlTipText ="Is this a Credit PO?"
                     Begin
                         Begin Label
-                            OverlapFlags =255
+                            OverlapFlags =247
                             TextAlign =1
-                            Left =4610
-                            Top =60
-                            Width =1017
+                            Left =5700
+                            Top =120
+                            Width =1020
                             Height =240
                             Name ="Label171"
                             Caption ="Credit PO?: "
+                            FontName ="Arial"
                             ControlTipText ="Is this a Credit PO?"
                             GUID = Begin
                                 0x5145648a45645d4fa3a37c0227d82d05
@@ -383,415 +290,304 @@ Begin Form
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =93
+                    OverlapFlags =85
                     TextAlign =3
-                    Left =6183
-                    Top =60
-                    Width =1152
+                    Left =7620
+                    Top =120
+                    Width =1140
                     Height =240
                     FontWeight =700
                     ForeColor =8388608
                     Name ="lblPO"
-                    Caption ="PO #:"
+                    Caption ="PO:"
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Purchase Order\",\"Start\",\"txtPO\")"
                     ControlTipText ="Search on PO #"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =95
+                    OverlapFlags =85
                     TextAlign =3
-                    Left =15
-                    Top =60
-                    Width =1302
-                    Height =240
-                    FontWeight =700
-                    ForeColor =8388608
-                    Name ="lblShipName"
-                    Caption ="Ship To: "
-                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =15
-                    Top =300
-                    Width =1302
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblShipAddress1"
-                    Caption ="Address 1: "
-                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
-                End
-                Begin Label
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =15
-                    Top =540
-                    Width =1302
-                    Height =240
-                    Name ="Label154"
-                    Caption ="Address 2: "
-                End
-                Begin Label
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =15
-                    Top =1020
-                    Width =1302
-                    Height =240
-                    Name ="lblShipAttn"
-                    Caption ="Attention: "
-                End
-                Begin Label
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =15
-                    Top =1260
-                    Width =1302
-                    Height =240
-                    Name ="lblShipPhone"
-                    Caption ="Phone, Acc #: "
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =6180
-                    Top =300
-                    Width =1152
+                    Left =7620
+                    Top =720
+                    Width =1140
                     Height =240
                     FontWeight =700
                     ForeColor =8388608
                     Name ="lblID"
-                    Caption ="RFC ID #:"
+                    Caption ="RFC ID:"
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"RFC ID\",\"Whole\",\"txtID\")"
                     ControlTipText ="Search on RFC ID #"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =95
+                    OverlapFlags =223
                     TextAlign =3
-                    Left =4350
-                    Top =780
-                    Width =1296
+                    Left =5100
+                    Top =1320
+                    Width =1320
                     Height =240
                     ForeColor =8388608
                     Name ="lblDateOrdered"
                     Caption ="Date Ordered: "
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =95
+                    OverlapFlags =223
                     TextAlign =3
-                    Left =4350
-                    Top =1020
-                    Width =1296
+                    Left =5100
+                    Top =1620
+                    Width =1320
                     Height =240
                     ForeColor =8388608
                     Name ="lblShipDate"
                     Caption ="Ship Out Date: "
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Ship Date\",\"Whole\",\"txtShipDate\")"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =95
+                    OverlapFlags =223
                     TextAlign =3
-                    Left =4350
-                    Top =1260
-                    Width =1296
+                    Left =5100
+                    Top =1920
+                    Width =1320
                     Height =240
                     ForeColor =8388608
                     Name ="lblArriveDate"
                     Caption ="Arrive Date: "
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Arrive Date\",\"Whole\",\"txtArriveDate\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =215
+                    TextAlign =3
+                    Left =7860
+                    Top =1320
+                    Width =1320
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblJobNumber"
+                    Caption ="Job Number: "
+                    FontName ="Arial"
+                    OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
                 End
                 Begin Label
                     FontUnderline = NotDefault
                     OverlapFlags =93
                     TextAlign =3
-                    Left =6660
-                    Top =600
-                    Width =1302
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblJobNumber"
-                    Caption ="Job Number: "
-                    OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =6660
-                    Top =840
-                    Width =1302
+                    Left =7860
+                    Top =1620
+                    Width =1320
                     Height =240
                     ForeColor =8388608
                     Name ="lblShipVia"
                     Caption ="Ship Via: "
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Ship Via\",\"Start\",\"cmbShipVia\")"
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =93
                     TextAlign =3
-                    Left =6660
-                    Top =1080
-                    Width =1302
+                    Left =7860
+                    Top =1920
+                    Width =1320
                     Height =240
                     Name ="Label167"
                     Caption ="Purchaser: "
+                    FontName ="Arial"
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =93
                     TextAlign =3
-                    Left =6660
-                    Top =1320
-                    Width =1290
+                    Left =7860
+                    Top =2220
+                    Width =1320
                     Height =240
                     Name ="Label168"
                     Caption ="Salesperson: "
+                    FontName ="Arial"
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =93
                     TextAlign =3
-                    Left =6660
-                    Top =1560
-                    Width =1302
+                    Left =7860
+                    Top =2520
+                    Width =1320
                     Height =240
                     Name ="Label170"
                     Caption ="Current Status: "
+                    FontName ="Arial"
                 End
                 Begin Subform
                     OverlapFlags =85
-                    SpecialEffect =0
                     Left =120
-                    Top =2760
-                    Width =9360
-                    Height =1920
-                    TabIndex =28
+                    Top =3960
+                    Width =11220
+                    Height =2280
+                    TabIndex =18
                     BorderColor =8421504
                     Name ="subPOItems"
                     SourceObject ="Form.Frm_Purchase_Orders_Items"
                 End
                 Begin Label
-                    OverlapFlags =87
+                    OverlapFlags =85
                     TextAlign =3
                     Left =60
-                    Top =2040
-                    Width =1257
+                    Top =3000
+                    Width =960
                     Height =240
                     Name ="Label183"
                     Caption ="Comments: "
+                    FontName ="Arial"
                 End
                 Begin ComboBox
-                    SpecialEffect =0
-                    OverlapFlags =93
-                    Left =7980
-                    Top =1320
-                    Width =1500
-                    TabIndex =23
+                    OverlapFlags =87
+                    Left =9180
+                    Top =2220
+                    Width =2100
+                    TabIndex =13
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     Name ="cmbSalesperson"
                     ControlSource ="Salesperson"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tblUser.UserName FROM tblUser ORDER BY tblUser.UserName"
+                    FontName ="Arial"
                 End
                 Begin ComboBox
-                    SpecialEffect =0
-                    OverlapFlags =95
-                    Left =7980
-                    Top =1560
-                    Width =1500
-                    TabIndex =24
+                    OverlapFlags =87
+                    Left =9180
+                    Top =2520
+                    Width =2100
+                    TabIndex =14
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     Name ="cmbStatus"
                     ControlSource ="Status"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuStatus.StatusName FROM tlkuStatus ORDER BY tlkuStatus.StatusName"
                     StatusBarText ="Status of Order"
+                    FontName ="Arial"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =7980
-                    Top =1800
-                    Width =1500
-                    TabIndex =25
+                    OverlapFlags =93
+                    Left =9180
+                    Top =2820
+                    Width =2100
+                    TabIndex =15
                     Name ="txtProNum"
                     ControlSource ="Pro#"
                     StatusBarText ="Shipping & Tracking #"
                     OnDblClick ="=OpenFind(\"Pro Number\",\"Whole\",\"txtProNum\")"
+                    FontName ="Arial"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
-                    SpecialEffect =0
-                    OverlapFlags =223
+                    OverlapFlags =93
                     TextAlign =1
-                    Left =5361
-                    Top =1500
-                    TabIndex =5
+                    Left =6420
+                    Top =2220
+                    Width =1380
+                    TabIndex =6
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     Name ="Priority"
                     ControlSource ="Priority"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuPriority.PriorityName FROM tlkuPriority ORDER BY tlkuPriority.Priorit"
                         "yName"
+                    FontName ="Arial"
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =215
                     TextAlign =3
-                    Left =4350
-                    Top =1500
-                    Width =1011
+                    Left =5460
+                    Top =2220
+                    Width =960
                     Height =240
                     Name ="Label193"
                     Caption ="Priority: "
+                    FontName ="Arial"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =95
+                    OverlapFlags =215
                     TextAlign =3
-                    Left =6666
-                    Top =1800
-                    Width =1290
+                    Left =7860
+                    Top =2820
+                    Width =1320
                     Height =240
                     FontWeight =700
                     ForeColor =8388608
                     Name ="lblProNum"
                     Caption ="Pro #:"
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Pro Number\",\"Whole\",\"txtProNum\")"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
-                    SpecialEffect =0
-                    OverlapFlags =95
+                    OverlapFlags =93
                     ListWidth =2880
-                    Left =7980
-                    Top =2040
-                    Width =1500
-                    TabIndex =26
+                    Left =9180
+                    Top =3120
+                    Width =2100
+                    TabIndex =16
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     Name ="cmbStore"
                     ControlSource ="Store"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuStore.StoreName FROM tlkuStore ORDER BY tlkuStore.StoreName"
                     StatusBarText ="Status of Order"
+                    FontName ="Arial"
                 End
                 Begin Label
-                    OverlapFlags =95
+                    OverlapFlags =215
                     TextAlign =3
-                    Left =6660
-                    Top =2040
-                    Width =1302
+                    Left =7860
+                    Top =3120
+                    Width =1320
                     Height =240
                     Name ="lblStore"
                     Caption ="Store:"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Top =780
-                    Width =585
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblShipCity"
-                    Caption ="City, "
-                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =585
-                    Top =780
-                    Width =300
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblShipState"
-                    Caption ="ST"
-                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =87
-                    TextAlign =3
-                    Left =879
-                    Top =780
-                    Width =420
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblShipZip"
-                    Caption ="Zip"
-                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =95
-                    TextAlign =3
-                    Left =15
-                    Top =1500
-                    Width =1302
-                    Height =240
-                    FontWeight =700
-                    ForeColor =8388608
-                    Name ="lblSoldName"
-                    Caption ="Sold To: "
-                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
+                    FontName ="Arial"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
-                    SpecialEffect =0
-                    OverlapFlags =95
-                    ColumnCount =2
-                    Left =1317
-                    Top =1500
-                    Width =2865
-                    TabIndex =18
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
-                    Name ="txtSoldName"
-                    ControlSource ="SoldName"
-                    RowSourceType ="Table/View/StoredProc"
-                    RowSource ="SELECT SoldName,SoldID FROM dbo.tblSold ORDER BY SoldName"
-                    ColumnWidths ="1440;0"
-                    AfterUpdate ="[Event Procedure]"
-                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
-                    OnNotInList ="[Event Procedure]"
-                End
-                Begin ComboBox
-                    LimitToList = NotDefault
-                    SpecialEffect =0
-                    OverlapFlags =223
+                    OverlapFlags =93
                     TextAlign =1
-                    Left =5361
-                    Top =1740
-                    TabIndex =6
+                    Left =6420
+                    Top =2520
+                    Width =1380
+                    TabIndex =7
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     Name ="txtClass"
                     ControlSource ="Classification"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuClassification.ClassificationName FROM tlkuClassification"
+                    FontName ="Arial"
                 End
                 Begin Label
-                    OverlapFlags =87
+                    OverlapFlags =215
                     TextAlign =3
-                    Left =4200
-                    Top =1740
-                    Width =1161
+                    Left =5280
+                    Top =2520
+                    Width =1140
                     Height =240
                     Name ="Label203"
                     Caption ="Classification:"
+                    FontName ="Arial"
                 End
                 Begin CheckBox
                     TabStop = NotDefault
-                    OverlapFlags =95
-                    Left =4380
-                    Top =330
-                    Width =1265
-                    TabIndex =30
+                    OverlapFlags =85
+                    Left =5460
+                    Top =480
+                    Width =1260
+                    Height =180
+                    TabIndex =20
                     Name ="chkCancelPO"
                     ControlSource ="CancelPO"
                     OnClick ="[Event Procedure]"
@@ -799,147 +595,80 @@ Begin Form
                         Begin Label
                             OverlapFlags =255
                             TextAlign =1
-                            Left =4602
-                            Top =300
-                            Width =1035
-                            Height =240
+                            Left =5700
+                            Top =420
+                            Width =1020
+                            Height =300
                             Name ="Label206"
                             Caption ="Cancel PO"
+                            FontName ="Arial"
                         End
                     End
                 End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =87
-                    TextAlign =2
-                    Left =2751
-                    Top =1260
-                    TabIndex =17
-                    Name ="txtShipAccountNum"
-                    ControlSource ="Account#"
-                End
-                Begin TextBox
-                    SpecialEffect =0
-                    OldBorderStyle =1
-                    OverlapFlags =95
-                    Left =3462
-                    Top =60
-                    Width =720
-                    TabIndex =8
-                    Name ="txtShipStoreNo"
-                    ControlSource ="Ship_StoreNo"
-                    AfterUpdate ="[Event Procedure]"
-                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
-                End
-                Begin Label
-                    FontUnderline = NotDefault
-                    OverlapFlags =87
-                    TextAlign =2
-                    Left =3177
-                    Top =60
-                    Width =285
-                    Height =240
-                    ForeColor =8388608
-                    Name ="lblShipStoreNo"
-                    Caption ="#"
-                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
-                End
                 Begin ComboBox
-                    SpecialEffect =0
-                    OverlapFlags =95
-                    Left =7980
-                    Top =1080
-                    Width =1500
-                    TabIndex =22
+                    OverlapFlags =87
+                    Left =9180
+                    Top =1920
+                    Width =2100
+                    TabIndex =12
                     ColumnInfo ="\"\";\"\";\"10\";\"100\""
                     Name ="cmbPurchaser"
                     ControlSource ="Purchaser"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuPurchaser.PurchaserName FROM tlkuPurchaser ORDER BY tlkuPurchaser.Pur"
                         "chaserName"
+                    FontName ="Arial"
                 End
                 Begin ComboBox
-                    SpecialEffect =0
                     OverlapFlags =87
-                    Left =7980
-                    Top =840
-                    Width =1500
-                    TabIndex =21
+                    Left =9180
+                    Top =1620
+                    Width =2100
+                    TabIndex =11
                     ColumnInfo ="\"\";\"\";\"10\";\"100\""
                     Name ="cmbShipVia"
                     ControlSource ="Ship_via"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuShipVia.ShipViaName FROM tlkuShipVia ORDER BY tlkuShipVia.ShipViaName"
                     OnDblClick ="=OpenFind(\"Ship Via\",\"Start\",\"cmbShipVia\")"
+                    FontName ="Arial"
                 End
                 Begin Label
                     FontUnderline = NotDefault
-                    OverlapFlags =87
+                    OverlapFlags =93
                     TextAlign =3
-                    Left =6660
-                    Top =2280
-                    Width =1302
+                    Left =7860
+                    Top =3420
+                    Width =1320
                     Height =240
                     ForeColor =8388608
                     Name ="Label212"
                     Caption ="Reference #:"
+                    FontName ="Arial"
                     OnDblClick ="=OpenFind(\"Reference #\",\"Whole\",\"txtRefNum\")"
                 End
                 Begin TextBox
-                    SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =87
-                    Left =7980
-                    Top =2280
-                    Width =1500
-                    TabIndex =27
+                    Left =9180
+                    Top =3420
+                    Width =2100
+                    TabIndex =17
                     Name ="txtRefNum"
                     ControlSource ="RefNum"
                     StatusBarText ="Reference #"
                     OnExit ="[Event Procedure]"
                     OnDblClick ="=OpenFind(\"Reference #\",\"Whole\",\"txtRefNum\")"
+                    FontName ="Arial"
                     OnLostFocus ="[Event Procedure]"
-                End
-                Begin ComboBox
-                    LimitToList = NotDefault
-                    SpecialEffect =0
-                    OverlapFlags =87
-                    ColumnCount =2
-                    Left =1320
-                    Top =1740
-                    Width =2865
-                    TabIndex =19
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
-                    GUID = Begin
-                        0x9b8777884ceb6f459003e44f29d88925
-                    End
-                    Name ="comSoldAttention"
-                    ControlSource ="SoldAttentionID"
-                    RowSourceType ="Table/View/StoredProc"
-                    RowSource ="SELECT SoldAttentionID, Attention FROM dbo.tblSoldAttention"
-                    ColumnWidths ="0;1440"
-                    OnEnter ="[Event Procedure]"
-                End
-                Begin Label
-                    OverlapFlags =87
-                    TextAlign =3
-                    Top =1740
-                    Width =1302
-                    Height =240
-                    Name ="lblSoldAttn"
-                    Caption ="Sold Attn:"
-                    GUID = Begin
-                        0xbdb6e1eb40137a4696cf1701ec194711
-                    End
                 End
                 Begin CheckBox
                     TabStop = NotDefault
-                    OverlapFlags =223
-                    Left =4380
-                    Top =570
-                    Width =1265
-                    TabIndex =31
+                    OverlapFlags =93
+                    Left =5460
+                    Top =780
+                    Width =1260
+                    TabIndex =21
                     Name ="chkFTofTruck"
                     ControlSource ="FTofTruck"
                     OnClick ="[Event Procedure]"
@@ -950,12 +679,13 @@ Begin Form
                         Begin Label
                             OverlapFlags =255
                             TextAlign =1
-                            Left =4602
-                            Top =540
-                            Width =1035
+                            Left =5700
+                            Top =720
+                            Width =1020
                             Height =240
                             Name ="lblFTofTruck"
                             Caption ="FT of Truck"
+                            FontName ="Arial"
                             GUID = Begin
                                 0x494507dec9fb4e4784943bc8fbb99c1f
                             End
@@ -964,19 +694,674 @@ Begin Form
                 End
                 Begin TextBox
                     Enabled = NotDefault
-                    SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =119
                     TextAlign =2
-                    Left =5640
-                    Top =540
-                    Width =864
-                    TabIndex =32
+                    Left =6720
+                    Top =720
+                    Width =840
+                    TabIndex =22
                     Name ="txtFTofTruckAmount"
                     ControlSource ="FTofTruckAmount"
                     OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
+                    FontName ="Arial"
                     GUID = Begin
                         0x884cbd67917ae34697e2ab2757807aad
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =8820
+                    Top =420
+                    Width =2520
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="txtBlanketPO"
+                    ControlSource ="BlanketPO"
+                    StatusBarText ="Internal Tracking Number (Invoice Number)"
+                    OnDblClick ="=OpenFind(\"Blanket PO\",\"Start\",\"txtBlanketPO\")"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x71a2297f53affd448ec8d10777d0b8a4
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =85
+                    TextAlign =3
+                    Left =7440
+                    Top =420
+                    Width =1320
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="Label241"
+                    Caption ="Blanket PO:"
+                    FontName ="Arial"
+                    OnDblClick ="=OpenFind(\"Blanket PO\",\"Start\",\"txtBlanketPO\")"
+                    ControlTipText ="Search on RFC ID #"
+                    GUID = Begin
+                        0xd4866ae8b77ed241a52dd8653f02c100
+                    End
+                End
+                Begin Tab
+                    OverlapFlags =215
+                    Left =45
+                    Top =60
+                    Width =5190
+                    Height =2475
+                    TabIndex =9
+                    Name ="tb1"
+                    GUID = Begin
+                        0x84f1dd1f0f39904b90bbd31c34d0c0ac
+                    End
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            AccessKey =83
+                            Left =180
+                            Top =465
+                            Width =4920
+                            Height =1935
+                            Name ="Page243"
+                            Caption ="&Ship To"
+                            GUID = Begin
+                                0x97e8b2a59d08bc4a848b06e856db9631
+                            End
+                            Begin
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =4020
+                                    Top =480
+                                    Width =1020
+                                    Name ="txtShipStoreNo"
+                                    ControlSource ="Ship_StoreNo"
+                                    AfterUpdate ="[Event Procedure]"
+                                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xce0b39700f9f23459a8419a188c0c173
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =1560
+                                    Top =480
+                                    Width =2100
+                                    TabIndex =1
+                                    Name ="txtShipName"
+                                    ControlSource ="Ship_Name"
+                                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x07cacf765b62db4d95e3b9261aee724a
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =1560
+                                    Top =780
+                                    Width =3480
+                                    TabIndex =2
+                                    Name ="txtShipAddress1"
+                                    ControlSource ="Ship_Address1"
+                                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xc812036eaeaee64496e9aebb35785c0c
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =1560
+                                    Top =1080
+                                    Width =3480
+                                    TabIndex =3
+                                    Name ="txtShipAddress2"
+                                    ControlSource ="Ship_Address2"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x2487f438174e5644b0fd26f372476320
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =1560
+                                    Top =1380
+                                    Width =1860
+                                    TabIndex =4
+                                    Name ="txtShipCity"
+                                    ControlSource ="Ship_City"
+                                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xad772f91ebd2e947b9599659174efa1f
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    TextAlign =2
+                                    Left =3480
+                                    Top =1380
+                                    Width =420
+                                    TabIndex =5
+                                    Name ="txtShipState"
+                                    ControlSource ="Ship_State"
+                                    AfterUpdate ="[Event Procedure]"
+                                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x7f8f1e2f6dd5094db79af454ee1e57fb
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    TextAlign =2
+                                    Left =3960
+                                    Top =1380
+                                    Width =1080
+                                    TabIndex =6
+                                    Name ="txtShipZip"
+                                    ControlSource ="Ship_Zip"
+                                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xb4176c9df40e84439b4d8d652fd998e9
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =223
+                                    Left =1560
+                                    Top =1680
+                                    Width =3480
+                                    TabIndex =7
+                                    Name ="txtShipAttn"
+                                    ControlSource ="Ship_Attn"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x9eb4538fbd861f4a855d3c992971c1a6
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =240
+                                    Top =480
+                                    Width =1320
+                                    Height =240
+                                    FontWeight =700
+                                    ForeColor =8388608
+                                    Name ="lblShipName"
+                                    Caption ="Ship To: "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
+                                    GUID = Begin
+                                        0x5f9bd91225f88a489527589fb1a1eb7b
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =240
+                                    Top =780
+                                    Width =1320
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="lblShipAddress1"
+                                    Caption ="Address 1: "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
+                                    GUID = Begin
+                                        0xcdf145b88f96c54189f7df77029f1843
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =240
+                                    Top =1080
+                                    Width =1320
+                                    Height =240
+                                    Name ="Label154"
+                                    Caption ="Address 2: "
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xea35b68e47cbf746b1e0de5787cccc27
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =240
+                                    Top =1680
+                                    Width =1320
+                                    Height =240
+                                    Name ="lblShipAttn"
+                                    Caption ="Attention: "
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x305047db102e9c488c263ab4549ddc6b
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =223
+                                    TextAlign =3
+                                    Left =240
+                                    Top =1980
+                                    Width =1320
+                                    Height =240
+                                    Name ="lblShipPhone"
+                                    Caption ="Phone, Acc #: "
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xd162e89ae1c7014eae13eaa4954f7817
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =223
+                                    TextAlign =3
+                                    Left =240
+                                    Top =1380
+                                    Width =600
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="lblShipCity"
+                                    Caption ="City, "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
+                                    GUID = Begin
+                                        0x0139cb76d6835b45998b01edca7e3b0c
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =223
+                                    TextAlign =3
+                                    Left =840
+                                    Top =1380
+                                    Width =300
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="lblShipState"
+                                    Caption ="ST"
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
+                                    GUID = Begin
+                                        0xd26683d4c03ff54783fc7cbc3a0dc44d
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =1140
+                                    Top =1380
+                                    Width =420
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="lblShipZip"
+                                    Caption ="Zip"
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
+                                    GUID = Begin
+                                        0x0c7c4c0af838ce47b39357cd5d6a6c93
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =1560
+                                    Top =1980
+                                    Width =1860
+                                    TabIndex =8
+                                    Name ="txtShipPhone"
+                                    ControlSource ="Ship_Phone"
+                                    FontName ="Arial"
+                                    InputMask ="!\\(999\") \"000\\-0000;0;_"
+                                    GUID = Begin
+                                        0x6489bc57d2afd046aa5b3e5c9b5fae1b
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    TextAlign =2
+                                    Left =3480
+                                    Top =1980
+                                    Width =1560
+                                    TabIndex =9
+                                    Name ="txtShipAccountNum"
+                                    ControlSource ="Account#"
+                                    FontName ="Arial"
+                                    OnKeyDown ="[Event Procedure]"
+                                    GUID = Begin
+                                        0xe8eae29a2d0bd14b828b8ebcbc1457c0
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =215
+                                    TextAlign =2
+                                    Left =3720
+                                    Top =480
+                                    Width =300
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="lblShipStoreNo"
+                                    Caption ="#"
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
+                                    GUID = Begin
+                                        0x4b48c3b1719aa048beaab1a44017e478
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =79
+                            Left =180
+                            Top =465
+                            Width =4920
+                            Height =1935
+                            Name ="Page244"
+                            Caption ="S&old To"
+                            GUID = Begin
+                                0xe3451b893428024bac2f0b5fbef05686
+                            End
+                            Begin
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =255
+                                    TextAlign =3
+                                    Left =300
+                                    Top =480
+                                    Width =1320
+                                    Height =240
+                                    FontWeight =700
+                                    ForeColor =8388608
+                                    Name ="lblSoldName"
+                                    Caption ="Sold To: "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
+                                    GUID = Begin
+                                        0xea80d3fcb654d14788a2f8beaf139c4e
+                                    End
+                                End
+                                Begin ComboBox
+                                    LimitToList = NotDefault
+                                    OverlapFlags =247
+                                    ColumnCount =2
+                                    Left =1620
+                                    Top =480
+                                    Width =3480
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                                    GUID = Begin
+                                        0xb1d0891b65b40946b43d58a5d3e5df06
+                                    End
+                                    Name ="txtSoldName"
+                                    ControlSource ="SoldName"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="SELECT SoldName,SoldID FROM dbo.tblSold ORDER BY SoldName"
+                                    ColumnWidths ="1440;0"
+                                    AfterUpdate ="[Event Procedure]"
+                                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
+                                    FontName ="Arial"
+                                    OnKeyDown ="[Event Procedure]"
+                                    OnNotInList ="[Event Procedure]"
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =255
+                                    Left =1620
+                                    Top =780
+                                    Width =3480
+                                    TabIndex =1
+                                    Name ="txtSoldToAddress1"
+                                    ControlSource ="SoldTo_Address1"
+                                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtSoldToAddress1\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xda253b2e9738b040a8fe139f66aa26bc
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    TextAlign =3
+                                    Left =300
+                                    Top =1680
+                                    Width =1320
+                                    Height =240
+                                    Name ="lblSoldAttn"
+                                    Caption ="Sold Attn:"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x392ddb4faa59924b839e138248d58960
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =255
+                                    Left =1620
+                                    Top =1080
+                                    Width =3480
+                                    TabIndex =2
+                                    Name ="txtSoldToAddress2"
+                                    ControlSource ="SoldTo_Address2"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x565f9aa9e45a03408e649fc395e2238a
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =255
+                                    Left =1620
+                                    Top =1380
+                                    Width =1860
+                                    TabIndex =3
+                                    Name ="txtSoldToCity"
+                                    ControlSource ="SoldTo_City"
+                                    OnDblClick ="=OpenFind(\"Sold To City\",\"Start\",\"txtSoldToCity\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xae57833d20b2dd438ec1bd26474964b3
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =3540
+                                    Top =1380
+                                    Width =420
+                                    TabIndex =4
+                                    Name ="txtSoldToState"
+                                    ControlSource ="SoldTo_State"
+                                    OnDblClick ="=OpenFind(\"Sold To State\",\"Whole\",\"txtSoldToState\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x83d33fdad74a9141bd219df7d46f0168
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =4020
+                                    Top =1380
+                                    Width =1080
+                                    TabIndex =5
+                                    Name ="txtSoldToZip"
+                                    ControlSource ="SoldTo_Zip"
+                                    OnDblClick ="=OpenFind(\"Sold To Zip\",\"Start\",\"txtSoldToZip\")"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x386291b2bb63e54fad77e4d758f8c158
+                                    End
+                                End
+                                Begin ComboBox
+                                    LimitToList = NotDefault
+                                    OverlapFlags =247
+                                    ColumnCount =2
+                                    Left =1620
+                                    Top =1680
+                                    Width =3480
+                                    TabIndex =6
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                                    GUID = Begin
+                                        0xd9887db0aae21f4bbe4789aed208d775
+                                    End
+                                    Name ="comSoldAttention"
+                                    ControlSource ="SoldAttentionID"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="SELECT SoldAttentionID, Attention FROM dbo.tblSoldAttention"
+                                    ColumnWidths ="0;1440"
+                                    FontName ="Arial"
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =247
+                                    TextAlign =3
+                                    Left =300
+                                    Top =780
+                                    Width =1320
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="Label250"
+                                    Caption ="Address 1: "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
+                                    GUID = Begin
+                                        0xe70014d4deb9f844827e7c90fce8d5ba
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    TextAlign =3
+                                    Left =300
+                                    Top =1080
+                                    Width =1320
+                                    Height =240
+                                    Name ="Label251"
+                                    Caption ="Address 2: "
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x06e28f9f7a22fe4fb70218ac3fe2c6bb
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =255
+                                    TextAlign =3
+                                    Left =300
+                                    Top =1380
+                                    Width =600
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="Label252"
+                                    Caption ="City, "
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Sold To City\",\"Start\",\"txtSoldToCity\")"
+                                    GUID = Begin
+                                        0x74a0268eb6279d4da9a945043b40df07
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =255
+                                    TextAlign =3
+                                    Left =900
+                                    Top =1380
+                                    Width =300
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="Label253"
+                                    Caption ="ST"
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Sold To State\",\"Whole\",\"txtSoldToState\")"
+                                    GUID = Begin
+                                        0x2a1c50ca7b50574e9621bda405cb00f5
+                                    End
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =247
+                                    TextAlign =3
+                                    Left =1200
+                                    Top =1380
+                                    Width =420
+                                    Height =240
+                                    ForeColor =8388608
+                                    Name ="Label254"
+                                    Caption ="Zip"
+                                    FontName ="Arial"
+                                    OnDblClick ="=OpenFind(\"Sold To Zip\",\"Start\",\"txtSoldToZip\")"
+                                    GUID = Begin
+                                        0x9f0618d96a35b4459d0d972ea5834d5d
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =255
+                                    Left =1620
+                                    Top =2040
+                                    Width =2760
+                                    TabIndex =7
+                                    Name ="txtReplyToEmail"
+                                    ControlSource ="ReplyToEmail"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x4f2a131307d24643863a355fae6321e1
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    TextAlign =3
+                                    Left =300
+                                    Top =2040
+                                    Width =1320
+                                    Height =240
+                                    Name ="Label256"
+                                    Caption ="Reply To Email:"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0xe958206a001d2a4cbfbd2de81111fb3a
+                                    End
+                                End
+                                Begin CommandButton
+                                    OverlapFlags =247
+                                    TextFontFamily =34
+                                    Left =4440
+                                    Top =2040
+                                    Width =600
+                                    Height =240
+                                    FontSize =6
+                                    FontWeight =400
+                                    TabIndex =8
+                                    Name ="cmdSendReplyTo"
+                                    Caption ="Send"
+                                    OnClick ="[Event Procedure]"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x85463fe570ccb748a27b384c4eb68894
+                                    End
+                                End
+                            End
+                        End
                     End
                 End
             End
@@ -989,9 +1374,9 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =34
-                    Left =696
+                    Left =720
                     Top =60
-                    Width =576
+                    Width =540
                     FontWeight =400
                     TabIndex =1
                     Name ="cmdPrevious"
@@ -1018,7 +1403,7 @@ Begin Form
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x000000000000000000000000000000000000000000000000
                     End
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ObjectPalette = Begin
                         0x0003100000000000800000000080000080800000000080008000800000808000 ,
                         0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
@@ -1030,23 +1415,23 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =67
                     TextFontFamily =34
-                    Left =8178
+                    Left =10200
                     Top =60
-                    Width =1158
+                    Width =1140
                     FontWeight =400
                     TabIndex =5
                     Name ="cmdClose"
                     Caption ="&Close"
                     OnClick ="=CloseForm()"
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ControlTipText ="Close PO Form"
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =34
-                    Left =1992
+                    Left =1980
                     Top =60
-                    Width =576
+                    Width =600
                     FontWeight =400
                     TabIndex =3
                     Name ="cmdNext"
@@ -1073,7 +1458,7 @@ Begin Form
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x0000000000000000
                     End
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ObjectPalette = Begin
                         0x0003100000000000800000000080000080800000000080008000800000808000 ,
                         0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
@@ -1086,7 +1471,7 @@ Begin Form
                     TextFontFamily =34
                     Left =120
                     Top =60
-                    Width =576
+                    Width =600
                     FontWeight =400
                     Name ="cmdFirst"
                     Caption ="First"
@@ -1112,7 +1497,7 @@ Begin Form
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x0000000000000000
                     End
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ObjectPalette = Begin
                         0x0003100000000000800000000080000080800000000080008000800000808000 ,
                         0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
@@ -1123,9 +1508,9 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =34
-                    Left =2568
+                    Left =2580
                     Top =60
-                    Width =576
+                    Width =540
                     FontWeight =400
                     TabIndex =4
                     Name ="cmdLast"
@@ -1152,7 +1537,7 @@ Begin Form
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x0000000000000000
                     End
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ObjectPalette = Begin
                         0x0003100000000000800000000080000080800000000080008000800000808000 ,
                         0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
@@ -1164,7 +1549,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =78
                     TextFontFamily =34
-                    Left =1272
+                    Left =1260
                     Top =60
                     Width =720
                     FontWeight =400
@@ -1173,22 +1558,22 @@ Begin Form
                     Caption ="&New"
                     StatusBarText ="Goto a new record"
                     OnClick ="=fRecNav(\"new\")"
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ControlTipText ="Create New Purchase Order"
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     AccessKey =70
                     TextFontFamily =34
-                    Left =6888
+                    Left =6900
                     Top =60
-                    Width =1158
+                    Width =1140
                     FontWeight =400
                     TabIndex =6
                     Name ="cmdFinished"
                     Caption ="&Finished"
                     OnClick ="[Event Procedure]"
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ControlTipText ="Finished Entering New PO"
                 End
                 Begin CommandButton
@@ -1197,28 +1582,28 @@ Begin Form
                     TextFontFamily =34
                     Left =3360
                     Top =60
-                    Width =1584
+                    Width =1560
                     FontWeight =400
                     TabIndex =7
                     Name ="cmdCreateInv"
                     Caption ="Create &Invoice"
                     OnClick ="[Event Procedure]"
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ControlTipText ="Build Invoice/Set PO to 'Complete'"
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     AccessKey =68
                     TextFontFamily =34
-                    Left =5592
+                    Left =5580
                     Top =60
-                    Width =1158
+                    Width =1200
                     FontWeight =400
                     TabIndex =8
                     Name ="cmdDelete"
                     Caption ="&Delete"
                     OnClick ="[Event Procedure]"
-                    FontName ="Tahoma"
+                    FontName ="Arial"
                     ControlTipText ="Delete Current PO"
                 End
             End
@@ -1413,6 +1798,19 @@ ErrHand Me.Name, "cmdFinished"
 Exit Sub
 End Sub
 
+Private Sub cmdSendReplyTo_Click()
+
+    Dim lngReturn As Long
+    
+    If Trim(Me.txtReplyToEmail) = "" Or IsNull(Me.txtReplyToEmail) Then
+        MsgBox "You must enter an email address!", vbExclamation
+        Exit Sub
+    End If
+    
+    lngReturn = ShellExecute(Me.hwnd, "Open", "mailto:" & Me.txtReplyToEmail & "&subject=RFC PO " & Me.ID, 0&, 0&, SW_SHOWNORMAL)
+
+End Sub
+
 Private Sub comSoldAttention_Enter()
 On Error GoTo errHandler
 
@@ -1526,12 +1924,23 @@ On Error GoTo errHandler
       mblnLoading = False
     End If
     Set rs = Nothing
+  Else
+    Me.TimerInterval = 0
   End If
   
 Exit Sub
 errHandler:
 ErrHand Me.Name, "Form_Timer"
 Exit Sub
+End Sub
+
+Private Sub txtJobNumber_KeyDown(KeyCode As Integer, Shift As Integer)
+
+    If KeyCode = vbKeyTab Then
+        tb1.Value = 0
+        txtShipStoreNo.SetFocus
+    End If
+    
 End Sub
 
 Private Sub txtPO_AfterUpdate()
@@ -1592,9 +2001,19 @@ Exit Sub
 End Sub
 
 Private Sub txtRefNum_Exit(Cancel As Integer)
-'On Error Resume Next
+On Error Resume Next
   Me.subPOItems.Form!txtQuantity.SetFocus
   
+End Sub
+
+Private Sub txtShipAccountNum_KeyDown(KeyCode As Integer, Shift As Integer)
+On Error Resume Next
+
+    If KeyCode = vbKeyTab And Shift <> 1 Then
+        tb1.Value = 1
+        txtSoldName.SetFocus
+    End If
+        
 End Sub
 
 Private Sub txtShipState_AfterUpdate()
@@ -1684,10 +2103,38 @@ On Error GoTo errHandler
     End If
   End If
   
+  
+  Dim rst As ADODB.Recordset, strSQL As String
+  
+  ' Look up store details based on store number entered
+  strSQL = "sp_Util_GetSoldToAddressInfo " + CStr(Me.SoldID)
+  Set rst = New ADODB.Recordset
+  With rst
+    .Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    If Not .EOF Then
+        Me.txtSoldToAddress1 = .Fields("SoldAddress1")
+        Me.txtSoldToAddress2 = .Fields("SoldAddress2")
+        Me.txtSoldToCity = .Fields("SoldCity")
+        Me.txtSoldToState = .Fields("SoldState")
+        Me.txtSoldToZip = .Fields("SoldZip")
+    End If
+    .Close
+  End With
+  Set rst = Nothing
+  
 Exit Sub
 errHandler:
 ErrHand Me.Name, "txtSoldName_AfterUpdate"
 Exit Sub
+End Sub
+
+Private Sub txtSoldName_KeyDown(KeyCode As Integer, Shift As Integer)
+
+    If KeyCode = vbKeyTab And (Shift = 1) Then
+        tb1.Value = 1
+        txtShipAccountNum.SetFocus
+    End If
+    
 End Sub
 
 Private Sub txtSoldName_NotInList(NewData As String, Response As Integer)

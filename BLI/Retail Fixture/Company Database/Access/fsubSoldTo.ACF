@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1069209061
+Checksum =-1060733520
 Begin Form
     RecordSelectors = NotDefault
     AllowDeletions = NotDefault
@@ -18,8 +18,8 @@ Begin Form
     ItemSuffix =19
     Left =585
     Top =2145
-    Right =8880
-    Bottom =5460
+    Right =9360
+    Bottom =6600
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xddb63e6e5da4e140
@@ -42,7 +42,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =3240
+            Height =3660
             BackColor =-2147483633
             Name ="Detail"
             Begin
@@ -197,7 +197,7 @@ Begin Form
                     Left =120
                     Top =1560
                     Width =8100
-                    Height =1560
+                    Height =2100
                     TabIndex =7
                     Name ="fsubSoldAttention"
                     SourceObject ="Form.fsubSoldAttention"

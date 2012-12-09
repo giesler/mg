@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1790497398
+Checksum =-595377257
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -11,9 +11,9 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =10695
+    Width =10815
     DatasheetFontHeight =10
-    ItemSuffix =58
+    ItemSuffix =60
     Left =405
     Top =180
     Right =8925
@@ -36,12 +36,13 @@ Begin Report
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
-        0x5c5c6368656573655c4850204465736b4a657420393530432053657269657300 ,
-        0x01041b409c00a80603df001e0100010079002c00640001000700fdff02000100 ,
-        0x0000030000007400000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000001000000 ,
-        0x030000000100000001000000000000000000000000000000000000003c836587 ,
-        0x01ccdaba00000000000000000000000000000000000000000000000000000000 ,
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340203df001e01000100ea0a6f08640001000700fdff02000100 ,
+        0x5802030000004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
@@ -57,48 +58,11 @@ Begin Report
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x00000000000000000000000000000000000000000000000000ccdaba00000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000052030000 ,
-        0x4c04000000000000000000000000000064000000000000000100000000000000 ,
-        0x5c005c004300480045004500530045005c004800500020004400650073006b00 ,
-        0x4a00650074002000390035003000430020005300650072006900650073002c00 ,
-        0x4c006f00630061006c004f006e006c0079002c0044007200760043006f006e00 ,
-        0x7600650072007400000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-        0x0000000000000000010000000000000000000000000000000000000000000000 ,
-        0x3c836587
+        0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x080011002a00010077696e73706f6f6c005c5c6368656573655c485020446573 ,
-        0x6b4a65742039353243004c5054313a0000000000000000000000000000000000
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
     End
     Begin
         Begin Label
@@ -129,7 +93,7 @@ Begin Report
                 Begin Line
                     BorderWidth =1
                     Top =691
-                    Width =10695
+                    Width =10815
                     Name ="Line0"
                 End
                 Begin Label
@@ -138,7 +102,7 @@ Begin Report
                     TextFontFamily =18
                     Left =7
                     Top =1080
-                    Width =10680
+                    Width =10800
                     Height =720
                     FontSize =24
                     FontWeight =700
@@ -150,7 +114,7 @@ Begin Report
                 Begin Label
                     TextFontFamily =34
                     Top =2520
-                    Width =1320
+                    Width =1260
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -169,53 +133,53 @@ Begin Report
                     Caption ="Description"
                 End
                 Begin Label
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
                     Left =6120
                     Top =2520
-                    Width =1200
+                    Width =855
                     Height =360
                     FontSize =10
                     FontWeight =700
                     Name ="Label43"
-                    Caption ="# Ordered"
+                    Caption ="Ordered"
                 End
                 Begin Label
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =7320
+                    Left =6975
                     Top =2520
-                    Width =1080
+                    Width =855
                     Height =360
                     FontSize =10
                     FontWeight =700
                     Name ="Label44"
-                    Caption ="# in Inv."
+                    Caption ="Inv"
                 End
                 Begin Label
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =8520
+                    Left =7830
                     Top =2520
-                    Width =975
+                    Width =855
                     Height =360
                     FontSize =10
                     FontWeight =700
                     Name ="Label45"
-                    Caption ="# Needed"
+                    Caption ="Needed"
                 End
                 Begin Line
                     BorderWidth =2
                     Top =2880
-                    Width =10695
+                    Width =10815
                     Name ="Line46"
                 End
                 Begin Label
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =9600
+                    Left =8685
                     Top =2520
-                    Width =975
+                    Width =855
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -233,13 +197,27 @@ Begin Report
                     TextAlign =2
                     TextFontFamily =34
                     Top =1800
-                    Width =10695
+                    Width =10815
                     Height =360
                     FontSize =12
                     FontWeight =700
                     Name ="lblCriteria"
                     GUID = Begin
                         0x3be6211111fd1c44a7ad6cf09d3ec050
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =9540
+                    Top =2520
+                    Width =1260
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label58"
+                    Caption ="Ref #"
+                    GUID = Begin
+                        0xb286e3f4cba29546bc04f9fc7663831d
                     End
                 End
             End
@@ -251,8 +229,7 @@ Begin Report
             Begin
                 Begin TextBox
                     TextFontFamily =34
-                    Width =1320
-                    FontSize =10
+                    Width =1260
                     Name ="Material"
                     ControlSource ="Material"
                     StatusBarText ="Catalog/Material #"
@@ -261,52 +238,58 @@ Begin Report
                     TextFontFamily =34
                     Left =1320
                     Width =4800
-                    FontSize =10
                     TabIndex =1
                     Name ="Description"
                     ControlSource ="Description"
                 End
                 Begin TextBox
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =7320
-                    Width =960
-                    FontSize =10
+                    Left =6975
+                    Width =855
                     TabIndex =2
                     Name ="Inventory"
                     ControlSource ="Inventory"
                 End
                 Begin TextBox
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =6240
-                    Width =960
-                    FontSize =10
+                    Left =6120
+                    Width =855
                     TabIndex =3
                     Name ="SumOfQuanity"
                     ControlSource ="SumOfQuanity"
                 End
                 Begin TextBox
                     DecimalPlaces =0
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =8520
+                    Left =7830
                     Width =855
-                    FontSize =10
                     TabIndex =4
                     Name ="Text40"
                     ControlSource ="=IIf(([inventory]-[sumofquanity])>0,\"0\",[sumofquanity]-[inventory])"
                 End
                 Begin TextBox
                     DecimalPlaces =0
-                    TextAlign =3
+                    TextAlign =2
                     TextFontFamily =34
-                    Left =9600
+                    Left =8685
                     Width =855
-                    FontSize =10
                     TabIndex =5
                     Name ="Text49"
                     ControlSource ="=IIf(([inventory]-[sumofquanity])<0,\"0\",[inventory]-[sumofquanity])"
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =9540
+                    Width =1260
+                    TabIndex =6
+                    Name ="Text59"
+                    ControlSource ="RefNum"
+                    GUID = Begin
+                        0xcc545a5af9ede14a98f16ddc74ee0eed
+                    End
                 End
             End
         End
@@ -316,7 +299,7 @@ Begin Report
             Begin
                 Begin Line
                     BorderWidth =2
-                    Width =10695
+                    Width =10815
                     Name ="Line55"
                     GUID = Begin
                         0xdf69cef1e960104fbf726e6b67aa7f43
@@ -352,7 +335,7 @@ Begin Report
                     TextFontFamily =34
                     Left =7500
                     Top =60
-                    Width =3120
+                    Width =3240
                     TabIndex =1
                     Name ="Text57"
                     ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"

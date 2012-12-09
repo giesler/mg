@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-350325818
+Checksum =-344627553
 Begin Form
     AllowDeletions = NotDefault
     AllowUpdating =4
@@ -9,13 +9,13 @@ Begin Form
     PictureAlignment =2
     DatasheetGridlinesBehavior =3
     GridX =12
-    Width =6600
+    Width =6960
     DatasheetFontHeight =10
     ItemSuffix =11
     Left =1185
     Top =2145
     Right =8580
-    Bottom =4860
+    Bottom =6480
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x79c66f485da4e140
@@ -42,7 +42,7 @@ Begin Form
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
-                    Width =2520
+                    Width =2880
                     ColumnWidth =3060
                     BorderColor =4210752
                     Name ="StoreName"
@@ -54,7 +54,7 @@ Begin Form
                     SpecialEffect =0
                     OverlapFlags =87
                     ColumnCount =2
-                    Left =2520
+                    Left =2880
                     Width =4080
                     TabIndex =1
                     BorderColor =4210752
