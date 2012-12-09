@@ -681,7 +681,7 @@ bool CXMServerManager::LimiterIndex(CXMIndex *index)
 		return true;
 
 	//check the index against max index
-	bool retval = (index->CountFields(true)<=mLimiterMaxIndex);
+	bool retval = (index->CountBits(true)<=mLimiterMaxIndex);
 	if (!retval)
 	{
 		CString str;
@@ -701,7 +701,7 @@ bool CXMServerManager::LimiterFilter(CXMIndex *filter)
 		return true;
 
 	//check the filter against max filter
-	bool retval = (filter->CountFields(false)<=mLimiterMaxFilter);
+	bool retval = (filter->CountBits(false)<=mLimiterMaxFilter);
 	if (!retval)
 	{
 		CString str;

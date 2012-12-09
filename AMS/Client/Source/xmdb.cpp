@@ -962,6 +962,8 @@ inline void CXMDBFile::InitShared(CXMDB *db)
 	mThumbCount = 0;
 	mThumbs = 0;
 	memset(&mDiskFile, 0, sizeof(mDiskFile));
+
+	mDiskFile.index.data.Contest = true;
 }
 
 bool CXMDBFile::InitFromDB(FILE* file)
@@ -969,6 +971,13 @@ bool CXMDBFile::InitFromDB(FILE* file)
 	//read file data from stream
 	if (fread(&mDiskFile, sizeof(mDiskFile), 1, file)!=1)
 		throw;
+
+	// ********************* HACK ***********************
+	// why the heck does contest show up as 0xCD?
+	// actually, it doesent anymore, but this code 
+	// won't hurt, will it?
+	if(mDiskFile.index.data.Contest == 0xCD)
+		mDiskFile.index.data.Contest = false;
 
 	//are we already removed?
 	if (!GetFlag(DFF_REMOVED))

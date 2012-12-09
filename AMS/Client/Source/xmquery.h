@@ -31,6 +31,8 @@ struct CXMIndex
 	BYTE Chest;
 	BYTE FacialHair;
 
+	bool Contest;
+
 	//conversion
 	HRESULT ToXml(IXMLDOMDocument *xml, char *name, IXMLDOMElement** out);
 	HRESULT FromXml(IXMLDOMElement *e);
@@ -39,6 +41,8 @@ struct CXMIndex
 	bool IsBlank();
 	void CopyTo(CXMIndex *dest);
 	int CountFields(bool includeCat);
+	int CountBits(bool includeCat);
+	float Score();
 };
 
 class CXMQuery  
@@ -58,6 +62,7 @@ public:
 	bool mFilter;
 	CXMIndex mQuery;
 	CXMIndex mRejection;
+	bool mContest;
 
 	//conversion
 	HRESULT ToXmlString(char** out);

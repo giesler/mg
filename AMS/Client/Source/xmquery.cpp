@@ -7,6 +7,7 @@
 #include "xmquery.h"
 #include "xmdb.h"
 #include <afxpriv.h>
+#include <math.h>
 
 void QueryCopy(CXMQuery *source, CXMQuery *dest)
 {
@@ -197,8 +198,56 @@ for(i=0;i<32;i++)n+=(i32&(1<<i))?1:0
 #define _COUNT8(i8, n) \
 for(i=0;i<8;i++)n+=(i8&(1<<i))?1:0
 
+float CXMIndex::Score()
+{
+	// score(n) = 1.2n^(n/100)
+	// where n is the number of fields indexed (sans cat1,2)
+	int n = CountFields(false);
+	float s = (float)pow((float)1.2*(float)n, (float)n/(float)100);
+
+	//catagory: 1st bit = 10 pts, 2nd bit = 5 pts, each additional = 1 pt.
+	int i = 0;
+	_COUNT32(Cat1, i);
+	_COUNT32(Cat2, i);
+	s += ((i--)>0)?10:0;			//add 10 pts if i > 0, decrement i
+	s += ((i--)>0)?5:0;			//add 5 pts if i > 0, decrement i
+	s += (i>0)?i:0;				//add i pts if i > 0
+
+	return s;
+}
+
 
 int CXMIndex::CountFields(bool includeCat)
+{
+	int n = 0;
+	if (includeCat && (Cat1!=0 || Cat2!=0))
+		n++;
+	if (Setting!=0) n++;
+	if (Rating!=0) n++;
+	if (Quantity!=0) n++;
+	if (Content!=0) n++;
+	if (Build!=0) n++;
+	if (HairColor!=0) n++;
+	if (HairStyle!=0) n++;
+	if (Eyes!=0) n++;
+	if (Height!=0) n++;
+	if (Age!=0) n++;
+	if (Breasts!=0) n++;
+	if (Nipples!=0) n++;
+	if (Butt!=0) n++;
+	if (Race!=0) n++;
+	if (Quality!=0) n++;
+	if (Skin!=0) n++;
+	if (Hips!=0) n++;
+	if (Legs!=0) n++;
+	if (FemaleGen!=0) n++;
+	if (MaleGen!=0) n++;
+	if (Chest!=0) n++;
+	if (FacialHair!=0) n++;
+	return n;
+}
+
+int CXMIndex::CountBits(bool includeCat)
 {
 	int n = 0, i;
 	if (includeCat)
@@ -234,31 +283,7 @@ int CXMIndex::CountFields(bool includeCat)
 bool CXMIndex::IsBlank()
 {
 	//returns false if anything is non-zero
-	return 
-		!(Cat1 ||
-		Cat2 ||
-		Setting ||
-		Rating ||
-		Quantity ||
-		Content ||
-		Build ||
-		HairColor ||
-		HairStyle ||
-		Eyes ||
-		Height ||
-		Age ||
-		Breasts ||
-		Nipples ||
-		Butt ||
-		Race ||
-		Quality ||
-		Skin ||
-		Hips ||
-		Legs ||
-		FemaleGen ||
-		MaleGen ||
-		Chest ||
-		FacialHair);
+	return CountFields(true) == 0;
 }
 
 #define INDEX_TOXML_HELPER(_size, _field) \
@@ -309,6 +334,12 @@ HRESULT CXMIndex::ToXml(IXMLDOMDocument *xml, char *name, IXMLDOMElement** out)
 	INDEX_TOXML_HELPER(1, Chest)
 	INDEX_TOXML_HELPER(1, FacialHair)
 	INDEX_TOXML_HELPER(1, Hips)
+
+	//add the source field?
+	if (Contest)
+	{
+		COM_SINGLECALL(e->setAttribute(_bstr_t("source"), _variant_t("contest")));
+	}
 
 	//success
 	VariantClear(&v);
@@ -399,6 +430,25 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 		COM_SINGLECALL(list->nextNode(&n));
 	}
 
+	//default contest value
+	Contest = false;
+
+	//look for the source attribute
+	::VariantClear(&v);
+	COM_SINGLECALL(index->getAttribute(_bstr_t("source"), &v));
+	if (V_VT(&v) != VT_NULL)
+	{
+		//convert to string
+		COM_SINGLECALL(::VariantChangeType(&v, &v, 0, VT_BSTR));
+		AfxBSTR2CString(&strname, V_BSTR(&v));
+
+		//is it contest?
+		if (strname.CompareNoCase("contest")==0)
+		{
+			Contest = true;
+		}
+	}
+	
 	//success
 	COM_RELEASE(list);
 	VariantClear(&v);
@@ -434,6 +484,7 @@ CXMQuery::CXMQuery()
 	memset(&mRejection, 0, sizeof(CXMIndex));
 	mRefCount = 1;
 	mName = NULL;
+	mContest = false;
 }
 
 CXMQuery::~CXMQuery()
@@ -480,45 +531,53 @@ HRESULT CXMQuery::ToXml(IXMLDOMDocument *xml, IXMLDOMElement** out, BSTR name)
 	}
 	COM_SINGLECALL(xml->createElement(name, &e));
 
-	//add bounds checks
-	V_VT(&v) = VT_UI4;
-	V_UI4(&v) = mMinWidth;
-	COM_SINGLECALL(e->setAttribute(bstrMinWidth, v));
-	V_UI4(&v) = mMaxWidth;
-	COM_SINGLECALL(e->setAttribute(bstrMaxWidth, v));
-	V_UI4(&v) = mMinHeight;
-	COM_SINGLECALL(e->setAttribute(bstrMinHeight, v));
-	V_UI4(&v) = mMaxHeight;
-	COM_SINGLECALL(e->setAttribute(bstrMaxHeight, v));
-	V_UI4(&v) = mMinSize;
-	COM_SINGLECALL(e->setAttribute(bstrMinSize, v));
-	V_UI4(&v) = mMaxSize;
-	COM_SINGLECALL(e->setAttribute(bstrMaxSize, v));
-	VariantClear(&v);
-
-	//add name
-	if (mName)
+	//is this a contest?
+	if (mContest)
 	{
-		COM_SINGLECALL(e->setAttribute(bstrName, _variant_t(_bstr_t(mName))));
+		COM_SINGLECALL(e->setAttribute(_bstr_t("for"), _variant_t("contest")));
 	}
-
-	//turn off filtering?
-	if (!mFilter)
+	else
 	{
-		COM_SINGLECALL(e->setAttribute(bstrFilter, _variant_t("none")));
+		//add bounds checks
+		V_VT(&v) = VT_UI4;
+		V_UI4(&v) = mMinWidth;
+		COM_SINGLECALL(e->setAttribute(bstrMinWidth, v));
+		V_UI4(&v) = mMaxWidth;
+		COM_SINGLECALL(e->setAttribute(bstrMaxWidth, v));
+		V_UI4(&v) = mMinHeight;
+		COM_SINGLECALL(e->setAttribute(bstrMinHeight, v));
+		V_UI4(&v) = mMaxHeight;
+		COM_SINGLECALL(e->setAttribute(bstrMaxHeight, v));
+		V_UI4(&v) = mMinSize;
+		COM_SINGLECALL(e->setAttribute(bstrMinSize, v));
+		V_UI4(&v) = mMaxSize;
+		COM_SINGLECALL(e->setAttribute(bstrMaxSize, v));
+		VariantClear(&v);
+
+		//add name
+		if (mName)
+		{
+			COM_SINGLECALL(e->setAttribute(bstrName, _variant_t(_bstr_t(mName))));
+		}
+
+		//turn off filtering?
+		if (!mFilter)
+		{
+			COM_SINGLECALL(e->setAttribute(bstrFilter, _variant_t("none")));
+		}
+
+		//append query index
+		COM_SINGLECALL(mQuery.ToXml(xml, "queryindex", &f));
+		COM_SINGLECALL(e->appendChild(f, &n));
+		COM_RELEASE(n);
+		COM_RELEASE(f);
+
+		//append rejection index
+		COM_SINGLECALL(mRejection.ToXml(xml, "rejectionindex", &f));
+		COM_SINGLECALL(e->appendChild(f, &n));
+		COM_RELEASE(n);
+		COM_RELEASE(f);
 	}
-
-	//append query index
-	COM_SINGLECALL(mQuery.ToXml(xml, "queryindex", &f));
-	COM_SINGLECALL(e->appendChild(f, &n));
-	COM_RELEASE(n);
-	COM_RELEASE(f);
-
-	//append rejection index
-	COM_SINGLECALL(mRejection.ToXml(xml, "rejectionindex", &f));
-	COM_SINGLECALL(e->appendChild(f, &n));
-	COM_RELEASE(n);
-	COM_RELEASE(f);
 	
 	//success
 	*out = e;
@@ -585,96 +644,116 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 	DOMNodeType t;
 	VariantInit(&v);
 
-	//set bound checks
-	COM_SINGLECALL(query->get_attributes(&map));
-	COM_SINGLECALL(map->nextNode(&n));
-	while(n)
+	//is this for the contest?
+	::VariantClear(&v);
+	COM_SINGLECALL(query->getAttribute(_bstr_t("for"), &v));
+	if (V_VT(&v) != VT_NULL)
 	{
-		//retrieve name and value
-		COM_SINGLECALL(n->get_nodeName(&name));
-		COM_SINGLECALL(n->get_nodeValue(&v));
-		AfxBSTR2CString(&strname, name);
-		
-		//which attribute?
-		if (strname.CompareNoCase("minwidth")==0)
+		//convert to string
+		COM_SINGLECALL(::VariantChangeType(&v, &v, 0, VT_BSTR));
+		AfxBSTR2CString(&strname, V_BSTR(&v));
+
+		//is it contest?
+		if (strname.CompareNoCase("contest")==0)
 		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMinWidth = V_UI4(&v);
+			mContest = true;
 		}
-		else if (strname.CompareNoCase("maxwidth")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMaxWidth = V_UI4(&v);
-		}
-		else if (strname.CompareNoCase("minheight")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMinHeight = V_UI4(&v);
-		}
-		else if (strname.CompareNoCase("maxheight")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMaxHeight = V_UI4(&v);
-		}
-		else if (strname.CompareNoCase("minsize")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMinSize = V_UI4(&v);
-		}
-		else if (strname.CompareNoCase("maxsize")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
-			mMaxSize = V_UI4(&v);
-		}
-		else if (strname.CompareNoCase("name")==0)
-		{
-			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_BSTR));
-			mName = (char*)malloc((wcslen(V_BSTR(&v))*2)+1);
-			wcstombs(mName, V_BSTR(&v), MAX_PATH);
-		}
-		
-		//next item
-		SysFreeString(name);
-		name = NULL;
-		VariantClear(&v);
-		COM_RELEASE(n);
-		COM_SINGLECALL(map->nextNode(&n));
 	}
-	COM_RELEASE(map);
 
-	//load query index
-	COM_SINGLECALL(query->get_childNodes(&list));
-	COM_SINGLECALL(list->nextNode(&n));
-	while(n)
+	//only do the rest if it ISNT contest
+	if (!mContest)
 	{
-		//can convert to element?
-		COM_SINGLECALL(n->get_nodeType(&t));
-		if (t==NODE_ELEMENT)
+		//set bound checks
+		COM_SINGLECALL(query->get_attributes(&map));
+		COM_SINGLECALL(map->nextNode(&n));
+		while(n)
 		{
-			//convert to element
-			COM_SINGLECALL(n->QueryInterface(IID_IXMLDOMElement, (void**)&e));
-
-			//test name, execute proper read method
-			COM_SINGLECALL(e->get_nodeName(&name));
+			//retrieve name and value
+			COM_SINGLECALL(n->get_nodeName(&name));
+			COM_SINGLECALL(n->get_nodeValue(&v));
 			AfxBSTR2CString(&strname, name);
-			if (strname.CompareNoCase("queryindex")==0)
+			
+			//which attribute?
+			if (strname.CompareNoCase("minwidth")==0)
 			{
-				COM_SINGLECALL(mQuery.FromXml(e));
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMinWidth = V_UI4(&v);
 			}
-			if (strname.CompareNoCase("rejectionindex")==0)
+			else if (strname.CompareNoCase("maxwidth")==0)
 			{
-				COM_SINGLECALL(mRejection.FromXml(e));
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMaxWidth = V_UI4(&v);
 			}
-			COM_RELEASE(e);
+			else if (strname.CompareNoCase("minheight")==0)
+			{
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMinHeight = V_UI4(&v);
+			}
+			else if (strname.CompareNoCase("maxheight")==0)
+			{
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMaxHeight = V_UI4(&v);
+			}
+			else if (strname.CompareNoCase("minsize")==0)
+			{
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMinSize = V_UI4(&v);
+			}
+			else if (strname.CompareNoCase("maxsize")==0)
+			{
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
+				mMaxSize = V_UI4(&v);
+			}
+			else if (strname.CompareNoCase("name")==0)
+			{
+				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_BSTR));
+				mName = (char*)malloc((wcslen(V_BSTR(&v))*2)+1);
+				wcstombs(mName, V_BSTR(&v), MAX_PATH);
+			}
+			
+			//next item
 			SysFreeString(name);
 			name = NULL;
+			VariantClear(&v);
+			COM_RELEASE(n);
+			COM_SINGLECALL(map->nextNode(&n));
 		}
+		COM_RELEASE(map);
 
-		//next item
-		COM_RELEASE(n);
+		//load query index
+		COM_SINGLECALL(query->get_childNodes(&list));
 		COM_SINGLECALL(list->nextNode(&n));
-	}
-	COM_RELEASE(list);
+		while(n)
+		{
+			//can convert to element?
+			COM_SINGLECALL(n->get_nodeType(&t));
+			if (t==NODE_ELEMENT)
+			{
+				//convert to element
+				COM_SINGLECALL(n->QueryInterface(IID_IXMLDOMElement, (void**)&e));
+
+				//test name, execute proper read method
+				COM_SINGLECALL(e->get_nodeName(&name));
+				AfxBSTR2CString(&strname, name);
+				if (strname.CompareNoCase("queryindex")==0)
+				{
+					COM_SINGLECALL(mQuery.FromXml(e));
+				}
+				if (strname.CompareNoCase("rejectionindex")==0)
+				{
+					COM_SINGLECALL(mRejection.FromXml(e));
+				}
+				COM_RELEASE(e);
+				SysFreeString(name);
+				name = NULL;
+			}
+
+			//next item
+			COM_RELEASE(n);
+			COM_SINGLECALL(list->nextNode(&n));
+		}
+		COM_RELEASE(list);
+	} //if !mContest
 
 	//success
 	VariantClear(&v);

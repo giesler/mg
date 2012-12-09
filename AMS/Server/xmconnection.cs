@@ -258,7 +258,7 @@ namespace XMedia
 				}
 
 				//read data from the buffer
-				if (mClient.Poll(10*1000, SelectMode.SelectRead))
+				if (mClient.Poll(500*1000, SelectMode.SelectRead))
 				{
 					//data available, read it until there is less
 					//than the full buffer left
@@ -323,7 +323,8 @@ namespace XMedia
 							{
 								//no nulls found, just move the pointer
 								//forward
-								size += retval;								
+								size += retval;	
+								Trace.WriteLine("No NULL found in " + retval + " bytes.");			
 							}							
 						}
 					}

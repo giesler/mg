@@ -876,7 +876,7 @@ bool CXMSession::SendChunk()
 	//read chunk
 	void *chunk = NULL;
 	DWORD chunksize = 0;
-	//while (true) {
+	while (true) {
 
 		//get next chunk
 		chunksize = netout.Pop(&chunk, SEND_CHUNK);
@@ -925,7 +925,7 @@ bool CXMSession::SendChunk()
 		//set the tx light
 		TxRxSend();
 
-	//}	//while
+	}	//while
 
 	//never gets here
 	return true;

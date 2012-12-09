@@ -54,7 +54,7 @@ struct diskindex
 {
 	BYTE		flags;			//flags
 	CXMIndex	data;
-	DWORD		unused[4];		//upwards compatability
+	BYTE		unused[15];		//upwards compatability
 };
 
 //disk index flags
@@ -78,7 +78,7 @@ struct diskfile
 	DWORD		thumbnails;		//number of thumbnails
 	DWORD		width;			//image width (pixels)
 	DWORD		height;			//image height (pixels)
-	DWORD		unused[4];		//upwards compatability
+	DWORD		unused[4];
 };
 
 //disk file flags

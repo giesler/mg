@@ -319,6 +319,9 @@
 #define IDC_RECONNCT_DELAY              1230
 #define IDC_STATIC_RECONNECT1           1231
 #define IDC_STATIC_RECONNECT2           1232
+#define IDC_PWD_LABEL                   1233
+#define IDC_INSTRUCTIONS                1234
+#define IDC_AL_PWD_CHANGE               1235
 #define ID_ZOOMIN                       32778
 #define ID_ZOOMOUT                      32779
 #define ID_DOWNLOAD                     32781
@@ -352,7 +355,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        184
 #define _APS_NEXT_COMMAND_VALUE         32807
-#define _APS_NEXT_CONTROL_VALUE         1233
+#define _APS_NEXT_CONTROL_VALUE         1236
 #define _APS_NEXT_SYMED_VALUE           129
 #endif
 #endif

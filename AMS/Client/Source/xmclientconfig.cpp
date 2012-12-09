@@ -126,6 +126,7 @@ public:
 		: CDialog(IDD_CHANGEPWD, pwndParent)
 	{
 		moldPassword = oldPassword;
+		mbCheckOldPassword = true;
 	}
 	bool ChangePassword()
 	{
@@ -138,6 +139,7 @@ public:
 		mnewPassword.UnlockBuffer();
 		return CString(md5.GetString());
 	}
+	bool mbCheckOldPassword;
 
 protected:
 	
@@ -147,6 +149,19 @@ protected:
 	CString mnewPassword;
 	CString mverifyPassword;
 
+	BOOL OnInitDialog()
+	{
+		//disable the old password box?
+		if (!mbCheckOldPassword)
+		{
+			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_OLD), FALSE);
+			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_LABEL), FALSE);
+			::SetDlgItemText(m_hWnd, IDC_INSTRUCTIONS, "Enter the new password, then retype it for accuracy:");
+		}
+		::SetFocus(::GetDlgItem(m_hWnd, mbCheckOldPassword?IDC_PWD_OLD:IDC_PWD_NEW));
+		return TRUE;
+	}
+
 	void DoDataExchange(CDataExchange *pDX)
 	{
 		//transfer text
@@ -155,7 +170,8 @@ protected:
 		DDX_Text(pDX, IDC_PWD_VERIFY, mverifyPassword);
 
 		//do checks
-		if (pDX->m_bSaveAndValidate)
+		if (mbCheckOldPassword &&
+			pDX->m_bSaveAndValidate)
 		{
 			//generate md5 from password guess
 			CMD5 md5;
@@ -298,14 +314,25 @@ private:
 			DDX_Check(pDX, IDC_RECONNECT, mReconnect_Enable);
 			DDX_Text(pDX, IDC_RECONNCT_DELAY, mReconnect_Delay);
 			DDX_Text(pDX, IDC_USERNAME, mAutoLogin_Username);
+			/*
 			if (pDX->m_bSaveAndValidate)
 				DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
 			else
 				DDX_Text(pDX, IDC_PASSWORD, CString(""));
+			*/
 			DDV_MinMaxInt(pDX, mReconnect_Delay, 1, 1440);
 			if (!pDX->m_bSaveAndValidate)
 			{
 				OnEnableControls();
+			}
+		}
+		void OnALChangePwd()
+		{
+			CChangePassword dlg("", this);
+			dlg.mbCheckOldPassword = false;
+			if (dlg.ChangePassword())
+			{
+				mAutoLogin_Password = dlg.GetNewPassword();
 			}
 		}
 		void OnChangePassword()
@@ -337,7 +364,7 @@ private:
 			GetDlgItem(IDC_STATIC_USERNAME)->EnableWindow(temp);
 			GetDlgItem(IDC_STATIC_PASSWORD)->EnableWindow(temp);
 			GetDlgItem(IDC_USERNAME)->EnableWindow(temp);
-			GetDlgItem(IDC_PASSWORD)->EnableWindow(temp);
+			GetDlgItem(IDC_AL_PWD_CHANGE)->EnableWindow(temp);
 
 			//reconnect
 			temp = (IsDlgButtonChecked(IDC_RECONNECT)==BST_CHECKED);
@@ -604,6 +631,7 @@ BEGIN_MESSAGE_MAP(CPreferences::PageGeneral, CPropertyPage)
 	ON_BN_CLICKED(IDC_PWDPROTECT, CPreferences::PageGeneral::OnEnableControls)
 	ON_BN_CLICKED(IDC_AUTOLOGIN, CPreferences::PageGeneral::OnEnableControls)
 	ON_BN_CLICKED(IDC_RECONNECT, CPreferences::PageGeneral::OnEnableControls)
+	ON_BN_CLICKED(IDC_AL_PWD_CHANGE, CPreferences::PageGeneral::OnALChangePwd)
 END_MESSAGE_MAP()
 
 BEGIN_MESSAGE_MAP(CPreferences::PageSearching, CPropertyPage)

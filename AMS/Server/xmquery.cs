@@ -104,6 +104,14 @@ namespace XMedia
 	/// </summary>
 	public struct XMIndex
 	{
+		//where is the index from (for contest)
+		public enum SourceEnum
+		{
+			Other,
+			Contest
+		};
+		public SourceEnum Source;
+
 		//index fields
 		public uint Cat1;
 		public uint Cat2;
@@ -129,13 +137,69 @@ namespace XMedia
 		public byte MaleGen;
 		public byte Chest;
 		public byte FacialHair;
-		public byte Gender;
+		
+		/// <summary>
+		/// Tallies the score for this index (Contest)
+		/// </summary>
+		/// <returns></returns>
+		public float Score()
+		{
+			// score(n) = 1.2n^(n/100)
+			// where n is the number of fields indexed (sans cat1,2)
+			int n = CountFields(false);
+			float s = (float)Math.Pow(1.2*n, n/100);
+			
+			//catagory: 1st bit = 10 pts, 2nd bit = 5 pts, each additional = 1 pt.
+			int i = 0;
+			_countInt32(Cat1, ref i);
+			_countInt32(Cat2, ref i);
+			s += ((i--)>0)?10:0;			//add 10 pts if i > 0, decrement i
+			s += ((i--)>0)?5:0;			//add 5 pts if i > 0, decrement i
+			s += (i>0)?i:0;				//add i pts if i > 0
+
+			return s;
+		}
+
+		/// <summary>
+		/// Count the number of fields that are non-empty.
+		/// </summary>
+		/// <param name="includeCat">If false, does not include catagories</param>
+		/// <returns></returns>
+		public int CountFields(bool includeCat)
+		{
+			int n = 0;
+			if (includeCat && (Cat1!=0 || Cat2!=0))
+				n++;
+			if (Setting!=0) n++;
+			if (Rating!=0) n++;
+			if (Quantity!=0) n++;
+			if (Content!=0) n++;
+			if (Build!=0) n++;
+			if (HairColor!=0) n++;
+			if (HairStyle!=0) n++;
+			if (Eyes!=0) n++;
+			if (Height!=0) n++;
+			if (Age!=0) n++;
+			if (Breasts!=0) n++;
+			if (Nipples!=0) n++;
+			if (Butt!=0) n++;
+			if (Race!=0) n++;
+			if (Quality!=0) n++;
+			if (Skin!=0) n++;
+			if (Hips!=0) n++;
+			if (Legs!=0) n++;
+			if (FemaleGen!=0) n++;
+			if (MaleGen!=0) n++;
+			if (Chest!=0) n++;
+			if (FacialHair!=0) n++;
+			return n;
+		}
 
 		/// <summary>
 		/// Returns the agregate number of bits set in all the index's fields.
 		/// </summary>
 		/// <param name="includeCat">If false, does not include catagories.</param>
-		public int CountFields(bool includeCat)
+		public int CountBits(bool includeCat)
 		{
 			int n = 0;
 			if (includeCat)
@@ -165,7 +229,6 @@ namespace XMedia
 			_countByte(MaleGen, ref n);
 			_countByte(Chest, ref n);
 			_countByte(FacialHair, ref n);
-			_countByte(Gender, ref n);
 			return n;
 		}
 		private void _countByte(Byte b, ref int n)
@@ -213,7 +276,12 @@ namespace XMedia
 			ToXml_AppendField(index, "MaleGen", 	MaleGen);
 			ToXml_AppendField(index, "Chest", 		Chest);
 			ToXml_AppendField(index, "FacialHair", 	FacialHair);
-			ToXml_AppendField(index, "Gender", 		Gender);
+			
+			//Is the inex from the contest?
+			if (Source == SourceEnum.Contest)
+			{
+				index.SetAttribute("source", "contest");
+			}
 
 			//Done
 			return index;
@@ -263,10 +331,13 @@ namespace XMedia
 						case "MaleGen":		MaleGen		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
 						case "Chest":		Chest		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
 						case "FacialHair":	FacialHair	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
-						case "Gender":		Gender		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
 						default:
 							break;
 					}
+
+					//contest index?
+					Source = (e.GetAttribute("source")=="contest")
+						?SourceEnum.Contest:SourceEnum.Other;
 				}
 			}
 		}
@@ -307,8 +378,7 @@ namespace XMedia
 			if (MaleGen		== 0)	MaleGen		= (byte)0xFF;
 			if (Chest		== 0)	Chest		= (byte)0xFF;
 			if (FacialHair	== 0)	FacialHair	= (byte)0xFF;
-			if (Gender		== 0)	Gender		= (byte)0xFF;
-
+			
 		}
 
 		/// <summary>
@@ -347,22 +417,11 @@ namespace XMedia
 			if ((a.MaleGen		!=0) && ((a.MaleGen		& b.MaleGen		)==0)) return false;
 			if ((a.Chest		!=0) && ((a.Chest		& b.Chest		)==0)) return false;
 			if ((a.FacialHair	!=0) && ((a.FacialHair	& b.FacialHair	)==0)) return false;
-			if ((a.Gender		!=0) && ((a.Gender		& b.Gender		)==0)) return false;
 			
 			//everything passed
 			return true;
 		}
 
-		//compare functions
-		public static bool CompareExact(ref XMIndex a, ref XMIndex b)
-		{
-			//all bits must match, even 'off' bits
-			//if (a.field1 != b.field1) return false;
-			//if (a.field2 != b.field2) return false;
-
-			//match
-			return true;
-		}
 		public static bool CompareAny(ref XMIndex a, ref XMIndex b)
 		{
 			//at least one 'on' bit must match
@@ -390,50 +449,9 @@ namespace XMedia
 			if ((a.MaleGen		& b.MaleGen		)!=0) return true;
 			if ((a.Chest		& b.Chest		)!=0) return true;
 			if ((a.FacialHair	& b.FacialHair	)!=0) return true;
-			if ((a.Gender		& b.Gender		)!=0) return true;
-
+			
 			//no match
 			return false;
-		}
-		/// <summary>
-		/// All in a must exist in b, but not all in b must
-		/// exist in a. NOTE: Parameters are NOT transative!
-		/// </summary>
-		/// <param name="a">User Mask</param>
-		/// <param name="b">Media Index</param>
-		public static bool CompareAll(ref XMIndex a, ref XMIndex b)
-		{
-			//all bits in a must be in b, but b may have bits
-			//not in a
-			//if ( (a.field1 & b.field1) != a.field1) return false;
-			//if ( (a.field2 & b.field2) != a.field2) return false;
-
-			return false;
-		}
-		public static bool CompareN(ref XMIndex a, ref XMIndex b, int n)
-		{
-			//do any match? this is so much faster than the 
-			//actual n compare, its worth it to try
-			//ASSUMED: n > 0
-			if(!XMIndex.CompareAny(ref a, ref b))
-			{
-				return false;
-			}
-			
-			//at least n 'on' bits must match
-			//CompareN_Inner(a.field1, b.field1, ref n);
-			//CompareN_Inner(a.field2, b.field2, ref n);
-
-			//match if 
-			return (n<1);
-		}
-
-		internal static void CompareN_Inner(uint a, uint b, ref int n)
-		{
-			//decrement n for each matching bit between a, b
-			uint x = a & b;
-			for (byte i=0;i<32;i++)
-				if ((x&(1<<i))!=0) n--;
 		}
 	}
 
@@ -455,26 +473,39 @@ namespace XMedia
 		public uint MinSize, MaxSize;
 
 		//misc
+		public bool Contest = false;		//if true, no other fields are valid!
 		public bool Filter = true;			//if false, return records even
 											//if no computer have them
 
 		/// <summary>
 		/// Convert an xml fragment into a query structure.
 		/// </summary>
-		/// <param name="query">Xml fragment.</param>
+		/// <param name="query">Xml fragment representing a query</param>
 		public void FromXml(XmlElement query)
 		{
+			//is this a contest query?
+			if (query.GetAttribute("for")=="contest")
+			{
+				//set the contest flag
+				Contest = true;
+				return;
+			}
+			else
+			{
+				Contest = false;
+			}
+
 			//get range checks
 			foreach(XmlAttribute a in query.Attributes)
 			{
 				switch(a.Name.ToLower())
 				{
-					case "minwidth": 	MinWidth  = /*beta2:*/Convert.ToUInt32(a.Value);	break;
-					case "maxwidth": 	MaxWidth  = /*beta2:*/Convert.ToUInt32(a.Value);	break;
-					case "minheight": 	MinHeight = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "minwidth": 	MinWidth  = /*beta2:*/Convert.ToUInt32(a.Value); break;
+					case "maxwidth": 	MaxWidth  = /*beta2:*/Convert.ToUInt32(a.Value); break;
+					case "minheight": 	MinHeight = /*beta2:*/Convert.ToUInt32(a.Value); break;
 					case "maxheight": 	MaxHeight = /*beta2:*/Convert.ToUInt32(a.Value); break;
-					case "minsize": 	MinSize   = /*beta2:*/Convert.ToUInt32(a.Value);	break;
-					case "maxsize": 	MaxSize   = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "minsize": 	MinSize   = /*beta2:*/Convert.ToUInt32(a.Value); break;
+					case "maxsize": 	MaxSize   = /*beta2:*/Convert.ToUInt32(a.Value); break;
 					case "filter":
 						if (a.Value.ToString()=="none")
 						{
@@ -504,13 +535,36 @@ namespace XMedia
 			}
 
 			//count the fields
-			mQueryCount = QueryMask.CountFields(true);
-			mRejectionCount = RejectionMask.CountFields(true);
+			mQueryCount = QueryMask.CountBits(true);
+			mRejectionCount = RejectionMask.CountBits(true);
 		}
 
-		//test against an item
+		/// <summary>
+		/// Method (called only be the basic Test) which determines if the
+		/// given Media Item meets this query.  In this case, the query is known
+		/// to be a 'Contest Query'.
+		/// </summary>
+		/// <param name="item">Media Item to Test</param>
+		/// <returns></returns>
+		private bool TestContest(XMMediaItem item)
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// Test <i>item</i> to see if it matches the search and filter
+		/// fields specified in this query.
+		/// </summary>
+		/// <param name="item">XMMediaItem to test against</param>
+		/// <returns></returns>
 		public bool Test(XMMediaItem item)
 		{
+			//is this a contest query?
+			if (Contest)
+			{
+				return TestContest(item);
+			}
+
 			//first test dimensions
 			if (item.Width < MinWidth) return false;
 			if (item.Height < MinHeight) return false;
@@ -619,63 +673,70 @@ namespace XMedia
 			uint c;
 			while (!mAbort)
 			{
-				//Try to get a message
-				msg = mEngine.DequeueQuery();
-				if (msg!=null)
+				try
 				{
-					//record time
-					//System.Diagnostics.Counter.GetElapsed();
-
-					//clear the results
-					ret = new /*beta2:*/ArrayList(20);
-					c = 0;
-
-					//loop until:
-					//	* we find enough results
-					//	* we search too many records
-					//	* we search EVERY record
-					start = item;
-					item = item.Next;
-					while ((c < 5000) && (ret.Count < 20) && (item!=start))
+					//Try to get a message
+					msg = mEngine.DequeueQuery();
+					if (msg!=null)
 					{
-						//keep picture?
-						if (msg.Query.Test(item))
+						//record time
+						//System.Diagnostics.Counter.GetElapsed();
+
+						//clear the results
+						ret = new /*beta2:*/ArrayList(20);
+						c = 0;
+
+						//loop until:
+						//	* we find enough results
+						//	* we search too many records
+						//	* we search EVERY record
+						start = item;
+						item = item.Next;
+						while ((c < 5000) && (ret.Count < 20) && (item!=start))
 						{
-							//does anyone have this online?
-							lock(item)
+							//keep picture?
+							if (msg.Query.Test(item))
 							{
-								if ((item.GetServersCount(mADO)>0) || (!msg.Query.Filter))
+								//does anyone have this online?
+								lock(item)
 								{
-									ret.Add(item);
+									if ((item.GetServersCount(mADO)>0) || (!msg.Query.Filter))
+									{
+										ret.Add(item);
+									}
 								}
 							}
+							
+							//next record
+							item = item.Next;
+							c++;
 						}
-						
-						//next record
-						item = item.Next;
-						c++;
+
+						//return results to client
+						retmsg = msg.CreateReply();
+						retmsg.QueryResults = ret;
+						retmsg.Send();
+
+						//this connection is no longer
+						//processing a query
+						msg.Connection.InQuery = false;
+
+						//log results
+						LogQuery(msg.Query, msg.Connection.UserID, ret.Count);
+
 					}
-
-					//return results to client
-					retmsg = msg.CreateReply();
-					retmsg.QueryResults = ret;
-					retmsg.Send();
-
-					//this connection is no longer
-					//processing a query
-					msg.Connection.InQuery = false;
-
-					//log results
-					LogQuery(msg.Query, msg.Connection.UserID, ret.Count);
-
+					else
+					{
+						//there were no messages, pause
+						//for jsut a moment
+						Thread.Sleep(1000);
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					//there were no messages, pause
-					//for jsut a moment
-					Thread.Sleep(1000);
+					//oops
+					XMLog.WriteLine(e.Message, "QueryProcessor");
 				}
-
 			}
 
 			//When we exit, thread ends and state
@@ -993,7 +1054,6 @@ namespace XMedia
 					i.Eyes			= /*beta2:*/Convert.ToByte(rs.Fields["_Eyes"]		.Value);
 					i.FacialHair	= /*beta2:*/Convert.ToByte(rs.Fields["_FacialHair"]	.Value);
 					i.FemaleGen		= /*beta2:*/Convert.ToByte(rs.Fields["_FemaleGen"]	.Value);
-					i.Gender		= /*beta2:*/Convert.ToByte(rs.Fields["_Content"]	.Value);
 					i.HairColor		= /*beta2:*/Convert.ToByte(rs.Fields["_HairColor"]	.Value);
 					i.HairStyle		= /*beta2:*/Convert.ToByte(rs.Fields["_HairStyle"]	.Value);
 					i.Height		= /*beta2:*/Convert.ToByte(rs.Fields["_Height"]		.Value);

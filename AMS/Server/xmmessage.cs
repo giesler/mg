@@ -378,6 +378,7 @@ namespace XMedia
 			}
 
 			//perform action
+			Trace.WriteLine("Message: " + Action);
 			switch(Action)
 			{
 				case "login":		//initial login request
@@ -589,8 +590,8 @@ namespace XMedia
 			//are we allowed to execute this query?
 			if (!Connection.Paying)
 			{
-				if ((Query.QueryMask.CountFields(true)>XMConnection.LimiterIndex) ||
-					(Query.RejectionMask.CountFields(false)>XMConnection.LimiterFilter)	)
+				if ((Query.QueryMask.CountBits(true)>XMConnection.LimiterIndex) ||
+					(Query.RejectionMask.CountBits(false)>XMConnection.LimiterFilter)	)
 				{
 					msg = CreateReply();
 					msg.Action = "error";
@@ -740,6 +741,7 @@ namespace XMedia
 			
 			//walk list of media items
 			XMGuid md5;
+			StringBuilder sb;
 			foreach(XMMediaItem mi in Listing.MediaItems)
 			{
 				try 
@@ -766,36 +768,43 @@ namespace XMedia
 					//insert each index
 					for(int i=0;i<mi.Indices.Length;i++)
 					{
-						sql = "exec sp_insertmediaindex " + 
+						sb = new StringBuilder(512);
+						sb.Append("exec sp_insertmediaindex ");
+						sb.Append("  @uid=");		sb.Append(Connection.UserID.ToStringDB());
+						sb.Append(", @md5=");		sb.Append(md5.ToStringDB());
+						sb.Append(", @cat1=");		sb.Append(mi.Indices[i].Cat1);
+						sb.Append(", @cat2=");		sb.Append(mi.Indices[i].Cat2);
+						sb.Append(", @age=");		sb.Append(mi.Indices[i].Age);
+						sb.Append(", @breasts=");	sb.Append(mi.Indices[i].Breasts);
+						sb.Append(", @build=");		sb.Append(mi.Indices[i].Build);
+						sb.Append(", @butt=");		sb.Append(mi.Indices[i].Butt);
+						sb.Append(", @chest=");		sb.Append(mi.Indices[i].Chest);
+						sb.Append(", @content=");	sb.Append(mi.Indices[i].Content);
+						sb.Append(", @eyes=");		sb.Append(mi.Indices[i].Eyes);
+						sb.Append(", @facialhair=");sb.Append(mi.Indices[i].FacialHair);
+						sb.Append(", @femalegen=");	sb.Append(mi.Indices[i].FemaleGen);
+						sb.Append(", @haircolor=");	sb.Append(mi.Indices[i].HairColor);
+						sb.Append(", @hairstyle=");	sb.Append(mi.Indices[i].HairStyle);
+						sb.Append(", @height=");	sb.Append(mi.Indices[i].Height);
+						sb.Append(", @hips=");		sb.Append(mi.Indices[i].Hips);
+						sb.Append(", @legs=");		sb.Append(mi.Indices[i].Legs);
+						sb.Append(", @malegen=");	sb.Append(mi.Indices[i].MaleGen);
+						sb.Append(", @nipples=");	sb.Append(mi.Indices[i].Nipples);
+						sb.Append(", @quality=");	sb.Append(mi.Indices[i].Quality);
+						sb.Append(", @quantity=");	sb.Append(mi.Indices[i].Quantity);
+						sb.Append(", @race=");		sb.Append(mi.Indices[i].Race);
+						sb.Append(", @rating=");	sb.Append(mi.Indices[i].Rating);
+						sb.Append(", @setting=");	sb.Append(mi.Indices[i].Setting);
+						sb.Append(", @skin=");		sb.Append(mi.Indices[i].Skin.ToString());							
 
-							"  @uid="			+ Connection.UserID			.ToStringDB() +
-							", @md5="			+ md5						.ToStringDB() +
-							", @cat1="			+ mi.Indices[i].Cat1		.ToString() + 
-							", @cat2="			+ mi.Indices[i].Cat2		.ToString() + 
-							", @age="			+ mi.Indices[i].Age			.ToString() + 
-							", @breasts="		+ mi.Indices[i].Breasts		.ToString() + 
-							", @build="			+ mi.Indices[i].Build		.ToString() + 
-							", @butt="			+ mi.Indices[i].Butt		.ToString() + 
-							", @chest="			+ mi.Indices[i].Chest		.ToString() + 
-							", @content="		+ mi.Indices[i].Content		.ToString() + 
-							", @eyes="			+ mi.Indices[i].Eyes		.ToString() + 
-							", @facialhair="	+ mi.Indices[i].FacialHair	.ToString() + 
-							", @femalegen="		+ mi.Indices[i].FemaleGen	.ToString() + 
-							", @gender="		+ mi.Indices[i].Gender		.ToString() + 
-							", @haircolor="		+ mi.Indices[i].HairColor	.ToString() + 
-							", @hairstyle="		+ mi.Indices[i].HairStyle	.ToString() + 
-							", @height="		+ mi.Indices[i].Height		.ToString() + 
-							", @hips="			+ mi.Indices[i].Hips		.ToString() + 
-							", @legs="			+ mi.Indices[i].Legs		.ToString() + 
-							", @malegen="		+ mi.Indices[i].MaleGen		.ToString() + 
-							", @nipples="		+ mi.Indices[i].Nipples		.ToString() + 
-							", @quality="		+ mi.Indices[i].Quality		.ToString() + 
-							", @quantity="		+ mi.Indices[i].Quantity	.ToString() + 
-							", @race="			+ mi.Indices[i].Race		.ToString() + 
-							", @rating="		+ mi.Indices[i].Rating		.ToString() + 
-							", @setting="		+ mi.Indices[i].Setting		.ToString() + 
-							", @skin="			+ mi.Indices[i].Skin		.ToString();							
-						mListingADO.SqlExec(sql);
+						//append score if it is a contest index
+						sb.Append(", @score=");
+						if (mi.Indices[i].Source==XMIndex.SourceEnum.Contest)
+							sb.Append(mi.Indices[i].Score());
+						else
+							sb.Append(0);
+						
+						mListingADO.SqlExec(sb.ToString());
 					}
 					
 				}

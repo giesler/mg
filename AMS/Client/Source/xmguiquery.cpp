@@ -144,8 +144,6 @@ public:
 
 	bool CheckLimiter()
 	{
-		TRACE("Checking...\n");
-		
 		//which mode?
 		switch (mMode)
 		{
@@ -543,7 +541,7 @@ void CIndexBuilder::CPageCat1::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPageCat1::OnOK()
 {
-	mParent->mIndex->Cat1 = mParent->mSandbox.Cat1;
+	//mParent->mIndex->Cat1 = mParent->mSandbox.Cat1;
 }
 
 void CIndexBuilder::CPageCat2::DoDataExchange(CDataExchange *pDX)
@@ -587,7 +585,7 @@ void CIndexBuilder::CPageCat2::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPageCat2::OnOK()
 {
-	mParent->mIndex->Cat2 = mParent->mSandbox.Cat2;
+	//mParent->mIndex->Cat2 = mParent->mSandbox.Cat2;
 }
 
 void CIndexBuilder::CPagePicture::DoDataExchange(CDataExchange *pDX)
@@ -649,11 +647,14 @@ void CIndexBuilder::CPagePicture::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPagePicture::OnOK()
 {
+	/*
 	mParent->mIndex->Setting = mParent->mSandbox.Setting;
 	mParent->mIndex->Content = mParent->mSandbox.Content;
 	mParent->mIndex->Quantity = mParent->mSandbox.Quantity;
 	mParent->mIndex->Quality = mParent->mSandbox.Quality;
 	mParent->mIndex->Rating = mParent->mSandbox.Rating;
+	*/
+	mParent->mSandbox.CopyTo(mParent->mIndex);
 }
 
 void CIndexBuilder::CPagePhysGen::DoDataExchange(CDataExchange *pDX)
@@ -711,10 +712,12 @@ void CIndexBuilder::CPagePhysGen::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPagePhysGen::OnOK()
 {
+	/*
 	mParent->mIndex->Build = mParent->mSandbox.Build;
 	mParent->mIndex->Race = mParent->mSandbox.Race;
 	mParent->mIndex->Age = mParent->mSandbox.Age;
 	mParent->mIndex->Height = mParent->mSandbox.Height;
+	*/
 }
 
 void CIndexBuilder::CPagePhysSpec::DoDataExchange(CDataExchange *pDX)
@@ -798,12 +801,14 @@ void CIndexBuilder::CPagePhysSpec::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPagePhysSpec::OnOK()
 {
+	/*
 	mParent->mIndex->HairColor = mParent->mSandbox.HairColor;
 	mParent->mIndex->HairStyle = mParent->mSandbox.HairStyle;
 	mParent->mIndex->Legs = mParent->mSandbox.Legs;
 	mParent->mIndex->Skin = mParent->mSandbox.Skin;
 	mParent->mIndex->Butt = mParent->mSandbox.Butt;
 	mParent->mIndex->Eyes = mParent->mSandbox.Eyes;
+	*/
 }
 
 void CIndexBuilder::CPageFemale::DoDataExchange(CDataExchange *pDX)
@@ -857,10 +862,12 @@ void CIndexBuilder::CPageFemale::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPageFemale::OnOK()
 {
+	/*
 	mParent->mIndex->Nipples = mParent->mSandbox.Nipples;
 	mParent->mIndex->Hips = mParent->mSandbox.Hips;
 	mParent->mIndex->Breasts = mParent->mSandbox.Breasts;
 	mParent->mIndex->FemaleGen = mParent->mSandbox.FemaleGen;
+	*/
 }
 
 void CIndexBuilder::CPageMale::DoDataExchange(CDataExchange *pDX)
@@ -907,9 +914,11 @@ void CIndexBuilder::CPageMale::DoDataExchange(CDataExchange *pDX)
 
 void CIndexBuilder::CPageMale::OnOK()
 {
+	/*
 	mParent->mIndex->MaleGen = mParent->mSandbox.MaleGen;
 	mParent->mIndex->FacialHair = mParent->mSandbox.FacialHair;
 	mParent->mIndex->Chest = mParent->mSandbox.Chest;
+	*/
 }
 
 // ----------------------------------------------------------------------------------- FAST INDEXER
@@ -1440,9 +1449,9 @@ private:
 
 		//incrment the count
 		mdCount++;
-		if (mdCount>10)
+		if (mdCount>3)
 		{
-			OnSave();
+			//OnSave();
 		}
 
 		//update the status
@@ -1536,6 +1545,7 @@ private:
 			AfxMessageBox("Error saving!");
 			return;
 		}
+		TRACE("SAVED\n");
 
 		//reset counter
 		mdCount = 0;

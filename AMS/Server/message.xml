@@ -105,7 +105,7 @@
 			<field name="listing">
 				<listing type="partial">
 					<media md5="11223344556677889900aabbccddeeff" width="800" height="600" filesize="70000">
-						<index source="query">
+						<index source="contest">
 							<quality value="123" />
 							<setting value="543" />
 						</index>
