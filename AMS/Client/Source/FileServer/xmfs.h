@@ -26,7 +26,7 @@
 // ------------------------------------------------------------------------ GLOBALS
 
 //the latest ams version.. be sure to update!
-#define AMSVERSION "0.70"
+#define AMSVERSION "0.80"
 
 void ShutdownServer();
 
