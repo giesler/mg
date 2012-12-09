@@ -1,0 +1,325 @@
+	//create field array
+	IndexField f;
+	Fields = new IndexField[24];
+	
+	//Setting
+	f = Values[0];
+	f.Name = "Setting";
+	f.Value = new string[] {
+	"Outdoors",
+	"Indoors",
+	"Studio",
+	"Water",
+	"Public"
+	};
+	
+	//Rating
+	f = Values[1];
+	f.Name = "Rating";
+	f.Value = new string[] {
+	"PG",
+	"PG-13",
+	"R",
+	"NC-17",
+	"X",
+	"XXX"
+	};
+	
+	//Quantity
+	f = Values[2];
+	f.Name = "Quantity";
+	f.Value = new string[] {
+	"1",
+	"2",
+	"3",
+	"4-6",
+	"7-11",
+	"12+"
+	};
+	
+	//Contents
+	f = Values[3];
+	f.Name = "Contents";
+	f.Value = new string[] {
+	"Male",
+	"Female",
+	"Shemale",
+	"Other"
+	};
+	
+	//Build
+	f = Values[4];
+	f.Name = "Build";
+	f.Value = new string[] {
+	"Slim",
+	"Athletic",
+	"Body Builder",
+	"Normal",
+	"Few Extra",
+	"Plump",
+	"Huge"
+	};
+	
+	//Hair Color
+	f = Values[5];
+	f.Name = "Hair Color";
+	f.Value = new string[] {
+	"Blond",
+	"Brown",
+	"Black",
+	"Red",
+	"White",
+	"Other"
+	};
+	
+	//Hair Style
+	f = Values[6];
+	f.Name = "Hair Style";
+	f.Value = new string[] {
+	"Short",
+	"Curly",
+	"Medium",
+	"Long",
+	"Bunned",
+	"Pony Tail"
+	};
+	
+	//Eyes
+	f = Values[7];
+	f.Name = "Eyes";
+	f.Value = new string[] {
+	"Blue",
+	"Brown",
+	"Hazel",
+	"Green",
+	"Other"
+	};
+	
+	//Height
+	f = Values[8];
+	f.Name = "Height";
+	f.Value = new string[] {
+	"Short",
+	"Medium",
+	"Tall"
+	};
+	
+	//Age
+	f = Values[9];
+	f.Name = "Age";
+	f.Value = new string[] {
+	"18",
+	"19-21",
+	"22-25",
+	"26-32",
+	"33-38",
+	"39-49",
+	"50+",
+	"Ancient"
+	};
+	
+	//Breasts
+	f = Values[10];
+	f.Name = "Breasts";
+	f.Value = new string[] {
+	"Small",
+	"Medium",
+	"Large",
+	"Firm",
+	"Saggy",
+	"Covered"
+	};
+	
+	//Nipples
+	f = Values[11];
+	f.Name = "Nipples";
+	f.Value = new string[] {
+	"Small",
+	"Medium",
+	"Large",
+	"Puffy",
+	"Covered"
+	};
+	
+	//Butt
+	f = Values[12];
+	f.Name = "Butt";
+	f.Value = new string[] {
+	"Small",
+	"Normal",
+	"Large",
+	"Gargantuan",
+	"Firm",
+	"Flabby",
+	"Hairy",
+	"Covered"
+	};
+	
+	//Catagory
+	f = Values[13];
+	f.Name = "Catagory";
+	f.Value = new string[] {
+	"Belly Buttons",
+	"Casts",
+	"Braces (oral)",
+	"Dolls & Mannequins",
+	"Feet",
+	"Animals",
+	"Eye Glasses",
+	"Hair",
+	"Sleep / hypnosis / Unconsious",
+	"Inflatable",
+	"Robots",
+	"Smoking",
+	"Bondage",
+	"Wet & Messy",
+	"Gas Masks",
+	"Tongues",
+	"Piercings",
+	"Fisting",
+	"Pissing",
+	"Cum Shot",
+	"Pregnant",
+	"Shitting",
+	"Transvestites",
+	"Cheerleaders",
+	"Lingerie",
+	"Masturbation",
+	"Vintage Porn",
+	"Strap On",
+	"Food",
+	"S&M",
+	"Voyeur"
+	};
+	
+	//Race
+	f = Values[14];
+	f.Name = "Race";
+	f.Value = new string[] {
+	"Caucasion",
+	"Asian",
+	"African",
+	"American-Indian",
+	"East-Indian",
+	"Mexican"
+	};
+	
+	//Quality
+	f = Values[15];
+	f.Name = "Quality";
+	f.Value = new string[] {
+	"Low",
+	"Medium",
+	"High"
+	};
+	
+	//Skin
+	f = Values[16];
+	f.Name = "Skin";
+	f.Value = new string[] {
+	"Ghost",
+	"Pale",
+	"Freckled",
+	"Lightly Taned",
+	"Darkly Tanned",
+	"Sunburnt"
+	};
+	
+	//Hips
+	f = Values[17];
+	f.Name = "Hips";
+	f.Value = new string[] {
+	"Narrow",
+	"Normal",
+	"Full",
+	"Covered"
+	};
+	
+	//Legs
+	f = Values[18];
+	f.Name = "Legs";
+	f.Value = new string[] {
+	"Long",
+	"Athletic",
+	"Short",
+	"Thin",
+	"Thick",
+	"Stockings",
+	"Flabby",
+	"Covered"
+	};
+	
+	//Female Genitals
+	f = Values[19];
+	f.Name = "Female Genitals";
+	f.Value = new string[] {
+	"Shaved",
+	"Trimmed",
+	"Hairy",
+	"Covered",
+	"Normal",
+	"Open"
+	};
+	
+	//Male Genitals
+	f = Values[20];
+	f.Name = "Male Genitals";
+	f.Value = new string[] {
+	"Shaved",
+	"Limp",
+	"Erect",
+	"Small",
+	"Normal",
+	"Large",
+	"Covered"
+	};
+	
+	//Chest
+	f = Values[21];
+	f.Name = "Chest";
+	f.Value = new string[] {
+	"Muscular",
+	"Normal",
+	"Hairy",
+	"Flabby",
+	"Covered"
+	};
+	
+	//Facial Hair
+	f = Values[22];
+	f.Name = "Facial Hair";
+	f.Value = new string[] {
+	"Clean Shaven",
+	"Sideburns",
+	"Goatee",
+	"Beard",
+	"Mustache",
+	"Covered"
+	};
+	
+	//Catagory 2
+	f = Values[23];
+	f.Name = "Catagory 2";
+	f.Value = new string[] {
+	"Exhibition",
+	"Upskirt",
+	"Latex",
+	"Anal Sex",
+	"Blindfolding",
+	"Douches",
+	"Drag",
+	"Suffocation",
+	"Tattoos",
+	"Leather",
+	"Amputees",
+	"Hairy Armpits",
+	"Midgets",
+	"Oral",
+	"Weapons",
+	"Costumes",
+	"Machines & Tools",
+	"Cartoons",
+	"Toys",
+	"Drawings / Paintings",
+	"Penetration / Sex"
+	};
