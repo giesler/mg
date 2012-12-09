@@ -15,6 +15,19 @@ namespace PicAdminCS
 	/// </summary>
 	public class fMain : System.Windows.Forms.Form
 	{
+		public class PicListViewSorter : IComparer 
+		{
+			public int Compare(Object obj1, Object obj2) 
+			{
+				if (!(obj1 is ListViewItem) || !(obj2 is ListViewItem))
+					throw new ArgumentException("Objects passed to PicListViewSorter must be ListViewItems");
+				
+				int intVal1 = Convert.ToInt32(((ListViewItem)obj1).SubItems[5].Text);
+				int intVal2 = Convert.ToInt32(((ListViewItem)obj2).SubItems[5].Text);
+				return (intVal1.CompareTo(intVal2));
+			}
+		}
+            
 		private System.Windows.Forms.MainMenu mainMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuFileExit;
@@ -46,6 +59,10 @@ namespace PicAdminCS
 		private System.Windows.Forms.MenuItem mnuPictureListDelete;
 
 		protected Image imgCurImage = null;
+		private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem mnuPictureListMoveUp;
+		private System.Windows.Forms.MenuItem mnuPictureListMoveDown;
+		private System.Windows.Forms.ColumnHeader columnHeader6;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -60,6 +77,8 @@ namespace PicAdminCS
 
 			// Set the connection string
 			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+
+			lvPics.ListViewItemSorter = new PicListViewSorter();
 
 			// Load the trees
 			LoadTreeView();
@@ -88,9 +107,18 @@ namespace PicAdminCS
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.pbPic = new System.Windows.Forms.PictureBox();
+			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.cn = new System.Data.SqlClient.SqlConnection();
+			this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
+			this.splitter2 = new System.Windows.Forms.Splitter();
+			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+			this.panelPic = new System.Windows.Forms.Panel();
+			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
-			this.mnuPictureListDelete = new System.Windows.Forms.MenuItem();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tvDates = new System.Windows.Forms.TreeView();
@@ -98,32 +126,96 @@ namespace PicAdminCS
 			this.categoryTree1 = new PicAdminCS.CategoryTree();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.panelPic = new System.Windows.Forms.Panel();
-			this.pbPic = new System.Windows.Forms.PictureBox();
+			this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
+			this.mnuPictureList = new System.Windows.Forms.ContextMenu();
+			this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
+			this.mnuPictureListDelete = new System.Windows.Forms.MenuItem();
+			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.mnuPictureListMoveUp = new System.Windows.Forms.MenuItem();
+			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.lvPics = new System.Windows.Forms.ListView();
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuAddPictures = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.menuFileExit = new System.Windows.Forms.MenuItem();
-			this.cn = new System.Data.SqlClient.SqlConnection();
 			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.splitter2 = new System.Windows.Forms.Splitter();
-			this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
-			this.mnuPictureList = new System.Windows.Forms.ContextMenu();
-			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-			this.lvPics = new System.Windows.Forms.ListView();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.panelPic.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.panel1.SuspendLayout();
-			this.panelPic.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// pbPic
+			// 
+			this.pbPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left);
+			this.pbPic.BackColor = System.Drawing.SystemColors.Window;
+			this.pbPic.Name = "pbPic";
+			this.pbPic.Size = new System.Drawing.Size(152, 294);
+			this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pbPic.TabIndex = 0;
+			this.pbPic.TabStop = false;
+			// 
+			// sqlSelectCommand1
+			// 
+			this.sqlSelectCommand1.CommandText = @"SELECT DATEPART(yyyy, PictureDate) AS PicYear, DATEPART(mm, PictureDate) AS PicMonth, DATEPART(dd, PictureDate) AS PicDay FROM Picture GROUP BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate) ORDER BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate)";
+			this.sqlSelectCommand1.Connection = this.cn;
+			// 
+			// cn
+			// 
+			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
+				"info=False;workstation id=CHEF;packet size=4096";
+			// 
+			// mnuPictureListMoveDown
+			// 
+			this.mnuPictureListMoveDown.Index = 4;
+			this.mnuPictureListMoveDown.Text = "Move D&own";
+			this.mnuPictureListMoveDown.Click += new System.EventHandler(this.mnuPictureListMoveDown_Click);
+			// 
+			// splitter2
+			// 
+			this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.splitter2.Location = new System.Drawing.Point(203, 254);
+			this.splitter2.Name = "splitter2";
+			this.splitter2.Size = new System.Drawing.Size(493, 3);
+			this.splitter2.TabIndex = 6;
+			this.splitter2.TabStop = false;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Date";
+			this.columnHeader2.Width = 80;
+			// 
+			// columnHeader3
+			// 
+			this.columnHeader3.Text = "Title";
+			this.columnHeader3.Width = 150;
+			// 
+			// panelPic
+			// 
+			this.panelPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left);
+			this.panelPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.panelPic.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.pbPic});
+			this.panelPic.Location = new System.Drawing.Point(104, 8);
+			this.panelPic.Name = "panelPic";
+			this.panelPic.Size = new System.Drawing.Size(304, 296);
+			this.panelPic.TabIndex = 1;
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Pic ID";
+			this.columnHeader1.Width = 0;
+			// 
+			// columnHeader6
+			// 
+			this.columnHeader6.Text = "Sort";
+			this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.columnHeader6.Width = 0;
 			// 
 			// columnHeader5
 			// 
@@ -135,12 +227,6 @@ namespace PicAdminCS
 			// 
 			this.columnHeader4.Text = "Filename";
 			this.columnHeader4.Width = 130;
-			// 
-			// mnuPictureListDelete
-			// 
-			this.mnuPictureListDelete.Index = 1;
-			this.mnuPictureListDelete.Text = "&Delete";
-			this.mnuPictureListDelete.Click += new System.EventHandler(this.mnuPictureListDelete_Click);
 			// 
 			// tabControl1
 			// 
@@ -212,38 +298,75 @@ namespace PicAdminCS
 			this.peopleCtl1.TabIndex = 0;
 			this.peopleCtl1.ClickPerson += new PicAdminCS.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
 			// 
-			// panel1
+			// daPictureDate
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.panelPic});
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(203, 257);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(493, 312);
-			this.panel1.TabIndex = 5;
+			this.daPictureDate.SelectCommand = this.sqlSelectCommand1;
+			this.daPictureDate.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
+																									new System.Data.Common.DataTableMapping("Table", "Table", new System.Data.Common.DataColumnMapping[] {
+																																																			 new System.Data.Common.DataColumnMapping("PicYear", "PicYear"),
+																																																			 new System.Data.Common.DataColumnMapping("PicMonth", "PicMonth"),
+																																																			 new System.Data.Common.DataColumnMapping("PicDay", "PicDay")})});
 			// 
-			// panelPic
+			// mnuPictureList
 			// 
-			this.panelPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left);
-			this.panelPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelPic.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.pbPic});
-			this.panelPic.Location = new System.Drawing.Point(104, 8);
-			this.panelPic.Name = "panelPic";
-			this.panelPic.Size = new System.Drawing.Size(304, 296);
-			this.panelPic.TabIndex = 1;
+			this.mnuPictureList.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																						   this.mnuPictureListEdit,
+																						   this.mnuPictureListDelete,
+																						   this.menuItem2,
+																						   this.mnuPictureListMoveUp,
+																						   this.mnuPictureListMoveDown});
+			this.mnuPictureList.Popup += new System.EventHandler(this.mnuPictureList_Popup);
 			// 
-			// pbPic
+			// mnuPictureListEdit
 			// 
-			this.pbPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left);
-			this.pbPic.BackColor = System.Drawing.SystemColors.Window;
-			this.pbPic.Name = "pbPic";
-			this.pbPic.Size = new System.Drawing.Size(152, 294);
-			this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.pbPic.TabIndex = 0;
-			this.pbPic.TabStop = false;
+			this.mnuPictureListEdit.Index = 0;
+			this.mnuPictureListEdit.Text = "&Edit";
+			this.mnuPictureListEdit.Click += new System.EventHandler(this.mnuPictureListEdit_Click);
+			// 
+			// mnuPictureListDelete
+			// 
+			this.mnuPictureListDelete.Index = 1;
+			this.mnuPictureListDelete.Text = "&Delete";
+			this.mnuPictureListDelete.Click += new System.EventHandler(this.mnuPictureListDelete_Click);
+			// 
+			// menuItem2
+			// 
+			this.menuItem2.Index = 2;
+			this.menuItem2.Text = "-";
+			// 
+			// mnuPictureListMoveUp
+			// 
+			this.mnuPictureListMoveUp.Index = 3;
+			this.mnuPictureListMoveUp.Text = "Move &Up";
+			this.mnuPictureListMoveUp.Click += new System.EventHandler(this.mnuPictureListMoveUp_Click);
+			// 
+			// menuItem3
+			// 
+			this.menuItem3.Index = 1;
+			this.menuItem3.Text = "-";
+			// 
+			// lvPics
+			// 
+			this.lvPics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																					 this.columnHeader1,
+																					 this.columnHeader2,
+																					 this.columnHeader3,
+																					 this.columnHeader4,
+																					 this.columnHeader5,
+																					 this.columnHeader6});
+			this.lvPics.ContextMenu = this.mnuPictureList;
+			this.lvPics.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lvPics.FullRowSelect = true;
+			this.lvPics.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.lvPics.HideSelection = false;
+			this.lvPics.Location = new System.Drawing.Point(203, 0);
+			this.lvPics.Name = "lvPics";
+			this.lvPics.Size = new System.Drawing.Size(493, 254);
+			this.lvPics.Sorting = System.Windows.Forms.SortOrder.Ascending;
+			this.lvPics.TabIndex = 8;
+			this.lvPics.View = System.Windows.Forms.View.Details;
+			this.lvPics.DoubleClick += new System.EventHandler(this.lvPics_DoubleClick);
+			this.lvPics.SelectedIndexChanged += new System.EventHandler(this.lvPics_SelectedIndexChanged);
 			// 
 			// mainMenu1
 			// 
@@ -265,21 +388,11 @@ namespace PicAdminCS
 			this.menuAddPictures.Text = "&Add Pictures";
 			this.menuAddPictures.Click += new System.EventHandler(this.menuAddPictures_Click);
 			// 
-			// menuItem3
-			// 
-			this.menuItem3.Index = 1;
-			this.menuItem3.Text = "-";
-			// 
 			// menuFileExit
 			// 
 			this.menuFileExit.Index = 2;
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
-			// 
-			// cn
-			// 
-			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
-				"info=False;workstation id=CHEF;packet size=4096";
 			// 
 			// splitter1
 			// 
@@ -289,75 +402,15 @@ namespace PicAdminCS
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
-			// splitter2
+			// panel1
 			// 
-			this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.splitter2.Location = new System.Drawing.Point(203, 254);
-			this.splitter2.Name = "splitter2";
-			this.splitter2.Size = new System.Drawing.Size(493, 3);
-			this.splitter2.TabIndex = 6;
-			this.splitter2.TabStop = false;
-			// 
-			// daPictureDate
-			// 
-			this.daPictureDate.SelectCommand = this.sqlSelectCommand1;
-			this.daPictureDate.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
-																									new System.Data.Common.DataTableMapping("Table", "Table", new System.Data.Common.DataColumnMapping[] {
-																																																			 new System.Data.Common.DataColumnMapping("PicYear", "PicYear"),
-																																																			 new System.Data.Common.DataColumnMapping("PicMonth", "PicMonth"),
-																																																			 new System.Data.Common.DataColumnMapping("PicDay", "PicDay")})});
-			// 
-			// sqlSelectCommand1
-			// 
-			this.sqlSelectCommand1.CommandText = @"SELECT DATEPART(yyyy, PictureDate) AS PicYear, DATEPART(mm, PictureDate) AS PicMonth, DATEPART(dd, PictureDate) AS PicDay FROM Picture GROUP BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate) ORDER BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate)";
-			this.sqlSelectCommand1.Connection = this.cn;
-			// 
-			// mnuPictureListEdit
-			// 
-			this.mnuPictureListEdit.Index = 0;
-			this.mnuPictureListEdit.Text = "&Edit";
-			this.mnuPictureListEdit.Click += new System.EventHandler(this.mnuPictureListEdit_Click);
-			// 
-			// mnuPictureList
-			// 
-			this.mnuPictureList.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						   this.mnuPictureListEdit,
-																						   this.mnuPictureListDelete});
-			// 
-			// columnHeader3
-			// 
-			this.columnHeader3.Text = "Title";
-			this.columnHeader3.Width = 150;
-			// 
-			// lvPics
-			// 
-			this.lvPics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																					 this.columnHeader1,
-																					 this.columnHeader2,
-																					 this.columnHeader3,
-																					 this.columnHeader4,
-																					 this.columnHeader5});
-			this.lvPics.ContextMenu = this.mnuPictureList;
-			this.lvPics.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvPics.FullRowSelect = true;
-			this.lvPics.HideSelection = false;
-			this.lvPics.Location = new System.Drawing.Point(203, 0);
-			this.lvPics.Name = "lvPics";
-			this.lvPics.Size = new System.Drawing.Size(493, 254);
-			this.lvPics.TabIndex = 8;
-			this.lvPics.View = System.Windows.Forms.View.Details;
-			this.lvPics.DoubleClick += new System.EventHandler(this.lvPics_DoubleClick);
-			this.lvPics.SelectedIndexChanged += new System.EventHandler(this.lvPics_SelectedIndexChanged);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Pic ID";
-			this.columnHeader1.Width = 0;
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Date";
-			this.columnHeader2.Width = 80;
+			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				 this.panelPic});
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(203, 257);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(493, 312);
+			this.panel1.TabIndex = 5;
 			// 
 			// fMain
 			// 
@@ -373,12 +426,12 @@ namespace PicAdminCS
 			this.Name = "fMain";
 			this.Text = "Pic Admin";
 			this.Load += new System.EventHandler(this.fMain_Load);
+			this.panelPic.ResumeLayout(false);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
-			this.panelPic.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -415,10 +468,10 @@ namespace PicAdminCS
 				nMonth.Tag = "DatePart(yyyy, PictureDate) = " + nYear.Text + " AND "
 					+ "DatePart(mm, PictureDate) = " + dr[1].ToString();
 
-				nDay   = GetNode(nMonth.Nodes, dr[2].ToString());
+				nDay   = GetNode(nMonth.Nodes, nMonth.Text + " " + dr[2].ToString());
 				nDay.Tag = "DatePart(yyyy, PictureDate) = " + nYear.Text + " AND "
 					+ "DatePart(mm, PictureDate) = " + dr[1].ToString() + " AND "
-					+ "DatePart(dd, PictureDate) = " + nDay.Text;
+					+ "DatePart(dd, PictureDate) = " + dr[2].ToString();
 			}
 
 		}
@@ -455,7 +508,7 @@ namespace PicAdminCS
 			// not found, so add
 			return cNodes.Add(sNode);
 
-	}
+		}
 
 		private void fMain_Load(object sender, System.EventArgs e)
 		{
@@ -471,42 +524,77 @@ namespace PicAdminCS
 			TreeNode nCur = tvDates.SelectedNode;
 			if (nCur == null) return;
 
-			ListViewItem li;
+			AddPicturesToList(nCur.Tag.ToString());
+
+		}
+
+		private void AddPicturesToList(String strWhereClause) 
+		{
+
+			// clear current list
 			lvPics.Items.Clear();
 
-			cn.Open();
-			SqlCommand cmd = new SqlCommand("select PictureID, PictureDate, Title, Filename, Publish from Picture where " + nCur.Tag, cn);
-			SqlDataReader dr = cmd.ExecuteReader();
-			String strPublish;
+			// figure out SQL statement
+			String strSQL = "select PictureID, PictureDate, Title, Filename, Publish, PictureSort from Picture ";
+			if (strWhereClause.Length > 0)
+				strSQL += "WHERE " + strWhereClause;
+			strSQL = strSQL + " ORDER BY Filename";
 
-			while (dr.Read()) 
+			// create dataadapter and ds
+			DataSetPicture dsPicTemp = new DataSetPicture();
+			SqlDataAdapter da = new SqlDataAdapter(strSQL, cn);
+			da.Fill(dsPicTemp, "Picture");
+
+			// loop through RS adding items
+			foreach (DataSetPicture.PictureRow pr in dsPicTemp.Picture.Rows) 
 			{
-				if (dr.GetBoolean(4)) strPublish = "x"; else strPublish = "";
-				
-				li = lvPics.Items.Add(new ListViewItem( 
-					new String[] { dr.GetInt32(0).ToString(),
-									dr.GetDateTime(1).ToShortDateString(),
-									dr.GetString(2),
-									dr.GetString(3),
-									strPublish
-							 } ));
-				
-			}
+				// create and init a new list view item
+				ListViewItem li = new ListViewItem(pr.PictureID.ToString());
+				for (int i = 0; i < lvPics.Columns.Count-1; i++)
+					li.SubItems.Add("");
 
-			dr.Close();
-			cn.Close();
+				// Add fields
+				li.SubItems[1].Text = pr.PictureDate.ToShortDateString();
+
+				if (!pr.IsTitleNull())
+					li.SubItems[2].Text = pr.Title;
+
+				li.SubItems[3].Text = pr.Filename;
+
+				if (pr.Publish)
+					li.SubItems[4].Text = "x";
+
+				li.SubItems[5].Text = pr.PictureSort.ToString();
+
+				// add to the list
+				lvPics.Items.Add(li);
+			}
 
 		}
 
 		private void lvPics_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
+			LoadImage();
+		}
+
+		private void LoadImage() 
+		{
 
 			try 
 			{
+				// get rid of current image if we have one
+				if (imgCurImage != null) 
+				{   
+					imgCurImage.Dispose();
+					imgCurImage = null;
+				}
+				pbPic.Image = null;
+
+				// bail out if more than one image is selected
+				if (lvPics.SelectedItems.Count != 1) 
+					return;
 
 				ListViewItem li;
-				if (lvPics.SelectedItems.Count != 1) return;
-
 				li = lvPics.SelectedItems[0];
 
 				String strFile = "\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text;
@@ -515,7 +603,7 @@ namespace PicAdminCS
 				imgCurImage = Image.FromFile(strFile);
 			
 				panelPic.Width = (int) ( ( (float) imgCurImage.Width / (float) imgCurImage.Height) 
-																	* (float) panelPic.Height );
+					* (float) panelPic.Height );
 				pbPic.Width = panelPic.Width;
 				pbPic.Height = panelPic.Height;
 
@@ -523,17 +611,16 @@ namespace PicAdminCS
 
 				pbPic.Image = imgCurImage;
 
-				// release image
-				// img.Dispose();
-				
 			}
 			catch (FileNotFoundException fnfe) 
 			{
 				MessageBox.Show("The file '" + fnfe.Message + "' was not found when attempting to load the picture preview.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 			}
-
+			catch (OutOfMemoryException oexcep) 
+			{
+				MessageBox.Show("The file could not be loaded.  There is not enough memory available.  (Error: " + oexcep.Message + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+			}
 		}
-
 		private void splitter2_SplitterMoved(object sender, System.Windows.Forms.SplitterEventArgs e)
 		{
 			lvPics_SelectedIndexChanged(sender, e);
@@ -549,6 +636,7 @@ namespace PicAdminCS
 
 			fPicture f = new fPicture();
 
+			f.MainForm = this;
 			f.LoadPicture(Convert.ToInt32(li.Text));
 			f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + 
 				li.SubItems[3].Text.Replace("/", "\\") );
@@ -558,6 +646,42 @@ namespace PicAdminCS
 			if (!f.mblnCancel) 
 			{
 				li.SubItems[2].Text = f.Title;
+				if (pbPic.Image == null)
+					LoadImage();
+			}
+
+			while (f.MovePrevious || f.MoveNext) 
+			{
+				// Check if we should move to previous item, if not exit
+				if (f.MovePrevious) 
+				{
+					if (li.Index > 0)
+						li = lvPics.Items[li.Index-1];
+					else
+						break;
+				} 
+					// Check if we should move to next item, if not exit
+				else 
+				{
+					if (li.Index < lvPics.Items.Count-1)
+						li = lvPics.Items[li.Index+1];
+					else
+						break;
+				}
+
+				// Load the selected picture
+				f.LoadPicture(Convert.ToInt32(li.Text));
+				f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + 
+					li.SubItems[3].Text.Replace("/", "\\") );
+	
+				f.ShowDialog();
+
+				// If not cancelling, update title
+				if (!f.mblnCancel) 
+					li.SubItems[2].Text = f.Title;
+				else
+					break;
+
 			}
 
 		}
@@ -572,67 +696,18 @@ namespace PicAdminCS
 
 		private void categoryTree1_ClickCategory(object sender, PicAdminCS.CategoryTreeEventArgs e)
 		{
-
-			ListViewItem li;
-			lvPics.Items.Clear();
-
-			cn.Open();
-			SqlCommand cmd = new SqlCommand("select PictureID, PictureDate, Title, Filename, "
-				+ "Publish from Picture where PictureID in "
+				
+			AddPicturesToList("PictureID in "
 				+ "(select pc.PictureID from PictureCategory pc inner join CategorySubCategory csc ON csc.SubCategoryID = pc.CategoryID "
-				+ "where csc.CategoryID = " + e.categoryRow.CategoryID.ToString() + ")", cn);
-			SqlDataReader dr = cmd.ExecuteReader();
-			String strPublish;
-
-			while (dr.Read()) 
-			{
-				if (dr.GetBoolean(4)) strPublish = "x"; else strPublish = "";
-				
-				li = lvPics.Items.Add(new ListViewItem( 
-					new String[] { dr.GetInt32(0).ToString(),
-									 dr.GetDateTime(1).ToShortDateString(),
-									 dr.GetString(2),
-									 dr.GetString(3),
-									 strPublish
-								 } ));
-				
-			}
-
-			dr.Close();
-			cn.Close();
+				+ "where csc.CategoryID = " + e.categoryRow.CategoryID.ToString() + ")");
 			
 		}
 
 		private void peopleCtl1_ClickPerson(object sender, PicAdminCS.PersonCtlEventArgs e)
 		{
 
-			ListViewItem li;
-			lvPics.Items.Clear();
-
-			cn.Open();
-			SqlCommand cmd = new SqlCommand("select PictureID, PictureDate, Title, Filename, "
-				+ "Publish from Picture where PictureID in "
-				+ "(select PictureID from PicturePerson where PersonID = " + e.personRow.PersonID.ToString() + ")", cn);
-			SqlDataReader dr = cmd.ExecuteReader();
-			String strPublish;
-
-			while (dr.Read()) 
-			{
-				if (dr.GetBoolean(4)) strPublish = "x"; else strPublish = "";
-				
-				li = lvPics.Items.Add(new ListViewItem( 
-					new String[] { dr.GetInt32(0).ToString(),
-									 dr.GetDateTime(1).ToShortDateString(),
-									 dr.GetString(2),
-									 dr.GetString(3),
-									 strPublish
-								 } ));
-				
-			}
-
-			dr.Close();
-			cn.Close();
-			
+			AddPicturesToList("PictureID in "
+				+ "(select PictureID from PicturePerson where PersonID = " + e.personRow.PersonID.ToString() + ")");
 
 		}
 
@@ -646,9 +721,12 @@ namespace PicAdminCS
 			if (MessageBox.Show("Are you sure you want to permenantly remove the selected picture(s)?  The picture file will also be deleted!", "Confirm Delete", 
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) 
 			{
-				imgCurImage.Dispose();
-				imgCurImage = null;
-				
+				if (imgCurImage != null) 
+				{
+					imgCurImage.Dispose();
+					imgCurImage = null;
+				}
+
 				pbPic.Image = null;
 				pbPic.Refresh();
 
@@ -682,6 +760,107 @@ namespace PicAdminCS
 			}
 				
 		}
+
+		private void mnuPictureListMoveUp_Click(object sender, System.EventArgs e)
+		{
+
+			// get the current item, then swap with the other item
+			ListViewItem li = lvPics.SelectedItems[0];
+			SwapSortVals(li, lvPics.Items[li.Index-1]);
+
+		}
+
+		private void mnuPictureListMoveDown_Click(object sender, System.EventArgs e)
+		{
+
+			// get the current item, then swap with the other item
+			ListViewItem li = lvPics.SelectedItems[0];
+			SwapSortVals(li, lvPics.Items[li.Index+1]);
+
+		}
+
+		private void SwapSortVals(ListViewItem li1, ListViewItem li2) 
+		{
+			// open connection
+			cn.Open();
+
+			SqlTransaction trans = cn.BeginTransaction();
+			SqlCommand cmd = new SqlCommand();
+			cmd.Connection  = cn;
+			cmd.Transaction = trans;
+
+			try 
+			{
+
+				// Update the database for the current picture
+				cmd.CommandText = "update Picture set PictureSort = " + li2.SubItems[5].Text 
+					+ " where PictureID = " + li1.Text;
+				cmd.ExecuteNonQuery();
+
+				// Update the database for the other picture
+				cmd.CommandText = "update Picture set PictureSort = " + li1.SubItems[5].Text 
+					+ " where PictureID = " + li2.Text;
+				cmd.ExecuteNonQuery();
+
+				trans.Commit();
+
+				// Get the current value and save it
+				String strTempVal = li1.SubItems[5].Text;
+			
+				// Update the list items
+				li1.SubItems[5].Text = li2.SubItems[5].Text;
+				li2.SubItems[5].Text = strTempVal;
+				lvPics.Sort();
+            
+			}
+			catch (Exception excep) 
+			{
+				trans.Rollback();			
+				MessageBox.Show(excep.ToString());
+			}
+			finally 
+			{
+				// Close connection
+				cn.Close();
+			}
+		}
+
+		private void mnuPictureList_Popup(object sender, System.EventArgs e)
+		{
+
+			// disable all controls, and only enable depending on number of items selected
+			foreach (MenuItem mni in mnuPictureList.MenuItems) 
+				mni.Enabled = false;
+
+			if (lvPics.SelectedItems.Count > 0) 
+			{
+				mnuPictureListDelete.Enabled = true;
+				mnuPictureListEdit.Enabled   = true;
+
+                // only enable up and down with one item selected, and not when at top or bottom
+				if (lvPics.SelectedItems.Count == 1) 
+				{
+					if (lvPics.SelectedItems[0].Index != 0)
+						mnuPictureListMoveUp.Enabled = true;
+					if (lvPics.SelectedItems[0].Index != lvPics.Items.Count-1)
+						mnuPictureListMoveDown.Enabled = true;
+
+				}
+			}
+
+		}
+
+		public void ClearCurrentImage() 
+		{
+			// clear current images
+			if (imgCurImage != null) 
+			{
+				imgCurImage.Dispose();
+				imgCurImage = null;
+			}
+			pbPic.Image = null;
+		}
+
 
 	}
 }

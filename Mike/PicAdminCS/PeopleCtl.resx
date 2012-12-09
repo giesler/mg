@@ -27,26 +27,14 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <data name="sqlInsertCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlInsertCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="cn.Location" type="System.Drawing.Point, System.Drawing">
     <value>286, 23</value>
   </data>
-  <data name="dvPersonLastName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>685, 17</value>
+  <data name="dvPersonFullName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>542, 17</value>
   </data>
   <data name="dsPerson.Location" type="System.Drawing.Point, System.Drawing">
     <value>507, 51</value>
-  </data>
-  <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="contextMenu1.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
@@ -54,13 +42,25 @@
   <data name="dvPersonFirstName.Location" type="System.Drawing.Point, System.Drawing">
     <value>395, 17</value>
   </data>
-  <data name="daPerson.Location" type="System.Drawing.Point, System.Drawing">
-    <value>154, 22</value>
+  <data name="dvPersonLastName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>685, 17</value>
   </data>
-  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+  <data name="dvPersonFind.Location" type="System.Drawing.Point, System.Drawing">
+    <value>664, 51</value>
+  </data>
+  <data name="daPerson.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 23</value>
+  </data>
+  <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+  <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlInsertCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlInsertCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
@@ -69,11 +69,14 @@
   <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="dvPersonFullName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>542, 17</value>
+  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="dvPersonFind.Location" type="System.Drawing.Point, System.Drawing">
-    <value>664, 51</value>
+  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlConnection1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>379, 44</value>
   </data>
   <data name="$this.Name">
     <value>PeopleCtl</value>

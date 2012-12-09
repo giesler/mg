@@ -27,14 +27,23 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
+  <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="cn.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 17</value>
   </data>
   <data name="dsCategory.Location" type="System.Drawing.Point, System.Drawing">
     <value>376, 16</value>
   </data>
-  <data name="daCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>566, 32</value>
+  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -48,17 +57,8 @@
   <data name="sqlInsertCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="daCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>566, 32</value>
   </data>
   <data name="$this.Name">
     <value>fEditCategory</value>

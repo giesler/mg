@@ -5,7 +5,7 @@
 				<xsd:element name="Person">
 					<xsd:complexType>
 						<xsd:sequence>
-							<xsd:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" msdata:AutoIncrementSeed="10000" />
+							<xsd:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" />
 							<xsd:element name="LastName" type="xsd:string" minOccurs="0" />
 							<xsd:element name="FirstName" type="xsd:string" minOccurs="0" />
 							<xsd:element name="FullName" type="xsd:string" minOccurs="0" />

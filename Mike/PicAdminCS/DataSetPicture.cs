@@ -140,6 +140,8 @@ namespace PicAdminCS {
             
             private DataColumn columnPictureBy;
             
+            private DataColumn columnPictureSort;
+            
             internal PictureDataTable() : 
                     base("Picture") {
                 this.InitClass();
@@ -194,6 +196,12 @@ namespace PicAdminCS {
                 }
             }
             
+            internal DataColumn PictureSortColumn {
+                get {
+                    return this.columnPictureSort;
+                }
+            }
+            
             public PictureRow this[int index] {
                 get {
                     return ((PictureRow)(this.Rows[index]));
@@ -212,7 +220,7 @@ namespace PicAdminCS {
                 this.Rows.Add(row);
             }
             
-            public PictureRow AddPictureRow(string Filename, System.DateTime PictureDate, string Title, string Description, bool Publish, int PictureBy) {
+            public PictureRow AddPictureRow(string Filename, System.DateTime PictureDate, string Title, string Description, bool Publish, int PictureBy, int PictureSort) {
                 PictureRow rowPictureRow = ((PictureRow)(this.NewRow()));
                 rowPictureRow.ItemArray = new object[] {
                         null,
@@ -221,7 +229,8 @@ namespace PicAdminCS {
                         Title,
                         Description,
                         Publish,
-                        PictureBy};
+                        PictureBy,
+                        PictureSort};
                 this.Rows.Add(rowPictureRow);
                 return rowPictureRow;
             }
@@ -254,6 +263,8 @@ namespace PicAdminCS {
                 this.Columns.Add(this.columnPublish);
                 this.columnPictureBy = new DataColumn("PictureBy", typeof(int), "", System.Data.MappingType.Element);
                 this.Columns.Add(this.columnPictureBy);
+                this.columnPictureSort = new DataColumn("PictureSort", typeof(int), "", System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureSort);
                 this.PrimaryKey = new DataColumn[] {
                         this.columnPictureID};
             }
@@ -410,6 +421,20 @@ namespace PicAdminCS {
                 }
             }
             
+            public int PictureSort {
+                get {
+                    try {
+                        return ((int)(this[this.tablePicture.PictureSortColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePicture.PictureSortColumn] = value;
+                }
+            }
+            
             public bool IsFilenameNull() {
                 return this.IsNull(this.tablePicture.FilenameColumn);
             }
@@ -456,6 +481,14 @@ namespace PicAdminCS {
             
             public void SetPictureByNull() {
                 this[this.tablePicture.PictureByColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsPictureSortNull() {
+                return this.IsNull(this.tablePicture.PictureSortColumn);
+            }
+            
+            public void SetPictureSortNull() {
+                this[this.tablePicture.PictureSortColumn] = System.Convert.DBNull;
             }
             
             public PictureCategoryRow[] GetPictureCategoryRows() {
@@ -687,6 +720,8 @@ namespace PicAdminCS {
             
             private DataColumn columnPersonID;
             
+            private DataColumn columnPicturePersonID;
+            
             internal PicturePersonDataTable() : 
                     base("PicturePerson") {
                 this.InitClass();
@@ -708,6 +743,12 @@ namespace PicAdminCS {
             internal DataColumn PersonIDColumn {
                 get {
                     return this.columnPersonID;
+                }
+            }
+            
+            internal DataColumn PicturePersonIDColumn {
+                get {
+                    return this.columnPicturePersonID;
                 }
             }
             
@@ -733,7 +774,8 @@ namespace PicAdminCS {
                 PicturePersonRow rowPicturePersonRow = ((PicturePersonRow)(this.NewRow()));
                 rowPicturePersonRow.ItemArray = new object[] {
                         parentPictureRowByPicturePicturePerson[0],
-                        PersonID};
+                        PersonID,
+                        null};
                 this.Rows.Add(rowPicturePersonRow);
                 return rowPicturePersonRow;
             }
@@ -755,6 +797,9 @@ namespace PicAdminCS {
                 this.columnPersonID = new DataColumn("PersonID", typeof(int), "", System.Data.MappingType.Element);
                 this.columnPersonID.AllowDBNull = false;
                 this.Columns.Add(this.columnPersonID);
+                this.columnPicturePersonID = new DataColumn("PicturePersonID", typeof(int), "", System.Data.MappingType.Element);
+                this.columnPicturePersonID.AutoIncrement = true;
+                this.Columns.Add(this.columnPicturePersonID);
                 this.PrimaryKey = new DataColumn[] {
                         this.columnPictureID,
                         this.columnPersonID};
@@ -837,6 +882,20 @@ namespace PicAdminCS {
                 }
             }
             
+            public int PicturePersonID {
+                get {
+                    try {
+                        return ((int)(this[this.tablePicturePerson.PicturePersonIDColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePicturePerson.PicturePersonIDColumn] = value;
+                }
+            }
+            
             public PictureRow PictureRow {
                 get {
                     return ((PictureRow)(this.GetParentRow(this.Table.ParentRelations["PicturePicturePerson"])));
@@ -844,6 +903,14 @@ namespace PicAdminCS {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["PicturePicturePerson"]);
                 }
+            }
+            
+            public bool IsPicturePersonIDNull() {
+                return this.IsNull(this.tablePicturePerson.PicturePersonIDColumn);
+            }
+            
+            public void SetPicturePersonIDNull() {
+                this[this.tablePicturePerson.PicturePersonIDColumn] = System.Convert.DBNull;
             }
         }
         

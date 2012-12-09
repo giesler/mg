@@ -33,13 +33,14 @@ namespace PicAdminCS
 		private System.Windows.Forms.MenuItem menuDeletePerson;
 		private TreeNode nDefaultAddPoint;
 		private System.Windows.Forms.TreeView tvPerson;
+		private PicAdminCS.DataSetPerson dsPerson;
+		private System.Data.DataView dvPersonFind;
 		private System.Data.SqlClient.SqlDataAdapter daPerson;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
-		private PicAdminCS.DataSetPerson dsPerson;
-		private System.Data.DataView dvPersonFind;
+		private System.Data.SqlClient.SqlConnection sqlConnection1;
 
 
 		/// <summary> 
@@ -61,6 +62,7 @@ namespace PicAdminCS
 			// load initial tree state
 			TreeNode n;
 			TreeNode nRoot = new TreeNode("People");
+			nRoot.Tag = "";
 			tvPerson.Nodes.Add (nRoot);
 			nRoot.Tag = "root";
 			nRoot.Expand();
@@ -101,59 +103,46 @@ namespace PicAdminCS
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
-			this.dvPersonLastName = new System.Data.DataView();
+			this.dvPersonFullName = new System.Data.DataView();
 			this.dsPerson = new PicAdminCS.DataSetPerson();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.tvPerson = new System.Windows.Forms.TreeView();
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuAddPerson = new System.Windows.Forms.MenuItem();
 			this.menuEditPerson = new System.Windows.Forms.MenuItem();
 			this.menuDeletePerson = new System.Windows.Forms.MenuItem();
 			this.dvPersonFirstName = new System.Data.DataView();
-			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.dvPersonFullName = new System.Data.DataView();
+			this.dvPersonLastName = new System.Data.DataView();
 			this.dvPersonFind = new System.Data.DataView();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
+			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
+			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// sqlInsertCommand1
-			// 
-			this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
-				"@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
-				"rsonID = @@IDENTITY)";
-			this.sqlInsertCommand1.Connection = this.cn;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
 			// 
 			// cn
 			// 
 			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
 				"info=False;workstation id=CHEF;packet size=4096";
 			// 
-			// dvPersonLastName
+			// dvPersonFullName
 			// 
-			this.dvPersonLastName.RowFilter = "LastName IS NOT NULL";
-			this.dvPersonLastName.Table = this.dsPerson.Person;
+			this.dvPersonFullName.RowFilter = "FullName IS NOT NULL";
+			this.dvPersonFullName.Sort = "FullName";
+			this.dvPersonFullName.Table = this.dsPerson.Person;
 			// 
 			// dsPerson
 			// 
 			this.dsPerson.DataSetName = "DataSetPicture";
 			this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
 			this.dsPerson.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
-			// 
-			// sqlSelectCommand1
-			// 
-			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
-			this.sqlSelectCommand1.Connection = this.cn;
 			// 
 			// tvPerson
 			// 
@@ -198,7 +187,18 @@ namespace PicAdminCS
 			// dvPersonFirstName
 			// 
 			this.dvPersonFirstName.RowFilter = "FirstName IS NOT NULL";
+			this.dvPersonFirstName.Sort = "FirstName";
 			this.dvPersonFirstName.Table = this.dsPerson.Person;
+			// 
+			// dvPersonLastName
+			// 
+			this.dvPersonLastName.RowFilter = "LastName IS NOT NULL";
+			this.dvPersonLastName.Sort = "LastName, FirstName";
+			this.dvPersonLastName.Table = this.dsPerson.Person;
+			// 
+			// dvPersonFind
+			// 
+			this.dvPersonFind.Table = this.dsPerson.Person;
 			// 
 			// daPerson
 			// 
@@ -213,22 +213,25 @@ namespace PicAdminCS
 																																																		 new System.Data.Common.DataColumnMapping("FullName", "FullName")})});
 			this.daPerson.UpdateCommand = this.sqlUpdateCommand1;
 			// 
-			// sqlDeleteCommand1
+			// sqlSelectCommand1
 			// 
-			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Person WHERE (PersonID = @PersonID) AND (FirstName = @FirstName OR @FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @FullName OR @FullName1 IS NULL AND FullName IS NULL) AND (LastName = @LastName OR @LastName1 IS NULL AND LastName IS NULL)";
-			this.sqlDeleteCommand1.Connection = this.cn;
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
+			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
+			this.sqlSelectCommand1.Connection = this.sqlConnection1;
+			// 
+			// sqlInsertCommand1
+			// 
+			this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
+				"@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
+				"rsonID = @@IDENTITY)";
+			this.sqlInsertCommand1.Connection = this.sqlConnection1;
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
 			// 
 			// sqlUpdateCommand1
 			// 
 			this.sqlUpdateCommand1.CommandText = @"UPDATE Person SET LastName = @LastName, FirstName = @FirstName, FullName = @FullName WHERE (PersonID = @Original_PersonID) AND (FirstName = @Original_FirstName OR @Original_FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @Original_FullName OR @Original_FullName1 IS NULL AND FullName IS NULL) AND (LastName = @Original_LastName OR @Original_LastName1 IS NULL AND LastName IS NULL); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (PersonID = @Select_PersonID)";
-			this.sqlUpdateCommand1.Connection = this.cn;
+			this.sqlUpdateCommand1.Connection = this.sqlConnection1;
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
@@ -241,14 +244,22 @@ namespace PicAdminCS
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
 			// 
-			// dvPersonFullName
+			// sqlDeleteCommand1
 			// 
-			this.dvPersonFullName.RowFilter = "FullName IS NOT NULL";
-			this.dvPersonFullName.Table = this.dsPerson.Person;
+			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Person WHERE (PersonID = @PersonID) AND (FirstName = @FirstName OR @FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @FullName OR @FullName1 IS NULL AND FullName IS NULL) AND (LastName = @LastName OR @LastName1 IS NULL AND LastName IS NULL)";
+			this.sqlDeleteCommand1.Connection = this.sqlConnection1;
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
 			// 
-			// dvPersonFind
+			// sqlConnection1
 			// 
-			this.dvPersonFind.Table = this.dsPerson.Person;
+			this.sqlConnection1.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
+				"er id=sa;workstation id=CHEF;packet size=4096";
 			// 
 			// PeopleCtl
 			// 
@@ -256,10 +267,10 @@ namespace PicAdminCS
 																		  this.tvPerson});
 			this.Name = "PeopleCtl";
 			this.Size = new System.Drawing.Size(150, 110);
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
 			this.ResumeLayout(false);
 
@@ -312,10 +323,16 @@ namespace PicAdminCS
 
 			TreeNode n;
 			n = tvPerson.SelectedNode;
+
+			// make sure at one of the roots...
+			if (n.Parent != tvPerson.Nodes[0])
+				n = n.Parent;
+			
 			if (n == null) 
 			{
 				n = nDefaultAddPoint;
 			}
+
 
 			fEditPerson p = new fEditPerson();
 			p.ShowDialog();
@@ -324,23 +341,33 @@ namespace PicAdminCS
 			{
 				// add new tree node
 				TreeNode nChild;
-				if (n.Tag.ToString() == "FullName" || n.Tag.ToString() == "Find")
-					nChild = n.Nodes.Add(p.FullName);
-				else if (n.Tag.ToString() == "FirstName")
-					nChild = n.Nodes.Add(p.FirstName + " " + p.LastName);
-				else //if (n.Tag.ToString() == "LastName")
-					nChild = n.Nodes.Add(p.LastName + ", " + p.FirstName);
+				DataSetPerson.PersonRow pr = p.SelectedPerson;
 
-				// add row, update db
-				DataSetPerson.PersonRow pr = dsPerson.Person.AddPersonRow(
-					p.LastName, p.FirstName, p.FullName);
-				daPerson.Update(dsPerson, "Person");
+				// fill in node
+				if (n.Tag.ToString() == "FullName" || n.Tag.ToString() == "Find")
+					nChild = n.Nodes.Add(pr.FullName);
+				else if (n.Tag.ToString() == "FirstName")
+					nChild = n.Nodes.Add(pr.FirstName + " " + pr.LastName);
+				else //if (n.Tag.ToString() == "LastName")
+					nChild = n.Nodes.Add(pr.LastName + ", " + pr.FirstName);
+
+				// add the new row to our ds
+				DataSetPerson.PersonRow prNew = dsPerson.Person.NewPersonRow();
+				prNew.LastName = pr.LastName;
+				prNew.FirstName = pr.FirstName;
+				prNew.FullName  = pr.FullName;
+				prNew.PersonID  = pr.PersonID;
+				dsPerson.Person.AddPersonRow(prNew);
 
 				// get key and update node tag
-				nChild.Tag = pr;
+				nChild.Tag = prNew;
 
 				// expand parent node and select new node
-				n.Expand();
+				if (!n.IsExpanded) 
+				{
+					n.Expand();
+					FillChildren(n);
+				}
 				tvPerson.SelectedNode = nChild;
 			}
 
@@ -361,28 +388,24 @@ namespace PicAdminCS
 					n.Tag.ToString().Equals("LastName") || n.Tag.ToString().Equals("root"))
 				return;
 
-			fEditPerson p = new fEditPerson();
 			DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) n.Tag;
-            p.LastName = pr.LastName;
-			p.FirstName = pr.FirstName;
-			p.FullName = pr.FullName;
+			fEditPerson p = new fEditPerson();
+			p.PersonID = pr.PersonID;
+
 			p.ShowDialog();
 
 			if (!p.Cancel) 
 			{
-				// update db
-				pr.LastName = p.LastName;
-				pr.FirstName = p.FirstName;
-				pr.FullName = p.FullName;
-				daPerson.Update(dsPerson, "Person");
+				pr = p.SelectedPerson;
 
 				// update node
 				if (n.Parent.Tag.ToString() == "FullName" || n.Parent.Tag.ToString() == "Find")
-					n.Text = p.FullName;
+					n.Text = pr.FullName;
 				else if (n.Parent.Tag.ToString() == "FirstName")
-					n.Text = p.FirstName + " " + p.LastName;
+					n.Text = pr.FirstName + " " + pr.LastName;
 				else if (n.Parent.Tag.ToString() == "LastName")
-					n.Text = p.LastName + ", " + p.FirstName;
+					n.Text = pr.LastName + ", " + pr.FirstName;
+
 
 			}
 
@@ -398,11 +421,19 @@ namespace PicAdminCS
 				return;
 			}
 
+
+			if (n.Tag.ToString().Equals("FullName") || n.Tag.ToString().Equals("FirstName") || 
+				n.Tag.ToString().Equals("LastName") || n.Tag.ToString().Equals("root"))
+			{
+				MessageBox.Show("You must select a person to delete.", "Delete Person", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				return;
+			}
+
 			// make sure we want to delete
 			if (MessageBox.Show("Would you like to delete '" + n.Text + "'?", 
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 			{
-				DataSetPerson.PersonRow pr = dsPerson.Person.FindByPersonID(Convert.ToInt32(n.Tag));
+				DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) n.Tag;
 				pr.Delete();
 				daPerson.Update(dsPerson, "Person");
 				tvPerson.Nodes.Remove(n);  

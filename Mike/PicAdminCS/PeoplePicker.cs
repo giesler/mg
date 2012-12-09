@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace PicAdminCS
 {
@@ -68,25 +69,25 @@ namespace PicAdminCS
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
 			this.btnAdd = new System.Windows.Forms.Button();
-			this.btnRemove = new System.Windows.Forms.Button();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.lvPeople = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
-			this.panel2.SuspendLayout();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.btnRemove = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// splitter1
+			// peopleCtl1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(150, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 192);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
+			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.peopleCtl1.Name = "peopleCtl1";
+			this.peopleCtl1.Size = new System.Drawing.Size(192, 192);
+			this.peopleCtl1.TabIndex = 0;
+			this.peopleCtl1.DoubleClickPerson += new PicAdminCS.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnAdd
 			// 
@@ -99,16 +100,43 @@ namespace PicAdminCS
 			this.btnAdd.Text = ">";
 			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 			// 
-			// btnRemove
+			// lvPeople
 			// 
-			this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnRemove.Location = new System.Drawing.Point(4, 100);
-			this.btnRemove.Name = "btnRemove";
-			this.btnRemove.Size = new System.Drawing.Size(24, 23);
-			this.btnRemove.TabIndex = 0;
-			this.btnRemove.Text = "<";
-			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+			this.lvPeople.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																					   this.columnHeader1});
+			this.lvPeople.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lvPeople.FullRowSelect = true;
+			this.lvPeople.HideSelection = false;
+			this.lvPeople.Location = new System.Drawing.Point(32, 0);
+			this.lvPeople.Name = "lvPeople";
+			this.lvPeople.Size = new System.Drawing.Size(248, 192);
+			this.lvPeople.TabIndex = 1;
+			this.lvPeople.View = System.Windows.Forms.View.Details;
+			this.lvPeople.DoubleClick += new System.EventHandler(this.lvPeople_DoubleClick);
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "People";
+			this.columnHeader1.Width = 400;
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(192, 0);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(8, 192);
+			this.splitter1.TabIndex = 1;
+			this.splitter1.TabStop = false;
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				 this.lvPeople,
+																				 this.panel2});
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(200, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(280, 192);
+			this.panel1.TabIndex = 2;
 			// 
 			// panel2
 			// 
@@ -120,43 +148,16 @@ namespace PicAdminCS
 			this.panel2.Size = new System.Drawing.Size(32, 192);
 			this.panel2.TabIndex = 0;
 			// 
-			// panel1
+			// btnRemove
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.lvPeople,
-																				 this.panel2});
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(153, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(327, 192);
-			this.panel1.TabIndex = 2;
-			// 
-			// lvPeople
-			// 
-			this.lvPeople.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																					   this.columnHeader1});
-			this.lvPeople.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvPeople.FullRowSelect = true;
-			this.lvPeople.HideSelection = false;
-			this.lvPeople.Location = new System.Drawing.Point(32, 0);
-			this.lvPeople.Name = "lvPeople";
-			this.lvPeople.Size = new System.Drawing.Size(295, 192);
-			this.lvPeople.TabIndex = 1;
-			this.lvPeople.View = System.Windows.Forms.View.Details;
-			this.lvPeople.DoubleClick += new System.EventHandler(this.lvPeople_DoubleClick);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "People";
-			this.columnHeader1.Width = 400;
-			// 
-			// peopleCtl1
-			// 
-			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.peopleCtl1.Name = "peopleCtl1";
-			this.peopleCtl1.Size = new System.Drawing.Size(150, 192);
-			this.peopleCtl1.TabIndex = 0;
-			this.peopleCtl1.DoubleClickPerson += new PicAdminCS.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
+			this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnRemove.Location = new System.Drawing.Point(4, 100);
+			this.btnRemove.Name = "btnRemove";
+			this.btnRemove.Size = new System.Drawing.Size(24, 23);
+			this.btnRemove.TabIndex = 0;
+			this.btnRemove.Text = "<";
+			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
 			// 
 			// PersonPicker
 			// 
@@ -166,8 +167,8 @@ namespace PicAdminCS
 																		  this.peopleCtl1});
 			this.Name = "PersonPicker";
 			this.Size = new System.Drawing.Size(480, 192);
-			this.panel2.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -195,8 +196,7 @@ namespace PicAdminCS
 
 		private void btnAdd_Click(object sender, System.EventArgs e)
 		{
-
-			DataSetPerson.PersonRow cr = peopleCtl1.SelectedPerson;
+            DataSetPerson.PersonRow cr = peopleCtl1.SelectedPerson;
 
 			if (cr == null) 
 			{

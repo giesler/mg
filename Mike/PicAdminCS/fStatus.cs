@@ -45,6 +45,9 @@ namespace PicAdminCS
 				Left = centerOn.Left + (centerOn.Width/2)  - (Width/2);
 				Top  = centerOn.Top  + (centerOn.Height/2) - (Height/2);
 			}
+
+			if (max <= 0) 
+				progressBar1.Visible = false;
 		}
 
 		/// <summary>

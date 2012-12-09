@@ -27,8 +27,11 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <data name="mainMenu1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
+  <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="cn.Location" type="System.Drawing.Point, System.Drawing">
     <value>442, 38</value>
@@ -36,14 +39,11 @@
   <data name="daPictureDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>308, 38</value>
   </data>
-  <data name="sqlSelectCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="mnuPictureList.Location" type="System.Drawing.Point, System.Drawing">
     <value>552, 37</value>
+  </data>
+  <data name="mainMenu1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
   </data>
   <data name="$this.Name">
     <value>fMain</value>
