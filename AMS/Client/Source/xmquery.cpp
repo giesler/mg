@@ -797,6 +797,7 @@ HRESULT CXMQueryResponseItem::FromXml(IXMLDOMElement* e)
 	VariantInit(&v);
 	VariantInit(&v2);
 	char* a = NULL;
+	char b[MAX_PATH+1];
 	DOMNodeType t;
 
 	//read attributes
@@ -808,8 +809,10 @@ HRESULT CXMQueryResponseItem::FromXml(IXMLDOMElement* e)
 		COM_SINGLECALL(n->get_nodeName(&bstrName));
 		COM_SINGLECALL(n->get_nodeValue(&v));
 
-		//what attribute is it?
-		if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, bstrName, -1, L"md5", -1)==CSTR_EQUAL)
+		//convert to ansi
+		wcstombs(b, bstrName, MAX_PATH);
+		
+		if (_stricmp(b, "md5")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_BSTR));
 			a = _com_util::ConvertBSTRToString(V_BSTR(&v));
@@ -817,17 +820,17 @@ HRESULT CXMQueryResponseItem::FromXml(IXMLDOMElement* e)
 			free(a);
 			a = NULL;
 		}
-		if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, bstrName, -1, L"width", -1)==CSTR_EQUAL)
+		else if (_stricmp(b, "width")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mWidth = V_UI4(&v);
 		}
-		if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, bstrName, -1, L"height", -1)==CSTR_EQUAL)
+		else if (_stricmp(b, "height")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mHeight = V_UI4(&v);
 		}
-		if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, bstrName, -1, L"size", -1)==CSTR_EQUAL)
+		else if (_stricmp(b, "size")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mSize = V_UI4(&v);

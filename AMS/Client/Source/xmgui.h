@@ -681,7 +681,7 @@ protected:
 	//shell32 utilities
 	LPITEMIDLIST GetFullyQualifiedPIDL(LPSHELLFOLDER folder, LPITEMIDLIST item);
 	void GetChildName(LPSHELLFOLDER folder, LPITEMIDLIST item, DWORD flags, char* out);
-	int GetChildIcon(LPSHELLFOLDER folder, LPITEMIDLIST item);
+	int GetChildIcon(HTREEITEM hti /*LPSHELLFOLDER folder, LPITEMIDLIST item*/);
 	LPITEMIDLIST GetPIDLNext(LPITEMIDLIST pidl);
 	UINT GetPIDLSize(LPITEMIDLIST pidl);
 	LPITEMIDLIST ClonePIDL(LPITEMIDLIST pidl);

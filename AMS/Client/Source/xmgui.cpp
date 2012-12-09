@@ -508,6 +508,7 @@ void CMainFrame::OnUpdateConnect(CCmdUI* pCmdUI)
 
 struct XMTVItemData
 {
+	bool desktop;
 	LPSHELLFOLDER folder;
 	LPITEMIDLIST pidl;
 };
@@ -564,13 +565,15 @@ bool CMainFrame::InitializeFileTree()
 								SHGFI_PIDL|SHGFI_DISPLAYNAME|SHGFI_SYSICONINDEX|SHGFI_SMALLICON);
 	if (!mSysImageList) return false;
 	TreeView_SetImageList(mFiles.m_hWnd, mSysImageList, TVSIL_NORMAL);
-	mMalloc->Free(pidl);
 
 	//setup our tag
 	SHGetDesktopFolder(&pdesktop);
 	ptvid = (XMTVItemData*)mMalloc->Alloc(sizeof(XMTVItemData));
 	ptvid->folder = pdesktop;
-	ptvid->pidl = NULL;
+	ptvid->pidl = pidl;
+	ptvid->desktop = true;
+	//	mMalloc->Free(pidl);
+
 
 	//draw the desktop item
 	tvi.hParent = TVI_ROOT;
@@ -687,7 +690,7 @@ bool CMainFrame::PopulateFileBranch(HTREEITEM hti)
 	tvi.item.iSelectedImage = I_IMAGECALLBACK;
 
 	//get new object for this node
-	if (data->pidl==NULL)
+	if (data->desktop)
 	{
 		//this is the root node, don't try bindtoobject
 		psh = data->folder;
@@ -710,6 +713,7 @@ bool CMainFrame::PopulateFileBranch(HTREEITEM hti)
 			tvid = (XMTVItemData*)mMalloc->Alloc(sizeof(XMTVItemData));
 			tvid->folder = psh;
 			tvid->pidl = pidl;
+			tvid->desktop = false;
 			psh->AddRef();
 
 			//insert the new item
@@ -754,7 +758,7 @@ void CMainFrame::OnFilesGetDispInfo(NMHDR* pnmh, LRESULT* pResult)
 	if (pdi->item.mask & (TVIF_IMAGE|TVIF_SELECTEDIMAGE)) {
 		
 		//set image fields
-		int i = GetChildIcon(data->folder, data->pidl);
+		int i = GetChildIcon(pdi->item.hItem);
 		pdi->item.iImage = i;
 		pdi->item.iSelectedImage = i;
 	}
@@ -852,13 +856,17 @@ LPITEMIDLIST CMainFrame::GetFullyQualifiedPIDL(LPSHELLFOLDER folder, LPITEMIDLIS
 	return pidl;
 }
 
-int CMainFrame::GetChildIcon(LPSHELLFOLDER folder, LPITEMIDLIST item)
+int CMainFrame::GetChildIcon(HTREEITEM hti /*LPSHELLFOLDER folder, LPITEMIDLIST item*/)
 {
+	//get data
+	XMTVItemData *tvi = (XMTVItemData*)mFiles.GetItemData(hti);
+	LPSHELLFOLDER folder = tvi->folder;
+	LPITEMIDLIST item = tvi->pidl;
+
 	//try shell icon first
 	bool bdofq = false;
+
 	/*
-	NOTE: this code returns bogus results in release builds
-	*/
 	int icon;
 	LPSHELLICON shicon = NULL;
 	if (SUCCEEDED(folder->QueryInterface(IID_IShellIcon, (void**)&shicon)))
@@ -870,19 +878,66 @@ int CMainFrame::GetChildIcon(LPSHELLFOLDER folder, LPITEMIDLIST item)
 				shicon->Release();
 				return icon;
 			}
-
 		}	
 		shicon->Release();
 	}
-	
+	*/
+	//NOTE: ^-- this code returns bogus results in release builds
 
-	//no? try fully qualified pidl
+	//walk up the tree, create a reverse ordered list of relative pidls
+	XMTVItemData *pidlListData;
+	LPITEMIDLIST pidlList[64];		//only 64 available
+	HTREEITEM p = hti;
+	int pidlListCount = 0;
+	DWORD pidlSize = 0;
+	while (p)
+	{
+		//get the item
+		pidlListData = (XMTVItemData*)mFiles.GetItemData(p);
+		if (!pidlListData->desktop)
+		{
+			//fill in the item
+			pidlList[pidlListCount] = pidlListData->pidl;
+			pidlListCount++;
+
+			//keep track of how much room we need
+			pidlSize += pidlListData->pidl->mkid.cb;
+		}
+
+		//get parent
+		p = mFiles.GetParentItem(p);
+	}
+	pidlSize += sizeof(pidlList[0]->mkid.cb);
+	if (pidlListCount<1)
+		return -1;
+
+	//walk the list we just made in reverse order (parent first),
+	//building a fully qualified pidl
+	LPITEMIDLIST pidl = (LPITEMIDLIST)mMalloc->Alloc(pidlSize);
+	LPITEMIDLIST pidlPtr = pidl;
+	LPITEMIDLIST pidlTemp;
+	while (pidlListCount>0)
+	{
+		//copy the pidl
+		pidlTemp = pidlList[pidlListCount-1];
+		memcpy(pidlPtr, pidlTemp, pidlTemp->mkid.cb);
+		pidlPtr = (LPITEMIDLIST)(((BYTE*)pidlPtr) + pidlTemp->mkid.cb);
+		
+		//next item
+		pidlListCount--;
+	}
+	pidlPtr->mkid.cb = 0;	//terminating null
+	
+	 /*
+	LPITEMIDLIST pidl = NULL;
+	::SHGetSpecialFolderLocation(NULL, CSIDL_DESKTOP, &pidl);
+	*/
+
 	SHFILEINFO fi;
-	LPITEMIDLIST pidl = GetFullyQualifiedPIDL(folder, item);
 	if (!pidl) {
 		return -1;
 	}
-	if (FAILED(SHGetFileInfo ((LPCTSTR)pidl, 0, &fi, sizeof(fi), SHGFI_PIDL|SHGFI_SYSICONINDEX|SHGFI_SMALLICON)))
+	if (!SHGetFileInfo ((LPCTSTR)pidl, 0, &fi, sizeof(fi), SHGFI_PIDL|SHGFI_SYSICONINDEX|SHGFI_SMALLICON))
 	{
 		mMalloc->Free(pidl);
 		return -1;
