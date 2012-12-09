@@ -85,6 +85,7 @@ namespace XMedia
     {
 		//the connection we are from
 		public XMConnection Connection;
+		public bool Immediate = false;
 
 		//generic message data
 		public bool IsValid;
@@ -92,6 +93,7 @@ namespace XMedia
 		public string Host, Session, Action, Format;
 		public string System;
 		public Hashtable Fields = new Hashtable();
+		public bool ReceiptRequest = false;
 
 		//special data depending on message
 		public XMMediaListing Listing;
@@ -125,6 +127,15 @@ namespace XMedia
 			XmlElement root = xml.DocumentElement;
 			Sequence = Convert.ToInt32(root.GetAttribute("sequence"));
 			Reply = Convert.ToInt32(root.GetAttribute("reply"));
+
+			//does this message need a receipt?
+			if(root.HasAttribute("receipt"))
+			{
+				if(root.GetAttribute("receipt").ToLower() == "true")
+				{
+					ReceiptRequest = true;
+				}
+			}
 
 			//read major elements
 			XmlElement el, content=null;
@@ -344,6 +355,15 @@ namespace XMedia
 			if (!IsValid)
 			{
 				return;
+			}
+
+			//send a receipt BEFORE we process the message
+			if (ReceiptRequest)
+			{
+				XMMessage msg = CreateReply();
+				msg.Immediate = true;
+				msg.Action = "receipt";
+				msg.Send();
 			}
 
 			//if we are doing anything but logging in, then

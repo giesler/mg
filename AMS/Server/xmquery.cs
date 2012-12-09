@@ -1046,7 +1046,7 @@ namespace XMedia
 			{
 				//query
 				string sql =
-					@"select m.md5 as 'media_md5', m.width, m.height, m.filesize, mi.*
+					@"select m.md5 as 'media_md5', m.width, m.height, m.filesize, m.sponsor, mi.*
 					from media m
 					left outer join mediaindex mi on mi.md5 = m.md5
 					order by m.md5";

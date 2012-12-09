@@ -395,10 +395,18 @@ namespace XMedia
 
 		public void SendMessage(XMMessage msg)
 		{
-			//simply enqueue message
-			lock(mOutbound)
+			//do we need to send the message NOW?
+			if (msg.Immediate)
 			{
-				mOutbound.Enqueue(msg);
+				SendMessageInner(msg);
+			}
+			else
+			{
+				//simply enqueue message
+				lock(mOutbound)
+				{
+					mOutbound.Enqueue(msg);
+				}
 			}
 		}
 
