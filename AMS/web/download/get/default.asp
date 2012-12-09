@@ -3,7 +3,7 @@
 Option Explicit
 dim strOffset, strFile, strOnLoad
 strOffset = "../../"
-strFile = "../bld/AMSInstall_050.exe"
+strFile = "../bld/AMSInstall_060.exe"
 
 if Request.Form("agree") = "n" then
 	Response.Redirect("http://www.google.com")
