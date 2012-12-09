@@ -96,24 +96,25 @@ END
 IDD_LOGIN DIALOGEX 0, 0, 293, 210
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Adult Media Swapper Login"
-FONT 8, "MS Sans Serif", 0, 0, 0x1
+FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         152,IDC_STATIC,"Static",SS_BITMAP,5,8,53,49
     LTEXT           "Before you can use AMS, you must log in.  If you do not have a login id or password, go to the AMS web site and sign up.",
-                    IDC_STATIC,66,7,158,28,0,WS_EX_TRANSPARENT
-    EDITTEXT        IDC_LOGIN,66,54,108,13,ES_AUTOHSCROLL
-    EDITTEXT        IDC_PASSWORD,66,84,108,13,ES_PASSWORD | ES_AUTOHSCROLL
+                    IDC_STATIC,66,7,158,25,0,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_LOGIN,66,71,108,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PASSWORD,66,100,108,13,ES_PASSWORD | ES_AUTOHSCROLL
     DEFPUSHBUTTON   "&Login",IDC_LOGINBUTTON,234,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,234,26,50,14
     EDITTEXT        IDC_STATUS,97,118,123,13,ES_AUTOHSCROLL | ES_READONLY | 
                     NOT WS_BORDER | NOT WS_TABSTOP
-    LTEXT           "Password",IDC_STATIC,66,73,38,9
-    LTEXT           "Login ID",IDC_STATIC,66,43,38,9
+    LTEXT           "Password",IDC_STATIC,66,90,38,9
+    LTEXT           "Login ID",IDC_STATIC,66,60,38,9
     LTEXT           "Status:",IDC_STATIC,66,118,25,13
     PUSHBUTTON      "Details >>",ID_DETAILS,235,116,50,14
     PUSHBUTTON      "Options...",ID_OPTIONS,235,98,50,14
     LISTBOX         IDC_DETAILS,65,139,220,66,LBS_SORT | 
                     LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sign up here!",IDC_SIGNUP,65,41,126,10,SS_NOTIFY
 END
 
 IDD_INDEX_CAT DIALOG DISCARDABLE  0, 0, 257, 177
@@ -807,8 +808,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 0,5,0,0
+ PRODUCTVERSION 0,5,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -826,14 +827,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Adult Media Swapper Client Executable\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "FileVersion", "0, 5, 0, 0\0"
             VALUE "InternalName", "AMSClient\0"
-            VALUE "LegalCopyright", "Copyright (C) 2001 Line 2 Productions, Inc.\0"
+            VALUE "LegalCopyright", "Copyright (C) 2001 Line 2 Systems, Inc.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "ams.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Adult Media Swapper\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "ProductVersion", "0, 5, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -1115,6 +1116,16 @@ BEGIN
     END
 END
 
+IDR_MAINFRAME MENU DISCARDABLE 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "&Show",                       ID_TRAY_SHOW
+        MENUITEM "Options...",                  ID_TRAY_OPTIONS
+        MENUITEM "Exit",                        ID_EXIT
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1190,6 +1201,11 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDC_QUERYHELP           "Every query to AMS' database involves 3 (three) parts:\n* Search - a set of parameters to search on.  A picture must meet at least one of the criteria from each fiedl you select.  For example, if you select both brown and blue eyes, a picture needs to have EITHER brown or blue eyes.\n* Filter - works the same as Search, but any picture that meets the Filter will NOT be shown to you."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "AMS"
 END
 
 #endif    // English (U.S.) resources

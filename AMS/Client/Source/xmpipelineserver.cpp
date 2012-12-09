@@ -747,6 +747,7 @@ BEGIN_MESSAGE_MAP(CLoginDialog, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_COMMAND(ID_OPTIONS, OnOptions)
 	ON_COMMAND(ID_DETAILS, OnDetails)
+	ON_CONTROL(STN_CLICKED, IDC_SIGNUP, OnSignup)
 END_MESSAGE_MAP()
 
 CLoginDialog::CLoginDialog(CWnd* pParent /*=NULL*/)
@@ -765,6 +766,23 @@ CLoginDialog::CLoginDialog(CWnd* pParent /*=NULL*/)
 	m_hThread = NULL;
 	m_dwThreadId = 0;
 	InitializeCriticalSection(&m_cs);
+}
+
+void CLoginDialog::OnSignup()
+{
+	//open a web browser window with the help
+	UINT retval = (UINT)ShellExecute(
+							::GetDesktopWindow(),
+							"open",
+							"iexplore",
+							"http://www.adultmediaswapper.com/download/new.ams",
+							"",
+							SW_SHOWDEFAULT);
+	if (retval<=32)
+	{
+		//error
+		ASSERT(FALSE);
+	}
 }
 
 CLoginDialog::~CLoginDialog()
@@ -896,6 +914,17 @@ BOOL CLoginDialog::OnInitDialog(void)
 	GetWindowRect(rw);
 	rw.bottom = rw.top + 250;
 	MoveWindow(rw);
+
+	//create underlined font
+	CFont font, ansi;
+	LOGFONTA lfa;
+	ansi.CreateStockObject(ANSI_VAR_FONT);
+	ansi.GetLogFont(&lfa);
+	lfa.lfUnderline = TRUE;
+	lfa.lfWeight = FW_BOLD;
+	font.CreateFontIndirect(&lfa);
+	GetDlgItem(IDC_SIGNUP)->SetFont(&font);
+	font.Detach();
 
 	//are we doing auto-login?
 	if (config()->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE))
@@ -1126,6 +1155,13 @@ HBRUSH CLoginDialog::OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor)
 		pDC->SetBkMode(TRANSPARENT);
 		hb = (HBRUSH)::GetStockObject(BLACK_BRUSH);
 	}
+
+	if (pWnd->GetDlgCtrlID()==IDC_SIGNUP)
+	{
+		pDC->SetTextColor(RGB(0,0,255));
+	}
+
+
 	return hb;
 }
 

@@ -214,7 +214,7 @@ public:
 	CXMClientApp();
 
 	inline char* Version() {
-		return "1.00";
+		return "0.50";
 	}
 	bool m_bHasInit;
 	HANDLE m_hMutex;
@@ -235,7 +235,7 @@ public:
 
 
 //root of our registry key
-#define XM_REGKEY						"SOFTWARE\\XMedia\\XMClient"
+#define XM_REGKEY						"SOFTWARE\\AMS\\Client"
 #define XM_REGCONFIGPATH				"ConfigPath"
 #define XM_REGSYSID						"SystemID"
 

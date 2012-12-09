@@ -309,6 +309,7 @@
 #define IDC_WEB                         1219
 #define IDC_NAME                        1223
 #define IDC_IMAGESIZE                   1224
+#define IDC_SIGNUP                      1225
 #define ID_ZOOMIN                       32778
 #define ID_ZOOMOUT                      32779
 #define ID_DOWNLOAD                     32781
@@ -332,14 +333,16 @@
 #define ID_UNSHAREFILE                  32800
 #define ID_INDEXFILE                    32801
 #define ID_SHAREFILE                    32802
+#define ID_TRAY_SHOW                    32803
+#define ID_TRAY_OPTIONS                 32805
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        181
-#define _APS_NEXT_COMMAND_VALUE         32803
-#define _APS_NEXT_CONTROL_VALUE         1225
+#define _APS_NEXT_RESOURCE_VALUE        182
+#define _APS_NEXT_COMMAND_VALUE         32806
+#define _APS_NEXT_CONTROL_VALUE         1226
 #define _APS_NEXT_SYMED_VALUE           129
 #endif
 #endif

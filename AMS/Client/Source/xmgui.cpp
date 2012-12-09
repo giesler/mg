@@ -267,7 +267,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		return -1;
 	}
-	mAdvert.Navigate("http://ams/new/ad.ams");
+	mAdvert.Navigate("http://www.adultmediaswapper.com/ad/");
 	
 	//create splitter
 	if (!mSplitter.Create(

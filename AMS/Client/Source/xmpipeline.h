@@ -472,6 +472,7 @@ private:
 	afx_msg void OnCancel();
 	afx_msg void OnDetails();
 	afx_msg void OnOptions();
+	afx_msg void OnSignup();
 
 	//windowing
 	DECLARE_MESSAGE_MAP()
