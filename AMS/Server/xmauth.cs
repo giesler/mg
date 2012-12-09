@@ -270,7 +270,7 @@ namespace XMedia
 			}
 
 			//validate username and password
-			string sql = String.Format("select userid, paying from users where login='{0}' and password='{1}'",
+			string sql = String.Format("select userid, paying, accesstoken from users where login='{0}' and password='{1}'",
 						username, password);
 			ADODB._Recordset rs = mAdo.SqlExec(sql);
 			if (rs==null)
@@ -280,6 +280,13 @@ namespace XMedia
 			if (rs.EOF)
 			{
 				throw new Exception("Invalid login.");
+			}
+
+			//check the accesstoken.. if it ISNT null, this person is already
+			//logged in
+			if (rs.Fields["accesstoken"].Value == DBNull.Value)
+			{
+				throw new Exception("You are already logged in to a different computer.  Only one simultaneous login is allowed per username.  If you want to run AMS on more than one computer, you may create new accounts as you need them.");
 			}
 
 			//get the userid, create the session id
