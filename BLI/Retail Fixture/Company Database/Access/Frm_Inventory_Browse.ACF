@@ -377,9 +377,6 @@ On Error GoTo errHandler
     Exit Sub
   End If
   
-  ' TODO: remove this stuff (note, message added in v3.22)
-  MsgBox "THIS AREA OF THE DATABASE WILL BE REMOVED IN THE NEXT UPDATE!  If you really want to continue using this section instaed of 'RFC Catalog' please LET BLI COMPUTERS KNOW!  Thanks!", vbExclamation, "WARNING ! ! !"
-  
   Dim strSQL As String
 
   OpenWaitForm "Updating totals..."
