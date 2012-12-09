@@ -35,12 +35,11 @@ Begin VB.Form frmMain
       _Version        =   393216
       Style           =   1
       Tabs            =   5
-      Tab             =   4
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Queue"
       TabPicture(0)   =   "Main.frx":0000
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "lvQueue"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
@@ -52,273 +51,232 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "lvFind"
-      Tab(2).Control(1)=   "cmdFind"
-      Tab(2).Control(2)=   "txtFind"
-      Tab(2).Control(3)=   "lblFind"
+      Tab(2).Control(0)=   "lblFind"
+      Tab(2).Control(1)=   "txtFind"
+      Tab(2).Control(2)=   "cmdFind"
+      Tab(2).Control(3)=   "lvFind"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Utilities"
       TabPicture(3)   =   "Main.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "cmdNewFileCheck"
-      Tab(3).Control(1)=   "Label4"
+      Tab(3).Control(0)=   "Label4"
+      Tab(3).Control(1)=   "cmdNewFileCheck"
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Options"
       TabPicture(4)   =   "Main.frx":0070
-      Tab(4).ControlEnabled=   -1  'True
-      Tab(4).Control(0)=   "Label2"
+      Tab(4).ControlEnabled=   0   'False
+      Tab(4).Control(0)=   "fraMainWindow"
       Tab(4).Control(0).Enabled=   0   'False
-      Tab(4).Control(1)=   "Label1"
+      Tab(4).Control(1)=   "fraSongBar"
       Tab(4).Control(1).Enabled=   0   'False
-      Tab(4).Control(2)=   "Label5"
-      Tab(4).Control(2).Enabled=   0   'False
-      Tab(4).Control(3)=   "Label6"
-      Tab(4).Control(3).Enabled=   0   'False
-      Tab(4).Control(4)=   "udQueueCount"
-      Tab(4).Control(4).Enabled=   0   'False
-      Tab(4).Control(5)=   "txtQueueCount"
-      Tab(4).Control(5).Enabled=   0   'False
-      Tab(4).Control(6)=   "fraSysTray"
-      Tab(4).Control(6).Enabled=   0   'False
-      Tab(4).Control(7)=   "fraTaskbar"
-      Tab(4).Control(7).Enabled=   0   'False
-      Tab(4).Control(8)=   "fraSongBar"
-      Tab(4).Control(8).Enabled=   0   'False
-      Tab(4).Control(9)=   "picSongBarBackColor"
-      Tab(4).Control(9).Enabled=   0   'False
-      Tab(4).Control(10)=   "picSongBarForeColor"
-      Tab(4).Control(10).Enabled=   0   'False
-      Tab(4).ControlCount=   11
-      Begin VB.PictureBox picSongBarForeColor 
-         Height          =   255
-         Left            =   7080
-         ScaleHeight     =   195
-         ScaleWidth      =   555
-         TabIndex        =   50
-         Top             =   3720
-         Width           =   615
-      End
-      Begin VB.PictureBox picSongBarBackColor 
-         Height          =   255
-         Left            =   7080
-         ScaleHeight     =   195
-         ScaleWidth      =   555
-         TabIndex        =   48
-         Top             =   3360
-         Width           =   615
-      End
+      Tab(4).ControlCount=   2
       Begin VB.Frame fraSongBar 
-         Caption         =   "Song Bar Behavior"
+         Caption         =   "Song Bar"
          Height          =   3615
-         Left            =   240
-         TabIndex        =   33
+         Left            =   -70680
+         TabIndex        =   22
          Top             =   480
          Width           =   3615
-         Begin VB.Frame fraSongBarTrans 
-            Height          =   1095
-            Left            =   120
-            TabIndex        =   43
-            Top             =   2400
-            Width           =   3375
-            Begin VB.OptionButton optSongBarTrans 
-               Caption         =   "Normal"
-               Height          =   255
-               Index           =   0
-               Left            =   120
-               TabIndex        =   47
-               Top             =   120
-               Width           =   3135
-            End
-            Begin MSComctlLib.Slider sldTranslucent 
-               Height          =   135
-               Left            =   360
-               TabIndex        =   46
-               Top             =   840
-               Width           =   2775
-               _ExtentX        =   4895
-               _ExtentY        =   238
-               _Version        =   393216
-               LargeChange     =   25
-               SmallChange     =   5
-               Min             =   50
-               Max             =   250
-               SelStart        =   50
-               TickFrequency   =   25
-               Value           =   50
-            End
-            Begin VB.OptionButton optSongBarTrans 
-               Caption         =   "Translucent"
-               Height          =   255
-               Index           =   2
-               Left            =   120
-               TabIndex        =   45
-               Top             =   600
-               Width           =   3135
-            End
-            Begin VB.OptionButton optSongBarTrans 
-               Caption         =   "Transparent"
-               Height          =   255
-               Index           =   1
-               Left            =   120
-               TabIndex        =   44
-               Top             =   360
-               Width           =   3135
-            End
-         End
-         Begin VB.Frame Frame1 
-            Height          =   735
-            Left            =   120
-            TabIndex        =   38
-            Top             =   1680
-            Width           =   3375
-            Begin VB.OptionButton optSongBarTaskbar 
-               Caption         =   "Display in taskbar"
-               Height          =   255
-               Index           =   0
-               Left            =   120
-               TabIndex        =   42
-               Top             =   120
-               Width           =   3135
-            End
-            Begin VB.OptionButton optSongBarTaskbar 
-               Caption         =   "Don't display in taskbar"
-               Height          =   255
-               Index           =   1
-               Left            =   120
-               TabIndex        =   41
-               Top             =   360
-               Width           =   3135
-            End
-         End
-         Begin VB.Frame fraBorder1 
-            Height          =   735
-            Left            =   120
-            TabIndex        =   37
-            Top             =   960
-            Width           =   3375
-            Begin VB.OptionButton optSongBarOnTop 
-               Caption         =   "Display on top"
-               Height          =   255
-               Index           =   0
-               Left            =   120
-               TabIndex        =   40
-               Top             =   120
-               Width           =   2895
-            End
-            Begin VB.OptionButton optSongBarOnTop 
-               Caption         =   "Don't display on top"
-               Height          =   255
-               Index           =   1
-               Left            =   120
-               TabIndex        =   39
-               Top             =   360
-               Width           =   2895
-            End
-         End
-         Begin VB.OptionButton optSongBar 
-            Caption         =   "Never display"
+         Begin VB.PictureBox picSongBarBackColor 
             Height          =   255
-            Index           =   2
-            Left            =   240
-            TabIndex        =   36
-            Top             =   720
-            Width           =   3135
+            Left            =   2640
+            ScaleHeight     =   195
+            ScaleWidth      =   555
+            TabIndex        =   40
+            Top             =   2880
+            Width           =   615
          End
-         Begin VB.OptionButton optSongBar 
-            Caption         =   "Only display when minimized"
+         Begin VB.PictureBox picSongBarForeColor 
             Height          =   255
-            Index           =   1
-            Left            =   240
-            TabIndex        =   35
-            Top             =   480
-            Width           =   3135
+            Left            =   2640
+            ScaleHeight     =   195
+            ScaleWidth      =   555
+            TabIndex        =   39
+            Top             =   3240
+            Width           =   615
          End
-         Begin VB.OptionButton optSongBar 
-            Caption         =   "Always display"
-            Height          =   255
-            Index           =   0
+         Begin VB.ComboBox cmbSongBarTrans 
+            Height          =   315
+            ItemData        =   "Main.frx":008C
             Left            =   240
-            TabIndex        =   34
-            Top             =   240
-            Width           =   3135
-         End
-      End
-      Begin VB.Frame fraTaskbar 
-         Caption         =   "Taskbar Display "
-         Height          =   1095
-         Left            =   4320
-         TabIndex        =   29
-         Top             =   2160
-         Width           =   3495
-         Begin VB.OptionButton optTaskbar 
-            Caption         =   "Never display in taskbar"
-            Height          =   255
-            Index           =   2
-            Left            =   240
-            TabIndex        =   32
-            Top             =   720
-            Width           =   3015
-         End
-         Begin VB.OptionButton optTaskbar 
-            Caption         =   "Only display in taskbar when visible"
-            Height          =   255
-            Index           =   1
-            Left            =   240
-            TabIndex        =   31
-            Top             =   480
-            Width           =   3015
-         End
-         Begin VB.OptionButton optTaskbar 
-            Caption         =   "Always display in taskbar"
-            Height          =   255
-            Index           =   0
-            Left            =   240
-            TabIndex        =   30
-            Top             =   240
-            Width           =   3015
-         End
-      End
-      Begin VB.Frame fraSysTray 
-         Caption         =   "System Tray Behavior"
-         Height          =   1095
-         Left            =   4320
-         TabIndex        =   25
-         Top             =   960
-         Width           =   3495
-         Begin VB.OptionButton optSysTray 
-            Caption         =   "Never display in systray"
-            Height          =   255
-            Index           =   2
-            Left            =   240
-            TabIndex        =   28
-            Top             =   720
-            Width           =   3015
-         End
-         Begin VB.OptionButton optSysTray 
-            Caption         =   "Only display in systray when minimized"
-            Height          =   255
-            Index           =   1
-            Left            =   240
+            List            =   "Main.frx":0099
+            Style           =   2  'Dropdown List
             TabIndex        =   27
-            Top             =   480
-            Width           =   3135
+            Top             =   1800
+            Width           =   3015
          End
-         Begin VB.OptionButton optSysTray 
-            Caption         =   "Always display in systray"
+         Begin VB.CheckBox chkSongBarTaskBar 
+            Caption         =   "Display in taskbar"
             Height          =   255
-            Index           =   0
             Left            =   240
             TabIndex        =   26
-            Top             =   240
+            Top             =   1200
             Width           =   3135
          End
+         Begin VB.CheckBox chkSongBarOnTop 
+            Caption         =   "Keep on top"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   25
+            Top             =   960
+            Width           =   3135
+         End
+         Begin VB.ComboBox cmbSongBarDisplay 
+            Height          =   315
+            ItemData        =   "Main.frx":00D6
+            Left            =   240
+            List            =   "Main.frx":00E3
+            Style           =   2  'Dropdown List
+            TabIndex        =   23
+            Top             =   600
+            Width           =   3015
+         End
+         Begin MSComctlLib.Slider sldTranslucent 
+            Height          =   135
+            Left            =   240
+            TabIndex        =   29
+            Top             =   2400
+            Width           =   2775
+            _ExtentX        =   4895
+            _ExtentY        =   238
+            _Version        =   393216
+            LargeChange     =   25
+            SmallChange     =   5
+            Min             =   50
+            Max             =   250
+            SelStart        =   50
+            TickFrequency   =   25
+            Value           =   50
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Song Bar back color:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   42
+            Top             =   2880
+            Width           =   1575
+         End
+         Begin VB.Label Label6 
+            Caption         =   "Song bar fore color:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   41
+            Top             =   3240
+            Width           =   1575
+         End
+         Begin VB.Label lblTranslucency 
+            Caption         =   "Translucency"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   30
+            Top             =   2160
+            Width           =   2415
+         End
+         Begin VB.Label lblTransparancty 
+            Caption         =   "Transparancy:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   28
+            Top             =   1560
+            Width           =   2055
+         End
+         Begin VB.Label Label7 
+            Caption         =   "Display:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   24
+            Top             =   360
+            Width           =   2055
+         End
       End
-      Begin VB.TextBox txtQueueCount 
-         Height          =   285
-         Left            =   5040
+      Begin VB.Frame fraMainWindow 
+         Caption         =   "Main Window"
+         Height          =   2175
+         Left            =   -74760
          TabIndex        =   21
-         Top             =   600
-         Width           =   495
+         Top             =   480
+         Width           =   3495
+         Begin VB.TextBox txtQueueCount 
+            Height          =   285
+            Left            =   840
+            TabIndex        =   35
+            Top             =   360
+            Width           =   375
+         End
+         Begin VB.ComboBox cmbMainSysTray 
+            Height          =   315
+            ItemData        =   "Main.frx":0129
+            Left            =   120
+            List            =   "Main.frx":0136
+            Style           =   2  'Dropdown List
+            TabIndex        =   33
+            Top             =   1680
+            Width           =   3015
+         End
+         Begin VB.ComboBox cmbMainTaskbar 
+            Height          =   315
+            ItemData        =   "Main.frx":019D
+            Left            =   120
+            List            =   "Main.frx":01AA
+            Style           =   2  'Dropdown List
+            TabIndex        =   31
+            Top             =   1080
+            Width           =   3015
+         End
+         Begin ComCtl2.UpDown udQueueCount 
+            Height          =   285
+            Left            =   1200
+            TabIndex        =   36
+            Top             =   360
+            Width           =   240
+            _ExtentX        =   423
+            _ExtentY        =   503
+            _Version        =   327681
+            Value           =   10
+            BuddyControl    =   "txtQueueCount"
+            BuddyDispid     =   196622
+            OrigLeft        =   6720
+            OrigTop         =   3720
+            OrigRight       =   6960
+            OrigBottom      =   3975
+            Max             =   100
+            Min             =   1
+            SyncBuddy       =   -1  'True
+            BuddyProperty   =   0
+            Enabled         =   -1  'True
+         End
+         Begin VB.Label Label2 
+            Caption         =   "songs"
+            Height          =   255
+            Left            =   1680
+            TabIndex        =   38
+            Top             =   360
+            Width           =   855
+         End
+         Begin VB.Label Label1 
+            Caption         =   "Queue"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   37
+            Top             =   360
+            Width           =   615
+         End
+         Begin VB.Label Label9 
+            Caption         =   "SysTray display:"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   34
+            Top             =   1440
+            Width           =   2055
+         End
+         Begin VB.Label Label8 
+            Caption         =   "Taskbar display"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   32
+            Top             =   840
+            Width           =   2055
+         End
       End
       Begin VB.CommandButton cmdNewFileCheck 
          Caption         =   "&New Files"
@@ -446,7 +404,7 @@ Begin VB.Form frmMain
       End
       Begin MSComctlLib.ListView lvQueue 
          Height          =   3615
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   10
          Top             =   480
          Width           =   7935
@@ -505,60 +463,6 @@ Begin VB.Form frmMain
             Text            =   "Duration"
             Object.Width           =   1764
          EndProperty
-      End
-      Begin ComCtl2.UpDown udQueueCount 
-         Height          =   285
-         Left            =   5535
-         TabIndex        =   22
-         Top             =   600
-         Width           =   240
-         _ExtentX        =   423
-         _ExtentY        =   503
-         _Version        =   327681
-         Value           =   100
-         BuddyControl    =   "txtQueueCount"
-         BuddyDispid     =   196619
-         OrigLeft        =   6720
-         OrigTop         =   3720
-         OrigRight       =   6960
-         OrigBottom      =   3975
-         Max             =   100
-         Min             =   1
-         SyncBuddy       =   -1  'True
-         BuddyProperty   =   65547
-         Enabled         =   -1  'True
-      End
-      Begin VB.Label Label6 
-         Caption         =   "Song bar fore color:"
-         Height          =   255
-         Left            =   4320
-         TabIndex        =   51
-         Top             =   3720
-         Width           =   1575
-      End
-      Begin VB.Label Label5 
-         Caption         =   "Song Bar back color:"
-         Height          =   255
-         Left            =   4320
-         TabIndex        =   49
-         Top             =   3360
-         Width           =   1575
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Queue"
-         Height          =   255
-         Left            =   4320
-         TabIndex        =   24
-         Top             =   600
-         Width           =   615
-      End
-      Begin VB.Label Label2 
-         Caption         =   "songs"
-         Height          =   255
-         Left            =   5880
-         TabIndex        =   23
-         Top             =   600
-         Width           =   855
       End
       Begin VB.Label Label4 
          Caption         =   "Checks directory for new files not already in the song database."
@@ -953,6 +857,42 @@ Public Enum ActiveList
     FindList
 End Enum
 
+Private Sub chkSongBarOnTop_Click()
+
+    UpdateSongBarWindow
+
+End Sub
+
+Private Sub chkSongBarTaskBar_Click()
+
+    UpdateSongBarWindow
+
+End Sub
+
+Private Sub cmbMainSysTray_Click()
+
+    UpdateMainWindow
+
+End Sub
+
+Private Sub cmbMainTaskbar_Click()
+
+    UpdateMainWindow
+
+End Sub
+
+Private Sub cmbSongBarDisplay_Click()
+
+    UpdateSongBarWindow
+
+End Sub
+
+Private Sub cmbSongBarTrans_Click()
+
+    UpdateSongBarWindow
+
+End Sub
+
 Private Sub cmdFind_Click()
 On Error GoTo errHandler
 
@@ -1150,20 +1090,16 @@ Private Sub Form_Load()
     Height = 6150
     
     ' Get settings
-    udQueueCount.Value = Val(GetSetting("VBPlayer", "Settings", "QueueCount", "5"))
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "SysTray", "0"))
-    optSysTray(intTemp).Value = True
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "Taskbar", "0"))
-    optTaskbar(intTemp).Value = True
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "SongBar", "0"))
-    optSongBar(intTemp).Value = True
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "SongBarOnTop", "0"))
-    optSongBarOnTop(intTemp).Value = True
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "SongBarTaskBar", "0"))
-    optSongBarTaskbar(intTemp).Value = True
-    intTemp = Val(GetSetting("VBPlayer", "Settings", "SongBarTrans", "2"))
-    optSongBarTrans(intTemp).Value = True
+    udQueueCount.Value = Val(GetSetting("VBPlayer", "Settings", "QueueCount", udQueueCount.Value))
+    cmbMainTaskbar.ListIndex = Val(GetSetting("VBPlayer", "Settings", "MainTaskBar", "0"))
+    cmbMainSysTray.ListIndex = Val(GetSetting("VBPlayer", "Settings", "MainSysTray", "0"))
+    cmbSongBarDisplay.ListIndex = Val(GetSetting("VBPlayer", "Settings", "SongBarDisplay", "0"))
+    chkSongBarOnTop.Value = Val(GetSetting("VBPlayer", "Settings", "SongBarOnTop", "1"))
+    chkSongBarTaskBar.Value = Val(GetSetting("VBPlayer", "Settings", "SongBarTaskBar", "0"))
+    cmbSongBarTrans.ListIndex = Val(GetSetting("VBPlayer", "Settings", "SongBarTrans", "2"))
     sldTranslucent.Value = Val(GetSetting("VBPlayer", "Settings", "SongBarTranslucent", "150"))
+    picSongBarBackColor.BackColor = GetSetting("VBPlayer", Name, "BackColor", &H8000000F)
+    picSongBarForeColor.BackColor = GetSetting("VBPlayer", Name, "ForeColor", &H80000012)
     
     Show
     UpdateMainWindow
@@ -1184,32 +1120,16 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     End If
     
     ' save settings
-    SaveSetting "VBPlayer", "Settings", "QueueCount", udQueueCount.Value
-    For intTemp = 0 To optSysTray.Count - 1
-        If optSysTray(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "SysTray", intTemp
-    For intTemp = 0 To optTaskbar.Count - 1
-        If optTaskbar(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "TaskBar", intTemp
-    For intTemp = 0 To optSongBar.Count - 1
-        If optSongBar(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "SongBar", intTemp
-    For intTemp = 0 To optSongBarOnTop.Count - 1
-        If optSongBarOnTop(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "SongBarOnTop", intTemp
-    For intTemp = 0 To optSongBarTaskbar.Count - 1
-        If optSongBarTaskbar(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "SongBarTaskBar", intTemp
-    For intTemp = 0 To optSongBarTrans.Count - 1
-        If optSongBarTrans(intTemp).Value Then Exit For
-    Next intTemp
-    SaveSetting "VBPlayer", "Settings", "SongBarTrans", intTemp
+    SaveSetting "VBPlayer", "Settings", "QueueCount", txtQueueCount.Text
+    SaveSetting "VBPlayer", "Settings", "MainTaskBar", cmbMainTaskbar.ListIndex
+    SaveSetting "VBPlayer", "Settings", "MainSysTray", cmbMainSysTray.ListIndex
+    SaveSetting "VBPlayer", "Settings", "SongBarDisplay", cmbSongBarDisplay.ListIndex
+    SaveSetting "VBPlayer", "Settings", "SongBarOnTop", chkSongBarOnTop.Value
+    SaveSetting "VBPlayer", "Settings", "SongBarTaskBar", chkSongBarTaskBar.Value
+    SaveSetting "VBPlayer", "Settings", "SongBarTrans", cmbSongBarTrans.ListIndex
     SaveSetting "VBPlayer", "Settings", "SongBarTranslucent", sldTranslucent.Value
+    SaveSetting "VBPlayer", Name, "BackColor", picSongBarBackColor.BackColor
+    SaveSetting "VBPlayer", Name, "ForeColor", picSongBarForeColor.BackColor
     
     Unload fStatus
     Unload fSongBar
@@ -1239,7 +1159,7 @@ Private Sub Form_Resize()
     If Me.WindowState = vbMinimized Then
         Hide
     
-        If optSysTray(1) Then
+        If cmbSongBarDisplay.ListIndex = 1 Then
             If WindowState = vbMinimized Then
                 If ShellTrayAdd = 1 Then SubClass Me.hWnd
             End If
@@ -1970,26 +1890,26 @@ End Sub
 Private Sub UpdateMainWindow()
 
     ' first set main systray setting
-    If optSysTray(0) Then
+    If cmbMainSysTray.ListIndex = 0 Then
         If ShellTrayAdd = 1 Then SubClass Me.hWnd
-    ElseIf optSysTray(1) Then
+    ElseIf cmbMainSysTray.ListIndex = 1 Then
         If WindowState = vbMinimized Then
             If ShellTrayAdd = 1 Then SubClass Me.hWnd
         Else
             ShellTrayRemove
             UnSubClass
         End If
-    Else
+    ElseIf cmbMainSysTray.ListIndex = 2 Then
         ShellTrayRemove
         UnSubClass
     End If
     
     ' now set main taskbar setting
-    If optTaskbar(0) Then
+    If cmbMainTaskbar.ListIndex = 0 Then
         m_bdr.ShowInTaskbar = True
-    ElseIf optTaskbar(1) Then
+    ElseIf cmbMainTaskbar.ListIndex = 1 Then
         m_bdr.ShowInTaskbar = IIf(WindowState = vbMinimized, False, True)
-    Else
+    ElseIf cmbMainTaskbar.ListIndex = 2 Then
         m_bdr.ShowInTaskbar = False
     End If
 
@@ -1998,21 +1918,21 @@ End Sub
 Private Sub UpdateSongBarWindow()
 
     ' now set songbar setting
-    If optSongBar(0) Then
+    If cmbSongBarDisplay.ListIndex = 0 Then
         fSongBar.Visible = True
-    ElseIf optSongBar(1) Then
+    ElseIf cmbSongBarDisplay.ListIndex = 1 Then
         If WindowState = vbMinimized Then
             fSongBar.Visible = True
         Else
             fSongBar.Visible = False
         End If
-    Else
+    ElseIf cmbSongBarDisplay.ListIndex = 2 Then
         fSongBar.Visible = False
     End If
 
     ' now set songbar on top
     If fSongBar.Visible Then
-        If optSongBarOnTop(0) Then
+        If chkSongBarOnTop.Value Then
             fSongBar.bdr.TopMost = True
         Else
             fSongBar.bdr.TopMost = False
@@ -2021,7 +1941,7 @@ Private Sub UpdateSongBarWindow()
     
     ' now set songbar taskbar
     If fSongBar.Visible Then
-        If optSongBarTaskbar(0) Then
+        If chkSongBarTaskBar.Value Then
             fSongBar.bdr.ShowInTaskbar = True
         Else
             fSongBar.bdr.ShowInTaskbar = False
@@ -2029,17 +1949,20 @@ Private Sub UpdateSongBarWindow()
     End If
     
     ' now set songbar trans
-    If optSongBarTrans(0) Then
+    If cmbSongBarTrans.ListIndex = 0 Then
         fSongBar.trans.Mode = lwaNormal
         sldTranslucent.Enabled = False
-    ElseIf optSongBarTrans(1) Then
+        lblTranslucency.Enabled = False
+    ElseIf cmbSongBarTrans.ListIndex = 1 Then
         fSongBar.trans.ColorKey = fSongBar.BackColor
         fSongBar.trans.Mode = lwaColorKey
         sldTranslucent.Enabled = False
-    ElseIf optSongBarTrans(2) Then
+        lblTranslucency.Enabled = False
+    ElseIf cmbSongBarTrans.ListIndex = 2 Then
         fSongBar.trans.Mode = lwaAlpha
         fSongBar.trans.Alpha = sldTranslucent.Value
         sldTranslucent.Enabled = True
+        lblTranslucency.Enabled = True
     End If
     
 End Sub

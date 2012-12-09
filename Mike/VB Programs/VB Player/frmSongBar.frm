@@ -195,12 +195,6 @@ Private Sub Form_Load()
     Left = GetSetting("VBPlayer", Name, "Left", Left)
     Top = GetSetting("VBPlayer", Name, "Top", Top)
     
-    intTemp1 = GetSetting("VBPlayer", Name, "ForeColor", lblCurSong.ForeColor)
-    intTemp2 = GetSetting("VBPlayer", Name, "BackColor", Me.BackColor)
-    SetColor intTemp1, intTemp2
-    fMain.picSongBarForeColor.BackColor = intTemp1
-    fMain.picSongBarBackColor.BackColor = intTemp2
-    
     If Left > Screen.Width - Me.ScaleWidth Then
         Left = Screen.Width - Me.ScaleWidth
     End If
@@ -223,9 +217,6 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     SaveSetting "VBPlayer", Name, "Left", Left
     SaveSetting "VBPlayer", Name, "Top", Top
-    
-    SaveSetting "VBPlayer", Name, "ForeColor", lblCurSong.ForeColor
-    SaveSetting "VBPlayer", Name, "BackColor", Me.BackColor
 
     Call UnhookWindow(Me.hWnd)
 
