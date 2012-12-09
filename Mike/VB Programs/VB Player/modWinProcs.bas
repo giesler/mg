@@ -84,7 +84,7 @@ Public Function WindowProc(ByVal hwnd As Long, _
               'lParam is the value of the message
               'that generated the tray notification.
                Select Case lParam
-                  Case WM_RBUTTONUP:
+                  Case WM_LBUTTONDOWN
 
                  'This assures that focus is restored to
                  'the form when the menu is closed. If the
@@ -93,6 +93,7 @@ Public Function WindowProc(ByVal hwnd As Long, _
 
                  'show the menu
                  fMain.Show
+                 fMain.WindowState = vbNormal
                End Select
             
            'handle any other form messages by

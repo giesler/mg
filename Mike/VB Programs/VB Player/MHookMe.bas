@@ -42,7 +42,7 @@ Public Function HookFunc(ByVal hWnd As Long, ByVal msg As Long, ByVal wp As Long
    
    ' This next declaration *must* be changed to match
    ' the type of object passed to HookWindow!!!
-   Dim obj As FTrans
+   Dim obj As frmSongBar
    
    ' Semi-permanent breakpoint so you don't miss changing
    ' the above Dim edit.
