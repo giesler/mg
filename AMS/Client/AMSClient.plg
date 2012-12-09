@@ -3,9 +3,60 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: AMSClient - Win32 Debug--------------------
+--------------------Configuration: AMSClient - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\WIN98\TEMP\RSPC1B2.TMP" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /I "Source\xmlib" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR"Intermediate\Release\Client/" /Fp"Intermediate\Release\Client/AMSClient.pch" /YX /Fo"Intermediate\Release\Client/" /Fd"Intermediate\Release\Client/" /FD /c 
+"C:\Operating Systems\SourceSafe\Ams\Client\Source\xmpipelineserver.cpp"
+]
+Creating command line "cl.exe @C:\WIN98\TEMP\RSPC1B2.TMP" 
+Creating temporary file "C:\WIN98\TEMP\RSPC1B3.TMP" with contents
+[
+paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib xmlib.lib /nologo /subsystem:windows /incremental:no /pdb:"Build\Release/AMSClient.pdb" /machine:I386 /out:"Build\Release/AMSClient.exe" /libpath:"Build\Release\Lib" 
+".\Intermediate\Release\Client\StdAfx.obj"
+".\Intermediate\Release\Client\xmclient.obj"
+".\Intermediate\Release\Client\xmgui.obj"
+".\Intermediate\Release\Client\xmguibrowsing.obj"
+".\Intermediate\Release\Client\xmguicompleted.obj"
+".\Intermediate\Release\Client\xmguilocal.obj"
+".\Intermediate\Release\Client\xmguiquery.obj"
+".\Intermediate\Release\Client\xmguisearch.obj"
+".\Intermediate\Release\Client\xmguishared.obj"
+".\Intermediate\Release\Client\xmguistatus.obj"
+".\Intermediate\Release\Client\xmpipeline.obj"
+".\Intermediate\Release\Client\xmpipelineclient.obj"
+".\Intermediate\Release\Client\xmpipelineserver.obj"
+".\Intermediate\Release\Client\XMClient.res"
+".\Build\Release\Lib\paintlib.lib"
+".\Build\Release\Lib\xmlib.lib"
+".\Build\Release\Lib\libjpeg.lib"
+]
+Creating command line "link.exe @C:\WIN98\TEMP\RSPC1B3.TMP"
+<h3>Output Window</h3>
+Compiling...
+xmpipelineserver.cpp
+Linking...
+Creating temporary file "C:\WIN98\TEMP\RSPC1D3.TMP" with contents
+[
+/nologo /o"Build\Release/AMSClient.bsc" 
+".\Intermediate\Release\Client\StdAfx.sbr"
+".\Intermediate\Release\Client\xmclient.sbr"
+".\Intermediate\Release\Client\xmgui.sbr"
+".\Intermediate\Release\Client\xmguibrowsing.sbr"
+".\Intermediate\Release\Client\xmguicompleted.sbr"
+".\Intermediate\Release\Client\xmguilocal.sbr"
+".\Intermediate\Release\Client\xmguiquery.sbr"
+".\Intermediate\Release\Client\xmguisearch.sbr"
+".\Intermediate\Release\Client\xmguishared.sbr"
+".\Intermediate\Release\Client\xmguistatus.sbr"
+".\Intermediate\Release\Client\xmpipeline.sbr"
+".\Intermediate\Release\Client\xmpipelineclient.sbr"
+".\Intermediate\Release\Client\xmpipelineserver.sbr"]
+Creating command line "bscmake.exe @C:\WIN98\TEMP\RSPC1D3.TMP"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 

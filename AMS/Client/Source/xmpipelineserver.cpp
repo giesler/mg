@@ -1983,7 +1983,7 @@ private:
 		case XM_SMU_LOGIN_RECEIVED:
 
 			//test
-			AfxMessageBox("Login Recieved");
+			//AfxMessageBox("Login Recieved");
 
 		case XM_SMU_LOGIN_FINISH:
 			
