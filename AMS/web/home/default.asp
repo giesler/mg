@@ -32,8 +32,8 @@ If you'd like to first see more about using AMS, click
 </p>
 
 <p>
-For more information about AMS and to answer frequently asked questions, please visit 
-<a href="../about/">About AMS</A>.
+For more information about Adult Media Swapper please visit 
+<a href="../about/">About AMS</A> or view our <a href="../support/software/faq/default.asp">Frequently Asked Questions.</a>
 </p>
 
 <!-- #include file="../_footer.asp"-->
