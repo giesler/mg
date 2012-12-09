@@ -17,7 +17,7 @@ vti_timecreated:TR|17 Jul 2001 01:11:57 -0000
 vti_extenderversion:SR|4.0.2.4426
 vti_navbuttonprevlabel:SR|Back
 vti_longfilenames:IX|1
-vti_welcomenames:VX|Default.htm Default.asp Default.aspx
+vti_welcomenames:VX|Default.htm Default.asp Default.aspx index.html index.aspx
 vti_oldestcompatibleversion:SR|2.0.0.0
 vti_restartmanual:IX|0
 vti_title:SW|AMS Welcome
