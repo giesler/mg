@@ -36,6 +36,7 @@ class CXMMessageQueue;
 #define XMMSG_QUERY			"query"
 #define XMMSG_FILE			"file"
 #define XMMSG_AU			"au"
+#define XMMSG_RECEIPT		"receipt"
 
 class CXMMessageField
 {
@@ -120,7 +121,11 @@ public:
 	//misc
 	bool Send();
 	CXMMessage* CreateReply();
-
+	void SetRequestReceipt(bool request);
+	bool GetRequestReceipt();
+	CXMSession* GetConnection();
+	void SetConnection(CXMSession* con);
+	
 	//return message specific data.. only works
 	//once, client must free memory
 	CXMQueryResponse* GetQueryResponse();
@@ -144,7 +149,8 @@ private:
 	} mHost;
 	int mType;					//message type (see above for #defs)
 	char* mFor;					//service this message is for (request, update)
-
+	bool mRequestReceipt;
+	
 	//content
 	char* mContentFormat;		//mime format.. should be "text/xml"
 	CXMMessageField** mContent;	//array of message fields

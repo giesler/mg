@@ -213,8 +213,10 @@ void CXMClientManager::OnWin32MsgReview(UINT msg, WPARAM wparam, LPARAM lparam)
 
 void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 {
+	#ifdef _INTERNAL
 	try
 	{
+	#endif
 
 	//what type of message?
 	CXMMessage *response;
@@ -288,13 +290,13 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 	//always delete message
 	delete msg;
 
+	#ifdef _INTERNAL
 	}
 	catch(...)
 	{
-		#ifdef _INTERNAL
 		sm()->FakeMotd("Exception in OnMsgReceived");
-		#endif
 	}
+	#endif
 }
 
 void CXMClientManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)

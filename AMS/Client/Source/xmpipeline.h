@@ -417,6 +417,11 @@ protected:
 	//HANDLE mRcThread;
 	//UINT mRcThreadId;
 
+	//receipt pending message collection
+	CXMMessage **mPendingReceipts;
+	DWORD mPRCount;
+	DWORD mPRSize;
+
 	//login data
 	char mLoginMsg[MAX_PATH];
 	bool mLoggedIn;

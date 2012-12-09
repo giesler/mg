@@ -45,8 +45,8 @@ void char2bstr(BSTR *bstr, const char *str)
 CXMMessageQueue::CXMMessageQueue()
 {
 	//initialize buffer
-	mBufferSize = 4;
-	mBuffer = (CXMMessage**)malloc(sizeof(CXMMessage*)*mBufferSize);
+	mBufferSize = 0;//4;
+	mBuffer = NULL;//(CXMMessage**)malloc(sizeof(CXMMessage*)*mBufferSize);
 	mStart = 0;
 	mCount = 0;
 	mCountIn = 0;
@@ -80,24 +80,30 @@ void CXMMessageQueue::Push(CXMMessage* msg)
 	Lock();
 	
 	//do we need to expand?
-	if (mCount >= mBufferSize) {
+	if (mCount >= mBufferSize)
+	{
 		//try to expand buffer
-		if (!ExpandBuffer()) {
+		if (!ExpandBuffer())
+		{
 			Unlock();
 			throw(0);
 		}
 	}
 
 	//copy pointer to new location
-	if ((mStart + mCount)!=0) {
-		if (mStart+mCount>=mBufferSize) {
+	if ((mStart + mCount)!=0)
+	{
+		if (mStart+mCount>=mBufferSize)
+		{
 			mBuffer[(mStart + mCount) % mBufferSize] = msg;
 		}
-		else {
+		else
+		{
 			mBuffer[mStart+mCount] = msg;
 		}
 	}
-	else {
+	else
+	{
 		//would cause divide by zero in %
 		mBuffer[0] = msg;
 	}
@@ -163,8 +169,12 @@ bool CXMMessageQueue::ExpandBuffer()
 
 	//copy upper block, then lower block, this will place the
 	//new buffer in a start=0 state
-	memcpy(buf, mBuffer + (mStart*sizeof(CXMMessage*)), (mBufferSize - mStart)*sizeof(CXMMessage*));
-	memcpy(buf + (mStart*sizeof(CXMMessage*)), mBuffer, (mBufferSize % (mStart+mCount))*sizeof(CXMMessage*));
+	//NOTE: we only do this if there was anything before
+	if (mBufferSize > 0)
+	{
+		memcpy(buf, mBuffer + (mStart*sizeof(CXMMessage*)), (mBufferSize - mStart)*sizeof(CXMMessage*));
+		memcpy(buf + (mStart*sizeof(CXMMessage*)), mBuffer, (mBufferSize % (mStart+mCount))*sizeof(CXMMessage*));
+	}
 
 	//swap pointers
 	free(mBuffer);
@@ -330,6 +340,7 @@ CXMMessage::CXMMessage(CXMSession *newSession)
 	mBinaryBuf = NULL;
 	mBinarySize = 0;
 	mExpectedBinarySize = 0;
+	mRequestReceipt = false;
 	tag = 0;
 
 	mSession = newSession;
@@ -365,6 +376,21 @@ CXMMessage::~CXMMessage()
 
 	//decrement session refcount
 	mSession->Release();
+}
+
+//allow the session to be changed
+void CXMMessage::SetConnection(CXMSession* con)
+{
+	if (mSession)
+	{
+		mSession->Release();
+	}
+	mSession = con;
+	mSession->AddRef();
+}
+CXMSession* CXMMessage::GetConnection()
+{
+	return mSession;
 }
 
 //---------------------------------------------------------------------
@@ -428,6 +454,16 @@ PROP_IMP_STR(For, mFor)
 PROP_IMP_STR(ContentFormat, mContentFormat)
 PROP_IMP_STR(SystemID, mSystemID);
 PROP_IMP_STR(HostSystemID, mHost.SystemID);
+
+void CXMMessage::SetRequestReceipt(bool request)
+{
+	mRequestReceipt = request;
+}
+
+bool CXMMessage::GetRequestReceipt()
+{
+	return mRequestReceipt;
+}
 
 //---------------------------------------------------------------------
 //												 XMMessage Field Access
@@ -545,6 +581,7 @@ _bstr_t bstrMd5("md5");
 _bstr_t bstrSize("size");
 _bstr_t bstrResults("results");
 _bstr_t bstrListing("listing");
+_bstr_t bstrReceipt("receipt");
 
 IXMLDOMDocument* CXMMessage::ToXml()
 {
@@ -567,6 +604,10 @@ IXMLDOMDocument* CXMMessage::ToXml()
 	COM_SINGLECALL(xml->createElement(bstrMessage, &root));
 	COM_SINGLECALL(root->setAttribute(bstrSequence, _variant_t((short)mSequence)));
 	COM_SINGLECALL(root->setAttribute(bstrReply, _variant_t((short)mReply)));
+	if (mRequestReceipt)
+	{
+		COM_SINGLECALL(root->setAttribute(bstrReceipt, _variant_t("true")));
+	}
 	COM_SINGLECALL(xml->putref_documentElement(root));
 
 	//read our local ip
@@ -742,11 +783,6 @@ bool CXMMessage::FromString(char* string)
 	OLECHAR *ole = (OLECHAR*)malloc(l*2);
 	MultiByteToWideChar(CP_ACP, 0, string, -1, ole, l);
 	BSTR bstr = SysAllocString(ole);
-	/*
-	TRACE1("char*: %d\n", l);
-	TRACE1("OLECHAR*: %d\n", wcslen(ole));
-	TRACE1("BSTR: %d\n", SysStringLen(bstr));
-	*/
 	VARIANT_BOOL retval;
 	COM_SINGLECALL(xml->loadXML(bstr, &retval));
 	SysFreeString(bstr);
@@ -796,28 +832,40 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 	//get sequence number
 	COM_SINGLECALL(root->getAttribute(bstrSequence, &var));
 	if (V_VT(&var)==VT_EMPTY ||
-		V_VT(&var)==VT_NULL) {
+		V_VT(&var)==VT_NULL)
+	{
 		goto fail;
 	}
+	COM_SINGLECALL(VariantChangeType(&var, &var, 0, VT_I2));
 	mSequence = V_I2(&var);
+	VariantClear(&var);
+
+	//get receipt flag
+	if (S_OK == root->getAttribute(bstrReceipt, &var))
+	{
+		COM_SINGLECALL(VariantChangeType(&var, &var, 0, VT_BOOL));
+		mRequestReceipt = (V_BOOL(&var)==VARIANT_TRUE)?true:false;
+	}
+	VariantClear(&var);
 
 	//get reply sequence number (optioanl, can't use macro)
 	retval = root->getAttribute(bstrReply, &var);
-	if (FAILED(retval)) {
-		if (retval!=S_FALSE)
-			goto fail;
-		else
-			mReply = -1;
-	}
-	else {
-		if (V_VT(&var)!=VT_EMPTY &&
-			V_VT(&var)!=VT_NULL) {
+	if (SUCCEEDED(retval))
+	{
+		COM_SINGLECALL(VariantChangeType(&var, &var, 0, VT_I2));
+		if (retval == S_OK &&
+			V_VT(&var)!=VT_EMPTY &&
+			V_VT(&var)!=VT_NULL)
+		{
 			mReply = V_I2(&var);
 		}
 	}
+	else
+	{
+		goto fail;
+	}
 
 	//enumerate children of root node
-
 	COM_SINGLECALL(root->get_childNodes(&list));
 	COM_SINGLECALL(list->nextNode(&node));
 	while(node)
@@ -834,8 +882,8 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 			a = _com_util::ConvertBSTRToString(tempstr);
 
 			//from field
-			if (stricmp(a, "from")==0) {
-				
+			if (stricmp(a, "from")==0)
+			{	
 				//test for inclusion.. only 1 "from" allowable
 				if (hasFrom) goto fail;
 				hasFrom = true;
@@ -852,8 +900,8 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 			}
 
 			//request field
-			if (stricmp(a, "request")==0) {
-
+			if (stricmp(a, "request")==0)
+			{
 				//test for inclusion
 				if (hasRequest || hasResponse || hasUpdate) goto fail;
 				hasRequest = true;
@@ -868,8 +916,8 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 			}
 
 			//response field
-			if (stricmp(a, "response")==0) {
-
+			if (stricmp(a, "response")==0)
+			{
 				//test for inclusion
 				if (hasRequest || hasResponse || hasUpdate) goto fail;
 				hasResponse = true;
@@ -884,8 +932,8 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 			}
 
 			//update field
-			if (stricmp(a, "update")==0) {
-
+			if (stricmp(a, "update")==0)
+			{
 				//test for inclusion
 				if (hasRequest || hasResponse || hasUpdate) goto fail;
 				hasUpdate = true;
@@ -900,8 +948,8 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 			}
 
 			//content field
-			if (stricmp(a, "content")==0) {
-
+			if (stricmp(a, "content")==0)
+			{
 				//test for inclusion
 				if (hasContent) goto fail;
 				hasContent = true;
@@ -909,12 +957,11 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 				//store the content element
 				content = el;
 				content->AddRef();
-
 			}
 
 			//binary field
-			if (stricmp(a, "binary")==0) {
-
+			if (stricmp(a, "binary")==0)
+			{
 				//test for inclusion
 				if (hasBinary) goto fail;
 				hasBinary = true;

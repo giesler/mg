@@ -42,6 +42,7 @@
 #define IDR_XMClientTYPE                129
 #define IDC_SCORE                       129
 #define IDC_CONTEST                     130
+#define IDC_MINIBANNER                  131
 #define IDD_DB                          132
 #define IDD_LOGIN                       134
 #define IDD_INDEX_PICTURE               136
@@ -363,9 +364,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        187
+#define _APS_NEXT_RESOURCE_VALUE        188
 #define _APS_NEXT_COMMAND_VALUE         32809
 #define _APS_NEXT_CONTROL_VALUE         1241
-#define _APS_NEXT_SYMED_VALUE           131
+#define _APS_NEXT_SYMED_VALUE           132
 #endif
 #endif

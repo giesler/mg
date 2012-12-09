@@ -10,6 +10,7 @@ const UINT WM_TASKBARCREATED =
     ::RegisterWindowMessage(_T("TaskbarCreated"));
 
 #define XMADVERT_URL "http://ads.adultmediaswapper.com/request/"
+#define XMADVERT_MINIBANNERURL "http://ads.adultmediaswapper.com/logo/"
 
 // --------------------------------------------------------------------- MESSAGE MAP
 
@@ -37,8 +38,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_OPTIONS, OnOptions)
 	ON_COMMAND(ID_INDEXER, OnFastIndexer)
 	ON_COMMAND(ID_EXIT, OnExit)
-	ON_COMMAND(ID_CONTEST, OnContest)
-	ON_BN_CLICKED(IDC_CONTEST, OnContest)
+	//ON_BN_CLICKED(IDC_CONTEST, OnContest)
 
 	//tray input
 	ON_MESSAGE(XM_TRAYICON, OnTrayNotification)
@@ -129,7 +129,7 @@ void CMainFrame::OnSize(UINT nType, int cx, int cy)
 	if (mCurrentView)
 		wincount++;
 	HDWP h = BeginDeferWindowPos(wincount);
-	h = DeferWindowPos(h, mAdvert.m_hWnd, NULL, (cx-XMGUI_ADVERTW)/2, XMGUI_TOPOFADD, XMGUI_ADVERTW, XMGUI_LOGOSIZE, flags);
+	h = DeferWindowPos(h, mAdvert.m_hWnd, NULL, (cx-XMGUI_ADVERTW)/2+XMGUI_ADVERTXOFFSET, XMGUI_TOPOFADD, XMGUI_ADVERTW, XMGUI_LOGOSIZE, flags);
 	h = DeferWindowPos(h, mLogo.m_hWnd, NULL, cx-XMGUI_LOGOSIZE-XMGUI_TOPOFADD, XMGUI_TOPOFADD, XMGUI_LOGOSIZE, XMGUI_LOGOSIZE, flags);
 	h = DeferWindowPos(h, mShrink.m_hWnd, NULL,
 		2, XMGUI_TOPBORDER-XMGUI_FOLDBORDER, XMGUI_FOLDWIDTH, XMGUI_FOLDWIDTH, flags);
@@ -280,19 +280,19 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	mAdvert.Navigate(XMADVERT_URL);
 	
-	//create contest button
-	if (!mContest.Create(
-			"Contest!",
+	//NOTE: this is now the mini banner web control
+	if (!mMiniBanner.Create(
+			NULL,
+			"MiniBanner",
 			WS_CHILD|WS_VISIBLE,
-			CRect(XMGUI_TOPOFADD, XMGUI_TOPOFADD, XMGUI_LOGOSIZE, XMGUI_LOGOSIZE-25),
+			CRect(XMGUI_FOLDBORDER, XMGUI_TOPOFADD, XMGUI_MINIBANNERWIDTH+XMGUI_FOLDBORDER, XMGUI_LOGOSIZE),
 			this,
-			IDC_CONTEST))
+			IDC_MINIBANNER,
+			NULL))
 	{
 		return -1;
 	}
-	CFont f;
-	f.CreateStockObject(ANSI_VAR_FONT);
-	mContest.SetFont(&f);
+	mMiniBanner.Navigate(XMADVERT_MINIBANNERURL);
 
 	//create splitter
 	if (!mSplitter.Create(
@@ -337,7 +337,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 						IDC_LOGO)) {
 		return -1;
 	}
-	mLogo.SetBitmap(LoadBitmap(AfxGetResourceHandle(), MAKEINTRESOURCE(IDB_LOGO_80)));
+	mLogo.SetBitmap(LoadBitmap(AfxGetResourceHandle(), MAKEINTRESOURCE(IDB_CONTEST_80)));
 
 	//create the status control
 	mStatus.Create(NULL, NULL, WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN|WS_CLIPSIBLINGS, CRect(0,0,0,0), this, 0);
@@ -449,11 +449,6 @@ void CMainFrame::OnDestroy()
 
 // ---------------------------------------------------------------------------------- User Input
 
-void CMainFrame::OnContest()
-{
-	DoContest(this);
-}
-
 void CMainFrame::OnExit()
 {
 	mClosing = true;
@@ -506,6 +501,7 @@ void CMainFrame::OnAbout()
 void CMainFrame::OnLogoClick()
 {
 	//create context menu
+	/*
 	DWORD dw = ::GetMessagePos();
 	POINTS pos = MAKEPOINTS(dw);
 	CMenu menu;
@@ -519,6 +515,10 @@ void CMainFrame::OnLogoClick()
 	
 	//show menu
 	menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN|TPM_TOPALIGN, pos.x, pos.y, this, 0);
+	*/
+
+	//NOTE: this is now the contest button
+	DoContest(this);
 }
 void CMainFrame::OnOptions()
 {

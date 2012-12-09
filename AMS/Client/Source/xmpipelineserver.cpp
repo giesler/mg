@@ -62,6 +62,11 @@ CXMServerManager::CXMServerManager()
 	mQuery = NULL;
 	mQueryResponse = NULL;
 	mQueryLastTag = 0;
+
+	//receipts
+	mPendingReceipts = NULL;
+	mPRCount = 0;
+	mPRSize = 0;
 	
 	//setup listings
 	mListingWindow = NULL;
@@ -300,6 +305,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 	{
 		//were we looking for a query?
 		Lock();
+		TRACE("Query-response..\n");
 		if (mQueryRunning)
 		{
 			//extract the query response
@@ -360,10 +366,41 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		reply->GetField("success")->SetValue("1");
 		reply->Send();
 	}
+	else if (stricmp(msg->GetFor(false), XMMSG_RECEIPT)==0)
+	{
+		//a previous message we sent has been received, we
+		//may safely delete it
+		Lock();
+		CXMMessage *m;
+		for(DWORD i=0;i<mPRCount;i++)
+		{
+			m = mPendingReceipts[i];
+			if (m->GetSequence() == msg->GetReply())
+			{
+				//this is the message
+				delete m;
+				memmove(
+					mPendingReceipts[i],
+					mPendingReceipts[i+1],
+					mPRCount-i-1);
+				mPRCount--;
+				break;
+			}
+		}
+		Unlock();
+	}
 	else
 	{
 		//unknown message type
 		ses->Close();
+	}
+
+	//did the peer ask for a receipt?
+	if (msg->GetRequestReceipt())
+	{
+		CXMMessage* reply = msg->CreateReply();
+		msg->SetFor(XMMSG_RECEIPT);
+		msg->Send();
 	}
 
 	//always delete msg
@@ -415,6 +452,7 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 	else if (stricmp(msg->GetFor(false), XMMSG_QUERY)==0)
 	{
 		//query message sent.. send ui update
+		TRACE("Query sent...\n");
 		SendEvent(XM_SERVERMSG, XM_SMU_QUERY_SENT, msg->tag);
 	}
 	else if (stricmp(msg->GetFor(false), XMMSG_LISTING)==0)
@@ -426,9 +464,14 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 			//listing was sent.. our login process is finished
 			if (!mLoginCanceled)
 			{
+				TRACE("Setting login...\n");
 				mLoggedIn = true;
 				mLoginCanceled = false;
 				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_FINISH, NULL);
+			}
+			else
+			{
+				TRACE("Login canceled!!!\n");
 			}
 		}
 		Unlock();
@@ -445,14 +488,50 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 	{
 		//ping response sent
 	}
+	else if (stricmp(msg->GetFor(false), XMMSG_RECEIPT)==0)
+	{
+		//receipt message sent
+	}
 	else
 	{
 		//unknown message type
 		ses->Close();
 	}
 
-	//always delete message
-	delete msg;
+	//does message need a receipt?
+	if (msg->GetRequestReceipt())
+	{
+		//is this message being re-sent? if so, we already have it
+		//in our collection
+		Lock();
+		CXMMessage *m;
+		for(DWORD i=0;i<mPRCount;i++)
+		{
+			m = mPendingReceipts[i];
+			if (m == msg)
+			{
+				goto skipPRStore;
+			}
+		}
+
+		//store message
+		if (mPRSize < ++mPRCount)
+		{
+			mPRSize++;
+			mPendingReceipts = (CXMMessage**)realloc(
+					mPendingReceipts,
+					sizeof(CXMMessage*)*mPRSize);
+		}
+		mPendingReceipts[mPRCount-1] = msg;	
+
+		skipPRStore:
+		Unlock();
+	}
+	else
+	{
+		//delete message unless we need a receipt
+		delete msg;
+	}
 }
 
 void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
@@ -496,6 +575,7 @@ void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 		}
 	
 		//force logout
+		TRACE("Turning off login...\n");
 		mLoggedIn = false;
 		mLoginCanceled = false;
 
@@ -594,6 +674,7 @@ bool CXMServerManager::SendListing(bool full)
 		msg->SetFor("listing");
 		msg->SetContentFormat("text/xml");
 		msg->GetField("listing")->SetXml(xml, false);
+		msg->SetRequestReceipt(true);
 		msg->Send();
 	}
 	return true;
@@ -851,6 +932,7 @@ DWORD CXMServerManager::QueryBegin(CXMQuery *query)
 	//success
 	mQueryRunning = true;
 	Unlock();
+	TRACE("Query message submitted..\n");
 	return mQueryLastTag;
 }
 
@@ -984,26 +1066,17 @@ bool CXMServerManager::LoginCancel()
 
 bool CXMServerManager::LoginIsLoggedIn()
 {
-	Lock();
-	bool temp = mLoggedIn;
-	Unlock();
-	return temp;
+	return mLoggedIn;
 }
 
 CMD5 CXMServerManager::LoginGetSession()
 {
-	Lock();
-	CMD5 temp = mSessionID;
-	Unlock();
-	return temp;
+	return mSessionID;
 }
 
 char* CXMServerManager::LoginGetUsername()
 {
-	Lock();
-	char* temp = mUsername;
-	Unlock();
-	return temp;
+	return mUsername;
 }
 
 // -------------------------------------------------------------------------------- Auto Update
@@ -1853,7 +1926,8 @@ public:	//dbman callback
 	}
 	void OnProcess()
 	{
-		if (mdlg->StatusGetCanceled()) {
+		if (mdlg->StatusGetCanceled())
+		{
 			dbman()->CancelScan();
 		}
 	}
@@ -1984,10 +2058,12 @@ private:
 
 			//test
 			//AfxMessageBox("Login Recieved");
+			break;
 
 		case XM_SMU_LOGIN_FINISH:
 			
 			//success
+			TRACE("Reconnect dialog: XM_SMU_LOGIN_FINISH received.. calling OnOK()...\n");
 			mConnected = true;
 			CDialog::OnOK();
 			break;
@@ -2055,8 +2131,34 @@ bool CXMServerManager::ReconnectTry(int retries)
 		if (mQuery)
 		{
 			//resubmit last query
+			TRACE("Re-running query...\n");
 			QueryBegin(NULL);
 		}
+	}
+
+	//resend any receipt-request messeges that
+	//may have been lost
+	if (dlg.mConnected)
+	{
+		CXMMessage *m;
+		Lock();
+		for(DWORD i=0;i<mPRCount;i++)
+		{
+			//we only send this message if the message was sent orignially
+			//through a different connection
+			m = mPendingReceipts[i];
+			if (m->GetConnection() != mServer)
+			{
+				m->SetConnection(mServer);
+				m->Send();
+				TRACE("Re-sending message.\n");
+			}
+			else
+			{
+				TRACE("Skipping message!\n");
+			}
+		}
+		Unlock();
 	}
 
 	//success

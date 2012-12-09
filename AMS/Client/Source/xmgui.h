@@ -14,8 +14,10 @@
 
 //layout parameters
 #define XMGUI_LOGOSIZE			80
+#define XMGUI_MINIBANNERWIDTH	130
 #define XMGUI_TOPOFADD			3
 #define XMGUI_ADVERTW			468
+#define XMGUI_ADVERTXOFFSET		37
 #define XMGUI_TOPBORDER			(XMGUI_LOGOSIZE+(XMGUI_TOPOFADD*2))	//66
 #define XMGUI_SPLITWIDTH		4
 #define XMGUI_BORDERRIGHT		1
@@ -735,7 +737,6 @@ public:
 protected:
 	
 	//user input
-	afx_msg void OnContest();
 	afx_msg void OnSharedFiles();
 	afx_msg void OnConnect();
 	afx_msg void OnDisconnect();
@@ -772,7 +773,9 @@ protected:
 	CXMGUIStatus mStatus;
 	CAdvert mAdvert;				//IDC_ADVERT
 	CTrayIcon mTray;
-	CButton mContest;				//IDC_CONTEST
+	CAdvert mMiniBanner;			//IDC_MINIBANNER
+	
+	//CButton mContest;				//IDC_CONTEST
 
 	//IDC_NETMON
 	//IDC_BANNER
