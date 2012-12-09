@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1485523204
+Checksum =145249419
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -22,10 +22,10 @@ Begin Report
     OnNoData ="[Event Procedure]"
     Toolbar ="RFReportToolBar"
     RecSrcDt = Begin
-        0x667f3d958ef6e140
+        0x0f4ea7969922e240
     End
     InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\"), 1,"
-        " GetSPVar(\"StoreSelName\"), GetSPVar(\"ShipVia\")"
+        " GetSPVar(\"StoreSelName\"), GetSPVar(\"ShipVia\"), GetSPVar(\"RefNum\")"
     RecordSource ="dbo.sp_Report_ShipmentSchedule"
     Caption ="Shipment Schedule Wheat"
     OnOpen ="[Event Procedure]"
@@ -61,9 +61,8 @@ Begin Report
         0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x080012002b00010077696e73706f6f6c00005c5c6b796c655c4850204c617365 ,
-        0x724a65742032313030000049505f31302e31302e312e39300000000000000000 ,
-        0x00000000000000000000
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
     End
     Begin
         Begin Label
@@ -124,7 +123,6 @@ Begin Report
                     Caption ="PO #"
                 End
                 Begin Label
-                    OverlapFlags =12
                     TextAlign =2
                     TextFontFamily =34
                     Left =3360
@@ -489,6 +487,7 @@ On Error GoTo errHandler
     End If
     SetSPVar "StoreSelName", Null
     SetSPVar "ShipVia", fC.cmbShipVia
+    SetSPVar "RefNum", fC.txtRefNum
     strCrit = FormatFromTo(fC.datFrom, fC.datTo)
     If strCrit <> "" Then strCrit = "Ship Date " + strCrit
     If fC.cmbSoldName <> "" Then
@@ -502,6 +501,10 @@ On Error GoTo errHandler
 '      If strCrit <> "" Then strCrit = strCrit + ", "
 '      strCrit = strCrit & "Non-Wheatboard Shipments"
 '    End If
+    If fC.txtRefNum <> "" Then
+      If strCrit <> "" Then strCrit = strCrit + ", "
+      strCrit = strCrit & "Ref #: " & fC.txtRefNum
+    End If
     
     'Store
     gConn.Execute "DELETE FROM ztmpStoreSel WHERE StoreSelName = '" + GetNTUserName() + "'"

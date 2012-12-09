@@ -918,9 +918,11 @@ End Function
 
 
 Public Function OutputShipSummary(txtFileName As String, strFilter As String, strMsg As String, flgUseShade As Boolean, strSelDate As String) As Boolean
-On Error GoTo OutputShipSummary_Err
+'On Error GoTo OutputShipSummary_Err
 
+'TODO:  fix this report
 MsgBox "The shipment summary report does not work right now.  It is being converted.", vbExclamation
+
 Exit Function
 
 Dim rsData As ADODB.Recordset
@@ -948,14 +950,19 @@ If rsData.BOF And rsData.EOF Then
   Exit Function
 End If
 
-Dim rsCT As ADODB.Recordset, strCols(6) As String
-strCols(0) = "Store #"
-strCols(1) = "PO #"
-strCols(2) = "Mall"
-strCols(3) = "Job #"
-strCols(4) = "PO Date"
-strCols(5) = "Ship Date"
-Set rsCT = CrossTabRS(rsData, "CashwrapName", strCols, "Quantity")
+'Dim rsCT As ADODB.Recordset, strCols(6) As String
+'strCols(0) = "Store #"
+'strCols(1) = "PO #"
+'strCols(2) = "Mall"
+'strCols(3) = "Job #"
+'strCols(4) = "PO Date"
+'strCols(5) = "Ship Date"
+'Set rsCT = CrossTabRS(rsData, "CashwrapName", strCols, "Quantity")
+
+Dim rsCT As ADODB.Recordset, strCols(1) As String
+strCols(0) = "Date_Ordered"
+strCols(1) = "Purchaser"
+Set rsCT = CrossTabRS(rsData, "PO", strCols, "Quantity")
 rsData.Close
 Set rsData = Nothing
 

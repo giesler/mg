@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1782275012
+Checksum =-696205548
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -13,11 +13,10 @@ Begin Form
     GridX =24
     GridY =24
     Width =11880
-    ItemSuffix =258
-    Left =405
-    Top =405
-    Right =12645
-    Bottom =7470
+    ItemSuffix =259
+    Top =15
+    Right =12495
+    Bottom =7335
     TimerInterval =500
     MaxRecords =20000
     RecSrcDt = Begin
@@ -193,7 +192,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =2
                     Left =6420
-                    Top =1320
+                    Top =1380
                     Width =1380
                     TabIndex =3
                     Name ="txtDateOrdered"
@@ -209,7 +208,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =2
                     Left =6420
-                    Top =1620
+                    Top =1680
                     Width =1380
                     TabIndex =4
                     Name ="txtShipDate"
@@ -223,7 +222,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =2
                     Left =6420
-                    Top =1920
+                    Top =1980
                     Width =1380
                     TabIndex =5
                     Name ="txtArriveDate"
@@ -236,7 +235,7 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =93
                     Left =9180
-                    Top =1320
+                    Top =1380
                     Width =2100
                     TabIndex =8
                     Name ="txtJobNumber"
@@ -251,9 +250,9 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =85
                     Left =1080
-                    Top =3000
+                    Top =3120
                     Width =6720
-                    Height =840
+                    Height =720
                     TabIndex =10
                     Name ="txtComments"
                     ControlSource ="Comments"
@@ -325,7 +324,7 @@ Begin Form
                     OverlapFlags =223
                     TextAlign =3
                     Left =5100
-                    Top =1320
+                    Top =1380
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -339,7 +338,7 @@ Begin Form
                     OverlapFlags =223
                     TextAlign =3
                     Left =5100
-                    Top =1620
+                    Top =1680
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -353,7 +352,7 @@ Begin Form
                     OverlapFlags =223
                     TextAlign =3
                     Left =5100
-                    Top =1920
+                    Top =1980
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -367,7 +366,7 @@ Begin Form
                     OverlapFlags =215
                     TextAlign =3
                     Left =7860
-                    Top =1320
+                    Top =1380
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -381,7 +380,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =3
                     Left =7860
-                    Top =1620
+                    Top =1680
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -394,7 +393,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =3
                     Left =7860
-                    Top =1920
+                    Top =1980
                     Width =1320
                     Height =240
                     Name ="Label167"
@@ -405,7 +404,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =3
                     Left =7860
-                    Top =2220
+                    Top =2280
                     Width =1320
                     Height =240
                     Name ="Label168"
@@ -416,7 +415,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =3
                     Left =7860
-                    Top =2520
+                    Top =2580
                     Width =1320
                     Height =240
                     Name ="Label170"
@@ -438,7 +437,7 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =3
                     Left =60
-                    Top =3000
+                    Top =3120
                     Width =960
                     Height =240
                     Name ="Label183"
@@ -448,7 +447,7 @@ Begin Form
                 Begin ComboBox
                     OverlapFlags =87
                     Left =9180
-                    Top =2220
+                    Top =2280
                     Width =2100
                     TabIndex =13
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
@@ -461,7 +460,7 @@ Begin Form
                 Begin ComboBox
                     OverlapFlags =87
                     Left =9180
-                    Top =2520
+                    Top =2580
                     Width =2100
                     TabIndex =14
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
@@ -476,7 +475,7 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =93
                     Left =9180
-                    Top =2820
+                    Top =2880
                     Width =2100
                     TabIndex =15
                     Name ="txtProNum"
@@ -490,7 +489,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =1
                     Left =6420
-                    Top =2220
+                    Top =2280
                     Width =1380
                     TabIndex =6
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
@@ -505,7 +504,7 @@ Begin Form
                     OverlapFlags =215
                     TextAlign =3
                     Left =5460
-                    Top =2220
+                    Top =2280
                     Width =960
                     Height =240
                     Name ="Label193"
@@ -517,7 +516,7 @@ Begin Form
                     OverlapFlags =215
                     TextAlign =3
                     Left =7860
-                    Top =2820
+                    Top =2880
                     Width =1320
                     Height =240
                     FontWeight =700
@@ -532,7 +531,7 @@ Begin Form
                     OverlapFlags =93
                     ListWidth =2880
                     Left =9180
-                    Top =3120
+                    Top =3180
                     Width =2100
                     TabIndex =16
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
@@ -547,7 +546,7 @@ Begin Form
                     OverlapFlags =215
                     TextAlign =3
                     Left =7860
-                    Top =3120
+                    Top =3180
                     Width =1320
                     Height =240
                     Name ="lblStore"
@@ -559,7 +558,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =1
                     Left =6420
-                    Top =2520
+                    Top =2580
                     Width =1380
                     TabIndex =7
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
@@ -573,7 +572,7 @@ Begin Form
                     OverlapFlags =215
                     TextAlign =3
                     Left =5280
-                    Top =2520
+                    Top =2580
                     Width =1140
                     Height =240
                     Name ="Label203"
@@ -608,7 +607,7 @@ Begin Form
                 Begin ComboBox
                     OverlapFlags =87
                     Left =9180
-                    Top =1920
+                    Top =1980
                     Width =2100
                     TabIndex =12
                     ColumnInfo ="\"\";\"\";\"10\";\"100\""
@@ -622,7 +621,7 @@ Begin Form
                 Begin ComboBox
                     OverlapFlags =87
                     Left =9180
-                    Top =1620
+                    Top =1680
                     Width =2100
                     TabIndex =11
                     ColumnInfo ="\"\";\"\";\"10\";\"100\""
@@ -638,7 +637,7 @@ Begin Form
                     OverlapFlags =93
                     TextAlign =3
                     Left =7860
-                    Top =3420
+                    Top =3480
                     Width =1320
                     Height =240
                     ForeColor =8388608
@@ -651,7 +650,7 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =87
                     Left =9180
-                    Top =3420
+                    Top =3480
                     Width =2100
                     TabIndex =17
                     Name ="txtRefNum"
@@ -750,8 +749,8 @@ Begin Form
                     OverlapFlags =215
                     Left =45
                     Top =60
-                    Width =5190
-                    Height =2475
+                    Width =5130
+                    Height =3015
                     TabIndex =9
                     Name ="tb1"
                     GUID = Begin
@@ -763,10 +762,10 @@ Begin Form
                             AccessKey =83
                             Left =180
                             Top =465
-                            Width =4920
-                            Height =1935
+                            Width =4860
+                            Height =2475
                             Name ="Page243"
-                            Caption ="&Ship To"
+                            Caption ="&Ship To / Sold To"
                             GUID = Begin
                                 0x97e8b2a59d08bc4a848b06e856db9631
                             End
@@ -1046,7 +1045,6 @@ Begin Form
                                     Name ="txtShipAccountNum"
                                     ControlSource ="Account#"
                                     FontName ="Arial"
-                                    OnKeyDown ="[Event Procedure]"
                                     GUID = Begin
                                         0xe8eae29a2d0bd14b828b8ebcbc1457c0
                                     End
@@ -1068,27 +1066,12 @@ Begin Form
                                         0x4b48c3b1719aa048beaab1a44017e478
                                     End
                                 End
-                            End
-                        End
-                        Begin Page
-                            OverlapFlags =247
-                            AccessKey =79
-                            Left =180
-                            Top =465
-                            Width =4920
-                            Height =1935
-                            Name ="Page244"
-                            Caption ="S&old To"
-                            GUID = Begin
-                                0xe3451b893428024bac2f0b5fbef05686
-                            End
-                            Begin
                                 Begin Label
                                     FontUnderline = NotDefault
-                                    OverlapFlags =255
+                                    OverlapFlags =223
                                     TextAlign =3
-                                    Left =300
-                                    Top =480
+                                    Left =240
+                                    Top =2400
                                     Width =1320
                                     Height =240
                                     FontWeight =700
@@ -1098,19 +1081,20 @@ Begin Form
                                     FontName ="Arial"
                                     OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
                                     GUID = Begin
-                                        0xea80d3fcb654d14788a2f8beaf139c4e
+                                        0x5144c66793ad9e41851d9a4413141344
                                     End
                                 End
                                 Begin ComboBox
                                     LimitToList = NotDefault
-                                    OverlapFlags =247
+                                    OverlapFlags =215
                                     ColumnCount =2
-                                    Left =1620
-                                    Top =480
+                                    Left =1560
+                                    Top =2400
                                     Width =3480
+                                    TabIndex =10
                                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
                                     GUID = Begin
-                                        0xb1d0891b65b40946b43d58a5d3e5df06
+                                        0x10747e534a395a4dba3c87204579d66d
                                     End
                                     Name ="txtSoldName"
                                     ControlSource ="SoldName"
@@ -1120,16 +1104,74 @@ Begin Form
                                     AfterUpdate ="[Event Procedure]"
                                     OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
                                     FontName ="Arial"
-                                    OnKeyDown ="[Event Procedure]"
                                     OnNotInList ="[Event Procedure]"
                                 End
+                                Begin Label
+                                    OverlapFlags =223
+                                    TextAlign =3
+                                    Left =240
+                                    Top =2700
+                                    Width =1320
+                                    Height =240
+                                    Name ="lblSoldAttn"
+                                    Caption ="Sold Attn:"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x96aedbfb10b5ea42bcece42617466d40
+                                    End
+                                End
+                                Begin ComboBox
+                                    LimitToList = NotDefault
+                                    OverlapFlags =215
+                                    ColumnCount =2
+                                    Left =1560
+                                    Top =2700
+                                    Width =3480
+                                    TabIndex =11
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                                    GUID = Begin
+                                        0xcf3fd9a6a9bae042b56f6517049620a7
+                                    End
+                                    Name ="comSoldAttention"
+                                    ControlSource ="SoldAttentionID"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="SELECT SoldAttentionID, Attention FROM dbo.tblSoldAttention"
+                                    ColumnWidths ="0;1440"
+                                    FontName ="Arial"
+                                    OnKeyDown ="[Event Procedure]"
+                                End
+                                Begin Line
+                                    OverlapFlags =87
+                                    Left =240
+                                    Top =2304
+                                    Width =4800
+                                    BorderColor =8421504
+                                    Name ="Line258"
+                                    GUID = Begin
+                                        0x8acc6f6487b5304bba488ac492c9a60d
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =79
+                            Left =180
+                            Top =465
+                            Width =4860
+                            Height =2475
+                            Name ="Page244"
+                            Caption ="S&old To Address"
+                            GUID = Begin
+                                0xe3451b893428024bac2f0b5fbef05686
+                            End
+                            Begin
                                 Begin TextBox
                                     OldBorderStyle =1
                                     OverlapFlags =255
-                                    Left =1620
-                                    Top =780
+                                    Left =1560
+                                    Top =480
                                     Width =3480
-                                    TabIndex =1
                                     Name ="txtSoldToAddress1"
                                     ControlSource ="SoldTo_Address1"
                                     OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtSoldToAddress1\")"
@@ -1138,27 +1180,13 @@ Begin Form
                                         0xda253b2e9738b040a8fe139f66aa26bc
                                     End
                                 End
-                                Begin Label
-                                    OverlapFlags =255
-                                    TextAlign =3
-                                    Left =300
-                                    Top =1680
-                                    Width =1320
-                                    Height =240
-                                    Name ="lblSoldAttn"
-                                    Caption ="Sold Attn:"
-                                    FontName ="Arial"
-                                    GUID = Begin
-                                        0x392ddb4faa59924b839e138248d58960
-                                    End
-                                End
                                 Begin TextBox
                                     OldBorderStyle =1
                                     OverlapFlags =255
-                                    Left =1620
-                                    Top =1080
+                                    Left =1560
+                                    Top =780
                                     Width =3480
-                                    TabIndex =2
+                                    TabIndex =1
                                     Name ="txtSoldToAddress2"
                                     ControlSource ="SoldTo_Address2"
                                     FontName ="Arial"
@@ -1169,10 +1197,10 @@ Begin Form
                                 Begin TextBox
                                     OldBorderStyle =1
                                     OverlapFlags =255
-                                    Left =1620
-                                    Top =1380
+                                    Left =1560
+                                    Top =1080
                                     Width =1860
-                                    TabIndex =3
+                                    TabIndex =2
                                     Name ="txtSoldToCity"
                                     ControlSource ="SoldTo_City"
                                     OnDblClick ="=OpenFind(\"Sold To City\",\"Start\",\"txtSoldToCity\")"
@@ -1185,10 +1213,10 @@ Begin Form
                                     OldBorderStyle =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =3540
-                                    Top =1380
+                                    Left =3480
+                                    Top =1080
                                     Width =420
-                                    TabIndex =4
+                                    TabIndex =3
                                     Name ="txtSoldToState"
                                     ControlSource ="SoldTo_State"
                                     OnDblClick ="=OpenFind(\"Sold To State\",\"Whole\",\"txtSoldToState\")"
@@ -1201,10 +1229,10 @@ Begin Form
                                     OldBorderStyle =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =4020
-                                    Top =1380
+                                    Left =3960
+                                    Top =1080
                                     Width =1080
-                                    TabIndex =5
+                                    TabIndex =4
                                     Name ="txtSoldToZip"
                                     ControlSource ="SoldTo_Zip"
                                     OnDblClick ="=OpenFind(\"Sold To Zip\",\"Start\",\"txtSoldToZip\")"
@@ -1213,31 +1241,12 @@ Begin Form
                                         0x386291b2bb63e54fad77e4d758f8c158
                                     End
                                 End
-                                Begin ComboBox
-                                    LimitToList = NotDefault
-                                    OverlapFlags =247
-                                    ColumnCount =2
-                                    Left =1620
-                                    Top =1680
-                                    Width =3480
-                                    TabIndex =6
-                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
-                                    GUID = Begin
-                                        0xd9887db0aae21f4bbe4789aed208d775
-                                    End
-                                    Name ="comSoldAttention"
-                                    ControlSource ="SoldAttentionID"
-                                    RowSourceType ="Table/View/StoredProc"
-                                    RowSource ="SELECT SoldAttentionID, Attention FROM dbo.tblSoldAttention"
-                                    ColumnWidths ="0;1440"
-                                    FontName ="Arial"
-                                End
                                 Begin Label
                                     FontUnderline = NotDefault
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =300
-                                    Top =780
+                                    Left =240
+                                    Top =480
                                     Width =1320
                                     Height =240
                                     ForeColor =8388608
@@ -1252,8 +1261,8 @@ Begin Form
                                 Begin Label
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =300
-                                    Top =1080
+                                    Left =240
+                                    Top =780
                                     Width =1320
                                     Height =240
                                     Name ="Label251"
@@ -1267,8 +1276,8 @@ Begin Form
                                     FontUnderline = NotDefault
                                     OverlapFlags =255
                                     TextAlign =3
-                                    Left =300
-                                    Top =1380
+                                    Left =240
+                                    Top =1080
                                     Width =600
                                     Height =240
                                     ForeColor =8388608
@@ -1284,8 +1293,8 @@ Begin Form
                                     FontUnderline = NotDefault
                                     OverlapFlags =255
                                     TextAlign =3
-                                    Left =900
-                                    Top =1380
+                                    Left =840
+                                    Top =1080
                                     Width =300
                                     Height =240
                                     ForeColor =8388608
@@ -1301,8 +1310,8 @@ Begin Form
                                     FontUnderline = NotDefault
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =1200
-                                    Top =1380
+                                    Left =1140
+                                    Top =1080
                                     Width =420
                                     Height =240
                                     ForeColor =8388608
@@ -1317,10 +1326,10 @@ Begin Form
                                 Begin TextBox
                                     OldBorderStyle =1
                                     OverlapFlags =255
-                                    Left =1620
-                                    Top =2040
+                                    Left =1560
+                                    Top =1740
                                     Width =2760
-                                    TabIndex =7
+                                    TabIndex =5
                                     Name ="txtReplyToEmail"
                                     ControlSource ="ReplyToEmail"
                                     FontName ="Arial"
@@ -1331,8 +1340,8 @@ Begin Form
                                 Begin Label
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =300
-                                    Top =2040
+                                    Left =240
+                                    Top =1740
                                     Width =1320
                                     Height =240
                                     Name ="Label256"
@@ -1345,13 +1354,13 @@ Begin Form
                                 Begin CommandButton
                                     OverlapFlags =247
                                     TextFontFamily =34
-                                    Left =4440
-                                    Top =2040
+                                    Left =4380
+                                    Top =1740
                                     Width =600
                                     Height =240
                                     FontSize =6
                                     FontWeight =400
-                                    TabIndex =8
+                                    TabIndex =6
                                     Name ="cmdSendReplyTo"
                                     Caption ="Send"
                                     OnClick ="[Event Procedure]"
@@ -1829,6 +1838,16 @@ ErrHand Me.Name, "comSoldAttention_Enter"
 Exit Sub
 End Sub
 
+Private Sub comSoldAttention_KeyDown(KeyCode As Integer, Shift As Integer)
+On Error Resume Next
+
+    If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
+'        tb1.Value = 1
+'        txtSoldName.SetFocus
+    End If
+
+End Sub
+
 Private Sub Form_BeforeInsert(Cancel As Integer)
 On Error GoTo errHandler
   
@@ -1936,7 +1955,7 @@ End Sub
 
 Private Sub txtJobNumber_KeyDown(KeyCode As Integer, Shift As Integer)
 
-    If KeyCode = vbKeyTab Then
+    If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
         tb1.Value = 0
         txtShipStoreNo.SetFocus
     End If
@@ -2004,16 +2023,6 @@ Private Sub txtRefNum_Exit(Cancel As Integer)
 On Error Resume Next
   Me.subPOItems.Form!txtQuantity.SetFocus
   
-End Sub
-
-Private Sub txtShipAccountNum_KeyDown(KeyCode As Integer, Shift As Integer)
-On Error Resume Next
-
-    If KeyCode = vbKeyTab And Shift <> 1 Then
-        tb1.Value = 1
-        txtSoldName.SetFocus
-    End If
-        
 End Sub
 
 Private Sub txtShipState_AfterUpdate()
@@ -2126,15 +2135,6 @@ Exit Sub
 errHandler:
 ErrHand Me.Name, "txtSoldName_AfterUpdate"
 Exit Sub
-End Sub
-
-Private Sub txtSoldName_KeyDown(KeyCode As Integer, Shift As Integer)
-
-    If KeyCode = vbKeyTab And (Shift = 1) Then
-        tb1.Value = 1
-        txtShipAccountNum.SetFocus
-    End If
-    
 End Sub
 
 Private Sub txtSoldName_NotInList(NewData As String, Response As Integer)
