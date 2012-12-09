@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =671894957
+Checksum =-1897220875
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -12,11 +12,11 @@ Begin Form
     GridX =24
     GridY =24
     Width =9648
-    ItemSuffix =146
-    Left =390
-    Top =330
-    Right =10035
-    Bottom =6555
+    ItemSuffix =148
+    Left =1830
+    Top =720
+    Right =15345
+    Bottom =9690
     Toolbar ="RFFormToolBar"
     RecSrcDt = Begin
         0xb3583b585da4e140
@@ -112,7 +112,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =4020
+            Height =4515
             BackColor =-2147483633
             Name ="Detail0"
             Begin
@@ -121,7 +121,7 @@ Begin Form
                     Left =105
                     Top =60
                     Width =8895
-                    Height =3900
+                    Height =4455
                     Name ="TabCtl117"
                     Begin
                         Begin Page
@@ -129,7 +129,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page118"
                             Caption ="Store Name"
                             Begin
@@ -137,7 +137,7 @@ Begin Form
                                     OverlapFlags =247
                                     Left =834
                                     Top =780
-                                    Width =3300
+                                    Width =7680
                                     Height =3000
                                     Name ="subStore"
                                     SourceObject ="Form.fsubStore"
@@ -154,6 +154,18 @@ Begin Form
                                         End
                                     End
                                 End
+                                Begin Label
+                                    OverlapFlags =223
+                                    Left =3720
+                                    Top =540
+                                    Width =2220
+                                    Height =240
+                                    Name ="Label147"
+                                    Caption ="Sold To / Customer"
+                                    GUID = Begin
+                                        0xbeb17cbf0382144bb42ca496792a9477
+                                    End
+                                End
                             End
                         End
                         Begin Page
@@ -161,7 +173,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page119"
                             Caption ="Sold To"
                             Begin
@@ -170,7 +182,7 @@ Begin Form
                                     Left =240
                                     Top =780
                                     Width =8580
-                                    Height =3000
+                                    Height =3600
                                     Name ="subSoldTo"
                                     SourceObject ="Form.fsubSoldTo"
                                     Begin
@@ -227,7 +239,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page122"
                             Caption ="&Priority"
                             Begin
@@ -258,7 +270,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page125"
                             Caption ="Classification"
                             Begin
@@ -289,7 +301,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page128"
                             Caption ="Status"
                             Begin
@@ -321,7 +333,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page131"
                             Caption ="&Salesperson"
                             Begin
@@ -352,7 +364,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="pagPurchaser"
                             Caption ="Purchaser"
                             Begin
@@ -383,7 +395,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="pagShipVia"
                             Caption ="Ship Via"
                             Begin
@@ -414,7 +426,7 @@ Begin Form
                             Left =240
                             Top =465
                             Width =8625
-                            Height =3360
+                            Height =3915
                             Name ="Page143"
                             Caption ="Ship Via Defaults"
                             GUID = Begin

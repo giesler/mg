@@ -1,16 +1,21 @@
 Version =19
 VersionRequired =19
-Checksum =1532659936
+Checksum =-350325818
 Begin Form
     AllowDeletions = NotDefault
+    AllowUpdating =4
     ScrollBars =2
     ViewsAllowed =1
     PictureAlignment =2
     DatasheetGridlinesBehavior =3
     GridX =12
-    Width =2520
+    Width =6600
     DatasheetFontHeight =10
-    ItemSuffix =10
+    ItemSuffix =11
+    Left =1185
+    Top =2145
+    Right =8580
+    Bottom =4860
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x79c66f485da4e140
@@ -35,11 +40,33 @@ Begin Form
             Begin
                 Begin TextBox
                     SpecialEffect =0
-                    OverlapFlags =85
+                    OldBorderStyle =1
+                    OverlapFlags =93
                     Width =2520
                     ColumnWidth =3060
+                    BorderColor =4210752
                     Name ="StoreName"
                     ControlSource ="StoreName"
+                    StatusBarText ="Store Name"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    ColumnCount =2
+                    Left =2520
+                    Width =4080
+                    TabIndex =1
+                    BorderColor =4210752
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xd88513154bf31f43b2091649eb6aa53e
+                    End
+                    Name ="Text10"
+                    ControlSource ="SoldID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="select SoldID, Soldname from tblSold order by SoldName"
+                    ColumnWidths ="0;1440"
                     StatusBarText ="Store Name"
                 End
             End
