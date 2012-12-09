@@ -1,0 +1,9 @@
+&H1	Windows 2000 Small Business Server
+&H2	Windows 2000 Advanced Server
+&H4	BackOffice Server Components Installed
+&H8	Communications Server Components Installed
+&H10	Terminal Server Components Installed
+&H20	Windows 2000 Small Business Server (Restricted)
+&H40	This is an Embedded version of Windows 2000
+&H80	Windows 2000 Data Center Server
+&H100	Windows 2000 Terminal Server (Single User)

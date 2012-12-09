@@ -1,0 +1,215 @@
+Version =19
+VersionRequired =19
+Checksum =-160306713
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =6960
+    DatasheetFontHeight =10
+    ItemSuffix =12
+    Left =600
+    Top =330
+    Right =3825
+    Bottom =3885
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x2ea02ad9b2dee140
+    End
+    RecordSource ="dbo.tblPartsVendors"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportHeader"
+            GUID = Begin
+                0x6ce1d6819577e2448e7ce3b53fac1ad0
+            End
+            Begin
+                Begin Label
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Width =2940
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text2"
+                    Caption ="Name"
+                    GUID = Begin
+                        0x5cc2e1da114cd842b7e3b70b68ea0ec0
+                    End
+                End
+                Begin Label
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Left =2940
+                    Width =2040
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Label5"
+                    Caption ="Part Number"
+                    GUID = Begin
+                        0xe8fbcc00ff6c97469bd972a3a275c5b9
+                    End
+                End
+                Begin Label
+                    OldBorderStyle =1
+                    TextAlign =3
+                    Left =4980
+                    Width =1080
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Label7"
+                    Caption ="Cost Each"
+                    GUID = Begin
+                        0x396327d19afb7b419ade8155b8bda834
+                    End
+                End
+                Begin Label
+                    OldBorderStyle =1
+                    TextAlign =2
+                    Left =6060
+                    Width =900
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Label10"
+                    Caption ="Primary"
+                    GUID = Begin
+                        0x583cfa72b143b84596812d456b52bc66
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            GUID = Begin
+                0xbd8951755290ba48873e673dc83e3f65
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =2940
+                    Width =2040
+                    TabIndex =1
+                    BorderColor =8421504
+                    Name ="Text6"
+                    ControlSource ="VendorPartNum"
+                    GUID = Begin
+                        0x4ef82f2191e5ef4bbc0f27364daf1b9c
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    Left =4980
+                    Width =1080
+                    TabIndex =2
+                    BorderColor =8421504
+                    Name ="Text8"
+                    ControlSource ="VendorCostEach"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x091e0155a6d2d9428f8012fcbb2a21ab
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =2
+                    Left =6060
+                    Width =900
+                    TabIndex =3
+                    BorderColor =8421504
+                    Name ="Text11"
+                    ControlSource ="=IIf([VendorPrimary],\"x\",\"\")"
+                    GUID = Begin
+                        0x5118a3a95b4f47429113150e2490d550
+                    End
+                End
+                Begin ComboBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    ColumnCount =2
+                    Width =2940
+                    BorderColor =8421504
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x3fda2b63d8ed7345be0395687f3fe56c
+                    End
+                    Name ="VendorName"
+                    ControlSource ="VendorID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT VendorID, VendorName FROM dbo.tblVendors"
+                    ColumnWidths ="0;1440"
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter"
+            GUID = Begin
+                0x5b40dc4c8b37e949991ca4ea4148f826
+            End
+        End
+    End
+End

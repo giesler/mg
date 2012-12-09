@@ -1,0 +1,610 @@
+Version =19
+VersionRequired =19
+Checksum =670989972
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5700
+    DatasheetFontHeight =10
+    ItemSuffix =30
+    Left =1740
+    Top =1440
+    Right =10725
+    Bottom =6375
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x8c25bf786c7be140
+    End
+    Caption ="PO Summary"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ListBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =4920
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1350
+                    Top =840
+                    Width =1770
+                    TabIndex =1
+                    Name ="curPOAmount"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =840
+                            Width =1020
+                            Height =240
+                            ForeColor =255
+                            Name ="Label3"
+                            Caption ="PO Amount:"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =3120
+                    Top =4500
+                    Width =1020
+                    Height =300
+                    TabIndex =11
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =4260
+                    Top =4500
+                    Width =1020
+                    Height =300
+                    TabIndex =12
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =120
+                    Top =120
+                    Width =5460
+                    Height =240
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="You must fill in values for the fields in red.  Other fields are optional."
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =66
+                    Left =4260
+                    Top =3840
+                    Width =1020
+                    Height =300
+                    TabIndex =9
+                    Name ="cmdBrowse"
+                    Caption ="&Browse"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x69d8f4e6992cd3119033004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1290
+                    Top =3840
+                    Width =2850
+                    TabIndex =8
+                    Name ="txtFileName"
+                    DefaultValue ="\"c:\\PO Summary.html\""
+                    GUID = Begin
+                        0x6fd8f4e6992cd3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =3840
+                            Width =1020
+                            Height =240
+                            Name ="Label20"
+                            Caption ="Save As:"
+                            GUID = Begin
+                                0x70d8f4e6992cd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =4200
+                    Width =2945
+                    TabIndex =10
+                    Name ="chkLaunchPage"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x5ad9f4e6992cd3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =1550
+                            Top =4170
+                            Width =2655
+                            Height =240
+                            Name ="Label23"
+                            Caption ="View report in web browser."
+                            GUID = Begin
+                                0x5cd9f4e6992cd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =3480
+                    Top =480
+                    Width =1080
+                    Height =240
+                    Name ="Label9"
+                    Caption ="Store: "
+                    GUID = Begin
+                        0x549a95a8422fd3119033004033532b7f
+                    End
+                End
+                Begin ListBox
+                    OverlapFlags =85
+                    MultiSelect =1
+                    Left =3480
+                    Top =780
+                    Width =1920
+                    Height =2520
+                    TabIndex =7
+                    Name ="lstStore"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuStore.StoreName FROM tlkuStore ORDER BY tlkuStore.StoreName"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x579a95a8422fd3119033004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1350
+                    Top =1200
+                    Width =1080
+                    TabIndex =2
+                    Name ="datFrom"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x869a95a8422fd3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =1200
+                            Width =1020
+                            Height =240
+                            Name ="Label1"
+                            Caption ="From:"
+                            GUID = Begin
+                                0x879a95a8422fd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1350
+                    Top =1560
+                    Width =1080
+                    TabIndex =3
+                    Name ="datTo"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x889a95a8422fd3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =1560
+                            Width =1020
+                            Height =240
+                            Name ="Label24"
+                            Caption ="To:"
+                            GUID = Begin
+                                0x899a95a8422fd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ListWidth =3600
+                    Left =1350
+                    Top =1920
+                    Width =1770
+                    TabIndex =4
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x8a9a95a8422fd3119033004033532b7f
+                    End
+                    Name ="comCustomer"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tblSold.SoldName FROM tblSold ORDER BY tblSold.SoldName"
+                    ColumnWidths ="3600"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =1920
+                            Width =1020
+                            Height =240
+                            Name ="Label25"
+                            Caption ="Customer:"
+                            GUID = Begin
+                                0x8b9a95a8422fd3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =3720
+                    Width =5580
+                    Name ="Line26"
+                    GUID = Begin
+                        0x8c9a95a8422fd3119033004033532b7f
+                    End
+                End
+                Begin ListBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1320
+                    Top =2640
+                    Width =1920
+                    Height =660
+                    TabIndex =6
+                    Name ="lstWheatboard"
+                    RowSourceType ="Value List"
+                    RowSource ="1;\"Wheatboard\";2;\"Non-Wheatboard\";3;\"Both Wheat And Non\""
+                    ColumnWidths ="0;1440"
+                    DefaultValue ="=3"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x4d77c3d2e33ed3119033004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =300
+                            Top =2640
+                            Width =960
+                            Height =240
+                            Name ="Col1_Label"
+                            Caption ="Wheatboard:"
+                            GUID = Begin
+                                0x4e77c3d2e33ed3119033004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1350
+                    Top =2280
+                    Width =1740
+                    TabIndex =5
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xdd77c3d2e33ed3119033004033532b7f
+                    End
+                    Name ="comClassification"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuClassification.ClassificationName FROM tlkuClassification ORDER BY tl"
+                        "kuClassification.ClassificationName"
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =3
+                    Left =120
+                    Top =2280
+                    Width =1140
+                    Height =240
+                    Name ="Label193"
+                    Caption ="Classification: "
+                    GUID = Begin
+                        0xe077c3d2e33ed3119033004033532b7f
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    AccessKey =83
+                    Left =360
+                    Top =3480
+                    Width =2280
+                    Height =180
+                    TabIndex =13
+                    Name ="chkShade"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x070371dcac4ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =530
+                            Top =3420
+                            Width =2055
+                            Height =240
+                            Name ="Label28"
+                            Caption ="&Shade every other line"
+                            GUID = Begin
+                                0x090371dcac4ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =2880
+                    Top =3480
+                    Width =2280
+                    Height =180
+                    TabIndex =14
+                    Name ="chkDescAtTop"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x501b14247b9e184f81b5d79b1c0bf881
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =3050
+                            Top =3420
+                            Width =2055
+                            Height =240
+                            Name ="Label29"
+                            Caption ="Print 'Description' at top"
+                            GUID = Begin
+                                0x0f32815d89d0344ca4a721e97d03a1c0
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    ColumnHeads = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    ListWidth =2880
+                    Left =1350
+                    Top =480
+                    Width =1740
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xb7482c9b9c45e5488c8723a995990f3c
+                    End
+                    Name ="txtPO"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT Tbl_PO.RefNum AS [Ref #], Count(Tbl_PO.ID2) AS POs FROM Tbl_PO GROUP BY T"
+                        "bl_PO.RefNum HAVING (((Tbl_PO.RefNum) Is Not Null)) ORDER BY Tbl_PO.RefNum"
+                    ColumnWidths ="1440;1440"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =480
+                            Width =1020
+                            Height =240
+                            ForeColor =255
+                            Name ="Label13"
+                            Caption ="PO (Ref #):"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdBrowse_Click()
+
+Dim msaof As MSA_OPENFILENAME
+    
+' Set options for the dialog box.
+msaof.strDialogTitle = "Save file as?"
+msaof.strFilter = MSA_CreateFilterString("Web Page (*.html)", "*.html", "All Files", "*.*")
+msaof.strDefaultExtension = "html"
+
+' Call the Open File dialog routine.
+MSA_GetSaveFileName msaof
+   
+Me.txtFileName = Trim(msaof.strFullPathReturned)
+
+End Sub
+
+Private Sub cmdCancel_Click()
+
+Me.Visible = False
+
+End Sub
+
+Private Sub cmdOK_Click()
+
+If IsNull(Me.txtPO) Then
+    MsgBox "You must enter a PO (Ref #).", vbExclamation
+    Me.txtPO.SetFocus
+    Exit Sub
+End If
+
+If IsNull(Me.curPOAmount) Then
+    MsgBox "You must enter a PO amount.", vbExclamation
+    Me.curPOAmount.SetFocus
+    Exit Sub
+End If
+
+If IsNull(Me.txtFileName) Then
+    MsgBox "You must enter the filename to save this report as.", vbExclamation
+    Me.cmdBrowse.SetFocus
+    Exit Sub
+End If
+
+OpenWaitForm "Building PO Summary web page..."
+
+' Build criteria string
+Dim strMsg As String, strFilter As String, varItm As Variant
+
+'PO (required)
+If Right$(Me.txtPO, 1) = "*" Then
+  strFilter = "RefNum Like '" & Me.txtPO & "%'"
+Else
+  strFilter = "RefNum = '" & Me.txtPO & "'"
+End If
+
+'Date
+If Me.datFrom <> "" Or Me.datTo <> "" Then
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter & "[Ship_Date] " & FromToDateCriteria(Me.datFrom, Me.datTo)
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg & FormatFromTo(Me.datFrom, Me.datTo)
+End If
+
+'Customer
+If Me.comCustomer <> "" Then
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter + "[SoldName] = '" & Me.comCustomer & "'"
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg + "Customer: " & Me.comCustomer
+End If
+
+'Classification
+If Me.comClassification <> "" Then
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter + "[Classification] = '" & Me.comClassification & "'"
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg & "Classification: " & Me.comClassification
+End If
+
+'Store
+If Me.lstStore.ItemsSelected.Count > 0 Then
+    Dim crit As String, msg As String
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    For Each varItm In Me.lstStore.ItemsSelected
+        If crit <> "" Then crit = crit & " OR "
+        crit = crit & "Store = " & "'" & DQ(Me.lstStore.ItemData(varItm)) & "'"
+        If msg <> "" Then
+            msg = msg & ", "
+        Else
+            msg = "Store: "
+        End If
+        msg = msg & Me.lstStore.ItemData(varItm)
+    Next varItm
+    strFilter = strFilter & "(" & crit & ")"
+    strMsg = strMsg & msg
+End If
+
+If Me.lstWheatboard = 1 Then        ' only medite
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter + "[Medite] = True"
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg & "Wheatboard Shipments"
+ElseIf Me.lstWheatboard = 2 Then    ' only non medite
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter + "[Medite] = False"
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg & "Non-Wheatboard Shipments"
+End If
+
+If OutputPOPage(Me.txtFileName, Me.txtPO, Me.curPOAmount, strFilter, strMsg, Me.chkShade, Me.chkDescAtTop) = False Then
+    CloseWaitForm
+    Exit Sub
+End If
+
+CloseWaitForm
+
+If Me.chkLaunchPage Then
+    Call LaunchURL(Me, Me.txtFileName)
+End If
+
+Me.Visible = False
+
+End Sub

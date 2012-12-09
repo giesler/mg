@@ -1,0 +1,309 @@
+' ----------------------------------------------------------------------------
+' modCommonCode.bas
+' Common code shared accross all BLI programmed databases
+'
+' Created 9/25/00 by mpg@bli
+'
+'
+' ----------------------------------------------------------------------------
+
+Option Compare Database
+Option Explicit
+
+Public Declare Function GetUserName Lib "advapi32.dll" Alias "GetUserNameA" _
+ (ByVal lpBuffer As String, nSize As Long) As Long
+Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+
+' Globally used vars
+Public intStatusSteps As Integer
+Public flgDebug As Boolean
+
+Private Const mstrModName = "modCommonCode"
+
+Public Function GetDBDate() As String
+On Error GoTo errHandler
+    
+  GetDBDate = "November 15, 1997"
+  GetDBDate = Format$(cnVersionDate, "mmmm d, yyyy")
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "GetDBDate"
+Exit Function
+End Function
+
+Public Function GetDBVersion() As String
+On Error GoTo errHandler
+
+  If cnVersionMinor <> 0 Then
+    GetDBVersion = Format$(cnVersionMajor, "0.00") & "." & Format$(cnVersionMinor, "00")
+  Else
+    GetDBVersion = Format$(cnVersionMajor, "0.00")
+  End If
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "GetDBVersion"
+Exit Function
+End Function
+
+Public Function GetNTUserName() As String
+On Error GoTo errHandler
+
+  ' Dimension variables
+  Dim lpBuff As String * 25
+  Dim ret As Long, strUserName As String
+  
+  ' Get the user name minus any trailing spaces found in the name.
+  ret = GetUserName(lpBuff, 25)
+  strUserName = Left(lpBuff, InStr(lpBuff, Chr(0)) - 1)
+  
+  GetNTUserName = Trim(strUserName)
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "GetNTUserName"
+Exit Function
+End Function
+
+'Check for a SQL update
+Public Sub CheckSQLUpdate(Optional blnForce As Boolean)
+On Error GoTo errHandler
+
+  Dim x, sUser As String, sFileName As String, sSrv As String
+  
+  If IsMissing(blnForce) Then blnForce = False
+  
+  PrivIniRegister gstrIniSection, GetDBDir & "database.ini"
+  sSrv = PrivGetString("ServerDBPath", "none")
+  If sSrv = "none" Then
+    PrivPutString "ServerDBPath", gstrServerDBPath
+    sSrv = gstrServerDBPath
+  End If
+  
+  sFileName = Replace(gstrUpdateSQL, "%s", Format(cnVersionMajor, "0.00"))
+  sUser = LCase(GetNTUserName())
+  
+  If blnForce Or InStr(gstrAdminUsers, sUser) > 0 Then
+    If FileExists(sSrv & "\" & sFileName) Then
+      Dim fS As Form_fdlgSQLUpdate
+      Set fS = New Form_fdlgSQLUpdate
+      fS.txtUpdateFile = sSrv & "\" & sFileName
+      Pause fS
+    End If
+  End If
+
+Exit Sub
+errHandler:
+ErrHand mstrModName, "CheckSQLUpdate"
+Exit Sub
+End Sub
+
+Public Function gConn() As ADODB.Connection
+
+  Set gConn = CurrentProject.Connection
+
+End Function
+
+Public Function ErrHand(Optional strLocation As String, Optional strFunction As String)
+
+  Select Case Err
+    Case 2100           ' on resize, control is too large for location
+      On Error Resume Next
+      Screen.ActiveForm.Repaint
+    Case Else
+      Dim f As New Form_fdlgErrHand, sADO As String, eADO As Error
+      f.lblErrNumber.Caption = Err
+      f.lblErrorInfo.Caption = Err.Description
+      f.lblLocation.Caption = strLocation
+      f.lblFunction.Caption = strFunction
+      CloseWaitForm
+      CloseStatusForm
+      Pause f
+  End Select
+    
+End Function
+
+' ------------------------------------------------------------------------------
+' Status window / progress window
+' ------------------------------------------------------------------------------
+
+Public Function OpenWaitForm(strStatus As String)
+On Error GoTo errHandler
+
+  DoCmd.OpenForm "fdlgStatus"
+  Forms!fdlgStatus!lblStatus.Caption = strStatus
+  DoCmd.RepaintObject acForm, "fdlgStatus"
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "OpenWaitForm"
+Exit Function
+End Function
+
+Public Function CloseWaitForm()
+On Error Resume Next
+
+  DoCmd.Close acForm, "fdlgStatus"
+
+End Function
+
+Public Function OpenStatusForm(strStatus As String, numSteps As Integer)
+On Error GoTo errHandler
+
+  DoCmd.OpenForm "fdlgStatusBar"
+  Forms![fdlgStatusBar]![lblStatus].Caption = strStatus
+  intStatusSteps = numSteps
+  Forms![fdlgStatusBar]![boxStatus].Width = 0
+  DoCmd.RepaintObject acForm, "fdlgStatusBar"
+  
+Exit Function
+errHandler:
+ErrHand mstrModName, "OpenStatusForm"
+Exit Function
+End Function
+
+Public Function UpdateStatusForm(curStep As Integer, Optional strStatus As String)
+On Error GoTo errHandler
+
+  Dim intTemp As Integer
+  
+  If strStatus <> "" Then
+    Forms!fdlgStatusBar!lblStatus.Caption = strStatus
+  End If
+  
+  Forms!fdlgStatusBar!boxStatus.Width = (curStep / intStatusSteps) * Forms!fdlgStatusBar!boxBack.Width
+  DoCmd.RepaintObject acForm, "fdlgStatusBar"
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "UpdateStatusForm"
+Exit Function
+End Function
+
+Public Function CloseStatusForm()
+On Error Resume Next
+
+  DoCmd.Close acForm, "fdlgStatusBar"
+
+End Function
+
+Public Function GetDBDir() As String
+On Error Resume Next
+
+  Dim strDbName As String
+  strDbName = CurrentProject.FullName
+  
+  Do While Right$(strDbName, 1) <> "\"
+      strDbName = Left$(strDbName, Len(strDbName) - 1)
+  Loop
+  
+  GetDBDir = UCase$(strDbName)
+
+End Function
+
+Public Function GetDBName() As String
+
+  GetDBName = CurrentProject.Name
+
+End Function
+
+Public Function CloseForm()
+On Error Resume Next
+
+  DoCmd.Close acForm, Screen.ActiveForm.Name
+
+End Function
+
+Public Function fRecNav(strMoveTo As String)
+On Error GoTo errHandler
+
+  Select Case strMoveTo
+    Case "first"
+      DoCmd.GoToRecord , , acFirst
+    Case "prev", "previous"
+      DoCmd.GoToRecord , , acPrevious
+    Case "next"
+      DoCmd.GoToRecord , , acNext
+    Case "last"
+      DoCmd.GoToRecord , , acLast
+    Case "new"
+      DoCmd.GoToRecord , , acNewRec
+    Case "showall", "show all"
+      DoCmd.ShowAllRecords
+      On Error Resume Next
+      If Screen.ActiveForm.Controls("cmdShowAll").Visible = True Then
+        Screen.ActiveForm.Controls("cmdShowAll").Visible = False
+      End If
+    Case Else
+      MsgBox "The record movement command '" & strMoveTo & "' given in the function call was not recognized.", vbCritical
+  End Select
+
+Exit Function
+errHandler:
+Select Case Err
+  Case 2105
+    Select Case strMoveTo
+      Case "next": Case "last"
+        MsgBox "You're at the last record.", vbExclamation
+      Case Else
+        MsgBox "You're at the first record.", vbExclamation
+    End Select
+  Case Else
+    ErrHand mstrModName, "fRecNav"
+End Select
+Exit Function
+End Function
+
+Function FileExists(ByVal strPathName As String) As Boolean
+On Error Resume Next
+
+  Dim intFileNum As Integer
+  
+  'Remove any trailing directory separator character
+  If Right$(strPathName, 1) = "\" Then
+    strPathName = Left$(strPathName, Len(strPathName) - 1)
+  End If
+  
+  'Attempt to open the file, return value of this function is False
+  'if an error occurs on open, True otherwise
+  intFileNum = FreeFile
+  Open strPathName For Input As intFileNum
+  FileExists = IIf(Err, False, True)
+  Close intFileNum
+  Err.Clear
+
+End Function
+
+Public Function CloseCurReport()
+On Error Resume Next
+
+  DoCmd.Close acReport, Screen.ActiveReport.Name
+
+End Function
+
+Public Function Pause(f As Form)
+On Error Resume Next
+
+  If Not f.Visible Then f.Visible = True
+  
+  While f.Visible
+    DoEvents
+  Wend
+
+End Function
+
+Public Function DQ(pstrIn As String) As String
+
+  Dim pstrOut As String, i As Integer
+  pstrOut = ""
+  For i = 1 To Len(pstrIn)
+    If Mid(pstrIn, i, 1) = "'" Then
+      pstrOut = pstrOut + "''"
+    Else
+      pstrOut = pstrOut + Mid(pstrIn, i, 1)
+    End If
+  Next i
+  DQ = pstrOut
+  
+End Function

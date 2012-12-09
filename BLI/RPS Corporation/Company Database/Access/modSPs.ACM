@@ -1,0 +1,199 @@
+Option Compare Database
+Option Explicit
+
+Public sDealerName As Variant
+Public sVendorName As Variant
+Public datFromDate As Variant
+Public datToDate As Variant
+Public sPartName As Variant
+Public iOpenFlag As Variant
+Public sPOID As Variant
+Public sOrderID As Variant
+Public sVendorPartName As Variant
+Public sModel As Variant
+Public sState As Variant
+Public sCounty As Variant
+Public sActiveInactive As Variant
+Public sCompanyName As Variant
+Public sMisc As Variant
+Public sFromMonth As Variant
+Public sFromYear As Variant
+Public sToMonth As Variant
+Public sToYear As Variant
+Public sFromPart As Variant
+Public sToPart As Variant
+Public iQty As Variant
+Public sOpen As Variant
+Public sOpenClosed As Variant
+Public datFromDate2 As Variant
+Public datToDate2 As Variant
+Public datFromDate3 As Variant
+Public datToDate3 As Variant
+Public iType As Variant
+
+Public Function GetDealerName() As Variant
+GetDealerName = sDealerName
+End Function
+
+Public Function GetVendorName() As Variant
+GetVendorName = sVendorName
+End Function
+
+Public Function GetFromDate() As Variant
+GetFromDate = datFromDate
+End Function
+
+Public Function GetToDate() As Variant
+GetToDate = datToDate
+End Function
+
+Public Function GetFromDate2() As Variant
+GetFromDate2 = datFromDate2
+End Function
+
+Public Function GetToDate2() As Variant
+GetToDate2 = datToDate2
+End Function
+
+Public Function GetFromDate3() As Variant
+GetFromDate3 = datFromDate3
+End Function
+
+Public Function GetToDate3() As Variant
+GetToDate3 = datToDate3
+End Function
+
+Public Function GetPartName() As Variant
+GetPartName = sPartName
+End Function
+
+Public Function GetOpenFlag() As Variant
+
+If IsNull(iOpenFlag) Then
+  GetOpenFlag = Null
+ElseIf iOpenFlag = "Null" Then
+  GetOpenFlag = Null
+Else
+    If iOpenFlag = -1 Then iOpenFlag = 1
+    GetOpenFlag = iOpenFlag
+End If
+End Function
+
+Public Function GetPOID() As Variant
+GetPOID = sPOID
+End Function
+
+Public Function GetOrderID() As Variant
+GetOrderID = sOrderID
+End Function
+
+Public Function GetVendorPartName() As Variant
+GetVendorPartName = sVendorPartName
+End Function
+
+Public Function GetModel() As Variant
+GetModel = sModel
+End Function
+
+Public Function GetState() As Variant
+GetState = sState
+End Function
+
+Public Function GetCounty() As Variant
+GetCounty = sCounty
+End Function
+
+Public Function GetActiveInactive() As Variant
+GetActiveInactive = sActiveInactive
+End Function
+
+Public Function GetCompanyName() As Variant
+GetCompanyName = sCompanyName
+End Function
+
+Public Function GetMisc() As Variant
+GetMisc = sMisc
+End Function
+
+Public Function GetFromMonth() As Variant
+GetFromMonth = sFromMonth
+End Function
+
+Public Function GetFromYear() As Variant
+GetFromYear = sFromYear
+End Function
+
+Public Function GetToMonth() As Variant
+GetToMonth = sToMonth
+End Function
+
+Public Function GetToYear() As Variant
+GetToYear = sToYear
+End Function
+
+Public Function GetFromPart() As Variant
+GetFromPart = sFromPart
+End Function
+
+Public Function GetToPart() As Variant
+GetToPart = sToPart
+End Function
+
+Public Function GetQty() As Variant
+GetQty = iQty
+End Function
+
+Public Function GetOpenClosed() As Variant
+GetOpenClosed = sOpenClosed
+End Function
+
+Public Function GetType() As Variant
+GetType = iType
+End Function
+
+Public Function ChangeStars(strIn As String, blnCancel As Boolean) As String
+
+Dim i As Integer, strOut As String, strOut2 As String, msg As String
+strOut = strIn
+blnCancel = False
+If InStr(strIn, "*") Then
+  For i = 1 To Len(strIn)
+    If Mid(strOut, i, 1) = "*" Then
+      strOut = Left(strOut, i - 1) & "%" & Mid(strOut, i + 1)
+    End If
+    blnCancel = True
+  Next i
+'  MsgBox "Please use the percentage sign (%) instead of stars (*) in this new database.  The stars you entered have been changed automatically, but if you edit the fiilter again you must click 'Clear Filter' to make a new filter.", vbInformation
+End If
+
+'strOut2 = strOut
+'If InStr(strOut, "%") And Not InStr(strOut, "Like") Then
+'  msg = "You must put 'Like' before any wildcard characters." & vbCrLf & vbCrLf
+'  msg = msg & "For example:" & vbCrLf
+'  msg = msg & vbTab & "Like '534%'" & vbTab & "or"
+'  msg = msg & vbTab & "Like '%RPS%'"
+'  MsgBox msg, vbInformation
+'  blnCancel = True
+'End If
+
+ChangeStars = strOut
+
+End Function
+
+
+Public Function QuoteName(sIn As Variant) As Variant
+
+If IsNull(sIn) Then
+  QuoteName = ""
+ElseIf InStr(sIn, "'") = 0 Then
+  QuoteName = sIn
+Else
+  Dim i As Integer, sOut As String
+  For i = 1 To Len(sIn)
+    sOut = sOut & Mid(sIn, i, 1)
+    If Mid(sIn, i, 1) = "'" Then sOut = sOut & "'"
+  Next i
+  QuoteName = sOut
+End If
+
+End Function

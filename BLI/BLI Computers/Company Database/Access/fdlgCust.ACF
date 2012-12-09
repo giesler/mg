@@ -1,0 +1,971 @@
+Version =19
+VersionRequired =19
+Checksum =-342539754
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =6360
+    DatasheetFontHeight =10
+    ItemSuffix =61
+    Left =4455
+    Top =2610
+    Right =10815
+    Bottom =5415
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x336c45a178c9e140
+    End
+    RecordSource ="SELECT apkCust, CustName, CustBusinessFlag FROM dbo.tblCust"
+    Caption ="Customer Information"
+    DatasheetFontName ="Arial"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ListBox
+            SpecialEffect =2
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin FormHeader
+            Height =0
+            BackColor =-2147483633
+            Name ="FormHeader"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =2340
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =780
+                    Top =120
+                    Width =4080
+                    ColumnWidth =1650
+                    Name ="txtCustName"
+                    ControlSource ="CustName"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =540
+                            Height =240
+                            Name ="Label12"
+                            Caption ="Name:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =93
+                    Left =5100
+                    Top =180
+                    Width =240
+                    TabIndex =1
+                    Name ="chkCustBusinessFlag"
+                    ControlSource ="CustBusinessFlag"
+                    Begin
+                        Begin Label
+                            OverlapFlags =87
+                            Left =5340
+                            Top =120
+                            Width =720
+                            Height =240
+                            Name ="Label21"
+                            Caption ="Business"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Left =60
+                    Top =420
+                    Width =1620
+                    Height =1860
+                    AutoActivate =1
+                    TabIndex =2
+                    Name ="tvAreas"
+                    OleData = Begin
+                        0x00120000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff01000000b69041c78985d111b16a00c0 ,
+                        0xf0283628000000000000000000000000500f0d822602bf010a00000080020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000060000008e000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000030000008b000000 ,
+                        0x0000000008000000fdffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfefffffffefffffffeffffff07000000ffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff01000000b69041c78985d111b16a00c0 ,
+                        0xf0283628000000000000000000000000d0a6bcc82702bf010600000080020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000060000008e000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000030000008b000000 ,
+                        0x00000000ffffffffffffffff05000000fdfffffffefffffffeffffff07000000 ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffff0400000005000000feffffff07000000 ,
+                        0x08000000fefffffffeffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff03004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000010000005c000000 ,
+                        0x0000000002004f006c0065005000720065007300300030003000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000018000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000024000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000400000001000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000b59c9400b59c9c00bd9c8c00bd9c9400bd9c9c00ada5a5 ,
+                        0x00b5a59c5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x00ceb5b500c6bdb500cebdb500d6bdb500c6bdbd00d6bdbd00d6c6bd00dec6bd ,
+                        0x00c6c6c6b69041c78985d111b16a00c0f028362821433412080000002a0b0000 ,
+                        0xd10c0000b13cc16a010006002200000039000000610100000800000099a4d80d ,
+                        0x01efcdab0000050068a6d80d06000000000000000500008024dd120001000000 ,
+                        0x5c001fdeecbd010005002ddd12000352e30b918fce119de300aa004bb8510100 ,
+                        0x0000900144420100065461686f6d610000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000100feff030a0000ffffffffb69041c78985d111b16a00c0f0283628 ,
+                        0x280000004d6963726f736f667420547265655669657720436f6e74726f6c2c20 ,
+                        0x76657273696f6e20362e3000170000004d53436f6d63746c4c69622e54726565 ,
+                        0x4374726c2e3200170000004d53436f6d63746c4c69622e547265654374726c2e ,
+                        0x3200f439b2710000000000000000000000007901000203020310000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000001000002000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    OLEClass ="TreeCtrl"
+                    Class ="MSComctlLib.TreeCtrl.2"
+                    GUID = Begin
+                        0x823d618c02ac30428e3db586b1a02a0a
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =215
+                    Left =1740
+                    Top =420
+                    Width =4560
+                    Height =1860
+                    AutoActivate =1
+                    TabIndex =3
+                    Name ="lvItems"
+                    OleData = Begin
+                        0x00120000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf0283628000000000000000000000000500f0d822602bf010a00000080020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000600000096000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000300000093000000 ,
+                        0x0000000008000000fdffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfefffffffefffffffeffffff07000000ffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf0283628000000000000000000000000d0a6bcc82702bf010600000080020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000600000096000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000300000093000000 ,
+                        0x00000000ffffffffffffffff05000000fdfffffffefffffffeffffff07000000 ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffff0400000005000000feffffff07000000 ,
+                        0x08000000fefffffffeffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff03004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000010000005c000000 ,
+                        0x0000000002004f006c0065005000720065007300300030003000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000018000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000024000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000400000001000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000b59c9400b59c9c00bd9c8c00bd9c9400bd9c9c00ada5a5 ,
+                        0x00b5a59c5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x00ceb5b500c6bdb500cebdb500d6bdb500c6bdbd00d6bdbd00d6c6bd00dec6bd ,
+                        0x00c6c6c64bf0d1bd8b85d111b16a00c0f028362821433412080000006b1f0000 ,
+                        0xd10c00004e087deb010006001c0000000000000000000000e38200066b1f0000 ,
+                        0x01efcdab0000050081e1af770780da0608000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd01000500d1de9b060352e30b918fce119de300aa ,
+                        0x004bb85101000000900144420100065461686f6d610000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000100feff030a0000ffffffff4bf0d1bd8b85d111b16a00c0f0283628 ,
+                        0x280000004d6963726f736f6674204c6973745669657720436f6e74726f6c2c20 ,
+                        0x76657273696f6e20362e30001b0000004d53436f6d63746c4c69622e4c697374 ,
+                        0x566965774374726c2e32001b0000004d53436f6d63746c4c69622e4c69737456 ,
+                        0x6965774374726c2e3200f439b271000000000000000000000000000000000000 ,
+                        0x00000b0000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000001000002000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000001d00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00001d0000000000
+                    End
+                    OLEClass ="ListViewCtrl"
+                    Class ="MSComctlLib.ListViewCtrl.2"
+                    GUID = Begin
+                        0xa58ce56558f44e49b65961be36575eaf
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =480
+            BackColor =-2147483633
+            Name ="FormFooter"
+            Begin
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =5280
+                    Top =60
+                    Width =990
+                    Name ="cmdClose"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =78
+                    Left =180
+                    Top =60
+                    Width =1080
+                    TabIndex =1
+                    Name ="cmdNewSale"
+                    Caption ="&New Invoice"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    ShortcutMenuBar ="NewQSI"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =70
+                    Left =2220
+                    Top =60
+                    Width =960
+                    TabIndex =2
+                    Name ="cmdCustForm"
+                    Caption ="Cust &Form"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =81
+                    Left =1260
+                    Top =60
+                    Width =960
+                    TabIndex =3
+                    Name ="cmdNewQuote"
+                    Caption ="New &Quote"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =4260
+                    Top =60
+                    Width =990
+                    TabIndex =4
+                    Name ="cmdSave"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Sub cmdClose_Click()
+On Error GoTo Err_cmdClose_Click
+
+If Me.Dirty Then Me.Undo
+DoCmd.Close acForm, Me.Name
+
+Exit_cmdClose_Click:
+    Exit Sub
+
+Err_cmdClose_Click:
+    ErrHand "fdlgCust", "cmdClose"
+    Resume Exit_cmdClose_Click
+    
+End Sub
+
+Private Sub cmdCustForm_Click()
+On Error GoTo cmdCustForm_Err
+
+If IsNull(Me.txtCustName) Then
+  MsgBox "Please enter a customer name first.", vbExclamation
+  Me.txtCustName.SetFocus
+  Exit Sub
+End If
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+OpenCustMainForm Me.apkCust, Me.chkCustBusinessFlag
+
+Exit Sub
+cmdCustForm_Err:
+ErrHand Me.Name, "cmdCustForm"
+Exit Sub
+
+End Sub
+
+Private Sub cmdNewQuote_Click()
+On Error GoTo cmdNewQuote_Err
+
+Dim CustNum As Long
+
+If IsNull(Me.txtCustName) Then
+  MsgBox "Please enter a customer name first.", vbExclamation
+  Me.txtCustName.SetFocus
+  Exit Sub
+End If
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+    
+CustNum = Me!apkCust
+DoCmd.Close acForm, Me.Name
+NewPriceQuote (CustNum)
+    
+cmdNewQuote_Err:
+ErrHand Me.Name, "cmdNewQuote"
+Exit Sub
+    
+End Sub
+
+Sub cmdNewSale_Click()
+On Error GoTo Err_cmdNewSale_Click
+
+Dim CustNum As Long
+If IsNull(Me.txtCustName) Then
+  MsgBox "Please enter a customer name first.", vbExclamation
+  Me.txtCustName.SetFocus
+  Exit Sub
+End If
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+CustNum = Me!apkCust
+DoCmd.Close acForm, Me.Name
+NewInvoice (CustNum)
+
+Exit Sub
+Err_cmdNewSale_Click:
+ErrHand "fdlgCust", "cmdNewSale"
+Exit Sub
+
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo cmdSave_Err
+
+If Not IsNull(Me.OpenArgs) Then
+  DoCmd.RunCommand acCmdSaveRecord
+  Me.Visible = False
+Else
+    DoCmd.Close acForm, Me.Name
+End If
+
+Exit Sub
+cmdSave_Err:
+ErrHand Me.Name, "cmdSave"
+Exit Sub
+
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo Form_Load_Err
+
+If Not IsNull(Me.OpenArgs) Then
+    Me.cmdCustForm.Visible = False
+    Me.cmdNewQuote.Visible = False
+    Me.cmdNewSale.Visible = False
+    Me.txtCustName = Me.OpenArgs
+End If
+
+Dim n As Node
+
+Set n = Me.tvAreas.Nodes.Add(, , , "Phone Numbers")
+Set n = Me.tvAreas.Nodes.Add(, , , "Addresses")
+Set n = Me.tvAreas.Nodes.Add(, , , "Misc. Info")
+
+Exit Sub
+Form_Load_Err:
+ErrHand Me.Name, "Form_Load"
+Exit Sub
+End Sub
+
+Private Sub lvItems_DblClick()
+On Error GoTo lvItems_DblClick_Err
+
+Dim n As Node, li As ListItem
+Set n = Me.tvAreas.SelectedItem
+If n Is Nothing Then Exit Sub
+Set li = Me.lvItems.SelectedItem
+If li Is Nothing Then Exit Sub
+
+If IsNull(Me!apkCust) Then
+  If IsNull(Me.txtCustName) Then
+    MsgBox "Please enter a customer name!", vbExclamation
+    Me.txtCustName.SetFocus
+    Exit Sub
+  End If
+  DoCmd.RunCommand acCmdSaveRecord
+End If
+
+Select Case n.Text
+  Case "Phone Numbers"
+    If Mid(li.key, 3) = "add" Then
+      liEditPhoneNumber True
+    Else
+      liEditPhoneNumber False
+    End If
+  Case "Addresses"
+    If Mid(li.key, 3) = "add" Then
+      liEditAddress True
+    Else
+      liEditAddress False
+    End If
+  Case "Misc. Info"
+    liEditMiscInfo
+End Select
+
+Exit Sub
+lvItems_DblClick_Err:
+ErrHand Me.Name, "lvItems_DblClick_Err"
+Exit Sub
+
+End Sub
+
+Private Sub tvAreas_Click()
+On Error GoTo tvAreas_Click_Err
+
+Dim n As Node
+Set n = Me.tvAreas.SelectedItem
+If n Is Nothing Then Exit Sub
+
+Me.lvItems.ListItems.Clear
+Me.lvItems.ColumnHeaders.Clear
+Select Case n.Text
+  Case "Phone Numbers"
+    FillPhoneNumbers
+  Case "Addresses"
+    FillAddresses
+  Case "Misc. Info"
+    FillMiscInfo
+End Select
+
+Exit Sub
+tvAreas_Click_Err:
+ErrHand Me.Name, "tvAreas_Err"
+Exit Sub
+End Sub
+
+Private Sub FillMiscInfo()
+On Error GoTo FillMiscInfo_Err
+
+Dim li As ListItem, lsi As ListSubItem, sSQL As String, r As New Recordset, ch As ColumnHeader
+
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Labor Rate", 1000, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Terms", IIf(Me.chkCustBusinessFlag, 0, 1100), lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Notes", 1900, lvwColumnLeft)
+Me.lvItems.Sorted = False
+
+If IsNull(Me!apkCust) Then
+  If IsNull(Me.txtCustName) Then
+    MsgBox "Please enter a customer name then click 'Misc Info' again.", vbExclamation
+    Exit Sub
+  End If
+  DoCmd.RunCommand acCmdSaveRecord
+End If
+
+sSQL = "SELECT tblCust.CustName, tblCust.CustLaborRate, tblCust.afkCustTerm, "
+sSQL = sSQL & "tblTerm.Term, tblCust.CustCustomerNotes "
+sSQL = sSQL & "FROM tblCust LEFT OUTER JOIN tblTerm ON tblCust.afkCustTerm = tblTerm.apkTerm "
+sSQL = sSQL & "WHERE tblCust.apkCust = " & Nz(Me.apkCust, 0)
+
+r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+Do While Not r.EOF
+  Set li = Me.lvItems.ListItems.Add(, , "")
+  li.Text = Format(Nz(r!CustLaborRate, ""), "Currency")
+  li.SubItems(1) = Nz(r!Term, "")
+  li.SubItems(2) = Nz(r!CustCustomerNotes, "")
+  r.MoveNext
+Loop
+r.Close
+
+Exit Sub
+FillMiscInfo_Err:
+ErrHand Me.Name, "FillMiscInfo"
+Exit Sub
+End Sub
+
+Private Sub liEditMiscInfo()
+On Error GoTo liEditMiscInfo_Err
+
+Dim li As ListItem, id As Long, fE As New Form_fdlgCustNotes
+Dim r As New Recordset
+Set li = Me.lvItems.SelectedItem
+If li Is Nothing Then Exit Sub
+  
+If IsNull(Me!apkCust) Then DoCmd.RunCommand acCmdSaveRecord
+
+fE.Filter = "apkCust = " & Me!apkCust
+fE.FilterOn = True
+fE.comafkCustTerm.Visible = Not Me.chkCustBusinessFlag
+Pause fE
+  
+If Not fE.blnCancel Then
+  li.Text = Format(Nz(fE.txtCustLaborRate, ""), "Currency")
+  li.SubItems(1) = Nz(fE.comafkCustTerm.Column(1), "")
+  li.SubItems(2) = Nz(fE.txtCustCustomerNotes, "")
+End If
+
+Exit Sub
+liEditMiscInfo_Err:
+ErrHand Me.Name, "liEditMiscInfo"
+Exit Sub
+End Sub
+
+
+Private Sub FillPhoneNumbers()
+On Error GoTo FillPhoneNumbers_Err
+
+Dim li As ListItem, lsi As ListSubItem, sSQL As String, r As New Recordset, ch As ColumnHeader
+
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Description", 1800, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Phone Number", 1250, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Note", 600, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Main", 600, lvwColumnCenter)
+Me.lvItems.Sorted = False
+
+Set li = Me.lvItems.ListItems.Add(, "p:add", "Add new phone number")
+PadListRow li
+
+sSQL = "SELECT apkCPhone, afkCPhoneCust, CPhoneMain, CPhoneDesc, CPhoneNumber, CPhoneNote "
+sSQL = sSQL & "FROM tblCustPhone WHERE afkCPhoneCust = " & Nz(Me!apkCust, 0)
+
+r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+Do While Not r.EOF
+  Set li = Me.lvItems.ListItems.Add(, "p:" & r!apkCPhone, Nz(r!CPhoneDesc, ""))
+  li.SubItems(1) = Nz(r!CPhoneNumber, "")
+  li.SubItems(2) = Nz(r!CPhoneNote, "")
+  li.SubItems(3) = IIf(r!CPhoneMain, Chr(215), "")
+  r.MoveNext
+Loop
+r.Close
+
+Exit Sub
+FillPhoneNumbers_Err:
+ErrHand Me.Name, "FillPhoneNumbers"
+Exit Sub
+End Sub
+
+Private Sub liEditPhoneNumber(blnAdd As Boolean)
+On Error GoTo liEditPhoneNumber_Err
+
+Dim li As ListItem, id As Long, fE As New Form_fdlgCustPhone, id2 As Long
+Dim r As New Recordset, blnFoundMain As Boolean, oLI As ListItem
+Set li = Me.lvItems.SelectedItem
+If li Is Nothing Then Exit Sub
+If blnAdd Then
+  r.Open "tblCustPhone", CurrentProject.Connection, adOpenDynamic, adLockOptimistic
+  r.AddNew
+  r!afkCPhoneCust = Me.apkCust
+  r.Update
+  id = r!apkCPhone
+  r.Close
+Else
+  id = Val(Mid(li.key, 3))
+End If
+fE.Filter = "apkCPhone = " & id
+fE.FilterOn = True
+Pause fE
+  
+If blnAdd And fE.blnCancel Then
+  CurrentProject.Connection.Execute "DELETE FROM tblCustPhone WHERE apkCPhone = " & fE.apkCPhone
+End If
+
+If Not fE.blnCancel Then
+  If blnAdd Then Set li = Me.lvItems.ListItems.Add(, "p:" & fE.apkCPhone)
+  li.Text = Nz(fE.comCPhoneDesc, "")
+  li.SubItems(1) = Nz(fE.txtCPhoneNumber, "")
+  li.SubItems(2) = Nz(fE.txtCPhoneNote, "")
+  li.SubItems(3) = IIf(fE.chkCPhoneMain, Chr(215), "")
+  If fE.chkCPhoneMain Then
+    For Each oLI In Me.lvItems.ListItems
+      If Mid(oLI.key, 3) <> "add" Then
+        id2 = Val(Mid(oLI.key, 3))
+        If oLI.SubItems(3) = Chr(215) And id2 <> id Then
+          CurrentProject.Connection.Execute "UPDATE tblCustPhone SET CPhoneMain = 0 WHERE apkCPhone = " & id2
+          oLI.SubItems(3) = ""
+        End If
+      End If
+    Next oLI
+  Else
+    For Each oLI In Me.lvItems.ListItems
+      If oLI.SubItems(3) = Chr(215) Then blnFoundMain = True
+    Next oLI
+    If Not blnFoundMain Then
+      CurrentProject.Connection.Execute "UPDATE tblCustPhone SET CPhoneMain = 1 WHERE apkCPhone = " & id
+      li.SubItems(3) = Chr(215)
+      If Not blnAdd Then MsgBox "The current phone number has been set as the main phone number because there wasn't another phone number set as main.  To set another as main, double click it and check 'Main'.", vbExclamation
+    End If
+  End If
+End If
+
+Exit Sub
+liEditPhoneNumber_Err:
+ErrHand Me.Name, "liEditPhoneNumber"
+Exit Sub
+End Sub
+
+
+Private Sub FillAddresses()
+On Error GoTo FillAddresses_Err
+
+Dim li As ListItem, lsi As ListSubItem, sSQL As String, r As New Recordset, ch As ColumnHeader
+
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Description", 1500, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Address", 1300, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "City, ST  Zip", 800, lvwColumnLeft)
+Set ch = Me.lvItems.ColumnHeaders.Add(, , "Mail", 600, lvwColumnCenter)
+Me.lvItems.Sorted = False
+
+Set li = Me.lvItems.ListItems.Add(, "p:add", "Add new address")
+PadListRow li
+
+sSQL = "SELECT apkCAddr, CAddrMail, CAddrDesc, CAddrAddr, CAddrCity, CAddrState, CAddrZip "
+sSQL = sSQL & "FROM tblCustAddr WHERE afkCAddrCust = " & Nz(Me!apkCust, 0)
+
+r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+Do While Not r.EOF
+  Set li = Me.lvItems.ListItems.Add(, "p:" & r!apkCAddr, Nz(r!CAddrDesc, ""))
+  li.SubItems(1) = Nz(r!CAddrAddr, "")
+  li.SubItems(2) = Nz(r!CAddrCity, "") & ", " & Nz(r!CAddrState, "") & "  " & Nz(r!CAddrZip, "")
+  li.SubItems(3) = IIf(r!CAddrMail, Chr(215), "")
+  r.MoveNext
+Loop
+r.Close
+
+Exit Sub
+FillAddresses_Err:
+ErrHand Me.Name, "FillAddresses"
+Exit Sub
+End Sub
+
+Private Sub liEditAddress(blnAdd As Boolean)
+On Error GoTo liEditAddress_Err
+
+Dim li As ListItem, id As Long, fE As New Form_fdlgCustAddr, id2 As Long
+Dim r As New Recordset, blnFoundMain As Boolean, oLI As ListItem
+Set li = Me.lvItems.SelectedItem
+If li Is Nothing Then Exit Sub
+If blnAdd Then
+  r.Open "tblCustAddr", CurrentProject.Connection, adOpenDynamic, adLockOptimistic
+  r.AddNew
+  r!afkCAddrCust = Me.apkCust
+  r.Update
+  id = r!apkCAddr
+  r.Close
+Else
+  id = Val(Mid(li.key, 3))
+End If
+fE.Filter = "apkCAddr = " & id
+fE.FilterOn = True
+Pause fE
+  
+If blnAdd And fE.blnCancel Then
+  CurrentProject.Connection.Execute "DELETE FROM tblCustAddr WHERE apkCAddr = " & fE.apkCAddr
+End If
+
+If Not fE.blnCancel Then
+  If blnAdd Then Set li = Me.lvItems.ListItems.Add(, "p:" & fE.apkCAddr)
+  li.Text = Nz(fE.comCAddrDesc, "")
+  li.SubItems(1) = Nz(fE.txtCAddrAddr, "")
+  li.SubItems(2) = Nz(fE.txtCAddrCity, "") & ", " & Nz(fE.txtCAddrState, "") & "  " & Nz(fE.txtCAddrZip, "")
+  li.SubItems(3) = IIf(fE.chkCAddrMail, Chr(215), "")
+  If fE.chkCAddrMail Then
+    For Each oLI In Me.lvItems.ListItems
+      If Mid(oLI.key, 3) <> "add" Then
+        id2 = Val(Mid(oLI.key, 3))
+        If oLI.SubItems(3) = Chr(215) And id2 <> id Then
+          CurrentProject.Connection.Execute "UPDATE tblCustAddr SET CAddrMail = 0 WHERE apkCAddr = " & id2
+          oLI.SubItems(3) = ""
+        End If
+      End If
+    Next oLI
+  Else
+    For Each oLI In Me.lvItems.ListItems
+      If oLI.SubItems(3) = Chr(215) Then blnFoundMain = True
+    Next oLI
+    If Not blnFoundMain Then
+      CurrentProject.Connection.Execute "UPDATE tblCustAddr SET CAddrMail = 1 WHERE apkCAddr = " & id
+      li.SubItems(3) = Chr(215)
+      If Not blnAdd Then MsgBox "The current address has been set as the mailling address because there wasn't another address set as the mailling address.  To set another as mailling, double click it and check 'Mail'.", vbExclamation
+    End If
+  End If
+End If
+
+Exit Sub
+liEditAddress_Err:
+ErrHand Me.Name, "liEditAddress"
+Exit Sub
+End Sub

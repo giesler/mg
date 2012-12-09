@@ -1,0 +1,1062 @@
+Version =19
+VersionRequired =19
+Checksum =872417324
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =3
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =9360
+    DatasheetFontHeight =10
+    ItemSuffix =8
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x18de7028b8cce140
+    End
+    ServerFilter ="ProspectID = 1"
+    RecordSource ="dbo.tblProspects"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000902400004821000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin CheckBox
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin Tab
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin PageHeader
+            Height =0
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0x3b433dc5c63ec143a3f58dd022b898f9
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =8835
+            Name ="Detail"
+            GUID = Begin
+                0x84899713ef1b234b86216ed908475ed7
+            End
+            Begin
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1680
+                    Top =540
+                    Width =6360
+                    FontWeight =700
+                    BorderColor =8421504
+                    Name ="CompanyName"
+                    ControlSource ="CompanyName"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x6705446d4808104cbd9f2b81829e49e6
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =180
+                            Top =540
+                            Width =1380
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label249"
+                            Caption ="C&ompany Name:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x2dbc482876e6cf4d9b365e197cfc5291
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    Top =360
+                    Width =9360
+                    Name ="Line2"
+                    GUID = Begin
+                        0x2727fcaaf48aee43a35136ac2629f930
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =180
+                    Top =60
+                    Width =4380
+                    Height =240
+                    FontWeight =700
+                    BackColor =12632256
+                    Name ="Label3"
+                    Caption ="Tom Cat Prospect Information Page"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xcb15bace20be0c44af28f661f8275c22
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =77
+                    TextFontFamily =34
+                    Left =1680
+                    Top =1020
+                    Width =1860
+                    TabIndex =1
+                    BorderColor =8421504
+                    Name ="txtFirstName"
+                    ControlSource ="FirstName"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xfa24a5af091f45458ba594a3a8b4235c
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =600
+                            Top =1020
+                            Width =960
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label250"
+                            Caption ="First Na&me:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x8569fcb45597fb47a35d54aab4295e17
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =76
+                    TextFontFamily =34
+                    Left =4800
+                    Top =1020
+                    Width =1860
+                    TabIndex =2
+                    BorderColor =8421504
+                    Name ="txtLastName"
+                    ControlSource ="LastName"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x94f30d92f387f74d92b04f3530b427b0
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =3660
+                            Top =1020
+                            Width =1020
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label251"
+                            Caption ="&Last Name:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xb95248f9b85fe548bd9e59bf94d5e6d0
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =83
+                    TextFontFamily =34
+                    Left =1680
+                    Top =1740
+                    Width =4980
+                    TabIndex =3
+                    BorderColor =8421504
+                    Name ="txtStreetAddress"
+                    ControlSource ="StreetAddress"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xee3088493f809148a42a95cdfa564110
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =360
+                            Top =1740
+                            Width =1200
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label252"
+                            Caption ="&Street Address:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xebc95135f39432429c14892d70e8d8c9
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7920
+                    Top =1740
+                    Width =1080
+                    TabIndex =4
+                    BorderColor =8421504
+                    Name ="txtStreetZipCode"
+                    ControlSource ="StreetZipCode"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xdb13a2fdb0c33743aada11fa10c3bcfe
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =6780
+                            Top =1740
+                            Width =1020
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label253"
+                            Caption ="Street Zip:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x20ee4b780987604cad6fc8d7bb750495
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =66
+                    TextFontFamily =34
+                    Left =1680
+                    Top =2100
+                    Width =4980
+                    TabIndex =5
+                    BorderColor =8421504
+                    Name ="txtPOBox"
+                    ControlSource ="POBox"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x36c138d4677dc845802666e25b6405cd
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =660
+                            Top =2100
+                            Width =900
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label254"
+                            Caption ="PO &Box:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x0138ccbf80a4be449b156b67b42c1288
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =90
+                    TextFontFamily =34
+                    Left =7920
+                    Top =2100
+                    Width =1080
+                    TabIndex =6
+                    BorderColor =8421504
+                    Name ="txtPOBoxZipCode"
+                    ControlSource ="POBoxZipCode"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x5da0869b30db474790fc0fba36aa20f3
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =6780
+                            Top =2100
+                            Width =1020
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label255"
+                            Caption ="PO &Zip:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x33a63ee07d6aba4d8c36fae8288cd471
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =89
+                    TextFontFamily =34
+                    Left =1680
+                    Top =2460
+                    Width =1860
+                    TabIndex =7
+                    BorderColor =8421504
+                    Name ="txtCity"
+                    ControlSource ="City"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xbd02b82f1785584aa734f4d5439e7849
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =1080
+                            Top =2460
+                            Width =465
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label256"
+                            Caption ="Cit&y:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x13610169370ea2449b85c83f27646810
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =4800
+                    Top =2460
+                    Width =1860
+                    TabIndex =8
+                    BorderColor =8421504
+                    Name ="txtState"
+                    ControlSource ="State"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xc576686406f1b6459eb44e11d678f743
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =4080
+                            Top =2460
+                            Width =600
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label257"
+                            Caption ="St&ate:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x2d111ef26819c7448ce021facf0f07be
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =72
+                    TextFontFamily =34
+                    Left =1680
+                    Top =2820
+                    Width =1860
+                    TabIndex =9
+                    BorderColor =8421504
+                    Name ="txtPhone"
+                    ControlSource ="Phone"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xed592e8e44c2ce44961603f849193ba2
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =900
+                            Top =2820
+                            Width =675
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label258"
+                            Caption ="P&hone:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x14215157f36142419c4da3bddd8bba42
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =88
+                    TextFontFamily =34
+                    Left =4800
+                    Top =2820
+                    Width =1860
+                    TabIndex =10
+                    BorderColor =8421504
+                    Name ="txtFax"
+                    ControlSource ="Fax"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x1eb32b4d42fc2a48b768333eb77ab55b
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =4200
+                            Top =2820
+                            Width =465
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label259"
+                            Caption ="Fa&x:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x20d5b3a86b23154c9bbcf624c0fb730d
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1680
+                    Top =3240
+                    Width =1860
+                    TabIndex =11
+                    BorderColor =8421504
+                    Name ="txtPrinciple"
+                    ControlSource ="Principle"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x6d1f8dfc69c4674ca5c042dc8dc06c84
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =660
+                            Top =3240
+                            Width =885
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label270"
+                            Caption ="Principle:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x44503f70d813b04a81a63ca628bc0a81
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =4800
+                    Top =3240
+                    Width =1860
+                    TabIndex =12
+                    BorderColor =8421504
+                    Name ="txtSalesMgr"
+                    ControlSource ="SalesMgr"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x7881f4d0d072bc4eb9e67b3e22db6f01
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =3720
+                            Top =3240
+                            Width =930
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label271"
+                            Caption ="Sales Mgr:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xce8bd6fd20bb494bbc51d4781d9d5e98
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1680
+                    Top =3540
+                    Width =1860
+                    Height =255
+                    TabIndex =13
+                    BorderColor =8421504
+                    Name ="txtOther"
+                    ControlSource ="Other"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xb3aa3ed2e3e0b842ab2d323b821ec5f7
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =900
+                            Top =3540
+                            Width =615
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label272"
+                            Caption ="Other:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x293e68c27073b04b8a43449700cfe527
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    FELineBreak = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1669
+                    Top =3900
+                    Width =7335
+                    Height =546
+                    TabIndex =14
+                    BorderColor =8421504
+                    Name ="txtEquipmentCarried"
+                    ControlSource ="EquipmentCarried"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x747d54e6e8f9904f9ebfac7be03af4ec
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =360
+                            Top =3900
+                            Width =1155
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label273"
+                            Caption ="Current Lines:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xcb991891ecd92f47996dca9e507c8f84
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =8059
+                    Top =8580
+                    Width =1065
+                    Height =255
+                    TabIndex =15
+                    BorderColor =8421504
+                    Name ="txtRecordUpdateDate"
+                    ControlSource ="RecordUpdateDate"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xf2710625ad5d6349a672d04312ef6fbc
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =6120
+                            Top =8580
+                            Width =1785
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label282"
+                            Caption ="Last Updated:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x190d974ae323914bb9df75666ecf9760
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1654
+                    Top =4560
+                    Width =1290
+                    Height =255
+                    TabIndex =16
+                    BorderColor =8421504
+                    GUID = Begin
+                        0x51eb689524dab8408be24f9477e4184b
+                    End
+                    Name ="comQualityLevel"
+                    ControlSource ="QualityLevel"
+                    RowSourceType ="Value List"
+                    RowSource ="Low;0;1;2;3;4;5;6;7;8;9;10;High"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =300
+                            Top =4560
+                            Width =1200
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label274"
+                            Caption ="QualityLevel:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x6edf5d02ef85714fa68950eb74db5f38
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =4800
+                    Top =4560
+                    Width =1410
+                    Height =255
+                    TabIndex =17
+                    BorderColor =8421504
+                    GUID = Begin
+                        0xc72223489da90a4d8b9c2d7d26620c0d
+                    End
+                    Name ="comInterestLevel"
+                    ControlSource ="InterestLevel"
+                    RowSourceType ="Value List"
+                    RowSource ="Low;0;1;2;3;4;5;6;7;8;9;10;High"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =3360
+                            Top =4560
+                            Width =1260
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label275"
+                            Caption ="InterestLevel:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xb3be9873ee2bd14998e7e6147aa38945
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1654
+                    Top =5040
+                    Height =255
+                    TabIndex =18
+                    BorderColor =8421504
+                    Name ="txtScrubbersSold"
+                    ControlSource ="ScrubbersSold"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x59a15efc7083ae46ae219fbbf34ed184
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =300
+                            Top =5040
+                            Width =1200
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label276"
+                            Caption ="Scrubbers Sold:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x8fded17077b0f649982c22d4dc2271d0
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    AccessKey =82
+                    TextFontFamily =34
+                    Left =4620
+                    Top =5040
+                    Width =2400
+                    TabIndex =19
+                    BorderColor =8421504
+                    Name ="txtTerritory"
+                    ControlSource ="Territory"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x490b76d658d4684a82740cccfb094baf
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =3660
+                            Top =5040
+                            Width =840
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label260"
+                            Caption ="Te&rritory:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x62c44ee67bc58f479b7be40827661909
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    FELineBreak = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =360
+                    Top =5640
+                    Width =8760
+                    Height =1140
+                    TabIndex =20
+                    BorderColor =8421504
+                    Name ="txtNotes"
+                    ControlSource ="Notes"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xea91809dca1e524bad72900af48c4d73
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =480
+                    Top =5400
+                    Width =2040
+                    Height =240
+                    BackColor =12632256
+                    Name ="Label279"
+                    Caption ="Notes"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x72f887bf7e331e40a155358ebc13df02
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =480
+                    Top =6840
+                    Width =2040
+                    Height =240
+                    BackColor =12632256
+                    Name ="Label281"
+                    Caption ="History"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x6217b646eebdc5478ae39332b055f6f3
+                    End
+                End
+                Begin CheckBox
+                    Left =780
+                    Top =8100
+                    Width =960
+                    TabIndex =21
+                    BorderColor =8421504
+                    Name ="chkActive"
+                    ControlSource ="Active"
+                    GUID = Begin
+                        0xbfd894824852c44e9b0c26dc81b1c156
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =1
+                            TextFontFamily =34
+                            Left =1020
+                            Top =8040
+                            Width =660
+                            Height =240
+                            BackColor =8421504
+                            Name ="Label268"
+                            Caption ="Active:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xf28fcf6e7c82a04e94b5309643ca675a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =3274
+                    Top =8040
+                    Height =255
+                    TabIndex =22
+                    BorderColor =8421504
+                    Name ="txtActiveBy"
+                    ControlSource ="ActiveBy"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x6cf2fc1196887e4caedc329db8e3335b
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =2220
+                            Top =8040
+                            Width =900
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label286"
+                            Caption ="By:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x9bd4607f23fb61468e1f2fdff39ac742
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =6529
+                    Top =8040
+                    Height =255
+                    TabIndex =23
+                    BorderColor =8421504
+                    Name ="txtActiveDate"
+                    ControlSource ="ActiveDate"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x2086418f4b4955468b2dd73cdf7b2615
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =5280
+                            Top =8040
+                            Width =1095
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label287"
+                            Caption ="Date:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xc507ff06185a744687a159ca3414294c
+                            End
+                        End
+                    End
+                End
+                Begin Subform
+                    Left =360
+                    Top =7080
+                    Width =8760
+                    Height =840
+                    TabIndex =24
+                    BorderColor =8421504
+                    Name ="Child4"
+                    SourceObject ="Report.tcrsubProspectContacts"
+                    LinkChildFields ="ProspectID"
+                    LinkMasterFields ="ProspectID"
+                    GUID = Begin
+                        0xdb1e0e1dc572d04cb9a5c33f50c8b123
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1680
+                    Top =1380
+                    Width =4980
+                    TabIndex =25
+                    BorderColor =8421504
+                    Name ="Text6"
+                    ControlSource ="title"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xe3c2d526ec155647a026821a7cc16d49
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            TextFontFamily =34
+                            Left =360
+                            Top =1380
+                            Width =1200
+                            Height =240
+                            BackColor =12632256
+                            Name ="Label7"
+                            Caption ="Title:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x924dee2d0ad2e948b8a416de62b1d903
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =420
+            Name ="PageFooterSection"
+            GUID = Begin
+                0xe1a1a2a7df48754494867d6edabbf32b
+            End
+            Begin
+                Begin Line
+                    Top =60
+                    Width =9360
+                    Name ="Line200"
+                    GUID = Begin
+                        0x888e2ac353c66447a09e8c4b4a09efda
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =144
+                    Top =180
+                    Width =2457
+                    Height =240
+                    FontWeight =700
+                    BackColor =12632256
+                    Name ="Text202"
+                    Caption ="Factory Cat"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xa32fe97dca6aac42b8c337a7fda6d76b
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    FELineBreak = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5904
+                    Top =180
+                    Width =2448
+                    Name ="Field203"
+                    ControlSource ="=\"Printed \" & Date()"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x99315244fae8814e8ed01d9a945805f7
+                    End
+                End
+            End
+        End
+    End
+End

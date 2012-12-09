@@ -1,0 +1,204 @@
+Version =19
+VersionRequired =19
+Checksum =1515319753
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5220
+    ItemSuffix =41
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0x987711d511dbe140
+    End
+    Caption ="Prospect History"
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =1560
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x3008c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3120
+                    Top =1200
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3108c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3972
+                    Top =1200
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3208c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =1020
+                    Top =120
+                    Name ="txtContactDate"
+                    Format ="Short Date"
+                    DefaultValue ="=Date()"
+                    GUID = Begin
+                        0xd72291a22eaeb644bec165a656a25827
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =780
+                            Height =240
+                            Name ="Label38"
+                            Caption ="Date:"
+                            GUID = Begin
+                                0xd00d648273d4e641963971b227147f54
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =480
+                    Width =4080
+                    TabIndex =1
+                    Name ="txtContactSubject"
+                    GUID = Begin
+                        0xb845829c088be44f9aba9669c45a202e
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =480
+                            Width =780
+                            Height =240
+                            Name ="Label39"
+                            Caption ="Subject:"
+                            GUID = Begin
+                                0xab0c149d07ec5840a5df6d79d5d56d79
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1020
+                    Top =840
+                    TabIndex =2
+                    Name ="txtContactInitials"
+                    GUID = Begin
+                        0x00b9cc9da090fd41a997ac7cadd20fc1
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =780
+                            Height =240
+                            Name ="Label40"
+                            Caption ="Initials:"
+                            GUID = Begin
+                                0xdb20116fcafd294a8730b6f1f6c44db4
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub

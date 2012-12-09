@@ -1,0 +1,666 @@
+Version =19
+VersionRequired =19
+Checksum =-1871258754
+Begin Report
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =2
+    Width =9375
+    ItemSuffix =233
+    Top =855
+    Right =8355
+    Bottom =3975
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x6ba47e4cdbd9e140
+    End
+    RecordSource ="dbo.maqrptMajorAccountInfoPage"
+    Caption ="Major Account Information"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xa0050000a0050000d0020000a0050000000000009e2400003722000001000000 ,
+        0x010000006801000000000000a10700000100000000000000
+    End
+    PrtDevMode = Begin
+        0x5069746e657920426f7765732057373030205365726965730000000000000000 ,
+        0x00040104940040000366000401000100fa02f6040000010007002c0101000100 ,
+        0x2c0102000000000074746572203820312f32207820313120696e000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000010000000000000000000000010040004d5355441a035069 ,
+        0x746e657920426f77657320573730302053657269657300000000000000008001 ,
+        0x000000000000000000000000000064000a000000000000000000000000000000 ,
+        0x0000000000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010057494e53504f4f4c005069746e657920426f776573205737 ,
+        0x303020536572696573004c5054313a0000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin PageHeader
+            Height =600
+            Name ="PageHeader0"
+            GUID = Begin
+                0x9cd504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    BackStyle =0
+                    TextAlign =2
+                    Top =120
+                    Width =9075
+                    Height =405
+                    FontSize =10
+                    Name ="Label229"
+                    Caption ="MAJOR ACCOUNT INFORMATION"
+                    GUID = Begin
+                        0x9dd504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =8760
+            Name ="Detail0"
+            GUID = Begin
+                0x9ed504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3592
+                    Top =240
+                    Width =4455
+                    TabIndex =1
+                    Name ="MACompName"
+                    ControlSource ="MACompName"
+                    GUID = Begin
+                        0xa0d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =240
+                            Width =2730
+                            Height =240
+                            Name ="Label210"
+                            Caption ="Customer's Company Name:"
+                            GUID = Begin
+                                0x9fd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =600
+                    Width =4455
+                    TabIndex =2
+                    Name ="MAHeadqAddress"
+                    ControlSource ="MAHeadqAddress"
+                    GUID = Begin
+                        0xa2d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =600
+                            Width =2730
+                            Height =240
+                            Name ="Label211"
+                            Caption ="Headquarters Address:"
+                            GUID = Begin
+                                0xa1d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =960
+                    Width =4455
+                    TabIndex =3
+                    Name ="txtCSZ"
+                    ControlSource ="=[MACity] & \", \" & [MAState] & \"  \" & [MAZip]"
+                    GUID = Begin
+                        0xa4d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =960
+                            Width =2730
+                            Height =240
+                            Name ="Label212"
+                            Caption ="City, State  Zip:"
+                            GUID = Begin
+                                0xa3d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =1320
+                    Width =4455
+                    TabIndex =4
+                    Name ="MAPurContact"
+                    ControlSource ="MAPurContact"
+                    GUID = Begin
+                        0xa6d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =1320
+                            Width =2730
+                            Height =240
+                            Name ="Label215"
+                            Caption ="Purchasing Contact:"
+                            GUID = Begin
+                                0xa5d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =1680
+                    Width =4455
+                    TabIndex =5
+                    Name ="MAManageContact"
+                    ControlSource ="MAManageContact"
+                    GUID = Begin
+                        0xa8d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =1680
+                            Width =2730
+                            Height =240
+                            Name ="Label216"
+                            Caption ="Management Contact:"
+                            GUID = Begin
+                                0xa7d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =2040
+                    Width =4455
+                    TabIndex =6
+                    Name ="MAPhone"
+                    ControlSource ="MAPhone"
+                    GUID = Begin
+                        0xaad504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =2040
+                            Width =2730
+                            Height =240
+                            Name ="Label217"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0xa9d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =2400
+                    Width =4455
+                    TabIndex =7
+                    Name ="MAFax"
+                    ControlSource ="MAFax"
+                    GUID = Begin
+                        0xacd504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =2400
+                            Width =2730
+                            Height =240
+                            Name ="Label218"
+                            Caption ="Fax:"
+                            GUID = Begin
+                                0xabd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    Left =3544
+                    Top =2880
+                    Width =4455
+                    TabIndex =8
+                    Name ="MANumLocations"
+                    ControlSource ="MANumLocations"
+                    GUID = Begin
+                        0xaed504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =2880
+                            Width =2730
+                            Height =240
+                            Name ="Label219"
+                            Caption ="Number of Locations:"
+                            GUID = Begin
+                                0xadd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =4920
+                    Width =4455
+                    Height =816
+                    TabIndex =10
+                    Name ="MASerialNums"
+                    ControlSource ="MASerialNums"
+                    GUID = Begin
+                        0xb0d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =435
+                            Top =4920
+                            Width =3015
+                            Height =240
+                            Name ="Label221"
+                            Caption ="Serial #s of Equip Sold to Date:"
+                            GUID = Begin
+                                0xafd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =5760
+                    Width =4455
+                    Height =816
+                    TabIndex =11
+                    Name ="MAInitialPO"
+                    ControlSource ="MAInitialPO"
+                    GUID = Begin
+                        0xb2d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =5760
+                            Width =2730
+                            Height =240
+                            Name ="Label222"
+                            Caption ="Initial PO Includes:"
+                            GUID = Begin
+                                0xb1d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    Left =3562
+                    Top =6720
+                    TabIndex =12
+                    Name ="MAApproved"
+                    ControlSource ="MAApproved"
+                    GUID = Begin
+                        0xb3d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =6720
+                            Width =2730
+                            Height =240
+                            Name ="Label223"
+                            Caption ="Approved:"
+                            GUID = Begin
+                                0xb4d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    Left =7672
+                    Top =6720
+                    TabIndex =13
+                    Name ="MADenied"
+                    ControlSource ="MADenied"
+                    GUID = Begin
+                        0xb5d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =6768
+                            Top =6720
+                            Width =750
+                            Height =240
+                            Name ="Label224"
+                            Caption ="Denied:"
+                            GUID = Begin
+                                0xb6d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =7080
+                    Width =4455
+                    TabIndex =14
+                    Name ="MAAccountNum"
+                    ControlSource ="MAAccountNum"
+                    GUID = Begin
+                        0xb8d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =7080
+                            Width =2730
+                            Height =240
+                            Name ="Label225"
+                            Caption ="Major Account #:"
+                            GUID = Begin
+                                0xb7d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =7440
+                    Width =4455
+                    Height =1206
+                    TabIndex =15
+                    Name ="MANotes"
+                    ControlSource ="MANotes"
+                    GUID = Begin
+                        0xbad504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =7440
+                            Width =2730
+                            Height =240
+                            Name ="Label227"
+                            Caption ="Notes:"
+                            GUID = Begin
+                                0xb9d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    BackStyle =0
+                    Left =3544
+                    Top =4080
+                    Width =4455
+                    TabIndex =16
+                    Name ="Street Address"
+                    ControlSource ="StreetAddress"
+                    EventProcPrefix ="Street_Address"
+                    GUID = Begin
+                        0xbcd504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =4080
+                            Width =2730
+                            Height =240
+                            Name ="Label230"
+                            Caption ="Street Address:"
+                            GUID = Begin
+                                0xbbd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    BackStyle =0
+                    Left =3544
+                    Top =4455
+                    Width =4455
+                    TabIndex =17
+                    Name ="Text231"
+                    ControlSource ="=[City] & \", \" & [State] & \"  \" & [Zip]"
+                    GUID = Begin
+                        0xbed504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =4455
+                            Width =2730
+                            Height =240
+                            Name ="Label232"
+                            Caption ="City, State  Zip:"
+                            GUID = Begin
+                                0xbdd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =3720
+                    Width =4455
+                    Name ="afkMADealer"
+                    ControlSource ="DealerName"
+                    GUID = Begin
+                        0xc0d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =3720
+                            Width =2730
+                            Height =240
+                            Name ="Label209"
+                            Caption ="Dealer:"
+                            GUID = Begin
+                                0xbfd504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    Left =3544
+                    Top =3240
+                    Width =4455
+                    TabIndex =9
+                    Name ="MALocations"
+                    ControlSource ="MALocations"
+                    GUID = Begin
+                        0xc2d504e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            Left =720
+                            Top =3240
+                            Width =2730
+                            Height =240
+                            Name ="Label220"
+                            Caption ="Customer Locations:"
+                            GUID = Begin
+                                0xc1d504e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter1"
+            GUID = Begin
+                0xc3d504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    TextAlign =3
+                    Left =6192
+                    Top =120
+                    Width =2592
+                    Height =240
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xc4d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =0
+                    Top =120
+                    Width =1152
+                    Height =240
+                    BackColor =16777215
+                    Name ="Text32"
+                    Caption ="Factory Cat"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xc5d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =9375
+                    Name ="Line21"
+                    GUID = Begin
+                        0xc6d504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End

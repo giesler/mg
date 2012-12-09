@@ -1,0 +1,48 @@
+Version =19
+VersionRequired =19
+Checksum =1532659936
+Begin Form
+    AllowDeletions = NotDefault
+    ScrollBars =2
+    ViewsAllowed =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =12
+    Width =2520
+    DatasheetFontHeight =10
+    ItemSuffix =10
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x79c66f485da4e140
+    End
+    RecordSource ="tlkuStore"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Width =2520
+                    ColumnWidth =3060
+                    Name ="StoreName"
+                    ControlSource ="StoreName"
+                    StatusBarText ="Store Name"
+                End
+            End
+        End
+    End
+End

@@ -1,0 +1,251 @@
+Version =19
+VersionRequired =19
+Checksum =-1781787760
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =3300
+    ItemSuffix =28
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Choose Model"
+    OnOpen ="[Event Procedure]"
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin OptionGroup
+            SpecialEffect =3
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =1920
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0xc408c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1140
+                    Top =1440
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xc508c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =2172
+                    Top =1440
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xc608c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =3180
+                    Height =240
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="Select the list you would like:"
+                    GUID = Begin
+                        0xca08c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin OptionGroup
+                    OverlapFlags =85
+                    Left =120
+                    Top =360
+                    Width =3062
+                    Height =538
+                    Name ="fraType"
+                    DefaultValue ="0"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x2fd01372522bfc478ac8b3b0a9a19119
+                    End
+                    Begin
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =300
+                            Top =568
+                            OptionValue =0
+                            Name ="Option22"
+                            GUID = Begin
+                                0x199bc42da4f4cf428172ff6317f9f0dd
+                            End
+                            Begin
+                                Begin Label
+                                    BackStyle =0
+                                    OverlapFlags =247
+                                    Left =530
+                                    Top =540
+                                    Width =885
+                                    Height =240
+                                    Name ="Label23"
+                                    Caption ="Factory Cat"
+                                    GUID = Begin
+                                        0xdd0f30a88d0d684881a74aac21491fe9
+                                    End
+                                End
+                            End
+                        End
+                        Begin OptionButton
+                            OverlapFlags =87
+                            Left =1680
+                            Top =568
+                            OptionValue =1
+                            Name ="Option24"
+                            GUID = Begin
+                                0x4cd36c32c7e35e4c8cd0f86df622a8c8
+                            End
+                            Begin
+                                Begin Label
+                                    BackStyle =0
+                                    OverlapFlags =247
+                                    Left =1910
+                                    Top =540
+                                    Width =675
+                                    Height =240
+                                    Name ="Label25"
+                                    Caption ="Tom Cat"
+                                    GUID = Begin
+                                        0xa5b19a8c5a3f6c4fae6fbcf0ad7ed53c
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1080
+                    Top =1020
+                    Width =2100
+                    TabIndex =1
+                    Name ="txtHeading"
+                    DefaultValue ="\"Factory Cat Parts Pricing\""
+                    GUID = Begin
+                        0xc8e83161c86435409154eb5f105a95a9
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =180
+                            Top =1020
+                            Width =840
+                            Height =240
+                            Name ="Label27"
+                            Caption ="Heading:"
+                            GUID = Begin
+                                0x521212574c27064781bb8c2e84f55346
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+Public sFCText As String
+Public sTCText As String
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+If sFCText = "" Then sFCText = "Factory Cat Parts Pricing"
+If sTCText = "" Then sTCText = "Tom Cat Parts Pricing"
+End Sub
+
+Private Sub fraType_Click()
+If Me.fraType = 0 Then
+  Me.txtHeading = sFCText
+Else
+  Me.txtHeading = sTCText
+End If
+End Sub

@@ -1,0 +1,296 @@
+Version =19
+VersionRequired =19
+Checksum =-735502673
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5616
+    ItemSuffix =10
+    Right =1260
+    Bottom =615
+    RecSrcDt = Begin
+        0x56b915a858c3e140
+    End
+    RecordSource ="dbo.tblModels"
+    Caption ="Models"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin FormHeader
+            Height =960
+            BackColor =-2147483633
+            Name ="FormHeader1"
+            GUID = Begin
+                0xafcb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =180
+                    Top =60
+                    Width =5322
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    BackColor =-2147483633
+                    ForeColor =128
+                    Name ="Text3"
+                    Caption ="Model Edit Screen"
+                    GUID = Begin
+                        0xb0cb04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    ColumnCount =3
+                    ListWidth =3024
+                    Left =2820
+                    Top =480
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"20\""
+                    GUID = Begin
+                        0x289cca05ea9e6c41b3de591359720b7f
+                    End
+                    Name ="Combo7"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT \"dbo\".\"tblModels\".\"ModelID\", \"dbo\".\"tblModels\".\"Model\", \"dbo"
+                        "\".\"tblModels\".\"Description\" FROM \"dbo\".\"tblModels\""
+                    ColumnWidths ="0;504;2520"
+                    AfterUpdate ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =1380
+                            Top =480
+                            Width =1320
+                            Height =240
+                            Name ="Jump To Model:_Label"
+                            Caption ="Jump To Model:"
+                            EventProcPrefix ="Jump_To_Model__Label"
+                            GUID = Begin
+                                0x9c628e05423ec3478fbcc795fa7b5073
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =2160
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0xb1cb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1440
+                    Top =120
+                    Name ="Model"
+                    ControlSource ="Model"
+                    GUID = Begin
+                        0xb3cb04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =648
+                            Top =120
+                            Width =555
+                            Height =240
+                            Name ="Text0"
+                            Caption ="Model:"
+                            GUID = Begin
+                                0xb2cb04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1440
+                    Top =480
+                    Width =4035
+                    Height =1200
+                    ColumnWidth =3600
+                    TabIndex =1
+                    Name ="Description"
+                    ControlSource ="Description"
+                    GUID = Begin
+                        0xb5cb04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =288
+                            Top =480
+                            Width =915
+                            Height =240
+                            Name ="Text1"
+                            Caption ="Description:"
+                            GUID = Begin
+                                0xb4cb04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1437
+                    Top =1800
+                    TabIndex =2
+                    Name ="Price"
+                    ControlSource ="Price"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xb7cb04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =720
+                            Top =1800
+                            Width =480
+                            Height =240
+                            Name ="Text2"
+                            Caption ="Price:"
+                            GUID = Begin
+                                0xb6cb04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    ListWidth =1440
+                    Left =3840
+                    Top =1800
+                    Width =1620
+                    TabIndex =3
+                    GUID = Begin
+                        0x049345fa32a44d4ca845c7308da27e47
+                    End
+                    Name ="comType"
+                    ControlSource ="ModelType"
+                    RowSourceType ="Value List"
+                    RowSource ="0;\"Factory Cat\";1;\"Tom Cat\""
+                    ColumnWidths ="0;1440"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3000
+                            Top =1800
+                            Width =705
+                            Height =240
+                            Name ="Type:_Label"
+                            Caption ="Type:"
+                            EventProcPrefix ="Type__Label"
+                            GUID = Begin
+                                0x54d11b3a6b81b148b50592dd525cc181
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =720
+            BackColor =-2147483633
+            Name ="FormFooter2"
+            GUID = Begin
+                0xb8cb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =2160
+                    Top =120
+                    Width =1290
+                    Height =480
+                    Name ="btnClose"
+                    Caption ="&Close"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0xb9cb04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub btnClose_Click()
+On Error GoTo Err_btnClose_Click
+
+
+    DoCmd.Close
+
+Exit_btnClose_Click:
+    Exit Sub
+
+Err_btnClose_Click:
+    MsgBox Error$
+    Resume Exit_btnClose_Click
+    
+End Sub
+
+Private Sub Combo7_AfterUpdate()
+    ' Find the record that matches the control.
+    Dim rs As Object
+
+    Set rs = Me.Recordset.Clone
+    rs.Find "[ModelID] = " & Str(Me![Combo7])
+    Me.Bookmark = rs.Bookmark
+End Sub
+
+Private Sub Form_Load()
+
+  If mbTomCat Then
+    Me.comType.DefaultValue = "1"
+  Else
+    Me.comType.DefaultValue = "0"
+  End If
+
+End Sub

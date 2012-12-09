@@ -1,0 +1,1702 @@
+Version =19
+VersionRequired =19
+Checksum =830292256
+Begin Form
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =9639
+    ItemSuffix =240
+    Left =405
+    Top =405
+    Right =10050
+    Bottom =5910
+    TimerInterval =500
+    MaxRecords =20000
+    RecSrcDt = Begin
+        0x806719a5bff6e140
+    End
+    RecordSource ="dbo.Tbl_PO"
+    Caption ="Purchase Orders"
+    OnCurrent ="[Event Procedure]"
+    BeforeInsert ="[Event Procedure]"
+    AfterUpdate ="[Event Procedure]"
+    OnClose ="[Event Procedure]"
+    MenuBar ="RFFormMenuBar"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    OnTimer ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin UnboundObjectFrame
+            SpecialEffect =2
+            OldBorderStyle =1
+        End
+        Begin FormHeader
+            CanGrow = NotDefault
+            Height =300
+            BackColor =-2147483633
+            Name ="FormHeader0"
+            Begin
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =180
+                    Width =6060
+                    Height =300
+                    FontSize =12
+                    FontWeight =700
+                    ForeColor =128
+                    Name ="lblHeading"
+                    Caption ="Purchase Orders"
+                    GUID = Begin
+                        0x73b539ea99ca054bb110b67b15402264
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    OverlapFlags =95
+                    Top =300
+                    Width =9639
+                    BorderColor =32768
+                    Name ="Line9"
+                    GUID = Begin
+                        0xa8e2b738675f7d4b9c0aab8753397b79
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    Left =7440
+                    Top =60
+                    Width =2100
+                    Height =240
+                    ForeColor =128
+                    Name ="lblLoading"
+                    Caption ="Loading..."
+                    GUID = Begin
+                        0x051c2684f37e90438d98c0b9a3e3b463
+                    End
+                End
+            End
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =4740
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =7380
+                    Top =300
+                    Width =2100
+                    FontWeight =700
+                    Name ="txtID"
+                    ControlSource ="ID"
+                    StatusBarText ="Internal Tracking Number (Invoice Number)"
+                    OnDblClick ="=OpenFind(\"RFC ID\",\"Whole\",\"txtID\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =7380
+                    Top =60
+                    Width =2100
+                    FontWeight =700
+                    TabIndex =1
+                    BackColor =10092543
+                    Name ="txtPO"
+                    ControlSource ="PO"
+                    BeforeUpdate ="[Event Procedure]"
+                    AfterUpdate ="[Event Procedure]"
+                    OnDblClick ="=OpenFind(\"Purchase Order\",\"Start\",\"txtPO\")"
+                    ControlTipText ="Purchase Order #"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =5646
+                    Top =780
+                    Width =864
+                    TabIndex =2
+                    Name ="txtDateOrdered"
+                    ControlSource ="Date_Ordered"
+                    Format ="Short Date"
+                    OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
+                    DefaultValue ="=Date()"
+                    InputMask ="99/99/00;0;_"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    TextAlign =2
+                    Left =5646
+                    Top =1020
+                    Width =864
+                    TabIndex =3
+                    Name ="txtShipDate"
+                    ControlSource ="Ship_Date"
+                    OnDblClick ="=OpenFind(\"Ship Date\",\"Whole\",\"txtShipDate\")"
+                    InputMask ="99/99/00;0;_"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    TextAlign =2
+                    Left =5646
+                    Top =1260
+                    Width =864
+                    TabIndex =4
+                    Name ="txtArriveDate"
+                    ControlSource ="Arrive_Date"
+                    OnDblClick ="=OpenFind(\"Arrive Date\",\"Whole\",\"txtArriveDate\")"
+                    InputMask ="99/99/00;0;_"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    Left =7980
+                    Top =600
+                    Width =1500
+                    TabIndex =7
+                    Name ="txtJobNumber"
+                    ControlSource ="Job_Number"
+                    OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    Left =1317
+                    Top =60
+                    Width =1860
+                    TabIndex =9
+                    Name ="txtShipName"
+                    ControlSource ="Ship_Name"
+                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1317
+                    Top =300
+                    Width =2865
+                    TabIndex =10
+                    Name ="txtShipAddress1"
+                    ControlSource ="Ship_Address1"
+                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1317
+                    Top =540
+                    Width =2865
+                    TabIndex =11
+                    Name ="txtShipAddress2"
+                    ControlSource ="Ship_Address2"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1317
+                    Top =780
+                    TabIndex =12
+                    Name ="txtShipCity"
+                    ControlSource ="Ship_City"
+                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    TextAlign =2
+                    Left =2901
+                    Top =780
+                    Width =435
+                    TabIndex =13
+                    Name ="txtShipState"
+                    ControlSource ="Ship_State"
+                    AfterUpdate ="[Event Procedure]"
+                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    TextAlign =2
+                    Left =3477
+                    Top =780
+                    Width =705
+                    TabIndex =14
+                    Name ="txtShipZip"
+                    ControlSource ="Ship_Zip"
+                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1317
+                    Top =1020
+                    Width =2865
+                    TabIndex =15
+                    Name ="txtShipAttn"
+                    ControlSource ="Ship_Attn"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =1317
+                    Top =1260
+                    Width =1425
+                    TabIndex =16
+                    Name ="txtShipPhone"
+                    ControlSource ="Ship_Phone"
+                    InputMask ="!\\(999\") \"000\\-0000;0;_"
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =93
+                    Left =1320
+                    Top =2040
+                    Width =5190
+                    Height =663
+                    TabIndex =20
+                    Name ="txtComments"
+                    ControlSource ="Comments"
+                    ControlTipText ="Comments About PO"
+                End
+                Begin CheckBox
+                    TabStop = NotDefault
+                    OverlapFlags =93
+                    Left =4380
+                    Top =90
+                    Width =1265
+                    TabIndex =29
+                    Name ="chkCreditPO"
+                    ControlSource ="Credit"
+                    ControlTipText ="Is this a Credit PO?"
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            TextAlign =1
+                            Left =4610
+                            Top =60
+                            Width =1017
+                            Height =240
+                            Name ="Label171"
+                            Caption ="Credit PO?: "
+                            ControlTipText ="Is this a Credit PO?"
+                            GUID = Begin
+                                0x5145648a45645d4fa3a37c0227d82d05
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =93
+                    TextAlign =3
+                    Left =6183
+                    Top =60
+                    Width =1152
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="lblPO"
+                    Caption ="PO #:"
+                    OnDblClick ="=OpenFind(\"Purchase Order\",\"Start\",\"txtPO\")"
+                    ControlTipText ="Search on PO #"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =60
+                    Width =1302
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="lblShipName"
+                    Caption ="Ship To: "
+                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =300
+                    Width =1302
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipAddress1"
+                    Caption ="Address 1: "
+                    OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =540
+                    Width =1302
+                    Height =240
+                    Name ="Label154"
+                    Caption ="Address 2: "
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =1020
+                    Width =1302
+                    Height =240
+                    Name ="lblShipAttn"
+                    Caption ="Attention: "
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =1260
+                    Width =1302
+                    Height =240
+                    Name ="lblShipPhone"
+                    Caption ="Phone, Acc #: "
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6180
+                    Top =300
+                    Width =1152
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="lblID"
+                    Caption ="RFC ID #:"
+                    OnDblClick ="=OpenFind(\"RFC ID\",\"Whole\",\"txtID\")"
+                    ControlTipText ="Search on RFC ID #"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =4350
+                    Top =780
+                    Width =1296
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblDateOrdered"
+                    Caption ="Date Ordered: "
+                    OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =4350
+                    Top =1020
+                    Width =1296
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipDate"
+                    Caption ="Ship Out Date: "
+                    OnDblClick ="=OpenFind(\"Ship Date\",\"Whole\",\"txtShipDate\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =4350
+                    Top =1260
+                    Width =1296
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblArriveDate"
+                    Caption ="Arrive Date: "
+                    OnDblClick ="=OpenFind(\"Arrive Date\",\"Whole\",\"txtArriveDate\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =93
+                    TextAlign =3
+                    Left =6660
+                    Top =600
+                    Width =1302
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblJobNumber"
+                    Caption ="Job Number: "
+                    OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6660
+                    Top =840
+                    Width =1302
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipVia"
+                    Caption ="Ship Via: "
+                    OnDblClick ="=OpenFind(\"Ship Via\",\"Start\",\"cmbShipVia\")"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6660
+                    Top =1080
+                    Width =1302
+                    Height =240
+                    Name ="Label167"
+                    Caption ="Purchaser: "
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6660
+                    Top =1320
+                    Width =1290
+                    Height =240
+                    Name ="Label168"
+                    Caption ="Salesperson: "
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6660
+                    Top =1560
+                    Width =1302
+                    Height =240
+                    Name ="Label170"
+                    Caption ="Current Status: "
+                End
+                Begin Subform
+                    OverlapFlags =85
+                    SpecialEffect =0
+                    Left =120
+                    Top =2760
+                    Width =9360
+                    Height =1920
+                    TabIndex =28
+                    BorderColor =8421504
+                    Name ="subPOItems"
+                    SourceObject ="Form.Frm_Purchase_Orders_Items"
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =60
+                    Top =2040
+                    Width =1257
+                    Height =240
+                    Name ="Label183"
+                    Caption ="Comments: "
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =93
+                    Left =7980
+                    Top =1320
+                    Width =1500
+                    TabIndex =23
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    Name ="cmbSalesperson"
+                    ControlSource ="Salesperson"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tblUser.UserName FROM tblUser ORDER BY tblUser.UserName"
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =95
+                    Left =7980
+                    Top =1560
+                    Width =1500
+                    TabIndex =24
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    Name ="cmbStatus"
+                    ControlSource ="Status"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuStatus.StatusName FROM tlkuStatus ORDER BY tlkuStatus.StatusName"
+                    StatusBarText ="Status of Order"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =7980
+                    Top =1800
+                    Width =1500
+                    TabIndex =25
+                    Name ="txtProNum"
+                    ControlSource ="Pro#"
+                    StatusBarText ="Shipping & Tracking #"
+                    OnDblClick ="=OpenFind(\"Pro Number\",\"Whole\",\"txtProNum\")"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =223
+                    TextAlign =1
+                    Left =5361
+                    Top =1500
+                    TabIndex =5
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    Name ="Priority"
+                    ControlSource ="Priority"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuPriority.PriorityName FROM tlkuPriority ORDER BY tlkuPriority.Priorit"
+                        "yName"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =4350
+                    Top =1500
+                    Width =1011
+                    Height =240
+                    Name ="Label193"
+                    Caption ="Priority: "
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6666
+                    Top =1800
+                    Width =1290
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="lblProNum"
+                    Caption ="Pro #:"
+                    OnDblClick ="=OpenFind(\"Pro Number\",\"Whole\",\"txtProNum\")"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =95
+                    ListWidth =2880
+                    Left =7980
+                    Top =2040
+                    Width =1500
+                    TabIndex =26
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    Name ="cmbStore"
+                    ControlSource ="Store"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuStore.StoreName FROM tlkuStore ORDER BY tlkuStore.StoreName"
+                    StatusBarText ="Status of Order"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =6660
+                    Top =2040
+                    Width =1302
+                    Height =240
+                    Name ="lblStore"
+                    Caption ="Store:"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Top =780
+                    Width =585
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipCity"
+                    Caption ="City, "
+                    OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =585
+                    Top =780
+                    Width =300
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipState"
+                    Caption ="ST"
+                    OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =879
+                    Top =780
+                    Width =420
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipZip"
+                    Caption ="Zip"
+                    OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =15
+                    Top =1500
+                    Width =1302
+                    Height =240
+                    FontWeight =700
+                    ForeColor =8388608
+                    Name ="lblSoldName"
+                    Caption ="Sold To: "
+                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =95
+                    ColumnCount =2
+                    Left =1317
+                    Top =1500
+                    Width =2865
+                    TabIndex =18
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="txtSoldName"
+                    ControlSource ="SoldName"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT SoldName,SoldID FROM dbo.tblSold ORDER BY SoldName"
+                    ColumnWidths ="1440;0"
+                    AfterUpdate ="[Event Procedure]"
+                    OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
+                    OnNotInList ="[Event Procedure]"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =223
+                    TextAlign =1
+                    Left =5361
+                    Top =1740
+                    TabIndex =6
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    Name ="txtClass"
+                    ControlSource ="Classification"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuClassification.ClassificationName FROM tlkuClassification"
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =4200
+                    Top =1740
+                    Width =1161
+                    Height =240
+                    Name ="Label203"
+                    Caption ="Classification:"
+                End
+                Begin CheckBox
+                    TabStop = NotDefault
+                    OverlapFlags =95
+                    Left =4380
+                    Top =330
+                    Width =1265
+                    TabIndex =30
+                    Name ="chkCancelPO"
+                    ControlSource ="CancelPO"
+                    OnClick ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            TextAlign =1
+                            Left =4602
+                            Top =300
+                            Width =1035
+                            Height =240
+                            Name ="Label206"
+                            Caption ="Cancel PO"
+                        End
+                    End
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =2751
+                    Top =1260
+                    TabIndex =17
+                    Name ="txtShipAccountNum"
+                    ControlSource ="Account#"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =95
+                    Left =3462
+                    Top =60
+                    Width =720
+                    TabIndex =8
+                    Name ="txtShipStoreNo"
+                    ControlSource ="Ship_StoreNo"
+                    AfterUpdate ="[Event Procedure]"
+                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =3177
+                    Top =60
+                    Width =285
+                    Height =240
+                    ForeColor =8388608
+                    Name ="lblShipStoreNo"
+                    Caption ="#"
+                    OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =95
+                    Left =7980
+                    Top =1080
+                    Width =1500
+                    TabIndex =22
+                    ColumnInfo ="\"\";\"\";\"10\";\"100\""
+                    Name ="cmbPurchaser"
+                    ControlSource ="Purchaser"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuPurchaser.PurchaserName FROM tlkuPurchaser ORDER BY tlkuPurchaser.Pur"
+                        "chaserName"
+                End
+                Begin ComboBox
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    Left =7980
+                    Top =840
+                    Width =1500
+                    TabIndex =21
+                    ColumnInfo ="\"\";\"\";\"10\";\"100\""
+                    Name ="cmbShipVia"
+                    ControlSource ="Ship_via"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuShipVia.ShipViaName FROM tlkuShipVia ORDER BY tlkuShipVia.ShipViaName"
+                    OnDblClick ="=OpenFind(\"Ship Via\",\"Start\",\"cmbShipVia\")"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =6660
+                    Top =2280
+                    Width =1302
+                    Height =240
+                    ForeColor =8388608
+                    Name ="Label212"
+                    Caption ="Reference #:"
+                    OnDblClick ="=OpenFind(\"Reference #\",\"Whole\",\"txtRefNum\")"
+                End
+                Begin TextBox
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =7980
+                    Top =2280
+                    Width =1500
+                    TabIndex =27
+                    Name ="txtRefNum"
+                    ControlSource ="RefNum"
+                    StatusBarText ="Reference #"
+                    OnExit ="[Event Procedure]"
+                    OnDblClick ="=OpenFind(\"Reference #\",\"Whole\",\"txtRefNum\")"
+                    OnLostFocus ="[Event Procedure]"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    ColumnCount =2
+                    Left =1320
+                    Top =1740
+                    Width =2865
+                    TabIndex =19
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0x9b8777884ceb6f459003e44f29d88925
+                    End
+                    Name ="comSoldAttention"
+                    ControlSource ="SoldAttentionID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT SoldAttentionID, Attention FROM dbo.tblSoldAttention"
+                    ColumnWidths ="0;1440"
+                    OnEnter ="[Event Procedure]"
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =3
+                    Top =1740
+                    Width =1302
+                    Height =240
+                    Name ="lblSoldAttn"
+                    Caption ="Sold Attn:"
+                    GUID = Begin
+                        0xbdb6e1eb40137a4696cf1701ec194711
+                    End
+                End
+                Begin CheckBox
+                    TabStop = NotDefault
+                    OverlapFlags =223
+                    Left =4380
+                    Top =570
+                    Width =1265
+                    TabIndex =31
+                    Name ="chkFTofTruck"
+                    ControlSource ="FTofTruck"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x8a0dd4c0cfce354481e82628da6db534
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =255
+                            TextAlign =1
+                            Left =4602
+                            Top =540
+                            Width =1035
+                            Height =240
+                            Name ="lblFTofTruck"
+                            Caption ="FT of Truck"
+                            GUID = Begin
+                                0x494507dec9fb4e4784943bc8fbb99c1f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Enabled = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =119
+                    TextAlign =2
+                    Left =5640
+                    Top =540
+                    Width =864
+                    TabIndex =32
+                    Name ="txtFTofTruckAmount"
+                    ControlSource ="FTofTruckAmount"
+                    OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
+                    GUID = Begin
+                        0x884cbd67917ae34697e2ab2757807aad
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =480
+            BackColor =8421376
+            Name ="FormFooter1"
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =696
+                    Top =60
+                    Width =576
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdPrevious"
+                    Caption ="Previous"
+                    OnClick ="=fRecNav(\"prev\")"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888088888888888888888888888888888800888 ,
+                        0x888888888888888888888888880c088888888888888888888888888880cc0888 ,
+                        0x8888888888888888888888880ccc0888888888888888888888888880cccc0000 ,
+                        0x00088888888888888888880ccccccccccc08888888888888888880cccccccccc ,
+                        0xcc0888888888888888880ccccccccccccc08888888888800888880cccccccccc ,
+                        0xcc088888888888808888880ccccccccccc0888888888888888888880cccc0000 ,
+                        0x0008888888888888888888880ccc088888888888888888888888888880cc0888 ,
+                        0x888888888888888888888888880c088888888888888888888888888888800888 ,
+                        0x8888888888888888888888888888088888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Goto Previous Record"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =8178
+                    Top =60
+                    Width =1158
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdClose"
+                    Caption ="&Close"
+                    OnClick ="=CloseForm()"
+                    FontName ="Tahoma"
+                    ControlTipText ="Close PO Form"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =1992
+                    Top =60
+                    Width =576
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdNext"
+                    Caption ="Next"
+                    OnClick ="=fRecNav(\"next\")"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888088888888888888888888888888888880088 ,
+                        0x88888888888888888888888888880c0888888888888888888888888888880cc0 ,
+                        0x88888888888888888888888888880ccc08888888888888888888880000000ccc ,
+                        0xc0888888888888888888880ccccccccccc088888888888888888880ccccccccc ,
+                        0xccc08888888888808888880ccccccccccccc08888888880c8888880ccccccccc ,
+                        0xccc08888888888808888880ccccccccccc088888888888888888880000000ccc ,
+                        0xc0888888888888888888888888880ccc08888888888888888888888888880cc0 ,
+                        0x88888888888888888888888888880c0888888888888888888888888888880088 ,
+                        0x8888888888888888888888888888088888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Goto Next Record"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =120
+                    Top =60
+                    Width =576
+                    FontWeight =400
+                    Name ="cmdFirst"
+                    Caption ="First"
+                    OnClick ="=fRecNav(\"first\")"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888844888888848888888888888888888888448888884 ,
+                        0x4888888888888888888888844888884248888888888888888888888448888422 ,
+                        0x4888888888888888888888844888422248888888888888888888888448842222 ,
+                        0x4888888888888888888888844842222248888888888888888888888448842222 ,
+                        0x4888888888888888888888844888422248888888888888888888888448888422 ,
+                        0x4888888888888888888888844888884248888888888888888888888448888884 ,
+                        0x4888888888888888888888844888888848888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Goto First Record"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =2568
+                    Top =60
+                    Width =576
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdLast"
+                    Caption ="Last"
+                    OnClick ="=fRecNav(\"last\")"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888488888884488888888884888888888884488888 ,
+                        0x8448888888888448888888888424888884488888888884248888888884224888 ,
+                        0x8448888888888422888888888422248884488888888884228888888884222248 ,
+                        0x8448888888888422888888888422222484488888888884228888888884222248 ,
+                        0x8448888888888422888888888422248884488888888884228888888884224888 ,
+                        0x8448888888888422888888888424888884488888888884248888888884488888 ,
+                        0x8448888888888448888888888488888884488888888884888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Goto Last Record"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =78
+                    TextFontFamily =34
+                    Left =1272
+                    Top =60
+                    Width =720
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="cmdNew"
+                    Caption ="&New"
+                    StatusBarText ="Goto a new record"
+                    OnClick ="=fRecNav(\"new\")"
+                    FontName ="Tahoma"
+                    ControlTipText ="Create New Purchase Order"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =70
+                    TextFontFamily =34
+                    Left =6888
+                    Top =60
+                    Width =1158
+                    FontWeight =400
+                    TabIndex =6
+                    Name ="cmdFinished"
+                    Caption ="&Finished"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    ControlTipText ="Finished Entering New PO"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =73
+                    TextFontFamily =34
+                    Left =3360
+                    Top =60
+                    Width =1584
+                    FontWeight =400
+                    TabIndex =7
+                    Name ="cmdCreateInv"
+                    Caption ="Create &Invoice"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    ControlTipText ="Build Invoice/Set PO to 'Complete'"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =68
+                    TextFontFamily =34
+                    Left =5592
+                    Top =60
+                    Width =1158
+                    FontWeight =400
+                    TabIndex =8
+                    Name ="cmdDelete"
+                    Caption ="&Delete"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    ControlTipText ="Delete Current PO"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private mblnInitPO As Boolean     ' flag to track if we are in InitPO function already
+Private mlngJumpToID As Long      ' jump to this ID when recordset loaded
+Private mlngTicks As Long         ' number of ticks left before giving up
+Private mblnLoading As Boolean
+
+Private Sub chkCancelPO_Click()
+On Error GoTo errHandler
+
+  ' Check if user really wants to cancel this PO
+  If Not Me.chkCancelPO Then
+    MsgBox "Once a PO is cancelled you cannot uncancel it.", vbCritical
+    Me.chkCancelPO = True
+    Exit Sub
+  Else
+    If MsgBox("Are you sure you want to cancel this PO?  You cannot undo a cancel.  It will not appear on any reports.", vbQuestion + vbYesNo + vbDefaultButton2) = vbYes Then
+      Me.chkCancelPO = True
+    Else
+      Me.chkCancelPO = False
+    End If
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "CancelPO"
+Exit Sub
+End Sub
+
+Private Sub chkFTofTruck_Click()
+On Error Resume Next
+
+  If Me.chkFTofTruck Then
+    Me.txtFTofTruckAmount.Enabled = True
+  Else
+    Me.txtFTofTruckAmount.Enabled = False
+    Me.txtFTofTruckAmount.Text = ""
+  End If
+  
+End Sub
+
+Private Sub cmdCreateInv_Click()
+On Error GoTo errHandler
+
+  Dim lngID As Long, rs As ADODB.Recordset
+  lngID = Me.txtID
+  
+  ' Verify we can create an invoice first
+  If Me.cmbStatus = "Completed" Then
+    If MsgBox("You have already completed this PO.  Would you like to delete the associated invoice and recreate it?", vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then Exit Sub
+    DeleteInvoice lngID, False
+  End If
+  If Me.chkCancelPO Then
+    MsgBox "You cannot create an invoice for a cancelled PO.", vbCritical
+    Exit Sub
+  End If
+  
+  ' Make sure changes are saved
+  DoCmd.RunCommand acCmdSaveRecord
+    
+  ' Call createinvoice to create it, checking return val
+  OpenWaitForm "Saving invoice..."
+  If CreateInvoice(lngID, False) Then
+    Me!Status = "Completed"
+    DoCmd.RunCommand acCmdSaveRecord
+    CloseWaitForm
+  Else
+    MsgBox "The invoice was not created.", vbCritical
+    CloseWaitForm
+    Exit Sub
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdCreateInv"
+Exit Sub
+End Sub
+
+Private Sub cmdDelete_Click()
+On Error GoTo errHandler
+    
+  Dim cn As ADODB.Connection, lngPrevID As Long, rs As ADODB.Recordset
+  
+  ' make sure rec saved
+  If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+  
+  ' Confirm we want to delete this PO
+  If MsgBox("Are you sure you want to delete the current PO?", vbYesNo + vbQuestion) = vbYes Then
+    ' create a new connection to transact the delete
+    OpenWaitForm "Deleting PO..."
+    If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+    Set cn = New ADODB.Connection
+    cn.Open gConn.ConnectionString
+    cn.BeginTrans
+    cn.Execute "delete from tbl_PO_Items where ID = " + CStr(Me.txtID)
+    cn.Execute "delete from tbl_PO where ID = " + CStr(Me.txtID)
+    cn.CommitTrans
+    cn.Close
+    Set cn = Nothing
+    Me.Refresh
+    mblnLoading = True
+    CloseWaitForm
+    MsgBox "The PO has been deleted.", vbInformation
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "DeletePO"
+On Error Resume Next
+' attempt rollback just in case
+If Not cn Is Nothing Then
+  cn.RollbackTrans
+  cn.Close
+  Set cn = Nothing
+End If
+On Error GoTo 0
+Exit Sub
+End Sub
+
+Private Sub cmdFinished_Click()
+On Error GoTo errHandler
+
+  Dim varTmp As Variant, lngCurID As Long
+  
+  ' Verify data
+  If IsNull(Me.txtID) Then
+    MsgBox "You must enter information about this new PO first.", vbExclamation
+    Exit Sub
+  End If
+  lngCurID = Me.txtID
+  If Me.chkCancelPO Then
+    MsgBox "You cannot 'finish' a cancelled PO.", vbCritical
+    Exit Sub
+  End If
+  If IsNull(Me.txtPO) Or Me.txtPO = "" Then
+    MsgBox "You must fill in the Purchase Order # before saving this record.", vbExclamation
+    Exit Sub
+  End If
+  If IsNull(Me.txtShipName) Or Me.txtShipName = "" Then
+    MsgBox "You must fill in the Ship To before saving this record.", vbExclamation
+    Exit Sub
+  End If
+  If IsNull(Me.txtDateOrdered) Or Me.txtDateOrdered = "" Then
+    MsgBox "You must fill in the Date Ordered before saving this record.", vbExclamation
+    Exit Sub
+  End If
+  If IsNull(Me.txtShipDate) Or Me.txtShipDate = "" Then
+    If MsgBox("You should enter a Ship Date before saving this record.  Do you want to enter a ship date?", vbQuestion + vbYesNo) = vbYes Then Exit Sub
+  End If
+  If IsNull(Me.cmbSalesperson) Or Me.cmbSalesperson = "" Then
+    MsgBox "You must fill in the Salesperson before saving this record.", vbExclamation
+    Exit Sub
+  End If
+  
+  ' Prompt for label count and validate
+  varTmp = InputBox("How many labels do you want printed for this invoice?", "# of Labels")
+  If varTmp = "" Then Exit Sub
+  If Not IsNumeric(varTmp) Then
+    MsgBox "You must enter a numeric value!", vbExclamation
+    Exit Sub
+  End If
+  Me!Labels = varTmp
+    
+  DoCmd.RunCommand acCmdSaveRecord
+  MsgBox "Purchase Order Saved!", vbInformation
+    
+  If flgDebug Then
+    SetSPVar "ID", lngCurID
+    DoCmd.OpenReport "rptWorkOrder", acViewPreview
+  Else
+    SetSPVar "ID", lngCurID
+    DoCmd.OpenReport "rptWorkOrder", acViewNormal
+  End If
+
+  fRecNav "new"
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdFinished"
+Exit Sub
+End Sub
+
+Private Sub comSoldAttention_Enter()
+On Error GoTo errHandler
+
+  If IsNull(Me!SoldID) Then
+    MsgBox "You must select a sold to name before an attention name.", vbExclamation
+    Exit Sub
+  End If
+  
+  Me.comSoldAttention.RowSource = "SELECT SoldAttentionID, Attention " _
+      & "FROM dbo.tblSoldAttention " _
+      & "WHERE SoldID = " + CStr(Me!SoldID)
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "comSoldAttention_Enter"
+Exit Sub
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+On Error GoTo errHandler
+  
+  If Screen.ActiveControl.Name <> "txtPO" Then
+    MsgBox "You must enter a PO number.", vbExclamation
+    Me.txtPO.SetFocus
+    Cancel = True
+  Else
+'    ' Check if we are already in InitPO, if not we should run InitPO and cancel this insert
+'    Me.txtID = DMax("[id]", "Tbl_PO") + 1
+'    Me.subPOItems.LinkChildFields = ""
+  End If
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_BeforeInsert"
+Exit Sub
+End Sub
+
+Private Sub Form_Close()
+On Error GoTo errHandler
+
+  DoCmd.Close acForm, "fdlgFind"
+  Call CSStopDDE
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Close"
+Exit Sub
+End Sub
+
+Private Sub Form_Current()
+On Error GoTo errHandler
+
+  Dim lngID As Long, rs As ADODB.Recordset, i As Long
+
+  ' Reset flag just in case, and if a new rec run InitPO
+  mblnInitPO = False
+  If IsNull(Me.txtID) Then
+    Me.txtPO.SetFocus '   InitPO
+    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = -1"
+    Me.subPOItems.Form.AllowAdditions = False
+  Else
+    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
+    Me.subPOItems.Form.AllowAdditions = True
+  End If
+  
+  chkFTofTruck_Click
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Current"
+Exit Sub
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo errHandler
+
+  ' Remove any server filters or form filters just in case
+  If Me.ServerFilter <> "" Then Me.ServerFilter = ""
+  If Me.Filter <> "" Then Me.Filter = ""
+  If Me.FilterOn = True Then Me.FilterOn = False
+  If Me.OrderBy <> "" Then Me.OrderBy = ""
+  If Me.OrderByOn = True Then Me.OrderByOn = False
+  mblnLoading = True
+
+  ' Set heading and caption to openargs - used for 'Recent POs'
+  If Me.OpenArgs <> "" Then
+    Me.Caption = Me.OpenArgs
+    Me.lblHeading.Caption = Me.OpenArgs
+  End If
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Load"
+Exit Sub
+End Sub
+
+Private Sub Form_Timer()
+On Error GoTo errHandler
+
+  Dim rs As ADODB.Recordset
+
+  If mblnLoading Then
+    Set rs = Me.RecordsetClone
+    ' see if we are fetching records
+    If rs.State = 9 Then
+      Me.lblLoading.Caption = "Loading (" + CStr(rs.RecordCount) + ")..."
+      Set rs = Nothing
+      Exit Sub
+    Else
+      Me.lblLoading.Caption = ""
+      mblnLoading = False
+    End If
+    Set rs = Nothing
+  End If
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Form_Timer"
+Exit Sub
+End Sub
+
+Private Sub txtPO_AfterUpdate()
+On Error GoTo errHandler
+
+  Dim intAttempt As Integer
+  intAttempt = 0
+  
+RetryAfterUpdate:
+  If IsNull(Me.txtPO) Then Exit Sub
+      
+  If IsNull(Me.txtID) Then
+    Me.txtID = DMax("[id]", "Tbl_PO") + 1
+    If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
+    Me.subPOItems.Form.AllowAdditions = True
+  End If
+  CloseWaitForm
+  
+Exit Sub
+errHandler:
+Select Case Err
+  Case 2757     'happens if record couldn't be saved
+    intAttempt = intAttempt + 1
+    If intAttempt > 5 Then
+      If MsgBox("There were problems saving the record.  Please try again.", vbRetryCancel) = vbCancel Then Exit Sub
+    End If
+    Me.txtID = Null
+    OpenWaitForm "Please wait... "
+    Sleep 1000
+    Resume RetryAfterUpdate
+  Case Else
+    ErrHand Me.Name, "txtPO_AfterUpdate"
+    Exit Sub
+End Select
+End Sub
+
+Private Sub txtPO_BeforeUpdate(Cancel As Integer)
+On Error GoTo errHandler:
+
+  Dim varResult
+  If IsNull(Me.txtID) Then
+    varResult = DLookup("PO", "Tbl_PO", "PO='" + Me.txtPO + "'")
+  Else
+    varResult = DLookup("PO", "Tbl_PO", "PO='" + Me.txtPO + "' AND ID <> " + CStr(Me.txtID))
+  End If
+'  Me.subPOItems.LinkChildFields = Me.subPOItems.LinkChildFields
+  If Not IsNull(varResult) Then
+    MsgBox "The PO you entered is already in use.  Please enter another PO.", vbExclamation
+    Cancel = True
+    Exit Sub
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "txtPO_BeforeUpdate"
+Exit Sub
+End Sub
+
+Private Sub txtRefNum_Exit(Cancel As Integer)
+'On Error Resume Next
+  Me.subPOItems.Form!txtQuantity.SetFocus
+  
+End Sub
+
+Private Sub txtShipState_AfterUpdate()
+On Error GoTo errHandler
+
+  Me.cmbShipVia = DLookup("[ship_via]", "tbl_ship_via", "[state] = '" & Me.txtShipState & "'")
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "txtShipState_AfterUpdate"
+Exit Sub
+End Sub
+
+Private Sub txtShipStoreNo_AfterUpdate()
+On Error GoTo errHandler
+
+  Dim rst As ADODB.Recordset, strSQL As String
+  
+  ' Exit if no blank store number
+  If IsNull(Me.txtShipStoreNo) Or Me.txtShipStoreNo = "" Then Exit Sub
+  
+  ' Look up store details based on store number entered
+  strSQL = "sp_Util_GetStoreInfo '" + Me.txtShipStoreNo + "'"
+  Set rst = New ADODB.Recordset
+  With rst
+    .Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    If Not .EOF Then
+      Me.txtShipName = !Ship_Name
+      Me.txtShipAddress1 = !Ship_Address1
+      Me.txtShipAddress2 = !Ship_Address2
+      Me.txtShipCity = !Ship_City
+      Me.txtShipState = !Ship_State
+      Me.txtShipZip = !Ship_Zip
+      Me.txtShipAttn = !Ship_Attn
+      Me.txtShipPhone = !Ship_Phone
+      Me.cmbShipVia = !Ship_via
+    End If
+    .Close
+  End With
+  Set rst = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Ship_StoreNo"
+Exit Sub
+End Sub
+
+Private Sub InitPO()
+On Error GoTo errHandler
+
+  ' check if we are already in init
+  If mblnInitPO Then Exit Sub
+    
+  Dim fP As Form_fdlgPO
+  Set fP = New Form_fdlgPO
+  
+  ' Make sure we are visible (when form opened in add mode)
+  Me.Visible = True
+  Me.Repaint
+  
+  Pause fP
+  
+  If Not fP.mblnCancel Then
+    mblnInitPO = True
+    Me.txtPO = fP.txtPO
+    Me.txtID = DMax("[id]", "Tbl_PO") + 1
+    If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+    mblnInitPO = False
+    Me.txtDateOrdered.SetFocus
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "InitPO"
+Exit Sub
+End Sub
+
+Private Sub txtSoldName_AfterUpdate()
+On Error GoTo errHandler
+
+  Me!SoldID = Me.txtSoldName.Column(1)
+  If Me.txtSoldName <> Me.txtSoldName.OldValue Then
+    Me.comSoldAttention = Null
+    Call comSoldAttention_Enter
+    If Me.comSoldAttention.ListCount > 0 Then
+      Me.comSoldAttention = Me.comSoldAttention.ItemData(0)
+    End If
+  End If
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "txtSoldName_AfterUpdate"
+Exit Sub
+End Sub
+
+Private Sub txtSoldName_NotInList(NewData As String, Response As Integer)
+On Error GoTo errHandler
+
+  MsgBox "You must choose a name from the list.  To bill to another company not listed, close the PO screen and open the Utility Menu from the Main Menu.", vbCritical
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "txtSoldName_NotInList"
+Exit Sub
+End Sub

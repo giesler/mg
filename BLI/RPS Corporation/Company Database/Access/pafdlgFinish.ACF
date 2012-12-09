@@ -1,0 +1,302 @@
+Version =19
+VersionRequired =19
+Checksum =144490642
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5160
+    ItemSuffix =55
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0x53fa08d792dee140
+    End
+    Caption ="Vendor"
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2640
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x3008c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3120
+                    Top =2280
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =6
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3108c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3972
+                    Top =2280
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =7
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3208c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1740
+                    Top =480
+                    Width =3240
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x3f2ebfa462f5cf4284f29ede2a0f83ec
+                    End
+                    Name ="comVendorID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT VendorID, VendorName FROM dbo.tblVendors ORDER BY VendorName"
+                    ColumnWidths ="0;1440"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =300
+                            Top =480
+                            Width =1335
+                            Height =240
+                            Name ="Label38"
+                            Caption ="Vendor Name:"
+                            GUID = Begin
+                                0x8ba8259aae3aa74b9ffc4095833f1a68
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    AccessKey =82
+                    Left =1740
+                    Top =1950
+                    Width =2580
+                    TabIndex =5
+                    Name ="chkFReadyTouse"
+                    DefaultValue ="False"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x8b071f398d92c64f9ba4f89112932d5d
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =247
+                            Left =1970
+                            Top =1920
+                            Width =2175
+                            Height =240
+                            Name ="Label44"
+                            Caption ="&Ready to Use from Vendor"
+                            GUID = Begin
+                                0x47257bf6502f2f459c50e1ebd36c0f9c
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1740
+                    Top =120
+                    Width =1140
+                    Name ="txtFOrder"
+                    Format ="General Number"
+                    GUID = Begin
+                        0x18904f9b6d364d458ab28e91c945378f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =300
+                            Top =120
+                            Width =1335
+                            Height =240
+                            Name ="Label46"
+                            Caption ="Finish Order:"
+                            GUID = Begin
+                                0xebdf26396e98bf449fc64b24e92fab3b
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1740
+                    Top =1200
+                    Width =3240
+                    Height =600
+                    TabIndex =4
+                    Name ="txtFPackaging"
+                    GUID = Begin
+                        0x676ad7fc179cc247a0e853c66a59bed2
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =360
+                            Top =1200
+                            Width =1275
+                            Height =405
+                            Name ="Label50"
+                            Caption ="Packaging Instructions:"
+                            GUID = Begin
+                                0xad47b83edad03e499445237ecaab21c9
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =1740
+                    Top =840
+                    Width =3240
+                    TabIndex =3
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x5673f499061c8e4b9096ab356e01b406
+                    End
+                    Name ="comFDescription"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT FinishDesc FROM dbo.tlkuFinish ORDER BY FinishDesc"
+                    ColumnWidths ="1440"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =1515
+                            Height =240
+                            Name ="Label52"
+                            Caption ="Finish Description:"
+                            GUID = Begin
+                                0xff6337c771e1c9418646d74097bd69a3
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3840
+                    Top =120
+                    Width =1140
+                    TabIndex =1
+                    Name ="txtFCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xbec9266b6d66774f8bbb364e8f188b9e
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3120
+                            Top =120
+                            Width =615
+                            Height =240
+                            Name ="Label54"
+                            Caption ="Cost:"
+                            GUID = Begin
+                                0x29798c8272b49a49949449a178bfdcac
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub

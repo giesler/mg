@@ -1,0 +1,250 @@
+Version =19
+VersionRequired =19
+Checksum =-657542632
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =5760
+    ItemSuffix =10
+    Left =1095
+    Top =2325
+    Right =9390
+    Bottom =7245
+    RecSrcDt = Begin
+        0x4f8a69a958c3e140
+    End
+    RecordSource ="dbo.tblResponseMethod"
+    Caption ="Response Methods"
+    Begin
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin FormHeader
+            Height =960
+            BackColor =-2147483633
+            Name ="FormHeader1"
+            GUID = Begin
+                0x0b09c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    BackStyle =0
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =135
+                    Top =120
+                    Width =5355
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    BackColor =-2147483633
+                    ForeColor =128
+                    Name ="Text3"
+                    Caption ="Response Method Edit Screen"
+                    GUID = Begin
+                        0x0c09c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    ColumnCount =2
+                    ListWidth =1440
+                    Left =3174
+                    Top =600
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x0e09c088b84ad311bb05004033532b7f
+                    End
+                    Name ="comJumpToRM"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselResponseID"
+                    ColumnWidths ="0;1440"
+                    AfterUpdate ="[Event Procedure]"
+                    BaseInfo ="\"dbo.qselResponseID\";\"\""
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =720
+                            Top =600
+                            Width =2310
+                            Height =240
+                            Name ="ResponseMethod_Label"
+                            Caption ="Jump to a Response Method:"
+                            GUID = Begin
+                                0x0d09c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =1680
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x0f09c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1728
+                    Top =240
+                    Name ="ResponseMethod"
+                    ControlSource ="ResponseMethod"
+                    GUID = Begin
+                        0x1109c088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =288
+                            Top =240
+                            Width =1305
+                            Height =240
+                            Name ="Label7"
+                            Caption ="Method:"
+                            GUID = Begin
+                                0x1009c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =2
+                    OverlapFlags =85
+                    Left =1728
+                    Top =600
+                    Width =3465
+                    Height =768
+                    TabIndex =1
+                    Name ="ResponseMethodNotes"
+                    ControlSource ="ResponseMethodNotes"
+                    GUID = Begin
+                        0x1309c088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =288
+                            Top =600
+                            Width =1290
+                            Height =240
+                            Name ="Label8"
+                            Caption ="Notes:"
+                            GUID = Begin
+                                0x1209c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =600
+            BackColor =-2147483633
+            Name ="FormFooter2"
+            GUID = Begin
+                0x1409c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =2160
+                    Top =120
+                    Width =1290
+                    Name ="btnClose"
+                    Caption ="&Close"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x1509c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =78
+                    Left =4752
+                    Top =120
+                    Width =720
+                    TabIndex =1
+                    Name ="cmdNewRec"
+                    Caption ="&New"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x1609c088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub btnClose_Click()
+On Error GoTo Err_btnClose_Click
+
+
+    DoCmd.Close
+
+Exit_btnClose_Click:
+    Exit Sub
+
+Err_btnClose_Click:
+    MsgBox Error$
+    Resume Exit_btnClose_Click
+    
+End Sub
+
+Private Sub comJumpToRM_AfterUpdate()
+On Error Resume Next
+
+If IsNull(Me.comJumpToRM) Then Exit Sub
+
+Me.RecordsetClone.FindFirst "[apkResponse] = " & Me.comJumpToRM
+Me.Form.Bookmark = Me.Form.RecordsetClone.Bookmark
+
+Exit Sub
+End Sub
+Private Sub cmdNewRec_Click()
+On Error GoTo Err_cmdNewRec_Click
+
+
+    DoCmd.GoToRecord , , acNewRec
+
+Exit_cmdNewRec_Click:
+    Exit Sub
+
+Err_cmdNewRec_Click:
+    MsgBox Err.Description
+    Resume Exit_cmdNewRec_Click
+    
+End Sub

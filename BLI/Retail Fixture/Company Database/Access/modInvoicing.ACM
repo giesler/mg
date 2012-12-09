@@ -1,0 +1,243 @@
+Option Compare Database
+Option Explicit
+
+Private Const mstrModName = "modInvoicing"
+
+Public Function LabelText(pintPOID As Long) As String
+On Error GoTo errHandler
+
+  Dim rstPO As ADODB.Recordset, strSQL As String
+  Set rstPO = New ADODB.Recordset
+  strSQL = "SELECT * FROM Tbl_PO WHERE ID = " + CStr(pintPOID)
+  rstPO.Open strSQL, gConn, adOpenKeyset, adLockReadOnly
+  
+  LabelText = Nz(rstPO![Ship_Name], "") & "#" & Nz(rstPO![Ship_StoreNo], "") & IIf(IsNull(rstPO![Ship_Attn]), "", "  Attn: " & rstPO![Ship_Attn]) & CSPipe & Nz(rstPO![Ship_Address1], "") & IIf(IsNull(rstPO![Ship_Address2]), "", CSPipe & rstPO![Ship_Address2]) & CSPipe & Nz(rstPO![Ship_City], "") & "," & Nz(rstPO![Ship_State], "") & "  " & Nz(rstPO![Ship_Zip], "") & CSPipe & CSPipe & CSPipe & IIf(IsNull(rstPO![Ship_Phone]), "", "  " & rstPO![Ship_Phone])
+  rstPO.Close
+  Set rstPO = Nothing
+  
+Exit Function
+errHandler:
+ErrHand mstrModName, "LabelText"
+Exit Function
+End Function
+
+Public Function CreateInvoice(curID As Long, pblnUpdatePO As Boolean) As Boolean
+On Error GoTo CreateInvoice_Err
+
+CreateInvoice = False
+
+Dim rstInv As ADODB.Recordset, rstPO As ADODB.Recordset
+
+' Open basic PO information
+Set rstPO = New ADODB.Recordset
+rstPO.Open "select * from tbl_PO where ID = " + CStr(curID), gConn, adOpenForwardOnly, adLockReadOnly
+Set rstPO.ActiveConnection = Nothing
+
+'check for existing invoice
+Set rstInv = New ADODB.Recordset
+rstInv.Open "SELECT * From Tbl_Invoice WHERE ID = " + CStr(curID), gConn, adOpenForwardOnly, adLockReadOnly
+If Not rstInv.BOF And Not rstInv.EOF Then
+  If MsgBox("The current PO (RFC ID#" & curID & ") has already created an invoice.  Do you want to overwrite the invoice that was created?  Inventory amounts will be updated.", vbQuestion + vbYesNo) = vbYes Then
+    DeleteInvoice curID
+  Else
+    Exit Function
+  End If
+End If
+rstInv.Close
+Set rstInv = Nothing
+
+Dim cn As ADODB.Connection, strSQL As String
+Set cn = New ADODB.Connection
+cn.Open gConn.ConnectionString
+cn.BeginTrans
+
+'Labels!
+If rstPO!Labels > 0 Then
+  Dim strTmp As String
+  OpenWaitForm "Printing labels..."
+  strTmp = LabelText(curID)
+  If Not flgDebug Then
+      Call CSPrintLabel(strTmp, rstPO!Labels)
+      Call CSStopDDE
+  Else
+      MsgBox CStr(rstPO!Labels) + " labels would be printing right now.", vbExclamation, "Debug Mode"
+  End If
+  CloseWaitForm
+End If
+
+' Add invoice row
+strSQL = "INSERT INTO Tbl_Invoice (ID, PO, Date_Ordered, [Account#], Ship_Date, "
+strSQL = strSQL + "Arrive_Date, Shipped_Name, Shipped_StoreNo, Shipped_Address1, "
+strSQL = strSQL + "Shipped_Address2, Shipped_City, Shipped_State, Shipped_Zip, "
+strSQL = strSQL + "Shipped_Attn, Shipped_Phone, "
+strSQL = strSQL + "Delivery, Comments, Sold_Name, Sold_City, Salesperson, Credit, [Pro #], "
+strSQL = strSQL + "Tax_Rate) "
+strSQL = strSQL + "SELECT ID, PO, Date_Ordered, [Account#], Ship_Date, "
+strSQL = strSQL + "Arrive_Date, Ship_Name, Ship_StoreNo, Ship_Address1, "
+strSQL = strSQL + "Ship_Address2, Ship_City, Ship_State, Ship_Zip, "
+strSQL = strSQL + "Ship_Attn, Ship_Phone, "
+strSQL = strSQL + "Ship_Via, Comments, SoldName, '-UPDATE-', Salesperson, Credit, [Pro#], "
+If rstPO!Ship_State = "WI" Then
+  Dim varInput As Variant
+  varInput = DLookup("Sales_Tax", "Tbl_Globals") * 100
+  varInput = InputBox("RFC Invoice number " + CStr(curID) + " is being shipped to " & rstPO!Ship_City & ", " & rstPO!Ship_State & ".  Enter the sales tax rate to charge for this Wisconsin customer.  (Format: #.##%)", "Wisconsin Sales Tax", varInput)
+  If InStr(varInput, "%") Then
+    varInput = Left$(varInput, Len(varInput) - 1)
+  End If
+  strSQL = strSQL + CStr(varInput)
+Else
+  strSQL = strSQL + CStr(0)
+End If
+strSQL = strSQL + " FROM Tbl_PO WHERE ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Update sold to address info
+strSQL = "UPDATE Tbl_Invoice SET Tbl_Invoice.Sold_Address1 = [SoldAddress1], Tbl_Invoice.Sold_Address2 = [SoldAddress2], Tbl_Invoice.Sold_City = [SoldCity], Tbl_Invoice.Sold_State = [SoldState], Tbl_Invoice.Sold_Zip = [SoldZip] " _
+    & "FROM Tbl_Invoice INNER JOIN tblSold ON Tbl_Invoice.Sold_Name = tblSold.SoldName " _
+    & "WHERE Tbl_Invoice.Sold_City='-Update-'"
+cn.Execute strSQL
+
+' Now add PO items
+strSQL = "INSERT Tbl_Invoice_Items (ID, Material, MatDescription, Quantiy, Unit_Price, SubItems, POItemID) "
+strSQL = strSQL + "SELECT " + CStr(curID) + ", Material, MatDescription, Quanity, Unit_Price, SubItems, apkPOItem "
+strSQL = strSQL + "FROM Tbl_PO_Items WHERE ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Check if we need to reverse amounts
+If rstPO!Credit Then
+  cn.Execute "UPDATE Tbl_Invoice_Items SET Quantiy = Quantiy*-1 WHERE ID = " + CStr(curID)
+End If
+
+' Now add sub items
+strSQL = "INSERT tblInvoiceSubItems (afkItemNum, ItemQty, ItemDesc, ItemPrice) "
+strSQL = strSQL + "SELECT ii.apkInvoiceItem, posi.ItemQty, posi.ItemDesc, posi.ItemPrice "
+strSQL = strSQL + "FROM tblPOSubItems posi "
+strSQL = strSQL + " INNER JOIN Tbl_Invoice_Items ii ON ii.POItemId = posi.afkItemNum"
+cn.Execute strSQL
+
+' Update inventory amounts
+strSQL = "UPDATE Tbl_Catalog SET Inventory = Inventory - Quantiy "
+strSQL = strSQL + "FROM Tbl_Catalog INNER JOIN Tbl_Invoice_Items ON Tbl_Catalog.Material = Tbl_Invoice_Items.Material "
+strSQL = strSQL + "WHERE Tbl_Invoice_Items.ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Update PO status
+If pblnUpdatePO Then
+  strSQL = "UPDATE Tbl_PO SET Status = 'Completed' WHERE ID = " + CStr(curID)
+  cn.Execute strSQL
+End If
+cn.CommitTrans
+cn.Close
+Set cn = Nothing
+Set rstPO = Nothing
+DoEvents
+
+If Not flgDebug Then
+    PrintInvoice curID, acViewNormal
+Else
+    PrintInvoice curID, acViewPreview
+End If
+
+CreateInvoice = True
+
+Exit Function
+CreateInvoice_Err:
+ErrHand "modInvoicing", "CreateInvoice"
+Exit Function
+
+End Function
+
+Public Function ModifyInventory(strItem As String, intQty As Long, rstInv As ADODB.Recordset) As Boolean
+On Error GoTo ModifyInventory_Err
+
+rstInv.Find "[Material] = '" & strItem & "'"
+If rstInv.EOF Then
+    MsgBox "An item on this invoice, " & strItem & " was not found in the catalog.  It is not being deducted from inventory.", vbCritical
+    MsgBox "idx: " & rstInv.Index
+Else
+    rstInv!Inventory = rstInv!Inventory - intQty
+    rstInv.Update
+End If
+
+
+
+ModifyInventory = True
+
+Exit Function
+ModifyInventory_Err:
+ErrHand "modInvoicing", "ModifyInventory"
+Exit Function
+
+End Function
+
+
+Public Function DeleteInvoice(curID As Long, Optional pblnUpdatePOStatus As Boolean) As Boolean
+On Error GoTo DeleteInvoice_Err
+
+DeleteInvoice = False
+
+If IsMissing(pblnUpdatePOStatus) Then pblnUpdatePOStatus = False
+
+Dim rstInv As ADODB.Recordset, cn As ADODB.Connection, strSQL As String
+
+'check for recs
+Set rstInv = New ADODB.Recordset
+rstInv.Open "SELECT * From Tbl_Invoice WHERE ID = " + CStr(curID), gConn, adOpenForwardOnly, adLockReadOnly
+Set rstInv.ActiveConnection = Nothing
+If rstInv.BOF And rstInv.EOF Then
+  MsgBox "The invoice selected to delete, " & curID & " is not present.", vbCritical
+  rstInv.Close
+  Set rstInv = Nothing
+  Exit Function
+End If
+
+Set cn = New ADODB.Connection
+cn.Open gConn.ConnectionString
+cn.BeginTrans
+
+' Reverse amounts if a credit po
+' we don't need to, duh.  they are already reversed
+'If rstInv!Credit Then
+'  cn.Execute "UPDATE Tbl_Invoice_Items SET Quantiy = Quantiy*-1 WHERE ID = " + CStr(curID)
+'End If
+
+' Update inventory amounts
+strSQL = "UPDATE Tbl_Catalog SET Inventory = Inventory + Quantiy "
+strSQL = strSQL + "FROM Tbl_Catalog INNER JOIN Tbl_Invoice_Items ON Tbl_Catalog.Material = Tbl_Invoice_Items.Material "
+strSQL = strSQL + "WHERE Tbl_Invoice_Items.ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Remove Invoice sub items
+strSQL = "DELETE tblInvoiceSubItems FROM tblInvoiceSubItems "
+strSQL = strSQL + "INNER JOIN Tbl_Invoice_Items ON Tbl_Invoice_Items.apkInvoiceItem = tblInvoiceSubItems.afkItemNum "
+strSQL = strSQL + "WHERE Tbl_Invoice_Items.ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Remove invoice items
+strSQL = "DELETE FROM Tbl_Invoice_Items WHERE ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Remove invoice detail
+strSQL = "DELETE FROM Tbl_Invoice WHERE ID = " + CStr(curID)
+cn.Execute strSQL
+
+' Update PO status
+If pblnUpdatePOStatus Then
+  strSQL = "UPDATE Tbl_PO SET Status = 'Inv Deleted' WHERE ID = " + CStr(curID)
+  cn.Execute strSQL
+End If
+
+cn.CommitTrans
+cn.Close
+Set cn = Nothing
+rstInv.Close
+Set rstInv = Nothing
+
+DeleteInvoice = True
+
+Exit Function
+DeleteInvoice_Err:
+ErrHand "modInvoicing", "DeleteInvoice"
+Exit Function
+
+End Function

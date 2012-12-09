@@ -1,0 +1,486 @@
+Version =19
+VersionRequired =19
+Checksum =-914599826
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =14259
+    ItemSuffix =29
+    Left =270
+    Top =360
+    Right =9945
+    Bottom =7380
+    OnNoData ="[Event Procedure]"
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x5560166f99f1e140
+    End
+    InputParameters ="@sDealer = GetDealerName(), @iOrderType = GetType()"
+    RecordSource ="dbo.orsprptEndUserDealer"
+    Caption ="Orders: End Users by Dealer"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x8802000068010000180300006801000000000000b33700006801000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800702000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupFooter = NotDefault
+            ControlSource ="Dealer"
+        End
+        Begin PageHeader
+            Height =1500
+            Name ="PageHeader0"
+            GUID = Begin
+                0x431ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =1140
+                    Width =726
+                    Height =240
+                    FontWeight =700
+                    Name ="Text14"
+                    Caption ="Model"
+                    GUID = Begin
+                        0x471ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =864
+                    Top =900
+                    Width =855
+                    Height =480
+                    FontWeight =700
+                    Name ="Text15"
+                    Caption ="Date of\015\012Sale"
+                    GUID = Begin
+                        0x481ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =1872
+                    Top =1140
+                    Width =2445
+                    Height =240
+                    FontWeight =700
+                    Name ="Text16"
+                    Caption ="Company Name"
+                    GUID = Begin
+                        0x491ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =4608
+                    Top =1140
+                    Width =3315
+                    Height =240
+                    FontWeight =700
+                    Name ="Text17"
+                    Caption ="Address"
+                    GUID = Begin
+                        0x4a1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =8064
+                    Top =1140
+                    Width =1725
+                    Height =240
+                    FontWeight =700
+                    Name ="Text18"
+                    Caption ="City"
+                    GUID = Begin
+                        0x4b1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =9936
+                    Top =1140
+                    Width =585
+                    Height =240
+                    FontWeight =700
+                    Name ="Text19"
+                    Caption ="State"
+                    GUID = Begin
+                        0x4c1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =10656
+                    Top =1140
+                    Width =585
+                    Height =240
+                    FontWeight =700
+                    Name ="Text20"
+                    Caption ="Zip"
+                    GUID = Begin
+                        0x4d1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =11376
+                    Top =1140
+                    Width =1590
+                    Height =240
+                    FontWeight =700
+                    Name ="Text21"
+                    Caption ="Contact"
+                    GUID = Begin
+                        0x4e1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =13104
+                    Top =1140
+                    Width =1155
+                    Height =240
+                    FontWeight =700
+                    Name ="Text22"
+                    Caption ="Phone"
+                    GUID = Begin
+                        0x4f1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    BorderWidth =1
+                    Top =1440
+                    Width =14250
+                    Name ="Line24"
+                    GUID = Begin
+                        0x501ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =420
+                    Width =14253
+                    Height =420
+                    FontSize =14
+                    FontWeight =700
+                    Name ="txtDealer"
+                    ControlSource ="Dealer"
+                    GUID = Begin
+                        0x35a157fc7d1b734a9dd993fd21665122
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =14253
+                    Height =420
+                    FontSize =16
+                    FontWeight =700
+                    Name ="lblHeading"
+                    Caption ="End User Report"
+                    GUID = Begin
+                        0x0f5700d2b14f134f89c4beaa205f4c14
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =360
+            Name ="Detail1"
+            GUID = Begin
+                0x531ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =2
+                    Top =120
+                    Width =720
+                    Name ="Model"
+                    ControlSource ="Model"
+                    GUID = Begin
+                        0x541ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =864
+                    Top =120
+                    Width =855
+                    TabIndex =1
+                    Name ="Date of Sale"
+                    ControlSource ="SaleDate"
+                    EventProcPrefix ="Date_of_Sale"
+                    GUID = Begin
+                        0x551ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =1872
+                    Top =120
+                    Width =2445
+                    TabIndex =2
+                    Name ="Name"
+                    ControlSource ="Name"
+                    GUID = Begin
+                        0x561ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =4608
+                    Top =120
+                    Width =3315
+                    TabIndex =3
+                    Name ="Address"
+                    ControlSource ="Address"
+                    GUID = Begin
+                        0x571ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =8064
+                    Top =120
+                    Width =1725
+                    TabIndex =4
+                    Name ="City"
+                    ControlSource ="City"
+                    GUID = Begin
+                        0x581ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =9936
+                    Top =120
+                    Width =585
+                    TabIndex =5
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0x591ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =10656
+                    Top =120
+                    Width =585
+                    TabIndex =6
+                    Name ="Zip"
+                    ControlSource ="Zip"
+                    GUID = Begin
+                        0x5a1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =11376
+                    Top =120
+                    Width =1590
+                    TabIndex =7
+                    Name ="Contact Individual"
+                    ControlSource ="ContactName"
+                    EventProcPrefix ="Contact_Individual"
+                    GUID = Begin
+                        0x5b1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =13104
+                    Top =120
+                    Width =1155
+                    TabIndex =8
+                    Name ="Phone"
+                    ControlSource ="Phone"
+                    GUID = Begin
+                        0x5c1ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =360
+                    Width =14250
+                    BorderColor =12632256
+                    Name ="Line23"
+                    GUID = Begin
+                        0x5d1ec088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            ForceNewPage =2
+            Height =0
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x5e1ec088b84ad311bb05004033532b7f
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter2"
+            GUID = Begin
+                0x5f1ec088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =12384
+                    Top =60
+                    Width =1872
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x601ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5904
+                    Top =60
+                    Width =2592
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x611ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Top =60
+                    Width =2817
+                    Height =240
+                    FontWeight =700
+                    Name ="Text27"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0x621ec088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =14250
+                    Name ="Line21"
+                    GUID = Begin
+                        0x631ec088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "There were no records found for this report.", vbExclamation
+  Cancel = True
+  
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errorHandler
+
+  Dim fR As New Form_frptEnterDealer
+  If mbTomCat Then
+    Me.Caption = "TC Orders: End User by Dealer"
+    Me.lblHeading.Caption = "Tom Cat End User Report"
+    iType = 1
+    fR.comDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 1 GROUP BY DealerName ORDER BY DealerName"
+  Else
+    Me.Caption = "FC Orders: End User by Dealer"
+    Me.lblHeading.Caption = "Factory Cat End User Report"
+    iType = 0
+    fR.comDealerName.RowSource = "SELECT DealerName from tblAllDealers " _
+      & "Where CurrentDealer = 1 and DealerType = 0 GROUP BY DealerName ORDER BY DealerName"
+  End If
+  fR.Caption = Me.Caption
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+  
+  sDealerName = fR.comDealerName
+  
+  Set fR = Nothing
+
+Exit Sub
+errorHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

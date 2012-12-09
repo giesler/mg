@@ -1,0 +1,287 @@
+Version =19
+VersionRequired =19
+Checksum =2082526890
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =6120
+    DatasheetFontHeight =10
+    ItemSuffix =15
+    Left =4575
+    Top =2130
+    Right =10695
+    Bottom =6015
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x0debeef178c9e140
+    End
+    OnDirty ="[Event Procedure]"
+    RecordSource ="dbo.tblAcctTran"
+    Caption ="Enter a Check"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =3900
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =68
+                    Left =4500
+                    Top =60
+                    Width =1140
+                    Name ="txtAcTrDate"
+                    ControlSource ="AcTrDate"
+                    Format ="Short Date"
+                    DefaultValue ="=Date()"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3840
+                            Top =60
+                            Width =555
+                            Height =240
+                            Name ="Label3"
+                            Caption ="&Date:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =65
+                    Left =4500
+                    Top =360
+                    Width =1140
+                    TabIndex =1
+                    Name ="txtAcTrDeposit"
+                    ControlSource ="AcTrDeposit"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3600
+                            Top =360
+                            Width =795
+                            Height =240
+                            Name ="Label6"
+                            Caption ="&Amount:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    AccessKey =77
+                    Left =960
+                    Top =960
+                    Width =4680
+                    TabIndex =3
+                    Name ="txtAcTrMemo"
+                    ControlSource ="AcTrMemo"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =960
+                            Width =675
+                            Height =240
+                            Name ="Label8"
+                            Caption ="&Memo:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =3660
+                    Top =1260
+                    Width =960
+                    Height =300
+                    TabIndex =4
+                    Name ="cmdSave"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =4680
+                    Top =1260
+                    Width =960
+                    Height =300
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin Subform
+                    OverlapFlags =87
+                    Left =180
+                    Top =1980
+                    Width =5760
+                    Height =1800
+                    TabIndex =6
+                    Name ="subAcctTranCat"
+                    SourceObject ="Form.fsubAcctTranCat"
+                    LinkChildFields ="afkAcTr"
+                    LinkMasterFields ="apkAcTr"
+                End
+                Begin Label
+                    OverlapFlags =93
+                    Left =2040
+                    Top =1740
+                    Width =2520
+                    Height =240
+                    Name ="AcTrDetail"
+                    Caption ="Detail"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    Left =360
+                    Top =1740
+                    Width =1680
+                    Height =240
+                    Name ="AcTrCat"
+                    Caption ="Catagory"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =95
+                    TextAlign =3
+                    Left =4560
+                    Top =1740
+                    Width =1020
+                    Height =240
+                    Name ="AcTrAmount"
+                    Caption ="Amount"
+                    FontName ="Tahoma"
+                End
+                Begin ComboBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    AccessKey =70
+                    Left =960
+                    Top =660
+                    Width =4680
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"0\";\"0\""
+                    GUID = Begin
+                        0x08307621c9d8fd4b9914ce854dbe7c16
+                    End
+                    Name ="txtAcTrPayee"
+                    ControlSource ="AcTrPayee"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.spNameList"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =660
+                            Width =615
+                            Height =240
+                            Name ="Label4"
+                            Caption ="&From:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+On Error GoTo cmdCancel_Err
+
+If Me.Dirty Then Me.Undo
+blnCancel = True
+Me.Visible = False
+
+Exit Sub
+cmdCancel_Err:
+ErrHand Me.Name, "cmdCancel"
+Exit Sub
+
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo cmdSave_Err
+
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = False
+
+Exit Sub
+cmdSave_Err:
+ErrHand Me.Name, "cmdSave"
+Exit Sub
+
+End Sub
+
+Private Sub Form_Dirty(Cancel As Integer)
+blnCancel = False
+End Sub

@@ -1,0 +1,266 @@
+Version =19
+VersionRequired =19
+Checksum =-691355007
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =4620
+    DatasheetFontHeight =10
+    ItemSuffix =24
+    Left =3210
+    Top =1605
+    Right =9510
+    Bottom =6090
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xcc9a6c9bbe70e140
+    End
+    Caption ="BLI Database Options"
+    OnOpen ="[Event Procedure]"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =4380
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin Tab
+                    OverlapFlags =85
+                    Left =105
+                    Top =120
+                    Width =4410
+                    Height =3780
+                    Name ="TabCtl0"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            AccessKey =71
+                            Left =240
+                            Top =525
+                            Width =4140
+                            Height =3240
+                            Name ="pgGeneral"
+                            Caption ="&General"
+                            Begin
+                                Begin ComboBox
+                                    LimitToList = NotDefault
+                                    Enabled = NotDefault
+                                    OverlapFlags =215
+                                    AccessKey =79
+                                    ColumnCount =2
+                                    ListWidth =1560
+                                    Left =2040
+                                    Top =900
+                                    Width =1560
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                                    Name ="comLocation"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="dbo.qselLoc"
+                                    ColumnWidths ="0;1440"
+                                    DefaultValue ="1"
+                                    FontName ="Tahoma"
+                                    BaseInfo ="\"dbo.qselLoc\";\"\""
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =540
+                                            Top =900
+                                            Width =1380
+                                            Height =240
+                                            Name ="Label11"
+                                            Caption ="Default L&ocation:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    DecimalPlaces =0
+                                    OverlapFlags =215
+                                    Left =2040
+                                    Top =1260
+                                    Width =600
+                                    TabIndex =1
+                                    Name ="txtTwipsPerPixelX"
+                                    Format ="Fixed"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =600
+                                            Top =1260
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label21"
+                                            Caption ="TwipsPerPixelX:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    DecimalPlaces =0
+                                    OverlapFlags =215
+                                    Left =2040
+                                    Top =1620
+                                    Width =600
+                                    TabIndex =2
+                                    Name ="txtTwipsPerPixelY"
+                                    Format ="Fixed"
+                                    FontName ="Tahoma"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =600
+                                            Top =1620
+                                            Width =1320
+                                            Height =240
+                                            Name ="Label23"
+                                            Caption ="TwipsPerPixelY:"
+                                            FontName ="Tahoma"
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =2160
+                    Top =3960
+                    Width =1020
+                    TabIndex =1
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =3300
+                    Top =3960
+                    Width =1020
+                    TabIndex =2
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public Function UpdateSettings() As Boolean
+On Error GoTo UpdateSettings_Err
+
+Dim rval
+UpdateSettings = False
+
+'GENERAL TAB
+Call PrivPutInt("DefaultLocation", Me.comLocation)
+Call PrivPutInt("TwipsPerPixelX", Me.txtTwipsPerPixelX)
+Call PrivPutInt("TwipsPerPixelY", Me.txtTwipsPerPixelY)
+
+TwipsPerPixelX = Me.txtTwipsPerPixelX
+TwipsPerPixelY = Me.txtTwipsPerPixelY
+
+UpdateSettings = True
+
+Exit Function
+UpdateSettings_Err:
+Select Case Err
+    Case Else
+        ErrHand Me.Name, "UpdateSettings"
+        Exit Function
+End Select
+        
+End Function
+
+Private Sub cmdCancel_Click()
+On Error Resume Next
+DoCmd.Close
+End Sub
+
+Private Sub cmdOK_Click()
+On Error Resume Next
+If UpdateSettings = True Then
+    DoCmd.Close
+Else
+    MsgBox "There was an unknown error saving the settings.", vbCritical
+End If
+
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+On Error GoTo Form_Open_Err
+
+
+Me.comLocation = PrivGetInt("DefaultLocation", 1)
+Me.txtTwipsPerPixelX = PrivGetInt("TwipsPerPixelX", 15)
+Me.txtTwipsPerPixelY = PrivGetInt("TwipsPerPixelY", 15)
+
+
+Exit Sub
+Form_Open_Err:
+ErrHand Me.Name, "Form_Open_Err"
+Cancel = True
+Exit Sub
+
+End Sub

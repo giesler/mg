@@ -1,0 +1,260 @@
+Version =19
+VersionRequired =19
+Checksum =237885873
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =4680
+    DatasheetFontHeight =10
+    ItemSuffix =26
+    Left =2295
+    Top =1755
+    Right =7215
+    Bottom =3240
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x8c25bf786c7be140
+    End
+    Caption ="Report Criteria"
+    OnOpen ="[Event Procedure]"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2580
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =2220
+                    Top =2160
+                    Width =960
+                    Height =300
+                    TabIndex =3
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin Rectangle
+                    OverlapFlags =93
+                    Left =300
+                    Top =720
+                    Width =3720
+                    Height =900
+                    Name ="Box6"
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =480
+                    Top =600
+                    Width =1380
+                    Height =240
+                    BackColor =-2147483633
+                    Name ="Label4"
+                    Caption ="Include Items"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =3300
+                    Top =2160
+                    Width =960
+                    Height =300
+                    TabIndex =4
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OverlapFlags =215
+                    ListWidth =1740
+                    Left =1320
+                    Top =900
+                    Width =2520
+                    GUID = Begin
+                        0x7dca13ef0ffc8e459892c1418cc46651
+                    End
+                    Name ="comActive"
+                    RowSourceType ="Value List"
+                    RowSource ="\"Active and Inactive\";\"Active Only\";\"Inactive Only\""
+                    ColumnWidths ="1740"
+                    DefaultValue ="\"Active and Inactive\""
+                    Begin
+                        Begin Label
+                            OverlapFlags =215
+                            TextAlign =3
+                            Left =360
+                            Top =900
+                            Width =795
+                            Height =240
+                            Name ="Active:_Label"
+                            Caption ="Active:"
+                            EventProcPrefix ="Active__Label"
+                            GUID = Begin
+                                0x94e05d91069f3d418e72798a3737dd2d
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    RowSourceTypeInt =1
+                    OverlapFlags =215
+                    ListWidth =1740
+                    Left =1320
+                    Top =1260
+                    Width =2520
+                    TabIndex =1
+                    GUID = Begin
+                        0x9225073f441e494483a747efddc845c7
+                    End
+                    Name ="comHidden"
+                    RowSourceType ="Value List"
+                    RowSource ="\"Hidden and Not Hidden\";\"Hidden Only\";\"Not Hidden Only\""
+                    ColumnWidths ="1739"
+                    DefaultValue ="\"Hidden and Not Hidden\""
+                    Begin
+                        Begin Label
+                            OverlapFlags =215
+                            TextAlign =3
+                            Left =360
+                            Top =1260
+                            Width =795
+                            Height =240
+                            Name ="Label23"
+                            Caption ="Hidden:"
+                            GUID = Begin
+                                0xb07f78f6799e0b49b9e1da13fc91fbf5
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    ListWidth =3600
+                    Left =1320
+                    Top =1740
+                    Width =2520
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xab563bbab97d0f4b892f65953922e804
+                    End
+                    Name ="comCustomer"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tblSold.apkSold, tblSold.SoldName FROM tblSold ORDER BY tblSold.SoldName"
+                    ColumnWidths ="0;3600"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1740
+                            Width =1020
+                            Height =240
+                            Name ="Label24"
+                            Caption ="Customer:"
+                            GUID = Begin
+                                0x7d9371ec4d951843b844f51e7ef00cdc
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Top =60
+                    Width =4620
+                    Height =405
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label25"
+                    Caption ="You can enter any information you want below.  The report will be filtered by wh"
+                        "atever you enter."
+                    GUID = Begin
+                        0xa1df4ae9a355af4e99b0fe147eff35b1
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdCancel_Click()
+DoCmd.Close
+End Sub
+
+Private Sub cmdOK_Click()
+
+Me.Visible = False
+
+End Sub
+
+Private Sub datTo_Enter()
+Me.cmdOK.Default = True
+
+End Sub
+
+Private Sub Form_Open(Cancel As Integer)
+
+If Me.OpenArgs <> "" Then Me.Caption = Me.OpenArgs
+    
+End Sub

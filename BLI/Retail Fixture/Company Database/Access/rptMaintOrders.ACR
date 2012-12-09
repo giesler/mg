@@ -1,0 +1,428 @@
+Version =19
+VersionRequired =19
+Checksum =1140234287
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =10740
+    DatasheetFontHeight =10
+    ItemSuffix =40
+    Left =600
+    Top =720
+    Right =9090
+    Bottom =5145
+    DatasheetGridlinesColor =12632256
+    OnNoData ="[Event Procedure]"
+    Toolbar ="RFReportToolBar"
+    RecSrcDt = Begin
+        0x3f7fdbc07ff6e140
+    End
+    InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\")"
+    RecordSource ="dbo.sp_Report_MaintOrders"
+    Caption ="Maintence Orders"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="RFReportMenuBar"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xd0020000d0020000d00200001c03000000000000372a0000e001000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin UnboundObjectFrame
+            OldBorderStyle =1
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader"
+        End
+        Begin PageHeader
+            Height =3180
+            Name ="PageHeader"
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Left =8880
+                    Top =240
+                    Width =1860
+                    Height =480
+                    FontWeight =700
+                    Name ="Label3"
+                    Caption ="3000 Wolff Street \015\012Racine, WI  53404"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =8880
+                    Top =720
+                    Width =1860
+                    Height =480
+                    FontWeight =700
+                    Name ="Label4"
+                    Caption ="Phone (414) 619-3040\015\012Fax (414) 619-3059"
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =1320
+                    Width =10740
+                    Height =480
+                    FontSize =18
+                    FontWeight =700
+                    Name ="Label5"
+                    Caption ="Maintenance Orders"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =120
+                    Top =2760
+                    Width =3120
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label19"
+                    Caption ="CITY/STATE"
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =3360
+                    Top =2760
+                    Width =1560
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label20"
+                    Caption ="PO #"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5040
+                    Top =2760
+                    Width =600
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label21"
+                    Caption ="QTY"
+                End
+                Begin Label
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5760
+                    Top =2760
+                    Width =1200
+                    Height =360
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label22"
+                    Caption ="PRICE"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7193
+                    Top =2640
+                    Width =840
+                    Height =480
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label23"
+                    Caption ="ORDER\015\012DATE"
+                End
+                Begin Line
+                    Top =3120
+                    Width =10740
+                    Name ="Line26"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8160
+                    Top =2640
+                    Width =840
+                    Height =480
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label38"
+                    Caption ="SHIP\015\012DATE"
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =691
+                    Width =10635
+                    Name ="Line0"
+                End
+                Begin Subform
+                    OldBorderStyle =0
+                    Width =7140
+                    Height =1047
+                    Name ="subLogo"
+                    SourceObject ="Report.rsubLogo"
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =1920
+                    Width =10740
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="lblCriteria"
+                    GUID = Begin
+                        0x19fb6d7e28d45642b3a56e14ad947d49
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =480
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5760
+                    Width =1320
+                    Height =360
+                    FontSize =10
+                    Name ="SumOfPrice"
+                    ControlSource ="ExtPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =120
+                    Width =3120
+                    Height =360
+                    FontSize =10
+                    TabIndex =1
+                    Name ="CITY_STATE"
+                    ControlSource ="CITY_STATE"
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8160
+                    Width =840
+                    Height =360
+                    FontSize =10
+                    TabIndex =2
+                    Name ="Ship_Date"
+                    ControlSource ="Ship_Date"
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5040
+                    Width =600
+                    Height =360
+                    FontSize =10
+                    TabIndex =3
+                    Name ="SumOfQuanity"
+                    ControlSource ="ExtQty"
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =3360
+                    Width =1560
+                    Height =360
+                    FontSize =10
+                    TabIndex =4
+                    Name ="PO"
+                    ControlSource ="PO"
+                End
+                Begin Line
+                    Top =480
+                    Width =9000
+                    Name ="Line35"
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7200
+                    Width =840
+                    Height =360
+                    FontSize =10
+                    TabIndex =5
+                    Name ="Date_Ordered"
+                    ControlSource ="Date_Ordered"
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter"
+            Begin
+                Begin Line
+                    BorderWidth =1
+                    Width =10695
+                    Name ="Line55"
+                    GUID = Begin
+                        0x77525cdc39a9554c8ee63f5aa3592be1
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3240
+                    Top =60
+                    Width =4200
+                    Name ="Text54"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x3019ecb22ad8c949a1b20cd064e7c716
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =60
+                    Top =60
+                    Width =3120
+                    Height =240
+                    Name ="Text56"
+                    Caption ="Retail Fixture, LLC."
+                    GUID = Begin
+                        0x503b269506b22749810a5cf97a4c9e60
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7500
+                    Top =60
+                    Width =3120
+                    TabIndex =1
+                    Name ="Text57"
+                    ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
+                    GUID = Begin
+                        0x8c9e5c4200782d409992c1f95d0a49b3
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =480
+            Name ="ReportFooter"
+            Begin
+                Begin TextBox
+                    DecimalPlaces =2
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =5760
+                    Top =120
+                    Width =1320
+                    Height =360
+                    FontSize =10
+                    Name ="Text40"
+                    ControlSource ="=Sum([ExtPrice])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "There were no shipments found that matched the criteria you entered.", vbExclamation, Me.Caption
+  Cancel = True
+
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errHandler
+
+  Dim fC As Form_frptDatesCust, strCrit As String
+  Set fC = New Form_frptDatesCust
+  fC.Caption = Me.Caption
+  fC.lblDate.Caption = "Shipped Date:"
+  
+  Pause fC
+
+  If fC.mblnCancel Then
+    Cancel = True
+  Else
+    SetSPVar "ShipFromDate", fC.datFrom
+    SetSPVar "ShipToDate", fC.datTo
+    SetSPVar "SoldName", fC.cmbSoldName
+    strCrit = FormatFromTo(fC.datFrom, fC.datTo)
+    If strCrit <> "" Then strCrit = "Ship Date " + strCrit
+    If fC.cmbSoldName <> "" Then
+      If strCrit <> "" Then strCrit = strCrit + ", "
+      strCrit = strCrit + "Customer: " + fC.cmbSoldName
+    End If
+    Me.lblCriteria.Caption = strCrit
+  End If
+  
+  Set fC = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

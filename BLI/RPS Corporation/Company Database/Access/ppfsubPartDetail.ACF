@@ -1,0 +1,361 @@
+Version =19
+VersionRequired =19
+Checksum =-1384386213
+Begin Form
+    RecordSelectors = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    GridX =24
+    GridY =24
+    Width =11520
+    ItemSuffix =244
+    Left =750
+    Top =2895
+    Right =9705
+    Bottom =7140
+    RecSrcDt = Begin
+        0xe8d302dc0dc5e140
+    End
+    RecordSource ="dbo.tblPOPart"
+    Caption ="Production Parts Orders"
+    BeforeInsert ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =4200
+            BackColor =11184640
+            Name ="Detail0"
+            GUID = Begin
+                0x17e6dcdd2349d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =2232
+                    Top =480
+                    Width =4320
+                    Height =240
+                    TabIndex =2
+                    Name ="Part Description"
+                    ControlSource ="PartDescription"
+                    EventProcPrefix ="Part_Description"
+                    GUID = Begin
+                        0x1de6dcdd2349d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =540
+                            Top =480
+                            Width =1584
+                            Height =240
+                            FontWeight =400
+                            Name ="Text19"
+                            Caption ="Part Description:"
+                            GUID = Begin
+                                0x1ce6dcdd2349d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin Subform
+                    OverlapFlags =85
+                    Left =300
+                    Top =840
+                    Width =8767
+                    Height =3120
+                    TabIndex =3
+                    Name ="subOrderDetail"
+                    SourceObject ="Form.ppfsubOrderDetail"
+                    GUID = Begin
+                        0x1ee6dcdd2349d311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    ColumnCount =2
+                    ListWidth =3240
+                    Left =2232
+                    Top =120
+                    Width =2460
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x75f097363bacba4c96eb9593ce9497f3
+                    End
+                    Name ="txtVendorPartNum"
+                    ControlSource ="VendorPartNumber"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT ManfPartNum, PartName FROM dbo.tblParts"
+                    ColumnWidths ="1080;2160"
+                    AfterUpdate ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =240
+                            Top =120
+                            Width =1872
+                            Height =240
+                            FontWeight =400
+                            Name ="Text15"
+                            Caption ="Vendor Part Number:"
+                            GUID = Begin
+                                0x18e6dcdd2349d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    ColumnCount =2
+                    ListWidth =3240
+                    Left =6672
+                    Top =120
+                    Width =2460
+                    TabIndex =1
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x8fc30c16d7d9bc44a5e0f9ae47843006
+                    End
+                    Name ="RPS Part Number"
+                    ControlSource ="RPSPartNum"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT RPSPartNum, PartName FROM dbo.tblParts"
+                    ColumnWidths ="1080;2160"
+                    EventProcPrefix ="RPS_Part_Number"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            Left =4800
+                            Top =120
+                            Width =1728
+                            Height =240
+                            FontWeight =400
+                            Name ="Text17"
+                            Caption ="RPS Part Number:"
+                            GUID = Begin
+                                0x1ae6dcdd2349d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub btnFirst_Click()
+On Error Resume Next
+
+
+    DoCmd.GoToRecord , , A_FIRST
+
+Exit_btnFirst_Click:
+    Exit Sub
+
+Err_btnFirst_Click:
+    MsgBox Error$
+    Resume Exit_btnFirst_Click
+    
+End Sub
+
+Private Sub btnLast_Click()
+On Error Resume Next
+
+
+    DoCmd.GoToRecord , , A_LAST
+
+Exit_btnLast_Click:
+    Exit Sub
+
+Err_btnLast_Click:
+    MsgBox Error$
+    Resume Exit_btnLast_Click
+    
+End Sub
+
+Private Sub btnNew_Click()
+On Error Resume Next
+
+
+    DoCmd.GoToRecord , , A_NEWREC
+
+Exit_btnNew_Click:
+    Exit Sub
+
+Err_btnNew_Click:
+    MsgBox Error$
+    Resume Exit_btnNew_Click
+    
+End Sub
+
+Private Sub BtnNext_Click()
+On Error Resume Next
+
+
+    DoCmd.GoToRecord , , A_NEXT
+
+Exit_btnNext_Click:
+    Exit Sub
+
+Err_btnNext_Click:
+    MsgBox Error$
+    Resume Exit_btnNext_Click
+    
+End Sub
+
+Private Sub BtnPrev_Click()
+On Error Resume Next
+
+
+    DoCmd.GoToRecord , , acPrevious
+
+Exit_btnPrev_Click:
+    Exit Sub
+
+Err_btnPrev_Click:
+    MsgBox Error$
+    Resume Exit_btnPrev_Click
+    
+End Sub
+
+Private Sub Button127_Click()
+On Error GoTo Err_Button127_Click
+
+
+    DoCmd.DoMenuItem acFormBar, A_RECORDSMENU, 5, , A_MENU_VER20
+
+Exit_Button127_Click:
+    Exit Sub
+
+Err_Button127_Click:
+    MsgBox Error$
+    Resume Exit_Button127_Click
+    
+End Sub
+
+Private Sub Button128_Click()
+On Error GoTo Err_Button128_Click
+
+
+    DoCmd.DoMenuItem acFormBar, A_RECORDSMENU, 4, , A_MENU_VER20
+
+Exit_Button128_Click:
+    Exit Sub
+
+Err_Button128_Click:
+    MsgBox Error$
+    Resume Exit_Button128_Click
+    
+End Sub
+
+Private Sub Button129_Click()
+SendKeys "{F7}"
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+  
+  If IsNull(Me![POPartID]) Then Exit Sub
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Private Sub txtVendorPartNum_AfterUpdate()
+On Error GoTo txtVendorPartNum_AU_Err
+
+Dim sSQL As String, r As Recordset
+
+If IsNull(Me.txtVendorPartNum) Then Exit Sub
+If Me.txtVendorPartNum = "" Then Exit Sub
+
+If IsNull(Me.RPS_Part_Number) Then
+  sSQL = "select RPSPartNum, PartName from tblParts where ManfPartNum = '" & Me.txtVendorPartNum & "'"
+  Set r = New Recordset
+  r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+  If Not r.BOF Then
+    Me.RPS_Part_Number = r!RPSPartNum
+    Me.Part_Description = r!PartName
+  End If
+  r.Close
+  Set r = Nothing
+End If
+
+Exit Sub
+txtVendorPartNum_AU_Err:
+ErrHand Me.Name, "txtVendorPartNum_AU"
+Exit Sub
+End Sub

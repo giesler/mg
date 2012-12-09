@@ -1,0 +1,519 @@
+Version =19
+VersionRequired =19
+Checksum =-1090417971
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =0
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =10080
+    DatasheetFontHeight =10
+    ItemSuffix =19
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xaa2fd59033dfe140
+    End
+    RecordSource ="SELECT dbo.tblParts.PartName, dbo.tblPartsFinish.FinishID, dbo.tblParts.RPSPartN"
+        "um, dbo.tblVendors.VendorName, dbo.tblVendors.CointactName, dbo.tblVendors.Stree"
+        "tAddress, dbo.tblVendors.City, dbo.tblVendors.State, dbo.tblVendors.Zip, dbo.tbl"
+        "Vendors.Phone, dbo.tblVendors.Fax, dbo.tblPartsFinish.FDescription, dbo.tblParts"
+        "Finish.FReadyToUse, dbo.tblPartsFinish.FPackaging, dbo.tblPartsFinish.FCost FROM"
+        " dbo.tblParts INNER JOIN dbo.tblPartsFinish ON dbo.tblParts.PartID = dbo.tblPart"
+        "sFinish.PartID LEFT OUTER JOIN dbo.tblVendors ON dbo.tblPartsFinish.VendorID = d"
+        "bo.tblVendors.VendorID"
+    Caption ="Parts Finish Page"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin PageHeader
+            Height =0
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0x89de42aa0177dd4191dde2be65d346a2
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =4200
+            Name ="Detail"
+            GUID = Begin
+                0xc16e5803420de94190388f0850c71a72
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =4680
+                    Top =180
+                    Width =4680
+                    Height =300
+                    FontSize =10
+                    FontWeight =700
+                    BorderColor =8421504
+                    Name ="PartName"
+                    ControlSource ="PartName"
+                    GUID = Begin
+                        0x2ed47e33dcda8549b340a61db8f6c7f6
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =3240
+                            Top =180
+                            Width =1350
+                            Height =225
+                            Name ="Label0"
+                            Caption ="Part Name:"
+                            GUID = Begin
+                                0xc36a0f6569cbc1489fa67b6b72db3ad8
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1680
+                    Top =180
+                    Height =300
+                    FontSize =10
+                    FontWeight =700
+                    TabIndex =1
+                    BorderColor =8421504
+                    Name ="RPSPartNum"
+                    ControlSource ="RPSPartNum"
+                    GUID = Begin
+                        0xb0ee5c6a28f30745abe0473c95572b6e
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =240
+                            Top =180
+                            Width =1350
+                            Height =225
+                            Name ="Label4"
+                            Caption ="RPS P/N:"
+                            GUID = Begin
+                                0xf4cb6126c40fc44a903cda7b1f42480a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =1920
+                    Top =900
+                    Width =7320
+                    TabIndex =2
+                    BorderColor =8421504
+                    Name ="VendorName"
+                    ControlSource ="VendorName"
+                    GUID = Begin
+                        0xcaf52cb80fe9054a9fdafd30c889ff19
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =480
+                            Top =900
+                            Width =1350
+                            Height =225
+                            Name ="Label5"
+                            Caption ="Name:"
+                            GUID = Begin
+                                0x5b91d7fee4aec74385840b73d7a97374
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =1920
+                    Top =1260
+                    Width =4080
+                    Height =225
+                    TabIndex =3
+                    BorderColor =8421504
+                    Name ="CointactName"
+                    ControlSource ="CointactName"
+                    GUID = Begin
+                        0xf0db3c19dfb4184bb01c1142adf905ec
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =480
+                            Top =1260
+                            Width =1350
+                            Height =225
+                            Name ="Label6"
+                            Caption ="Cointact:"
+                            GUID = Begin
+                                0x43c0389fc0f948408abf2363cd53df21
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =1920
+                    Top =1620
+                    Width =4080
+                    TabIndex =4
+                    BorderColor =8421504
+                    Name ="StreetAddress"
+                    ControlSource ="StreetAddress"
+                    GUID = Begin
+                        0xb232d234c1f8fc4c84f4e1e7f0ad92e8
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =480
+                            Top =1620
+                            Width =1350
+                            Height =225
+                            Name ="Label7"
+                            Caption ="Address:"
+                            GUID = Begin
+                                0xbc236c591d3b7d40b1a911cb14ed20ff
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =1920
+                    Top =1980
+                    Width =1380
+                    TabIndex =5
+                    BorderColor =8421504
+                    Name ="City"
+                    ControlSource ="City"
+                    GUID = Begin
+                        0x1ad5c5a2503f4d4cac9c48a6bc0e1797
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =480
+                            Top =1980
+                            Width =1350
+                            Height =225
+                            Name ="Label8"
+                            Caption ="City:"
+                            GUID = Begin
+                                0x270e8b4d2888e94488319daf82c842f9
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Left =4005
+                    Top =1980
+                    Width =540
+                    TabIndex =6
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0x44735c377c2d8b40a67f922bb5f8ee8a
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =3420
+                            Top =1980
+                            Width =495
+                            Height =225
+                            Name ="Label9"
+                            Caption ="State:"
+                            GUID = Begin
+                                0x15b1081e210b7c4d82b25d689e0c90ee
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =5115
+                    Top =1980
+                    Width =885
+                    TabIndex =7
+                    BorderColor =8421504
+                    Name ="Zip"
+                    ControlSource ="Zip"
+                    GUID = Begin
+                        0x7d417f3dd396ec41ade3a04111293854
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =4680
+                            Top =1980
+                            Width =345
+                            Height =225
+                            Name ="Label10"
+                            Caption ="Zip:"
+                            GUID = Begin
+                                0x2c6bc18ccade8c4499fa941f1c960f53
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =7740
+                    Top =1620
+                    TabIndex =8
+                    BorderColor =8421504
+                    Name ="Phone"
+                    ControlSource ="Phone"
+                    GUID = Begin
+                        0x23907c0e9dbdad4285921ba6c4c0b686
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =6300
+                            Top =1620
+                            Width =1350
+                            Height =225
+                            Name ="Label11"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0xf951921a568b6540904a07016895852b
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =7740
+                    Top =1980
+                    TabIndex =9
+                    BorderColor =8421504
+                    Name ="Fax"
+                    ControlSource ="Fax"
+                    GUID = Begin
+                        0x018d86f2d4922746bb642a9566353094
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =6300
+                            Top =1980
+                            Width =1350
+                            Height =225
+                            Name ="Label12"
+                            Caption ="Fax:"
+                            GUID = Begin
+                                0xab6348e6a3ed384f9c7f5d95df27c252
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    Left =2220
+                    Top =2640
+                    Width =6960
+                    TabIndex =10
+                    BorderColor =8421504
+                    Name ="FDescription"
+                    ControlSource ="FDescription"
+                    GUID = Begin
+                        0x6e4555722e8fef4f87cf21d9e219b532
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =540
+                            Top =2640
+                            Width =1590
+                            Height =225
+                            Name ="Label13"
+                            Caption ="Finish Description:"
+                            GUID = Begin
+                                0x44577bb767cdb844825cf1d7a33f2686
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    Left =2220
+                    Top =3000
+                    Width =6960
+                    Height =1143
+                    TabIndex =11
+                    BorderColor =8421504
+                    Name ="FPackaging"
+                    ControlSource ="FPackaging"
+                    GUID = Begin
+                        0xaeb2b6fb16f14b449a55c16db9710d04
+                    End
+                    Begin
+                        Begin Label
+                            TextAlign =3
+                            Left =780
+                            Top =3000
+                            Width =1350
+                            Height =420
+                            Name ="Label15"
+                            Caption ="Packaging\015\012Instructions:"
+                            GUID = Begin
+                                0x2f4c8dc8e19e434796c25bfb26f000ff
+                            End
+                        End
+                    End
+                End
+                Begin Rectangle
+                    BackStyle =0
+                    Left =360
+                    Top =720
+                    Width =9000
+                    Height =1680
+                    BorderColor =8421504
+                    Name ="Box17"
+                    GUID = Begin
+                        0xd64bec0874776641b9b4ded717a46d3f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    TextAlign =2
+                    Left =540
+                    Top =600
+                    Width =780
+                    Height =225
+                    Name ="Label18"
+                    Caption ="Vendor:"
+                    GUID = Begin
+                        0xdc210f09d17b0a46aeb4eb58a351542a
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooterSection"
+            GUID = Begin
+                0x059a9b584cae8547a2e000d9e8937819
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    FELineBreak = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7323
+                    Top =60
+                    Width =2757
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0xac31631410af9e49984707efdded9f1c
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    FELineBreak = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3420
+                    Top =60
+                    Width =2592
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x70f958e478478f4fb4c1ccd3e65df84a
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    BackStyle =1
+                    TextFontFamily =34
+                    Top =60
+                    Width =1977
+                    Height =240
+                    FontWeight =700
+                    Name ="Text82"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0x727ea9e54745094f9a289fd70d6d2b93
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =10080
+                    Name ="Line21"
+                    GUID = Begin
+                        0xb174be895edd764da018b09f41f3274e
+                    End
+                End
+            End
+        End
+    End
+End

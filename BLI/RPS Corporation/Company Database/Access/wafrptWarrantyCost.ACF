@@ -1,0 +1,524 @@
+Version =19
+VersionRequired =19
+Checksum =1468317557
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =3300
+    ItemSuffix =25
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Select Names..."
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Tahoma"
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ListBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =5520
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x9f6cb0d1c0a096418be1768aed726d22
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1080
+                    Top =5100
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =10
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x84330aa37b198541a9a302f3193939ee
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =2112
+                    Top =5100
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =11
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x20b6f068e03d1b49b316a21193c7d0b4
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =3180
+                    Height =480
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="You can fill in any of the fields below to limit the results of the report."
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xe190568df2d4af4795e26b60ba706123
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =180
+                    Top =1260
+                    Width =2883
+                    Height =240
+                    Name ="lblDateCaption"
+                    Caption ="Failure Date"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xd2da776860d8304e94541831c389349a
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =87
+                    TextAlign =1
+                    ListWidth =1440
+                    Left =240
+                    Top =2880
+                    Width =2820
+                    TabIndex =6
+                    ColumnInfo ="\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0xed010c02e148ac42b2a26f6a448d6578
+                    End
+                    Name ="cmbDealerName"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT DealerName FROM dbo.tblDealers WHERE (CurrentDealer = 1) AND (DealerType "
+                        "= 0) GROUP BY DealerName ORDER BY DealerName"
+                    ColumnWidths ="1440"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            TextAlign =1
+                            Left =240
+                            Top =2640
+                            Width =1185
+                            Height =240
+                            Name ="comModel_Label"
+                            Caption ="Dealer"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xe2e9761762e19b4fa650c7d2176ae923
+                            End
+                        End
+                    End
+                End
+                Begin ListBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =240
+                    Top =3900
+                    Width =2820
+                    Height =660
+                    TabIndex =8
+                    Name ="lstOpenWarranty"
+                    RowSourceType ="Value List"
+                    RowSource ="1;\"Open Claims\";0;\"Closed Claims\";null;\"Open and Closed Claims\""
+                    ColumnWidths ="0;2924"
+                    DefaultValue ="Null"
+                    GUID = Begin
+                        0xd2d9aa201a40f94589b3d477decee72d
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =780
+                    Top =1560
+                    Width =867
+                    TabIndex =2
+                    Name ="txtFailFrom"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x74b0515833f80845a8546e091da3bfcf
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =1560
+                            Width =510
+                            Height =240
+                            Name ="Text17"
+                            Caption ="From:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x23e459bf14effe409881168f947e35a3
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =2220
+                    Top =1560
+                    Width =867
+                    TabIndex =3
+                    Name ="txtFailTo"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0xc9d354dacbf13240bdb9ab3d3f885094
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =1800
+                            Top =1560
+                            Width =330
+                            Height =240
+                            Name ="Text19"
+                            Caption ="To:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xbd13cddf20039b43833848824c3f5d22
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =180
+                    Top =600
+                    Width =2883
+                    Height =240
+                    Name ="Label25"
+                    Caption ="Date Entered"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x06b80b46a0fc4c4a87af51ca8f0e9d46
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =780
+                    Top =900
+                    Width =867
+                    Name ="txtEnterFrom"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x4344ad9190dac141a02bd56edaff9ba9
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =900
+                            Width =510
+                            Height =240
+                            Name ="Label27"
+                            Caption ="From:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x0e40f9a5109a1f41ab289543084f4b8b
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =2220
+                    Top =900
+                    Width =867
+                    TabIndex =1
+                    Name ="txtEnterTo"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x0574a5888dd43b43ac4e839fb7c63c4d
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =1800
+                            Top =900
+                            Width =330
+                            Height =240
+                            Name ="Label29"
+                            Caption ="To:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x32b83104489dc14084d8f990161ab08d
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    OverlapFlags =85
+                    Left =180
+                    Top =1200
+                    Width =2940
+                    BorderColor =8421504
+                    Name ="Line30"
+                    GUID = Begin
+                        0xe7bfddf0890ccd4298baae8e7d15924d
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =180
+                    Top =1980
+                    Width =2883
+                    Height =240
+                    Name ="Label31"
+                    Caption ="Credit Memo Date"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x40886eede0dc7b449b58845ce29ae145
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =780
+                    Top =2280
+                    Width =867
+                    TabIndex =4
+                    Name ="txtCMFrom"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x4a5e72bcf43fbe4f95eb4082c1dff8eb
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =2280
+                            Width =510
+                            Height =240
+                            Name ="Label33"
+                            Caption ="From:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xff439b436e1e9d44a3e8fdaba5ce279a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =2220
+                    Top =2280
+                    Width =867
+                    TabIndex =5
+                    Name ="txtCMTo"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x0e68fd91d9db304b83c84a52cced0f69
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =1800
+                            Top =2280
+                            Width =330
+                            Height =240
+                            Name ="Label35"
+                            Caption ="To:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x1fd4752c6052d24f975f48c7eee2f253
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    OverlapFlags =85
+                    Left =180
+                    Top =1920
+                    Width =2940
+                    BorderColor =8421504
+                    Name ="Line36"
+                    GUID = Begin
+                        0xb539e44accb0d0488ce7b8c67d9fc4a3
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =300
+                    Top =4770
+                    Width =2820
+                    TabIndex =9
+                    Name ="chkPageBreak"
+                    DefaultValue ="False"
+                    GUID = Begin
+                        0x03c4c50565809c499899e00213b16e33
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =530
+                            Top =4740
+                            Width =2715
+                            Height =240
+                            Name ="Label38"
+                            Caption ="Page Break by Dealer Name"
+                            GUID = Begin
+                                0xe9a73bd9cc72ec49b442da105ce8dddd
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =87
+                    TextAlign =1
+                    ColumnCount =3
+                    ListWidth =4320
+                    Left =240
+                    Top =3480
+                    Width =2820
+                    TabIndex =7
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xcb59071000f2084e8b8c79baa9a9ee10
+                    End
+                    Name ="cmbPartID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT PartID, RPSPartNum, PartName FROM dbo.tblParts ORDER BY RPSPNSort"
+                    ColumnWidths ="0;1440;2880"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            TextAlign =1
+                            Left =300
+                            Top =3240
+                            Width =1185
+                            Height =240
+                            Name ="Label24"
+                            Caption ="Part:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x1942ea5d456c084e9e8cd75359173de7
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub

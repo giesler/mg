@@ -1,0 +1,374 @@
+Version =19
+VersionRequired =19
+Checksum =440923938
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =9360
+    ItemSuffix =35
+    Left =405
+    Top =390
+    Right =1905
+    Bottom =1245
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x9c0cdc3edae7e140
+    End
+    InputParameters ="GetType(), GetDealerName()"
+    RecordSource ="dbo.wasprptWarrantyPending"
+    Caption ="Warranty: Pending by Serial Number"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xa0050000d0020000a0050000180300000000000090240000f000000001000000 ,
+        0x010000006801000000000000a10700000100000000000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="MachineSerialNumber"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x5cce04e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageHeader
+            Height =1140
+            Name ="PageHeader0"
+            GUID = Begin
+                0x5dce04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =7260
+                    Top =840
+                    Width =2040
+                    Height =270
+                    FontSize =9
+                    Name ="Label33"
+                    Caption ="Dealer Ref #"
+                    GUID = Begin
+                        0x51c7546fe3948c479a5a35bb34163a7b
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =840
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Machine Serial #"
+                    GUID = Begin
+                        0x5ece04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =1560
+                    Top =840
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text11"
+                    Caption ="Dealer"
+                    GUID = Begin
+                        0x5fce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =1080
+                    Width =9360
+                    Name ="Line26"
+                    GUID = Begin
+                        0x60ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =4800
+                    Top =840
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="P/N Replaced"
+                    GUID = Begin
+                        0x61ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =6360
+                    Top =840
+                    Width =900
+                    Height =240
+                    FontSize =9
+                    Name ="Text30"
+                    Caption ="RGA #"
+                    GUID = Begin
+                        0x62ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Width =7800
+                    Height =360
+                    FontSize =12
+                    Name ="lblHead"
+                    Caption ="Warranty Pending Report - By Serial Number"
+                    GUID = Begin
+                        0x63ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =360
+                    Width =2880
+                    Height =240
+                    FontSize =9
+                    Name ="Field22"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0x64ce04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x65ce04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    Name ="Machine Serial Number"
+                    ControlSource ="MachineSerialNumber"
+                    Format ="! "
+                    EventProcPrefix ="Machine_Serial_Numbe"
+                    GUID = Begin
+                        0x66ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =4800
+                    Width =1560
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="P/N Replaced"
+                    ControlSource ="RPSPartNum"
+                    Format ="! "
+                    EventProcPrefix ="P_N_Replaced"
+                    GUID = Begin
+                        0x67ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Left =6360
+                    Width =900
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Field31"
+                    ControlSource ="RGANum"
+                    Format ="! "
+                    GUID = Begin
+                        0x68ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =1560
+                    Width =3240
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="Field32"
+                    ControlSource ="Dealer"
+                    Format ="! "
+                    GUID = Begin
+                        0x69ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Left =7260
+                    Width =2055
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Text34"
+                    ControlSource ="DealerRefNum"
+                    Format ="! "
+                    GUID = Begin
+                        0xb63930f62fc5bc4c935491337cd2a101
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter2"
+            GUID = Begin
+                0x6ace04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =7320
+                    Top =60
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x6bce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3480
+                    Top =60
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x6cce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =60
+                    Width =1977
+                    Height =240
+                    FontSize =8
+                    Name ="Text32"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0x6dce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =9360
+                    Name ="Line23"
+                    GUID = Begin
+                        0x6ece04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x6fce04e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+If mbTomCat Then
+  iType = 1
+  Me.Caption = "TC Warranty: Pending by Serial Number"
+  Me.lblHead.Caption = "Tom Cat Warranty Pending By Serial Number"
+Else
+  iType = 0
+  Me.Caption = "FC Warranty: Pending by Serial Number"
+  Me.lblHead.Caption = "Factory Cat Warranty Pending By Serial Number"
+End If
+
+sDealerName = Null
+
+End Sub

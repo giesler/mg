@@ -1,0 +1,254 @@
+Version =19
+VersionRequired =19
+Checksum =-1223663475
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5700
+    DatasheetFontHeight =10
+    ItemSuffix =34
+    Left =3105
+    Top =2010
+    Right =8805
+    Bottom =4095
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xebfe3bce78c9e140
+    End
+    RecordSource ="dbo.tblLaborLog"
+    Caption ="Labor Log"
+    BeforeInsert ="[Event Procedure]"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2100
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    Left =3540
+                    Top =1740
+                    Width =960
+                    Height =300
+                    TabIndex =4
+                    Name ="cmdSave"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =4560
+                    Top =1740
+                    Width =960
+                    Height =300
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1260
+                    Top =120
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkLLogSM"
+                    ControlSource ="afkLLogSM"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkEmp, EmpName\015\012FROM dbo.tblEmp\015\012WHERE EmpHide = 0\015\012OR"
+                        "DER BY EmpSort"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Salesman for this purchase"
+                    DefaultValue ="=CurUserID()"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =1020
+                            Height =240
+                            Name ="Label30"
+                            Caption ="Salesman:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =3660
+                    Top =480
+                    Width =1020
+                    TabIndex =2
+                    Name ="txtLLogHours"
+                    ControlSource ="LLogHours"
+                    StatusBarText ="Number of hours purchased"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =2520
+                            Top =480
+                            Width =1020
+                            Height =240
+                            Name ="Label31"
+                            Caption ="Hours:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1260
+                    Top =480
+                    Width =1080
+                    TabIndex =1
+                    Name ="txtLLogDate"
+                    ControlSource ="LLogDate"
+                    Format ="Short Date"
+                    StatusBarText ="Date of labor"
+                    DefaultValue ="Date()"
+                    FontName ="Tahoma"
+                    InputMask ="99/99/00;0;_"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =480
+                            Width =1020
+                            Height =240
+                            Name ="Label32"
+                            Caption ="Date:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OverlapFlags =85
+                    Left =1260
+                    Top =840
+                    Width =4320
+                    Height =768
+                    TabIndex =3
+                    Name ="txtLLogDesc"
+                    ControlSource ="LLogDesc"
+                    StatusBarText ="Description of labor done"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =1020
+                            Height =240
+                            Name ="Label33"
+                            Caption ="Description:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+On Error GoTo cmdCancel_Err
+
+If Me.Dirty Then Me.Undo
+blnCancel = True
+Me.Visible = False
+
+Exit Sub
+cmdCancel_Err:
+ErrHand Me.Name, "cmdCancel"
+Exit Sub
+
+End Sub
+
+Private Sub cmdSave_Click()
+On Error GoTo cmdSave_Err
+
+blnCancel = Not Me.Dirty
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = False
+
+Exit Sub
+cmdSave_Err:
+ErrHand Me.Name, "cmdSave"
+Exit Sub
+
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+On Error GoTo Form_BI_Err
+
+Me.afkLLogSM = glCurUserID
+Me.LLogDate = Date
+Me!afkLLogLabor = OpenArgs
+
+Exit Sub
+Form_BI_Err:
+ErrHand Me.Name, "Form_BI"
+Cancel = True
+Exit Sub
+End Sub

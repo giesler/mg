@@ -1,0 +1,523 @@
+Version =19
+VersionRequired =19
+Checksum =-1639374080
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =14160
+    ItemSuffix =46
+    Right =1260
+    Bottom =615
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x9f2ff7e6dce7e140
+    End
+    InputParameters ="@iWarrantyType = GetType()"
+    RecordSource ="dbo.wasprptWarrantyRGA"
+    Caption ="Warranty: Open Claims by RGA"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d0020000000000004f370000ef00000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800702000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="RGANum"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =420
+            Name ="ReportHeader3"
+            GUID = Begin
+                0xeacd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Width =6360
+                    Height =360
+                    FontSize =12
+                    Name ="lblHead"
+                    Caption ="Warranty Report - Open Claims"
+                    GUID = Begin
+                        0xebcd04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =540
+            Name ="PageHeader0"
+            GUID = Begin
+                0xeecd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =3120
+                    Width =1020
+                    Height =480
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Machine Serial #"
+                    GUID = Begin
+                        0xefcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =4140
+                    Width =900
+                    Height =480
+                    FontSize =9
+                    Name ="Text11"
+                    Caption ="Date of Failure"
+                    GUID = Begin
+                        0xf0cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =480
+                    Width =14040
+                    Name ="Line26"
+                    GUID = Begin
+                        0xf1cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =5040
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="P/N Replaced"
+                    GUID = Begin
+                        0xf2cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =6360
+                    Top =240
+                    Width =1800
+                    Height =240
+                    FontSize =9
+                    Name ="Text7"
+                    Caption ="Part Name"
+                    GUID = Begin
+                        0xf3cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =9840
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text28"
+                    Caption ="Labor Cost"
+                    GUID = Begin
+                        0xf4cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =240
+                    Width =960
+                    Height =240
+                    FontSize =9
+                    Name ="Text30"
+                    Caption ="RGA #"
+                    GUID = Begin
+                        0xf5cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =11160
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text35"
+                    Caption ="Freight"
+                    GUID = Begin
+                        0xf6cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =12480
+                    Top =240
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    Name ="Text36"
+                    Caption ="Part Cost"
+                    GUID = Begin
+                        0xf7cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =960
+                    Top =240
+                    Width =2160
+                    Height =240
+                    FontSize =9
+                    Name ="Label44"
+                    Caption ="Dealer Ref #"
+                    GUID = Begin
+                        0x5de8dfa04c948a4283980c3777d0bb8e
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0xf8cd04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =3120
+                    Width =1020
+                    Height =240
+                    FontSize =8
+                    Name ="Machine Serial Number"
+                    ControlSource ="MachineSerialNumber"
+                    EventProcPrefix ="Machine_Serial_Numbe"
+                    GUID = Begin
+                        0xf9cd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =2
+                    Left =4140
+                    Width =900
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Date of Failure"
+                    ControlSource ="DateOfFailure"
+                    Format ="Short Date"
+                    EventProcPrefix ="Date_of_Failure"
+                    GUID = Begin
+                        0xfacd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =5040
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="P/N Replaced"
+                    ControlSource ="RPSPartNum"
+                    EventProcPrefix ="P_N_Replaced"
+                    GUID = Begin
+                        0xfbcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    Left =6360
+                    Width =3480
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="PDesc"
+                    ControlSource ="PartName"
+                    GUID = Begin
+                        0xfccd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Width =960
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Field31"
+                    ControlSource ="RGANum"
+                    GUID = Begin
+                        0xfdcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    Left =9840
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Labor Cost"
+                    ControlSource ="LaborCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    EventProcPrefix ="Labor_Cost"
+                    GUID = Begin
+                        0xfecd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    Left =11160
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    TabIndex =6
+                    Name ="Field33"
+                    ControlSource ="Freight"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xffcd04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =3
+                    Left =12480
+                    Width =1320
+                    Height =240
+                    FontSize =8
+                    TabIndex =7
+                    Name ="Field34"
+                    ControlSource ="PartCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x00ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =1
+                    Left =960
+                    Width =2160
+                    Height =240
+                    FontSize =8
+                    TabIndex =8
+                    Name ="Text45"
+                    ControlSource ="DealerRefNum"
+                    GUID = Begin
+                        0x50be3d348dd06e4fac7ddba9e4040840
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x01ce04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =12240
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x02ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =5520
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x03ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =2097
+                    Height =240
+                    FontSize =8
+                    Name ="Text32"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0x04ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =14160
+                    Name ="Line23"
+                    GUID = Begin
+                        0x05ce04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =360
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x06ce04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    Left =9840
+                    Top =120
+                    Width =1320
+                    Height =240
+                    FontWeight =700
+                    Name ="Field40"
+                    ControlSource ="=Sum([LaborCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x07ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =11040
+                    Top =120
+                    Height =240
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Field41"
+                    ControlSource ="=Sum([Freight])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x08ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =12480
+                    Top =120
+                    Width =1320
+                    Height =240
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Field42"
+                    ControlSource ="=Sum([PartCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x09ce04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    BorderWidth =2
+                    Width =13200
+                    Name ="Line43"
+                    GUID = Begin
+                        0x0ace04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub Report_Open(Cancel As Integer)
+
+If mbTomCat Then
+  iType = 1
+  Me.Caption = "TC Warranty: Open Claims"
+  Me.lblHead.Caption = "Tom Cat Warranty Open Claims"
+Else
+  iType = 0
+  Me.Caption = "FC Warranty: Open Claims"
+  Me.lblHead.Caption = "Factory Cat Warranty Open Claims"
+End If
+
+End Sub

@@ -1,0 +1,157 @@
+Version =19
+VersionRequired =19
+Checksum =389219675
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =12
+    Width =3780
+    ItemSuffix =6
+    Left =360
+    Top =510
+    Right =8370
+    Bottom =5745
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xbdabe3fe52fae140
+    End
+    RecordSource ="SELECT DealerFlag, DealerName, Name AS PersonName, Salutation, StreetAddress, Ci"
+        "ty, State, Zip, Phone, Fax\015\012FROM tblAllNewsletter\015\012WHERE NewsletterT"
+        "ype=0"
+    Caption ="FC Newsletter: Mailing Labels"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x68010000a0050000680100001803000000000000c40e0000a005000001000000 ,
+        0x03000000b400000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c5044435c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c5044435c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            FontWeight =300
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="DealerName"
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Name ="Detail1"
+            GUID = Begin
+                0x77d504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =240
+                    Width =3240
+                    Name ="Field2"
+                    ControlSource ="=Trim([PersonName])"
+                    GUID = Begin
+                        0x78d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =720
+                    Width =3240
+                    TabIndex =1
+                    Name ="Field3"
+                    ControlSource ="=Trim([StreetAddress])"
+                    GUID = Begin
+                        0x79d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =960
+                    Width =3240
+                    TabIndex =2
+                    Name ="Field4"
+                    ControlSource ="=Trim([City] & \", \" & [State] & \"  \" & [Zip])"
+                    GUID = Begin
+                        0x7ad504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    Left =360
+                    Top =480
+                    Width =3240
+                    TabIndex =3
+                    Name ="Field5"
+                    ControlSource ="=Trim([DealerName])"
+                    GUID = Begin
+                        0x7bd504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Private Sub Report_Open(Cancel As Integer)
+
+  If MsgBox("Do you want to print only dealers?", 36) = 6 Then
+    Me.ServerFilter = "DealerFlag = 1"
+  End If
+
+End Sub

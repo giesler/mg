@@ -1,0 +1,635 @@
+Version =19
+VersionRequired =19
+Checksum =-1887060613
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10680
+    ItemSuffix =48
+    Right =11235
+    Bottom =6435
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x8e8e21accbc5e140
+    End
+    InputParameters ="@sToDate = GetToDate()\015\012"
+    RecordSource ="dbo.ppsprptProdReleases"
+    Caption ="Prod Parts: Production Releases"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d00200001803000000000000b72900005702000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="ShipYear"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="ShipWeek"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPNSort"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =960
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x29d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =10560
+                    Height =480
+                    FontSize =14
+                    Name ="Text24"
+                    Caption ="Production Releases"
+                    GUID = Begin
+                        0x2ad004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =600
+                    Width =6600
+                    Height =360
+                    FontWeight =400
+                    Name ="lblCrit"
+                    Caption ="Requested ship date before"
+                    GUID = Begin
+                        0x2bd004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =480
+            Name ="PageHeader0"
+            GUID = Begin
+                0x2cd004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =840
+                    Height =285
+                    Name ="Text5"
+                    Caption ="RPS PN"
+                    GUID = Begin
+                        0x2dd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =960
+                    Top =120
+                    Width =540
+                    Height =285
+                    Name ="Text7"
+                    Caption ="PO #"
+                    GUID = Begin
+                        0x2ed004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =1680
+                    Top =120
+                    Width =1125
+                    Height =285
+                    Name ="Text10"
+                    Caption ="Vendor PN"
+                    GUID = Begin
+                        0x2fd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =4740
+                    Top =120
+                    Width =1080
+                    Height =285
+                    Name ="Text12"
+                    Caption ="In-House"
+                    GUID = Begin
+                        0x30d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =2
+                    Left =5820
+                    Top =120
+                    Width =600
+                    Height =285
+                    Name ="Text14"
+                    Caption ="Qty"
+                    GUID = Begin
+                        0x31d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =6480
+                    Top =120
+                    Width =1260
+                    Height =285
+                    Name ="Text17"
+                    Caption ="Cost Each"
+                    GUID = Begin
+                        0x32d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =3
+                    Left =7740
+                    Top =120
+                    Width =1320
+                    Height =240
+                    Name ="Text20"
+                    Caption ="Total"
+                    GUID = Begin
+                        0x33d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =9060
+                    Top =120
+                    Width =1500
+                    Height =285
+                    Name ="Text23"
+                    Caption ="Promised Date"
+                    GUID = Begin
+                        0x34d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =3
+                    Width =10560
+                    Name ="Line28"
+                    GUID = Begin
+                        0x35d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    Top =480
+                    Width =10560
+                    Name ="Line29"
+                    GUID = Begin
+                        0x36d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Left =3120
+                    Top =120
+                    Width =1200
+                    Height =240
+                    Name ="Label46"
+                    Caption ="Notes"
+                    GUID = Begin
+                        0x05b26d9b37de2a4581804f1595492be7
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =360
+            BreakLevel =1
+            Name ="GroupHeader0"
+            GUID = Begin
+                0x7368f304325c044f83dac53ed4ddf61a
+            End
+            Begin
+                Begin TextBox
+                    Top =60
+                    Width =6600
+                    FontWeight =700
+                    Name ="Field32"
+                    ControlSource ="=\"Week beginning \" & SundayOfDate([RequestedShipDate])"
+                    GUID = Begin
+                        0x742af55ec971cb4e83f1b99948ca2bb4
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =600
+            Name ="Detail1"
+            GUID = Begin
+                0x3ad004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Width =960
+                    Height =360
+                    Name ="RPS Part Number"
+                    ControlSource ="RPSPartNum"
+                    EventProcPrefix ="RPS_Part_Number"
+                    GUID = Begin
+                        0x3bd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =960
+                    Width =720
+                    Height =360
+                    TabIndex =1
+                    Name ="Purchase Order #"
+                    ControlSource ="POID"
+                    EventProcPrefix ="Purchase_Order__"
+                    GUID = Begin
+                        0x3cd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Left =1680
+                    Height =360
+                    ColumnWidth =2280
+                    TabIndex =2
+                    Name ="Vendor Part Number"
+                    ControlSource ="VendorPartNumber"
+                    EventProcPrefix ="Vendor_Part_Number"
+                    GUID = Begin
+                        0x3dd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =2
+                    Left =4740
+                    Width =1080
+                    Height =360
+                    TabIndex =3
+                    Name ="Requested Ship Date"
+                    ControlSource ="RequestedShipDate"
+                    EventProcPrefix ="Requested_Ship_Date"
+                    GUID = Begin
+                        0x3ed004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =2
+                    Left =5820
+                    Width =600
+                    Height =360
+                    TabIndex =4
+                    Name ="Quantity"
+                    ControlSource ="Quantity"
+                    GUID = Begin
+                        0x3fd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Left =6420
+                    Width =1320
+                    Height =360
+                    TabIndex =5
+                    Name ="Cost Each"
+                    ControlSource ="CostEach"
+                    EventProcPrefix ="Cost_Each"
+                    GUID = Begin
+                        0x40d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Left =7740
+                    Width =1320
+                    Height =360
+                    TabIndex =6
+                    Name ="Total"
+                    ControlSource ="ExtCost"
+                    GUID = Begin
+                        0x41d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Left =9060
+                    Width =1560
+                    Height =360
+                    TabIndex =7
+                    Name ="Received Date"
+                    ControlSource ="=Null"
+                    EventProcPrefix ="Received_Date"
+                    GUID = Begin
+                        0x42d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =600
+                    Width =10080
+                    Name ="Line36"
+                    GUID = Begin
+                        0x43d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =3120
+                    Width =1620
+                    Height =360
+                    TabIndex =8
+                    Name ="Text47"
+                    ControlSource ="Notes"
+                    GUID = Begin
+                        0x90b8863b7da3c445a6416d810c4d8c47
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            Height =480
+            BreakLevel =1
+            Name ="GroupFooter1"
+            GUID = Begin
+                0x276ec9688f08fb43b9f3f63437e40543
+            End
+            Begin
+                Begin TextBox
+                    Left =6420
+                    Width =1320
+                    Height =360
+                    FontWeight =700
+                    Name ="GrandTotal_Value"
+                    ControlSource ="=Sum([CostEach])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x79377fba74c4d94ba60480bd12ef39f0
+                    End
+                End
+                Begin TextBox
+                    Left =7740
+                    Width =1320
+                    Height =360
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="GrandTotal_Total"
+                    ControlSource ="=Sum([ExtCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x3265b8afb491a44ea03a30eb9b97f58a
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    BorderWidth =2
+                    Top =420
+                    Width =10680
+                    Name ="Line40"
+                    GUID = Begin
+                        0x230175f96d7aa44f815578f48a3a9d41
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =1440
+                    Width =4260
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Text41"
+                    ControlSource ="=\"Total for week of \" & SundayOfDate([RequestedShipDate])"
+                    GUID = Begin
+                        0x82aa860eed621d4bba033671258eb664
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x48d004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8760
+                    Top =120
+                    Width =1872
+                    Height =240
+                    FontSize =8
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x49d004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3960
+                    Top =120
+                    Width =2592
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field41"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x4ad004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =1152
+                    Height =240
+                    FontSize =8
+                    Name ="Text63"
+                    Caption ="Factory Cat"
+                    GUID = Begin
+                        0x4bd004e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =120
+                    Width =10680
+                    Name ="Line39"
+                    GUID = Begin
+                        0x4cd004e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =480
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x4dd004e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Left =5820
+                    Top =120
+                    Width =1560
+                    Height =360
+                    FontWeight =700
+                    Name ="Text42"
+                    ControlSource ="=Sum([CostEach])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xcb236243bd343e41bdb4262e2a776c58
+                    End
+                End
+                Begin TextBox
+                    Left =7380
+                    Top =120
+                    Width =1680
+                    Height =360
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="Text43"
+                    ControlSource ="=Sum([ExtCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xd077d9fcc5ceba49b00227031a149189
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =1440
+                    Top =120
+                    Width =4260
+                    FontWeight =700
+                    TabIndex =2
+                    Name ="Text44"
+                    ControlSource ="=\"Grand Total:\""
+                    GUID = Begin
+                        0xa0ba9087c0a5bb4995949629ce7ac998
+                    End
+                End
+                Begin Line
+                    Left =5880
+                    Top =60
+                    Width =3240
+                    Name ="Line45"
+                    GUID = Begin
+                        0x5ddee965564a874a947448494f9cd2ec
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo Report_Open_Err
+
+Dim fR As New Form_ppfrptProdReleases
+
+fR.Visible = True
+Pause fR
+If fR.blnCancel Then
+    Set fR = Nothing
+    Cancel = True
+    Exit Sub
+End If
+
+If fR.txtEndDate = "" Then fR.txtEndDate = Date
+
+datToDate = fR.txtEndDate
+
+Me.lblCrit.Caption = "Requested Ship Date before " & fR.txtEndDate
+
+Set fR = Nothing
+
+Exit Sub
+Report_Open_Err:
+ErrHand Me.Name, "Report-OPen"
+Exit Sub
+
+End Sub

@@ -1,0 +1,655 @@
+Version =19
+VersionRequired =19
+Checksum =-277342129
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =14700
+    DatasheetFontHeight =10
+    ItemSuffix =22
+    Left =855
+    Top =600
+    Right =10845
+    Bottom =4965
+    DatasheetGridlinesColor =12632256
+    OnNoData ="[Event Procedure]"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x983af09157d4e140
+    End
+    RecordSource ="SELECT CostEach, PartName, RPSPartNum, RPSPNSort, ShelfNo, Section, PartLevel, M"
+        "anfPartNum, PartCode FROM tblParts"
+    Caption ="Parts: Cycle Counts by PartNum"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0x20010000680100001803000020010000000000006b3900006801000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x4570736f6e205374796c757320434f4c4f5220363030204553432f5020320000 ,
+        0x010400059c00880243ef800702000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003000010077696e73706f6f6c004570736f6e205374796c757320434f ,
+        0x4c4f5220363030204553432f502032004c5054313a0000000000000000000000 ,
+        0x000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPNSort"
+        End
+        Begin PageHeader
+            Height =900
+            Name ="PageHeader"
+            GUID = Begin
+                0x02d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =14700
+                    Height =480
+                    FontSize =16
+                    FontWeight =700
+                    Name ="Label0"
+                    Caption ="Factory Cat - Parts Inventory Report"
+                    GUID = Begin
+                        0xe2a079b0824b6442bed5f59012851e44
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Top =540
+                    Width =1080
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label11"
+                    Caption ="RPS P/N"
+                    GUID = Begin
+                        0x5d2aae115f53d14881a2c2020cefa895
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1080
+                    Top =540
+                    Width =3180
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label12"
+                    Caption ="Part Name"
+                    GUID = Begin
+                        0x2588f5ff9d6c1f4f87b00a573a6569b7
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =4320
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label13"
+                    Caption ="Shelf"
+                    GUID = Begin
+                        0x06d32b69633e8444901697eae65cba78
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5100
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label14"
+                    Caption ="Sect"
+                    GUID = Begin
+                        0xfcb64e937b77a54196a7c353fa6aee13
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5880
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label15"
+                    Caption ="Level"
+                    GUID = Begin
+                        0x79c6f1cb22677844b063d0fbdfd923cf
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =6660
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label9"
+                    Caption ="Qty"
+                    GUID = Begin
+                        0x383d5885a6ad47489dc7a4e85b8d5ddc
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7500
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label22"
+                    Caption ="21 E"
+                    GUID = Begin
+                        0x74545da0fe28094bba133042f173ca23
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8280
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label23"
+                    Caption ="29 E"
+                    GUID = Begin
+                        0x175e2cf101953445a112b89e3967ba2e
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =9060
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label24"
+                    Caption ="40 E"
+                    GUID = Begin
+                        0xf1c451bc1cb305409c8137542d5c7d51
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =9900
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label39"
+                    Caption ="21"
+                    GUID = Begin
+                        0x699c9429be02a04389fb8021cdecb7ab
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =10680
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label40"
+                    Caption ="29"
+                    GUID = Begin
+                        0xdc5a34e895a0a945aee46faf919fa2da
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =11460
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label41"
+                    Caption ="40"
+                    GUID = Begin
+                        0xd9d31a8af46e90409c0cfd8fb854bcd7
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =12240
+                    Top =540
+                    Width =780
+                    Height =360
+                    FontSize =12
+                    FontWeight =700
+                    Name ="Label45"
+                    Caption ="34/38"
+                    GUID = Begin
+                        0xdc561eea3268614f964fa38a62d16c63
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =13080
+                    Top =420
+                    Width =780
+                    Height =480
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label46"
+                    Caption ="Lock\015\012Down"
+                    GUID = Begin
+                        0x925255d6f417354ab6c1153fd8ff36e9
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =13920
+                    Top =420
+                    Width =780
+                    Height =480
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label47"
+                    Caption ="1st\015\012Floor"
+                    GUID = Begin
+                        0xf35fc9d200c7a7468bdbe8892d0088e2
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =360
+            Name ="Detail"
+            GUID = Begin
+                0x0ad204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1080
+                    Width =3240
+                    Height =360
+                    FontSize =10
+                    Name ="Part Name"
+                    ControlSource ="PartName"
+                    Format ="!> "
+                    EventProcPrefix ="Part_Name"
+                    GUID = Begin
+                        0xcfc1e4eb6b043e48a338d62c05960eb7
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Width =1080
+                    Height =360
+                    FontSize =10
+                    TabIndex =1
+                    Name ="RPS P/N"
+                    ControlSource ="RPSPartNum"
+                    EventProcPrefix ="RPS_P_N"
+                    GUID = Begin
+                        0x4624644f33ae4142b2b85610b07c41aa
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =4320
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =2
+                    Name ="ShelfNo"
+                    ControlSource ="ShelfNo"
+                    GUID = Begin
+                        0x1acc42931c29d843b3698ec7fa2f84d4
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5100
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =3
+                    Name ="Section"
+                    ControlSource ="Section"
+                    GUID = Begin
+                        0x888fd85a02cdad4da549204e0cc92235
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =5880
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =4
+                    Name ="Level"
+                    ControlSource ="PartLevel"
+                    GUID = Begin
+                        0x2a094f6c575b9045bade1b7ce31a34ac
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =7500
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =5
+                    Name ="Text26"
+                    GUID = Begin
+                        0x84ac2f8db06cd74e919525dc5d18d435
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8280
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =6
+                    Name ="Text27"
+                    GUID = Begin
+                        0x4d2062ae67759940a94d0753dbbae7bf
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =9060
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =7
+                    Name ="Text28"
+                    GUID = Begin
+                        0x2970aef660b4d5429c8238b9508a1ee8
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =6660
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =8
+                    Name ="Text38"
+                    GUID = Begin
+                        0xc80a940972083d49836ac03c90df98d9
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =9900
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =9
+                    Name ="Text42"
+                    GUID = Begin
+                        0x6ae40a68a2d13e4d9067d6efa6af0343
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =10680
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =10
+                    Name ="Text43"
+                    GUID = Begin
+                        0x78eb43c272610c4991cfc9e6ddd51a07
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =11460
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =11
+                    Name ="Text44"
+                    GUID = Begin
+                        0x8bbd0cffbbc21744b31f6906dded9ad2
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =12240
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =12
+                    Name ="Text48"
+                    GUID = Begin
+                        0xb18ed082b58bc642842270f1c1a5c913
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =13080
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =13
+                    Name ="Text49"
+                    GUID = Begin
+                        0xe12ff1947063064b8fd4a4d41838f621
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =13920
+                    Width =780
+                    Height =360
+                    FontSize =10
+                    TabIndex =14
+                    Name ="Text50"
+                    GUID = Begin
+                        0x71e3a092c6446543a7105e3a63bda974
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooter"
+            GUID = Begin
+                0x14d204e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextAlign =3
+                    Left =8940
+                    Top =60
+                    Width =5760
+                    Name ="Text16"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0xda5bd0eb1c9d804386fb54631c3caa92
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    Top =60
+                    TabIndex =1
+                    Name ="Text18"
+                    ControlSource ="=Date()"
+                    GUID = Begin
+                        0xb12fd02b653cdf4d9320b17a31624c0c
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub Report_NoData(Cancel As Integer)
+
+MsgBox "There were no parts found with the specififed criteria.", vbExclamation
+Cancel = True
+
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+
+Dim fC As New Form_pafrptCycleCounts
+Dim strFilt As String
+
+fC.Visible = True
+Do While fC.Visible
+    DoEvents
+Loop
+
+If fC.blnCancel Then
+    Cancel = True
+    Set fC = Nothing
+    Exit Sub
+End If
+
+If fC.txtMinCostEach <> "" Then
+    strFilt = "CostEach >= " & fC.txtMinCostEach
+End If
+If fC.txtMaxCostEach <> "" Then
+  If strFilt <> "" Then strFilt = strFilt & " AND "
+  strFilt = strFilt & "CostEach <= " & fC.txtMaxCostEach
+End If
+
+If Not IsNull(fC.comPartCode) Then
+    If strFilt <> "" Then strFilt = strFilt & " AND "
+    strFilt = strFilt & "[PartCode] = '" & fC.comPartCode & "'"
+End If
+
+If strFilt <> "" Then
+    Me.ServerFilter = strFilt
+Else
+    Me.ServerFilter = ""
+End If
+
+Set fC = Nothing
+
+End Sub

@@ -1,0 +1,227 @@
+Option Compare Database
+Option Explicit
+
+Public Function ConvertQtoS(lngQuoteID As Long, lngSaleID As Long) As Boolean
+On Error GoTo ConvertQtoS_Err
+
+Dim cmd As Command, prm As Parameter, r As Recordset
+
+Set cmd = New Command
+Set prm = New Parameter
+prm.Name = "Quote_ID"
+prm.Type = adInteger
+prm.Value = lngQuoteID
+cmd.Parameters.Append prm
+Set prm = New Parameter
+prm.Name = "CurUserID"
+prm.Type = adInteger
+prm.Value = CurUserID
+cmd.Parameters.Append prm
+
+cmd.ActiveConnection = CurrentProject.Connection
+cmd.CommandText = "spConvertQtoS"
+cmd.CommandType = adCmdStoredProc
+Set r = cmd.Execute
+
+If r.EOF Then
+  MsgBox "An unknown error occurred converting your quote.  (Helpful, huh?)", vbExclamation
+ElseIf IsNull(r.Fields(0)) Then
+  MsgBox "An unknown error occurred converting your quote.  (Helpful, huh?)", vbExclamation
+ElseIf r.Fields(0) = -1 Then
+  MsgBox "You can't convert a quote that has already been converted.", vbExclamation
+Else
+  lngSaleID = r.Fields(0)
+  ConvertQtoS = True
+End If
+r.Close
+Set r = Nothing
+
+Exit Function
+ConvertQtoS_Err:
+ErrHand "modQSI", "ConvertQtoS"
+Exit Function
+
+End Function
+
+Public Function ConvertStoI(lngSaleID As Long, lngInvID As Long) As Boolean
+On Error GoTo ConvertStoI_Err
+
+Dim cmd As Command, prm As Parameter, r As Recordset
+
+Set cmd = New Command
+Set prm = New Parameter
+prm.Name = "Sale_ID"
+prm.Type = adInteger
+prm.Value = lngSaleID
+cmd.Parameters.Append prm
+Set prm = New Parameter
+prm.Name = "CurUserID"
+prm.Type = adInteger
+prm.Value = CurUserID
+cmd.Parameters.Append prm
+
+cmd.ActiveConnection = CurrentProject.Connection
+cmd.CommandText = "spConvertStoI"
+cmd.CommandType = adCmdStoredProc
+Set r = cmd.Execute
+
+If r.EOF Then
+  MsgBox "An unknown error occurred converting your quote.  (Helpful, huh?)", vbExclamation
+ElseIf IsNull(r.Fields(0)) Then
+  MsgBox "An unknown error occurred converting your quote.  (Helpful, huh?)", vbExclamation
+ElseIf r.Fields(0) = -1 Then
+  MsgBox "You can't convert a sale order that has already been converted.", vbExclamation
+ElseIf r.Fields(0) = -2 Then
+  MsgBox "You can't convert a sale order that has warning items still marked.", vbExclamation
+Else
+  lngInvID = r.Fields(0)
+  ConvertStoI = True
+End If
+r.Close
+Set r = Nothing
+
+
+Exit Function
+ConvertStoI_Err:
+ErrHand "modQSI", "ConvertStoI"
+Exit Function
+
+End Function
+
+
+Public Function CheckInventoryForQuote(id As Long)
+On Error GoTo CheckInventoryForQuote_Err
+
+Dim fC As New Form_frmQuoteInvnQtys
+Dim sp As New Command, prm As New Parameter
+Dim r As New Recordset, n As Node, li As ListItem
+Dim iSubItem As Long
+
+prm.Type = adVarChar
+prm.Size = 5
+prm.Value = str(id)
+
+sp.ActiveConnection = CurrentProject.Connection
+sp.Parameters.Append prm
+sp.CommandText = "spqCheckInventory"
+sp.CommandType = adCmdStoredProc
+Set r = sp.Execute
+
+If r.EOF Then
+  MsgBox "The selected quote does not have any inventory items.", vbExclamation
+  r.Close
+  Exit Function
+End If
+
+Do While Not r.EOF
+  'Add a new node if a new item
+  If r!apkQItem <> iSubItem Then
+    Set n = fC.tvInvn.Nodes.Add(, , "q:" & r!apkQItem, r!QItemDesc)
+    iSubItem = r!apkQItem
+    If r!QItemType = QItemInvn Then
+      n.Image = "inventory"
+    ElseIf r!QItemType = QItemComputer Then
+      n.Image = "computer"
+    End If
+  End If
+  If r!QQItemQty > r!QtyAvail Then
+    If r!QItemType = QItemInvn Then
+      n.Image = "inventory_warn"
+    Else
+      n.Image = "computer_warn"
+    End If
+    n.ForeColor = RGB(99, 0, 0)
+  End If
+  r.MoveNext
+Loop
+
+Set fC.rQInfo = r
+Pause fC
+
+Exit Function
+CheckInventoryForQuote_Err:
+ErrHand "modQSI", "CheckInvnForQuote"
+Exit Function
+
+End Function
+
+Public Function RecordsetOptions(r As Recordset, cn As Connection, msg As String)
+
+Dim f As New Form_fdlgRecordsetOptions
+
+f.lblMsg.Caption = msg
+f.txtConnString = cn.ConnectionString
+Pause f
+
+Select Case f.fraConnection
+  Case 0
+    r.ActiveConnection = cn
+  Case 1
+    Dim c1 As New Connection
+    c1.Open f.txtConnString
+    r.ActiveConnection = c1
+End Select
+
+Select Case f.fraCursorType
+  Case 0
+    r.CursorType = adOpenForwardOnly
+  Case 1
+    r.CursorType = adOpenKeyset
+  Case 2
+    r.CursorType = adOpenDynamic
+  Case 3
+    r.CursorType = adOpenStatic
+End Select
+
+Select Case f.fraCusorLocation
+  Case 0
+    r.CursorLocation = adUseClient
+  Case 1
+    r.CursorLocation = adUseServer
+End Select
+
+Select Case f.fraLockType
+  Case 0
+    r.LockType = adLockReadOnly
+  Case 1
+    r.LockType = adLockPessimistic
+  Case 2
+    r.LockType = adLockOptimistic
+  Case 3
+    r.LockType = adLockBatchOptimistic
+End Select
+
+Set f = Nothing
+
+End Function
+
+Public Function AssignAvailInvn(blnDisplayResults As Boolean) As Integer
+On Error GoTo AssignAvailInvn_Err
+
+Dim cmd As New Command, rst As Recordset
+
+Set cmd.ActiveConnection = CurrentProject.Connection
+cmd.CommandText = "dbo.spAssignAvailableInventory"
+cmd.CommandType = adCmdStoredProc
+
+Set rst = cmd.Execute
+
+AssignAvailInvn = rst.Fields(0)
+If blnDisplayResults Then
+  If AssignAvailInvn > 0 Then
+    MsgBox "There were " & AssignAvailInvn & " items assigned from sales orders with newly available inventory.", vbInformation
+  Else
+    MsgBox "There were no new items from sales orders assigned from new inventory.", vbInformation
+  End If
+End If
+
+rst.Close
+Set rst = Nothing
+Set cmd = Nothing
+
+Exit Function
+AssignAvailInvn_Err:
+ErrHand "modQSI", "AssignAvailInvn"
+Exit Function
+
+End Function

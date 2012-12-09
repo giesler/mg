@@ -1,0 +1,220 @@
+Version =19
+VersionRequired =19
+Checksum =1060880320
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =4200
+    ItemSuffix =59
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xf71c934730dfe140
+    End
+    Caption ="Vendor"
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =1620
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x3008c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =2340
+                    Top =1260
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3108c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3192
+                    Top =1260
+                    Width =768
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3208c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1260
+                    Top =840
+                    TabIndex =2
+                    Name ="txtPartCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0x647c007643c6e44c8b757bfd8c88647f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =840
+                            Width =870
+                            Height =240
+                            Name ="Label56"
+                            Caption ="Dealer Net:"
+                            GUID = Begin
+                                0x201b1d350dae1e49b942c91890b3fcee
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    ColumnCount =3
+                    ListWidth =2880
+                    Left =1260
+                    Top =120
+                    Width =2760
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x9f27ae828825fa4295b845715166d5b0
+                    End
+                    Name ="comPartID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT PartID, RPSPartNum, PartName FROM dbo.tblParts ORDER BY RPSPNSort"
+                    ColumnWidths ="0;720;2160"
+                    OnClick ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =120
+                            Width =870
+                            Height =240
+                            Name ="Label55"
+                            Caption ="RPS P/N:"
+                            GUID = Begin
+                                0xf86d5f800ffb774eaa3de6457c798ae9
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    Left =1260
+                    Top =480
+                    Width =2760
+                    TabIndex =1
+                    BackColor =-2147483633
+                    Name ="txtPartName"
+                    GUID = Begin
+                        0x4b3fd8e81456f94b8b121c391340dd8a
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =480
+                            Width =870
+                            Height =240
+                            Name ="Label58"
+                            Caption ="Part Name:"
+                            GUID = Begin
+                                0xf2923d9cc8cf3f4793ae62291b27deca
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub
+
+Private Sub comPartID_Click()
+Me.txtPartName = Me.comPartID.Column(2)
+Me.txtPartCost = DLookup("CostEach", "dbo.tblParts", "PartID = " & Nz(Me.comPartID, 0))
+End Sub

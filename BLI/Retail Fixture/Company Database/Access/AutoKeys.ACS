@@ -1,0 +1,12 @@
+Version =196611
+ColumnsShown =1
+Begin
+    MacroName ="{F6}"
+    Action ="OpenForm"
+    Argument ="fmuMain"
+    Argument ="0"
+    Argument =""
+    Argument =""
+    Argument ="-1"
+    Argument ="0"
+End

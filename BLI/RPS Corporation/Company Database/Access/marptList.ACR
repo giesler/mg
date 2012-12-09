@@ -1,0 +1,375 @@
+Version =19
+VersionRequired =19
+Checksum =1579518280
+Begin Report
+    LayoutForPrint = NotDefault
+    FilterOn = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =14280
+    ItemSuffix =30
+    Left =795
+    Top =330
+    Right =9120
+    Bottom =5730
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0x32bfe8d771c5e140
+    End
+    RecordSource ="dbo.tblMajorAccounts"
+    Caption ="Major Account List"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x6801000068010000180300006801000000000000c32c00002b01000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x4570736f6e205374796c757320434f4c4f5220393030204553432f5020320000 ,
+        0x010400059c00900243ef800702000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x2200000030026000771acc870000000000000000000000000100000000000000 ,
+        0x0000000000000000090000000100000001000000000003000000000003000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000600000004f535045414182820300000001000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x0000000000000000000000000000000089270000000000000300000002000000 ,
+        0x050000000200000001000000
+    End
+    PrtDevNames = Begin
+        0x080011003000010077696e73706f6f6c004570736f6e205374796c757320434f ,
+        0x4c4f5220393030204553432f502032004550534f4e0000000000000000000000 ,
+        0x000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =840
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x84821ca5478f1945877c07ebde590471
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Top =120
+                    Width =14274
+                    Height =360
+                    FontSize =12
+                    Name ="Text14"
+                    Caption ="Major Accounts"
+                    GUID = Begin
+                        0x4b71f956a90fac4b9f97fce1a6fa50bc
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =480
+                    Width =2880
+                    FontSize =9
+                    Name ="Field15"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0x04e3c7b38df37243ae0ff52576cde9be
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =463
+            Name ="PageHeader0"
+            GUID = Begin
+                0x1e23dcda1e4dd6498411bde1ef899278
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =2280
+                    Height =285
+                    Name ="Text7"
+                    Caption ="Company Name"
+                    GUID = Begin
+                        0xa058ab9430157546810259270b33e653
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =3420
+                    Top =120
+                    Width =3105
+                    Height =285
+                    Name ="Text9"
+                    Caption ="Address"
+                    GUID = Begin
+                        0xf1272a2fe96e4040abb37bfa5c262036
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =6540
+                    Top =120
+                    Width =1920
+                    Height =285
+                    Name ="Text11"
+                    Caption ="Purch. Contact"
+                    GUID = Begin
+                        0x1b7703dac122e44091c1ce484fe56d30
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =10680
+                    Top =120
+                    Width =2280
+                    Height =285
+                    Name ="Text13"
+                    Caption ="Phone"
+                    GUID = Begin
+                        0x4b6fd1dbdb28af4ab7d14b78e8de6615
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =434
+                    Width =14274
+                    Name ="Line19"
+                    GUID = Begin
+                        0x9cf90341a6390c4d8d0473be0f0bc85f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =12960
+                    Top =120
+                    Width =1320
+                    Height =285
+                    Name ="Label25"
+                    Caption ="Acct Num"
+                    GUID = Begin
+                        0x8974984fd39ab24aa18497c5dd43d218
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =8520
+                    Top =120
+                    Width =2100
+                    Height =285
+                    Name ="Label27"
+                    Caption ="Mgmt Contact"
+                    GUID = Begin
+                        0x5961d3b88850574db287f81b5bef23ad
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =300
+            Name ="Detail1"
+            GUID = Begin
+                0x9032e702c06b6544a4ef375db1dcd3c7
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Width =3426
+                    Height =240
+                    FontSize =9
+                    Name ="Customer Name"
+                    ControlSource ="MACompName"
+                    EventProcPrefix ="Customer_Name"
+                    GUID = Begin
+                        0xf49be3f9f8e9be40abf21c4814d24706
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    Left =3420
+                    Width =3120
+                    Height =240
+                    FontSize =9
+                    TabIndex =1
+                    Name ="Date of Demo"
+                    ControlSource ="MAHeadqAddress"
+                    EventProcPrefix ="Date_of_Demo"
+                    GUID = Begin
+                        0x9daab9172692f44a9fdf8b6b52459b95
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =6540
+                    Width =1974
+                    Height =240
+                    FontSize =9
+                    TabIndex =2
+                    Name ="Purchased"
+                    ControlSource ="MAPurContact"
+                    GUID = Begin
+                        0xdafa4322a77ec4478734498b1a0161b9
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    Left =10680
+                    Width =2280
+                    Height =240
+                    FontSize =9
+                    TabIndex =3
+                    Name ="Equipment Demoed"
+                    ControlSource ="MAPhone"
+                    EventProcPrefix ="Equipment_Demoed"
+                    GUID = Begin
+                        0xfb95d84ee5ce8b40b3f3bee050544402
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    Left =12960
+                    Width =1320
+                    Height =240
+                    FontSize =9
+                    TabIndex =4
+                    Name ="Text26"
+                    ControlSource ="MAAccountNum"
+                    GUID = Begin
+                        0x6ef3630f0d6bd743b8a14c1aaf760504
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    TextAlign =1
+                    Left =8520
+                    Width =2154
+                    Height =240
+                    FontSize =9
+                    TabIndex =5
+                    Name ="Text28"
+                    ControlSource ="MAManageContact"
+                    GUID = Begin
+                        0xa75c05becca10a42a33d457ef3cd2a4f
+                    End
+                End
+                Begin Line
+                    Top =300
+                    Width =14280
+                    Name ="Line29"
+                    GUID = Begin
+                        0xfd6a6771127a9e4693d92fcbf6584e40
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =405
+            Name ="PageFooter2"
+            GUID = Begin
+                0x312cd0eb9c316d4498c3398b1d56d571
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =10920
+                    Top =120
+                    Width =3240
+                    Height =240
+                    FontSize =8
+                    Name ="Field16"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x74830e34263aa74bac397a4db6dd4a54
+                    End
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =60
+                    Width =14274
+                    Name ="Line20"
+                    GUID = Begin
+                        0x61d427f918015d4181a65292944a470e
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =2160
+                    Height =285
+                    FontSize =8
+                    Name ="Text23"
+                    Caption ="Factory Cat"
+                    GUID = Begin
+                        0x53c42c7bb71d6345a0a1852045406246
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    Left =5520
+                    Top =120
+                    Width =2760
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field24"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0xa4f3158ce907c74da664483d0baa8c32
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0xf3984d44898cde4b8486d660c88bac06
+            End
+        End
+    End
+End

@@ -1,0 +1,39 @@
+Option Compare Database
+Option Explicit
+
+'API Declarations
+Public Declare Function GetCurrentProcessId Lib "kernel32" () As Long
+Public Declare Function GetSystemDirectory Lib "kernel32" Alias "GetSystemDirectoryA" (ByVal lpBuffer As String, ByVal nSize As Long) As Long
+Type Rect
+    x1 As Long
+    y1 As Long
+    x2 As Long
+    y2 As Long
+End Type
+Public Declare Function GetDesktopWindow Lib "user32" () As Long
+Public Declare Function GetWindowRect Lib "user32" (ByVal hWnd As Long, rectange As Rect) As Long
+Public Declare Function GetActiveWindow Lib "user32" () As Long
+
+'Global declarations - database information
+Public Const cnVersionMajor = 5.13
+Public Const cnVersionMinor = 0
+Public Const cnVersionBuild = 1
+Public Const cnVersionDate = #10/21/1999#
+Public Const cnReqDataStructVer = 1
+Public Const txtUpdatePath = "\\bli_pdc\database"
+'Public Const txtUpdatePath = "d:\dbupdate"
+Public Const cnLinkTestTable = "tblEmp"
+
+Public glCurUserID As Long
+Public glCurUserName As String
+Public Const glLocation = 1
+Public glLastSecurityCheck As Date
+
+Public TwipsPerPixelX As Long
+Public TwipsPerPixelY As Long
+
+Public flgDebug As Boolean
+Public intStatusSteps As Integer
+Public blnUpdatedItems As Boolean
+
+Public Const conSnapshot = 2

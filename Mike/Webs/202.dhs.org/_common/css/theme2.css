@@ -1,0 +1,114 @@
+.clsButton  {
+  background-color:       00FF00;
+  border-bottom-color:    C0C0C0;
+  border-left-color:      808080;
+  border-right-color:     C0C0C0;
+  border-top-color:       808080;
+  color:                  FF0000;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              10pt;
+  font-weight:            bold;
+  }
+
+.clsErrorText  {
+  color:                  FF0000;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              10pt;
+  font-weight:            bold;
+  }
+
+.clsHeaderText  {
+  color:                  FF8000;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              14pt;
+  font-weight:            bold;
+  }
+
+.clsHeadingText  {
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              12pt;
+  font-weight:            bold;
+  }
+
+.clsInputBox  {
+  background-color:       00FFFF;
+  color:                  000000;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              10pt;
+  }
+
+.clsNormalTable  {
+  background-color:       FFFF00;
+  border-bottom-color:    606060;
+  border-left-color:      808080;
+  border-right-color:     606060;
+  border-style:           solid;
+  border-top-color:       808080;
+  border-width:           1px;
+  color:                  000000;
+  font-family:            Verdana, Arial, Sans-Serif;
+  }
+
+.clsNoteHead  {
+  color:                  C0E0FF;
+  font-size:              10pt;
+  font-style:             italic;
+  font-weight:            bold;
+  }
+
+.clsNoteTable  {
+  background-color:       FFC0C0;
+  border-bottom-color:    000000;
+  border-left-color:      1658B8;
+  border-right-color:     000000;
+  border-style:           solid;
+  border-top-color:       1658B8;
+  border-width:           2px;
+  color:                  800080;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              8pt;
+  }
+
+.clsNoteText  {
+  font-size:              8pt;
+  }
+
+.clsToolbar  {
+  background-color:       2080D0;
+  }
+
+A:active  {
+  color:                  ff3300;
+  }
+
+A:hover  {
+  color:                  FF0000;
+  font-size:              larger;
+  font-weight:            bold;
+  }
+
+A:link  {
+  color:                  ffcc00;
+  font-family:            Verdana, Arial, Sans-Serif;
+  text-decoration:        none;
+  }
+
+A:visited  {
+  color:                  cccc7f;
+  font-family:            Verdana, Arial, Sans-Serif;
+  text-decoration:        none;
+  }
+
+BODY  {
+  background-color:       800080;
+  color:                  FFFFFF;
+  font-family:            Verdana, Arial, Sans-Serif;
+  font-size:              10pt;
+  }
+
+FONT  {
+  font-family:            Verdana, Arial, Sans-Serif;
+  }
+
+TABLE  {
+  }

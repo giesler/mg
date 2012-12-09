@@ -1,0 +1,111 @@
+Version =19
+VersionRequired =19
+Checksum =-1713334257
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =3720
+    DatasheetFontHeight =10
+    ItemSuffix =16
+    Left =1395
+    Top =1380
+    Right =8940
+    Bottom =4905
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x0b0c597511c8e140
+    End
+    RecordSource ="SELECT tblCust.apkCust, tblCust.CustName, tblCustAddr.CAddrAddr, tblCustAddr.CAd"
+        "drCity, tblCustAddr.CAddrState, tblCustAddr.CAddrZip, tblCustPhone.CPhoneNumber "
+        "FROM tblCust LEFT OUTER JOIN tblCustPhone ON tblCust.apkCust = tblCustPhone.afkC"
+        "PhoneCust LEFT OUTER JOIN tblCustAddr ON tblCust.apkCust = tblCustAddr.afkCAddrC"
+        "ust WHERE ((tblCustAddr.CAddrMail = 1) AND (tblCustPhone.CPhoneMain IS NULL)) OR"
+        " ((tblCustAddr.CAddrMail IS NULL) AND (tblCustPhone.CPhoneMain = 1)) OR ((tblCus"
+        "tAddr.CAddrMail IS NULL) AND (tblCustPhone.CPhoneMain IS NULL)) OR ((tblCustAddr"
+        ".CAddrMail = 1) AND (tblCustPhone.CPhoneMain = 1))"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a00500000000000080160000c003000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x43616e6f6e20427562626c652d4a657420424a2d323030650000000000000000 ,
+        0x0004010494004000036600060100010079037903000001000700680101000100 ,
+        0x6801010000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000013010000020000000000000000000000010040004d53554403034361 ,
+        0x6e6f6e20427562626c652d4a657420424a2d3230306500000000000000008000 ,
+        0x0000000000000000000000000000640000000000
+    End
+    PrtDevNames = Begin
+        0x080011002a00010077696e73706f6f6c0043616e6f6e20427562626c652d4a65 ,
+        0x7420424a2d32303065004c5054313a0000000000000000000000000000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin CheckBox
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =1500
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    TextFontFamily =34
+                    Top =300
+                    Width =3720
+                    Height =1200
+                    FontSize =9
+                    Name ="PhNum"
+                    ControlSource ="=IIf(Not IsNull([CAddrAddr]),[CAddrAddr] & IIf(Not IsNull([CAddrCity]) And Not I"
+                        "sNull([CAddrState]),Chr(13) & Chr(10) & [CAddrCity] & \", \" & [CAddrState] & II"
+                        "f(Not IsNull([CAddrZip]),\"  \" & [CAddrZip])) & Chr(13) & Chr(10)) & IIf(Not Is"
+                        "Null([CPhoneNumber]),\"Main Phone: \" & [CPhoneNumber])"
+                    GUID = Begin
+                        0xb60aa8c77e3d9a4987af4e68b64b2f64
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Width =3720
+                    Height =300
+                    FontSize =10
+                    TabIndex =1
+                    Name ="CustName"
+                    ControlSource ="CustName"
+                    StatusBarText ="Company's name"
+                    GUID = Begin
+                        0xecf5f2281859074da5b71a3f23f686ea
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit

@@ -1,0 +1,326 @@
+Version =19
+VersionRequired =19
+Checksum =-903539802
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =4620
+    ItemSuffix =31
+    Left =1515
+    Top =2055
+    Right =11175
+    Bottom =7485
+    RecSrcDt = Begin
+        0x5d7450cd78c9e140
+    End
+    RecordSource ="dbo.tblInvn"
+    Caption ="Inventory Item Info"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =2760
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =2220
+                    Top =2340
+                    Width =1026
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =2
+                    Left =1320
+                    Top =120
+                    Width =3060
+                    TabIndex =1
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    Name ="comafkInvnGroup"
+                    ControlSource ="afkInvnGroup"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkInvnGrp, InvnGrpDesc\015\012FROM dbo.tblInvnGrp\015\012ORDER BY InvnGr"
+                        "pDesc"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Inventory group"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =120
+                            Width =1110
+                            Height =240
+                            Name ="Label22"
+                            Caption ="Group:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =480
+                    Width =3060
+                    TabIndex =2
+                    Name ="txtInvnDesc"
+                    ControlSource ="InvnDesc"
+                    StatusBarText ="Description"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =480
+                            Width =1110
+                            Height =240
+                            Name ="Label23"
+                            Caption ="Description:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1320
+                    Top =840
+                    TabIndex =3
+                    Name ="txtInvnCost"
+                    ControlSource ="InvnCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    StatusBarText ="Cost of inventory item"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =1110
+                            Height =240
+                            Name ="Label24"
+                            Caption ="Cost:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =2
+                    Left =1320
+                    Top =1200
+                    TabIndex =4
+                    BackColor =-2147483633
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"4\";\"4\""
+                    Name ="comafkInvnOrder"
+                    ControlSource ="afkInvnOrder"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkOrder, OrderNumber\015\012FROM dbo.tblOrder\015\012ORDER BY OrderNumbe"
+                        "r"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Vendor order number of inventory item"
+                    OnDblClick ="=OpenOrderInfo([afkInvnOrder])"
+                    FontName ="Tahoma"
+                    ControlTipText ="Dbl-Click to open order info"
+                    Begin
+                        Begin Label
+                            FontUnderline = NotDefault
+                            OverlapFlags =85
+                            TextAlign =3
+                            Top =1200
+                            Width =1230
+                            Height =240
+                            ForeColor =10040115
+                            Name ="Label25"
+                            Caption ="Order Number:"
+                            FontName ="Tahoma"
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3300
+                    Top =2340
+                    Width =1026
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xbea6344b1853eb40be361229094a650e
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =3
+                    Left =1320
+                    Top =1560
+                    TabIndex =6
+                    BackColor =-2147483633
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x78044680c1749e4799a2877f7b5594b7
+                    End
+                    Name ="comafkInvnSItem"
+                    ControlSource ="afkInvnSItem"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tI.apkSItem, tS.apkSale, tS.SaleNumber FROM dbo.tblSale tS INNER JOIN dbo"
+                        ".tblSaleItem tI ON tS.apkSale = tI.afkSItemSale"
+                    ColumnWidths ="0;0;1440"
+                    OnDblClick ="=OpenSale([comafkInvnSItem].[Column](1))"
+                    FontName ="Tahoma"
+                    Begin
+                        Begin Label
+                            FontUnderline = NotDefault
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =1560
+                            Width =1110
+                            Height =240
+                            ForeColor =10040115
+                            Name ="Label28"
+                            Caption ="Sale Order #:"
+                            FontName ="Tahoma"
+                            GUID = Begin
+                                0x40f30ab9b18d2f4a80824fe31dd59832
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ColumnCount =3
+                    Left =1320
+                    Top =1920
+                    TabIndex =7
+                    BackColor =-2147483633
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x6fada4cf82c4cc419b11c88ffe3cdac7
+                    End
+                    Name ="comafkInvnIItem"
+                    ControlSource ="afkInvnIItem"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tII.apkIItem, tI.apkInv, tI.InvNumber FROM dbo.tblInvoice tI INNER JOIN d"
+                        "bo.tblInvoiceItem tII ON tI.apkInv = tII.afkIItemInv"
+                    ColumnWidths ="0;0;1440"
+                    StatusBarText ="Vendor order number of inventory item"
+                    OnDblClick ="=OpenInvoice([comafkInvnIItem].[Column](1))"
+                    FontName ="Tahoma"
+                    ControlTipText ="Dbl-Click to open order info"
+                    Begin
+                        Begin Label
+                            FontUnderline = NotDefault
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =1920
+                            Width =1110
+                            Height =240
+                            ForeColor =10040115
+                            Name ="Label30"
+                            Caption ="Invoice #:"
+                            FontName ="Tahoma"
+                            GUID = Begin
+                                0x7220ce488e15aa4b862e656c4bb19723
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+If Me.Dirty Then Me.Undo
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = Not Me.Dirty
+If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
+Me.Visible = Falsdocmdddde
+End Sub
+
+Private Sub Form_Load()
+
+If InStr(Me.OpenArgs, "READONLY") Then
+  Me.RecordsetType = conSnapshot
+  Me.AllowEdits = False
+  Me.AllowAdditions = False
+  Me.AllowDeletions = False
+End If
+
+End Sub

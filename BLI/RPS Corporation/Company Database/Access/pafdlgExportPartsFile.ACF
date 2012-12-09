@@ -1,0 +1,216 @@
+Version =19
+VersionRequired =19
+Checksum =-150268846
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =4260
+    ItemSuffix =19
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Select Names..."
+    Begin
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2100
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x1bcb04e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =2040
+                    Top =1620
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x1ccb04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =3072
+                    Top =1620
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x1dcb04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OverlapFlags =93
+                    Left =120
+                    Top =600
+                    Width =4026
+                    BorderColor =8421504
+                    Name ="Box3"
+                    GUID = Begin
+                        0x1ecb04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =4020
+                    Height =480
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="Enter the filename for the exported parts list file."
+                    GUID = Begin
+                        0x1fcb04e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    OverlapFlags =215
+                    TextAlign =1
+                    Left =240
+                    Top =960
+                    Width =2740
+                    Name ="txtFileName"
+                    DefaultValue ="\"c:\\parts.txt\""
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x21cb04e92849d311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =223
+                            Left =240
+                            Top =720
+                            Width =1875
+                            Height =240
+                            Name ="Text35"
+                            Caption ="File Name:"
+                            GUID = Begin
+                                0x20cb04e92849d311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    AccessKey =66
+                    TextFontFamily =34
+                    Left =3120
+                    Top =840
+                    Width =960
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =3
+                    ForeColor =-2147483630
+                    Name ="cmdBrowse"
+                    Caption ="&Browse"
+                    OnClick ="[Event Procedure]"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x22cb04e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub cmdBrowse_Click()
+
+Dim msaof As MSA_OPENFILENAME
+
+msaof.strDefaultExtension = "txt"
+msaof.strDialogTitle = "Export Parts File to..."
+msaof.strFilter = MSA_CreateFilterString("Text Files (*.txt)", "*.txt", "All Files (*.*)", "*.*")
+MSA_GetSaveFileName msaof
+If msaof.strFullPathReturned <> "" Then
+  Me.txtFileName = msaof.strFullPathReturned
+  Me.SetFocus
+End If
+
+End Sub
+
+Private Sub cmdCancel_Click()
+DoCmd.Close acForm, Me.Name
+End Sub
+
+Private Sub cmdOK_Click()
+
+If Me.txtFileName = "" Then
+    MsgBox "You must enter a file name!", vbExclamation
+    Exit Sub
+End If
+
+DoCmd.TransferText A_EXPORTDELIM, "DealerPartsExportSpecs", "paqryExportDealerParts", Me.txtFileName, True
+
+MsgBox "The parts list has been exported to '" & Me.txtFileName & "'", vbInformation
+DoCmd.Close acForm, Me.Name
+
+End Sub

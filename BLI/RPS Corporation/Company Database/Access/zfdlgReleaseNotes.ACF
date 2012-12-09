@@ -1,0 +1,279 @@
+Version =19
+VersionRequired =19
+Checksum =-33278232
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =3
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =7215
+    DatasheetFontHeight =10
+    ItemSuffix =91
+    Left =4020
+    Top =1935
+    Right =11235
+    Bottom =6780
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x8f73af23e0cce140
+    End
+    RecordSource ="SELECT * FROM tblVersion ORDER BY VersionNumber DESC"
+    Caption ="Release Notes"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin FormHeader
+            Height =0
+            BackColor =-2147483633
+            Name ="FormHeader"
+        End
+        Begin Section
+            Height =4320
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =960
+                    Top =120
+                    Width =1080
+                    FontWeight =700
+                    BackColor =-2147483633
+                    Name ="txtVersionNumber"
+                    ControlSource ="VersionNumber"
+                    GUID = Begin
+                        0x1d19768e04a8be41b3b0496114a2867a
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =120
+                            Top =120
+                            Width =780
+                            Height =240
+                            FontWeight =700
+                            Name ="Label81"
+                            Caption ="Version:"
+                            GUID = Begin
+                                0x18ec5ac8c4d8af4c842d108fd453799a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    TextAlign =1
+                    Left =6060
+                    Top =120
+                    Width =960
+                    FontWeight =700
+                    TabIndex =1
+                    BackColor =-2147483633
+                    Name ="VersionDate"
+                    ControlSource ="VersionDate"
+                    Format ="Short Date"
+                    GUID = Begin
+                        0x71feee166e19af4c82d2e8a4c06a5052
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =4020
+                            Top =120
+                            Width =1950
+                            Height =240
+                            FontWeight =700
+                            Name ="Label82"
+                            Caption ="Version Date:"
+                            GUID = Begin
+                                0xa26e849a7ea8434b9c4f7c066ae527ae
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OverlapFlags =85
+                    Left =180
+                    Top =540
+                    Width =6840
+                    Height =3723
+                    TabIndex =2
+                    BackColor =-2147483633
+                    Name ="VersionRelNotes"
+                    ControlSource ="VersionRelNotes"
+                    GUID = Begin
+                        0x9d5a257a644ede4dae8d2de53bfd21c9
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =540
+            BackColor =-2147483633
+            Name ="FormFooter"
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =5940
+                    Top =120
+                    Width =1140
+                    Name ="cmdClose"
+                    Caption ="&Close"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin Rectangle
+                    OverlapFlags =85
+                    Top =60
+                    Width =7200
+                    Height =0
+                    Name ="Box4"
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    AccessKey =74
+                    ColumnCount =3
+                    ListWidth =1755
+                    Left =1560
+                    Top =180
+                    TabIndex =1
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x8dd3336017bdd34d98a3c769df2b53fd
+                    End
+                    Name ="cmbJumpToVersion"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT VersionID, VersionNumber, VersionDate FROM tblVersion ORDER BY VersionNum"
+                        "ber DESC"
+                    ColumnWidths ="0;765;990"
+                    AfterUpdate ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =120
+                            Top =180
+                            Width =1260
+                            Height =240
+                            Name ="&Jump to version:_Label"
+                            Caption ="&Jump to version:"
+                            EventProcPrefix ="Ctl_Jump_to_version__Label"
+                            GUID = Begin
+                                0x8d05c8993a80a84a9df34c8e8fe91f0a
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =80
+                    Left =3600
+                    Top =120
+                    Width =1260
+                    TabIndex =2
+                    Name ="cmdPrint"
+                    Caption ="&Print"
+                    OnClick ="[Event Procedure]"
+                    ControlTipText ="Prints the current page of release notes"
+                    GUID = Begin
+                        0xeed95900b9e3bd4dbf487f006015adf8
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmbJumpToVersion_AfterUpdate()
+    
+    ' Find the record that matches the control.
+    Dim rs As Object
+
+    Set rs = Me.Recordset.Clone
+    rs.Find "[VersionID] = " & Str(Me.cmbJumpToVersion)
+    Me.Bookmark = rs.Bookmark
+
+End Sub
+
+Private Sub cmdClose_Click()
+DoCmd.Close
+End Sub
+
+Private Sub cmdNewer_Click()
+SendKeys "{PGUP}"
+End Sub
+
+Private Sub cmdOlder_Click()
+SendKeys "{PGDN}"
+End Sub
+
+Private Sub cmdPrint_Click()
+On Error Resume Next
+
+  Dim txtVersion As String
+  txtVersion = Me!VersionNumber
+  
+  DoCmd.Close acForm, Me.Name
+  
+  DoCmd.OpenReport "zrptVersion", acViewPreview, , "VersionNumber = '" & txtVersion & "'"
+  
+End Sub

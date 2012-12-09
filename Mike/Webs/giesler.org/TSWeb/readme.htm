@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html dir="LTR"> 
+
+<head>
+<META HTTP-EQUIV="PICS-Label" CONTENT='(PICS-1.1 "<http://www.rsac.org/ratingsv01.html>" 1 comment "RSACi North America Server" by "inet@microsoft.com <MAILTO:INET@MICROSOFT.COM>" r (n 0 s 0 v 0 l 0))'>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=Windows-1252">
+<META NAME="MS-HAID" CONTENT="a_readme">
+
+<style TYPE="text/css">
+<!--
+h1
+		{ font-size: 125%; 
+		margin-bottom:" .5em"; clear:both; }
+
+h2
+		{ font-size: 110%;  
+		margin-top: 1.5em;
+		margin-bottom:" .5em"; clear:both; }
+
+h3
+		{ font-size: 100%; 
+		margin-top: 1.2em;  
+		margin-bottom: ".5em"; clear:both; }
+
+h4
+		{ font-size: 100%; 
+		margin-top: "1.2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+h5
+		{ font-size: 100%; 
+		margin-top: "1.2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+h6		{ font-size: 70%; 
+		margin-top: ".2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+
+p
+		{ margin-top:"1.5em"; 
+		margin-bottom: ".6em"; }
+			
+ol
+		{ margin-top: ".5em"; 
+		margin-bottom: 0; 
+		margin-left: "2.1em"; 
+		padding-left: "0em"; }
+	
+ul
+		{ margin-top: ".6em"; 	
+		margin-bottom: 0;
+		list-style-type: disc;
+		margin-left: "1.5em";
+		padding-left: "0em"; }
+		
+li
+		{ margin-bottom: ".7em"; clear:both; }
+
+dd
+		{ margin-bottom: 0; 
+		margin-left: "1.5em"; } 
+
+p.indent		{ margin-left: "2em"; }    
+
+		
+p.proclabel	{ font-size: 100%; 	
+		font-weight: bold; clear: both; }
+		
+		
+table
+		{ font-size: 100%;
+		margin-top: "1em"; 
+		margin-bottom: "1em"; }
+		
+th
+		{ text-align: left;
+		background: #DDDDDD;
+		vertical-align: bottom;
+		padding: .2em;
+		padding-left: .45em;
+		padding-right: .5em;}
+		
+tr
+		{ vertical-align: top; }
+
+td
+		{ background: #EEEEEE;
+		vertical-align: top;
+		padding: .2em;
+		padding-left: .45em;
+		padding-right: .5em;}
+		pre
+		{ margin-top: ".5em";
+		margin-bottom: ".5em"; }
+
+code
+		{ font-family: Courier New; 
+		font-size: "1.1em"; }
+
+
+body    		{ color: #000000;
+		background: #FFFFFF;  	
+		font-size: 70%;    		
+		font-family: Verdana, Arial, Helvetica, Sans Serif }
+
+A:HOVER {color: #3399FF}
+a:link	{text-decoration	:	underline};
+a:visited	{text-decoration	:	underline};
+a:active	{text-decoration	:	underline};
+-->
+</style>
+<META NAME="MS.LOCALE" CONTENT="EN-US">
+<META NAME="Content" CONTENT="Microsoft Terminal Services Advanced Client Readme"> 
+<title>Microsoft Terminal Services Advanced Client Readme.htm
+</title>
+</head>
+
+<body>
+
+
+<h1><a name="TOP"></a>Microsoft&reg; Terminal Services Advanced Client <br>
+README.HTM</h1>
+<HR>
+
+
+<h2><a name="contents"><font color="purple">Table of Contents</font></a></h2>
+<p>
+<a href="#1.0"><b>1.0 Introduction</b></a><br>
+<a href="#1.1">1.1 What Is the Terminal Services Advanced Client?</a><br>
+<a href="#1.2">1.2 Overview of Terminal Services Advanced Client Components and Features</a><br>
+<a href="#1.2.1">1.2.1 Terminal Services ActiveX&reg; Client Control and Sample Web Pages </a><br>
+<a href="#1.2.2">1.2.2 Terminal Services Connections Microsoft Management Console (MMC) Snap-in</a><br>
+<a href="#1.2.3">1.2.3 MSI Setup Package and Updated Full Terminal Services Client</a></p>
+<p>
+<a href="#2.0"><b>2.0 Installation Instructions for the Advanced Client</b></a><br>
+<a href="#2.1">2.1 Installing the ActiveX Client Control and Sample Web Pages</a><br>
+<a href="#2.1.1">2.1.1 Before you install the ActiveX Client Control and Sample Web Pages</a><br>
+<a href="#2.1.2">2.1.2 To Install the ActiveX Client Control and Sample Web Pages</a><br>
+<a href="#2.2">2.2 Installing the Terminal Services Connections MMC Component</a><br>
+<a href="#2.2.1">2.2.1 To Start the Terminal Services Connections Snap-in</a><br>
+<a href="#2.2.2">2.2.2 Note on Password Security (Terminal Services Connections Snap-in)</a><br>
+<a href="#2.3">2.3 Installing the Full Terminal Services Client MSI Setup Package</a><br>
+<a href="#2.3.1">2.3.1 Installing the MSI Setup Files to a Local Computer or Network Share</a><br>
+<a href="#2.3.2">2.3.2 Before You Deploy the MSI Package to Clients</a><br>
+<a href="#2.3.3">2.3.3 Running the Full Terminal Services Client MSI Setup Program</a><br>
+<a href="#2.3.4">2.3.4 Deploying the
+MSI Package to Multiple Computers</a></p>
+<p>
+<a href="#3.0"><b>3.0 User Notes</b></a><br>
+<a href="#3.1">3.1 Terminal Services Connections Snap-in Might Cause  MMC to Fail During Frame Resizing
+</a><br>
+<a href="#3.2">3.2 Full Terminal Services Client Command-line Syntax</a><br>
+</p>
+
+<p>
+Information in this document, including URL and other Internet Web site references, is subject to change without notice and is provided for informational purposes only.  The entire risk of the use or results of the use of this document remains with the user, and Microsoft Corporation makes no warranties, either express or implied.  Unless otherwise noted, the example companies, organizations, products, people and events depicted herein are fictitious and no association with any real company, organization, product, person or event is intended or should be inferred.  Complying with all applicable copyright laws is the responsibility of the user.  Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation. </p>
+<p>
+Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document.  Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.</p>
+<p>
+&#169; 2000 Microsoft Corporation. All rights reserved.</p>
+<p>
+Microsoft, MS-DOS, Windows, Windows&nbsp;NT, Active Directory, ActiveX, IntelliMirror, and Visual Basic are either registered trademarks or trademarks of Microsoft Corporation in the U.S.A. and/or other countries.
+</p>
+<p>
+The names of actual companies and products mentioned herein may be the trademarks of their respective owners.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<h2><a name="HOW">How to Use This Document</a></h2>
+<p>
+This document provides information about Microsoft Terminal Services Advanced Client, as well as&nbsp;answers to questions that you might have.</p>
+<p>
+</p> 
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<h2><a name="1.0">1.0 Introduction</a></h2>
+
+<p><a name="1.1"><b>1.1 What Is the Terminal Services Advanced Client?</b></a></p>
+<p>Welcome to the Microsoft Terminal Services Advanced Client (TSAC). The Terminal Services Advanced Client is an interim release of Terminal Services components and features. The purpose of this release is to extend the functionality of Terminal Services, client side, so that system administrators, Web page designers, and Web administrators can implement Terminal Services client sessions in Web pages or Visual Basic&reg; applications without requiring the user to download or install the full Terminal Services client program. These innovations greatly extend the usefulness of Terminal Services for remote administration of servers, for Web applications, and for management of Terminal server installations.  </p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.2"><b>1.2 Overview of Terminal Services Advanced Client Components and Features</b></a></p>
+<p>The TSAC consists of three components. Each component has its own installation.</p>
+
+<ul>
+<li><a href="#1.2.1">Terminal Services ActiveX Client Control and Sample Web Pages</A></li>
+<li><a href="#1.2.2">Terminal Services Connections Microsoft Management Console (MMC) Snap-in</A></li>
+<li><a href="#1.2.3">MSI Setup Package and Updated Full Terminal Services Client</A></li>
+</ul>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.2.1"><b>1.2.1 Terminal Services ActiveX Client Control and Sample Web Pages</b></a></p>
+<p>The Terminal Services ActiveX Client Control is an ActiveX control that provides virtually the same functionality as the full Terminal Services Client, but it is designed to deliver this functionality over the Web. When embedded in a Web page, the ActiveX client control can host a client session with a Terminal server, even if the full Terminal Server Client is not installed on a user's computer.</p>
+
+<p>When you install the ActiveX Client Control, a minimal set of sample Web pages is also installed on your Web server. These pages include: a sample default and connect page that work together to create a Terminal server Web connection, and a page for adminstrators that hosts multiple instances of the ActiveX Client Control.</p>
+
+<P>For more information about the Terminal Services ActiveX Client Control and sample pages, including instructions for embedding the control in a Web page, see the <I>Microsoft Terminal Services ActiveX Client Control Deployment Guide</I> (Webclient.doc), which is installed in the same directory where you installed the ActiveX Client Control. </P>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.2.2"><b>1.2.2 Terminal Services Connections Microsoft Management Console (MMC) Snap-in</b></a></p>
+<p>The Terminal Services Connections MMC snap-in provides a tool for system administrators who want to manage multiple remote sessions to individual applications on many servers. This snap-in hosts several Terminal server sessions in an easily navigated tree.</p>
+
+<p><a href="#2.2">Installing the Terminal Services Connections MMC Component</A></p>
+
+<p><a href="#2.2.1">To Start the Terminal Services Connections Snap-in</A></p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.2.3"><b>1.2.3 MSI Setup Package and Updated Full Terminal Services Client</b></a></p>
+<p>The Terminal Services Advanced Client MSI Setup package is a tool for deploying the full Terminal Services Client and associated files on computers running any version of Windows 2000, including Windows 2000 Professional. The MSI Setup package can also be placed on a Windows 2000 share for distribution to workstations running Windows 2000 by using Microsoft IntelliMirror&reg;.</p>
+<p>Included in the MSI Setup package is an updated version of the Terminal Services Client (mstsc.exe). This version contains all of the functionality of the previous versions as well as the following additional features: </p>
+<ul>
+<li>ActiveX Client Control Support</li>
+<li>New command-line parameters</li></ul>
+
+<p><a href="#2.3">Installing the Full Terminal Services Client MSI Setup Package</A></p>
+<p><a href="#3.2">Full Terminal Services Client Command-line Syntax</A></p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<h2><a name="2.0">2.0 Installation Instructions for the Advanced Client</a></h2>
+<p>The Advanced Client components are packaged in three self-extracting executable files.</p>
+
+<p><a href="#2.1">Installing the ActiveX Client Control and Sample Web Pages</A></p>
+
+<p><a href="#2.2">Installing the Terminal Services Connections MMC Component</A></p>
+
+<p><a href="#2.3">Installing the Full Terminal Services Client MSI Setup Package</A></p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.1">2.1 Installing the ActiveX Client Control and Sample Web Pages</A></b></p>
+
+<p><a name="2.1.1"><b>2.1.1 Before you install the ActiveX Client Control and Sample Web Pages</b></a></p>
+
+The Terminal Services ActiveX Client Control is designed to be installed on a Web server running Windows&nbsp;NT&nbsp;4.0 Server or later and Internet Information Server 4.0 or later.
+To use the sample pages, Active Server Pages (ASP) must be enabled on the Web server.
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="2.1.2"><b>2.1.2 To Install the ActiveX Client Control and Sample Web Pages</b></a></p>
+
+<p> The ActiveX Client Control and sample pages are contained in a self-extracting executable file called Tswebsetup.exe. This executable file is located in the <b>&lt;cdroot&gt;\Valueadd\TSAC</b> directory of the Microsoft Windows&nbsp;2000 Service Pack 1 CD. The Setup program installs all files in the directory that you specify on the local computer.</p>
+<p class="indent"><b>Important</b>&nbsp;&nbsp;&nbsp;
+The ActiveX Client Control and sample pages are designed to be installed on a Web server running Windows NT 4.0 Server or later and Internet Information Server 4.0 or later. If installed on a computer that does not meet these requirements, the components will not function as described.
+</p>
+<P CLASS="Proclabel">To install the ActiveX Client Control and sample Web pages</p>
+<ol>
+<li>At the Web server where you want to install the ActiveX Client Control, insert the Windows&nbsp;2000 SP1 CD into your CD-ROM drive.</li>
+<li>At a command prompt, type the following:<br><br>
+ <code><b>&lt;<i>cdroot</i>&gt;\ValueAdd\TSAC\Tswebsetup.exe</b></code><br><br>
+ where <i>cdroot</i> is the drive letter of the CD-ROM drive containing the Windows&nbsp;2000 SP1 CD. For example:<br><br> <b>D:\ValueAdd\TSAC\Tswebsetup.exe</b>
+</li>
+</ol>
+
+<p>The ActiveX Client Control Setup program installs the files in the directory you specify on the target computer (Default = C:\Inetpub\Wwwroot\Tsweb).</p>
+
+<P>For more information about the Terminal Services ActiveX Client Control and sample pages, including instructions for embedding the control in a Web page, see the <I>Microsoft Terminal Services ActiveX Client Control Deployment Guide</I> (Webclient.doc), which is installed in the same directory where you installed the ActiveX Client Control and sample pages (Default = C:\Inetpub\Wwwroot\Tsweb). </P>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+
+<p><a name="2.2"><b>2.2 Installing the Terminal Services Connections MMC Component</b></a></p>
+<p> The Terminal Services Connections MMC Component is contained in a self-extracting executable file called Tsmmcsetup.exe. This executable file is located in the <b>&lt;<i>cdroot</i>&gt;\Valueadd\TSAC</b> directory of the Microsoft Windows&nbsp;2000, Service Pack 1 CD.  By default, the Terminal Services Connections MMC Snap-in Setup program installs the Terminal Services Connections .dlls into the <b>Program Files\Terminal Services MMC Snap-in</b> directory of your hard disk. </p>
+
+<p class="indent"><b>Important</b>&nbsp;&nbsp;&nbsp;The Terminal Services Connections component should be installed on the computer from which you administer Terminal servers. This component is only supported on computers running Windows&nbsp;2000.</p>
+<P CLASS="Proclabel">To install the MMC Component</p>
+<ol>
+<li>At the computer that you use to administer Terminal servers, insert the Windows&nbsp;2000 SP1 CD into your CD-ROM drive.</li>
+<li>At a command prompt, type the following:<br><br>
+ <code><b>&lt;<i>cdroot</i>&gt;\ValueAdd\TSAC\Tsmmcsetup.exe</b></code><br><br>
+ where <i>cdroot</i> is the drive letter of the CD-ROM drive containing the Windows&nbsp;2000 SP1 CD. For example:<br><br> <b>D:\ValueAdd\TSAC\Tsmmcsetup.exe</b>
+</li>
+</ol>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="2.2.1"><b>2.2.1 To Start the Terminal Services Connections Snap-in</b></a></p>
+
+<p>After you install the Terminal Services Connections MMC component, you can open it in your MMC console with the following procedure.</p>
+
+<p class="proclabel">To start the Terminal Services Connections snap-in</P>
+<OL>
+<li><a href="#2.2">Install the Terminal Services Connections MMC component</A> on the computer from which you administer your Terminal servers.</li>
+<li>Click <b>Start</b>, point to <b>Programs</b>, point to <b>Administrative Tools</b>, and then click <b>Terminal Services Connections</b>.</li>
+</OL>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="2.2.2"><b>2.2.2 Note on Password Security (Terminal Services Connections Snap-in)</b></a></p>
+
+<p>When you create a connection in the Terminal Services Connections snap-in, you have the option of supplying your user information, including your password, for automatic logon to the Terminal server. If you choose to enter password information in the connection dialog, your password is saved in encrypted form in the .MSC file. This encrypted password is protected, and can only be accessed by your user credentials.</p>
+
+<p>If you choose not to supply your password in the connection dialog, the standard Windows logon dialog will appear when the session begins, and you can manually log on to the Terminal server. In this case, your password is not stored on your local computer in any form. </p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.3">2.3 Installing the Full Terminal Services Client MSI Setup Package</a></b></p>
+<p>The MSI Setup package for the full Terminal Services Client is contained in a self-extracting executable file called Tsmsisetup.exe. This executable file is located in the <b>&lt;<i>cdroot</i>&gt;\Valueadd\TSAC</b> directory of the Microsoft Windows&nbsp;2000 Service Pack 1 CD. This executable file places the files on the share you designate on the local computer.  </p>
+
+<p class="indent"><b>Note</b>&nbsp;&nbsp;&nbsp;Tsmsisetup.exe only copies the Terminal Services Client MSI installation files to the specified share; it does not install the client on the computer. To perform the actual installation, see <a href="#2.3.3">Running the Full Terminal Services Client MSI Setup Program</a>.</p>
+
+<p class="indent"><b>Important</b>&nbsp;&nbsp;&nbsp;
+The MSI Setup package for the full Terminal Services Client is 
+designed to install the full Terminal Services Client and associated files on computers running any version of Windows 2000, including Windows 2000 Professional. For information on using MSI Setup to install the Terminal Services Client on other computers, see <a href="#2.3.2">Before You Deploy the MSI Package to Clients</a>. The MSI Setup package can also be placed on a Windows 2000 share for distribution to client computers with Change and Configuration Management software such as Microsoft IntelliMirror. See <a href="#2.3.4">Deploying the
+MSI Package to Multiple Computers</a> for more information.</p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.3.1">2.3.1 Installing the MSI Setup Files on a Local Computer or Network Share</a></b></p>
+<P CLASS="Proclabel">To install the MSI Setup Package</p>
+<ol>
+<li>At a Workstation running Windows 2000 or at the server where you want to create a distribution share, insert the Windows&nbsp;2000 SP1 CD in your CD-ROM drive.</li>
+<li>At a command prompt, type the following:<br><br>
+ <code><b>&lt;<i>cdroot</i>&gt;\ValueAdd\TSAC\Tsmsisetup.exe</b></code><br><br>
+ where <i>cdroot</i> is the drive letter of the CD-ROM drive containing the Windows&nbsp;2000 SP1 CD. For example:<br><br> <b>D:\ValueAdd\TSAC\Tsmsisetup.exe</b>
+</li>
+<li>Select the directory where you want the files to be copied (default= C:\Program Files\Terminal Services Client MSI).</li>
+</ol>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+
+<p><b><a name="2.3.2">2.3.2 Before You Deploy the MSI Package to Clients</a></b></p>
+
+<p>Before you can install Windows Installer Setup packages on a client computer, the client computer must first have the Windows Installer (MSI) service installed. Windows 2000 comes with Windows Installer already configured. To install Windows Installer on computers running Windows NT 4.0, Windows 98, or Windows 95, use the Windows Installer Setup program (InstMSI.exe). You can download a copy of this Setup program from the following Web location: <a href="http://www.microsoft.com/msdownload/platformsdk/instmsi.htm" target="_new">http://www.microsoft.com/msdownload/platformsdk/instmsi.htm</a>. You will be prompted to select the Setup file for installing Windows Installer on Windows 95 and Windows 98 or the Setup file for installing Windows Installer on Windows NT 4.0. You can also use this Setup program to update older versions of Windows Installer. </p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.3.3">2.3.3 Running the Full Terminal Services Client MSI Setup Program</a></b></p>
+<P CLASS="Proclabel">To install the full Terminal Services Client from the MSI setup package (local computer)</p>
+<ol>
+<li><a href="#2.3.1">Install the MSI Setup files</a> on the computer where you want to install the Terminal Services Client, or connect to a network share where the MSI installation package has been installed.<br></li>
+<p class="indent"><b>Note</b>&nbsp;&nbsp;&nbsp;If the computer is not running Windows 2000 Professional or later, make sure that Microsoft Windows Installer (MSI) service is installed. See <a href="#2.3.2">Before You Deploy the MSI Package to Clients</a> for more information.</p>
+
+<li>In Windows Explorer, navigate to the directory containing the MSI Setup files (if you installed them locally, default=C:\Program Files\Terminal Services Client MSI).</li>
+<li> Double-click <b>Terminal Services Client.msi</b>.</li>
+</ol>
+
+<P>Setup creates a <b>Program Files/Terminal Services Client</b> program group on the <b>Start</b> menu with a shortcut to the <b>Client Connection Manager</b> and the <b>Terminal Services Client</b>. To create a new connection to an existing Terminal server, click <b>Client Connection Manager</b>. </P>
+
+<p class="indent"><b>Note</b>&nbsp;&nbsp;&nbsp;When you run the MSI Setup program, the installation program automatically replaces the existing Terminal Services Client on your computer. 
+</p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.3.4">2.3.4 Deploying the
+MSI Package to Multiple Computers</a></b></p>
+
+<p>If you are deploying the Terminal Services Client to many users in a large organization, you can use a tool such as Microsoft Systems Management Server (SMS) to deploy the Terminal Services Advanced Client MSI Setup package. SMS version 2.0 can deploy Windows Installer-based software to computers running Windows 2000 Professional, Windows NT 4.0, Windows NT 3.51, Windows 98, and Windows 95. </p>
+
+<p>For more information about deploying software with SMS, see <a href="http://www.microsoft.com/smsmgmt/deployment/default.asp" target="_new">http://www.microsoft.com/smsmgmt/deployment/</a>.</p>
+
+<p class="indent"><b>Note</b>&nbsp;&nbsp;&nbsp;If the client computer is not running Windows 2000 Professional or later, make sure that Microsoft Windows Installer (MSI) service is installed. See <a href="#2.1.2">Before You Deploy the MSI Package to Clients</a> for more information.</p>
+
+<p>If you are deploying the Terminal Services Client to many users in a large organization, and all of the workstations are using Microsoft Windows 2000 Professional and Microsoft Active Directory directory services, then you can use Windows 2000 Group Policy and IntelliMirror to deploy the Terminal Services Advanced Client MSI Setup package.</p>
+
+<p>For more information about deploying software with IntelliMirror, see <a href="http://www.microsoft.com/technet/win2000/inmnwp.asp#b" target="_new">http://www.microsoft.com/technet/win2000/inmnwp.asp#b</a>, or see the &quot;IntelliMirror Tips and Tricks&quot; page <a href="http://www.microsoft.com/technet/win2000/inttips.asp" target="_new">http://www.microsoft.com/technet/win2000/inttips.asp</a>.</p>
+
+<p>If you are running Windows 2000 Server, you can also see the topics on IntelliMirror in Windows 2000 Server online Help. </p>
+
+<p>For information about using Microsoft Windows Installer (MSI), see the MSI online Help (WinInstl.chm), which is installed automatically in the &lt;<i>Windir</i>&gt;\help directory on computers running Windows 2000 Server. In particular, see the topic on Best Practices.</p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+
+<h2><a name="3.0">3.0 User Notes</a></h2>
+<p><a name="3.1"><b>3.1 Terminal Services Connections Snap-in Might Cause MMC to Fail During Frame Resizing</b></a></p>
+<p>There is a known problem with the Microsoft Management Console in Windows&nbsp;2000 whereby certain snap-ins, such as the Terminal Services Connections snap-in, can cause the MMC to fail under certain conditions. This can happen if the system focus is on the Terminal Services Connections snap-in, and you attempt to resize the MMC frame (that is, move the splitter bar that separates the contents pane from the topic pane). Upgrade to SP1 to resolve this issue.</p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="3.2"><b>3.2 Full Terminal Services Client Command-line Syntax</b></a></p>
+<p>The new version of the full Terminal Services Client contains updated syntax. You can now run the client and connect to specified servers from the command line.</p>
+
+<p CLASS="Proclabel">For Terminal Services Client syntax, type the following in a command line:</P>
+
+<p><B><code>Mstsc.exe /?</code></B></p>
+
+<p>The syntax for the Terminal Services Client is as follows:</p>
+<P CLASS="CODE"><b>Mstsc.exe</b> [&quot;<i>session</i>&quot;] [-<b>v:</b><i>server</i>] [<b>-f</b>] [<b>-w:</b><i>width</i> <b>-h:</b><i>height</i> ] </P>
+<p>where:</p>
+
+<dl>
+	<dt><b>/?</b></dt>
+	<dd>displays usage.</dd><br><br>
+<dt>&quot;<i>session</i>&quot;</dt>
+<dd>is the session you want to start.</dd><br><br>
+<dt><b>v:</b><i>server</i></dt>
+<dd>is the Terminal server to which you want to connect.</dd><br><br>
+<dt><b>-f</b></dt>
+<dd>starts the client in full-screen mode.</dd><br><br>
+<dt><b>-w:</b><i>width</i> <b>-h:</b><i>height</i></dt> <dd>specifies the dimensions of the Terminal Services Client screen.</dd>
+</dl>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+
+</body>
+</html>

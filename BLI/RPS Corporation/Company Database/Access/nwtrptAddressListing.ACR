@@ -1,0 +1,372 @@
+Version =19
+VersionRequired =19
+Checksum =-2071611732
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =10800
+    ItemSuffix =25
+    Left =240
+    Top =255
+    Right =7740
+    Bottom =6180
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xea887dbf52fae140
+    End
+    RecordSource ="SELECT DealerFlag, DealerName, Name, Salutation, StreetAddress, City, State, Zip"
+        ", Phone, Fax\015\012FROM tblAllNewsletter\015\012WHERE NewsletterType=1\015\012 "
+        "ORDER BY DealerName, Name"
+    Caption ="TC Newsletter Address Listing"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0xd0020000d0020000d0020000d002000000000000302a0000f000000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c5044435c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c5044435c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            FontUnderline = NotDefault
+            FontSize =10
+            FontWeight =700
+            FontName ="Arial"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            Height =300
+            FontSize =10
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =720
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x7dd504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    TextAlign =1
+                    Width =10800
+                    Height =360
+                    FontSize =12
+                    Name ="Text16"
+                    Caption ="Tom Cat Newsletter Address Listing"
+                    GUID = Begin
+                        0x7ed504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Top =360
+                    Width =2880
+                    Height =240
+                    FontSize =9
+                    Name ="Field17"
+                    ControlSource ="=Now()"
+                    Format ="Medium Date"
+                    GUID = Begin
+                        0x7fd504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageHeader
+            Height =480
+            Name ="PageHeader0"
+            GUID = Begin
+                0x80d504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    FontUnderline = NotDefault
+                    Top =120
+                    Width =1560
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="Name of Dealer"
+                    GUID = Begin
+                        0x81d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =3000
+                    Top =120
+                    Width =600
+                    Height =240
+                    FontSize =9
+                    Name ="Text7"
+                    Caption ="Name"
+                    GUID = Begin
+                        0x82d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =7560
+                    Top =120
+                    Width =720
+                    Height =240
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="City"
+                    GUID = Begin
+                        0x83d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =9360
+                    Top =120
+                    Width =600
+                    Height =255
+                    FontSize =9
+                    Name ="Text11"
+                    Caption ="State"
+                    GUID = Begin
+                        0x84d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =9960
+                    Top =120
+                    Width =840
+                    Height =240
+                    FontSize =9
+                    Name ="Text13"
+                    Caption ="Zip"
+                    GUID = Begin
+                        0x85d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontUnderline = NotDefault
+                    Left =5040
+                    Top =120
+                    Width =1800
+                    Height =255
+                    FontSize =9
+                    Name ="Text15"
+                    Caption ="Street Address"
+                    GUID = Begin
+                        0x86d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    Width =10800
+                    Name ="Line20"
+                    GUID = Begin
+                        0x87d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    Top =360
+                    Width =10800
+                    Name ="Line21"
+                    GUID = Begin
+                        0x88d504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail1"
+            GUID = Begin
+                0x89d504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Width =3000
+                    Height =240
+                    FontSize =8
+                    Name ="Name of Dealer"
+                    ControlSource ="DealerName"
+                    EventProcPrefix ="Name_of_Dealer"
+                    GUID = Begin
+                        0x8ad504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =3000
+                    Width =2040
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Name"
+                    ControlSource ="Name"
+                    GUID = Begin
+                        0x8bd504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =7560
+                    Width =1800
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="City"
+                    ControlSource ="City"
+                    GUID = Begin
+                        0x8cd504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =9360
+                    Width =600
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0x8dd504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =9960
+                    Width =840
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Zip"
+                    ControlSource ="Zip"
+                    GUID = Begin
+                        0x8ed504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Left =5040
+                    Width =2520
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Street Address"
+                    ControlSource ="StreetAddress"
+                    EventProcPrefix ="Street_Address"
+                    GUID = Begin
+                        0x8fd504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x90d504e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =2
+                    Left =3840
+                    Top =120
+                    Width =3000
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Field24"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x91d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    Left =8400
+                    Top =120
+                    Width =2280
+                    Height =240
+                    FontSize =8
+                    Name ="Field18"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x92d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    BorderWidth =2
+                    Top =120
+                    Width =10800
+                    Name ="Line22"
+                    GUID = Begin
+                        0x93d504e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    FontUnderline = NotDefault
+                    BackStyle =0
+                    Top =120
+                    Width =1920
+                    Height =240
+                    FontSize =8
+                    Name ="Text23"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0x94d504e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x95d504e92849d311bb05004033532b7f
+            End
+        End
+    End
+End

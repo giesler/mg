@@ -1,0 +1,220 @@
+Version =19
+VersionRequired =19
+Checksum =-1102141855
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =0
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =10752
+    DatasheetFontHeight =10
+    ItemSuffix =9
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x3c84671e7de1e140
+    End
+    RecordSource ="select pa.RPSPartNum, pa.PartName, pa.RPSPNSort\015\012from tblParts pa left out"
+        "er join tblPartsModels pm on pa.PartID = pm.fkPartID\015\012where pm.fkPartID is"
+        " null and pa.RPSPartNum not like 'V%' and pa.rpsPartNum not like 'E%' and pa.rps"
+        "PartNum not like 'H%' \015\012\011and pa.HideOnReports = 0"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xd0020000d0020000d00200001803000000000000002a00002c01000001000000 ,
+        0x010000000000000000000000a20700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            ControlSource ="RPSPNSort"
+        End
+        Begin PageHeader
+            Height =600
+            Name ="PageHeaderSection"
+            GUID = Begin
+                0xa94d4f0da23e0b48a1086b27abf91677
+            End
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Width =4620
+                    Height =300
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label0"
+                    Caption ="RPS Parts with no models assigned"
+                    GUID = Begin
+                        0x6ed811786f918a4d8fd95e8ed64c9a42
+                    End
+                End
+                Begin Label
+                    Left =60
+                    Top =360
+                    Width =900
+                    Height =240
+                    Name ="Label3"
+                    Caption ="RPS P/N"
+                    GUID = Begin
+                        0xcd8f1dde6eb1814dba6835b30d42b0a2
+                    End
+                End
+                Begin Label
+                    Left =1020
+                    Top =360
+                    Width =1260
+                    Height =240
+                    Name ="Label4"
+                    Caption ="Part Name"
+                    GUID = Begin
+                        0x3dd6e40e9cf343408f18ffd3eb3e9b39
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =300
+            Name ="Detail"
+            GUID = Begin
+                0x70ca8be267c42b4b8ab25a09d39dc7a3
+            End
+            Begin
+                Begin TextBox
+                    Width =1080
+                    Name ="RPSPartNum"
+                    ControlSource ="RPSPartNum"
+                    GUID = Begin
+                        0x7b6332efcb23bf4e9b7b638a4a5655cb
+                    End
+                End
+                Begin TextBox
+                    Left =1080
+                    Width =7020
+                    TabIndex =1
+                    Name ="PartName"
+                    ControlSource ="PartName"
+                    GUID = Begin
+                        0x0b58d2fe7d2f46449ecc178fe9f9f6d4
+                    End
+                End
+                Begin Line
+                    Width =10728
+                    Name ="Line5"
+                    GUID = Begin
+                        0xed1f930fe6e2824986f4556cd911eebc
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =300
+            Name ="PageFooterSection"
+            GUID = Begin
+                0xa31b11c821d54e408651f2e08688787e
+            End
+            Begin
+                Begin TextBox
+                    FontItalic = NotDefault
+                    FELineBreak = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =7200
+                    Top =60
+                    Width =3552
+                    Name ="Field12"
+                    ControlSource ="=\"Page \" & [Page] & \" of  \" & [Pages]"
+                    GUID = Begin
+                        0x42a5fa2833122b4fb0d12f8fe87eb5e8
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    FELineBreak = NotDefault
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3540
+                    Top =60
+                    Width =2592
+                    TabIndex =1
+                    Name ="Field19"
+                    ControlSource ="=\"Printed \" & Date()"
+                    GUID = Begin
+                        0x48f05a107405254d82b8455cdc4e2968
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    BackStyle =1
+                    TextFontFamily =34
+                    Top =60
+                    Width =1797
+                    Height =240
+                    FontWeight =700
+                    Name ="Text20"
+                    Caption ="RPS Corporation"
+                    GUID = Begin
+                        0xcf214e77a1e6104e9d4640e4e42b2f3b
+                    End
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Top =60
+                    Width =10680
+                    Name ="Line21"
+                    GUID = Begin
+                        0x5af44f8522706a43bce1b908d60ed8fd
+                    End
+                End
+            End
+        End
+    End
+End

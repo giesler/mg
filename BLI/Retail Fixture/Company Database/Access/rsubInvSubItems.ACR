@@ -1,0 +1,151 @@
+Version =19
+VersionRequired =19
+Checksum =1300702180
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =6120
+    DatasheetFontHeight =10
+    ItemSuffix =8
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x0b9a5bf773f6e140
+    End
+    RecordSource ="dbo.tblInvoiceSubItems"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000400b0000ee00000000000000 ,
+        0x020000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportHeader"
+            Begin
+                Begin Label
+                    Left =300
+                    Width =1200
+                    Height =225
+                    Name ="Label1"
+                    Caption ="Description"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =1500
+                    Width =840
+                    Height =225
+                    Name ="Label2"
+                    Caption ="Qty"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =300
+                    Top =240
+                    Width =2100
+                    Name ="Line4"
+                End
+                Begin Label
+                    Left =3540
+                    Width =1200
+                    Height =225
+                    Name ="Label5"
+                    Caption ="Description"
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =4740
+                    Width =840
+                    Height =225
+                    Name ="Label6"
+                    Caption ="Qty"
+                End
+                Begin Line
+                    LineSlant = NotDefault
+                    Left =3540
+                    Top =240
+                    Width =2100
+                    Name ="Line7"
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    Left =300
+                    Width =1200
+                    Name ="txtItemDesc"
+                    ControlSource ="ItemDesc"
+                    StatusBarText ="Catalog/Material #"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    Left =1500
+                    Width =840
+                    TabIndex =1
+                    Name ="txtItemQty"
+                    ControlSource ="=[ItemQty]*[Parent]![Quantiy]"
+                    StatusBarText ="Catalog/Material #"
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter"
+        End
+    End
+End

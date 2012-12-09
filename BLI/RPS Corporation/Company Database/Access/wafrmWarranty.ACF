@@ -1,0 +1,1445 @@
+Version =19
+VersionRequired =19
+Checksum =408738079
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    OrderByOn = NotDefault
+    AllowDesignChanges = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    TabularFamily =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =9060
+    DatasheetFontHeight =10
+    ItemSuffix =38
+    Top =1050
+    Right =9540
+    Bottom =10155
+    DatasheetGridlinesColor =12632256
+    OnUnload ="[Event Procedure]"
+    OrderBy ="wafrmWarranty.RGANum DESC"
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0x3a63c0611ee4e140
+    End
+    RecordSource ="SELECT * FROM dbo.tblAllWarranty WHERE WarrantyType = 0 ORDER BY RGANum"
+    Caption ="Factory Cat Warranty"
+    OnCurrent ="[Event Procedure]"
+    BeforeInsert ="[Event Procedure]"
+    OnDelete ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    DatasheetFontName ="Arial"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Tahoma"
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Tahoma"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin Tab
+            FontName ="Tahoma"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =4680
+            BackColor =-2147483633
+            Name ="Detail"
+            GUID = Begin
+                0x8a64cff7ddb0d04db93d8720e5bb4507
+            End
+            Begin
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1851
+                    Top =60
+                    Name ="txtMachineSerialNumber"
+                    ControlSource ="MachineSerialNumber"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xa01318c5a25eaf48a971b1a0e4265ef0
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =60
+                            Width =1587
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text194"
+                            Caption ="Mach. Serial No.:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xe918acc8ae4b13498b66cbe331c9d42a
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =6519
+                    Top =420
+                    Width =1020
+                    TabIndex =4
+                    Name ="txtDateOfFailure"
+                    ControlSource ="DateOfFailure"
+                    Format ="Short Date"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0xbc353bdac70b8041957f89bb5fb2b6d6
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =5220
+                            Top =420
+                            Width =1155
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text195"
+                            Caption ="Failure Date:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xcbf5413cc474d046a4a7cde590cb2e76
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1851
+                    Top =1140
+                    Width =2448
+                    TabIndex =7
+                    Name ="txtCustomer"
+                    ControlSource ="Customer"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x7dcdd3cb374def40a0c0827296a0e316
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =411
+                            Top =1140
+                            Width =1152
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text198"
+                            Caption ="Customer:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x655bf1c5545d7b499d73a52b1fd53ef4
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    ColumnCount =3
+                    ListWidth =9360
+                    Left =1851
+                    Top =780
+                    Width =2736
+                    TabIndex =5
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0xc657571736ebc141ad84e83707ff1037
+                    End
+                    Name ="comfkDealerID"
+                    ControlSource ="fkDealerID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT DealerID, DealerName, StreetAddress, City FROM dbo.tblAllDealers WHERE (D"
+                        "ealerType = 0) AND (CurrentDealer = 1) ORDER BY DealerName"
+                    ColumnWidths ="0;2160;7200"
+                    FontName ="MS Sans Serif"
+                    OnClick ="[Event Procedure]"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =843
+                            Top =780
+                            Width =864
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text213"
+                            Caption ="Dealer:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x84dd0ea2847a3440bac558bf10d86556
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =85
+                    TextAlign =1
+                    ListWidth =1030
+                    Left =6528
+                    Top =60
+                    Width =1008
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"10\";\"20\""
+                    GUID = Begin
+                        0x8a07e23d07f35648ad925629285ec8b3
+                    End
+                    Name ="comModel"
+                    ControlSource ="Model"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselModel"
+                    ColumnWidths ="780"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =5520
+                            Top =60
+                            Width =864
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text215"
+                            Caption ="Model:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xff6328be9a2ae04bbd1ad0eef3c96fc5
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    AccessKey =80
+                    Left =1260
+                    Top =2640
+                    Width =1020
+                    Height =285
+                    TabIndex =14
+                    ForeColor =0
+                    Name ="cmdMoreAboutPart"
+                    Caption ="&Part Detail"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x834fc90f2f674440aa603b2401ec610a
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =4296
+                    Top =60
+                    Width =870
+                    TabIndex =1
+                    Name ="txtRGANum"
+                    ControlSource ="RGANum"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x40a5b10820feee409ebe04caea834f48
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =3432
+                            Top =60
+                            Width =720
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text220"
+                            Caption ="RGA #:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x51ff6ae07e959a4cb8f33a50e6ce66d9
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =7401
+                    Top =1140
+                    Width =144
+                    TabIndex =9
+                    Name ="chkWarrantyOpen"
+                    ControlSource ="WarrantyOpen"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x11fc9b90a9eb704f8ba27daba37dcf22
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =6678
+                            Top =1140
+                            Width =579
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Open"
+                            Caption ="Open"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x544c9678fa4fae43be329d9a11d3b4c9
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1839
+                    Top =420
+                    TabIndex =3
+                    Name ="txtDateEntered"
+                    ControlSource ="DateEntered"
+                    Format ="Short Date"
+                    DefaultValue ="=Date()"
+                    FontName ="MS Sans Serif"
+                    InputMask ="99/99/00;0;_"
+                    GUID = Begin
+                        0x058b20dd2216ee4f8c60102e425ff3c4
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =420
+                            Top =420
+                            Width =1275
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text231"
+                            Caption ="Date Entered:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x6aeaa99381b1a441945113b47b2dd192
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =6250
+                    Top =1140
+                    Width =277
+                    Height =247
+                    TabIndex =8
+                    Name ="chkPartReceived"
+                    ControlSource ="PartReceived"
+                    DefaultValue ="False"
+                    GUID = Begin
+                        0x9d0c76273296c2468b7f85a5acbbb83e
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =4800
+                            Top =1140
+                            Width =1380
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Text233"
+                            Caption ="Part Received:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x3628f534c917ee4693cde9fddc8ba63a
+                            End
+                        End
+                    End
+                End
+                Begin Tab
+                    OverlapFlags =85
+                    Left =150
+                    Top =3000
+                    Width =8835
+                    Height =1635
+                    TabIndex =12
+                    Name ="tabTextFields"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x11431127b69e394a92368e22c4189833
+                    End
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            Left =285
+                            Top =3405
+                            Width =8565
+                            Height =1095
+                            Name ="Page239"
+                            Caption ="Problem"
+                            GUID = Begin
+                                0x7d79e4545201f840b74a8615440104c7
+                            End
+                            Begin
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =344
+                                    Top =3485
+                                    Width =8445
+                                    Height =960
+                                    Name ="txtProblem"
+                                    ControlSource ="Problem"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x5d952156e414c4419654e98521977715
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =284
+                            Top =3405
+                            Width =8566
+                            Height =1095
+                            Name ="Page240"
+                            Caption ="Resolution"
+                            GUID = Begin
+                                0x9cf582cd8423434bb4d102aa68e55211
+                            End
+                            Begin
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    Left =284
+                                    Top =3485
+                                    Width =8460
+                                    Height =960
+                                    Name ="txtResolution"
+                                    ControlSource ="Resolution"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x5fa709d21376c24d8326e6e90677c13a
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =285
+                            Top =3405
+                            Width =8565
+                            Height =1095
+                            Name ="Page264"
+                            Caption ="Comment"
+                            GUID = Begin
+                                0x1879653c348100498b07690c4d80f420
+                            End
+                            Begin
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    Left =351
+                                    Top =3480
+                                    Width =8400
+                                    Height =975
+                                    Name ="txtComment"
+                                    ControlSource ="Comment"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0xf5a8886169b772419a841ddb22b66ed0
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Left =240
+                    Top =1500
+                    Width =4200
+                    Height =1140
+                    AutoActivate =1
+                    TabIndex =13
+                    Name ="lvParts"
+                    OleData = Begin
+                        0x000e0000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf028362800000000000000000000000040efe05f6c8fbf010700000080010000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000002000000e7000000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fefffffffdfffffffffffffffffffffffffffffffffffffffeffffff ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf028362800000000000000000000000020d904b168aebf010500000080010000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x00000000000000000000000000000000000000000000000002000000e7000000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fffffffffffffffffefffffffdfffffffefffffffeffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff01000000feffffff030000000400000005000000feffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x000000000000000000000000000000000300000000000000b100000000000000 ,
+                        0x000000004bf0d1bd8b85d111b16a00c0f02836282143341208000000f01c0000 ,
+                        0xdb0700004e087deb010006001c000000000000000000000027820000f01c0000 ,
+                        0x01efcdab00000500ec74a67707005f0008000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd0100050018891400030020000000000000008305 ,
+                        0x00000400000000000000000000000000000004000000502f4e00200001000000 ,
+                        0x0000c80d00000c0000000000000000000000000000000c000000446573637269 ,
+                        0x7074696f6e002000020001000000e40600000500000000000000000000000000 ,
+                        0x000005000000436f7374000000000000000000000300000000000000b6000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000300000000000000b7000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000003000000 ,
+                        0x0000000056000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    OLEClass ="ListViewCtrl"
+                    Class ="MSComctlLib.ListViewCtrl.2"
+                    GUID = Begin
+                        0xb7cfb12e7c708544b9cbb3c0a46b6e0c
+                    End
+                End
+                Begin CommandButton
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    AccessKey =65
+                    Left =2460
+                    Top =2640
+                    Width =600
+                    Height =285
+                    TabIndex =15
+                    ForeColor =0
+                    Name ="cmdPartAdd"
+                    Caption ="&Add"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x605bb8ebf2eaaa4b9f7bfa03df654e80
+                    End
+                End
+                Begin CommandButton
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    AccessKey =69
+                    Left =3060
+                    Top =2640
+                    Width =600
+                    Height =285
+                    TabIndex =16
+                    ForeColor =0
+                    Name ="cmdPartEdit"
+                    Caption ="&Edit"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xe4eef29ac74bf24cbc98202435d231ff
+                    End
+                End
+                Begin CommandButton
+                    TabStop = NotDefault
+                    OverlapFlags =85
+                    AccessKey =68
+                    Left =3660
+                    Top =2640
+                    Width =600
+                    Height =285
+                    TabIndex =17
+                    ForeColor =0
+                    Name ="cmdPartDelete"
+                    Caption ="&Delete"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3b51266e50477542872d65697923fdfb
+                    End
+                End
+                Begin TextBox
+                    FELineBreak = NotDefault
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =6540
+                    Top =780
+                    Width =2043
+                    TabIndex =6
+                    Name ="txtDealerRefNum"
+                    ControlSource ="DealerRefNum"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x8362a194be65a0459b699d7dffcb304e
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =5100
+                            Top =780
+                            Width =1257
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label30"
+                            Caption ="Dealer Ref #:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x784a7b535bf9e44eb8d4eb8d9d37794c
+                            End
+                        End
+                    End
+                End
+                Begin Tab
+                    OverlapFlags =85
+                    Left =4485
+                    Top =1500
+                    Width =4455
+                    Height =1455
+                    TabIndex =11
+                    Name ="tabAmounts"
+                    GUID = Begin
+                        0x7c3bbf09bdc7c64c86081be1ad184076
+                    End
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            AccessKey =84
+                            Left =4620
+                            Top =1905
+                            Width =4185
+                            Height =915
+                            Name ="pagTotals"
+                            Caption ="&Totals"
+                            GUID = Begin
+                                0xdb008c73494fc64fa31dd223d7e772cc
+                            End
+                            Begin
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    DecimalPlaces =1
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    TextAlign =3
+                                    Left =6531
+                                    Top =1920
+                                    Width =735
+                                    TabIndex =4
+                                    Name ="txtHours"
+                                    ControlSource ="Hours"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x82dd456e7fbb574c95ee5e540b3e8bfb
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =4620
+                                            Top =1920
+                                            Width =1800
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text235"
+                                            Caption ="Hours on Machine:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0x8731e17dd06369448df37a135586eba1
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =5577
+                                    Top =2280
+                                    Width =990
+                                    TabIndex =1
+                                    Name ="txtFreight"
+                                    ControlSource ="Freight"
+                                    Format ="$#,##0.00;($#,##0.00)"
+                                    DefaultValue ="0"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x205f4f55b1b9dc4da2b0252a7f8608e9
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =4620
+                                            Top =2280
+                                            Width =870
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text206"
+                                            Caption ="Freight:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0x094007867fce6749a69325cce916df6f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =7701
+                                    Top =2280
+                                    Width =990
+                                    Name ="txtLaborCost"
+                                    ControlSource ="LaborCost"
+                                    Format ="$#,##0.00;($#,##0.00)"
+                                    DefaultValue ="0"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x832dc9b878d16a40bcb09b9cf6e820e6
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =6660
+                                            Top =2280
+                                            Width =963
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text205"
+                                            Caption ="Labor Cost:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0xabd6adc92cb22e4995a4ef666a8fb873
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =5580
+                                    Top =2580
+                                    Width =990
+                                    TabIndex =3
+                                    Name ="txtTravel"
+                                    ControlSource ="Travel"
+                                    Format ="$#,##0.00;($#,##0.00)"
+                                    DefaultValue ="0"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0xd027d1aba185aa4f82bb72e120539813
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =4620
+                                            Top =2580
+                                            Width =870
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text229"
+                                            Caption ="Travel:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0x32fdb3614ea33c40a457e56d35f3136a
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =7677
+                                    Top =2580
+                                    Width =990
+                                    TabIndex =2
+                                    Name ="txtPolicy"
+                                    ControlSource ="Policy"
+                                    Format ="$#,##0.00;($#,##0.00)"
+                                    DefaultValue ="0"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x25ea0cea1801144aa517af93fd759bcf
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =215
+                                            TextAlign =3
+                                            Left =6780
+                                            Top =2580
+                                            Width =843
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text227"
+                                            Caption ="Policy:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0xad5bb20dd5a0c946bdc9d12b8eb3c426
+                                            End
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            AccessKey =77
+                            Left =4620
+                            Top =1905
+                            Width =4185
+                            Height =915
+                            Name ="pagCreditMemo"
+                            Caption ="Credit &Memo"
+                            GUID = Begin
+                                0xe93d6bd70f2774408d9c80e4c3c1dae3
+                            End
+                            Begin
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    Left =6168
+                                    Top =1920
+                                    Name ="txtCreditMemoNum"
+                                    ControlSource ="CreditMemoNum"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0xcb04f1a05994374e979c214db8f116c0
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =5100
+                                            Top =1920
+                                            Width =924
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text196"
+                                            Caption ="Number:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0xdc80c0b2d42ed54f94e50d16a4668a64
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    Left =6195
+                                    Top =2220
+                                    Width =1425
+                                    TabIndex =1
+                                    Name ="txtCreditMemoAmt"
+                                    ControlSource ="CreditMemoAmt"
+                                    FontName ="MS Sans Serif"
+                                    GUID = Begin
+                                        0x74308ae1db47fa4eb45103ab77d2fd76
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =5100
+                                            Top =2220
+                                            Width =945
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Text237"
+                                            Caption ="Amount:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0x0f81aec72bd3794aa7acb277dd5cab9a
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin TextBox
+                                    FELineBreak = NotDefault
+                                    OldBorderStyle =1
+                                    OverlapFlags =247
+                                    Left =6195
+                                    Top =2520
+                                    Width =1425
+                                    TabIndex =2
+                                    Name ="txtCreditMemoDate"
+                                    ControlSource ="CreditMemoDate"
+                                    FontName ="MS Sans Serif"
+                                    InputMask ="99/99/00;0;_"
+                                    GUID = Begin
+                                        0x0bf5e610e788454eab0fbe8b07379efd
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            TextAlign =3
+                                            Left =5100
+                                            Top =2520
+                                            Width =945
+                                            Height =240
+                                            BackColor =-2147483633
+                                            Name ="Label35"
+                                            Caption ="Date:"
+                                            FontName ="MS Sans Serif"
+                                            GUID = Begin
+                                                0x3fdc42b06b8cfb4085a5c62fa0da32ef
+                                            End
+                                        End
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =85
+                    Left =8700
+                    Top =1140
+                    Width =144
+                    TabIndex =10
+                    Name ="chkNewPart"
+                    ControlSource ="NewPart"
+                    DefaultValue ="False"
+                    GUID = Begin
+                        0x6a217069cc08a24bb28d852e300b54af
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =7800
+                            Top =1140
+                            Width =759
+                            Height =240
+                            BackColor =-2147483633
+                            Name ="Label37"
+                            Caption ="New Part"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0xe6a1dc56ec07254294978babd55e6af1
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private cmdParts As Command
+Private Const bTCWarranty = False
+
+Private Sub cmdMoreAboutPart_Click()
+On Error GoTo cmdMoreAboutPart_Err
+
+Dim nPartIndex As Integer, li As ListItem
+
+Set li = Me.lvParts.SelectedItem
+If li Is Nothing Then
+  MsgBox "You must select a part to view part information!", vbExclamation
+  Exit Sub
+End If
+
+DoCmd.OpenForm "wafrmPartInfo", acNormal, , "RPSPartNum = '" & li.Text & "'"
+
+Exit Sub
+cmdMoreAboutPart_Err:
+ErrHand Me.Name, "cmdMoreAboutPart"
+Exit Sub
+End Sub
+
+Private Sub cmdPartAdd_Click()
+WarrantyPartDialog True
+End Sub
+
+Private Sub cmdPartDelete_Click()
+On Error GoTo cmdPartDelete_Err
+
+Dim li As ListItem, sSQL As String
+Set li = Me.lvParts.SelectedItem
+If li Is Nothing Then
+  MsgBox "You must select a part to delete!", vbCritical
+  Exit Sub
+End If
+
+If MsgBox("Are you sure you want to delete part '" & li.Text & "'?", vbQuestion + vbYesNo) = vbYes Then
+  CurrentProject.Connection.Execute "delete dbo.tblWarrantyParts where WarrantyPartID = " & Val(Mid(li.Key, 3))
+  Form_Current
+End If
+
+Exit Sub
+cmdPartDelete_Err:
+ErrHand Me.Name, "cmdPartDelete"
+Exit Sub
+End Sub
+
+Private Sub cmdPartEdit_Click()
+WarrantyPartDialog False
+End Sub
+
+Private Sub comfkDealerID_Click()
+On Error Resume Next
+If Not IsNull(Me.comfkDealerID) Then Me!Dealer = Me.comfkDealerID.Column(1)
+End Sub
+
+Private Sub Form_Activate()
+On Error GoTo Form_Activate_Err
+
+Dim newMenu As CommandBarPopup
+Set newMenu = CBAddMenu(Me.Toolbar, "Print")
+newMenu.BeginGroup = True
+newMenu.Tag = "custom"
+Call CBAddMenuControl(newMenu, "Current record", "=PrintCurRecord()")
+Call CBAddMenuControl(newMenu, "RGA Ticket", "=PrintRGATicket()")
+Dim cbrCur As CommandBar, ctlCBarControl As CommandBarControl
+Set cbrCur = Application.CommandBars(Me.Toolbar)
+With cbrCur
+    Set ctlCBarControl = cbrCur.Controls.Add(msoControlButton)
+    With ctlCBarControl
+        .Caption = "Find P/&N / Desc"
+        .Style = msoButtonCaption
+        .Enabled = True
+        .OnAction = "=FindPN()"
+        .BeginGroup = True
+        .Tag = "custom"
+    End With
+End With
+
+Set cbrCur = Application.CommandBars(Me.Toolbar)
+With cbrCur
+  Set ctlCBarControl = cbrCur.Controls.Add(msoControlEdit)
+  With ctlCBarControl
+    .Caption = "Find R&GA #:"
+    .Enabled = True
+    .Style = msoComboLabel
+    .OnAction = "=FindRGANum()"
+    .BeginGroup = True
+    .Tag = "custom"
+  End With
+End With
+
+Exit Sub
+Form_Activate_Err:
+ErrHand Me.Name, "Form_Activate"
+Exit Sub
+
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+
+Me.Toolbar = "FCFormToolBar"
+Dim blnCancel As Boolean
+Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+If blnCancel Then Cancel = True
+
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+On Error GoTo Form_BeforeInsert_Err
+
+  Dim maxnum
+  If IsNull(Me![RGANum]) Then
+    If bTCWarranty Then
+      maxnum = Nz(DMax("RGANum", "tblAllWarranty", "WarrantyType = 1"), 0)
+    Else
+      maxnum = Nz(DMax("RGANum", "tblAllWarranty", "WarrantyType = 0"), 0)
+    End If
+    Me.txtRGANum = IIf(maxnum < 1000, 1000, maxnum + 1)
+  End If
+  
+  ' Set appropriate warranty type
+  Me!WarrantyType = IIf(bTCWarranty, 1, 0)
+  
+  If IsNull(Me![Dealer]) Then Exit Sub
+  
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+      On Error Resume Next
+      MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+      DoCmd.CancelEvent
+  End If
+
+Exit Sub
+Form_BeforeInsert_Err:
+ErrHand Me.Name, "Form_BeforeInsert"
+Exit Sub
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+On Error GoTo Form_BeforeUpdate_Err
+
+If MsgBox("Are you sure you want to save changes for this record?", vbQuestion + vbYesNo) = vbNo Then
+  On Error Resume Next
+  MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+  DoCmd.CancelEvent
+End If
+
+'If Not IsNull(Me!DealerID) Then
+'   = DLookup("DealerName", "tblDealers", "DealerID = " & Me!DealerID)
+'End If
+
+Exit Sub
+Form_BeforeUpdate_Err:
+ErrHand Me.Name, "Form_BeforeUpdate"
+Exit Sub
+End Sub
+
+
+Public Function PrintRGATicket()
+On Error Resume Next
+
+DoCmd.RunCommand acCmdSaveRecord
+If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+
+If flgDebug Then
+    DoCmd.OpenReport "warptRgaClaim", acViewPreview, , "WarrantyID = " & Me!WarrantyID
+Else
+    DoCmd.OpenReport "warptRgaClaim", acViewNormal, , "WarrantyID = " & Me!WarrantyID
+End If
+
+End Function
+
+
+Public Function PrintCurRecord()
+On Error GoTo PrintCurRecord_Err
+
+DoCmd.RunCommand acCmdSaveRecord
+If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+
+If flgDebug Then
+    DoCmd.OpenReport "warfrmWarranty", acViewPreview, , "WarrantyID = " & Me!WarrantyID
+Else
+    DoCmd.OpenReport "warfrmWarranty", acViewNormal, , "WarrantyID = " & Me!WarrantyID
+End If
+
+Exit Function
+PrintCurRecord_Err:
+ErrHand Me.Name, "PrintCurRecord"
+Exit Function
+
+End Function
+
+
+Private Sub Form_Current()
+On Error GoTo Form_Current_Err
+
+Me.lvParts.ListItems.Clear
+
+If IsNull(Me!WarrantyID) Then Exit Sub
+
+Dim li As ListItem, r As Recordset
+
+cmdParts.Parameters(0).Value = Me!WarrantyID
+Set r = cmdParts.Execute
+
+Do While Not r.EOF
+  Set li = Me.lvParts.ListItems.Add(, "i:" & r!WarrantyPartID, Nz(r!RPSPartNum, ""))
+  li.SubItems(1) = Nz(r!PartName, "")
+  li.SubItems(2) = Format(Nz(r!PartCost, 0), "Currency")
+  r.MoveNext
+Loop
+r.Close
+Set r = Nothing
+
+Exit Sub
+Form_Current_Err:
+Select Case Err
+  Case 2465 'field not found
+    Exit Sub
+  Case Else
+    ErrHand Me.Name, "Form_Current"
+    Exit Sub
+End Select
+
+End Sub
+
+Private Sub Form_Deactivate()
+On Error GoTo Form_Deactivate_Err
+Dim ctl As CommandBarControl
+For Each ctl In Application.CommandBars(Me.Toolbar).Controls
+  If ctl.Tag = "custom" Then ctl.Delete
+Next ctl
+Exit Sub
+Form_Deactivate_Err:
+ErrHand Me.Name, "Form_Deactivate"
+Exit Sub
+End Sub
+
+Public Function FindPN()
+DoCmd.OpenForm "ppfdlgFindPart"
+End Function
+
+Private Sub Form_Delete(Cancel As Integer)
+
+  gConn.Execute "delete from tblWarrantyParts where WarrantyID = " & Nz(Me!WarrantyID, 0)
+  
+End Sub
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+
+Me.Toolbar = "FCFormServerFilter"
+
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo Form_Load_Err
+
+  Dim prm As Parameter
+  
+  Me.ServerFilter = ""
+  
+  Set cmdParts = New Command
+  cmdParts.ActiveConnection = CurrentProject.Connection
+  cmdParts.CommandType = adCmdStoredProc
+  cmdParts.CommandText = "waspfrmWarrantyParts"
+  Set prm = cmdParts.CreateParameter("WarrantyID", adInteger, adParamInput)
+  cmdParts.Parameters.Append prm
+  
+  If bTCWarranty Then
+    Me.Caption = "Tom Cat Warranty"
+    Me.RecordSource = "SELECT * FROM dbo.tblAllWarranty WHERE WarrantyType = 1 ORDER BY RGANum"
+    Me.comfkDealerID.RowSource = "SELECT DealerID, DealerName, StreetAddress, City FROM dbo.tblAllDealers WHERE (DealerType = 1) AND (CurrentDealer = 1) ORDER BY DealerName"
+  Else
+    Me.Caption = "Factory Cat Warranty"
+    Me.RecordSource = "SELECT * FROM dbo.tblAllWarranty WHERE WarrantyType = 0 ORDER BY RGANum"
+    Me.comfkDealerID.RowSource = "SELECT DealerID, DealerName, StreetAddress, City FROM dbo.tblAllDealers WHERE (DealerType = 0) AND (CurrentDealer = 1) ORDER BY DealerName"
+  End If
+  
+Exit Sub
+Form_Load_Err:
+ErrHand Me.Name, "Form_Load"
+Exit Sub
+End Sub
+
+'Find R&GA #:
+Public Function FindRGANum()
+On Error GoTo FindRGANum_Err
+
+Dim sRGANum As String
+
+sRGANum = Application.CommandBars(Me.Toolbar).Controls("Find R&GA #:").Text
+If IsNull(sRGANum) Or sRGANum = "" Then Exit Function
+
+Dim rst As Recordset
+
+Set rst = Me.RecordsetClone
+
+rst.Find "[RGANum] = '" & sRGANum & "'"
+If rst.EOF Then
+  MsgBox "The RGA number '" & sRGANum & "' was not found in the database.", vbExclamation
+Else
+  Me.Form.Bookmark = rst.Bookmark
+  Me.txtRGANum.SetFocus
+End If
+rst.Close
+Set rst = Nothing
+
+Exit Function
+FindRGANum_Err:
+ErrHand Me.Name, "FindRGANum"
+Exit Function
+End Function
+
+Private Sub Form_Unload(Cancel As Integer)
+Set cmdParts = Nothing
+End Sub
+
+Public Function WarrantyPartDialog(bAdd As Boolean) As Boolean
+On Error GoTo WarrantyPartDialog_Err
+
+If IsNull(Me!WarrantyID) Then DoCmd.RunCommand acCmdSaveRecord
+
+Dim r As New Recordset, sSQL As String, li As ListItem, f As Form_wafdlgPart
+Set f = New Form_wafdlgPart
+f.Caption = Nz(Me.txtRGANum, "Warranty Part")
+
+If Not bAdd Then
+  Set li = Me.lvParts.SelectedItem
+  If li Is Nothing Then
+    MsgBox "You must select a part to edit.", vbExclamation
+    Exit Function
+  End If
+
+  sSQL = "select * from dbo.tblWarrantyParts where WarrantyPartID = " & Val(Mid(li.Key, 3))
+  r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+  With f
+    .comPartID = r!PartID
+    .txtPartName = li.SubItems(1)
+    .txtPartCost = r!PartCost
+  End With
+  r.Close
+  Set r = Nothing
+End If
+
+Pause f
+
+If Not f.blnCancel Then
+  If bAdd Then
+    sSQL = "insert tblWarrantyParts (WarrantyID, PartID, PartCost) "
+    sSQL = sSQL & "values (" & Me!WarrantyID & ", " & Nz(f.comPartID, "NULL") & ", " & Nz(f.txtPartCost, "NULL") & ")"
+  Else
+    sSQL = "update tblWarrantyParts set "
+    sSQL = sSQL & "PartID = " & Nz(f.comPartID, "NULL") & ", "
+    sSQL = sSQL & "PartCost = " & Nz(f.txtPartCost, "NULL") & " "
+    sSQL = sSQL & "where WarrantyPartID = " & Val(Mid(li.Key, 3))
+  End If
+  CurrentProject.Connection.Execute sSQL
+  Form_Current
+End If
+
+Exit Function
+WarrantyPartDialog_Err:
+ErrHand Me.Name, "WarrantyPartDialog"
+Exit Function
+
+End Function
+
+Private Sub lvParts_DblClick()
+WarrantyPartDialog False
+End Sub

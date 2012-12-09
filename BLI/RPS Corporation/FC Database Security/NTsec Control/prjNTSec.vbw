@@ -1,0 +1,7 @@
+APIDeclare = 88, 88, 628, 492, C
+Global = 66, 66, 606, 470, C
+NetAPI = 110, 110, 650, 514, 
+NetGroupAPI = 0, 0, 0, 0, C
+NetServerAPI = 0, 0, 0, 0, C
+NetUserApi = 44, 44, 680, 562, 
+ntsec = 22, 22, 712, 534, 

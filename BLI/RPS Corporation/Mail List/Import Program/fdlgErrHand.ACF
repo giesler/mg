@@ -1,0 +1,304 @@
+Version =19
+VersionRequired =19
+Checksum =1122510231
+Begin Form
+    AllowFilters = NotDefault
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    AllowEdits = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    Cycle =1
+    GridX =24
+    GridY =24
+    Width =5040
+    ItemSuffix =66
+    Left =2160
+    Top =2985
+    Right =11820
+    Bottom =8415
+    RecSrcDt = Begin
+        0xcf4c6bddb5cae140
+    End
+    GUID = Begin
+        0xf8039d5921d5934e80375da661d0559b
+    End
+    NameMap = Begin
+        0x0acc0e55
+    End
+    Caption ="Database Error"
+    OnOpen ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Section
+            Height =3300
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0xd17649a8d36f524588526f5b9544f8e5
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =3900
+                    Top =1140
+                    Width =966
+                    FontSize =8
+                    FontWeight =400
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x4a452cadfa1e584abd8c79581f67c6a1
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =600
+                    Width =4920
+                    Height =480
+                    Name ="lblErrorInfo"
+                    Caption ="Error Information"
+                    GUID = Begin
+                        0x89b844dc8669fc46b2da9a9aa4606073
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =120
+                    Top =1140
+                    Width =1200
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="cmdAdvanced"
+                    Caption ="&Advanced"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xad9f89a0bb351b4dbaebb9831a937592
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =120
+                    Top =1620
+                    Width =720
+                    Height =240
+                    Name ="Label52"
+                    Caption ="Error #:"
+                    GUID = Begin
+                        0x0efefdf97ec8304a900c071803f51e64
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =1
+                    Left =120
+                    Top =1860
+                    Width =1440
+                    Height =240
+                    Name ="lblErrNumber"
+                    Caption ="no."
+                    GUID = Begin
+                        0xa84a526a73a9f5478a1542ffc84328a6
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =120
+                    Top =2160
+                    Width =1020
+                    Height =240
+                    Name ="Label54"
+                    Caption ="Location"
+                    GUID = Begin
+                        0xe2e5cb4cfa7cf34494fdf5e87b4bb06b
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =120
+                    Top =2400
+                    Width =1440
+                    Height =240
+                    Name ="lblLocation"
+                    Caption ="no."
+                    GUID = Begin
+                        0x9b0f7966910eba4a9eede302372cc138
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =120
+                    Top =2700
+                    Width =1080
+                    Height =240
+                    Name ="Label57"
+                    Caption ="Function:"
+                    GUID = Begin
+                        0xefc8c3fcb1e2974797efb56ec1b2522e
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =120
+                    Top =2940
+                    Width =1440
+                    Height =240
+                    Name ="lblFunction"
+                    Caption ="no."
+                    GUID = Begin
+                        0x90f0c5a4e301c74d8dc841fb2c31796f
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =1740
+                    Top =1620
+                    Width =1980
+                    Height =240
+                    Name ="Label59"
+                    Caption ="ADO Error Collection"
+                    GUID = Begin
+                        0xa6037a6c65a4e34499caf3fc83cfa95e
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    ScrollBars =2
+                    SpecialEffect =0
+                    OldBorderStyle =1
+                    OverlapFlags =87
+                    Left =1740
+                    Top =1860
+                    Width =3180
+                    Height =1080
+                    TabIndex =2
+                    BackColor =-2147483633
+                    Name ="txtADOErrorCollection"
+                    GUID = Begin
+                        0x07092bd658d4044b8f300a11656b12bd
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =4920
+                    Height =480
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="There was an error in a database procedure just called.  If this error continues"
+                        ", please contact support.  The error is below."
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0xbb93481a4db26a44877fbe4cb439fbff
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =1560
+                    Width =5040
+                    Name ="line1"
+                    GUID = Begin
+                        0x193f7fed55f14a40b630baed517f52c5
+                    End
+                End
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =3300
+                    Width =5040
+                    Name ="line2"
+                    GUID = Begin
+                        0xffe2bd8cb182a741851aa6cccc99f263
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =3180
+                    Top =3000
+                    Width =1680
+                    Height =240
+                    FontSize =7
+                    FontWeight =400
+                    TabIndex =3
+                    Name ="cmdSave"
+                    Caption ="Save error to text file"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x079dd9f20058de4c823b0fcf65d47ab8
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdAdvanced_Click()
+Me.cmdOK.SetFocus
+Me.cmdAdvanced.Enabled = False
+DoCmd.MoveSize , , , Me.line2.Top + 350
+End Sub
+
+Private Sub cmdOK_Click()
+Me.Visible = False
+End Sub
+
+
+Private Sub Form_Open(Cancel As Integer)
+DoCmd.MoveSize , , , Me.line1.Top + 350
+End Sub

@@ -1,0 +1,348 @@
+Version =19
+VersionRequired =19
+Checksum =77241262
+Begin Report
+    LayoutForPrint = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    DateGrouping =1
+    GrpKeepTogether =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =8358
+    DatasheetFontHeight =10
+    ItemSuffix =6
+    Left =600
+    Top =330
+    Right =10740
+    Bottom =3615
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x3c2a609759c3e140
+    End
+    RecordSource ="dbo.tblPartsSubParts"
+    DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c7064635c4570736f6e205374796c757320434f4c4f522036303020455300 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003600010077696e73706f6f6c005c5c7064635c4570736f6e20537479 ,
+        0x6c757320434f4c4f5220363030204553432f502032004c5054313a0000000000 ,
+        0x000000000000000000000000
+    End
+    Begin
+        Begin Label
+            BackStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin TextBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin ComboBox
+            OldBorderStyle =0
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportHeader"
+            GUID = Begin
+                0xfa27c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Width =1020
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text12"
+                    Caption ="Sub #:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xfb27c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1020
+                    Width =2280
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text13"
+                    Caption ="Sub Description:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xfc27c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =6180
+                    Width =900
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text14"
+                    Caption ="Sub Cost:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xfd27c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =3300
+                    Width =1740
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text15"
+                    Caption ="Sub Source:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xfe27c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =5040
+                    Width =1140
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Text16"
+                    Caption ="Sub Src P/N:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0xff27c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7080
+                    Width =420
+                    Height =240
+                    BorderColor =8421504
+                    Name ="txtQty"
+                    Caption ="Qty"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0028c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7500
+                    Width =840
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Label19"
+                    Caption ="Ext Cost"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0128c088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            Height =240
+            Name ="Detail"
+            GUID = Begin
+                0x0228c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =1020
+                    Width =2280
+                    BorderColor =8421504
+                    Name ="txtSubDesc"
+                    ControlSource ="SubDescription"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0328c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =6180
+                    Width =900
+                    TabIndex =1
+                    BorderColor =8421504
+                    Name ="txtSubCost"
+                    ControlSource ="SubCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0428c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =3300
+                    Width =1740
+                    TabIndex =2
+                    BorderColor =8421504
+                    Name ="txtSubSource"
+                    ControlSource ="SubSource"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0528c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =5040
+                    Width =1140
+                    TabIndex =3
+                    BorderColor =8421504
+                    Name ="txtSubSrcPN"
+                    ControlSource ="SubSourcePartNum"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0628c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Width =1020
+                    TabIndex =4
+                    BorderColor =8421504
+                    GUID = Begin
+                        0x0728c088b84ad311bb05004033532b7f
+                    End
+                    Name ="comSubNum"
+                    ControlSource ="SubNum"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="ut_qry56"
+                    FontName ="MS Sans Serif"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7080
+                    Width =420
+                    TabIndex =5
+                    BorderColor =8421504
+                    Name ="txtSubQty"
+                    ControlSource ="SubQty"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0828c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7500
+                    Width =840
+                    TabIndex =6
+                    BorderColor =8421504
+                    Name ="txtSubExtCost"
+                    ControlSource ="SubExtCost"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0928c088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =240
+            Name ="ReportFooter"
+            GUID = Begin
+                0x0a28c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =7500
+                    Width =840
+                    BorderColor =8421504
+                    Name ="Text4"
+                    ControlSource ="=Sum([SubExtCost])"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0b28c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OldBorderStyle =1
+                    TextFontFamily =34
+                    Left =6480
+                    Width =840
+                    Height =240
+                    BorderColor =8421504
+                    Name ="Label5"
+                    Caption ="Total:"
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x0c28c088b84ad311bb05004033532b7f
+                    End
+                End
+            End
+        End
+    End
+End

@@ -1,0 +1,495 @@
+Option Compare Database
+Option Explicit
+
+Public Function NewSale(CustId As Long)
+On Error GoTo NewSale_Err
+
+If IsNull(CustId) Or CustId = 0 Then
+    DoCmd.OpenForm "frmSale", , , , acFormAdd, , "cmdShowAll"
+Else
+    DoCmd.OpenForm "frmSale", , , , acFormAdd, , CustId
+End If
+
+Exit Function
+NewSale_Err:
+ErrHand "modBLIMenu", "NewSale"
+Exit Function
+
+End Function
+
+Public Function OldSales()
+On Error GoTo OldSales_Err
+
+DoCmd.Close acForm, "frmSale"
+DoCmd.OpenForm "frmSale", acNormal, , , acEdit
+
+Exit Function
+OldSales_Err:
+ErrHand "modBLIMenu", "OldSales"
+Exit Function
+
+End Function
+
+Public Function UnpaidInvoices()
+On Error GoTo UnpaidInvoices_Err
+
+DoCmd.OpenForm "frmUnpaidInvoices", acNormal, , , acEdit
+
+Exit Function
+UnpaidInvoices_Err:
+ErrHand "modBLIMenu", "UnpaidInvoices"
+Exit Function
+
+End Function
+
+Public Function NewOrder()
+On Error GoTo NewOrder_Err
+
+DoCmd.OpenForm "frmOrderNew", acNormal, , , acAdd, acNormal
+
+Exit Function
+NewOrder_Err:
+ErrHand "modBLIMenu", "NewOrder"
+Exit Function
+
+End Function
+
+Public Function OldOrders()
+On Error GoTo BrowseOrders_Err
+
+DoCmd.OpenForm "frmOrderBrowse", acNormal, , , , acNormal
+
+Exit Function
+BrowseOrders_Err:
+ErrHand "modBLIMenu", "BrowseOrders"
+Exit Function
+
+End Function
+
+Public Function Vendors()
+On Error GoTo Vendors_Err
+
+DoCmd.OpenForm "frmVendors", acNormal
+
+Exit Function
+Vendors_Err:
+ErrHand "modBLIMenu", "Vendors"
+Exit Function
+
+End Function
+
+Public Function NewCustomer()
+On Error GoTo NewCustomer_Err
+
+DoCmd.OpenForm "fdlgCust", , , , acFormAdd
+
+Exit Function
+NewCustomer_Err:
+ErrHand "modBLIMenu", "NewCustomer"
+Exit Function
+
+End Function
+
+Public Function BusinessCustomers()
+On Error GoTo BusinessCustomers_Err
+
+DoCmd.Close acForm, "frmCust"
+DoCmd.OpenForm "frmCust"
+
+Exit Function
+BusinessCustomers_Err:
+ErrHand "modBLIMenu", "BusinessCustomers"
+Exit Function
+
+End Function
+
+Public Function HomeCustomers()
+On Error GoTo HomeCustomers_Err
+
+DoCmd.Close acForm, "frmCust"
+DoCmd.OpenForm "frmCust", , , , , , "Home"
+
+Exit Function
+HomeCustomers_Err:
+ErrHand "modBLIMenu", "HomeCustomers"
+Exit Function
+
+End Function
+
+Public Function EnterNewCall()
+On Error GoTo EnterNewCall_Err
+
+DoCmd.OpenForm "frmCallEntry"
+
+Exit Function
+EnterNewCall_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "EnterNewCall_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function ViewCurrentCalls()
+On Error GoTo ViewCurrentCalls_Err
+
+ViewCalls
+
+Exit Function
+ViewCurrentCalls_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ViewCurrentCalls_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function InventoryListing()
+On Error GoTo InventoryListing_Err
+
+DoCmd.OpenForm "frmInvn"
+
+Exit Function
+InventoryListing_Err:
+ErrHand "modBLIMenu", "InventoryListing"
+Exit Function
+
+End Function
+
+
+Public Function InventoryReports()
+On Error GoTo InventoryReports_Err
+
+DoCmd.OpenForm "fmuInvReport"
+
+Exit Function
+InventoryReports_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "InventoryReports_Err"
+        Exit Function
+End Select
+
+End Function
+
+
+Public Function PriceListing()
+On Error GoTo PriceListing_Err
+
+DoCmd.OpenForm "frmPrices"
+
+Exit Function
+PriceListing_Err:
+ErrHand "modBLIMenu", "PriceListing"
+Exit Function
+
+End Function
+
+Public Function PriceReports()
+On Error GoTo PriceReports_Err
+
+DoCmd.OpenForm "fmuPriceReport"
+
+Exit Function
+PriceReports_Err:
+ErrHand "modBLIMenu", "PriceReports"
+Exit Function
+
+End Function
+
+Public Function SystemListings()
+On Error GoTo SystemListings_Err
+
+DoCmd.OpenForm "Frm_Systems"
+
+Exit Function
+SystemListings_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "SystemListings_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function ModelListings()
+On Error GoTo ModelListings_Err
+
+DoCmd.OpenForm "Frm_Models"
+
+Exit Function
+ModelListings_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ModelListings_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function ModelPrintMenu()
+On Error GoTo ModelPrintMenu_Err
+
+DoCmd.OpenForm "Frm_Models_Print"
+
+Exit Function
+ModelPrintMenu_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ModelPrintMenu_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function Checking()
+On Error Resume Next
+
+DoCmd.OpenForm "frmAcctTran"
+
+End Function
+
+Public Function ManagementReports()
+On Error GoTo ManagementReports_Err
+
+DoCmd.OpenForm "fmuMgmtReport"
+
+Exit Function
+ManagementReports_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ManagementReports_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function NewPriceQuote(CustNum As Long)
+On Error GoTo NewPriceQuote_Err
+
+If CustNum = 0 Then
+    DoCmd.OpenForm "frmQuote", , , , acFormAdd, , "cmdShowAll"
+Else
+    DoCmd.OpenForm "frmQuote", , , "[afkQutoeCust] = " & CustNum, acFormAdd, , "cmdShowAll"
+End If
+
+Exit Function
+NewPriceQuote_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "NewPriceQuote_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function OldPriceQuotes()
+On Error GoTo OldPriceQuotes_Err
+
+DoCmd.Close acForm, "frmQuote"
+DoCmd.OpenForm "frmQuote"
+
+Exit Function
+OldPriceQuotes_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "OldPriceQuotes_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function ExtensionProcedure()
+On Error GoTo ExtensionProcedure_Err
+
+DoCmd.OpenForm "Frm_TP_Extension"
+
+Exit Function
+ExtensionProcedure_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ExtensionProcedure_Err"
+        Exit Function
+End Select
+
+End Function
+
+Public Function Maillist()
+On Error GoTo Maillist_Err
+
+DoCmd.OpenForm "Frm_Maillist"
+
+Exit Function
+Maillist_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "Maillist_Err"
+        Exit Function
+End Select
+
+End Function
+
+
+Public Function Notes()
+On Error GoTo Notes_Err
+
+DoCmd.OpenForm "fdlgNums"
+
+Exit Function
+Notes_Err:
+ErrHand "modBLIMenu", "Notes"
+Exit Function
+
+End Function
+
+
+Public Function Login()
+On Error GoTo Login_Err
+
+DoCmd.OpenForm "fdlgLogin", , , , , , "RELOGIN"
+
+Exit Function
+Login_Err:
+ErrHand "modBLIMenu", "Login"
+Exit Function
+
+End Function
+
+
+
+Public Function ExitDatabase()
+On Error GoTo ExitDatabase_Err
+
+If SysCmd(acSysCmdGetObjectState, acForm, "fdlgMessages") = acObjStateOpen Then
+    Forms![fdlgMessages]![chkClose] = True
+End If
+Application.Quit
+
+Exit Function
+ExitDatabase_Err:
+Select Case Err
+    Case Else
+        MsgBox "Error #" & Err & ", " & Err.Description, vbCritical, "ExitDatabase_Err"
+        Exit Function
+End Select
+
+End Function
+
+
+Public Function CloseCurObject()
+On Error Resume Next
+
+DoCmd.Close
+
+End Function
+
+Public Function MarkCallDone()
+On Error GoTo MarkCallDone_Err
+
+Dim curCallId
+
+curCallId = Forms![frmCallList]![lstCalls]
+If IsNull(curCallId) Then
+    MsgBox "You must select a call to mark as done.", vbExclamation
+    Exit Function
+End If
+
+If DLookup("[CallRead]", "tblCall", "apkCall = " & curCallId) = False Then
+    MsgBox "You can't mark a call done until you read it.", vbExclamation
+Else
+    DoCmd.SetWarnings False
+    DoCmd.RunSQL "Update tblCall Set CallDone = True Where apkCall = " & curCallId
+    DoCmd.SetWarnings True
+    Forms![frmCallList]![lstCalls].Requery
+End If
+
+Exit Function
+
+MarkCallDone_Err:
+ErrHand "modBLIMenu", "MarkCallDone"
+Exit Function
+
+End Function
+
+Public Function ViewCurCall()
+On Error GoTo ViewCurCall_Err
+
+Dim curCallId
+curCallId = Forms![frmCallList]![lstCalls]
+If IsNull(curCallId) Then
+    MsgBox "You must select a call to view!", vbExclamation
+    Exit Function
+End If
+
+ViewCall (curCallId)
+Forms![frmCallList]![lstCalls].Requery
+
+Exit Function
+ViewCurCall_Err:
+ErrHand "modBLIMenu", "ViewCurCall"
+Exit Function
+
+End Function
+
+Public Function NewQuote(CustId As Long)
+On Error GoTo NewQuote_Err
+
+If IsNull(CustId) Or CustId = 0 Then
+    DoCmd.OpenForm "frmQuote", , , , acFormAdd, , "cmdShowAll"
+Else
+    DoCmd.OpenForm "frmQuote", , , , acFormAdd, , CustId
+End If
+
+Exit Function
+NewQuote_Err:
+ErrHand "modBLIMenu", "NewQuote_Err"
+Exit Function
+
+End Function
+
+Public Function OldInvoices()
+On Error GoTo OldInvoices_Err
+
+DoCmd.Close acForm, "frmInvoice"
+DoCmd.OpenForm "frmInvoice", acNormal, , , acEdit
+
+Exit Function
+OldInvoices_Err:
+ErrHand "modBLIMenu", "OldInvoices_Err"
+Exit Function
+
+End Function
+
+Public Function NewInvoice(CustId As Long)
+On Error GoTo NewInvoice_Err
+
+If IsNull(CustId) Or CustId = 0 Then
+    DoCmd.OpenForm "frmInvoice", , , , acFormAdd, , "cmdShowAll"
+Else
+    DoCmd.OpenForm "frmInvoice", , , , acFormAdd, , CustId
+End If
+
+Exit Function
+NewInvoice_Err:
+ErrHand "modBLIMenu", "NewInvoice_Err"
+Exit Function
+
+End Function
+
+Public Function NewLaborSheet(CustId As Variant)
+On Error GoTo NewLaborSheet_Err
+
+If IsNull(CustId) Or CustId = 0 Then
+    DoCmd.OpenForm "frmLabor", , , , acFormAdd, , "cmdShowAll"
+Else
+    DoCmd.OpenForm "frmLabor", , , , acFormAdd, , CustId
+End If
+
+Exit Function
+NewLaborSheet_Err:
+ErrHand "modBLIMenu", "NewLaborSheet_Err"
+Exit Function
+
+End Function

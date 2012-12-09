@@ -1,0 +1,1020 @@
+Version =19
+VersionRequired =19
+Checksum =1400367369
+Begin Form
+    AllowFilters = NotDefault
+    RecordSelectors = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    DividingLines = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    GridX =24
+    GridY =24
+    Width =12240
+    ItemSuffix =41
+    Left =2025
+    Top =675
+    Right =14265
+    Bottom =8160
+    Toolbar ="BLIFormToolbar"
+    RecSrcDt = Begin
+        0x147ce71f1f7de140
+    End
+    Caption ="Price Listing"
+    MenuBar ="BLIFormMenuBar"
+    OnResize ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin FormHeader
+            Height =0
+            BackColor =-2147483633
+            Name ="FormHeader0"
+        End
+        Begin Section
+            CanGrow = NotDefault
+            Height =7080
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin Line
+                    OverlapFlags =85
+                    SpecialEffect =5
+                    Top =600
+                    Width =12093
+                    Name ="Line31"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =10080
+                    Top =60
+                    Width =486
+                    Height =486
+                    Name ="cmdClose"
+                    OnClick ="=CloseForm()"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880888888 ,
+                        0x8888888888888888888888880088888888888888888888888888888030888888 ,
+                        0x8888888888888888888888033088888888888888888888888888803330888888 ,
+                        0x8888888888888888888803333088888888888888888888888000333330000000 ,
+                        0x00000888888888888880333330ffff0888888888888888888880333330ffff08 ,
+                        0x88888888888888888880333300ffff0888888888888888888880333330ffff08 ,
+                        0x88888488888888888880333330ffff0888884488888888888880333330ffff08 ,
+                        0x88844488888888888880333330ffff0888444444488888888880333330ffff08 ,
+                        0x84444444488888888880333330ffff0884444444488888888880333330ffff08 ,
+                        0x8844444448888888888033330fffff08888444888888800088803330ffffff08 ,
+                        0x88884488888880ff8880330fffffff0888888488888880ff888030ffffffff08 ,
+                        0x888888888888800088800fffffffff0888888888888888888880000000000008 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =7200
+                    Top =60
+                    Width =480
+                    Height =480
+                    TabIndex =1
+                    Name ="cmdPrint"
+                    Caption ="Button20"
+                    OnClick ="=PriceReports()"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888888888888888888888888000008888000000000000 ,
+                        0x000088888880ffff8880888888888888888008888880ffff8880888888888888 ,
+                        0x888080888880ffff8000000000000000000008088880ff00808888888888bbbb ,
+                        0x888800808880ffff808888888888bbbb888808008880ffff8088888888887777 ,
+                        0x888808808880ff008088888888888888888808880880ffff8000000000000000 ,
+                        0x000008880880ffff8088888888888888888080880880ffff8808888888888888 ,
+                        0x888088080880ffff8880000000000000000008800880ffff888880ffffffffff ,
+                        0xff0880880880fff0888880ffffffffffff0088070880fff08888880ff0000000 ,
+                        0xfff000008880ffff8888880ffffffffffff008888880000088888880ffffffff ,
+                        0xffff088888888888888888880f00000000ff088888888888888888880fffffff ,
+                        0xfffff088888888888888888880fffffffffff088888888888888888880000000 ,
+                        0x0000008888888888000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =1
+                    Left =1050
+                    Top =75
+                    Width =4440
+                    Height =420
+                    FontSize =16
+                    FontWeight =700
+                    ForeColor =8421504
+                    Name ="lblHead2"
+                    Caption ="Price Listing"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =1
+                    Left =1020
+                    Top =60
+                    Width =4440
+                    Height =420
+                    FontSize =16
+                    FontWeight =700
+                    ForeColor =128
+                    Name ="lblHead"
+                    Caption ="Price Listing"
+                    FontName ="Tahoma"
+                End
+                Begin Subform
+                    OverlapFlags =85
+                    OldBorderStyle =0
+                    SpecialEffect =0
+                    Left =60
+                    Top =60
+                    Width =660
+                    Height =480
+                    TabIndex =2
+                    Name ="subLogoSmall"
+                    SourceObject ="Form.zfsubLogoSmall"
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Left =120
+                    Top =720
+                    Width =2460
+                    Height =3570
+                    AutoActivate =1
+                    TabIndex =3
+                    Name ="tvInvn"
+                    OleData = Begin
+                        0x001a0000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff01000000b69041c78985d111b16a00c0 ,
+                        0xf028362800000000000000000000000060faaa334efebe010a00000040020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000050000008e000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000800000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000030000006a000000 ,
+                        0x0000000009000000fdffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfefffffffefffffffeffffff07000000ffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff01000000b69041c78985d111b16a00c0 ,
+                        0xf0283628000000000000000000000000009f7c42e2febe010600000080020000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000050000008e000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000800000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000030000008b000000 ,
+                        0x00000000ffffffffffffffff05000000fdfffffffefffffffeffffff0b000000 ,
+                        0xfffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffff04000000090000000600000007000000 ,
+                        0xfefffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff03004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000010000005c000000 ,
+                        0x0000000002004f006c0065005000720065007300300030003000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000018000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000024000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000400000001000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000c000000000000046380f4e060000000016001a0004 ,
+                        0x000c00285c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x3dcfe9e74ad46f780000000800080004000c003814b207b81259060800fdffff ,
+                        0xff000000b69041c78985d111b16a00c0f02836282143341208000000f3100000 ,
+                        0x99180000b13cc16a0100060022000000390000006101000008000000b198290b ,
+                        0x01efcdab00000500809a290b06000000000000000500008024dd120001000000 ,
+                        0x5c001fdeecbd010005002ddd12000352e30b918fce119de300aa004bb8510100 ,
+                        0x000090010100feff030a0000ffffffffb69041c78985d111b16a00c0f0283628 ,
+                        0x280000004d6963726f736f667420547265655669657720436f6e74726f6c2c20 ,
+                        0x76657273696f6e20362e3000170000004d53436f6d63746c4c69622e54726565 ,
+                        0x4374726c2e3200170000004d53436f6d63746c4c69622e547265654374726c2e ,
+                        0x3200f439b2710000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000001000002000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000013000000000002000000 ,
+                        0x4523013069000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000001000000000000006c00000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000007700000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000ffff000000000000 ,
+                        0x7400000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000ee0000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000130000000000 ,
+                        0xffff000045230130750000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000130000000000070000007cea120034003002 ,
+                        0x0300080060445406180313000100000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000001800000040849e070100000000000000 ,
+                        0x0200000001000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000d0000000b00000030000000000000000000000000000000f8160130 ,
+                        0x00000000feffffff02000000feffffff04000000feffffff0600000007000000 ,
+                        0xfefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff03004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000010000005c000000 ,
+                        0x0000000002004f006c0065005000720065007300300030003000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000018000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000024000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000400000001000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000c000000000000046380f4e060000000016001a0004 ,
+                        0x000c00285c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x3dcfe9e74ad46f780000000800080004000c003814b207b81259060800fdffff ,
+                        0xff000000b69041c78985d111b16a00c0f02836282143341208000000f3100000 ,
+                        0x99180000b13cc16a0100060022000000390000006101000008000000c962620e ,
+                        0x01efcdab0000050000000000060000000000000005000080a8f5120001000000 ,
+                        0x5c001fdeecbd01000500b0f51200000000000000000000000000000000000000 ,
+                        0x000000000100feff030a0000ffffffffb69041c78985d111b16a00c0f0283628 ,
+                        0x280000004d6963726f736f667420547265655669657720436f6e74726f6c2c20 ,
+                        0x76657273696f6e20362e3000170000004d53436f6d63746c4c69622e54726565 ,
+                        0x4374726c2e3200170000004d53436f6d63746c4c69622e547265654374726c2e ,
+                        0x3200f439b2710000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000001000002000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000013000000000002000000 ,
+                        0x4523013044420100065461686f6d610000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000001000000000000006c00000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000007700000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000ffff000000000000 ,
+                        0x7400000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000ee0000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000130000000000 ,
+                        0xffff000045230130750000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000130000000000070000007cea120034003002 ,
+                        0x0300080060445406180313000100000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000001800000040849e070100000000000000 ,
+                        0x0200000001000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000d0000000b00000030000000000000000000000000000000f8160130 ,
+                        0x0000000000000000
+                    End
+                    OLEClass ="TreeCtrl"
+                    Class ="MSComctlLib.TreeCtrl.2"
+                    GUID = Begin
+                        0xd96bbcd48d1a7c4984cb5f8b3799c08e
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Left =2640
+                    Top =720
+                    Width =9060
+                    Height =3570
+                    AutoActivate =1
+                    TabIndex =4
+                    Name ="lvInvn"
+                    OleData = Begin
+                        0x00120000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf0283628000000000000000000000000602dc4c019ffbe010a00000080030000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000600000096000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000300000081010000 ,
+                        0x0000000009000000fdffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffefffffffeffffff0b000000feffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf028362800000000000000000000000000a504f17105bf010600000080030000 ,
+                        0x00000000010043006f006d0070004f0062006a00000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000120002010200000003000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000600000096000000 ,
+                        0x0000000001004f006c0065000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000a000201ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000900000014000000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e0002010500000004000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000300000081010000 ,
+                        0x00000000ffffffffffffffff05000000fdfffffffefffffffeffffff07000000 ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfffffffffeffffff02000000feffffff04000000050000000a00000007000000 ,
+                        0x08000000fefffffffeffffff0b0000000c0000000d000000feffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff03004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000010000005c000000 ,
+                        0x0000000002004f006c0065005000720065007300300030003000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000018000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000024000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000400000001000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000c000000000000046380f4e060000000016001a0004 ,
+                        0x000c00285c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x3dcfe9e74ad46f780000000800080004000c003814b207b81259060800fdffff ,
+                        0xff0000004bf0d1bd8b85d111b16a00c0f028362821433412080000006d3e0000 ,
+                        0x991800004e087deb010006001c0000000000000000000000238200066d3e0000 ,
+                        0x01efcdab00000500def7a4770780da0608000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd01000500a1d21e050352e30b918fce119de300aa ,
+                        0x004bb85101000000900144420100065461686f6d61060020000000000000001e ,
+                        0x1800000c0000000000000000000000000000000c000000446573637269707469 ,
+                        0x6f6e00200100feff030a0000ffffffff4bf0d1bd8b85d111b16a00c0f0283628 ,
+                        0x280000004d6963726f736f6674204c6973745669657720436f6e74726f6c2c20 ,
+                        0x76657273696f6e20362e30001b0000004d53436f6d63746c4c69622e4c697374 ,
+                        0x566965774374726c2e32001b0000004d53436f6d63746c4c69622e4c69737456 ,
+                        0x6965774374726c2e3200f439b271000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000013000000000002000000 ,
+                        0x4523013001000002000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000001000000000000006c00000000000000 ,
+                        0x0000000000010001000000000000000500000000000000000000000000000005 ,
+                        0x000000436f737400200002000100000034060000060000000000000000000000 ,
+                        0x000000000600000050726963650020000300010000007b040000060000000000 ,
+                        0x00000000000000000000060000004c61626f7200200004000100000034060000 ,
+                        0x0a0000000000000000000000000000000a000000496e7374616c6c6564002000 ,
+                        0x050000000000c80d000007000000000000000000000000000000070000005665 ,
+                        0x6e646f7200230130750000000100000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000740065004e0007000000620065001a003002 ,
+                        0x01010800f8160130f81601300100000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000018000000689622060400000000000000 ,
+                        0x0400000001000000000000000000000000000000000000006100790000000000 ,
+                        0x00000000010000000300200018800000000020000000000000000000f8160130 ,
+                        0x2000000000000000
+                    End
+                    OLEClass ="ListViewCtrl"
+                    Class ="MSComctlLib.ListViewCtrl.2"
+                    GUID = Begin
+                        0x7c813e9ae608f049add7b9f993074f24
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            CanGrow = NotDefault
+            Height =420
+            BackColor =128
+            Name ="FormFooter1"
+            Begin
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =1260
+                    Top =60
+                    Width =360
+                    Height =300
+                    FontWeight =400
+                    Name ="Button48"
+                    Caption ="Button48"
+                    OnClick ="=fRecNav(\"next\")"
+                    PictureData = Begin
+                        0x28000000110000000f0000000100040000000000b40000000000000000000000 ,
+                        0x1000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880000000 ,
+                        0x8888800888888888800000008888800088888888840000008888800008888888 ,
+                        0x8004322688888000008888888040e26288888000000888888440366688888000 ,
+                        0x000088888111a3338888800000088888899deaee8888800000888888888caaaa ,
+                        0x8888800008888888811133228888800088888888811909108888800888888888 ,
+                        0x8ff865f088888888888888888f8765f088888888888888888f0865f000000000 ,
+                        0x00000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =900
+                    Top =60
+                    Width =360
+                    Height =300
+                    FontWeight =400
+                    TabIndex =1
+                    Name ="Button49"
+                    Caption ="Button49"
+                    OnClick ="=fRecNav(\"prev\")"
+                    PictureData = Begin
+                        0x28000000110000000f0000000100040000000000b40000000000000000000000 ,
+                        0x1000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880000000 ,
+                        0x8888888800888888800000008888888000888888840000008888880000888888 ,
+                        0x8004322688888000008888888040e26288880000008888888440366688800000 ,
+                        0x008888888111a3338888000000888888899deaee8888800000888888888caaaa ,
+                        0x8888880000888888811133228888888000888888811909108888888800888888 ,
+                        0x8ff865f088888888888888888f8765f088888888888888888f0865f000000000 ,
+                        0x00000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =1620
+                    Top =60
+                    Width =360
+                    Height =300
+                    FontWeight =400
+                    TabIndex =2
+                    Name ="Button50"
+                    Caption ="Button50"
+                    OnClick ="=fRecNav(\"last\")"
+                    PictureData = Begin
+                        0x28000000110000000f0000000100040000000000b40000000000000000000000 ,
+                        0x1000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880000000 ,
+                        0x8800888888800888800000008800088888800888840000008800008888800888 ,
+                        0x8004322688000008888008888040e26288000000888008888440366688000000 ,
+                        0x088008888111a3338800000088800888899deaee8800000888800888888caaaa ,
+                        0x8800008888800888811133228800088888800888811909108800888888800888 ,
+                        0x8ff865f088888888888888888f8765f088888888888888888f0865f000000000 ,
+                        0x00000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =540
+                    Top =60
+                    Width =360
+                    Height =300
+                    TabIndex =3
+                    Name ="cmdPrevious"
+                    Caption ="Button51"
+                    OnClick ="=fRecNav(\"first\")"
+                    PictureData = Begin
+                        0x28000000110000000f0000000100040000000000b40000000000000000000000 ,
+                        0x1000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888880000000 ,
+                        0x8800888888800888800000008800888888000888840000008800888880000888 ,
+                        0x8004322688008888000008888040e26288008880000008888440366688008800 ,
+                        0x000008888111a3338800888000000888899deaee8800888800000888888caaaa ,
+                        0x8800888880000888811133228800888888000888811909108800888888800888 ,
+                        0x8ff865f088888888888888888f8765f088888888888888888f0865f000000000 ,
+                        0x00000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    Enabled = NotDefault
+                    OverlapFlags =93
+                    TextFontFamily =34
+                    Left =1980
+                    Top =60
+                    Width =360
+                    Height =300
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdNew"
+                    Caption ="Button52"
+                    OnClick ="=fRecNav(\"new\")"
+                    PictureData = Begin
+                        0x28000000100000000f0000000100040000000000780000000000000000000000 ,
+                        0x1000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x80800000c0c0c000808080000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00777777777777777777777777777777777777777777777777 ,
+                        0x7077777777777777700777777770777770007777707070777000077777000777 ,
+                        0x7000007700000007700007777700077770007777707070777007777777707777 ,
+                        0x7077777777777777777777777777777777777777777777777777777777777777 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0xc0c0c00080808000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    Visible = NotDefault
+                    Enabled = NotDefault
+                    OverlapFlags =215
+                    TextFontFamily =34
+                    Left =540
+                    Top =60
+                    Width =1800
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdShowAll"
+                    Caption ="Show All"
+                    OnClick ="=fRecNav(\"showall\")"
+                    FontName ="Tahoma"
+                End
+                Begin OptionButton
+                    OverlapFlags =85
+                    Left =180
+                    Top =120
+                    Width =240
+                    Height =180
+                    TabIndex =6
+                    Name ="optHideCosts"
+                    DefaultValue ="True"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =10800
+                    Top =60
+                    Width =1020
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =7
+                    Name ="cmdBarCloseForm"
+                    Caption ="&Close"
+                    OnClick ="=CloseForm()"
+                    FontName ="Tahoma"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Dim wHeight As Long
+
+Private Sub Form_Load()
+LoadInvnGrpTree
+Me.lvInvn.Sorted = True
+End Sub
+
+Private Sub Form_Resize()
+On Error GoTo Form_Resize_Err
+
+Dim topHeight As Long, detHeight As Long, curWindowHeight
+
+' Check to see if window was resized
+curWindowHeight = GetWindowHeight
+If wHeight = curWindowHeight Then
+    Exit Sub
+End If
+
+wHeight = curWindowHeight
+
+topHeight = 1200    ' height above price subform
+detHeight = 7080    ' detail height before resizing
+
+Me.tvInvn.Height = 1000
+Me.lvInvn.Height = 1000
+Me.Detail0.Height = detHeight
+
+Me.Detail0.Height = wHeight * TwipsPerPixelY - Me.FormFooter1.Height - 1600
+Me.tvInvn.Height = Me.Detail0.Height - topHeight - 25
+Me.lvInvn.Height = Me.tvInvn.Height
+
+Exit Sub
+Form_Resize_Err:
+ErrHand Me.Name, "Form_Resize"
+Exit Sub
+
+End Sub
+
+Private Sub lvInvn_DblClick()
+On Error GoTo lvInvn_DblClick_Err
+
+Dim fr As New Form_fdlgPriceItemInfo, id As Long, li As ListItem, cG As Node
+Dim flgAdd As Boolean
+Set li = Me.lvInvn.SelectedItem
+
+If li.key <> "add" Then
+  id = Val(Mid(li.key, 3))
+  fr.Filter = "apkPItem = " & id
+  fr.FilterOn = True
+  flgAdd = False
+Else
+  Set cG = Me.tvInvn.SelectedItem
+  If cG.key = "" Then
+    MsgBox "You cannot add an item here because there is no inventory group for the selected group - just subgroups.", vbExclamation
+    Exit Sub
+  End If
+  fr.AllowAdditions = True
+  fr.DataEntry = True
+  fr.comafkPItemInvnGroup.DefaultValue = Val(Mid(cG.key, 3))
+  flgAdd = True
+End If
+
+fr.Visible = True
+Pause fr
+
+If Not fr.blnCancel Then
+  If flgAdd Then
+    Set li = Me.lvInvn.ListItems.Add(, "p:" & fr.apkPItem, fr.txtPItemDesc)
+  End If
+  li.Text = fr.txtPItemDesc
+  li.SubItems(1) = Format(fr.txtPItemBuy, "Currency")
+  li.SubItems(2) = Format(fr.txtPItemSell, "Currency")
+  li.SubItems(3) = Nz(fr.txtPItemLaborTime, 0)
+  li.SubItems(4) = Format(fr.txtPItemLaborTime * GetHourlyRate + fr.txtPItemSell, "Currency")
+  li.SubItems(5) = Nz(fr.comPItemVendor, 0)
+End If
+
+Exit Sub
+lvInvn_DblClick_Err:
+ErrHand Me.Name, "lvInvn_DblClick"
+Exit Sub
+
+End Sub
+
+Private Sub lvInvn_KeyUp(KeyCode As Integer, ByVal Shift As Integer)
+On Error GoTo lvInvn_KeyUp_Err
+
+If KeyCode = vbKeyDelete Then
+  Dim li As ListItem
+  Set li = Me.lvInvn.SelectedItem
+  If li Is Nothing Then Exit Sub
+  If MsgBox("Are you sure you want to delete '" & li.Text & "'?", vbQuestion + vbYesNo) = vbYes Then
+    CurrentProject.Connection.Execute "DELETE FROM tblPrice WHERE apkPItem = " & Val(Mid(li.key, 3))
+    Me.lvInvn.ListItems.Remove li.Index
+  End If
+End If
+
+Exit Sub
+lvInvn_KeyUp_Err:
+ErrHand Me.Name, "lvInvn_KeyUp_Err"
+Exit Sub
+End Sub
+
+Private Sub optHideCosts_Click()
+
+Dim ch As ColumnHeader
+
+If Me.optHideCosts = True Then
+  Set ch = Me.lvInvn.ColumnHeaders(2)
+  ch.Width = 0
+Else
+  If SecureAuthorize = False Then
+    Me.optHideCosts = True
+    Exit Sub
+  End If
+  Set ch = Me.lvInvn.ColumnHeaders(2)
+  ch.Width = 900
+End If
+End Sub
+
+Private Function LoadInvnGrpTree()
+
+Dim rstGrps As New Recordset, sNodeTxt As String, sRemTxt As String, i As Integer
+Dim pNode As Node, cNode As Node, sSQL As String, tNode As Node, flg As Boolean
+
+Set pNode = Me.tvInvn.Nodes.Add(, , "all", "All Groups")
+
+sSQL = "SELECT apkInvnGrp, InvnGrpDesc FROM tblInvnGrp ORDER BY InvnGrpDesc"
+rstGrps.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+Do While Not rstGrps.EOF
+  If InStr(rstGrps!InvnGrpDesc, "\") = 0 Then
+    Set pNode = Me.tvInvn.Nodes.Add(, , "g:" & rstGrps!apkInvnGrp, rstGrps!InvnGrpDesc)
+  Else
+    sRemTxt = rstGrps!InvnGrpDesc
+    Set cNode = Nothing
+    Do While InStr(sRemTxt, "\")
+      sNodeTxt = Left(sRemTxt, InStr(sRemTxt, "\") - 1)
+      sRemTxt = Mid(sRemTxt, InStr(sRemTxt, "\") + 1)
+      If cNode Is Nothing Then   ' base case, look through base children
+        flg = False
+        For Each tNode In Me.tvInvn.Nodes
+          If tNode.Text = sNodeTxt Then
+            flg = True
+            Set cNode = tNode
+          End If
+        Next tNode
+        If Not flg Then Set cNode = Me.tvInvn.Nodes.Add(, , , sNodeTxt)
+      Else  ' we already have a cNode, so we want to find the child
+        flg = False
+        For i = 1 To cNode.Children
+          If i = 1 Then
+            Set tNode = cNode.FirstSibling
+          Else
+            Set tNode = cNode.Next
+          End If
+          If tNode.Text = sNodeTxt Then
+            flg = True
+            Set cNode = tNode
+          End If
+        Next i
+        If Not flg Then Set cNode = Me.tvInvn.Nodes.Add(cNode, tvwChild, , sNodeTxt)
+      End If
+    Loop
+    ' now we just have a string left which should be added to cNode
+    Set pNode = Me.tvInvn.Nodes.Add(cNode, tvwChild, "g:" & rstGrps!apkInvnGrp, sRemTxt)
+  End If
+  rstGrps.MoveNext
+Loop
+rstGrps.Close
+
+End Function
+
+Private Sub tvInvn_Click()
+
+Dim cNode As Node, sSQL As String, cGrp As Long
+Dim rstInvn As New Recordset, cLI As ListItem
+Dim sli As ListItem, sIndex As Long
+
+Set cNode = Me.tvInvn.SelectedItem
+cGrp = Val(Mid(cNode.key, 3))
+sSQL = "SELECT apkPItem, PItemDesc, PItemVendorDesc, PItemBuy, PItemSell, PItemVendor, PItemLaborTime "
+sSQL = sSQL & "FROM tblPrice "
+If cNode.key <> "all" Then
+  sSQL = sSQL & "WHERE afkPItemInvnGroup = " & cGrp
+End If
+rstInvn.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+
+Me.lvInvn.ListItems.Clear
+
+Set cLI = Me.lvInvn.ListItems.Add(, "add", " Add new item to group '" & cNode.FullPath & "'")
+cLI.SubItems(1) = " "
+cLI.SubItems(2) = " "
+cLI.SubItems(3) = " "
+cLI.SubItems(4) = " "
+cLI.SubItems(5) = " "
+
+Do While Not rstInvn.EOF
+  Set cLI = Me.lvInvn.ListItems.Add(, "p:" & rstInvn!apkPItem, rstInvn!PItemDesc)
+  cLI.SubItems(1) = Format(rstInvn!PItemBuy, "Currency")
+  cLI.SubItems(2) = Format(rstInvn!PItemSell, "Currency")
+  cLI.SubItems(3) = Nz(rstInvn!PItemLaborTime, 0)
+  cLI.SubItems(4) = Format(rstInvn!PItemLaborTime * GetHourlyRate + rstInvn!PItemSell, "Currency")
+  cLI.SubItems(5) = Nz(rstInvn!PItemVendor, "")
+  rstInvn.MoveNext
+Loop
+
+End Sub

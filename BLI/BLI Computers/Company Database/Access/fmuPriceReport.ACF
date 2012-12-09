@@ -1,0 +1,364 @@
+Version =19
+VersionRequired =19
+Checksum =2064407982
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =3024
+    ItemSuffix =21
+    Left =1185
+    Top =1725
+    Right =10635
+    Bottom =7230
+    RecSrcDt = Begin
+        0xc34bfa67f865e140
+    End
+    Caption ="Price Reports"
+    Begin
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin Section
+            Height =2400
+            BackColor =-2147483633
+            Name ="Detail0"
+            Begin
+                Begin Label
+                    BackStyle =0
+                    OverlapFlags =85
+                    Left =1020
+                    Top =540
+                    Width =1872
+                    Height =240
+                    Name ="Text9"
+                    Caption ="Consumer price listing"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    BackStyle =0
+                    OverlapFlags =85
+                    Left =1020
+                    Top =1020
+                    Width =1872
+                    Height =240
+                    Name ="Text10"
+                    Caption ="Confidential price listing"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    BackStyle =0
+                    OverlapFlags =85
+                    Left =1020
+                    Top =1980
+                    Width =1872
+                    Height =240
+                    Name ="Text11"
+                    Caption ="Cancel printing"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =120
+                    Top =1920
+                    Width =786
+                    Name ="cmdClose"
+                    Caption ="Button12"
+                    OnClick ="[Event Procedure]"
+                    PictureData = Begin
+                        0x2800000019000000180000000100040000000000800100000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00 ,
+                        0xffff0000ffffff00888888888888888888888888888888888888888888888888 ,
+                        0x8888888888888888888888817888888888888888888888888888888117800000 ,
+                        0x8877888888888888888888871177ffff8717888888888888888888881117ff88 ,
+                        0x81188888888888888888808871178f87117888888888888888880f8881117881 ,
+                        0x118088888888888888880fff8711171118f088888888888888880fff88111111 ,
+                        0x8ff08888888888008880fff0f8711117fff08888888888088880fff088711117 ,
+                        0xfff0888888888808880fff08771111177ff088888888880880fff08771117111 ,
+                        0x77f0888888888808800007711108871117f088888888880888888888880f8871 ,
+                        0x117088888888880088888880ff0ff888711788888888888888888880ff0ff0f8 ,
+                        0x871188888888888888888880ff0ff0ff888888888888888888888880ff0ff0ff ,
+                        0x000888888888888888888888000ff0ff078888888888888888888888870ff0ff ,
+                        0x088888888888888888888888880ff00088888888888888888888888888800088 ,
+                        0x8888888888888888000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff00000000ff0000ffff00000000ff00ff00ff0000ffff00 ,
+                        0xffffff0000000000
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =120
+                    Top =480
+                    Width =366
+                    Height =366
+                    TabIndex =1
+                    Name ="cmdPrintConsumer"
+                    Caption ="Command17"
+                    OnClick ="[Event Procedure]"
+                    PictureData = Begin
+                        0x2800000010000000100000000100040000000000800000000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff00c0c0c00000ffff00ff000000c0c0c000 ,
+                        0xffff0000ffffff00dadadadadadadadaad00000000000dadd0888888888080da ,
+                        0x000000000000080d0888888bbb88000a088888877788080d0000000000000880 ,
+                        0x0888888888808080d000000000080800ad0ffffffff08080dad0f00000f0000a ,
+                        0xada0ffffffff0daddada0f00000f0adaadad0ffffffff0addadad000000000da ,
+                        0xadadadadadadadad000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff000000c0c0c000ffff00000000ff00c0c0c00000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Print Report"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =540
+                    Top =480
+                    Width =366
+                    Height =366
+                    TabIndex =2
+                    Name ="cmdPreviewConsumer"
+                    Caption ="Command18"
+                    OnClick ="[Event Procedure]"
+                    PictureData = Begin
+                        0x2800000010000000100000000100040000000000800000000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff00c0c0c00000ffff00ff000000c0c0c000 ,
+                        0xffff0000ffffff00dadadadadadadada000000000000ad000ffffffffff0d000 ,
+                        0x0fffffff0000700d0ffffff0788707da0fffff0788e770ad0fffff08888780da ,
+                        0x0fffff08e88780ad0fffff07ee8770da0ffffff078870dad0fffffff0000dada ,
+                        0x0ffffffffff0adad0fffffff0000dada0fffffff080dadad0fffffff00dadada ,
+                        0x000000000dadadad000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff000000c0c0c000ffff00000000ff00c0c0c00000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Preview Report"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =120
+                    Top =960
+                    Width =366
+                    Height =366
+                    TabIndex =3
+                    Name ="cmdPrintConfidential"
+                    Caption ="Command19"
+                    OnClick ="[Event Procedure]"
+                    PictureData = Begin
+                        0x2800000010000000100000000100040000000000800000000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff00c0c0c00000ffff00ff000000c0c0c000 ,
+                        0xffff0000ffffff00dadadadadadadadaad00000000000dadd0888888888080da ,
+                        0x000000000000080d0888888bbb88000a088888877788080d0000000000000880 ,
+                        0x0888888888808080d000000000080800ad0ffffffff08080dad0f00000f0000a ,
+                        0xada0ffffffff0daddada0f00000f0adaadad0ffffffff0addadad000000000da ,
+                        0xadadadadadadadad000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff000000c0c0c000ffff00000000ff00c0c0c00000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Print Report"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =34
+                    Left =540
+                    Top =960
+                    Width =366
+                    Height =366
+                    TabIndex =4
+                    Name ="cmdPreviewConfidential"
+                    Caption ="Command20"
+                    OnClick ="[Event Procedure]"
+                    PictureData = Begin
+                        0x2800000010000000100000000100040000000000800000000000000000000000 ,
+                        0x0000000000000000000000000000800000800000008080008000000080008000 ,
+                        0x8080000080808000c0c0c0000000ff00c0c0c00000ffff00ff000000c0c0c000 ,
+                        0xffff0000ffffff00dadadadadadadada000000000000ad000ffffffffff0d000 ,
+                        0x0fffffff0000700d0ffffff0788707da0fffff0788e770ad0fffff08888780da ,
+                        0x0fffff08e88780ad0fffff07ee8770da0ffffff078870dad0fffffff0000dada ,
+                        0x0ffffffffff0adad0fffffff0000dada0fffffff080dadad0fffffff00dadada ,
+                        0x000000000dadadad000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000000000000000000000000000
+                    End
+                    FontName ="Tahoma"
+                    ObjectPalette = Begin
+                        0x0003100000000000800000000080000080800000000080008000800000808000 ,
+                        0x80808000c0c0c000ff000000c0c0c000ffff00000000ff00c0c0c00000ffff00 ,
+                        0xffffff0000000000
+                    End
+                    ControlTipText ="Preview Report"
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =60
+                    Top =120
+                    Width =2820
+                    Height =240
+                    FontWeight =700
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="Select a report to print"
+                    FontName ="Tahoma"
+                    GUID = Begin
+                        0x9c4c7d9e65f4544495df1823f54063e8
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+
+Private Sub cmdClose_Click()
+    DoCmd.Close acForm, Me.Name
+
+End Sub
+
+Private Sub cmdPrintConsumer_Click()
+On Error GoTo Err_cmdPrintConsumer_Click
+
+    Dim stDocName As String
+
+    DoCmd.Close acForm, Me.Name
+    
+    stDocName = "rptPrice-Consumer"
+    DoCmd.OpenReport stDocName, acNormal
+
+Exit_cmdPrintConsumer_Click:
+    Exit Sub
+
+Err_cmdPrintConsumer_Click:
+    MsgBox Err.Description
+    Resume Exit_cmdPrintConsumer_Click
+    
+End Sub
+Private Sub cmdPreviewConsumer_Click()
+On Error GoTo Err_cmdPreviewConsumer_Click
+
+    Dim stDocName As String
+    
+    DoCmd.Close acForm, Me.Name
+
+    stDocName = "rptPrice-Consumer"
+    DoCmd.OpenReport stDocName, acPreview
+
+Exit_cmdPreviewConsumer_Click:
+    Exit Sub
+
+Err_cmdPreviewConsumer_Click:
+    MsgBox Err.Description
+    Resume Exit_cmdPreviewConsumer_Click
+    
+End Sub
+Private Sub cmdPrintConfidential_Click()
+On Error GoTo Err_cmdPrintConfidential_Click
+
+    Dim stDocName As String
+
+    DoCmd.Close acForm, Me.Name
+    If SecureAuthorize = False Then Exit Sub
+    
+    stDocName = "rptPrice-Confidential"
+    DoCmd.OpenReport stDocName, acNormal
+
+Exit_cmdPrintConfidential_Click:
+    Exit Sub
+
+Err_cmdPrintConfidential_Click:
+    MsgBox Err.Description
+    Resume Exit_cmdPrintConfidential_Click
+    
+End Sub
+Private Sub cmdPreviewConfidential_Click()
+On Error GoTo Err_cmdPreviewConfidential_Click
+
+    Dim stDocName As String
+    If SecureAuthorize = False Then Exit Sub
+    
+    DoCmd.Close acForm, Me.Name
+
+    stDocName = "rptPrice-Confidential"
+    DoCmd.OpenReport stDocName, acPreview
+
+Exit_cmdPreviewConfidential_Click:
+    Exit Sub
+
+Err_cmdPreviewConfidential_Click:
+    MsgBox Err.Description
+    Resume Exit_cmdPreviewConfidential_Click
+    
+End Sub

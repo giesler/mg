@@ -1,0 +1,200 @@
+Version =19
+VersionRequired =19
+Checksum =-1204888564
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =2880
+    DatasheetFontHeight =10
+    ItemSuffix =14
+    Left =1620
+    Top =2370
+    Right =6285
+    Bottom =7560
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xe6e9d2630175e140
+    End
+    Caption ="Find PO"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2940
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin Line
+                    OverlapFlags =85
+                    Top =360
+                    Width =2880
+                    Name ="Line1"
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =720
+                    Top =420
+                    Width =1440
+                    Height =240
+                    Name ="Label2"
+                    Caption ="Purchase Order #"
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =720
+                    Top =1020
+                    Width =1440
+                    Height =240
+                    Name ="Label3"
+                    Caption ="Date Ordered"
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =2
+                    Left =360
+                    Top =1620
+                    Width =2160
+                    Height =240
+                    Name ="Label4"
+                    Caption ="Ship To Co. Name"
+                End
+                Begin TextBox
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =720
+                    Top =660
+                    Name ="txtPO"
+                End
+                Begin TextBox
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =720
+                    Top =1260
+                    TabIndex =1
+                    Name ="txtDateOrdered"
+                End
+                Begin Line
+                    OverlapFlags =85
+                    Top =2340
+                    Width =2880
+                    Name ="Line9"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =70
+                    Left =240
+                    Top =2460
+                    Width =1080
+                    FontSize =10
+                    TabIndex =3
+                    Name ="cmdFind"
+                    Caption ="&Find"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Tahoma"
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =1560
+                    Top =2460
+                    Width =1080
+                    FontSize =10
+                    TabIndex =4
+                    Name ="Command12"
+                    Caption ="&Close"
+                    OnClick ="=CloseForm()"
+                    FontName ="Tahoma"
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =2
+                    Left =120
+                    Top =60
+                    Width =2640
+                    Height =240
+                    Name ="Label13"
+                    Caption ="Please Enter One Field To Search:"
+                End
+                Begin TextBox
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =360
+                    Top =1860
+                    Width =2160
+                    TabIndex =2
+                    Name ="txtShipName"
+                    GUID = Begin
+                        0xba22da5c016d7a4a8aabaa1f4c0f5909
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Private Sub cmdFind_Click()
+On Error GoTo errHandler
+
+  If Not IsNull(Me.txtPO) And Me.txtPO <> "" Then
+    DoCmd.Close acForm, "Frm_Invoice"
+    DoCmd.OpenForm "Frm_Invoice", , , "PO = '" + Me.txtPO + "'", , , "Invoice Search"
+    DoCmd.Close acForm, Me.Name
+  ElseIf Not IsNull(Me.txtDateOrdered) And Me.txtDateOrdered <> "" Then
+    DoCmd.Close acForm, "Frm_Invoice"
+    DoCmd.OpenForm "Frm_Invoice", , , "Date_Ordered = '" + Me.txtDateOrdered + "'", , , "Invoice Search"
+    DoCmd.Close acForm, Me.Name
+  ElseIf Not IsNull(Me.txtShipName) And Me.txtShipName <> "" Then
+    DoCmd.Close acForm, "Frm_Invoice"
+    DoCmd.OpenForm "Frm_Invoice", , , "Ship_Name = '" + Me.txtShipName + "'", , , "Invoice Search"
+    DoCmd.Close acForm, Me.Name
+  Else
+    MsgBox "You must enter some search criteria", vbExclamation
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdFind"
+Exit Sub
+End Sub

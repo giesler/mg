@@ -1,0 +1,57 @@
+Version =19
+VersionRequired =19
+Checksum =-1213377271
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    DividingLines = NotDefault
+    DefaultView =0
+    ScrollBars =0
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =4440
+    DatasheetFontHeight =10
+    ItemSuffix =1
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xdd6da2d7db65e140
+    End
+    Caption ="Please Wait"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Image
+            BackStyle =0
+            OldBorderStyle =0
+            PictureAlignment =2
+        End
+        Begin Section
+            Height =600
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    Left =240
+                    Top =180
+                    Width =4200
+                    Height =420
+                    FontWeight =700
+                    ForeColor =128
+                    Name ="lblStatus"
+                    Caption ="Current Status"
+                End
+            End
+        End
+    End
+End

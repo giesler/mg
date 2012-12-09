@@ -1,0 +1,279 @@
+Version =19
+VersionRequired =19
+Checksum =-735717063
+Begin Form
+    PopUp = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    ShortcutMenu = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    CloseButton = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    BorderStyle =3
+    GridX =24
+    GridY =24
+    Width =3300
+    ItemSuffix =26
+    Left =1515
+    Top =2145
+    Right =9165
+    Bottom =6870
+    RecSrcDt = Begin
+        0xd185e10a9dbfe140
+    End
+    Caption ="Vendor Release Schedule"
+    Begin
+        Begin Label
+            BackStyle =0
+            FontName ="Tahoma"
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin TextBox
+            FELineBreak = NotDefault
+            SpecialEffect =2
+            OldBorderStyle =0
+            FontName ="Tahoma"
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            FontName ="Tahoma"
+        End
+        Begin Section
+            Height =2880
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x4210c088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =79
+                    TextFontFamily =34
+                    Left =1080
+                    Top =2400
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =4
+                    Name ="cmdOK"
+                    Caption ="&OK"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x4310c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    TextFontFamily =34
+                    Left =2112
+                    Top =2400
+                    Width =948
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =5
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x4410c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OverlapFlags =93
+                    Left =120
+                    Top =600
+                    Width =3021
+                    Height =1680
+                    BorderColor =8421504
+                    Name ="Box3"
+                    GUID = Begin
+                        0x4510c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    BackStyle =1
+                    OverlapFlags =85
+                    Left =60
+                    Top =60
+                    Width =3180
+                    Height =480
+                    BackColor =-2147483624
+                    ForeColor =-2147483625
+                    Name ="Label17"
+                    Caption ="You can enter any of the following info or leave it all blank."
+                    FontName ="MS Sans Serif"
+                    GUID = Begin
+                        0x4610c088b84ad311bb05004033532b7f
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =215
+                    TextAlign =1
+                    Left =1560
+                    Top =1080
+                    TabIndex =1
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x4810c088b84ad311bb05004033532b7f
+                    End
+                    Name ="comRPSPN"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselRPSPartNum"
+                    ColumnWidths ="1440"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =215
+                            TextAlign =3
+                            Left =240
+                            Top =1080
+                            Width =1185
+                            Height =240
+                            Name ="comModel_Label"
+                            Caption ="RPS P/N:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x4710c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin CheckBox
+                    OverlapFlags =215
+                    Left =480
+                    Top =1920
+                    Width =2345
+                    TabIndex =3
+                    Name ="chkIncludeOnlyOpen"
+                    DefaultValue ="True"
+                    GUID = Begin
+                        0x4910c088b84ad311bb05004033532b7f
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =247
+                            Left =705
+                            Top =1890
+                            Width =2115
+                            Height =240
+                            Name ="Label21"
+                            Caption ="Include only open orders"
+                            GUID = Begin
+                                0x4a10c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =215
+                    TextAlign =1
+                    ListWidth =2880
+                    Left =1560
+                    Top =1440
+                    TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x4c10c088b84ad311bb05004033532b7f
+                    End
+                    Name ="comVendorPN"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="dbo.qselVendorPartNum"
+                    ColumnWidths ="2880"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =215
+                            TextAlign =3
+                            Left =240
+                            Top =1440
+                            Width =1185
+                            Height =240
+                            Name ="Label23"
+                            Caption ="Vendor P/N:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x4b10c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =215
+                    TextAlign =1
+                    Left =1560
+                    Top =720
+                    ColumnInfo ="\"\";\"\";\"4\";\"4\""
+                    GUID = Begin
+                        0x4e10c088b84ad311bb05004033532b7f
+                    End
+                    Name ="comPO"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT POID\015\012\011FROM tblPO\015\012\011ORDER BY POID"
+                    ColumnWidths ="1440"
+                    FontName ="MS Sans Serif"
+                    Begin
+                        Begin Label
+                            OverlapFlags =215
+                            TextAlign =3
+                            Left =240
+                            Top =720
+                            Width =1185
+                            Height =240
+                            Name ="Label25"
+                            Caption ="PO Number:"
+                            FontName ="MS Sans Serif"
+                            GUID = Begin
+                                0x4d10c088b84ad311bb05004033532b7f
+                            End
+                        End
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Public blnCancel As Boolean
+
+Private Sub cmdCancel_Click()
+blnCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdOK_Click()
+blnCancel = False
+Me.Visible = False
+End Sub

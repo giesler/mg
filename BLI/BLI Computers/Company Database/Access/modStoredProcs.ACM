@@ -1,0 +1,43 @@
+Option Compare Database
+
+Public lngID As Variant
+Public datFromDate As Variant
+Public datToDate As Variant
+Public sAddress As Variant
+Public blnVisible As Boolean
+Public sPayee As Variant
+Public sType As Variant
+
+Public Function GetID() As Variant
+GetID = lngID
+End Function
+
+Public Function GetFromDate() As Variant
+GetFromDate = datFromDate
+End Function
+
+Public Function GetToDate() As Variant
+GetToDate = datToDate
+End Function
+
+Public Function GetAddress() As Variant
+GetAddress = sAddress
+End Function
+
+Public Function GetPayee() As Variant
+GetPayee = sPayee
+End Function
+
+Public Function GetType() As Variant
+GetType = sType
+End Function
+
+Public Function Props()
+
+Dim p As Property
+
+For Each p In CurrentProject.Connection.Properties
+  Debug.Print p.Name & ": " & p.Value
+Next p
+
+End Function

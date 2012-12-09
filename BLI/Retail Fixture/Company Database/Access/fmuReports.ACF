@@ -1,0 +1,1417 @@
+Version =19
+VersionRequired =19
+Checksum =2019246619
+Begin Form
+    PopUp = NotDefault
+    Modal = NotDefault
+    RecordSelectors = NotDefault
+    MaxButton = NotDefault
+    MinButton = NotDefault
+    ControlBox = NotDefault
+    AutoCenter = NotDefault
+    NavigationButtons = NotDefault
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    ViewsAllowed =1
+    BorderStyle =3
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    Width =7860
+    DatasheetFontHeight =10
+    ItemSuffix =157
+    Left =3705
+    Top =1980
+    Right =11565
+    Bottom =6345
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0xe4220c108d6de140
+    End
+    Caption ="Select Report(s) to Print"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin Rectangle
+            SpecialEffect =3
+            BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="MS Sans Serif"
+        End
+        Begin CheckBox
+            SpecialEffect =2
+            LabelX =230
+            LabelY =-30
+        End
+        Begin Section
+            Height =4380
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin Tab
+                    OverlapFlags =85
+                    Left =105
+                    Top =120
+                    Width =7665
+                    Height =3840
+                    Name ="TabCtl34"
+                    Begin
+                        Begin Page
+                            OverlapFlags =215
+                            Left =240
+                            Top =525
+                            Width =7395
+                            Height =3300
+                            Name ="pagInventory"
+                            Caption ="Inventory Reports"
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =223
+                                    Left =360
+                                    Top =630
+                                    Width =5640
+                                    Height =420
+                                    Name ="chkCurrentInventory"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =660
+                                            Top =600
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label39"
+                                            Caption ="Current Inventory"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2820
+                                    Top =600
+                                    Width =2940
+                                    Height =240
+                                    Name ="Label40"
+                                    Caption ="Prints totals of all current inventory."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =660
+                                    Top =840
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label43"
+                                    Caption ="Allows you to chose to include active/inactive and hidden/not hidden inventory."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =223
+                                    Left =360
+                                    Top =1170
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =1
+                                    Name ="chkCurrentInventoryAmt"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =660
+                                            Top =1140
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label45"
+                                            Caption ="Current Inventory ($)"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2820
+                                    Top =1140
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label46"
+                                    Caption ="Prints totals of all current inventory with prices"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =660
+                                    Top =1380
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label47"
+                                    Caption ="Allows you to chose to include active/inactive and hidden/not hidden inventory."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =223
+                                    Left =360
+                                    Top =1710
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =2
+                                    Name ="chkProductCatalog"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =660
+                                            Top =1680
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label49"
+                                            Caption ="Product Catalog"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2820
+                                    Top =1680
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label50"
+                                    Caption ="Prints a product catalog."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =660
+                                    Top =1920
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label51"
+                                    Caption ="Allows you to select a customer to print the catalog for."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =223
+                                    Left =360
+                                    Top =2250
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =3
+                                    Name ="chkCurrentBuildSummary"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =660
+                                            Top =2220
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label53"
+                                            Caption ="Current Build Summary"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2820
+                                    Top =2220
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label54"
+                                    Caption ="Prints totals of all current inventory with prices"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =660
+                                    Top =2460
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label55"
+                                    Caption ="Enter dates and optionally a customer."
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =240
+                            Top =525
+                            Width =7395
+                            Height =3300
+                            Name ="pagShipment"
+                            Caption ="Shipment Reports"
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =630
+                                    Width =5640
+                                    Height =420
+                                    Name ="chkShipmentSchedule"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =600
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label57"
+                                            Caption ="Shipment Schedule"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =600
+                                    Width =2940
+                                    Height =240
+                                    Name ="Label58"
+                                    Caption ="Prints all shipments for dates"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =840
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label59"
+                                    Caption ="Allows choosing dates, a customer, and Medite/Non-Medite/Both"
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1170
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =1
+                                    Name ="chkShipmentScheduleAmt"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1140
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label61"
+                                            Caption ="Shipment Schedule ($)"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =1140
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label62"
+                                    Caption ="Prints all shipments for dates, including prices."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1380
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label63"
+                                    Caption ="Enter dates and optionally a customer."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1710
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =2
+                                    Name ="chkShipmentScheduleVia"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1680
+                                            Width =2565
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label65"
+                                            Caption ="Shipment Schedule Ship Via"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =1660
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label66"
+                                    Caption ="Prints shipments schedule with weight"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1920
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label67"
+                                    Caption ="Enter dates, a Ship Via name, and optionally a customer."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =2250
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =3
+                                    Name ="chkShipmentScheduleWheat"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =2220
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label69"
+                                            Caption ="Shipment Schedule Wheat"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =2200
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label70"
+                                    Caption ="Shipments with wheatboard shelves"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =2460
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label71"
+                                    Caption ="Enter dates."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =2790
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =4
+                                    Name ="chkCustShipmentSchedule"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =2760
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label73"
+                                            Caption ="Cust Shipment Schedule"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3295
+                                    Top =2740
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label74"
+                                    Caption ="Shipments for a particular customer."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =3000
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label75"
+                                    Caption ="Enter dates and a customer name."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =300
+                                    Top =3345
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =5
+                                    Name ="chkShipmentSummary"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =600
+                                            Top =3315
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label77"
+                                            Caption ="Shipment Summary"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3280
+                                    Top =3295
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label78"
+                                    Caption ="Shipment summary by company; POs and amount"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =600
+                                    Top =3555
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label79"
+                                    Caption ="Enter dates."
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =240
+                            Top =525
+                            Width =7395
+                            Height =3300
+                            Name ="pagSales"
+                            Caption ="Sales Reports"
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =1715
+                                    Width =5640
+                                    Height =420
+                                    Name ="chkTotalSalesOverTimeGraph"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =1685
+                                            Width =2565
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label81"
+                                            Caption ="Total Sales Over Time Graph"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =3290
+                                    Top =1680
+                                    Width =3615
+                                    Height =240
+                                    Name ="Label82"
+                                    Caption ="Graph showing sales by catalog heading."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =1920
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label83"
+                                    Caption ="Enter dates."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =635
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =1
+                                    Name ="chkTotalSalesByClass"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =605
+                                            Width =2565
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label85"
+                                            Caption ="Total Sales by Class"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =3295
+                                    Top =600
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label86"
+                                    Caption ="Prints for each material; Qty, Stores, and Cost, Avg"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =845
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label87"
+                                    Caption ="Enter dates and optionally a customer, store names, and classifcation."
+                                End
+                                Begin CheckBox
+                                    Enabled = NotDefault
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =1175
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =2
+                                    Name ="chkTotalSalesOverTime"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =1145
+                                            Width =2565
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label89"
+                                            Caption ="Total Sales Over Time"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3295
+                                    Top =1125
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label90"
+                                    Caption ="Prints for each material; Qty and Amount"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =1380
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label91"
+                                    Caption ="Enter dates."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =2270
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =3
+                                    Name ="chkInvoiceSummary"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =2240
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label93"
+                                            Caption ="Invoice Summary"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =2220
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label94"
+                                    Caption ="Invoice information; location, PO, amount, by date"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =2480
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label95"
+                                    Caption ="Enter dates and optionally a customer and classification."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =2810
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =4
+                                    Name ="chkWisconsinTaxes"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =2780
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label97"
+                                            Caption ="Wisconsin Taxes"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3295
+                                    Top =2760
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label98"
+                                    Caption ="Wisconsin Sales Tax totals for dates."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =3020
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label99"
+                                    Caption ="Enter dates."
+                                End
+                                Begin CheckBox
+                                    Visible = NotDefault
+                                    Enabled = NotDefault
+                                    OverlapFlags =255
+                                    Left =300
+                                    Top =3365
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =5
+                                    Name ="Check100"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            Visible = NotDefault
+                                            OverlapFlags =255
+                                            Left =600
+                                            Top =3335
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label101"
+                                            Caption ="Shipment Summary"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    Visible = NotDefault
+                                    OverlapFlags =247
+                                    Left =3280
+                                    Top =3315
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label102"
+                                    Caption ="Shipment summary by company; POs and amount"
+                                End
+                                Begin Label
+                                    Visible = NotDefault
+                                    OverlapFlags =247
+                                    Left =600
+                                    Top =3575
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label103"
+                                    Caption ="Enter dates."
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =240
+                            Top =525
+                            Width =7395
+                            Height =3300
+                            Name ="pagOrders"
+                            Caption ="Orders Reports"
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =630
+                                    Width =5640
+                                    Height =420
+                                    Name ="chkIncompletePOs"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =600
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label105"
+                                            Caption ="Incomplete POs"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =600
+                                    Width =2940
+                                    Height =240
+                                    Name ="Label106"
+                                    Caption ="Prints all shipments for dates"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =840
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label107"
+                                    Caption ="Enter dates and optionally a customer."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1170
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =1
+                                    Name ="chkMaintOrders"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1140
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label109"
+                                            Caption ="Maintenance Orders"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =1140
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label110"
+                                    Caption ="Prints all shipments for dates, including prices."
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1380
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label111"
+                                    Caption ="Enter dates and optionally a customer."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1710
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =2
+                                    Name ="chkHotOrders"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1680
+                                            Width =2565
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label113"
+                                            Caption ="Hot Orders"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =1660
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label114"
+                                    Caption ="Prints shipments schedule with weight"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1920
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label115"
+                                    Caption ="Enter dates, a Ship Via name, and optionally a customer."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =2250
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =3
+                                    Name ="chkGapOrderConf"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =2220
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label117"
+                                            Caption ="Gap Order Confirmation"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =2200
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label118"
+                                    Caption ="Shipments with wheatboard shelves"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =2460
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label119"
+                                    Caption ="Enter dates."
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =2790
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =4
+                                    Name ="chkPOsByJobNo"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =2760
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label121"
+                                            Caption ="POs by Job Number"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3295
+                                    Top =2740
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label122"
+                                    Caption ="POs grouped together with item information"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =3000
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label123"
+                                    Caption ="Enter a job number and/or ship dates"
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =300
+                                    Top =3345
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =5
+                                    Name ="chkOutstandingPOs"
+                                    DefaultValue ="False"
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =600
+                                            Top =3315
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label125"
+                                            Caption ="Outstanding POs"
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3280
+                                    Top =3295
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label126"
+                                    Caption ="Outstanding PO list"
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =600
+                                    Top =3555
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label127"
+                                    Caption ="Enter dates and/or Ref #"
+                                End
+                            End
+                        End
+                        Begin Page
+                            OverlapFlags =247
+                            Left =240
+                            Top =525
+                            Width =7395
+                            Height =3300
+                            Name ="pagOtherReports"
+                            Caption ="Other Reports"
+                            GUID = Begin
+                                0x69d9f4e6992cd3119033004033532b7f
+                            End
+                            Begin
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =630
+                                    Width =5640
+                                    Height =420
+                                    Name ="chkPOSummary"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x6bd9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =600
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label133"
+                                            Caption ="PO Summary"
+                                            GUID = Begin
+                                                0x6cd9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =600
+                                    Width =2940
+                                    Height =240
+                                    Name ="Label134"
+                                    Caption ="Comprehensive PO summary report."
+                                    GUID = Begin
+                                        0x6dd9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =840
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label135"
+                                    Caption ="Enter a PO and PO amount, and a filename."
+                                    GUID = Begin
+                                        0x6ed9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1170
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =1
+                                    Name ="chkCashwrapShipments"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x6fd9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1140
+                                            Width =2100
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label137"
+                                            Caption ="Cashwrap Shipments"
+                                            GUID = Begin
+                                                0x70d9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =255
+                                    Left =2795
+                                    Top =1140
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label138"
+                                    Caption ="Totals cashwrap material quantities by ship date."
+                                    GUID = Begin
+                                        0x71d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1380
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label139"
+                                    Caption ="Enter dates."
+                                    GUID = Begin
+                                        0x72d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =1710
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =2
+                                    Name ="chkCashwrapFisher"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x73d9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =1680
+                                            Width =2850
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label141"
+                                            Caption ="Cashwrap Shipments for Fisher"
+                                            GUID = Begin
+                                                0x74d9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3540
+                                    Top =1660
+                                    Width =3495
+                                    Height =240
+                                    Name ="Label142"
+                                    Caption ="Same as above, with more detail"
+                                    GUID = Begin
+                                        0x75d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =1920
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label143"
+                                    Caption ="Enter dates."
+                                    GUID = Begin
+                                        0x76d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =335
+                                    Top =2250
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =3
+                                    Name ="chkBlanketPOSummary"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x77d9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =635
+                                            Top =2220
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label145"
+                                            Caption ="Blanket PO Summary"
+                                            GUID = Begin
+                                                0x78d9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3315
+                                    Top =2200
+                                    Width =3945
+                                    Height =240
+                                    Name ="Label146"
+                                    Caption ="Summary report of invoices with specified Group ID"
+                                    GUID = Begin
+                                        0x79d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =635
+                                    Top =2460
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label147"
+                                    Caption ="Enter a group id (PO)."
+                                    GUID = Begin
+                                        0x7ad9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =315
+                                    Top =2790
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =4
+                                    Name ="chkCashwrapShipInfo"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x7bd9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =615
+                                            Top =2760
+                                            Width =3105
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label149"
+                                            Caption ="Cashwrap Shipments w/ Ship Info"
+                                            GUID = Begin
+                                                0x7cd9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =4195
+                                    Top =2740
+                                    Width =2820
+                                    Height =240
+                                    Name ="Label150"
+                                    Caption ="Totals cashwrap material by PO"
+                                    GUID = Begin
+                                        0x7dd9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =615
+                                    Top =3000
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label151"
+                                    Caption ="Enter dates and other information."
+                                    GUID = Begin
+                                        0x7ed9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin CheckBox
+                                    OverlapFlags =255
+                                    Left =300
+                                    Top =3345
+                                    Width =5640
+                                    Height =420
+                                    TabIndex =5
+                                    Name ="chkShippingSchedule"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0x7fd9f4e6992cd3119033004033532b7f
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =255
+                                            Left =600
+                                            Top =3315
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label153"
+                                            Caption ="Shipping Schedule"
+                                            GUID = Begin
+                                                0x80d9f4e6992cd3119033004033532b7f
+                                            End
+                                        End
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =3280
+                                    Top =3295
+                                    Width =3720
+                                    Height =240
+                                    Name ="Label154"
+                                    Caption ="Summary of all materials"
+                                    GUID = Begin
+                                        0x81d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =247
+                                    Left =600
+                                    Top =3555
+                                    Width =6120
+                                    Height =240
+                                    Name ="Label155"
+                                    Caption ="Enter dates, customer, store."
+                                    GUID = Begin
+                                        0x82d9f4e6992cd3119033004033532b7f
+                                    End
+                                End
+                            End
+                        End
+                    End
+                End
+                Begin CommandButton
+                    Cancel = NotDefault
+                    OverlapFlags =85
+                    AccessKey =67
+                    Left =6540
+                    Top =4020
+                    Width =1140
+                    Height =300
+                    TabIndex =1
+                    Name ="cmdCancel"
+                    Caption ="&Cancel"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin CommandButton
+                    Default = NotDefault
+                    OverlapFlags =85
+                    AccessKey =80
+                    Left =4140
+                    Top =4020
+                    Width =1140
+                    Height =300
+                    TabIndex =2
+                    Name ="cmdPrint"
+                    Caption ="&Print"
+                    OnClick ="[Event Procedure]"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =82
+                    Left =5340
+                    Top =4020
+                    Width =1140
+                    Height =300
+                    TabIndex =3
+                    Name ="cmdPreview"
+                    Caption ="P&review"
+                    OnClick ="[Event Procedure]"
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
+Option Explicit
+
+Public bolPrintPreview As Boolean, bolCancel As Boolean
+
+Private Sub cmdCancel_Click()
+bolCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdPreview_Click()
+bolCancel = False
+bolPrintPreview = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdPrint_Click()
+bolCancel = False
+bolPrintPreview = False
+Me.Visible = False
+End Sub

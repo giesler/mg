@@ -1,0 +1,114 @@
+Option Compare Database
+Option Explicit
+
+Global Channum As Long, App As String, Obj As String
+Global FileStr As String, DDEStr As String, BadgeTitle As String
+Global Loaded As Boolean
+
+Global Const CSPipe = "|"
+
+
+Function CSCheckLoad(Loaded)
+    '****************************************************************************
+    'This function checks to see if EZLABEL was already loaded
+    'when the DDE conversation is opened
+    '****************************************************************************
+    If Loaded = False Then
+        'if it was not already running then close it
+        DDEExecute Channum, "Exit"         'close EZLABEL
+        DDETerminate Channum               'end DDE conversation
+        Channum = 0                        'reset the channel number
+    Else
+    End If
+End Function
+
+Function CSCloseFrm()
+    '****************************************************************************
+    'This function closes the form "Main"
+    '****************************************************************************
+    Call CSStopDDE                        'end DDE conversation
+    DoCmd.Close acForm, "Main"          'close the form
+End Function
+
+Function CSPrintLabel(strLabel As String, intQty)
+    '****************************************************************************
+    'This function prints the current record in the table "Attendees"
+    'using the currently selected label
+    '****************************************************************************
+    Dim FileStr As String, FileStrDDE As String
+    Dim PasteDDE As String, DDEStr As String
+    BadgeTitle = "Label"                   'define Title of seminar
+
+    FileStr = CSGetLabelFileName()
+    FileStrDDE = "Open(" + FileStr + ")"
+    On Error Resume Next
+    Call CSStartDDE                                 'opens the DDE conversation
+        'opens the template in EZLABEL using the correct label type
+    DDEExecute Channum, FileStrDDE
+    DDEStr = strLabel
+    
+    'set text to be sent to EZLABEL
+    PasteDDE = "SetObjectText(Address," + DDEStr + ")"
+    DDEExecute Channum, PasteDDE                        'paste the text
+    
+    'set qty
+    PasteDDE = "Copies(" & intQty & ")"
+    DDEExecute Channum, PasteDDE
+    
+    'change the Title on the label
+    DDEExecute Channum, "SetObjectText(Title," + BadgeTitle + ")"
+    DDEExecute Channum, "Print"                         'print the label
+End Function
+
+Function CSStartDDE()
+    '****************************************************************************
+    'This fuction begins the DDE conversation with EZLABEL
+    '****************************************************************************
+    On Error Resume Next
+    Dim LaunchApp, AppPath As String
+    AppPath = CSGetAppPath()
+    Channum = 0
+        'begin DDE and define the open channel number
+    Channum = DDEInitiate("EZLABEL", "System")
+        'test to see if EZLABEL is running already
+    If Channum = 0 Then
+            'if not then launch it and set Loaded to False (was not running)
+        Loaded = False
+        LaunchApp = Shell(AppPath, 6)
+        Channum = DDEInitiate("EZLABEL", "System")
+            'if EZLABEL is still not running
+        If Channum = 0 Then
+                'display diaglog
+            MsgBox "Could not run '" & AppPath & "'.", vbCritical
+        End If
+    End If
+    DDEExecute Channum, "Hide"
+End Function
+
+Function CSStopDDE()
+    '****************************************************************************
+    'This function ends the DDE conversation with EZLABEL
+    '****************************************************************************
+    On Error Resume Next
+    Call CSCheckLoad(Loaded)
+End Function
+
+Function CSGetAppPath() As String
+On Error Resume Next
+
+CSGetAppPath = "C:\LABELS\LWPRINT.EXE"
+
+Call PrivIniRegister("RFC Database", GetDBDir & "database.ini")
+CSGetAppPath = PrivGetString("LabelWriterApp", CSGetAppPath)
+
+End Function
+
+Function CSGetLabelFileName() As String
+On Error Resume Next
+
+CSGetLabelFileName = "C:\LABELS\CL&K.LB0"
+
+Call PrivIniRegister("RFC Database", GetDBDir & "database.ini")
+CSGetLabelFileName = PrivGetString("LabelFileName", CSGetLabelFileName)
+
+End Function

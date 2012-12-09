@@ -1,0 +1,835 @@
+Version =19
+VersionRequired =19
+Checksum =191454007
+Begin Form
+    RecordSelectors = NotDefault
+    DividingLines = NotDefault
+    AllowDesignChanges = NotDefault
+    ServerFilterByForm = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    ScrollBars =0
+    GridX =24
+    GridY =24
+    Width =8640
+    ItemSuffix =249
+    Top =855
+    Right =8385
+    Bottom =6735
+    OnFilter ="[Event Procedure]"
+    OnApplyFilter ="[Event Procedure]"
+    Toolbar ="FCFormToolBar"
+    RecSrcDt = Begin
+        0x04cf96694ffae140
+    End
+    RecordSource ="mlvCompany"
+    Caption ="Mail List"
+    OnCurrent ="[Event Procedure]"
+    BeforeInsert ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCFormMenuBar"
+    OnActivate ="[Event Procedure]"
+    OnDeactivate ="[Event Procedure]"
+    OnLoad ="[Event Procedure]"
+    Begin
+        Begin Label
+            TextAlign =3
+            FontWeight =700
+            BackColor =12632256
+        End
+        Begin Rectangle
+            SpecialEffect =2
+        End
+        Begin CommandButton
+            TextFontFamily =2
+        End
+        Begin OptionButton
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin CheckBox
+            AddColon = NotDefault
+            SpecialEffect =2
+            LabelAlign =3
+            Width =187
+            Height =187
+            LabelX =-154
+        End
+        Begin TextBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin ListBox
+            SpecialEffect =2
+            LabelAlign =3
+            LabelX =-154
+        End
+        Begin ComboBox
+            SpecialEffect =2
+            LabelAlign =3
+            Height =255
+            LabelX =-154
+        End
+        Begin Subform
+            SpecialEffect =2
+        End
+        Begin CustomControl
+            SpecialEffect =2
+        End
+        Begin ToggleButton
+            TextFontFamily =2
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =5880
+            BackColor =-2147483633
+            Name ="Detail0"
+            GUID = Begin
+                0x0a0ac088b84ad311bb05004033532b7f
+            End
+            Begin
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =93
+                    Left =420
+                    Top =2940
+                    Width =7860
+                    Height =1560
+                    BorderColor =8421504
+                    Name ="Box236"
+                    GUID = Begin
+                        0x86a106799b9ffb4cb142c5033f235a0a
+                    End
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    BackStyle =0
+                    OverlapFlags =93
+                    Left =420
+                    Top =240
+                    Width =7860
+                    Height =2520
+                    BorderColor =8421504
+                    Name ="Box235"
+                    GUID = Begin
+                        0x0dee82e0c14a7442b5a465fd388ee763
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =600
+                    Top =2820
+                    Width =2040
+                    Height =240
+                    FontWeight =400
+                    BackColor =-2147483633
+                    Name ="Label233"
+                    Caption ="Contact Information"
+                    GUID = Begin
+                        0xa6a86d5f3455354cb211da88f6b0adb7
+                    End
+                End
+                Begin Label
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =600
+                    Top =120
+                    Width =2040
+                    Height =240
+                    FontWeight =400
+                    BackColor =-2147483633
+                    Name ="Label234"
+                    Caption ="Company Information"
+                    GUID = Begin
+                        0x2003e434806b0d4eb907f9c29b5a185f
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1699
+                    Top =780
+                    Width =6405
+                    Name ="txtMailAddress"
+                    ControlSource ="MailAddress"
+                    GUID = Begin
+                        0xde8eecf10c072b48a027cd381e23ebfa
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =720
+                            Top =780
+                            Width =825
+                            Height =240
+                            FontWeight =400
+                            Name ="Text196"
+                            Caption ="Address:"
+                            GUID = Begin
+                                0x53ccef37a9b49b47b52b8f3eaaf0e9ed
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1699
+                    Top =1140
+                    Width =2325
+                    TabIndex =1
+                    Name ="txtMailCity"
+                    ControlSource ="MailCity"
+                    GUID = Begin
+                        0x7f5aa1562944124cb9c2238f98ed9f95
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =600
+                            Top =1140
+                            Width =945
+                            Height =240
+                            FontWeight =400
+                            Name ="Text197"
+                            Caption ="City:"
+                            GUID = Begin
+                                0x34f6068237531342926284d9332e2b40
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =4879
+                    Top =1140
+                    Width =720
+                    TabIndex =2
+                    Name ="txtMailState"
+                    ControlSource ="MailState"
+                    GUID = Begin
+                        0x2e3773f595bb4f489a0d2b38c37170f0
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =4200
+                            Top =1140
+                            Width =525
+                            Height =240
+                            FontWeight =400
+                            Name ="Text198"
+                            Caption ="State:"
+                            GUID = Begin
+                                0x89d86fa51f7a8d4fabc0723fa97f3d9d
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =6499
+                    Top =1140
+                    Width =1605
+                    TabIndex =3
+                    Name ="txtMailZip"
+                    ControlSource ="MailZip"
+                    GUID = Begin
+                        0x8243bca2aa794742847fafbe00c7d9ec
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =5820
+                            Top =1140
+                            Width =525
+                            Height =240
+                            FontWeight =400
+                            Name ="Text199"
+                            Caption ="Zip:"
+                            GUID = Begin
+                                0x58142006244dae41a22f1ff49e8ed2c3
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1699
+                    Top =1500
+                    Width =6405
+                    TabIndex =4
+                    Name ="txtMailCounty"
+                    ControlSource ="MailCounty"
+                    GUID = Begin
+                        0x0fb8cdbb47d9104c92a8403be61b37cc
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =540
+                            Top =1500
+                            Width =1005
+                            Height =240
+                            FontWeight =400
+                            Name ="Text200"
+                            Caption ="County:"
+                            GUID = Begin
+                                0xefb0f39508d8c241964f33f695df3e01
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =1699
+                    Top =2460
+                    TabIndex =5
+                    Name ="txtSICCode"
+                    ControlSource ="SICCode"
+                    GUID = Begin
+                        0x050d25f892861d43a622d1f2c2848333
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =600
+                            Top =2460
+                            Width =945
+                            Height =240
+                            FontWeight =400
+                            Name ="Text201"
+                            Caption ="SIC Code:"
+                            GUID = Begin
+                                0xfc6771f8d9f7f548a581259c9b67c48d
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =4489
+                    Top =2460
+                    Width =1155
+                    TabIndex =6
+                    Name ="txtEmpCount"
+                    ControlSource ="Employment"
+                    GUID = Begin
+                        0x3e9fc6a9aa46e7498e80a1da14223d96
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =3240
+                            Top =2460
+                            Width =1095
+                            Height =240
+                            FontWeight =400
+                            Name ="Text202"
+                            Caption ="# of Emp:"
+                            GUID = Begin
+                                0xe63aea864bf73d4d9705af2ecf5fb8e2
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    TextAlign =2
+                    Left =6979
+                    Top =2460
+                    Width =1155
+                    TabIndex =7
+                    Name ="txtPlantSize"
+                    ControlSource ="PlantSqFt"
+                    GUID = Begin
+                        0x4943c74ca6593b48934d2dd660120395
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =5820
+                            Top =2460
+                            Width =1005
+                            Height =240
+                            FontWeight =400
+                            Name ="Text203"
+                            Caption ="Plant Size:"
+                            GUID = Begin
+                                0xbbfdd9d2695f814180c9252f15ee7410
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    OverlapFlags =87
+                    Left =540
+                    Top =1860
+                    Width =7620
+                    BorderColor =8421504
+                    Name ="Line0"
+                    GUID = Begin
+                        0x85feaa2338708b48bb4f64687ffe300a
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1699
+                    Top =1980
+                    Width =2325
+                    TabIndex =8
+                    Name ="Text1"
+                    ControlSource ="phone"
+                    GUID = Begin
+                        0xc586584ca5d6404b90b1ba0acd324597
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =600
+                            Top =1980
+                            Width =945
+                            Height =240
+                            FontWeight =400
+                            Name ="Label2"
+                            Caption ="Phone:"
+                            GUID = Begin
+                                0x318f0ba6f405a34b9aaa7e31fb67d8a1
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =5779
+                    Top =1980
+                    Width =2325
+                    TabIndex =9
+                    Name ="Text3"
+                    ControlSource ="Fax"
+                    GUID = Begin
+                        0xca8b5b684d4214489e7f55fdbb7aad60
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =4680
+                            Top =1980
+                            Width =945
+                            Height =240
+                            FontWeight =400
+                            Name ="Label4"
+                            Caption ="Fax:"
+                            GUID = Begin
+                                0x7515f67185323e4db49c351d52dc6f3b
+                            End
+                        End
+                    End
+                End
+                Begin Line
+                    OverlapFlags =87
+                    Left =540
+                    Top =2340
+                    Width =7620
+                    BorderColor =8421504
+                    Name ="Line5"
+                    GUID = Begin
+                        0x17ef0f0f32c59d42a8df6d571b251fe4
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =215
+                    Left =1699
+                    Top =420
+                    Width =6405
+                    TabIndex =10
+                    Name ="txtCompName"
+                    ControlSource ="CompName"
+                    GUID = Begin
+                        0xb1377df6c7233c43926ddb88dae9dabf
+                    End
+                    Begin
+                        Begin Label
+                            BackStyle =0
+                            OverlapFlags =215
+                            Left =720
+                            Top =420
+                            Width =825
+                            Height =240
+                            FontWeight =400
+                            Name ="Label244"
+                            Caption ="Name:"
+                            GUID = Begin
+                                0xe18c73618b948d47852e91ba54c8b9ce
+                            End
+                        End
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    BackStyle =0
+                    OverlapFlags =223
+                    TextAlign =1
+                    Left =540
+                    Top =3120
+                    Width =7680
+                    Height =1320
+                    FontWeight =400
+                    ForeColor =8421504
+                    Name ="lblContactFilter"
+                    Caption ="You cannot filter by contact information."
+                    GUID = Begin
+                        0x3ec7f657e39d894492366be927f6ee36
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =215
+                    Left =540
+                    Top =3120
+                    Width =7680
+                    Height =1320
+                    AutoActivate =1
+                    TabIndex =11
+                    Name ="lvContacts"
+                    OleData = Begin
+                        0x000e0000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf0283628000000000000000000000000408a98792952bf0107000000c0010000 ,
+                        0x0000000043006f006e00740065006e0074007300000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000012000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000020000000e010000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fefffffffdfffffffffffffffffffffffffffffffffffffffeffffff ,
+                        0xfeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf028362800000000000000000000000030bc89b52a52bf0105000000c0010000 ,
+                        0x0000000043006f006e00740065006e0074007300000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000012000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000200000011010000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fffffffffffffffffefffffffdfffffffefffffffeffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff01000000feffffff03000000040000000500000006000000feffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0x20b3f10f05002000000000000000000000000900000000000000000000000000 ,
+                        0x000009002143341208000000eb340000180900004e087deb010006001c000000 ,
+                        0x0000000000000000a3820088eb34000001efcdab00000500def7a47707000088 ,
+                        0x0800008005000080000103800000000000000000000000001fdeecbd01000500 ,
+                        0xf077f40f040020000000000000003a1100000d00000000000000000000000000 ,
+                        0x00000d000000436f6e74616374204e616d65002000010000000000560a00000e ,
+                        0x0000000000000000000000000000000e000000436f6e74616374205469746c65 ,
+                        0x0020000200020000008305000008000000000000000000000000000000080000 ,
+                        0x004e6f204d61696c002000030000000000c80d00000c00000000000000000000 ,
+                        0x00000000000c0000004c69737420536f75726365000000000000000000000000 ,
+                        0xee00000001000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000009a0c0100000000001300acd71200750000000100000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    OLEClass ="ListViewCtrl"
+                    Class ="MSComctlLib.ListViewCtrl.2"
+                    GUID = Begin
+                        0xab7fd90cd2a1304c843a399026cd9197
+                    End
+                End
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub Form_Activate()
+Dim newMenu As CommandBarPopup
+Set newMenu = CBAddMenu(Me.Toolbar, "Print")
+newMenu.BeginGroup = True
+newMenu.Tag = "custom"
+Call CBAddMenuControl(newMenu, "Current record", "=PrintCurRecord()")
+
+Dim cbrCur As CommandBar, ctlCBarControl As CommandBarControl
+Set cbrCur = Application.CommandBars(Me.Toolbar)
+With cbrCur
+    Set ctlCBarControl = cbrCur.Controls.Add(msoControlButton)
+    With ctlCBarControl
+        .Caption = "Find C&ontact"
+        .Style = msoButtonCaption
+        .Enabled = True
+        .OnAction = "=FindContact()"
+        .BeginGroup = True
+        .Tag = "custom"
+    End With
+End With
+
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+Me.Toolbar = "FCFormToolBar"
+Dim blnCancel As Boolean
+Me.ServerFilter = ChangeStars(Me.ServerFilter, blnCancel)
+If blnCancel Then Cancel = True
+Me.lvContacts.Visible = True
+
+End Sub
+
+Private Sub Form_BeforeInsert(Cancel As Integer)
+
+  If IsNull(Me![list company]) Then Exit Sub
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+  
+  If MsgBox("Are you sure you want to save this new record?", vbQuestion + vbYesNo) = vbNo Then
+    On Error Resume Next
+    MsgBox "To restore this record to the original, press Escape after clicking OK.", 64
+    DoCmd.CancelEvent
+  End If
+  
+End Sub
+
+Public Function PrintCurRecord()
+On Error GoTo PrintCurRecord_Err
+
+DoCmd.RunCommand acCmdSaveRecord
+If Me.Dirty Then MsgBox "Since you did not save changes, the report will not reflect any changes you made.", vbInformation
+
+If flgDebug Then
+    DoCmd.OpenReport "mlrfrmMaillist", acViewPreview, , "CompID = " & Me!CompID
+Else
+    DoCmd.OpenReport "mlrfrmMaillist", acViewNormal, , "CompID = " & Me!CompID
+End If
+
+Exit Function
+PrintCurRecord_Err:
+ErrHand Me.Name, "PrintCurRecord"
+Exit Function
+
+End Function
+
+Private Sub Form_Current()
+On Error Resume Next
+If IsNull(Me!CompID) Then Exit Sub
+On Error GoTo Form_Current_Err
+
+Dim r As New Recordset, li As ListItem, sSQL As String
+Me.lvContacts.ListItems.Clear
+
+sSQL = "Select ContactID, ContactName, fkContactTitleID, DoNotMail, ListID "
+sSQL = sSQL & "From dbo.mlvContact t1 "
+sSQL = sSQL & "Where t1.fkCompID = " & Me!CompID
+
+r.Open sSQL, CurrentProject.Connection, adOpenForwardOnly, adLockReadOnly
+
+Do While Not r.EOF
+  Set li = Me.lvContacts.ListItems.Add(, "c:" & r!ContactID, r!ContactName)
+  If IsNull(r!fkContactTitleID) Then
+    li.SubItems(1) = ""
+  Else
+    li.SubItems(1) = DLookup("TitleDesc", "fcmail.dbo.tblMailTitle", "apkTitle = " & r!fkContactTitleID)
+  End If
+  li.SubItems(2) = IIf(r!donotmail, "x", "")
+  Select Case r!ListID
+    Case 1
+      li.SubItems(3) = "Harris August 99"
+    Case 2
+      li.SubItems(3) = "InfoUSA Pres Dec 99"
+    Case 3
+      li.SubItems(3) = "InfoUSA Plt Mgr Dec 99"
+  End Select
+  r.MoveNext
+Loop
+
+r.Close
+Set r = Nothing
+
+Exit Sub
+Form_Current_Err:
+ErrHand Me.Name, "Form_Current"
+Exit Sub
+End Sub
+
+Private Sub Form_Deactivate()
+On Error GoTo Form_Deactivate_Err
+Dim ctl As CommandBarControl
+For Each ctl In Application.CommandBars(Me.Toolbar).Controls
+  If ctl.Tag = "custom" Then ctl.Delete
+Next ctl
+Exit Sub
+Form_Deactivate_Err:
+ErrHand Me.Name, "Form_Deactivate"
+Exit Sub
+End Sub
+
+Private Sub Form_Filter(Cancel As Integer, FilterType As Integer)
+Me.Toolbar = "FCFormServerFilter"
+Me.lvContacts.Visible = False
+End Sub
+
+Private Sub Form_Load()
+Me.ServerFilter = ""
+End Sub
+
+Public Function FindContact()
+On Error GoTo FindContact_Err
+
+Dim sSQL As String, fR As New Form_mlfdlgContact
+Static sName As String
+
+fR.txtContactName = sName
+Pause fR
+If fR.blnCancel Then Exit Function
+sName = fR.txtContactName
+
+If fR.chkReset Then
+  Me.RecordSource = "dbo.mlvCompany"
+Else
+  sSQL = "select * from dbo.mlvCompany mc where mc.CompID IN (select fkCompID from dbo.mlvContact "
+  sSQL = sSQL & "where ContactName like "
+  Select Case fR.fraMatch
+    Case 1 'match whole name
+      sSQL = sSQL & "'" & sName & "'"
+    Case 2 'match start of name
+      sSQL = sSQL & "'" & sName & "%'"
+    Case 3 'match end of name
+      sSQL = sSQL & "'%" & sName & "'"
+    Case 4 'match any part of name
+      sSQL = sSQL & "'%" & sName & "%'"
+  End Select
+  sSQL = sSQL & ")"
+  OpenWaitForm "Searching for contact name..."
+  Me.RecordSource = sSQL
+  CloseWaitForm
+End If
+
+Exit Function
+FindContact_Err:
+Select Case Err
+  Case 2757 'problem accessing control or prop
+    CloseWaitForm
+    MsgBox "The name you entered along with the match type took longer than expected to process.  Try searching with a more limited match type or longer name.  If you keep getting this error, contact BLI.", vbExclamation
+  Case Else
+    ErrHand Me.Name, "FindContact"
+End Select
+Exit Function
+End Function
+
+Private Sub Form_Open(Cancel As Integer)
+If cnStandalone Then
+  Cancel = True
+  MsgBox "This feature is not supported in the standalone version.", vbExclamation
+End If
+End Sub

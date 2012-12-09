@@ -1,0 +1,114 @@
+Version =19
+VersionRequired =19
+Checksum =-1067968834
+Begin Form
+    AllowDeletions = NotDefault
+    AllowAdditions = NotDefault
+    AllowUpdating =4
+    ScrollBars =2
+    ViewsAllowed =1
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =12
+    Width =3480
+    DatasheetFontHeight =10
+    ItemSuffix =14
+    Left =1065
+    Top =2085
+    Right =5175
+    Bottom =4815
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x89c4c8bbbadfe140
+    End
+    RecordSource ="Tbl_Ship_Via"
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Label
+            BackStyle =0
+        End
+        Begin TextBox
+            SpecialEffect =2
+            OldBorderStyle =0
+        End
+        Begin ComboBox
+            SpecialEffect =2
+        End
+        Begin FormHeader
+            Height =240
+            BackColor =-2147483633
+            Name ="FormHeader"
+            GUID = Begin
+                0x7e5053bf89ce2049b2c7ed9d66bd315f
+            End
+            Begin
+                Begin Label
+                    OverlapFlags =93
+                    Width =840
+                    Height =240
+                    Name ="Label12"
+                    Caption ="State"
+                    GUID = Begin
+                        0xa02ce3e44644e0458417915567ec0dc8
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    Left =840
+                    Width =1920
+                    Height =240
+                    Name ="Label13"
+                    Caption ="Ship Via"
+                    GUID = Begin
+                        0xf400bfc438a87a48b8fc93bfb6f215f8
+                    End
+                End
+            End
+        End
+        Begin Section
+            Height =240
+            BackColor =-2147483633
+            Name ="Detail"
+            Begin
+                Begin TextBox
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =93
+                    Width =840
+                    BackColor =-2147483633
+                    Name ="State"
+                    ControlSource ="State"
+                    GUID = Begin
+                        0xfcfe49aef96226439452e9c051bfcd74
+                    End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =87
+                    Left =840
+                    Width =2640
+                    TabIndex =1
+                    ColumnInfo ="\"\";\"\";\"10\";\"100\""
+                    GUID = Begin
+                        0x84a1da2d06a5e744871408e17349eacd
+                    End
+                    Name ="Ship_via"
+                    ControlSource ="Ship_via"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT tlkuShipVia.ShipViaName FROM tlkuShipVia ORDER BY tlkuShipVia.ShipViaName"
+                End
+            End
+        End
+        Begin FormFooter
+            Height =0
+            BackColor =-2147483633
+            Name ="FormFooter"
+            GUID = Begin
+                0x92fd858c12dc454b819c856f72ce3586
+            End
+        End
+    End
+End

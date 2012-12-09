@@ -1,0 +1,95 @@
+' ----------------------------------------------------------------------------
+' modCommonRptCode.bas
+' Common report code shared accross all BLI programmed databases
+'
+' Created 9/25/00 by mpg@bli
+'
+'
+' ----------------------------------------------------------------------------
+Option Compare Database
+Option Explicit
+
+Private mCol As Collection
+Private Const mstrModName = "modCommonRptCode"
+
+Public Function PrintReport()
+On Error Resume Next
+
+  Dim rpt As Report
+  Set rpt = Screen.ActiveReport
+  DoCmd.SelectObject acReport, rpt.Name
+  DoCmd.RunCommand acCmdPrint
+
+End Function
+
+Public Function FormatFromTo(datFrom As Variant, datTo As Variant) As String
+On Error GoTo errHandler
+
+  If IsNull(datFrom) And IsNull(datTo) Then
+    FormatFromTo = ""
+  ElseIf IsNull(datFrom) Then
+    FormatFromTo = "To " & Format$(datTo, "Short Date")
+  ElseIf IsNull(datTo) Then
+    FormatFromTo = "From " & Format$(datFrom, "Short Date")
+  Else
+    FormatFromTo = "From " & Format$(datFrom, "Short Date") & " to " & Format$(datTo, "Short Date")
+  End If
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "FormatFromTo"
+Exit Function
+End Function
+
+Public Function FromToDateCriteria(datFrom As Variant, datTo As Variant) As String
+On Error GoTo errHandler
+
+  If IsNull(datFrom) And IsNull(datTo) Then
+    FromToDateCriteria = " Like '%'"
+  ElseIf IsNull(datFrom) Then
+    FromToDateCriteria = "< '" & Format$(datTo, "Short Date") & "'"
+  ElseIf IsNull(datTo) Then
+    FromToDateCriteria = "> '" & Format$(datFrom, "Short Date") & "'"
+  Else
+    FromToDateCriteria = "Between '" & Format$(datFrom, "Short Date") & "' AND '" & Format$(datTo, "Short Date") & "'"
+  End If
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "FormatFromTo"
+Exit Function
+End Function
+
+Public Function GetSPVar(pstrName As String) As Variant
+On Error GoTo errHandler
+
+  GetSPVar = Null
+  
+  If mCol Is Nothing Then Exit Function
+  
+  On Error Resume Next
+  GetSPVar = mCol(pstrName)
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "GetSPVar"
+Exit Function
+End Function
+
+Public Function SetSPVar(pstrName As String, pstrValue As Variant)
+On Error GoTo errHandler
+
+  If mCol Is Nothing Then Set mCol = New Collection
+  
+  On Error Resume Next
+  mCol.Item(pstrName) = pstrValue
+  If Err Then
+    mCol.Remove pstrName
+    mCol.Add pstrValue, pstrName
+  End If
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "SetSPVar"
+Exit Function
+End Function

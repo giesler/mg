@@ -1,0 +1,610 @@
+Version =19
+VersionRequired =19
+Checksum =625178562
+Begin Report
+    LayoutForPrint = NotDefault
+    AllowUpdating =4
+    DateGrouping =1
+    GridX =24
+    GridY =24
+    Width =11460
+    ItemSuffix =32
+    Left =4140
+    Top =2100
+    Right =12135
+    Bottom =7170
+    OnNoData ="[Event Procedure]"
+    ShortcutMenuBar ="FCReportShortcutBar"
+    Toolbar ="FCReportToolBar"
+    RecSrcDt = Begin
+        0xeabd321c75fee140
+    End
+    InputParameters ="GetSPVar(\"FromDate\"), GetSPVar(\"ToDate\"), GetSPVar(\"ActiveInactive\"), GetS"
+        "PVar(\"DealerName\"), GetSPVar(\"CompanyName\"), GetSPVar(\"ResponseMethod\"), G"
+        "etSPVar(\"LeadType\")"
+    RecordSource ="dbo.ldsprptLeadsReports"
+    Caption ="Leads: Results by Phone"
+    OnOpen ="[Event Procedure]"
+    MenuBar ="FCReportMenuBar"
+    PrtMip = Begin
+        0x6801000068010000680100008802000000000000872c0000df01000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6368656573655c4570736f6e205374796c757320434f4c4f522036303000 ,
+        0x010400059c00880243ef800701000100ea0a6f08640001000f00680102000100 ,
+        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000002000000 ,
+        0x0200000001000000300100000000000000000000000000000000000044494e55 ,
+        0x220000003002580053ab1e3f0000000000000000000000000100000000000000 ,
+        0x0000000000000000080000000100000001000000000002000000040000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x000000000000000000000000580000004f535045414182820200000000000000 ,
+        0x0100000000000000000000000000000000000000010000000000000004000000 ,
+        0x000000000000000000000000000000006a000000000000000300000001000000 ,
+        0x0f000000
+    End
+    PrtDevNames = Begin
+        0x080011003900010077696e73706f6f6c005c5c6368656573655c4570736f6e20 ,
+        0x5374796c757320434f4c4f5220363030204553432f502032004c5054313a0000 ,
+        0x000000000000000000000000000000
+    End
+    Begin
+        Begin Label
+            TextFontFamily =18
+            FontSize =10
+            FontWeight =700
+            FontName ="Times New Roman"
+        End
+        Begin BoundObjectFrame
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+        End
+        Begin TextBox
+            AutoLabel = NotDefault
+            OldBorderStyle =0
+            TextFontFamily =18
+            Height =300
+            FontSize =10
+            FontName ="Times New Roman"
+        End
+        Begin ListBox
+            TextFontFamily =2
+            FontName ="Arial"
+        End
+        Begin BreakLevel
+            GroupHeader = NotDefault
+            GroupFooter = NotDefault
+            ControlSource ="areaCode"
+        End
+        Begin BreakLevel
+            ControlSource ="CompanyName"
+        End
+        Begin FormHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportHeader3"
+            GUID = Begin
+                0x75d604e92849d311bb05004033532b7f
+            End
+        End
+        Begin PageHeader
+            Name ="PageHeader0"
+            GUID = Begin
+                0x76d604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Label
+                    TextFontFamily =34
+                    Left =1680
+                    Top =720
+                    Width =1440
+                    Height =240
+                    FontSize =9
+                    Name ="Text5"
+                    Caption ="Company Name"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x77d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3240
+                    Top =720
+                    Width =1200
+                    Height =240
+                    FontSize =9
+                    Name ="Text7"
+                    Caption ="Date of Lead"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x78d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =4920
+                    Top =720
+                    Width =840
+                    Height =240
+                    FontSize =9
+                    Name ="Text9"
+                    Caption ="Contact"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x79d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =6960
+                    Top =720
+                    Width =405
+                    Height =240
+                    FontSize =9
+                    Name ="Text11"
+                    Caption ="City"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7ad604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Top =720
+                    Width =720
+                    Height =240
+                    FontSize =9
+                    Name ="Text13"
+                    Caption ="Phone"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7bd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =8160
+                    Top =720
+                    Width =720
+                    Height =240
+                    FontSize =9
+                    Name ="Text15"
+                    Caption ="Result"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7cd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =600
+                    Width =11400
+                    Name ="Line21"
+                    GUID = Begin
+                        0x7dd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =600
+                    Width =11400
+                    Name ="Line22"
+                    GUID = Begin
+                        0x7ed604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =960
+                    Width =11400
+                    Name ="Line23"
+                    GUID = Begin
+                        0x7fd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Top =960
+                    Width =11400
+                    Name ="Line24"
+                    GUID = Begin
+                        0x80d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =1200
+                    Top =1080
+                    Width =1560
+                    FontSize =9
+                    FontWeight =700
+                    Name ="AreaC"
+                    ControlSource ="areaCode"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x81d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Top =1080
+                    Width =1095
+                    Height =270
+                    FontSize =9
+                    Name ="Text30"
+                    Caption ="Area Code: "
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x82d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    BackStyle =0
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8040
+                    Top =360
+                    Width =3360
+                    Height =285
+                    FontSize =9
+                    FontWeight =400
+                    Name ="Text29"
+                    Caption ="Sorted by Phone"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x84d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =60
+                    Width =11400
+                    Height =360
+                    FontSize =11
+                    Name ="lblHeading"
+                    Caption ="Leads Program Results"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x85d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Top =360
+                    Width =8040
+                    Height =240
+                    FontSize =9
+                    FontWeight =400
+                    Name ="lblCriteria"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xad61007320c584438af13ba9e4be9146
+                    End
+                End
+            End
+        End
+        Begin BreakHeader
+            KeepTogether = NotDefault
+            Height =0
+            Name ="GroupHeader0"
+            GUID = Begin
+                0x86d604e92849d311bb05004033532b7f
+            End
+        End
+        Begin Section
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            Height =480
+            Name ="Detail1"
+            GUID = Begin
+                0x87d604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =1680
+                    Width =2040
+                    Height =240
+                    FontSize =8
+                    Name ="Company Name"
+                    ControlSource ="CompanyName"
+                    FontName ="Arial"
+                    EventProcPrefix ="Company_Name"
+                    GUID = Begin
+                        0x88d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =3240
+                    Width =1200
+                    Height =240
+                    FontSize =8
+                    TabIndex =1
+                    Name ="Date of Lead"
+                    ControlSource ="LeadDate"
+                    FontName ="Arial"
+                    EventProcPrefix ="Date_of_Lead"
+                    GUID = Begin
+                        0x89d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =4920
+                    Width =2040
+                    Height =240
+                    FontSize =8
+                    TabIndex =2
+                    Name ="Contact"
+                    ControlSource ="Contact"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x8ad604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Left =6960
+                    Width =1200
+                    Height =240
+                    FontSize =8
+                    TabIndex =3
+                    Name ="City"
+                    ControlSource ="City"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x8bd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    TextFontFamily =34
+                    Width =1680
+                    Height =240
+                    FontSize =8
+                    TabIndex =4
+                    Name ="Phone"
+                    ControlSource ="Phone"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x8cd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextFontFamily =34
+                    Left =8160
+                    Width =3240
+                    Height =240
+                    FontSize =8
+                    TabIndex =5
+                    Name ="Result"
+                    ControlSource ="Result"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x8dd604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Line
+                    Width =11400
+                    Name ="Line31"
+                    GUID = Begin
+                        0x8ed604e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin BreakFooter
+            KeepTogether = NotDefault
+            CanGrow = NotDefault
+            ForceNewPage =2
+            Height =360
+            Name ="GroupFooter0"
+            GUID = Begin
+                0x8fd604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin TextBox
+                    CanGrow = NotDefault
+                    CanShrink = NotDefault
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =10560
+                    Top =120
+                    Width =780
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    Name ="Text33"
+                    ControlSource ="=Count([LeadID])"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xde1cf1a54c4c0c438d23699b43c8be72
+                    End
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =6540
+                    Top =120
+                    Width =3900
+                    Height =240
+                    FontSize =8
+                    FontWeight =700
+                    TabIndex =1
+                    Name ="txtDealerName"
+                    ControlSource ="=[AreaCode] & \" Leads: \""
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x3cb5a8ba21061c4da15d7f8e7bb977f5
+                    End
+                End
+                Begin Line
+                    Left =6540
+                    Top =60
+                    Width =4800
+                    Name ="Line34"
+                    GUID = Begin
+                        0xf2e034ee83f78241913ee7e46cea74f2
+                    End
+                End
+            End
+        End
+        Begin PageFooter
+            Height =360
+            Name ="PageFooter2"
+            GUID = Begin
+                0x90d604e92849d311bb05004033532b7f
+            End
+            Begin
+                Begin Line
+                    Top =120
+                    Width =11400
+                    Name ="Line26"
+                    GUID = Begin
+                        0x92d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextFontFamily =34
+                    Top =120
+                    Width =1920
+                    Height =240
+                    FontSize =8
+                    Name ="Text27"
+                    Caption ="RPS Corporation"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x93d604e92849d311bb05004033532b7f
+                    End
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =8160
+                    Top =120
+                    Width =3240
+                    Height =240
+                    FontSize =8
+                    Name ="Field28"
+                    ControlSource ="=\"Printed \" & Date()"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x94d604e92849d311bb05004033532b7f
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            KeepTogether = NotDefault
+            Height =0
+            Name ="ReportFooter4"
+            GUID = Begin
+                0x95d604e92849d311bb05004033532b7f
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database   'Use database order for string comparisons
+Option Explicit
+
+Private Sub Report_NoData(Cancel As Integer)
+
+  MsgBox "The criteria you specified did not find any leads.", vbExclamation
+  Cancel = True
+  Exit Sub
+  
+End Sub
+
+Private Sub Report_Open(Cancel As Integer)
+On Error GoTo errHandler
+
+  Dim fR As New Form_ldfrptLeadReport
+  If mbTomCat Then
+    Me.Caption = "TC Leads: Results by Phone"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 1) ORDER BY DealerName"
+    Me.lblHeading.Caption = "Tom Cat " & Me.lblHeading.Caption
+    SetSPVar "LeadType", 2
+  ElseIf mbFCPurchased Then
+    Me.Caption = "Pur Leads: Results by Phone"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) ORDER BY DealerName"
+    Me.lblHeading.Caption = "Purchased " & Me.lblHeading.Caption
+    SetSPVar "LeadType", 1
+  Else
+    Me.Caption = "FC Leads: Results by Phone"
+    fR.comDealerName.RowSource = "SELECT DealerName FROM dbo.tblAllDealers WHERE (CurrentDealer = 1) AND (DealerType = 0) ORDER BY DealerName"
+    Me.lblHeading.Caption = "Factory Cat " & Me.lblHeading.Caption
+    SetSPVar "LeadType", 0
+  End If
+  fR.chkPageBreak.Visible = False
+  fR.Caption = Me.Caption
+  fR.Visible = True
+  Pause fR
+  If fR.blnCancel Then
+    Cancel = True
+    Set fR = Nothing
+    Exit Sub
+  End If
+  
+  SetSPVar "FromDate", fR.datFrom
+  SetSPVar "ToDate", fR.datTo
+  SetSPVar "ActiveInactive", fR.txtActiveInactive
+  SetSPVar "DealerName", fR.comDealerName
+  SetSPVar "CompanyName", fR.txtCompanyName
+  SetSPVar "ResponseMethod", fR.txtResponseMethod
+  
+  Dim strCriteria As String
+  
+  strCriteria = FormatFromTo(fR.datFrom, fR.datTo)
+  If fR.comDealerName <> "" Then
+    If strCriteria <> "" Then strCriteria = strCriteria & ", "
+    strCriteria = strCriteria & "Dealer = " & fR.comDealerName
+  End If
+  If fR.txtActiveInactive <> "" Then
+    If strCriteria <> "" Then strCriteria = strCriteria & ", "
+    If fR.txtActiveInactive = "I" Then
+      strCriteria = strCriteria & "Inactive Leads"
+    Else
+      strCriteria = strCriteria & "Active Leads"
+    End If
+  End If
+  If fR.txtResponseMethod <> "" Then
+    If strCriteria <> "" Then strCriteria = strCriteria & ", "
+    strCriteria = strCriteria & "Response Method = " & fR.txtResponseMethod
+  End If
+  Me.lblCriteria.Caption = strCriteria
+  
+  Set fR = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "Report_Open"
+Exit Sub
+End Sub

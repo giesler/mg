@@ -1,0 +1,541 @@
+Option Compare Database
+Option Explicit
+
+Public Declare Function GetUserName Lib "advapi32.dll" Alias "GetUserNameA" _
+ (ByVal lpBuffer As String, nSize As Long) As Long
+
+Public lngDebugMsg As Long
+
+'BASIC FUNCTIONS
+'(c)1999 BLI Computers, Inc.
+' http://www.blicomputers.com
+' database@blicomputers.com
+'
+' Version 2.0
+
+Public Function OpenWaitForm(strStatus As String)
+On Error GoTo OpenWaitForm_Err
+
+DoCmd.OpenForm "fdlgStatus"
+Forms![fdlgStatus]![lblStatus].Caption = strStatus
+DoCmd.RepaintObject acForm, "fdlgStatus"
+
+Exit Function
+OpenWaitForm_Err:
+ErrHand "modBasicFunctions", "OpenWaitForm"
+Exit Function
+
+End Function
+
+Public Function CloseWaitForm()
+On Error Resume Next
+
+DoCmd.Close acForm, "fdlgStatus"
+
+End Function
+
+Public Function OpenStatusForm(strStatus As String, numSteps As Integer)
+On Error GoTo OpenStatusForm_Err
+
+DoCmd.OpenForm "fdlgStatusBar"
+Forms![fdlgStatusBar]![lblStatus].Caption = strStatus
+Forms!fdlgStatusBar!lblPercent.Caption = "1 %"
+intStatusSteps = numSteps
+Forms![fdlgStatusBar]![boxStatus].Width = 0
+DoCmd.RepaintObject acForm, "fdlgStatusBar"
+
+Exit Function
+OpenStatusForm_Err:
+ErrHand "modBasicFunctions", "OpenStatusForm"
+Exit Function
+
+End Function
+
+Public Function UpdateStatusForm(curStep As Integer, Optional strStatus As String)
+On Error GoTo UpdateStatusForm_Err
+
+If strStatus <> "" Then
+    Forms![fdlgStatusBar]![lblStatus].Caption = strStatus
+End If
+
+
+Forms![fdlgStatusBar]![boxStatus].Width = (curStep / intStatusSteps) * Forms![fdlgStatusBar]![boxBack].Width
+Forms!fdlgStatusBar!lblPercent.Caption = CStr(CInt(curStep / intStatusSteps * 100)) & " %"
+DoCmd.RepaintObject acForm, "fdlgStatusBar"
+DoEvents
+DoCmd.RepaintObject acForm, "fdlgStatusBar"
+Forms("fdlgStatusBar").SetFocus
+DoEvents
+DoCmd.RepaintObject acForm, "fdlgStatusBar"
+
+Exit Function
+UpdateStatusForm_Err:
+ErrHand "modBasicFunctions", "UpdateStatusForm"
+Exit Function
+
+End Function
+
+Public Function CloseStatusForm()
+On Error Resume Next
+
+DoCmd.Close acForm, "fdlgStatusBar"
+
+End Function
+
+Public Function ErrHand(Optional strLocation As String, Optional strFunction As String)
+
+Select Case Err
+  Case 2100           ' on resize, control is too large for location
+'   msgBox "Resizing the screen is not recommended with the database open to anything but the main menu." & vbLf & "To get it to size right, switch to the main menu and go back to the current form.", vbExclamation
+    On Error Resume Next
+    Screen.ActiveForm.Repaint
+  Case Else
+    Dim f As New Form_fdlgErrHand, sADO As String, eADO As Error
+    f.lblErrNumber.Caption = Err
+    f.lblErrorInfo.Caption = Err.Description
+    f.lblLocation.Caption = strLocation
+    f.lblFunction.Caption = strFunction
+    f.txtADOErrorCollection = "{empty}"
+    For Each eADO In CurrentProject.Connection.Errors
+      sADO = sADO & eADO.Number & ": " & eADO.Source & ", " & eADO.Description & vbCrLf
+    Next eADO
+    If sADO = "" Then sADO = "There were no ADO errors associated with this error."
+    f.txtADOErrorCollection = sADO
+    CloseWaitForm
+    Pause f
+End Select
+    
+End Function
+
+Public Function GetDBDate() As String
+On Error Resume Next
+GetDBDate = "November 15, 1997"
+GetDBDate = Format$(cnVersionDate, "mmm d, yyyy")
+End Function
+
+Public Function GetDBVersion() As String
+On Error Resume Next
+
+If cnVersionMinor <> 0 Then
+    GetDBVersion = Format$(cnVersionMajor, "0.00") & "." & Format$(cnVersionMinor, "9900")
+Else
+    GetDBVersion = Format$(cnVersionMajor, "0.00")
+End If
+
+End Function
+
+Public Function GetBuild() As Long
+On Error Resume Next
+GetBuild = cnVersionBuild
+End Function
+
+Public Function GetMajorDBVersion() As String
+On Error Resume Next
+GetMajorDBVersion = ""
+GetMajorDBVersion = Format$(cnVersionMajor, "0.00")
+End Function
+
+Public Function GetDBDir() As String
+On Error Resume Next
+
+Dim strDbName As String
+strDbName = CurrentProject.FullName
+
+Do While Right$(strDbName, 1) <> "\"
+    strDbName = Left$(strDbName, Len(strDbName) - 1)
+Loop
+
+GetDBDir = UCase$(strDbName)
+
+End Function
+
+Public Function CurUserID() As Long
+On Error GoTo CurUserID_Err
+
+If glCurUserID = 0 Then
+    DoCmd.OpenForm "fdlgLogin", , , , , acDialog
+End If
+
+CurUserID = glCurUserID
+
+Exit Function
+CurUserID_Err:
+Select Case Err
+    Case 2486       'can't carry out action now - can't log in [must be opening a form
+        Exit Function
+    Case Else
+        ErrHand "modBasicFunctions", "CurUserID"
+        Exit Function
+End Select
+
+End Function
+
+
+Public Function OpenFind(Optional txtField As Variant, Optional txtMatch As Variant)
+On Error Resume Next
+
+DoCmd.Close acForm, "fdlgFind"
+DoCmd.OpenForm "fdlgFind"
+
+If Not IsMissing(txtMatch) Then
+    Select Case txtMatch
+        Case "Whole"
+            Forms!fdlgFind!comMatch = "Whole Field"
+        Case "Any"
+            Forms!fdlgFind!comMatch = "Any Part of Field"
+        Case "Start"
+            Forms!fdlgFind!comMatch = "Start of Field"
+        Case "End"
+            Forms!fdlgFind!comMatch = "End of Field"
+        Case Else
+            MsgBox "The match setting '" & txtMatch & "' was not recognized by OpenFind.", vbExclamation
+    End Select
+End If
+
+If Not IsMissing(txtField) Then
+    Forms!fdlgFind.Caption = "Find " & txtField
+End If
+
+End Function
+
+Public Function CloseFind()
+DoCmd.Close acForm, "fdlgFind"
+End Function
+
+Public Function CloseForm()
+DoCmd.Close
+End Function
+
+Public Function fRecNav(strMoveTo As String)
+On Error GoTo fRecNav_Err
+
+Select Case strMoveTo
+    Case "first"
+        DoCmd.GoToRecord , , acFirst
+    Case "prev", "previous"
+        DoCmd.GoToRecord , , acPrevious
+    Case "next"
+        DoCmd.GoToRecord , , acNext
+    Case "last"
+        DoCmd.GoToRecord , , acLast
+    Case "new"
+        DoCmd.GoToRecord , , acNewRec
+    Case "showall", "show all"
+        Screen.ActiveForm.Filter = ""
+        Screen.ActiveForm.FilterOn = False
+        Screen.ActiveForm.ServerFilter = ""
+        Screen.ActiveForm.Requery
+        On Error Resume Next
+        Screen.ActiveForm!cmdNew.SetFocus
+        If Screen.ActiveForm.Controls("cmdShowAll").Visible = True Then
+            Screen.ActiveForm.Controls("cmdShowAll").Visible = False
+        End If
+    Case Else
+        MsgBox "The record movement command '" & strMoveTo & "' given in the function call was not recognized.", vbCritical
+End Select
+
+Exit Function
+
+fRecNav_Err:
+Select Case Err
+    Case 2105
+        Select Case strMoveTo
+            Case "next": Case "last"
+                MsgBox "You're at the last record.", vbExclamation
+            Case Else
+                MsgBox "You're at the first record.", vbExclamation
+        End Select
+    Case Else
+        ErrHand "modBasicFunctions", "fRecNav"
+End Select
+Exit Function
+Exit Function
+
+End Function
+
+
+Public Function RemovePunc(strIn As String) As String
+
+Dim i As Integer, strOut As String
+
+For i = 1 To Len(strIn)
+    If Mid$(strIn, i, 1) <> "'" Then
+        strOut = strOut & Mid$(strIn, i, 1)
+    End If
+Next i
+
+RemovePunc = strOut
+
+End Function
+
+Function FileExists(ByVal strPathName As String) As Boolean
+On Error GoTo FileExists_Err
+
+Dim intFileNum As Integer
+
+'Remove any trailing directory separator character
+If Right$(strPathName, 1) = "\" Then
+    strPathName = Left$(strPathName, Len(strPathName) - 1)
+End If
+
+'Attempt to open the file, return value of this function is False
+'if an error occurs on open, True otherwise
+intFileNum = FreeFile
+Open strPathName For Input As intFileNum
+
+FileExists = IIf(Err, False, True)
+
+Close intFileNum
+
+Err = 0
+Exit Function
+
+FileExists_Err:
+Select Case Err
+    Case 53         'file not found/dne
+        FileExists = False
+        Exit Function
+    Case Else
+        FileExists = False
+        Exit Function
+End Select
+
+End Function
+
+
+Public Function CloseCurReport()
+On Error Resume Next
+
+DoCmd.Close acReport, Screen.ActiveReport.Name
+
+End Function
+
+Public Function PrintReport()
+On Error Resume Next
+DoCmd.RunCommand acCmdPrint
+
+End Function
+
+
+Public Function Pause(f As Form)
+On Error Resume Next
+
+f.Visible = True
+While f.Visible
+    DoEvents
+Wend
+
+End Function
+
+
+
+
+Public Function GetDBName() As String
+
+GetDBName = CurrentProject.Name
+
+End Function
+
+Public Function SysDir() As String
+
+Dim stemp As String, nret As Long
+stemp = String$(255, 0)
+nret = GetSystemDirectory(stemp, 255)
+SysDir = Left$(stemp, nret)
+
+End Function
+
+
+
+Public Function GetScreenRes() As String
+On Error GoTo GetScreenRes_Err
+
+Dim r As Rect, hWnd As Long, RetVal As Long
+
+hWnd = GetDesktopWindow()
+RetVal = GetWindowRect(hWnd, r)
+GetScreenRes = (r.x2 - r.x1) & "x" & (r.y2 - r.y1)
+Exit Function
+
+GetScreenRes_Err:
+Select Case Err
+    Case Else
+        ErrHand "modScreenSize", "GetScreenRes"
+        Exit Function
+End Select
+
+End Function
+
+Public Function GetWindowHeight() As Integer
+
+Dim r As Rect, hWnd As Long, RetVal As Long
+
+hWnd = GetActiveWindow()
+RetVal = GetWindowRect(hWnd, r)
+GetWindowHeight = (r.y2 - r.y1)
+
+
+End Function
+
+Public Function GetScreenHeight() As Integer
+
+Dim r As Rect, hWnd As Long, RetVal As Long
+
+hWnd = GetDesktopWindow()
+RetVal = GetWindowRect(hWnd, r)
+GetScreenHeight = (r.y2 - r.y1)
+
+
+End Function
+
+
+Public Function CutStringAtEnter(sIn As String) As String
+
+If InStr(sIn, vbCrLf) Then
+  CutStringAtEnter = Left(sIn, InStr(sIn, vbCrLf) - 1)
+Else
+  CutStringAtEnter = sIn
+End If
+
+End Function
+
+Public Function FormatFromTo(datFrom As Variant, datTo As Variant) As String
+
+If IsNull(datFrom) And IsNull(datTo) Then
+    FormatFromTo = ""
+ElseIf IsNull(datFrom) Then
+    FormatFromTo = "To " & Format$(datTo, "Short Date")
+ElseIf IsNull(datTo) Then
+    FormatFromTo = "From " & Format$(datFrom, "Short Date")
+Else
+    FormatFromTo = "From " & Format$(datFrom, "Short Date") & " to " & Format$(datTo, "Short Date")
+End If
+
+End Function
+
+
+
+Public Function FromToDateCriteria(datFrom As Variant, datTo As Variant) As String
+
+If IsNull(datFrom) And IsNull(datTo) Then
+    FromToDateCriteria = " Like %"
+ElseIf IsNull(datFrom) Then
+    FromToDateCriteria = "< '" & Format$(datTo, "Short Date") & "'"
+ElseIf IsNull(datTo) Then
+    FromToDateCriteria = "> '" & Format$(datFrom, "Short Date") & "'"
+Else
+    FromToDateCriteria = "Between '" & Format$(datFrom, "Short Date") & "' AND '" & Format$(datTo, "Short Date") & "'"
+End If
+
+End Function
+
+Public Function GetNTUserName() As String
+
+' Dimension variables
+Dim lpBuff As String * 25
+Dim ret As Long, UserName As String
+
+' Get the user name minus any trailing spaces found in the name.
+ret = GetUserName(lpBuff, 25)
+GetNTUserName = Left(lpBuff, InStr(lpBuff, Chr(0)) - 1)
+
+End Function
+
+
+Public Function SwapDebugFlag()
+
+If flgDebug Then
+  If MsgBox("Turn off debug flag?", vbQuestion + vbYesNo) = vbYes Then flgDebug = False
+Else
+  If MsgBox("Turn on debug flag?", vbQuestion + vbYesNo) = vbYes Then flgDebug = True
+End If
+
+End Function
+
+Public Function PrintAscii(iLow As Integer, iHigh As Integer)
+
+Dim i As Integer, str As String
+For i = iLow To iHigh
+  str = str & Chr(i) & " "
+  If i Mod 20 = 0 Then
+    Debug.Print str
+    str = ""
+  End If
+Next i
+Debug.Print str
+
+End Function
+
+Public Function CDateToStr(datIn As Variant) As String
+On Error GoTo CDateToStr_Err
+
+If IsNull(datIn) Then
+  datIn = #1/1/1990#
+ElseIf datIn = "" Then
+  datIn = #1/1/1990#
+End If
+
+CDateToStr = Format(year(datIn), "0000") & Format(month(datIn), "00") & Format(Day(datIn), "00")
+
+Exit Function
+CDateToStr_Err:
+ErrHand "modBF", "CDateToStr"
+Exit Function
+End Function
+
+Public Function GetLaborRate() As Currency
+On Error GoTo GetLaborRate_Err
+
+Dim r As New Recordset, s As String
+s = "SELECT PropertyValue FROM tblDBProperties WHERE PropertyName = 'LaborRate'"
+r.Open s, CurrentProject.Connection, adOpenStatic, adLockReadOnly
+If r.EOF Then
+  GetLaborRate = 87.5
+Else
+  GetLaborRate = r.Fields(0)
+End If
+r.Close
+
+Exit Function
+GetLaborRate_Err:
+ErrHand "modBasicFuntions", "GetLaborRate"
+Exit Function
+End Function
+
+Public Function GetTaxRate() As Double
+On Error GoTo GetTaxRate_Err
+
+Dim r As New Recordset, s As String
+s = "SELECT PropertyValue FROM tblDBProperties WHERE PropertyName = 'TaxRate'"
+r.Open s, CurrentProject.Connection, adOpenStatic, adLockReadOnly
+If r.EOF Then
+  GetTaxRate = 5.1
+Else
+  GetTaxRate = r.Fields(0)
+End If
+r.Close
+
+Exit Function
+GetTaxRate_Err:
+ErrHand "modBasicFuntions", "GetTaxRate"
+Exit Function
+End Function
+
+Public Function GetCostMarkup() As Double
+On Error GoTo GetCostMarkup_Err
+
+Dim r As New Recordset, s As String
+s = "SELECT PropertyValue FROM tblDBProperties WHERE PropertyName = 'CostMarkup'"
+r.Open s, CurrentProject.Connection, adOpenStatic, adLockReadOnly
+If r.EOF Then
+  GetCostMarkup = 25
+Else
+  GetCostMarkup = r.Fields(0)
+End If
+r.Close
+
+Exit Function
+GetCostMarkup_Err:
+ErrHand "modBasicFuntions", "GetCostMarkup"
+Exit Function
+End Function
