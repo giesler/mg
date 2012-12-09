@@ -14,13 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMServer", "XMServer.csproj
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = XMServer.csproj
-		SccProjectName0 = \u0022$/XMedia/XMServer\u0022,\u0020WAAAAAAA
-		SccLocalPath0 = .
-		SccProvider0 = MSSCCI:SourceSafe
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Release No-Service
 		ConfigName.1 = Release

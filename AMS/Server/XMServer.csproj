@@ -1,9 +1,6 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        SccProjectName = '"$/XMedia/XMServer", WAAAAAAA'
-        SccLocalPath = "."
-        SccProvider = "MSSCCI:SourceSafe"
     >
         <Build>
             <Settings
