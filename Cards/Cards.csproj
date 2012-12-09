@@ -1,0 +1,119 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        SccProjectName = '"$/Cards", GNDAAAAA'
+        SccLocalPath = "."
+        SccAuxPath = "\\cheese\vss"
+        SccProvider = "MSSCCI:SourceSafe"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                ApplicationRoot = "true"
+                AssemblyBuildNumber = "0"
+                AssemblyCompany = ""
+                AssemblyCopyright = ""
+                AssemblyDescription = ""
+                AssemblyKeyContainerName = ""
+                AssemblyMajorVersion = "1"
+                AssemblyMinorVersion = "0"
+                AssemblyName = "Cards"
+                AssemblyOriginatorKeyFile = ""
+                AssemblyOriginatorKeyMode = "None"
+                AssemblyProduct = ""
+                AssemblyRevisionNumber = "0"
+                AssemblyTitle = ""
+                AssemblyTrademark = ""
+                CLSCompliant = "true"
+                DefaultClientScript = "JScript"
+                DefaultDTCPlatform = "Server"
+                DefaultHTMLPageLayout = "Linear"
+                DefaultTargetSchema = "HTML32"
+                DefaultServerScript = "VBScript"
+                DefaultSessionState = "True"
+                GenerateRevisionNumber = "true"
+                NoStandardLibraries = "false"
+                OutputType = "WinExe"
+                OptionCompare = "Binary"
+                OptionExplicit = "On"
+                OptionStrict = "On"
+                _RootNamespace = "Cards"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "DEBUG;TRACE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "TRACE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference Name = "mscorlib" />
+                <Reference Name = "System" />
+                <Reference Name = "System.Drawing" />
+                <Reference Name = "System.WinForms" />
+                <Reference Name = "System.Diagnostics" />
+                <Reference Name = "System.Configuration" />
+                <Reference Name = "System.Data" />
+                <Reference Name = "Microsoft.Win32.Interop" />
+                <Reference Name = "System.Net" />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ping.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "sim.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Startup.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+
