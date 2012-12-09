@@ -3,6 +3,7 @@
         ProjectType = "Web"
         ProductVersion = "7.0.9254"
         SchemaVersion = "1.0"
+        ProjectGuid = "{82ECEEA9-A83F-4B7C-BFA0-1D5B48003775}"
     >
         <Build>
             <Settings
@@ -16,7 +17,7 @@
                 DelaySign = "false"
                 NoStandardLibraries = "true"
                 OutputType = "Library"
-                RootNamespace = ""
+                RootNamespace = "AMS_Admin"
                 StartupObject = ""
             >
                 <Config

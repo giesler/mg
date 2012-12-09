@@ -103,7 +103,7 @@ namespace AMS_Ads.request
 			if (AdType == 0) 
 			{
 				// image ad
-				strBodyContents = "<a href=\"" + ConfigurationSettings.AppSettings["strClickURL"] + AdID + "\">" 
+				strBodyContents = "<a href=\"" + ConfigurationSettings.AppSettings["strClickURL"] + AdID + "\" target=\"_new\">" 
 					+ "<img src=\"" + AdImageURL + "\" border=\"0\"></a>";
 			}
 			else if (AdType == 1)

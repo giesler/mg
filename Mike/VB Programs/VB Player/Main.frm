@@ -53,13 +53,13 @@ Begin VB.Form frmMain
       _Version        =   393216
       Style           =   1
       Tabs            =   5
+      Tab             =   2
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Queue"
       TabPicture(0)   =   "Main.frx":0442
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "lvQueue"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "All Songs"
       TabPicture(1)   =   "Main.frx":045E
@@ -68,24 +68,50 @@ Begin VB.Form frmMain
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":047A
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "lblFind"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "txtFind"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "cmdFind"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "lvFind"
-      Tab(2).ControlCount=   4
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "chkIncludeFN"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).ControlCount=   5
       TabCaption(3)   =   "Utilities"
       TabPicture(3)   =   "Main.frx":0496
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "cmdNewFileCheck"
-      Tab(3).Control(1)=   "Label4"
-      Tab(3).ControlCount=   2
+      Tab(3).Control(0)=   "cmdAddSong"
+      Tab(3).Control(1)=   "cmdNewFileCheck"
+      Tab(3).Control(2)=   "lvModifiedSongs"
+      Tab(3).Control(3)=   "Label10"
+      Tab(3).Control(4)=   "Label4"
+      Tab(3).ControlCount=   5
       TabCaption(4)   =   "Options"
       TabPicture(4)   =   "Main.frx":04B2
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "fraMainWindow"
-      Tab(4).Control(1)=   "fraSongBar"
+      Tab(4).Control(0)=   "fraSongBar"
+      Tab(4).Control(1)=   "fraMainWindow"
       Tab(4).ControlCount=   2
+      Begin VB.CheckBox chkIncludeFN 
+         Caption         =   "&Include file name and path in search"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   47
+         Top             =   840
+         Value           =   1  'Checked
+         Width           =   5535
+      End
+      Begin VB.CommandButton cmdAddSong 
+         Caption         =   "Add File"
+         Height          =   375
+         Left            =   -74640
+         TabIndex        =   45
+         Top             =   1080
+         Width           =   1095
+      End
       Begin VB.Frame fraSongBar 
          Caption         =   "Song Bar"
          Height          =   3615
@@ -250,7 +276,7 @@ Begin VB.Form frmMain
             _Version        =   327681
             Value           =   10
             BuddyControl    =   "txtQueueCount"
-            BuddyDispid     =   196625
+            BuddyDispid     =   196624
             OrigLeft        =   6720
             OrigTop         =   3720
             OrigRight       =   6960
@@ -303,13 +329,13 @@ Begin VB.Form frmMain
          Width           =   1095
       End
       Begin MSComctlLib.ListView lvFind 
-         Height          =   3015
-         Left            =   -74760
+         Height          =   2775
+         Left            =   240
          TabIndex        =   16
-         Top             =   960
+         Top             =   1200
          Width           =   7815
          _ExtentX        =   13785
-         _ExtentY        =   5318
+         _ExtentY        =   4895
          View            =   3
          LabelEdit       =   1
          MultiSelect     =   -1  'True
@@ -351,14 +377,14 @@ Begin VB.Form frmMain
       Begin VB.CommandButton cmdFind 
          Caption         =   "F&ind"
          Height          =   375
-         Left            =   -67800
+         Left            =   7200
          TabIndex        =   15
          Top             =   480
          Width           =   855
       End
       Begin VB.TextBox txtFind 
          Height          =   285
-         Left            =   -74160
+         Left            =   840
          TabIndex        =   14
          Top             =   480
          Width           =   6255
@@ -420,7 +446,7 @@ Begin VB.Form frmMain
       End
       Begin MSComctlLib.ListView lvQueue 
          Height          =   3615
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   10
          Top             =   480
          Width           =   7935
@@ -480,9 +506,63 @@ Begin VB.Form frmMain
             Object.Width           =   1764
          EndProperty
       End
+      Begin MSComctlLib.ListView lvModifiedSongs 
+         Height          =   1575
+         Left            =   -74760
+         TabIndex        =   44
+         Top             =   2520
+         Width           =   7815
+         _ExtentX        =   13785
+         _ExtentY        =   2778
+         View            =   3
+         LabelEdit       =   1
+         MultiSelect     =   -1  'True
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   5
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "ID"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Name"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Artist"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "Filename"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   4
+            Text            =   "Duration"
+            Object.Width           =   1411
+         EndProperty
+      End
+      Begin VB.Label Label10 
+         Caption         =   "Browse to find a single file to add to the song database"
+         Height          =   255
+         Left            =   -73320
+         TabIndex        =   46
+         Top             =   1200
+         Width           =   6375
+      End
       Begin VB.Label Label4 
          Caption         =   "Checks directory for new files not already in the song database."
-         Height          =   615
+         Height          =   255
          Left            =   -73320
          TabIndex        =   18
          Top             =   720
@@ -491,7 +571,7 @@ Begin VB.Form frmMain
       Begin VB.Label lblFind 
          Caption         =   "Find:"
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   13
          Top             =   480
          Width           =   495
@@ -909,6 +989,59 @@ Private Sub cmbSongBarTrans_Click()
 
 End Sub
 
+Private Sub cmdAddSong_Click()
+On Error GoTo 0
+
+    Dim rs As ADODB.Recordset, i As Integer, strSQL As String
+    Set rs = New ADODB.Recordset
+    gConn.Execute "delete from tempfilelist where userid = '" & GetNTUserName & "'"
+    rs.Open "select * from tempfilelist where userid = '" & GetNTUserName() & "'", gConn, adOpenDynamic, adLockOptimistic
+    
+    ' Open browse dialog
+    cdlg.DialogTitle = "Add a new audio file"
+    cdlg.InitDir = "\\sp\music"
+    cdlg.Flags = cdlOFNAllowMultiselect Or cdlOFNFileMustExist Or cdlOFNExplorer
+    cdlg.Filter = "Audio Files|*.mp3;*.wma;*.wav|All Files|*.*"
+    cdlg.FilterIndex = 0
+    cdlg.MaxFileSize = 10000
+    cdlg.ShowOpen
+    If cdlg.FileName = "" Then Exit Sub
+    
+    Dim arFiles() As String
+    arFiles = Split(cdlg.FileName, vbNullChar)
+    
+    ' check if multiple files selected
+    With rs
+        If UBound(arFiles) > 1 Then
+            For i = 1 To UBound(arFiles)
+                .AddNew
+                .Fields("Filename") = arFiles(0) & "\" & arFiles(i)
+                .Fields("UserID") = GetNTUserName
+                .Update
+            Next i
+        Else
+            .AddNew
+            .Fields("Filename") = cdlg.FileName
+            .Fields("UserID") = GetNTUserName
+            .Update
+        End If
+    End With
+    
+    rs.Close
+    strSQL = "select FileName, UserID from tempfilelist where userid = '" & GetNTUserName() & "' and filename not in (select filename from media) group by filename, userid"
+    rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    
+    AddSongs rs
+    
+    rs.Close
+    Set rs = Nothing
+    
+Exit Sub
+errHandler:
+ErrHand m_Module, "AddSong"
+Exit Sub
+End Sub
+
 Private Sub cmdFind_Click()
 On Error GoTo errHandler
 
@@ -928,7 +1061,11 @@ On Error GoTo errHandler
     
     ' find data
     Set rs = New ADODB.Recordset
-    strSQL = "select * from Media where Name like '%" & txtFind.Text & "%' or Artist like '%" & txtFind.Text & "%'"
+    If chkIncludeFN.Value = 1 Then
+        strSQL = "select * from Media where Name like '%" & txtFind.Text & "%' or Artist like '%" & txtFind.Text & "%' or Filename like '%" & txtFind.Text & "%'"
+    Else
+        strSQL = "select * from Media where Name like '%" & txtFind.Text & "%' or Artist like '%" & txtFind.Text & "%'"
+    End If
     rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
     
     Do While Not rs.EOF
@@ -937,7 +1074,7 @@ On Error GoTo errHandler
         li.SubItems(1) = rs.Fields("Name")
         li.SubItems(2) = Nz(rs.Fields("Artist"), "")
         li.SubItems(3) = rs.Fields("Filename")
-        li.SubItems(4) = rs.Fields("Duration")
+        li.SubItems(4) = FormatTime(rs.Fields("Duration"))
         li.Tag = rs.Fields("ID")
         
         rs.MoveNext
@@ -984,8 +1121,10 @@ End Sub
 Private Sub cmdNewFileCheck_Click()
 On Error GoTo errHandler
 
-    Dim fs As FileSystemObject, strRootPath As String, intCount As Long
+    Dim fs As FileSystemObject, strRootPath As String, intCount As Long, li As ListItem
     Dim fld As Folder, rs As ADODB.Recordset, rsAddList As ADODB.Recordset, strSQL As String
+    
+    lvModifiedSongs.ListItems.Clear
     
     strRootPath = InputBox("Enter the root path", "New File Check", "\\sp\music")
     
@@ -1004,15 +1143,34 @@ On Error GoTo errHandler
     Set fs = Nothing
     CloseStatus
     
+    ' open list of new songs
+    Set rsAddList = New ADODB.Recordset
+    strSQL = "select FileName, UserID from tempfilelist where userid = '" & GetNTUserName() & "' and filename not in (select filename from media) group by filename, userid"
+    rsAddList.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    
+    AddSongs rsAddList
+    
+    rsAddList.Close
+    Set rsAddList = Nothing
+    Set rs = Nothing
+
+Exit Sub
+errHandler:
+ErrHand m_Module, "NewFileCheck"
+Exit Sub
+End Sub
+
+Private Sub AddSongs(ByRef rsAddList As ADODB.Recordset)
+On Error GoTo errHandler
+
+    Dim rs As ADODB.Recordset, strSQL As String, intCount As Long, li As ListItem
+    Set rs = New ADODB.Recordset
+
     ' open query to determine new songs
     OpenStatus "Adding new songs..."
-    Set rsAddList = New ADODB.Recordset
-    strSQL = "select * from tempfilelist where filename not in (select filename from media)"
-    OpenStatus "Checking for new songs..."
-    rsAddList.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
     rs.Open "Media", gConn, adOpenKeyset, adLockOptimistic
     
-    Dim strName As String, strArtist As String, strFile As String
+    Dim strName As String, strArtist As String, strFile As String, strIDList
     Do While Not rsAddList.EOF
     
         strFile = rsAddList.Fields("Filename")
@@ -1036,37 +1194,57 @@ On Error GoTo errHandler
         wmp2.FileName = rsAddList.Fields("Filename")
                 
         ' Add to database
-        With rs
-            .AddNew
-            .Fields("Name") = strName
-            .Fields("Artist") = strArtist
-            .Fields("Filename") = rsAddList.Fields("Filename")
-            .Fields("Duration") = wmp2.Duration
-            .Update
-        End With
+        If wmp2.Duration > 0 Then
+            With rs
+                .AddNew
+                .Fields("Name") = strName
+                .Fields("Artist") = strArtist
+                .Fields("Filename") = rsAddList.Fields("Filename")
+                .Fields("Duration") = wmp2.Duration
+                .Update
+                If strIDList <> "" Then strIDList = strIDList & ", "
+                strIDList = strIDList & .Fields("ID")
+            End With
+            intCount = intCount + 1
+        End If
         
-        intCount = intCount + 1
         rsAddList.MoveNext
     Loop
+    rs.Close
+    
+    ' update list
+    If intCount > 0 Then
+        strSQL = "select * from media where id in (" & strIDList & ")"
+        rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+        Do While Not rs.EOF
+            
+            Set li = lvModifiedSongs.ListItems.Add(, , rs.Fields("ID"))
+            li.SubItems(1) = rs.Fields("Name")
+            li.SubItems(2) = Nz(rs.Fields("Artist"), "")
+            li.SubItems(3) = rs.Fields("Filename")
+            li.SubItems(4) = FormatTime(rs.Fields("Duration"))
+            li.Tag = rs.Fields("ID")
+            
+            rs.MoveNext
+        Loop
+    End If
+    
     CloseStatus
+    
     
     If intCount > 0 Then
         LoadFromDB
-        MsgBox "There were " & intCount & " song(s) added to the database.", vbInformation
+        MsgBox "There were " & intCount & " song(s) added to the database.  They are displayed in the list below the new files button.", vbInformation
     Else
         MsgBox "There were no new songs detected.", vbInformation
     End If
     
-    rsAddList.Close
-    rs.Close
-    Set rsAddList = Nothing
-    Set rs = Nothing
-
 Exit Sub
 errHandler:
-ErrHand m_Module, "NewFileCheck"
+ErrHand m_Module, "AddSongs"
 Exit Sub
 End Sub
+
 
 Private Sub cmdNext_Click()
 
@@ -1094,6 +1272,7 @@ Private Sub cmdStop_Click()
     End If
 
 End Sub
+
 
 Private Sub Form_Load()
 

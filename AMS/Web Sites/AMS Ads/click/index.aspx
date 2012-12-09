@@ -5,8 +5,11 @@
 		<title>AMS</title>
 	</head>
 	<body>
-		Now redirecting to
-		<%=TargetURL%>
-		...
+		<p>
+			Sorry, there was an error processing your request.
+		</p>
+		<p>
+			<a href="http://www.adultmediaswapper.com/">AMS Home</a>
+		</p>
 	</body>
 </html>

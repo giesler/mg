@@ -70,6 +70,9 @@ namespace AMS_Ads.click
 			dr.Close();
 			cn.Close();
 
+			// redirect to target URL if we can
+			if (strTargetURL.Length > 0)
+				Response.Redirect(strTargetURL);
 		}
 
 		#region Web Form Designer generated code
