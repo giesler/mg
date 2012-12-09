@@ -17,7 +17,7 @@ strOffset = "../"
 		<h4>
 			7/14/01 - <a href="http://ads.adultmediaswapper.com/click/?id=16">Freshteen.com</a>
 		</h4>
-		<a href="http://ads.adultmediaswapper.com/click/?id=16"><img src="http://ads.adultmediaswapper.com/hosted/016/ft3.gif" border="0"></a>
+		<a href="http://ads.adultmediaswapper.com/click/?id=16"><img src="http://ads.adultmediaswapper.com/hosted/016/ft1.gif" border="0"></a>
 		<table border="0">
 			<tr>
 				<td width="90" valign="top" class="td1">
@@ -27,7 +27,7 @@ strOffset = "../"
 				</td>
 				<td class="td1">
 					<p>
-						<a href="http://ads.adultmediaswapper.com/click/?id=??">Freshteen.com</a>
+						<a href="http://ads.adultmediaswapper.com/click/?id=16">Freshteen.com</a>
 					</p>
 				</td>
 			</tr>

@@ -178,15 +178,15 @@
                     BuildAction = "None"
                 />
                 <File
-                    RelPath = "feature\default.asp"
+                    RelPath = "featured\default.asp"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "feature\Logo_16x16.JPG"
+                    RelPath = "featured\Logo_16x16.JPG"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "feature\Logo_16x8.JPG"
+                    RelPath = "featured\Logo_16x8.JPG"
                     BuildAction = "Content"
                 />
                 <File
