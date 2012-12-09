@@ -13,6 +13,7 @@ Begin VB.Form frmMain
    ClipControls    =   0   'False
    FillColor       =   &H8000000F&
    ForeColor       =   &H8000000F&
+   Icon            =   "Main.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   5760
    ScaleWidth      =   8490
@@ -38,18 +39,18 @@ Begin VB.Form frmMain
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Queue"
-      TabPicture(0)   =   "Main.frx":0000
+      TabPicture(0)   =   "Main.frx":0442
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "lvQueue"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "All Songs"
-      TabPicture(1)   =   "Main.frx":001C
+      TabPicture(1)   =   "Main.frx":045E
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "lv"
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Fi&nd songs"
-      TabPicture(2)   =   "Main.frx":0038
+      TabPicture(2)   =   "Main.frx":047A
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblFind"
       Tab(2).Control(1)=   "txtFind"
@@ -57,13 +58,13 @@ Begin VB.Form frmMain
       Tab(2).Control(3)=   "lvFind"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Utilities"
-      TabPicture(3)   =   "Main.frx":0054
+      TabPicture(3)   =   "Main.frx":0496
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label4"
       Tab(3).Control(1)=   "cmdNewFileCheck"
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Options"
-      TabPicture(4)   =   "Main.frx":0070
+      TabPicture(4)   =   "Main.frx":04B2
       Tab(4).ControlEnabled=   0   'False
       Tab(4).Control(0)=   "fraMainWindow"
       Tab(4).Control(0).Enabled=   0   'False
@@ -97,9 +98,9 @@ Begin VB.Form frmMain
          End
          Begin VB.ComboBox cmbSongBarTrans 
             Height          =   315
-            ItemData        =   "Main.frx":008C
+            ItemData        =   "Main.frx":04CE
             Left            =   240
-            List            =   "Main.frx":0099
+            List            =   "Main.frx":04DB
             Style           =   2  'Dropdown List
             TabIndex        =   27
             Top             =   1800
@@ -123,9 +124,9 @@ Begin VB.Form frmMain
          End
          Begin VB.ComboBox cmbSongBarDisplay 
             Height          =   315
-            ItemData        =   "Main.frx":00D6
+            ItemData        =   "Main.frx":0518
             Left            =   240
-            List            =   "Main.frx":00E3
+            List            =   "Main.frx":0525
             Style           =   2  'Dropdown List
             TabIndex        =   23
             Top             =   600
@@ -205,9 +206,9 @@ Begin VB.Form frmMain
          End
          Begin VB.ComboBox cmbMainSysTray 
             Height          =   315
-            ItemData        =   "Main.frx":0129
+            ItemData        =   "Main.frx":056B
             Left            =   120
-            List            =   "Main.frx":0136
+            List            =   "Main.frx":0578
             Style           =   2  'Dropdown List
             TabIndex        =   33
             Top             =   1680
@@ -215,9 +216,9 @@ Begin VB.Form frmMain
          End
          Begin VB.ComboBox cmbMainTaskbar 
             Height          =   315
-            ItemData        =   "Main.frx":019D
+            ItemData        =   "Main.frx":05DF
             Left            =   120
-            List            =   "Main.frx":01AA
+            List            =   "Main.frx":05EC
             Style           =   2  'Dropdown List
             TabIndex        =   31
             Top             =   1080
@@ -1029,13 +1030,14 @@ On Error GoTo errHandler
             .Update
         End With
         
+        intCount = intCount + 1
         rsAddList.MoveNext
     Loop
     CloseStatus
     
-    If rsAddList.RecordCount > 0 Then
+    If intCount > 0 Then
         LoadFromDB
-        MsgBox "There were " & rsAddList.RecordCount & " songs added to the database.", vbInformation
+        MsgBox "There were " & intCount & " song(s) added to the database.", vbInformation
     Else
         MsgBox "There were no new songs detected.", vbInformation
     End If
@@ -1158,19 +1160,20 @@ Private Sub Form_Resize()
 
     If Me.WindowState = vbMinimized Then
         Hide
-    
-        If cmbSongBarDisplay.ListIndex = 1 Then
-            If WindowState = vbMinimized Then
-                If ShellTrayAdd = 1 Then SubClass Me.hWnd
-            End If
+        
+        If cmbMainSysTray.ListIndex = 1 Or cmbMainSysTray.ListIndex = 0 Then
+            If ShellTrayAdd = 1 Then SubClass Me.hwnd
         End If
         
         UpdateSongBarWindow
         
     Else
         UpdateSongBarWindow
-        ShellTrayRemove
-        UnSubClass
+        
+        If cmbMainSysTray.ListIndex <> 0 Then
+            ShellTrayRemove
+            UnSubClass
+        End If
     End If
     
     
@@ -1319,14 +1322,14 @@ End Sub
 Private Sub mnuFileExit_Click()
 
     ShellTrayRemove
-    Call PostMessage(Me.hWnd, WM_CLOSE, 0&, ByVal 0&)
+    Call PostMessage(Me.hwnd, WM_CLOSE, 0&, ByVal 0&)
     
 End Sub
 
 Public Function ExitApp()
 
     ShellTrayRemove
-    Call PostMessage(Me.hWnd, WM_CLOSE, 0&, ByVal 0&)
+    Call PostMessage(Me.hwnd, WM_CLOSE, 0&, ByVal 0&)
 
 End Function
 
@@ -1844,7 +1847,7 @@ Public Function ShellTrayAdd() As Long
  
   With NID
      .cbSize = LenB(NID)
-     .hWnd = Me.hWnd
+     .hwnd = Me.hwnd
      .uID = 125&
      .uFlags = NIF_ICON Or NIF_TIP Or NIF_MESSAGE
      .uCallbackMessage = WM_MYHOOK
@@ -1870,20 +1873,20 @@ Private Sub UnSubClass()
   'restore the default message handling
   'before exiting
    If defWindowProc Then
-      SetWindowLong Me.hWnd, GWL_WNDPROC, defWindowProc
+      SetWindowLong Me.hwnd, GWL_WNDPROC, defWindowProc
       defWindowProc = 0
    End If
    
 End Sub
 
 
-Private Sub SubClass(hWnd As Long)
+Private Sub SubClass(hwnd As Long)
 
   'assign our own window message
   'procedure (WindowProc)
   
    On Error Resume Next
-   defWindowProc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf WindowProc)
+   defWindowProc = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
    
 End Sub
 
@@ -1891,10 +1894,10 @@ Private Sub UpdateMainWindow()
 
     ' first set main systray setting
     If cmbMainSysTray.ListIndex = 0 Then
-        If ShellTrayAdd = 1 Then SubClass Me.hWnd
+        If ShellTrayAdd = 1 Then SubClass Me.hwnd
     ElseIf cmbMainSysTray.ListIndex = 1 Then
         If WindowState = vbMinimized Then
-            If ShellTrayAdd = 1 Then SubClass Me.hWnd
+            If ShellTrayAdd = 1 Then SubClass Me.hwnd
         Else
             ShellTrayRemove
             UnSubClass

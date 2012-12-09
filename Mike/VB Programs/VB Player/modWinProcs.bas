@@ -89,11 +89,12 @@ Public Function WindowProc(ByVal hwnd As Long, _
                  'This assures that focus is restored to
                  'the form when the menu is closed. If the
                  'form is hidden, it (correctly) has no effect.
+                  fMain.Show
+                 fMain.Show
+                 fMain.WindowState = vbNormal
                   Call SetForegroundWindow(fMain.hwnd)
 
                  'show the menu
-                 fMain.Show
-                 fMain.WindowState = vbNormal
                End Select
             
            'handle any other form messages by
