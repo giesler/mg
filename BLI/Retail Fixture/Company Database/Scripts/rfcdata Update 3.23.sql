@@ -222,7 +222,7 @@ GO
 
 
 insert ztblReleaseNotes (Date, MajorVersion, MinorVersion, Notes)
-values ('8/10/2001', 3.23, 0, '- PO Form: Moved ''Sold To Name'' and ''Sold To Attention'' to front tab, changed tab order to not go to second tab by default, it must be clicked.
+values ('8/11/2001', 3.23, 0, '- PO Form: Moved ''Sold To Name'' and ''Sold To Attention'' to front tab, changed tab order to not go to second tab by default, it must be clicked.
 - PO Form:  Changed exit behavior for ''Job #'' to go to Store # even when enter is pressed (already did for tab)
 - Invoices:  Changed Sold to Address to use the address entered on the PO form
 - Changed PO items and invoice items to maintain the order they were entered (if this is still seen, let me know an example PO)
