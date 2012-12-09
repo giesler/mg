@@ -19,11 +19,13 @@ namespace Cards
 			mSim = newSim;
 
 			//hook up our own events
-			
+			Closing += new CancelEventHandler(this.FormOnClosing);
+			Closed += new EventHandler(this.FormOnClosed);
+			Paint += new PaintEventHandler(this.FormOnPaint);
 		}
 
 		//close events
-		public void OnClosing(object Sender, CancelEventArgs args)
+		public void FormOnClosing(object Sender, CancelEventArgs args)
 		{
 			//ask if they want to close
 			if (MessageBox.Show("Are you sure you want to close?", "Confirm", 
@@ -36,7 +38,7 @@ namespace Cards
 				args.Cancel = false;
 			}
 		}
-		public void OnClose(object Sender)
+		public void FormOnClosed(object Sender, EventArgs args)
 		{
 			//remove from collection, end app if we are last
 			mScreens.Remove(this);
@@ -44,6 +46,12 @@ namespace Cards
 			{
 				Application.Exit();
 			}
+		}
+
+		//main paint event
+		public void FormOnPaint(object sender, PaintEventArgs args)
+		{
+			args.Graphics.FillRectangle(Brushes.DarkGreen, args.ClipRectangle);
 		}
 	}
 }
