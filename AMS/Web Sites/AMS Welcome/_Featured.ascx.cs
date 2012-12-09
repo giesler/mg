@@ -6,12 +6,17 @@ namespace AMS_Welcome
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using System.Data.SqlClient;
+	using System.Configuration;
 
 	/// <summary>
 	///		Summary description for AMSFeatured.
 	/// </summary>
 	public abstract class AMSFeatured : System.Web.UI.UserControl
 	{
+		protected System.Web.UI.WebControls.Label lblFeaturedAdTitle;
+		protected System.Web.UI.WebControls.Label lblUpdateTime;
+		protected System.Web.UI.WebControls.Image imgFeatured;
 
 
 		/// <summary>
@@ -22,7 +27,39 @@ namespace AMS_Welcome
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+
+			try 
+			{
+				// Open connection
+				SqlConnection cn = new SqlConnection(ConfigurationSettings.AppSettings["strConn"]);
+				cn.Open();
+
+				// Get the featured ad
+				SqlCommand cmdAd = new SqlCommand("sp_Ads_FeaturedSite '" + Request.UserHostAddress + "'", cn);
+				
+				SqlDataReader drAd = cmdAd.ExecuteReader(CommandBehavior.SingleRow);
+				if (drAd.Read()) 
+				{
+					imgFeatured.ImageUrl    = drAd.GetString(2);
+					lblFeaturedAdTitle.Text = drAd.GetString(6);
+				}
+				else 
+				{
+					imgFeatured.ImageUrl    = "";
+					lblFeaturedAdTitle.Text = "Unable to retreive featured site information.";
+				}
+				drAd.Close();
+
+				// close connection
+				cn.Close();
+			}
+
+			catch (Exception excep) 
+			{
+				// set defaults...
+				lblFeaturedAdTitle.Text = "<!--" + excep + "-->";
+
+			}
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -40,6 +77,7 @@ namespace AMS_Welcome
 		private void InitializeComponent()
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

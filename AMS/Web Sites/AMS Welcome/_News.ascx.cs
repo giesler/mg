@@ -6,13 +6,17 @@ namespace AMS_Welcome
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using System.Data.SqlClient;
+	using System.Configuration;
 
 	/// <summary>
 	///		Summary description for AMSNews.
 	/// </summary>
 	public abstract class AMSNews : System.Web.UI.UserControl
 	{
+		protected System.Web.UI.WebControls.Repeater rpNews;
 
+		public String NewsItems;
 
 		/// <summary>
 		public AMSNews()
@@ -22,7 +26,53 @@ namespace AMS_Welcome
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+
+			try 
+			{
+				// Open connection
+				SqlConnection cn = new SqlConnection(ConfigurationSettings.AppSettings["strConn"]);
+				cn.Open();
+
+				// Make sure newsitems will be shown
+				if (NewsItems == null || NewsItems.Length == 0)
+					NewsItems = "3";
+
+				SqlCommand cmdNews = new SqlCommand("sp_Web_GetNews " + NewsItems, cn);
+				SqlDataReader drNews = cmdNews.ExecuteReader();
+
+				rpNews.DataSource = drNews;
+				rpNews.DataBind();
+				
+				drNews.Close();
+			
+				// close connection
+				cn.Close();
+
+			}
+
+			catch (Exception excep) 
+			{
+				Trace.Write("AMSNews Exception", excep.ToString());
+			}
+
+		}
+
+		protected String ShowTitle(Object objTitle) 
+		{
+			String strTitle = objTitle.ToString();
+			if (strTitle.Length == 0) 
+			{
+				return "";
+			}
+			return "<b>" + strTitle + "</b><br>";
+
+		}
+
+		protected String ShowTime(Object objTime)
+		{
+			DateTime dt = Convert.ToDateTime(objTime);
+			dt = dt.AddHours(2);	// offset for PST
+			return dt.ToLongDateString() + " " + dt.ToShortTimeString() + " CST";
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -40,6 +90,7 @@ namespace AMS_Welcome
 		private void InitializeComponent()
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}
