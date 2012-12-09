@@ -37,7 +37,7 @@ Thanks to Nick Nystrom for Win32 help and graphics and such...
 Although this program is freeware, I would really appreciate donations.  If you are using this 
 program in a 'for profit' business, I'd hope you would seriously consider contributing.  
 (It would help motivate me to continue development on future versions.)  
-Any donations can be sent to:  Mike Giesler - 702 Cherrywood Ct #1 - Madison, WI  53714 - USA<br>
+Any donations can be sent to:  Mike Giesler - 16541 Redmond Way, Redmond, WA  98052 - USA<br>
 If you link to this site, please link to the 'Home' page.  
 </p>
 
