@@ -20,7 +20,7 @@ set rs = cn.Execute("sp_Web_SetVerifyEmail 0x" & strID & ", 0x" & strValidateID)
 if rs.BOF and rs.EOF then
 	blnValidateOK = false
 elseif rs.Fields(0).Value = "0" then
-	blnValidateOK = true
+	blnValidateOK = false
 else
 	blnValidateOK = true
 end if

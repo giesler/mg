@@ -24,10 +24,11 @@ else
 		dim objMail, strBody
 		strBody = "<html><body>"
 		strBody = strBody & "<h3>AMS Email Verification</h3>"
-		strBody = strBody & "<p>This message is simply validating your email address.</p>"
+		strBody = strBody & "<hr noshade><p>This message is simply validating your email address.</p>"
 		strBody = strBody & "<p>Simply click <a href="""
 		strBody = strBody & Application("VerifyURL") & "?id=" & strId & "&vid=" & Mid(strValidationID, 3)
 		strBody = strBody & """>here</a> to validate this is your correct email address.</p>"
+		strBody = strBody & "<hr noshade><p><font size=""-1""><i>This email was sent to " & strEmail & "</font></p>"
 		strBody = strBody & "</body></html>"
 	
 		set objMail = Server.CreateObject("BLIMAIL.SMTP")

@@ -78,7 +78,7 @@ if blnValidValues then
 		dim objMail, strBody
 		strBody = "<html><body>"
 		strBody = strBody & "<h3>Welcome to Adult Media Swapper</h3>"
-		strBody = strBody & "<p>Welcome <b>" & Request.Form("un") & "</b>!</p>"
+		strBody = strBody & "<hr noshade><p>Welcome <b>" & Request.Form("un") & "</b>!</p>"
 		strBody = strBody & "<p>Click <a href=""http://adultmediaswapper.com/support/software/tutorial/"">here</a> for a short tutorial on using AMS.</p>"
 		strBody = strBody & "<p>Click <a href=""" & Application("VerifyURL") & "?id=" & Mid(rs.Fields(1).Value,3) & "&vid=" & Mid(rs.Fields(2).Value, 3) & """>here</a>"
 		strBody = strBody & " to verify your email address"
@@ -86,6 +86,7 @@ if blnValidValues then
 			strBody = strBody & "<br><i>You must verify your email address to give credit to the person that referred you to AMS.</i>"
 		end if
 		strBody = strBody & "</p>"
+		strBody = strBody & "<hr noshade><p><font size=""-1""><i>This email was sent to " & Request.Form("email") & "</font></p>"
 		strBody = strBody & "</body></html>"
 	
 		set objMail = Server.CreateObject("BLIMAIL.SMTP")
