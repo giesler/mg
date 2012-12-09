@@ -95,6 +95,12 @@ namespace XMedia
 		public XMMediaListing Listing;
 		public XMQuery Query;
 		public ObjectList QueryResults;
+
+		//auto update
+		public bool auEnable = false;
+		public string auPath;
+		public XMGuid auMd5;
+		public int auSize;
 		
         public XMMessage()
         {
@@ -265,6 +271,16 @@ namespace XMedia
 			root.AppendChild(from);
 			root.AppendChild(request);
 			root.AppendChild(content);
+	
+			//auto update binary message?
+			if (auEnable)
+			{
+				XmlElement binary = xml.CreateElement("binary");
+				binary.SetAttribute("md5", auMd5.ToString());
+				binary.SetAttribute("size", auSize.ToString());
+				root.AppendChild(binary);
+			}
+
 			xml.AppendChild(root);
 			return xml;
 		}
@@ -384,9 +400,32 @@ namespace XMedia
 					DoMotd();
 					break;
 
+				case "au":			//auto update file request
+					DoAutoUpdate();
+					break;
+
 				default:
 					break;
 			}
+		}
+
+		protected void DoAutoUpdate()
+		{
+			//get data
+			auMd5 = null;
+			auPath = null;
+			if (!XMAuth.AutoUpdateFile(Connection.Version, ref auPath, ref auMd5, ref auSize))
+			{
+				return;
+			}
+
+			//create reply message
+			XMMessage msg = CreateReply();
+			msg.auEnable = true;
+			msg.auMd5 = auMd5;
+			msg.auPath = auPath;
+			msg.auSize = auSize;
+			msg.Send();
 		}
 
 		protected void DoLogin()
@@ -403,6 +442,16 @@ namespace XMedia
 			{
 				dr = 0;
 			}
+			try
+			{
+				//snag version
+				Connection.Version = GetField("version").Value.ToString();
+			}
+			catch
+			{
+				//version not given (version 0.50)
+				Connection.Version = "0.50";
+			}
 			try 
 			{
 				u = GetField("username").Value.ToString();
@@ -410,15 +459,47 @@ namespace XMedia
 			}
 			catch
 			{
-				//must specify username and password
+				//must specify username, password
 				msg = CreateReply();
 				msg.SetField("success", "false");
 				msg.SetField("error", "Username and password must be specified.");
 				msg.Send();
 				return;
 			}
-			
-			//all parameters are good, path to authentication module
+
+			//new version?
+			bool auLatest = true;
+			bool auRequired = true;
+			string auVersion = "";
+			if (Connection.Version != "0.60")		//NOTE: current version
+			{
+				//fetch the record
+				auLatest = false;
+				if (!XMAuth.AutoUpdateCheck(Connection.Version, ref auVersion, ref auRequired))
+				{
+					//no db or bad version number
+					msg = CreateReply();
+					msg.SetField("success", "false");
+					msg.SetField("error", "Could not get version info.");
+					msg.Send();
+					return;
+				}
+
+				//required?
+				if (auRequired)
+				{
+					//login failure
+					msg = CreateReply();
+					msg.SetField("success", "false");
+					msg.SetField("error", "Your AMS program is out of date.  Please visit http://www.adultmediaswapper.com to update your program.");
+					msg.SetField("au/version", auVersion);
+					msg.SetField("au/required", "true");
+					msg.Send();	  
+					return;
+				}
+			}
+
+			//all parameters are good, pass to authentication module
 			XMGuid session;
 			try
 			{
@@ -443,6 +524,11 @@ namespace XMedia
 			{
 				msg.SetField("limitindex", XMConnection.LimiterIndex);
 				msg.SetField("limitfilter", XMConnection.LimiterFilter);
+			}
+			if (!auLatest)
+			{
+				msg.SetField("au/version", auVersion);
+				msg.SetField("au/required", auRequired);
 			}
 			msg.Send();
 

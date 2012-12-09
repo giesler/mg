@@ -7,6 +7,7 @@ namespace XMedia
 	using System.Net;
 	using System.Net.Sockets;
 	using System.Xml;
+	using System.IO;
 
     /// <summary>
     ///    Summary description for xmconnection.
@@ -26,6 +27,7 @@ namespace XMedia
 		public XMGuid UserID;
 		public int Datarate;
 		public bool Paying;
+		public string Version;
 
 		public const int LimiterIndex = 3;
 		public const int LimiterFilter = 3;
@@ -332,12 +334,22 @@ namespace XMedia
 			Array.Copy(temp, buf, temp.Length);
 			buf[buf.Length-1] = 0;
 
-			//System.Diagnostics.Debug.WriteLine("Sending message:\n\t" + xml, "XMSERVER");
-
 			//push message over the wire
 			mClient.Send(buf, buf.Length, 0);
-			//ts = System.Diagnostics.Counter.GetElapsed();
-			//System.Diagnostics.Trace.WriteLine("Send message: " + xml);
+
+			//send an auto-update file?
+			if (msg.auEnable)
+			{
+				//read the file
+				byte[] auBuf = null;
+				File f = new File(msg.auPath);
+				auBuf = new Byte[msg.auSize];
+				Stream s = f.OpenRead();
+				s.Read(auBuf, 0, auBuf.Length);
+				
+				//send the buffer
+				mClient.Send(auBuf, auBuf.Length, 0);
+			}
 		}
 
 		public IPAddress LocalIP 

@@ -168,6 +168,82 @@ namespace XMedia
         {
         }
 
+		/// <summary>
+		/// Retrieve auto update information during login
+		/// </summary>
+		/// <param name="version">Version reported in login message.</param>
+		/// <param name="newVersion">New version number.</param>
+		/// <param name="required">Can the old version still be used?</param>
+		public static bool AutoUpdateCheck(string version, ref string newVersion, ref bool required)
+		{
+			if (!EnsureConnection())
+			{
+				return false;
+			}
+
+			//fetch new data
+			string sql = "select newversion, required from versions where oldversion='" + version + "'";
+			ADODB._Recordset rs = mAdo.SqlExec(sql);
+			if (rs.EOF)
+			{
+				return false;
+			}
+
+			//success
+			newVersion = rs.Fields["newversion"].Value.ToString();
+			required = rs.Fields["required"].Value.ToString().ToBoolean();
+			return true;
+		}
+
+		/// <summary>
+		/// Set offline bit to 0 for everyone
+		/// </summary>
+		static public void KickAll()
+		{
+			if (!EnsureConnection())
+			{
+				return;
+			}
+
+			try 
+			{	
+			string sql = "update users set online=0";
+			mAdo.SqlExec(sql);
+			}
+			catch
+			{
+				System.Diagnostics.Trace.WriteLine("Could not kick everyone.");
+			}
+		}
+
+		/// <summary>
+		/// Return the data needed to send an auto update file.
+		/// </summary>
+		/// <param name="version">Current version.</param>
+		/// <param name="path">[out] Relative path to the update file.</param>
+		/// <param name="md5">[out] MD5 sum of <path></param>
+		public static bool AutoUpdateFile(string version, ref string path, ref XMGuid md5, ref int size)
+		{
+			if (!EnsureConnection())
+			{
+				return false;
+			}
+
+			//fetch new data
+			string sql = "select path, md5, length from versions where oldversion='" + version + "'";
+			ADODB._Recordset rs = mAdo.SqlExec(sql);
+			if (rs.EOF)
+			{
+				return false;
+			}
+
+			//success
+			path = rs.Fields["path"].Value.ToString();
+			md5 = new XMGuid((byte[])rs.Fields["md5"].Value);
+			size = (int)rs.Fields["length"].Value;
+			return true;
+		}
+
 		public static XMGuid Login(XMConnection con, int datarate, string username, string password)
 		{
 			if (!EnsureConnection())

@@ -1,7 +1,5 @@
 <VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-    >
+    <CSHARP ProjectType = "Local" >
         <Build>
             <Settings
                 ApplicationIcon = ""
@@ -129,6 +127,7 @@
                     VersionMinor = "6"
                     Lcid = "0"
                 />
+                <Reference Name = "Microsoft.Win32.Interop" />
             </References>
         </Build>
         <Files>

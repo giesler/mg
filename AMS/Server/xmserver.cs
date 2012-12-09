@@ -7,6 +7,8 @@ namespace XMedia
 	using System.Net;
 	using System.Net.Sockets;
 
+	using Microsoft.Win32.Interop;
+
 	#if NOSERVICE
 	//emulate event log
 	public class EventLog
@@ -192,6 +194,9 @@ namespace XMedia
 
 		public void Alpha()
 		{
+			//move everyone offline
+			XMAuth.KickAll();
+
 			//begin listening
 			Socket mSocket = new Socket(AddressFamily.AfINet, 
 										SocketType.SockStream, 
@@ -199,11 +204,15 @@ namespace XMedia
 			if (mSocket.Bind(new IPEndPoint(IPAddress.InaddrAny, 25346))!=0)
 			{
 				//error occureed
+				(new EventLog()).WriteEntry("Failed to bind server to port:\n"
+					+ Convert.ToString(Windows.GetLastError()), 0);
 				return;
 			}
 			if (mSocket.Listen(4)!=0)
 			{
 				//error occured
+				(new EventLog()).WriteEntry("Failed to set server to listen mode:\n"
+					+ Convert.ToString(Windows.GetLastError()), 0);
 				return;
 			}
 
