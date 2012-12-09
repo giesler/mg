@@ -16,8 +16,13 @@
 
 <%
 
-dim strCurPage
+dim strCurPage, blnAtRoot, strOriginalPage
 strCurPage = Replace(Lcase(Request.ServerVariables("PATH_INFO")), "default.asp", "")
+strOriginalPage = strCurPage
+
+' compensate for root page request
+blnAtRoot = (strCurPage = "/")
+
 if instr(strCurPage, "?") > 0 then
 	strCurPage = left(strCurPage, Instr(strCurPage, "?")-1)
 end if
@@ -53,9 +58,11 @@ function TreeHTML(parent, out, level)
 			end if
 		end if
 	    
-	    ' see if in area now
+	    ' see if in area now, unless we are at root node
 		out = out & "<td colspan=""" & (5-level) & """>"
-	    if right(strCurPage, len(strCurURL)) = strCurURL then
+		if blnAtRoot and strCurURL = "" then
+			out = out & "<b class=""clsMenu"">" & Replace(parent.Attributes.getNamedItem("name").Text, " ", "&nbsp;") & "</b><br>"
+	    elseif right(strCurPage, len(strCurURL)) = strCurURL and strCurURL <> "" then
 			out = out & "<b class=""clsMenu"">" & Replace(parent.Attributes.getNamedItem("name").Text, " ", "&nbsp;") & "</b><br>"
 		else
 			' add hyperlink
