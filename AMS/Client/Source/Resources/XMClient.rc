@@ -809,8 +809,7 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "AMS Auto Update"
 FONT 8, "MS Sans Serif"
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,186,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,186,24,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,186,7,50,14
     CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH,
                     7,71,173,14
     RTEXT           "",IDC_RATE,7,88,170,10

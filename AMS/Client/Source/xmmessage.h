@@ -154,11 +154,13 @@ private:
 
 	//in interal builds, we don't read the md5 from the
 	//file, so client manager needs to set it manually
-	#ifdef _INTERNAL
+#ifdef _INTERNAL
 	public:
+#endif
 	BYTE mBinaryMD5[16];		//MD5 of buffer
+#ifdef _INTERNAL
 	private:
-	#endif
+#endif
 
 	//specific content
 	CXMQueryResponse *mQueryResponse;

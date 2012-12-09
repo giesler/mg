@@ -916,14 +916,12 @@ private:
 	CStatic mStatus;
 	CStatic mRate;
 	CProgressCtrl mProgress;
-	CButton mOK;
 	CButton mCancel;
 	void DoDataExchange(CDataExchange *pDX)
 	{
 		DDX_Control(pDX, IDC_STATUS, mStatus);
 		DDX_Control(pDX, IDC_RATE, mRate);
 		DDX_Control(pDX, IDC_PROGRESS, mProgress);
-		DDX_Control(pDX, IDOK, mOK);
 		DDX_Control(pDX, IDCANCEL, mCancel);
 	}
 
