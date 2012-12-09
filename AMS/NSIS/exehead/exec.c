@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <shlobj.h>
+#include "resource.h"
 #include "fileform.h"
 #include "util.h"
 #include "state.h"
@@ -10,10 +11,7 @@
 char *g_deletefilecolon="Delete file: ";
 char *g_errdll="Error registering DLL";
 char *g_errdecomp="Error decompressing data! Installer corrupted.";
-
-// return EXEC_ERROR (0x10000000) on error, otherwise, if return is >0,
-// advance by 1+return, or if return < 0, move back by return
-// or 0 is advance by 1.
+HWND hwndStatus;
 
 static int file_exists(char *buf)
 {
@@ -113,7 +111,7 @@ int ExecuteCodeSegment(entry *entries, int range[2], HWND hwndProgress)
 
 int ExecuteEntry(entry *entries, int pos)
 {
-  int x;
+  int x, y;
   entry *thisentry=entries+pos;
   static char buf[1024],buf2[1024],buf3[1024],buf4[1024];
   switch (thisentry->which)
@@ -162,7 +160,14 @@ int ExecuteEntry(entry *entries, int pos)
       if (x < 1) x=1;
       update_status_text("Wait...","");
       log_printf2("Sleep(%d)",x);
-      Sleep(x);
+	  y = 0;
+	  while (x > y) {
+		  static MSG msg;
+		  while (PeekMessage(&msg,NULL,WM_PAINT,WM_PAINT,PM_REMOVE))
+			  DispatchMessage(&msg);
+		  Sleep (100);
+		  y+= 100;
+	  }
     return 0;
     case EW_HIDEWINDOW:
       log_printf("HideWindow");
@@ -954,8 +959,108 @@ int ExecuteEntry(entry *entries, int pos)
       process_string_fromtab(buf3,thisentry->offsets[0]);
       process_string_fromtab(buf4,thisentry->offsets[1]);
       if (!lstrcmpi(buf3,buf4)) return thisentry->offsets[2];
-    return thisentry->offsets[3];
-  }
+	  return thisentry->offsets[3];
+	
+	case EW_MUTEXWAIT:
+		{
+
+			HANDLE hMutex;
+			DWORD dwRetVal;
+	
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+
+			hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, buf4);
+			if (hMutex != NULL) {
+
+				dwRetVal = WaitForSingleObject(hMutex, 100);
+
+				while (dwRetVal == WAIT_TIMEOUT)
+				{
+					static MSG msg;
+					while (PeekMessage(&msg,NULL,WM_PAINT,WM_PAINT,PM_REMOVE))
+						DispatchMessage(&msg);
+					dwRetVal = WaitForSingleObject(hMutex, 100);
+				}
+				CloseHandle(hMutex);
+			}
+				
+			return 0;
+		}
+	
+	case EW_OPENSTATUS:
+		{
+
+			// create and show the dialog
+			hwndStatus = CreateDialog(g_hInstance,MAKEINTRESOURCE(IDD_STATUS),NULL,NULL /* verStatusProc*/);
+			ShowWindow(hwndStatus, SW_SHOW);
+			
+			// get title and caption
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+			process_string_fromtab(buf3,thisentry->offsets[1]);
+			
+			// set the text of the dialog
+			SetWindowText(hwndStatus, buf4);
+			SetDlgItemText(hwndStatus, IDC_STATUS, buf3);
+			
+/*			RECT vp;
+			char classname[4]="_au";
+			{
+				static WNDCLASS wc;
+				wc.style = CS_VREDRAW | CS_HREDRAW;
+				wc.lpfnWndProc = verStatusProc;
+				wc.hInstance = g_hInstance;
+				wc.hIcon = LoadIcon(g_hInstance,MAKEINTRESOURCE(IDI_ICON2));
+				wc.hCursor = LoadCursor(NULL,IDC_ARROW);
+				wc.lpszClassName = classname;
+				//wc.hbrBackground = (HBRUSH) CreateBrushIndirect() GetStockObject(GRAY_BRUSH);
+				// GetSysColor(COLOR_3DFACE)
+				if (!RegisterClass(&wc)) {
+					MessageBox(g_hwnd, "Error creating window", g_caption, MB_ICONWARNING);
+					return 0;
+				}
+			}
+
+			// get window size
+			SystemParametersInfo(SPI_GETWORKAREA, 0, &vp, 0);
+			
+			hwndStatus = CreateWindow(classname,buf4,WS_VISIBLE|WS_OVERLAPPED|WS_CAPTION,
+				(vp.bottom-vp.top)/2-50,(vp.right-vp.left)/2-150 ,300,100, GetDesktopWindow(),NULL,g_hInstance,NULL);
+*/
+			ShowWindow(hwndStatus, SW_SHOW);
+			UpdateWindow(hwndStatus);
+			
+			return 0;
+		}
+
+	case EW_UPDATESTATUS:
+		{
+			
+			static MSG msg;
+
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+			
+			// set the text of the dialog
+			if (hwndStatus != NULL)
+				SetDlgItemText(hwndStatus, IDC_STATUS, buf4);
+
+			// make sure any messages are processed
+			while (PeekMessage(&msg,NULL,0,0,PM_REMOVE)) DispatchMessage(&msg);
+
+			return 0;
+		}
+
+	case EW_CLOSESTATUS:
+		{
+			
+			// close the dialog
+			if (hwndStatus != NULL)
+				DestroyWindow(hwndStatus);
+			
+			return 0;
+		}
+		
+	}
   MessageBox(g_hwnd,"Install corrupted: invalid opcode",g_caption,MB_OK|MB_ICONSTOP);
   return EXEC_ERROR;
 }
+

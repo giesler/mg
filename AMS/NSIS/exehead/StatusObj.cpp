@@ -8,12 +8,14 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-StatusObj::StatusObj()
-{
+StatusObj::StatusObj()  {
+	refcount=0;
+};
 
+StatusObj::~StatusObj() {
+	delete (this);
 }
 
-StatusObj::~StatusObj()
-{
-
+void StatusObj::AddRef() {
+	refcount++;
 }

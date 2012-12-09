@@ -1797,7 +1797,35 @@ int CEXEBuild::doCommand(int which_token, LineParser &line, FILE *fp, char *curf
       }
     return add_entry(&ent);
 
-    // end of instructions
+    case TOK_MUTEXWAIT:
+		ent.which=EW_MUTEXWAIT;
+		ent.offsets[0]=add_string(line.gettoken_str(1));
+		ent.offsets[1] = (which_token == TOK_MUTEXWAIT);
+		printf("%s: \"%s\"\n",ent.offsets[1]?"MutexWait":"MutexWait",line.gettoken_str(1));
+		return add_entry(&ent);
+		
+	case TOK_OPENSTATUS:
+		ent.which=EW_OPENSTATUS;
+		ent.offsets[0]=add_string(line.gettoken_str(1));
+		ent.offsets[1]=add_string(line.gettoken_str(2));
+		ent.offsets[2] = (which_token == TOK_OPENSTATUS);
+		printf("%s: \"%s\"\n",ent.offsets[2]?"OpenStatus":"OpenStatus",line.gettoken_str(2));
+		return add_entry(&ent);
+		
+    case TOK_UPDATESTATUS:
+		ent.which=EW_UPDATESTATUS;
+		ent.offsets[0]=add_string(line.gettoken_str(1));
+		ent.offsets[1] = (which_token == TOK_UPDATESTATUS);
+		printf("%s: \"%s\"\n",ent.offsets[1]?"UpdateStatus":"UpdateStatus",line.gettoken_str(1));
+		return add_entry(&ent);
+
+    case TOK_CLOSESTATUS:
+		ent.which=EW_CLOSESTATUS;
+		ent.offsets[0] = (which_token == TOK_CLOSESTATUS);
+		printf("%s: \"%s\"\n",ent.offsets[1]?"CloseStatus":"CloseStatus",line.gettoken_str(1));
+		return add_entry(&ent);
+
+	// end of instructions
     ///////////////////////////////////////////////////////////////////////////////
 
     default: break;

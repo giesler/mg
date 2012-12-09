@@ -17,6 +17,8 @@
 #define IDB_BITMAP2                     110
 #define IDI_ICON3                       110
 #define IDD_VERIFY                      111
+#define IDD_DIALOG3                     112
+#define IDD_STATUS                      112
 #define IDC_EDIT1                       1000
 #define IDC_BROWSE                      1001
 #define IDC_COPYRIGHT                   1003
@@ -46,14 +48,15 @@
 #define IDC_VERSTR                      1028
 #define IDC_UNINSTFROM                  1029
 #define IDC_STR                         1030
+#define IDC_STATUS                      1031
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        112
+#define _APS_NEXT_RESOURCE_VALUE        113
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1031
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

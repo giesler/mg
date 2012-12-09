@@ -14,7 +14,8 @@ Function .onInit
   
   ; wait for AMS to close
   UpdateStatus "Waiting for program to close..."
-  WaitForMutex "AMSClientMutex"
+  WaitForMutex "ams_mutex"
+  UpdateStatus "Preparing to update..."
   Sleep 3000
 
   ; update files

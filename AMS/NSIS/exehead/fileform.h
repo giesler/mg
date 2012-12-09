@@ -79,6 +79,11 @@ enum
  // if dll2&0x80000000 then dll1 is the low dword of version, [4] is the high dword
   EW_COMPAREFILETIMES,  // CompareFileTImes 5 [file1, file2, jumpif1newer, jumpif2newer, [time_low]]
  // if file2&0x80000000 then file1 is the low dword of time, [4] is the high dword
+ 
+  EW_MUTEXWAIT,			// wait for an EXE to finish execution - will look for process based on name passed
+  EW_OPENSTATUS,		// open a status dialog, set caption to [1], msg to [2]
+  EW_UPDATESTATUS,		// update status dialog with [1]
+  EW_CLOSESTATUS		// close status dialog
 };
 
 typedef struct

@@ -13,8 +13,11 @@ class StatusObj
 {
 public:
 	StatusObj();
-	virtual ~StatusObj();
+	void AddRef();
 
+private:
+	~StatusObj();
+	int refcount;
 };
 
 #endif // !defined(AFX_STATUSOBJ_H__61F228C6_D848_49D2_B53A_1F9A782BB761__INCLUDED_)

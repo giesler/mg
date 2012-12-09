@@ -117,6 +117,15 @@ BEGIN
     CTEXT           "",IDC_STR,7,7,148,8
 END
 
+IDD_STATUS DIALOGEX 0, 0, 260, 42
+STYLE DS_MODALFRAME | DS_CONTROL | DS_CENTER | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Please Wait..."
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Updating AMS...",IDC_STATUS,9,15,244,13
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -146,6 +155,14 @@ BEGIN
         RIGHTMARGIN, 155
         TOPMARGIN, 7
         BOTTOMMARGIN, 15
+    END
+
+    IDD_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 253
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 34
     END
 END
 #endif    // APSTUDIO_INVOKED
