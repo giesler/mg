@@ -226,6 +226,7 @@ private:
 	DWORD mThumbCount;
 };
 
+
 //---------------------------------------------
 //											 DB
 struct blob {
@@ -323,6 +324,7 @@ private:
 	//files list
 	bool InsertFile(CXMDBFile *file);
 	CXMDBFile** mFiles;
+	CMD5HashTable mFilesHashTable;
 	DWORD mFileCount;
 	DWORD mFileSize;
 	

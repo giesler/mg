@@ -224,7 +224,7 @@ bool CXMDBManager::_ScanDirectory(CString path)
 			continue;
 
 		//in the db already?
-		CXMDBFile *xmfile = mDB->FindFile(str, true);	//NOTE: should we look for DFF_REMOVED files too?
+		CXMDBFile *xmfile = mDB->FindFile(str, true);
 		if (xmfile)
 		{
 			//file sizes must match
@@ -235,6 +235,13 @@ bool CXMDBManager::_ScanDirectory(CString path)
 			}
 			else
 			{
+				//if the file is both removed and known, this is a condition that
+				//can only occur if it loaded from the db file and detected as a 
+				//duplicate there. that means we should ignreo the file, and keep
+				//the removed flag
+				if (xmfile->GetFlag(DFF_REMOVED) && xmfile->GetFlag(DFF_REMOVED))
+					continue;
+
 				//restore file
 				if (mCallback->OnFileRestored(xmfile))
 				{

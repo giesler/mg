@@ -114,14 +114,6 @@
                     AssemblyName = "System.Xml"
                 />
                 <Reference
-                    Name = "ADODB"
-                    Guid = "{EF53050B-882E-4776-B643-EDA472E8E3F2}"
-                    VersionMajor = "2"
-                    VersionMinor = "7"
-                    Lcid = "0"
-                    WrapperTool = "primary"
-                />
-                <Reference
                     Name = "System.Data"
                     AssemblyName = "System.Data"
                 />
@@ -149,6 +141,11 @@
                 />
                 <File
                     RelPath = "xmauth.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmconfig.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

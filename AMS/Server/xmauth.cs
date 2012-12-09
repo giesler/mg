@@ -1,7 +1,8 @@
 namespace XMedia
 {
     using System;
-	using ADODB;
+	using System.Data;
+	using System.Data.SqlClient;
 	using System.Net;
 	using System.Diagnostics;
 
@@ -44,15 +45,16 @@ namespace XMedia
 
 			//fetch new data
 			string sql = "select newversion, required from versions where oldversion='" + version + "'";
-			ADODB._Recordset rs = mAdo.SqlExec(sql);
-			if (rs.EOF)
+			SqlDataReader rs = mAdo.SqlExec(sql);
+			if (!rs.Read())
 			{
 				return false;
 			}
 
 			//success
-			newVersion = rs.Fields["newversion"].Value.ToString();
-			required = System.Convert.ToBoolean(rs.Fields["required"].Value);
+			newVersion = rs["newversion"].ToString();
+			required = Convert.ToBoolean(rs["required"]);
+			rs.Close();
 			return true;
 		}
 
@@ -69,7 +71,7 @@ namespace XMedia
 			try 
 			{	
 			string sql = "update users set online=0, accesstoken=null";
-			mAdo.SqlExec(sql);
+			mAdo.SqlExecNoResults(sql);
 			}
 			catch
 			{
@@ -92,16 +94,18 @@ namespace XMedia
 
 			//fetch new data
 			string sql = "select path, md5, length from versions where oldversion='" + version + "'";
-			ADODB._Recordset rs = mAdo.SqlExec(sql);
-			if (rs.EOF)
+			SqlDataReader rs = mAdo.SqlExec(sql);
+			if (!rs.Read())
 			{
+				rs.Close();
 				return false;
 			}
 
 			//success
-			path = rs.Fields["path"].Value.ToString();
-			md5 = new XMGuid((byte[])rs.Fields["md5"].Value);
-			size = (int)rs.Fields["length"].Value;
+			path = rs["path"].ToString();
+			md5 = new XMGuid((byte[])rs["md5"]);
+			size = Convert.ToInt32(rs["length"]);
+			rs.Close();
 			return true;
 		}
 
@@ -121,23 +125,24 @@ namespace XMedia
 
 			//load user data
 			string sql = String.Format(
-				@"select u.userid, u.password, u.paying, u.accesstoken,
+				@"select u.userid, u.password, u.paying, u.accesstoken, u.hostip,
 				(select count(*) from mediastorage ms where ms.userid = u.userid) as 'filecount'
 				from users u
 				where u.login='{0}'",
 				username);
-			ADODB._Recordset rs = mAdo.SqlExec(sql);
+			SqlDataReader rs = mAdo.SqlExec(sql);
 			if (rs==null)
 			{
 				throw new Exception("Query failed.");
 			}
-			if (rs.EOF)
+			if (!rs.Read())
 			{
+				rs.Close();
 				throw new Exception("Invalid login.");
 			}
 
 			//validate password... we now accept md5 shadows of the actual pwd
-			string pwd = rs.Fields["password"].Value.ToString();
+			string pwd = rs["password"].ToString();
 			if (pwd != password)
 			{
 				//plain text does not match.. generate md5s from the password
@@ -153,13 +158,13 @@ namespace XMedia
 			//check the accesstoken.. if it ISNT null, this person is already
 			//logged in
 			bool alreadyLoggedIn;
-			if (rs.Fields["accesstoken"].Value != DBNull.Value)
+			if (rs["accesstoken"] != DBNull.Value)
 			{
 				//is the old ip same as the new ip?
 				alreadyLoggedIn = true;
-				if (rs.Fields["hostip"].Value != DBNull.Value)
+				if (rs["hostip"] != DBNull.Value)
 				{
-					if (rs.Fields["hostip"].Value.ToString() == con.HostIP.ToString())
+					if (rs["hostip"].ToString() == con.HostIP.ToString())
 					{
 						//its ok
 						alreadyLoggedIn = false;
@@ -171,9 +176,18 @@ namespace XMedia
 			}
 
 			//get the userid, create the session id
-			XMGuid user = new XMGuid((byte[])rs.Fields[0].Value);
+			XMGuid user = new XMGuid((byte[])rs[0]);
 			XMGuid session = new XMGuid(true);	//new session id
 			
+			//update the connection
+			con.Username = username;
+			con.SessionID = session;
+			con.UserID = user;
+			con.Datarate = datarate;
+			con.Paying = Convert.ToBoolean(rs["paying"]);
+			con.FileCount = Convert.ToInt32(rs["filecount"]);
+			rs.Close();
+
 			//update the database with the new session
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(200, 200);
 			sb.Append("insert into userslogins(AccessToken, DataRate, DateStamp, HostIP, UserID) ");
@@ -182,21 +196,13 @@ namespace XMedia
 			sb.Append(", ");
 			sb.Append(datarate.ToString());
 			sb.Append(", GetDate(), '");
-			sb.Append("todo");
+			sb.Append(con.HostIP.ToString());
 			sb.Append("', ");
 			sb.Append(user.ToStringDB());
 			sb.Append(")");
-			mAdo.SqlExec(sb.ToString());
-			mAdo.SqlExec("update users set datarate=" + datarate.ToString() + ", hostip='" + con.HostIP.ToString() + "', accesstoken = " + session.ToStringDB() + 
+			mAdo.SqlExecNoResults(sb.ToString());
+			mAdo.SqlExecNoResults("update users set datarate=" + datarate.ToString() + ", hostip='" + con.HostIP.ToString() + "', accesstoken = " + session.ToStringDB() + 
 					"where userid = " + user.ToStringDB());
-
-			//update the connection
-			con.Username = username;
-			con.SessionID = session;
-			con.UserID = user;
-			con.Datarate = datarate;
-			con.Paying = Convert.ToBoolean(rs.Fields["paying"].Value);
-			con.FileCount = Convert.ToInt32(rs.Fields["filecount"].Value);
 
 			return session;
 		}
@@ -216,7 +222,7 @@ namespace XMedia
 			}
 			if (mAdo.EnsureConnection())
 			{
-				mAdo.SqlExec(sql);
+				mAdo.SqlExecNoResults(sql);
 			}
 		}
 
@@ -226,7 +232,7 @@ namespace XMedia
 			string sql = "exec sp_clearsessiondata " + sid.ToStringDB();
 			if (EnsureConnection()) 
 			{
-				mAdo.SqlExec(sql);	
+				mAdo.SqlExecNoResults(sql);	
 			}
 		}
 
@@ -296,10 +302,10 @@ namespace XMedia
 				return;
 
 			//get all users where online=1
-			ADODB._Recordset rs;
+			DataView rs;
 			try
 			{
-				rs = mAdo.SqlExec("select * from users where online=1");
+				rs = mAdo.SqlExecDataView("select * from users where online=1");
 			}
 			catch(Exception e)
 			{
@@ -313,14 +319,14 @@ namespace XMedia
 			//IPAddress ip;
 			bool kill;
 			object[] cons = XMConnection.Connections;
-			while (!rs.EOF)
+			for (int i=0;i<rs.Count;i++)
 			{
 				kill = true;
 				try
 				{
 					//get accesstoken and ip
-					uid = new XMGuid((byte[])rs.Fields["userid"].Value);
-					at = new XMGuid((byte[])rs.Fields["accesstoken"].Value);
+					uid = new XMGuid((byte[])rs[i]["userid"]);
+					at = new XMGuid((byte[])rs[i]["accesstoken"]);
 					//ip = IPAddress.Parse((string)rs.Fields["hostip"].Value);
 
 					//search open connections
@@ -355,13 +361,10 @@ namespace XMedia
 				//we will set the online flag to 0
 				if (kill && uid!=null)
 				{
-					XMLog.WriteLine("Kicking user: " + rs.Fields["login"].Value, "CheckConnections", EventLogEntryType.Warning);
+					XMLog.WriteLine("Kicking user: " + rs[i]["login"], "CheckConnections", EventLogEntryType.Warning);
 					string str = String.Format("update users set online=0, accesstoken=null where userid={0}", uid.ToStringDB());				
-					mAdo.SqlExec(str);
+					mAdo.SqlExecNoResults(str);
 				}
-
-				//next record
-				rs.MoveNext();
 			}
 		}
     }

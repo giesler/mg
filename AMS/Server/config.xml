@@ -1,1 +1,55 @@
-<xmconfig version="1.00"><field name="server/address">nick</field><field name="server/port">4545</field><field name="login/loginid"></field><field name="net/datarate">56000</field></xmconfig>
+<!--
+
+AMS Server Config File Meta Data
+(c)2001 Line2 Systems
+Author: Nick Nystrom
+
+NOTE: file is used only by tools that modify
+xmserver.xml, it is not used by the actual server
+
+-->
+<XMServerConfigMeta>
+  <ConfigField Name="Database/Server" Unit="-" Descripion="Database server." />
+  <ConfigField Name="Database/DatabaseName" Unit="-" Descripion="Database name.">
+  </ConfigField>
+  <ConfigField Name="Database/NTSecurity" Unit="Boolean" Descripion="Use NT security to connect to the database.">
+  </ConfigField>
+  <ConfigField Name="Database/Username" Unit="-" Descripion="Username given during database conenct. Ignored if using NT security.">
+  </ConfigField>
+  <ConfigField Name="Database/Password" Unit="-" Descripion="Password used during database connect. Ignored if using NT security.">
+  </ConfigField>
+  <ConfigField Name="Query/LimitIndex" Unit="-" Descripion="Number of fields non-paying users are allowed in their query index.">
+  </ConfigField>
+  <ConfigField Name="Query/LimitFilter" Unit="-" Descripion="Number of fields non-paying users are allowed in their query filter. Does not include catagory.">
+  </ConfigField>
+  <ConfigField Name="Network/ClientPort" Unit="-" Descripion="Port number at which the client is known to listen.">
+  </ConfigField>
+  <ConfigField Name="Network/ServerPort" Unit="-" Descripion="Port the server should listen on.">
+  </ConfigField>
+  <ConfigField Name="Network/PingTimeout" Unit="Milliseconds" Descripion="Timespan to wait for connection and then for data during a client ping.">
+  </ConfigField>
+  <ConfigField Name="Network/KeepaliveInterval" Unit="Minutes" Descripion="Interval between keep-alive requests sent to the client.">
+  </ConfigField>
+  <ConfigField Name="Network/DormantConnectionTimeout" Unit="Minutes" Descripion="Timeout after which dormant (non-logged in still connected) connections are dropped.">
+  </ConfigField>
+  <ConfigField Name="Network/LinkDeadConnectionTimeout" Unit="Minutes" Descripion="Timeout after which link-dead (connections that stop responding to keep-alives) are dropped.">
+  </ConfigField>
+  <ConfigField Name="Misc/DefaultVersion" Unit="-" Descripion="Version string that the server assigns to connection that do not provide a version number.">
+  </ConfigField>
+  <ConfigField Name="Misc/CurrentVersion" Unit="-" Descripion="Version string that the server assumes is the current client version. Server will only query the database if the client's version differs from this value.">
+  </ConfigField>
+  <ConfigField Name="Query/StorageTimeout" Unit="Minutes" Descripion="Timeout after which the server will refresh its cached data concerning which users are sharing a particular file.">
+  </ConfigField>
+  <ConfigField Name="Query/ContestFieldCutoff" Unit="-" Descripion="Maximum number of indexed fields for a picture (agregate of all fields in all indexes) before the server will not return that picture during a contest query. Ex: cuttoff is 5, any picture with 5 or less fields will be used in the contest.">
+  </ConfigField>
+  <ConfigField Name="Query/SearchCutoff" Unit="-" Descripion="Maximum number of pictures the server will examine during a query.  Once this limit is reached, the server will stop processing the query and return whatever results it has accumulated so far.">
+  </ConfigField>
+  <ConfigField Name="Query/ResultsCutoff" Unit="-" Descripion="Maximum number of results the server will find for a query. Once this limit is reached, the server stops processing the query and returns the results.">
+  </ConfigField>
+  <ConfigField Name="Query/QueryProcessorCount" Unit="-" Descripion="Number of query processors to run. Use one less than the number of CPUs in the system.">
+  </ConfigField>
+  <ConfigField Name="Network/ConnectionCheckInterval" Unit="Minutes" Descripion="Interval between Connection Checks.  A Connection Check examines each active connection, and decides whether or not to close it based on how long the connection has been dormant or link-dead.">
+  </ConfigField>
+  <ConfigField Name="Query/MediaRebuildInterval" Unit="Minutes" Descripion="Interval at which the server rebuilds its list of pictures. This is a very lengthy procedure and should not be done more than once per hour.">
+  </ConfigField>
+</XMServerConfigMeta>

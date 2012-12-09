@@ -206,6 +206,42 @@ protected:
 typedef C16ByteValue CGUID;
 typedef C16ByteValue CMD5;
 
+//---------------------------------------------------------
+//										CMD5HashTable
+class CMD5HashTable
+{
+public:
+
+	//lifetime management
+	CMD5HashTable();
+	~CMD5HashTable();
+
+	//allocate enough space in each bucket to store a total
+	//of <guess> entries. adds a little padding so that it is
+	//unlikely to have to reallocate the buffers frequently.
+	void Allocate(DWORD guess);
+
+	//hashtable is READ-ONLY!
+	void Drop(BYTE* md5, void* object);
+	void* Lookup(BYTE* md5);
+
+protected:
+
+	//structure for each bucket
+	struct _Md5Entry
+	{
+		BYTE md5[16];
+		void *object;
+	};
+	struct _Md5Bucket
+	{
+		DWORD size;		//allocated number of entries (size >= count)
+		DWORD count;	//number of valid entries (count <= size)
+		_Md5Entry *entries;
+	};
+	_Md5Bucket buckets[256];
+};
+
 // ---------------------------------------------------------------------- Win App
 
 class CXMClientApp : public CWinApp

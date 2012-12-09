@@ -251,90 +251,98 @@ namespace XMedia
 
 				//do we need to send any keep-alive requests?
 				if (!KeepAliveInTransit &&
-					LastActivity < DateTime.Now.AddMinutes(-15))
-				{
-					KeepAliveInTransit = true;
-					InternalPing();
-				}
+				LastActivity < DateTime.Now.AddMinutes(-15))
+			{
+				KeepAliveInTransit = true;
+				InternalPing();
+			}
 
 				//read data from the buffer
 				if (mClient.Poll(500*1000, SelectMode.SelectRead))
-				{
-					//data available, read it until there is less
-					//than the full buffer left
-					avail = mClient.Available;
-					if (avail>0)
-					{
-						//do we need to expand buffer?
-						if (buf.Length < (size+avail))
-						{
-							//expand buffer to (needed)+5k
-							buf2 = new byte[size+avail+5196];
-							Array.Copy(buf, 0, buf2, 0, size);
-							buf = buf2;
-							buf2 = null;	//buf is now new array, old
-											//array has been moved out of roots
-						}
+			{
+				//data available, read it until there is less
+				//than the full buffer left
+				avail = mClient.Available;
+				if (avail>0)
+			{
+				//do we need to expand buffer?
+				if (buf.Length < (size+avail))
+			{
+				//expand buffer to (needed)+5k
+				buf2 = new byte[size+avail+5196];
+				Array.Copy(buf, 0, buf2, 0, size);
+				buf = buf2;
+				buf2 = null;	//buf is now new array, old
+				//array has been moved out of roots
+			}
 
-						//read data into buffer
-						retval = mClient.Receive(buf, size, avail, 0);
+				//read data into buffer
+				try
+			{
+				retval = mClient.Receive(buf, size, avail, 0);
+			}
+				catch (Exception e)
+			{
+				XMLog.WriteLine("Socket error while receiving: " + e.Message, "Connection");
+				retval = 0;
+			}
 
-						//success?
-						if (retval>0)
-						{
-							//loop through returned data, looking for
-							//null characters
+				//success?
+				if (retval>0)
+			{
+				//loop through returned data, looking for
+				//null characters
 
-							//get first null
-							foundmsg = false;
-							nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
-							while(nullpos!=-1)
-							{
-								//found a null, convert to text and process
-								foundmsg = true;
-								msg = System.Text.ASCIIEncoding.ASCII.GetString(buf, 0, nullpos);
-								try 
-								{
-									ProcessMessage(msg);
-								}
-								catch(Exception e)
-								{
-									//nothing
-									XMLog.WriteLine(e.ToString(), "ProcessMessage", EventLogEntryType.Error);
-									//mClient.Close();
-								}
+				//get first null
+				foundmsg = false;
+				nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
+				while(nullpos!=-1)
+			{
+				//found a null, convert to text and process
+				foundmsg = true;
+				msg = System.Text.ASCIIEncoding.ASCII.GetString(buf, 0, nullpos);
+				try 
+			{
+				ProcessMessage(msg);
+			}
+				catch(Exception e)
+			{
+				//nothing
+				XMLog.WriteLine(e.ToString(), "ProcessMessage", EventLogEntryType.Error);
+				//mClient.Close();
+			}
 
-								//create new buffer with just the excess
-								//from the original, reset size to end of
-								//valid data
-								retval = ((size+retval)-(nullpos+1));
-								buf2 = new byte[retval+5196];
-								Array.Copy(buf, nullpos+1, buf2, 0, retval);
-								buf = buf2;
-								buf2 = null;
-								size = 0;
+				//create new buffer with just the excess
+				//from the original, reset size to end of
+				//valid data
+				retval = ((size+retval)-(nullpos+1));
+				buf2 = new byte[retval+5196];
+				Array.Copy(buf, nullpos+1, buf2, 0, retval);
+				buf = buf2;
+				buf2 = null;
+				size = 0;
 																		
-								//try to get next null
-								nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
+				//try to get next null
+				nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
 
-							}
+			}
 
-							if (!foundmsg)
-							{
-								//no nulls found, just move the pointer
-								//forward
-								size += retval;	
-								Trace.WriteLine("No NULL found in " + retval + " bytes.");			
-							}							
-						}
-					}
-					else
-					{
-						//there was zero to read from buffer..
-						//this means connection was closed
-						Interlocked.Exchange(ref mContinue, 0);
-					}
-				}
+				if (!foundmsg)
+			{
+				//no nulls found, just move the pointer
+				//forward
+				size += retval;	
+				//Trace.WriteLine("No NULL found in " + retval + " bytes.");			
+			}							
+			}
+			}
+				else
+			{
+				//there was zero to read from buffer..
+				//this means connection was closed
+				Interlocked.Exchange(ref mContinue, 0);
+			}
+			}
 
 			}
 	
@@ -411,7 +419,15 @@ namespace XMedia
 			buf[buf.Length-1] = 0;
 
 			//push message over the wire
-			mClient.Send(buf, buf.Length, 0);
+			try
+			{
+				mClient.Send(buf, buf.Length, 0);
+			}
+			catch (Exception e)
+			{
+				XMLog.WriteLine("SendMessageInner: " + e.Message, "Connection");
+				return;
+			}
 
 			//send an auto-update file?
 			if (msg.auEnable)

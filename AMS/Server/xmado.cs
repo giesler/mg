@@ -1,35 +1,39 @@
 namespace XMedia
 {
     using System;
-	using ADODB;
+	using System.Diagnostics;
+	using System.Data;
+	using System.Data.SqlClient;
 	using System.Text;
 
 	public class XMAdo
 	{
-		private ADODB.Connection mConnection;
+		private SqlConnection mConnection;
 
 		public bool EnsureConnection()
 		{
 			//make sure that our database is connected
 			if (mConnection==null)
 			{
-				mConnection = new ADODB.Connection();
+				mConnection = new SqlConnection();
 			}
-			if (mConnection.State==(int)ADODB.ObjectStateEnum.adStateOpen)
+			if (mConnection.State == ConnectionState.Open)
 			{
 				return true;
 			}
 
 			//database is not connected, open it
 			string con;
-			con = "PROVIDER=SQLOLEDB;Initial Catalog=xmcatalog;Data Source=amstest;Integrated Security=SSPI";
+			con = "Initial Catalog=xmcatalog;Data Source=amstest;User Id=sa;Password=%makeme$%";
 			try 
 			{
-				mConnection.Open(con, "sa", "%makeme$%", 0);
+				mConnection.ConnectionString = con;
+				mConnection.Open();
 			}
-			catch
+			catch(Exception e)
 			{
 				//failed
+				XMLog.WriteLine("Database connection failed: " + e.Message, "Database", EventLogEntryType.Error);
 				return false;
 			}
 
@@ -37,12 +41,31 @@ namespace XMedia
 			return true;
 		}
 
-		public ADODB._Recordset SqlExec(string s)
+		public SqlDataReader SqlExec(string s)
 		{
 			//helper function
-			int i = 0;
-			object ri = i;
-			return mConnection.Execute(s, out ri, 0);
+			SqlCommand cmd = mConnection.CreateCommand();
+			cmd.CommandText = s;
+			cmd.CommandType = CommandType.Text;
+			return cmd.ExecuteReader();
+		}
+
+		public void SqlExecNoResults(string s)
+		{
+			//helper function
+			SqlCommand cmd = mConnection.CreateCommand();
+			cmd.CommandText = s;
+			cmd.CommandType = CommandType.Text;
+			cmd.ExecuteNonQuery();
+		}
+
+		public DataView SqlExecDataView(string s)
+		{
+			//helper function
+			DataSet ds = new DataSet();
+			SqlDataAdapter cmd = new SqlDataAdapter(s, mConnection);
+			cmd.Fill(ds);
+			return ds.Tables[0].DefaultView;
 		}
 	}
 

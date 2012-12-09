@@ -733,3 +733,84 @@ inline void CMD5Engine::II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
 	a += I(b, c, d) + x + ac;
 	a = rotate_left (a, s) +b;
 }
+
+
+// ---------------------------------------------------------- MD5 Hash Table
+
+CMD5HashTable::CMD5HashTable()
+{
+	//initialize the bucket array
+	memset(buckets, 0, sizeof(buckets));
+}
+
+CMD5HashTable::~CMD5HashTable()
+{
+	//free each bucket's entry table
+	for (int i=0;i<256;i++)
+		if (buckets[i].entries)
+			free(buckets[i].entries);
+}
+
+void CMD5HashTable::Allocate(DWORD guess)
+{
+	//figure out how big each bucket should be -- add
+	//a little extra so that the buckets aren't reallocated
+	DWORD bucketsize = (guess/256)+5;
+
+	for (int i=0;i<256;i++)
+	{
+		//free any buckets that have been allocated
+		if (buckets[i].entries)
+		{
+			free(buckets[i].entries);
+		}
+
+		//allocate the new bucket
+		buckets[i].entries =
+			(_Md5Entry*)malloc(sizeof(_Md5Entry)*bucketsize);
+		buckets[i].count = 0;
+		buckets[i].size = bucketsize;
+	}
+
+}
+
+void CMD5HashTable::Drop(BYTE *md5, void *object)
+{
+	//drop the object into the correct bucket
+	ASSERT(md5);
+	ASSERT(object);
+	
+	//find the bucket
+	_Md5Bucket &bucket = buckets[md5[0]];
+
+	//do we need to expand the bucket?
+	bucket.count++;
+	if (bucket.count > bucket.size)
+	{
+		bucket.size += 5;
+		bucket.entries = 
+			(_Md5Entry*)realloc(bucket.entries, sizeof(_Md5Entry)*bucket.size);
+	}
+
+	//store the new record
+	memcpy(bucket.entries[bucket.count-1].md5, md5, 16);
+	bucket.entries[bucket.count-1].object = object;
+}
+
+void* CMD5HashTable::Lookup(BYTE *md5)
+{
+	//first, grab the right buckt
+	if (!md5)
+		return NULL;
+	_Md5Bucket &bucket = buckets[md5[0]];
+
+	//now scan the entries
+	for (DWORD i=0;i<bucket.count;i++)
+	{
+		if (md5comp(bucket.entries[i].md5, md5))
+			return bucket.entries[i].object;
+	}
+
+	//guess we don't have it
+	return NULL;
+}

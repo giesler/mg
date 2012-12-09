@@ -5,6 +5,8 @@ namespace XMedia
 	using System.Collections;
 	using System.Xml;
 	using System.Text;
+	using System.Data;
+	using System.Data.SqlClient;
 
 	// helper class for message
 	public class XMMessageField
@@ -60,10 +62,10 @@ namespace XMedia
 				m = new XMMediaItem();
 				m.Action = e.GetAttribute("action");
 				m.Md5 = e.GetAttribute("md5");
-				m.Height = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("height"));
-				m.Width = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("width"));
-				m.FileSize = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("filesize"));
-			
+				m.Height = Convert.ToInt32(e.GetAttribute("height"));
+				m.Width = Convert.ToInt32(e.GetAttribute("width"));
+				m.FileSize = Convert.ToInt32(e.GetAttribute("filesize"));
+		
 				//check for index
 				XmlNodeList nl = e.GetElementsByTagName("index");
 				m.Indices = new XMIndex[nl.Count];
@@ -94,7 +96,7 @@ namespace XMedia
 		//special data depending on message
 		public XMMediaListing Listing;
 		public XMQuery Query;
-		public /*beta2:*/ArrayList QueryResults;
+		public ArrayList QueryResults;
 
 		//auto update
 		public bool auEnable = false;
@@ -121,8 +123,8 @@ namespace XMedia
 				
 			//get sequence number, reply number
 			XmlElement root = xml.DocumentElement;
-			Sequence = /*beta2:*/Convert.ToInt32(root.GetAttribute("sequence"));
-			Reply = /*beta2:*/Convert.ToInt32(root.GetAttribute("reply"));
+			Sequence = Convert.ToInt32(root.GetAttribute("sequence"));
+			Reply = Convert.ToInt32(root.GetAttribute("reply"));
 
 			//read major elements
 			XmlElement el, content=null;
@@ -545,6 +547,11 @@ namespace XMedia
 			//are proboly changed computers or something, and we need everytyhing
 			msg.SetField("listingsize", Connection.FileCount==files?"partial":"full");
 
+			if (Connection.Username=="cache")
+			{
+				Trace.WriteLine(String.Format("*** asking cache for {0}", msg.GetField("listingsize").Value));
+			}
+
 			//set limiters on the queries?
 			if(!Connection.Paying)
 			{
@@ -666,23 +673,19 @@ namespace XMedia
 
 			//execute query
 			if (!mListingADO.EnsureConnection()) throw new Exception("No database.");
-			ADODB._Recordset rs = mListingADO.SqlExec(sql);
+			SqlDataReader rs = mListingADO.SqlExec(sql);
 
 			//convert to listing
 			XMMediaItem mi = new XMMediaItem();
 			XMMediaListing ml = new XMMediaListing();
 			ml.Full = all;
-			if (!rs.EOF)
-			{
-				XMQueryEngine.rs2mi(rs, mi);
-				ml.MediaItems.Add(mi);
-			}
-			while (!rs.EOF)
+			while (rs.Read())
 			{
 				mi = new XMMediaItem();
 				XMQueryEngine.rs2mi(rs, mi);
 				ml.MediaItems.Add(mi);
 			}
+			rs.Close();
 
 			//send message
 			XMMessage msg = this.CreateReply();
@@ -727,7 +730,7 @@ namespace XMedia
 			{
 				//remove from media storage
 				sql = "delete from mediastorage where userid = " + Connection.UserID.ToStringDB();
-				mListingADO.SqlExec(sql);
+				mListingADO.SqlExecNoResults(sql);
 
 				//remove from media index
 				//sql = "delete from mediaindex where userid = " + Connection.UserID.ToStringDB();
@@ -741,6 +744,9 @@ namespace XMedia
 			//walk list of media items
 			XMGuid md5;
 			StringBuilder sb;
+			int c = 0;
+			/*TEMP*/// int j = 0;
+			/*TEMP*/// SqlDataReader rstemp;
 			foreach(XMMediaItem mi in Listing.MediaItems)
 			{
 				try 
@@ -755,13 +761,35 @@ namespace XMedia
 							", @width="		+ mi.Width				.ToString() +
 							", @height="	+ mi.Height				.ToString() + 
 							", @filesize="	+ mi.FileSize			.ToString();
-						mListingADO.SqlExec(sql);
+
+						///<TEMP>
+						//XMAdo ado = new XMAdo();
+						//ado.EnsureConnection();
+						mListingADO/*ado*/.SqlExecNoResults(sql);
+						///</TEMP>
+						c++;
+
+						///<TEMP>
+						/*
+						j++;
+						sql = "select count(*) from mediastorage where userid=0x9A564D7321999DE9C8A8F5BC831141CB";
+						rstemp = mListingADO.SqlExec(sql);
+						rstemp.Read();
+						if ((int)rstemp[0] != j)
+						{
+							//aha!
+							Debug.Assert(false);
+							j--;
+						}
+						rstemp.Close();
+						*/
+						///</TEMP>
 					}
 					else if(mi.Action=="remove")
 					{
 						sql = "exec sp_deletemediastorage @md5=" + md5.ToStringDB()
 								+ ", @uid=" + Connection.UserID.ToStringDB();
-						mListingADO.SqlExec(sql);
+						mListingADO.SqlExecNoResults(sql);
 					}
 					
 					//insert each index
@@ -803,9 +831,8 @@ namespace XMedia
 						else
 							sb.Append(0);
 						
-						mListingADO.SqlExec(sb.ToString());
+						mListingADO.SqlExecNoResults(sb.ToString());
 					}
-					
 				}
 				catch(Exception e)
 				{
@@ -813,6 +840,12 @@ namespace XMedia
 					//safely ignore this.
 					XMLog.WriteLine(e.Message, "DoListing", EventLogEntryType.Warning);
 				}
+			}
+			
+			//print out number of items we added
+			if (Connection.Username=="cache")
+			{
+				Trace.WriteLine(String.Format("*** added {0} items for cache", c));
 			}
 		}
     }

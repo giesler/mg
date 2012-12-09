@@ -368,6 +368,7 @@ void CXMClientManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 					//received, then this is an error
 					if(mDownloads[i].mState!=DSS_CLOSING)
 					{
+						/*
 						//send error
 						SendUpdate(	XM_CMU_DOWNLOAD_ERROR,
 									mDownloads[i].mItem->mMD5,
@@ -387,8 +388,19 @@ void CXMClientManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 							}
 							dbman()->Unlock();
 						}
+						*/
+
+						//mark the current host busy
+						mDownloads[i].mItem->mHosts[mDownloads[i].mCurrentHost].IsBusy = true;
+
+						//try again
+						mDownloads[i].mState = DSS_WAITING;
+						BeginDownload(i);
 					}
-					ClearDownload(i);
+					else
+					{
+						ClearDownload(i);
+					}
 				}
 			}
 			

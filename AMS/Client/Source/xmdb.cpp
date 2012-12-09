@@ -266,7 +266,11 @@ bool CXMDB::Open()
 	if (!mFiles) goto fail;
 	memset(mFiles, 0, sizeof(CXMDBFile*)*mFileSize);
 
+	//allocate some memory for the hash table
+	mFilesHashTable.Allocate(mFileCount);
+
 	//read file records
+	//bool skip;
     CXMDBFile *file;
 	for (i=0;i<mFileCount;i++) {
 
@@ -279,8 +283,35 @@ bool CXMDB::Open()
 			goto fail;
 		}
 
-		//add file to list
+		//make sure we don't duplicate any non-removed files
+		/*
+		skip = false;
+		for (DWORD k= (i-1) ; k != -1 ; k-- )
+		{
+			if (md5comp(mFiles[k]->GetMD5(), file->GetMD5()))
+			{
+				skip = true;
+				break;
+			}
+		}
+		*/
+
+		//add file to list -- we do this even for duplicates, 
+		//otherwise thumbnail will get loaded in the wrong order
 		mFiles[i] = file;
+
+		if (mFilesHashTable.Lookup(file->GetMD5()))
+		{
+			//this is a duplicate -- keep it from being sent
+			//to the server, or saved when we exit
+			file->SetFlag(DFF_REMOVED, true);
+			file->SetFlag(DFF_KNOWN, true);
+		}
+		else		
+		{
+			//insert the file in the hashtable, leave flags alone
+			mFilesHashTable.Drop(file->GetMD5(), file);
+		}
 	}
 
 	//read thumbnail records
@@ -360,6 +391,10 @@ bool CXMDB::Close()
 	return true;
 }
 
+
+#define SHOULDFILESAVE(_file) \
+		( !(_file->GetFlag(DFF_REMOVED) && \
+			_file->GetFlag(DFF_KNOWN)) )
 bool CXMDB::Flush()
 {
 	DWORD i, j, s;
@@ -440,28 +475,29 @@ bool CXMDB::Flush()
 
 		//we can skip the record if the server doesnt know about it, and
 		//its already been removed (share, then immediate unshare)
-		//if (!file->GetFlag(DFF_REMOVED))
-		//{
+		if (SHOULDFILESAVE(file))
+		{
 			j++;
 			//TRACE1("Writing file. Known: %d\n", file->GetFlag(DFF_KNOWN));
 			if (fwrite(&(file->mDiskFile), sizeof(file->mDiskFile), 1, mFile)!=1)
 				goto fail;
-		//}
+		}
 	}
 	mDiskHeader.filecount = j;	//only count files that aren't removed
 
 	//write thumbnail records
-	for (i=0;i<mFileCount;i++) {
+	for (i=0;i<mFileCount;i++)
+	{
 		file = mFiles[i];
-		//if (!file->GetFlag(DFF_REMOVED))
-		//{
+		if (SHOULDFILESAVE(file))
+		{
 			for (j=0;j<file->mThumbCount;j++)
 			{
 				thumb = file->mThumbs[j];
 				if (fwrite(&(thumb->mDiskThumb), sizeof(thumb->mDiskThumb), 1, mFile)!=1)
 					goto fail;
 			}
-		//}
+		}
 	}
 
 	//write header
@@ -751,6 +787,9 @@ bool CXMDB::InsertFile(CXMDBFile *file)
 	//copy new file pointer
 	mFiles[mFileCount] = file;
 	mFileCount++;
+
+	//insert entry into hashtable
+	mFilesHashTable.Drop(file->GetMD5(), file);
 	return true;
 }
 
@@ -867,8 +906,7 @@ CXMDBFile* CXMDB::FindFile(const char* path, bool showremoved)
 CXMDBFile* CXMDB::FindFile(BYTE* md5, bool showremoved)
 {
 	//search file list for the given md5
-	Lock();
-	
+	/*
 	CXMDBFile* temp;
 	for (DWORD i=0;i<mFileCount;i++) {
 
@@ -882,10 +920,17 @@ CXMDBFile* CXMDB::FindFile(BYTE* md5, bool showremoved)
 			return temp;
 		}
 	}
+	*/
+	CXMDBFile* file = (CXMDBFile*)mFilesHashTable.Lookup(md5);
+	if (!file)
+		return NULL;
 
-	//no match
-	Unlock();
-	return NULL;
+	if (!showremoved)
+		if (file->GetFlag(DFF_REMOVED))
+			return NULL;
+
+	//matched
+	return file;
 }
 
 //-------------------------------------------------------------------------------------------
@@ -1000,7 +1045,7 @@ bool CXMDBFile::InitFromDB(FILE* file)
 
 	// ********************* HACK ***********************
 	// why the heck does contest show up as 0xCD?
-	// actually, it doesent anymore, but this code 
+	// update: actually, it doesent anymore, but this
 	// won't hurt, will it?
 	if((int)mDiskFile.index.data.Contest == 0xCD)
 		mDiskFile.index.data.Contest = false;
@@ -1078,6 +1123,12 @@ bool CXMDBFile::InitFromFile(const char* path)
 	md5.finalize();
 	fclose(file);
 	memcpy(mDiskFile.md5, md5.raw_digest(), 16);
+
+	//is there another file with the same md5?
+	if (mDB->FindFile(mDiskFile.md5, false))
+	{
+		return false;
+	}
 
 	//use lib jpeg to get width and height
 	CJPEGDecoder jpeg;
