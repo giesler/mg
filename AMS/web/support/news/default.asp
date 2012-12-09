@@ -16,8 +16,20 @@ strOffset = "../../"
 <h3>News</h3>
  
 <p>
+<font size="-1" color="gray"><i>June 21, 8:00 PM Central</i></font><br>
 AMS will be down for upgrades on June 22nd from 8:00AM to 10:00AM Central 
 time.
+</p>
+
+<p>
+<font size="-1" color="gray"><i>June 18, 10:00 PM Central</i></font><br>
+The AMS program was updated to version 0.60.  Although this is a required download, the program will now 
+be able to update itself - after you are prompted.
+</p>
+
+<p>
+<font size="-1" color="gray"><i>June 12, 5:00 PM Central</i></font><br>
+AMS went live today with version 0.50!
 </p>
 
 <!-- #include file="../../_footer.asp"-->
