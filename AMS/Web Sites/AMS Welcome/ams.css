@@ -31,3 +31,37 @@ LI
     FONT-WEIGHT: bolder;
     COLOR: red
 }
+
+.bt
+{
+	padding-right: 2px;
+	padding-left: 2px;
+	border-left-color: lightgrey;
+	border-bottom-color: lightgrey;
+	padding-bottom: 2px;
+	border-top-style: solid;
+	border-top-color: lightgrey;
+	padding-top: 2px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: lightgrey;
+	border-bottom-style: solid;
+}
+
+.bth
+{
+	font-weight: bolder;
+	font-size: smaller;
+	background: lightgrey;
+    FONT-FAMILY: Verdana, Arial
+}
+
+.btc
+{
+	font-size: small;
+    FONT-FAMILY: Verdana, Arial
+}
+a
+{
+	font-size: x-small;
+}

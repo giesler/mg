@@ -80,7 +80,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                 />
             </References>
         </Build>
@@ -132,59 +132,15 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "licenses.licx"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "img\bottom_left.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\bottom_right.gif"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "img\bottom_wash.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\download_now.jpg"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\header.jpg"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\left_wash.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\logo.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\logo_wash.jpg"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\minus.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\plus.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\right_wash.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\top_left.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "img\top_right.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -196,7 +152,15 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "img\vert.gif"
+                    RelPath = "img\welcome_ams_header.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "img\welcome_ams_logo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "img\welcome_top_wash.gif"
                     BuildAction = "Content"
                 />
             </Include>
