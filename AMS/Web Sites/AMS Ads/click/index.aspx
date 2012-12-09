@@ -1,18 +1,12 @@
-<%@ Page language="c#" Codebehind="$FILENAME$.cs" AutoEventWireup="false" Inherits="$INHERITS$" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" > 
-
+<%@ Page language="c#" Codebehind="index.aspx.cs" AutoEventWireup="false" Inherits="AMS_Ads.click.index" EnableSessionState="False" enableViewState="False"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
-  <head>
-    <meta name="GENERATOR" Content="Microsoft Visual Studio 7.0">
-    <meta name="CODE_LANGUAGE" Content="C#">
-    <meta name=vs_defaultClientScript content="JavaScript (ECMAScript)">
-    <meta name=vs_targetSchema content="http://schemas.microsoft.com/intellisense/ie5">
-  </head>
-  <body MS_POSITIONING="GridLayout">
-	
-    <form id="index" method="post" runat="server">
-
-     </form>
-	
-  </body>
+	<head>
+		<title>AMS</title>
+	</head>
+	<body>
+		Now redirecting to
+		<%=TargetURL%>
+		...
+	</body>
 </html>

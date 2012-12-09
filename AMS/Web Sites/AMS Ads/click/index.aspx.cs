@@ -8,6 +8,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace AMS_Ads.click
 {
@@ -16,6 +18,16 @@ namespace AMS_Ads.click
 	/// </summary>
 	public class index : System.Web.UI.Page
 	{
+		protected String strTargetURL = "default";
+
+		public String TargetURL
+		{
+			get
+			{
+				return strTargetURL;
+			}
+		}
+
 		public index()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
@@ -32,6 +44,32 @@ namespace AMS_Ads.click
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
+
+			SqlConnection cn = new SqlConnection(ConfigurationSettings.AppSettings["strConn"]);
+			SqlCommand cmd   = new SqlCommand("sp_Ads_Click", cn);
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@AdID", SqlDbType.NVarChar, 10));
+			cmd.Parameters["@AdID"].Value = Request.QueryString["id"].ToString();
+			
+			cmd.Parameters.Add(new SqlParameter("@ip", SqlDbType.NVarChar, 16));
+			cmd.Parameters["@ip"].Value = Request.UserHostAddress;
+
+			strTargetURL = "http://www.adultmediaswapper.com/";
+
+			// open connection and read vals
+			cn.Open();
+			SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
+			if (dr.Read()) 
+			{
+				// read row
+				if (!dr.IsDBNull(0))
+                    strTargetURL = dr.GetString(0);
+
+			} 
+			dr.Close();
+			cn.Close();
+
 		}
 
 		#region Web Form Designer generated code
@@ -41,7 +79,7 @@ namespace AMS_Ads.click
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

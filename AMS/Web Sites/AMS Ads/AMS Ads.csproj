@@ -80,7 +80,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                 />
             </References>
         </Build>
@@ -112,23 +112,43 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "licenses.licx"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "WebForm1.aspx"
+                    RelPath = "click\index.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "WebForm1.aspx.cs"
-                    DependentUpon = "WebForm1.aspx"
+                    RelPath = "click\index.aspx.cs"
+                    DependentUpon = "index.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "WebForm1.aspx.resx"
-                    DependentUpon = "WebForm1.aspx.cs"
+                    RelPath = "click\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "request\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "request\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "request\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>
