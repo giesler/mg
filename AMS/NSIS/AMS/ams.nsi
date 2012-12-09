@@ -122,7 +122,7 @@ Section Uninstall
 ; add delete commands to delete whatever files/registry keys/etc you installed here.
   Delete "$INSTDIR\uninstams.exe"
   Delete "$INSTDIR\AMSClient.exe"
-  Delete "$INSTDIR\thumbs.db"
+  Delete "$INSTDIR\ams.db"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Line 2 Systems\Adult Media Swapper"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adult Media Swapper"
   RMDir "$INSTDIR"
