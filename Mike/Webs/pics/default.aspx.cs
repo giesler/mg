@@ -44,43 +44,20 @@ namespace pics
 			cn.Open();
 			SqlDataReader dr = cmd.ExecuteReader();
 
-/*			while (dr.Read()) 
-			{
-				ListItem li = new ListItem();
-				
-                HyperLink lnk = new HyperLink();
-				lnk.NavigateUrl = "Categories.aspx?r=1&c=" + dr["CategoryID"].ToString();
-				lnk.Text		= dr["CategoryName"].ToString();
-				recentPanel.Controls.Add(lnk);
-
-				Label lbl = new Label();
-				lbl.Text = "  (" + Convert.ToDateTime(dr["RecentDate"]).ToShortDateString() + ")";
-				lbl.Font.Italic = true;
-				recentPanel.Controls.Add(lbl);
-
-				recentPanel.Controls.Add(br);
-
-                Label desc = new Label();
-				desc.Text = "<br>" + dr["CategoryDescription"].ToString() + "<br>";
-				recentPanel.Controls.Add(desc);
-
-				recentPanel.Controls.Add(br);
-				recentPanel.Controls.Add(br);
-			}
-*/
 			dlRecent.DataSource = dr;
 			dlRecent.DataBind();
 
 			dr.Close();
 			cn.Close();
 
-
 			// Set up SP to retreive pictures
-			SqlDataAdapter daPics = new SqlDataAdapter("dbo.sp_RandomPicture", cn);
+			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
 			daPics.SelectCommand.Parameters.Add("@PersonID", pi.PersonID);
+			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
+			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
 
 			// run the SP, set datasource to the picture list
 			cn.Open();

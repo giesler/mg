@@ -68,11 +68,11 @@ namespace pics
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
 				if (sourceType.Equals("category"))
-					cmdPic.CommandText = "sp_Category_GetPictures";	/// switch based on type
+					cmdPic.CommandText = "p_Category_GetPictures";	/// switch based on type
 				else if (sourceType.Equals("search"))
-					cmdPic.CommandText = "sp_Search_GetPictures";	/// switch based on type
+					cmdPic.CommandText = "p_Search_GetPictures";	/// switch based on type
 				else if (sourceType.Equals("random"))
-					cmdPic.CommandText = "sp_GetPicture";
+					cmdPic.CommandText = "p_GetPicture";
 				cmdPic.CommandType   = CommandType.StoredProcedure;
 				cmdPic.Connection    = cn;
 				SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
@@ -95,36 +95,39 @@ namespace pics
 				}
 				cmdPic.Parameters.Add("@StartRecord", Convert.ToInt32(Request.QueryString["r"]));
 				cmdPic.Parameters.Add("@ReturnCount", 1);
+				cmdPic.Parameters.Add("@MaxHeight", 700);
+				cmdPic.Parameters.Add("@MaxWidth", 750);
 				cmdPic.Parameters.Add("@PersonID", pi.PersonID);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
 				// run the SP, set datasource to the picture list
 				cn.Open();
-				DataSetPicture dsPicture = new DataSetPicture();
-				daPic.Fill(dsPicture, "Picture");
+				DataSet ds = new DataSet();
+				daPic.Fill(ds, "Picture");
+				DataRow dr = ds.Tables[0].Rows[0];
 
 				// now set the controls on the page
-				DataSetPicture.PictureRow pr = (DataSetPicture.PictureRow) dsPicture.Picture.Rows[0];
-				if (!pr.IsTitleNull())
-					lblTitle.Text = pr.Title;
+				if (!dr.IsNull("Title"))
+					lblTitle.Text = dr["Title"].ToString();
 				else
 					lblTitle.Visible = false;
-				if (!pr.IsPictureDateNull())
-					lblPictureDate.Text = pr.PictureDate.ToShortDateString();
+				if (!dr.IsNull("PictureDate"))
+					lblPictureDate.Text = Convert.ToDateTime(dr["PictureDate"]).ToShortDateString();
 				else
 					lblPictureDate.Visible = false;
-				if (!pr.IsDescriptionNull())
-					lblPictureDesc.Text = pr.Description;
+				if (!dr.IsNull("Description"))
+					lblPictureDesc.Text = dr["Description"].ToString();
 				else
 					pnlDescription.Visible = false;
 
 				// now create the picture
 				Picture curPic = new Picture();
-				curPic.Filename = pr.Filename;
-				curPic.MaxHeight = 700;
-				curPic.MaxWidth  = 750;
+				curPic.Filename = dr["Filename"].ToString();
+				curPic.Height   = Convert.ToInt32(dr["Height"]);
+				curPic.Width	= Convert.ToInt32(dr["Width"]);
 				tdPicture.Controls.Add(curPic);
+				
 
 				// now read people
                 SqlCommand cmdPerson = new SqlCommand();
@@ -133,7 +136,7 @@ namespace pics
 				cmdPerson.Connection  = cn;
 
 				// set up params to SP
-				cmdPerson.Parameters.Add("@PictureID", pr.PictureID );
+				cmdPerson.Parameters.Add("@PictureID", Convert.ToInt32(dr["PictureID"]));
 
 				// now read the data
                 SqlDataReader drPerson = cmdPerson.ExecuteReader();

@@ -191,7 +191,7 @@ namespace pics
 			SqlConnection cn  = new SqlConnection("data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False");
 
 			// Set up SP to retreive pictures
-			SqlDataAdapter daPics = new SqlDataAdapter("dbo.sp_Category_GetPictures", cn);
+			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Category_GetPictures", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
@@ -199,6 +199,8 @@ namespace pics
 			daPics.SelectCommand.Parameters.Add("@StartRecord", startRecord);
 			daPics.SelectCommand.Parameters.Add("@ReturnCount", 15);
 			daPics.SelectCommand.Parameters.Add("@PersonID", pi.PersonID);
+			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
+			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
 			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 			daPics.SelectCommand.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 

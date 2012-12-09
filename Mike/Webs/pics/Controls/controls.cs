@@ -20,11 +20,9 @@ namespace pics.Controls
 	/// </summary>
 	public class Picture : System.Web.UI.Control, System.Web.UI.INamingContainer
 	{
-
-		protected int maxWidth;
-		protected int maxHeight;
-		protected String filename;
-		protected System.Web.UI.WebControls.Image currentImage;
+		private int width;
+		private int height;
+		private string filename;
 
 		/// <summary>
 		/// Creates a new Picture object
@@ -34,136 +32,33 @@ namespace pics.Controls
 
 		protected override void CreateChildControls() 
 		{
+
+			System.Web.UI.WebControls.Image image = new System.Web.UI.WebControls.Image();
 			
 			// Create the image object
-			currentImage = new System.Web.UI.WebControls.Image();
-			currentImage.BorderWidth = Unit.Pixel(0);
-			currentImage.BorderStyle = BorderStyle.None;
-
-			// verify max width and height
-			if (maxWidth == 0)
-				maxWidth = 150;
-			if (maxHeight == 0)
-				maxHeight = 150;
-
-			// init values
-			int newWidth	= maxWidth;
-			int newHeight	= maxHeight;
+			image.BorderWidth = Unit.Pixel(0);
+			image.BorderStyle = BorderStyle.None;
 
 			// see if file wasn't set
 			if (filename == null)
 				throw new Exception("Filename is blank");
 
-			// build the filename of our desired target file
-			String targetImageURL = 
-				filename.Substring(0, filename.LastIndexOf("."))	    // get part before .<type>
-				+ "h" + newHeight + "w" + newWidth						// add on hxwx
-				+ ".jpg";					// always want .jpg   + strFile.Substring(strFile.LastIndexOf("."));			
-			
-			
-			// figure out the filenames on the web server
-			String sourceFile = pics.Config.PictureDirectory + "\\" + filename.Replace("/", "\\");
-			String targetFile = HttpContext.Current.Server.MapPath("/piccache") + "\\" + targetImageURL.Replace("/", "\\");
+			image.ImageUrl = HttpContext.Current.Request.ApplicationPath + "/piccache/" + filename;
 
-			// check datestamps - if the source file has changed get rid of the cached image
-			if (File.Exists(targetFile)) 
-			{
-				if (File.GetLastWriteTime(sourceFile) > File.GetLastWriteTime(targetFile))
-					File.Delete(targetFile);
-			}
+			// If we have height / width, set them
+			if (height > 0)
+				image.Height = height;
+			if (width > 0)
+				image.Width = width;
 
-			// if the targetFile doesn't exist, we need to create it
-			if (!File.Exists(targetFile)) 
-			{
+			this.Controls.Add(image);
 
-				// load the current file
-				System.Drawing.Image img = System.Drawing.Image.FromFile(sourceFile);
-
-				// read the current height and width
-				newWidth  = img.Width;
-				newHeight = img.Height;
-
-				// see if image is wider then we want, if so resize
-				if (newWidth > maxWidth) 
-				{
-					newWidth  = maxWidth;
-					newHeight = (int) ( (float) img.Height * ( (float) newWidth / (float) img.Width) );
-				}
-
-				// see if image height is greater then we want, if so, resize
-				if (newHeight > maxHeight)
-				{
-					newWidth  = (int) ( (float) newWidth * ( (float) maxHeight / (float) newHeight) );
-					newHeight = maxHeight;
-				}
-
-				// see if target dir exists, if not, create it
-				String targetDirectory = targetFile.Substring(0, targetFile.LastIndexOf("\\"));
-				if (!System.IO.Directory.Exists(targetDirectory))
-					System.IO.Directory.CreateDirectory(targetDirectory);
-
-				// if new width and height aren't the same as the image, resize, createing a new image, then save
-				if (newWidth != img.Width || newHeight != img.Height) 
-				{
-					System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(img, newWidth, newHeight);
-					bmp.Save(targetFile, System.Drawing.Imaging.ImageFormat.Jpeg);
-					bmp.Dispose();
-				} 
-				else 
-				{
-					// simply output the file as it is, since it is already an okay size
-					img.Save(targetFile, System.Drawing.Imaging.ImageFormat.Jpeg);
-				}
-
-				// since we know these values, might as well set them
-				currentImage.Height = newHeight;
-				currentImage.Width  = newWidth;
-
-				img.Dispose();
-
-			}
-
-			// we now have an image available, so set the image tag
-			currentImage.ImageUrl = "/piccache/" + targetImageURL;
-
-			this.Controls.Add(currentImage);
-
-		}
-
-		/// <summary>
-		/// Maximum height of the image to output
-		/// </summary>
-		public int MaxHeight 
-		{
-			get 
-			{
-				return maxHeight;
-			}
-			set 
-			{
-				maxHeight = value;
-			}
-		}
-	
-		/// <summary>
-		/// Maximum width of the image to output
-		/// </summary>
-		public int MaxWidth 
-		{
-			get 
-			{
-				return maxWidth;
-			}
-			set 
-			{
-				maxWidth = value;
-			}
 		}
 	
 		/// <summary>
 		/// Source filename of the image
 		/// </summary>
-		public String Filename 
+		public string Filename 
 		{
 			get 
 			{
@@ -172,6 +67,36 @@ namespace pics.Controls
 			set 
 			{
 				filename = value;
+			}
+		}
+
+		/// <summary>
+		/// Picture image actual width
+		/// </summary>
+		public int Width 
+		{
+			get 
+			{
+				return width;
+			}
+			set 
+			{
+				width = value;
+			}
+		}
+
+		/// <summary>
+		/// Picture image actual height
+		/// </summary>
+		public int Height 
+		{
+			get 
+			{
+				return height;
+			}
+			set 
+			{
+				height = value;
 			}
 		}
 
@@ -331,8 +256,8 @@ namespace pics.Controls
 				// Add picture to cell
 				Picture curPic = new Picture();
 				curPic.Filename = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "FileName").ToString();
-				curPic.MaxHeight = 125;
-				curPic.MaxWidth  = 125;
+				curPic.Height	= Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Height"));
+				curPic.Width	= Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Width"));
 				lnkPicZoomPic.Controls.Add(curPic);
 
 				TableRow noteRow = new TableRow();
