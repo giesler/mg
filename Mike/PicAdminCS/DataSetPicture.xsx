@@ -3,6 +3,6 @@
     <Picture_XmlElement left="900" top="476" width="5291" height="4101" selected="0" zOrder="0" index="0" />
     <PictureCategory_XmlElement left="14262" top="3888" width="5292" height="2831" selected="0" zOrder="2" index="1" />
     <PicturePerson_XmlElement left="14076" top="8309" width="5292" height="2831" selected="0" zOrder="4" index="2" />
-    <PicturePictureCategory_XmlKeyref left="10425" top="5311" width="503" height="503" selected="0" zOrder="6" />
     <PicturePicturePerson_XmlKeyref left="10466" top="8492" width="503" height="503" selected="0" zOrder="10" />
+    <PicturePictureCategory_XmlKeyref left="10425" top="5311" width="503" height="503" selected="0" zOrder="6" />
 </XSDDesignerLayout>

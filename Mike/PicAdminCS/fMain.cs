@@ -435,8 +435,10 @@ namespace PicAdminCS
 		private void tvDates_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
 
-			ListViewItem li;
 			TreeNode nCur = tvDates.SelectedNode;
+			if (nCur == null) return;
+
+			ListViewItem li;
 			lvPics.Items.Clear();
 
 			cn.Open();

@@ -211,6 +211,7 @@ namespace PicAdminCS
 			if (!fPS.Cancel) 
 			{
 				pr = fPS.SelectedPerson;
+				txtPersonName.Text = pr.FullName;
 			}
 
 		}
@@ -223,6 +224,9 @@ namespace PicAdminCS
 			}
 			set 
 			{
+				if (value == null) 
+					return;
+
 				// fill the da with the selected row
 				daPerson.SelectCommand.Parameters["@PersonID"].Value = value.PersonID;
 				daPerson.Fill(dsPerson, "Person");
@@ -243,6 +247,9 @@ namespace PicAdminCS
 			}
 			set 
 			{
+				if (value == 0)
+					return;
+
 				// fill the da with the selected row
 				daPerson.SelectCommand.Parameters["@PersonID"].Value = value;
 				daPerson.Fill(dsPerson, "Person");

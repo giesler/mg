@@ -66,14 +66,8 @@
   <data name="sqlSelectCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="sqlDeleteCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlDeleteCommand2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 17</value>
-  </data>
-  <data name="sqlDeleteCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="daPicture.Location" type="System.Drawing.Point, System.Drawing">
+    <value>458, 54</value>
   </data>
   <data name="sqlDeleteCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -82,6 +76,24 @@
     <value>17, 17</value>
   </data>
   <data name="sqlDeleteCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlUpdateCommand1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>325, 17</value>
+  </data>
+  <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlDeleteCommand2.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="sqlDeleteCommand2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 17</value>
+  </data>
+  <data name="sqlDeleteCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="daPictureCategory.Location" type="System.Drawing.Point, System.Drawing">
@@ -96,29 +108,17 @@
   <data name="sqlUpdateCommand2.DesignTimeVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="daPicture.Location" type="System.Drawing.Point, System.Drawing">
-    <value>458, 54</value>
-  </data>
-  <data name="sqlUpdateCommand1.CommandDesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="sqlUpdateCommand1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>325, 17</value>
-  </data>
-  <data name="sqlUpdateCommand1.DesignTimeVisible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="openFileDialogPic.Location" type="System.Drawing.Point, System.Drawing">
     <value>320, 54</value>
   </data>
   <data name="dsPicture.Location" type="System.Drawing.Point, System.Drawing">
     <value>761, 54</value>
   </data>
-  <data name="$this.Name">
-    <value>fAddPictures</value>
-  </data>
   <data name="$this.TrayHeight" type="System.Int32, mscorlib">
     <value>126</value>
+  </data>
+  <data name="$this.Name">
+    <value>fAddPictures</value>
   </data>
   <resheader name="ResMimeType">
     <value>text/microsoft-resx</value>

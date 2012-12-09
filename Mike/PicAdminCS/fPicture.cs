@@ -24,17 +24,11 @@ namespace PicAdminCS
 		public bool mblnCancel;
 		private System.Windows.Forms.TextBox txtDescription;
 		private System.Windows.Forms.CheckBox chkPublish;
-		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
-		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
-		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
-		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage3;
-		private System.Data.SqlClient.SqlDataAdapter daPicture;
 		private PicAdminCS.CategoryPicker categoryPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPictureCategory;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand2;
@@ -46,10 +40,16 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand3;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand3;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand3;
-		private PicAdminCS.DataSetPicture dsPicture;
 		private PicAdminCS.PersonPicker personPicker1;
 		private System.Windows.Forms.Label label3;
 		private PicAdminCS.PersonSelect personSelect1;
+		private System.Data.SqlClient.SqlDataAdapter daPicture;
+		private System.Data.SqlClient.SqlCommand sqlSelectCommand4;
+		private System.Data.SqlClient.SqlCommand sqlInsertCommand4;
+		private System.Data.SqlClient.SqlCommand sqlUpdateCommand4;
+		private System.Data.SqlClient.SqlCommand sqlDeleteCommand4;
+		private PicAdminCS.DataSetPicture dsPicture;
+		private System.Windows.Forms.TextBox txtPictureDate;
 
 
 		public String Title 
@@ -104,39 +104,39 @@ namespace PicAdminCS
 			this.sqlDeleteCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
 			this.sqlDeleteCommand3 = new System.Data.SqlClient.SqlCommand();
-			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlInsertCommand3 = new System.Data.SqlClient.SqlCommand();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.dsPicture = new PicAdminCS.DataSetPicture();
+			this.sqlDeleteCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.txtDescription = new System.Windows.Forms.TextBox();
+			this.dsPicture = new PicAdminCS.DataSetPicture();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.categoryPicker1 = new PicAdminCS.CategoryPicker();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.personPicker1 = new PicAdminCS.PersonPicker();
 			this.chkPublish = new System.Windows.Forms.CheckBox();
 			this.personSelect1 = new PicAdminCS.PersonSelect();
-			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.panelPic = new System.Windows.Forms.Panel();
 			this.pbPic = new System.Windows.Forms.PictureBox();
 			this.txtTitle = new System.Windows.Forms.TextBox();
+			this.txtPictureDate = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.daPictureCategory = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlSelectCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.daPicture = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlInsertCommand4 = new System.Data.SqlClient.SqlCommand();
+			this.sqlSelectCommand4 = new System.Data.SqlClient.SqlCommand();
+			this.sqlUpdateCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.daPicturePerson = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlSelectCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.panelPic.SuspendLayout();
@@ -183,34 +183,16 @@ namespace PicAdminCS
 			this.sqlDeleteCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
 			this.sqlDeleteCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
 			// 
-			// sqlInsertCommand1
+			// sqlInsertCommand2
 			// 
-			this.sqlInsertCommand1.CommandText = "INSERT INTO Picture(Filename, PictureDate, Title, Description, Publish) VALUES (@" +
-				"Filename, @PictureDate, @Title, @Description, @Publish); SELECT PictureID, Filen" +
-				"ame, PictureDate, Title, Description, Publish FROM Picture WHERE (PictureID = @@" +
-				"IDENTITY)";
-			this.sqlInsertCommand1.Connection = this.cn;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.Timestamp, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Current, null));
-			// 
-			// sqlDeleteCommand1
-			// 
-			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Picture WHERE (PictureID = @PictureID) AND (Description = @Description OR @Description1 IS NULL AND Description IS NULL) AND (Filename = @Filename OR @Filename1 IS NULL AND Filename IS NULL) AND (PictureDate = @PictureDate OR @PictureDate1 IS NULL AND PictureDate IS NULL) AND (Publish = @Publish OR @Publish1 IS NULL AND Publish IS NULL) AND (Title = @Title OR @Title1 IS NULL AND Title IS NULL)";
-			this.sqlDeleteCommand1.Connection = this.cn;
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description1", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate1", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish1", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title1", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
+			this.sqlInsertCommand2.CommandText = "INSERT INTO PictureCategory(PictureID, CategoryID) VALUES (@PictureID, @CategoryI" +
+				"D); SELECT PictureID, CategoryID FROM PictureCategory WHERE (CategoryID = @Selec" +
+				"t_CategoryID) AND (PictureID = @Select_PictureID)";
+			this.sqlInsertCommand2.Connection = this.cn;
+			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
 			// 
 			// sqlInsertCommand3
 			// 
@@ -223,24 +205,23 @@ namespace PicAdminCS
 			this.sqlInsertCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
 			this.sqlInsertCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
 			// 
-			// textBox1
+			// sqlDeleteCommand4
 			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.PictureDate"));
-			this.textBox1.Location = new System.Drawing.Point(72, 32);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(472, 20);
-			this.textBox1.TabIndex = 0;
-			this.textBox1.TabStop = false;
-			this.textBox1.Text = "";
-			// 
-			// dsPicture
-			// 
-			this.dsPicture.DataSetName = "DataSetPicture";
-			this.dsPicture.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsPicture.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
+			this.sqlDeleteCommand4.CommandText = @"DELETE FROM Picture WHERE (PictureID = @PictureID) AND (Description = @Description OR @Description1 IS NULL AND Description IS NULL) AND (Filename = @Filename OR @Filename1 IS NULL AND Filename IS NULL) AND (PictureBy = @PictureBy OR @PictureBy1 IS NULL AND PictureBy IS NULL) AND (PictureDate = @PictureDate OR @PictureDate1 IS NULL AND PictureDate IS NULL) AND (Publish = @Publish OR @Publish1 IS NULL AND Publish IS NULL) AND (Title = @Title OR @Title1 IS NULL AND Title IS NULL)";
+			this.sqlDeleteCommand4.Connection = this.cn;
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description1", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureBy", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureBy1", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate1", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish1", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title1", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
 			// 
 			// tabControl1
 			// 
@@ -277,6 +258,12 @@ namespace PicAdminCS
 			this.txtDescription.Size = new System.Drawing.Size(528, 182);
 			this.txtDescription.TabIndex = 1;
 			this.txtDescription.Text = "";
+			// 
+			// dsPicture
+			// 
+			this.dsPicture.DataSetName = "DataSetPicture";
+			this.dsPicture.Locale = new System.Globalization.CultureInfo("en-US");
+			this.dsPicture.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
 			// 
 			// tabPage2
 			// 
@@ -336,17 +323,6 @@ namespace PicAdminCS
 			this.personSelect1.Size = new System.Drawing.Size(472, 21);
 			this.personSelect1.TabIndex = 8;
 			// 
-			// sqlInsertCommand2
-			// 
-			this.sqlInsertCommand2.CommandText = "INSERT INTO PictureCategory(PictureID, CategoryID) VALUES (@PictureID, @CategoryI" +
-				"D); SELECT PictureID, CategoryID FROM PictureCategory WHERE (CategoryID = @Selec" +
-				"t_CategoryID) AND (PictureID = @Select_PictureID)";
-			this.sqlInsertCommand2.Connection = this.cn;
-			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
-			// 
 			// panelPic
 			// 
 			this.panelPic.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -380,6 +356,27 @@ namespace PicAdminCS
 			this.txtTitle.TabIndex = 0;
 			this.txtTitle.Text = "";
 			// 
+			// txtPictureDate
+			// 
+			this.txtPictureDate.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.txtPictureDate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.PictureDate"));
+			this.txtPictureDate.Location = new System.Drawing.Point(72, 32);
+			this.txtPictureDate.Name = "txtPictureDate";
+			this.txtPictureDate.ReadOnly = true;
+			this.txtPictureDate.Size = new System.Drawing.Size(472, 20);
+			this.txtPictureDate.TabIndex = 0;
+			this.txtPictureDate.TabStop = false;
+			this.txtPictureDate.Text = "";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(16, 32);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 16);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "Date:";
+			// 
 			// daPictureCategory
 			// 
 			this.daPictureCategory.DeleteCommand = this.sqlDeleteCommand2;
@@ -410,9 +407,9 @@ namespace PicAdminCS
 			// 
 			// daPicture
 			// 
-			this.daPicture.DeleteCommand = this.sqlDeleteCommand1;
-			this.daPicture.InsertCommand = this.sqlInsertCommand1;
-			this.daPicture.SelectCommand = this.sqlSelectCommand1;
+			this.daPicture.DeleteCommand = this.sqlDeleteCommand4;
+			this.daPicture.InsertCommand = this.sqlInsertCommand4;
+			this.daPicture.SelectCommand = this.sqlSelectCommand4;
 			this.daPicture.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
 																								new System.Data.Common.DataTableMapping("Table", "Picture", new System.Data.Common.DataColumnMapping[] {
 																																																		   new System.Data.Common.DataColumnMapping("PictureID", "PictureID"),
@@ -420,37 +417,52 @@ namespace PicAdminCS
 																																																		   new System.Data.Common.DataColumnMapping("PictureDate", "PictureDate"),
 																																																		   new System.Data.Common.DataColumnMapping("Title", "Title"),
 																																																		   new System.Data.Common.DataColumnMapping("Description", "Description"),
-																																																		   new System.Data.Common.DataColumnMapping("Publish", "Publish")})});
-			this.daPicture.UpdateCommand = this.sqlUpdateCommand1;
+																																																		   new System.Data.Common.DataColumnMapping("Publish", "Publish"),
+																																																		   new System.Data.Common.DataColumnMapping("PictureBy", "PictureBy")})});
+			this.daPicture.UpdateCommand = this.sqlUpdateCommand4;
 			// 
-			// sqlSelectCommand1
+			// sqlInsertCommand4
 			// 
-			this.sqlSelectCommand1.CommandText = "SELECT PictureID, Filename, PictureDate, Title, Description, Publish FROM Picture" +
-				" WHERE PictureID = @PictureID";
-			this.sqlSelectCommand1.Connection = this.cn;
-			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.CommandText = @"INSERT INTO Picture(Filename, PictureDate, Title, Description, Publish, PictureBy) VALUES (@Filename, @PictureDate, @Title, @Description, @Publish, @PictureBy); SELECT PictureID, Filename, PictureDate, Title, Description, Publish, PictureBy FROM Picture WHERE (PictureID = @@IDENTITY)";
+			this.sqlInsertCommand4.Connection = this.cn;
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.Timestamp, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureBy", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Current, null));
 			// 
-			// sqlUpdateCommand1
+			// sqlSelectCommand4
 			// 
-			this.sqlUpdateCommand1.CommandText = @"UPDATE Picture SET Filename = @Filename, PictureDate = @PictureDate, Title = @Title, Description = @Description, Publish = @Publish WHERE (PictureID = @Original_PictureID) AND (Description = @Original_Description OR @Original_Description1 IS NULL AND Description IS NULL) AND (Filename = @Original_Filename OR @Original_Filename1 IS NULL AND Filename IS NULL) AND (PictureDate = @Original_PictureDate OR @Original_PictureDate1 IS NULL AND PictureDate IS NULL) AND (Publish = @Original_Publish OR @Original_Publish1 IS NULL AND Publish IS NULL) AND (Title = @Original_Title OR @Original_Title1 IS NULL AND Title IS NULL); SELECT PictureID, Filename, PictureDate, Title, Description, Publish FROM Picture WHERE (PictureID = @Select_PictureID)";
-			this.sqlUpdateCommand1.Connection = this.cn;
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.Timestamp, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Description1", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Filename1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureDate1", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish1", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title1", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
+			this.sqlSelectCommand4.CommandText = "SELECT PictureID, Filename, PictureDate, Title, Description, Publish, PictureBy F" +
+				"ROM Picture WHERE (PictureID = @PictureID)";
+			this.sqlSelectCommand4.Connection = this.cn;
+			this.sqlSelectCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
+			// 
+			// sqlUpdateCommand4
+			// 
+			this.sqlUpdateCommand4.CommandText = @"UPDATE Picture SET Filename = @Filename, PictureDate = @PictureDate, Title = @Title, Description = @Description, Publish = @Publish, PictureBy = @PictureBy WHERE (PictureID = @Original_PictureID) AND (Description = @Original_Description OR @Original_Description1 IS NULL AND Description IS NULL) AND (Filename = @Original_Filename OR @Original_Filename1 IS NULL AND Filename IS NULL) AND (PictureBy = @Original_PictureBy OR @Original_PictureBy1 IS NULL AND PictureBy IS NULL) AND (PictureDate = @Original_PictureDate OR @Original_PictureDate1 IS NULL AND PictureDate IS NULL) AND (Publish = @Original_Publish OR @Original_Publish1 IS NULL AND Publish IS NULL) AND (Title = @Original_Title OR @Original_Title1 IS NULL AND Title IS NULL); SELECT PictureID, Filename, PictureDate, Title, Description, Publish, PictureBy FROM Picture WHERE (PictureID = @Select_PictureID)";
+			this.sqlUpdateCommand4.Connection = this.cn;
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureBy", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Description", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Description1", System.Data.SqlDbType.NVarChar, 2000, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Description", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Filename", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Filename1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Filename", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureBy", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureBy1", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureBy", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PictureDate1", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureDate", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish1", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title1", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
 			// 
 			// daPicturePerson
 			// 
@@ -499,14 +511,6 @@ namespace PicAdminCS
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Title:";
 			// 
-			// label2
-			// 
-			this.label2.Location = new System.Drawing.Point(16, 32);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(48, 16);
-			this.label2.TabIndex = 1;
-			this.label2.Text = "Date:";
-			// 
 			// fPicture
 			// 
 			this.AcceptButton = this.btnOK;
@@ -516,7 +520,7 @@ namespace PicAdminCS
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.personSelect1,
 																		  this.label3,
-																		  this.textBox1,
+																		  this.txtPictureDate,
 																		  this.chkPublish,
 																		  this.btnCancel,
 																		  this.btnOK,
@@ -531,10 +535,9 @@ namespace PicAdminCS
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Picture Detail";
-			this.Load += new System.EventHandler(this.fPicture_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).EndInit();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.panelPic.ResumeLayout(false);
@@ -552,6 +555,7 @@ namespace PicAdminCS
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
 			//SavePicture();
+			dsPicture.Picture[0].PictureBy = personSelect1.SelectedPersonID;
 			this.BindingContext[dsPicture, "Picture"].EndCurrentEdit();
 
 			daPicture.Update(dsPicture, "Picture");
@@ -572,6 +576,8 @@ namespace PicAdminCS
 			
 			daPictureCategory.SelectCommand.Parameters["@PictureID"].Value = id;
 			daPictureCategory.Fill(dsPicture, "PictureCategory");
+
+			personSelect1.SelectedPersonID = dsPicture.Picture[0].PictureBy;
 
 			// load categories
 			foreach(DataSetPicture.PictureCategoryRow pcr in dsPicture.PictureCategory.Rows)
@@ -617,11 +623,6 @@ namespace PicAdminCS
 			// add the category to the PictureCategory dataset
 			dsPicture.PictureCategory.AddPictureCategoryRow
 				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.CategoryID);
-		}
-
-		private void fPicture_Load(object sender, System.EventArgs e)
-		{
-
 		}
 
 		private void categoryPicker1_RemovedCategory(object sender, PicAdminCS.CategoryPickerEventArgs e)
