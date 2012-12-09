@@ -11,7 +11,6 @@ Begin VB.Form fASPClean
    MinButton       =   0   'False
    ScaleHeight     =   4785
    ScaleWidth      =   8910
-   ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    Begin VB.CheckBox chkConfigFiles 
       Caption         =   "Delete config files (global.asa, web.config)"
@@ -26,9 +25,9 @@ Begin VB.Form fASPClean
       Caption         =   "&Cleanup"
       Enabled         =   0   'False
       Height          =   375
-      Left            =   6960
+      Left            =   7080
       TabIndex        =   4
-      Top             =   4200
+      Top             =   4320
       Width           =   1455
    End
    Begin VB.ListBox lstFiles 
@@ -111,7 +110,7 @@ End Sub
 
 Private Sub LoadFileList(fld As Folder, strRoot As String)
 
-    Dim f As File, ch As Folder
+    Dim f As File, ch As Folder, strExt As String
     
     If Left(fld.Name, 1) = "_" Then
         fso.DeleteFolder fld.Path, True
@@ -119,7 +118,14 @@ Private Sub LoadFileList(fld As Folder, strRoot As String)
     End If
     
     For Each f In fld.Files
-        If f.Name = "vssver.scc" Or f.Name = "_vti_inf.html" Or f.Name = "postinfo.html" Then
+        strExt = Mid(f.Path, InStrRev(f.Path, ".") + 1)
+
+        If f.Attributes And ReadOnly Then
+            f.Attributes = f.Attributes - ReadOnly
+        End If
+        If f.Name = "vssver.scc" Or f.Name = "_vti_inf.html" Or f.Name = "postinfo.html" Or f.Name = "mssccprj.scc" Then
+            fso.DeleteFile f.Path
+        ElseIf strExt = "pdb" Or strExt = "csproj" Then
             fso.DeleteFile f.Path
         ElseIf chkConfigFiles.Value = 1 And (f.Name = "global.asa" Or f.Name = "web.config") Then
             fso.DeleteFile f.Path
@@ -144,7 +150,7 @@ Private Sub CleanupFile(strFile As String)
     Set f = fso.GetFile(strFile)
     strExt = Mid(strFile, InStrRev(strFile, ".") + 1)
     
-    If strExt <> "htm" And strExt <> "html" And strExt <> "asp" And strExt <> "ams" And strExt <> "xml" Then Exit Sub
+    If strExt <> "aspx" And strExt <> "htm" And strExt <> "html" And strExt <> "asp" And strExt <> "ams" And strExt <> "xml" And strExt <> "ascx" Then Exit Sub
     
     Set tstr = f.OpenAsTextStream(ForReading)
     
