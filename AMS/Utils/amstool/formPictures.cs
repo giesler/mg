@@ -21,6 +21,9 @@ namespace XMAdmin
 		private System.Windows.Forms.ColumnHeader columnPath;
 		private System.Windows.Forms.Panel panelControls;
 		private System.Windows.Forms.Panel panelPictures;
+		private System.Windows.Forms.ContextMenu menuPictures;
+		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.Button buttonSponsor;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -61,54 +64,29 @@ namespace XMAdmin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.buttonRemove = new System.Windows.Forms.Button();
-			this.picturePreview = new System.Windows.Forms.PictureBox();
-			this.buttonClear = new System.Windows.Forms.Button();
 			this.listPictures = new System.Windows.Forms.ListView();
 			this.columnFile = new System.Windows.Forms.ColumnHeader();
 			this.columnPath = new System.Windows.Forms.ColumnHeader();
+			this.menuPictures = new System.Windows.Forms.ContextMenu();
+			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.buttonRemove = new System.Windows.Forms.Button();
+			this.buttonAdd = new System.Windows.Forms.Button();
+			this.buttonClear = new System.Windows.Forms.Button();
+			this.picturePreview = new System.Windows.Forms.PictureBox();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.panelControls = new System.Windows.Forms.Panel();
-			this.buttonAdd = new System.Windows.Forms.Button();
+			this.buttonSponsor = new System.Windows.Forms.Button();
 			this.panelPictures = new System.Windows.Forms.Panel();
 			this.panelControls.SuspendLayout();
 			this.panelPictures.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// buttonRemove
-			// 
-			this.buttonRemove.Location = new System.Drawing.Point(96, 8);
-			this.buttonRemove.Name = "buttonRemove";
-			this.buttonRemove.Size = new System.Drawing.Size(72, 24);
-			this.buttonRemove.TabIndex = 0;
-			this.buttonRemove.Text = "Remove";
-			this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-			// 
-			// picturePreview
-			// 
-			this.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.picturePreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.picturePreview.Location = new System.Drawing.Point(268, 0);
-			this.picturePreview.Name = "picturePreview";
-			this.picturePreview.Size = new System.Drawing.Size(884, 771);
-			this.picturePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-			this.picturePreview.TabIndex = 2;
-			this.picturePreview.TabStop = false;
-			// 
-			// buttonClear
-			// 
-			this.buttonClear.Location = new System.Drawing.Point(176, 8);
-			this.buttonClear.Name = "buttonClear";
-			this.buttonClear.Size = new System.Drawing.Size(72, 24);
-			this.buttonClear.TabIndex = 1;
-			this.buttonClear.Text = "Clear";
-			this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
 			// 
 			// listPictures
 			// 
 			this.listPictures.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																						   this.columnFile,
 																						   this.columnPath});
+			this.listPictures.ContextMenu = this.menuPictures;
 			this.listPictures.Dock = System.Windows.Forms.DockStyle.Left;
 			this.listPictures.FullRowSelect = true;
 			this.listPictures.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -128,6 +106,55 @@ namespace XMAdmin
 			this.columnPath.Text = "Path";
 			this.columnPath.Width = 123;
 			// 
+			// menuPictures
+			// 
+			this.menuPictures.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																						 this.menuItem1});
+			// 
+			// menuItem1
+			// 
+			this.menuItem1.Index = 0;
+			this.menuItem1.Text = "Set Sponsor...";
+			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+			// 
+			// buttonRemove
+			// 
+			this.buttonRemove.Location = new System.Drawing.Point(96, 8);
+			this.buttonRemove.Name = "buttonRemove";
+			this.buttonRemove.Size = new System.Drawing.Size(72, 24);
+			this.buttonRemove.TabIndex = 0;
+			this.buttonRemove.Text = "Remove";
+			this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+			// 
+			// buttonAdd
+			// 
+			this.buttonAdd.Location = new System.Drawing.Point(16, 8);
+			this.buttonAdd.Name = "buttonAdd";
+			this.buttonAdd.Size = new System.Drawing.Size(72, 24);
+			this.buttonAdd.TabIndex = 0;
+			this.buttonAdd.Text = "Add";
+			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			// 
+			// buttonClear
+			// 
+			this.buttonClear.Location = new System.Drawing.Point(176, 8);
+			this.buttonClear.Name = "buttonClear";
+			this.buttonClear.Size = new System.Drawing.Size(72, 24);
+			this.buttonClear.TabIndex = 1;
+			this.buttonClear.Text = "Clear";
+			this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+			// 
+			// picturePreview
+			// 
+			this.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.picturePreview.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.picturePreview.Location = new System.Drawing.Point(268, 0);
+			this.picturePreview.Name = "picturePreview";
+			this.picturePreview.Size = new System.Drawing.Size(884, 771);
+			this.picturePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+			this.picturePreview.TabIndex = 2;
+			this.picturePreview.TabStop = false;
+			// 
 			// splitter1
 			// 
 			this.splitter1.Location = new System.Drawing.Point(264, 0);
@@ -139,6 +166,7 @@ namespace XMAdmin
 			// panelControls
 			// 
 			this.panelControls.Controls.AddRange(new System.Windows.Forms.Control[] {
+																						this.buttonSponsor,
 																						this.buttonClear,
 																						this.buttonRemove,
 																						this.buttonAdd});
@@ -148,14 +176,14 @@ namespace XMAdmin
 			this.panelControls.Size = new System.Drawing.Size(1152, 46);
 			this.panelControls.TabIndex = 0;
 			// 
-			// buttonAdd
+			// buttonSponsor
 			// 
-			this.buttonAdd.Location = new System.Drawing.Point(16, 8);
-			this.buttonAdd.Name = "buttonAdd";
-			this.buttonAdd.Size = new System.Drawing.Size(72, 24);
-			this.buttonAdd.TabIndex = 0;
-			this.buttonAdd.Text = "Add";
-			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			this.buttonSponsor.Location = new System.Drawing.Point(256, 8);
+			this.buttonSponsor.Name = "buttonSponsor";
+			this.buttonSponsor.Size = new System.Drawing.Size(88, 24);
+			this.buttonSponsor.TabIndex = 2;
+			this.buttonSponsor.Text = "Sponsors";
+			this.buttonSponsor.Click += new System.EventHandler(this.buttonSponsor_Click);
 			// 
 			// panelPictures
 			// 
@@ -275,6 +303,31 @@ namespace XMAdmin
 		private void formPictures_Load(object sender, System.EventArgs e)
 		{
 			DrawPictures();
+		}
+
+		private void buttonSponsor_Click(object sender, System.EventArgs e)
+		{
+			//show a sponsor dialog
+			formSponsors dlg = new formSponsors();
+			dlg.ShowDialog(this);
+		}
+
+		private void menuItem1_Click(object sender, System.EventArgs e)
+		{
+			if (listPictures.SelectedItems.Count < 1)
+			{
+				MessageBox.Show(this, "Select some pictures first.");
+				return;
+			}
+		
+			//show the sponsor dialog, with the pictures
+			//already selected
+			formSponsors dlg = new formSponsors();
+			foreach(ListViewItem lvi in listPictures.SelectedItems)
+			{
+				dlg.InitialPictures.Add(lvi.Tag);
+			}
+			dlg.ShowDialog(this);
 		}
 	}
 }

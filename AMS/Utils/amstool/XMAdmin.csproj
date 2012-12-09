@@ -107,6 +107,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "formSponsors.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "formSponsors.resx"
+                    DependentUpon = "formSponsors.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "formUserIndexes.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -130,6 +140,10 @@
                     RelPath = "index.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "licenses.licx"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "login.cs"

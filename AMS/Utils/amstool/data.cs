@@ -60,6 +60,13 @@ namespace XMAdmin
 			cmd.CommandText = sql;
 			return cmd.ExecuteReader();
 		}
+		
+		public static void ExecNoResults(string sql)
+		{
+			SqlCommand cmd = Connection.CreateCommand();
+			cmd.CommandText = sql;
+			cmd.ExecuteNonQuery();
+		}
 
 	}
 }
