@@ -110,7 +110,7 @@ Private Sub LoadFileList(fld As Folder, strRoot As String)
     End If
     
     For Each f In fld.Files
-        If f.Name = "vssver.scc" Or f.Name = "_vti_inf.html" Then
+        If f.Name = "vssver.scc" Or f.Name = "_vti_inf.html" Or f.Name = "postinfo.html" Then
             fso.DeleteFile f.Path
         Else
             If f.Attributes And ReadOnly Then
