@@ -287,15 +287,18 @@ bool CXMIndex::IsBlank()
 }
 
 #define INDEX_TOXML_HELPER(_size, _field) \
-	VariantInit(&v); \
-	V_VT(&v) = VT_UI##_size; \
-	V_UI##_size(&v) = _field; \
-	COM_SINGLECALL(xml->createElement(_bstr_t(#_field), &f)); \
-	COM_SINGLECALL(f->setAttribute(bstrVal, v)); \
-	COM_SINGLECALL(e->appendChild(f, &n)); \
-	VariantClear(&v); \
-	COM_RELEASE(f); \
-	COM_RELEASE(n);
+	if (_field != 0) \
+	{ \
+		VariantInit(&v); \
+		V_VT(&v) = VT_UI##_size; \
+		V_UI##_size(&v) = _field; \
+		COM_SINGLECALL(xml->createElement(_bstr_t(#_field), &f)); \
+		COM_SINGLECALL(f->setAttribute(bstrVal, v)); \
+		COM_SINGLECALL(e->appendChild(f, &n)); \
+		VariantClear(&v); \
+		COM_RELEASE(f); \
+		COM_RELEASE(n); \
+	}
 
 HRESULT CXMIndex::ToXml(IXMLDOMDocument *xml, char *name, IXMLDOMElement** out)
 {
@@ -374,6 +377,32 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 	_bstr_t bstrVal("value");
 	VARIANT v;
 	VariantInit(&v);
+
+	//init all fields to 0
+	Cat1 = 0;
+	Cat2 = 0;
+	Setting = 0;
+	Rating = 0;
+	Quantity = 0;
+	Content = 0;
+	Build = 0;
+	HairColor = 0;
+	HairStyle = 0;
+	Eyes = 0;
+	Height = 0;
+	Age = 0;
+	Breasts = 0;
+	Nipples = 0;
+	Butt = 0;
+	Race = 0;
+	Quality = 0;
+	Skin = 0;
+	Legs = 0;
+	FemaleGen = 0;
+	MaleGen = 0;
+	Chest = 0;
+	FacialHair = 0;
+	Hips = 0;
 
 	//loop through child nodes
 	COM_SINGLECALL(index->get_childNodes(&list));
@@ -485,6 +514,7 @@ CXMQuery::CXMQuery()
 	mRefCount = 1;
 	mName = NULL;
 	mContest = false;
+	mTag = 0;
 }
 
 CXMQuery::~CXMQuery()

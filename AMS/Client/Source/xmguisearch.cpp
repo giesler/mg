@@ -12,6 +12,7 @@
 CXMQuery *CSearchView::mQuery;
 CImageList CSearchView::mQueryImages;
 CXMGUIQueryItemList CSearchView::mQueryItems;
+DWORD CSearchView::mQueryTag;
 
 //imagelist stuff
 #define XMGS_DEFIMAGECOUNT		3
@@ -34,6 +35,7 @@ bool CMainFrame::StaticInit()
 	CSearchView::mQueryImages.Add(&bmpWaiting, (CBitmap*)NULL);
 	CSearchView::mQueryImages.Add(&bmpDownloading, (CBitmap*)NULL);
 	CSearchView::mQueryImages.Add(&bmpError, (CBitmap*)NULL);
+	CSearchView::mQueryTag = 0;
 
 	//success
 	return true;
@@ -255,6 +257,12 @@ LRESULT CMainFrame::OnServerMessage(WPARAM wParam, LPARAM lParam)
 
 	case XM_SMU_QUERY_FINISH:
 
+		//if the query tag (lparam) is not the one we
+		//got the last time we starteda query, this is
+		//someone elses query
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+
 		//refresh the CSearhView::mQueryItems collection
 		r = sm()->QueryGetResponse();
 		ClearQueryItems();
@@ -275,6 +283,7 @@ LRESULT CMainFrame::OnServerMessage(WPARAM wParam, LPARAM lParam)
 			cm()->Unlock();
 		}
 		r->Release();
+		break;
 
 	case XM_SMU_QUERY_CANCEL:
 	case XM_SMU_QUERY_ERROR:
@@ -453,7 +462,8 @@ void CSearchView::OnSavedSearch()
 		return;
 
 	//begin query
-	if (!sm()->QueryBegin(q)) {
+	mQueryTag = sm()->QueryBegin(q);
+	if (mQueryTag == 0) {
 		AfxMessageBox("Error running search.");
 	}
 
@@ -800,6 +810,10 @@ LRESULT CSearchView::OnServerMessage(WPARAM wParam, LPARAM lParam)
 	case XM_SMU_QUERY_SENT:
 	case XM_SMU_QUERY_BEGIN:
 
+		//ignore queries that are not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+
 		//disable the execute buttons
 		mCurrentTools.EnableButton(ID_SEARCH_SEARCH, FALSE);
 		mSavedTools.EnableButton(ID_SEARCH_SAVEDSEARCH, FALSE);
@@ -807,12 +821,20 @@ LRESULT CSearchView::OnServerMessage(WPARAM wParam, LPARAM lParam)
 
 	case XM_SMU_QUERY_FINISH:
 
+		//ignore queries that are not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+		
 		//show results in the listview
 		ShowResults();
 
 	case XM_SMU_QUERY_CANCEL:
 	case XM_SMU_QUERY_ERROR:
 
+		//ignore queries that are not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+		
 		//enable the execute buttons
 		mCurrentTools.EnableButton(ID_SEARCH_SEARCH, TRUE);
 		mSavedTools.EnableButton(ID_SEARCH_SAVEDSEARCH, TRUE);
@@ -859,10 +881,11 @@ void CSearchView::OnSearchSearch()
 		return;
 
 	//begin query
-	if (!sm()->QueryBegin(mQuery)) {
+	mQueryTag = sm()->QueryBegin(mQuery);
+	if (mQueryTag == 0) {
 		AfxMessageBox("Error running search.");
 	}
-
+	
 	//add to mru
 	config()->QueryMru(mQuery);
 	RefreshSaved();

@@ -608,6 +608,10 @@ LRESULT CXMGUIStatus::OnServerMessage(WPARAM wParam, LPARAM lParam)
 	{
 	case XM_SMU_QUERY_BEGIN:
 
+		//ignore queries not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+
 		//blank progress bar
 		mSearchRibbon.mValue = 0;
 		strcpy(mSearchRibbon.mText, "Searching...");
@@ -617,6 +621,10 @@ LRESULT CXMGUIStatus::OnServerMessage(WPARAM wParam, LPARAM lParam)
 	case XM_SMU_QUERY_CANCEL:
 	case XM_SMU_QUERY_ERROR:
 
+		//ignore queries not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
+
 		//blank progress bar
 		mSearchRibbon.mValue = 0;
 		strcpy(mSearchRibbon.mText, "Search Error.");
@@ -624,6 +632,10 @@ LRESULT CXMGUIStatus::OnServerMessage(WPARAM wParam, LPARAM lParam)
 		break;
 
 	case XM_SMU_QUERY_FINISH:
+
+		//ignore queries not meant for us
+		if (((DWORD)lParam)!=CSearchView::mQueryTag)
+			break;
 
 		//set max value
 		mSearchRibbon.mMaxValue = CSearchView::mQueryItems.GetCount();

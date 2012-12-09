@@ -330,6 +330,7 @@ CXMMessage::CXMMessage(CXMSession *newSession)
 	mBinaryBuf = NULL;
 	mBinarySize = 0;
 	mExpectedBinarySize = 0;
+	tag = 0;
 
 	mSession = newSession;
 	mLocked = false;

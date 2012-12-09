@@ -69,6 +69,9 @@ public:
 	HRESULT ToXml(IXMLDOMDocument *xml, IXMLDOMElement** out, BSTR name = NULL);
 	HRESULT FromXml(IXMLDOMElement *e);
 
+	//internal
+	DWORD mTag;
+
 private:
 	~CXMQuery();
 	UINT mRefCount;

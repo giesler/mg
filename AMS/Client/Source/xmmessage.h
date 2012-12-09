@@ -91,6 +91,9 @@ public:
 	PROP_DEF_STR(SystemID);
 	PROP_DEF_STR(HostSystemID);
 
+	//tag
+	DWORD tag;
+
 	//field access
 	int GetFieldCount();
 	CXMMessageField* GetField(int index);

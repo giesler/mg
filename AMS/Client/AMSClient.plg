@@ -6,13 +6,7 @@
 --------------------Configuration: AMSClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C1.tmp" with contents
-[
-/nologo /MTd /W3 /Gm /GX /ZI /Od /I "Source\Jpeg" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR"Intermediate\Debug\Client/" /Fp"Intermediate\Debug\Client/AMSClient.pch" /YX /Fo"Intermediate\Debug\Client/" /Fd"Intermediate\Debug\Client/" /FD /GZ /c 
-"d:\AMS\Client\Source\xmdb.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C1.tmp" 
-Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C2.tmp" with contents
+Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP621.tmp" with contents
 [
 paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib /nologo /subsystem:windows /incremental:yes /pdb:"Build\Debug\AMSClient.pdb" /debug /machine:I386 /out:"Build\Debug\AMSClient.exe" /libpath:"Build\Debug\Lib" 
 .\Intermediate\Debug\Client\StdAfx.obj
@@ -38,13 +32,10 @@ paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib /nologo /subsystem:windows /incre
 .\Build\Debug\Lib\libjpeg.lib
 .\Build\Debug\Lib\paintlib.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C2.tmp"
+Creating command line "link.exe @C:\DOCUME~1\nick\LOCALS~1\Temp\RSP621.tmp"
 <h3>Output Window</h3>
-Compiling...
-xmdb.cpp
-d:\AMS\Client\Source\xmdb.cpp(979) : warning C4806: '==' : unsafe operation: no value of type 'bool' promoted to type 'const int' can equal the given constant
 Linking...
-Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C3.tmp" with contents
+Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP622.tmp" with contents
 [
 /nologo /o"Build\Debug\AMSClient.bsc" 
 .\Intermediate\Debug\Client\StdAfx.sbr
@@ -66,14 +57,14 @@ Creating temporary file "C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C3.tmp" with content
 .\Intermediate\Debug\Client\xmpipelineclient.sbr
 .\Intermediate\Debug\Client\xmpipelineserver.sbr
 .\Intermediate\Debug\Client\xmquery.sbr]
-Creating command line "bscmake.exe @C:\DOCUME~1\nick\LOCALS~1\Temp\RSP3C3.tmp"
+Creating command line "bscmake.exe @C:\DOCUME~1\nick\LOCALS~1\Temp\RSP622.tmp"
 Creating browse info file...
 <h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-AMSClient.exe - 0 error(s), 1 warning(s)
+AMSClient.exe - 0 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

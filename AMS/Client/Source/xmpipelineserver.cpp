@@ -59,6 +59,7 @@ CXMServerManager::CXMServerManager()
 	mQueryRunning = false;
 	mQuery = NULL;
 	mQueryResponse = NULL;
+	mQueryLastTag = 0;
 	
 	//setup listings
 	mListingWindow = NULL;
@@ -292,7 +293,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			if (!resp)
 			{
 				//no response!
-				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_ERROR, NULL);
+				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_ERROR, mQueryLastTag);
 				mQueryRunning = false;
 			}
 			else
@@ -305,7 +306,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 				mQueryRunning = false;
 
 				//update ui
-				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_FINISH, NULL);
+				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_FINISH, mQueryLastTag);
 			}
 		}
 		Unlock();
@@ -371,7 +372,7 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 	else if (stricmp(msg->GetFor(false), XMMSG_QUERY)==0)
 	{
 		//query message sent.. send ui update
-		SendEvent(XM_SERVERMSG, XM_SMU_QUERY_SENT, NULL);
+		SendEvent(XM_SERVERMSG, XM_SMU_QUERY_SENT, msg->tag);
 	}
 	else if (stricmp(msg->GetFor(false), XMMSG_LISTING)==0)
 	{
@@ -715,22 +716,22 @@ bool CXMServerManager::LimiterFilter(CXMIndex *filter)
 	return retval;
 }
 
-bool CXMServerManager::QueryBegin(CXMQuery *query)
+DWORD CXMServerManager::QueryBegin(CXMQuery *query)
 {
 	//check state
 	if (mQueryRunning) {
 		//Unlock();
-		return false;
+		return 0;
 	}
 	if (!ServerIsOpen(true))
 	{
 		//Unlock();
-		return false;
+		return 0;
 	}
 	if (!LoginIsLoggedIn())
 	{
 		//Unlock();
-		return false;
+		return 0;
 	}
 
 	//check the new query
@@ -738,7 +739,7 @@ bool CXMServerManager::QueryBegin(CXMQuery *query)
 	if (!LimiterIndex(&query->mQuery) ||
 		!LimiterFilter(&query->mRejection))
 	{
-		return false;
+		return 0;
 	}
 
 	//store our new query
@@ -755,17 +756,23 @@ bool CXMServerManager::QueryBegin(CXMQuery *query)
 	if (FAILED(query->ToXmlString(&str))) {
 		mQuery = NULL;
 		Unlock();
-		return false;
+		return 0;
 	}
 	CXMMessage *msg = new CXMMessage(mServer);
 	msg->SetType(XM_REQUEST);
 	msg->SetFor("query");
 	msg->SetContentFormat("text/xml");
 	msg->GetField("query")->SetXml(str, false);
-	msg->Send();	
+
+	//set message tag
+	msg->tag = ++mQueryLastTag;
+	query->mTag = mQueryLastTag;
+
+	//send the message
+	msg->Send();
 
 	//send update
-	SendEvent(XM_SERVERMSG, XM_SMU_QUERY_BEGIN, NULL);
+	SendEvent(XM_SERVERMSG, XM_SMU_QUERY_BEGIN, mQueryLastTag);
 
 	//clear all current thumbnail downloads.. i.e., the last query
 	cm()->ClearThumbnailDownloads();
@@ -773,7 +780,7 @@ bool CXMServerManager::QueryBegin(CXMQuery *query)
 	//success
 	mQueryRunning = true;
 	Unlock();
-	return true;
+	return mQueryLastTag;
 }
 
 bool CXMServerManager::QueryCancel()
@@ -789,7 +796,7 @@ bool CXMServerManager::QueryCancel()
 	mQueryRunning = false;
 
 	//send ui update
-	SendEvent(XM_SERVERMSG, XM_SMU_QUERY_CANCEL, NULL);
+	SendEvent(XM_SERVERMSG, XM_SMU_QUERY_CANCEL, mQueryLastTag);
 
 	Unlock();
 	return true;

@@ -372,7 +372,7 @@ public:
 	bool AuGo(CWnd *wnd);	//true: quit program, false: au failed
 
 	//query interface
-	bool QueryBegin(CXMQuery *query);
+	DWORD QueryBegin(CXMQuery *query);
 	bool QueryCancel();
 	bool QueryIsRunning();
 	CXMQuery* QueryGet();						//NOT THREADSAFE
@@ -428,6 +428,7 @@ protected:
 	bool mAuRequired;
 
 	//query data
+	DWORD mQueryLastTag;
 	bool mQueryRunning;
 	CXMQuery *mQuery;
 	CXMQueryResponse *mQueryResponse;

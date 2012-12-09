@@ -371,6 +371,7 @@ public:
 	bool Create(CWnd *hwParent, CRect &rect);
 
 	//static query data
+	static DWORD mQueryTag;
 	static CXMQuery *mQuery;
 	static CImageList mQueryImages;
 	static CXMGUIQueryItemList mQueryItems;

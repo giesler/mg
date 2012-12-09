@@ -35,15 +35,7 @@ namespace XMedia
 		private XMMediaItemHost[] mServers = new XMMediaItemHost[5];
 		private byte mServersCount = 0;
 		private DateTime mServersAge = (DateTime.Now - TimeSpan.FromMinutes(11));
-		/*
-		public XMMediaItemHost[] GetServers(ref byte count, XMAdo ado)
-		{
-			//return the collection
-			RebuildServers(ado);
-			count = mServersCount;
-			return mServers;
-		}
-		*/
+
 		public byte GetServersCount(XMAdo ado)
 		{
 			RebuildServers(ado);
@@ -71,6 +63,55 @@ namespace XMedia
 				mServersAge = DateTime.Now;
 			}
 		}
+
+
+		/// <summary>
+		/// Number of fields in the aggregated index (combined) for this item.
+		/// </summary>
+		public int IndexedFieldCount
+		{
+			get
+			{
+				//have we already done the calculatiosn?
+				if(mIndexedFieldCount==-1)
+				{
+					//combine the index.. sort of
+					BitArray ba = new BitArray(24, false);
+					foreach(XMIndex i in Indices)
+					{
+						if (i.Age		!=0) ba[ 0] = true;
+						if (i.Breasts	!=0) ba[ 1] = true;
+						if (i.Build		!=0) ba[ 2] = true;
+						if (i.Chest		!=0) ba[ 3] = true;
+						if (i.Content	!=0) ba[ 4] = true;
+						if (i.Eyes		!=0) ba[ 5] = true;
+						if (i.FacialHair!=0) ba[ 6] = true;
+						if (i.FemaleGen	!=0) ba[ 7] = true;
+						if (i.HairColor	!=0) ba[ 8] = true;
+						if (i.HairStyle	!=0) ba[ 9] = true;
+						if (i.Height	!=0) ba[10] = true;
+						if (i.Hips		!=0) ba[11] = true;
+						if (i.Legs		!=0) ba[12] = true;
+						if (i.MaleGen	!=0) ba[13] = true;
+						if (i.Nipples	!=0) ba[14] = true;
+						if (i.Quality	!=0) ba[15] = true;
+						if (i.Quantity	!=0) ba[16] = true;
+						if (i.Race		!=0) ba[17] = true;
+						if (i.Rating	!=0) ba[18] = true;
+						if (i.Setting	!=0) ba[19] = true;
+						if (i.Skin		!=0) ba[20] = true;
+						if (i.Cat1!=0 || i.Cat2!=0)	 ba[22] = true;
+					}
+
+					//count the true fields
+					mIndexedFieldCount = 0;
+					for(int j=0;j<ba.Count;j++)
+						mIndexedFieldCount++;
+				}
+				return mIndexedFieldCount;
+			}
+		}
+		private int mIndexedFieldCount = -1;
 
 		//conversions
 		public XmlElement ResultsToXml(XmlDocument xml)
@@ -137,7 +178,7 @@ namespace XMedia
 		public byte MaleGen;
 		public byte Chest;
 		public byte FacialHair;
-		
+
 		/// <summary>
 		/// Tallies the score for this index (Contest)
 		/// </summary>
@@ -288,6 +329,11 @@ namespace XMedia
 		}
 		private void ToXml_AppendField(XmlElement index, string name, uint val)
 		{
+			//if value is zero, do not include
+			if (val == 0)
+				return;
+
+			//add the field tag
 			XmlElement e = index.OwnerDocument.CreateElement(name);
 			e.SetAttribute("value", val.ToString());
 			index.AppendChild(e);
@@ -299,6 +345,33 @@ namespace XMedia
 		/// <param name="index">Source xml element.</param>
 		public void FromXml(XmlElement index)
 		{
+			//init each field to zero
+			Cat1		= 0;
+			Cat2		= 0;
+			Setting 	= 0;
+			Rating		= 0;
+			Quantity	= 0;
+			Content		= 0;
+			Build		= 0;
+			HairColor	= 0;
+			HairStyle	= 0;
+			Eyes		= 0;
+			Height		= 0;
+			Age			= 0;
+			Breasts		= 0;
+			Nipples		= 0;
+			Butt		= 0;
+			Race		= 0;
+			Quality		= 0;
+			Skin 		= 0;
+			Hips 		= 0;
+			Legs 		= 0;
+			FemaleGen	= 0;
+			MaleGen		= 0;
+			Chest		= 0;
+			FacialHair	= 0;
+
+			//read data from xml
 			XmlElement e;
 			foreach(XmlNode n in index.ChildNodes)
 			{
@@ -548,7 +621,13 @@ namespace XMedia
 		/// <returns></returns>
 		private bool TestContest(XMMediaItem item)
 		{
-			return false;
+			//no index, we definitly want this one
+			if (item.Indices.Length < 1)
+				return true;
+
+			//if 6 or more fields are already indexed, we
+			//skip this file
+			return (item.IndexedFieldCount < 6);
 		}
 
 		/// <summary>
@@ -692,7 +771,11 @@ namespace XMedia
 						//	* we search EVERY record
 						start = item;
 						item = item.Next;
-						while ((c < 5000) && (ret.Count < 20) && (item!=start))
+						while (	(c < 5000) &&			//max of 5k items searched
+								(ret.Count < 20) &&		//max of 20 results
+								(item!=start) &&		//don't loop in 1 query
+								!(msg.Query.Contest && ret.Count > 1) //only 1 result for contest
+						)
 						{
 							//keep picture?
 							if (msg.Query.Test(item))
