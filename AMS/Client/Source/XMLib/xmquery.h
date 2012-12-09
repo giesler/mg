@@ -122,7 +122,9 @@ public:
 	void Release();
 
 	//data
-	CTypedPtrList<CPtrList, CXMQueryResponseItem*> mFiles;
+	CXMQueryResponseItem** mFiles;
+	DWORD mFilesCount;
+	DWORD mFilesSize;
 
 	//xml conversions
 	HRESULT FromXml(IXMLDOMElement* e);
@@ -147,7 +149,9 @@ public:
 	};
 
 	//data
-	CTypedPtrList<CPtrList, item*> mItems;
+	item** mItems;
+	DWORD mItemsCount;
+	DWORD mItemsSize;
 	bool mFull;
 
 	//construction

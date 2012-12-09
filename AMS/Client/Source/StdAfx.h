@@ -44,3 +44,5 @@
 
 //paintlib import
 #include "paintlib.h"		//custom paintlib header with everything we use
+
+#include "xmlib.h"

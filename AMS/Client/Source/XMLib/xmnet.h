@@ -123,6 +123,39 @@ private:
 	int mLockCount;			//tracks locking
 };
 
+class IXMSessionHandler
+{
+public:
+	virtual void OnMessageReceived(CXMSession *session)=0;
+	virtual void OnMessageSent(CXMSession *session)=0;
+	virtual void OnStateChanged(CXMSession *session, int oldState, int newState)=0;
+	virtual void OnProgress(CXMSession *session)=0;
+    virtual void AddRef()=0;
+    virtual void Release()=0;
+};
+
+//handler interacce implementation
+class CXMSessionHWNDHandler : public IXMSessionHandler
+{
+public:
+	CXMSessionHWNDHandler(HWND hwndWindow);
+
+	//IXMSessionHandler Implementation
+	virtual void OnMessageReceived(CXMSession *session);
+	virtual void OnMessageSent(CXMSession *session);
+	virtual void OnStateChanged(CXMSession *session, int oldState, int newState);
+	virtual void OnProgress(CXMSession *session);
+
+	//IUnknown Implementation
+    virtual void AddRef();
+    virtual void Release();
+
+//data
+protected:
+	HWND m_hwndWindow;
+	UINT m_refCount;
+};
+
 class CXMSession
 {
 public:
@@ -130,12 +163,13 @@ public:
 	//construction
 	void AddRef();
 	void Release();
-	CXMSession(HWND owner);			//must supply awindow for messages
-	static bool InitOnce();			//register our wndcls
+	CXMSession(IXMSessionHandler *owner);			//must supply awindow for messages
+	static bool InitOnce(
+		HINSTANCE HINSTANCE);		//register our wndcls
 	bool Alpha();					//threadproc
 	
 	//state modifiers
-	bool Open(char* address, \
+	bool Open(char* address,
 			  unsigned int port);	//connect to given address
 	bool Open();					//defaults to server
 	bool Accept(SOCKET newSocket);	//opens the session from a socket
@@ -153,7 +187,7 @@ public:
 	static void TxRxReset(bool &tx, bool &rx);
 
 	//misc
-	void SetOwner(HWND owner);
+	void SetOwner(IXMSessionHandler *owner);
 	bool PostMessage(UINT Msg, WPARAM wParam, LPARAM lParam);
 	char* LocalIP();
 	DWORD GetThreadID();
@@ -169,7 +203,9 @@ private:
 	UINT mRefCount;
 
 	//win32 threadings
-	HWND mhOwner, mhSelf;			//owner window, and our window
+	static HINSTANCE mhInstance;
+	IXMSessionHandler *mpOwner;		//interface to event handler
+	HWND mhSelf;					//window, and our window
 	HANDLE mhThread;				//handle to our thread
 	UINT mdwThreadID;				//threadid of our thread
 

@@ -185,7 +185,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 {
 	//what type of message?
 	CXMQueryResponse *resp;
-	if (strcmp(msg->GetFor(false), XMMSG_LOGIN)==0
+	if (stricmp(msg->GetFor(false), XMMSG_LOGIN)==0
 		&& !mLoginCanceled)
 	{		
 		//was the message a succes, or error message?
@@ -233,7 +233,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			
 			//get xml of listing
 			TRACE("*** server wants: %s\n", msg->GetField("listingsize")->GetValue(false));
-			bool full = (strcmp(msg->GetField("listingsize")->GetValue(false), "full")==0)?true:false;
+			bool full = (stricmp(msg->GetField("listingsize")->GetValue(false), "full")==0)?true:false;
 			if (!SendListing(full))
 			{
 				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR, (LPARAM)"Failed to build file listing.");
@@ -642,7 +642,9 @@ bool CXMServerManager::ServerOpen()
 	else
 	{
 		//create new session
-		mServer = new CXMSession(mhWnd);
+		IXMSessionHandler *handler = new CXMSessionHWNDHandler(mhWnd);
+		mServer = new CXMSession(handler);
+		handler->Release();
 	}
 
 	//start the connection
@@ -1260,7 +1262,7 @@ BOOL CLoginDialog::PreCreateWindow(CREATESTRUCT &cs)
 
 void CLoginDialog::OnOptions()
 {
-	config()->DoPrefs(false);
+	DoPrefs();
 }
 
 void CLoginDialog::OnDestroy()

@@ -521,7 +521,7 @@ void CMainFrame::OnLogoClick()
 void CMainFrame::OnOptions()
 {
 	//show options
-	config()->DoPrefs(false);
+	DoPrefs();
 }
 void CMainFrame::OnFastIndexer()
 {
@@ -1823,7 +1823,7 @@ void CMainFrame::OnTrayOptions()
 				return;
 		}
 	}
-	config()->DoPrefs(false);
+	DoPrefs();
 }
 
 //////////////////////////////////////////////////////

@@ -3,7 +3,7 @@
 //-----------------
 
 #include "stdafx.h"
-#include "xmclient.h"
+#include "xmlib.h"
 #include "xmnet.h"
 #include <io.h>
 
@@ -645,7 +645,7 @@ IXMLDOMDocument* CXMMessage::ToXml()
 				BSTR bstrErr = NULL;
 				GetErrorInfo(NULL, &ei);
 				ei->GetDescription(&bstrErr);
-				ASSERT(FALSE);
+				//ASSERT(FALSE);
 				COM_RELEASE(ei);
 				if (bstrErr)
 					SysFreeString(bstrErr);
@@ -974,7 +974,7 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 				if (!field) goto fail;
 
 				//set the field's data
-				if (strcmp(field->GetName(false), "results")==0)
+				if (stricmp(field->GetName(false), "results")==0)
 				{
 					//get result element
 					COM_SINGLECALL(el->getElementsByTagName(bstrResults, &list2));
@@ -1000,7 +1000,7 @@ bool CXMMessage::FromXml(IXMLDOMDocument* xml)
 					COM_RELEASE(list2);
 					COM_RELEASE(node);
 				}
-				else if (strcmp(field->GetName(false), "listing")==0)
+				else if (stricmp(field->GetName(false), "listing")==0)
 				{
 					//get the listing field
 					COM_SINGLECALL(el->getElementsByTagName(bstrListing, &list2));

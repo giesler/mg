@@ -275,7 +275,9 @@ CXMSession* CXMPipelineBase::OpenSession(char* address, UINT port)
 {
 	//create a new session that
 	//sends messages to us
-	CXMSession *ses = new CXMSession(GetHWND());
+	IXMSessionHandler *handler = new CXMSessionHWNDHandler(GetHWND());
+	CXMSession *ses = new CXMSession(handler);
+	handler->Release();
 	sessions()->Attach(ses);
 	ses->Open(address, port);
 	return ses;

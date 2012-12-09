@@ -3,8 +3,8 @@
 // (c)2000, 2001 XMedia Inc.
 
 #include "stdafx.h"
-#include "xmclient.h"
-#include "xmquery.h"
+#include <shlobj.h>
+#include "xmlib.h"
 
 char* CXMClientConfig::GetSharedFilesLocation(bool copy)
 {
@@ -73,591 +73,7 @@ void CXMClientConfig::Copy(CXMClientConfig *pfrom, CXMClientConfig *pto)
 	//finished
 	LeaveCriticalSection(&pfrom->mSync);
 	LeaveCriticalSection(&pto->mSync);
-}
-
-bool ChoosePath(HWND hwnd, const char* message, char* path)
-{
-	//my computer is root
-	LPITEMIDLIST pidlmc = NULL;
-	if (FAILED(SHGetSpecialFolderLocation(hwnd, CSIDL_DRIVES, &pidlmc)))
-		return false;
-
-	//ask for search path
-	LPITEMIDLIST idlist = NULL;
-	BROWSEINFO bi;
-	bi.hwndOwner = hwnd;
-	bi.iImage = 0;
-	bi.lParam = 0;
-	bi.lpfn = NULL;
-	bi.lpszTitle = message;
-	bi.pidlRoot = pidlmc;
-	bi.pszDisplayName = path;
-	bi.ulFlags = BIF_RETURNONLYFSDIRS |
-				 BIF_VALIDATE |
-				 BIF_RETURNFSANCESTORS;
-	idlist = SHBrowseForFolder(&bi);
-	if (!idlist)
-	{
-		//cancel
-		return false;
-	}
-
-	//convert to string
-	bool success = SHGetPathFromIDList(idlist, path)?true:false;
-	
-	//free memory
-	if (idlist)
-	{
-		IMalloc *pmalloc;
-		SHGetMalloc(&pmalloc);
-		pmalloc->Free(idlist);
-		pmalloc->Free(pidlmc);
-		pmalloc->Release();
-	}
-	return success;
-}
-
-// ----------------------------------------------------------------------------------- CHANGE PASSWORD
-
-class CChangePassword : public CDialog
-{
-public:
-	CChangePassword(CString oldPassword, CWnd* pwndParent)
-		: CDialog(IDD_CHANGEPWD, pwndParent)
-	{
-		moldPassword = oldPassword;
-		mbCheckOldPassword = true;
-	}
-	bool ChangePassword()
-	{
-		return (DoModal()==IDOK)?true:false;
-	}
-	CString GetNewPassword()
-	{
-		CMD5 md5;
-		md5.FromBuf((BYTE*)mnewPassword.LockBuffer(), mnewPassword.GetLength());
-		mnewPassword.UnlockBuffer();
-		return CString(md5.GetString());
-	}
-	bool mbCheckOldPassword;
-
-protected:
-	
-	//vars
-	CString moldPassword;
-	CString moldPasswordGuess;
-	CString mnewPassword;
-	CString mverifyPassword;
-
-	BOOL OnInitDialog()
-	{
-		//disable the old password box?
-		if (!mbCheckOldPassword)
-		{
-			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_OLD), FALSE);
-			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_LABEL), FALSE);
-			::SetDlgItemText(m_hWnd, IDC_INSTRUCTIONS, "Enter the new password, then retype it for accuracy:");
-		}
-		::SetFocus(::GetDlgItem(m_hWnd, mbCheckOldPassword?IDC_PWD_OLD:IDC_PWD_NEW));
-		return TRUE;
-	}
-
-	void DoDataExchange(CDataExchange *pDX)
-	{
-		//transfer text
-		DDX_Text(pDX, IDC_PWD_OLD, moldPasswordGuess);
-		DDX_Text(pDX, IDC_PWD_NEW, mnewPassword);
-		DDX_Text(pDX, IDC_PWD_VERIFY, mverifyPassword);
-
-		//do checks
-		if (mbCheckOldPassword &&
-			pDX->m_bSaveAndValidate)
-		{
-			//generate md5 from password guess
-			CMD5 md5;
-			md5.FromBuf((BYTE*)moldPasswordGuess.LockBuffer(), moldPasswordGuess.GetLength());
-			moldPasswordGuess.UnlockBuffer();
-
-			//compare old passwod
-			if (moldPassword != moldPasswordGuess &&
-				!CMD5(moldPassword).IsEqual(md5))
-			{
-				AfxMessageBox("Incorrect password.");
-				pDX->Fail();
-			}
-			else
-			{
-				if (mnewPassword!=mverifyPassword)
-				{
-					AfxMessageBox("New passwords do not match.  You must re-type your new password identically in both the 'New Password' and 'Verify New Password' boxes.");
-					pDX->Fail();
-				}
-			}
-		}
-	}
-};
-
-// ----------------------------------------------------------------------------------- PREFERENCES
-
-class CPreferences : CPropertySheet
-{
-public:
-
-	//construction
-	CPreferences(CString strCaption, CXMClientConfig* newConfig) :
-	  CPropertySheet(strCaption, NULL)
-	{
-		mpConfig = newConfig;
-		CXMClientConfig::Copy(mpConfig, &mSandbox);
-	}
-	~CPreferences()
-	{
-	}
-
-	//show the dialog
-	bool DoPreferences(bool alt)
-	{
-		//create common pages
-		mPageGeneral.Construct(IDD_PREFS_GENERAL);
-		mPageDownloading.Construct(IDD_PREFS_DOWNLOADING);
-		mPageSharing.Construct(IDD_PREFS_UPLOADING);
-			
-		mPageGeneral.mSandbox = &mSandbox;
-		mPageSearching.mSandbox = &mSandbox;
-		mPageDownloading.mSandbox = &mSandbox;
-		mPageSharing.mSandbox = &mSandbox;
-		mPageAdvanced.mSandbox = &mSandbox;
-
-		mPageGeneral.LoadData();
-		mPageDownloading.LoadData();
-		mPageSharing.LoadData();
-
-		bool retval = false;
-		if (alt)
-		{
-			//add pages in order
-			AddPage(&mPageGeneral);
-			AddPage(&mPageDownloading);
-			AddPage(&mPageSharing);
-
-			//show dialog
-			//SetWizardMode();
-			//SetWizardButtons(PSWIZB_BACK|PSWIZB_NEXT|PSWIZB_FINISH);
-			if (DoModal()==IDOK)
-			{
-				//save data
-				retval = true;
-				CXMClientConfig::Copy(&mSandbox, mpConfig);
-			}
-		}
-		else
-		{
-			//create the other pages
-			mPageSearching.Construct(IDD_PREFS_SEARCHING);
-			//mPageAdvanced.Construct(IDD_PREFS_ADVANCED);
-
-			//add pages in order
-			AddPage(&mPageGeneral);
-			AddPage(&mPageSearching);
-			AddPage(&mPageDownloading);
-			AddPage(&mPageSharing);
-			//AddPage(&mPageAdvanced);
-
-			mPageSearching.LoadData();
-			//mPageAdvanced.LoadData();
-
-			//show dialog
-			if (DoModal()==IDOK)
-			{
-				//save data
-				retval = true;
-				CXMClientConfig::Copy(&mSandbox, mpConfig);
-			}
-			
-		}
-		return retval;
-	}
-
-private:
-	
-	//store a point to the original config
-	CXMClientConfig *mpConfig;
-
-	//store a sandbox copy of the config
-	CXMClientConfig mSandbox;
-
-	//------------------------------------------ pages
-	
-	class PageGeneral : public CPropertyPage {
-	public:
-		CXMClientConfig *mSandbox;
-		BOOL mPwdProtect_Enable;
-		CString mPwdProtect_Pwd;
-		BOOL mAutoLogin_Enable;
-		CString mAutoLogin_Username;
-		CString mAutoLogin_Password;
-		BOOL mReconnect_Enable;
-		int mReconnect_Delay;
-		void LoadData()
-		{
-			mPwdProtect_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_PROTECT_ENABLE);
-			mPwdProtect_Pwd = mSandbox->GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
-			mAutoLogin_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE);
-			mAutoLogin_Username = mSandbox->GetField(FIELD_LOGIN_AUTO_USERNAME, false);
-			mAutoLogin_Password = mSandbox->GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
-			mReconnect_Enable = mSandbox->GetFieldBool(FIELD_NET_RECONNECT_ENABLE);
-			mReconnect_Delay = (int)mSandbox->GetFieldLong(FIELD_NET_RECONNECT_DELAY);
-		}
-		void DoDataExchange(CDataExchange *pDX)
-		{
-			DDX_Check(pDX, IDC_PWDPROTECT, mPwdProtect_Enable);
-			DDX_Check(pDX, IDC_AUTOLOGIN, mAutoLogin_Enable);
-			DDX_Check(pDX, IDC_RECONNECT, mReconnect_Enable);
-			DDX_Text(pDX, IDC_RECONNCT_DELAY, mReconnect_Delay);
-			DDX_Text(pDX, IDC_USERNAME, mAutoLogin_Username);
-			/*
-			if (pDX->m_bSaveAndValidate)
-				DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
-			else
-				DDX_Text(pDX, IDC_PASSWORD, CString(""));
-			*/
-			DDV_MinMaxInt(pDX, mReconnect_Delay, 1, 1440);
-			if (!pDX->m_bSaveAndValidate)
-			{
-				OnEnableControls();
-			}
-		}
-		void OnALChangePwd()
-		{
-			CChangePassword dlg("", this);
-			dlg.mbCheckOldPassword = false;
-			if (dlg.ChangePassword())
-			{
-				mAutoLogin_Password = dlg.GetNewPassword();
-			}
-		}
-		void OnChangePassword()
-		{
-			CChangePassword pwd(mPwdProtect_Pwd, this);
-			if (pwd.ChangePassword())
-			{
-				mPwdProtect_Pwd = pwd.GetNewPassword();
-			}
-		}
-		void OnOK()
-		{
-			mSandbox->SetField(FIELD_LOGIN_PROTECT_ENABLE, mPwdProtect_Enable?"true":"false");
-			mSandbox->SetField(FIELD_LOGIN_PROTECT_PASSWORD, mPwdProtect_Pwd);
-			mSandbox->SetField(FIELD_LOGIN_AUTO_ENABLE, mAutoLogin_Enable?"true":"false");
-			mSandbox->SetField(FIELD_LOGIN_AUTO_USERNAME, mAutoLogin_Username);
-			mSandbox->SetField(FIELD_LOGIN_AUTO_PASSWORD, mAutoLogin_Password);
-			mSandbox->SetField(FIELD_NET_RECONNECT_ENABLE, mReconnect_Enable?"true":"false");
-			mSandbox->SetField(FIELD_NET_RECONNECT_DELAY, mReconnect_Delay);
-		}
-		void OnEnableControls()
-		{
-			//password protect
-			bool temp = (IsDlgButtonChecked(IDC_PWDPROTECT)==BST_CHECKED);
-			GetDlgItem(IDC_CHANGEPWD)->EnableWindow(temp);
-
-			//auto login
-			temp = (IsDlgButtonChecked(IDC_AUTOLOGIN)==BST_CHECKED);
-			GetDlgItem(IDC_STATIC_USERNAME)->EnableWindow(temp);
-			GetDlgItem(IDC_STATIC_PASSWORD)->EnableWindow(temp);
-			GetDlgItem(IDC_USERNAME)->EnableWindow(temp);
-			GetDlgItem(IDC_AL_PWD_CHANGE)->EnableWindow(temp);
-
-			//reconnect
-			temp = (IsDlgButtonChecked(IDC_RECONNECT)==BST_CHECKED);
-			GetDlgItem(IDC_STATIC_RECONNECT1)->EnableWindow(temp);
-			GetDlgItem(IDC_STATIC_RECONNECT2)->EnableWindow(temp);
-			GetDlgItem(IDC_RECONNCT_DELAY)->EnableWindow(temp);
-		}
-		DECLARE_MESSAGE_MAP();
-	} mPageGeneral;
-
-	class PageSearching : public CPropertyPage
-	{
-	public:
-		CXMClientConfig *mSandbox;
-		BOOL mAutoSave_Enable;
-		int mAutoSave_LastN;
-		void LoadData()
-		{
-			mAutoSave_Enable = mSandbox->GetFieldBool(FIELD_SEARCH_AUTOSAVE_ENABLE);
-			mAutoSave_LastN = mSandbox->GetFieldLong(FIELD_SEARCH_AUTOSAVE_COUNT);
-		}
-		void DoDataExchange(CDataExchange *pDX)
-		{
-			DDX_Check(pDX, IDC_SAVESEARCHES, mAutoSave_Enable);
-			DDX_Text(pDX, IDC_LASTN, mAutoSave_LastN);
-			if (!pDX->m_bSaveAndValidate)
-			{
-				OnEnableControls();
-			}
-		}
-		void OnOK()
-		{
-			mSandbox->SetField(FIELD_SEARCH_AUTOSAVE_ENABLE, mAutoSave_Enable?"true":"false");
-			mSandbox->SetField(FIELD_SEARCH_AUTOSAVE_COUNT, mAutoSave_LastN);
-		}
-		void OnEnableControls()
-		{
-			bool temp = (IsDlgButtonChecked(IDC_SAVESEARCHES)==BST_CHECKED);
-			GetDlgItem(IDC_LASTN)->EnableWindow(temp);
-		}
-		DECLARE_MESSAGE_MAP();
-	} mPageSearching;
-
-	class PageDownloading : public CPropertyPage
-	{
-	public:
-		CXMClientConfig *mSandbox;
-		int mSpeed;
-		BOOL mAuto;
-		int mMaxThumbs, mMaxPictures;
-		CString mPath;
-		void LoadData()
-		{
-			mSpeed = mSandbox->GetFieldLong(FIELD_NET_DATARATE);
-			mAuto = mSandbox->GetFieldBool(FIELD_PIPELINE_AUTO_DOWNLOAD);
-			mMaxThumbs = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXTHUMB);
-			mMaxPictures = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXFILE);
-			mPath = mSandbox->GetField(FIELD_DB_SAVE_PATH, false);
-		}
-		void DoDataExchange(CDataExchange *pDX)
-		{
-			DDX_CBIndex(pDX, IDC_SPEED, mSpeed);
-			DDX_Check(pDX, IDC_TRANSFER_AUTO, mAuto);
-			if (!pDX->m_bSaveAndValidate)
-			{
-				CheckDlgButton(IDC_TRANSFER_MANUAL, !mAuto);
-			}
-			DDX_Text(pDX, IDC_MAXTHUMBS, mMaxThumbs);
-			DDX_Text(pDX, IDC_MAXPICTURES, mMaxPictures);
-			DDX_Text(pDX, IDC_SAVEDFILES, mPath);
-			if (pDX->m_bSaveAndValidate)
-			{
-				//validate path
-				if (mPath.GetLength()<2)
-				{
-					AfxMessageBox("Please specify a valid path.");
-					pDX->Fail();
-				}
-				else if (mPath.GetAt(1)!=':')
-				{
-					//must specify a drive letter
-					AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
-					pDX->Fail();
-				}
-				else if (!CreateDirectory(mPath, NULL))
-				{
-					//does the dir already exist?
-					if (GetLastError()!=ERROR_ALREADY_EXISTS)
-					{
-						AfxMessageBox("Unable to create the saved files folder.  Please make sure it is a valid drive on which a folder can be created.");
-						pDX->Fail();
-					}
-				}
-			}
-			if (!pDX->m_bSaveAndValidate)
-			{
-				OnEnableControls();
-			}
-		}
-		void OnOK()
-		{
-			mSandbox->SetField(FIELD_NET_DATARATE, mSpeed);
-			mSandbox->SetField(FIELD_PIPELINE_AUTO_DOWNLOAD, mAuto?"true":"false");
-			mSandbox->SetField(FIELD_PIPELINE_MAXTHUMB, mMaxThumbs);
-			mSandbox->SetField(FIELD_PIPELINE_MAXFILE, mMaxPictures);
-			mSandbox->SetField(FIELD_DB_SAVE_PATH, mPath);
-		}
-		void OnEnableControls()
-		{
-			bool temp = (IsDlgButtonChecked(IDC_TRANSFER_MANUAL)==BST_CHECKED);
-			GetDlgItem(IDC_STATIC_MAXTHUMBS)->EnableWindow(temp);
-			GetDlgItem(IDC_STATIC_MAXPICTURES)->EnableWindow(temp);
-			GetDlgItem(IDC_MAXTHUMBS)->EnableWindow(temp);
-			GetDlgItem(IDC_MAXPICTURES)->EnableWindow(temp);
-		}
-		void OnChoose()
-		{
-			char szPath[MAX_PATH+1];
-			strcpy(szPath, mPath);
-			if (ChoosePath(m_hWnd, "Select the folder you wish to save files to:", szPath))
-			{
-				mPath = szPath;
-				SetDlgItemText(IDC_SAVEDFILES, szPath);
-			}
-		}
-		DECLARE_MESSAGE_MAP();
-	} mPageDownloading;
-
-	class PageSharing : public CPropertyPage
-	{
-	public:
-		CXMClientConfig *mSandbox;
-		BOOL mShare, mAuto, mUseSaved;
-		int mMaxUploads;
-		CString mPath;
-		void LoadData()
-		{
-			mShare = mSandbox->GetFieldBool(FIELD_DB_SHARE_ENABLE);	
-			mAuto = mSandbox->GetFieldBool(FIELD_PIPELINE_AUTO_UPLOAD);
-			mUseSaved = mSandbox->GetFieldBool(FIELD_DB_SHARE_USESAVED);
-			mMaxUploads = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXUP);
-			mPath = mSandbox->GetField(FIELD_DB_SHARE_PATH, false);
-		}
-		void DoDataExchange(CDataExchange *pDX)
-		{
-			DDX_Check(pDX, IDC_UPLOAD_ENABLE, mShare);
-			DDX_Check(pDX, IDC_TRANSFER_AUTO, mAuto);
-			DDX_Check(pDX, IDC_SHARE_SAVED, mUseSaved);
-			DDX_Text(pDX, IDC_MAXUPLOADS, mMaxUploads);
-			DDX_Text(pDX, IDC_SHAREDFILES, mPath);
-			if (pDX->m_bSaveAndValidate)
-			{
-				//validate path
-				if (mShare && !mUseSaved)
-				{
-					if (mPath.GetLength()<2)
-					{
-						AfxMessageBox("Please specify a valid path.");
-						pDX->Fail();
-					}
-					else if (mPath.GetAt(1)!=':')
-					{
-						//must specify a drive letter
-						AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
-						pDX->Fail();
-					}
-					else if (!CreateDirectory(mPath, NULL))
-					{
-						//does the dir already exist?
-						if (GetLastError()!=ERROR_ALREADY_EXISTS)
-						{
-							AfxMessageBox("Unable to create the shared files folder.  Please make sure it is a valid drive on which a folder can be created.");
-							pDX->Fail();
-						}
-					}
-				}
-			}
-			if (!pDX->m_bSaveAndValidate)
-			{
-				CheckDlgButton(IDC_UPLOAD_DISABLE, !mShare);
-				CheckDlgButton(IDC_TRANSFER_MANUAL, !mAuto);
-				CheckDlgButton(IDC_SHARE_CUSTOM, !mUseSaved);
-			}
-			if (!pDX->m_bSaveAndValidate)
-			{	
-				OnEnableControls();
-			}
-		}
-		void OnOK()
-		{
-			mSandbox->SetField(FIELD_DB_SHARE_ENABLE, mShare?"true":"false");	
-			mSandbox->SetField(FIELD_PIPELINE_AUTO_UPLOAD, mAuto?"true":"false");
-			mSandbox->SetField(FIELD_DB_SHARE_USESAVED, mUseSaved?"true":"false");
-			mSandbox->SetField(FIELD_PIPELINE_MAXUP, mMaxUploads);
-			mSandbox->SetField(FIELD_DB_SHARE_PATH, mPath);
-		}
-		void OnEnableControls()
-		{
-			bool temp = (IsDlgButtonChecked(IDC_UPLOAD_ENABLE)==BST_CHECKED);
-			GetDlgItem(IDC_STATIC_UPLOADS)->EnableWindow(temp);
-			GetDlgItem(IDC_TRANSFER_AUTO)->EnableWindow(temp);
-			GetDlgItem(IDC_TRANSFER_MANUAL)->EnableWindow(temp);
-			GetDlgItem(IDC_STATIC_SHARED)->EnableWindow(temp);
-			GetDlgItem(IDC_STATIC_SHARED2)->EnableWindow(temp);
-			GetDlgItem(IDC_SHARE_CUSTOM)->EnableWindow(temp);
-			GetDlgItem(IDC_SHARE_SAVED)->EnableWindow(temp);
-			if (temp)
-			{
-				temp = (IsDlgButtonChecked(IDC_TRANSFER_MANUAL)==BST_CHECKED);
-				GetDlgItem(IDC_STATIC_MAXUPLOADS)->EnableWindow(temp);
-				GetDlgItem(IDC_MAXUPLOADS)->EnableWindow(temp);
-				temp = (IsDlgButtonChecked(IDC_SHARE_CUSTOM)==BST_CHECKED);
-				GetDlgItem(IDC_SHAREDFILES)->EnableWindow(temp);
-				GetDlgItem(IDC_CHOOSE)->EnableWindow(temp);
-			}
-			else
-			{
-				GetDlgItem(IDC_STATIC_MAXUPLOADS)->EnableWindow(FALSE);
-				GetDlgItem(IDC_MAXUPLOADS)->EnableWindow(FALSE);
-				GetDlgItem(IDC_SHAREDFILES)->EnableWindow(FALSE);
-				GetDlgItem(IDC_CHOOSE)->EnableWindow(FALSE);
-			}
-		}
-		void OnChoose()
-		{
-			char szPath[MAX_PATH+1];
-			strcpy(szPath, mPath);
-			if (ChoosePath(m_hWnd, "Select the folder you wish to save files to:", szPath))
-			{
-				mPath = szPath;
-				SetDlgItemText(IDC_SHAREDFILES, szPath);
-			}
-		}
-		DECLARE_MESSAGE_MAP();
-	} mPageSharing;
-
-	class PageAdvanced : public CPropertyPage
-	{
-	public:
-		CXMClientConfig *mSandbox;
-		void LoadData()
-		{
-
-		}
-		void DoDataExchange(CDataExchange *pDX)
-		{
-
-		}
-		void OnOK()
-		{
-
-		}
-		void OnEnableControls()
-		{
-			//bool temp = (IsDlgButtonChecked(IDC_)==BST_CHECKED);
-			//GetDlgItem(IDC_)->EnableWindow(temp);
-		}
-		DECLARE_MESSAGE_MAP();
-	} mPageAdvanced;
-};
-
-BEGIN_MESSAGE_MAP(CPreferences::PageGeneral, CPropertyPage)
-	ON_BN_CLICKED(IDC_CHANGEPWD, CPreferences::PageGeneral::OnChangePassword)
-	ON_BN_CLICKED(IDC_PWDPROTECT, CPreferences::PageGeneral::OnEnableControls)
-	ON_BN_CLICKED(IDC_AUTOLOGIN, CPreferences::PageGeneral::OnEnableControls)
-	ON_BN_CLICKED(IDC_RECONNECT, CPreferences::PageGeneral::OnEnableControls)
-	ON_BN_CLICKED(IDC_AL_PWD_CHANGE, CPreferences::PageGeneral::OnALChangePwd)
-END_MESSAGE_MAP()
-
-BEGIN_MESSAGE_MAP(CPreferences::PageSearching, CPropertyPage)
-	ON_BN_CLICKED(IDC_SAVESEARCHES, CPreferences::PageSearching::OnEnableControls)
-END_MESSAGE_MAP()
-
-BEGIN_MESSAGE_MAP(CPreferences::PageDownloading, CPropertyPage)
-	ON_BN_CLICKED(IDC_CHOOSE, CPreferences::PageDownloading::OnChoose)
-	ON_BN_CLICKED(IDC_TRANSFER_AUTO, CPreferences::PageDownloading::OnEnableControls)
-	ON_BN_CLICKED(IDC_TRANSFER_MANUAL, CPreferences::PageDownloading::OnEnableControls)
-END_MESSAGE_MAP()
-
-BEGIN_MESSAGE_MAP(CPreferences::PageSharing, CPropertyPage)
-	ON_BN_CLICKED(IDC_CHOOSE, CPreferences::PageSharing::OnChoose)
-	ON_BN_CLICKED(IDC_TRANSFER_AUTO, CPreferences::PageSharing::OnEnableControls)
-	ON_BN_CLICKED(IDC_TRANSFER_MANUAL, CPreferences::PageSharing::OnEnableControls)
-	ON_BN_CLICKED(IDC_SHARE_SAVED, CPreferences::PageSharing::OnEnableControls)
-	ON_BN_CLICKED(IDC_SHARE_CUSTOM, CPreferences::PageSharing::OnEnableControls)
-	ON_BN_CLICKED(IDC_UPLOAD_ENABLE, CPreferences::PageSharing::OnEnableControls)
-	ON_BN_CLICKED(IDC_UPLOAD_DISABLE, CPreferences::PageSharing::OnEnableControls)
-END_MESSAGE_MAP()
-
-BEGIN_MESSAGE_MAP(CPreferences::PageAdvanced, CPropertyPage)
-END_MESSAGE_MAP()
-		
+}	
 
 // ----------------------------------------------------------------------------------- CLIENT CONFIG
 
@@ -725,6 +141,7 @@ CXMClientConfig::~CXMClientConfig()
 	DeleteCriticalSection(&mSync);
 }
 
+/*
 bool CXMClientConfig::DoPrefs(bool wizard)
 {
 	CPreferences prefs("AMS Options", this);
@@ -736,6 +153,7 @@ bool CXMClientConfig::DoPrefs(bool wizard)
 	}
 	return retval;
 }
+*/
 
 // --------------------------------------------------------------------------------- Persist Queries
 
@@ -1248,7 +666,7 @@ bool CXMClientConfig::New()
 	return true;
 }
 
-bool CXMClientConfig::Load(IXMLDOMDocument* xml)
+bool CXMClientConfig::Load(IXMLDOMDocument* xml, char* version)
 {
 	xml->AddRef();
 
@@ -1275,7 +693,7 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml)
 
 	//get version
 	COM_SINGLECALL(root->getAttribute(_bstr_t("version"), &var));
-	if (strcmp(_bstr_t(var.bstrVal), app()->Version()))
+	if (stricmp(_bstr_t(var.bstrVal), version))
 	{
 		//versions are different
 		//HACK: do better checking
@@ -1361,7 +779,7 @@ fail:
 	return false;
 }
 
-bool CXMClientConfig::Save(IXMLDOMDocument** pXml)
+bool CXMClientConfig::Save(IXMLDOMDocument** pXml, char* version)
 {
 	//declare interfaces
 	IXMLDOMDocument *xml = *pXml;
@@ -1393,7 +811,7 @@ bool CXMClientConfig::Save(IXMLDOMDocument** pXml)
 	COM_CALL(xml->loadXML(_bstr_t("<xmconfig></xmconfig>"), &retval));
 	if (retval==VARIANT_FALSE) goto fail;
 	COM_CALL(xml->get_documentElement(&root));
-	COM_CALL(root->setAttribute(_bstr_t("version"), _variant_t(app()->Version())));
+	COM_CALL(root->setAttribute(_bstr_t("version"), _variant_t(version)));
 	COM_CATCH()
 
 	//read each setting, and add an element
@@ -1429,7 +847,7 @@ fail:
 	return false;
 }
 
-bool CXMClientConfig::LoadFromFile(char* pFile)
+bool CXMClientConfig::LoadFromFile(char* pFile, char* version)
 {	
 	IXMLDOMDocument *xml = CreateXmlDocument();
 	VARIANT_BOOL bSuccess;
@@ -1448,7 +866,7 @@ bool CXMClientConfig::LoadFromFile(char* pFile)
 		}
 
 		//save it to a file
-		if (!this->SaveToFile(pFile)) {
+		if (!this->SaveToFile(pFile, version)) {
 			goto fail;
 		}
 
@@ -1465,7 +883,7 @@ bool CXMClientConfig::LoadFromFile(char* pFile)
 
 	//garunteed a valid xml doc, load
 	//properties from it
-	if (!this->Load(xml)) {
+	if (!this->Load(xml, version)) {
 		goto fail;
 	}
 
@@ -1477,11 +895,11 @@ fail:
 	return false;
 }
 
-bool CXMClientConfig::SaveToFile(char* pFile)
+bool CXMClientConfig::SaveToFile(char* pFile, char* version)
 {
 	//get an xml doc
 	IXMLDOMDocument *xml = NULL;
-	if (!Save(&xml)) {
+	if (!Save(&xml, version)) {
 		return false;
 	}
 
@@ -1495,12 +913,12 @@ bool CXMClientConfig::SaveToFile(char* pFile)
 	return true;
 }
 
-bool CXMClientConfig::SaveToDefaultFile()
+bool CXMClientConfig::SaveToDefaultFile(char* version)
 {
 	//save to the file we loaded from
 	if (mRegConfigPath)
 	{
-		return SaveToFile(mRegConfigPath);
+		return SaveToFile(mRegConfigPath, version);
 	}
 	return false;
 }
@@ -1533,9 +951,9 @@ char* CXMClientConfig::GetField(const char* index, bool copy)
 	EXIT();
 
 	//inform user
-	CString str;
-	str.Format("Unknown configuration setting requested: %s", index);
-	AfxMessageBox(str, MB_OK | MB_ICONERROR, 0);
+	char str[MAX_PATH];
+	_snprintf(str, MAX_PATH, "Unknown configuration setting requested: %s", index);
+	MessageBox(NULL, str, "Configuation Error", MB_OK | MB_ICONERROR);
 
 	throw(0);
 	return NULL;

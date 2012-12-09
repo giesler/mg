@@ -285,7 +285,6 @@ private:
 
 	afx_msg LRESULT OnServerMessage(WPARAM wp, LPARAM lp)
 	{
-		POSITION pos;
 		CXMQueryResponse *r;
 		
 		switch (wp)
@@ -299,8 +298,7 @@ private:
 
 			//start downloading the first item
 			r = sm()->QueryGetResponse();
-			pos = r->mFiles.GetHeadPosition();
-			if (!pos)
+			if (r->mFilesCount < 1)
 			{
 				//no results
 				SetState(CONTEST_ERROR);
@@ -309,7 +307,7 @@ private:
 			else
 			{
 				//get the picture
-				CXMQueryResponseItem *qri = r->mFiles.GetNext(pos);
+				CXMQueryResponseItem *qri = r->mFiles[0];
 				mCurrentPic = qri->mMD5;
 
 				//do we already have this picture?

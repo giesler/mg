@@ -1145,8 +1145,8 @@ void CFileBrowser::UpdateBrowser()
 			if (x!=-1)
 			{
 				//compare the extension
-				if (filepath.Mid(x+1)=="jpg" ||
-					filepath.Mid(x+1)=="jpeg")
+				if (filepath.Mid(x+1).CompareNoCase("jpg")==0 ||
+					filepath.Mid(x+1).CompareNoCase("jpeg")==0)
 				{
 					//try to find this file
 					found = false;

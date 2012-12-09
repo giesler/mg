@@ -237,7 +237,7 @@ BOOL CXMClientApp::InitInstance()
 	}
 
 	//read config file
-	if (!config()->LoadFromFile(config()->RegGetConfigPath())) {
+	if (!config()->LoadFromFile(config()->RegGetConfigPath(), Version())) {
 		AfxMessageBox("!theConfig.LoadFromFile(\"config.xml\")");
 		return FALSE;
 	}
@@ -266,12 +266,12 @@ BOOL CXMClientApp::InitInstance()
 	//show configuation?
 	if (!config()->GetFieldBool(FIELD_HASRUN))
 	{
-		config()->DoPrefs(false);
+		DoPrefs();
 		config()->SetField(FIELD_HASRUN, "true");
 	}
 
 	//global session init (regwndclass)
-	if (!CXMSession::InitOnce()) {
+	if (!CXMSession::InitOnce(m_hInstance)) {
 		AfxMessageBox("!CXMSession::InitOnce()");
 		return FALSE;
 	}
@@ -330,7 +330,7 @@ int CXMClientApp::ExitInstance()
 	db()->Close();
 
 	//save config
-	config()->SaveToDefaultFile();
+	config()->SaveToDefaultFile(Version());
 
 	//free winsock
 	WSACleanup();
@@ -351,26 +351,11 @@ int CXMClientApp::ExitInstance()
 // ---------------------------------------------------------------------- Globals
 
 CXMClientApp theApp;
-CXMClientConfig theConfig;
-CXMSessionManager theSessions;
-CXMDB theDB;
-CXMDBManager theDBMan;
 CXMClientManager theCM;
 CXMServerManager theSM;
 CXMAsyncResizer theResizer;
 
-CXMSessionManager* sessions() {
-	return &theSessions;
-}
-CXMClientConfig* config() {
-	return &theConfig;
-}
-CXMDB* db() {
-	return &theDB;
-}
-CXMDBManager* dbman() {
-	return &theDBMan;
-}
+
 CXMClientManager* cm() {
 	return &theCM;
 }
@@ -383,13 +368,6 @@ CXMAsyncResizer* ar() {
 
 // ---------------------------------------------------------------------- Utils
 
-IXMLDOMDocument* CreateXmlDocument()
-{
-	IXMLDOMDocument *pXml;
-	if (FAILED(CoCreateInstance(CLSID_FreeThreadedDOMDocument, NULL, CLSCTX_ALL, IID_IXMLDOMDocument, (LPVOID*)&pXml)))
-		return NULL;
-	return pXml;
-}
 
 
 CString BuildSavedFilename(CMD5 md5)
@@ -406,411 +384,591 @@ CString BuildSavedFilename(CMD5 md5)
 	return retval;
 }
 
-
-// -------------------------------------------------------------------------- MD5
-
-/*
-License to copy and use this software is granted provided that it
-is identified as the "RSA Data Security, Inc. MD5 Message-Digest
-Algorithm" in all material mentioning or referencing this software
-or this function.
-
-License is also granted to make and use derivative works provided
-that such works are identified as "derived from the RSA Data
-Security, Inc. MD5 Message-Digest Algorithm" in all material
-mentioning or referencing the derived work.
-
-*/
-
-void CMD5Engine::update (uint1 *input, uint4 input_length) {
-
-	uint4 input_index, buffer_index;
-	uint4 buffer_space;                // how much space is left in buffer
-
-	if (finalized){  // so we can't update!
-		return;
-	}
-
-	// Compute number of bytes mod 64
-	buffer_index = (uint4)((count[0] >> 3) & 0x3F);
-
-	// Update number of bits
-	if (  (count[0] += ((uint4) input_length << 3))<((uint4) input_length << 3) )
-		count[1]++;
-
-	count[1] += ((uint4)input_length >> 29);
-
-
-	buffer_space = 64 - buffer_index;  // how much space is left in buffer
-
-	// Transform as many times as possible.
-	if (input_length >= buffer_space) { // ie. we have enough to fill the buffer
-		// fill the rest of the buffer and transform
-		memcpy (buffer + buffer_index, input, buffer_space);
-		transform (buffer);
-
-		// now, transform each 64-byte piece of the input, bypassing the buffer
-		for (input_index = buffer_space; input_index + 63 < input_length; 
-			input_index += 64)
-			transform (input+input_index);
-
-		buffer_index = 0;  // so we can buffer remaining
-	}
-	else
-		input_index=0;     // so we can buffer the whole input
-
-
-	// and here we do the buffering:
-	memcpy(buffer+buffer_index, input+input_index, input_length-input_index);
-}
-
-// MD5 update for files.
-// Like above, except that it works on files (and uses above as a primitive.)
-void CMD5Engine::update(FILE *file){
-
-	unsigned char buffer[1024];
-	int len;
-
-	while (len=fread(buffer, 1, 1024, file))
-		update(buffer, len);
-	fclose (file);
-
-}
-
-// MD5 finalization. Ends an MD5 message-digest operation, writing the
-// the message digest and zeroizing the context.
-void CMD5Engine::finalize (){
-
-	unsigned char bits[8];
-	uint4 index, padLen;
-	static uint1 PADDING[64]={
-		0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	};
-
-	if (finalized){
-		return;
-	}
-
-	// Save number of bits
-	encode (bits, count, 8);
-
-	// Pad out to 56 mod 64.
-	index = (uint4) ((count[0] >> 3) & 0x3f);
-	padLen = (index < 56) ? (56 - index) : (120 - index);
-	update (PADDING, padLen);
-
-	// Append length (before padding)
-	update (bits, 8);
-
-	// Store state in digest
-	encode (digest, state, 16);
-
-	// Zeroize sensitive information
-	memset (buffer, 0, sizeof(*buffer));
-
-	finalized=1;
-
-}
-
-unsigned char *CMD5Engine::raw_digest(){
-
-	if (!finalized){
-		return NULL;
-	}
-
-	return digest;
-}
-
-char *CMD5Engine::hex_digest(){
-
-	if (!finalized){
-		return NULL;
-	}
-	
-	int i;
-	for (i=0; i<16; i++)
-		sprintf(mtempchar+i*2, "%02x", digest[i]);
-
-	mtempchar[32]='\0';
-
-	return mtempchar;
-}
-
-// PRIVATE METHODS:
-void CMD5Engine::init(){
-	finalized=0;  // we just started!
-
-	// Nothing counted, so count=0
-	count[0] = 0;
-	count[1] = 0;
-
-	// Load magic initialization constants.
-	state[0] = 0x67452301;
-	state[1] = 0xefcdab89;
-	state[2] = 0x98badcfe;
-	state[3] = 0x10325476;
-}
-
-// Constants for MD5Transform routine.
-// Although we could use C++ style constants, defines are actually better,
-// since they let us easily evade scope clashes.
-
-#define S11 7
-#define S12 12
-#define S13 17
-#define S14 22
-#define S21 5
-#define S22 9
-#define S23 14
-#define S24 20
-#define S31 4
-#define S32 11
-#define S33 16
-#define S34 23
-#define S41 6
-#define S42 10
-#define S43 15
-#define S44 21
-
-// MD5 basic transformation. Transforms state based on block.
-void CMD5Engine::transform (uint1 block[64]){
-
-	uint4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
-
-	decode (x, block, 64);
-
-	/* Round 1 */
-	FF (a, b, c, d, x[ 0], S11, 0xd76aa478); /* 1 */
-	FF (d, a, b, c, x[ 1], S12, 0xe8c7b756); /* 2 */
-	FF (c, d, a, b, x[ 2], S13, 0x242070db); /* 3 */
-	FF (b, c, d, a, x[ 3], S14, 0xc1bdceee); /* 4 */
-	FF (a, b, c, d, x[ 4], S11, 0xf57c0faf); /* 5 */
-	FF (d, a, b, c, x[ 5], S12, 0x4787c62a); /* 6 */
-	FF (c, d, a, b, x[ 6], S13, 0xa8304613); /* 7 */
-	FF (b, c, d, a, x[ 7], S14, 0xfd469501); /* 8 */
-	FF (a, b, c, d, x[ 8], S11, 0x698098d8); /* 9 */
-	FF (d, a, b, c, x[ 9], S12, 0x8b44f7af); /* 10 */
-	FF (c, d, a, b, x[10], S13, 0xffff5bb1); /* 11 */
-	FF (b, c, d, a, x[11], S14, 0x895cd7be); /* 12 */
-	FF (a, b, c, d, x[12], S11, 0x6b901122); /* 13 */
-	FF (d, a, b, c, x[13], S12, 0xfd987193); /* 14 */
-	FF (c, d, a, b, x[14], S13, 0xa679438e); /* 15 */
-	FF (b, c, d, a, x[15], S14, 0x49b40821); /* 16 */
-
-	/* Round 2 */
-	GG (a, b, c, d, x[ 1], S21, 0xf61e2562); /* 17 */
-	GG (d, a, b, c, x[ 6], S22, 0xc040b340); /* 18 */
-	GG (c, d, a, b, x[11], S23, 0x265e5a51); /* 19 */
-	GG (b, c, d, a, x[ 0], S24, 0xe9b6c7aa); /* 20 */
-	GG (a, b, c, d, x[ 5], S21, 0xd62f105d); /* 21 */
-	GG (d, a, b, c, x[10], S22,  0x2441453); /* 22 */
-	GG (c, d, a, b, x[15], S23, 0xd8a1e681); /* 23 */
-	GG (b, c, d, a, x[ 4], S24, 0xe7d3fbc8); /* 24 */
-	GG (a, b, c, d, x[ 9], S21, 0x21e1cde6); /* 25 */
-	GG (d, a, b, c, x[14], S22, 0xc33707d6); /* 26 */
-	GG (c, d, a, b, x[ 3], S23, 0xf4d50d87); /* 27 */
-	GG (b, c, d, a, x[ 8], S24, 0x455a14ed); /* 28 */
-	GG (a, b, c, d, x[13], S21, 0xa9e3e905); /* 29 */
-	GG (d, a, b, c, x[ 2], S22, 0xfcefa3f8); /* 30 */
-	GG (c, d, a, b, x[ 7], S23, 0x676f02d9); /* 31 */
-	GG (b, c, d, a, x[12], S24, 0x8d2a4c8a); /* 32 */
-
-	/* Round 3 */
-	HH (a, b, c, d, x[ 5], S31, 0xfffa3942); /* 33 */
-	HH (d, a, b, c, x[ 8], S32, 0x8771f681); /* 34 */
-	HH (c, d, a, b, x[11], S33, 0x6d9d6122); /* 35 */
-	HH (b, c, d, a, x[14], S34, 0xfde5380c); /* 36 */
-	HH (a, b, c, d, x[ 1], S31, 0xa4beea44); /* 37 */
-	HH (d, a, b, c, x[ 4], S32, 0x4bdecfa9); /* 38 */
-	HH (c, d, a, b, x[ 7], S33, 0xf6bb4b60); /* 39 */
-	HH (b, c, d, a, x[10], S34, 0xbebfbc70); /* 40 */
-	HH (a, b, c, d, x[13], S31, 0x289b7ec6); /* 41 */
-	HH (d, a, b, c, x[ 0], S32, 0xeaa127fa); /* 42 */
-	HH (c, d, a, b, x[ 3], S33, 0xd4ef3085); /* 43 */
-	HH (b, c, d, a, x[ 6], S34,  0x4881d05); /* 44 */
-	HH (a, b, c, d, x[ 9], S31, 0xd9d4d039); /* 45 */
-	HH (d, a, b, c, x[12], S32, 0xe6db99e5); /* 46 */
-	HH (c, d, a, b, x[15], S33, 0x1fa27cf8); /* 47 */
-	HH (b, c, d, a, x[ 2], S34, 0xc4ac5665); /* 48 */
-
-	/* Round 4 */
-	II (a, b, c, d, x[ 0], S41, 0xf4292244); /* 49 */
-	II (d, a, b, c, x[ 7], S42, 0x432aff97); /* 50 */
-	II (c, d, a, b, x[14], S43, 0xab9423a7); /* 51 */
-	II (b, c, d, a, x[ 5], S44, 0xfc93a039); /* 52 */
-	II (a, b, c, d, x[12], S41, 0x655b59c3); /* 53 */
-	II (d, a, b, c, x[ 3], S42, 0x8f0ccc92); /* 54 */
-	II (c, d, a, b, x[10], S43, 0xffeff47d); /* 55 */
-	II (b, c, d, a, x[ 1], S44, 0x85845dd1); /* 56 */
-	II (a, b, c, d, x[ 8], S41, 0x6fa87e4f); /* 57 */
-	II (d, a, b, c, x[15], S42, 0xfe2ce6e0); /* 58 */
-	II (c, d, a, b, x[ 6], S43, 0xa3014314); /* 59 */
-	II (b, c, d, a, x[13], S44, 0x4e0811a1); /* 60 */
-	II (a, b, c, d, x[ 4], S41, 0xf7537e82); /* 61 */
-	II (d, a, b, c, x[11], S42, 0xbd3af235); /* 62 */
-	II (c, d, a, b, x[ 2], S43, 0x2ad7d2bb); /* 63 */
-	II (b, c, d, a, x[ 9], S44, 0xeb86d391); /* 64 */
-
-	state[0] += a;
-	state[1] += b;
-	state[2] += c;
-	state[3] += d;
-
-	// Zeroize sensitive information.
-	memset ( (uint1 *) x, 0, sizeof(x));
-
-}
-
-// Encodes input (UINT4) into output (unsigned char). Assumes len is
-// a multiple of 4.
-void CMD5Engine::encode (uint1 *output, uint4 *input, uint4 len) {
-
-	uint4 i, j;
-
-	for (i = 0, j = 0; j < len; i++, j += 4) {
-		output[j]   = (uint1)  (input[i] & 0xff);
-		output[j+1] = (uint1) ((input[i] >> 8) & 0xff);
-		output[j+2] = (uint1) ((input[i] >> 16) & 0xff);
-		output[j+3] = (uint1) ((input[i] >> 24) & 0xff);
-	}
-}
-
-// Decodes input (unsigned char) into output (UINT4). Assumes len is
-// a multiple of 4.
-void CMD5Engine::decode (uint4 *output, uint1 *input, uint4 len){
-
-	uint4 i, j;
-
-	for (i = 0, j = 0; j < len; i++, j += 4)
-		output[i] = ((uint4)input[j]) | (((uint4)input[j+1]) << 8) |
-		(((uint4)input[j+2]) << 16) | (((uint4)input[j+3]) << 24);
-}
-
-// ROTATE_LEFT rotates x left n bits.
-inline unsigned long CMD5Engine::rotate_left  (uint4 x, uint4 n){
-	return (x << n) | (x >> (32-n))  ;
-}
-
-// F, G, H and I are basic MD5 functions.
-inline unsigned long CMD5Engine::F            (uint4 x, uint4 y, uint4 z){
-	return (x & y) | (~x & z);
-}
-inline unsigned long CMD5Engine::G            (uint4 x, uint4 y, uint4 z){
-	return (x & z) | (y & ~z);
-}
-inline unsigned long CMD5Engine::H            (uint4 x, uint4 y, uint4 z){
-	return x ^ y ^ z;
-}
-inline unsigned long CMD5Engine::I            (uint4 x, uint4 y, uint4 z){
-	return y ^ (x | ~z);
-}
-
-// FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
-// Rotation is separate from addition to prevent recomputation.
-
-inline void CMD5Engine::FF(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-					 uint4  s, uint4 ac){
-						 a += F(b, c, d) + x + ac;
-						 a = rotate_left (a, s) +b;
-					 }
-
-inline void CMD5Engine::GG(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-	 uint4 s, uint4 ac){
-	a += G(b, c, d) + x + ac;
-	a = rotate_left (a, s) +b;
-}
-
-inline void CMD5Engine::HH(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-	 uint4 s, uint4 ac){
-	a += H(b, c, d) + x + ac;
-	a = rotate_left (a, s) +b;
-}
-
-inline void CMD5Engine::II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-	 uint4 s, uint4 ac){
-	a += I(b, c, d) + x + ac;
-	a = rotate_left (a, s) +b;
-}
-
-
-// ---------------------------------------------------------- MD5 Hash Table
-
-CMD5HashTable::CMD5HashTable()
+bool ChoosePath(HWND hwnd, const char* message, char* path)
 {
-	//initialize the bucket array
-	memset(buckets, 0, sizeof(buckets));
-}
+	//my computer is root
+	LPITEMIDLIST pidlmc = NULL;
+	if (FAILED(SHGetSpecialFolderLocation(hwnd, CSIDL_DRIVES, &pidlmc)))
+		return false;
 
-CMD5HashTable::~CMD5HashTable()
-{
-	//free each bucket's entry table
-	for (int i=0;i<256;i++)
-		if (buckets[i].entries)
-			free(buckets[i].entries);
-}
-
-void CMD5HashTable::Allocate(DWORD guess)
-{
-	//figure out how big each bucket should be -- add
-	//a little extra so that the buckets aren't reallocated
-	DWORD bucketsize = (guess/256)+5;
-
-	for (int i=0;i<256;i++)
+	//ask for search path
+	LPITEMIDLIST idlist = NULL;
+	BROWSEINFO bi;
+	bi.hwndOwner = hwnd;
+	bi.iImage = 0;
+	bi.lParam = 0;
+	bi.lpfn = NULL;
+	bi.lpszTitle = message;
+	bi.pidlRoot = pidlmc;
+	bi.pszDisplayName = path;
+	bi.ulFlags = BIF_RETURNONLYFSDIRS |
+				 BIF_VALIDATE |
+				 BIF_RETURNFSANCESTORS;
+	idlist = SHBrowseForFolder(&bi);
+	if (!idlist)
 	{
-		//free any buckets that have been allocated
-		if (buckets[i].entries)
+		//cancel
+		return false;
+	}
+
+	//convert to string
+	bool success = SHGetPathFromIDList(idlist, path)?true:false;
+	
+	//free memory
+	if (idlist)
+	{
+		IMalloc *pmalloc;
+		SHGetMalloc(&pmalloc);
+		pmalloc->Free(idlist);
+		pmalloc->Free(pidlmc);
+		pmalloc->Release();
+	}
+	return success;
+}
+
+// ----------------------------------------------------------------------------------- CHANGE PASSWORD
+
+class CChangePassword : public CDialog
+{
+public:
+	CChangePassword(CString oldPassword, CWnd* pwndParent)
+		: CDialog(IDD_CHANGEPWD, pwndParent)
+	{
+		moldPassword = oldPassword;
+		mbCheckOldPassword = true;
+	}
+	bool ChangePassword()
+	{
+		return (DoModal()==IDOK)?true:false;
+	}
+	CString GetNewPassword()
+	{
+		CMD5 md5;
+		md5.FromBuf((BYTE*)mnewPassword.LockBuffer(), mnewPassword.GetLength());
+		mnewPassword.UnlockBuffer();
+		return CString(md5.GetString());
+	}
+	bool mbCheckOldPassword;
+
+protected:
+	
+	//vars
+	CString moldPassword;
+	CString moldPasswordGuess;
+	CString mnewPassword;
+	CString mverifyPassword;
+
+	BOOL OnInitDialog()
+	{
+		//disable the old password box?
+		if (!mbCheckOldPassword)
 		{
-			free(buckets[i].entries);
+			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_OLD), FALSE);
+			::EnableWindow(::GetDlgItem(m_hWnd, IDC_PWD_LABEL), FALSE);
+			::SetDlgItemText(m_hWnd, IDC_INSTRUCTIONS, "Enter the new password, then retype it for accuracy:");
 		}
-
-		//allocate the new bucket
-		buckets[i].entries =
-			(_Md5Entry*)malloc(sizeof(_Md5Entry)*bucketsize);
-		buckets[i].count = 0;
-		buckets[i].size = bucketsize;
+		::SetFocus(::GetDlgItem(m_hWnd, mbCheckOldPassword?IDC_PWD_OLD:IDC_PWD_NEW));
+		return TRUE;
 	}
 
-}
+	void DoDataExchange(CDataExchange *pDX)
+	{
+		//transfer text
+		DDX_Text(pDX, IDC_PWD_OLD, moldPasswordGuess);
+		DDX_Text(pDX, IDC_PWD_NEW, mnewPassword);
+		DDX_Text(pDX, IDC_PWD_VERIFY, mverifyPassword);
 
-void CMD5HashTable::Drop(BYTE *md5, void *object)
+		//do checks
+		if (mbCheckOldPassword &&
+			pDX->m_bSaveAndValidate)
+		{
+			//generate md5 from password guess
+			CMD5 md5;
+			md5.FromBuf((BYTE*)moldPasswordGuess.LockBuffer(), moldPasswordGuess.GetLength());
+			moldPasswordGuess.UnlockBuffer();
+
+			//compare old passwod
+			if (moldPassword != moldPasswordGuess &&
+				!CMD5(moldPassword).IsEqual(md5))
+			{
+				AfxMessageBox("Incorrect password.");
+				pDX->Fail();
+			}
+			else
+			{
+				if (mnewPassword!=mverifyPassword)
+				{
+					AfxMessageBox("New passwords do not match.  You must re-type your new password identically in both the 'New Password' and 'Verify New Password' boxes.");
+					pDX->Fail();
+				}
+			}
+		}
+	}
+};
+
+// ----------------------------------------------------------------------------------- PREFERENCES
+
+class CPreferences : CPropertySheet
 {
-	//drop the object into the correct bucket
-	ASSERT(md5);
-	ASSERT(object);
+public:
+
+	//construction
+	CPreferences(CString strCaption, CXMClientConfig* newConfig) :
+	  CPropertySheet(strCaption, NULL)
+	{
+		mpConfig = newConfig;
+		CXMClientConfig::Copy(mpConfig, &mSandbox);
+	}
+	~CPreferences()
+	{
+	}
+
+	//show the dialog
+	bool DoPreferences(bool alt)
+	{
+		//create common pages
+		mPageGeneral.Construct(IDD_PREFS_GENERAL);
+		mPageDownloading.Construct(IDD_PREFS_DOWNLOADING);
+		mPageSharing.Construct(IDD_PREFS_UPLOADING);
+			
+		mPageGeneral.mSandbox = &mSandbox;
+		mPageSearching.mSandbox = &mSandbox;
+		mPageDownloading.mSandbox = &mSandbox;
+		mPageSharing.mSandbox = &mSandbox;
+		mPageAdvanced.mSandbox = &mSandbox;
+
+		mPageGeneral.LoadData();
+		mPageDownloading.LoadData();
+		mPageSharing.LoadData();
+
+		bool retval = false;
+		if (alt)
+		{
+			//add pages in order
+			AddPage(&mPageGeneral);
+			AddPage(&mPageDownloading);
+			AddPage(&mPageSharing);
+
+			//show dialog
+			//SetWizardMode();
+			//SetWizardButtons(PSWIZB_BACK|PSWIZB_NEXT|PSWIZB_FINISH);
+			if (DoModal()==IDOK)
+			{
+				//save data
+				retval = true;
+				CXMClientConfig::Copy(&mSandbox, mpConfig);
+			}
+		}
+		else
+		{
+			//create the other pages
+			mPageSearching.Construct(IDD_PREFS_SEARCHING);
+			//mPageAdvanced.Construct(IDD_PREFS_ADVANCED);
+
+			//add pages in order
+			AddPage(&mPageGeneral);
+			AddPage(&mPageSearching);
+			AddPage(&mPageDownloading);
+			AddPage(&mPageSharing);
+			//AddPage(&mPageAdvanced);
+
+			mPageSearching.LoadData();
+			//mPageAdvanced.LoadData();
+
+			//show dialog
+			if (DoModal()==IDOK)
+			{
+				//save data
+				retval = true;
+				CXMClientConfig::Copy(&mSandbox, mpConfig);
+			}
+			
+		}
+		return retval;
+	}
+
+private:
 	
-	//find the bucket
-	_Md5Bucket &bucket = buckets[md5[0]];
+	//store a point to the original config
+	CXMClientConfig *mpConfig;
 
-	//do we need to expand the bucket?
-	bucket.count++;
-	if (bucket.count > bucket.size)
+	//store a sandbox copy of the config
+	CXMClientConfig mSandbox;
+
+	//------------------------------------------ pages
+	
+	class PageGeneral : public CPropertyPage {
+	public:
+		CXMClientConfig *mSandbox;
+		BOOL mPwdProtect_Enable;
+		CString mPwdProtect_Pwd;
+		BOOL mAutoLogin_Enable;
+		CString mAutoLogin_Username;
+		CString mAutoLogin_Password;
+		BOOL mReconnect_Enable;
+		int mReconnect_Delay;
+		void LoadData()
+		{
+			mPwdProtect_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_PROTECT_ENABLE);
+			mPwdProtect_Pwd = mSandbox->GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
+			mAutoLogin_Enable = mSandbox->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE);
+			mAutoLogin_Username = mSandbox->GetField(FIELD_LOGIN_AUTO_USERNAME, false);
+			mAutoLogin_Password = mSandbox->GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+			mReconnect_Enable = mSandbox->GetFieldBool(FIELD_NET_RECONNECT_ENABLE);
+			mReconnect_Delay = (int)mSandbox->GetFieldLong(FIELD_NET_RECONNECT_DELAY);
+		}
+		void DoDataExchange(CDataExchange *pDX)
+		{
+			DDX_Check(pDX, IDC_PWDPROTECT, mPwdProtect_Enable);
+			DDX_Check(pDX, IDC_AUTOLOGIN, mAutoLogin_Enable);
+			DDX_Check(pDX, IDC_RECONNECT, mReconnect_Enable);
+			DDX_Text(pDX, IDC_RECONNCT_DELAY, mReconnect_Delay);
+			DDX_Text(pDX, IDC_USERNAME, mAutoLogin_Username);
+			/*
+			if (pDX->m_bSaveAndValidate)
+				DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
+			else
+				DDX_Text(pDX, IDC_PASSWORD, CString(""));
+			*/
+			DDV_MinMaxInt(pDX, mReconnect_Delay, 1, 1440);
+			if (!pDX->m_bSaveAndValidate)
+			{
+				OnEnableControls();
+			}
+		}
+		void OnALChangePwd()
+		{
+			CChangePassword dlg("", this);
+			dlg.mbCheckOldPassword = false;
+			if (dlg.ChangePassword())
+			{
+				mAutoLogin_Password = dlg.GetNewPassword();
+			}
+		}
+		void OnChangePassword()
+		{
+			CChangePassword pwd(mPwdProtect_Pwd, this);
+			if (pwd.ChangePassword())
+			{
+				mPwdProtect_Pwd = pwd.GetNewPassword();
+			}
+		}
+		void OnOK()
+		{
+			mSandbox->SetField(FIELD_LOGIN_PROTECT_ENABLE, mPwdProtect_Enable?"true":"false");
+			mSandbox->SetField(FIELD_LOGIN_PROTECT_PASSWORD, mPwdProtect_Pwd);
+			mSandbox->SetField(FIELD_LOGIN_AUTO_ENABLE, mAutoLogin_Enable?"true":"false");
+			mSandbox->SetField(FIELD_LOGIN_AUTO_USERNAME, mAutoLogin_Username);
+			mSandbox->SetField(FIELD_LOGIN_AUTO_PASSWORD, mAutoLogin_Password);
+			mSandbox->SetField(FIELD_NET_RECONNECT_ENABLE, mReconnect_Enable?"true":"false");
+			mSandbox->SetField(FIELD_NET_RECONNECT_DELAY, mReconnect_Delay);
+		}
+		void OnEnableControls()
+		{
+			//password protect
+			bool temp = (IsDlgButtonChecked(IDC_PWDPROTECT)==BST_CHECKED);
+			GetDlgItem(IDC_CHANGEPWD)->EnableWindow(temp);
+
+			//auto login
+			temp = (IsDlgButtonChecked(IDC_AUTOLOGIN)==BST_CHECKED);
+			GetDlgItem(IDC_STATIC_USERNAME)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_PASSWORD)->EnableWindow(temp);
+			GetDlgItem(IDC_USERNAME)->EnableWindow(temp);
+			GetDlgItem(IDC_AL_PWD_CHANGE)->EnableWindow(temp);
+
+			//reconnect
+			temp = (IsDlgButtonChecked(IDC_RECONNECT)==BST_CHECKED);
+			GetDlgItem(IDC_STATIC_RECONNECT1)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_RECONNECT2)->EnableWindow(temp);
+			GetDlgItem(IDC_RECONNCT_DELAY)->EnableWindow(temp);
+		}
+		DECLARE_MESSAGE_MAP();
+	} mPageGeneral;
+
+	class PageSearching : public CPropertyPage
 	{
-		bucket.size += 5;
-		bucket.entries = 
-			(_Md5Entry*)realloc(bucket.entries, sizeof(_Md5Entry)*bucket.size);
-	}
+	public:
+		CXMClientConfig *mSandbox;
+		BOOL mAutoSave_Enable;
+		int mAutoSave_LastN;
+		void LoadData()
+		{
+			mAutoSave_Enable = mSandbox->GetFieldBool(FIELD_SEARCH_AUTOSAVE_ENABLE);
+			mAutoSave_LastN = mSandbox->GetFieldLong(FIELD_SEARCH_AUTOSAVE_COUNT);
+		}
+		void DoDataExchange(CDataExchange *pDX)
+		{
+			DDX_Check(pDX, IDC_SAVESEARCHES, mAutoSave_Enable);
+			DDX_Text(pDX, IDC_LASTN, mAutoSave_LastN);
+			if (!pDX->m_bSaveAndValidate)
+			{
+				OnEnableControls();
+			}
+		}
+		void OnOK()
+		{
+			mSandbox->SetField(FIELD_SEARCH_AUTOSAVE_ENABLE, mAutoSave_Enable?"true":"false");
+			mSandbox->SetField(FIELD_SEARCH_AUTOSAVE_COUNT, mAutoSave_LastN);
+		}
+		void OnEnableControls()
+		{
+			bool temp = (IsDlgButtonChecked(IDC_SAVESEARCHES)==BST_CHECKED);
+			GetDlgItem(IDC_LASTN)->EnableWindow(temp);
+		}
+		DECLARE_MESSAGE_MAP();
+	} mPageSearching;
 
-	//store the new record
-	memcpy(bucket.entries[bucket.count-1].md5, md5, 16);
-	bucket.entries[bucket.count-1].object = object;
-}
+	class PageDownloading : public CPropertyPage
+	{
+	public:
+		CXMClientConfig *mSandbox;
+		int mSpeed;
+		BOOL mAuto;
+		int mMaxThumbs, mMaxPictures;
+		CString mPath;
+		void LoadData()
+		{
+			mSpeed = mSandbox->GetFieldLong(FIELD_NET_DATARATE);
+			mAuto = mSandbox->GetFieldBool(FIELD_PIPELINE_AUTO_DOWNLOAD);
+			mMaxThumbs = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXTHUMB);
+			mMaxPictures = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXFILE);
+			mPath = mSandbox->GetField(FIELD_DB_SAVE_PATH, false);
+		}
+		void DoDataExchange(CDataExchange *pDX)
+		{
+			DDX_CBIndex(pDX, IDC_SPEED, mSpeed);
+			DDX_Check(pDX, IDC_TRANSFER_AUTO, mAuto);
+			if (!pDX->m_bSaveAndValidate)
+			{
+				CheckDlgButton(IDC_TRANSFER_MANUAL, !mAuto);
+			}
+			DDX_Text(pDX, IDC_MAXTHUMBS, mMaxThumbs);
+			DDX_Text(pDX, IDC_MAXPICTURES, mMaxPictures);
+			DDX_Text(pDX, IDC_SAVEDFILES, mPath);
+			if (pDX->m_bSaveAndValidate)
+			{
+				//validate path
+				if (mPath.GetLength()<2)
+				{
+					AfxMessageBox("Please specify a valid path.");
+					pDX->Fail();
+				}
+				else if (mPath.GetAt(1)!=':')
+				{
+					//must specify a drive letter
+					AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
+					pDX->Fail();
+				}
+				else if (!CreateDirectory(mPath, NULL))
+				{
+					//does the dir already exist?
+					if (GetLastError()!=ERROR_ALREADY_EXISTS)
+					{
+						AfxMessageBox("Unable to create the saved files folder.  Please make sure it is a valid drive on which a folder can be created.");
+						pDX->Fail();
+					}
+				}
+			}
+			if (!pDX->m_bSaveAndValidate)
+			{
+				OnEnableControls();
+			}
+		}
+		void OnOK()
+		{
+			mSandbox->SetField(FIELD_NET_DATARATE, mSpeed);
+			mSandbox->SetField(FIELD_PIPELINE_AUTO_DOWNLOAD, mAuto?"true":"false");
+			mSandbox->SetField(FIELD_PIPELINE_MAXTHUMB, mMaxThumbs);
+			mSandbox->SetField(FIELD_PIPELINE_MAXFILE, mMaxPictures);
+			mSandbox->SetField(FIELD_DB_SAVE_PATH, mPath);
+		}
+		void OnEnableControls()
+		{
+			bool temp = (IsDlgButtonChecked(IDC_TRANSFER_MANUAL)==BST_CHECKED);
+			GetDlgItem(IDC_STATIC_MAXTHUMBS)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_MAXPICTURES)->EnableWindow(temp);
+			GetDlgItem(IDC_MAXTHUMBS)->EnableWindow(temp);
+			GetDlgItem(IDC_MAXPICTURES)->EnableWindow(temp);
+		}
+		void OnChoose()
+		{
+			char szPath[MAX_PATH+1];
+			strcpy(szPath, mPath);
+			if (ChoosePath(m_hWnd, "Select the folder you wish to save files to:", szPath))
+			{
+				mPath = szPath;
+				SetDlgItemText(IDC_SAVEDFILES, szPath);
+			}
+		}
+		DECLARE_MESSAGE_MAP();
+	} mPageDownloading;
 
-void* CMD5HashTable::Lookup(BYTE *md5)
+	class PageSharing : public CPropertyPage
+	{
+	public:
+		CXMClientConfig *mSandbox;
+		BOOL mShare, mAuto, mUseSaved;
+		int mMaxUploads;
+		CString mPath;
+		void LoadData()
+		{
+			mShare = mSandbox->GetFieldBool(FIELD_DB_SHARE_ENABLE);	
+			mAuto = mSandbox->GetFieldBool(FIELD_PIPELINE_AUTO_UPLOAD);
+			mUseSaved = mSandbox->GetFieldBool(FIELD_DB_SHARE_USESAVED);
+			mMaxUploads = mSandbox->GetFieldLong(FIELD_PIPELINE_MAXUP);
+			mPath = mSandbox->GetField(FIELD_DB_SHARE_PATH, false);
+		}
+		void DoDataExchange(CDataExchange *pDX)
+		{
+			DDX_Check(pDX, IDC_UPLOAD_ENABLE, mShare);
+			DDX_Check(pDX, IDC_TRANSFER_AUTO, mAuto);
+			DDX_Check(pDX, IDC_SHARE_SAVED, mUseSaved);
+			DDX_Text(pDX, IDC_MAXUPLOADS, mMaxUploads);
+			DDX_Text(pDX, IDC_SHAREDFILES, mPath);
+			if (pDX->m_bSaveAndValidate)
+			{
+				//validate path
+				if (mShare && !mUseSaved)
+				{
+					if (mPath.GetLength()<2)
+					{
+						AfxMessageBox("Please specify a valid path.");
+						pDX->Fail();
+					}
+					else if (mPath.GetAt(1)!=':')
+					{
+						//must specify a drive letter
+						AfxMessageBox("You must specify a folder belonging to a drive on your computer. (Mapped Network Drives are acceptable.)");
+						pDX->Fail();
+					}
+					else if (!CreateDirectory(mPath, NULL))
+					{
+						//does the dir already exist?
+						if (GetLastError()!=ERROR_ALREADY_EXISTS)
+						{
+							AfxMessageBox("Unable to create the shared files folder.  Please make sure it is a valid drive on which a folder can be created.");
+							pDX->Fail();
+						}
+					}
+				}
+			}
+			if (!pDX->m_bSaveAndValidate)
+			{
+				CheckDlgButton(IDC_UPLOAD_DISABLE, !mShare);
+				CheckDlgButton(IDC_TRANSFER_MANUAL, !mAuto);
+				CheckDlgButton(IDC_SHARE_CUSTOM, !mUseSaved);
+			}
+			if (!pDX->m_bSaveAndValidate)
+			{	
+				OnEnableControls();
+			}
+		}
+		void OnOK()
+		{
+			mSandbox->SetField(FIELD_DB_SHARE_ENABLE, mShare?"true":"false");	
+			mSandbox->SetField(FIELD_PIPELINE_AUTO_UPLOAD, mAuto?"true":"false");
+			mSandbox->SetField(FIELD_DB_SHARE_USESAVED, mUseSaved?"true":"false");
+			mSandbox->SetField(FIELD_PIPELINE_MAXUP, mMaxUploads);
+			mSandbox->SetField(FIELD_DB_SHARE_PATH, mPath);
+		}
+		void OnEnableControls()
+		{
+			bool temp = (IsDlgButtonChecked(IDC_UPLOAD_ENABLE)==BST_CHECKED);
+			GetDlgItem(IDC_STATIC_UPLOADS)->EnableWindow(temp);
+			GetDlgItem(IDC_TRANSFER_AUTO)->EnableWindow(temp);
+			GetDlgItem(IDC_TRANSFER_MANUAL)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_SHARED)->EnableWindow(temp);
+			GetDlgItem(IDC_STATIC_SHARED2)->EnableWindow(temp);
+			GetDlgItem(IDC_SHARE_CUSTOM)->EnableWindow(temp);
+			GetDlgItem(IDC_SHARE_SAVED)->EnableWindow(temp);
+			if (temp)
+			{
+				temp = (IsDlgButtonChecked(IDC_TRANSFER_MANUAL)==BST_CHECKED);
+				GetDlgItem(IDC_STATIC_MAXUPLOADS)->EnableWindow(temp);
+				GetDlgItem(IDC_MAXUPLOADS)->EnableWindow(temp);
+				temp = (IsDlgButtonChecked(IDC_SHARE_CUSTOM)==BST_CHECKED);
+				GetDlgItem(IDC_SHAREDFILES)->EnableWindow(temp);
+				GetDlgItem(IDC_CHOOSE)->EnableWindow(temp);
+			}
+			else
+			{
+				GetDlgItem(IDC_STATIC_MAXUPLOADS)->EnableWindow(FALSE);
+				GetDlgItem(IDC_MAXUPLOADS)->EnableWindow(FALSE);
+				GetDlgItem(IDC_SHAREDFILES)->EnableWindow(FALSE);
+				GetDlgItem(IDC_CHOOSE)->EnableWindow(FALSE);
+			}
+		}
+		void OnChoose()
+		{
+			char szPath[MAX_PATH+1];
+			strcpy(szPath, mPath);
+			if (ChoosePath(m_hWnd, "Select the folder you wish to save files to:", szPath))
+			{
+				mPath = szPath;
+				SetDlgItemText(IDC_SHAREDFILES, szPath);
+			}
+		}
+		DECLARE_MESSAGE_MAP();
+	} mPageSharing;
+
+	class PageAdvanced : public CPropertyPage
+	{
+	public:
+		CXMClientConfig *mSandbox;
+		void LoadData()
+		{
+
+		}
+		void DoDataExchange(CDataExchange *pDX)
+		{
+
+		}
+		void OnOK()
+		{
+
+		}
+		void OnEnableControls()
+		{
+			//bool temp = (IsDlgButtonChecked(IDC_)==BST_CHECKED);
+			//GetDlgItem(IDC_)->EnableWindow(temp);
+		}
+		DECLARE_MESSAGE_MAP();
+	} mPageAdvanced;
+};
+
+BEGIN_MESSAGE_MAP(CPreferences::PageGeneral, CPropertyPage)
+	ON_BN_CLICKED(IDC_CHANGEPWD, CPreferences::PageGeneral::OnChangePassword)
+	ON_BN_CLICKED(IDC_PWDPROTECT, CPreferences::PageGeneral::OnEnableControls)
+	ON_BN_CLICKED(IDC_AUTOLOGIN, CPreferences::PageGeneral::OnEnableControls)
+	ON_BN_CLICKED(IDC_RECONNECT, CPreferences::PageGeneral::OnEnableControls)
+	ON_BN_CLICKED(IDC_AL_PWD_CHANGE, CPreferences::PageGeneral::OnALChangePwd)
+END_MESSAGE_MAP()
+
+BEGIN_MESSAGE_MAP(CPreferences::PageSearching, CPropertyPage)
+	ON_BN_CLICKED(IDC_SAVESEARCHES, CPreferences::PageSearching::OnEnableControls)
+END_MESSAGE_MAP()
+
+BEGIN_MESSAGE_MAP(CPreferences::PageDownloading, CPropertyPage)
+	ON_BN_CLICKED(IDC_CHOOSE, CPreferences::PageDownloading::OnChoose)
+	ON_BN_CLICKED(IDC_TRANSFER_AUTO, CPreferences::PageDownloading::OnEnableControls)
+	ON_BN_CLICKED(IDC_TRANSFER_MANUAL, CPreferences::PageDownloading::OnEnableControls)
+END_MESSAGE_MAP()
+
+BEGIN_MESSAGE_MAP(CPreferences::PageSharing, CPropertyPage)
+	ON_BN_CLICKED(IDC_CHOOSE, CPreferences::PageSharing::OnChoose)
+	ON_BN_CLICKED(IDC_TRANSFER_AUTO, CPreferences::PageSharing::OnEnableControls)
+	ON_BN_CLICKED(IDC_TRANSFER_MANUAL, CPreferences::PageSharing::OnEnableControls)
+	ON_BN_CLICKED(IDC_SHARE_SAVED, CPreferences::PageSharing::OnEnableControls)
+	ON_BN_CLICKED(IDC_SHARE_CUSTOM, CPreferences::PageSharing::OnEnableControls)
+	ON_BN_CLICKED(IDC_UPLOAD_ENABLE, CPreferences::PageSharing::OnEnableControls)
+	ON_BN_CLICKED(IDC_UPLOAD_DISABLE, CPreferences::PageSharing::OnEnableControls)
+END_MESSAGE_MAP()
+
+BEGIN_MESSAGE_MAP(CPreferences::PageAdvanced, CPropertyPage)
+END_MESSAGE_MAP()
+
+void DoPrefs()
 {
-	//first, grab the right buckt
-	if (!md5)
-		return NULL;
-	_Md5Bucket &bucket = buckets[md5[0]];
-
-	//now scan the entries
-	for (DWORD i=0;i<bucket.count;i++)
-	{
-		if (md5comp(bucket.entries[i].md5, md5))
-			return bucket.entries[i].object;
-	}
-
-	//guess we don't have it
-	return NULL;
+	CPreferences prefs("AMS Options", config());
+	prefs.DoPreferences(false);
 }

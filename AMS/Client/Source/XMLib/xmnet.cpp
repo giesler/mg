@@ -3,13 +3,54 @@
 //-----------------
 
 #include "stdafx.h"
-#include "xmclient.h"
+#include "xmlib.h"
 #include "xmnet.h"
+
+#include <objbase.h>
 #include <process.h>
 
 //send/receive params
 #define SEND_CHUNK		4096
 #define RECV_CHUNK		4096
+
+//handler interacce implementation
+CXMSessionHWNDHandler::CXMSessionHWNDHandler(HWND hwndWindow)
+{
+	m_hwndWindow = hwndWindow;
+	m_refCount = 1;
+}
+
+//IXMSessionHandler Implementation
+void CXMSessionHWNDHandler::OnMessageReceived(CXMSession *session)
+{
+	::PostMessage(m_hwndWindow, XM_MESSAGE, XM_INBOUND, (LPARAM)session);
+}
+void CXMSessionHWNDHandler::OnMessageSent(CXMSession *session)
+{
+	::PostMessage(m_hwndWindow, XM_MESSAGE, XM_OUTBOUND, (LPARAM)session);
+}
+void CXMSessionHWNDHandler::OnStateChanged(CXMSession *session, int oldState, int newState)
+{
+	::PostMessage(m_hwndWindow, XM_STATE, MAKEWORD(newState, oldState), (LPARAM)session);
+}
+void CXMSessionHWNDHandler::OnProgress(CXMSession *session)
+{
+	::PostMessage(m_hwndWindow, XM_PROGRESS, XM_INBOUND, (LPARAM)session);
+}
+
+//IUnknown Implementation
+void CXMSessionHWNDHandler::AddRef()
+{
+	m_refCount++;
+}
+void CXMSessionHWNDHandler::Release()
+{
+	if (--m_refCount<1)
+		delete this;
+}
+
+
+HINSTANCE CXMSession::mhInstance;
 
 //static stuff
 CRITICAL_SECTION CXMSession::m_txrxSync;
@@ -75,8 +116,10 @@ UINT __stdcall SessionThreadProc(LPVOID lpParameter)
 	//getting closed before the thread wants it to
 }
 
-bool CXMSession::InitOnce()
+bool CXMSession::InitOnce(HINSTANCE hinstance)
 {
+	mhInstance = hinstance;
+
 	//register window class
 	WNDCLASSEX w;
 	w.cbSize		= sizeof(WNDCLASSEX);
@@ -84,7 +127,7 @@ bool CXMSession::InitOnce()
 	w.lpfnWndProc	= SessionWndProc;
 	w.cbClsExtra	= 0;
 	w.cbWndExtra	= 0;
-	w.hInstance		= app()->m_hInstance;
+	w.hInstance		= mhInstance;
 	w.hIcon			= NULL;
 	w.hCursor		= NULL;
 	w.hbrBackground	= NULL;
@@ -163,7 +206,7 @@ bool CXMSession::Alpha()
 					if (WSAGETSELECTERROR(msg.lParam)) {
 
 						//connection failed, initiate tear-down
-						TRACE1("Connect error: %d\n", WSAGETSELECTERROR(msg.lParam));
+						//TRACE1("Connect error: %d\n", WSAGETSELECTERROR(msg.lParam));
 						PostQuitMessage(0);
 						mbIsConnected = false;
 						SetState(XM_CLOSING);
@@ -291,10 +334,10 @@ bool CXMSession::Alpha()
 	return true;
 }
 
-CXMSession::CXMSession(HWND owner)
+CXMSession::CXMSession(IXMSessionHandler *owner)
 {
 	//initialize member variables
-	mhOwner = owner;
+	mpOwner = NULL;
 	mhSelf = NULL;
 	mhThread = NULL;
 	mdwThreadID = 0;
@@ -309,6 +352,10 @@ CXMSession::CXMSession(HWND owner)
 	mLastSequence = -1;
 	mDirection = XM_INBOUND;		//inbound = higher default security
 	mhostAddress = NULL;
+
+	//store the event handler
+	mpOwner = owner;
+	mpOwner->AddRef();
 
 	//we need the sync object to work
 	//immediatly
@@ -356,6 +403,10 @@ CXMSession::~CXMSession()
 	if (mhostAddress) {
 		free(mhostAddress);
 	}
+	if (mpOwner)
+	{
+		mpOwner->Release();
+	}
 
 }
 
@@ -387,7 +438,7 @@ bool CXMSession::InitWindow()
 							0,					//height
 							NULL,				//TODO: does HWND_MESSAGE crash on pre-win2k?
 							NULL,				//menu
-							app()->m_hInstance,	//instance
+							mhInstance,		//instance
 							NULL);				//lparam
 	if (!mhSelf) {
 		return false;
@@ -490,7 +541,7 @@ bool CXMSession::InitSocket()
 
 		//subscribe to events
 		if (WSAAsyncSelect(msockMain, mhSelf, XM_SOCKET, FD_ALL_EVENTS)==SOCKET_ERROR) {
-			TRACE1("WSA: %d\n", WSAGetLastError());
+			//TRACE1("WSA: %d\n", WSAGetLastError());
 			closesocket(msockMain);
 			this->CloseWindow();
 		}
@@ -554,15 +605,23 @@ void CXMSession::CloseSocket()
 	closesocket(msockMain);
 }
 
-void CXMSession::SetOwner(HWND owner)
+void CXMSession::SetOwner(IXMSessionHandler *owner)
 {
 	//allow changes in the window we send
 	//updates to.
 	Lock();
-	mhOwner = owner;
+
+	//set the new owner
+	if (mpOwner)
+	{
+		mpOwner->Release();
+	}
+	mpOwner = owner;
+	mpOwner->AddRef();
 
 	//send a friendly reminder of our state
 	PostState(mState);
+
 	Unlock();
 }
 
@@ -737,12 +796,13 @@ void CXMSession::FlushOut()
 		}
 		else
 		{
-			TRACE("Failed to send message!\n");
-			ASSERT(FALSE);
+			//TRACE("Failed to send message!\n");
+			//ASSERT(FALSE);
 		}
 
 		//inform owner window
-		::PostMessage(mhOwner, XM_MESSAGE, XM_OUTBOUND, (LPARAM)this);
+		//::PostMessage(mhOwner, XM_MESSAGE, XM_OUTBOUND, (LPARAM)this);
+		mpOwner->OnMessageSent(this);
 	}
 	Unlock();
 
@@ -1013,7 +1073,7 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 				free(temp);
 				delete mBinaryMessage;
 				
-				TRACE("Non-matching MD5 in binary message!");
+				//TRACE("Non-matching MD5 in binary message!");
 			}
 			else {
 
@@ -1025,12 +1085,14 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 				//push message and inform system
 				Lock();
 				in.Push(mBinaryMessage);
-				::PostMessage(mhOwner, XM_MESSAGE, XM_INBOUND, (LPARAM)this);
+				//::PostMessage(mhOwner, XM_MESSAGE, XM_INBOUND, (LPARAM)this);
+				mpOwner->OnMessageReceived(this);
 				Unlock();
 
 				//message complete, send progress update
 				mCurrentBinarySize = mExpectedBinarySize;
-				::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+				//::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+				mpOwner->OnProgress(this);
 			}
 
 			//turn off binary mode
@@ -1051,7 +1113,8 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 
 			//send progress update
 			mCurrentBinarySize = netin.Size();
-			::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+			//::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+			mpOwner->OnProgress(this);
 		}
 	}
 	else {
@@ -1116,14 +1179,16 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 				mCurrentBinarySize = 0;
 
 				//let everyone know we are entering binary mode
-				::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+				//::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
+				mpOwner->OnProgress(this);
 			}
 			else {
 			
 				//not binary, push onto stack
 				Lock();
 				in.Push(msg);
-				::PostMessage(mhOwner, XM_MESSAGE, XM_INBOUND, (LPARAM)this);
+				//::PostMessage(mhOwner, XM_MESSAGE, XM_INBOUND, (LPARAM)this);
+				mpOwner->OnMessageReceived(this);
 				Unlock();
 			}
 
@@ -1153,7 +1218,7 @@ char* CXMSession::LocalIP()
 	sockaddr_in addr;
 	int size = sizeof(sockaddr_in);
 	if (getsockname(msockMain, (sockaddr*)&addr, &size)==SOCKET_ERROR) {
-		TRACE1("In CXMSessioN::LocalIP()...\n\tgetsockname() returned: %d\n", WSAGetLastError());
+		//TRACE1("In CXMSessioN::LocalIP()...\n\tgetsockname() returned: %d\n", WSAGetLastError());
 		Unlock();
 		return NULL;
 	}
@@ -1197,7 +1262,8 @@ void CXMSession::SetState(int newState)
 void CXMSession::PostState(int oldstate)
 {
 	Lock();
-	::PostMessage(mhOwner, XM_STATE, MAKEWORD(mState, oldstate), (LPARAM)this);
+	//::PostMessage(mhOwner, XM_STATE, MAKEWORD(mState, oldstate), (LPARAM)this);
+	mpOwner->OnStateChanged(this, oldstate, mState);
 	Unlock();
 }
 
@@ -1337,7 +1403,7 @@ bool CXMSessionManager::Listen(HWND hOwner)
 	//listen for events
 	if (WSAAsyncSelect(msockListener, hOwner, XM_SOCKET, FD_ACCEPT))
 	{
-		TRACE1("WSA: %d\n", WSAGetLastError());
+		//TRACE1("WSA: %d\n", WSAGetLastError());
 		goto fail;
 	}
 
@@ -1404,7 +1470,9 @@ bool CXMSessionManager::ReviewMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 						if (newSock!=INVALID_SOCKET) {
 
 							//setup new session
-							session = new CXMSession(mhOwner);
+							IXMSessionHandler *handler = new CXMSessionHWNDHandler(mhOwner);
+							session = new CXMSession(handler);
+							handler->Release();
 							if (session->Accept(newSock)) {
 								if (!Attach(session)) {
 									session->Close(2000);

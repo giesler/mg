@@ -218,14 +218,14 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 
 	//what type of message?
 	CXMMessage *response;
-	if (strcmp(msg->GetFor(false), XMMSG_PING)==0)
+	if (stricmp(msg->GetFor(false), XMMSG_PING)==0)
 	{
 		//respond to ping
 		response = msg->CreateReply();
 		response->GetField("success")->SetValue("1");
 		response->Send();
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_FILE)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_FILE)==0)
 	{
 		if (msg->GetType()==XM_REQUEST)
 		{
@@ -237,14 +237,16 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			}
 			catch(...)
 			{
+				#ifdef _INTERNAL
 				sm()->FakeMotd("OnFileRequest Exception");
+				#endif
 			}
 			/// } DEBUG
 		}
 		else
 		{
 			//what type of request?
-			if (strcmp(msg->GetField("message")->GetValue(false), "file")==0)
+			if (stricmp(msg->GetField("message")->GetValue(false), "file")==0)
 			{
 				/// DEBUG {
 				try
@@ -253,7 +255,9 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 				}
 				catch(...)
 				{
+					#ifdef _INTERNAL
 					sm()->FakeMotd("OnFileReceived Exception");
+					#endif
 				}
 				/// } DEBUG
 			}
@@ -267,7 +271,9 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 				}
 				catch(...)
 				{
+					#ifdef _INTERNAL
 					sm()->FakeMotd("OnFileBusy Exception");
+					#endif
 				}
 				/// } DEBUG
 			}
@@ -285,19 +291,21 @@ void CXMClientManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 	}
 	catch(...)
 	{
+		#ifdef _INTERNAL
 		sm()->FakeMotd("Exception in OnMsgReceived");
+		#endif
 	}
 }
 
 void CXMClientManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 {
 	//what type of message?
-	if (strcmp(msg->GetFor(false), XMMSG_PING)==0)
+	if (stricmp(msg->GetFor(false), XMMSG_PING)==0)
 	{
 		//ping sent, close session
 		ses->Close();
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_FILE)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_FILE)==0)
 	{
 		if (msg->GetType()==XM_REQUEST)
 		{
@@ -564,7 +572,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	catch(...)
 	{
 		Unlock();
+		#ifdef _INTERNAL
 		sm()->FakeMotd("Exception in OnFileRequest Setup");
+		#endif
 		return;
 	}
 	/// } DEBUG
@@ -592,7 +602,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 			catch(...)
 			{
 				Unlock();
+				#ifdef _INTERNAL
 				sm()->FakeMotd("Exception in OnFileRequest: Create Reply");
+				#endif
 				return;
 			}
 			/// } DEBUG
@@ -636,7 +648,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 				catch(...)
 				{
 					Unlock();
+					#ifdef _INTERNAL
 					sm()->FakeMotd("Exception in OnFileRequest: Thumbnail");
+					#endif
 					return;
 				}
 				/// } DEBUG
@@ -695,7 +709,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 				catch(...)
 				{
 					Unlock();
+					#ifdef _INTERNAL
 					sm()->FakeMotd("Esception in OnFileRequest: File");
+					#endif
 					return;
 				}
 				/// } DEBUG
@@ -730,7 +746,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 			catch(...)
 			{
 				Unlock();
+				#ifdef _INTERNAL
 				sm()->FakeMotd("Esception in OnFileRequest: Finish");
+				#endif
 				return;
 			}
 			/// } DEBUG
@@ -753,7 +771,9 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	}
 	catch(...)
 	{
+		#ifdef _INTERNAL
 		sm()->FakeMotd("Esception in OnFileRequest: Busy");
+		#endif
 		return;
 	}
 	/// } DEBUG

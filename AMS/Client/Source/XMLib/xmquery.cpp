@@ -3,10 +3,10 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "xmclient.h"
+#include "xmlib.h"
 #include "xmquery.h"
 #include "xmdb.h"
-#include <afxpriv.h>
+//#include <afxpriv.h>
 #include <math.h>
 
 void QueryCopy(CXMQuery *source, CXMQuery *dest)
@@ -38,16 +38,20 @@ void QueryCopy(CXMQuery *source, CXMQuery *dest)
 CXMMediaListing::CXMMediaListing()
 {
 	mRefCount = 1;
+
+	mItemsCount = 0;
+	mItemsSize = 0;
+	mItems = NULL;
 }
 
 CXMMediaListing::~CXMMediaListing()
 {
 	//free any items
-	POSITION pos = mItems.GetHeadPosition();
-	while (pos)
-	{
-		delete ((item*)mItems.GetNext(pos));
-	}
+	for (DWORD i=0;i<mItemsCount;i++)
+		delete mItems[i];
+	if (mItems)
+		free(mItems);
+	
 }
 
 void CXMMediaListing::AddRef()
@@ -144,7 +148,12 @@ bool CXMMediaListing::FromXml(IXMLDOMElement *e)
 			COM_RELEASE(f);
 
 			//insert i
-			mItems.AddTail(i);
+			if (++mItemsCount > mItemsSize)
+			{
+				mItemsSize += 128;
+				mItems = (item**)realloc(mItems, mItemsSize*sizeof(item*));
+			}
+			mItems[mItemsCount-1] = i;
 		}
 		
 		//next media item
@@ -170,14 +179,13 @@ void CXMMediaListing::Apply()
 	//to the DBFile.  Automatically overwrites, so should
 	//send a Listing to the server first.
 
-	POSITION pos = mItems.GetHeadPosition();
 	item *i;
 	CXMDBFile *f;
 	db()->Lock();
-	while (pos)
+	for (DWORD j=0;j<mItemsCount;j++)
 	{
 		//find db file
-		i = mItems.GetNext(pos);
+		i = mItems[j];
 		f = db()->FindFile(i->md5.GetValue(), true);
 		if (f)
 		{
@@ -361,7 +369,7 @@ fail:
 }
 
 #define INDEX_FROMXML_HELPER(_size, _field) \
-	if (strname.CompareNoCase(#_field) == 0) { \
+	if (stricmp(strname, #_field) == 0) { \
 		COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI##_size)); \
 		_field = V_UI##_size(&v);  \
 	}
@@ -374,7 +382,7 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 	IXMLDOMElement *e = NULL;
 	DOMNodeType t;
 	BSTR name = NULL;
-	CString strname;
+	char* strname = NULL;
 	_bstr_t bstrVal("value");
 	VARIANT v;
 	VariantInit(&v);
@@ -420,7 +428,10 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 			//read name and value
 			COM_SINGLECALL(e->get_nodeName(&name));
 			COM_SINGLECALL(e->getAttribute(bstrVal, &v));
-			AfxBSTR2CString(&strname, name);
+			//AfxBSTR2CString(strname, name);
+			if (strname)
+				free(strname);
+			strname = strdup(_bstr_t(name));
 			
 			//switch on name
 			INDEX_FROMXML_HELPER(4, Cat1)
@@ -470,16 +481,21 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 	{
 		//convert to string
 		COM_SINGLECALL(::VariantChangeType(&v, &v, 0, VT_BSTR));
-		AfxBSTR2CString(&strname, V_BSTR(&v));
+		//AfxBSTR2CString(&strname, V_BSTR(&v));
+		if (strname)
+			free(strname);
+		strname = strdup(_bstr_t(V_BSTR(&v)));
 
 		//is it contest?
-		if (strname.CompareNoCase("contest")==0)
+		if (stricmp(strname, "contest")==0)
 		{
 			Contest = true;
 		}
 	}
 	
 	//success
+	if (strname)
+		free(strname);
 	COM_RELEASE(list);
 	VariantClear(&v);
 	SysFreeString(name);
@@ -491,6 +507,8 @@ fail:
 	COM_RELEASE(e);
 	VariantClear(&v);
 	SysFreeString(name);
+	if (strname)
+		free(strname);
 	return S_FALSE;
 }
 
@@ -671,7 +689,7 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 	IXMLDOMNodeList *list = NULL;
 	VARIANT v;
 	BSTR name = NULL;
-	CString strname;
+	char* strname = NULL;
 	DOMNodeType t;
 	VariantInit(&v);
 
@@ -682,10 +700,13 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 	{
 		//convert to string
 		COM_SINGLECALL(::VariantChangeType(&v, &v, 0, VT_BSTR));
-		AfxBSTR2CString(&strname, V_BSTR(&v));
+		//AfxBSTR2CString(&strname, V_BSTR(&v));
+		if (strname)
+			free(strname);
+		strname = strdup(_bstr_t(V_BSTR(&v)));
 
 		//is it contest?
-		if (strname.CompareNoCase("contest")==0)
+		if (stricmp(strname, "contest")==0)
 		{
 			mContest = true;
 		}
@@ -702,40 +723,43 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 			//retrieve name and value
 			COM_SINGLECALL(n->get_nodeName(&name));
 			COM_SINGLECALL(n->get_nodeValue(&v));
-			AfxBSTR2CString(&strname, name);
+			//AfxBSTR2CString(&strname, name);
+			if (strname)
+				free(strname);
+			strname = strdup(_bstr_t(name));
 			
 			//which attribute?
-			if (strname.CompareNoCase("minwidth")==0)
+			if (stricmp(strname, "minwidth")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMinWidth = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("maxwidth")==0)
+			else if (stricmp(strname, "maxwidth")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMaxWidth = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("minheight")==0)
+			else if (stricmp(strname, "minheight")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMinHeight = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("maxheight")==0)
+			else if (stricmp(strname, "maxheight")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMaxHeight = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("minsize")==0)
+			else if (stricmp(strname, "minsize")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMinSize = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("maxsize")==0)
+			else if (stricmp(strname, "maxsize")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 				mMaxSize = V_UI4(&v);
 			}
-			else if (strname.CompareNoCase("name")==0)
+			else if (stricmp(strname, "name")==0)
 			{
 				COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_BSTR));
 				mName = (char*)malloc((wcslen(V_BSTR(&v))*2)+1);
@@ -765,12 +789,15 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 
 				//test name, execute proper read method
 				COM_SINGLECALL(e->get_nodeName(&name));
-				AfxBSTR2CString(&strname, name);
-				if (strname.CompareNoCase("queryindex")==0)
+				//AfxBSTR2CString(&strname, name);
+				if (strname)
+					free(strname);
+				strname = strdup(_bstr_t(name));
+				if (stricmp(strname, "queryindex")==0)
 				{
 					COM_SINGLECALL(mQuery.FromXml(e));
 				}
-				if (strname.CompareNoCase("rejectionindex")==0)
+				if (stricmp(strname, "rejectionindex")==0)
 				{
 					COM_SINGLECALL(mRejection.FromXml(e));
 				}
@@ -787,6 +814,8 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 	} //if !mContest
 
 	//success
+	if (strname)
+		free(strname);
 	VariantClear(&v);
 	SysFreeString(name);
 	return S_OK;
@@ -797,6 +826,8 @@ fail:
 	COM_RELEASE(list);
 	VariantClear(&v);
 	SysFreeString(name);
+	if (strname)
+		free(strname);
 	return S_FALSE;
 }
 
@@ -838,14 +869,20 @@ void CXMQueryResponseItem::Release()
 CXMQueryResponse::CXMQueryResponse()
 {
 	mRefCount = 1;
+	mFilesCount = 0;
+	mFilesSize = 0;
+	mFiles = NULL;
 }
 
 CXMQueryResponse::~CXMQueryResponse()
 {
 	//release each item
-	POSITION pos = mFiles.GetHeadPosition();
-	while (pos)
-		mFiles.GetNext(pos)->Release();
+	for(DWORD i=0;i<mFilesCount;i++)
+		mFiles[i]->Release();
+
+	//release the array
+	if (mFiles)
+		free(mFiles);
 }
 
 void CXMQueryResponse::AddRef()
@@ -1032,7 +1069,6 @@ HRESULT CXMQueryResponseItem::ToXml(IXMLDOMDocument* xml, IXMLDOMElement** e)
 	IXMLDOMNode *n = NULL;
 	VARIANT v;
 	VariantInit(&v);
-	CString a;
 	int i=0;
 
 	//create our element
@@ -1106,7 +1142,14 @@ HRESULT CXMQueryResponse::FromXml(IXMLDOMElement* e)
 			i = new CXMQueryResponseItem();
 			COM_SINGLECALL(n->QueryInterface(IID_IXMLDOMElement, (void**)&f));
 			COM_SINGLECALL(i->FromXml(f));
-			mFiles.AddTail(i);
+
+			//store the item
+			if (++mFilesCount > mFilesSize)
+			{
+				mFilesSize += 20;
+				mFiles = (CXMQueryResponseItem**)realloc(mFiles, mFilesSize*sizeof(CXMQueryResponseItem*));
+			}
+			mFiles[mFilesCount-1] = i;
 			i = NULL;
 
 			//free
@@ -1134,21 +1177,20 @@ HRESULT CXMQueryResponse::ToXml(IXMLDOMDocument* xml, IXMLDOMElement** e)
 	//declares
 	IXMLDOMElement *f = NULL, *g = NULL;
 	IXMLDOMNode *n = NULL;
-	POSITION p;
+	DWORD i;
 
 	//create our element
 	COM_SINGLECALL(xml->createElement(_bstr_t("results"), &f));
 
 	//convert each item into xml
-	p = mFiles.GetHeadPosition();
-	while (p)
+	for(i=0;i<mFilesCount;i++)
 	{
-		COM_SINGLECALL(mFiles.GetNext(p)->ToXml(xml, &g));
+		COM_SINGLECALL(mFiles[i]->ToXml(xml, &g));
 		COM_SINGLECALL(f->appendChild(g, &n));
 		COM_RELEASE(g);
 		COM_RELEASE(n);
 	}
-
+	
 	//success
 	*e = f;
 	return S_OK;

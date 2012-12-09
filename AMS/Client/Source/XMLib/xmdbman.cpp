@@ -1,8 +1,9 @@
 #include "stdafx.h"
-#include "xmclient.h"
+#include "xmlib.h"
 #include "xmnet.h"
 #include "xmdb.h"
 #include <process.h>
+#include <io.h>
 
 CXMDBManager::CXMDBManager()
 {
@@ -75,7 +76,7 @@ void CXMDBManager::CancelScan()
 void EnsurePathField(const char* field, char* path, const char* defval)
 {
 	strcpy(path, config()->GetField(field, false));
-	if (strcmp(path, "")==0) 
+	if (stricmp(path, "")==0) 
 	{
 		//path not set
 		BuildFilePath(path, defval);
@@ -119,9 +120,9 @@ bool CXMDBManager::DatabaseStartup()
 		if (!mDB->New()) 
 		{
 			//error creating new database
-			CString str;
-			str.Format("Error creating databse:\n%s", config()->GetField(FIELD_DB_FILE, false));
-			AfxMessageBox(str, MB_OK | MB_ICONERROR, 0);
+			char str[MAX_PATH];
+			_snprintf(str, MAX_PATH, "Error creating databse:\n%s", config()->GetField(FIELD_DB_FILE, false));
+			MessageBox(NULL, str, "Database Error", MB_OK | MB_ICONERROR);
 			return false;
 		}
 	}
@@ -148,130 +149,149 @@ bool CXMDBManager::ScanDirectory(char *path)
 		temp = _ScanDirectory(path);
 	}
 	catch (...) {
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 	}
 
 	mCallback->OnEndScan();
 	if (!temp) {
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 	}
 	return temp;
 }
 
-bool CXMDBManager::_ScanDirectory(CString path)
+bool CXMDBManager::_ScanDirectory(const char* ipath)
 {
 	//massage path
-	if ( (path.ReverseFind('\\')+1) != path.GetLength() ) {
+	char path[MAX_PATH+1];
+	strncpy(path, ipath, MAX_PATH);
+	if (path[strlen(path)-1]!='\\') {
 		
 		//append \*.*
-		path += "\\*.*";
+		 strncat(path,"\\*.*", MAX_PATH);
 	}
 	else {
 
 		//only *.* needed
-		path += "*.*";
+		strncat(path, "*.*", MAX_PATH);
 	}
 
 	//let client know what we are scanning
-	mCallback->OnScanDir(path.LockBuffer());
-	path.ReleaseBuffer();
+	mCallback->OnScanDir(path);
+
+	//full path stuff
+	int fullpathsize;
+	char fullpath[MAX_PATH+1];
+	fullpathsize = strlen(ipath);
+	strncpy(fullpath, ipath, MAX_PATH);
+	fullpath[fullpathsize] = '\\';
+	fullpathsize++;
 
 	//recursively walk folders from path
-	BOOL cont = TRUE;
-	BOOL first = TRUE;
 	CMD5 md5;
-	CFileFind find;
-	CString str;
-	char *_temp = NULL;
-	if (!find.FindFile(path, 0)) return false;
-	cont = find.FindNextFile();
-	while (cont)
+	CXMDBFile *xmfile;
+	_finddata_t find;
+	long hfile;
+	char *t = NULL;
+	hfile = _findfirst(path, &find);
+	if (hfile)
 	{
-		if (first)
-		{
-			first = FALSE;
-		}
-		else
-		{
-			cont = find.FindNextFile();
-		}
-		
-		//give client a chance to do idle processing
-		//most likely a message pump
-		mCallback->OnProcess();
+		while (hfile)
+		{	
+			//give client a chance to do idle processing
+			//most likely a message pump
+			mCallback->OnProcess();
 
-		//should we cancel?
-		if (mCancelFlag)
-			return false;
-
-		//is it does?
-		if (find.IsDots())
-			continue;
-
-		//is it sub-folder?
-		if (find.IsDirectory())
-		{
-			//search path
-			if (!_ScanDirectory(find.GetFilePath()))
-			{
+			//should we cancel?
+			if (mCancelFlag)
 				return false;
-			}
-			continue;
-		}
 
-		//is jpeg?
-		str = find.GetFilePath();
-		if (str.Right(4)!=".jpg" && str.Right(5)!=".jpeg")
-			continue;
+			//is it dots?
+			if (find.name[strlen(find.name)-1] == '.')
+				goto nextfile;
 
-		//in the db already?
-		CXMDBFile *xmfile = mDB->FindFile(str, true);
-		if (xmfile)
-		{
-			//file sizes must match
-			if (find.GetLength()!=xmfile->GetFileSize())
+			//build the enture fully qualified path
+			strncpy(fullpath+fullpathsize, find.name, MAX_PATH-fullpathsize);
+
+			//is it sub-folder?
+			if (find.attrib & _A_SUBDIR)
 			{
-				//file size changed since last run
-				mCallback->OnFileAddError(str, &CMD5(xmfile->GetMD5()));
-			}
-			else
-			{
-				//if the file is both removed and known, this is a condition that
-				//can only occur if it loaded from the db file and detected as a 
-				//duplicate there. that means we should ignreo the file, and keep
-				//the removed flag
-				if (xmfile->GetFlag(DFF_REMOVED) && xmfile->GetFlag(DFF_REMOVED))
-					continue;
-
-				//restore file
-				if (mCallback->OnFileRestored(xmfile))
+				//search path
+				if (!_ScanDirectory(fullpath))
 				{
-					//set flag
-					xmfile->SetFlag(DFF_REMOVED, false);
-					mCallback->AfterFileAdded(xmfile);
+					return false;
 				}
+				goto nextfile;
 			}
-		}
-		else
-		{    
-			//file not in db
-			md5.FromFile((const char*)str);
-			if (mCallback->OnFileFound(str, &md5))
+
+			//is jpeg?
+			if (strlen(find.name) < 5)
+				continue; //cant be a.jpg or a.jpeg (4 and 5 chars respectivly)
+			t = find.name + strlen(find.name) - 4;
+			if (stricmp(t, ".jpg") != 0)
 			{
-				//add
-				xmfile = mDB->AddFile(str);
-				if (xmfile)
-					mCallback->AfterFileAdded(xmfile);
+				if (strlen(find.name) < 6)
+					goto nextfile;	//cant be a.jpeg
+				t--;
+				if (stricmp(t, ".jpeg") != 0)
+					goto nextfile;
+			}
+
+			//in the db already?
+			xmfile = mDB->FindFile(fullpath, true);
+			if (xmfile)
+			{
+				//file sizes must match
+				if (find.size != xmfile->GetFileSize())
+				{
+					//file size changed since last run
+					mCallback->OnFileAddError(find.name, &CMD5(xmfile->GetMD5()));
+				}
 				else
 				{
-					mCallback->OnFileAddError(str, &md5);
+					//if the file is both removed and known, this is a condition that
+					//can only occur if it loaded from the db file and detected as a 
+					//duplicate there. that means we should ignreo the file, and keep
+					//the removed flag
+					if (xmfile->GetFlag(DFF_REMOVED) && xmfile->GetFlag(DFF_REMOVED))
+						goto nextfile;
 
-					#ifdef _INTERNAL
-					ErrorFiles.AddTail(str);
-					#endif
+					//restore file
+					if (mCallback->OnFileRestored(xmfile))
+					{
+						//set flag
+						xmfile->SetFlag(DFF_REMOVED, false);
+						mCallback->AfterFileAdded(xmfile);
+					}
 				}
 			}
+			else
+			{    
+				//file not in db
+				md5.FromFile(fullpath);
+				if (mCallback->OnFileFound(fullpath, &md5))
+				{
+					//add
+					xmfile = mDB->AddFile(fullpath);
+					if (xmfile)
+						mCallback->AfterFileAdded(xmfile);
+					else
+					{
+						mCallback->OnFileAddError(fullpath, &md5);
+
+						#ifdef _INTERNAL
+						ErrorFiles.AddTail(fullpath);
+						#endif
+					}
+				}
+			}
+			
+			//next file
+nextfile:
+			if (-1 == _findnext(hfile, &find))
+				break;
 		}
+
+		_findclose(hfile);
 	}
 
 	return true;
@@ -387,7 +407,7 @@ char* CXMDBManager::BuildFileListing(bool full)
 			}
 		}
 
-		TRACE("*** sending files: %d\n", x);
+		//TRACE("*** sending files: %d\n", x);
 
 		inlock = false;
 		mDB->Unlock();
@@ -874,7 +894,7 @@ DWORD CXMAsyncResizer::Alpha()
 			{
 				//error
 				bFailed = true;
-				TRACE1("Resize failed (%d).\n", wi.szPath);
+				//TRACE1("Resize failed (%d).\n", wi.szPath);
 
 				//free memory if we can
 				if (ci.mBuf)

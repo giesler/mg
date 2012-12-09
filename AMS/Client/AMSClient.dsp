@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /I "Source\xmlib" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -70,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "Source\Jpeg" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "Source\Jpeg" /I "Source\xmlib" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -80,7 +80,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib /nologo /subsystem:windows /debug /machine:I386 /libpath:"Build\Debug\Lib"
+# ADD LINK32 paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib xmlib.lib /nologo /subsystem:windows /debug /machine:I386 /libpath:"Build\Debug\Lib"
 # SUBTRACT LINK32 /profile
 
 !ELSEIF  "$(CFG)" == "AMSClient - Win32 Distro"
@@ -98,7 +98,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_DISTRO" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "Source\Jpeg" /I "Source\xmlib" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_DISTRO" /FR /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -127,18 +127,6 @@ SOURCE=.\Source\StdAfx.cpp
 # Begin Source File
 
 SOURCE=.\Source\xmclient.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmclientconfig.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmdb.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmdbman.cpp
 # End Source File
 # Begin Source File
 
@@ -174,14 +162,6 @@ SOURCE=.\Source\xmguistatus.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\xmmessage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmnet.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Source\xmpipeline.cpp
 # End Source File
 # Begin Source File
@@ -191,10 +171,6 @@ SOURCE=.\Source\xmpipelineclient.cpp
 # Begin Source File
 
 SOURCE=.\Source\xmpipelineserver.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmquery.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -214,27 +190,11 @@ SOURCE=.\Source\xmclient.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\xmdb.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Source\xmgui.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\xmmessage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmnet.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Source\xmpipeline.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\xmquery.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

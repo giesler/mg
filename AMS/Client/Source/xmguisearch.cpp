@@ -320,9 +320,9 @@ void CMainFrame::UpdateCompletedDownloadsTab()
 
 LRESULT CMainFrame::OnServerMessage(WPARAM wParam, LPARAM lParam)
 {
-	POSITION pos;
 	CXMQueryResponse *r;
 	CXMGUIQueryItem *pqi;
+	DWORD i;
 
 	switch (wParam)
 	{
@@ -341,14 +341,13 @@ LRESULT CMainFrame::OnServerMessage(WPARAM wParam, LPARAM lParam)
 		//refresh the CSearhView::mQueryItems collection
 		r = sm()->QueryGetResponse();
 		ClearQueryItems();
-		pos = r->mFiles.GetHeadPosition();
-		while (pos)
+		for (i=0;i<r->mFilesCount;i++)
 		{
 			//fill out the query item
 			pqi = new CXMGUIQueryItem();
+			pqi->mQueryResponseItem = r->mFiles[i];
 			pqi->mImage = XMGS_IMAGEWAITING;
 			pqi->mState = XMGUISIS_WAITING;
-			pqi->mQueryResponseItem = r->mFiles.GetNext(pos);
 			pqi->mQueryResponseItem->AddRef();
 			CSearchView::mQueryItems.AddTail(pqi);
 

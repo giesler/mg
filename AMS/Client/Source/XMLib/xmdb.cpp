@@ -3,7 +3,7 @@
 //------------------------------------------------------------------
 
 #include "stdafx.h"
-#include "xmclient.h"
+#include "xmlib.h"
 #include "xmdb.h"
 #include "xmnet.h"
 #include <math.h>
@@ -111,7 +111,7 @@ CXMDB::~CXMDB()
 	//call standard free
 	mClosing = true;
 	if (!Free()) {
-		TRACE("CXMDB::Free() failed in CXMDB::~CXMDB().\n");
+		//TRACE("CXMDB::Free() failed in CXMDB::~CXMDB().\n");
 	}
 
 	//free critical section
@@ -244,10 +244,12 @@ bool CXMDB::Open()
 	if (fread(&mDiskHeader, sizeof(mDiskHeader), 1, mFile)!=1) {
 
 		//could not read the full header, or error
+		/*
 		if (feof(mFile))
 			TRACE("ERROR: DB file returned eof.\n");
 		else
 			TRACE1("ERROR: %d\n", ferror(mFile));
+		*/
 		goto fail;
 	}
 
@@ -891,7 +893,7 @@ CXMDBFile* CXMDB::FindFile(const char* path, bool showremoved)
 	Lock();
 	for(DWORD i=0;i<mFileCount;i++)
 	{
-		if ((_stricmp(mFiles[i]->GetPath(), path)==0) &&
+		if ((stricmp(mFiles[i]->GetPath(), path)==0) &&
 			(!mFiles[i]->GetFlag(DFF_REMOVED) || showremoved))
 		{
 			Unlock();
@@ -1146,7 +1148,7 @@ bool CXMDBFile::InitFromFile(const char* path)
 IXMLDOMElement* CXMDBFile::GetIndexXml(IXMLDOMDocument* xml)
 {
 	//convert this file's index into xml
-	ASSERT(FALSE);
+	//ASSERT(FALSE);
 	return NULL;
 }
 
@@ -1421,12 +1423,12 @@ CDIBSection* FastResize(CBmp *bmpSrc, int width, int height)
 	//verify source
 	if (!bmpSrc)
 	{
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 		return NULL;
 	}
 	if (bmpSrc->GetBitsPerPixel()!=32)
 	{
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 		return NULL;
 	}
 
@@ -1450,10 +1452,12 @@ CDIBSection* FastResize(CBmp *bmpSrc, int width, int height)
 		leftBorder = ((width-x2)/2)*PIXEL_SIZE;
 	}
 
+	/*
 	ASSERT(x2<=width);
 	ASSERT(y2<=height);
 	ASSERT(x2+leftBorder*2<=(width*PIXEL_SIZE));
 	ASSERT(y2+topBorder*2<=height);
+	*/
 
 	//calculate samples - number of pixels in source that
 	//scales to one pixel in destination

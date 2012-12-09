@@ -415,7 +415,7 @@ protected:
 	SIZE_T mCurrentCacheSize;	//current size (in bytes) of thumb data
 
 	CRITICAL_SECTION mcsLock;
-	bool _ScanDirectory(CString path);
+	bool _ScanDirectory(const char* path);
 	IXMDBManagerCallback *mCallback;
 	CXMDB *mDB;
 	bool mCancelFlag;
