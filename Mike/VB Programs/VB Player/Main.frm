@@ -2,21 +2,30 @@ VERSION 5.00
 Object = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}#1.0#0"; "msdxm.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmMain 
+   BorderStyle     =   0  'None
    Caption         =   "vbplayer"
-   ClientHeight    =   6570
-   ClientLeft      =   60
-   ClientTop       =   345
-   ClientWidth     =   8880
+   ClientHeight    =   6825
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   9135
+   FillColor       =   &H8000000F&
+   ForeColor       =   &H8000000F&
    LinkTopic       =   "Form1"
-   MaxButton       =   0   'False
-   ScaleHeight     =   6570
-   ScaleWidth      =   8880
+   ScaleHeight     =   6825
+   ScaleWidth      =   9135
    StartUpPosition =   3  'Windows Default
+   Begin VB.Frame fraBorderTop 
+      Height          =   30
+      Left            =   0
+      TabIndex        =   27
+      Top             =   240
+      Width           =   9500
+   End
    Begin MSComctlLib.Slider sldVolume 
       Height          =   255
       Left            =   6960
       TabIndex        =   21
-      Top             =   6120
+      Top             =   6360
       Width           =   1695
       _ExtentX        =   2990
       _ExtentY        =   450
@@ -43,7 +52,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7800
       TabIndex        =   20
-      Top             =   840
+      Top             =   1080
       Width           =   975
    End
    Begin VB.CommandButton cmdPause 
@@ -60,7 +69,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   6720
       TabIndex        =   19
-      Top             =   840
+      Top             =   1080
       Width           =   975
    End
    Begin VB.CommandButton cmdPlayNow 
@@ -77,13 +86,13 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7080
       TabIndex        =   17
-      Top             =   4200
+      Top             =   4440
       Width           =   1575
    End
    Begin VB.Timer tmrUpdateSlider 
       Interval        =   500
       Left            =   6840
-      Top             =   120
+      Top             =   360
    End
    Begin VB.CommandButton cmdQueueRemove 
       Caption         =   "&Remove"
@@ -99,7 +108,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7080
       TabIndex        =   15
-      Top             =   2400
+      Top             =   2640
       Width           =   1575
    End
    Begin VB.CommandButton cmdQueueDown 
@@ -116,7 +125,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7920
       TabIndex        =   14
-      Top             =   1920
+      Top             =   2160
       Width           =   735
    End
    Begin VB.CommandButton cmdQueueUp 
@@ -133,7 +142,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7080
       TabIndex        =   13
-      Top             =   1920
+      Top             =   2160
       Width           =   735
    End
    Begin VB.CommandButton cmdAddToQueue 
@@ -150,10 +159,11 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7080
       TabIndex        =   12
-      Top             =   3720
+      Top             =   3960
       Width           =   1575
    End
    Begin VB.CommandButton cmdQueuePlay 
+      BackColor       =   &H80000012&
       Caption         =   "&Play Now"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -166,8 +176,9 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   7080
+      MaskColor       =   &H00000000&
       TabIndex        =   11
-      Top             =   1440
+      Top             =   1680
       Width           =   1575
    End
    Begin VB.CommandButton cmdResetQueue 
@@ -184,7 +195,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7080
       TabIndex        =   10
-      Top             =   2880
+      Top             =   3120
       Width           =   1575
    End
    Begin VB.TextBox txtLog 
@@ -192,7 +203,7 @@ Begin VB.Form frmMain
       Left            =   120
       MultiLine       =   -1  'True
       TabIndex        =   9
-      Top             =   6600
+      Top             =   6840
       Visible         =   0   'False
       Width           =   6735
    End
@@ -200,7 +211,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   120
       TabIndex        =   8
-      Top             =   840
+      Top             =   1080
       Width           =   6255
       _ExtentX        =   11033
       _ExtentY        =   450
@@ -214,7 +225,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   7920
       TabIndex        =   2
-      Top             =   120
+      Top             =   360
       Visible         =   0   'False
       Width           =   1095
    End
@@ -223,7 +234,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   6360
       TabIndex        =   1
-      Top             =   120
+      Top             =   360
       Visible         =   0   'False
       Width           =   1335
    End
@@ -231,7 +242,7 @@ Begin VB.Form frmMain
       Height          =   3255
       Left            =   120
       TabIndex        =   0
-      Top             =   3240
+      Top             =   3480
       Width           =   6735
       _ExtentX        =   11880
       _ExtentY        =   5741
@@ -279,7 +290,7 @@ Begin VB.Form frmMain
       Height          =   1455
       Left            =   120
       TabIndex        =   4
-      Top             =   1440
+      Top             =   1680
       Width           =   6735
       _ExtentX        =   11880
       _ExtentY        =   2566
@@ -329,6 +340,74 @@ Begin VB.Form frmMain
          Object.Width           =   0
       EndProperty
    End
+   Begin VB.Frame fraTop 
+      BackColor       =   &H80000007&
+      BorderStyle     =   0  'None
+      Height          =   255
+      Left            =   0
+      TabIndex        =   23
+      Top             =   0
+      Width           =   9135
+      Begin VB.Label lblCaption 
+         BackStyle       =   0  'Transparent
+         Caption         =   "vbplayer"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H8000000E&
+         Height          =   255
+         Left            =   120
+         TabIndex        =   26
+         Top             =   0
+         Width           =   8535
+      End
+      Begin VB.Label lblMin 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "_"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H8000000E&
+         Height          =   255
+         Left            =   8760
+         TabIndex        =   25
+         Top             =   0
+         Width           =   135
+      End
+      Begin VB.Label lblX 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   "x"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H8000000E&
+         Height          =   255
+         Left            =   9000
+         TabIndex        =   24
+         Top             =   0
+         Width           =   135
+      End
+   End
    Begin VB.Label Label3 
       Caption         =   "Volume"
       BeginProperty Font 
@@ -343,14 +422,14 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   7080
       TabIndex        =   22
-      Top             =   5880
+      Top             =   6120
       Width           =   1335
    End
    Begin VB.Label lblID 
       Height          =   255
       Left            =   6480
       TabIndex        =   18
-      Top             =   600
+      Top             =   840
       Visible         =   0   'False
       Width           =   735
    End
@@ -358,7 +437,7 @@ Begin VB.Form frmMain
       Height          =   975
       Left            =   6960
       TabIndex        =   16
-      Top             =   6600
+      Top             =   6840
       Visible         =   0   'False
       Width           =   2055
       AudioStream     =   -1
@@ -433,7 +512,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   360
       TabIndex        =   7
-      Top             =   120
+      Top             =   360
       Width           =   5295
    End
    Begin VB.Label lblName 
@@ -449,7 +528,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   240
       TabIndex        =   6
-      Top             =   360
+      Top             =   600
       Width           =   6015
    End
    Begin VB.Label Label2 
@@ -466,7 +545,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   240
       TabIndex        =   5
-      Top             =   1200
+      Top             =   1440
       Width           =   2535
    End
    Begin VB.Label Label1 
@@ -483,7 +562,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   240
       TabIndex        =   3
-      Top             =   3000
+      Top             =   3240
       Width           =   2535
    End
 End
@@ -494,7 +573,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-'Private WithEvents wmp As MediaPlayer.MediaPlayer
+Private blnMovingWindow As Boolean
+Private intStartX As Long, intStartY As Long
 
 Private Sub cmdAddToQueue_Click()
 
@@ -535,7 +615,7 @@ Private Sub cmdLoadFromDB_Click()
     CloseStatus
     
     UpdateQueue
-    PlayCurSong
+'    PlayCurSong
     
 End Sub
 
@@ -723,6 +803,38 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     
 End Sub
 
+Private Sub lblCaption_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+    intStartX = X
+    intStartY = Y
+    blnMovingWindow = True
+    
+End Sub
+
+Private Sub lblCaption_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+    If blnMovingWindow Then
+        Move Left - (intStartX - X), Top - (intStartY - Y)
+    End If
+    
+End Sub
+
+Private Sub lblCaption_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+    blnMovingWindow = False
+    
+End Sub
+
+Private Sub lblMin_Click()
+
+    WindowState = vbMinimized
+    
+End Sub
+
+Private Sub lblX_Click()
+    End
+End Sub
+
 Private Sub lv_ColumnClick(ByVal ColumnHeader As MSComctlLib.ColumnHeader)
 
     If lv.Sorted And lv.SortKey = ColumnHeader.Index Then
@@ -826,6 +938,7 @@ Private Sub PlayCurSong(Optional blnQueueSong As Boolean = True)
     cmdStopPlay.Caption = "Stop"
     sldCurSong.Max = wmp.Duration
     Caption = li.SubItems(1) & IIf(li.SubItems(2) <> "", " - " & li.SubItems(2), "")
+    lblCaption.Caption = Caption
     If blnQueueSong Then
         lvQueue.ListItems.Remove li.Index
     End If
