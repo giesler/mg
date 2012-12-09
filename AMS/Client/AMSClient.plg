@@ -3,9 +3,38 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: AMSClient - Win32 Release--------------------
+--------------------Configuration: AMSClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\1\RSP4E.tmp" with contents
+[
+paintlib.lib libjpeg.lib msxml2.lib rpcrt4.lib /nologo /subsystem:windows /profile /debug /machine:I386 /out:"Build\Debug\AMSClient.exe" /libpath:"Build\Debug\Lib" 
+.\Intermediate\Debug\Client\StdAfx.obj
+.\Intermediate\Debug\Client\xmclient.obj
+.\Intermediate\Debug\Client\xmclientconfig.obj
+.\Intermediate\Debug\Client\xmdb.obj
+.\Intermediate\Debug\Client\xmdbman.obj
+.\Intermediate\Debug\Client\xmgui.obj
+.\Intermediate\Debug\Client\xmguibrowsing.obj
+.\Intermediate\Debug\Client\xmguicompleted.obj
+.\Intermediate\Debug\Client\xmguilocal.obj
+.\Intermediate\Debug\Client\xmguiquery.obj
+.\Intermediate\Debug\Client\xmguisearch.obj
+.\Intermediate\Debug\Client\xmguishared.obj
+.\Intermediate\Debug\Client\xmguistatus.obj
+.\Intermediate\Debug\Client\xmmessage.obj
+.\Intermediate\Debug\Client\xmnet.obj
+.\Intermediate\Debug\Client\xmpipeline.obj
+.\Intermediate\Debug\Client\xmpipelineclient.obj
+.\Intermediate\Debug\Client\xmpipelineserver.obj
+.\Intermediate\Debug\Client\xmquery.obj
+.\Intermediate\Debug\Client\XMClient.res
+.\Build\Debug\Lib\libjpeg.lib
+.\Build\Debug\Lib\paintlib.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\1\RSP4E.tmp"
+<h3>Output Window</h3>
+Linking...
 
 
 

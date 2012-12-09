@@ -150,8 +150,8 @@ BEGIN_MESSAGE_MAP(CXMGUIStatus, CWnd)
 	ON_MESSAGE(XM_SPLITMOVE, OnSplitMove)
 
 	//pipeline updates
-	//ON_MESSAGE(XM_CLIENTMSG, OnClientMessage)
-	//ON_MESSAGE(XM_SERVERMSG, OnServerMessage)
+	ON_MESSAGE(XM_CLIENTMSG, OnClientMessage)
+	ON_MESSAGE(XM_SERVERMSG, OnServerMessage)
 
 	//tab switches
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TABS, OnTabsSelChange)

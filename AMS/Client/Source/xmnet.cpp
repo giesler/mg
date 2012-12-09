@@ -7,7 +7,7 @@
 #include "xmnet.h"
 
 //send/receive params
-#define SEND_CHUNK		32000//4096
+#define SEND_CHUNK		4096
 #define RECV_CHUNK		4096
 
 //static stuff
@@ -100,6 +100,9 @@ bool CXMSession::InitOnce()
 
 bool CXMSession::Alpha()
 {	
+	fd_set set;
+	timeval timeout = {2, 0};	//2 seconds				
+
 	//from now until connection is complete, we
 	//are in "opening" state
 	SetState(XM_OPENING);
@@ -190,6 +193,7 @@ bool CXMSession::Alpha()
 
 				case FD_WRITE:
 					//socket is ready for writing
+					TRACE("SendChunk - ");
 					SendChunk();
 					break;
 
@@ -225,6 +229,11 @@ bool CXMSession::Alpha()
 				while (!netout.IsEmpty()) {
 					if (!SendChunk())
 						break;
+					
+					//wait until we can send again
+					FD_ZERO(&set);
+					FD_SET(msockMain, &set);
+					select(NULL, NULL, &set, NULL, &timeout);
 				}
 				
 				//disable further sends, and wait for close
@@ -894,6 +903,7 @@ bool CXMSession::SendChunk()
 
 			//check error
 			if (WSAGetLastError()==WSAEWOULDBLOCK) {
+				TRACE("WouldBlock - ");
 				return true;
 			}
 			return false;
@@ -921,7 +931,7 @@ bool CXMSession::SendChunk()
 
 		//sleep for 300 ms
 		//temp:
-		Sleep(500);
+		//Sleep(500);
 		TRACE("Looping - ");
 
 		//set the tx light
