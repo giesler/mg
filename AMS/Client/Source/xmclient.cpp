@@ -263,19 +263,34 @@ BOOL CXMClientApp::InitInstance()
 	sm()->Start();
 
 	//login
-	if (!sm()->LoginUI()) {
+	if (!sm()->LoginUI())
+	{
 		AfxMessageBox(	"You must login to use AMS.  If you do not " 
 						"have a username or password, you may get one "
 						"from the AMS webs site at 'www.adultmediaswapper.com'." );
 		return FALSE;
 	}
 
+	//if we auto-updated during login, we need to abort
+	if (sm()->AuComplete())
+	{
+		return TRUE;
+	}
+
 	//show main window
 	m_pMainWnd= new CMainFrame;
-	m_pMainWnd->ShowWindow(
-			(config()->GetFieldLong(FIELD_GUI_MAIN_WND_MODE)==SW_MAXIMIZE)
-			?SW_SHOWMAXIMIZED:SW_SHOW);
-	m_pMainWnd->UpdateWindow();
+	if (m_pMainWnd->m_hWnd)
+	{
+		m_pMainWnd->ShowWindow(
+				(config()->GetFieldLong(FIELD_GUI_MAIN_WND_MODE)==SW_MAXIMIZE)
+				?SW_SHOWMAXIMIZED:SW_SHOW);
+		m_pMainWnd->UpdateWindow();
+	}
+	else
+	{
+		ASSERT(FALSE);
+		return FALSE;
+	}
 
 	return TRUE;
 }

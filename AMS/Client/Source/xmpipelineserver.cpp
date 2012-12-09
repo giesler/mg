@@ -10,12 +10,47 @@
 
 DWORD WINAPI LoginThreadProc(LPVOID lpParameter);
 
+// ------------------------------------------------------------------------------- utility
+
+#define KB	(1024)
+#define MB	(KB*1024)
+#define GB	(MB*1024)
+
+void size2str(char *buf, size_t bufsize, DWORD size)
+{
+	//convert size (in bytes) into a "n bytes/kb/mb/gb"
+	//string, store in buf
+
+	//bytes?
+	if (size < KB)
+	{
+		//bytes
+		_snprintf(buf, bufsize, "%lu bytes", size);		//%lu = long unsigned int
+	}
+	else if (size < MB)
+	{
+		//kb
+		_snprintf(buf, bufsize, "%#.3g kb", (double)size/KB);
+	}
+	else if (size < GB)
+	{
+		//mb
+		_snprintf(buf, bufsize, "%#.3g mb", (double)size/MB);
+	}
+	else
+	{
+		//gb
+		_snprintf(buf, bufsize, "%#.3g gb", (double)size/GB);
+	}
+}
+
 // ----------------------------------------------------------------------- XMServerManager
 
 CXMServerManager::CXMServerManager()
 : CXMPipelineBase()
 {
 	//setup server state
+	mwndProgress = NULL;
 	mServer = NULL;
 	mServerShuttingDown = false;
 
@@ -39,6 +74,16 @@ CXMServerManager::CXMServerManager()
 	//limiters
 	mLimiterMaxIndex = 1000;
 	mLimiterMaxFilter = 1000;
+
+	//au data
+	mAuComplete = false;
+	mAuAvailable = false;
+	mAuRequired = false;
+	mAuVersion[0] = '\0';
+
+	//reconnect data
+	mRcAttempts = 0;
+	mRcExpectDead = true;
 }
 
 CXMServerManager::~CXMServerManager()
@@ -77,7 +122,11 @@ bool CXMServerManager::OnInitialize() {
 
 void CXMServerManager::OnWin32MsgPreview(UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	//empty
+	//should we forward progress messages?
+	if (msg==XM_PROGRESS && mwndProgress)
+	{
+		::PostMessage(mwndProgress, msg, wparam, lparam);
+	}
 }
 
 void CXMServerManager::OnWin32MsgReview(UINT msg, WPARAM wparam, LPARAM lparam)
@@ -91,18 +140,36 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 	CXMQueryResponse *resp;
 	if (strcmp(msg->GetFor(false), XMMSG_LOGIN)==0
 		&& !mLoginCanceled)
-	{
-		
+	{		
 		//was the message a succes, or error message?
 		char* success = msg->GetField("success")->GetValue(false);
-		if (strcmp(success, "true")!=0)
+		if (stricmp(success, "true")!=0)
 		{
-			//login failed!
-			strncpy(mLoginMsg, msg->GetField("error")->GetValue(false), MAX_PATH);
-			SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR, (LPARAM)mLoginMsg);
+			//reset reconnect data
+			mRcExpectDead = true;
+
+			//login failed, upgrade needed?
+			if (stricmp(msg->GetField("au/required")->GetValue(false), "true")==0)
+			{
+				//needs an upgrade
+				mAuAvailable = true;
+				mAuRequired = true;
+				strncpy(mLoginMsg, msg->GetField("au/version")->GetValue(false), MAX_PATH);
+				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR_UPGRADE, (LPARAM)mLoginMsg);
+			}
+			else
+			{
+				//not a version upgrade error
+				strncpy(mLoginMsg, msg->GetField("error")->GetValue(false), MAX_PATH);
+				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR, (LPARAM)mLoginMsg);
+			}
 		}
 		else
 		{
+			//reset reconnect data
+			mRcExpectDead = false;
+			mRcAttempts = 0;
+
 			//login received
 			SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_RECEIVED, NULL);
 
@@ -120,9 +187,22 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			{
 				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR, (LPARAM)"Failed to build file listing.");
 			}
+
+			//autoupdate?
+			if (msg->HasField("au/version"))
+			{
+				//read fields
+				mAuAvailable = true;
+				strncpy(mAuVersion, msg->GetField("au/version")->GetValue(false), MAX_PATH);
+				mAuRequired =
+					(stricmp(msg->GetField("au/required")->GetValue(false), "true")==0);
+
+				//send event
+				SendEvent(XM_SERVERMSG, XM_SMU_AU_AVAILABLE, (LPARAM)NULL);
+			}
 		}
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_MOTD)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_MOTD)==0)
 	{
 		//free any existing stuff
 		if (mMotdType)
@@ -144,7 +224,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		mMotdNew = true;
 		SendEvent(XM_SERVERMSG, XM_SMU_MOTD_RECEIVED, NULL);
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_LISTING)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_LISTING)==0)
 	{
 		//server has sent us a listing, we only send an update
 		//to the window that last asked for a listing.
@@ -159,7 +239,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		}
 		Unlock();
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_QUERY)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_QUERY)==0)
 	{
 		//were we looking for a query?
 		Lock();
@@ -188,6 +268,32 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 		}
 		Unlock();
 	}
+	else if (stricmp(msg->GetFor(false), XMMSG_AU)==0)
+	{
+		//save the file
+		FILE *f = fopen("amsupdate.exe", "wb");
+		if (f)
+		{
+			fwrite(msg->GetBinaryDataBuffer(), msg->GetBinarySize(), 1, f);
+			fclose(f);
+		}
+		f = NULL;
+
+		//spawn new process
+		PROCESS_INFORMATION pi;
+		STARTUPINFO si;
+		ZeroMemory(&si, sizeof(si));
+		si.cb = sizeof(si);
+		CreateProcess("amsupdate.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+		if (pi.hProcess)
+			CloseHandle(pi.hProcess);
+		if (pi.hThread)
+			CloseHandle(pi.hThread);
+
+		//au is complete
+		mAuComplete = true;
+		SendEvent(XM_SERVERMSG, XM_SMU_AU_COMPLETE, NULL);
+	}
 	else
 	{
 		//unknown message type
@@ -201,7 +307,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 {
 	//what type of message?
-	if (strcmp(msg->GetFor(false), XMMSG_LOGIN)==0)
+	if (stricmp(msg->GetFor(false), XMMSG_LOGIN)==0)
 	{
 		//login has been sent
 		if (!mLoginCanceled)
@@ -209,16 +315,16 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 			SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_SENT, NULL);
 		}
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_MOTD)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_MOTD)==0)
 	{
 
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_QUERY)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_QUERY)==0)
 	{
 		//query message sent.. send ui update
 		SendEvent(XM_SERVERMSG, XM_SMU_QUERY_SENT, NULL);
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_LISTING)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_LISTING)==0)
 	{
 		//are we logged in yet?
 		Lock();
@@ -234,9 +340,13 @@ void CXMServerManager::OnMsgSent(CXMSession *ses, CXMMessage *msg)
 		}
 		Unlock();
 	}
-	else if (strcmp(msg->GetFor(false), XMMSG_INDEX)==0)
+	else if (stricmp(msg->GetFor(false), XMMSG_INDEX)==0)
 	{
 
+	}
+	else if (stricmp(msg->GetFor(false), XMMSG_AU)==0)
+	{
+		SendEvent(XM_SERVERMSG, XM_SMU_AU_SENT, NULL);
 	}
 	else
 	{
@@ -310,6 +420,7 @@ void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 		break;
 	}
 }
+
 // ---------------------------------------------------------------- MOTD
 
 bool CXMServerManager::MotdIsNew()
@@ -324,20 +435,20 @@ void CXMServerManager::MotdShow()
 		return;
 
 	//we only support type=="none"
-	if (_stricmp(mMotdType, "none")==0)
+	if (stricmp(mMotdType, "none")==0)
 	{
 		//just show a msg box
 		MessageBox(NULL, mMotdMsg, "Message of the Day", MB_ICONINFORMATION);
 	}
-	else if (_stricmp(mMotdType, "single")==0)
+	else if (stricmp(mMotdType, "single")==0)
 	{
 
 	}
-	else if (_stricmp(mMotdType, "multi")==0)
+	else if (stricmp(mMotdType, "multi")==0)
 	{
 
 	}
-	else if (_stricmp(mMotdType, "open")==0)
+	else if (stricmp(mMotdType, "open")==0)
 	{
 
 	}
@@ -471,15 +582,29 @@ bool CXMServerManager::ServerClose()
 	return false;
 }
 
-bool CXMServerManager::ServerIsOpen()
+bool CXMServerManager::ServerIsOpen(bool reconnect)
 {
+	//check to see if the server is connected
 	Lock();
 	bool temp;
 	if (mServer) 
+	{
 		temp = ((mServer->GetState()==XM_OPEN));
+	}
 	else
+	{
 		temp = false;
+	}
 	Unlock();
+
+	//if we arent open, and the reconnect flag is set, we
+	//should try to auto-reconnect
+	if (!temp && reconnect)
+	{
+		ReconnectTry();
+	}
+
+	//done
 	return temp;
 }
 
@@ -669,6 +794,7 @@ bool CXMServerManager::Login(const char *username, const char *password)
 	msg->GetField("system")->SetValue(config()->RegGetSystemID().GetString(), true);
 	msg->GetField("username")->SetValue(mUsername, true);
 	msg->GetField("password")->SetValue(mPassword, true);
+	msg->GetField("version")->SetValue(app()->Version(), true);
 	if (!msg->Send()) {
 		delete msg;
 		Unlock();
@@ -722,6 +848,192 @@ char* CXMServerManager::LoginGetPassword()
 	char* temp = mPassword;
 	Unlock();
 	return temp;
+}
+
+// -------------------------------------------------------------------------------- Auto Update
+
+class CAutoUpdate : public CDialog
+{
+public:
+
+	//construction
+	CAutoUpdate(CWnd* pParent = NULL) :
+	  CDialog(IDD_AU, pParent)
+	{
+		  mVersion = "";
+		  mRequired = false;
+	}
+
+	BOOL OnInitDialog()
+	{
+		//get ctrl refs
+		UpdateData(false);
+
+		//hook into server manager
+		sm()->Subscribe(m_hWnd);
+		sm()->HookProgress(m_hWnd);
+
+		//set initial control states
+		mStatus.SetWindowText("");
+		mRate.SetWindowText("");
+		mProgress.SetRange(0, 1);
+		mProgress.SetPos(0);
+
+		//ask the server for the file
+		if (!sm()->AuRequest())
+		{
+			AfxMessageBox("Error requesting auto-update file.", MB_ICONERROR);
+			EndDialog(IDCANCEL);
+			return FALSE;
+		}
+
+		//record time
+		mtimeStart = CTime::GetCurrentTime();
+		
+		return FALSE;
+	}
+
+	//parameters
+	CString mVersion;
+	bool mRequired;
+
+private:
+	
+	//misc
+	CTime mtimeStart;
+
+	//controls
+	CStatic mStatus;
+	CStatic mRate;
+	CProgressCtrl mProgress;
+	CButton mOK;
+	CButton mCancel;
+	void DoDataExchange(CDataExchange *pDX)
+	{
+		DDX_Control(pDX, IDC_STATUS, mStatus);
+		DDX_Control(pDX, IDC_RATE, mRate);
+		DDX_Control(pDX, IDC_PROGRESS, mProgress);
+		DDX_Control(pDX, IDOK, mOK);
+		DDX_Control(pDX, IDCANCEL, mCancel);
+	}
+
+	//messages
+	DECLARE_MESSAGE_MAP();
+	LRESULT OnServerMessage(WPARAM wParam, LPARAM lParam)
+	{
+		static int osmState = 0;
+		switch(wParam)
+		{
+		case XM_SMU_AU_SENDING:
+			mStatus.SetWindowText("Requesting new version...");
+			break;
+		
+		case XM_SMU_AU_SENT:
+			mStatus.SetWindowText("Waiting for response...");
+			break;
+		
+		case XM_SMU_AU_RECEIVING:
+			if (osmState!=XM_SMU_AU_RECEIVING)
+				mStatus.SetWindowText("Receiving file...");
+			break;
+		
+		case XM_SMU_AU_COMPLETE:
+			
+			//ok the dialog
+			OnOK();
+			break;
+		}
+		osmState = wParam;
+		return 0;
+	}
+	LRESULT OnProgress(WPARAM wParam, LPARAM lParam)
+	{
+		//modify the progress bar and rate text
+		DWORD dwTotal, dwCurrent;
+		CXMSession *ses = (CXMSession*)lParam;
+		ses->GetBinaryProgress(&dwTotal, &dwCurrent);
+		return 0;
+	}
+
+	//dialog overrides
+	void OnOK()
+	{
+		//unhook from server manager
+		sm()->UnSubscribe(m_hWnd);
+		sm()->HookProgress(NULL);
+
+		CDialog::OnOK();
+	}
+	void OnCancel()
+	{
+		//unhook from server manager
+		sm()->UnSubscribe(m_hWnd);
+		sm()->HookProgress(NULL);
+
+		CDialog::OnCancel();
+	}
+};
+
+BEGIN_MESSAGE_MAP(CAutoUpdate, CDialog)
+	ON_MESSAGE(XM_SERVERMSG, OnServerMessage)
+	ON_MESSAGE(XM_PROGRESS, OnProgress)
+END_MESSAGE_MAP()
+
+void CXMServerManager::HookProgress(HWND hWnd)
+{
+	mwndProgress = hWnd;
+}
+
+bool CXMServerManager::AuRequest()
+{
+	//server open?
+	if (!mServer || mServer->GetState()!=XM_OPEN)
+		return false;
+
+	//create message
+	CXMMessage *msg = new CXMMessage(mServer);
+	msg->SetContentFormat("text/xml");
+	msg->SetFor(XMMSG_AU);
+	msg->SetType(XM_REQUEST);
+
+	//send the msg
+	SendEvent(XM_SERVERMSG, XM_SMU_AU_SENDING, NULL);
+	return msg->Send();
+}
+
+bool CXMServerManager::AuAvailable()
+{
+	return mAuAvailable;
+}
+
+bool CXMServerManager::AuComplete()
+{
+	return mAuComplete;
+}
+
+bool CXMServerManager::AuGo(CWnd *wnd)
+{
+	//build message
+	char msg[MAX_PATH+1];
+	if (mAuRequired)
+	{
+		_snprintf(msg, MAX_PATH, "You must upgrade to the latest version of AMS (%s) before you can log in.  Automatically upgrade now?", mLoginMsg);
+	}
+	else
+	{
+		_snprintf(msg, MAX_PATH, "There is a new version of AMS available (%s), would you like to upgrade now?", mLoginMsg);
+	}
+
+	//ask if we want to upgrade
+	if (::MessageBox(wnd->m_hWnd, msg, "Auto Upgrade", MB_ICONQUESTION | MB_YESNO) == IDNO)
+	{
+		return false;
+	}
+	
+	//show the dialog
+	CAutoUpdate dlg(wnd);
+	mAuComplete = (dlg.DoModal()==IDOK);
+	return true;
 }
 
 // -------------------------------------------------------------------------------- Login Dialog
@@ -858,8 +1170,22 @@ LRESULT CLoginDialog::OnServerMsg(WPARAM wParam, LPARAM lParam)
 		break;
 
 	case XM_SMU_LOGIN_ERROR:
-		AfxMessageBox((char*)lParam, MB_ICONERROR|MB_OK);
-		SetState(LDS_FAIL);
+	case XM_SMU_LOGIN_ERROR_UPGRADE:
+
+		//kill any timers, otherwise "server hasn't responded" messages
+		//will pop up while the error dialog is up
+		KillTimer(m_nState);
+
+		//if its a upgrade error, AuGo will handle it
+		if (wParam == XM_SMU_LOGIN_ERROR)
+		{
+			::MessageBox(m_hWnd, (char*)lParam, "Login Error", MB_ICONERROR|MB_OK);
+			SetState(LDS_FAIL);
+		}
+		else
+		{
+			SetState(LDS_END);
+		}
 		break;
 
 	case XM_SMU_SERVER_CONNECTING:
@@ -1086,6 +1412,18 @@ void CLoginDialog::SetState(BYTE newstate)
 	//if end, tear down dialog
 	if (newstate==LDS_END)
 	{
+		//login successfull.. check for updates
+		if (sm()->AuAvailable())
+		{
+			if (!sm()->AuGo(this))
+			{
+				//failed, use cancel instead
+				OnCancel();
+				return;
+			}
+		}
+		//NOTE: cwinapp::initapp() will know if autocomplete needs to restsart
+
 		OnOK();
 	}
 }
@@ -1356,3 +1694,109 @@ DWORD WINAPI LoginThreadProc(LPVOID lpParameter)
 	CXMLoginWorker worker;
 	return worker.Alpha(dlg);
 }
+
+
+// ------------------------------------------------------------------ Reconnect Implementation
+
+class CReconnectDialog : public CDialog
+{
+public:
+
+	//construciton
+	CReconnectDialog(CWnd* pwndParent)
+		: CDialog(IDD_RECONNECT, pwndParent)
+	{
+		mConnected = false;
+	}
+	~CReconnectDialog()
+	{
+	}
+
+	//init
+	BOOL OnInitDialog()
+	{
+		//begin the connection
+		if (!sm()->ServerOpen())
+		{
+			CDialog::OnCancel();
+		}
+
+		//success
+		return FALSE;
+	}
+
+	//did we succesfully connect?
+	bool mConnected;
+
+private:
+
+	//client pipeline message
+	LRESULT OnServerMessage(WPARAM wp, LPARAM lp)
+	{
+		switch (wp)
+		{
+		case XM_SMU_SERVER_ERROR:
+		case XM_SMU_SERVER_CLOSED:
+		case XM_SMU_LOGIN_CANCEL:
+		case XM_SMU_LOGIN_ERROR:
+		case XM_SMU_LOGIN_ERROR_UPGRADE:
+			
+			//failure
+			mConnected = false;
+			CDialog::OnCancel();
+			break;
+
+		case XM_SMU_LOGIN_FINISH:
+			
+			//success
+			mConnected = true;
+			CDialog::OnOK();
+			break;
+
+		case XM_SMU_SERVER_CONNECTED:
+
+			//next stage..
+			sm()->Login(NULL, NULL);
+			break;
+		}
+
+		return 0;
+	}
+
+	//cancel
+	void OnCancel()
+	{
+		//cancel the login
+		if (!sm()->LoginCancel())
+		{
+			CDialog::OnCancel();
+		}
+	}
+
+	DECLARE_MESSAGE_MAP()
+};
+
+BEGIN_MESSAGE_MAP(CReconnectDialog, CDialog)
+	ON_MESSAGE(XM_SERVERMSG, OnServerMessage)
+END_MESSAGE_MAP()
+
+//return val: if true, connection now open
+bool CXMServerManager::ReconnectTry()
+{
+	//were we expecting to be down?
+	if (mRcExpectDead)
+		return false;
+
+	//have we already tried?
+	if (mRcAttempts > 0)
+		return false;
+
+	//start the reconnect
+	CReconnectDialog dlg(NULL);
+	dlg.DoModal();
+	mRcAttempts += dlg.mConnected?0:1;
+
+	//success
+	return dlg.mConnected;
+}
+

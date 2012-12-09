@@ -321,6 +321,13 @@ XM_SMU_LOGIN_LISTING,
 XM_SMU_LOGIN_FINISH,
 XM_SMU_LOGIN_CANCEL,
 XM_SMU_LOGIN_ERROR,
+XM_SMU_LOGIN_ERROR_UPGRADE,
+
+XM_SMU_AU_AVAILABLE,
+XM_SMU_AU_SENDING,
+XM_SMU_AU_SENT,
+XM_SMU_AU_RECEIVING,
+XM_SMU_AU_COMPLETE,
 
 XM_SMU_LISTING_RECEIVE,
 
@@ -343,9 +350,10 @@ public:
 	virtual ~CXMServerManager();
 
 	//server session management
+	void HookProgress(HWND hWnd);
 	bool ServerOpen();
 	bool ServerClose();
-	bool ServerIsOpen();
+	bool ServerIsOpen(bool reconnect = false);
 	
 	//Login
 	bool LoginUI();
@@ -355,6 +363,12 @@ public:
 	CMD5 LoginGetSession();
 	char* LoginGetUsername();
 	char* LoginGetPassword();
+
+	//auto-update
+	bool AuRequest();		//send request to server
+	bool AuAvailable();		//true if an autoupdate is available
+	bool AuComplete();		//true is program needs to terminate
+	bool AuGo(CWnd *wnd);	//true: quit program, false: au failed
 
 	//query interface
 	bool QueryBegin(CXMQuery *query);
@@ -381,6 +395,12 @@ protected:
 	//server session state
 	CXMSession *mServer;
 	bool mServerShuttingDown;
+	HWND mwndProgress;
+
+	//reconnect
+	bool ReconnectTry();	//entry point from ServerIsOpen()
+	bool mRcExpectDead;		//if true, manually disconnected therefore don't try reconnect
+	int  mRcAttempts;		//count of unsuccessfull reconnect attempts
 
 	//login data
 	char mLoginMsg[MAX_PATH];
@@ -388,6 +408,12 @@ protected:
 	bool mLoginCanceled;
 	CMD5 mSessionID;
 	char *mUsername, *mPassword;
+
+	//au data
+	bool mAuComplete;
+	bool mAuAvailable;
+	char mAuVersion[MAX_PATH];
+	bool mAuRequired;
 
 	//query data
 	bool mQueryRunning;
@@ -415,8 +441,8 @@ protected:
 	virtual void OnStateChange(CXMSession *ses, UINT vold, UINT vnew);
 };
 
-// ------------------------------------------------------------------ Login Dialog
 
+// ------------------------------------------------------------------ Login Dialog
 
 class CLoginDialog : public CDialog
 {

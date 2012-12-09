@@ -7,6 +7,10 @@ Project: "AMSClient"=.\AMSClient.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    "$/AMS/Client", RRFAAAAA
+    .
+    end source code control
 }}}
 
 Package=<4>
@@ -25,6 +29,10 @@ Project: "libjpeg"=.\Source\Paintlib\win\libjpeg\libjpeg.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    "$/AMS/Client", RRFAAAAA
+    .
+    end source code control
 }}}
 
 Package=<4>
@@ -37,6 +45,10 @@ Project: "paintlib"=.\Source\Paintlib\win\paintlib\paintlib.dsp - Package Owner=
 
 Package=<5>
 {{{
+    begin source code control
+    "$/AMS/Client", RRFAAAAA
+    .
+    end source code control
 }}}
 
 Package=<4>

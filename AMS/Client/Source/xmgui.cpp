@@ -224,7 +224,13 @@ CMainFrame::CMainFrame()
 								AfxGetApp()->LoadStandardCursor(IDC_ARROW),
 								(HBRUSH)(COLOR_3DFACE+1),
 								AfxGetApp()->LoadIcon(IDR_MAINFRAME));
-	Create(strWndClass, "Adult Media Swapper");
+	//TRACE("Entering wait..\n");
+	//Sleep(3000);
+	//TRACE("Done waiting.\n");
+	if (!Create(strWndClass, "Adult Media Swapper"))
+	{
+		AfxMessageBox("Could not create main window!");
+	}
 
 	//default browsing folder
 	strcpy(CLocalView::mCurPath, config()->GetSharedFilesLocation(false));
@@ -1516,9 +1522,37 @@ void CMainFrame::OnClose()
 {
 	//test the closing var
 	if(mClosing)
+	{
+		//are there any unsaved pictures?
+		cm()->Lock();
+		if (cm()->GetCompletedFileCount()>0)
+		{
+			//prompt user
+			char sz[MAX_PATH+1];
+			_snprintf(sz, MAX_PATH, "There are %d unsaved files. Are you sure you want to close AMS before you save them?", cm()->GetCompletedFileCount());
+			int retval = ::MessageBox(m_hWnd, sz, "Save", MB_YESNO | MB_ICONQUESTION);
+			if (retval==IDNO)
+			{	
+				//reset the closing flag, otherwise the x button
+				//will try to close the program
+				mClosing = false;
+
+				//cancel the close op
+				cm()->Unlock();
+				return;
+			}
+		}
+		cm()->Unlock();
+
+		//no unsaved pics, or they pressed 'yes'
 		DestroyWindow();
+	}
 	else
+	{
+		//unless we set the closing flag, just hide
+		//the window
 		ShowWindow(SW_HIDE);
+	}
 }
 
 LRESULT CMainFrame::OnTaskBarCreated(WPARAM wp, LPARAM lp)

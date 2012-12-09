@@ -96,7 +96,7 @@ END
 IDD_LOGIN DIALOGEX 0, 0, 293, 210
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Adult Media Swapper Login"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     CONTROL         152,IDC_STATIC,"Static",SS_BITMAP,5,8,53,49
     LTEXT           "Before you can use AMS, you must log in.  If you do not have a login id or password, go to the AMS web site and sign up.",
@@ -117,7 +117,7 @@ BEGIN
     LTEXT           "Sign up here!",IDC_SIGNUP,65,41,126,10,SS_NOTIFY
 END
 
-IDD_INDEX_CAT DIALOG DISCARDABLE  0, 0, 257, 177
+IDD_INDEX_CAT DIALOG DISCARDABLE  0, 0, 286, 178
 STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Catagories 1"
 FONT 8, "MS Sans Serif"
@@ -145,45 +145,49 @@ BEGIN
     CONTROL         "Robots",IDC_CAT11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
                     7,117,89,8
     CONTROL         "Smoking",IDC_CAT12,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,128,89,8
+                    WS_TABSTOP,97,7,89,8
     CONTROL         "Bondage",IDC_CAT13,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,139,89,8
+                    WS_TABSTOP,97,18,89,8
     CONTROL         "Wet && Messy",IDC_CAT14,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,150,89,8
+                    WS_TABSTOP,97,29,89,8
     CONTROL         "Gas Masks",IDC_CAT15,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,161,89,8
+                    WS_TABSTOP,97,40,89,8
     CONTROL         "Tongues",IDC_CAT16,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,7,89,8
+                    WS_TABSTOP,97,51,89,8
     CONTROL         "Piercings",IDC_CAT17,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,18,89,8
+                    WS_TABSTOP,97,62,89,8
     CONTROL         "Fisting",IDC_CAT18,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,29,89,8
+                    WS_TABSTOP,97,73,89,8
     CONTROL         "Pissing",IDC_CAT19,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,40,89,8
+                    WS_TABSTOP,97,84,89,8
     CONTROL         "Cum Shot",IDC_CAT20,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,51,89,8
+                    WS_TABSTOP,97,95,89,8
     CONTROL         "Pregnant",IDC_CAT21,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,62,89,8
+                    WS_TABSTOP,97,106,89,8
     CONTROL         "Shitting",IDC_CAT22,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,73,89,8
+                    WS_TABSTOP,97,117,89,8
     CONTROL         "Transvestites",IDC_CAT23,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,84,89,8
+                    WS_TABSTOP,190,7,89,8
     CONTROL         "Cheerleaders",IDC_CAT24,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,95,89,8
+                    WS_TABSTOP,190,18,89,8
     CONTROL         "Lingerie",IDC_CAT25,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,106,89,8
+                    WS_TABSTOP,190,29,89,8
     CONTROL         "Masturbation",IDC_CAT26,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,117,89,8
+                    WS_TABSTOP,190,40,89,8
     CONTROL         "Vintage Porn",IDC_CAT27,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,128,89,8
+                    WS_TABSTOP,190,51,89,8
     CONTROL         "Strap On",IDC_CAT28,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,99,139,89,8
+                    WS_TABSTOP,190,62,89,8
     CONTROL         "Food",IDC_CAT29,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
-                    99,150,89,8
+                    190,73,89,8
     CONTROL         "S&&M",IDC_CAT30,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
-                    99,161,89,8
+                    190,84,89,8
     CONTROL         "Voyeur",IDC_CAT31,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
-                    190,7,60,8
+                    190,95,60,8
+    GROUPBOX        "Clear",IDC_STATIC,7,139,185,32
+    LTEXT           "Remove checkmarks in all tabs:",IDC_STATIC,13,152,110,
+                    11
+    PUSHBUTTON      "Clear",IDC_CLEAR,127,150,50,14
 END
 
 IDD_INDEX_PICTURE DIALOG DISCARDABLE  0, 0, 269, 170
@@ -800,6 +804,29 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,179,24,50,14
 END
 
+IDD_AU DIALOG DISCARDABLE  0, 0, 243, 105
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "AMS Auto Update"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,186,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,186,24,50,14
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH,
+                    7,71,173,14
+    RTEXT           "Status",IDC_RATE,7,88,170,10
+    LTEXT           "Static",IDC_STATUS,7,58,172,10
+    LTEXT           "<auto-update explanation here>",IDC_STATIC,7,7,168,42
+END
+
+IDD_RECONNECT DIALOG DISCARDABLE  0, 0, 236, 30
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,179,7,50,16
+    LTEXT           "Your connect to the server was lost... automatically connecting with the login information you last used.",
+                    IDC_STATIC,7,7,169,16
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -864,9 +891,9 @@ BEGIN
     IDD_INDEX_CAT, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 250
+        RIGHTMARGIN, 279
         TOPMARGIN, 7
-        BOTTOMMARGIN, 170
+        BOTTOMMARGIN, 171
     END
 
     IDD_INDEX_PICTURE, DIALOG
@@ -1036,6 +1063,22 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 39
     END
+
+    IDD_AU, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 236
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 98
+    END
+
+    IDD_RECONNECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 229
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 23
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -1200,7 +1243,7 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDC_QUERYHELP           "Every query to AMS' database involves 3 (three) parts:\n* Search - a set of parameters to search on.  A picture must meet at least one of the criteria from each fiedl you select.  For example, if you select both brown and blue eyes, a picture needs to have EITHER brown or blue eyes.\n* Filter - works the same as Search, but any picture that meets the Filter will NOT be shown to you."
+    IDC_QUERYHELP           "Every query to AMS' database involves 2 parts:\n* Search - a set of parameters to search on.  A picture must meet at least one of the criteria from each field you select.  For example, if you select both brown and blue eyes, a picture needs to have EITHER brown or blue eyes.\n* Filter - works the same as Search, but any picture that meets the Filter will NOT be shown to you."
 END
 
 STRINGTABLE DISCARDABLE 

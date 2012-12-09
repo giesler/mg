@@ -3,6 +3,7 @@
 // Used by XMClient.rc
 //
 #define IDC_ADD                         3
+#define IDC_CLEAR                       3
 #define IDC_REMOVE                      4
 #define IDC_INDEX                       6
 #define IDC_DOWNLOAD                    7
@@ -78,6 +79,8 @@
 #define IDD_SHARED                      176
 #define IDR_LOCAL                       178
 #define IDD_SAVESEARCH                  179
+#define IDD_AU                          182
+#define IDD_RECONNECT                   183
 #define IDC_FILES                       1000
 #define IDC_PICSIZE                     1001
 #define IDC_DBPATH                      1002
@@ -310,6 +313,8 @@
 #define IDC_NAME                        1223
 #define IDC_IMAGESIZE                   1224
 #define IDC_SIGNUP                      1225
+#define IDC_PROGRESS                    1226
+#define IDC_RATE                        1227
 #define ID_ZOOMIN                       32778
 #define ID_ZOOMOUT                      32779
 #define ID_DOWNLOAD                     32781
@@ -340,9 +345,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        182
+#define _APS_NEXT_RESOURCE_VALUE        184
 #define _APS_NEXT_COMMAND_VALUE         32806
-#define _APS_NEXT_CONTROL_VALUE         1226
+#define _APS_NEXT_CONTROL_VALUE         1229
 #define _APS_NEXT_SYMED_VALUE           129
 #endif
 #endif

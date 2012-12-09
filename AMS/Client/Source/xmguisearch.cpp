@@ -194,17 +194,52 @@ LRESULT CMainFrame::OnClientMessage(WPARAM wParam, LPARAM lParam)
 				pqi->mState = XMGUISIS_FILECOMPLETE;
 			}
 		}
-		else
+
+		//update the completed downloads tab
+		if (!tag->thumb)
 		{
+			UpdateCompletedDownloadsTab();
 		}
+
 		break;
 
 	case XM_CMU_COMPLETED_REMOVE:
+	
+		//update the completed downloads tab
+		if (!tag->thumb)
+		{
+			UpdateCompletedDownloadsTab();
+		}
+
 		break;
 	}
 	tag->Release();
 	return 0;
 }
+
+void CMainFrame::UpdateCompletedDownloadsTab()
+{
+	char sz[MAX_PATH+1];
+
+	//any completed downloads?
+	cm()->Lock();
+	if (cm()->GetCompletedFileCount() > 0)
+	{
+		_snprintf(sz, MAX_PATH, "Completed Downloads (%d)", cm()->GetCompletedFileCount());
+	}
+	else
+	{
+		_snprintf(sz, MAX_PATH, "Completed Downloads");
+	}
+	cm()->Unlock();
+
+	//set the title
+	TCITEM ti;
+	ti.mask = TCIF_TEXT;
+	ti.pszText = sz;
+	mTabs.SetItem(1, &ti);
+}
+
 
 LRESULT CMainFrame::OnServerMessage(WPARAM wParam, LPARAM lParam)
 {

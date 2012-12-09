@@ -103,9 +103,11 @@ bool CXMDBManager::DatabaseStartup()
 	CreateDirectory(config()->GetField(FIELD_DB_SAVE_PATH, false), NULL);
 	
 	//open database
+	TRACE("Opening database...\n");
 	if (!mDB->Open())
 	{
 		//error opening the database, try to create
+		TRACE("Failed.. new database.\n");
 		if (!mDB->New()) 
 		{
 			//error creating new database

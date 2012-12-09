@@ -35,6 +35,7 @@ class CXMMessageQueue;
 #define XMMSG_INDEX			"index"
 #define XMMSG_QUERY			"query"
 #define XMMSG_FILE			"file"
+#define XMMSG_AU			"au"
 
 class CXMMessageField
 {
@@ -94,6 +95,7 @@ public:
 	int GetFieldCount();
 	CXMMessageField* GetField(int index);
 	CXMMessageField* GetField(char* index);
+	bool HasField(char *index);
 
 	//binary access
 	DWORD GetBinarySize();

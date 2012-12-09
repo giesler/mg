@@ -1008,12 +1008,16 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 				in.Push(mBinaryMessage);
 				::PostMessage(mhOwner, XM_MESSAGE, XM_INBOUND, (LPARAM)this);
 				Unlock();
+
+				//message complete, send progress update
+				mCurrentBinarySize = mExpectedBinarySize;
+				::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
 			}
 
 			//turn off binary mode
 			mBinary = false;
 			mBinaryMessage = NULL;
-			mExpectedBinarySize = 0;
+			//mExpectedBinarySize = 0;	//NOTE: this will kill getbinaryprogress
 
 			//proccesss rest of message
 			if (remaining>0) {
@@ -1025,6 +1029,10 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 
 			//not big enough yet
 			netin.Push(buf, size);
+
+			//send progress update
+			mCurrentBinarySize = netin.Size();
+			::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
 		}
 	}
 	else {
@@ -1086,6 +1094,10 @@ bool CXMSession::ScanChunk(void *buf, DWORD size)
 				}
 				mBinaryMessage = msg;
 				mExpectedBinarySize = msg->GetExpectedBinarySize();
+				mCurrentBinarySize = 0;
+
+				//let everyone know we are entering binary mode
+				::PostMessage(mhOwner, XM_PROGRESS, XM_INBOUND, (LPARAM)this);
 			}
 			else {
 			
@@ -1229,6 +1241,12 @@ void CXMSession::TxRxReset(bool &tx, bool &rx)
 	m_txrxSend = false;
 	m_txrxReceive = false;
 	LeaveCriticalSection(&m_txrxSync);
+}
+
+void CXMSession::GetBinaryProgress(DWORD *dwTotal, DWORD *dwCurrent)
+{
+	*dwTotal = mExpectedBinarySize;
+	*dwCurrent = mCurrentBinarySize;
 }
 
 //-------------------------------------------------------------------------------

@@ -214,7 +214,7 @@ public:
 	CXMClientApp();
 
 	inline char* Version() {
-		return "0.50";
+		return "0.60";
 	}
 	bool m_bHasInit;
 	HANDLE m_hMutex;

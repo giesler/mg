@@ -706,6 +706,7 @@ protected:
 	void DisplayView(UINT newView);
 	void OnSizePrepare(CRect *tabs, long lSizerRight, int cx, int cy);
 	void OnSizeFinish(CRect &rTabs);
+	void UpdateCompletedDownloadsTab();
 
 	//file tree
 	bool mIgnoreFileClicks;

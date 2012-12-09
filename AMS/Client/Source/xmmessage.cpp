@@ -465,6 +465,24 @@ CXMMessageField* CXMMessage::GetField(char* index)
 	return f;
 }
 
+bool CXMMessage::HasField(char *index)
+{
+	//look for <index> in the fields collection
+	CXMMessageField *f;
+	for (int i=0;i<mContentSize;i++)
+	{
+		f = mContent[i];
+		if (stricmp(f->GetName(false), index)==0)
+		{
+			//found
+			return true;
+		}
+	}
+
+	//not found
+	return false;
+}
+
 //---------------------------------------------------------------------
 //									XMMessage Initialization/Extraction
 

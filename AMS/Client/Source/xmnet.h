@@ -59,18 +59,24 @@ class CXMSessionManager;
 //	wparam: op
 //	lparam: work item id
 
-#define XM_STATUSENTRY XM_MSGBASE+7
+#define XM_STATUSENTRY	XM_MSGBASE+7
 //login dialog should add entry
 //	wparam: BOOL, detail
 //	lparam: strdup'd message
 
-#define XM_TRAYICON	XM_MSGBASE+8
+#define XM_TRAYICON		XM_MSGBASE+8
 //msg sent by tray icon
 //	wparam: see win32 docs
 //	lparam:
 
+#define XM_PROGRESS		XM_MSGBASE+9
+//sent by the network layer when
+//binary data arrives
+//	wparam: direction (XM_INBOUND, XM_OUTBOUND)
+//	lparam: session pointer
+
 #define XM_MINMSG	XM_MSGBASE+0	//used to filter msgs
-#define XM_MAXMSG	XM_MSGBASE+8	//
+#define XM_MAXMSG	XM_MSGBASE+9	//
 
 //SESSION STATES
 #define XM_CLOSED		0
@@ -126,6 +132,7 @@ public:
 	void Release();
 	CXMSession(HWND owner);			//must supply awindow for messages
 	static bool InitOnce();			//register our wndcls
+	bool Alpha();					//threadproc
 	
 	//state modifiers
 	bool Open(char* address, \
@@ -134,9 +141,6 @@ public:
 	bool Accept(SOCKET newSocket);	//opens the session from a socket
 	bool Close(DWORD wait = 0);		//milliseconds to wait
 	int GetState();					//return current state
-
-	//DO NOT CALL!
-	bool Alpha();					//threadproc
 
 	//xml message queue access
 	bool Send(CXMMessage* msg);		//push a message onto the out queue
@@ -156,6 +160,7 @@ public:
 	int GetDirection();
 	void SetSessionId(CGUID& newSession);
 	CGUID& GetSessionId();
+	void GetBinaryProgress(DWORD *dwTotal, DWORD *dwCurrent);
 
 private:
 
@@ -217,6 +222,7 @@ private:
 	CXMMessage *mBinaryMessage;		//pointer to the last message
 	bool mBinary;					//true if receiving binary data
 	DWORD mExpectedBinarySize;		//size of binary chunk
+	DWORD mCurrentBinarySize;		//amounnt of binary already downloaded
 
 	//sync helpers
 	CRITICAL_SECTION mSync;			//sync access to queues

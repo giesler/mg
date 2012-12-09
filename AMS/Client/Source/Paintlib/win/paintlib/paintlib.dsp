@@ -23,8 +23,8 @@ CFG=paintlib - Win32 Release
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName ""$/AMS/Client", RRFAAAAA"
+# PROP Scc_LocalPath "..\..\..\.."
 CPP=cl.exe
 RSC=rc.exe
 

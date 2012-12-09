@@ -191,6 +191,40 @@ protected:
 			return TRUE;
 		}
 
+		afx_msg void OnClear()
+		{
+			//reset all the marks for this index
+			mParent->mSandbox.Age = 0;
+			mParent->mSandbox.Breasts = 0;
+			mParent->mSandbox.Build = 0;
+			mParent->mSandbox.Butt = 0;
+			mParent->mSandbox.Cat1 = 0;
+			mParent->mSandbox.Cat2 = 0;
+			mParent->mSandbox.Chest = 0;
+			mParent->mSandbox.Content = 0;
+			mParent->mSandbox.Eyes = 0;
+			mParent->mSandbox.FacialHair = 0;
+			mParent->mSandbox.FemaleGen = 0;
+			mParent->mSandbox.HairColor = 0;
+			mParent->mSandbox.HairStyle = 0;
+			mParent->mSandbox.Height = 0;
+			mParent->mSandbox.Hips = 0;
+			mParent->mSandbox.Legs = 0;
+			mParent->mSandbox.MaleGen = 0;
+			mParent->mSandbox.Nipples = 0;
+			mParent->mSandbox.Quality = 0;
+			mParent->mSandbox.Quantity = 0;
+			mParent->mSandbox.Race = 0;
+			mParent->mSandbox.Rating = 0;
+			mParent->mSandbox.Setting = 0;
+			mParent->mSandbox.Skin = 0;
+			
+			//update the display
+			UpdateData(FALSE);
+		}
+
+		DECLARE_MESSAGE_MAP()
+
 	} mPageCat1;
 	friend class CPageCat1;
 
@@ -443,6 +477,10 @@ void CIndexBuilder::Construct_Inner(int mode, CXMIndex* index)
 CIndexBuilder::~CIndexBuilder()
 {
 }
+
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPageCat1, CPropertyPage)
+	ON_BN_CLICKED(IDC_CLEAR, CPageCat1::OnClear)
+END_MESSAGE_MAP()
 
 #define IB_GET(_PREFIX, _ITEM) ((IsDlgButtonChecked(_PREFIX##_ITEM)?1:0)<<_ITEM-1)
 #define IB_SET(_FIELD, _PREFIX, _ITEM) \
