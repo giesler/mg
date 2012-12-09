@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1768760162
+Checksum =624317521
 Begin Form
     AllowFilters = NotDefault
     PopUp = NotDefault
@@ -126,6 +126,7 @@ Begin Form
                     Width =900
                     TabIndex =1
                     Name ="txtQuantity"
+                    DefaultValue ="0"
                     GUID = Begin
                         0xc858aa33e99bba4ba89649053e627503
                     End
@@ -152,6 +153,8 @@ Begin Form
                     Width =900
                     TabIndex =2
                     Name ="txtPrice"
+                    Format ="$#,##0.00;($#,##0.00)"
+                    DefaultValue ="0"
                     GUID = Begin
                         0x9fe429da0e9fc044913e5c19e3b99982
                     End

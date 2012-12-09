@@ -293,9 +293,24 @@ On Error Resume Next
 
 End Function
 
-Public Function DQ(pstrIn As String) As String
+Public Function SQLFormatString(varIn As Variant) As String
+
+  ' if it is null, we want to pass null to SQL
+  If IsNull(varIn) Then
+    SQLFormatString = "null"
+    Exit Function
+  End If
+  
+  ' not null, so return a quoted string
+  SQLFormatString = "'" & DQ(varIn) & "'"
+    
+
+End Function
+
+Public Function DQ(pstrIn As Variant) As String
 
   Dim pstrOut As String, i As Integer
+  If IsNull(pstrIn) Then Exit Function
   pstrOut = ""
   For i = 1 To Len(pstrIn)
     If Mid(pstrIn, i, 1) = "'" Then
@@ -306,4 +321,28 @@ Public Function DQ(pstrIn As String) As String
   Next i
   DQ = pstrOut
   
+End Function
+
+Public Function ControlGotFocus()
+On Error Resume Next
+
+    Dim ctl As Control
+    Set ctl = Screen.ActiveControl
+    
+    If ctl.ControlType = acTextBox Or ctl.ControlType = acComboBox Then
+        ctl.BackColor = -2147483624         ' green: 14286809
+    End If
+
+End Function
+
+Public Function ControlLostFocus()
+On Error Resume Next
+
+    Dim ctl As Control
+    Set ctl = Screen.ActiveControl
+    
+    If ctl.ControlType = acTextBox Or ctl.ControlType = acComboBox Then
+        ctl.BackColor = 16777215
+    End If
+
 End Function

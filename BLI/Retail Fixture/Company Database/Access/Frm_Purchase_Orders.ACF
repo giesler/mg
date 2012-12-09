@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1000724176
+Checksum =2106488703
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =275
     Left =405
     Top =405
-    Right =12285
-    Bottom =7470
+    Right =12135
+    Bottom =7215
     TimerInterval =500
     MaxRecords =20000
     RecSrcDt = Begin
@@ -160,7 +160,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =13020
+            Height =6300
             BackColor =-2147483633
             Name ="Detail0"
             Begin
@@ -733,8 +733,6 @@ Begin Form
                     ControlSource ="FTofTruckAmount"
                     OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
                     FontName ="Arial"
-                    OnGotFocus ="=ControlGotFocus()"
-                    OnLostFocus ="=ControlLostFocus()"
                     GUID = Begin
                         0x884cbd67917ae34697e2ab2757807aad
                     End
@@ -1431,256 +1429,13 @@ Begin Form
                         End
                     End
                 End
-                Begin CustomControl
-                    Enabled = NotDefault
-                    SizeMode =1
-                    SpecialEffect =0
-                    OverlapFlags =85
-                    Left =120
-                    Top =6300
-                    Width =10440
-                    Height =2100
-                    AutoActivate =1
-                    TabIndex =22
-                    Name ="lvPOItems"
-                    OleData = Begin
-                        0x00100000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
-                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
-                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
-                        0xf02836280000000000000000000000009067e813e73ec10108000000c0020000 ,
-                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000200000027020000 ,
-                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
-                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
-                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x00000000fefffffffdffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xfeffffff09000000feffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
-                        0xf028362800000000000000000000000000c2433ee73ec10105000000c0020000 ,
-                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000200000027020000 ,
-                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
-                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
-                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x00000000fffffffffffffffffefffffffdfffffffeffffff06000000feffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff01000000feffffff0300000004000000050000000600000007000000 ,
-                        0x08000000090000000a000000feffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
-                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
-                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
-                        0xffff000041439ebc37f0cd11870100aa003f0f07fffffffff09a1a00ec170000 ,
-                        0x3d06ffff4bf0d1bd8b85d111b16a00c0f02836282143341208000000ef470000 ,
-                        0x780e00004e087deb010006001c000000000000000000000023820000ef470000 ,
-                        0x01efcdab00000500000000000700000008000080050000800001038000000000 ,
-                        0x00000000000000001fdeecbd0100050078661f000b0020000000000000000000 ,
-                        0x0000030000000000000000000000000000000300000049440020000100000000 ,
-                        0x003c0700000c0000000000000000000000000000000c0000005246204d617465 ,
-                        0x7269616c002000020000000000940700000e0000000000000000000000000000 ,
-                        0x000e00000043757374204d6174657269616c002000030000000000531400000c ,
-                        0x0000000000000000000000000000000c0000004465736372697074696f6e0020 ,
-                        0x000400020000007b040000060000000000000000000000000000000600000050 ,
-                        0x6861736500200005000200000022040000050000000000000000000000000000 ,
-                        0x000500000042726b64002000060001000000d304000006000000000000000000 ,
-                        0x0000000000000600000050726963650020000700020000002204000005000000 ,
-                        0x00000000000000000000000005000000556e6974002000080001000000d30400 ,
-                        0x0004000000000000000000000000000000040000005174790020000900010000 ,
-                        0x00d3040000070000000000000000000000000000000700000057656967687400 ,
-                        0x20000a0001000000e40600000b0000000000000000000000000000000b000000 ,
-                        0x4c696e6520546f74616c00000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000
-                    End
-                    OLEClass ="ListViewCtrl"
-                    Class ="MSComctlLib.ListViewCtrl.2"
-                    GUID = Begin
-                        0x096fae0f93f47746b5c077190bf440bc
-                    End
-                End
-                Begin CommandButton
-                    OverlapFlags =85
-                    AccessKey =65
-                    TextFontFamily =34
-                    Left =10620
-                    Top =6360
-                    Width =720
-                    Height =300
-                    FontSize =8
-                    FontWeight =400
-                    TabIndex =23
-                    Name ="cmdAdd"
-                    Caption ="&Add"
-                    FontName ="Arial"
-                    GUID = Begin
-                        0x67327f21ff3eda4aaecafbc1fdb16da5
-                    End
-                End
-                Begin CommandButton
-                    OverlapFlags =85
-                    AccessKey =84
-                    TextFontFamily =34
-                    Left =10620
-                    Top =6720
-                    Width =720
-                    Height =300
-                    FontSize =8
-                    FontWeight =400
-                    TabIndex =24
-                    Name ="cmdPOItemEdit"
-                    Caption ="Edi&t"
-                    FontName ="Arial"
-                    GUID = Begin
-                        0xcd391f6e61746b42ac2d35178b61412e
-                    End
-                End
-                Begin CommandButton
-                    OverlapFlags =85
-                    AccessKey =68
-                    TextFontFamily =34
-                    Left =10620
-                    Top =7080
-                    Width =720
-                    Height =300
-                    FontSize =8
-                    FontWeight =400
-                    TabIndex =25
-                    Name ="cmdPOItemDelete"
-                    Caption ="&Delete"
-                    OnClick ="[Event Procedure]"
-                    FontName ="Arial"
-                    GUID = Begin
-                        0xdcb50e72d850c64bb6e0220c05656855
-                    End
-                End
-                Begin Label
-                    OverlapFlags =85
-                    Left =180
-                    Top =8400
-                    Width =1860
-                    Height =240
-                    Name ="Label264"
-                    Caption ="Purchase Order Totals:"
-                    FontName ="Arial"
-                    GUID = Begin
-                        0x0530b67cb591c147a588007671295967
-                    End
-                End
-                Begin Label
-                    OverlapFlags =93
-                    TextAlign =3
-                    Left =8040
-                    Top =8400
-                    Width =1080
-                    Height =240
-                    Name ="lblWeight"
-                    Caption ="[Weight]"
-                    GUID = Begin
-                        0xf804c7d269d51449b2f806711cd20b67
-                    End
-                End
-                Begin Label
-                    OverlapFlags =87
-                    TextAlign =3
-                    Left =9120
-                    Top =8400
-                    Width =1080
-                    Height =240
-                    Name ="lblPrice"
-                    Caption ="[Price]"
-                    GUID = Begin
-                        0x3b615aa082fcfc4f840cb4e9f75808a2
-                    End
-                End
                 Begin Subform
                     OverlapFlags =85
                     Left =60
                     Top =3960
-                    Width =11220
+                    Width =11460
                     Height =2280
-                    TabIndex =26
+                    TabIndex =22
                     BorderColor =8421504
                     Name ="subPOItems"
                     SourceObject ="Form.Frm_Purchase_Orders_Items"
@@ -2122,29 +1877,6 @@ ErrHand Me.Name, "cmdFinished"
 Exit Sub
 End Sub
 
-Private Sub cmdPOItemDelete_Click()
-On Error GoTo errHandler
-
-  Dim li As ListItem
-  
-  Set li = lvPOItems.SelectedItem
-  If li Is Nothing Then
-    MsgBox "Please select an item to delete.", vbExclamation
-    Exit Sub
-  End If
-
-  If MsgBox("Are you sure you want to delete '" & li.SubItems(1) & "' from this purchase order?", vbQuestion + vbYesNo) = vbYes Then
-    gConn.Execute "delete from Tbl_PO_Items where apkPOItem = " & li.Text
-    lvPOItems.ListItems.Remove li.Index
-    UpdateTotals
-  End If
-
-Exit Sub
-errHandler:
-ErrHand Me.Name, "cmdPOItemDelete"
-Exit Sub
-End Sub
-
 Private Sub cmdSendReplyTo_Click()
 
     Dim lngReturn As Long
@@ -2232,32 +1964,6 @@ On Error GoTo errHandler
     Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
     Me.subPOItems.Form.AllowAdditions = True
   End If
-  
-  Dim rs As Recordset, li As ListItem
-  Set rs = New Recordset
-  
-  lvPOItems.ListItems.Clear
-  If Me.txtID <> 0 Then
-    rs.Open "dbo.sp_Form_POItems " & Me.txtID, gConn, adOpenForwardOnly, adLockReadOnly
-    Do While Not rs.EOF
-      Set li = lvPOItems.ListItems.Add(, , rs.Fields("apkPOItem").Value)
-      li.SubItems(1) = Nz(rs.Fields("RFMaterial").Value, "")
-      li.SubItems(2) = Nz(rs.Fields("CustMaterial").Value, "")
-      li.SubItems(3) = Nz(rs.Fields("MatDescription").Value, "")
-      li.SubItems(4) = Nz(rs.Fields("Phase").Value, "")
-      li.SubItems(5) = IIf(rs.Fields("SubItems").Value, "x", "")
-      li.SubItems(6) = Nz(Format(rs.Fields("Unit_Price").Value, "Fixed"), " ")
-      li.SubItems(7) = Nz(rs.Fields("Unit_Quantity").Value, " ")
-      li.SubItems(8) = Nz(rs.Fields("Quantity").Value, " ")
-      li.SubItems(9) = Nz(rs.Fields("LineWeight").Value, "")
-      li.SubItems(10) = Nz(Format(rs.Fields("LineTotal").Value, "Fixed"), " ")
-      rs.MoveNext
-    Loop
-    rs.Close
-  End If
-  Set rs = Nothing
-  
-  UpdateTotals
   
   chkFTofTruck_Click
   
@@ -2509,36 +2215,5 @@ On Error GoTo errHandler
 Exit Sub
 errHandler:
 ErrHand Me.Name, "txtSoldName_NotInList"
-Exit Sub
-End Sub
-
-
-Private Sub UpdateTotals()
-On Error GoTo errHandler
-
-  Dim rs As ADODB.Recordset, strSQL As String
-  Set rs = New ADODB.Recordset
-  
-  ' reset to 0
-  Me.lblPrice.Caption = ""
-  Me.lblWeight.Caption = ""
-  
-  ' this sp will total all items in this PO
-  If Me!ID = 0 Then Exit Sub
-  strSQL = "sp_Form_POItemTotals " + CStr(Nz(Me!ID, 0))
-  rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
-  
-  ' Show totals
-  If Not rs.EOF Then
-    Me.lblPrice.Caption = Format(Nz(rs.Fields("ExtPrice").Value, 0), "Currency")
-    Me.lblWeight.Caption = Nz(rs.Fields("ExtWeight").Value, 0)
-  End If
-  
-  rs.Close
-  Set rs = Nothing
-
-Exit Sub
-errHandler:
-ErrHand Me.Name, "UpdateTotals"
 Exit Sub
 End Sub

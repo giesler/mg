@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-2060609449
+Checksum =-1964203729
 Begin Form
     PopUp = NotDefault
     Modal = NotDefault
@@ -23,7 +23,7 @@ Begin Form
     GridY =24
     Width =6120
     DatasheetFontHeight =10
-    ItemSuffix =39
+    ItemSuffix =41
     Left =1740
     Top =1440
     Right =10725
@@ -36,6 +36,39 @@ Begin Form
     Caption ="Catalog Item"
     OnCurrent ="[Event Procedure]"
     DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+    End
     OnActivate ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
     Begin
@@ -72,7 +105,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =4200
+            Height =4560
             BackColor =-2147483633
             Name ="Detail"
             Begin
@@ -111,7 +144,7 @@ Begin Form
                     OverlapFlags =85
                     Left =1380
                     Top =480
-                    Width =1260
+                    Width =1860
                     ColumnWidth =855
                     TabIndex =1
                     Name ="txtMaterial"
@@ -133,10 +166,10 @@ Begin Form
                 Begin TextBox
                     OverlapFlags =85
                     Left =1380
-                    Top =840
+                    Top =1200
                     Width =4560
                     ColumnWidth =3690
-                    TabIndex =2
+                    TabIndex =3
                     Name ="txtDescription"
                     ControlSource ="Description"
                     Begin
@@ -144,7 +177,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =240
-                            Top =840
+                            Top =1200
                             Width =1065
                             Height =240
                             Name ="Label10"
@@ -155,10 +188,10 @@ Begin Form
                 Begin TextBox
                     OverlapFlags =85
                     Left =1380
-                    Top =1200
+                    Top =1560
                     Width =780
                     ColumnWidth =780
-                    TabIndex =3
+                    TabIndex =4
                     Name ="txtPrice"
                     ControlSource ="Price"
                     Begin
@@ -166,7 +199,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =240
-                            Top =1200
+                            Top =1560
                             Width =1065
                             Height =240
                             Name ="Label11"
@@ -177,10 +210,10 @@ Begin Form
                 Begin TextBox
                     OverlapFlags =85
                     Left =3180
-                    Top =1200
+                    Top =1560
                     Width =780
                     ColumnWidth =705
-                    TabIndex =4
+                    TabIndex =5
                     Name ="txtWeight"
                     ControlSource ="Weight"
                     Begin
@@ -188,7 +221,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =2400
-                            Top =1200
+                            Top =1560
                             Width =705
                             Height =240
                             Name ="Label12"
@@ -200,10 +233,10 @@ Begin Form
                     Visible = NotDefault
                     OverlapFlags =85
                     Left =5160
-                    Top =1200
+                    Top =1560
                     Width =780
                     ColumnWidth =570
-                    TabIndex =5
+                    TabIndex =6
                     Name ="txtUse"
                     StatusBarText ="Description only"
                     Begin
@@ -211,7 +244,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =4320
-                            Top =1200
+                            Top =1560
                             Width =765
                             Height =240
                             Name ="Label13"
@@ -223,10 +256,10 @@ Begin Form
                     Default = NotDefault
                     OverlapFlags =85
                     AccessKey =79
-                    Left =3600
-                    Top =3780
+                    Left =3555
+                    Top =4080
                     Width =1080
-                    TabIndex =6
+                    TabIndex =7
                     Name ="cmdOK"
                     Caption ="&OK"
                     OnClick ="[Event Procedure]"
@@ -235,21 +268,21 @@ Begin Form
                     Cancel = NotDefault
                     OverlapFlags =85
                     AccessKey =67
-                    Left =4740
-                    Top =3780
+                    Left =4695
+                    Top =4080
                     Width =1080
-                    TabIndex =7
+                    TabIndex =8
                     Name ="cmdCancel"
                     Caption ="&Cancel"
                     OnClick ="[Event Procedure]"
                 End
                 Begin Tab
                     OverlapFlags =85
-                    Left =105
-                    Top =1560
+                    Left =60
+                    Top =1860
                     Width =5910
                     Height =2115
-                    TabIndex =8
+                    TabIndex =9
                     Name ="tabItemInfo"
                     GUID = Begin
                         0x3d4edb655bc2524fb67ffb77e8b5f883
@@ -258,8 +291,8 @@ Begin Form
                         Begin Page
                             OverlapFlags =215
                             AccessKey =67
-                            Left =240
-                            Top =1965
+                            Left =195
+                            Top =2265
                             Width =5640
                             Height =1575
                             Name ="Page32"
@@ -270,8 +303,8 @@ Begin Form
                             Begin
                                 Begin CheckBox
                                     OverlapFlags =215
-                                    Left =360
-                                    Top =2070
+                                    Left =315
+                                    Top =2370
                                     Name ="Medite"
                                     ControlSource ="Medite"
                                     StatusBarText ="Medite Yes/No - used for medite report"
@@ -281,8 +314,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =590
-                                            Top =2040
+                                            Left =545
+                                            Top =2340
                                             Width =975
                                             Height =240
                                             Name ="Label14"
@@ -295,8 +328,8 @@ Begin Form
                                 End
                                 Begin CheckBox
                                     OverlapFlags =215
-                                    Left =1715
-                                    Top =2075
+                                    Left =1670
+                                    Top =2375
                                     TabIndex =1
                                     Name ="Active"
                                     ControlSource ="Active"
@@ -306,8 +339,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =1945
-                                            Top =2045
+                                            Left =1900
+                                            Top =2345
                                             Width =525
                                             Height =240
                                             Name ="Label18"
@@ -320,8 +353,8 @@ Begin Form
                                 End
                                 Begin CheckBox
                                     OverlapFlags =215
-                                    Left =2735
-                                    Top =2075
+                                    Left =2690
+                                    Top =2375
                                     TabIndex =2
                                     Name ="Hide"
                                     ControlSource ="Hide"
@@ -331,8 +364,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =2965
-                                            Top =2045
+                                            Left =2920
+                                            Top =2345
                                             Width =405
                                             Height =240
                                             Name ="Label19"
@@ -345,8 +378,8 @@ Begin Form
                                 End
                                 Begin CheckBox
                                     OverlapFlags =215
-                                    Left =3635
-                                    Top =2075
+                                    Left =3590
+                                    Top =2375
                                     TabIndex =3
                                     Name ="chkSubItems"
                                     ControlSource ="SubItems"
@@ -357,8 +390,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =3865
-                                            Top =2045
+                                            Left =3820
+                                            Top =2345
                                             Width =1035
                                             Height =240
                                             Name ="Label23"
@@ -371,8 +404,8 @@ Begin Form
                                 End
                                 Begin CheckBox
                                     OverlapFlags =215
-                                    Left =360
-                                    Top =2430
+                                    Left =315
+                                    Top =2730
                                     TabIndex =4
                                     Name ="chkCashwrap"
                                     ControlSource ="Cashwrap"
@@ -382,8 +415,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =590
-                                            Top =2400
+                                            Left =545
+                                            Top =2700
                                             Width =795
                                             Height =240
                                             Name ="Label28"
@@ -396,8 +429,8 @@ Begin Form
                                 End
                                 Begin TextBox
                                     OverlapFlags =215
-                                    Left =1500
-                                    Top =2400
+                                    Left =1455
+                                    Top =2700
                                     Width =3420
                                     TabIndex =5
                                     Name ="txtCashwrapName"
@@ -411,8 +444,8 @@ Begin Form
                         Begin Page
                             OverlapFlags =247
                             AccessKey =66
-                            Left =240
-                            Top =1965
+                            Left =195
+                            Top =2265
                             Width =5640
                             Height =1575
                             Name ="pagBreakdown"
@@ -423,8 +456,8 @@ Begin Form
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
-                                    Left =240
-                                    Top =1980
+                                    Left =195
+                                    Top =2280
                                     Width =5640
                                     Height =1245
                                     Name ="subCatalogSubItems"
@@ -439,8 +472,8 @@ Begin Form
                                     Visible = NotDefault
                                     OverlapFlags =247
                                     AccessKey =68
-                                    Left =4920
-                                    Top =3240
+                                    Left =4875
+                                    Top =3540
                                     Width =840
                                     Height =300
                                     TabIndex =1
@@ -456,8 +489,8 @@ Begin Form
                         Begin Page
                             OverlapFlags =247
                             AccessKey =73
-                            Left =240
-                            Top =1965
+                            Left =195
+                            Top =2265
                             Width =5640
                             Height =1575
                             Name ="pagInventory"
@@ -469,8 +502,8 @@ Begin Form
                                 Begin TextBox
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =1920
-                                    Top =2160
+                                    Left =1875
+                                    Top =2460
                                     Width =960
                                     Name ="Inventory"
                                     ControlSource ="Inventory"
@@ -480,8 +513,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =780
-                                            Top =2160
+                                            Left =735
+                                            Top =2460
                                             Width =780
                                             Height =240
                                             Name ="Label35"
@@ -497,8 +530,8 @@ Begin Form
                                     TabStop = NotDefault
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =1920
-                                    Top =2520
+                                    Left =1875
+                                    Top =2820
                                     Width =960
                                     TabIndex =1
                                     BackColor =-2147483633
@@ -510,8 +543,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =780
-                                            Top =2520
+                                            Left =735
+                                            Top =2820
                                             Width =1020
                                             Height =240
                                             Name ="Label36"
@@ -527,8 +560,8 @@ Begin Form
                                     TabStop = NotDefault
                                     OverlapFlags =247
                                     TextAlign =3
-                                    Left =1920
-                                    Top =2880
+                                    Left =1875
+                                    Top =3180
                                     Width =960
                                     TabIndex =2
                                     BackColor =-2147483633
@@ -540,8 +573,8 @@ Begin Form
                                     Begin
                                         Begin Label
                                             OverlapFlags =247
-                                            Left =780
-                                            Top =2880
+                                            Left =735
+                                            Top =3180
                                             Width =1020
                                             Height =240
                                             Name ="Label38"
@@ -552,6 +585,33 @@ Begin Form
                                         End
                                     End
                                 End
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1380
+                    Top =840
+                    Width =1860
+                    TabIndex =2
+                    Name ="txtCustMaterial"
+                    ControlSource ="CustMaterial"
+                    GUID = Begin
+                        0x36a6053bfbaffe47a22237d997169562
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =120
+                            Top =840
+                            Width =1185
+                            Height =240
+                            Name ="Label40"
+                            Caption ="Cust Material:"
+                            GUID = Begin
+                                0x2b7903b9ab034f4191ac13a77807ee98
                             End
                         End
                     End
@@ -641,6 +701,12 @@ If Me.chkCashwrap And IsNull(Me.txtCashwrapName) Then
     MsgBox "You must enter a cashwrap name!", vbExclamation
     Me.txtCashwrapName.SetFocus
     Exit Sub
+End If
+
+
+If DLookup("CustMaterial", "Tbl_Catalog", "CustMaterial = '" & txtCustMaterial & "' and Material <> '" & txtMaterial & "'") <> "" Then
+  MsgBox "You entered a duplicate customer material number.  You cannot have duplicate customer material numbers.", vbExclamation
+  Exit Sub
 End If
 
 If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord

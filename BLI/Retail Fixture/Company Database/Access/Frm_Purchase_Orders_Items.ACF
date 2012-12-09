@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1061189310
+Checksum =35382864
 Begin Form
     MaxButton = NotDefault
     MinButton = NotDefault
@@ -14,12 +14,12 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =10560
+    Width =10920
     DatasheetFontHeight =10
-    ItemSuffix =24
-    Left =465
+    ItemSuffix =29
+    Left =405
     Top =5145
-    Right =11400
+    Right =11580
     Bottom =7140
     DatasheetGridlinesColor =12632256
     AfterDelConfirm ="[Event Procedure]"
@@ -31,9 +31,48 @@ Begin Form
     BeforeInsert ="[Event Procedure]"
     AfterUpdate ="[Event Procedure]"
     DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+    End
     Begin
         Begin Label
             BackStyle =0
+        End
+        Begin CommandButton
+            FontSize =8
+            FontWeight =400
+            ForeColor =-2147483630
+            FontName ="Tahoma"
         End
         Begin CheckBox
             SpecialEffect =2
@@ -47,6 +86,9 @@ Begin Form
         Begin ComboBox
             SpecialEffect =2
         End
+        Begin CustomControl
+            SpecialEffect =2
+        End
         Begin FormHeader
             Height =240
             BackColor =-2147483633
@@ -55,7 +97,7 @@ Begin Form
                 Begin Label
                     OverlapFlags =93
                     TextAlign =2
-                    Width =576
+                    Width =600
                     Height =240
                     Name ="lblQuantity"
                     Caption ="Qty"
@@ -67,21 +109,21 @@ Begin Form
                 Begin Label
                     OverlapFlags =95
                     TextAlign =2
-                    Left =576
-                    Width =1290
+                    Left =600
+                    Width =1260
                     Height =240
                     Name ="lblMaterial"
-                    Caption ="Material"
+                    Caption ="RF Material"
                     FontName ="Arial"
                     GUID = Begin
                         0x07df81d5b7e08d4b8befdc0ed3d5c53d
                     End
                 End
                 Begin Label
-                    OverlapFlags =87
+                    OverlapFlags =93
                     TextAlign =2
-                    Left =1860
-                    Width =3180
+                    Left =2940
+                    Width =3300
                     Height =240
                     Name ="lblMatDescription"
                     Caption ="Description"
@@ -93,8 +135,8 @@ Begin Form
                 Begin Label
                     OverlapFlags =93
                     TextAlign =2
-                    Left =5076
-                    Width =930
+                    Left =6300
+                    Width =780
                     Height =240
                     Name ="lblUnitPrice"
                     Caption ="Price"
@@ -106,8 +148,8 @@ Begin Form
                 Begin Label
                     OverlapFlags =95
                     TextAlign =2
-                    Left =6000
-                    Width =585
+                    Left =7080
+                    Width =540
                     Height =240
                     Name ="lblUnitQuantity"
                     Caption ="Unit"
@@ -117,10 +159,10 @@ Begin Form
                     End
                 End
                 Begin Label
-                    OverlapFlags =223
+                    OverlapFlags =95
                     TextAlign =2
-                    Left =6576
-                    Width =1110
+                    Left =7620
+                    Width =900
                     Height =240
                     Name ="lblExtPrice"
                     Caption ="Total"
@@ -132,11 +174,11 @@ Begin Form
                 Begin Label
                     OverlapFlags =95
                     TextAlign =2
-                    Left =7680
-                    Width =1005
+                    Left =8520
+                    Width =660
                     Height =240
                     Name ="lblPhaseNum"
-                    Caption ="Phase #"
+                    Caption ="Phase"
                     FontName ="Arial"
                     GUID = Begin
                         0x68aa7951dbdf9345a20427d3b582f951
@@ -145,8 +187,8 @@ Begin Form
                 Begin Label
                     OverlapFlags =87
                     TextAlign =1
-                    Left =8688
-                    Width =735
+                    Left =9180
+                    Width =720
                     Height =240
                     Name ="lblWeight"
                     Caption ="Weight"
@@ -158,7 +200,7 @@ Begin Form
                 Begin Label
                     OverlapFlags =85
                     TextAlign =2
-                    Left =9600
+                    Left =9960
                     Width =960
                     Height =240
                     Name ="lblBreakdown"
@@ -166,6 +208,19 @@ Begin Form
                     FontName ="Arial"
                     GUID = Begin
                         0xb5a2fdc1c4021d48a6688a61f02da8f3
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =2
+                    Left =1860
+                    Width =1080
+                    Height =240
+                    Name ="Label27"
+                    Caption ="Cst Material"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7d37c9d104148549bf339b7865c6c198
                     End
                 End
             End
@@ -180,53 +235,62 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =93
                     TextAlign =2
-                    Width =576
+                    Width =600
                     Name ="txtQuantity"
                     ControlSource ="Quanity"
                     StatusBarText ="Quanity of Material"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
+                    DecimalPlaces =2
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
                     TextAlign =3
-                    Left =5076
-                    Width =930
-                    TabIndex =2
+                    Left =6300
+                    Width =780
+                    TabIndex =3
                     Name ="txtUnitPrice"
                     ControlSource ="Unit_Price"
-                    Format ="$#,##0.00;($#,##0.00)"
+                    Format ="Fixed"
                     StatusBarText ="Unit Price To Charge (Make 0 to Auto-Calculate)"
                     DefaultValue ="\"\""
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =95
                     TextAlign =2
-                    Left =6000
-                    Width =576
-                    TabIndex =3
+                    Left =7080
+                    Width =540
+                    TabIndex =4
                     Name ="txtUnitQuantity"
                     ControlSource ="Unit_Quantiy"
                     StatusBarText ="Unit Quanity"
                     DefaultValue ="\"EA\""
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     SpecialEffect =0
                     OldBorderStyle =1
                     OverlapFlags =93
                     TextAlign =2
-                    Left =7680
-                    Width =1008
-                    TabIndex =4
+                    Left =8520
+                    Width =660
+                    TabIndex =5
                     Name ="txtPhaseNum"
                     ControlSource ="Phase"
                     StatusBarText ="Phase #"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
@@ -236,8 +300,8 @@ Begin Form
                     ColumnCount =2
                     ListRows =15
                     ListWidth =5400
-                    Left =576
-                    Width =1293
+                    Left =600
+                    Width =1260
                     TabIndex =1
                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
                     Name ="cmbMaterial"
@@ -248,20 +312,24 @@ Begin Form
                     StatusBarText ="Catalog/Material #"
                     AfterUpdate ="[Event Procedure]"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                     OnNotInList ="[Event Procedure]"
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =247
-                    Left =1860
-                    Width =3240
-                    TabIndex =5
+                    OverlapFlags =95
+                    Left =2940
+                    Width =3360
+                    TabIndex =6
                     Name ="txtMatDescription"
                     ControlSource ="MatDescription"
                     OnEnter ="[Event Procedure]"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     Locked = NotDefault
@@ -269,23 +337,24 @@ Begin Form
                     DecimalPlaces =2
                     SpecialEffect =0
                     OldBorderStyle =1
-                    OverlapFlags =247
+                    OverlapFlags =87
                     TextAlign =3
-                    Left =6576
-                    Width =1119
-                    TabIndex =6
+                    Left =7620
+                    Width =900
+                    TabIndex =7
                     BackColor =-2147483633
                     Name ="txtExtPrice"
                     ControlSource ="=[quanity]*[unit_price]"
-                    Format ="$#,##0.00;($#,##0.00)"
+                    Format ="Fixed"
                     FontName ="Arial"
                 End
                 Begin CheckBox
                     OverlapFlags =93
-                    Left =9612
-                    Top =45
-                    Height =195
-                    TabIndex =7
+                    Left =9960
+                    Top =60
+                    Width =300
+                    Height =180
+                    TabIndex =8
                     Name ="chkSubItems"
                     ControlSource ="SubItems"
                     StatusBarText ="Breakdown"
@@ -294,10 +363,12 @@ Begin Form
                     FontUnderline = NotDefault
                     TabStop = NotDefault
                     SpecialEffect =0
-                    OverlapFlags =87
-                    Left =9867
-                    Width =465
-                    TabIndex =8
+                    OverlapFlags =247
+                    Left =10200
+                    Top =14
+                    Width =480
+                    Height =216
+                    TabIndex =9
                     BackColor =-2147483633
                     ForeColor =8388608
                     Name ="txtEditSubItems"
@@ -313,9 +384,9 @@ Begin Form
                     OldBorderStyle =1
                     OverlapFlags =87
                     TextAlign =3
-                    Left =8688
-                    Width =726
-                    TabIndex =9
+                    Left =9180
+                    Width =720
+                    TabIndex =10
                     BackColor =-2147483633
                     Name ="txtWeight"
                     ControlSource ="=DLookUp(\"[weight]\",\"tbl_catalog\",\"[Material] = '\"+[cmbMaterial]+\"'\")*[t"
@@ -325,6 +396,34 @@ Begin Form
                     GUID = Begin
                         0x5935954a8e180d458d70a41aa9e58961
                     End
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    SpecialEffect =0
+                    OverlapFlags =87
+                    TextAlign =1
+                    ColumnCount =3
+                    ListRows =15
+                    ListWidth =5400
+                    Left =1860
+                    Width =1080
+                    TabIndex =2
+                    BoundColumn =2
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0xdc5d936ac1e6c94bb169b9e2e656c5c9
+                    End
+                    Name ="cmbCustMaterial"
+                    ControlSource ="Material"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT Tbl_Catalog.CustMaterial, Tbl_Catalog.Description, Tbl_Catalog.Material F"
+                        "ROM Tbl_Catalog WHERE CustMaterial IS NOT NULL and CustMaterial <> ''"
+                    ColumnWidths ="1080;4320;0"
+                    StatusBarText ="Catalog/Material #"
+                    FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
+                    OnClick ="[Event Procedure]"
                 End
             End
         End
@@ -339,8 +438,8 @@ Begin Form
                     SpecialEffect =0
                     OverlapFlags =85
                     TextAlign =3
-                    Left =6384
-                    Width =1314
+                    Left =7320
+                    Width =1200
                     BackColor =-2147483633
                     BorderColor =4210752
                     Name ="txtTotalPrice"
@@ -357,8 +456,8 @@ Begin Form
                     SpecialEffect =0
                     OverlapFlags =85
                     TextAlign =3
-                    Left =8688
-                    Width =726
+                    Left =9180
+                    Width =720
                     TabIndex =1
                     BackColor =-2147483633
                     BorderColor =4210752
@@ -367,6 +466,18 @@ Begin Form
                     FontName ="Arial"
                     GUID = Begin
                         0xbe9d8bc99f57314d85a168ca78b20d26
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    Width =1440
+                    Height =240
+                    Name ="Label26"
+                    Caption ="Totals:"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x02e4fef57900dc44b1a5f4c6d3146fff
                     End
                 End
             End
@@ -380,6 +491,20 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
+
+Private Sub cmbCustMaterial_Click()
+On Error GoTo errHandler
+
+  If cmbCustMaterial = "" Or IsNull(cmbCustMaterial) Then Exit Sub
+  
+  cmbMaterial = cmbCustMaterial.Column(2)
+  cmbMaterial_AfterUpdate
+  
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmbCustMaterial"
+Exit Sub
+End Sub
 
 Private Sub cmbMaterial_AfterUpdate()
 On Error GoTo errHandler
@@ -536,8 +661,8 @@ On Error GoTo errHandler
   If Not Me.chkSubItems Then Exit Sub
   If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
   
-  Dim fCH As Form_fdlgPOItem, pk As Long, strSQL As String
-  Set fCH = New Form_fdlgPOItem
+  Dim fCH As Form_fdlgPOItemOld, pk As Long, strSQL As String
+  Set fCH = New Form_fdlgPOItemOld
   
   ' open fdlgPOItem to edit sub items with this ID
   fCH.SetItemID Me!apkPOItem

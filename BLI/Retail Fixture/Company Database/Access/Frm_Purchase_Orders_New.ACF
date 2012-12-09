@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-696205548
+Checksum =778253585
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -12,11 +12,12 @@ Begin Form
     Cycle =1
     GridX =24
     GridY =24
-    Width =11880
-    ItemSuffix =259
-    Top =15
-    Right =12495
-    Bottom =7335
+    Width =13140
+    ItemSuffix =275
+    Left =405
+    Top =405
+    Right =13545
+    Bottom =7470
     TimerInterval =500
     MaxRecords =20000
     RecSrcDt = Begin
@@ -81,9 +82,16 @@ Begin Form
             LabelX =230
             LabelY =-30
         End
+        Begin OptionGroup
+            SpecialEffect =3
+        End
         Begin TextBox
             SpecialEffect =2
             OldBorderStyle =0
+        End
+        Begin ListBox
+            SpecialEffect =2
+            FontName ="Tahoma"
         End
         Begin ComboBox
             SpecialEffect =2
@@ -94,6 +102,9 @@ Begin Form
         Begin UnboundObjectFrame
             SpecialEffect =2
             OldBorderStyle =1
+        End
+        Begin CustomControl
+            SpecialEffect =2
         End
         Begin Tab
             FontName ="Tahoma"
@@ -168,6 +179,8 @@ Begin Form
                     StatusBarText ="Internal Tracking Number (Invoice Number)"
                     OnDblClick ="=OpenFind(\"RFC ID\",\"Whole\",\"txtID\")"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     OldBorderStyle =1
@@ -202,6 +215,8 @@ Begin Form
                     DefaultValue ="=Date()"
                     FontName ="Arial"
                     InputMask ="99/99/00;0;_"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     OldBorderStyle =1
@@ -216,6 +231,8 @@ Begin Form
                     OnDblClick ="=OpenFind(\"Ship Date\",\"Whole\",\"txtShipDate\")"
                     FontName ="Arial"
                     InputMask ="99/99/00;0;_"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     OldBorderStyle =1
@@ -230,6 +247,8 @@ Begin Form
                     OnDblClick ="=OpenFind(\"Arrive Date\",\"Whole\",\"txtArriveDate\")"
                     FontName ="Arial"
                     InputMask ="99/99/00;0;_"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     OldBorderStyle =1
@@ -243,6 +262,8 @@ Begin Form
                     OnDblClick ="=OpenFind(\"Job Number\",\"Whole\",\"txtJobNumber\")"
                     FontName ="Arial"
                     OnKeyDown ="[Event Procedure]"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
@@ -257,6 +278,8 @@ Begin Form
                     Name ="txtComments"
                     ControlSource ="Comments"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                     ControlTipText ="Comments About PO"
                 End
                 Begin CheckBox
@@ -265,7 +288,7 @@ Begin Form
                     Left =5460
                     Top =180
                     Width =1260
-                    TabIndex =19
+                    TabIndex =18
                     Name ="chkCreditPO"
                     ControlSource ="Credit"
                     ControlTipText ="Is this a Credit PO?"
@@ -422,17 +445,6 @@ Begin Form
                     Caption ="Current Status: "
                     FontName ="Arial"
                 End
-                Begin Subform
-                    OverlapFlags =85
-                    Left =120
-                    Top =3960
-                    Width =11220
-                    Height =2280
-                    TabIndex =18
-                    BorderColor =8421504
-                    Name ="subPOItems"
-                    SourceObject ="Form.Frm_Purchase_Orders_Items"
-                End
                 Begin Label
                     OverlapFlags =85
                     TextAlign =3
@@ -456,6 +468,8 @@ Begin Form
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tblUser.UserName FROM tblUser ORDER BY tblUser.UserName"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin ComboBox
                     OverlapFlags =87
@@ -470,6 +484,8 @@ Begin Form
                     RowSource ="SELECT tlkuStatus.StatusName FROM tlkuStatus ORDER BY tlkuStatus.StatusName"
                     StatusBarText ="Status of Order"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin TextBox
                     OldBorderStyle =1
@@ -483,6 +499,8 @@ Begin Form
                     StatusBarText ="Shipping & Tracking #"
                     OnDblClick ="=OpenFind(\"Pro Number\",\"Whole\",\"txtProNum\")"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
@@ -499,6 +517,8 @@ Begin Form
                     RowSource ="SELECT tlkuPriority.PriorityName FROM tlkuPriority ORDER BY tlkuPriority.Priorit"
                         "yName"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin Label
                     OverlapFlags =215
@@ -541,6 +561,8 @@ Begin Form
                     RowSource ="SELECT tlkuStore.StoreName FROM tlkuStore ORDER BY tlkuStore.StoreName"
                     StatusBarText ="Status of Order"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin Label
                     OverlapFlags =215
@@ -567,6 +589,8 @@ Begin Form
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuClassification.ClassificationName FROM tlkuClassification"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin Label
                     OverlapFlags =215
@@ -586,7 +610,7 @@ Begin Form
                     Top =480
                     Width =1260
                     Height =180
-                    TabIndex =20
+                    TabIndex =19
                     Name ="chkCancelPO"
                     ControlSource ="CancelPO"
                     OnClick ="[Event Procedure]"
@@ -617,6 +641,8 @@ Begin Form
                     RowSource ="SELECT tlkuPurchaser.PurchaserName FROM tlkuPurchaser ORDER BY tlkuPurchaser.Pur"
                         "chaserName"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin ComboBox
                     OverlapFlags =87
@@ -631,6 +657,8 @@ Begin Form
                     RowSource ="SELECT tlkuShipVia.ShipViaName FROM tlkuShipVia ORDER BY tlkuShipVia.ShipViaName"
                     OnDblClick ="=OpenFind(\"Ship Via\",\"Start\",\"cmbShipVia\")"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin Label
                     FontUnderline = NotDefault
@@ -656,10 +684,11 @@ Begin Form
                     Name ="txtRefNum"
                     ControlSource ="RefNum"
                     StatusBarText ="Reference #"
-                    OnExit ="[Event Procedure]"
                     OnDblClick ="=OpenFind(\"Reference #\",\"Whole\",\"txtRefNum\")"
                     FontName ="Arial"
-                    OnLostFocus ="[Event Procedure]"
+                    OnKeyDown ="[Event Procedure]"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                 End
                 Begin CheckBox
                     TabStop = NotDefault
@@ -667,7 +696,7 @@ Begin Form
                     Left =5460
                     Top =780
                     Width =1260
-                    TabIndex =21
+                    TabIndex =20
                     Name ="chkFTofTruck"
                     ControlSource ="FTofTruck"
                     OnClick ="[Event Procedure]"
@@ -699,11 +728,13 @@ Begin Form
                     Left =6720
                     Top =720
                     Width =840
-                    TabIndex =22
+                    TabIndex =21
                     Name ="txtFTofTruckAmount"
                     ControlSource ="FTofTruckAmount"
                     OnDblClick ="=OpenFind(\"Date Ordered\",\"Whole\",\"txtDateOrdered\")"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                     GUID = Begin
                         0x884cbd67917ae34697e2ab2757807aad
                     End
@@ -717,11 +748,14 @@ Begin Form
                     Width =2520
                     FontWeight =700
                     TabIndex =2
+                    BackColor =15138815
                     Name ="txtBlanketPO"
                     ControlSource ="BlanketPO"
                     StatusBarText ="Internal Tracking Number (Invoice Number)"
                     OnDblClick ="=OpenFind(\"Blanket PO\",\"Start\",\"txtBlanketPO\")"
                     FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
                     GUID = Begin
                         0x71a2297f53affd448ec8d10777d0b8a4
                     End
@@ -781,6 +815,8 @@ Begin Form
                                     AfterUpdate ="[Event Procedure]"
                                     OnDblClick ="=OpenFind(\"Store Number\",\"Whole\",\"txtShipStoreNo\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xce0b39700f9f23459a8419a188c0c173
                                     End
@@ -796,6 +832,8 @@ Begin Form
                                     ControlSource ="Ship_Name"
                                     OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x07cacf765b62db4d95e3b9261aee724a
                                     End
@@ -811,6 +849,8 @@ Begin Form
                                     ControlSource ="Ship_Address1"
                                     OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xc812036eaeaee64496e9aebb35785c0c
                                     End
@@ -825,6 +865,8 @@ Begin Form
                                     Name ="txtShipAddress2"
                                     ControlSource ="Ship_Address2"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x2487f438174e5644b0fd26f372476320
                                     End
@@ -840,6 +882,8 @@ Begin Form
                                     ControlSource ="Ship_City"
                                     OnDblClick ="=OpenFind(\"Ship City\",\"Start\",\"txtShipCity\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xad772f91ebd2e947b9599659174efa1f
                                     End
@@ -857,6 +901,8 @@ Begin Form
                                     AfterUpdate ="[Event Procedure]"
                                     OnDblClick ="=OpenFind(\"Ship State\",\"Whole\",\"txtShipState\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x7f8f1e2f6dd5094db79af454ee1e57fb
                                     End
@@ -873,6 +919,8 @@ Begin Form
                                     ControlSource ="Ship_Zip"
                                     OnDblClick ="=OpenFind(\"Ship Zip\",\"Start\",\"txtShipZip\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xb4176c9df40e84439b4d8d652fd998e9
                                     End
@@ -887,6 +935,8 @@ Begin Form
                                     Name ="txtShipAttn"
                                     ControlSource ="Ship_Attn"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x9eb4538fbd861f4a855d3c992971c1a6
                                     End
@@ -1030,6 +1080,8 @@ Begin Form
                                     ControlSource ="Ship_Phone"
                                     FontName ="Arial"
                                     InputMask ="!\\(999\") \"000\\-0000;0;_"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x6489bc57d2afd046aa5b3e5c9b5fae1b
                                     End
@@ -1045,6 +1097,8 @@ Begin Form
                                     Name ="txtShipAccountNum"
                                     ControlSource ="Account#"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xe8eae29a2d0bd14b828b8ebcbc1457c0
                                     End
@@ -1104,6 +1158,8 @@ Begin Form
                                     AfterUpdate ="[Event Procedure]"
                                     OnDblClick ="=OpenFind(\"Sold To\",\"Start\",\"txtSoldName\")"
                                     FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                     OnNotInList ="[Event Procedure]"
                                 End
                                 Begin Label
@@ -1139,6 +1195,8 @@ Begin Form
                                     ColumnWidths ="0;1440"
                                     FontName ="Arial"
                                     OnKeyDown ="[Event Procedure]"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
                                 End
                                 Begin Line
                                     OverlapFlags =87
@@ -1371,6 +1429,299 @@ Begin Form
                                 End
                             End
                         End
+                    End
+                End
+                Begin CustomControl
+                    Enabled = NotDefault
+                    SizeMode =1
+                    SpecialEffect =0
+                    OverlapFlags =85
+                    Left =60
+                    Top =3900
+                    Width =10980
+                    Height =2100
+                    AutoActivate =1
+                    TabIndex =25
+                    Name ="lvPOItems"
+                    OleData = Begin
+                        0x00160000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000000000000000000000100000 ,
+                        0x0700000001000000feffffff0000000001000000ffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf0283628000000000000000000000000f04185b30a40c10108000000c0020000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000200000027020000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fefffffffdffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xfeffffff09000000feffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
+                        0xf02836280000000000000000000000004031d4890a40c10105000000c0020000 ,
+                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000200000027020000 ,
+                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
+                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
+                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000000000000000000005c000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x00000000fffffffffffffffffefffffffdfffffffeffffff06000000feffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff01000000feffffff0300000004000000050000000600000007000000 ,
+                        0x08000000090000000a000000feffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0xffff000041439ebc37f0cd11870100aa003f0f07fffffffff09a1a00ec170000 ,
+                        0x3d06ffff4bf0d1bd8b85d111b16a00c0f028362821433412080000003e4b0000 ,
+                        0x780e00004e087deb010006001c0000000000000000000000238200003e4b0000 ,
+                        0x01efcdab00000500000000000700000008000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd0100050010981f000b0020000000000000000000 ,
+                        0x0000030000000000000000000000000000000300000049440020000100000000 ,
+                        0x003c0700000c0000000000000000000000000000000c0000005246204d617465 ,
+                        0x7269616c002000020000000000940700000e0000000000000000000000000000 ,
+                        0x000e00000043757374204d6174657269616c002000030000000000fb1300000c ,
+                        0x0000000000000000000000000000000c0000004465736372697074696f6e0020 ,
+                        0x000400020000007b040000060000000000000000000000000000000600000050 ,
+                        0x6861736500200005000200000022040000050000000000000000000000000000 ,
+                        0x000500000042726b640020000600010000002b05000006000000000000000000 ,
+                        0x0000000000000600000050726963650020000700020000002204000005000000 ,
+                        0x00000000000000000000000005000000556e6974002000080001000000d30400 ,
+                        0x0004000000000000000000000000000000040000005174790020000900010000 ,
+                        0x00d3040000070000000000000000000000000000000700000057656967687400 ,
+                        0x20000a0001000000e40600000b0000000000000000000000000000000b000000 ,
+                        0x4c696e6520546f74616c00000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000001000000feffffff0300000004000000050000000600000007000000 ,
+                        0x08000000090000000a000000feffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
+                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
+                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
+                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
+                        0xffff000041439ebc37f0cd11870100aa003f0f07fffffffff09a1a00ec170000 ,
+                        0x3d06ffff4bf0d1bd8b85d111b16a00c0f02836282143341208000000a84b0000 ,
+                        0x780e00004e087deb010006001c000000000000000000000023820000a84b0000 ,
+                        0x01efcdab00000500000000000700000008000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd01000500f0db9d070b0020000000000000000000 ,
+                        0x0000030000000000000000000000000000000300000049440020000100000000 ,
+                        0x00940700000c0000000000000000000000000000000c0000005246204d617465 ,
+                        0x7269616c002000020000000000940700000e0000000000000000000000000000 ,
+                        0x000e00000043757374204d6174657269616c002000030000000000ac1400000c ,
+                        0x0000000000000000000000000000000c0000004465736372697074696f6e0020 ,
+                        0x000400020000007b040000060000000000000000000000000000000600000050 ,
+                        0x6861736500200005000200000022040000050000000000000000000000000000 ,
+                        0x000500000042726b64002000060001000000db05000006000000000000000000 ,
+                        0x0000000000000600000050726963650020000700020000002204000005000000 ,
+                        0x00000000000000000000000005000000556e6974002000080001000000d30400 ,
+                        0x0004000000000000000000000000000000040000005174790020000900010000 ,
+                        0x002b050000070000000000000000000000000000000700000057656967687400 ,
+                        0x20000a00010000003c0700000b0000000000000000000000000000000b000000 ,
+                        0x4c696e6520546f74616c00000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+                    OLEClass ="ListViewCtrl"
+                    Class ="MSComctlLib.ListViewCtrl.2"
+                    GUID = Begin
+                        0x096fae0f93f47746b5c077190bf440bc
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =65
+                    TextFontFamily =34
+                    Left =11100
+                    Top =3960
+                    Width =720
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =22
+                    Name ="cmdPOItemAdd"
+                    Caption ="&Add"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x67327f21ff3eda4aaecafbc1fdb16da5
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =84
+                    TextFontFamily =34
+                    Left =11100
+                    Top =4320
+                    Width =720
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =23
+                    Name ="cmdPOItemEdit"
+                    Caption ="Edi&t"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xcd391f6e61746b42ac2d35178b61412e
+                    End
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =68
+                    TextFontFamily =34
+                    Left =11100
+                    Top =4680
+                    Width =720
+                    Height =300
+                    FontSize =8
+                    FontWeight =400
+                    TabIndex =24
+                    Name ="cmdPOItemDelete"
+                    Caption ="&Delete"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0xdcb50e72d850c64bb6e0220c05656855
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =120
+                    Top =6000
+                    Width =1860
+                    Height =240
+                    Name ="Label264"
+                    Caption ="Purchase Order Totals:"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x0530b67cb591c147a588007671295967
+                    End
+                End
+                Begin Label
+                    OverlapFlags =93
+                    TextAlign =3
+                    Left =8520
+                    Top =6000
+                    Width =1080
+                    Height =240
+                    Name ="lblWeight"
+                    Caption ="[Weight]"
+                    GUID = Begin
+                        0xf804c7d269d51449b2f806711cd20b67
+                    End
+                End
+                Begin Label
+                    OverlapFlags =87
+                    TextAlign =3
+                    Left =9600
+                    Top =6000
+                    Width =1080
+                    Height =240
+                    Name ="lblPrice"
+                    Caption ="[Price]"
+                    GUID = Begin
+                        0x3b615aa082fcfc4f840cb4e9f75808a2
                     End
                 End
             End
@@ -1807,6 +2158,91 @@ ErrHand Me.Name, "cmdFinished"
 Exit Sub
 End Sub
 
+Private Sub cmdPOItemAdd_Click()
+On Error GoTo errHandler
+
+  Dim f As Form_fdlgPOItem, li As ListItem
+  Set f = New Form_fdlgPOItem
+  
+  f.POID = Me.txtID
+  Pause f
+  If Not f.Cancel Then
+    Set li = lvPOItems.ListItems.Add(, , f.POItemID)
+    UpdatePOItem li, f.cmbMaterial, f.cmbCustMaterial, f.txtDescription, f.txtPhase, f.chkSubItems, f.txtPrice, _
+            f.txtQuantity, f.txtUnit, f.txtWeight, f.txtTotal
+    
+    While f.AddNew
+      Set f = Nothing
+      Set f = New Form_fdlgPOItem
+      f.POID = Me.txtID
+      Pause f
+      If Not f.Cancel Then
+        Set li = lvPOItems.ListItems.Add(, , f.POItemID)
+        UpdatePOItem li, f.cmbMaterial, f.cmbCustMaterial, f.txtDescription, f.txtPhase, f.chkSubItems, f.txtPrice, _
+                f.txtQuantity, f.txtUnit, f.txtWeight, f.txtTotal
+      End If
+    
+    Wend
+  End If
+  Set f = Nothing
+  
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdPOItemAdd"
+Exit Sub
+End Sub
+
+Private Sub cmdPOItemDelete_Click()
+On Error GoTo errHandler
+
+  Dim li As ListItem
+  
+  Set li = lvPOItems.SelectedItem
+  If li Is Nothing Then
+    MsgBox "Please select an item to delete.", vbExclamation
+    Exit Sub
+  End If
+
+  If MsgBox("Are you sure you want to delete '" & li.SubItems(1) & "' from this purchase order?", vbQuestion + vbYesNo) = vbYes Then
+    gConn.Execute "delete from Tbl_PO_Items where apkPOItem = " & li.Text
+    lvPOItems.ListItems.Remove li.Index
+    UpdateTotals
+  End If
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdPOItemDelete"
+Exit Sub
+End Sub
+
+Private Sub cmdPOItemEdit_Click()
+On Error GoTo errHandler
+
+  Dim f As Form_fdlgPOItem, li As ListItem
+  Set f = New Form_fdlgPOItem
+  
+  Set li = lvPOItems.SelectedItem
+  If li Is Nothing Then
+    MsgBox "You must select an item to edit.", vbExclamation
+    Exit Sub
+  End If
+  
+  f.LoadItem li.Text
+  Pause f
+  
+  If Not f.Cancel Then
+    UpdatePOItem li, f.cmbMaterial, f.cmbCustMaterial, f.txtDescription, f.txtPhase, f.chkSubItems, f.txtPrice, _
+            f.txtQuantity, f.txtUnit, f.txtWeight, f.txtTotal
+  End If
+
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "cmdPOItemEdit"
+Exit Sub
+End Sub
+
 Private Sub cmdSendReplyTo_Click()
 
     Dim lngReturn As Long
@@ -1842,8 +2278,7 @@ Private Sub comSoldAttention_KeyDown(KeyCode As Integer, Shift As Integer)
 On Error Resume Next
 
     If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
-'        tb1.Value = 1
-'        txtSoldName.SetFocus
+      txtComments.SetFocus
     End If
 
 End Sub
@@ -1882,18 +2317,32 @@ End Sub
 Private Sub Form_Current()
 On Error GoTo errHandler
 
-  Dim lngID As Long, rs As ADODB.Recordset, i As Long
+  Dim lngID As Long, i As Long
 
   ' Reset flag just in case, and if a new rec run InitPO
   mblnInitPO = False
   If IsNull(Me.txtID) Then
-    Me.txtPO.SetFocus '   InitPO
-    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = -1"
-    Me.subPOItems.Form.AllowAdditions = False
-  Else
-    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
-    Me.subPOItems.Form.AllowAdditions = True
+    Me.txtPO.SetFocus
   End If
+  
+  Dim rs As Recordset, li As ListItem
+  Set rs = New Recordset
+  
+  lvPOItems.ListItems.Clear
+  If Me.txtID <> 0 Then
+    rs.Open "dbo.sp_Form_POItems " & Me.txtID, gConn, adOpenForwardOnly, adLockReadOnly
+    Do While Not rs.EOF
+      Set li = lvPOItems.ListItems.Add(, , rs.Fields("apkPOItem").Value)
+      UpdatePOItem li, rs.Fields("RFMaterial").Value, rs.Fields("CustMaterial").Value, rs.Fields("Description").Value, _
+        rs.Fields("Phase").Value, rs.Fields("SubItems").Value, rs.Fields("Price").Value, rs.Fields("Quantity").Value, _
+        rs.Fields("Unit").Value, rs.Fields("Weight").Value, rs.Fields("Total").Value
+      rs.MoveNext
+    Loop
+    rs.Close
+  End If
+  Set rs = Nothing
+  
+  UpdateTotals
   
   chkFTofTruck_Click
   
@@ -1953,6 +2402,12 @@ ErrHand Me.Name, "Form_Timer"
 Exit Sub
 End Sub
 
+Private Sub lvPOItems_DblClick()
+
+  cmdPOItemEdit_Click
+  
+End Sub
+
 Private Sub txtJobNumber_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
@@ -1974,8 +2429,6 @@ RetryAfterUpdate:
   If IsNull(Me.txtID) Then
     Me.txtID = DMax("[id]", "Tbl_PO") + 1
     If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
-    Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
-    Me.subPOItems.Form.AllowAdditions = True
   End If
   CloseWaitForm
   
@@ -2019,9 +2472,12 @@ ErrHand Me.Name, "txtPO_BeforeUpdate"
 Exit Sub
 End Sub
 
-Private Sub txtRefNum_Exit(Cancel As Integer)
+Private Sub txtRefNum_KeyDown(KeyCode As Integer, Shift As Integer)
 On Error Resume Next
-  Me.subPOItems.Form!txtQuantity.SetFocus
+
+  If KeyCode = vbKeyReturn Or (KeyCode = vbKeyTab And Shift = 0) Then
+    cmdPOItemAdd_Click
+  End If
   
 End Sub
 
@@ -2146,4 +2602,51 @@ Exit Sub
 errHandler:
 ErrHand Me.Name, "txtSoldName_NotInList"
 Exit Sub
+End Sub
+
+
+Private Sub UpdateTotals()
+On Error GoTo errHandler
+
+  Dim rs As ADODB.Recordset, strSQL As String
+  Set rs = New ADODB.Recordset
+  
+  ' reset to 0
+  Me.lblPrice.Caption = ""
+  Me.lblWeight.Caption = ""
+  
+  ' this sp will total all items in this PO
+  If Me!ID = 0 Then Exit Sub
+  strSQL = "sp_Form_POItemTotals " + CStr(Nz(Me!ID, 0))
+  rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+  
+  ' Show totals
+  If Not rs.EOF Then
+    Me.lblPrice.Caption = Format(Nz(rs.Fields("ExtPrice").Value, 0), "Currency")
+    Me.lblWeight.Caption = Format(Nz(rs.Fields("ExtWeight").Value, 0), "Fixed")
+  End If
+  
+  rs.Close
+  Set rs = Nothing
+
+Exit Sub
+errHandler:
+ErrHand Me.Name, "UpdateTotals"
+Exit Sub
+End Sub
+
+Public Sub UpdatePOItem(li As ListItem, RFMaterial As Variant, CustMaterial As Variant, Description As Variant, Phase As Variant, _
+  SubItems As Variant, Price As Variant, Quantity As Variant, Unit As Variant, Weight As Variant, Total As Variant)
+
+  li.SubItems(1) = Nz(RFMaterial, "")
+  li.SubItems(2) = Nz(CustMaterial, "")
+  li.SubItems(3) = Nz(Description, "")
+  li.SubItems(4) = Nz(Phase, "")
+  li.SubItems(5) = IIf(SubItems, "x", "")
+  li.SubItems(6) = Nz(Format(Price, "Fixed"), " ")
+  li.SubItems(7) = Nz(Unit, " ")
+  li.SubItems(8) = Nz(Quantity, " ")
+  li.SubItems(9) = Nz(Weight, "")
+  li.SubItems(10) = Nz(Format(Total, "Fixed"), " ")
+
 End Sub

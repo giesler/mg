@@ -4,6 +4,37 @@ Option Explicit
 Public curPrintMode As Long
 Public bolForceCust As Boolean
 
+
+Public Function LookupCustMaterial(varMaterial As Variant)
+On Error GoTo errHandler
+
+  Dim rs As Recordset, strSQL As String
+  Set rs = New Recordset
+  
+  If IsNull(varMaterial) Or Len(varMaterial) = 0 Then
+    LookupCustMaterial = ""
+    Exit Function
+  End If
+  
+  strSQL = "select * from tbl_catalog where material = '" & varMaterial & "'"
+  
+  rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+  
+  If rs.EOF Then
+    LookupCustMaterial = "[not found]"
+  Else
+    LookupCustMaterial = rs.Fields("CustMaterial").Value
+  End If
+  rs.Close
+  Set rs = Nothing
+
+Exit Function
+errHandler:
+ErrHand "modMisc", "LookupCustMaterial"
+Exit Function
+End Function
+
+
 Public Function SplitPO(txtIn As String) As String
 
   If InStr(txtIn, "/") Then
