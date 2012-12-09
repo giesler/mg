@@ -787,7 +787,7 @@ CXMDBFile* CXMDB::AddFile(const char* path)
 	catch (...) {
 		
 		//failed to create
-		ASSERT(FALSE);
+		//ASSERT(FALSE);
 		delete file;
 		Unlock();
 		return NULL;
@@ -819,7 +819,7 @@ CXMDBFile* CXMDB::FindFile(const char* path)
 			return mFiles[i];
 		}
 	}
-	TRACE1("CXMDB::FindFile() - File not found: %s\n", path);
+	//TRACE1("CXMDB::FindFile() - File not found: %s\n", path);
 	Unlock();
 	return NULL;
 }

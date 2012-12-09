@@ -29,7 +29,15 @@ char* bstr2char(BSTR bstr)
 	//append null
 	*str = '\0';
 	return ret;
-}	
+}
+
+void char2bstr(BSTR *bstr, const char *str)
+{
+	DWORD dw = strlen(str);
+	wchar_t *wcs = (wchar_t*)malloc((dw+1)*2);
+	mbstowcs(wcs, str, dw+1);
+	*bstr = SysAllocString(wcs);
+}
 
 //---------------------------------------------------------------------
 //										  XMMessageQueue Implementation
@@ -519,6 +527,7 @@ IXMLDOMDocument* CXMMessage::ToXml()
 	IXMLDOMElement* content = NULL;
 	IXMLDOMNode* node = NULL;
 	IXMLDOMNode* node2 = NULL;
+	BSTR bstrTemp = NULL;
 	char* temp = NULL;
 	int x=0;
 	_variant_t var;
@@ -601,14 +610,37 @@ IXMLDOMDocument* CXMMessage::ToXml()
 		{
 			//convert back into structured xml
 			xml2 = CreateXmlDocument();
-			COM_SINGLECALL(xml2->loadXML(_bstr_t(f->GetValue(false)), &b));
-			COM_SINGLECALL(xml2->get_documentElement(&el2));
-			COM_SINGLECALL(el2->QueryInterface(IID_IXMLDOMNode, (void**)&node));
-			COM_SINGLECALL(el->appendChild(node, &node2));
+			char2bstr(&bstrTemp, f->GetValue(false));
+			COM_SINGLECALL(xml2->put_validateOnParse(-1));
+			COM_SINGLECALL(xml2->loadXML(bstrTemp, &b));
+			//COM_SINGLECALL(xml2->loadXML(_bstr_t(f->GetValue(false)), &b));
+			if (b)
+			{
+				COM_SINGLECALL(xml2->get_documentElement(&el2));
+				COM_SINGLECALL(el2->QueryInterface(IID_IXMLDOMNode, (void**)&node));
+				COM_SINGLECALL(el->appendChild(node, &node2));
+			}
+			else
+			{
+				IErrorInfo *ei = NULL;
+				BSTR bstrErr = NULL;
+				GetErrorInfo(NULL, &ei);
+				ei->GetDescription(&bstrErr);
+				ASSERT(FALSE);
+				COM_RELEASE(ei);
+				if (bstrErr)
+					SysFreeString(bstrErr);
+
+			}
 			COM_RELEASE(xml2);
 			COM_RELEASE(el2);
 			COM_RELEASE(node);
 			COM_RELEASE(node2);
+			if (bstrTemp)
+			{
+				SysFreeString(bstrTemp);
+				bstrTemp = NULL;
+			}
 		}
 		else
 		{
