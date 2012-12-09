@@ -1,10 +1,11 @@
 Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\WINNT\System32\stdole2.tlb#OLE Automation
-Reference=*\G{00000205-0000-0010-8000-00AA006D2EA4}#2.5#0#..\..\..\Program Files\Common Files\System\ADO\msado25.tlb#Microsoft ActiveX Data Objects 2.5 Library
-Reference=*\G{2206CEB0-19C1-11D1-89E0-00C04FD7A829}#1.0#0#..\..\..\Program Files\Common Files\System\OLE DB\oledb32.dll#Microsoft OLE DB Service Component 1.0 Type Library
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\WINNT\System32\stdole2.tlb#OLE Automation
+Reference=*\G{00000205-0000-0010-8000-00AA006D2EA4}#2.5#0#..\..\..\..\Program Files\Common Files\System\ADO\msado25.tlb#Microsoft ActiveX Data Objects 2.5 Library
+Reference=*\G{2206CEB0-19C1-11D1-89E0-00C04FD7A829}#1.0#0#..\..\..\..\Program Files\Common Files\System\OLE DB\oledb32.dll#Microsoft OLE DB Service Component 1.0 Type Library
 Form=frmData Link.frm
 Startup="frmDataLinkDialog"
 HelpFile=""
+ExeName32="Data Link Dialog.exe"
 Command32=""
 Name="Project1"
 HelpContextID="0"
