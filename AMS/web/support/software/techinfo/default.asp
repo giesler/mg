@@ -16,7 +16,7 @@ strOffset = "../../../"
 <h3>Technical Information</h3>
  
 <p>
-<i>How does AMS work?</i>
+<i><b>How does AMS work?</b></i>
 </p>
 
 <p>
@@ -24,7 +24,7 @@ AMS is a part client-server, part peer-to-peer application that allows for detai
 </p>
 
 <p>
-<i>How can I block AMS from my network?</i>
+<i><b>How can I block AMS from my network?</b></i>
 </p>
 
 <p>
@@ -33,7 +33,9 @@ prevent outgoing traffic on ports 25346 and port 25347, as well as blocking the 
 This will prevent any AMS client from being able to operate. 
 </p>
 
-<p><br><br></p>
+<p>
+<i><b>How does AMS work?</b></i>
+</p>
 
 <p>
 AMS is made from four distinct pieces:
