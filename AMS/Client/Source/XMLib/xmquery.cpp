@@ -838,6 +838,7 @@ CXMQueryResponseItem::CXMQueryResponseItem()
 	mWidth = 0;
 	mHeight = 0;
 	mSize = 0;
+	mSponsor = XMSPONSOR_NONE;
 
 	//zero out hosts
 	for(int i=0;i<5;i++) {
@@ -987,6 +988,11 @@ HRESULT CXMQueryResponseItem::FromXml(IXMLDOMElement* e)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mSize = V_UI4(&v);
+		}
+		else if (_stricmp(b, "sponsor")==0)
+		{
+			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_I4));
+			mSponsor = V_I4(&v);
 		}
 
 		//next attribute

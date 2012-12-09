@@ -82,7 +82,8 @@ struct diskfile
 	DWORD		thumbnails;		//number of thumbnails
 	DWORD		width;			//image width (pixels)
 	DWORD		height;			//image height (pixels)
-	DWORD		unused[4];
+	long		sponsor;
+	DWORD		unused[3];
 };
 
 //disk file flags
@@ -189,6 +190,7 @@ public:
 	inline void			SetFlag(BYTE flag, bool value);
 	inline DWORD		GetWidth();
 	inline DWORD		GetHeight();
+	inline long			GetSponsor();
 
 	//thumbnail acces
 	CXMDBThumb* GetThumb(DWORD width, DWORD height);
@@ -211,7 +213,13 @@ public:
 private:
 	CXMDBFile(CXMDB *db, FILE* file);		//read info from db
 	CXMDBFile(CXMDB *db, const char* path);		//read info from actual file
-	CXMDBFile(CXMDB *db, const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height);
+	CXMDBFile(CXMDB *db, const char* path,
+		CMD5& md5,
+		BYTE* buf,
+		DWORD bufsize,
+		DWORD width,
+		DWORD height,
+		long sponsor);
 	~CXMDBFile();
 
 	//init functions
@@ -273,14 +281,23 @@ public:
 	inline BYTE	GetMinor();
 	inline bool	GetFlag(BYTE flag);
 	inline BYTE* GetUserId();
+	/*
 	inline void	SetMajor(BYTE value);
 	inline void	SetMinor(BYTE value);
+	*/
 	inline void	SetFlag(BYTE flag, bool value);
 	inline void	SetUserId(const BYTE* value);
 
 	//file list access
 	CXMDBFile* AddFile(const char* path);
-	CXMDBFile* AddFile(const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height);
+	CXMDBFile* AddFile(
+			const char* path,
+			CMD5& md5,
+			BYTE* buf,
+			DWORD bufsize,
+			DWORD width,
+			DWORD height,
+			long  sponsor);
 	CXMDBFile* FindFile(BYTE* md5, bool showremoved);
 	CXMDBFile* FindFile(const char* path, bool showremoved);
 	inline DWORD GetFileCount() {
@@ -560,6 +577,7 @@ inline BYTE* CXMDB::GetUserId() {
 	return temp;
 }
 
+/*
 inline void	CXMDB::SetMajor(BYTE value) {
 	Lock();
 	mDiskHeader.version.major = value;
@@ -571,6 +589,7 @@ inline void	CXMDB::SetMinor(BYTE value) {
 	mDiskHeader.version.minor = value;
 	Unlock();
 }
+*/
 
 inline void	CXMDB::SetFlag(BYTE flag, bool value) {
 	Lock();
@@ -642,6 +661,11 @@ inline DWORD CXMDBFile::GetHeight() {
 	DWORD temp = mDiskFile.height;
 	//Unlock();
 	return temp;
+}
+
+inline long CXMDBFile::GetSponsor() 
+{
+	return mDiskFile.sponsor;
 }
 
 inline void CXMDBFile::SetFlag(BYTE flag, bool value) {

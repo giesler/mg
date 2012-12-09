@@ -26,6 +26,9 @@
 #define XMGUI_FOLDWIDTH			24
 #define XMGUI_FOLDBORDER		(XMGUI_FOLDWIDTH+XMGUI_SPLITWIDTH)
 
+//COLORS
+#define XMCOLOR_SPONSOR			(RGB(248,191,46))
+
 //thumbnail size
 //#define XMGUI_THUMBWIDTH		124	//4:3
 //#define XMGUI_THUMBHEIGHT		93
@@ -204,7 +207,7 @@ private:
 // --------------------------------------------------------------------------- File Browser
 // xmguibrowsing.cpp
 
-class CFileBrowser : public CListCtrl
+class CFileBrowser : public CXMListCtrl
 {	
 public:
 
@@ -221,6 +224,7 @@ public:
 	const char* GetSelectedPath();
 	CBitmap* GetSelectedBitmap();
 	CBitmap* GetSelectedThumbnail();
+	long GetSelectedSponsor();
 
 private:
 
@@ -726,6 +730,7 @@ public:
 
 	//event called by search
 	void OnSearch(CXMQuery* query);
+	void OnSponsor(long sponsor);
 
 protected:
 	
@@ -771,6 +776,10 @@ protected:
 
 	//IDC_NETMON
 	//IDC_BANNER
+
+	//advertisement state
+	void AdvertRefresh(long sponsor);
+	long mAdvertSponsor;
 
 	//window creation, destruction
 	bool mCreateDone;

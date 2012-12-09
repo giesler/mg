@@ -4,6 +4,8 @@
 
 #pragma once
 
+#define XMSPONSOR_NONE	-1
+
 struct CXMIndex
 {
 	DWORD Cat1;
@@ -96,6 +98,7 @@ public:
 	//data
 	CMD5 mMD5;
 	DWORD mWidth, mHeight, mSize;
+	long mSponsor;
 	CXMQueryResponseItemHost mHosts[5];
 	BYTE mHostsCount;
 	BOOL mAlreadyGotIt;

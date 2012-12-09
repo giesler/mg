@@ -9,6 +9,7 @@
 const UINT WM_TASKBARCREATED = 
     ::RegisterWindowMessage(_T("TaskbarCreated"));
 
+#define XMADVERT_URL "http://ads.adultmediaswapper.com/request/"
 
 // --------------------------------------------------------------------- MESSAGE MAP
 
@@ -217,6 +218,7 @@ CMainFrame::CMainFrame()
 	mIgnoreFileClicks = false;
 	mClosing = false;
 	mWebView = NULL;
+	mAdvertSponsor = XMSPONSOR_NONE;
 
 	//Create ourself
 	CString strWndClass = AfxRegisterWndClass (
@@ -276,7 +278,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		return -1;
 	}
-	mAdvert.Navigate("http://ads.adultmediaswapper.com/request");
+	mAdvert.Navigate(XMADVERT_URL);
 	
 	//create contest button
 	if (!mContest.Create(
@@ -1484,12 +1486,30 @@ bool CFoldButton::Create(bool left, CWnd *parent, UINT idc, char* field)
 
 // -------------------------------------------------------------------------------------------- WEB
 
+void CMainFrame::AdvertRefresh(long sponsor)
+{
+	if (mAdvertSponsor == sponsor)
+	{
+		mAdvert.Refresh();	
+	}
+	else
+	{
+		CString url;
+		url.Format(XMADVERT_URL "?companyid=%d", sponsor);
+		mAdvertSponsor = sponsor;
+		mAdvert.Navigate(url);
+	}
+}
+
 void CMainFrame::OnSearch(CXMQuery* query)
 {
-	//TODO: set post data detailing the query
-	//TEMP:BEGIN
-	//mAdvert.Refresh();
-	//TEMP:END
+	AdvertRefresh(XMSPONSOR_NONE);
+}
+
+void CMainFrame::OnSponsor(long sponsor)
+{
+	AdvertRefresh(sponsor);
+	TRACE("Showing sponsor banner: %d\n", sponsor);
 }
 
 BOOL CAdvert::Create(

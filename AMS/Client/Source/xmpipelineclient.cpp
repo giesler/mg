@@ -455,6 +455,7 @@ void CXMClientManager::OnFileReceived(CXMSession *ses, CXMMessage *msg)
 			mCompleted[x].mMD5 = md5;
 			mCompleted[x].mWidth = width;
 			mCompleted[x].mHeight = height;
+			mCompleted[x].mSponsor = mDownloads[i].mItem->mSponsor;
 			mCompleted[x].mBufferSize = msg->GetBinarySize();
 			mCompleted[x].mBuffer = (BYTE*)malloc(msg->GetBinarySize());
 			msg->GetBinaryData(	mCompleted[x].mBuffer,

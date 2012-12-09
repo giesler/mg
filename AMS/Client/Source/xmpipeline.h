@@ -155,6 +155,7 @@ public:
 	{
 		CMD5 mMD5;
 		DWORD mWidth, mHeight;
+		long mSponsor;
 		BYTE* mBuffer;
 		DWORD mBufferSize;
 		bool mIsThumb;

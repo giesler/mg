@@ -190,6 +190,13 @@ void CCompletedView::OnThumbsClick(NMHDR* pnmh, LRESULT* pResult)
 	pbmp->Attach(dib.GetHandle());
 	dib.Detach();
 	mPreview.ShowBitmap(pbmp);
+
+	//is this a sponsored picture?
+	if (t->mSponsor != XMSPONSOR_NONE)
+	{
+		((CMainFrame*)app()->m_pMainWnd)->OnSponsor(t->mSponsor);
+		
+	}
 }
 
 void CCompletedView::OnThumbsDeleteItem(NMHDR *pnmh, LRESULT* pResult)
@@ -290,6 +297,11 @@ bool CCompletedView::InsertItem(tag t)
 		
 		//build lparam
 		d = mThumbs.EncaseParam(t2);
+		if (t2->mSponsor != XMSPONSOR_NONE)
+		{
+			d->bgColor = XMCOLOR_SPONSOR;
+			d->bgPaint = TRUE;
+		}
 
 		//insert listview item
 		lvi.mask = LVIF_IMAGE|LVIF_PARAM|LVIF_TEXT;
@@ -509,7 +521,8 @@ void CCompletedView::OnSave()
 				t->mBuffer,			//data
 				t->mBufferSize,		//data size
 				t->mWidth,			//width
-				t->mHeight);		//height
+				t->mHeight,
+				t->mSponsor);		//height
 					
 		//remove the item
 		cm()->Lock();

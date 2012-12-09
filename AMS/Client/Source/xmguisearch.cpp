@@ -949,6 +949,14 @@ void CSearchView::ShowResults()
 		data = mThumbs.EncaseParam(pqi);
 		if (!pqi->mQueryResponseItem->mAlreadyGotIt)
 		{
+			//set the background color if this is a 
+			//sponsored image
+			if (pqi->mQueryResponseItem->mSponsor != XMSPONSOR_NONE)
+			{
+				data->bgColor = XMCOLOR_SPONSOR;
+				data->bgPaint = TRUE;
+			}
+
 			//insert into listview
 			lvi.mask = LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
 			lvi.iItem = mThumbs.GetItemCount();

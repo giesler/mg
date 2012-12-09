@@ -12,6 +12,10 @@
 #include <sys/types.h> 
 #include <sys/stat.h>
 
+//our database version
+#define XMDB_VERSION_MAJOR	0
+#define XMDB_VERSION_MINOR	2
+
 // -------------------------------------------------------------------------- UTIL
 
 void massagePath(char *path)
@@ -198,8 +202,14 @@ bool CXMDB::New()
 	mDiskHeader.filecount = 0;
 	mDiskHeader.fileoffset = sizeof(mDiskHeader)+(1024*1024*1);
 	mDiskHeader.flags = 0;
-	mDiskHeader.version.major = 0;
-	mDiskHeader.version.minor = 1;
+	mDiskHeader.version.major = XMDB_VERSION_MAJOR;
+	mDiskHeader.version.minor = XMDB_VERSION_MINOR;
+
+	/*
+	version 0.1 = amsclient version 0.50 -> 0.70
+	version 0.2 = amsclient version 0.80 -> current
+		- allocated an unused field for sponsor
+	*/	
 
 	//open the file
 	int ofshandle = _open(mPath, _O_BINARY | _O_RANDOM | _O_CREAT | _O_RDWR, _S_IREAD | _S_IWRITE);
@@ -441,6 +451,10 @@ bool CXMDB::Flush()
 
 	//update the disk header
 	mDiskHeader.filecount = mFileCount;
+	
+	//we always save with the current database version
+	mDiskHeader.version.major = XMDB_VERSION_MAJOR;
+	mDiskHeader.version.minor = XMDB_VERSION_MINOR;
 
 	//initialize the blob list--used by
 	//findfreechunk()
@@ -824,7 +838,14 @@ bool CXMDB::InsertFile(CXMDBFile *file)
 	return true;
 }
 
-CXMDBFile* CXMDB::AddFile(const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height)
+CXMDBFile* CXMDB::AddFile(
+							const char* path,
+							CMD5& md5,
+							BYTE* buf,
+							DWORD bufsize,
+							DWORD width,
+							DWORD height,
+							long  sponsor)
 {
 	//create a new file from the given buffer
 	Lock();
@@ -849,7 +870,7 @@ CXMDBFile* CXMDB::AddFile(const char* path, CMD5& md5, BYTE* buf, DWORD bufsize,
 	}
 
 	try {
-		file = new CXMDBFile(this, path, md5, buf, bufsize, width, height);
+		file = new CXMDBFile(this, path, md5, buf, bufsize, width, height, sponsor);
 	}
 	catch (...)
 	{
@@ -982,7 +1003,7 @@ CXMDBFile::CXMDBFile(CXMDB *db, const char* path)
 	}
 }
 
-CXMDBFile::CXMDBFile(CXMDB *db, const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height)
+CXMDBFile::CXMDBFile(CXMDB *db, const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height, long sponsor)
 {
 	//basic init
 	InitShared(db);
@@ -1010,6 +1031,7 @@ CXMDBFile::CXMDBFile(CXMDB *db, const char* path, CMD5& md5, BYTE* buf, DWORD bu
 	memcpy(mDiskFile.md5, md5.GetValue(), 16);
 	mDiskFile.width = width;
 	mDiskFile.height = height;
+	mDiskFile.sponsor = sponsor;
 
 	//get thumbnail from cache
 	dbman()->Lock();
@@ -1065,6 +1087,7 @@ inline void CXMDBFile::InitShared(CXMDB *db)
 	mThumbs = 0;
 	memset(&mDiskFile, 0, sizeof(mDiskFile));
 
+	mDiskFile.sponsor = -1;
 	mDiskFile.index.data.Contest = false;
 }
 
@@ -1116,6 +1139,14 @@ bool CXMDBFile::InitFromDB(FILE* file)
 	mThumbs = (CXMDBThumb**)malloc(mThumbCount*sizeof(CXMDBThumb*));
 	if (!mThumbs)
 		throw;
+
+	//if we are loading an older database version, we may need
+	//to massage some of our data
+	if(mDB->GetMajor()==0 && mDB->GetMinor()==1)
+	{
+		//0.1 -> current (0.2)
+		mDiskFile.sponsor = -1;		//sponsor is a new field.. init to -1, which is none
+	}
 
 	return true;
 }

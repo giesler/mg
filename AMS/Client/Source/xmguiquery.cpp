@@ -201,7 +201,8 @@ private:
 					mCF.mBuffer,		//data
 					mCF.mBufferSize,	//data size
 					mCF.mWidth,			//width
-					mCF.mHeight);		//height
+					mCF.mHeight,
+					mCF.mSponsor);		//height
 
 			if (!mFile)
 			{

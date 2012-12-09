@@ -650,6 +650,7 @@ struct XMFileBrowseTag
 		mdwWorkItemId = 0xFFFFFFFF;
 		mStillExists = true;
 		mShared = false;
+		mSponsor = XMSPONSOR_NONE;
 	}
 	CString mName;
 	CString mPath;
@@ -657,11 +658,12 @@ struct XMFileBrowseTag
 	bool mStillExists;
 	bool mShared;
 	CMD5 mMD5;
+	long mSponsor;
 };
 
 // ---------------------------------------------------------------------- File Browser
 
-BEGIN_MESSAGE_MAP(CFileBrowser, CListCtrl)
+BEGIN_MESSAGE_MAP(CFileBrowser, CXMListCtrl)
 
 	//windowing
 	ON_WM_CREATE()
@@ -714,7 +716,7 @@ BOOL CFileBrowser::PreCreateWindow(CREATESTRUCT &cs)
 int CFileBrowser::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	//let listctrl have first shot
-	if (CListCtrl::OnCreate(lpCreateStruct)!=0)
+	if (CXMListCtrl::OnCreate(lpCreateStruct)!=0)
 		return -1;
 
 	//create the imagelist
@@ -741,7 +743,7 @@ int CFileBrowser::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CFileBrowser::OnDestroy()
 {
 	//pass to list control
-	CListCtrl::OnDestroy();
+	CXMListCtrl::OnDestroy();
 
 	//stop the timer
 	KillTimer(1);
@@ -758,7 +760,7 @@ void CFileBrowser::OnContextMenu(CWnd* pWnd, CPoint pos)
 	int i = GetNextItem(-1, LVNI_SELECTED);
 	if (i == -1)
 		return;
-	XMFileBrowseTag *ptag = (XMFileBrowseTag*)GetItemData(i);	
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));	
 	i = ptag->mShared?0:1;
 
 	//show menu
@@ -771,7 +773,7 @@ void CFileBrowser::OnIndexFile()
 	int i = GetNextItem(-1, LVNI_SELECTED);
 	if (i == -1)
 		return;
-	XMFileBrowseTag *tag = (XMFileBrowseTag*)GetItemData(i);
+	XMFileBrowseTag *tag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
 	if (!tag->mShared)
 		return;
 
@@ -783,9 +785,6 @@ void CFileBrowser::OnIndexFile()
 	{
 		QueryBuildIndex(file);
 	}
-
-	//HACK: db should stay locked the whole time, but that would cause lots
-	//of other threads to block while the window is up.
 }
 
 void CFileBrowser::OnShareFile()
@@ -797,7 +796,7 @@ void CFileBrowser::OnShareFile()
 	while (i != -1)
 	{
 		//share the file
-		tag = (XMFileBrowseTag*)GetItemData(i);
+		tag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
 		if (!tag->mShared)
 		{
 			file = db()->AddFile(tag->mPath);
@@ -825,7 +824,7 @@ void CFileBrowser::OnUnshareFile()
 	while (i != -1)
 	{
 		//unshare the file
-		tag = (XMFileBrowseTag*)GetItemData(i);
+		tag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
 		if (tag->mShared)
 		{
 			file = db()->FindFile(tag->mMD5.GetValue(), false);
@@ -850,12 +849,25 @@ const char* CFileBrowser::GetSelectedPath()
 	int i = GetNextItem(-1, LVNI_SELECTED);
 	if (i<0)
 		return NULL;
-	XMFileBrowseTag *ptag = (XMFileBrowseTag*)GetItemData(i);
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
 	if (!ptag)
 		return NULL;
 
 	//NOTE: don't store pointer without copying it!
 	return ptag->mPath;
+}
+
+long CFileBrowser::GetSelectedSponsor()
+{
+	//return the path
+	int i = GetNextItem(-1, LVNI_SELECTED);
+	if (i<0)
+		return XMSPONSOR_NONE;
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
+	if (!ptag)
+		return XMSPONSOR_NONE;
+	
+	return ptag->mSponsor;
 }
 
 CBitmap* CFileBrowser::GetSelectedBitmap()
@@ -864,7 +876,7 @@ CBitmap* CFileBrowser::GetSelectedBitmap()
 	int i = GetNextItem(-1, LVNI_SELECTED);
 	if (i<0)
 		return NULL;
-	XMFileBrowseTag *ptag = (XMFileBrowseTag*)GetItemData(i);
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(i));
 	if (!ptag)
 		return NULL;
 
@@ -902,10 +914,13 @@ void CFileBrowser::OnFilesDeleteItem(NMHDR* pnmh, LRESULT* pResult)
 {
 	//just call delete against the lparam
 	LPNMLISTVIEW pnmlv = (LPNMLISTVIEW)pnmh;
-	XMFileBrowseTag *ptag = (XMFileBrowseTag*)pnmlv->lParam;
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)pnmlv->lParam);
 	if (ptag->mdwWorkItemId!=0xFFFFFFFF)
 		ar()->CancelItem(ptag->mdwWorkItemId);
 	delete ptag;
+	
+	//now free our xmlistctrl wrapper
+	FreeData((Data*)pnmlv->lParam);
 }
 
 LRESULT CFileBrowser::OnAsyncResize(WPARAM wParam, LPARAM lParam)
@@ -947,7 +962,7 @@ LRESULT CFileBrowser::OnAsyncResize(WPARAM wParam, LPARAM lParam)
 	for (int j=0;j<GetItemCount();j++)
 	{
 		//is this the item?
-		ptag = (XMFileBrowseTag*)GetItemData(j);
+		ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(j));
 		if (ptag->mdwWorkItemId == id)
 		{
 			//update
@@ -967,7 +982,7 @@ void CFileBrowser::OnFilesGetDispInfo(NMHDR* pnmh, LRESULT* pResult)
 	//get disp info, tag
 	LPNMLVDISPINFOA pdi = (LPNMLVDISPINFOA)pnmh;
 	LPLVITEMA plvi = &pdi->item;
-	XMFileBrowseTag *ptag = (XMFileBrowseTag*)plvi->lParam;
+	XMFileBrowseTag *ptag = (XMFileBrowseTag*)ExtractParam((Data*)plvi->lParam);
 
 	//if we have a work item already, ignore this
 	if (ptag->mdwWorkItemId!=0xFFFFFFFF)
@@ -1014,6 +1029,18 @@ void CFileBrowser::OnFilesGetDispInfo(NMHDR* pnmh, LRESULT* pResult)
 			{
 				sprintf(text, "%s - Shared", ptag->mName);
 				plvi->pszText = text;
+			}
+			
+			//is this a sponsored image?
+			if (pfile->GetSponsor() != XMSPONSOR_NONE)
+			{
+				//outline in orange
+				Data* d = (Data*)plvi->lParam;
+				d->bgColor = XMCOLOR_SPONSOR;
+				d->bgPaint = TRUE;
+
+				//fill in the tags sponsor flag
+				ptag->mSponsor = pfile->GetSponsor();
 			}
 
 			//success
@@ -1114,7 +1141,7 @@ void CFileBrowser::UpdateBrowser()
 	//existing items
 	for (x=0;x<GetItemCount();x++)
 	{
-		ptag = (XMFileBrowseTag*)GetItemData(x);
+		ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(x));
 		ptag->mStillExists = false;
 	}
 
@@ -1168,7 +1195,8 @@ void CFileBrowser::UpdateBrowser()
 					//when the listitem is actually displayed
 					if (!found)
 					{
-						lvi.lParam = (LPARAM)new XMFileBrowseTag(filepath, find.GetFilePath());
+						lvi.lParam = (LPARAM)EncaseParam(
+							new XMFileBrowseTag(filepath, find.GetFilePath()));
 						lvi.iItem = GetItemCount();
 						InsertItem(&lvi);
 					}
@@ -1202,7 +1230,7 @@ void CFileBrowser::UpdateBrowser()
 	//turned back on have been deleted
 	for (x=GetItemCount()-1;x>=0;x--)
 	{
-		ptag = (XMFileBrowseTag*)GetItemData(x);
+		ptag = (XMFileBrowseTag*)ExtractParam((Data*)GetItemData(x));
 		if (!ptag->mStillExists)
 		{	
 			DeleteItem(x);
