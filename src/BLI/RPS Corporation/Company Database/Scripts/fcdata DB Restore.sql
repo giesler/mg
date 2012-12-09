@@ -13,10 +13,10 @@ PRINT 'Restoring database...'
 go
 
 RESTORE DATABASE fcdata 
-	FROM  DISK = N'C:\Program Files\Microsoft SQL Server\MSSQL\BACKUP\fcdata_db_200101251900.BAK' 
+	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\fcdata_db_200101251900.BAK' 
 	WITH  FILE = 1,  NOUNLOAD ,  STATS = 10,  RECOVERY ,  REPLACE ,  
-	MOVE N'fcdata_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL\DATA\fcdata.ldf',  
-	MOVE N'fcdata_data' TO N'C:\Program Files\Microsoft SQL Server\MSSQL\DATA\fcdata.mdf'
+	MOVE N'fcdata_log' TO N'D:\SQL Data Files\MSSQL\DATA\fcdata.ldf',  
+	MOVE N'fcdata_data' TO N'D:\SQL Data Files\MSSQL\DATA\fcdata.mdf'
 go
 
 
@@ -30,6 +30,9 @@ sp_password @new='fcuser', @loginame='fcuser'
 go
 
 sp_change_users_login 'auto_fix', 'bli_dbo'
+go
+
+sp_password @new='120960011014', @loginame='bli_dbo'
 go
 
 PRINT 'Updating stats...'

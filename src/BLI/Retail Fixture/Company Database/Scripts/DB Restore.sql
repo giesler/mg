@@ -12,10 +12,10 @@ PRINT 'Restoring database...'
 go
 
 RESTORE DATABASE rfcdata 
-	FROM  DISK = N'E:\SQL Data\MSSQL\BACKUP\010801rfcdata' 
+	FROM  DISK = N'D:\SQL Data Files\MSSQL\BACKUP\010801rfcdata' 
 	WITH  FILE = 1,  NOUNLOAD ,  STATS = 10,  RECOVERY ,  REPLACE ,  
-	MOVE N'rfcdata_log' TO N'E:\SQL Data\MSSQL\DATA\rfcdata.ldf',  
-	MOVE N'rfcdata_dat' TO N'E:\SQL Data\MSSQL\DATA\rfcdata.mdf'
+	MOVE N'rfcdata_log' TO N'D:\SQL Data Files\MSSQL\DATA\rfcdata.ldf',  
+	MOVE N'rfcdata_dat' TO N'D:\SQL Data Files\MSSQL\DATA\rfcdata.mdf'
 go
 
 
@@ -29,6 +29,9 @@ sp_password @new='rfcuser', @loginame='rfcuser'
 go
 
 sp_change_users_login 'auto_fix', 'bli_dbo'
+go
+
+sp_password @new='120960011014', @loginame='bli_dbo'
 go
 
 sp_updatestats
