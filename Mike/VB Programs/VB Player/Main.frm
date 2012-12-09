@@ -8,17 +8,17 @@ Begin VB.Form frmMain
    ClientHeight    =   5760
    ClientLeft      =   165
    ClientTop       =   735
-   ClientWidth     =   8625
+   ClientWidth     =   8490
    ClipControls    =   0   'False
    FillColor       =   &H8000000F&
    ForeColor       =   &H8000000F&
    LinkTopic       =   "Form1"
    ScaleHeight     =   5760
-   ScaleWidth      =   8625
+   ScaleWidth      =   8490
    StartUpPosition =   3  'Windows Default
    Begin TabDlg.SSTab tb1 
       Height          =   4215
-      Left            =   240
+      Left            =   120
       TabIndex        =   8
       Top             =   1440
       Width           =   8295
@@ -43,24 +43,24 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "lblFind"
-      Tab(2).Control(1)=   "txtFind"
-      Tab(2).Control(2)=   "cmdFind"
-      Tab(2).Control(3)=   "lvFind"
+      Tab(2).Control(0)=   "lvFind"
+      Tab(2).Control(1)=   "cmdFind"
+      Tab(2).Control(2)=   "txtFind"
+      Tab(2).Control(3)=   "lblFind"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Utilities"
       TabPicture(3)   =   "Main.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label4"
-      Tab(3).Control(1)=   "cmdNewFileCheck"
+      Tab(3).Control(0)=   "cmdNewFileCheck"
+      Tab(3).Control(1)=   "Label4"
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Options"
       TabPicture(4)   =   "Main.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Label2"
-      Tab(4).Control(1)=   "Label1"
-      Tab(4).Control(2)=   "udQueueCount"
-      Tab(4).Control(3)=   "txtQueueCount"
+      Tab(4).Control(0)=   "txtQueueCount"
+      Tab(4).Control(1)=   "udQueueCount"
+      Tab(4).Control(2)=   "Label1"
+      Tab(4).Control(3)=   "Label2"
       Tab(4).ControlCount=   4
       Begin VB.TextBox txtQueueCount 
          Height          =   285
@@ -266,7 +266,7 @@ Begin VB.Form frmMain
          _Version        =   327681
          Value           =   100
          BuddyControl    =   "txtQueueCount"
-         BuddyDispid     =   196612
+         BuddyDispid     =   196609
          OrigLeft        =   6720
          OrigTop         =   3720
          OrigRight       =   6960
@@ -322,7 +322,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   7560
+      Left            =   7440
       TabIndex        =   7
       Top             =   960
       Width           =   975
@@ -339,19 +339,19 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   6480
+      Left            =   6360
       TabIndex        =   6
       Top             =   960
       Width           =   975
    End
    Begin VB.Timer tmrUpdateSlider 
       Interval        =   500
-      Left            =   7080
+      Left            =   6960
       Top             =   3000
    End
    Begin VB.TextBox txtLog 
       Height          =   975
-      Left            =   120
+      Left            =   0
       MultiLine       =   -1  'True
       TabIndex        =   3
       Top             =   6840
@@ -360,7 +360,7 @@ Begin VB.Form frmMain
    End
    Begin MSComctlLib.Slider sldCurSong 
       Height          =   255
-      Left            =   120
+      Left            =   0
       TabIndex        =   2
       Top             =   1080
       Width           =   6255
@@ -373,7 +373,7 @@ Begin VB.Form frmMain
    End
    Begin MSComctlLib.Slider sldVolume 
       Height          =   255
-      Left            =   6840
+      Left            =   6720
       TabIndex        =   11
       Top             =   240
       Width           =   1695
@@ -391,14 +391,14 @@ Begin VB.Form frmMain
    Begin VB.Label lblTime 
       Alignment       =   2  'Center
       Height          =   255
-      Left            =   6480
+      Left            =   6360
       TabIndex        =   20
       Top             =   600
       Width           =   2055
    End
    Begin MediaPlayerCtl.MediaPlayer wmp2 
       Height          =   975
-      Left            =   4920
+      Left            =   4800
       TabIndex        =   19
       Top             =   6240
       Visible         =   0   'False
@@ -474,14 +474,14 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   6960
+      Left            =   6840
       TabIndex        =   12
       Top             =   0
       Width           =   1335
    End
    Begin VB.Label lblID 
       Height          =   255
-      Left            =   6480
+      Left            =   6360
       TabIndex        =   5
       Top             =   840
       Visible         =   0   'False
@@ -489,7 +489,7 @@ Begin VB.Form frmMain
    End
    Begin MediaPlayerCtl.MediaPlayer wmp 
       Height          =   975
-      Left            =   2520
+      Left            =   2400
       TabIndex        =   4
       Top             =   6240
       Visible         =   0   'False
@@ -564,7 +564,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   360
+      Left            =   240
       TabIndex        =   1
       Top             =   240
       Width           =   6135
@@ -580,7 +580,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   240
+      Left            =   120
       TabIndex        =   0
       Top             =   600
       Width           =   6255
@@ -609,6 +609,7 @@ Begin VB.Form frmMain
          End
          Begin VB.Menu mnuQueueEditSong 
             Caption         =   "&Edit Song"
+            Shortcut        =   ^E
          End
          Begin VB.Menu mnuQueueBlank1 
             Caption         =   "-"
@@ -682,7 +683,7 @@ Public Enum ActiveList
 End Enum
 
 Private Sub cmdFind_Click()
-'On Error GoTo errHandler
+On Error GoTo errHandler
 
     Dim li As ListItem, strSQL As String, rs As ADODB.Recordset
     
@@ -865,10 +866,12 @@ Private Sub Form_Load()
     Set fStatus = New frmStatus
     tb1.Tab = 0
     mnuShortcutMenus.Visible = False
-        
+    mnuFile.Visible = False
+    
     Left = GetSetting("VBPlayer", Name, "Left", Left)
     Top = GetSetting("VBPlayer", Name, "Top", Top)
     udQueueCount.Value = Val(GetSetting("VBPlayer", "Settings", "QueueCount", "5"))
+    Height = 6150
     
     Show
     Refresh
@@ -970,6 +973,14 @@ Private Sub lv_DblClick()
     
 End Sub
 
+Private Sub lv_KeyDown(KeyCode As Integer, Shift As Integer)
+
+    If KeyCode = vbKeyA Then
+        mnuPlaylistAddtoQueue_Click
+    End If
+
+End Sub
+
 Private Sub lv_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
 
     If Button = vbRightButton Then
@@ -1002,6 +1013,20 @@ Private Sub lvQueue_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If KeyCode = vbKeyDelete Then
         mnuQueueRemoveVote_Click
+    ElseIf KeyCode = vbKeyR Then
+        mnuQueueRemove_Click
+    ElseIf KeyCode = vbKeyV Then
+        mnuQueueRemoveVote_Click
+    ElseIf KeyCode = vbKeyP Then
+        mnuQueuePlayNow_Click
+    ElseIf KeyCode = vbKeyE Then
+        mnuQueueEditSong_Click
+    ElseIf KeyCode = vbKeyU Then
+        mnuQueueUp_Click
+    ElseIf KeyCode = vbKeyD Then
+        mnuQueueDown_Click
+    ElseIf KeyCode = vbKeyQ Then
+        mnuQueueReset_Click
     End If
     
 End Sub
