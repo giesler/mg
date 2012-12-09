@@ -32,7 +32,7 @@
 Sub Application_OnStart
 	'==Visual InterDev Generated - startspan==
 	'--Project Data Connection
-		Application("cnWebDB_ConnectionString") = "Provider=SQLOLEDB.1;Persist Security Info=True;User ID=complus;Initial Catalog=webdb;Data Source=cheese;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=SNOW;Use Encryption for Data=False;Tag with column collation when possible=False;User Id=complus;PASSWORD=blaheek3;"
+		Application("cnWebDB_ConnectionString") = "Provider=SQLOLEDB.1;Persist Security Info=True;Initial Catalog=webdb;Data Source=cartman;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=SNOW;Use Encryption for Data=False;Tag with column collation when possible=False;User Id=complus;PASSWORD=blaheek3;"
 		Application("cnWebDB_ConnectionTimeout") = 15
 		Application("cnWebDB_CommandTimeout") = 30
 		Application("cnWebDB_CursorLocation") = 3
