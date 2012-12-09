@@ -8,13 +8,11 @@ go
 ALTER TABLE dbo.Tbl_PO
 	DROP CONSTRAINT FK_Tbl_PO_tblSold
 GO
-COMMIT
-BEGIN TRANSACTION
+
 ALTER TABLE dbo.Tbl_PO
 	DROP CONSTRAINT FK_Tbl_PO_tblSoldAttention
 GO
-COMMIT
-BEGIN TRANSACTION
+
 ALTER TABLE dbo.Tbl_PO
 	DROP CONSTRAINT DF__TemporaryUps__ID__440B1D61
 GO
@@ -201,8 +199,7 @@ ALTER TABLE dbo.Tbl_PO WITH NOCHECK ADD CONSTRAINT
 	apkSold
 	)
 GO
-COMMIT
-BEGIN TRANSACTION
+
 ALTER TABLE dbo.Tbl_PO_Items WITH NOCHECK ADD CONSTRAINT
 	Tbl_PO_Items_FK01 FOREIGN KEY
 	(
@@ -238,12 +235,58 @@ GO
 SET ANSI_NULLS ON 
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_Report_CurrentBuildSummary]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_Report_CurrentBuildSummary]
+GO
 
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS OFF 
+GO
+
+
+CREATE PROCEDURE dbo.sp_Report_CurrentBuildSummary
+	@ShipFromDate nvarchar(20) = null, 
+	@ShipToDate nvarchar(20) = null,
+	@SoldName nvarchar(100) = null,
+	@StoreNo nvarchar(100) = null
+AS
+IF @ShipFromDate IS NULL
+	SELECT @ShipFromDate = '1/1/1900'
+IF @ShipToDate IS NULL
+	SELECT @ShipToDate = '1/1/2100'
+SELECT poi.Material, cat.Description, cat.Inventory, Sum(poi.Quanity) AS SumOfQuanity, po.SoldName, po.RefNum
+FROM Tbl_Catalog cat
+	INNER JOIN Tbl_PO_Items poi ON poi.Material = cat.Material
+	INNER JOIN Tbl_PO po ON po.ID = poi.ID
+WHERE po.Credit = 0 AND po.Ship_Date Between @ShipFromDate And @ShipToDate AND po.CancelPO = 0
+	AND (po.Status <> 'Complete' Or po.Status Is Null)
+	AND CASE 
+		WHEN @SoldName IS NULL THEN 1  
+		WHEN po.SoldName Like @SoldName THEN 1 
+		 ELSE 0 END  = 1
+	AND CASE
+		WHEN @StoreNo IS NULL THEN 1
+		WHEN po.Ship_StoreNo = @StoreNo THEN 1
+		ELSE 0 END = 1
+GROUP BY poi.Material, cat.Description, cat.Inventory, po.SoldName, po.RefNum
+GO
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+ALTER TABLE dbo.Tbl_PO ADD
+	ReplyToEmail nvarchar(50) NULL
+GO
 
 insert ztblReleaseNotes (Date, MajorVersion, MinorVersion, Notes)
 values ('8/4/2001', 3.22, 0, '- Modified database to only work on monitors with at least 800x600 screen resolution
 - Added ''Blanket PO'' field to PO page
 - Added ''Sold To'' address information to PO page
+- Added ''Ref #'' to ''Current Build Summary'' inventory report
+- Added ''Reply To Email'' to PO page, as well as a button to start a new email
+- Added an easy way to search for materials in the RFC Catalog screen by material (top of screen)
 ')
 go
 
