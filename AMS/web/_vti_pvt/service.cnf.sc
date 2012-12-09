@@ -7,6 +7,7 @@ vti_categories:VR|Travel Expense\\ Report Business Competition Goals/Objectives 
 vti_navbuttonnextlabel:SR|Next
 vti_sourcecontrolcookie:SX|D:\\vss\\srcsafe.ini
 vti_sourcecontrolproject:SR|$/ams/web
+vti_textindexood:IR|0
 vti_approvallevels:VR|Content\\ Review Legal\\ Review Code\\ Review Manager\\ Review
 vti_timecreated:TR|03 May 2001 04:32:49 -0000
 vti_extenderversion:SR|4.0.2.4324
