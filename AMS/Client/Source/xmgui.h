@@ -42,7 +42,7 @@ bool QueryBuildIndex(CXMDBFile* file);
 void QueryFastIndexer();
 bool QueryDownloadIndexes(CWnd *parent);
 
-// ---------------------------------------------------------------------------- Web Browser
+// ---------------------------------------------------------------------------------- Web Browser
 // xmgui.cpp
 
 class CAdvert : public CWnd
@@ -62,6 +62,38 @@ public:
 	void Refresh();
 };
 
+// ------------------------------------------------------------------------------------ Tray Icon
+// xmgui.cpp
+
+class CTrayIcon : public CCmdTarget
+{
+protected:  
+	DECLARE_DYNAMIC(CTrayIcon)
+	NOTIFYICONDATA m_nid;
+	
+	// struct for Shell_NotifyIcon args
+public:   
+	CTrayIcon(UINT uID);
+	~CTrayIcon();
+	
+	// Call this to receive tray notifications
+	void SetNotificationWnd(CWnd* pNotifyWnd, UINT uCbMsg);
+
+	// SetIcon functions. To remove icon, call SetIcon(0) 
+	BOOL SetIcon(UINT uID);
+	BOOL SetIcon(HICON hicon, LPCSTR lpTip);   
+	BOOL SetIcon(LPCTSTR lpResName, LPCSTR lpTip)
+	{
+		return SetIcon(lpResName ?          
+			AfxGetApp()->LoadIcon(lpResName) : NULL, lpTip);
+	}
+	BOOL SetStandardIcon(LPCTSTR lpszIconName, LPCSTR lpTip)
+	{
+		return SetIcon(::LoadIcon(NULL, lpszIconName), lpTip);
+	} 
+
+	virtual LRESULT OnTrayNotification(WPARAM uID, LPARAM lEvent);
+};
 
 // ---------------------------------------------------------------------------- Shared Files
 // xmguishared.cpp
@@ -628,6 +660,14 @@ protected:
 	afx_msg void OnUpdateConnect(CCmdUI* pCmdUI);
 	afx_msg void OnExit();
 
+	//tray
+	bool mClosing;
+	afx_msg void OnClose();
+	afx_msg LRESULT OnTrayNotification(WPARAM wp, LPARAM lp);
+	afx_msg void OnTrayShow();
+	afx_msg void OnTrayOptions();
+	LRESULT OnTaskBarCreated(WPARAM wp, LPARAM lp);
+
 	//updates from pipeline
 	bool StaticInit();
 	void StaticClose();
@@ -643,6 +683,7 @@ protected:
 	CStatic mLogo;					//IDC_LOGO
 	CXMGUIStatus mStatus;
 	CAdvert mAdvert;				//IDC_ADVERT
+	CTrayIcon mTray;
 
 	//IDC_NETMON
 	//IDC_BANNER

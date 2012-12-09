@@ -64,8 +64,13 @@ class CXMSessionManager;
 //	wparam: BOOL, detail
 //	lparam: strdup'd message
 
+#define XM_TRAYICON	XM_MSGBASE+8
+//msg sent by tray icon
+//	wparam: see win32 docs
+//	lparam:
+
 #define XM_MINMSG	XM_MSGBASE+0	//used to filter msgs
-#define XM_MAXMSG	XM_MSGBASE+7	//
+#define XM_MAXMSG	XM_MSGBASE+8	//
 
 //SESSION STATES
 #define XM_CLOSED		0

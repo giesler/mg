@@ -126,6 +126,19 @@ public:
 	}
 };
 
+bool DoPasswordCheck()
+{
+	CPasswordProtect dlg(NULL);
+	dlg.m_strPassword = config()->GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
+	dlg.m_iTry = 3;
+	if (dlg.DoModal()!=IDOK ||
+		dlg.m_bFailed)
+	{	
+		return false;
+	}
+	return true;
+}
+
 // ---------------------------------------------------------------------- Win App
 
 
@@ -210,14 +223,8 @@ BOOL CXMClientApp::InitInstance()
 	//password protected?
 	if (config()->GetFieldBool(FIELD_LOGIN_PROTECT_ENABLE))
 	{
-		CPasswordProtect dlg(NULL);
-		dlg.m_strPassword = config()->GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
-		dlg.m_iTry = 3;
-		if (dlg.DoModal()!=IDOK ||
-			dlg.m_bFailed)
-		{	
+		if (!DoPasswordCheck())
 			return FALSE;
-		}
 	}
 
 	//setup database

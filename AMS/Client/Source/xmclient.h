@@ -406,6 +406,8 @@ private:
 //about box
 void DoAbout(CWnd *parent);
 
+bool DoPasswordCheck();
+
 //utility function
 IXMLDOMDocument* CreateXmlDocument();
 void BuildFilePath(char* buf, const char* filename);
