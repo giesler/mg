@@ -7,6 +7,7 @@ Begin VB.Form frmMP3Util
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   4980
+   Icon            =   "frmMusicUtils.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -115,7 +116,7 @@ Begin VB.Form frmMP3Util
       EndProperty
       Height          =   495
       Left            =   120
-      Picture         =   "frmMusicUtils.frx":0000
+      Picture         =   "frmMusicUtils.frx":030A
       ScaleHeight     =   495
       ScaleWidth      =   615
       TabIndex        =   4
