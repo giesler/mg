@@ -3,7 +3,7 @@
 Option Explicit
 dim strOffset
 strOffset = "../../"
-dim cn, rs, blnBadLogin, strID, strLogin, strEmail, strSubsribe
+dim cn, rs, blnBadLogin, strID, strLogin, strEmail, strSubsribe, blnEmailVerified
 if Request("id") = "" then
 	Response.Redirect("../")
 end if
@@ -18,11 +18,16 @@ else
 	strLogin = rs.Fields("Login")
 	strEmail = rs.Fields("Email")
 	strSubsribe = CInt(rs.Fields("Subsribe"))
+	if rs.Fields("EmailVerified") then
+		blnEmailVerified = true
+	else
+		blnEmailVerified = false
+	end if
 end if
 rs.Close
 cn.Close
 
-if blnBadLogin then response.Redirect("../?fail=1")
+if blnBadLogin then response.Redirect("../?err=login")
 
 
 %>
@@ -52,6 +57,11 @@ if blnBadLogin then response.Redirect("../?fail=1")
 			<a href="subscribe.asp?id=<%=strID%>&subscribe=<%=strSubsribe%>">Change my mailling 
 				preference</a>
 		</p>
+		<% if not blnEmailVerified then %>
+		<p>
+			<a href="verify.asp?id=<%=strId%>">Verify my email address</a>.
+		</p>
+		<% end if %>
 		<!-- #include file="../../_footer.asp"-->
 	</body>
 </html>

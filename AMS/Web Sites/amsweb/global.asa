@@ -16,6 +16,8 @@
 Sub Application_OnStart
 
 	Application("cnString") = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=True;Initial Catalog=xmcatalog;Data Source=amsdb01;Application Name=www"
+    Application("strSMTPServer") = "kyle"
+    Application("VerifyURL") = "http://ams/amsweb/account/verify/"
 	
 End Sub
 

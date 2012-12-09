@@ -71,7 +71,29 @@ if blnValidValues then
 		strErrs = strErrs & "Your username is already taken.  Please enter a new username.<br>"
 		blnValidValues = false
 	end if
+
+	' if valid, send a mail if email was set
+	if blnValidValues and Request.Form("email") <> "" then
+
+		dim objMail, strBody
+		strBody = "<html><body>"
+		strBody = strBody & "<h3>Welcome to Adult Media Swapper</h3>"
+		strBody = strBody & "<p>Welcome <b>" & Request.Form("un") & "</b>!</p>"
+		strBody = strBody & "<p>Click <a href=""http://adultmediaswapper.com/support/software/tutorial/"">here</a> for a short tutorial on using AMS.</p>"
+		strBody = strBody & "<p>Click <a href=""" & Application("VerifyURL") & "?id=" & Mid(rs.Fields(1).Value,3) & "&vid=" & Mid(rs.Fields(2).Value, 3) & """>here</a>"
+		strBody = strBody & " to verify your email address"
+		if Request.Form("referemail") <> "" then
+			strBody = strBody & "<br><i>You must verify your email address to give credit to the person that referred you to AMS.</i>"
+		end if
+		strBody = strBody & "</p>"
+		strBody = strBody & "</body></html>"
 	
+		set objMail = Server.CreateObject("BLIMAIL.SMTP")
+		objMail.SendMail Application("strSMTPServer"), "maillist@adultmediaswapper.com", Request.Form("email"), "Welcome to AMS", strBody, "text/html"
+		set objMail = nothing
+
+	end if
+
 	cn.Close
 	set cn = nothing
 	
@@ -127,7 +149,7 @@ function checkform() {
 		f.email.focus();
 		return false;
 	}
-	if (f.email.value != '' && f.referemail.value == '') {
+	if (f.email.value == '' && f.referemail.value != '') {
 		alert('Please enter your email address for confirmation - otherwise the person referring you will not get credit.');
 		f.email.focus();
 		return false;

@@ -119,6 +119,20 @@ select case strErrNo
 						links on the left to navigate to the file or folder you would like.
 					</p>
 					<%
+	case "500-100"
+%>
+					<p class="req">
+						An unknown error has occurred. Please use the links on the lef tto navigate to 
+						the file or folder you would like.<!-- Error code #38101 -->
+					</p>
+					<%
+	case "500"
+%>
+					<p class="req">
+						An unknown error has occurred. Please use the links on the lef tto navigate to 
+						the file or folder you would like.<!-- Error code #38102 -->
+					</p>
+					<%
 	case else
 %>
 					<p class="req">

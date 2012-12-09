@@ -15,21 +15,18 @@ set cn = nothing
 	
 %>
 <html>
-<head>
-<title>Adult Media Swapper - Thanks</title>
-<link rel="stylesheet" type="text/css" href="../../../ams.css">
-</head>
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19>
-
-<!-- #include file="../../../_header.asp"-->
-
-<h3>Suggestion</h3>
-
-<p>
-Thanks!  Your feedback is appreciated.
-</p>
-
-<!-- #include file="../../../_footer.asp"-->
-
-</body>
+	<head>
+		<title>Adult Media Swapper - Thanks</title>
+		<link rel="stylesheet" type="text/css" href="../../../ams.css">
+	</head>
+	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
+		<!-- #include file="../../../_header.asp"-->
+		<h3>
+			Suggestion
+		</h3>
+		<p>
+			Thanks! Your feedback is appreciated.
+		</p>
+		<!-- #include file="../../../_footer.asp"-->
+	</body>
 </html>

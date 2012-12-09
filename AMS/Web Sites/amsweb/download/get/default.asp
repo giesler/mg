@@ -82,7 +82,7 @@ function checkform() {
 						</td>
 					</tr>
 					<tr>
-						<td colSpan="2" align="right">
+						<td colspan="2" align="right">
 							<input type="submit" value="Download" onclick="return checkform()">
 						</td>
 					</tr>

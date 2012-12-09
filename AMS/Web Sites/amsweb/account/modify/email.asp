@@ -14,7 +14,17 @@ if Request.Form("email") <> "" then
 	cn.Execute "sp_Web_UpdateEmail 0x" & strID & ", '" & Replace(Request("Email"), "'", "''") & "'"
 	cn.Close
 	blnUpdated = true
+
+	if Request.Form("email") <> "" then
+		set cn = Server.CreateObject("ADODB.Connection")
+		cn.Open Application("cnString")
+		cn.Execute "sp_Web_UpdateEmail 0x" & strID & ", '" & Replace(Request("Email"), "'", "''") & "'"
+		cn.Close
+		blnUpdated = true
+	end if
+
 end if
+
 strEmail = Request("email")
 
 %>

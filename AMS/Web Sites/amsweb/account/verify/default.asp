@@ -3,55 +3,55 @@
 Option Explicit
 dim strOffset
 strOffset = "../../"
-dim cn, rs, blnBadLogin, strID, strLogin, strEmail, strSubsribe
+dim cn, rs, strID, strValidateID, blnValidateOK
+
 if Request("id") = "" then
 	Response.Redirect("../")
 end if
 strID = Request("id")
+if Request("vid") = "" then
+	Response.Redirect("../?err=vid")
+end if
+strValidateID = Request("vid")
 
 set cn = Server.CreateObject("ADODB.Connection")
 cn.Open Application("cnString")
-set rs = cn.Execute("sp_Web_GetAccountByID 0x" & strID)
+set rs = cn.Execute("sp_Web_SetVerifyEmail 0x" & strID & ", 0x" & strValidateID)
 if rs.BOF and rs.EOF then
-	blnBadLogin = true
+	blnValidateOK = false
+elseif rs.Fields(0).Value = "0" then
+	blnValidateOK = true
 else
-	strLogin = rs.Fields("Login")
-	strEmail = rs.Fields("Email")
-	strSubsribe = CInt(rs.Fields("Subsribe"))
+	blnValidateOK = true
 end if
 rs.Close
 cn.Close
 
-if blnBadLogin then response.Redirect("../?fail=1")
-
-
 %>
 <html>
 	<head>
-		<title>Adult Media Swapper - Modify Account</title>
+		<title>Adult Media Swapper - Email Address Verification</title>
 		<link rel="stylesheet" type="text/css" href="../../ams.css">
 	</head>
 	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
 		<!-- #include file="../../_header.asp"-->
 		<h3>
-			Modify Account Information
+			Email Address Verification
 		</h3>
+		<% if blnValidateOK then %>
 		<p>
-			<b>
-				<%=strLogin%>
-				, </b>what would you like to do?
+			<b>Your email account has been verified.</b>
 		</p>
 		<p>
-			<a href="email.asp?id=<%=strID%>&email=<%=Server.URLEncode(strEmail)%>">Change the 
-				email address AMS has on file (<b><%=strEmail%></b>)</a>
+			If you would like to modify other account information, click <a href="../modify/?id=<%=strId%>">
+				here</a>.
 		</p>
+		<% else %>
 		<p>
-			<a href="pw.asp?id=<%=strID%>">Change my AMS password</a>
+			<b>The validation of your email address failed. Please try again by clicking <a href="../modify/verify.asp?id=<%=strId%>">
+					here</a></b>
 		</p>
-		<p>
-			<a href="subscribe.asp?id=<%=strID%>&subscribe=<%=strSubsribe%>">Change my mailling 
-				preference</a>
-		</p>
+		<% end if %>
 		<!-- #include file="../../_footer.asp"-->
 	</body>
 </html>

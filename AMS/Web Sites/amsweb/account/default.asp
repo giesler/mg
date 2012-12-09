@@ -14,7 +14,6 @@ if Request("un") <> "" then
 		blnBadLogin = true
 	else
 		id = rs.Fields("UserIDString").Value
-		
 	end if
 	rs.Close
 	cn.Close
@@ -77,6 +76,15 @@ function checkform() {
 		<p>
 			Login below to update your account information.
 		</p>
+		<% if Request("err") = "login" then %>
+		<p class="req">
+			Please login to access this area
+		</p>
+		<% elseif Request("err") = "vid" then %>
+		<p class="req">
+			Please login to send a validation message.
+		</p>
+		<% end if %>
 		<% if blnBadLogin then %>
 		<p class="req">
 			The username and password entered was not recognized.
