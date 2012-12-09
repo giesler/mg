@@ -170,7 +170,7 @@ void CCompletedView::OnThumbsClick(NMHDR* pnmh, LRESULT* pResult)
 	int i = mThumbs.GetNextItem(-1, LVNI_SELECTED);
 	if (i==-1)
 		return;
-	tag t = (tag)mThumbs.GetItemData(i);
+	tag t = (tag)mThumbs.ExtractParam((CXMListCtrl::Data*)mThumbs.GetItemData(i));
 
 	//decode jpeg data
 	CJPEGDecoder jpeg;
@@ -206,11 +206,14 @@ void CCompletedView::OnThumbsDeleteItem(NMHDR *pnmh, LRESULT* pResult)
 	}
 
 	//free tag
-	delete (tag)pnmlv->lParam;
+	CXMListCtrl::Data *d = (CXMListCtrl::Data*)pnmlv->lParam;
+	delete (tag)mThumbs.ExtractParam(d);
+	mThumbs.FreeData(d);
 }
 
 bool CCompletedView::InsertItem(tag t)
 {
+	CXMListCtrl::Data *d;
 	LVITEMA lvi;
 	cachefile *cf;
 	DWORD cacheindex;
@@ -285,10 +288,13 @@ bool CCompletedView::InsertItem(tag t)
 		t2 = (tag)malloc(sizeof(CXMClientManager::CompletedFile));
 		memcpy(t2, t, sizeof(CXMClientManager::CompletedFile));
 		
+		//build lparam
+		d = mThumbs.EncaseParam(t2);
+
 		//insert listview item
 		lvi.mask = LVIF_IMAGE|LVIF_PARAM|LVIF_TEXT;
 		lvi.iImage = n;
-		lvi.lParam = (LPARAM)t2;
+		lvi.lParam = (LPARAM)d;
 		lvi.pszText = sz;
 		lvi.iItem = mThumbs.GetItemCount();
 		lvi.iSubItem = 0;
@@ -450,7 +456,7 @@ LRESULT CCompletedView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 			//remove from listview
 			for (int i=0;i<mThumbs.GetItemCount();i++)
 			{
-				t = (tag)mThumbs.GetItemData(i);
+				t = (tag)mThumbs.ExtractParam((CXMListCtrl::Data*)mThumbs.GetItemData(i));
 				if (t->mMD5.IsEqual(utag->md5))
 				{
 					mThumbs.DeleteItem(i);
@@ -478,7 +484,7 @@ void CCompletedView::OnSave()
 	while (i != -1)
 	{
 		//last part of file is first 4 bytes of the md5
-		t = (tag)mThumbs.GetItemData(i);
+		t = (tag)mThumbs.ExtractParam((CXMListCtrl::Data*)mThumbs.GetItemData(i));
 		fname = BuildSavedFilename(t->mMD5.GetValue());
 		
 		//open the file
@@ -536,7 +542,7 @@ void CCompletedView::OnDelete()
 	while (i!=-1)
 	{
 		//look for the completed file index
-		t = (tag)mThumbs.GetItemData(i);
+		t = (tag)mThumbs.ExtractParam((CXMListCtrl::Data*)mThumbs.GetItemData(i));
 		for (j=0;j<cm()->GetCompletedFileCount();j++)
 		{	
 			t2 = cm()->GetCompletedFile(j);

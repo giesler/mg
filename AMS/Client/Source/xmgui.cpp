@@ -1487,7 +1487,9 @@ bool CFoldButton::Create(bool left, CWnd *parent, UINT idc, char* field)
 void CMainFrame::OnSearch(CXMQuery* query)
 {
 	//TODO: set post data detailing the query
-	mAdvert.Refresh();
+	//TEMP:BEGIN
+	//mAdvert.Refresh();
+	//TEMP:END
 }
 
 BOOL CAdvert::Create(

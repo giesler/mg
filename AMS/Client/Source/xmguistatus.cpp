@@ -452,7 +452,7 @@ LRESULT CXMGUIStatus::OnClientMessage(WPARAM wParam, LPARAM lParam)
 	CXMPipelineUpdateTag *tag = (CXMPipelineUpdateTag*)lParam;
 	CXMGUIQueryItem *pqi = NULL;
 
-	ULTag ult;
+	//ULTag ult;
 	switch (wParam)
 	{
 	case XM_CMU_QUEUE_ADD:
@@ -574,21 +574,14 @@ LRESULT CXMGUIStatus::OnClientMessage(WPARAM wParam, LPARAM lParam)
 		if (mTabState == XMGUI_UL)
 		{
 			cm()->Lock();
-			for (BYTE i=0;i<cm()->GetUploadSlotCount();i++)
+			BYTE i = cm()->FindUploadSlot(tag);
+			if (i!=-1)
 			{
-				ult = cm()->GetUploadSlot(i);
-				if (!ult->mIsThumb)
-				{
-					if (ult->mId.IsEqual(tag->md5))
-					{
-						//found.. what op?
-						if (wParam == XM_CMU_UPLOAD_START)
-							ULInsert(ult);
-						else
-							ULRemove(ult);
-						break;
-					}
-				}
+				//found.. what op?
+				if (wParam == XM_CMU_UPLOAD_START)
+					ULInsert(cm()->GetUploadSlot(i));
+				else
+					ULRemove(cm()->GetUploadSlot(i));	
 			}
 			cm()->Unlock();
 		}
@@ -687,7 +680,7 @@ void CXMGUIStatus::UpdateDownloadRibbon()
 
 void CXMGUIStatus::UpdateUploadRibbon()
 {
-	//count number of current downloads
+	//count number of current uploads
 	cm()->Lock();
 	int x = 0;
 	for(BYTE i=0;i<cm()->GetUploadSlotCount();i++)
@@ -1074,6 +1067,7 @@ void CXMGUIStatus::DLRefreshProgress()
 	char sz[MAX_PATH+1];
 	DLTagD t;
 	CMD5* md5;
+	cm()->Lock();
 	for (int i=0;i<mFiles.GetItemCount();i++)
 	{
 		md5 = (CMD5*)mFiles.GetItemData(i);
@@ -1100,6 +1094,7 @@ void CXMGUIStatus::DLRefreshProgress()
 			}
 		}
 	}
+	cm()->Unlock();
 
 	//mFiles.RedrawWindow();
 }

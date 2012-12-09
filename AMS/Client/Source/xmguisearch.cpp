@@ -6,6 +6,81 @@
 #include "xmpipeline.h"
 #include "xmgui.h"
 
+// ----------------------------------------------------------------------------- Colored Listview
+
+BEGIN_MESSAGE_MAP(CXMListCtrl, CListCtrl)
+	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
+END_MESSAGE_MAP()
+
+afx_msg void CXMListCtrl::OnCustomDraw(NMHDR *p, LRESULT* result)
+{
+	//different processing for each state
+	LPNMLVCUSTOMDRAW lvcd = (LPNMLVCUSTOMDRAW)p;
+    LPNMCUSTOMDRAW   nmcd = &lvcd->nmcd;
+	switch (nmcd->dwDrawStage)
+	{
+	case CDDS_PREPAINT:
+
+		//we want item prepaint notifications
+		*result = CDRF_NOTIFYPOSTERASE|CDRF_NOTIFYITEMDRAW;
+		break;
+
+	case CDDS_ITEMPREPAINT:
+	
+		//get our itemdata
+		if (nmcd->lItemlParam)
+		{
+			//should we paint?
+			CXMListCtrl::Data *d = (CXMListCtrl::Data*)nmcd->lItemlParam;
+			if (d->bgPaint)
+			{
+				//figure out our rect
+				CRect r;
+				GetItemRect(nmcd->dwItemSpec, r, LVIR_BOUNDS);
+				r.InflateRect(0, 3, 0, 0);
+
+				//paint our background
+				HBRUSH b = ::CreateSolidBrush(d->bgColor);
+				::FillRect(nmcd->hdc, r, b);
+				::DeleteObject(b);
+
+				//set the font bgcolor and font color
+				lvcd->clrText = RGB(255,255,255);
+				lvcd->clrTextBk = d->bgColor;
+				//*result = CDRF_NEWFONT;
+			}
+		}
+		*result = CDRF_DODEFAULT;
+		break;
+	
+	//default handling for all other notifications
+	default:
+		*result = CDRF_DODEFAULT;
+		break;
+	}
+}
+
+CXMListCtrl::Data* CXMListCtrl::EncaseParam(LPVOID param)
+{
+	Data* d = new Data;
+	d->bgColor = RGB(0,0,0);
+	d->bgPaint = FALSE;
+	d->data = param;
+	return d;
+}
+
+LPVOID CXMListCtrl::ExtractParam(CXMListCtrl::Data* data)
+{
+	ASSERT(data);
+	return data->data;
+}
+
+void CXMListCtrl::FreeData(CXMListCtrl::Data* data)
+{
+	ASSERT(data);
+	delete data;
+}
+
 // ----------------------------------------------------------------------------------- State Stuff
 
 //static data
@@ -546,11 +621,12 @@ void CSearchView::OnThumbsDeleteItem(NMHDR *pnmh, LRESULT* pResult)
 {
 	//free custom data
 	NMLISTVIEW *pnmlv = (NMLISTVIEW*)pnmh;
-	CXMGUIQueryItem *pqi;
+	//CXMGUIQueryItem *pqi;
 	if (pnmlv->lParam)
 	{
-		pqi = (CXMGUIQueryItem*)pnmlv->lParam;
+		//pqi = (CXMGUIQueryItem*)mThumbs.ExtractParam((CXMListCtrl::Data*)pnmlv->lParam);
 		//delete pqi;
+		mThumbs.FreeData((CXMListCtrl::Data*)pnmlv->lParam);
 	}
 }
 
@@ -576,13 +652,15 @@ void CSearchView::OnContextMenu(CWnd* pWnd, CPoint pos)
 void CSearchView::OnDownload()
 {
 	//begin downloading each of the selected thumbnails
+	CXMListCtrl::Data *data;
 	CXMGUIQueryItem *pqi;
 	int i = -1;
 	cm()->Lock();
 	while ((i=mThumbs.GetNextItem(i, LVNI_SELECTED))!=-1)
 	{
 		//start the download
-		pqi = (CXMGUIQueryItem*)mThumbs.GetItemData(i);
+		data = (CXMListCtrl::Data*)mThumbs.GetItemData(i);
+		pqi = (CXMGUIQueryItem*)mThumbs.ExtractParam(data);
 		cm()->EnqueueFile(pqi->mQueryResponseItem, false, 0, 0);
 	}
 	cm()->Unlock();
@@ -778,9 +856,10 @@ LRESULT CSearchView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 			mThumbs.SetItem(&lvi);
 
 			//if everything is in, start another download
-			/*
-			x = 0;
-			pos = mQueryItems.GetHeadPosition();
+			//TEMP:BEGIN
+			POSITION pos = mQueryItems.GetHeadPosition();
+			int x = 0;
+			CXMGUIQueryItem *pqi2;
 			while (pos)
 			{
 				pqi2 = mQueryItems.GetNext(pos);
@@ -794,7 +873,8 @@ LRESULT CSearchView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 			{
 				OnSearchSearch();
 			}
-			*/
+			//TEMP:END
+			
 		}
 		break;
 
@@ -853,6 +933,7 @@ void CSearchView::ShowResults()
 	LVITEMA lvi;
 	CXMGUIQueryItem *pqi;
 	POSITION pos = mQueryItems.GetHeadPosition();
+	CXMListCtrl::Data *data;
 	while (pos)
 	{	
 		//get the item
@@ -863,14 +944,24 @@ void CSearchView::ShowResults()
 			pqi->mQueryResponseItem->mWidth,
 			pqi->mQueryResponseItem->mHeight);
 
+		//setup data
+		data = mThumbs.EncaseParam(pqi);
+		if (pqi->mQueryResponseItem->mAlreadyGotIt)
+		{
+			//we already have this file, color it blue
+			data->bgPaint = TRUE;
+			data->bgColor = RGB(0, 0, 196);	//royal
+		}
+
 		//insert into listview
 		lvi.mask = LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
 		lvi.iItem = mThumbs.GetItemCount();
 		lvi.iSubItem = 0;
 		lvi.iImage = pqi->mImage;
-		lvi.lParam = (LPARAM)pqi;
+		lvi.lParam = (LPARAM)data;
 		lvi.pszText = buf;
 		pqi->mItem = mThumbs.InsertItem(&lvi);
+
 	}
 }
 

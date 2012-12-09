@@ -588,17 +588,20 @@ inline void	CXMDB::SetUserId(const BYTE* value) {
 //------------------------------------------------------------------
 //													  Inlines - File
 
+//NOTE:	Fields which are read-only no longer
+//		syncronize access to themselves
+
 inline BYTE* CXMDBFile::GetMD5() {
-	Lock();
+	//Lock();
 	BYTE* temp = mDiskFile.md5;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
 inline char* CXMDBFile::GetPath() {
-	Lock();
+	//Lock();
 	char* temp = (char*)mDiskFile.path;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
@@ -610,30 +613,30 @@ inline bool CXMDBFile::GetFlag(BYTE flag) {
 }
 
 inline DWORD CXMDBFile::GetFileSize() {
-	Lock();
+	//Lock();
 	DWORD temp = mDiskFile.filesize;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
 inline diskindex* CXMDBFile::GetIndex() {
-	Lock();
+	//Lock();
 	diskindex* temp = &mDiskFile.index;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
 inline DWORD CXMDBFile::GetWidth() {
-	Lock();
+	//Lock();
 	DWORD temp = mDiskFile.width;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
 inline DWORD CXMDBFile::GetHeight() {
-	Lock();
+	//Lock();
 	DWORD temp = mDiskFile.height;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 

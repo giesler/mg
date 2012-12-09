@@ -879,7 +879,10 @@ bool CXMSession::SendChunk()
 	while (true) {
 
 		//get next chunk
-		chunksize = netout.Pop(&chunk, SEND_CHUNK);
+		//TEMP:BEGIN
+		chunksize = netout.Pop(&chunk, /*SEND_CHUNK*/256);
+		Sleep(100);
+		//TEMP:END
 
 		//was there anything?
 		if (chunksize<1) {

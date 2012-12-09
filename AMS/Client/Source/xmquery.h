@@ -98,6 +98,7 @@ public:
 	DWORD mWidth, mHeight, mSize;
 	CXMQueryResponseItemHost mHosts[5];
 	BYTE mHostsCount;
+	BOOL mAlreadyGotIt;
 
 	//misc
 	BYTE FindHost();

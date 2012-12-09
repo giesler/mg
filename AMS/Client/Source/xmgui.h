@@ -48,6 +48,35 @@ bool QueryBuildIndex(CXMDBFile* file);
 void QueryFastIndexer();
 bool QueryDownloadIndexes(CWnd *parent);
 
+// -------------------------------------------------------------------------------- CXMListCtrl
+// xmguisearch.cpp
+
+class CXMListCtrl : public CListCtrl
+{
+public:
+
+	//store an lparam, plus our data
+	struct Data
+	{
+		//background painting
+		BOOL bgPaint;
+		COLORREF bgColor;
+
+		//owner data
+		LPVOID data;
+	};	
+	CXMListCtrl::Data* EncaseParam(LPVOID param);
+	LPVOID ExtractParam(CXMListCtrl::Data* data);
+	void FreeData(CXMListCtrl::Data* data);
+
+protected:
+
+	//drawing
+	afx_msg void OnCustomDraw(NMHDR *pNotifyStruct, LRESULT* result);
+
+	DECLARE_MESSAGE_MAP()
+};
+
 // -------------------------------------------------------------------------------- Web Browser
 // xmgui.cpp
 
@@ -407,7 +436,7 @@ protected:
 	CToolBarCtrl mSavedTools;		//IDC_SEARCH_SAVEDTOOLS
 	CButton mSavedFrame;			//IDC_SEARCH_SAVEDFRAME
 	CComboBox mSavedList;			//IDC_SEARCH_SAVEDLIST
-	CListCtrl mThumbs;				//IDC_SEARCH_THUMBS
+	CXMListCtrl mThumbs;				//IDC_SEARCH_THUMBS
 
 	//toolbar buttons
 	afx_msg void OnSearchSearch();
@@ -519,7 +548,7 @@ protected:
 
 	//controls
 	CImageViewer mPreview;
-	CListCtrl mThumbs;
+	CXMListCtrl mThumbs;
 	CSmartImageList mThumbsImages;
 	CVerticalSplitter mSplitter;
 	CButton mSave, mDelete;

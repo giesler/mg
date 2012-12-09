@@ -1004,6 +1004,13 @@ HRESULT CXMQueryResponseItem::FromXml(IXMLDOMElement* e)
 	}
 	COM_RELEASE(list);
 
+	//we look into our current database and see
+	//if this file is already local
+	if (db()->FindFile(mMD5.GetValue(), false))
+		mAlreadyGotIt = TRUE;
+	else
+		mAlreadyGotIt = FALSE;
+
 	//success
 	return S_OK;
 

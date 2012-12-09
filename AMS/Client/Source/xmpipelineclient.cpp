@@ -900,13 +900,13 @@ DWORD CXMClientManager::EnqueueFile(CXMQueryResponseItem* item,
 {
 	//do we already have this item?
 	db()->Lock();
-	CXMDBFile *file = db()->FindFile(item->mMD5.GetValue(), false);
-	if (file)
+	if (item->mAlreadyGotIt)
 	{
 		//if its a thumbnail, just pretend like we downloaded it
 		if (thumb)
 		{
 			//get the proper sized thumbnail
+			CXMDBFile *file = db()->FindFile(item->mMD5.GetValue(), false);
 			CXMDBThumb *t = file->GetThumb(width, height);
 			if (t)
 			{

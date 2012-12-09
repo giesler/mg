@@ -53,7 +53,7 @@ CXMMessageQueue::CXMMessageQueue()
 	mCountOut = 0;
 
 	//initialize critical section
-	InitializeCriticalSection(&mSync);
+	//InitializeCriticalSection(&mSync);
 }
 
 CXMMessageQueue::~CXMMessageQueue()
@@ -72,7 +72,7 @@ CXMMessageQueue::~CXMMessageQueue()
 	Unlock();
 
 	//free critical section
-	DeleteCriticalSection(&mSync);
+	//DeleteCriticalSection(&mSync);
 }
 
 void CXMMessageQueue::Push(CXMMessage* msg)

@@ -191,14 +191,14 @@ private:
 	int mCountIn;			//track all messages into the queue
 	int mCountOut;			//track all message out of the queue
 
-	CRITICAL_SECTION mSync;
+	//CRITICAL_SECTION mSync;
 	
 	bool ExpandBuffer();	//expand buffer, re-pack the queue
 	void Lock() {
-		EnterCriticalSection(&mSync);
+		//EnterCriticalSection(&mSync);
 	};
 	void Unlock()
 	{
-		LeaveCriticalSection(&mSync);
+		//LeaveCriticalSection(&mSync);
 	};
 };
