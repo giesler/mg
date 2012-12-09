@@ -5,7 +5,7 @@ dim strOffset, strFile, strOnLoad, strSite, strAltSite
 strOffset = "../../"
 strSite = "http://download1.adultmediaswapper.com/"
 strAltSite = "http://download.adultmediaswapper.com/"
-strFile = "AMSInstall_070.exe"
+strFile = "AMSInstall_080.exe"
 
 if Request.Form("agree") = "n" then
 	Response.Redirect("http://www.google.com")
@@ -59,7 +59,7 @@ function checkform() {
 			</ol>
 		</p>
 		<p>
-			The AMS version 0.70 download is approxiately 900kb. It will only take a few 
+			The AMS version 0.80 download is approxiately 900kb. It will only take a few 
 			minutes to download.
 		</p>
 		<form name="f" id="f" method="post" action="default.asp">
