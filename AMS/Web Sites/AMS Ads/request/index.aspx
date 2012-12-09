@@ -10,7 +10,7 @@
   </head>
   <body MS_POSITIONING="GridLayout">
 	
-    <form id="default" method="post" runat="server">
+    <form id="index" method="post" runat="server">
 
      </form>
 	

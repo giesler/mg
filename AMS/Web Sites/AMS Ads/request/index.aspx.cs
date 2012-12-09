@@ -12,11 +12,11 @@ using System.Web.UI.HtmlControls;
 namespace AMS_Ads.request
 {
 	/// <summary>
-	/// Summary description for Cdefault.
+	/// Summary description for index.
 	/// </summary>
-	public class Cdefault : System.Web.UI.Page
+	public class index : System.Web.UI.Page
 	{
-		public Cdefault()
+		public index()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
 		}
