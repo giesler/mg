@@ -76,6 +76,10 @@ Your download should begin shortly.  If it does not start automatically, click <
 to start your download.
 </p>
 
+<p>
+<a href="../../support/software/tutorial/">Click here</a> for a short tutorial on using the Adult Media Swapper program.
+</p>
+
 <% end if %>
 
 <!-- #include file="../../_footer.asp"-->

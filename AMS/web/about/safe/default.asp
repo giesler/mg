@@ -9,7 +9,7 @@ strOffset = "../../"
 <title>Adult Media Swapper - Safe Surfing</title>
 <link rel="stylesheet" type="text/css" href="../../ams.css">
 </head>
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link=#E22000 vlink=#bf0400 alink=#ef1c19>
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" link="#E22000" vlink="#bf0400" alink="#ef1c19">
 
 <!-- #include file="../../_header.asp"-->
 
@@ -21,7 +21,7 @@ submitted our site to the following safe surfing companies:
 </p>
 
 <ul>
-	<li><a href="http://www.icra.org"><IMG height=31 alt="We Rated With RSACi" src="http://www.icra.org/images/rsacirated.gif" width=96 border=0></a></li>
+	<li><a href="http://www.icra.org"><img alt="We Rated With RSACi" src="us_aw_88x311.gif" border="0" WIDTH="88" HEIGHT="31"></a></li>
 	<li><a href="http://www.netnanny.com">Net Nanny</a></li>
 	<li><a href="http://www.surfcontrol.com">SurfControl</a></li>
 	<li><a href="http://www.cyberpatrol.com">CyberPatrol</a></li>
