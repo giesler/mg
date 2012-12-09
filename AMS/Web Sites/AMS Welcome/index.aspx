@@ -3,7 +3,6 @@
 <html>
 	<head>
 		<title>Adult Media Swapper</title>
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 		<link rel="stylesheet" type="text/css" href="ams.css">
 	</head>
 	<body topmargin="0" leftmargin="0" link="#e22000" vlink="#bf0400" alink="#ef1c19" rightmargin="0" bottommargin="0">
@@ -111,15 +110,15 @@
 											<p>
 												<font color="gray" size="-1"><i>July 20, 12:00 AM Central</i></font>
 												<br>
-												We had so many requests from users to see their current ranking in the contest, 
-												so we added a top score in the new 'AMS Stats' section on the left.
+												We had so many requests from users to see their current ranking in the contest 
+												that we added a top score in the new 'AMS Stats' section on the left.
 											</p>
 											<p>
 												<font color="gray" size="-1"><i>July 11, 9:00 PM Central</i></font>
 												<br>
 												We fixed a small bug with the score display on your left. Users behind 
-												firewalls received a message 'Temporarily Unavailable'. Those users score now 
-												accurately reflects any indexing done - no points were lost or not credited due 
+												firewalls received a message 'Temporarily Unavailable'. Those user's scores now 
+												accurately reflect any indexing done - no points were lost or not credited due 
 												to this bug.
 											</p>
 											<p>
@@ -166,13 +165,16 @@
 		<table width="100%" align="center" background="img/bottom_wash.gif" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="10">
-					<img src="img/trans.gif" height="30" width="30">
+					<img src="img/trans.gif" width="10" height="30">
+				</td>
+				<td>
+					<asp:hyperlink id="lnkRefresh" runat="server" forecolor="silver" font-size="8" font-underline="false">refresh page</asp:hyperlink>
 				</td>
 				<td align="right" valign="bottom">
 					<font size="-2" color="silver">© 2001, Line 2 Systems</font>
 				</td>
 				<td width="10">
-					<img src="img/trans.gif" width="10" height="10">
+					<img src="img/trans.gif" width="10" height="30">
 				</td>
 			</tr>
 		</table>

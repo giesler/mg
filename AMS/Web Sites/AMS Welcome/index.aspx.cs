@@ -25,6 +25,7 @@ namespace AMS_Welcome
 		protected System.Web.UI.WebControls.Label lblScore;
 		protected System.Web.UI.WebControls.Label lblTopIndexScore;
 		protected System.Web.UI.WebControls.Label lblTotalUniqueFiles;
+		protected System.Web.UI.WebControls.HyperLink lnkRefresh;
 		public String featureAdTitle;
 
 		public index()
@@ -112,6 +113,9 @@ namespace AMS_Welcome
 
 				// close connection
 				cn.Close();
+
+				// update link
+				lnkRefresh.NavigateUrl = Request.RawUrl;
 			}
 
 			catch (Exception excep) 
