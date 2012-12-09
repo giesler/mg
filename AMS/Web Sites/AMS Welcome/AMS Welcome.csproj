@@ -87,6 +87,54 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "_Featured.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "_Featured.ascx.cs"
+                    DependentUpon = "_Featured.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "_Featured.ascx.resx"
+                    DependentUpon = "_Featured.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "_News.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "_News.ascx.cs"
+                    DependentUpon = "_News.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "_News.ascx.resx"
+                    DependentUpon = "_News.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "_Stats.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "_Stats.ascx.cs"
+                    DependentUpon = "_Stats.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "_Stats.ascx.resx"
+                    DependentUpon = "_Stats.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AMS Welcome.vsdisco"
                     BuildAction = "None"
                 />

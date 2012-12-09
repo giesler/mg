@@ -1,3 +1,7 @@
-System.Web.UI.WebControls.HyperLink, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
-System.Web.UI.WebControls.Label, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.UserControl, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.WebControls.Image, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.WebControls.DataList, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 System.Web.UI.Page, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.WebControls.Label, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.WebControls.HyperLink, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.UI.WebControls.Repeater, System.Web, Version=1.0.2411.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
