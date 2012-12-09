@@ -359,12 +359,11 @@ public:
 	
 	//Login
 	bool LoginUI();
-	bool Login(const char *username, const char *password);
+	bool Login(const char *username, CMD5 *password);
 	bool LoginCancel();
 	bool LoginIsLoggedIn();
 	CMD5 LoginGetSession();
 	char* LoginGetUsername();
-	char* LoginGetPassword();
 
 	//auto-update
 	bool AuRequest();		//send request to server
@@ -419,7 +418,8 @@ protected:
 	bool mLoggedIn;
 	bool mLoginCanceled;
 	CMD5 mSessionID;
-	char *mUsername, *mPassword;
+	char *mUsername;
+	CMD5 mPassword;
 
 	//au data
 	bool mAuComplete;
@@ -481,6 +481,8 @@ private:
 	BYTE m_nState;
 	CString m_strUsername;
 	CString m_strPassword;
+	CMD5 m_hashPassword;
+	bool m_bUseHashPassword;
 	bool m_bShowingQuestion;
 
 	//status interface data

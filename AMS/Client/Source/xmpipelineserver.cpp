@@ -107,8 +107,10 @@ CXMServerManager::~CXMServerManager()
 	//free username and such
 	if (mUsername)
 		free(mUsername);
+	/*
 	if (mPassword)
 		free(mPassword);
+	*/
 
 	//free motd data
 	if (mMotdType)
@@ -222,7 +224,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			mLimiterMaxFilter = atoi(msg->GetField("limitfilter")->GetValue(false));
 			
 			//get xml of listing
-			bool full = (strcmp(msg->GetField("listing")->GetValue(false), "full")==0)?true:false;
+			bool full = (strcmp(msg->GetField("listingsize")->GetValue(false), "full")==0)?true:false;
 			if (!SendListing(full))
 			{
 				SendEvent(XM_SERVERMSG, XM_SMU_LOGIN_ERROR, (LPARAM)"Failed to build file listing.");
@@ -734,7 +736,7 @@ bool CXMServerManager::QueryBegin(CXMQuery *query)
 	//check the new query
 	Lock();
 	if (!LimiterIndex(&query->mQuery) ||
-		!LimiterIndex(&query->mRejection))
+		!LimiterFilter(&query->mRejection))
 	{
 		return false;
 	}
@@ -827,7 +829,7 @@ bool CXMServerManager::LoginUI()
 	return (CLoginDialog().DoModal()==IDOK);
 }
 
-bool CXMServerManager::Login(const char *username, const char *password)
+bool CXMServerManager::Login(const char *username, CMD5 *password)
 {
 	//must not be logged in
 	Lock();
@@ -852,13 +854,30 @@ bool CXMServerManager::Login(const char *username, const char *password)
 	if (mUsername && username) {
 		free(mUsername);
 	}
+	/*
 	if (mPassword && password) {
 		free(mPassword);
 	}
+	*/
 	if (username)
 		mUsername = strdup(username);
 	if (password)
-		mPassword = strdup(password);
+		mPassword = *password;
+
+	//count the number of files that the server should know about.. the server checks
+	//this against its databse and tells us if it wants our entire db, or just the
+	//new stuff
+	db()->Lock();
+	DWORD n = 0;
+	CXMDBFile *f;
+	for (DWORD i=0;i<db()->GetFileCount();i++)
+	{
+		f = db()->GetFile(i);
+		if ((f->GetFlag(DFF_KNOWN) && !f->GetFlag(DFF_REMOVED)) ||
+			(!f->GetFlag(DFF_KNOWN) && f->GetFlag(DFF_REMOVED)))
+			n++;
+	}
+	db()->Unlock();
 
 	//send the login message
 	CXMMessage *msg = new CXMMessage(mServer);
@@ -868,8 +887,9 @@ bool CXMServerManager::Login(const char *username, const char *password)
 	msg->GetField("datarate")->SetValue(config()->GetField(FIELD_NET_DATARATE), false);
 	msg->GetField("system")->SetValue(config()->RegGetSystemID().GetString(), true);
 	msg->GetField("username")->SetValue(mUsername, true);
-	msg->GetField("password")->SetValue(mPassword, true);
+	msg->GetField("password")->SetValue(mPassword.GetString(), true);
 	msg->GetField("version")->SetValue(app()->Version(), true);
+	msg->GetField("filecount")->SetValue(n);
 	if (!msg->Send()) {
 		delete msg;
 		Unlock();
@@ -913,14 +933,6 @@ char* CXMServerManager::LoginGetUsername()
 {
 	Lock();
 	char* temp = mUsername;
-	Unlock();
-	return temp;
-}
-
-char* CXMServerManager::LoginGetPassword()
-{
-	Lock();
-	char* temp = mPassword;
 	Unlock();
 	return temp;
 }
@@ -1163,6 +1175,8 @@ CLoginDialog::CLoginDialog(CWnd* pParent /*=NULL*/)
 	m_hThread = NULL;
 	m_dwThreadId = 0;
 	InitializeCriticalSection(&m_cs);
+
+	m_bUseHashPassword = false;
 }
 
 void CLoginDialog::OnSignup()
@@ -1342,7 +1356,8 @@ BOOL CLoginDialog::OnInitDialog(void)
 	{
 		//read the username and password
 		m_strUsername = config()->GetField(FIELD_LOGIN_AUTO_USERNAME, false);
-		m_strPassword = config()->GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+		m_hashPassword = config()->GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+		m_bUseHashPassword = true;
 
 		//start login
 		DoLogin();
@@ -1403,6 +1418,7 @@ void CLoginDialog::OnClickedLoginbutton()
 	UpdateData(TRUE);
 
 	//start the login
+	m_bUseHashPassword = false;
 	DoLogin();
 }
 
@@ -1422,7 +1438,21 @@ void CLoginDialog::DoLogin()
 	{
 		//send the login message
 		SetState(LDS_LOGINSEND);
-		if (!sm()->Login(m_strUsername, m_strPassword)) {
+
+		//generate md5 from password
+		CMD5 md5;
+		if (m_bUseHashPassword)
+		{
+			md5 = m_hashPassword;
+		}
+		else
+		{
+			md5.FromBuf((BYTE*)m_strPassword.LockBuffer(), m_strPassword.GetLength());
+			m_strPassword.UnlockBuffer();
+		}
+
+		//start login
+		if (!sm()->Login(m_strUsername, &md5)) {
 			AfxMessageBox("Error starting login.");
 		}
 	}

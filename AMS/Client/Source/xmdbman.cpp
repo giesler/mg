@@ -216,7 +216,7 @@ bool CXMDBManager::_ScanDirectory(CString path)
 			continue;
 
 		//in the db already?
-		CXMDBFile *xmfile = mDB->FindFile(str);
+		CXMDBFile *xmfile = mDB->FindFile(str, true);	//NOTE: should we look for DFF_REMOVED files too?
 		if (xmfile)
 		{
 			//file sizes must match
@@ -299,7 +299,7 @@ char* CXMDBManager::BuildFileListing(bool full)
 
 		//create listing element
 		COMCALL(xml->createElement(bflListing, &listing));
-		//COMCALL(listing->setAttribute(bflType, full ? _variant_t("full") : _variant_t("partial")));
+		COMCALL(listing->setAttribute(bflType, full ? _variant_t("full") : _variant_t("partial")));
 		COMCALL(fragment->appendChild(listing, &node));
 
 		//walk file list

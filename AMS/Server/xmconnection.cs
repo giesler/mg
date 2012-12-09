@@ -40,6 +40,7 @@ namespace XMedia
 		public int Datarate;
 		public bool Paying;
 		public string Version;
+		public int FileCount = 0;
 
 		public const int LimiterIndex = 3;
 		public const int LimiterFilter = 3;

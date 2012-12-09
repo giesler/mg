@@ -133,13 +133,16 @@ public:
 	}
 	CString GetNewPassword()
 	{
-		return mnewPassword;
+		CMD5 md5;
+		md5.FromBuf((BYTE*)mnewPassword.LockBuffer(), mnewPassword.GetLength());
+		mnewPassword.UnlockBuffer();
+		return CString(md5.GetString());
 	}
 
 protected:
 	
 	//vars
-	CString moldPassword;
+	CMD5 moldPassword;
 	CString moldPasswordGuess;
 	CString mnewPassword;
 	CString mverifyPassword;
@@ -154,15 +157,24 @@ protected:
 		//do checks
 		if (pDX->m_bSaveAndValidate)
 		{
-			if (moldPassword!=moldPasswordGuess)
+			//generate md5 from password guess
+			CMD5 md5;
+			md5.FromBuf((BYTE*)moldPasswordGuess.LockBuffer(), moldPasswordGuess.GetLength());
+			moldPasswordGuess.UnlockBuffer();
+
+			//compare old passwod
+			if (!moldPassword.IsEqual(md5))
 			{
 				AfxMessageBox("Incorrect password.");
 				pDX->Fail();
 			}
-			if (mnewPassword!=mverifyPassword)
+			else
 			{
-				AfxMessageBox("New passwords do not match.  You must re-type your new password identically in both the 'New Password' and 'Verify New Password' boxes.");
-				pDX->Fail();
+				if (mnewPassword!=mverifyPassword)
+				{
+					AfxMessageBox("New passwords do not match.  You must re-type your new password identically in both the 'New Password' and 'Verify New Password' boxes.");
+					pDX->Fail();
+				}
 			}
 		}
 	}
@@ -286,7 +298,10 @@ private:
 			DDX_Check(pDX, IDC_RECONNECT, mReconnect_Enable);
 			DDX_Text(pDX, IDC_RECONNCT_DELAY, mReconnect_Delay);
 			DDX_Text(pDX, IDC_USERNAME, mAutoLogin_Username);
-			DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
+			if (pDX->m_bSaveAndValidate)
+				DDX_Text(pDX, IDC_PASSWORD, mAutoLogin_Password);
+			else
+				DDX_Text(pDX, IDC_PASSWORD, CString(""));
 			DDV_MinMaxInt(pDX, mReconnect_Delay, 1, 1440);
 			if (!pDX->m_bSaveAndValidate)
 			{
@@ -1218,6 +1233,10 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml)
 	BSTR tempstr;
 	char* a;
 
+	//upgrade stuff
+	char *sz;
+	bool upgrade = false;
+
 	//dont allow access to the config during
 	//this operations
 	ENTER();
@@ -1230,7 +1249,8 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml)
 	if (strcmp(_bstr_t(var.bstrVal), app()->Version()))
 	{
 		//versions are different
-		//TODO: config version upgrade code
+		//HACK: do better checking
+		upgrade = true;
 	}
 
 	//load all field nodes
@@ -1275,6 +1295,30 @@ bool CXMClientConfig::Load(IXMLDOMDocument* xml)
 	COM_RELEASE(root);
 	COM_RELEASE(nodes);
 	COM_RELEASE(xml);
+
+	//upgrade?
+	if (upgrade)
+	{
+		//convert any auto-login password to an md5
+		CMD5 md5;
+		sz = GetField(FIELD_LOGIN_AUTO_PASSWORD, false);
+		if (strlen(sz) > 0)
+		{
+			md5.FromBuf((BYTE*)sz, strlen(sz));
+			SetField(FIELD_LOGIN_AUTO_PASSWORD, md5.GetString());
+		}
+		sz = NULL;
+
+		//convert password protect password to md5
+		sz = GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
+		if (strlen(sz) > 0)
+		{
+			md5.FromBuf((BYTE*)sz, strlen(sz));
+			SetField(FIELD_LOGIN_PROTECT_PASSWORD, md5.GetString());
+		}
+		sz = NULL;
+	}
+
 	EXIT();
 	return true;
 

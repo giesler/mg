@@ -108,8 +108,15 @@ public:
 	{
 		if (pDX->m_bSaveAndValidate)
 		{
+			//get md5 of what they typed
 			DDX_Text(pDX, IDC_PWD, m_strGuess);
-			if (m_strGuess != m_strPassword)
+			CMD5 md5;
+			md5.FromBuf((BYTE*)m_strGuess.LockBuffer(), m_strGuess.GetLength());
+			m_strGuess.UnlockBuffer();
+
+			//compare to md5 of password
+			CMD5 pass = m_strPassword;
+			if (!md5.IsEqual(pass))
 			{
 				//one less try
 				m_iTry--;

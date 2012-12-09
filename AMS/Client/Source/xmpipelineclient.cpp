@@ -499,7 +499,7 @@ void CXMClientManager::OnFileRequest(CXMSession *ses, CXMMessage *msg)
 	Lock();
 	db()->Lock();
 	CXMMessage *reply;
-	CXMDBFile *f = db()->FindFile(md5.GetValue());
+	CXMDBFile *f = db()->FindFile(md5.GetValue(), false);
 	db()->Unlock();
 	if (!f)
 	{
@@ -780,7 +780,7 @@ DWORD CXMClientManager::EnqueueFile(CXMQueryResponseItem* item,
 {
 	//do we already have this item?
 	db()->Lock();
-	CXMDBFile *file = db()->FindFile(item->mMD5.GetValue());
+	CXMDBFile *file = db()->FindFile(item->mMD5.GetValue(), false);
 	if (file)
 	{
 		//if its a thumbnail, just pretend like we downloaded it

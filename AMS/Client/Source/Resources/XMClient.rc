@@ -1123,8 +1123,10 @@ IDC_HANDCLOSED          CURSOR  DISCARDABLE     "handclose.cur"
 
 IDR_IMAGE MENU DISCARDABLE 
 BEGIN
-    MENUITEM "Zoom &In\tMs. Wheel Up",      ID_ZOOMIN
-    MENUITEM "Zoom &Out\tMs. Wheel Down",   ID_ZOOMOUT
+    MENUITEM "Zoom &In\tWheel Up",          ID_ZOOMIN
+    MENUITEM "Zoom &Out\tWheel Down",       ID_ZOOMOUT
+    MENUITEM SEPARATOR
+    MENUITEM "Stretch",                     ID_FIT
 END
 
 IDR_THUMBNAIL MENU DISCARDABLE 

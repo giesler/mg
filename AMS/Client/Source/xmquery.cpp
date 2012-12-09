@@ -176,7 +176,7 @@ void CXMMediaListing::Apply()
 	{
 		//find db file
 		i = mItems.GetNext(pos);
-		f = db()->FindFile(i->md5.GetValue());
+		f = db()->FindFile(i->md5.GetValue(), true);
 		if (f)
 		{
 			//apply index

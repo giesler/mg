@@ -144,13 +144,14 @@ private:
 		while (pos)
 		{
 			i = ctrl.GetNextSelectedItem(pos);
-			file = db()->FindFile((BYTE*)ctrl.GetItemData(i));
+			file = db()->FindFile((BYTE*)ctrl.GetItemData(i), true);
 			if (file)
 			{
 				file->SetFlag(DFF_REMOVED, true);
-				j[k] = i;
-				k++;
+				file->SetFlag(DFF_KNOWN, false);
 			}
+			j[k] = i;
+			k++;
 		}
 
 		//remove from list
@@ -170,10 +171,14 @@ private:
 		if (i != -1)
 		{
 			db()->Lock();
-			CXMDBFile *file = db()->FindFile((BYTE*)ctrl->GetItemData(i));
+			CXMDBFile *file = db()->FindFile((BYTE*)ctrl->GetItemData(i), false);
 			if (file)
 			{
-				QueryBuildIndex(file);
+				if (QueryBuildIndex(file))
+				{
+					//reset 'x' flag in list ctrl
+					ctrl->SetItemText(i, 2, file->GetIndex()->data.IsBlank()?"":"x");
+				}
 			}
 			db()->Unlock();
 		}

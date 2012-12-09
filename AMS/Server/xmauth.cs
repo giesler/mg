@@ -119,9 +119,13 @@ namespace XMedia
 				throw new Exception("Session already logged in.");
 			}
 
-			//validate username and password
-			string sql = String.Format("select userid, paying, accesstoken from users where login='{0}' and password='{1}'",
-						username, password);
+			//load user data
+			string sql = String.Format(
+				@"select u.userid, u.password, u.paying, u.accesstoken,
+				(select count(*) from mediastorage ms where ms.userid = u.userid) as 'filecount'
+				from users u
+				where u.login='{0}'",
+				username);
 			ADODB._Recordset rs = mAdo.SqlExec(sql);
 			if (rs==null)
 			{
@@ -130,6 +134,20 @@ namespace XMedia
 			if (rs.EOF)
 			{
 				throw new Exception("Invalid login.");
+			}
+
+			//validate password... we now accept md5 shadows of the actual pwd
+			string pwd = rs.Fields["password"].Value.ToString();
+			if (pwd != password)
+			{
+				//plain text does not match.. generate md5s from the password
+				//in the db and compare to what was sent by the user
+				XMGuid passDB = XMMd5Engine.FromString(pwd);
+				XMGuid passLocal = new XMGuid(password);
+				if (!passDB.Equals(passLocal))
+				{
+					throw new Exception("Invalid login.");
+				}
 			}
 
 			//check the accesstoken.. if it ISNT null, this person is already
@@ -142,8 +160,7 @@ namespace XMedia
 			//get the userid, create the session id
 			XMGuid user = new XMGuid((byte[])rs.Fields[0].Value);
 			XMGuid session = new XMGuid(true);	//new session id
-			bool paying = /*beta2:*/System.Convert.ToBoolean(rs.Fields[1].Value);
-
+			
 			//update the database with the new session
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(200, 200);
 			sb.Append("insert into userslogins(AccessToken, DataRate, DateStamp, HostIP, UserID) ");
@@ -165,7 +182,8 @@ namespace XMedia
 			con.SessionID = session;
 			con.UserID = user;
 			con.Datarate = datarate;
-			con.Paying = paying;
+			con.Paying = Convert.ToBoolean(rs.Fields["paying"].Value);
+			con.FileCount = Convert.ToInt32(rs.Fields["filecount"].Value);
 
 			return session;
 		}

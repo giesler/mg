@@ -344,13 +344,14 @@
 #define ID_SHAREFILE                    32802
 #define ID_TRAY_SHOW                    32803
 #define ID_TRAY_OPTIONS                 32805
+#define ID_FIT                          32806
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        184
-#define _APS_NEXT_COMMAND_VALUE         32806
+#define _APS_NEXT_COMMAND_VALUE         32807
 #define _APS_NEXT_CONTROL_VALUE         1233
 #define _APS_NEXT_SYMED_VALUE           129
 #endif

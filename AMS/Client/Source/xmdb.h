@@ -276,8 +276,8 @@ public:
 	//file list access
 	CXMDBFile* AddFile(const char* path);
 	CXMDBFile* AddFile(const char* path, CMD5& md5, BYTE* buf, DWORD bufsize, DWORD width, DWORD height);
-	CXMDBFile* FindFile(BYTE* md5);
-	CXMDBFile* FindFile(const char* path);
+	CXMDBFile* FindFile(BYTE* md5, bool showremoved);
+	CXMDBFile* FindFile(const char* path, bool showremoved);
 	inline DWORD GetFileCount() {
 		Lock();
 		DWORD temp = mFileCount;

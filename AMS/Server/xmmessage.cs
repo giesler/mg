@@ -443,7 +443,7 @@ namespace XMedia
 		{
 			//read the datarate, username, password
 			XMMessage msg;
-			int dr;
+			int dr, files;
 			string u, p;
 			try 
 			{
@@ -476,6 +476,15 @@ namespace XMedia
 				msg.SetField("error", "Username and password must be specified.");
 				msg.Send();
 				return;
+			}
+			try
+			{
+				//get the file count
+				files = Convert.ToInt32(GetField("filecount").Value);
+			}
+			catch
+			{
+				files = 0;
 			}
 
 			//new version?
@@ -530,17 +539,27 @@ namespace XMedia
 			msg = CreateReply();
 			msg.SetField("success", "true");
 			msg.SetField("session", session.ToString());
-			msg.SetField("listing", "partial");		//dont need everything
+
+			//if the client has the same # of files as in xmcatalog, then
+			//we only need new stuff.. if the counts don't match, then they
+			//are proboly changed computers or something, and we need everytyhing
+			msg.SetField("listingsize", Connection.FileCount==files?"partial":"full");
+
+			//set limiters on the queries?
 			if(!Connection.Paying)
 			{
 				msg.SetField("limitindex", XMConnection.LimiterIndex);
 				msg.SetField("limitfilter", XMConnection.LimiterFilter);
 			}
+
+			//optional auto-upgrade info?
 			if (!auLatest)
 			{
 				msg.SetField("au/version", auVersion);
 				msg.SetField("au/required", auRequired);
 			}
+
+			//send the msg
 			msg.Send();
 
 			//update connection
@@ -612,8 +631,9 @@ namespace XMedia
 				}
 
 				//parse the string
-				/*beta2:*/ArrayList sc = new ArrayList();
-				string s = (string)field.Value;
+				//ArrayList sc = new ArrayList();
+				string[] s = ((string)field.Value).Split(';');
+				/*
 				int i = 0;
 				int j = s.IndexOf(';', i);
 				while (j!=-1)
@@ -622,7 +642,8 @@ namespace XMedia
 					i = j+1;
 					j = s.IndexOf(';', i);
 				}
-				if (sc.Count<1)
+				*/
+				if (s.Length<1)
 				{
 					//nothing
 					return;
@@ -634,11 +655,11 @@ namespace XMedia
 				sb.Append("from mediaindex mi ");
 				sb.Append("inner join media m on m.md5 = mi.md5 ");
 				sb.Append("where (");
-				foreach(string t in sc)
+				foreach(string t in s)
 				{
-					sb.AppendFormat("mi.md5={0} or ", new XMGuid(t).ToStringDB());
+					sb.AppendFormat("(mi.md5={0}) or ", new XMGuid(t).ToStringDB());
 				}
-				sb.Append(" 1 = 0) ");
+				sb.Append(" (1 = 0)) ");
 				sb.AppendFormat("and mi.userid = {0}", Connection.UserID.ToStringDB());
 				sql = sb.ToString();
 			}
@@ -702,12 +723,11 @@ namespace XMedia
 
 			//is this a full or partial?
 			string sql;
-			/*
 			if (Listing.Full)
 			{
 				//remove from media storage
-				//sql = "delete from mediastorage where userid = " + Connection.UserID.ToStringDB();
-				//mListingADO.SqlExec(sql);
+				sql = "delete from mediastorage where userid = " + Connection.UserID.ToStringDB();
+				mListingADO.SqlExec(sql);
 
 				//remove from media index
 				//sql = "delete from mediaindex where userid = " + Connection.UserID.ToStringDB();
@@ -717,8 +737,7 @@ namespace XMedia
 			{
 				//Debugger.Break();
 			}
-			*/
-
+			
 			//walk list of media items
 			XMGuid md5;
 			foreach(XMMediaItem mi in Listing.MediaItems)

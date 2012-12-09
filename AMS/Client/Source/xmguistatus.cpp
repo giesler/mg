@@ -786,7 +786,7 @@ void CXMGUIStatus::ULInsert(ULTag tag)
 
 	//get the thumbnail
 	db()->Lock();
-	CXMDBFile *f = db()->FindFile(tag->mMD5.GetValue());
+	CXMDBFile *f = db()->FindFile(tag->mMD5.GetValue(), true);
 	if (!f)
 	{
 		db()->Unlock();

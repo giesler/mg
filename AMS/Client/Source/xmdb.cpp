@@ -431,29 +431,30 @@ bool CXMDB::Flush()
 		file = mFiles[i];
 		file->mDiskFile.thumbnails = file->mThumbCount;
 
-		//write record if file still exists
-		if (!file->GetFlag(DFF_REMOVED))
-		{
+		//we can skip the record if the server doesnt know about it, and
+		//its already been removed (share, then immediate unshare)
+		//if (!file->GetFlag(DFF_REMOVED))
+		//{
 			j++;
 			//TRACE1("Writing file. Known: %d\n", file->GetFlag(DFF_KNOWN));
 			if (fwrite(&(file->mDiskFile), sizeof(file->mDiskFile), 1, mFile)!=1)
 				goto fail;
-		}
+		//}
 	}
 	mDiskHeader.filecount = j;	//only count files that aren't removed
 
 	//write thumbnail records
 	for (i=0;i<mFileCount;i++) {
 		file = mFiles[i];
-		if (!file->GetFlag(DFF_REMOVED))
-		{
+		//if (!file->GetFlag(DFF_REMOVED))
+		//{
 			for (j=0;j<file->mThumbCount;j++)
 			{
 				thumb = file->mThumbs[j];
 				if (fwrite(&(thumb->mDiskThumb), sizeof(thumb->mDiskThumb), 1, mFile)!=1)
 					goto fail;
 			}
-		}
+		//}
 	}
 
 	//write header
@@ -779,8 +780,21 @@ CXMDBFile* CXMDB::AddFile(const char* path)
 	//create new file object from path
 	Lock();
 
+	//is the file already in the db?
+	CXMDBFile *file = FindFile(path, true);
+	if (file)
+	{
+		//get rid of the REMOVED flag
+		if (file->GetFlag(DFF_REMOVED))
+		{
+			file->SetFlag(DFF_REMOVED, false);
+			file->SetFlag(DFF_KNOWN, false);
+		}
+		return file;
+	}
+
 	//create file
-	CXMDBFile *file = NULL;
+	file = NULL;
 	try {
 		file = new CXMDBFile(this, path);
 	}
@@ -806,14 +820,14 @@ CXMDBFile* CXMDB::AddFile(const char* path)
 	return file;
 }
 
-CXMDBFile* CXMDB::FindFile(const char* path)
+CXMDBFile* CXMDB::FindFile(const char* path, bool showremoved)
 {
 	//search for the given file
 	Lock();
 	for(DWORD i=0;i<mFileCount;i++)
 	{
 		if ((_stricmp(mFiles[i]->GetPath(), path)==0) &&
-			!mFiles[i]->GetFlag(DFF_REMOVED))
+			(!mFiles[i]->GetFlag(DFF_REMOVED) || showremoved))
 		{
 			Unlock();
 			return mFiles[i];
@@ -824,7 +838,7 @@ CXMDBFile* CXMDB::FindFile(const char* path)
 	return NULL;
 }
 
-CXMDBFile* CXMDB::FindFile(BYTE* md5)
+CXMDBFile* CXMDB::FindFile(BYTE* md5, bool showremoved)
 {
 	//search file list for the given md5
 	Lock();
@@ -834,7 +848,7 @@ CXMDBFile* CXMDB::FindFile(BYTE* md5)
 
 		//compare
 		if ((md5comp(mFiles[i]->mDiskFile.md5, md5)) &&
-			!mFiles[i]->GetFlag(DFF_REMOVED)) {
+			(!mFiles[i]->GetFlag(DFF_REMOVED) || showremoved)) {
 
 			//match
 			temp = mFiles[i];
@@ -872,11 +886,21 @@ CXMDBFile::CXMDBFile(CXMDB *db, const char* path, CMD5& md5, BYTE* buf, DWORD bu
 	InitShared(db);
 
 	//does this file already exist
-	CXMDBFile *f = db->FindFile(path);
+	CXMDBFile *f = db->FindFile(path, true);
 	if (!f)
-		f = db->FindFile(md5.GetValue());
+		f = db->FindFile(md5.GetValue(), true);
 	if (f)
+	{
+		//turn off the removed flag
+		if (f->GetFlag(DFF_REMOVED))
+		{
+			f->SetFlag(DFF_REMOVED, false);
+			f->SetFlag(DFF_KNOWN, false);
+		}
+
+		//but still throw
 		throw 0;
+	}
 	
 	//copy path, filesize, md5, widht, and height
 	strncpy((char*)mDiskFile.path, path, MAX_PATH);
@@ -988,7 +1012,7 @@ bool CXMDBFile::InitFromDB(FILE* file)
 bool CXMDBFile::InitFromFile(const char* path)
 {
 	//does this file already exist
-	CXMDBFile *f = db()->FindFile(path);
+	CXMDBFile *f = db()->FindFile(path, true);
 	if (f)
 	{
 		return false;

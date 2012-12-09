@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(CImageViewer, CWnd)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_ZOOMIN, OnZoomIn)
 	ON_COMMAND(ID_ZOOMOUT, OnZoomOut)
+	ON_COMMAND(ID_FIT, OnFit)
 	//ON_COMMAND(ID_FULLSCREEN, OnFullScreen)
 
 END_MESSAGE_MAP()
@@ -95,6 +96,7 @@ CImageViewer::CImageViewer()
 	mIsTracking = false;
 	bmp = NULL;
 	zoom = 1;
+	mFit = false;
 }
 
 CImageViewer::~CImageViewer()
@@ -159,7 +161,7 @@ void CImageViewer::OnPaint()
 	dcBmp.SelectObject(bmp);
 
 	//how should we stretch the image?
-	if (zoom<2)
+	if (mFit || zoom<2)
 	{
 		//zoomed out.. need to use halftone, or
 		//lots of color data is lost
@@ -187,6 +189,14 @@ void CImageViewer::OnPaint()
 		dc.FillSolidRect(0, 0, cr.Width(), borderTop, RGB(0,0,0));
 		dc.FillSolidRect(0, cr.Height()-borderTop, cr.Width(), borderTop, RGB(0,0,0));
 	}
+
+	//adjust cr because of fit?
+	if (mFit)
+	{
+		cr.DeflateRect(borderLeft, borderTop, borderLeft, borderTop);
+	}
+
+	//draw
 	dc.StretchBlt(
 			cr.left, cr.top, cr.Width(), cr.Height(), 
 			&dcBmp, viewport.left, viewport.top, viewport.Width(), viewport.Height(),
@@ -236,56 +246,90 @@ void CImageViewer::RecalcViewport()
 	}
 	CRect rectBitmap(0,0,b.bmWidth, b.bmHeight);
 
-	//scale the client area rect to the zoom size
-	viewport.right = (long)(viewport.right/zoomFactor[zoom]);
-	viewport.bottom = (long)(viewport.bottom/zoomFactor[zoom]);
-
-	//clip this rect to the bitmap size
-	if (viewport.right>rectBitmap.right)
+	//are we stretching?
+	if (mFit)
 	{
-		//center the viewport
-		borderLeft = 1+(int)(cr.Width() - rectBitmap.Width()*zoomFactor[zoom]) / 2;
-		origin.x = rectBitmap.Width()/2;
-		viewport.OffsetRect(-1*(viewport.Width()-rectBitmap.Width())/2, 0);
-	
+		//viewport is the dimensions of the bitmap
+		viewport = rectBitmap;
+
+		//calc ratios
+		float r1 = (float)rectBitmap.Width() / (float)rectBitmap.Height();
+		float r2 = (float)cr.Width() / (float)cr.Height();
+
+		//calc the borders
+		if (r1 == r2)
+		{
+			//exact same ratios
+			borderLeft = 0;
+			borderTop = 0;
+		}
+		else if (r1 > r2)
+		{
+			//wider, top & bottom borders
+			long h = (long)((float)rectBitmap.Height() / (float)rectBitmap.Width() * (float)cr.Width());
+			borderLeft = 0;
+			borderTop = (cr.Height()-h)/2;
+		}
+		else
+		{
+			//taller, left & right borders
+			long w = (long)((float)rectBitmap.Width() / (float)rectBitmap.Height() * (float)cr.Height());
+			borderTop = 0;
+			borderLeft = (cr.Width()-w)/2;
+		}
 	}
 	else
 	{
-		//no border
-		borderLeft = 0;
 
-		//check, adjust the origin
-		if(origin.x-(viewport.right/2)<0)
-			origin.x = viewport.right/2;
-		if(origin.x+(viewport.right/2)>rectBitmap.right)
-			origin.x = rectBitmap.right-(viewport.right/2);
-	
-		//position the viewport using origin
-		viewport.OffsetRect(origin.x-(viewport.right/2), 0);
+		//scale the client area rect to the zoom size
+		viewport.right = (long)(viewport.right/zoomFactor[zoom]);
+		viewport.bottom = (long)(viewport.bottom/zoomFactor[zoom]);
+
+		//clip this rect to the bitmap size
+		if (viewport.right>rectBitmap.right)
+		{
+			//center the viewport
+			borderLeft = 1+(int)(cr.Width() - rectBitmap.Width()*zoomFactor[zoom]) / 2;
+			origin.x = rectBitmap.Width()/2;
+			viewport.OffsetRect(-1*(viewport.Width()-rectBitmap.Width())/2, 0);
+		}
+		else
+		{
+			//no border
+			borderLeft = 0;
+
+			//check, adjust the origin
+			if(origin.x-(viewport.right/2)<0)
+				origin.x = viewport.right/2;
+			if(origin.x+(viewport.right/2)>rectBitmap.right)
+				origin.x = rectBitmap.right-(viewport.right/2);
+		
+			//position the viewport using origin
+			viewport.OffsetRect(origin.x-(viewport.right/2), 0);
+		}
+
+		if (viewport.bottom>rectBitmap.bottom)
+		{
+			//center the viewport
+			borderTop = 1+(int)(cr.Height() - rectBitmap.Height()*zoomFactor[zoom]) / 2;
+			origin.y = rectBitmap.Height()/2;
+			viewport.OffsetRect(0, -1*(viewport.Height()-rectBitmap.Height())/2);
+		}
+		else
+		{
+			//no border
+			borderTop = 0;
+
+			//check, adjust the origin
+			if(origin.y-(viewport.bottom/2)<0)
+				origin.y = viewport.bottom/2;
+			if(origin.y+(viewport.bottom/2)>rectBitmap.bottom)
+				origin.y = rectBitmap.bottom-(viewport.bottom/2);
+
+			//position the viewport using origin
+			viewport.OffsetRect(0, origin.y-(viewport.bottom/2));
+		}
 	}
-
-	if (viewport.bottom>rectBitmap.bottom)
-	{
-		//center the viewport
-		borderTop = 1+(int)(cr.Height() - rectBitmap.Height()*zoomFactor[zoom]) / 2;
-		origin.y = rectBitmap.Height()/2;
-		viewport.OffsetRect(0, -1*(viewport.Height()-rectBitmap.Height())/2);
-	}
-	else
-	{
-		//no border
-		borderTop = 0;
-
-		//check, adjust the origin
-		if(origin.y-(viewport.bottom/2)<0)
-			origin.y = viewport.bottom/2;
-		if(origin.y+(viewport.bottom/2)>rectBitmap.bottom)
-			origin.y = rectBitmap.bottom-(viewport.bottom/2);
-
-		//position the viewport using origin
-		viewport.OffsetRect(0, origin.y-(viewport.bottom/2));
-	}
-
 	
 	//done
 }
@@ -504,10 +548,15 @@ void CImageViewer::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 void CImageViewer::OnContextMenu(CWnd* pWnd, CPoint pos)
 {
-	//show the menu
+	//create menu
 	CMenu menu;
 	menu.CreatePopupMenu();
 	menu.AppendMenu(MF_POPUP, (UINT)LoadMenu(AfxGetResourceHandle(), (LPCSTR)IDR_IMAGE));
+
+	//set the fit checkmark
+	menu.CheckMenuItem(ID_FIT, mFit?MF_CHECKED:MF_UNCHECKED);
+
+	//show menu
 	menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN|TPM_TOPALIGN, pos.x, pos.y, this, 0);
 }
 
@@ -526,6 +575,17 @@ void CImageViewer::OnZoomOut()
 {
 	//context menu command
 	Zoom(false);
+}
+
+void CImageViewer::OnFit()
+{
+	//reverse the fit bit
+	mFit = !mFit;
+
+	//refresh
+	RecalcViewport();
+	UpdateScrollBars();
+	RedrawWindow();
 }
 
 
@@ -554,10 +614,27 @@ void CImageViewer::Zoom(bool in)
 	if (zoom<MINZOOM) zoom = MINZOOM;
 	if (zoom>MAXZOOM) zoom = MAXZOOM;
 
+	//turn off the fit bit
+	mFit = false;
+
 	//update the display
 	RecalcViewport();
 	UpdateScrollBars();
 	RedrawWindow();
+}
+
+void CImageViewer::SetFit(bool fit, bool redraw)
+{
+	//set fit value
+	mFit = fit;
+
+	//redraw?
+	if (redraw)
+	{
+		RecalcViewport();
+		UpdateScrollBars();
+		RedrawWindow();
+	}
 }
 
 
@@ -700,7 +777,7 @@ void CFileBrowser::OnIndexFile()
 
 	//get file
 	db()->Lock();
-	CXMDBFile *file = db()->FindFile(tag->mMD5.GetValue());
+	CXMDBFile *file = db()->FindFile(tag->mMD5.GetValue(), false);
 	db()->Unlock();
 	if (file)
 	{
@@ -719,7 +796,7 @@ void CFileBrowser::OnShareFile()
 	int i = GetNextItem(-1, LVNI_SELECTED);
 	while (i != -1)
 	{
-		//unshare the file
+		//share the file
 		tag = (XMFileBrowseTag*)GetItemData(i);
 		if (!tag->mShared)
 		{
@@ -751,9 +828,11 @@ void CFileBrowser::OnUnshareFile()
 		tag = (XMFileBrowseTag*)GetItemData(i);
 		if (tag->mShared)
 		{
-			file = db()->FindFile(tag->mMD5.GetValue());
-			file->SetFlag(DFF_REMOVED, true);
-
+			file = db()->FindFile(tag->mMD5.GetValue(), false);
+			if (file)
+			{
+				file->SetFlag(DFF_REMOVED, true);
+			}
 			CString str;
 			str.Format("%s - Not Shared", tag->mName);
 			SetItemText(i, 0, str);
@@ -905,7 +984,7 @@ void CFileBrowser::OnFilesGetDispInfo(NMHDR* pnmh, LRESULT* pResult)
 	SIZE_T bufcount;
 	static char text[MAX_PATH];
 
-	pfile = db()->FindFile(ptag->mPath);
+	pfile = db()->FindFile(ptag->mPath, false);
 	if (pfile)
 	{
 		if (!pfile->GetFlag(DFF_REMOVED))

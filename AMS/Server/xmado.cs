@@ -2,6 +2,7 @@ namespace XMedia
 {
     using System;
 	using ADODB;
+	using System.Text;
 
 	public class XMAdo
 	{
@@ -52,6 +53,15 @@ namespace XMedia
 			init();
 		}
 
+		//static helpers
+		public static XMGuid FromString(string input)
+		{
+			XMMd5Engine e = new XMMd5Engine();
+			e.Update(input);
+			e.Finish();
+			return e.Md5;
+		}
+
 		// next, the private data:
 		private UInt32[] state = new UInt32[4];
 		private UInt32[] count = new UInt32[2];     // number of *bits*, mod 2^64
@@ -78,6 +88,13 @@ namespace XMedia
 		mentioning or referencing the derived work.
 
 		*/
+
+		public void Update(string input)
+		{
+			//convert the string to a byte array
+			byte[] buf = ASCIIEncoding.ASCII.GetBytes(input);
+			Update(buf, (UInt32)buf.Length);
+		}
 
 		public void Update(Byte[] input, UInt32 input_length)
 		{
@@ -133,7 +150,7 @@ namespace XMedia
 
 		// MD5 finalization. Ends an MD5 message-digest operation, writing the
 		// the message digest and zeroizing the context.
-		public void Finalize()
+		public void Finish()
 		{
 			Byte[] bits = new Byte[8];
 			UInt32 index;

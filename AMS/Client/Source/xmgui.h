@@ -117,6 +117,7 @@ public:
 	//misc
 	void ShowFile(char *pfile);
 	void ShowBitmap(CBitmap *pbmp);
+	void SetFit(bool fit, bool redraw);
 
 private:
 
@@ -161,6 +162,8 @@ private:
 	void OnZoomIn();
 	void OnZoomOut();
 	void OnFullScreen();
+	void OnFit();
+	bool mFit;
 };
 
 // --------------------------------------------------------------------------- File Browser

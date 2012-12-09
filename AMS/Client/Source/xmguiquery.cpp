@@ -119,6 +119,7 @@ public:
 				this, 0);
 
 			//assign the picture
+			m_PreviewCtrl.SetFit(true, false);
 			m_PreviewCtrl.ShowFile(m_PreviewFile->GetPath());
 		}
 
@@ -180,17 +181,6 @@ protected:
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
 
-		BOOL OnApply()
-		{
-			//check everything
-			if (!mParent->CheckLimiter())
-				return FALSE;
-
-			//we are ok, normal apply behavior
-			OnOK();
-			return TRUE;
-		}
-
 	} mPageCat1;
 	friend class CPageCat1;
 
@@ -211,6 +201,17 @@ protected:
 		CIndexBuilder *mParent;
 		void DoDataExchange(CDataExchange *pDX);
 		void OnOK();
+
+		BOOL OnApply()
+		{
+			//check everything
+			if (!mParent->CheckLimiter())
+				return FALSE;
+
+			//we are ok, normal apply behavior
+			OnOK();
+			return TRUE;
+		}
 
 		afx_msg void OnClear()
 		{
@@ -1095,6 +1096,7 @@ private:
 		mcBack.SetFont(&font, FALSE);
 
 		//update our display
+		mcImage.SetFit(true, false);
 		ShowWindow(SW_MAXIMIZE);
 		UpdateWindow();
 
