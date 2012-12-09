@@ -136,6 +136,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "featured\index.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "featured\index.aspx.cs"
+                    DependentUpon = "index.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "featured\index.aspx.resx"
+                    DependentUpon = "index.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "request\index.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

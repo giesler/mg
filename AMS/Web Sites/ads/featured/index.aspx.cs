@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace AMS_Ads.request
+namespace AMS_Ads.featured
 {
 	/// <summary>
 	/// Summary description for preview.
@@ -64,11 +64,18 @@ namespace AMS_Ads.request
 			//
 			InitializeComponent();
 
+			// make sure we have a valid company id, if not bail out
+			if (Request["cid"] == null)
+				Response.Redirect("../request/");
+
+			// init connection, sp
 			SqlConnection cn = new SqlConnection(ConfigurationSettings.AppSettings["strConn"]);
-			SqlCommand cmd   = new SqlCommand("sp_Ads_Request", cn);
+			SqlCommand cmd   = new SqlCommand("sp_Ads_Featured", cn);
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.Add(new SqlParameter("@ip", SqlDbType.NVarChar, 16));
+			cmd.Parameters.Add(new SqlParameter("@cid", SqlDbType.Int));
 			cmd.Parameters["@ip"].Value = Request.UserHostAddress;
+			cmd.Parameters["@cid"].Value = Request["cid"];
 
 			int AdType; bool AdBodyTagDefault;
 			String AdImageURL, AdBodyTag, AdBodyContents;
@@ -80,24 +87,32 @@ namespace AMS_Ads.request
 			AdBodyContents   = "error";
 
 			// open connection and read vals
-			cn.Open();
-			SqlDataReader dr = cmd.ExecuteReader();
-			if (dr.Read()) 
+			try 
 			{
-				// read row
-				AdID             = dr.GetInt32(0);
-				AdType           = dr.GetByte(1);
-				if (!dr.IsDBNull(2))
-					AdImageURL = dr.GetString(2);
-				if (!dr.IsDBNull(3))
-					AdBodyTagDefault = dr.GetBoolean(3);
-				if (!dr.IsDBNull(4))
-					AdBodyTag = dr.GetString(4);
-				if (!dr.IsDBNull(5))
-					AdBodyContents = dr.GetString(5);
-			} 
-			dr.Close();
-			cn.Close();
+				cn.Open();
+				SqlDataReader dr = cmd.ExecuteReader();
+				if (dr.Read()) 
+				{
+					// read row
+					AdID             = dr.GetInt32(0);
+					AdType           = dr.GetByte(1);
+					if (!dr.IsDBNull(2))
+						AdImageURL = dr.GetString(2);
+					if (!dr.IsDBNull(3))
+						AdBodyTagDefault = dr.GetBoolean(3);
+					if (!dr.IsDBNull(4))
+						AdBodyTag = dr.GetString(4);
+					if (!dr.IsDBNull(5))
+						AdBodyContents = dr.GetString(5);
+				} 
+				dr.Close();
+				cn.Close();
+			}
+			catch (Exception excep) 
+			{
+				// we'll ignore
+				Trace.Write(excep.ToString());
+			}
 
 			// now set the body tag and contents according to the data read
 			if (AdType == 0) 
