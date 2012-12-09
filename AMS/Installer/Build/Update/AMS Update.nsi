@@ -13,7 +13,7 @@ Function .onInit
   StrCmp $INSTDIR "" ProgramNotFound
   
   ; wait for AMS to close
-  UpdateStatus "Waiting for program to close..."
+  UpdateStatus "Waiting for Adult Media Swapper to close..."
   WaitForMutex "ams_mutex"
   UpdateStatus "Preparing to update..."
   Sleep 3000
@@ -29,7 +29,7 @@ Function .onInit
   Sleep 500
   Exec '"$INSTDIR\AMSClient.exe"'
   CloseStatus
-  Delete "$EXEDIR\AMSUpdate_051.exe"
+  Delete "$EXEDIR\AMSUpdate_060.exe"
   Abort "Install Complete"
 
 ProgramNotFound:

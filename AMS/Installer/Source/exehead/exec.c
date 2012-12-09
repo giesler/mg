@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <shlobj.h>
+#include "resource.h"		// added mpg
 #include "fileform.h"
 #include "util.h"
 #include "state.h"
@@ -10,6 +11,7 @@
 char *g_deletefilecolon="Delete file: ";
 char *g_errdll="Error registering DLL";
 char *g_errdecomp="Error decompressing data! Installer corrupted.";
+HWND hwndStatus;
 
 // return EXEC_ERROR (0x10000000) on error, otherwise, if return is >0,
 // advance by 1+return, or if return < 0, move back by return
@@ -120,7 +122,7 @@ int ExecuteCodeSegment(entry *entries, int range[2], HWND hwndProgress)
 
 int ExecuteEntry(entry *entries, int pos)
 {
-  int x;
+  int x, y;
   entry *thisentry=entries+pos;
   static char buf[1024],buf2[1024],buf3[1024],buf4[1024];
   switch (thisentry->which)
@@ -165,12 +167,27 @@ int ExecuteEntry(entry *entries, int pos)
       update_status_text(buf4,"");
     return 0;
     case EW_SLEEP:
+/*	code replaced mpg
       x=thisentry->offsets[0];
       if (x < 1) x=1;
       update_status_text("Wait...","");
       log_printf2("Sleep(%d)",x);
       Sleep(x);
-    return 0;
+*/
+		x=thisentry->offsets[0];
+		if (x < 1) x=1;
+		update_status_text("Wait...","");
+		log_printf2("Sleep(%d)",x);
+		y = 0;
+		while (x > y) { 
+			static MSG msg;
+			while (PeekMessage(&msg,NULL,WM_PAINT,WM_PAINT,PM_REMOVE))
+				DispatchMessage(&msg);
+			Sleep (100);
+			y+= 100;
+		}
+		return 0;
+// end replace
     case EW_HIDEWINDOW:
       log_printf("HideWindow");
       ShowWindow(g_hwnd,SW_HIDE);
@@ -975,7 +992,90 @@ int ExecuteEntry(entry *entries, int pos)
       process_string_fromtab(buf4,thisentry->offsets[1]);
       if (!lstrcmpi(buf3,buf4)) return thisentry->offsets[2];
     return thisentry->offsets[3];
-  }
+
+// begin new code mpg
+
+	
+	case EW_MUTEXWAIT:
+		{
+			
+			HANDLE hMutex;
+			DWORD dwRetVal;
+			
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+			
+			hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, buf4);
+			if (hMutex != NULL) {
+				
+				dwRetVal = WaitForSingleObject(hMutex, 100);
+				
+				while (dwRetVal == WAIT_TIMEOUT)
+				{
+					static MSG msg;
+					while (PeekMessage(&msg,NULL,WM_PAINT,WM_PAINT,PM_REMOVE))
+						DispatchMessage(&msg);
+					dwRetVal = WaitForSingleObject(hMutex, 100);
+					
+				}
+				
+				CloseHandle(hMutex);
+			}
+			
+			return 0;
+		}
+		
+	case EW_OPENSTATUS:
+		{
+			
+			// create and show the dialog
+			hwndStatus = CreateDialog(g_hInstance,MAKEINTRESOURCE(IDD_STATUS),NULL,NULL /* verStatusProc*/);
+			ShowWindow(hwndStatus, SW_SHOW);
+			
+			// get title and caption
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+			process_string_fromtab(buf3,thisentry->offsets[1]);
+			
+			// set the text of the dialog
+			SetWindowText(hwndStatus, buf4);
+			SetDlgItemText(hwndStatus, IDC_STATUS, buf3);
+			
+			ShowWindow(hwndStatus, SW_SHOW);
+			UpdateWindow(hwndStatus);
+			
+			return 0;
+		}
+		
+	case EW_UPDATESTATUS:
+		{
+			
+			static MSG msg;
+			
+			process_string_fromtab(buf4,thisentry->offsets[0]);
+			
+			// set the text of the dialog
+			if (hwndStatus != NULL)
+				SetDlgItemText(hwndStatus, IDC_STATUS, buf4);
+			
+			// make sure any messages are processed
+			while (PeekMessage(&msg,NULL,0,0,PM_REMOVE)) DispatchMessage(&msg);
+			
+			return 0;
+		}
+		
+	case EW_CLOSESTATUS:
+		{
+			
+			// close the dialog
+			if (hwndStatus != NULL)
+				DestroyWindow(hwndStatus);
+			
+			return 0;
+		}
+
+// end new code mpg
+
+	
+}
   MessageBox(g_hwnd,"Install corrupted: invalid opcode",g_caption,MB_OK|MB_ICONSTOP);
   return EXEC_ERROR;
 }

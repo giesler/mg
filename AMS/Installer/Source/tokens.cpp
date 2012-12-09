@@ -111,6 +111,13 @@ static tokenType tokenlist[TOK__LAST] =
 {TOK_P_ELSE,"!else",0,-1,"[ifdef|ifndef symbol [|symbol2 [& symbol3 [...]]]]"},
 {TOK_P_ERROR,"!error",0,1,"[error_message]"},
 {TOK_P_WARNING,"!warning",0,1,"[warning_message]"},
+
+// mpg mod start
+{TOK_MUTEXWAIT, "WaitForMutex", 1, 1, "mutex_name"},
+{TOK_OPENSTATUS, "OpenStatus", 2, 2, "caption message"},
+{TOK_UPDATESTATUS, "UpdateStatus", 1, 1, "message"},
+{TOK_CLOSESTATUS, "CloseStatus", 0, 0, ""},
+// mpg mod end
 };
 
 void CEXEBuild::print_help(char *commandname)

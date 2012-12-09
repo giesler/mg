@@ -23,8 +23,8 @@ CFG=makenssi - Win32 Debug
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName ""$/AMS/Installer/Source", MCHAAAAA"
+# PROP Scc_LocalPath "."
 CPP=cl.exe
 RSC=rc.exe
 
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib version.lib /nologo /subsystem:console /pdb:none /machine:I386 /out:"../makensis.exe" /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib version.lib /nologo /subsystem:console /pdb:none /machine:I386 /out:"../Build/makensis/makensis.exe" /opt:nowin98
 
 !ELSEIF  "$(CFG)" == "makenssi - Win32 Debug"
 
@@ -234,6 +234,10 @@ SOURCE=.\util.cpp
 !ENDIF 
 
 # End Source File
+# Begin Source File
+
+SOURCE=.\xmmd5sum.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -261,6 +265,10 @@ SOURCE=.\tokens.h
 # Begin Source File
 
 SOURCE=.\util.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\xmmd5sum.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

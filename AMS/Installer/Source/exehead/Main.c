@@ -1,4 +1,4 @@
-const char *verstr="Nullsoft Install System v1.44";
+const char *verstr=""; // MPG change "Nullsoft Install System v1.44";
 
 /* 
   Nullsoft "SuperPimp" Installation System - main.c - executable header main code

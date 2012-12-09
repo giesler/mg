@@ -117,6 +117,15 @@ BEGIN
     CTEXT           "",IDC_STR,7,7,148,8
 END
 
+IDD_STATUS DIALOGEX 0, 0, 223, 54
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Please Wait..."
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Please wait...",IDC_STATUS,13,23,196,10
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -146,6 +155,14 @@ BEGIN
         RIGHTMARGIN, 155
         TOPMARGIN, 7
         BOTTOMMARGIN, 15
+    END
+
+    IDD_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 216
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 47
     END
 END
 #endif    // APSTUDIO_INVOKED

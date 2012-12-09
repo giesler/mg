@@ -23,8 +23,8 @@ CFG=exehead - Win32 Debug
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName ""$/AMS/Installer/Source/exehead", HDHAAAAA"
+# PROP Scc_LocalPath "."
 CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
@@ -85,7 +85,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  version.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib version.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 
 !ENDIF 
 
@@ -227,23 +227,7 @@ SOURCE=.\util.h
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
-SOURCE=.\bitmap1.bmp
-# End Source File
-# Begin Source File
-
-SOURCE=.\bitmap2.bmp
-# End Source File
-# Begin Source File
-
-SOURCE=.\icon3.ico
-# End Source File
-# Begin Source File
-
 SOURCE=.\nsis.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\nullsoft.ico
 # End Source File
 # Begin Source File
 
@@ -252,10 +236,6 @@ SOURCE=.\resource.h
 # Begin Source File
 
 SOURCE=.\resource.rc
-# End Source File
-# Begin Source File
-
-SOURCE=.\uninst.ico
 # End Source File
 # End Group
 # End Target

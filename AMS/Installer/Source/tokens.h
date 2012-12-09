@@ -109,6 +109,13 @@ enum
   TOK_COMPAREDLLS,
   TOK_COMPAREFILETIMES,
 
+  // mpg mod start
+  TOK_MUTEXWAIT,
+  TOK_OPENSTATUS,
+  TOK_UPDATESTATUS,
+  TOK_CLOSESTATUS,
+  // mpg mod end
+  
   TOK__LAST
 };
 

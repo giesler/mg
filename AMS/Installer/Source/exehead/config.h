@@ -15,7 +15,7 @@
 // NSIS_SUPPORT_NETSCAPEPLUGINS enables netscape plug-in install
 // and uninstall. Comment it out if you don't need it.
 // adds approximately 1kb
-#define NSIS_SUPPORT_NETSCAPEPLUGINS
+// #define NSIS_SUPPORT_NETSCAPEPLUGINS
 
 // NSIS_SUPPORT_ACTIVEXREG enables activeX plug-in registration
 // and deregistration. Comment it out if you don't need it.
@@ -24,6 +24,6 @@
 
 // NSIS_SUPPORT_BGBG enables support for the blue (well, whatever
 // color you want) gradient background window. About 300 bytes.
-#define NSIS_SUPPORT_BGBG
+// #define NSIS_SUPPORT_BGBG
 
 #endif // NSIS_CONFIG_H
