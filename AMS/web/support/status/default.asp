@@ -16,7 +16,9 @@ strOffset = "../../"
 <h3>System Status</h3>
  
 <p>
-All servers are currently up.
+All servers are currently up. However, due to our growth we are experiencing occasional 
+problems. Please bear with us as we upgrade our hardware and software in the upcoming 
+weeks.
 </p>
 
 <!-- #include file="../../_footer.asp"-->
