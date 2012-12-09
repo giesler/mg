@@ -1,6 +1,6 @@
 <table width="100%" cellpadding="0" cellspacing="0" background="<%=strOffset%>img/top_wash.gif">
 	<tr>
-		<td width="108" rowSpan=2><a href="<%=strOffset%>home/"><img src="<%=strOffset%>img/logo_wash.jpg" width="130" height="120" border="0"></a></td>
+		<td width="108" rowSpan=2><a href="<%=strOffset%>"><img src="<%=strOffset%>img/logo_wash.jpg" width="130" height="120" border="0"></a></td>
 		<td width="500" height="100"><img src="<%=strOffset%>img/header.jpg" width="500" height="100"></td>
 		<td align="right" height="100"><a href="<%=strOffset%>download/"><img src="<%=strOffset%>img/download_now.jpg" width="140" height="100" border="0"></a></td>
 		<td width="5" height="100"><img src="<%=strOffset%>img/trans.gif" width="5" height="100"></td>
