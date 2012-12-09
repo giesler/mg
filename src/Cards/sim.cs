@@ -6,21 +6,13 @@ namespace Cards
 	public class Simulation
 	{
 		//creation
-		protected static Simulation mTheSim;
+		protected static ObjectList mSims = new ObjectList();
 		public Simulation()
 		{
-			//should only have one copy of this
-			if (mTheSim!=null)
-			{
-				throw new Exception("Only one simulation object may exist.");
-			}
-			mTheSim = this;
+			//add us to global list of simulations
+			mSims.Add(this);
 		}
-		public static Simulation GetSim()
-		{
-			return mTheSim;
-		}
-
+		
 		//parameters
 		bool mPrivate;
 		string mPassword;
