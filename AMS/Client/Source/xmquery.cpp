@@ -6,6 +6,7 @@
 #include "xmclient.h"
 #include "xmquery.h"
 #include "xmdb.h"
+#include <afxpriv.h>
 
 void QueryCopy(CXMQuery *source, CXMQuery *dest)
 {
@@ -325,7 +326,7 @@ fail:
 }
 
 #define INDEX_FROMXML_HELPER(_size, _field) \
-	if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L#_field, -1)==CSTR_EQUAL) { \
+	if (strname.CompareNoCase(#_field) == 0) { \
 		COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI##_size)); \
 		_field = V_UI##_size(&v);  \
 	}
@@ -338,6 +339,7 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 	IXMLDOMElement *e = NULL;
 	DOMNodeType t;
 	BSTR name = NULL;
+	CString strname;
 	_bstr_t bstrVal("value");
 	VARIANT v;
 	VariantInit(&v);
@@ -357,6 +359,7 @@ HRESULT CXMIndex::FromXml(IXMLDOMElement *index)
 			//read name and value
 			COM_SINGLECALL(e->get_nodeName(&name));
 			COM_SINGLECALL(e->getAttribute(bstrVal, &v));
+			AfxBSTR2CString(&strname, name);
 			
 			//switch on name
 			INDEX_FROMXML_HELPER(4, Cat1)
@@ -578,6 +581,7 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 	IXMLDOMNodeList *list = NULL;
 	VARIANT v;
 	BSTR name = NULL;
+	CString strname;
 	DOMNodeType t;
 	VariantInit(&v);
 
@@ -589,39 +593,40 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 		//retrieve name and value
 		COM_SINGLECALL(n->get_nodeName(&name));
 		COM_SINGLECALL(n->get_nodeValue(&v));
+		AfxBSTR2CString(&strname, name);
 		
 		//which attribute?
-		if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"minwidth", -1)==CSTR_EQUAL)
+		if (strname.CompareNoCase("minwidth")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMinWidth = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"maxwidth", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("maxwidth")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMaxWidth = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"minheight", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("minheight")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMinHeight = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"maxheight", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("maxheight")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMaxHeight = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"minsize", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("minsize")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMinSize = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"maxsize", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("maxsize")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_UI4));
 			mMaxSize = V_UI4(&v);
 		}
-		else if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"name", -1)==CSTR_EQUAL)
+		else if (strname.CompareNoCase("name")==0)
 		{
 			COM_SINGLECALL(VariantChangeType(&v, &v, 0, VT_BSTR));
 			mName = (char*)malloc((wcslen(V_BSTR(&v))*2)+1);
@@ -651,11 +656,12 @@ HRESULT CXMQuery::FromXml(IXMLDOMElement *query)
 
 			//test name, execute proper read method
 			COM_SINGLECALL(e->get_nodeName(&name));
-			if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"queryindex", -1)==CSTR_EQUAL)
+			AfxBSTR2CString(&strname, name);
+			if (strname.CompareNoCase("queryindex")==0)
 			{
 				COM_SINGLECALL(mQuery.FromXml(e));
 			}
-			if (CompareStringW(LOCALE_SYSTEM_DEFAULT, 0, name, -1, L"rejectionindex", -1)==CSTR_EQUAL)
+			if (strname.CompareNoCase("rejectionindex")==0)
 			{
 				COM_SINGLECALL(mRejection.FromXml(e));
 			}
