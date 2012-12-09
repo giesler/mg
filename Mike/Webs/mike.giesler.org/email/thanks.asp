@@ -15,10 +15,10 @@
 
 <!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="100" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica"><img border="0" src="../_borders/mikespage.gif" width="100" height="30"><!--mstheme--></font></td>
-    <td bgcolor="#000000" width="20"><!--mstheme--><font face="Arial, Helvetica"><img border="0" src="../_borders/black20x30filler.gif" width="20" height="30"><!--mstheme--></font></td>
+    <td width="100" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica"><a href="../Default.asp"><img border="0" src="../_borders/mikespage.gif"></a><!--mstheme--></font></td>
+    <td bgcolor="#000000" width="20"><!--mstheme--><font face="Arial, Helvetica"><img border="0" src="../_borders/black20x30filler.gif"><!--mstheme--></font></td>
     <td bgcolor="#C00000" background="../_borders/bl-red_fade_top.jpg" width="400" height="30"><!--mstheme--><font face="Arial, Helvetica"><font size="6"><strong></strong></font><!--mstheme--></font></td>
-    <td bgcolor="#C00000" align="right" valign="middle"><!--mstheme--><font face="Arial, Helvetica"><a href="http://giesler.org"><img border="0" src="../_borders/giesler.org.gif" width="18" height="25" alt="Go to giesler.org" align="middle"></a>&nbsp;
+    <td bgcolor="#C00000" align="right" valign="middle"><!--mstheme--><font face="Arial, Helvetica"><a href="http://giesler.org"><img border="0" src="../_borders/giesler.png" alt="Go to giesler.org" width="22" height="30"></a>&nbsp;
     <!--mstheme--></font></td>
   </tr>
 </table><!--mstheme--><font face="Arial, Helvetica">
