@@ -225,6 +225,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			mLimiterMaxFilter = atoi(msg->GetField("limitfilter")->GetValue(false));
 			
 			//get xml of listing
+			TRACE("*** server wants: %s\n", msg->GetField("listingsize")->GetValue(false));
 			bool full = (strcmp(msg->GetField("listingsize")->GetValue(false), "full")==0)?true:false;
 			if (!SendListing(full))
 			{
@@ -884,8 +885,9 @@ bool CXMServerManager::Login(const char *username, CMD5 *password)
 			(!f->GetFlag(DFF_KNOWN) && f->GetFlag(DFF_REMOVED)))
 			n++;
 	}
+	TRACE("*** file count: %d/%d\n", n, db()->GetFileCount());
 	db()->Unlock();
-
+	
 	//send the login message
 	CXMMessage *msg = new CXMMessage(mServer);
 	msg->SetType(XM_REQUEST);

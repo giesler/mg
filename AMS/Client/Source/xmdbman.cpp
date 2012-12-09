@@ -373,6 +373,8 @@ char* CXMDBManager::BuildFileListing(bool full)
 			}
 		}
 
+		TRACE("*** sending files: %d\n", x);
+
 		inlock = false;
 		mDB->Unlock();
 
