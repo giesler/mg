@@ -147,9 +147,5 @@ SOURCE=.\res\MAIL02A.ICO
 
 SOURCE=.\ReadMe.txt
 # End Source File
-# Begin Source File
-
-SOURCE="..\..\Program Files\Microsoft Platform SDK\Lib\UserEnv.Lib"
-# End Source File
 # End Target
 # End Project
