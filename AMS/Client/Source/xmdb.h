@@ -370,6 +370,7 @@ public:
 	CXMDBManager();
 	~CXMDBManager();
 	bool DatabaseStartup();
+	bool DatabaseStartupEarly();
 
 	//cache access
 	DWORD FindCachedFileByMD5(CMD5& md5);

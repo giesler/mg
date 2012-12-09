@@ -82,21 +82,25 @@ void EnsurePathField(const char* field, char* path, const char* defval)
 	}
 }
 
-bool CXMDBManager::DatabaseStartup()
+bool CXMDBManager::DatabaseStartupEarly()
 {
 	//default path settingss
 	char dbpath[MAX_PATH+1], sharepath[MAX_PATH+1], savepath[MAX_PATH+1];
 	EnsurePathField(FIELD_DB_FILE, dbpath, "ams.db");
 	EnsurePathField(FIELD_DB_SHARE_PATH, sharepath, "My Files\\");
 	EnsurePathField(FIELD_DB_SAVE_PATH, savepath, "My Files\\");
+	return true;
+}
 
+bool CXMDBManager::DatabaseStartup()
+{
 	//db setup
 	SetDatabase(db());
-	mDB->SetPath(dbpath);
+	mDB->SetPath(config()->GetField(FIELD_DB_FILE, false));
 
 	//create share, save path
-	CreateDirectory(sharepath, NULL);
-	CreateDirectory(savepath, NULL);
+	CreateDirectory(config()->GetField(FIELD_DB_SHARE_PATH, false), NULL);
+	CreateDirectory(config()->GetField(FIELD_DB_SAVE_PATH, false), NULL);
 	
 	//open database
 	if (!mDB->Open())
@@ -106,7 +110,7 @@ bool CXMDBManager::DatabaseStartup()
 		{
 			//error creating new database
 			CString str;
-			str.Format("Error creating databse:\n%s", dbpath);
+			str.Format("Error creating databse:\n%s", config()->GetField(FIELD_DB_FILE, false));
 			AfxMessageBox(str, MB_OK | MB_ICONERROR, 0);
 		}
 	}

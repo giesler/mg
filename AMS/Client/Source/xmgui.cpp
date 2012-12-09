@@ -90,6 +90,7 @@ void CMainFrame::OnSizeFinish(CRect &rTabs)
 {
 	//create a region defining the client area of the tab,
 	//minus the display region..
+	/*
 	HRGN hr = CreateRectRgn(0,0,1,1);
 	HRGN hrBase = CreateRectRgn(0, 0, rTabs.Width(), rTabs.Height());
 	HRGN hrDiff = CreateRectRgn(	mCurrentViewRect.left - rTabs.left,
@@ -101,6 +102,7 @@ void CMainFrame::OnSizeFinish(CRect &rTabs)
 	DeleteObject(hr);
 	DeleteObject(hrBase);
 	DeleteObject(hrDiff);
+	*/
 
 	//now redraw things
 	mTabs.RedrawWindow(NULL, NULL, RDW_UPDATENOW);
@@ -122,28 +124,29 @@ void CMainFrame::OnSize(UINT nType, int cx, int cy)
 	OnSizePrepare(&rTabs, folded?2:sizer.right, cx, cy);
 
 	//resize everything at once
+	UINT flags = SWP_NOZORDER;
 	UINT wincount = folded?5:7;
 	if (mCurrentView)
 		wincount++;
 	HDWP h = BeginDeferWindowPos(wincount);
-	h = DeferWindowPos(h, mAdvert.m_hWnd, NULL, (cx-XMGUI_ADVERTW)/2, XMGUI_TOPOFADD, XMGUI_ADVERTW, XMGUI_LOGOSIZE, SWP_NOZORDER);
-	h = DeferWindowPos(h, mLogo.m_hWnd, NULL, cx-XMGUI_LOGOSIZE-XMGUI_TOPOFADD, XMGUI_TOPOFADD, XMGUI_LOGOSIZE, XMGUI_LOGOSIZE, SWP_NOZORDER);
+	h = DeferWindowPos(h, mAdvert.m_hWnd, NULL, (cx-XMGUI_ADVERTW)/2, XMGUI_TOPOFADD, XMGUI_ADVERTW, XMGUI_LOGOSIZE, flags);
+	h = DeferWindowPos(h, mLogo.m_hWnd, NULL, cx-XMGUI_LOGOSIZE-XMGUI_TOPOFADD, XMGUI_TOPOFADD, XMGUI_LOGOSIZE, XMGUI_LOGOSIZE, flags);
 	h = DeferWindowPos(h, mShrink.m_hWnd, NULL,
-		2, XMGUI_TOPBORDER-XMGUI_FOLDBORDER, XMGUI_FOLDWIDTH, XMGUI_FOLDWIDTH, SWP_NOZORDER);
+		2, XMGUI_TOPBORDER-XMGUI_FOLDBORDER, XMGUI_FOLDWIDTH, XMGUI_FOLDWIDTH, flags);
 	if (!folded)
 	{
 		h = DeferWindowPos(h, mFiles.m_hWnd, NULL,
-				0, XMGUI_TOPBORDER, sizer.left, XMGUI_GETMIDHEIGHT(cy, statush), SWP_NOZORDER);
-		h = DeferWindowPos(h, mSplitter.m_hWnd, NULL, sizer.left, sizer.top, XMGUI_SPLITWIDTH, XMGUI_GETMIDHEIGHT(cy, statush), SWP_NOZORDER);
+				0, XMGUI_TOPBORDER, sizer.left, XMGUI_GETMIDHEIGHT(cy, statush), flags);
+		h = DeferWindowPos(h, mSplitter.m_hWnd, NULL, sizer.left, sizer.top, XMGUI_SPLITWIDTH, XMGUI_GETMIDHEIGHT(cy, statush), flags);
 	}
 	h = DeferWindowPos(h, mTabs.m_hWnd, NULL,
-			rTabs.left, rTabs.top, rTabs.Width(), rTabs.Height(), SWP_NOZORDER);
-	h = DeferWindowPos(h, mStatus, NULL, 0, cy-statush, cx, statush, SWP_NOZORDER);
+			rTabs.left, rTabs.top, rTabs.Width(), rTabs.Height(), flags);
+	h = DeferWindowPos(h, mStatus, NULL, 0, cy-statush, cx, statush, flags);
 	if (mCurrentView) {
 		h = DeferWindowPos(h, mCurrentView->m_hWnd, NULL,
 				mCurrentViewRect.left, mCurrentViewRect.top,
 				mCurrentViewRect.Width(), mCurrentViewRect.Height(),
-				SWP_NOZORDER);
+				flags);
 	}
 	EndDeferWindowPos(h);
 

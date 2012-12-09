@@ -235,6 +235,11 @@ BOOL CXMClientApp::InitInstance()
 	}
 	*/
 	//DB NOW LOADED IN LOGIN DIALOG
+	if (!dbman()->DatabaseStartupEarly())
+	{
+		AfxMessageBox("Error creating database paths.", MB_ICONERROR);
+		return FALSE;
+	}
 
 	//show configuation?
 	if (!config()->GetFieldBool(FIELD_HASRUN))
