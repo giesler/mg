@@ -47,17 +47,19 @@ Public Function gConn() As ADODB.Connection
 End Function
 
 
-Public Sub OpenStatus(strStatus As String)
+Public Sub OpenStatus(strStatus As String, Optional blnProgressBar As Boolean = False, Optional intMax As Long = 0)
 
-    frmStatus.lblStatus.Caption = strStatus
-    frmStatus.Show 0, fMain
-    frmStatus.Refresh
+    fMain.fStatus.lblStatus.Caption = strStatus
+    If blnProgressBar Then fMain.fStatus.EnableProgressBar intMax
+    fMain.fStatus.Show 0, fMain
+    fMain.fStatus.Refresh
 
 End Sub
 
 Public Sub CloseStatus()
 
-    frmStatus.Hide
+    fMain.fStatus.DisableProgressBar
+    fMain.fStatus.Hide
 
 End Sub
 

@@ -1,45 +1,43 @@
 VERSION 5.00
 Object = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}#1.0#0"; "msdxm.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Begin VB.Form frmMain 
    Caption         =   "vbplayer"
-   ClientHeight    =   5760
+   ClientHeight    =   6615
    ClientLeft      =   165
    ClientTop       =   735
    ClientWidth     =   8745
+   ClipControls    =   0   'False
    FillColor       =   &H8000000F&
    ForeColor       =   &H8000000F&
    LinkTopic       =   "Form1"
-   ScaleHeight     =   5760
+   ScaleHeight     =   6615
    ScaleWidth      =   8745
    StartUpPosition =   3  'Windows Default
    Begin TabDlg.SSTab SSTab1 
       Height          =   4215
       Left            =   240
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   1440
       Width           =   8295
       _ExtentX        =   14631
       _ExtentY        =   7435
       _Version        =   393216
       Style           =   1
+      Tabs            =   4
+      Tab             =   3
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Queue"
       TabPicture(0)   =   "Main.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label1"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label2"
-      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "lvQueue"
-      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "udQueueCount"
-      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "txtQueueCount"
-      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "All Songs"
       TabPicture(1)   =   "Main.frx":001C
@@ -49,31 +47,106 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).ControlCount=   0
+      Tab(2).Control(0)=   "lvFind"
+      Tab(2).Control(1)=   "cmdFind"
+      Tab(2).Control(2)=   "txtFind"
+      Tab(2).Control(3)=   "lblFind"
+      Tab(2).ControlCount=   4
+      TabCaption(3)   =   "Utilities"
+      TabPicture(3)   =   "Main.frx":0054
+      Tab(3).ControlEnabled=   -1  'True
+      Tab(3).Control(0)=   "Label4"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "cmdNewFileCheck"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlCount=   2
+      Begin VB.CommandButton cmdNewFileCheck 
+         Caption         =   "&New Files"
+         Height          =   375
+         Left            =   240
+         TabIndex        =   22
+         Top             =   720
+         Width           =   1095
+      End
+      Begin MSComctlLib.ListView lvFind 
+         Height          =   3015
+         Left            =   -74760
+         TabIndex        =   21
+         Top             =   960
+         Width           =   7815
+         _ExtentX        =   13785
+         _ExtentY        =   5318
+         View            =   3
+         LabelEdit       =   1
+         MultiSelect     =   -1  'True
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   4
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "ID"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Name"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Artist"
+            Object.Width           =   5292
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "0"
+            Object.Width           =   2540
+         EndProperty
+      End
+      Begin VB.CommandButton cmdFind 
+         Caption         =   "F&ind"
+         Height          =   375
+         Left            =   -67800
+         TabIndex        =   20
+         Top             =   480
+         Width           =   855
+      End
+      Begin VB.TextBox txtFind 
+         Height          =   285
+         Left            =   -74160
+         TabIndex        =   19
+         Top             =   480
+         Width           =   6255
+      End
       Begin VB.TextBox txtQueueCount 
          Height          =   285
-         Left            =   6000
-         TabIndex        =   16
+         Left            =   -69000
+         TabIndex        =   15
          Top             =   3720
          Width           =   495
       End
       Begin ComCtl2.UpDown udQueueCount 
          Height          =   285
-         Left            =   6496
-         TabIndex        =   15
+         Left            =   -68504
+         TabIndex        =   14
          Top             =   3720
          Width           =   240
          _ExtentX        =   423
          _ExtentY        =   503
          _Version        =   327681
-         Value           =   1
+         Value           =   100
          BuddyControl    =   "txtQueueCount"
-         BuddyDispid     =   196636
+         BuddyDispid     =   196611
          OrigLeft        =   6720
          OrigTop         =   3720
          OrigRight       =   6960
          OrigBottom      =   3975
-         Max             =   20
+         Max             =   100
          Min             =   1
          SyncBuddy       =   -1  'True
          BuddyProperty   =   65547
@@ -82,7 +155,7 @@ Begin VB.Form frmMain
       Begin MSComctlLib.ListView lv 
          Height          =   3495
          Left            =   -74760
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   480
          Width           =   7815
          _ExtentX        =   13785
@@ -130,8 +203,8 @@ Begin VB.Form frmMain
       End
       Begin MSComctlLib.ListView lvQueue 
          Height          =   3135
-         Left            =   120
-         TabIndex        =   12
+         Left            =   -74880
+         TabIndex        =   11
          Top             =   480
          Width           =   7935
          _ExtentX        =   13996
@@ -184,19 +257,35 @@ Begin VB.Form frmMain
             Object.Width           =   0
          EndProperty
       End
+      Begin VB.Label Label4 
+         Caption         =   "Checks directory for new files not already in the song database."
+         Height          =   615
+         Left            =   1560
+         TabIndex        =   23
+         Top             =   840
+         Width           =   6375
+      End
+      Begin VB.Label lblFind 
+         Caption         =   "&Find:"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   18
+         Top             =   480
+         Width           =   975
+      End
       Begin VB.Label Label2 
          Caption         =   "songs"
          Height          =   255
-         Left            =   6840
-         TabIndex        =   18
+         Left            =   -68160
+         TabIndex        =   17
          Top             =   3720
          Width           =   855
       End
       Begin VB.Label Label1 
          Caption         =   "Queue"
          Height          =   255
-         Left            =   5280
-         TabIndex        =   17
+         Left            =   -69720
+         TabIndex        =   16
          Top             =   3720
          Width           =   615
       End
@@ -213,8 +302,8 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   7800
-      TabIndex        =   9
+      Left            =   7680
+      TabIndex        =   8
       Top             =   960
       Width           =   975
    End
@@ -230,8 +319,8 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   6720
-      TabIndex        =   8
+      Left            =   6600
+      TabIndex        =   7
       Top             =   960
       Width           =   975
    End
@@ -244,7 +333,7 @@ Begin VB.Form frmMain
       Height          =   975
       Left            =   120
       MultiLine       =   -1  'True
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   6840
       Visible         =   0   'False
       Width           =   6735
@@ -252,7 +341,7 @@ Begin VB.Form frmMain
    Begin MSComctlLib.Slider sldCurSong 
       Height          =   255
       Left            =   120
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   1080
       Width           =   6255
       _ExtentX        =   11033
@@ -266,28 +355,19 @@ Begin VB.Form frmMain
       Caption         =   "&Load from DB"
       Height          =   375
       Left            =   4080
-      TabIndex        =   1
+      TabIndex        =   0
       Top             =   6000
       Visible         =   0   'False
       Width           =   1095
    End
-   Begin VB.CommandButton cmdLoadPath 
-      Caption         =   "&Load from Path"
-      Height          =   375
-      Left            =   2520
-      TabIndex        =   0
-      Top             =   6000
-      Visible         =   0   'False
-      Width           =   1335
-   End
    Begin MSComctlLib.Slider sldVolume 
-      Height          =   255
-      Left            =   6840
-      TabIndex        =   13
-      Top             =   240
-      Width           =   1695
-      _ExtentX        =   2990
-      _ExtentY        =   450
+      Height          =   375
+      Left            =   6360
+      TabIndex        =   12
+      Top             =   360
+      Width           =   2055
+      _ExtentX        =   3625
+      _ExtentY        =   661
       _Version        =   393216
       LargeChange     =   200
       SmallChange     =   25
@@ -310,14 +390,14 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   255
       Left            =   6960
-      TabIndex        =   14
+      TabIndex        =   13
       Top             =   0
       Width           =   1335
    End
    Begin VB.Label lblID 
       Height          =   255
       Left            =   6480
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   840
       Visible         =   0   'False
       Width           =   735
@@ -325,7 +405,7 @@ Begin VB.Form frmMain
    Begin MediaPlayerCtl.MediaPlayer wmp 
       Height          =   975
       Left            =   6960
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   6840
       Visible         =   0   'False
       Width           =   2055
@@ -400,7 +480,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   255
       Left            =   360
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   360
       Width           =   5295
    End
@@ -416,7 +496,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   240
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   600
       Width           =   6015
    End
@@ -432,13 +512,13 @@ Begin VB.Form frmMain
          Caption         =   "&Play Now"
          Shortcut        =   ^P
       End
-      Begin VB.Menu mnuQueueRemove 
-         Caption         =   "&Remove"
-         Shortcut        =   ^R
-      End
       Begin VB.Menu mnuQueueRemoveVote 
          Caption         =   "Remove (and vote)"
          Shortcut        =   ^V
+      End
+      Begin VB.Menu mnuQueueRemove 
+         Caption         =   "&Remove (no vote)"
+         Shortcut        =   ^R
       End
       Begin VB.Menu mnuQueueBlank1 
          Caption         =   "-"
@@ -469,6 +549,21 @@ Begin VB.Form frmMain
          Caption         =   "&Play Now"
       End
    End
+   Begin VB.Menu mnuFind 
+      Caption         =   "Find"
+      Begin VB.Menu mnuFindAddtoQueue 
+         Caption         =   "&Add to Queue"
+      End
+      Begin VB.Menu mnuFindPlayNow 
+         Caption         =   "&Play Now"
+      End
+      Begin VB.Menu mnuFindBlank1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFindAddList 
+         Caption         =   "Add List to Queue"
+      End
+   End
 End
 Attribute VB_Name = "frmMain"
 Attribute VB_GlobalNameSpace = False
@@ -478,9 +573,65 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Const m_Module = "Main"
+Public fStatus As frmStatus
 
 Private blnMovingWindow As Boolean
 Private intStartX As Long, intStartY As Long
+
+Public Enum ActiveList
+    QueueList
+    AllSongsList
+    FindList
+End Enum
+
+Private Sub cmdFind_Click()
+'On Error GoTo errHandler
+
+    Dim li As ListItem, strSQL As String, rs As ADODB.Recordset
+    
+    If txtFind.Text = "" Then
+        MsgBox "You must enter something to find.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' clear list and show a temp item
+    lvFind.ListItems.Clear
+    Set li = lvFind.ListItems.Add
+    li.SubItems(1) = "Searching..."
+    lvFind.Refresh
+    lvFind.ListItems.Clear
+    
+    ' find data
+    Set rs = New ADODB.Recordset
+    strSQL = "select * from Media where Name like '%" & txtFind.Text & "%' or Artist like '%" & txtFind.Text & "%'"
+    rs.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    
+    Do While Not rs.EOF
+        
+        Set li = lvFind.ListItems.Add(, , rs.Fields("ID"))
+        li.SubItems(1) = rs.Fields("Name")
+        li.SubItems(2) = Nz(rs.Fields("Artist"), "")
+        li.SubItems(3) = rs.Fields("Filename")
+        li.Tag = rs.Fields("ID")
+        
+        rs.MoveNext
+    
+    Loop
+    
+    If lvFind.ListItems.Count = 0 Then
+        Set li = lvFind.ListItems.Add
+        li.SubItems(1) = "No matches found."
+    End If
+    
+    rs.Close
+    Set rs = Nothing
+    CloseStatus
+
+Exit Sub
+errHandler:
+ErrHand m_Module, "Find"
+Exit Sub
+End Sub
 
 Private Sub cmdLoadFromDB_Click()
 
@@ -509,80 +660,112 @@ Private Sub cmdLoadFromDB_Click()
     CloseStatus
     
     UpdateQueue
-'    PlayCurSong
+'    PlaySong QueueList
     
-End Sub
-
-Private Sub cmdLoadPath_Click()
-
-    Dim fs As FileSystemObject, strRootPath As String, blnAddToDB As Boolean
-    Dim fld As Folder, rs As ADODB.Recordset
-    Set fs = New FileSystemObject
-    
-    strRootPath = InputBox("Enter the root path")
-    blnAddToDB = IIf(MsgBox("Click 'Yes' to add songs to db, click 'No' to add songs to listview.", vbYesNo + vbQuestion) = vbYes, True, False)
-    
-    If strRootPath = "" Then Exit Sub
-
-    Set fld = fs.GetFolder(strRootPath)
-    If blnAddToDB Then
-        Set rs = New ADODB.Recordset
-        rs.Open "Media", gConn, adOpenKeyset, adLockOptimistic
-    End If
-    OpenStatus "Loading songs from " & strRootPath & "..."
-    LoadSongs fld, rs
-    CloseStatus
-    
-    If blnAddToDB Then
-        rs.Close
-        Set rs = Nothing
-    End If
-    Set fld = Nothing
-    Set fs = Nothing
-
 End Sub
 
 Private Sub LoadSongs(ByRef fld As Folder, ByRef rs As ADODB.Recordset)
 
-    Dim fl As File, li As ListItem, strSQL As String, subFld As Folder
-    Dim strName As String, strArtist As String
+    Dim fl As File, subFld As Folder
     
     ' grab all files in this folder
     For Each fl In fld.Files
-        If InStr(fl.Name, "-") > 0 Then
-            strArtist = Trim(Left(fl.Name, InStr(fl.Name, "-") - 1))
-            strName = Trim(Mid(fl.Name, InStr(fl.Name, "-") + 1))
-        Else
-            strArtist = ""
-            strName = fl.Name
-        End If
-        
-        ' get rid of extension
-        If Mid(strName, Len(strName) - 3, 1) = "." Then
-            strName = Left(strName, Len(strName) - 4)
-        End If
-        If rs Is Nothing Then
-            Set li = Me.lv.ListItems.Add(, , strName)
-            li.SubItems(1) = strArtist
-            li.SubItems(2) = fl.Path
-        Else
-            With rs
-                .AddNew
-                .Fields("Name") = strName
-                .Fields("Artist") = strArtist
-                .Fields("Filename") = fl.Path
-                .Update
-            End With
-        End If
+        ' add to collection
+        With rs
+            .AddNew
+            .Fields("Filename") = fl.Path
+            .Fields("UserID") = GetNTUserName
+            .Update
+        End With
     Next fl
-    
-    lv.Refresh
-    
+        
     ' go through all folders in this folder
     For Each subFld In fld.SubFolders
         LoadSongs subFld, rs
     Next subFld
 
+End Sub
+
+Private Sub cmdNewFileCheck_Click()
+On Error GoTo errHandler
+
+    Dim fs As FileSystemObject, strRootPath As String, intCount As Long
+    Dim fld As Folder, rs As ADODB.Recordset, rsAddList As ADODB.Recordset, strSQL As String
+    
+    strRootPath = InputBox("Enter the root path", "New File Check", "\\stan\music")
+    
+    If strRootPath = "" Then Exit Sub
+
+    ' Load file list into temp table
+    OpenStatus "Loading file list from " & strRootPath & "..."
+    Set rs = New ADODB.Recordset
+    Set fs = New FileSystemObject
+    Set fld = fs.GetFolder(strRootPath)
+    gConn.Execute "delete from tempfilelist where userid = '" & GetNTUserName() & "'"
+    rs.Open "TempFileList", gConn, adOpenKeyset, adLockOptimistic
+    LoadSongs fld, rs
+    rs.Close
+    Set fld = Nothing
+    Set fs = Nothing
+    CloseStatus
+    
+    ' open query to determine new songs
+    OpenStatus "Adding new songs..."
+    Set rsAddList = New ADODB.Recordset
+    strSQL = "select * from tempfilelist where filename not in (select filename from media)"
+    OpenStatus "Checking for new songs..."
+    rsAddList.Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
+    rs.Open "Media", gConn, adOpenKeyset, adLockOptimistic
+    
+    Dim strName As String, strArtist As String, strFile As String
+    Do While Not rsAddList.EOF
+    
+        strFile = rsAddList.Fields("Filename")
+        strFile = Mid(strFile, InStrRev(strFile, "\") + 1)
+    
+        ' Figure out artist and name from song title
+        If InStr(strFile, "-") > 0 Then
+            strArtist = Trim(Left(strFile, InStr(strFile, "-") - 1))
+            strName = Trim(Mid(strFile, InStr(strFile, "-") + 1))
+        Else
+            strArtist = ""
+            strName = strFile
+        End If
+    
+        ' get rid of extension
+        If Mid(strName, Len(strName) - 3, 1) = "." Then
+            strName = Left(strName, Len(strName) - 4)
+        End If
+        
+        ' Add to database
+        With rs
+            .AddNew
+            .Fields("Name") = strName
+            .Fields("Artist") = strArtist
+            .Fields("Filename") = rsAddList.Fields("Filename")
+            .Update
+        End With
+        
+        rsAddList.MoveNext
+    Loop
+    CloseStatus
+    
+    If rsAddList.RecordCount > 0 Then
+        MsgBox "There were " & rsAddList.RecordCount & " songs added to the database.", vbInformation
+    Else
+        MsgBox "There were no new songs detected.", vbInformation
+    End If
+    
+    rsAddList.Close
+    rs.Close
+    Set rsAddList = Nothing
+    Set rs = Nothing
+
+
+Exit Sub
+errHandler:
+ErrHand m_Module, "NewFileCheck"
+Exit Sub
 End Sub
 
 Private Sub cmdPause_Click()
@@ -610,6 +793,8 @@ End Sub
 
 Private Sub Form_Load()
 
+    Set fStatus = New frmStatus
+    
     Left = GetSetting("VBPlayer", Name, "Left", Left)
     Top = GetSetting("VBPlayer", Name, "Top", Top)
     udQueueCount.Value = Val(GetSetting("VBPlayer", "Settings", "QueueCount", "5"))
@@ -627,6 +812,9 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     SaveSetting "VBPlayer", Name, "Left", Left
     SaveSetting "VBPlayer", Name, "Top", Top
     SaveSetting "VBPlayer", "Settings", "QueueCount", udQueueCount.Value
+    
+    Set fStatus = Nothing
+    
     End
     
 End Sub
@@ -708,10 +896,26 @@ Private Sub lv_MouseDown(Button As Integer, Shift As Integer, x As Single, y As 
     
 End Sub
 
+Private Sub lvFind_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+
+    If Button = vbRightButton Then
+        PopupMenu mnuFind, , , , mnuFindAddtoQueue
+    End If
+
+End Sub
+
 Private Sub lvQueue_DblClick()
 
-    PlayCurSong , lvQueue.SelectedItem.Index
+    PlaySong QueueList, lvQueue.SelectedItem.Index
 
+End Sub
+
+Private Sub lvQueue_KeyDown(KeyCode As Integer, Shift As Integer)
+
+    If KeyCode = vbKeyDelete Then
+        mnuQueueRemoveVote_Click
+    End If
+    
 End Sub
 
 Private Sub lvQueue_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -728,6 +932,34 @@ Private Sub mnuFileExit_Click()
     
 End Sub
 
+Private Sub mnuFindAddList_Click()
+
+    Dim li As ListItem
+    
+    For Each li In lvFind.ListItems
+        AddToQueue li
+    Next li
+
+End Sub
+
+Private Sub mnuFindAddtoQueue_Click()
+
+    Dim li As ListItem
+    
+    For Each li In lvFind.ListItems
+        If li.Selected Then
+            AddToQueue li
+        End If
+    Next li
+    
+End Sub
+
+Private Sub mnuFindPlayNow_Click()
+
+    PlaySong FindList
+
+End Sub
+
 Private Sub mnuPlaylistAddtoQueue_Click()
 
     Dim li As ListItem
@@ -742,7 +974,7 @@ End Sub
 
 Private Sub mnuPlaylistPlayNow_Click()
 
-    PlayCurSong False
+    PlaySong AllSongsList
 
 End Sub
 
@@ -766,7 +998,9 @@ Private Sub mnuQueueDown_Click()
 End Sub
 
 Private Sub mnuQueuePlayNow_Click()
-    PlayCurSong
+    
+    PlaySong QueueList
+    
 End Sub
 
 Private Sub mnuQueueRemove_Click()
@@ -872,6 +1106,14 @@ Private Sub tmrUpdateSlider_Timer()
     
 End Sub
 
+Private Sub txtFind_GotFocus()
+    cmdFind.Default = True
+End Sub
+
+Private Sub txtFind_LostFocus()
+    cmdFind.Default = False
+End Sub
+
 Private Sub udQueueCount_Change()
 
     UpdateQueue
@@ -880,7 +1122,7 @@ End Sub
 
 Private Sub wmp_EndOfStream(ByVal Result As Long)
 
-    PlayCurSong
+    PlaySong QueueList
     
 End Sub
 
@@ -905,7 +1147,7 @@ Private Sub UpdateHistory()
 
 End Sub
 
-Private Sub PlayCurSong(Optional blnQueueSong As Boolean = True, Optional intIndex As Long = 1)
+Private Sub PlaySong(al As ActiveList, Optional intIndex As Long = 1)
 On Error GoTo errHandler
 
     UpdateHistory
@@ -914,10 +1156,12 @@ On Error GoTo errHandler
     
     If lvQueue.ListItems.Count = 0 Then Exit Sub
     
-    If blnQueueSong Then
+    If al = QueueList Then
         Set li = lvQueue.ListItems(intIndex)
-    Else
+    ElseIf al = AllSongsList Then
         Set li = lv.SelectedItem
+    ElseIf al = FindList Then
+        Set li = lvFind.SelectedItem
     End If
     
     lblID.Caption = li.Text
@@ -928,11 +1172,10 @@ On Error GoTo errHandler
     cmdStopPlay.Caption = "Stop"
     sldCurSong.Max = wmp.Duration
     Caption = li.SubItems(1) & IIf(li.SubItems(2) <> "", " - " & li.SubItems(2), "")
-    If blnQueueSong Then
+    If al = QueueList Then
         lvQueue.ListItems.Remove li.Index
+        UpdateQueue
     End If
-    
-    UpdateQueue
     
 Exit Sub
 errHandler:
