@@ -8,6 +8,7 @@ namespace XMedia
 	using System.Net.Sockets;
 	using System.Xml;
 	using System.IO;
+	using System.Diagnostics;
 
     /// <summary>
     ///    Summary description for xmconnection.
@@ -36,7 +37,7 @@ namespace XMedia
 		//one at time, track those here
 		public bool InQuery;
 
-		protected static ObjectList mConnections;
+		protected static /*beta2:*/ArrayList mConnections;
 
 		//send the MOTD message over this connection
 		public void DoMOTD()
@@ -58,15 +59,11 @@ namespace XMedia
 		public bool Ping()
 		{
 			//setup the outbound socket
-			Socket me = new Socket(	AddressFamily.AfINet, 
-									SocketType.SockStream, 
-									ProtocolType.ProtTCP);
-			if (0 !=
-				me.Connect(new IPEndPoint(HostIP, 25347)))
-			{
-				return false;
-			}
-
+			Socket me = new Socket(	AddressFamily.InterNetwork, 
+									SocketType.Stream, 
+									ProtocolType.Tcp);
+			me.Connect(new IPEndPoint(HostIP, 25347));
+			
 			//create the message
 			XMMessage msg = new XMMessage();
 			msg.Connection = this;
@@ -82,7 +79,7 @@ namespace XMedia
 			me.Send(buf, buf.Length, 0);
 			
 			//receive something.. anything will do
-			IAsyncResult ar = me.BeginReceive(buf, 0, buf.Length, null, null);
+			IAsyncResult ar = me.BeginReceive(buf, 0, buf.Length, SocketFlags.None, null, null);
 			if (!ar.AsyncWaitHandle.WaitOne(750, true))
 			{
 				//took too long, give up
@@ -93,13 +90,27 @@ namespace XMedia
 			return true;
 		}
 
-		public static XMConnection[] Connections
+		/// <summary>
+		/// Global initialization of static members.
+		/// </summary>
+		public static void StaticInit()
+		{
+			//create the connections array
+			if (mConnections==null)
+			{
+				mConnections = new /*beta2:*/ArrayList();
+			}
+		}
+
+		public static object[] Connections
 		{
 			get
 			{
-				Monitor.Enter(mConnections);
-				XMConnection[] temp = (XMConnection[])mConnections.ToArray();
-				Monitor.Exit(mConnections);
+				object[] temp;
+				lock (mConnections)
+				{
+					temp = mConnections.ToArray();
+				}
 				return temp;
 			}
 		}
@@ -107,12 +118,13 @@ namespace XMedia
 		public static void CloseConnections()
 		{
 			//destroy all collections
-			Monitor.Enter(mConnections);
-			foreach(XMConnection con in mConnections)
+			lock(mConnections)
 			{
-				con.Close();
+				foreach(XMConnection con in mConnections)
+				{
+					con.Close();
+				}
 			}
-			Monitor.Exit(mConnections);
 		}
 
         public XMConnection(Socket newSocket)
@@ -120,16 +132,11 @@ namespace XMedia
 			//store socket reference
 			mClient = newSocket;
 
-			//does the static list exist yet?
-			if (mConnections==null)
-			{
-				mConnections = new ObjectList();
-			}
-
 			//add ourselves to static list
-			Monitor.Enter(mConnections);
-			mConnections.Add(this);
-			Monitor.Exit(mConnections);
+			lock(mConnections)
+			{
+				mConnections.Add(this);
+			}
 
 			//start thread
 			mContinue = -1;
@@ -166,9 +173,10 @@ namespace XMedia
 			}
 
 			//remove ourself from collection
-			Monitor.Enter(mConnections);
-			mConnections.Remove(this);
-			Monitor.Exit(mConnections);
+			lock(mConnections)
+			{
+				mConnections.Remove(this);
+			}
 		}
 
 		public void Alpha()
@@ -190,12 +198,13 @@ namespace XMedia
 			while (mClient.Connected && mContinue!=0)
 			{
 				//send any outbound messages
-				Monitor.Enter(mOutbound);
-				while (mOutbound.Count>0)
+				lock(mOutbound)
 				{
-					SendMessageInner((XMMessage)mOutbound.Dequeue());
-				}	
-				Monitor.Exit(mOutbound);
+					while (mOutbound.Count>0)
+					{
+						SendMessageInner((XMMessage)mOutbound.Dequeue());
+					}	
+				}
 
 				if (mClient.Poll(10*1000, SelectMode.SelectRead))
 				{
@@ -232,7 +241,6 @@ namespace XMedia
 								//found a null, convert to text and process
 								foundmsg = true;
 								msg = System.Text.ASCIIEncoding.ASCII.GetString(buf, 0, nullpos);
-								//System.Diagnostics.Debug.WriteLine("Received message:\n\t" + msg, "XMSERVER");
 								try 
 								{
 									ProcessMessage(msg);
@@ -240,9 +248,7 @@ namespace XMedia
 								catch(Exception e)
 								{
 									//nothing
-									#if NOSERVICE
-									Console.WriteLine(e.ToString());
-									#endif
+									XMLog.WriteLine(e.ToString(), "ProcessMessage", EventLogEntryType.Error);
 								}
 								
 								//create new buffer with just the excess
@@ -272,7 +278,6 @@ namespace XMedia
 						//there was zero to read from buffer..
 						//this means connection was closed
 						Interlocked.Exchange(ref mContinue, 0);
-						System.Diagnostics.Debug.WriteLine("Losing connection.", "XMSERVER");
 					}
 				}
 
@@ -299,24 +304,23 @@ namespace XMedia
 		{
 			//convert to xml
 			XmlDocument xml = new XmlDocument();
+			XMMessage xmsg;
 			try
 			{
+				//proccess message
 				xml.LoadXml(msg);
+				xmsg = new XMMessage(xml, this);
+				xmsg.Process();
 			}
-			catch(XmlException e)
+			catch(Exception e)
 			{
-				//error in xml
-				System.Diagnostics.Debug.WriteLine("Error converting message to XML.", "XMSERVER");
-				throw(e);
+				//error processing message.. record IP address
+				string str = String.Format(
+					"Error processing message from {0}: {1}", 
+					HostIP.Address.ToString(),
+					e.ToString());
+				XMLog.WriteLine(str, "ProcessMessage", EventLogEntryType.Warning);
 			}
-
-			//create a message
-			XMMessage xmsg = new XMMessage(xml, this);
-
-			//proccess message
-			//System.Diagnostics.Debug.WriteLine("Processing message...", "XMSERVER");
-			xmsg.Process();
-			//System.Diagnostics.Debug.WriteLine("Done processing message.", "XMSERVER");
 
 			//set last activity
 			LastActivity = DateTime.Now;
@@ -325,9 +329,10 @@ namespace XMedia
 		public void SendMessage(XMMessage msg)
 		{
 			//simply enqueue message
-			Monitor.Enter(mOutbound);
-			mOutbound.Enqueue(msg);
-			Monitor.Exit(mOutbound);
+			lock(mOutbound)
+			{
+				mOutbound.Enqueue(msg);
+			}
 		}
 
 		protected void SendMessageInner(XMMessage msg)
@@ -347,11 +352,15 @@ namespace XMedia
 			if (msg.auEnable)
 			{
 				//read the file
-				byte[] auBuf = null;
+				byte[] auBuf = new Byte[msg.auSize];
+				/*beta2:
 				File f = new File(msg.auPath);
-				auBuf = new Byte[msg.auSize];
 				Stream s = f.OpenRead();
 				s.Read(auBuf, 0, auBuf.Length);
+				*/
+				FileStream fs = File.OpenRead(msg.auPath);
+				fs.Read(auBuf, 0, auBuf.Length);
+				fs.Close();
 				
 				//send the buffer
 				mClient.Send(auBuf, auBuf.Length, 0);
@@ -362,7 +371,7 @@ namespace XMedia
 		{
 			get
 			{
-				return ((IPEndPoint)mClient.LocalEndpoint).Address;
+				return ((IPEndPoint)mClient.LocalEndPoint).Address;
 			}
 		}
 
@@ -370,7 +379,7 @@ namespace XMedia
 		{
 			get
 			{
-				return ((IPEndPoint)mClient.RemoteEndpoint).Address;
+				return ((IPEndPoint)mClient.RemoteEndPoint).Address;
 			}
 		}
     }

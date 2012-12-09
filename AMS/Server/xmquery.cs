@@ -62,7 +62,7 @@ namespace XMedia
 				while(!rs.EOF)
 				{
 					mServers[mServersCount].Ip = rs.Fields["hostip"].Value.ToString();
-					mServers[mServersCount].Speed = rs.Fields["datarate"].Value.ToString().ToByte();
+					mServers[mServersCount].Speed = /*beta2:*/System.Convert.ToByte(rs.Fields["datarate"].Value);
 					mServersCount++;
 					rs.MoveNext();
 				}
@@ -239,31 +239,31 @@ namespace XMedia
 					e = (XmlElement)n;
 					switch(e.Name)
 					{
-						case "Cat1":		Cat1		= e.Attributes["value"].Value.ToUInt32();	break;
-						case "Cat2":		Cat2		= e.Attributes["value"].Value.ToUInt32();	break;
-						case "Setting":		Setting 	= e.Attributes["value"].Value.ToByte();		break;
-						case "Rating":		Rating		= e.Attributes["value"].Value.ToByte();		break;
-						case "Quantity":	Quantity	= e.Attributes["value"].Value.ToByte();		break;
-						case "Content":		Content		= e.Attributes["value"].Value.ToByte();		break;
-						case "Build":		Build		= e.Attributes["value"].Value.ToByte();		break;
-						case "HairColor":	HairColor	= e.Attributes["value"].Value.ToByte();		break;
-						case "HairStyle":	HairStyle	= e.Attributes["value"].Value.ToByte();		break;
-						case "Eyes":		Eyes		= e.Attributes["value"].Value.ToByte();		break;
-						case "Height":		Height		= e.Attributes["value"].Value.ToByte();		break;
-						case "Age":			Age			= e.Attributes["value"].Value.ToByte();		break;
-						case "Breasts":		Breasts		= e.Attributes["value"].Value.ToByte();		break;
-						case "Nipples":		Nipples		= e.Attributes["value"].Value.ToByte();		break;
-						case "Butt":		Butt		= e.Attributes["value"].Value.ToByte();		break;
-						case "Race":		Race		= e.Attributes["value"].Value.ToByte();		break;
-						case "Quality":		Quality		= e.Attributes["value"].Value.ToByte();		break;
-						case "Skin":		Skin 		= e.Attributes["value"].Value.ToByte();		break;
-						case "Hips":		Hips 		= e.Attributes["value"].Value.ToByte();		break;
-						case "Legs":		Legs 		= e.Attributes["value"].Value.ToByte();		break;
-						case "FemaleGen":	FemaleGen	= e.Attributes["value"].Value.ToByte();		break;
-						case "MaleGen":		MaleGen		= e.Attributes["value"].Value.ToByte();		break;
-						case "Chest":		Chest		= e.Attributes["value"].Value.ToByte();		break;
-						case "FacialHair":	FacialHair	= e.Attributes["value"].Value.ToByte();		break;
-						case "Gender":		Gender		= e.Attributes["value"].Value.ToByte();		break;
+						case "Cat1":		Cat1		= /*beta2:*/Convert.ToUInt32(e.Attributes["value"].Value);	break;
+						case "Cat2":		Cat2		= /*beta2:*/Convert.ToUInt32(e.Attributes["value"].Value);	break;
+						case "Setting":		Setting 	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Rating":		Rating		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Quantity":	Quantity	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Content":		Content		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Build":		Build		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "HairColor":	HairColor	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "HairStyle":	HairStyle	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Eyes":		Eyes		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Height":		Height		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Age":			Age			= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Breasts":		Breasts		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Nipples":		Nipples		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Butt":		Butt		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Race":		Race		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Quality":		Quality		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Skin":		Skin 		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Hips":		Hips 		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Legs":		Legs 		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "FemaleGen":	FemaleGen	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "MaleGen":		MaleGen		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Chest":		Chest		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "FacialHair":	FacialHair	= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
+						case "Gender":		Gender		= /*beta2:*/Convert.ToByte(e.Attributes["value"].Value);		break;
 						default:
 							break;
 					}
@@ -446,6 +446,8 @@ namespace XMedia
 		//index masks
 		public XMIndex QueryMask;
 		public XMIndex RejectionMask;
+		private int mQueryCount = -1;
+		private int mRejectionCount = -1;
 
 		//dimension restrictions
 		public uint MinWidth, MaxWidth;
@@ -467,12 +469,12 @@ namespace XMedia
 			{
 				switch(a.Name.ToLower())
 				{
-					case "minwidth": 	MinWidth = a.Value.ToUInt32();	break;
-					case "maxwidth": 	MaxWidth = a.Value.ToUInt32();	break;
-					case "minheight": 	MinHeight = a.Value.ToUInt32();	break;
-					case "maxheight": 	MaxHeight = a.Value.ToUInt32(); break;
-					case "minsize": 	MinSize = a.Value.ToUInt32();	break;
-					case "maxsize": 	MaxSize = a.Value.ToUInt32();	break;
+					case "minwidth": 	MinWidth  = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "maxwidth": 	MaxWidth  = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "minheight": 	MinHeight = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "maxheight": 	MaxHeight = /*beta2:*/Convert.ToUInt32(a.Value); break;
+					case "minsize": 	MinSize   = /*beta2:*/Convert.ToUInt32(a.Value);	break;
+					case "maxsize": 	MaxSize   = /*beta2:*/Convert.ToUInt32(a.Value);	break;
 					case "filter":
 						if (a.Value.ToString()=="none")
 						{
@@ -500,6 +502,10 @@ namespace XMedia
 					}
 				}
 			}
+
+			//count the fields
+			mQueryCount = QueryMask.CountFields(true);
+			mRejectionCount = RejectionMask.CountFields(true);
 		}
 
 		//test against an item
@@ -513,26 +519,41 @@ namespace XMedia
 			if (MaxHeight!=0) if (item.Height > MaxHeight) return false;
 			if (MaxSize!=0) if (item.FileSize > MaxSize) return false;
 
-			//now test indices
+			//if it is a blank query, return true
+			if (mQueryCount == 0 &&
+				mRejectionCount == 0)
+			{
+				return true;
+			}
+			
+			//if there are no indexes, then return true if the querymask is empty
+			if (item.Indices.Length == 0 &&
+				mQueryCount == 0)
+				return true;
+			
 			bool retval = false;
 			for (uint i=0;i<item.Indices.Length;i++)
 			{
 				//if any index matches the rejection mask, we need 
 				//to throw the whole picture out
-				if (XMIndex.CompareAny(ref RejectionMask, ref item.Indices[i]))
-					return false;
+				if (mRejectionCount > 0)
+					if (XMIndex.CompareAny(ref RejectionMask, ref item.Indices[i]))
+						return false;
 
 				//at least one index must match.. but we still need to go
 				//through all indices to see if any get rejected (see above)
-				if (XMIndex.CompareStandard(ref QueryMask, ref item.Indices[i]))
+				if (mQueryCount == 0)
 					retval = true;
+				else
+					if (XMIndex.CompareStandard(ref QueryMask, ref item.Indices[i]))
+						retval = true;
 			}
 
 			//all indices tested
 			return retval;
 		}
 
-		public static XmlElement ResultsToXml(ObjectList res, XmlDocument xml)
+		public static XmlElement ResultsToXml(/*beta2:*/ArrayList res, XmlDocument xml)
 		{
 			XmlElement e = xml.CreateElement("results");
 			foreach(XMMediaItem i in res)
@@ -594,7 +615,7 @@ namespace XMedia
 			//Loop until we receive the abort signal
 			//float ts;
 			XMMessage msg, retmsg;
-			ObjectList ret;
+			/*beta2:*/ArrayList ret;
 			uint c;
 			while (!mAbort)
 			{
@@ -606,7 +627,7 @@ namespace XMedia
 					//System.Diagnostics.Counter.GetElapsed();
 
 					//clear the results
-					ret = new ObjectList(20);
+					ret = new /*beta2:*/ArrayList(20);
 					c = 0;
 
 					//loop until:
@@ -618,7 +639,6 @@ namespace XMedia
 					while ((c < 5000) && (ret.Count < 20) && (item!=start))
 					{
 						//keep picture?
-						//System.Diagnostics.Debug.WriteLine("Testing " + item.Md5);
 						if (msg.Query.Test(item))
 						{
 							//does anyone have this online?
@@ -626,7 +646,6 @@ namespace XMedia
 							{
 								if ((item.GetServersCount(mADO)>0) || (!msg.Query.Filter))
 								{
-									//System.Diagnostics.Debug.WriteLine("Adding " + item.Md5);
 									ret.Add(item);
 								}
 							}
@@ -639,16 +658,16 @@ namespace XMedia
 
 					//return results to client
 					retmsg = msg.CreateReply();
-					msg.QueryResults = ret;
-					msg.Send();
+					retmsg.QueryResults = ret;
+					retmsg.Send();
 
 					//this connection is no longer
 					//processing a query
 					msg.Connection.InQuery = false;
 
-					//output time to console
-					//ts = System.Diagnostics.Counter.GetElapsed();
-					//System.Diagnostics.Trace.WriteLine("Query time: "+ts);
+					//log results
+					LogQuery(msg.Query, msg.Connection.UserID, ret.Count);
+
 				}
 				else
 				{
@@ -713,6 +732,63 @@ namespace XMedia
 			}
 		}
 
+		public void LogQuery(XMQuery query, XMGuid user, int results)
+		{
+			string sql = String.Format(
+				@"insert into querylog
+				(UserId, Stamp, Results,
+
+				_S_Setting, _S_Rating, _S_Quantity, _S_Content,
+				_S_Catagory, _S_Build, _S_HairColor, _S_HairStyle,
+				_S_Eyes, _S_Height, _S_Age, _S_Breasts,
+				_S_Nipples, _S_Butt, _S_Race, _S_Quality,
+				_S_Skin, _S_Hips, _S_Legs, _S_FemaleGen,
+				_S_MaleGen, _S_Chest, _S_FacialHair, _S_Catagory2,
+
+				_F_Setting, _F_Rating, _F_Quantity, _F_Content,
+				_F_Catagory, _F_Build, _F_HairColor, _F_HairStyle,
+				_F_Eyes, _F_Height, _F_Age, _F_Breasts,
+				_F_Nipples, _F_Butt, _F_Race, _F_Quality,
+				_F_Skin, _F_Hips, _F_Legs, _F_FemaleGen,
+				_F_MaleGen, _F_Chest, _F_FacialHair, _F_Catagory2)
+
+				values(
+				{0}, '{1}', {2},
+
+				{3}, {4}, {5}, {6},
+				{7}, {8}, {9}, {10},
+				{11}, {12}, {13}, {14},
+				{15}, {16}, {17}, {18},
+				{19}, {20}, {21}, {22},
+				{23}, {24}, {25}, {26},
+
+				{27}, {28}, {29}, {30},
+				{31}, {32}, {33}, {34},
+				{35}, {36}, {37}, {38},
+				{39}, {40}, {41}, {42},
+				{43}, {44}, {45}, {46},
+				{47}, {48}, {49}, {50})",
+
+
+				user.ToStringDB(), DateTime.Now, results,
+
+				query.QueryMask.Setting, query.QueryMask.Rating, query.QueryMask.Quantity, query.QueryMask.Content,
+				query.QueryMask.Cat1, query.QueryMask.Build, query.QueryMask.HairColor, query.QueryMask.HairStyle,
+				query.QueryMask.Eyes, query.QueryMask.Height, query.QueryMask.Age, query.QueryMask.Breasts,
+				query.QueryMask.Nipples, query.QueryMask.Butt, query.QueryMask.Race, query.QueryMask.Quality,
+				query.QueryMask.Skin, query.QueryMask.Hips, query.QueryMask.Legs, query.QueryMask.FemaleGen,
+				query.QueryMask.MaleGen, query.QueryMask.Chest, query.QueryMask.FacialHair, query.QueryMask.Cat2,
+
+				query.RejectionMask.Setting, query.RejectionMask.Rating, query.RejectionMask.Quantity, query.RejectionMask.Content,
+				query.RejectionMask.Cat1, query.RejectionMask.Build, query.RejectionMask.HairColor, query.RejectionMask.HairStyle,
+				query.RejectionMask.Eyes, query.RejectionMask.Height, query.RejectionMask.Age, query.RejectionMask.Breasts,
+				query.RejectionMask.Nipples, query.RejectionMask.Butt, query.RejectionMask.Race, query.RejectionMask.Quality,
+				query.RejectionMask.Skin, query.RejectionMask.Hips, query.RejectionMask.Legs, query.RejectionMask.FemaleGen,
+				query.RejectionMask.MaleGen, query.RejectionMask.Chest, query.RejectionMask.FacialHair, query.RejectionMask.Cat2);
+
+			mADO.SqlExec(sql);
+		}
+
 	}
 
 	/// <summary>
@@ -730,7 +806,7 @@ namespace XMedia
 		}
 
 		//Processor management
-		private ObjectList mProcessors = new ObjectList();
+		private /*beta2:*/ArrayList mProcessors = new /*beta2:*/ArrayList();
 		//private int mInitialProcessors = 1;
 		public int ProcessorCount
 		{
@@ -793,50 +869,43 @@ namespace XMedia
 		}
 		public void Rebuild()
 		{
+			XMMediaItem item;
+
+			//beging building
+			DateTime start = DateTime.Now;
+
+			//stop each processor
+			foreach(XMQueryProcessor qp in mProcessors)
+			{
+				qp.Stop();
+			}
+			
+			//wait for them to finish current queries
+			bool allstop = false;
+			while (!allstop)
+			{
+				//test each processor
+				allstop = true;
+				foreach(XMQueryProcessor qp in mProcessors)
+				{
+					if (qp.CurrentState != XMQueryProcessor.State.Stopped)
+					{
+						allstop = false;
+					}
+				}
+
+				//wait a moment
+				Thread.Sleep(0);
+			}
+
 			lock(this)
 			{
-				//stop each processor
-				for (int i=1;i<=mProcessors.Count;i++)
-				{
-					((XMQueryProcessor)mProcessors[i]).Stop();
-				}
-
-				//wait for them to finish current queries
-				bool cont = true, allstop;
-				while (cont)
-				{
-					//test each processor
-					allstop = true;
-					for (int i=1;(i<=mProcessors.Count) && (allstop);i++)
-					{
-						if (((XMQueryProcessor)mProcessors[i]).CurrentState!=
-							XMQueryProcessor.State.Stopped)
-						{
-							allstop = false;
-						}
-					}
-
-					//all stopped?
-					if (allstop)
-						cont = false;
-					else
-					{
-						//wait a moment before trying again
-						Thread.Sleep(0);
-					}
-				}
-
-				//all processors stopped, clear the collection
-				//and do a gc, to be safe
-				mProcessors.Clear();
-				System.GC.Collect();
-
 				//query
 				string sql =
-					"select mi.*, m.width, m.height, m.filesize " +
-					"from mediaindex mi " +
-					"inner join media m on m.md5 = mi.md5 " +
-					"order by mi.md5";
+					@"select m.md5 as 'media_md5', m.width, m.height, m.filesize, mi.*
+					from media m
+					left outer join mediaindex mi on mi.md5 = m.md5
+					order by m.md5";
 
 				//get an ado recordset with the data we want
 				if (!mADO.EnsureConnection()) throw new Exception("Connection failed.");
@@ -844,7 +913,7 @@ namespace XMedia
 			
 				//build linked list
 				mFirstItem = new XMMediaItem();
-				XMMediaItem item = mFirstItem;
+				item = mFirstItem;
 
 				//setup first item
 				if (!rs.EOF)
@@ -865,58 +934,83 @@ namespace XMedia
 				//loop the last record back to the first
 				item.Next = mFirstItem;
 
+				//new db is build, do a gc to clear all the old crap
+				System.GC.Collect();
+
 				//db finished.. start all the processors
-				for(int i=1;i<=mProcessors.Count;i++)
+				foreach(XMQueryProcessor qp in mProcessors)
 				{
-					((XMQueryProcessor)mProcessors[i]).Start();
+					qp.Start();
 				}
 			}
+
+			//print some output
+			item = mFirstItem;
+			int countIndexed = 0, countUnindexed = 0;
+			do
+			{
+				if (item.Indices.Length > 0)
+					countIndexed++;
+				else
+					countUnindexed++;
+				item = item.Next;
+			} while(item.Next != mFirstItem);
+			TimeSpan elapsed = DateTime.Now - start;
+			string str = String.Format(
+				"Built media list.\nIndexed Media: {0}\nUnindexed Media: {1}\nElapsed Time: {2} seconds",
+				countIndexed,
+				countUnindexed,
+				elapsed.TotalSeconds);
+			XMLog.WriteLine(str, "QueryEngine");
 		}
 
 		public static void rs2mi(ADODB._Recordset rs, XMMediaItem mi)
 		{
 			//get basic data on this item
-			XMGuid md5 = new XMGuid((byte[])rs.Fields["md5"].Value);
+			XMGuid md5 = new XMGuid((byte[])rs.Fields["media_md5"].Value);
 			mi.Md5 = md5.ToString();
-			mi.Width = rs.Fields["width"].Value.ToString().ToInt32();
-			mi.Height = rs.Fields["height"].Value.ToString().ToInt32();
-			mi.FileSize = rs.Fields["filesize"].Value.ToString().ToInt32();
+			mi.Width = /*beta2:*/System.Convert.ToInt32(rs.Fields["width"].Value);
+			mi.Height = /*beta2:*/System.Convert.ToInt32(rs.Fields["height"].Value);
+			mi.FileSize = /*beta2:*/System.Convert.ToInt32(rs.Fields["filesize"].Value);
 
 			//get each index until we come to a new md5 or eof
-			ObjectList temp = new ObjectList();
+			/*beta2:*/ArrayList temp = new /*beta2:*/ArrayList();
 			XMIndex i;
-			while ((!rs.EOF)&&(new XMGuid((byte[])rs.Fields["md5"].Value).Equals(md5)))
+			while ((!rs.EOF)&&(new XMGuid((byte[])rs.Fields["media_md5"].Value).Equals(md5)))
 			{
-				//load data from recordset
-				i = new XMIndex();
-				i.Age			= rs.Fields["_Age"]			.Value.ToString().ToByte();
-				i.Breasts		= rs.Fields["_Breasts"]		.Value.ToString().ToByte();
-				i.Build			= rs.Fields["_Build"]		.Value.ToString().ToByte();
-				i.Butt			= rs.Fields["_Butt"]		.Value.ToString().ToByte();
-				i.Cat1			= rs.Fields["_Catagory"]	.Value.ToString().ToUInt32();
-				i.Cat2			= rs.Fields["_Catagory2"]	.Value.ToString().ToUInt32();
-				i.Chest			= rs.Fields["_Chest"]		.Value.ToString().ToByte();
-				i.Content		= rs.Fields["_Content"]		.Value.ToString().ToByte();
-				i.Eyes			= rs.Fields["_Eyes"]		.Value.ToString().ToByte();
-				i.FacialHair	= rs.Fields["_FacialHair"]	.Value.ToString().ToByte();
-				i.FemaleGen		= rs.Fields["_FemaleGen"]	.Value.ToString().ToByte();
-				i.Gender		= rs.Fields["_Content"]		.Value.ToString().ToByte();
-				i.HairColor		= rs.Fields["_HairColor"]	.Value.ToString().ToByte();
-				i.HairStyle		= rs.Fields["_HairStyle"]	.Value.ToString().ToByte();
-				i.Height		= rs.Fields["_Height"]		.Value.ToString().ToByte();
-				i.Hips			= rs.Fields["_Hips"]		.Value.ToString().ToByte();
-				i.Legs			= rs.Fields["_Legs"]		.Value.ToString().ToByte();
-				i.MaleGen		= rs.Fields["_MaleGen"]		.Value.ToString().ToByte();
-				i.Nipples		= rs.Fields["_Nipples"]		.Value.ToString().ToByte();
-				i.Quality		= rs.Fields["_Quality"]		.Value.ToString().ToByte();
-				i.Quantity		= rs.Fields["_Quantity"]	.Value.ToString().ToByte();
-				i.Race			= rs.Fields["_Race"]		.Value.ToString().ToByte();
-				i.Rating		= rs.Fields["_Rating"]		.Value.ToString().ToByte();
-				i.Setting		= rs.Fields["_Setting"]		.Value.ToString().ToByte();
-				i.Skin			= rs.Fields["_Skin"]		.Value.ToString().ToByte();
+				//load data from recordset -- only if mediaindex.md5 is non-non
+				if (rs.Fields["md5"].Value!=DBNull.Value)	//mi.md5
+				{
+					i = new XMIndex();
+					i.Age			= /*beta2:*/Convert.ToByte(rs.Fields["_Age"]		.Value);
+					i.Breasts		= /*beta2:*/Convert.ToByte(rs.Fields["_Breasts"]	.Value);
+					i.Build			= /*beta2:*/Convert.ToByte(rs.Fields["_Build"]		.Value);
+					i.Butt			= /*beta2:*/Convert.ToByte(rs.Fields["_Butt"]		.Value);
+					i.Cat1			= /*beta2:*/Convert.ToUInt32(rs.Fields["_Catagory"]	.Value);
+					i.Cat2			= /*beta2:*/Convert.ToUInt32(rs.Fields["_Catagory2"].Value);
+					i.Chest			= /*beta2:*/Convert.ToByte(rs.Fields["_Chest"]		.Value);
+					i.Content		= /*beta2:*/Convert.ToByte(rs.Fields["_Content"]	.Value);
+					i.Eyes			= /*beta2:*/Convert.ToByte(rs.Fields["_Eyes"]		.Value);
+					i.FacialHair	= /*beta2:*/Convert.ToByte(rs.Fields["_FacialHair"]	.Value);
+					i.FemaleGen		= /*beta2:*/Convert.ToByte(rs.Fields["_FemaleGen"]	.Value);
+					i.Gender		= /*beta2:*/Convert.ToByte(rs.Fields["_Content"]	.Value);
+					i.HairColor		= /*beta2:*/Convert.ToByte(rs.Fields["_HairColor"]	.Value);
+					i.HairStyle		= /*beta2:*/Convert.ToByte(rs.Fields["_HairStyle"]	.Value);
+					i.Height		= /*beta2:*/Convert.ToByte(rs.Fields["_Height"]		.Value);
+					i.Hips			= /*beta2:*/Convert.ToByte(rs.Fields["_Hips"]		.Value);
+					i.Legs			= /*beta2:*/Convert.ToByte(rs.Fields["_Legs"]		.Value);
+					i.MaleGen		= /*beta2:*/Convert.ToByte(rs.Fields["_MaleGen"]	.Value);
+					i.Nipples		= /*beta2:*/Convert.ToByte(rs.Fields["_Nipples"]	.Value);
+					i.Quality		= /*beta2:*/Convert.ToByte(rs.Fields["_Quality"]	.Value);
+					i.Quantity		= /*beta2:*/Convert.ToByte(rs.Fields["_Quantity"]	.Value);
+					i.Race			= /*beta2:*/Convert.ToByte(rs.Fields["_Race"]		.Value);
+					i.Rating		= /*beta2:*/Convert.ToByte(rs.Fields["_Rating"]		.Value);
+					i.Setting		= /*beta2:*/Convert.ToByte(rs.Fields["_Setting"]	.Value);
+					i.Skin			= /*beta2:*/Convert.ToByte(rs.Fields["_Skin"]		.Value);
 
-				//add to temp store
-				temp.Add(i);
+					//add to temp store
+					temp.Add(i);
+				}
 
 				//next record
 				rs.MoveNext();

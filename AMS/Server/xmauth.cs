@@ -2,6 +2,8 @@ namespace XMedia
 {
     using System;
 	using ADODB;
+	using System.Net;
+	using System.Diagnostics;
 
     public class XMGuid
 	{
@@ -93,6 +95,15 @@ namespace XMedia
 				}
 			}
 			return true;
+		}
+		public override int GetHashCode()
+		{
+			//xor the md5 down to 32 bits
+			return (int)(
+				((mBuf[0] << 0) | (mBuf[1] << 8) | (mBuf[2] << 16) | (mBuf[3] << 24)) ^
+				((mBuf[4] << 0) | (mBuf[5] << 8) | (mBuf[6] << 16) | (mBuf[7] << 24)) ^
+				((mBuf[8] << 0) | (mBuf[9] << 8) | (mBuf[10] << 16) | (mBuf[11] << 24)) ^
+				((mBuf[12] << 0) | (mBuf[13] << 8) | (mBuf[14] << 16) | (mBuf[15] << 24)));
 		}
 		public override string ToString()
 		{
@@ -191,7 +202,7 @@ namespace XMedia
 
 			//success
 			newVersion = rs.Fields["newversion"].Value.ToString();
-			required = rs.Fields["required"].Value.ToString().ToBoolean();
+			required = System.Convert.ToBoolean(rs.Fields["required"].Value);
 			return true;
 		}
 
@@ -212,7 +223,7 @@ namespace XMedia
 			}
 			catch
 			{
-				System.Diagnostics.Trace.WriteLine("Could not kick everyone.");
+				XMLog.WriteLine("Could not kick everyone.", "KickAll", EventLogEntryType.Error);
 			}
 		}
 
@@ -274,7 +285,7 @@ namespace XMedia
 			//get the userid, create the session id
 			XMGuid user = new XMGuid((byte[])rs.Fields[0].Value);
 			XMGuid session = new XMGuid(true);	//new session id
-			bool paying = rs.Fields[1].Value.ToString().ToBoolean();
+			bool paying = /*beta2:*/System.Convert.ToBoolean(rs.Fields[1].Value);
 
 			//update the database with the new session
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(200, 200);
@@ -306,14 +317,14 @@ namespace XMedia
 			//if we can't make a connection back to the client, then
 			//don't let it share any files.. no one will get them
 			string sql;
-			if (true/*con.Ping()*/)
-			{
+			//if (true/*con.Ping()*/)
+			//{
 				sql = "update users set online=1 where userid=" + con.UserID.ToStringDB();
-			}
-			else
-			{
-				sql = "update users set online=0 where userid=" + con.UserID.ToStringDB();
-			}
+			//}
+			//else
+			//{
+			//	sql = "update users set online=0 where userid=" + con.UserID.ToStringDB();
+			//}
 			if (mAdo.EnsureConnection())
 			{
 				mAdo.SqlExec(sql);
@@ -351,6 +362,78 @@ namespace XMedia
 				"select max(datestamp) from userslogins where accesstoken = {0}
 			*/
 			return true;
+		}
+
+		/// <summary>
+		/// Makes sure that every user record from the database that is marked
+		/// onlne actually has an open connection.
+		/// </summary>
+		public static void CheckConnections()
+		{
+			//open db cnnection
+			if (!EnsureConnection())
+				return;
+
+			//get all users where online=1
+			ADODB._Recordset rs;
+			try
+			{
+				rs = mAdo.SqlExec("select * from users where online=1");
+			}
+			catch(Exception e)
+			{
+				XMLog.WriteLine(e.Message, "CheckConnections", EventLogEntryType.Error);
+				return;
+			}
+
+			//walk recordset
+			XMGuid uid = null;
+			XMGuid at = null;
+			IPAddress ip;
+			bool kill;
+			object[] cons = XMConnection.Connections;
+			while (!rs.EOF)
+			{
+				kill = true;
+				try
+				{
+					//get accesstoken and ip
+					uid = new XMGuid((byte[])rs.Fields["userid"].Value);
+					at = new XMGuid((byte[])rs.Fields["accesstoken"].Value);
+					ip = IPAddress.Parse((string)rs.Fields["hostip"].Value);
+
+					//search open connections
+					//note: we don't need to sync since this array was copied
+					foreach(XMConnection c in cons)
+					{
+						//test this connection
+						if (c.SessionID.Equals(at) &&
+							c.HostIP.Equals(ip))
+						{
+							//connection is alive
+							kill = false;
+							break;
+						}
+					}
+				}
+				catch
+				{
+					//we can continue, but make sure to move this user offline
+					kill = true;
+				}
+
+				//if we couldn't find the connection, or there was an error
+				//we will set the online flag to 0
+				if (kill && uid!=null)
+				{
+					XMLog.WriteLine("Kicking user: " + rs.Fields["login"].Value, "CheckConnections", EventLogEntryType.Warning);
+					string str = String.Format("update users set online=0, accesstoken=null where userid={0}", uid.ToStringDB());				
+					mAdo.SqlExec(str);
+				}
+
+				//next record
+				rs.MoveNext();
+			}
 		}
     }
 }

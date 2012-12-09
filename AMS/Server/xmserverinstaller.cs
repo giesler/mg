@@ -3,7 +3,7 @@ namespace XMedia
     using System;
     using System.Collections;
 	using System.ComponentModel;
-    using System.Core;
+    //beta2: using System.Core;
     using System.Configuration.Install;
 
     [RunInstaller(true)]

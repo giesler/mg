@@ -6,20 +6,10 @@ namespace XMedia
 	using System.Threading;
 	using System.Net;
 	using System.Net.Sockets;
+	using System.Timers;
+	using System.Diagnostics;
 
-	using Microsoft.Win32.Interop;
-
-	#if NOSERVICE
-	//emulate event log
-	public class EventLog
-	{
-		public void WriteEntry(string message, System.Diagnostics.EventLogEntryType type)
-		{
-			//write to console
-			Console.WriteLine("Event: " + message);
-		}
-	}
-	#endif
+	//beta2: using Microsoft.Win32.Interop;
 
 	#if NOSERVICE
     public class XMServer //: System.ServiceProcess.ServiceBase
@@ -28,6 +18,8 @@ namespace XMedia
 	#endif
     {
 		protected XMListener mListener;
+		protected System.Timers.Timer mTimerConnections;
+		protected System.Timers.Timer mTimerMediaRebuild;
 
 		//our public query engine
 		protected static XMQueryEngine mEngine = new XMQueryEngine();
@@ -39,9 +31,11 @@ namespace XMedia
 			}
 		}
 
+		/*
 		#if NOSERVICE
 		protected EventLog EventLog = new EventLog();
 		#endif
+		*/
 
         public XMServer()
         {
@@ -80,6 +74,10 @@ namespace XMedia
 			//2. Load query processors
 			//3. Begin listening
 
+			//static inits
+			XMConnection.StaticInit();
+			XMLog.StaticInit();
+
 			//load data, start a processor
 			mEngine.Rebuild();
 			mEngine.SetProcessorCount(1);
@@ -87,14 +85,36 @@ namespace XMedia
 			//start listen server
 			if (mListener!=null)
 			{
-				EventLog.WriteEntry("Listener already started.", System.Diagnostics.EventLogEntryType.Error);
+				XMLog.WriteLine("Listener already started.", "XMServer", System.Diagnostics.EventLogEntryType.Error);
 				return;
 			}
 			mListener = new XMListener();
 			mListener.Start();
 
+			//start timer for connection checking
+			mTimerConnections = new System.Timers.Timer(2*60*1000);	//2 minutes	
+			mTimerConnections.Elapsed += new System.Timers.ElapsedEventHandler(ElapsedConnections);
+			mTimerConnections.Start();
+
+			//start timer for media rebuilds
+			mTimerMediaRebuild = new System.Timers.Timer(42*60*1000); //42 minutes (yes, 42!)
+			mTimerMediaRebuild.Elapsed += new System.Timers.ElapsedEventHandler(ElapsedMediaRebuild);
+			mTimerMediaRebuild.Start();
         }
  
+		public void ElapsedConnections(object o, System.Timers.ElapsedEventArgs args)
+		{
+			//transfer to xmauth
+			XMAuth.CheckConnections();
+		}
+
+		public void ElapsedMediaRebuild(object o, System.Timers.ElapsedEventArgs args)
+		{
+			//start rebuild
+			mTimerMediaRebuild.Stop();
+			mEngine.Rebuild();
+		}
+
         /// <summary>
         ///    Stop this service.
         /// </summary>
@@ -119,14 +139,12 @@ namespace XMedia
 				catch(Exception e)
 				{
 					//log exception
-					EventLog.WriteEntry("Could not stop listener: " + e.Message, System.Diagnostics.EventLogEntryType.Error);
+					XMLog.WriteLine("Could not stop listener: " + e.Message, "XMServer", System.Diagnostics.EventLogEntryType.Error);
 				}
 				
 				mListener = null;
 			}
-
         }
-
     }
 
 	public class XMListener
@@ -197,22 +215,20 @@ namespace XMedia
 			//move everyone offline
 			XMAuth.KickAll();
 
-			//begin listening
-			Socket mSocket = new Socket(AddressFamily.AfINet, 
-										SocketType.SockStream, 
-										ProtocolType.ProtTCP);
-			if (mSocket.Bind(new IPEndPoint(IPAddress.InaddrAny, 25346))!=0)
+			//beta2: socket calls return void, throw exceptions
+			Socket mSocket;
+			try
 			{
-				//error occureed
-				(new EventLog()).WriteEntry("Failed to bind server to port:\n"
-					+ Convert.ToString(Windows.GetLastError()), 0);
-				return;
+				mSocket = new Socket(	/*beta2:*/AddressFamily.InterNetwork, 
+										/*beta2:*/SocketType.Stream, 
+										/*beta2:*/ProtocolType.Tcp);
+				mSocket.Bind(new IPEndPoint(IPAddress.Any, 25346));
+				mSocket.Listen(4);
 			}
-			if (mSocket.Listen(4)!=0)
+			catch(SocketException se)
 			{
 				//error occured
-				(new EventLog()).WriteEntry("Failed to set server to listen mode:\n"
-					+ Convert.ToString(Windows.GetLastError()), 0);
+				XMLog.WriteLine(se.Message, "Listener", EventLogEntryType.Error);
 				return;
 			}
 
@@ -225,7 +241,6 @@ namespace XMedia
 				while(mSocket.Poll(0, SelectMode.SelectRead))
 				{
 					//connect a new socket
-					System.Diagnostics.Debug.WriteLine("Accepting new connection.", "XMSERVER");
 					newSocket = mSocket.Accept();
 					newClient = new XMConnection(newSocket);
 				}

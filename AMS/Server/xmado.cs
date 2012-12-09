@@ -21,10 +21,10 @@ namespace XMedia
 
 			//database is not connected, open it
 			string con;
-			con = "PROVIDER=SQLOLEDB;Initial Catalog=xmcatalog;Data Source=amsdb01;Integrated Security=SSPI";
+			con = "PROVIDER=SQLOLEDB;Initial Catalog=xmcatalog;Data Source=amsdb01";//;Integrated Security=SSPI";
 			try 
 			{
-				mConnection.Open(con, "", "", 0);
+				mConnection.Open(con, "sa", "%makememoney%", 0);
 			}
 			catch
 			{
@@ -41,7 +41,7 @@ namespace XMedia
 			//helper function
 			int i = 0;
 			object ri = i;
-			return mConnection.Execute(s, ref ri, 0);
+			return mConnection.Execute(s, out ri, 0);
 		}
 	}
 }

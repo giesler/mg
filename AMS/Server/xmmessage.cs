@@ -17,7 +17,7 @@ namespace XMedia
 	public class XMMediaListing
 	{
 		public bool Full;
-		public ObjectList MediaItems = new ObjectList();
+		public /*beta2:*/ArrayList MediaItems = new /*beta2:*/ArrayList();
 
 		public XmlElement ToXml(XmlDocument doc)
 		{
@@ -60,9 +60,9 @@ namespace XMedia
 				m = new XMMediaItem();
 				m.Action = e.GetAttribute("action");
 				m.Md5 = e.GetAttribute("md5");
-				m.Height = e.GetAttribute("height").ToInt32();
-				m.Width = e.GetAttribute("width").ToInt32();
-				m.FileSize = e.GetAttribute("filesize").ToInt32();
+				m.Height = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("height"));
+				m.Width = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("width"));
+				m.FileSize = /*beta2:*/System.Convert.ToInt32(e.GetAttribute("filesize"));
 			
 				//check for index
 				XmlNodeList nl = e.GetElementsByTagName("index");
@@ -94,7 +94,7 @@ namespace XMedia
 		//special data depending on message
 		public XMMediaListing Listing;
 		public XMQuery Query;
-		public ObjectList QueryResults;
+		public /*beta2:*/ArrayList QueryResults;
 
 		//auto update
 		public bool auEnable = false;
@@ -121,8 +121,8 @@ namespace XMedia
 				
 			//get sequence number, reply number
 			XmlElement root = xml.DocumentElement;
-			Sequence = root.GetAttribute("sequence").ToInt32();
-			Reply = root.GetAttribute("reply").ToInt32();
+			Sequence = /*beta2:*/Convert.ToInt32(root.GetAttribute("sequence"));
+			Reply = /*beta2:*/Convert.ToInt32(root.GetAttribute("reply"));
 
 			//read major elements
 			XmlElement el, content=null;
@@ -436,7 +436,7 @@ namespace XMedia
 			string u, p;
 			try 
 			{
-				dr = Int32.FromString(GetField("datarate").Value.ToString());
+				dr = /*beta2:*/Convert.ToInt32(GetField("datarate").Value);
 			}
 			catch
 			{
@@ -473,8 +473,6 @@ namespace XMedia
 			string auVersion = "";
 			if (Connection.Version != "0.60")		//NOTE: current version
 			{
-				Trace.WriteLine("Old Version: " + Connection.Version);
-
 				//fetch the record
 				auLatest = false;
 				if (!XMAuth.AutoUpdateCheck(Connection.Version, ref auVersion, ref auRequired))
@@ -603,7 +601,7 @@ namespace XMedia
 				}
 
 				//parse the string
-				StringCollection sc = new StringCollection();
+				/*beta2:*/ArrayList sc = new ArrayList();
 				string s = (string)field.Value;
 				int i = 0;
 				int j = s.IndexOf(';', i);
@@ -775,7 +773,7 @@ namespace XMedia
 				{
 					//probobly the item already exists, so we can
 					//safely ignore this.
-					Trace.WriteLine(e.Message);
+					XMLog.WriteLine(e.Message, "DoListing", EventLogEntryType.Warning);
 				}
 			}
 		}
