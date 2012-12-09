@@ -23,6 +23,13 @@ namespace pics
  
 		protected void Session_Start(Object sender, EventArgs e)
 		{
+			// check if the user is authenticated
+			if (Request.IsAuthenticated) 
+			{
+				// load the user info into the session
+				PersonInfo pi = new PersonInfo(Convert.ToInt32(User.Identity.Name));
+				Session["PersonInfo"] = pi;
+			}
 
 		}
 
