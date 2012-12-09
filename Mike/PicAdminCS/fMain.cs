@@ -52,8 +52,6 @@ namespace PicAdminCS
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.TreeView tvDates;
-		private PicAdminCS.CategoryTree categoryTree1;
-		private PicAdminCS.PeopleCtl peopleCtl1;
 		private System.Windows.Forms.ContextMenu mnuPictureList;
 		private System.Windows.Forms.MenuItem mnuPictureListEdit;
 		private System.Windows.Forms.MenuItem mnuPictureListDelete;
@@ -63,6 +61,10 @@ namespace PicAdminCS
 		private System.Windows.Forms.MenuItem mnuPictureListMoveUp;
 		private System.Windows.Forms.MenuItem mnuPictureListMoveDown;
 		private System.Windows.Forms.ColumnHeader columnHeader6;
+		private System.Windows.Forms.TabPage tabPage4;
+		private System.Windows.Forms.TreeView tvAddedDate;
+		private PicAdminCS.CategoryTree categoryTree1;
+		private PicAdminCS.PeopleCtl peopleCtl1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -124,8 +126,9 @@ namespace PicAdminCS
 			this.tvDates = new System.Windows.Forms.TreeView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.categoryTree1 = new PicAdminCS.CategoryTree();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.tvAddedDate = new System.Windows.Forms.TreeView();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
 			this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
 			this.mnuPictureList = new System.Windows.Forms.ContextMenu();
 			this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
@@ -140,10 +143,12 @@ namespace PicAdminCS
 			this.menuFileExit = new System.Windows.Forms.MenuItem();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
 			this.panelPic.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -179,7 +184,7 @@ namespace PicAdminCS
 			// splitter2
 			// 
 			this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.splitter2.Location = new System.Drawing.Point(203, 254);
+			this.splitter2.Location = new System.Drawing.Point(203, 260);
 			this.splitter2.Name = "splitter2";
 			this.splitter2.Size = new System.Drawing.Size(493, 3);
 			this.splitter2.TabIndex = 6;
@@ -234,22 +239,24 @@ namespace PicAdminCS
 			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																					  this.tabPage1,
 																					  this.tabPage2,
+																					  this.tabPage4,
 																					  this.tabPage3});
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(200, 569);
+			this.tabControl1.Size = new System.Drawing.Size(200, 575);
 			this.tabControl1.TabIndex = 9;
 			// 
 			// tabPage1
 			// 
 			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.tvDates});
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Location = new System.Drawing.Point(4, 40);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(192, 543);
+			this.tabPage1.Size = new System.Drawing.Size(192, 531);
 			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Date";
+			this.tabPage1.Text = "Picture Date";
 			// 
 			// tvDates
 			// 
@@ -259,7 +266,7 @@ namespace PicAdminCS
 			this.tvDates.ImageIndex = -1;
 			this.tvDates.Name = "tvDates";
 			this.tvDates.SelectedImageIndex = -1;
-			this.tvDates.Size = new System.Drawing.Size(192, 543);
+			this.tvDates.Size = new System.Drawing.Size(192, 531);
 			this.tvDates.TabIndex = 0;
 			this.tvDates.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDates_AfterSelect);
 			// 
@@ -267,9 +274,9 @@ namespace PicAdminCS
 			// 
 			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.categoryTree1});
-			this.tabPage2.Location = new System.Drawing.Point(4, 4);
+			this.tabPage2.Location = new System.Drawing.Point(4, 40);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(192, 561);
+			this.tabPage2.Size = new System.Drawing.Size(192, 531);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Category";
 			// 
@@ -277,27 +284,40 @@ namespace PicAdminCS
 			// 
 			this.categoryTree1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.categoryTree1.Name = "categoryTree1";
-			this.categoryTree1.Size = new System.Drawing.Size(192, 543);
+			this.categoryTree1.Size = new System.Drawing.Size(192, 531);
 			this.categoryTree1.TabIndex = 0;
-			this.categoryTree1.ClickCategory += new PicAdminCS.ClickCategoryEventHandler(this.categoryTree1_ClickCategory);
+			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.tvAddedDate});
+			this.tabPage4.Location = new System.Drawing.Point(4, 40);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Size = new System.Drawing.Size(192, 531);
+			this.tabPage4.TabIndex = 3;
+			this.tabPage4.Text = "Added Date";
+			// 
+			// tvAddedDate
+			// 
+			this.tvAddedDate.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tvAddedDate.FullRowSelect = true;
+			this.tvAddedDate.HideSelection = false;
+			this.tvAddedDate.ImageIndex = -1;
+			this.tvAddedDate.Name = "tvAddedDate";
+			this.tvAddedDate.SelectedImageIndex = -1;
+			this.tvAddedDate.Size = new System.Drawing.Size(192, 531);
+			this.tvAddedDate.TabIndex = 1;
+			this.tvAddedDate.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvAddedDate_AfterSelect);
 			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.peopleCtl1});
-			this.tabPage3.Location = new System.Drawing.Point(4, 4);
+			this.tabPage3.Location = new System.Drawing.Point(4, 40);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(192, 561);
+			this.tabPage3.Size = new System.Drawing.Size(192, 531);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Person";
-			// 
-			// peopleCtl1
-			// 
-			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.peopleCtl1.Name = "peopleCtl1";
-			this.peopleCtl1.Size = new System.Drawing.Size(192, 543);
-			this.peopleCtl1.TabIndex = 0;
-			this.peopleCtl1.ClickPerson += new PicAdminCS.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
 			// 
 			// daPictureDate
 			// 
@@ -364,7 +384,7 @@ namespace PicAdminCS
 			this.lvPics.HideSelection = false;
 			this.lvPics.Location = new System.Drawing.Point(203, 0);
 			this.lvPics.Name = "lvPics";
-			this.lvPics.Size = new System.Drawing.Size(493, 254);
+			this.lvPics.Size = new System.Drawing.Size(493, 260);
 			this.lvPics.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.lvPics.TabIndex = 8;
 			this.lvPics.View = System.Windows.Forms.View.Details;
@@ -401,7 +421,7 @@ namespace PicAdminCS
 			// 
 			this.splitter1.Location = new System.Drawing.Point(200, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 569);
+			this.splitter1.Size = new System.Drawing.Size(3, 575);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
@@ -410,15 +430,22 @@ namespace PicAdminCS
 			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				 this.panelPic});
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(203, 257);
+			this.panel1.Location = new System.Drawing.Point(203, 263);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(493, 312);
 			this.panel1.TabIndex = 5;
 			// 
+			// peopleCtl1
+			// 
+			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.peopleCtl1.Name = "peopleCtl1";
+			this.peopleCtl1.Size = new System.Drawing.Size(192, 531);
+			this.peopleCtl1.TabIndex = 0;
+			// 
 			// fMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(696, 569);
+			this.ClientSize = new System.Drawing.Size(696, 575);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.lvPics,
 																		  this.splitter2,
@@ -434,6 +461,7 @@ namespace PicAdminCS
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
+			this.tabPage4.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -476,6 +504,32 @@ namespace PicAdminCS
 				nDay.Tag = "DatePart(yyyy, PictureDate) = " + nYear.Text + " AND "
 					+ "DatePart(mm, PictureDate) = " + dr[1].ToString() + " AND "
 					+ "DatePart(dd, PictureDate) = " + dr[2].ToString();
+			}
+
+			
+			// Get the added date tree vals
+			string sql = "SELECT DATEPART(yyyy, PictureAddDate) AS PicYear, DATEPART(mm, PictureAddDate) AS PicMonth, " 
+				+ "DATEPART(dd, PictureAddDate) AS PicDay FROM Picture " 
+				+ "GROUP BY DATEPART(yyyy, PictureAddDate), DATEPART(mm, PictureAddDate), DATEPART(dd, PictureAddDate) "
+				+ "ORDER BY DATEPART(yyyy, PictureAddDate), DATEPART(mm, PictureAddDate), DATEPART(dd, PictureAddDate)";
+			SqlDataAdapter daAdded = new SqlDataAdapter(sql, cn);
+
+			DataSet dsAdded = new DataSet();
+			daAdded.Fill(dsAdded, "PictureAddedDates");
+
+			foreach (DataRow dr in dsAdded.Tables["PictureAddedDates"].Rows) 
+			{
+				nYear  = GetNode(tvAddedDate.Nodes, dr[0].ToString());
+				nYear.Tag = "DatePart(yyyy, PictureAddDate) = " + nYear.Text;
+				nYear.Expand();
+				nMonth = GetNode(nYear.Nodes, MonthString(Convert.ToInt32(dr[1])));
+				nMonth.Tag = "DatePart(yyyy, PictureAddDate) = " + nYear.Text + " AND "
+					+ "DatePart(mm, PictureAddDate) = " + dr[1].ToString();
+
+				nDay   = GetNode(nMonth.Nodes, nMonth.Text + " " + dr[2].ToString());
+				nDay.Tag = "DatePart(yyyy, PictureAddDate) = " + nYear.Text + " AND "
+					+ "DatePart(mm, PictureAddDate) = " + dr[1].ToString() + " AND "
+					+ "DatePart(dd, PictureAddDate) = " + dr[2].ToString();
 			}
 
 		}
@@ -903,18 +957,30 @@ namespace PicAdminCS
 
 		private void fMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (Directory.Exists(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache"))
+			try 
 			{
-				if (imgCurImage != null) 
-				{   
-					imgCurImage.Dispose();
-					imgCurImage = null;
-				}
-				pbPic.Image = null;
-				fStatus fStat = new fStatus(null, "Cleaning up...", 0);
-				Directory.Delete(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache\\", true);
-				fStat.Hide();
+				if (Directory.Exists(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache"))
+				{
+					if (imgCurImage != null) 
+					{   
+						imgCurImage.Dispose();
+						imgCurImage = null;
+					}
+					pbPic.Image = null;
+					fStatus fStat = new fStatus(null, "Cleaning up...", 0);
+					Directory.Delete(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache\\", true);
+					fStat.Hide();
+				} 
 			}
+			catch (Exception) 
+			{
+                MessageBox.Show("There was still a problem cleaning up.  But I caught it so it doesn't look quite so bad.  Blah.  Anyways, thanks for using me!", "S H I T ! ! !", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void tvAddedDate_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
+		{
+			AddPicturesToList(e.Node.Tag.ToString());
 		}
 
 

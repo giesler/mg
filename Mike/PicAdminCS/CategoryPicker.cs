@@ -325,5 +325,22 @@ namespace PicAdminCS
 				return arCategory;
 			}
 		}
+
+		public ArrayList SelectedCategoryIds
+		{
+			get 
+			{
+				ArrayList selected = new ArrayList();
+
+				foreach (ListViewItem item in lvCategories.Items) 
+				{
+					DataSetCategory.CategoryRow row = (DataSetCategory.CategoryRow) item.Tag;
+					selected.Add(row.CategoryID);
+				}
+
+				return selected;
+			}
+		}
+
 	}
 }

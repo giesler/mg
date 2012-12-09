@@ -19,7 +19,7 @@ namespace pics
 	public class Cdefault : System.Web.UI.Page
 	{
 		protected System.Web.UI.WebControls.Panel randomPicture;
-		protected System.Web.UI.WebControls.Panel recentPanel;
+		protected System.Web.UI.WebControls.DataList dlRecent;
 	
 		public Cdefault()
 		{
@@ -44,8 +44,10 @@ namespace pics
 			cn.Open();
 			SqlDataReader dr = cmd.ExecuteReader();
 
-			while (dr.Read()) 
+/*			while (dr.Read()) 
 			{
+				ListItem li = new ListItem();
+				
                 HyperLink lnk = new HyperLink();
 				lnk.NavigateUrl = "Categories.aspx?r=1&c=" + dr["CategoryID"].ToString();
 				lnk.Text		= dr["CategoryName"].ToString();
@@ -59,12 +61,15 @@ namespace pics
 				recentPanel.Controls.Add(br);
 
                 Label desc = new Label();
-				desc.Text = "<br>" + dr["CategoryDescription"].ToString();
+				desc.Text = "<br>" + dr["CategoryDescription"].ToString() + "<br>";
 				recentPanel.Controls.Add(desc);
 
 				recentPanel.Controls.Add(br);
 				recentPanel.Controls.Add(br);
 			}
+*/
+			dlRecent.DataSource = dr;
+			dlRecent.DataBind();
 
 			dr.Close();
 			cn.Close();

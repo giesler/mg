@@ -1,41 +1,46 @@
-<xsd:schema id="DataSetCategory" targetNamespace="http://www.tempuri.org/DataSetCategory.xsd" xmlns="http://www.tempuri.org/DataSetCategory.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
-	<xsd:element name="DataSetCategory" msdata:IsDataSet="true">
-		<xsd:complexType>
-			<xsd:choice maxOccurs="unbounded">
-				<xsd:element name="Category">
-					<xsd:complexType>
-						<xsd:sequence>
-							<xsd:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xsd:int" msdata:AutoIncrementSeed="10000" />
-							<xsd:element name="CategoryParentID" type="xsd:int" minOccurs="0" />
-							<xsd:element name="CategoryName" type="xsd:string" />
-							<xsd:element name="CategoryDescription" type="xsd:string" minOccurs="0" />
-							<xsd:element name="CategoryPath" type="xsd:string" minOccurs="0" />
-						</xsd:sequence>
-					</xsd:complexType>
-				</xsd:element>
-				<xsd:element name="CategoryGroup">
-					<xsd:complexType>
-						<xsd:sequence>
-							<xsd:element name="CategoryGroupID" type="xsd:int" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="10000" msdata:AutoIncrementStep="1" />
-							<xsd:element name="CategoryID" type="xsd:int" minOccurs="0" />
-							<xsd:element name="GroupID" type="xsd:int" minOccurs="0" />
-						</xsd:sequence>
-					</xsd:complexType>
-				</xsd:element>
-			</xsd:choice>
-		</xsd:complexType>
-		<xsd:unique name="Constraint1" msdata:PrimaryKey="true">
-			<xsd:selector xpath=".//Category" />
-			<xsd:field xpath="CategoryID" />
-		</xsd:unique>
-		<xsd:unique name="CategoryGroup_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-			<xsd:selector xpath=".//CategoryGroup" />
-			<xsd:field xpath="CategoryID" />
-			<xsd:field xpath="GroupID" />
-		</xsd:unique>
-		<xsd:keyref name="CategoryCategoryGroup" refer="Constraint1">
-			<xsd:selector xpath=".//CategoryGroup" />
-			<xsd:field xpath="CategoryID" />
-		</xsd:keyref>
-	</xsd:element>
-</xsd:schema>
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="DataSetCategory" targetNamespace="http://tempuri.org/DataSetCategory.xsd" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns="http://tempuri.org/DataSetCategory.xsd" xmlns:mstns="http://tempuri.org/DataSetCategory.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DataSetCategory" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Category">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="CategoryParentID" type="xs:int" />
+							<xs:element name="CategoryName" type="xs:string" />
+							<xs:element name="CategoryPath" type="xs:string" minOccurs="0" />
+							<xs:element name="CategoryDescription" type="xs:string" minOccurs="0" />
+							<xs:element name="Publish" type="xs:boolean" default="true" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CategoryGroup">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CategoryGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="CategoryID" type="xs:int" minOccurs="0" />
+							<xs:element name="GroupID" type="xs:int" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="DataSetCategoryKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:Category" />
+			<xs:field xpath="mstns:CategoryID" />
+		</xs:unique>
+		<xs:unique name="DataSetCategoryKey2" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:CategoryGroup" />
+			<xs:field xpath="mstns:CategoryGroupID" />
+		</xs:unique>
+		<xs:key name="key1">
+			<xs:selector xpath=".//mstns:Category" />
+			<xs:field xpath="mstns:CategoryID" />
+		</xs:key>
+		<xs:keyref name="CategoryCategoryGroup" refer="key1">
+			<xs:selector xpath=".//mstns:CategoryGroup" />
+			<xs:field xpath="mstns:CategoryID" />
+		</xs:keyref>
+	</xs:element>
+</xs:schema>
