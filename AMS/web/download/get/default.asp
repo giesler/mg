@@ -1,14 +1,16 @@
 <%@ Language=VBScript %>
 <%
 Option Explicit
-dim strOffset, strFile, strOnLoad
+dim strOffset, strFile, strOnLoad, strSite, strAltSite
 strOffset = "../../"
-strFile = "../bld/AMSInstall_060.exe"
+strSite = "http://download1.adultmediaswapper.com/"
+strAltSite = "http://download.adultmediaswapper.com/"
+strFile = "AMSInstall_060.exe"
 
 if Request.Form("agree") = "n" then
 	Response.Redirect("http://www.google.com")
 elseif Request.Form("agree") = "y" then
-	strOnLoad = "onLoad=""window.location.href='" & strFile & "'"";"
+	strOnLoad = "onLoad=""window.location.href='" & strSite & strFile & "'"";"
 end if
 %>
 <html>
@@ -72,13 +74,20 @@ The AMS version 0.60 download is approxiately 900kb.  It will only take a few mi
 <h3>Download</h3>
 
 <p>
-Your download should begin shortly.  If it does not start automatically, click <a href="<%=strFile%>">here</a> 
+Your download should begin shortly.  If it does not start automatically, click <a href="<%=strSite & strFile%>">here</a> 
 to start your download.
 </p>
 
 <p>
 <a href="../../support/software/tutorial/">Click here</a> for a short tutorial on using the Adult Media Swapper program.
 </p>
+
+<p>
+<font size="-2">
+	<i>If your download does not start and the link above does not work, try <a href="<%=strAltSite & strFile%>">this location</a>.</i>
+</font>
+</p>
+
 
 <% end if %>
 
