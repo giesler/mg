@@ -3,6 +3,7 @@
         ProjectType = "Web"
         ProductVersion = "7.0.9254"
         SchemaVersion = "1.0"
+        ProjectGuid = "{F7D71F56-EBD1-4104-94AC-A2006FF44F54}"
     >
         <Build>
             <Settings
@@ -16,7 +17,7 @@
                 DelaySign = "false"
                 NoStandardLibraries = "true"
                 OutputType = "Library"
-                RootNamespace = ""
+                RootNamespace = "mike_giesler_org"
                 StartupObject = ""
             >
                 <Config
@@ -59,7 +60,1669 @@
             <References/>
         </Build>
         <Files>
-            <Include/>
+            <Include>
+                <File
+                    RelPath = "500-100.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "default.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "favicon.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "global.asa"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "oldnews.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "redirect.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sds1.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "suds.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "uw.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "aboutme\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "aboutme\mike-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "aboutme\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "aboutme\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\back_bag.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\camp9508lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\camp9603lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\camp9605lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\trip23buslo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\trip23douglo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\trip23pizzahutlo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\trip24unitlo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_dinner1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_dinner2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_fire1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_fire2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_fire3-neil.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_group2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_group-mini.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_kite1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_kite2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_kite3.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_kite4.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_phut.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_rocks-bus.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_rocks-sara1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99_rocks-sara2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\dlapr99-group.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlapr99\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlaug95\camp9508hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlaug95\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlaug95\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlaug95\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\climb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hdgroup5.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hdgrouppic.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hdjamesneil.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hdmikerinse.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hdrinse1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hike.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\hotdogs.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\mikejennycook.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\nbabovegroup.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\nbmike.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\nbview.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\neilcook.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\rest.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dljune97\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\dlccake.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\dldavewave.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\dlgroup.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\dllaurelspam.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\dlscottspam.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\dlmay96\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\busunitpic.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_cooking.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_cookingcomp.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_jen.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_johnna_bus.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_mike_neil.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\p_uniteating.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\pizzahut.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\purple\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_group.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_jenny_sarah.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_matt_axe1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_matt_axe2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_matt_hardees.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\spbr_matt_neil.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr96\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\archpod.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\archviewdown.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\cheesecake.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\cleanup.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\cookingsnow.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\flat2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\group.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\grouppic.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\mattslpbag.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\mike.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\river.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\spelunk.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\sunsetsite.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\waterfall.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr98\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_bwp-greg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_gm-lf.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_group.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_group-mini.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_ms-lf.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_sara-abrams.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_smokemont.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_stm-greg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\spbr99_stm-sara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "camping\spbr99\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "email\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "email\thanks.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "email\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "email\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\curinfo.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\marble.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\_overlay\curinfo.asp_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\_overlay\curinfo.asp_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\bowl97\122wife.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\bowl97\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\bowl97\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\bowl97\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961225-1hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961226-1hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961226-2hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961227-1lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961227-2hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961228-1hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961228-2lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961229-1lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961229-2lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961229-3lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961229-4hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\frg961229-5lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ca96\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\caravan\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\caravan\vanbackhi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\caravan\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\caravan\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\carl.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\danandallison.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\freegees.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\ginnimatt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\jenjosh.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\kunkas.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\mikedanmatt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\paulatom.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\ralphandgrandma.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\cheve97\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\chuckandterr.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\ginni.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\matt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\mattz.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\mike.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\mkandmatt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\rick.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\rob.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\tony.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\walt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\easter98\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ptwedding\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ptwedding\ptweddinghi1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ptwedding\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\ptwedding\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\chucklo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\eat1lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\eat2lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\parentslo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\prayer1lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\prayer2lo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\rickhi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\ricklo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\roblo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\tablelo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\tonylo.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\freegee\thanks97\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\curinfo.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\kev_99.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\tree.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\trees.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\_overlay\curinfo.asp_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\_overlay\curinfo.asp_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\reception\family.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\reception\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\reception\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\reception\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\wedding\dad_marsha.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\wedding\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\wedding\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "family\giesler\wedding\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\back_bluewater.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\crystal.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\feldt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\samantha.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\other\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\arun-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\bucky.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\doug.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\greg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\jessica.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\joe-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\luke.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\sara-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "friends\uw\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\ask.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\av_logo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\av_md.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\clogo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\collapse.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\default.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\excite.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\expand.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\go.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\ialtavista.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\iyahoo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\links.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\lycos.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\track.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\trans.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\uw.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\wash2020.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\weather_js.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\_overlay\default.asp_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\_overlay\default.asp_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\_overlay\links.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\_overlay\links.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <Folder RelPath = "images\" />
+                <File
+                    RelPath = "page\confirm.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "page\default.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "page\_overlay\default.asp_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "page\_overlay\default.asp_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\doug_kara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\joe-sidewalk.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\luke-peanuts.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\fall99\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\bk_cogs.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\sanjuan-mike_sara_greg_mini.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\th_atwork.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\th_helens.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\th_otherpics.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\th_rainier.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\th_visitors.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\iza.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\office1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\office2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\office3.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\office4.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\atwork\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\faraway.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-flowers.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-group1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-group2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-pic1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-pic2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-pic3.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-sara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-spirit.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-spiritlake.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-spiritlake2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-trees.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-valley.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\helens-valley2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\index2.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\_overlay\index2.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\helens\_overlay\index2.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\river.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\snake.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\th_olympicnp.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\waterfall.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\olympicnp\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\eric-allison.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\interns.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\luau.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\other-ali.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\people\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\sanjuan-mike_sara_greg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\sanjuan-pic1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\sanjuan-pic2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\sanjuan-sara_greg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\snowplowme-1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\snowplowme-2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\snowplowme-mike_sara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\places\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\rainier1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\rainier-falls.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\rainier-glacier_mike.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\rainier\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\docks-mikegreg.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\docks-sunset.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\needle-bay.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\needle-city.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\needle-frombelow.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\pike-stadiums.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\seattle\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\ms-dad_kevin_marsha.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\ms-greg_sara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\ms-tony_mom_walt.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\visitors-gn.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\microsoft\visitors\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\202turner.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\cat-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\grouppics.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\guys-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\hallway_fish-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\individpics.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\jay.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\ma-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\msg-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\people1-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\people2-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\room1-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\room2-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\room3-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\sbowlcook1-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\sbowlcook2-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\shan_greg-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\shanna-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\tom_cook-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\turner-hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\202turner.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\202turner.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\grouppics.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\grouppics.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\individpics.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pictures\turner\_overlay\individpics.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\bluesilk.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\index.1.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\index.2.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\index.3.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\mike_2_hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\rainier-mikesara.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\sarammhi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\sara-smile.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\saraspamhi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\sublet3.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\sublet3hi.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "sara\_overlay\sublet3.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\resume.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\search.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\toc.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\index.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\index.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\resume.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\resume.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\search.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\search.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\toc.html_nav_mikes-website010_bnr.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "stuff\_overlay\toc.html_nav_mikes-website010_hbtn.gif"
+                    BuildAction = "Content"
+                />
+            </Include>
         </Files>
     </CSHARP>
 </VisualStudioProject>
