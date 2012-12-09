@@ -98,7 +98,7 @@ Private Sub cmdOK_Click()
 
     Dim rs As ADODB.Recordset, li As ListItem
     Set rs = New ADODB.Recordset
-    rs.Open "select * from media where id = " & mintID, gConn, adOpenForwardOnly, adLockReadOnly
+    rs.Open "select * from media where id = " & mintID, gConn, adOpenStatic, adLockOptimistic
     
     rs.Fields("Name") = txtName.Text
     rs.Fields("Artist") = txtArtist.Text
@@ -107,26 +107,31 @@ Private Sub cmdOK_Click()
     Set rs = Nothing
 
     ' update list sheets
-    Set li = fMain.lv.FindItem(Str(mintID))
+    Set li = fMain.lv.FindItem(mintID)
     If Not li Is Nothing Then
         li.SubItems(1) = txtName.Text
         li.SubItems(2) = txtArtist.Text
     End If
     
-    Set li = fMain.lvFind.FindItem(Str(mintID))
+    Set li = fMain.lvFind.FindItem(mintID)
     If Not li Is Nothing Then
         li.SubItems(1) = txtName.Text
         li.SubItems(2) = txtArtist.Text
     End If
     
-    Set li = fMain.lvQueue.FindItem(Str(mintID))
+    Set li = fMain.lvQueue.FindItem(mintID)
     If Not li Is Nothing Then
         li.SubItems(1) = txtName.Text
         li.SubItems(2) = txtArtist.Text
+    End If
+    
+    If Val(fMain.lblID.Caption) = mintID Then
+        fMain.lblName.Caption = txtName.Text
+        fMain.lblArtist.Caption = txtArtist.Text
     End If
     
     Visible = False
-    
+
 End Sub
 
 Public Sub LoadSong(intID As Long)
@@ -140,6 +145,7 @@ Public Sub LoadSong(intID As Long)
     
     txtName.Text = rs.Fields("Name")
     txtArtist.Text = rs.Fields("Artist")
+    txtFilename.Text = rs.Fields("Filename")
     
     rs.Close
     Set rs = Nothing
