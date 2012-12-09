@@ -29,45 +29,42 @@ strOffset = "../"
 		<h4>
 			Entering is simple:
 		</h4>
+		<ol>
+			<li>
+				Download the Adult Media Swapper <a href="../download/">client</a> if you don’t 
+				already have it.</li>
+			<li>
+				Click on the contest button on the upper left corner of the client.</li>
+			<li>
+				Earn points by checking boxes that describe each picture,</li>
+			<li>
+				-OR- by convincing friends to join using your e-mail address as the referrer.</li>
+		</ol>
 		<p>
-			<ol>
-				<b>
-					<li>
-						Download the Adult Media Swapper <a href="../download/">client</a> if you don’t 
-						already have it.</li>
-					<li>
-						Click on the contest button on the upper left corner of the client.</li>
-					<li>
-						Earn points by checking boxes that describe each picture,</li>
-					<li>
-					-OR- by convincing friends to join using your e-mail address as the referrer.</b></li>
-			</ol>
-		</p>
-		<p>
-			<b>Prizes are awarded for first, second, and third place in addition to a randomly 
+			<b>Prizes are awarded for first, second, and third place, in addition to a randomly 
 				drawn prize!</b>
 		</p>
 		<br>
 		<h4>
 			Prizes:
 		</h4>
-		<p>
-			<ol>
-				<li>
-					Third place prize: <a href="http://www.logitech.com/cf/products/productfeatures.cfm/38">
-						Logitech© Quickcam® Express</a> USB digital video camera</li>
-				<li>
-					Second place prize: <a href="http://www.microsoft.com/products/hardware/sidewinder/devices/FFB2/default.htm">
-						Microsoft© Sidewinder® Force Feedback 2</a> joystick</li>
-				<li>
-					First place prize: <a href="http://www.hpcdwriter.com/products/9500i/overview.asp">HP 
-						9500i</a> 12x8x32 IDE CD-RW drive</li>
-				<li>
-					Random drawing: Every member with at least 1,000 points will be added to a 
-					random drawing for a <a href="http://www.riohome.com/products/rio600-32MB.htm">SONICblue 
-						Rio 600</a> 32mb portable MP3 player</li>
-			</ol>
-		</p>
+		<ul>
+			<li>
+				Third place prize: <a href="http://shop.microsoft.com/Referral/Productinfo.asp?siteID=10557">
+					Microsoft© WheelMouse® Optical</a> USB & PS/2 optical mouse</li>
+			<li>
+				Second place prize: <a href="http://www.altecmm.com/webapp/commerce/command/ProductDisplay?prrfnbr=10175&prmenbr=9490&from=">
+					Altec Lansing© ATP3 Flat Panel Speaker System</a></li>
+			<li>
+				First place prize: <a href="http://www.storagebysony.com/categories/dvd.html#">Sony© 
+					16x Internal IDE DVD Drive</a></li>
+			<li>
+				Random drawing: Every member with at least 1,000 points will be added to a 
+				random drawing for a <a href="http://consumer.usa.canon.com/scanners/csn656u/index.html">
+					Canon© CanoScan® N656u</a> USB flatbed scanner</li>
+		</ul>
+		<br>
+		</ol> </p>
 		<br>
 		<h4>
 			There are some rules to this contest:
