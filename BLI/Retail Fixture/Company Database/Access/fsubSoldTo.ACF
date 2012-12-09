@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-851942101
+Checksum =1069209061
 Begin Form
     RecordSelectors = NotDefault
     AllowDeletions = NotDefault
@@ -131,8 +131,8 @@ Begin Form
                 End
                 Begin TextBox
                     OverlapFlags =85
-                    Left =1020
-                    Top =1560
+                    Left =3900
+                    Top =1200
                     Width =870
                     TabIndex =4
                     Name ="SoldState"
@@ -141,9 +141,9 @@ Begin Form
                         Begin Label
                             OverlapFlags =85
                             TextAlign =3
-                            Left =60
-                            Top =1560
-                            Width =825
+                            Left =3120
+                            Top =1200
+                            Width =645
                             Height =240
                             Name ="Label113"
                             Caption ="State:"
@@ -152,8 +152,8 @@ Begin Form
                 End
                 Begin TextBox
                     OverlapFlags =85
-                    Left =2748
-                    Top =1560
+                    Left =5640
+                    Top =1200
                     TabIndex =5
                     Name ="SoldZip"
                     ControlSource ="SoldZip"
@@ -161,8 +161,8 @@ Begin Form
                         Begin Label
                             OverlapFlags =85
                             TextAlign =3
-                            Left =2028
-                            Top =1560
+                            Left =4920
+                            Top =1200
                             Width =585
                             Height =240
                             Name ="Label114"
@@ -172,8 +172,8 @@ Begin Form
                 End
                 Begin TextBox
                     OverlapFlags =85
-                    Left =1020
-                    Top =1920
+                    Left =4500
+                    Top =480
                     Width =3600
                     Height =600
                     TabIndex =6
@@ -182,125 +182,29 @@ Begin Form
                     Begin
                         Begin Label
                             OverlapFlags =85
-                            TextAlign =3
-                            Left =120
-                            Top =1920
-                            Width =780
-                            Height =420
+                            TextAlign =1
+                            Left =4560
+                            Top =180
+                            Width =1740
+                            Height =240
                             Name ="Label10"
                             Caption ="Discount Note:"
                         End
                     End
                 End
                 Begin Subform
-                    OverlapFlags =87
-                    Left =4800
-                    Top =1140
-                    Width =3360
-                    Height =2040
-                    TabIndex =10
+                    OverlapFlags =85
+                    Left =120
+                    Top =1560
+                    Width =8100
+                    Height =1560
+                    TabIndex =7
                     Name ="fsubSoldAttention"
                     SourceObject ="Form.fsubSoldAttention"
                     LinkChildFields ="SoldID"
                     LinkMasterFields ="SoldID"
                     GUID = Begin
                         0x44e044b20b2fc94b934c426364aa9f9c
-                    End
-                    Begin
-                        Begin Label
-                            OverlapFlags =93
-                            Left =4800
-                            Top =900
-                            Width =2040
-                            Height =240
-                            Name ="fsubSoldAttention Label"
-                            Caption ="Sold To Attention"
-                            EventProcPrefix ="fsubSoldAttention_Label"
-                            GUID = Begin
-                                0xadf44af94920ef49aef9a1eca946202f
-                            End
-                        End
-                    End
-                End
-                Begin TextBox
-                    OverlapFlags =85
-                    Left =5580
-                    Top =120
-                    Width =2280
-                    TabIndex =8
-                    Name ="txtUsername"
-                    ControlSource ="Username"
-                    GUID = Begin
-                        0xe10171425c1a4e4da32e3563bc3af1c1
-                    End
-                    Begin
-                        Begin Label
-                            OverlapFlags =85
-                            TextAlign =3
-                            Left =4380
-                            Top =120
-                            Width =1065
-                            Height =240
-                            Name ="Label14"
-                            Caption ="Username:"
-                            GUID = Begin
-                                0x988a68d4069a1d458e54bc13752f2f8b
-                            End
-                        End
-                    End
-                End
-                Begin TextBox
-                    OverlapFlags =85
-                    Left =5580
-                    Top =480
-                    Width =2280
-                    TabIndex =9
-                    Name ="txtPassword"
-                    ControlSource ="Password"
-                    GUID = Begin
-                        0xad11780f5414b947930e27665d2f790c
-                    End
-                    Begin
-                        Begin Label
-                            OverlapFlags =85
-                            TextAlign =3
-                            Left =4380
-                            Top =480
-                            Width =1065
-                            Height =240
-                            Name ="Label16"
-                            Caption ="Password:"
-                            GUID = Begin
-                                0x5d538efdb4eabe4fb784244ebd8a47ca
-                            End
-                        End
-                    End
-                End
-                Begin TextBox
-                    OverlapFlags =85
-                    Left =1020
-                    Top =2640
-                    Width =3600
-                    TabIndex =7
-                    Name ="txtEmail"
-                    ControlSource ="Email"
-                    GUID = Begin
-                        0x01a883a4cd9e874d844f6b66ad1acf6e
-                    End
-                    Begin
-                        Begin Label
-                            OverlapFlags =85
-                            TextAlign =3
-                            Left =60
-                            Top =2640
-                            Width =825
-                            Height =240
-                            Name ="Label18"
-                            Caption ="Email:"
-                            GUID = Begin
-                                0x8a753b141add53419b4e1f5c100d9349
-                            End
-                        End
                     End
                 End
             End

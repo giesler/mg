@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-198929636
+Checksum =510820819
 Begin Form
     AllowDesignChanges = NotDefault
     DefaultView =2
@@ -11,9 +11,13 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =2100
+    Width =6960
     DatasheetFontHeight =10
-    ItemSuffix =1
+    ItemSuffix =4
+    Left =1050
+    Top =4080
+    Right =8865
+    Bottom =4995
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x15fbf2840ef9e140
@@ -44,11 +48,45 @@ Begin Form
                     SpecialEffect =0
                     OverlapFlags =85
                     Width =2100
-                    ColumnWidth =2700
+                    ColumnWidth =2400
                     Name ="Attention"
                     ControlSource ="Attention"
                     GUID = Begin
                         0x6059557b269e08408d638a04b19f4818
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =2160
+                    ColumnWidth =2175
+                    TabIndex =1
+                    Name ="Email"
+                    ControlSource ="Email"
+                    GUID = Begin
+                        0x780b821cd7cd8947bf223b7fdcd5f88b
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =3720
+                    TabIndex =2
+                    Name ="Username"
+                    ControlSource ="Username"
+                    GUID = Begin
+                        0x60392cced266a44a89e311c6a9fd0431
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =5280
+                    TabIndex =3
+                    Name ="Password"
+                    ControlSource ="Password"
+                    GUID = Begin
+                        0x9c59c05292c22744b5b027587e729441
                     End
                 End
             End
