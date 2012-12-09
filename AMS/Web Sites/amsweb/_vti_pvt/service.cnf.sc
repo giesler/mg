@@ -4,6 +4,7 @@ vti_textextensions:SX|.txt.txt.
 vti_featurelist:VX|vti_ACCreateNewUsers vti_ACChangePassword vti_ACNoUserGroup vti_ACCreateNewGroups vti_ACModifyGroups vti_ServerEmailTransport
 vti_sourcecontrolsystem:SR|vss
 vti_navbuttonuplabel:SR|Up
+vti_dependenciesood:IR|0
 vti_webservertype:SR|msiis
 vti_categories:VR|Travel Expense\\ Report Business Competition Goals/Objectives Ideas Miscellaneous Waiting VIP In\\ Process Planning Schedule
 vti_sourcecontrolcookie:SX|C:\\Program Files\\Microsoft Visual Studio\\VSS\\srcsafe.ini
