@@ -1,0 +1,15 @@
+[autorun]
+OPEN=AUTORUN.EXE
+ICON=AUTORUN.EXE
+
+shell\Install=&Install
+shell\Install\command=setup.exe
+
+shell\browse=&Browse CD
+shell\browse\command=explorer.exe "."
+
+shell\mdac=Install &MDAC
+shell\mdac\command=runtime\mdac_typ.exe
+
+shell\vbrt=Install VB Runtime Files
+shell\vbrt\command=runtime\vbrun60sp3.exe
