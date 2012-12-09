@@ -8,6 +8,15 @@ namespace Cards
 
 	public class Screen : Form
 	{
+		private void InitializeComponent ()
+		{
+		}
+
+		public override void Dispose()
+		{
+			base.Dispose();
+		}
+	
 		protected ObjectList mScreens = new ObjectList();
 		protected Simulation mSim;
 		public Screen(Simulation newSim)
@@ -42,6 +51,7 @@ namespace Cards
 		{
 			//remove from collection, end app if we are last
 			mScreens.Remove(this);
+			mSim.Stop();
 			if (mScreens.Count<1)
 			{
 				Application.Exit();

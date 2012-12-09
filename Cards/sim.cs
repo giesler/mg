@@ -12,8 +12,13 @@ namespace Cards
 			//add us to global list of simulations
 			mSims.Add(this);
 		}
+		public void Dispose()
+		{
+			mPing.Stop();
+		}
 		
 		//parameters
+		string mName = "Card Game";
 		bool mPrivate;
 		string mPassword;
 		int mMaxPlayers;
@@ -38,9 +43,24 @@ namespace Cards
 				return mMaxPlayers;
 			}
 		}
+		public string Name
+		{
+			get
+			{
+				return mName;
+			}
+		}
 
 		//misc
-		PingServer mPing;
+		protected ObjectList mPlayers = new ObjectList();
+		protected PingServer mPing;
+		public int CurrentPlayers
+		{
+			get
+			{
+				return mPlayers.Count;
+			}
+		}
 
 		//control
 		public void Start(bool newPrivate, string newPassword, int newMax)
@@ -53,6 +73,14 @@ namespace Cards
 			//start ping server
 			mPing = new PingServer(this);
 			mPing.Start();
+		}
+		public void Stop()
+		{
+			//stop the simulation
+			mPing.Stop();
+
+			//remove from list
+			mSims.Remove(this);
 		}
 	}
 }
