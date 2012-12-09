@@ -378,7 +378,19 @@ namespace XMedia
 		/// </summary>
 		public static void CheckConnections()
 		{
-			Trace.WriteLine("Checking connections...");
+			//Trace.WriteLine("Checking connections...");
+			
+			//kill any dorment connections
+			foreach(XMConnection c in XMConnection.Connections)
+			{
+				//must be null session id, and no recent activity
+				if (c.SessionID == null &&
+					c.LastActivity < DateTime.Now.AddMinutes(-10))
+				{
+					XMLog.WriteLine("Closing dorment connection.", "CheckConnections");
+					c.Close();
+				}
+			}
 
 			//open db cnnection
 			if (!EnsureConnection())
