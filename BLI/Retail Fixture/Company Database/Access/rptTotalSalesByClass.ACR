@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-737308203
+Checksum =1042402950
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -241,7 +241,7 @@ Begin Report
                     Height =300
                     FontSize =10
                     TabIndex =1
-                    Name ="Text75"
+                    Name ="Material"
                     ControlSource ="Material"
                 End
                 Begin TextBox
@@ -253,7 +253,7 @@ Begin Report
                     Height =300
                     FontSize =10
                     TabIndex =2
-                    Name ="Text76"
+                    Name ="Quantity"
                     ControlSource ="Quantity"
                     Format ="Standard"
                 End
@@ -266,7 +266,7 @@ Begin Report
                     Height =300
                     FontSize =10
                     TabIndex =3
-                    Name ="Text77"
+                    Name ="Stores"
                     ControlSource ="Stores"
                     Format ="Standard"
                 End
@@ -279,7 +279,7 @@ Begin Report
                     Height =300
                     FontSize =10
                     TabIndex =4
-                    Name ="Text79"
+                    Name ="Total"
                     ControlSource ="Price"
                     Format ="$#,##0.00;($#,##0.00)"
                 End
@@ -292,7 +292,7 @@ Begin Report
                     Height =300
                     FontSize =10
                     TabIndex =5
-                    Name ="Text88"
+                    Name ="AvgPerStore"
                     ControlSource ="=IIf([Stores]=0,0,[Quantity]/[Stores])"
                     Format ="Standard"
                     GUID = Begin

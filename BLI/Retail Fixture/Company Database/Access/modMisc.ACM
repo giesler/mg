@@ -58,6 +58,8 @@ End If
 
 If fR.bolPrintPreview Then
     rptView = acViewPreview
+ElseIf fR.bolExport Then
+    rptView = 88
 Else
     rptView = acViewNormal
 End If
@@ -133,16 +135,21 @@ End Function
 Public Function RunPrint(rptName As String, rptView As Integer)
 On Error GoTo RunPrint_Err
 
-DoCmd.OpenReport rptName, acViewPreview
-
-If rptView <> acViewNormal Then
-  While (SysCmd(acSysCmdGetObjectState, acReport, rptName) = acObjStateOpen)
+  DoCmd.OpenReport rptName, acViewPreview
+  
+  If rptView = acViewNormal Then
+    DoCmd.RunCommand acCmdPrint
+    DoCmd.Close acReport, rptName
+  ElseIf rptView = 88 Then
+    DoCmd.OutputTo acOutputReport, rptName
+    DoCmd.Close acReport, rptName
+  Else
     DoEvents
-  Wend
-Else
-  DoCmd.RunCommand acCmdPrint
-  DoCmd.Close acReport, rptName
-End If
+    While (SysCmd(acSysCmdGetObjectState, acReport, rptName) = acObjStateOpen)
+      DoEvents
+    Wend
+  End If
+
 
 Exit Function
 RunPrint_Err:

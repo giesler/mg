@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =898941522
+Checksum =1591994821
 Begin Form
     AutoCenter = NotDefault
     NavigationButtons = NotDefault
@@ -15,6 +15,10 @@ Begin Form
     Width =4980
     DatasheetFontHeight =10
     ItemSuffix =10
+    Left =750
+    Top =1515
+    Right =10050
+    Bottom =7350
     DatasheetGridlinesColor =12632256
     PaintPalette = Begin
         0x000359000000000000ccff0005cdff000aceff000fcfff0014d0ff001ad1ff00 ,
@@ -31,9 +35,9 @@ Begin Form
         0xff00ff0000ffff0000000000
     End
     RecSrcDt = Begin
-        0xeb448329d5b1e140
+        0xb61d19561725e240
     End
-    RecordSource ="tblCatalogSubItems"
+    RecordSource ="dbo.tblCatalogCustMaterial"
     Caption ="fsubCatalogSubItems"
     DatasheetFontName ="Arial"
     Begin
@@ -114,33 +118,22 @@ Begin Form
             Begin
                 Begin Label
                     OverlapFlags =93
-                    TextAlign =3
-                    Left =4260
-                    Width =720
-                    Height =255
-                    Name ="ItemQty Label"
-                    Caption ="Qty"
-                    Tag ="DetachedLabel"
-                    EventProcPrefix ="ItemQty_Label"
-                End
-                Begin Label
-                    OverlapFlags =93
                     TextAlign =1
                     Width =3120
                     Height =255
                     Name ="ItemDesc Label"
-                    Caption ="Description"
+                    Caption ="Customer"
                     Tag ="DetachedLabel"
                     EventProcPrefix ="ItemDesc_Label"
                 End
                 Begin Label
                     OverlapFlags =87
-                    TextAlign =3
+                    TextAlign =1
                     Left =3120
-                    Width =1140
+                    Width =1860
                     Height =255
                     Name ="ItemPrice Label"
-                    Caption ="Price"
+                    Caption ="Cust Material #"
                     Tag ="DetachedLabel"
                     EventProcPrefix ="ItemPrice_Label"
                 End
@@ -153,39 +146,36 @@ Begin Form
             Begin
                 Begin TextBox
                     OverlapFlags =93
-                    BackStyle =1
-                    Left =4260
-                    Width =720
-                    ColumnWidth =2310
-                    TabIndex =2
-                    BorderColor =0
-                    Name ="txtItemQty"
-                    ControlSource ="ItemQty"
-                    StatusBarText ="Quantity of item"
-                End
-                Begin TextBox
-                    EnterKeyBehavior = NotDefault
-                    OverlapFlags =93
-                    BackStyle =1
-                    Width =3120
-                    ColumnWidth =3000
-                    BorderColor =0
-                    Name ="txtItemDesc"
-                    ControlSource ="ItemDesc"
-                    StatusBarText ="Item description"
-                End
-                Begin TextBox
-                    OverlapFlags =87
+                    TextAlign =1
                     BackStyle =1
                     Left =3120
-                    Width =1140
+                    Width =1860
                     ColumnWidth =2310
                     TabIndex =1
                     BorderColor =0
                     Name ="txtItemPrice"
-                    ControlSource ="ItemPrice"
-                    Format ="$#,##0.00;($#,##0.00)"
+                    ControlSource ="CustMaterial"
                     StatusBarText ="Item price"
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
+                    OverlapFlags =87
+                    BackStyle =1
+                    IMESentenceMode =3
+                    ColumnCount =2
+                    Width =3120
+                    ColumnWidth =3000
+                    BorderColor =0
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    GUID = Begin
+                        0x33d1e2f46ce3584d956f04026fad1a9a
+                    End
+                    Name ="txtItemDesc"
+                    ControlSource ="CustID"
+                    RowSourceType ="Table/View/StoredProc"
+                    RowSource ="SELECT apkSold, SoldName FROM dbo.tblSold ORDER BY SoldName"
+                    ColumnWidths ="0;1440"
+                    StatusBarText ="Item description"
                 End
             End
         End

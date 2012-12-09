@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =591733328
+Checksum =582429552
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =165
     Left =795
     Top =720
-    Right =11505
-    Bottom =6495
+    Right =12690
+    Bottom =8370
     RecSrcDt = Begin
         0x8595809c7478e140
     End
@@ -590,7 +590,7 @@ On Error GoTo errHandler
     Dim rs As Recordset
     Set rs = New Recordset
     
-    rs.Open "select afkCatalogHeading, apkCatalogItem from Tbl_Catalog where custmaterial = '" & Me.txtCustMaterial & "'", gConn, adOpenForwardOnly, adLockReadOnly
+    rs.Open "select cat.afkCatalogHeading, cat.apkCatalogItem from tblCatalogCustMaterial cm inner join Tbl_Catalog cat on cat.apkCatalogItem = cm.MaterialID where cm.custmaterial = '" & Me.txtCustMaterial & "'", gConn, adOpenForwardOnly, adLockReadOnly
     
     If rs.BOF And rs.EOF Then
         MsgBox "The customer material '" & Me.txtCustMaterial & "' was not found.", vbExclamation
@@ -647,11 +647,11 @@ On Error GoTo errHandler
   If Me.comShow = "Catalog Information" Then
     mblnCatalogItems = True
     Me.lstCatalogItems.ColumnCount = 10
-    Me.lstCatalogItems.ColumnWidths = "0"";0.75"";0.75"";3.25"";0.5"";0.45"";0.25"";0.25"";0.25"";0.25"";0.25"""
+    Me.lstCatalogItems.ColumnWidths = "0"";0.75"";4"";0.5"";0.45"";0.25"";0.25"";0.25"";0.25"";0.25"""
   Else
     mblnCatalogItems = False
     Me.lstCatalogItems.ColumnCount = 8
-    Me.lstCatalogItems.ColumnWidths = "0"";0.75"";0.75"";3.25"";0.5"";0.45"";0.5"";0.5"";0.5"""
+    Me.lstCatalogItems.ColumnWidths = "0"";0.75"";4"";0.5"";0.45"";0.5"";0.5"";0.5"""
   End If
   If Not IsNull(Me.lstCatHeadings) Then lstCatHeadings_Click
 
@@ -716,7 +716,7 @@ On Error GoTo errHandler
   Dim strSQL As String
   
   If mblnCatalogItems Then
-    strSQL = "SELECT apkCatalogItem, Material, CustMaterial, Description, Price, Weight, "
+    strSQL = "SELECT apkCatalogItem, Material, Description, Price, Weight, "
     strSQL = strSQL + "CASE Medite WHEN 1 THEN 'Y' ELSE 'N' END AS Wh, "
     strSQL = strSQL + "CASE Active WHEN 1 THEN 'Y' ELSE 'N' END AS Act, "
     strSQL = strSQL + "CASE Hide WHEN 1 THEN 'Y' ELSE 'N' END AS Hid, "
@@ -724,7 +724,7 @@ On Error GoTo errHandler
     strSQL = strSQL + "CASE CashWrap WHEN 1 THEN 'Y' ELSE 'N' END AS CW "
     strSQL = strSQL + "FROM Tbl_Catalog WHERE afkCatalogHeading = " & Me.lstCatHeadings & " ORDER BY Material"
   Else
-    strSQL = "SELECT apkCatalogItem, Material, CustMaterial, Description, Price, Weight, "
+    strSQL = "SELECT apkCatalogItem, Material, Description, Price, Weight, "
     strSQL = strSQL + "Inventory AS Qty, "
     strSQL = strSQL + "[Committed] AS Cmtd, "
     strSQL = strSQL + "Inventory - [Committed] AS Avail "

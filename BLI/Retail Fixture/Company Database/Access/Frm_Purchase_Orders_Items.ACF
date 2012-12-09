@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =35382864
+Checksum =-1232956641
 Begin Form
     MaxButton = NotDefault
     MinButton = NotDefault
@@ -17,10 +17,10 @@ Begin Form
     Width =10920
     DatasheetFontHeight =10
     ItemSuffix =29
-    Left =405
-    Top =5145
-    Right =11580
-    Bottom =7140
+    Left =210
+    Top =1695
+    Right =14490
+    Bottom =8715
     DatasheetGridlinesColor =12632256
     AfterDelConfirm ="[Event Procedure]"
     RecSrcDt = Begin
@@ -409,17 +409,15 @@ Begin Form
                     Width =1080
                     TabIndex =2
                     BoundColumn =2
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"50\""
                     GUID = Begin
                         0xdc5d936ac1e6c94bb169b9e2e656c5c9
                     End
                     Name ="cmbCustMaterial"
                     ControlSource ="Material"
                     RowSourceType ="Table/View/StoredProc"
-                    RowSource ="SELECT Tbl_Catalog.CustMaterial, Tbl_Catalog.Description, Tbl_Catalog.Material F"
-                        "ROM Tbl_Catalog WHERE CustMaterial IS NOT NULL and CustMaterial <> ''"
                     ColumnWidths ="1080;4320;0"
                     StatusBarText ="Catalog/Material #"
+                    OnEnter ="[Event Procedure]"
                     FontName ="Arial"
                     OnGotFocus ="=ControlGotFocus()"
                     OnLostFocus ="=ControlLostFocus()"
@@ -504,6 +502,19 @@ Exit Sub
 errHandler:
 ErrHand Me.Name, "cmbCustMaterial"
 Exit Sub
+End Sub
+
+Private Sub cmbCustMaterial_Enter()
+  
+  ' update the cust material list
+  Dim strSQL As String
+  
+  If IsNull(Parent!SoldID) Then Exit Sub
+  strSQL = "select cm.CustMaterial, cat.Description, cat.Material " _
+    & "from tblCatalogCustMaterial cm inner join Tbl_Catalog cat on cat.apkCatalogItem = cm.MaterialID " _
+    & "where cm.CustID = " & Parent!SoldID
+  cmbCustMaterial.RowSource = strSQL
+
 End Sub
 
 Private Sub cmbMaterial_AfterUpdate()
@@ -645,7 +656,9 @@ On Error GoTo errHandler
   If IsNull(Parent!ID) Then Exit Sub
   
   UpdateTotals
-
+  
+  cmbCustMaterial_Enter
+  
 Exit Sub
 errHandler:
 ErrHand Me.Name, "Form_Current"

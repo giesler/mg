@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =2019246619
+Checksum =-1440834827
 Begin Form
     PopUp = NotDefault
     Modal = NotDefault
@@ -23,17 +23,50 @@ Begin Form
     GridY =24
     Width =7860
     DatasheetFontHeight =10
-    ItemSuffix =157
+    ItemSuffix =158
     Left =3705
     Top =1980
-    Right =11565
-    Bottom =6345
+    Right =13605
+    Bottom =10185
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xe4220c108d6de140
     End
     Caption ="Select Report(s) to Print"
     DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+    End
     Begin
         Begin Label
             BackStyle =0
@@ -1364,7 +1397,7 @@ Begin Form
                     Default = NotDefault
                     OverlapFlags =85
                     AccessKey =80
-                    Left =4140
+                    Left =2940
                     Top =4020
                     Width =1140
                     Height =300
@@ -1376,7 +1409,7 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     AccessKey =82
-                    Left =5340
+                    Left =4140
                     Top =4020
                     Width =1140
                     Height =300
@@ -1384,6 +1417,21 @@ Begin Form
                     Name ="cmdPreview"
                     Caption ="P&review"
                     OnClick ="[Event Procedure]"
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    AccessKey =69
+                    Left =5340
+                    Top =4020
+                    Width =1140
+                    Height =300
+                    TabIndex =4
+                    Name ="cmdExport"
+                    Caption ="&Export"
+                    OnClick ="[Event Procedure]"
+                    GUID = Begin
+                        0x00b7415a562d254ea52f8e20ecd012da
+                    End
                 End
             End
         End
@@ -1397,10 +1445,16 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Public bolPrintPreview As Boolean, bolCancel As Boolean
+Public bolPrintPreview As Boolean, bolCancel As Boolean, bolExport As Boolean
 
 Private Sub cmdCancel_Click()
 bolCancel = True
+Me.Visible = False
+End Sub
+
+Private Sub cmdExport_Click()
+bolCancel = False
+bolExport = True
 Me.Visible = False
 End Sub
 
