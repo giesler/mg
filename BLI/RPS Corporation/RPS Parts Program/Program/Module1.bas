@@ -8,7 +8,7 @@ Public Enum CompType
 End Enum
 
 Public cComp As CompType
-Public Const sUpdateServer = "bli.dhs.org"
+Public Const sUpdateServer = "partsupdate.factorycat.com"
 Public fMainForm As frmMain
 
 Sub Main()
@@ -34,6 +34,7 @@ On Error Resume Next
   Dim sTmp As String
   sTmp = GetSetting(App.Title, "Options", "UpdateServer", "not set")
   If sTmp = "not set" Then SaveSetting App.Title, "Options", "UpdateServer", sUpdateServer
+  If sTmp = "bli.dhs.org" Then SaveSetting App.Title, "Options", "UpdateServer", sUpdateServer
   
   Set fMainForm = New frmMain
   Load fMainForm

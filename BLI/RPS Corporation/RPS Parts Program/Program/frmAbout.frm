@@ -67,7 +67,7 @@ Begin VB.Form frmAbout
       Width           =   2295
    End
    Begin VB.Label Label2 
-      Caption         =   "(c) 2000, BLI Computers, Inc."
+      Caption         =   "(c) 2002, BLI Computers, Inc."
       Height          =   375
       Left            =   240
       TabIndex        =   7
