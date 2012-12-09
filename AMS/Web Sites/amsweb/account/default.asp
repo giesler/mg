@@ -66,7 +66,7 @@ function checkform() {
 			services.
 		</p>
 		<p>
-			If you need to create a new account, please do so <a href="../download/new.ams">here</a>.
+			If you need to create a new account, please do so <a href="../download/new.asp">here</a>.
 		</p>
 		<p>
 			Registering for Adult Media Swapper is completely <b>FREE.</b> AMS does not 
@@ -98,7 +98,7 @@ function checkform() {
 							User&nbsp;name:
 						</td>
 						<td>
-							<input type="text" name="un" size="30" value="" maxlength="32" ID="Text1">
+							<input type="text" name="un" size="30" value="" maxlength="32" id="Text1">
 						</td>
 					</tr>
 					<tr>
@@ -106,12 +106,12 @@ function checkform() {
 							Password:
 						</td>
 						<td>
-							<input type="password" size="30" name="pwd" maxlength="32" ID="Password1">
+							<input type="password" size="30" name="pwd" maxlength="32" id="Password1">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="right">
-							<input type="submit" value="Continue >>" onclick="return checkform()" ID="Submit1" NAME="Submit1">
+							<input type="submit" value="Continue >>" onclick="return checkform()" id="Submit1" name="Submit1">
 						</td>
 					</tr>
 				</table>
