@@ -215,6 +215,7 @@ CMainFrame::CMainFrame()
 	mCreateDone = false;
 	mIgnoreFileClicks = false;
 	mClosing = false;
+	mWebView = NULL;
 
 	//Create ourself
 	CString strWndClass = AfxRegisterWndClass (
@@ -305,9 +306,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 	::SendMessage(mTabs.m_hWnd, WM_SETFONT, (WPARAM)GetStockObject(ANSI_VAR_FONT), 0);
-	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 0, "Search", 0, XMGUIVIEW_SEARCH, 0, 0);
-	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 1, "Completed Downloads", 0, XMGUIVIEW_COMPLETED, 0, 0);
-	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 2, "Saved Files", 0, XMGUIVIEW_SAVED, 0, 0);
+	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 0, "Web", 0, XMGUIVIEW_WEB, 0, 0);
+	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 1, "Search", 0, XMGUIVIEW_SEARCH, 0, 0);
+	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 2, "Completed Downloads", 0, XMGUIVIEW_COMPLETED, 0, 0);
+	mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 3, "Saved Files", 0, XMGUIVIEW_SAVED, 0, 0);
 	//mTabs.InsertItem(TCIF_TEXT | TVIF_PARAM, 3, "Local Files", 0, XMGUIVIEW_LOCAL, 0, 0);
 
 	//create logo
@@ -348,7 +350,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	//show the search pane initially
-	DisplayView(XMGUIVIEW_SEARCH);
+	DisplayView(XMGUIVIEW_WEB);
 
 	//subscribe to pipeline
 	cm()->Subscribe(m_hWnd);
@@ -1257,12 +1259,15 @@ void CMainFrame::OnTabsSelChange(NMHDR* pnmh, LRESULT* pResult)
 	switch (mTabs.GetCurSel())
 	{
 	case 0:
-		DisplayView(XMGUIVIEW_SEARCH);
+		DisplayView(XMGUIVIEW_WEB);
 		break;
 	case 1:
-		DisplayView(XMGUIVIEW_COMPLETED);
+		DisplayView(XMGUIVIEW_SEARCH);
 		break;
 	case 2:
+		DisplayView(XMGUIVIEW_COMPLETED);
+		break;
+	case 3:
 		DisplayView(XMGUIVIEW_SAVED);
 		break;
 	/*
@@ -1303,31 +1308,59 @@ void CMainFrame::DisplayView(UINT newView)
 			return;
 		}
 
-		//release the curent view
-		mCurrentView->DestroyWindow();
-		mCurrentView->Release();
+		//release the curent view, unless web
+		if (mCurrentView->GetViewType() != XMGUIVIEW_WEB)
+		{
+			mCurrentView->DestroyWindow();
+			mCurrentView->Release();
+		}
+		else
+		{
+			//we just hide the view
+			mCurrentView->ShowWindow(SW_HIDE);
+			mCurrentView = NULL;
+		}
 	}
 
-	//create the new view, set selected tab
+	//instansiate the new view
 	switch (newView)
 	{
+	case XMGUIVIEW_WEB:
+		
+		//do we already have a web view created?
+		if(mWebView)
+		{
+			//just assign to current view, and show it
+			mCurrentView = mWebView;
+		}
+		else
+		{
+			//create new one
+			mWebView = new CXMWebView();
+			mCurrentView = mWebView;
+		}
+		mTabs.SetCurSel(0);
+		break;
+
 	case XMGUIVIEW_SEARCH:
 		mCurrentView = (IXMGUIView*)new CSearchView();
-		mTabs.SetCurSel(0);
+		mTabs.SetCurSel(1);
 		break;
 	case XMGUIVIEW_COMPLETED:
 		mCurrentView = (IXMGUIView*)new CCompletedView();
-		mTabs.SetCurSel(1);
+		mTabs.SetCurSel(2);
 		break;
 	case XMGUIVIEW_SAVED:
 		mCurrentView = (IXMGUIView*)new CLocalView();
-		mTabs.SetCurSel(2);
+		mTabs.SetCurSel(3);
 		break;
 	case XMGUIVIEW_LOCAL:
 		mCurrentView = (IXMGUIView*)new CLocalView();
 		mTabs.SetCurSel(-1);
 		break;
 	}
+
+	//create the window (web view will ignore multiple calls)
 	if (mCurrentView->Create(this, mCurrentViewRect))
 	{
 
@@ -1473,7 +1506,7 @@ fail:
 }
 
 //navigate
-void CAdvert::Navigate(char* location)
+void CAdvert::Navigate(const char* location)
 {
 	//get the web browser interface
 	IWebBrowser2 *web = NULL;
@@ -1513,6 +1546,172 @@ fail:
 	COM_RELEASE(web);
 	TRACE("CAdvert::Refresh() failed.\n");
 }
+
+void CAdvert::Next()
+{
+	IWebBrowser2 *web = NULL;
+	IUnknown *i = GetControlUnknown();
+	COM_SINGLECALL(i->QueryInterface(IID_IWebBrowser2, (void**)&web));
+
+	//refresh
+	COM_SINGLECALL(web->GoForward());
+
+	//success
+	COM_RELEASE(web);
+	return;
+
+fail:
+	COM_RELEASE(web);
+	TRACE("CAdvert::Next() failed.\n");
+}
+
+void CAdvert::Back()
+{
+	IWebBrowser2 *web = NULL;
+	IUnknown *i = GetControlUnknown();
+	COM_SINGLECALL(i->QueryInterface(IID_IWebBrowser2, (void**)&web));
+
+	//refresh
+	COM_SINGLECALL(web->GoBack());
+
+	//success
+	COM_RELEASE(web);
+	return;
+
+fail:
+	COM_RELEASE(web);
+	TRACE("CAdvert::Back() failed.\n");
+}
+
+// ------------------------------------------------------------------------------------ WEB VIEW
+
+BEGIN_MESSAGE_MAP(CXMWebView, CWnd)
+	
+	ON_WM_SIZE()
+
+END_MESSAGE_MAP()
+
+CXMWebView::CXMWebView()
+{
+	//set ref count
+	m_udRefCount = 1;
+
+	//variable init
+	mIsValid = false;
+}
+
+CXMWebView::~CXMWebView()
+{
+
+}
+
+bool CXMWebView::Create(CWnd *hwParent, CRect &rect)
+{
+	//have we already created ourselves?
+	if (mIsValid)
+	{
+		//move ourself to the rectangle
+		MoveWindow(&rect, TRUE);
+
+		//show us
+		ShowWindow(SW_SHOW);
+	}
+	else
+	{
+		//create this
+		if(!CWnd::Create(NULL, "CXMWebView_Wnd", WS_CHILD|WS_VISIBLE,
+			rect, hwParent, 0, NULL))
+		{
+			return false;
+		}
+
+		//create the web browser wnd
+		if (!mWeb.Create(NULL, "WebCtrl", WS_CHILD|WS_VISIBLE,
+			CRect(0,0,rect.Width(),rect.Height()), this, 0, NULL))
+
+		{
+			return false;
+		}
+
+		//browse to ams.com, ?sid=<sessionid>
+		GoHome();
+
+		//success
+		mIsValid = true;
+	}
+
+	//success
+	return true;
+}
+
+void CXMWebView::OnSize(UINT nType, int cx, int cy)
+{
+	//browser control fills window
+	if (::IsWindow(mWeb.m_hWnd))
+		mWeb.MoveWindow(0,0,cx,cy, TRUE);
+}
+
+void CXMWebView::AddRef()
+{
+	m_udRefCount++;
+}
+
+void CXMWebView::Release()
+{
+	m_udRefCount--;
+	if (m_udRefCount < 1)
+	{
+		delete this;
+	}
+}
+
+UINT CXMWebView::GetViewType()
+{
+	return XMGUIVIEW_WEB;
+}
+
+void CXMWebView::GoHome()
+{
+	//check mweb
+	if (!IsWindow(mWeb.m_hWnd))
+		return;
+
+	//ams.com?sid=<sessionid>
+	CString str;
+	str.Format("http://www.adultmediaswapper.com/?sid=%s", sm()->LoginGetSession().GetString());
+	mWeb.Navigate(str);
+}
+
+void CXMWebView::GoNext()
+{
+	//check mweb
+	if (!IsWindow(mWeb.m_hWnd))
+		return;
+
+	//next
+	mWeb.Next();
+}
+
+void CXMWebView::GoBack()
+{
+	//check mweb
+	if (!IsWindow(mWeb.m_hWnd))
+		return;
+
+	//back
+	mWeb.Back();
+}
+
+void CXMWebView::GoRefresh()
+{
+	//check mweb
+	if (!IsWindow(mWeb.m_hWnd))
+		return;
+
+	//refresh
+	mWeb.Refresh();
+}
+
 
 // ------------------------------------------------------------------------------------ TRAY ICON
 
@@ -1605,7 +1804,7 @@ void CMainFrame::OnTrayOptions()
 	config()->DoPrefs(false);
 }
 
-///////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 // CTrayIcon Copyright 1996 Microsoft Systems Journal.
 //
 // If this code works, it was written by Paul DiLascia.

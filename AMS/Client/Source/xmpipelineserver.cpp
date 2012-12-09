@@ -215,6 +215,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 			//update our session based on login message
 			CGUID sid = msg->GetField("session")->GetValue(false);
 			mServer->SetSessionId(sid);
+			mSessionID = sid;
 
 			//get query limiters
 			mLimiterMaxIndex = atoi(msg->GetField("limitindex")->GetValue(false));

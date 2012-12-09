@@ -58,7 +58,9 @@ public:
 		CWnd *pParentWnd, UINT NID, CCreateContext *pContext = NULL);
 
 	//navigate
-	void Navigate(char* location);
+	void Navigate(const char* location);
+	void Back();
+	void Next();
 	void Refresh();
 };
 
@@ -275,10 +277,11 @@ private:
 
 // ----------------------------------------------------------------------- IXMGUIView
 
-#define XMGUIVIEW_SEARCH	0x00
-#define XMGUIVIEW_COMPLETED 0x01
-#define XMGUIVIEW_SAVED		0x02
-#define XMGUIVIEW_LOCAL		0x04
+#define XMGUIVIEW_WEB		(0x00)
+#define XMGUIVIEW_SEARCH	(0x01)
+#define XMGUIVIEW_COMPLETED (0x02)
+#define XMGUIVIEW_SAVED		(0x04)
+#define XMGUIVIEW_LOCAL		(0x08)
 
 class IXMGUIView : public CWnd
 {
@@ -289,6 +292,43 @@ public:
 	virtual void Release()=0;
 	virtual UINT GetViewType()=0;
 	virtual bool Create(CWnd *hwParent, CRect &rect)=0;
+};
+
+// --------------------------------------------------------------------- Web View
+// xmgui.cpp
+
+class CXMWebView : public IXMGUIView
+{
+public:
+	CXMWebView();
+	
+	//IXMGUIView
+	void AddRef();
+	void Release();
+	UINT GetViewType();
+	bool Create(CWnd *hwParent, CRect &rect);
+
+protected:
+
+	//web browser
+	CAdvert mWeb;
+
+	//true if already created
+	bool mIsValid;
+	
+	//windows messaging
+	void OnSize(UINT nType, int cx, int cy);
+	void GoHome();
+	void GoBack();
+	void GoNext();
+	void GoRefresh();
+
+	//private destructor
+	UINT m_udRefCount;
+	~CXMWebView();
+
+
+	DECLARE_MESSAGE_MAP();
 };
 
 // --------------------------------------------------------------------- Search View
@@ -708,6 +748,7 @@ protected:
 	void OnSizePrepare(CRect *tabs, long lSizerRight, int cx, int cy);
 	void OnSizeFinish(CRect &rTabs);
 	void UpdateCompletedDownloadsTab();
+	CXMWebView *mWebView;
 
 	//file tree
 	bool mIgnoreFileClicks;
