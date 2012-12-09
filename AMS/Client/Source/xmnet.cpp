@@ -7,7 +7,7 @@
 #include "xmnet.h"
 
 //send/receive params
-#define SEND_CHUNK		4096
+#define SEND_CHUNK		32000//4096
 #define RECV_CHUNK		4096
 
 //static stuff
@@ -252,9 +252,9 @@ bool CXMSession::Alpha()
 
 			//this will cause the pump to break
 			//the next time around
-			TRACE("Posting quit message on thread %d...\n", GetCurrentThreadId());
+			//TRACE("Posting quit message on thread %d...\n", GetCurrentThreadId());
 			PostQuitMessage(0);	
-			TRACE("...done.\n");
+			//TRACE("...done.\n");
 			//ASSERT(FALSE);
 			
 			//hack: for some reason, when a connection is cut postquitmessage seems
@@ -873,7 +873,7 @@ bool CXMSession::SendChunk()
 	//read chunk
 	void *chunk = NULL;
 	DWORD chunksize = 0;
-	while (true) {
+	//while (true) {
 
 		//get next chunk
 		chunksize = netout.Pop(&chunk, SEND_CHUNK);
@@ -917,13 +917,17 @@ bool CXMSession::SendChunk()
 				PostMessage(XM_CLOSE, NULL, NULL);
 				return false;
 			}
-		
 		}
+
+		//sleep for 300 ms
+		//temp:
+		Sleep(500);
+		TRACE("Looping - ");
 
 		//set the tx light
 		TxRxSend();
 
-	}	//while
+	//}	//while
 
 	//never gets here
 	return true;
@@ -952,7 +956,7 @@ int CXMSession::ReceiveChunk()
 	//scan data for interest
 	ScanChunk(chunk, retval);
 	free(chunk);
-	
+
 	//set the rx light
 	TxRxReceive();
 
