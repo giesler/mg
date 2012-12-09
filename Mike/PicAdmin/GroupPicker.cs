@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	// A delegate type for hooking up change notifications.
 	public delegate void AddedGroupEventHandler(object sender, GroupPickerEventArgs e);
@@ -28,7 +28,7 @@ namespace PicAdminCS
 		private System.Windows.Forms.Button btnRemove;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private PicAdminCS.GroupControl groupControl;
+		private PicAdmin.GroupControl groupControl;
 		private System.Windows.Forms.ListView selectedGroups;
 		protected bool allowRemoveEveryone = true;
 
@@ -73,7 +73,7 @@ namespace PicAdminCS
 		{
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.btnAdd = new System.Windows.Forms.Button();
-			this.groupControl = new PicAdminCS.GroupControl();
+			this.groupControl = new PicAdmin.GroupControl();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRemove = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
@@ -94,7 +94,7 @@ namespace PicAdminCS
 			// btnAdd
 			// 
 			this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnAdd.Location = new System.Drawing.Point(4, 56);
 			this.btnAdd.Name = "btnAdd";
 			this.btnAdd.Size = new System.Drawing.Size(24, 23);
@@ -108,7 +108,7 @@ namespace PicAdminCS
 			this.groupControl.Name = "groupControl";
 			this.groupControl.Size = new System.Drawing.Size(150, 168);
 			this.groupControl.TabIndex = 0;
-			this.groupControl.DoubleClickGroup += new PicAdminCS.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
+			this.groupControl.DoubleClickGroup += new PicAdmin.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
 			// 
 			// panel2
 			// 
@@ -123,7 +123,7 @@ namespace PicAdminCS
 			// btnRemove
 			// 
 			this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnRemove.Location = new System.Drawing.Point(4, 88);
 			this.btnRemove.Name = "btnRemove";
 			this.btnRemove.Size = new System.Drawing.Size(24, 23);
@@ -261,7 +261,7 @@ namespace PicAdminCS
 			selectedGroups.Items.Clear();
 		}
 
-		private void groupControl_DoubleClickGroup(object sender, PicAdminCS.GroupControlEventArgs e)
+		private void groupControl_DoubleClickGroup(object sender, PicAdmin.GroupControlEventArgs e)
 		{
 			btnAdd_Click(sender, e);
 		}

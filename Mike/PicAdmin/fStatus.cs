@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for fStatus.
@@ -81,6 +81,9 @@ namespace PicAdminCS
 			}
 			set 
 			{
+				if (value <= 0)
+					progressBar1.Visible = false;
+
 				progressBar1.Maximum = value;
 				Refresh();
 			}
@@ -139,7 +142,7 @@ namespace PicAdminCS
 			// 
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Enabled = false;
-			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnCancel.Location = new System.Drawing.Point(248, 56);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.TabIndex = 2;

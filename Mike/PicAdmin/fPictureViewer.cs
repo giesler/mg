@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for fPictureViewer.

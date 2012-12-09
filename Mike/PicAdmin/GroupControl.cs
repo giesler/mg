@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	// events
 	public delegate void ClickGroupEventHandler(object sender, GroupControlEventArgs e);
@@ -30,7 +30,7 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdminCS.DataSetGroup dsGroup;
+		private PicAdmin.DataSetGroup dsGroup;
 		private System.Windows.Forms.ListView groupList;
 		private System.Windows.Forms.MenuItem menuAdd;
 		private System.Windows.Forms.MenuItem menuEdit;
@@ -97,7 +97,7 @@ namespace PicAdminCS
 			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.dsGroup = new PicAdminCS.DataSetGroup();
+			this.dsGroup = new PicAdmin.DataSetGroup();
 			((System.ComponentModel.ISupportInitialize)(this.dsGroup)).BeginInit();
 			this.SuspendLayout();
 			// 

@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.Text;
 using System.IO;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for ImageUtilities.

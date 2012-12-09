@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for PersonSelect.
@@ -26,7 +26,7 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdminCS.DataSetPerson dsPerson;
+		private PicAdmin.DataSetPerson dsPerson;
 
 		private DataSetPerson.PersonRow pr;
 
@@ -72,7 +72,7 @@ namespace PicAdminCS
 			this.txtPictureBy = new System.Windows.Forms.TextBox();
 			this.btnSelectPictureBy = new System.Windows.Forms.Button();
 			this.btnSelectPerson = new System.Windows.Forms.Button();
-			this.dsPerson = new PicAdminCS.DataSetPerson();
+			this.dsPerson = new PicAdmin.DataSetPerson();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -90,7 +90,7 @@ namespace PicAdminCS
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// cn
 			// 
@@ -148,7 +148,7 @@ namespace PicAdminCS
 			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (PersonID = @Per" +
 				"sonID)";
 			this.sqlSelectCommand1.Connection = this.cn;
-			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// txtPictureBy
 			// 
@@ -176,6 +176,7 @@ namespace PicAdminCS
 			// 
 			this.btnSelectPerson.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.btnSelectPerson.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnSelectPerson.Location = new System.Drawing.Point(288, 0);
 			this.btnSelectPerson.Name = "btnSelectPerson";
 			this.btnSelectPerson.Size = new System.Drawing.Size(24, 20);

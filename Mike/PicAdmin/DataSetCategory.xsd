@@ -6,19 +6,20 @@
 				<xs:element name="Category">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
 							<xs:element name="CategoryParentID" type="xs:int" />
 							<xs:element name="CategoryName" type="xs:string" />
 							<xs:element name="CategoryPath" type="xs:string" minOccurs="0" />
 							<xs:element name="CategoryDescription" type="xs:string" minOccurs="0" />
 							<xs:element name="Publish" type="xs:boolean" default="true" />
+							<xs:element name="CategoryDate" type="xs:date" minOccurs="0" nillable="true" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="CategoryGroup">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="CategoryGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="CategoryGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
 							<xs:element name="CategoryID" type="xs:int" minOccurs="0" />
 							<xs:element name="GroupID" type="xs:int" minOccurs="0" />
 						</xs:sequence>

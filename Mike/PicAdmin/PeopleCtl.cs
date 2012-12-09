@@ -6,7 +6,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	// events
 	public delegate void ClickPersonEventHandler(object sender, PersonCtlEventArgs e);
@@ -33,7 +33,7 @@ namespace PicAdminCS
 		private System.Windows.Forms.MenuItem menuDeletePerson;
 		private TreeNode nDefaultAddPoint;
 		private System.Windows.Forms.TreeView tvPerson;
-		private PicAdminCS.DataSetPerson dsPerson;
+		private PicAdmin.DataSetPerson dsPerson;
 		private System.Data.DataView dvPersonFind;
 		private System.Data.SqlClient.SqlDataAdapter daPerson;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
@@ -41,6 +41,9 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection sqlConnection1;
+		private System.Windows.Forms.TextBox findString;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button button1;
 
 
 		/// <summary> 
@@ -105,7 +108,7 @@ namespace PicAdminCS
 		{
 			this.cn = new System.Data.SqlClient.SqlConnection();
 			this.dvPersonFullName = new System.Data.DataView();
-			this.dsPerson = new PicAdminCS.DataSetPerson();
+			this.dsPerson = new PicAdmin.DataSetPerson();
 			this.tvPerson = new System.Windows.Forms.TreeView();
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuAddPerson = new System.Windows.Forms.MenuItem();
@@ -115,11 +118,14 @@ namespace PicAdminCS
 			this.dvPersonLastName = new System.Data.DataView();
 			this.dvPersonFind = new System.Data.DataView();
 			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.findString = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
@@ -146,14 +152,17 @@ namespace PicAdminCS
 			// 
 			// tvPerson
 			// 
+			this.tvPerson.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
 			this.tvPerson.ContextMenu = this.contextMenu1;
-			this.tvPerson.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tvPerson.FullRowSelect = true;
 			this.tvPerson.HideSelection = false;
 			this.tvPerson.ImageIndex = -1;
+			this.tvPerson.Location = new System.Drawing.Point(0, 24);
 			this.tvPerson.Name = "tvPerson";
 			this.tvPerson.SelectedImageIndex = -1;
-			this.tvPerson.Size = new System.Drawing.Size(150, 110);
+			this.tvPerson.Size = new System.Drawing.Size(184, 128);
 			this.tvPerson.TabIndex = 0;
 			this.tvPerson.DoubleClick += new System.EventHandler(this.tvPerson_DoubleClick);
 			this.tvPerson.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvPerson_AfterSelect);
@@ -213,37 +222,6 @@ namespace PicAdminCS
 																																																		 new System.Data.Common.DataColumnMapping("FullName", "FullName")})});
 			this.daPerson.UpdateCommand = this.sqlUpdateCommand1;
 			// 
-			// sqlSelectCommand1
-			// 
-			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
-			this.sqlSelectCommand1.Connection = this.sqlConnection1;
-			// 
-			// sqlInsertCommand1
-			// 
-			this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
-				"@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
-				"rsonID = @@IDENTITY)";
-			this.sqlInsertCommand1.Connection = this.sqlConnection1;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
-			// 
-			// sqlUpdateCommand1
-			// 
-			this.sqlUpdateCommand1.CommandText = @"UPDATE Person SET LastName = @LastName, FirstName = @FirstName, FullName = @FullName WHERE (PersonID = @Original_PersonID) AND (FirstName = @Original_FirstName OR @Original_FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @Original_FullName OR @Original_FullName1 IS NULL AND FullName IS NULL) AND (LastName = @Original_LastName OR @Original_LastName1 IS NULL AND LastName IS NULL); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (PersonID = @Select_PersonID)";
-			this.sqlUpdateCommand1.Connection = this.sqlConnection1;
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
-			// 
 			// sqlDeleteCommand1
 			// 
 			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Person WHERE (PersonID = @PersonID) AND (FirstName = @FirstName OR @FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @FullName OR @FullName1 IS NULL AND FullName IS NULL) AND (LastName = @LastName OR @LastName1 IS NULL AND LastName IS NULL)";
@@ -261,12 +239,76 @@ namespace PicAdminCS
 			this.sqlConnection1.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
 				"er id=sa;workstation id=CHEF;packet size=4096";
 			// 
+			// sqlInsertCommand1
+			// 
+			this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
+				"@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
+				"rsonID = @@IDENTITY)";
+			this.sqlInsertCommand1.Connection = this.sqlConnection1;
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
+			// 
+			// sqlSelectCommand1
+			// 
+			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
+			this.sqlSelectCommand1.Connection = this.sqlConnection1;
+			// 
+			// sqlUpdateCommand1
+			// 
+			this.sqlUpdateCommand1.CommandText = @"UPDATE Person SET LastName = @LastName, FirstName = @FirstName, FullName = @FullName WHERE (PersonID = @Original_PersonID) AND (FirstName = @Original_FirstName OR @Original_FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @Original_FullName OR @Original_FullName1 IS NULL AND FullName IS NULL) AND (LastName = @Original_LastName OR @Original_LastName1 IS NULL AND LastName IS NULL); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (PersonID = @Select_PersonID)";
+			this.sqlUpdateCommand1.Connection = this.sqlConnection1;
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
+			// 
+			// findString
+			// 
+			this.findString.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.findString.Location = new System.Drawing.Point(32, 0);
+			this.findString.Name = "findString";
+			this.findString.Size = new System.Drawing.Size(88, 20);
+			this.findString.TabIndex = 1;
+			this.findString.Text = "<enter name>";
+			this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
+			this.findString.Enter += new System.EventHandler(this.findString_Enter);
+			// 
+			// label1
+			// 
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(32, 23);
+			this.label1.TabIndex = 2;
+			this.label1.Text = "Find:";
+			// 
+			// button1
+			// 
+			this.button1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.button1.Location = new System.Drawing.Point(136, 0);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(48, 23);
+			this.button1.TabIndex = 3;
+			this.button1.Text = "Find";
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// PeopleCtl
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.findString,
+																		  this.button1,
+																		  this.label1,
 																		  this.tvPerson});
 			this.Name = "PeopleCtl";
-			this.Size = new System.Drawing.Size(150, 110);
+			this.Size = new System.Drawing.Size(184, 160);
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
@@ -488,40 +530,85 @@ namespace PicAdminCS
 
 		private void tvPerson_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
-			
-			if (e.Node.Tag.ToString().Equals("FullName") || e.Node.Tag.ToString().Equals("FirstName") || 
-				e.Node.Tag.ToString().Equals("LastName") || e.Node.Tag.ToString().Equals("root"))
-				return;
-
-			if (e.Node.Tag.ToString().Equals("Find")) 
+			if (e.Action != TreeViewAction.Unknown) 
 			{
-				fPromptText p = new fPromptText();
-				p.Message = "Enter any part of the name:";
-				p.ShowDialog();
 
-				if (p.Cancel) return;
+				if (e.Node.Tag.ToString().Equals("FullName") || e.Node.Tag.ToString().Equals("FirstName") || 
+					e.Node.Tag.ToString().Equals("LastName") || e.Node.Tag.ToString().Equals("root"))
+					return;
 
-				dvPersonFind.RowFilter = "LastName like '%" + p.Value + "%' OR FirstName like '%" + p.Value + "%' OR FullName like '%" + p.Value + "%'";
-				foreach (DataRowView dr in dvPersonFind) 
+				if (e.Node.Tag.ToString().Equals("Find")) 
 				{
-					// add this row as a node
-					DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) dr.Row;
-					TreeNode nChild = e.Node.Nodes.Add(pr.FullName);
-					nChild.Tag = pr;
+					fPromptText p = new fPromptText();
+					p.Message = "Enter any part of the name:";
+					p.ShowDialog();
+
+					if (p.Cancel) return;
+
+					dvPersonFind.RowFilter = "LastName like '%" + p.Value + "%' OR FirstName like '%" + p.Value + "%' OR FullName like '%" + p.Value + "%'";
+					foreach (DataRowView dr in dvPersonFind) 
+					{
+						// add this row as a node
+						DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) dr.Row;
+						TreeNode nChild = e.Node.Nodes.Add(pr.FullName);
+						nChild.Tag = pr;
+					}
+					e.Node.Expand();
+
+					return;
+
 				}
-				e.Node.Expand();
 
-				return;
-
+				// Fire event for other controls to catch if they want
+				PersonCtlEventArgs ex = new PersonCtlEventArgs();
+				ex.personRow = (DataSetPerson.PersonRow) e.Node.Tag;
+			
+				if (ClickPerson != null)
+					ClickPerson(this, ex);
 			}
 
-			// Fire event for other controls to catch if they want
-			PersonCtlEventArgs ex = new PersonCtlEventArgs();
-			ex.personRow = (DataSetPerson.PersonRow) e.Node.Tag;
-			
-			if (ClickPerson != null)
-				ClickPerson(this, ex);
+		}
 
+		private void findString_Enter(object sender, System.EventArgs e)
+		{
+			if (findString.Text.Equals("<enter name>"))
+				findString.Text = "";
+		}
+
+		private void button1_Click(object sender, System.EventArgs e)
+		{
+			// select the 'find' node
+			TreeNode n = tvPerson.Nodes[0];  // root node
+			n = n.Nodes[3];  // find node
+			n.Expand();
+			
+			string search = findString.Text;
+			bool selectedPerson = false;
+
+			dvPersonFind.RowFilter = "LastName like '%" + search + "%' OR FirstName like '%" + search + "%' OR FullName like '%" + search + "%'";
+			foreach (DataRowView dr in dvPersonFind) 
+			{
+				// add this row as a node
+				DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) dr.Row;
+				TreeNode nChild = n.Nodes.Add(pr.FullName);
+				nChild.Tag = pr;
+				if (!selectedPerson) 
+				{
+					selectedPerson = true;
+					tvPerson.SelectedNode = nChild;
+				}
+			}
+
+		
+		}
+
+		private void findString_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 13 ) 
+			{
+				button1_Click(sender, e);
+				e.Handled = true;
+			}
 		}
 
 	}

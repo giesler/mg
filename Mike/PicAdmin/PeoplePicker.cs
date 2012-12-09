@@ -6,7 +6,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	// A delegate type for hooking up change notifications.
 	public delegate void AddedPersonEventHandler(object sender, PersonPickerEventArgs e);
@@ -25,7 +25,7 @@ namespace PicAdminCS
 	public class PersonPicker : System.Windows.Forms.UserControl
 	{
 
-		private PicAdminCS.DataSetCategory dsCategory = new PicAdminCS.DataSetCategory();
+		private PicAdmin.DataSetCategory dsCategory = new PicAdmin.DataSetCategory();
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Splitter splitter1;
@@ -33,7 +33,7 @@ namespace PicAdminCS
 		private System.Windows.Forms.ListView lvPeople;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.Button btnRemove;
-		private PicAdminCS.PeopleCtl peopleCtl1;
+		private PicAdmin.PeopleCtl peopleCtl1;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -69,7 +69,7 @@ namespace PicAdminCS
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
+			this.peopleCtl1 = new PicAdmin.PeopleCtl();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lvPeople = new System.Windows.Forms.ListView();
@@ -87,12 +87,12 @@ namespace PicAdminCS
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(192, 192);
 			this.peopleCtl1.TabIndex = 0;
-			this.peopleCtl1.DoubleClickPerson += new PicAdminCS.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
+			this.peopleCtl1.DoubleClickPerson += new PicAdmin.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnAdd
 			// 
 			this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnAdd.Location = new System.Drawing.Point(4, 68);
 			this.btnAdd.Name = "btnAdd";
 			this.btnAdd.Size = new System.Drawing.Size(24, 23);
@@ -144,7 +144,7 @@ namespace PicAdminCS
 			// btnRemove
 			// 
 			this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnRemove.Location = new System.Drawing.Point(4, 100);
 			this.btnRemove.Name = "btnRemove";
 			this.btnRemove.Size = new System.Drawing.Size(24, 23);
@@ -250,7 +250,7 @@ namespace PicAdminCS
 			}
 		}
 
-		private void peopleCtl1_DoubleClickPerson(object sender, PicAdminCS.PersonCtlEventArgs e)
+		private void peopleCtl1_DoubleClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
 		{
 			btnAdd_Click(sender, e );
 		}

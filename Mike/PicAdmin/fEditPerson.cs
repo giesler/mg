@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for fPromptText.
@@ -25,7 +25,7 @@ namespace PicAdminCS
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtFullName;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdminCS.DataSetPerson dsPerson;
+		private PicAdmin.DataSetPerson dsPerson;
 		private bool mblnCancel = false;
 		protected int mintPersonID;
 		private System.Windows.Forms.Label label3;
@@ -35,7 +35,7 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand2;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand2;
 		private System.Data.SqlClient.SqlDataAdapter daPerson;
-		private PicAdminCS.GroupPicker groupPicker1;
+		private PicAdmin.GroupPicker groupPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPersonGroup;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
@@ -84,7 +84,7 @@ namespace PicAdminCS
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.txtFullName = new System.Windows.Forms.TextBox();
-			this.dsPerson = new PicAdminCS.DataSetPerson();
+			this.dsPerson = new PicAdmin.DataSetPerson();
 			this.daPersonGroup = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
@@ -92,7 +92,7 @@ namespace PicAdminCS
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.txtLastName = new System.Windows.Forms.TextBox();
-			this.groupPicker1 = new PicAdminCS.GroupPicker();
+			this.groupPicker1 = new PicAdmin.GroupPicker();
 			this.sqlDeleteCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
@@ -229,8 +229,8 @@ namespace PicAdminCS
 			this.groupPicker1.Name = "groupPicker1";
 			this.groupPicker1.Size = new System.Drawing.Size(398, 136);
 			this.groupPicker1.TabIndex = 10;
-			this.groupPicker1.RemovedGroup += new PicAdminCS.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
-			this.groupPicker1.AddedGroup += new PicAdminCS.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
+			this.groupPicker1.RemovedGroup += new PicAdmin.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
+			this.groupPicker1.AddedGroup += new PicAdmin.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
 			// 
 			// sqlDeleteCommand2
 			// 
@@ -439,7 +439,7 @@ namespace PicAdminCS
 				txtFullName.Text = txtFirstName.Text + " " + txtLastName.Text;
 		}
 
-		private void groupPicker1_AddedGroup(object sender, PicAdminCS.GroupPickerEventArgs e)
+		private void groupPicker1_AddedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
 		{
 			// add the group to the PictureGroup dataset
 			dsPerson.PersonGroup.AddPersonGroupRow(
@@ -447,7 +447,7 @@ namespace PicAdminCS
 
 		}
 
-		private void groupPicker1_RemovedGroup(object sender, PicAdminCS.GroupPickerEventArgs e)
+		private void groupPicker1_RemovedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
 		{
 			DataSetPerson.PersonGroupRow row = 
 				dsPerson.PersonGroup.FindByPersonIDGroupID(dsPerson.Person[0].PersonID, e.GroupID);

@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
 	/// <summary>
 	/// Summary description for fPersonSelect.
@@ -14,7 +14,7 @@ namespace PicAdminCS
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
-		private PicAdminCS.PeopleCtl peopleCtl1;
+		private PicAdmin.PeopleCtl peopleCtl1;
 
 		private bool mblnCancel = false;
 
@@ -59,7 +59,7 @@ namespace PicAdminCS
 		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
-			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
+			this.peopleCtl1 = new PicAdmin.PeopleCtl();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -74,7 +74,7 @@ namespace PicAdminCS
 			// btnOK
 			// 
 			this.btnOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
-			this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnOK.Location = new System.Drawing.Point(104, 264);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.TabIndex = 1;
@@ -90,13 +90,13 @@ namespace PicAdminCS
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(240, 216);
 			this.peopleCtl1.TabIndex = 3;
-			this.peopleCtl1.DoubleClickPerson += new PicAdminCS.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
+			this.peopleCtl1.DoubleClickPerson += new PicAdmin.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnCancel.Location = new System.Drawing.Point(184, 264);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.TabIndex = 2;
@@ -142,7 +142,7 @@ namespace PicAdminCS
 			Visible = false;
 		}
 
-		private void peopleCtl1_DoubleClickPerson(object sender, PicAdminCS.PersonCtlEventArgs e)
+		private void peopleCtl1_DoubleClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
 		{
 			btnOK_Click(sender, e);
 		}

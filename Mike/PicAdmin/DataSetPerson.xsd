@@ -6,7 +6,7 @@
 				<xs:element name="Person">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
 							<xs:element name="LastName" type="xs:string" minOccurs="0" />
 							<xs:element name="FirstName" type="xs:string" minOccurs="0" />
 							<xs:element name="FullName" type="xs:string" minOccurs="0" />
@@ -20,7 +20,7 @@
 				<xs:element name="PersonGroup">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="PersonGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+							<xs:element name="PersonGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
 							<xs:element name="PersonID" type="xs:int" />
 							<xs:element name="GroupID" type="xs:int" />
 						</xs:sequence>

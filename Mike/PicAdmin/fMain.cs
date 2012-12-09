@@ -6,8 +6,9 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Threading;
 
-namespace PicAdminCS
+namespace PicAdmin
 {
     
 	/// <summary>
@@ -34,7 +35,6 @@ namespace PicAdminCS
 		private System.Data.SqlClient.SqlDataAdapter daPictureDate;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panelPic;
 		private System.Windows.Forms.PictureBox pbPic;
@@ -63,15 +63,30 @@ namespace PicAdminCS
 		private System.Windows.Forms.ColumnHeader columnHeader6;
 		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.TreeView tvAddedDate;
-		private PicAdminCS.CategoryTree categoryTree1;
-		private PicAdminCS.PeopleCtl peopleCtl1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private PicAdmin.CategoryTree categoryTree1;
+		private PicAdmin.PeopleCtl peopleCtl1;
+		private System.Windows.Forms.MenuItem menuUpdateCachedPictures;
+		private System.Windows.Forms.ImageList pictureList;
+		private System.Windows.Forms.StatusBar statusBar1;
+		private System.Windows.Forms.ToolBar toolBar1;
+		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.Splitter splitter3;
+		private System.Windows.Forms.StatusBarPanel statusBarPanel1;
+		private System.Windows.Forms.StatusBarPanel statusBarPanel2;
+		private System.Windows.Forms.ToolBarButton toolBarButton1;
+		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem menuItemThumbs;
+		private System.Windows.Forms.MenuItem menuItemDetails;
+		private System.ComponentModel.IContainer components;
 
 		public fMain()
 		{
+			fStatus stat = new fStatus();
+			stat.StatusText = "Loading...";
+			stat.Max = 0;
+			stat.Show();
+			stat.Refresh();
+
 			//
 			// Required for Windows Form Designer support
 			//
@@ -84,6 +99,9 @@ namespace PicAdminCS
 
 			// Load the trees
 			LoadTreeView();
+
+			stat.Hide();
+			stat = null;
 			
 		}
 
@@ -109,6 +127,7 @@ namespace PicAdminCS
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.pbPic = new System.Windows.Forms.PictureBox();
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
@@ -125,10 +144,11 @@ namespace PicAdminCS
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tvDates = new System.Windows.Forms.TreeView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.categoryTree1 = new PicAdminCS.CategoryTree();
+			this.categoryTree1 = new PicAdmin.CategoryTree();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.tvAddedDate = new System.Windows.Forms.TreeView();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.peopleCtl1 = new PicAdmin.PeopleCtl();
 			this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
 			this.mnuPictureList = new System.Windows.Forms.ContextMenu();
 			this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
@@ -137,13 +157,23 @@ namespace PicAdminCS
 			this.mnuPictureListMoveUp = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.lvPics = new System.Windows.Forms.ListView();
+			this.pictureList = new System.Windows.Forms.ImageList(this.components);
 			this.mainMenu1 = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuAddPictures = new System.Windows.Forms.MenuItem();
+			this.menuUpdateCachedPictures = new System.Windows.Forms.MenuItem();
 			this.menuFileExit = new System.Windows.Forms.MenuItem();
-			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.peopleCtl1 = new PicAdminCS.PeopleCtl();
+			this.statusBar1 = new System.Windows.Forms.StatusBar();
+			this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
+			this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
+			this.toolBar1 = new System.Windows.Forms.ToolBar();
+			this.toolBarButton1 = new System.Windows.Forms.ToolBarButton();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.splitter3 = new System.Windows.Forms.Splitter();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.menuItemThumbs = new System.Windows.Forms.MenuItem();
+			this.menuItemDetails = new System.Windows.Forms.MenuItem();
 			this.panelPic.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -151,6 +181,8 @@ namespace PicAdminCS
 			this.tabPage4.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pbPic
@@ -159,7 +191,7 @@ namespace PicAdminCS
 				| System.Windows.Forms.AnchorStyles.Left);
 			this.pbPic.BackColor = System.Drawing.SystemColors.Window;
 			this.pbPic.Name = "pbPic";
-			this.pbPic.Size = new System.Drawing.Size(152, 294);
+			this.pbPic.Size = new System.Drawing.Size(152, 166);
 			this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pbPic.TabIndex = 0;
 			this.pbPic.TabStop = false;
@@ -184,9 +216,9 @@ namespace PicAdminCS
 			// splitter2
 			// 
 			this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.splitter2.Location = new System.Drawing.Point(203, 260);
+			this.splitter2.Location = new System.Drawing.Point(0, 586);
 			this.splitter2.Name = "splitter2";
-			this.splitter2.Size = new System.Drawing.Size(493, 3);
+			this.splitter2.Size = new System.Drawing.Size(696, 3);
 			this.splitter2.TabIndex = 6;
 			this.splitter2.TabStop = false;
 			// 
@@ -209,7 +241,7 @@ namespace PicAdminCS
 																				   this.pbPic});
 			this.panelPic.Location = new System.Drawing.Point(104, 8);
 			this.panelPic.Name = "panelPic";
-			this.panelPic.Size = new System.Drawing.Size(304, 296);
+			this.panelPic.Size = new System.Drawing.Size(304, 168);
 			this.panelPic.TabIndex = 1;
 			// 
 			// columnHeader1
@@ -242,19 +274,20 @@ namespace PicAdminCS
 																					  this.tabPage4,
 																					  this.tabPage3});
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.tabControl1.Location = new System.Drawing.Point(0, 25);
 			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(200, 575);
+			this.tabControl1.Size = new System.Drawing.Size(256, 539);
 			this.tabControl1.TabIndex = 9;
 			// 
 			// tabPage1
 			// 
 			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.tvDates});
-			this.tabPage1.Location = new System.Drawing.Point(4, 40);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(192, 531);
+			this.tabPage1.Size = new System.Drawing.Size(248, 513);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Picture Date";
 			// 
@@ -266,7 +299,7 @@ namespace PicAdminCS
 			this.tvDates.ImageIndex = -1;
 			this.tvDates.Name = "tvDates";
 			this.tvDates.SelectedImageIndex = -1;
-			this.tvDates.Size = new System.Drawing.Size(192, 531);
+			this.tvDates.Size = new System.Drawing.Size(248, 513);
 			this.tvDates.TabIndex = 0;
 			this.tvDates.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDates_AfterSelect);
 			// 
@@ -274,9 +307,9 @@ namespace PicAdminCS
 			// 
 			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.categoryTree1});
-			this.tabPage2.Location = new System.Drawing.Point(4, 40);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(192, 531);
+			this.tabPage2.Size = new System.Drawing.Size(248, 513);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Category";
 			// 
@@ -284,16 +317,17 @@ namespace PicAdminCS
 			// 
 			this.categoryTree1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.categoryTree1.Name = "categoryTree1";
-			this.categoryTree1.Size = new System.Drawing.Size(192, 531);
+			this.categoryTree1.Size = new System.Drawing.Size(248, 513);
 			this.categoryTree1.TabIndex = 0;
+			this.categoryTree1.ClickCategory += new PicAdmin.ClickCategoryEventHandler(this.categoryTree1_ClickCategory);
 			// 
 			// tabPage4
 			// 
 			this.tabPage4.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.tvAddedDate});
-			this.tabPage4.Location = new System.Drawing.Point(4, 40);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(192, 531);
+			this.tabPage4.Size = new System.Drawing.Size(248, 513);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Added Date";
 			// 
@@ -305,7 +339,7 @@ namespace PicAdminCS
 			this.tvAddedDate.ImageIndex = -1;
 			this.tvAddedDate.Name = "tvAddedDate";
 			this.tvAddedDate.SelectedImageIndex = -1;
-			this.tvAddedDate.Size = new System.Drawing.Size(192, 531);
+			this.tvAddedDate.Size = new System.Drawing.Size(248, 513);
 			this.tvAddedDate.TabIndex = 1;
 			this.tvAddedDate.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvAddedDate_AfterSelect);
 			// 
@@ -313,11 +347,19 @@ namespace PicAdminCS
 			// 
 			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.peopleCtl1});
-			this.tabPage3.Location = new System.Drawing.Point(4, 40);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(192, 531);
+			this.tabPage3.Size = new System.Drawing.Size(248, 513);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Person";
+			// 
+			// peopleCtl1
+			// 
+			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.peopleCtl1.Name = "peopleCtl1";
+			this.peopleCtl1.Size = new System.Drawing.Size(248, 513);
+			this.peopleCtl1.TabIndex = 0;
+			this.peopleCtl1.ClickPerson += new PicAdmin.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
 			// 
 			// daPictureDate
 			// 
@@ -365,11 +407,12 @@ namespace PicAdminCS
 			// 
 			// menuItem3
 			// 
-			this.menuItem3.Index = 1;
+			this.menuItem3.Index = 2;
 			this.menuItem3.Text = "-";
 			// 
 			// lvPics
 			// 
+			this.lvPics.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
 			this.lvPics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																					 this.columnHeader1,
 																					 this.columnHeader2,
@@ -382,28 +425,37 @@ namespace PicAdminCS
 			this.lvPics.FullRowSelect = true;
 			this.lvPics.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvPics.HideSelection = false;
-			this.lvPics.Location = new System.Drawing.Point(203, 0);
+			this.lvPics.LargeImageList = this.pictureList;
+			this.lvPics.Location = new System.Drawing.Point(259, 25);
 			this.lvPics.Name = "lvPics";
-			this.lvPics.Size = new System.Drawing.Size(493, 260);
+			this.lvPics.Size = new System.Drawing.Size(437, 352);
+			this.lvPics.SmallImageList = this.pictureList;
 			this.lvPics.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.lvPics.TabIndex = 8;
-			this.lvPics.View = System.Windows.Forms.View.Details;
 			this.lvPics.DoubleClick += new System.EventHandler(this.lvPics_DoubleClick);
 			this.lvPics.SelectedIndexChanged += new System.EventHandler(this.lvPics_SelectedIndexChanged);
+			// 
+			// pictureList
+			// 
+			this.pictureList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.pictureList.ImageSize = new System.Drawing.Size(100, 100);
+			this.pictureList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// mainMenu1
 			// 
 			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem1});
+																					  this.menuItem1,
+																					  this.menuItem4});
 			// 
 			// menuItem1
 			// 
 			this.menuItem1.Index = 0;
 			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.menuAddPictures,
+																					  this.menuUpdateCachedPictures,
 																					  this.menuItem3,
 																					  this.menuFileExit});
-			this.menuItem1.Text = "File";
+			this.menuItem1.Text = "&File";
 			// 
 			// menuAddPictures
 			// 
@@ -411,47 +463,119 @@ namespace PicAdminCS
 			this.menuAddPictures.Text = "&Add Pictures";
 			this.menuAddPictures.Click += new System.EventHandler(this.menuAddPictures_Click);
 			// 
+			// menuUpdateCachedPictures
+			// 
+			this.menuUpdateCachedPictures.Index = 1;
+			this.menuUpdateCachedPictures.Text = "Update Cached Pictures";
+			this.menuUpdateCachedPictures.Click += new System.EventHandler(this.menuUpdateCachedPictures_Click);
+			// 
 			// menuFileExit
 			// 
-			this.menuFileExit.Index = 2;
+			this.menuFileExit.Index = 3;
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(200, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 575);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
 			// 
 			// panel1
 			// 
 			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				 this.panelPic});
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(203, 263);
+			this.panel1.Location = new System.Drawing.Point(259, 380);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(493, 312);
+			this.panel1.Size = new System.Drawing.Size(437, 184);
 			this.panel1.TabIndex = 5;
 			// 
-			// peopleCtl1
+			// statusBar1
 			// 
-			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.peopleCtl1.Name = "peopleCtl1";
-			this.peopleCtl1.Size = new System.Drawing.Size(192, 531);
-			this.peopleCtl1.TabIndex = 0;
+			this.statusBar1.Location = new System.Drawing.Point(0, 564);
+			this.statusBar1.Name = "statusBar1";
+			this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+																						  this.statusBarPanel1,
+																						  this.statusBarPanel2});
+			this.statusBar1.ShowPanels = true;
+			this.statusBar1.Size = new System.Drawing.Size(696, 22);
+			this.statusBar1.TabIndex = 10;
+			this.statusBar1.Text = "statusBar1";
+			// 
+			// statusBarPanel1
+			// 
+			this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
+			this.statusBarPanel1.Width = 10;
+			// 
+			// statusBarPanel2
+			// 
+			this.statusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
+			this.statusBarPanel2.Width = 670;
+			// 
+			// toolBar1
+			// 
+			this.toolBar1.Appearance = System.Windows.Forms.ToolBarAppearance.Flat;
+			this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
+																						this.toolBarButton1});
+			this.toolBar1.DropDownArrows = true;
+			this.toolBar1.Name = "toolBar1";
+			this.toolBar1.ShowToolTips = true;
+			this.toolBar1.Size = new System.Drawing.Size(696, 25);
+			this.toolBar1.TabIndex = 11;
+			this.toolBar1.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
+			this.toolBar1.Visible = false;
+			// 
+			// toolBarButton1
+			// 
+			this.toolBarButton1.Text = "Add";
+			this.toolBarButton1.ToolTipText = "Add Pictures";
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(256, 25);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 539);
+			this.splitter1.TabIndex = 12;
+			this.splitter1.TabStop = false;
+			// 
+			// splitter3
+			// 
+			this.splitter3.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.splitter3.Location = new System.Drawing.Point(259, 377);
+			this.splitter3.Name = "splitter3";
+			this.splitter3.Size = new System.Drawing.Size(437, 3);
+			this.splitter3.TabIndex = 13;
+			this.splitter3.TabStop = false;
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Index = 1;
+			this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItemThumbs,
+																					  this.menuItemDetails});
+			this.menuItem4.Text = "&View";
+			// 
+			// menuItemThumbs
+			// 
+			this.menuItemThumbs.Checked = true;
+			this.menuItemThumbs.Index = 0;
+			this.menuItemThumbs.Text = "&Thumbnails";
+			this.menuItemThumbs.Click += new System.EventHandler(this.menuItemThumbs_Click);
+			// 
+			// menuItemDetails
+			// 
+			this.menuItemDetails.Index = 1;
+			this.menuItemDetails.Text = "&Details";
+			this.menuItemDetails.Click += new System.EventHandler(this.menuItemDetails_Click);
 			// 
 			// fMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(696, 575);
+			this.ClientSize = new System.Drawing.Size(696, 589);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.lvPics,
-																		  this.splitter2,
+																		  this.splitter3,
 																		  this.panel1,
 																		  this.splitter1,
-																		  this.tabControl1});
+																		  this.tabControl1,
+																		  this.toolBar1,
+																		  this.statusBar1,
+																		  this.splitter2});
 			this.Menu = this.mainMenu1;
 			this.Name = "fMain";
 			this.Text = "Pic Admin";
@@ -464,6 +588,8 @@ namespace PicAdminCS
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -578,12 +704,13 @@ namespace PicAdminCS
 
 		private void tvDates_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
+			if (e.Action != TreeViewAction.Unknown) 
+			{
+				TreeNode nCur = tvDates.SelectedNode;
+				if (nCur == null) return;
 
-			TreeNode nCur = tvDates.SelectedNode;
-			if (nCur == null) return;
-
-			AddPicturesToList(nCur.Tag.ToString());
-
+				AddPicturesToList(nCur.Tag.ToString());
+			}
 		}
 
 		private void AddPicturesToList(String strWhereClause) 
@@ -593,39 +720,94 @@ namespace PicAdminCS
 			lvPics.Items.Clear();
 
 			// figure out SQL statement
-			String strSQL = "select PictureID, PictureDate, Title, Filename, Publish, PictureSort from Picture ";
+			String strSQL = "select p.PictureID, PictureDate, Title, "
+				+ "pc.Filename, Publish, PictureSort "
+				+ "from Picture p inner join PictureCache pc on pc.PictureID = p.PictureID "
+				+ "where pc.MaxWidth = 125 and pc.MaxHeight = 125";
 			if (strWhereClause.Length > 0)
-				strSQL += "WHERE " + strWhereClause;
+				strSQL += " and " + strWhereClause;
 			strSQL = strSQL + " ORDER BY PictureDate, PictureSort";
 
 			// create dataadapter and ds
 			DataSetPicture dsPicTemp = new DataSetPicture();
-			SqlDataAdapter da = new SqlDataAdapter(strSQL, cn);
-			da.Fill(dsPicTemp, "Picture");
+			SqlCommand cmd = new SqlCommand(strSQL, cn);
+			if (cn.State != ConnectionState.Open)
+				cn.Open();
+			SqlDataReader dr = cmd.ExecuteReader();
+			pictureList.Images.Clear();
 
 			// loop through RS adding items
-			foreach (DataSetPicture.PictureRow pr in dsPicTemp.Picture.Rows) 
+			while (dr.Read())
 			{
 				// create and init a new list view item
-				ListViewItem li = new ListViewItem(pr.PictureID.ToString());
+				ListViewItem li = new ListViewItem(dr["PictureID"].ToString());
+				li.Tag = dr["PictureID"].ToString();
 				for (int i = 0; i < lvPics.Columns.Count-1; i++)
 					li.SubItems.Add("");
 
+				/*
+				using (Image img = Image.FromFile(@"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString()) ) 
+				{
+                    pictureList.Images.Add(img); 
+				}
+				li.ImageIndex = pictureList.Images.Count-1;
+				*/
+							
 				// Add fields
-				li.SubItems[1].Text = pr.PictureDate.ToShortDateString();
+				li.SubItems[1].Text = Convert.ToDateTime(dr["PictureDate"]).ToShortDateString();
 
-				if (!pr.IsTitleNull())
-					li.SubItems[2].Text = pr.Title;
+				string title = "";
+				if (dr["Title"] != null) 
+				{
+					li.SubItems[3].Text += dr["Title"].ToString();
+					title += li.SubItems[3].Text;
+				}
 
-				li.SubItems[3].Text = pr.Filename;
+				li.SubItems[3].Text = dr["Filename"].ToString();
 
-				if (pr.Publish)
+				if (Convert.ToBoolean(dr["Publish"])) 
+				{
+					title += "\nPublished";
 					li.SubItems[4].Text = "x";
+					li.ForeColor = Color.Green;
+				} 
+				else 
+				{
+					title += "\nNot Published";
+					li.ForeColor = Color.Red;
+				}
+				li.Text = title;
 
-				li.SubItems[5].Text = pr.PictureSort.ToString();
+				li.SubItems[5].Text = dr["PictureSort"].ToString();;
 
 				// add to the list
 				lvPics.Items.Add(li);
+			}
+
+			dr.Close();
+
+			statusBar1.Panels[0].Text = lvPics.Items.Count + " pictures";
+			this.Refresh();
+
+			ThreadStart threadStart = new ThreadStart(this.LoadThumbs);
+			Thread t = new Thread(threadStart);
+			t.Start();
+
+		}
+
+
+		public void LoadThumbs() 
+		{
+			foreach (ListViewItem li in lvPics.Items) 
+			{
+				string filename = li.SubItems[3].Text;                
+                
+				using (Image img = Image.FromFile(@"\\kenny\inetpub\pics.msn2.net\piccache\" + filename) ) 
+				{
+					pictureList.Images.Add(img); 
+				}
+				li.ImageIndex = pictureList.Images.Count-1;
+											
 			}
 
 		}
@@ -655,8 +837,22 @@ namespace PicAdminCS
 				ListViewItem li;
 				li = lvPics.SelectedItems[0];
 
-				String strFile = "\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text;
+				String strFile = @"\\kenny\inetpub\pictures\" + li.SubItems[3].Text;
 				strFile = strFile.Replace("/", "\\");
+
+
+				// See if there is a resized image
+				if (cn.State == ConnectionState.Closed)
+					cn.Open();
+				SqlCommand cmd = new SqlCommand("select * from PictureCache where PictureID = @PictureID and MaxWidth = 750 and MaxHeight = 700", cn);
+				cmd.Parameters.Add("@PictureID", Convert.ToInt32(li.Tag));
+				SqlDataReader dr = cmd.ExecuteReader();
+				
+				if (dr.Read()) 
+				{
+                    strFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+				}
+				dr.Close();
 
 				if (!File.Exists(strFile)) 
 				{
@@ -664,23 +860,9 @@ namespace PicAdminCS
 					return;
 				}
 
-				// figure out the temp location, create directory if needed
-				String strTempFile = System.Environment.GetEnvironmentVariable("TEMP") 
-										+ "\\_pics\\" + li.SubItems[3].Text;
-				strTempFile = strTempFile.Replace("/", "\\");
-				String strTempDir = strTempFile.Substring(0, strTempFile.LastIndexOf("\\"));
-				if (!Directory.Exists(strTempDir)) 
-					Directory.CreateDirectory(strTempDir);
 
-				// copy file to temp location
-				if (!File.Exists(strTempFile) ||
-						File.GetLastWriteTime(strTempFile) < File.GetLastWriteTime(strFile))
-					File.Copy(strFile, strTempFile, true);
-
-				System.Threading.Thread.Sleep(100);
-
-				imgCurImage = Image.FromFile(strTempFile);
-			
+				imgCurImage = Image.FromFile(strFile);
+							
 				panelPic.Width = (int) ( ( (float) imgCurImage.Width / (float) imgCurImage.Height) 
 					* (float) panelPic.Height );
 				pbPic.Width = panelPic.Width;
@@ -689,6 +871,7 @@ namespace PicAdminCS
 				panelPic.Left = (lvPics.Width/2) - (pbPic.Width/2);
 
 				pbPic.Image = imgCurImage;
+				//imgCurImage.Dispose();
 
 			}
 			catch (FileNotFoundException fnfe) 
@@ -708,37 +891,15 @@ namespace PicAdminCS
 		private void lvPics_DoubleClick(object sender, System.EventArgs e)
 		{
 			ListViewItem li;
-			fStatus fStat = new fStatus(this, "Loading picture...", 0);
-
 			if (lvPics.SelectedItems.Count == 0) return;
-
 			li = lvPics.SelectedItems[0];
 
+			bool initialPicture = true;
 			fPicture f = new fPicture();
+			fPicture fOld = null;
 
-			f.MainForm = this;
-			f.LoadPicture(Convert.ToInt32(li.Text));
-//			f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text.Replace("/", "\\") );
-			fStat.Hide();
-
-			f.ShowDialog();
-
-			if (!f.mblnCancel) 
+			while (f.MovePrevious || f.MoveNext || initialPicture) 
 			{
-				li.SubItems[2].Text = f.Title;
-				if (f.Publish)
-					li.SubItems[4].Text = "x";
-				else
-					li.SubItems[4].Text = "";
-
-				if (pbPic.Image == null)
-					LoadImage();
-			}
-
-			while (f.MovePrevious || f.MoveNext) 
-			{
-				fStat.ShowStatusForm();
-
 				// Check if we should move to previous item, if not exit
 				if (f.MovePrevious) 
 				{
@@ -748,59 +909,85 @@ namespace PicAdminCS
 						break;
 				} 
 					// Check if we should move to next item, if not exit
-				else 
+				else if (f.MoveNext)
 				{
 					if (li.Index < lvPics.Items.Count-1)
 						li = lvPics.Items[li.Index+1];
 					else
 						break;
 				}
+					// Otherwise it is the first / selected list item
+				else 
+				{
+					li = lvPics.SelectedItems[0];
+					initialPicture = false;
+				}
+
+				f = new fPicture();
+				f.MainForm = this;
+				if (fOld != null) 
+				{
+					f.Left = fOld.Left;
+					f.Top  = fOld.Top;
+					f.Width = fOld.Width;
+					f.Height = fOld.Height;
+					f.WindowState = fOld.WindowState;
+				}
 
 				// Load the selected picture
-				f.LoadPicture(Convert.ToInt32(li.Text));
-				//f.LoadImage("\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text.Replace("/", "\\") );
-	
-				fStat.Hide();
+				f.LoadPicture(Convert.ToInt32(li.Tag));
 				f.ShowDialog();
 
 				// If not cancelling, update title
 				if (!f.mblnCancel) 
 				{
 					li.SubItems[2].Text = f.Title;
-					if (f.Publish)
+					if (f.Publish) 
+					{
 						li.SubItems[4].Text = "x";
-					else
+						li.ForeColor = Color.Green; 
+					}
+					else 
+					{
 						li.SubItems[4].Text = "";
+						li.ForeColor = Color.Red;
+					}
 				}
 				else
 					break;
 
+				// Set the ref to the old copy
+				fOld = f;
+
 			}
-			fStat.Hide();
 
 		}
 
 		private void menuAddPictures_Click(object sender, System.EventArgs e)
 		{
+			
 			fAddPictures f = new fAddPictures();
 			f.ShowDialog();
 			LoadTreeView();
 
 		}
 
-		private void categoryTree1_ClickCategory(object sender, PicAdminCS.CategoryTreeEventArgs e)
+		private void categoryTree1_ClickCategory(object sender, PicAdmin.CategoryTreeEventArgs e)
 		{
 				
-			AddPicturesToList("PictureID in "
+			/*AddPicturesToList("p.PictureID in "
 				+ "(select pc.PictureID from PictureCategory pc inner join CategorySubCategory csc ON csc.SubCategoryID = pc.CategoryID "
 				+ "where csc.CategoryID = " + e.categoryRow.CategoryID.ToString() + ")");
-			
+			*/
+			AddPicturesToList("p.PictureID in "
+				+ "(select pc.PictureID from PictureCategory pc where pc.CategoryID = "
+				+ e.categoryRow.CategoryID.ToString() + ")");
 		}
 
-		private void peopleCtl1_ClickPerson(object sender, PicAdminCS.PersonCtlEventArgs e)
+		private void peopleCtl1_ClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
 		{
 
-			AddPicturesToList("PictureID in "
+			AddPicturesToList("p.PictureID in "
 				+ "(select PictureID from PicturePerson where PersonID = " + e.personRow.PersonID.ToString() + ")");
 
 		}
@@ -824,19 +1011,41 @@ namespace PicAdminCS
 				pbPic.Image = null;
 				pbPic.Refresh();
 
-				cn.Open();
+				if (cn.State == ConnectionState.Closed)
+					cn.Open();
 
 				foreach (ListViewItem li in lvPics.SelectedItems) 
 				{
+					
 					String strPath = "\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text;
 					try 
 					{
+						// Load the list of cached images
+						SqlCommand cmdCached = new SqlCommand("select * from PictureCache where PictureID = @PictureID", cn);
+						cmdCached.Parameters.Add("@PictureID", Convert.ToInt32(li.Tag));
+						SqlDataReader dr = cmdCached.ExecuteReader();
+						while (dr.Read()) 
+						{
+							try 
+							{
+								string cachedFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+                                if (File.Exists(cachedFile))
+									File.Delete(cachedFile);
+							} 
+							catch (IOException ioe) 
+							{
+								MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							}
+
+						}
+						dr.Close();
+						
 						// attempt to delete the file
 						if (File.Exists(strPath))
 							File.Delete(strPath);
 
 						// we want to delete from db, but only if file delete worked
-						SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + li.Text, cn);
+						SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + li.Tag, cn);
 						cmd.ExecuteNonQuery();
 
 						// remove the deleted item
@@ -844,7 +1053,7 @@ namespace PicAdminCS
 					}
 					catch (IOException ioe) 
 					{
-                        MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					}
 					
 
@@ -876,7 +1085,8 @@ namespace PicAdminCS
 		private void SwapSortVals(ListViewItem li1, ListViewItem li2) 
 		{
 			// open connection
-			cn.Open();
+			if (cn.State != ConnectionState.Open)
+				cn.Open();
 
 			SqlTransaction trans = cn.BeginTransaction();
 			SqlCommand cmd = new SqlCommand();
@@ -888,12 +1098,12 @@ namespace PicAdminCS
 
 				// Update the database for the current picture
 				cmd.CommandText = "update Picture set PictureSort = " + li2.SubItems[5].Text 
-					+ " where PictureID = " + li1.Text;
+					+ " where PictureID = " + li1.Tag;
 				cmd.ExecuteNonQuery();
 
 				// Update the database for the other picture
 				cmd.CommandText = "update Picture set PictureSort = " + li1.SubItems[5].Text 
-					+ " where PictureID = " + li2.Text;
+					+ " where PictureID = " + li2.Tag;
 				cmd.ExecuteNonQuery();
 
 				trans.Commit();
@@ -957,31 +1167,59 @@ namespace PicAdminCS
 
 		private void fMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			try 
-			{
-				if (Directory.Exists(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache"))
-				{
-					if (imgCurImage != null) 
-					{   
-						imgCurImage.Dispose();
-						imgCurImage = null;
-					}
-					pbPic.Image = null;
-					fStatus fStat = new fStatus(null, "Cleaning up...", 0);
-					Directory.Delete(System.Environment.GetEnvironmentVariable("TEMP") + "\\_piccache\\", true);
-					fStat.Hide();
-				} 
-			}
-			catch (Exception) 
-			{
-                MessageBox.Show("There was still a problem cleaning up.  But I caught it so it doesn't look quite so bad.  Blah.  Anyways, thanks for using me!", "S H I T ! ! !", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
 		}
 
 		private void tvAddedDate_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
-			AddPicturesToList(e.Node.Tag.ToString());
+			if (e.Action != TreeViewAction.Unknown) 
+			{
+				AddPicturesToList(e.Node.Tag.ToString());
+			}
 		}
+
+		private void menuUpdateCachedPictures_Click(object sender, System.EventArgs e)
+		{
+
+			if (MessageBox.Show("This will check ALL images to see if the date/time stamp has changed, and will recreate any cached images that are out of date.", 
+				"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
+				MessageBoxDefaultButton.Button2) == DialogResult.OK) 
+			{
+
+				ImageUtilities util = new ImageUtilities();
+
+				SqlDataAdapter da = new SqlDataAdapter("select * from Picture", cn);
+				DataSetPicture dsPicture = new DataSetPicture();
+				da.Fill(dsPicture, "Picture");
+
+				fStatus stat = new fStatus(this, "Creating cached images...", dsPicture.Picture.Rows.Count);
+				int count = 0;
+
+				foreach (DataSetPicture.PictureRow row in dsPicture.Picture.Rows) 
+				{
+					util.CreateUpdateCache(row.PictureID);
+
+					count++;
+					stat.Current = count;
+					if (count % 10 == 0)
+						stat.StatusText = "Creating cached images... (" + count.ToString() + "/" + dsPicture.Picture.Rows.Count + ")";
+				}
+			}
+		}
+
+		private void menuItemThumbs_Click(object sender, System.EventArgs e)
+		{
+			menuItemThumbs.Checked = true;
+			menuItemDetails.Checked = false;
+			lvPics.View = View.LargeIcon;
+		}
+
+		private void menuItemDetails_Click(object sender, System.EventArgs e)
+		{
+			menuItemDetails.Checked = true;
+			menuItemThumbs.Checked = false;
+			lvPics.View = View.Details;
+		}
+
 
 
 	}

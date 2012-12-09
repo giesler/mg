@@ -13,15 +13,15 @@
             <Settings
                 ApplicationIcon = "..\..\..\Program Files\Microsoft Visual Studio .NET\Common7\Graphics\icons\Writing\BOOK01B.ICO"
                 AssemblyKeyContainerName = ""
-                AssemblyName = "PicAdminCS"
+                AssemblyName = "PicAdmin"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "WinExe"
-                RootNamespace = "PicAdminCS"
-                StartupObject = "PicAdminCS.fMain"
+                RootNamespace = "PicAdmin"
+                StartupObject = "PicAdmin.fMain"
             >
                 <Config
                     Name = "Debug"
