@@ -203,16 +203,15 @@ bool CXMSession::Alpha()
 				case FD_CONNECT:
 
 					//check errors
-					if (WSAGETSELECTERROR(msg.lParam)) {
-
+					if (WSAGETSELECTERROR(msg.lParam))
+					{
 						//connection failed, initiate tear-down
-						//TRACE1("Connect error: %d\n", WSAGETSELECTERROR(msg.lParam));
 						PostQuitMessage(0);
 						mbIsConnected = false;
 						SetState(XM_CLOSING);
 					}
-					else {
-
+					else
+					{
 						//a pending connection was completed
 						mbIsConnected = true;
 						SetState(XM_OPEN);
@@ -220,23 +219,40 @@ bool CXMSession::Alpha()
 					break;
 
 				case FD_CLOSE:
+					
 					//our socket has been closed... if this was
 					//not initiated by us, then initiate gracefull
 					//shutdown
-					if (!mbExpectedShutdown) {
+					if (!mbExpectedShutdown)
+					{
 						PostMessage(XM_CLOSE, NULL, NULL);
+
+						if (mhostPort == (UINT)config()->GetFieldLong(FIELD_SERVER_PORT))
+						{
+							TRACE("*** Unexpected FD_CLOSE received from server.\n");
+						}
 					}
 
 					break;
 
 				case FD_READ:
 					//socket is ready for reading
-					ReceiveChunk();
+					if (ReceiveChunk()<1)
+					{
+						//connection is dead
+						TRACE("*** FD_READ: Connection is closed.\n");
+						PostMessage(XM_CLOSE, NULL, NULL);
+					}
 					break;
 
 				case FD_WRITE:
 					//socket is ready for writing
-					SendChunk();
+					if(!SendChunk())
+					{
+						//send failed.. connectio prolly dead
+						TRACE("*** FD_WRITE: Connection is closed.\n");
+						PostMessage(XM_CLOSE, NULL, NULL);
+					}
 					break;
 
 				default:
@@ -249,8 +265,8 @@ bool CXMSession::Alpha()
 
 		case XM_CLOSE:
 
-			if (!mbExpectedShutdown) {
-
+			if (!mbExpectedShutdown)
+			{
 				//from now until we are complelty closed, 
 				//we are in "closing" state
 				SetState(XM_CLOSING);
@@ -308,7 +324,7 @@ bool CXMSession::Alpha()
 			//hack: for some reason, when a connection is cut postquitmessage seems
 			//to have no affect, and GetMessage() will block, so we need to send the
 			//close state now
-			SetState(XM_CLOSED);
+			//SetState(XM_CLOSED);
 
 			break;
 
@@ -321,12 +337,12 @@ bool CXMSession::Alpha()
 	}
 
 	//free per-session resources
-	this->CloseSocket();
-	this->CloseWindow();
-	this->CloseCOM();
+	CloseSocket();
+	CloseWindow();
+	CloseCOM();
 
 	//we are now officially closed for business
-	if (GetState!=XM_CLOSED)
+	if (GetState()!=XM_CLOSED)
 	{
 		SetState(XM_CLOSED);
 	}
@@ -350,15 +366,14 @@ CXMSession::CXMSession(IXMSessionHandler *owner)
 	mState = XM_CLOSED;
 	mAccept = false;
 	mLastSequence = -1;
-	mDirection = XM_INBOUND;		//inbound = higher default security
+	mDirection = XM_INBOUND;
 	mhostAddress = NULL;
 
 	//store the event handler
 	mpOwner = owner;
 	mpOwner->AddRef();
 
-	//we need the sync object to work
-	//immediatly
+	//init the critical section
 	InitSync();
 
 	//ref counting
@@ -367,22 +382,22 @@ CXMSession::CXMSession(IXMSessionHandler *owner)
 
 void CXMSession::AddRef()
 {
-	Lock();
+	//TEMP{
+	//Lock();
 	mRefCount++;
-	Unlock();
+	//Unlock();
 }
 
 void CXMSession::Release()
 {
-	Lock();
-	mRefCount--;
-	if (mRefCount<1)
+	//Lock();
+	if (--mRefCount<1)
 	{
 		Unlock();
 		delete this;
 		return;
 	}
-	Unlock();
+	//Unlock();
 }
 
 CXMSession::~CXMSession()
@@ -571,15 +586,6 @@ void CXMSession::CloseThread()
 		return;
 	}
 
-	//wait for up to 1/10 of a second..
-	/*
-	if (WaitForSingleObject(mhThread, 100)==WAIT_TIMEOUT)
-	{
-		//force termination
-		TerminateThread(mhThread, 0);
-	}
-	*/
-
 	//close thread
 	::CloseHandle(mhThread);
 	mhThread = NULL;
@@ -603,6 +609,7 @@ void CXMSession::CloseSocket()
 {
 	//close the socket handle
 	closesocket(msockMain);
+	msockMain = NULL;
 }
 
 void CXMSession::SetOwner(IXMSessionHandler *owner)
@@ -745,7 +752,9 @@ CXMMessage* CXMSession::Sent()
 void CXMSession::Lock(DWORD timeout)
 {
 	//wait for ownership of this object
+	//TEMP {
 	EnterCriticalSection(&mSync);
+	//} TEMP
 }
 
 void CXMSession::Unlock()
@@ -764,8 +773,8 @@ void CXMSession::FlushOut()
 	//flush the outbound message queue into
 	//the outbound net buffer
 	Lock();
-	while (out.Size()>0) {
-		
+	while (out.Size()>0)
+	{	
 		//get the next message
 		pmsg = out.Pop();
 
@@ -783,9 +792,11 @@ void CXMSession::FlushOut()
 
 			//binary data to send?
 			binsize = pmsg->GetBinarySize();
-			if (binsize>0) {
+			if (binsize>0)
+			{
 				bin = malloc(binsize);
-				if (pmsg->GetBinaryData(bin, binsize)==(DWORD)binsize) {
+				if (pmsg->GetBinaryData(bin, binsize)==(DWORD)binsize)
+				{
 					netout.Push(bin, binsize);
 				}
 				free(bin);
@@ -808,7 +819,8 @@ void CXMSession::FlushOut()
 
 	//begin sending (even if this blocks, it will
 	//get winsock to start pumping us messages
-	if (!netout.IsEmpty()) {
+	if (!netout.IsEmpty())
+	{
 		SendChunk();
 	}
 }
@@ -826,26 +838,32 @@ CXMNetBuffer::CXMNetBuffer()
 CXMNetBuffer::~CXMNetBuffer()
 {
 	//free buffer?
-	if (mBufferSize>0) {
+	if (mBufferSize>0)
+	{
 		free(mBuffer);
 	}
 }
 DWORD CXMNetBuffer::Push(void *buf, DWORD size)
 {
 	//the buffer must be unlocked
-	if (mLockCount>0) {
+	if (mLockCount>0)
+	{
 		return -1;
 	}
 
 	//allocate new buffer
-	if (mBufferSize==0) {
+	if (mBufferSize==0)
+	{
 		mBuffer = malloc(size);
-		if (!mBuffer) {
+		if (!mBuffer)
+		{
 			return -1;
 		}
 	}
-	else {
-		if (!(mBuffer = realloc(mBuffer, mBufferSize+size))) {
+	else
+	{
+		if (!(mBuffer = realloc(mBuffer, mBufferSize+size)))
+		{
 			return -1;
 		}
 	}
@@ -863,7 +881,8 @@ DWORD CXMNetBuffer::Pop(void **pbuf, DWORD size)
 	mLockCount++;
 
 	//is there any data to read?
-	if (mBufferSize==mStart) {
+	if (mBufferSize==mStart)
+	{
 		mLastPop = 0;
 		return 0;
 	}
@@ -887,9 +906,11 @@ void CXMNetBuffer::Pack()
 	mLastPop = 0;
 
 	//should the buffer be emptied?
-	if (mStart==mBufferSize) {
+	if (mStart==mBufferSize)
+	{
 		//free buffer
-		if (mBufferSize>0) {
+		if (mBufferSize>0)
+		{
 			free(mBuffer);
 			mBufferSize = 0;
 			mStart = 0;
@@ -899,28 +920,28 @@ void CXMNetBuffer::Pack()
 
 	//if there there is less than 16k to free, or what is freed
 	//is less than 1/3 of the buffer, dont bother
-	if (mStart < (16*1024)) {
-		return;
-	}
-	if (mStart < (mBufferSize/3)) {
+	if (mStart < (16*1024) ||
+		mStart < (mBufferSize/3))
+	{
 		return;
 	}
 
 	//go ahead and pack buffer
-	void *buf = malloc(mBufferSize - mStart);			//setup new buffer
+	void *buf = malloc(mBufferSize - mStart);
 	memcpy(buf,(char*) mBuffer + mStart, mBufferSize - mStart);
 
-	free(mBuffer);										//swap in new buffer
+	//swap in new buffer
+	free(mBuffer);
 	mBuffer = buf;
 
-	mBufferSize = mBufferSize - mStart;					//adjust state
+	//adjust state
+	mBufferSize = mBufferSize - mStart;
 	mStart = 0;
 }
 
 void CXMNetBuffer::Rewind()
 {
-	//undoes the last pop.. mutually exclusive
-	//to Pack()!
+	//undoes the last pop.. mutually exclusive to Pack()!
 	mLockCount--;
 
 	//rewind
@@ -931,55 +952,59 @@ void CXMNetBuffer::Rewind()
 bool CXMSession::SendChunk()
 {
 	//only send if we are connected
-	if (!mbIsConnected) {
+	if (!mbIsConnected)
+	{
 		return false;
 	}
 
 	//read chunk
 	void *chunk = NULL;
 	DWORD chunksize = 0;
-	while (true) {
-
+	while (true)
+	{
 		//get next chunk
-		//TEMP:BEGIN
-		chunksize = netout.Pop(&chunk, SEND_CHUNK/*256*/);
-		//Sleep(100);
-		//TEMP:END
+		chunksize = netout.Pop(&chunk, SEND_CHUNK);
 
 		//was there anything?
-		if (chunksize<1) {
+		if (chunksize<1)
+		{
 			netout.Rewind();
 			return true;
 		}
 
 		//attempt send
 		int retval = send(msockMain, (char*)chunk, chunksize, 0);
-		if (retval==SOCKET_ERROR) {
-
+		if (retval==SOCKET_ERROR)
+		{
 			//nothing was sent--probobly the socket would
 			//have blocked
 			netout.Rewind();
 
 			//check error
-			if (WSAGetLastError()==WSAEWOULDBLOCK) {
+			if (WSAGetLastError()==WSAEWOULDBLOCK)
+			{
 				return true;
 			}
+
 			return false;
 		}
 
 		//was the full chunk sent?
-		if (chunksize==(DWORD)retval) {
+		if (chunksize==(DWORD)retval)
+		{
 			netout.Pack();
 		}
-		else {
-
+		else
+		{
 			//rewind, and then pop out just the right amount
 			netout.Rewind();
 			chunksize = netout.Pop(&chunk, retval);
-			if (chunksize==(DWORD)retval) {
+			if (chunksize==(DWORD)retval)
+			{
 				netout.Pack();
 			}
-			else {
+			else
+			{
 				//buffer error
 				netout.Rewind();
 				PostMessage(XM_CLOSE, NULL, NULL);
@@ -990,7 +1015,7 @@ bool CXMSession::SendChunk()
 		//set the tx light
 		TxRxSend();
 
-	}	//while
+	}
 
 	//never gets here
 	return true;
@@ -1002,15 +1027,17 @@ int CXMSession::ReceiveChunk()
 	void *chunk = malloc(RECV_CHUNK);
 	DWORD chunksize = RECV_CHUNK;
 	int retval = recv(msockMain, (char*)chunk, chunksize, NULL);
-	if (retval==SOCKET_ERROR) {
-
+	if (retval==SOCKET_ERROR)
+	{
 		//was there only partial message delivery?
-		if (WSAGetLastError()!=WSAEMSGSIZE) {
+		if (WSAGetLastError()!=WSAEMSGSIZE)
+		{
 			free(chunk);
 			return retval;
 		}
 	}
-	if (retval==0) {
+	if (retval==0)
+	{
 		//connection was gracefully closed
 		free(chunk);
 		return retval;
@@ -1237,16 +1264,17 @@ char* CXMSession::LocalIP()
 
 int CXMSession::GetState()
 {
-	Lock();
+	//TEMP{
+	//Lock();
 	int temp = mState;
-	Unlock();
+	//Unlock();
 	return temp;
 }
 
 void CXMSession::SetState(int newState)
 {
 	//different?
-	Lock();
+	//Lock();
 	int oldstate = mState;
 	if (newState!=mState) {
 		
@@ -1256,15 +1284,16 @@ void CXMSession::SetState(int newState)
 		//inform owner
 		PostState(oldstate);
 	}
-	Unlock();
+	//Unlock();
 }
 
 void CXMSession::PostState(int oldstate)
 {
-	Lock();
+	//TEMP{
+	//Lock();
 	//::PostMessage(mhOwner, XM_STATE, MAKEWORD(mState, oldstate), (LPARAM)this);
 	mpOwner->OnStateChanged(this, oldstate, mState);
-	Unlock();
+	//Unlock();
 }
 
 DWORD CXMSession::GetThreadID()

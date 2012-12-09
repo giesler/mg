@@ -661,6 +661,7 @@ private:
 	void DLRemove(DLTag tag);
 	void DLClear();
 	void DLRefreshProgress();
+	void OnDLCancel();
 
 	//pipeline
 	afx_msg LRESULT OnClientMessage(WPARAM wParam, LPARAM lParam);
@@ -675,6 +676,7 @@ private:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint pos);
 	bool mAllControlsCreated;
 
 	//splitter

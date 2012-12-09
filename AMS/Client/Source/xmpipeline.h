@@ -188,6 +188,7 @@ public:
 	DWORD GetQueuedFileCount();
 	QueuedFile* GetQueuedFile(DWORD i);
 	QueuedFile* GetQueuedFileBuffer();
+	void RemoveQueuedFile(DWORD i);
 
 	//download slot access
 	BYTE FindDownloadSlot(CXMPipelineUpdateTag* tag);
@@ -258,15 +259,15 @@ protected:
 };
 
 //pipeline update flags
-#define XMPUF_QFLUSH	1<<0	//item is being removed from the queue because it is about
+#define XMPUF_QFLUSH	(1<<0)	//item is being removed from the queue because it is about
 								//to start downloading
-#define XMPUF_RESERVED2	1<<1	
-#define XMPUF_RESERVED3	1<<2
-#define XMPUF_RESERVED4	1<<3
-#define XMPUF_RESERVED5	1<<4
-#define XMPUF_RESERVED6	1<<5
-#define XMPUF_RESERVED7	1<<6
-#define XMPUF_RESERVED8	1<<7
+#define XMPUF_QCANCEL	(1<<1)	//user cancelation flag
+#define XMPUF_RESERVED3	(1<<2)
+#define XMPUF_RESERVED4	(1<<3)
+#define XMPUF_RESERVED5	(1<<4)
+#define XMPUF_RESERVED6	(1<<5)
+#define XMPUF_RESERVED7	(1<<6)
+#define XMPUF_RESERVED8	(1<<7)
 
 class CXMPipelineUpdateTag
 {
@@ -344,7 +345,7 @@ XM_SMU_MOTD_SENT
 
 class CXMServerManager : public CXMPipelineBase
 {
-friend UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
+//friend UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
 public:
 
 	//construction
@@ -394,6 +395,11 @@ public:
 	void FakeMotd(LPCSTR msg);
 #endif
 
+	//Reconnect
+	void ReconnectAuto();
+	void ReconnectStop();
+	bool ReconnectTry(int retries=4);	//entry point from ServerIsOpen()
+
 protected:
 	
 	//server session state
@@ -402,19 +408,13 @@ protected:
 	HWND mwndProgress;
 
 	//reconnect
-	void ReconnectAuto();
-	void ReconnectStop();
-#ifdef _INTERNAL
-	bool ReconnectTry(int retries=32767);	//internal builds (run on server) try pretty much forever
-#else
-	bool ReconnectTry(int retries=4);	//entry point from ServerIsOpen()
-#endif
 	bool mRcExpectDead;					//if true, manually disconnected therefore don't try reconnect
 	int  mRcAttempts;					//count of unsuccessfull reconnect attempts
 	int  mRcElapsed;					//minutes elapsed since reconnect timer started
 	bool mRcGoodLogin;					//set to false if a login fails
-	HANDLE mRcThread;
-	UINT mRcThreadId;
+	CWinThread* mRcThread;
+	//HANDLE mRcThread;
+	//UINT mRcThreadId;
 
 	//login data
 	char mLoginMsg[MAX_PATH];
@@ -433,6 +433,7 @@ protected:
 	//query data
 	DWORD mQueryLastTag;
 	bool mQueryRunning;
+	bool mQueryRestart;
 	CXMQuery *mQuery;
 	CXMQueryResponse *mQueryResponse;
 	int mLimiterMaxIndex;
@@ -455,6 +456,17 @@ protected:
 	virtual void OnMsgReceived(CXMSession *ses, CXMMessage *msg);
 	virtual void OnMsgSent(CXMSession *ses, CXMMessage *msg);
 	virtual void OnStateChange(CXMSession *ses, UINT vold, UINT vnew);
+};
+
+// ------------------------------------------------------------------ Reconnect Thread
+
+class CReconnectThread : public CWinThread
+{
+public:
+	
+	virtual BOOL InitInstance();
+
+	DECLARE_DYNCREATE(CReconnectThread);
 };
 
 

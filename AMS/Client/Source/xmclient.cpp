@@ -381,6 +381,7 @@ CString BuildSavedFilename(CMD5 md5)
 			config()->GetField(FIELD_DB_SAVE_PATH, false),
 			CTime::GetCurrentTime().Format("%y%m%d"),
 			szmd5);
+	massagePath(retval.GetBuffer(0));
 	return retval;
 }
 

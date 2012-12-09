@@ -5,6 +5,9 @@
 
 #include "xmquery.h"
 
+//convert // to / in place
+void massagePath(char *path);
+
 //compare function for sorting thumbnails by file offset
 int __cdecl compareBlobs(const void *elem1, const void *elem2);
 
@@ -395,7 +398,7 @@ public:
 	//bool DownloadDirExists();
 	bool ScanDirectory(char* path);
 	void CancelScan();
-	#ifdef _INTERNAL
+	#ifdef _DEBUG
 	CStringList ErrorFiles;
 	#endif
 

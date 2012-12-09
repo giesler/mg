@@ -12,8 +12,37 @@
 #include <sys/types.h> 
 #include <sys/stat.h>
 
+// -------------------------------------------------------------------------- UTIL
 
-//	------------------------------------------------------------------------- Mem Sink
+void massagePath(char *path)
+{
+	bool lastChar = false;
+	while (*path != '\0')
+	{
+		if (*path == '\\' || *path == '/')
+		{
+			if (lastChar)
+			{
+				//this is the 2nd \ in a row, move the rest of the string 
+				//down one notch
+				memmove(path, (path+1), strlen(path));
+			}
+			else
+			{
+				lastChar = true;
+			}
+		}
+		else
+		{
+			lastChar = false;
+		}
+
+		//move ahead one char
+		path++;
+	}
+}
+
+//-------------------------------------------------------------------------- Mem Sink
 
 CMemSink::CMemSink(SIZE_T size)
 {	

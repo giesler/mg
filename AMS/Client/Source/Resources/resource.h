@@ -84,6 +84,7 @@
 #define IDD_AU                          182
 #define IDD_RECONNECT                   183
 #define IDD_CONTEST                     184
+#define IDR_DL                          185
 #define IDC_FILES                       1000
 #define IDC_PICSIZE                     1001
 #define IDC_DBPATH                      1002
@@ -355,13 +356,14 @@
 #define ID_TRAY_OPTIONS                 32805
 #define ID_FIT                          32806
 #define ID_CONTEST                      32807
+#define ID_DL_CANCEL                    32808
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        185
-#define _APS_NEXT_COMMAND_VALUE         32808
+#define _APS_NEXT_RESOURCE_VALUE        186
+#define _APS_NEXT_COMMAND_VALUE         32809
 #define _APS_NEXT_CONTROL_VALUE         1241
 #define _APS_NEXT_SYMED_VALUE           131
 #endif

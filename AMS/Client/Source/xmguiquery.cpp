@@ -240,6 +240,7 @@ private:
 				if (cm()->GetQueuedFile(i)->mItem->mMD5.IsEqual(mCurrentPic))
 				{
 					cm()->CancelQueuedFile(i);
+					cm()->Unlock();
 					break;
 				}
 			}
@@ -254,6 +255,7 @@ private:
 				if (cm()->GetDownloadSlot(i)->mItem->mMD5.IsEqual(mCurrentPic))
 				{
 					cm()->CancelDownloadingFile(i);
+					cm()->Unlock();
 					break;
 				}
 			}
@@ -311,8 +313,9 @@ private:
 				mCurrentPic = qri->mMD5;
 
 				//do we already have this picture?
-				db()->Lock();
+				//db()->Lock();
 				mFile = db()->FindFile(qri->mMD5.GetValue(), false);
+				//db()->Unlock();
 				if (mFile)
 				{
 					//we already have the pic

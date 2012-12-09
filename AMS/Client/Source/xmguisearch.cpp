@@ -225,10 +225,10 @@ LRESULT CMainFrame::OnClientMessage(WPARAM wParam, LPARAM lParam)
 	case XM_CMU_DOWNLOAD_REQUESTING:
 	case XM_CMU_DOWNLOAD_RECEIVING:
 	case XM_CMU_DOWNLOAD_FINISH:
+	case XM_CMU_DOWNLOAD_CANCEL:
 		break;
 
 	case XM_CMU_DOWNLOAD_ERROR:
-	case XM_CMU_DOWNLOAD_CANCEL:
 		
 		//show the error
 		if (pqi)
@@ -947,21 +947,17 @@ void CSearchView::ShowResults()
 
 		//setup data
 		data = mThumbs.EncaseParam(pqi);
-		if (pqi->mQueryResponseItem->mAlreadyGotIt)
+		if (!pqi->mQueryResponseItem->mAlreadyGotIt)
 		{
-			//we already have this file, color it blue
-			data->bgPaint = TRUE;
-			data->bgColor = RGB(0, 0, 196);	//royal
+			//insert into listview
+			lvi.mask = LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
+			lvi.iItem = mThumbs.GetItemCount();
+			lvi.iSubItem = 0;
+			lvi.iImage = pqi->mImage;
+			lvi.lParam = (LPARAM)data;
+			lvi.pszText = buf;
+			pqi->mItem = mThumbs.InsertItem(&lvi);
 		}
-
-		//insert into listview
-		lvi.mask = LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
-		lvi.iItem = mThumbs.GetItemCount();
-		lvi.iSubItem = 0;
-		lvi.iImage = pqi->mImage;
-		lvi.lParam = (LPARAM)data;
-		lvi.pszText = buf;
-		pqi->mItem = mThumbs.InsertItem(&lvi);
 
 	}
 }

@@ -1215,6 +1215,20 @@ DWORD CXMClientManager::GetQueuedFileCount() {	return mQueueCount; }
 CXMClientManager::QueuedFile* CXMClientManager::GetQueuedFile(DWORD i) { return &mQueue[i]; }
 CXMClientManager::QueuedFile* CXMClientManager::GetQueuedFileBuffer() { return mQueue; }
 
+void CXMClientManager::RemoveQueuedFile(DWORD i)
+{
+	SendUpdate( XM_CMU_QUEUE_REMOVE,
+				mQueue[i].mItem->mMD5,
+				mQueue[i].mWidth,
+				mQueue[i].mHeight,
+				mQueue[i].mIsThumb,
+				XMPUF_QCANCEL);
+	mQueue[i].mItem->Release();
+
+	memmove(&mQueue[i], &mQueue[i+1], (mQueueCount-(i+1))*sizeof(QueuedFile));
+	mQueueCount--;
+}
+
 //download slot access
 BYTE CXMClientManager::FindDownloadSlot(CXMPipelineUpdateTag* tag) {
 	for(BYTE i=0;i<mDownloadCount;i++)

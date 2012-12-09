@@ -10,7 +10,7 @@
 #include <process.h>
 
 UINT __stdcall LoginThreadProc(LPVOID lpParameter);
-UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
+//UINT __stdcall ReconnectThreadProc(LPVOID lpParameter);
 
 // ------------------------------------------------------------------------------- Utility
 
@@ -58,6 +58,7 @@ CXMServerManager::CXMServerManager()
 
 	//setup query
 	mQueryRunning = false;
+	mQueryRestart = false;
 	mQuery = NULL;
 	mQueryResponse = NULL;
 	mQueryLastTag = 0;
@@ -90,7 +91,7 @@ CXMServerManager::CXMServerManager()
 	mRcElapsed = 0;
 	mRcGoodLogin = false;	
 	mRcThread = NULL;
-	mRcThreadId = 0;
+	//mRcThreadId = 0;
 }
 
 CXMServerManager::~CXMServerManager()
@@ -151,25 +152,30 @@ void CXMServerManager::OnWin32MsgPreview(UINT msg, WPARAM wparam, LPARAM lparam)
 				ReconnectStop();
 
 				//do we still want to try a reconnect?
-				if (!mRcExpectDead || mRcGoodLogin)
+				if ((!mRcExpectDead || mRcGoodLogin) && !LoginIsLoggedIn())
 				{
 					//free the current thread handle
+					/*
 					if (mRcThread)
 					{
 						CloseHandle(mRcThread);
 						mRcThread = NULL;
 					}
+					*/
 
 					//we must do this asyncronously, otherwise the
 					//server managers message pump will not run and
 					//the login will never complete
-					mRcThread = /*CreateThread*/
+					/*
+					mRcThread = 
 					(HANDLE)_beginthreadex(	NULL,
 											0,
 											ReconnectThreadProc,
 											NULL,
 											0,
 											&mRcThreadId);
+					*/
+					mRcThread = AfxBeginThread(RUNTIME_CLASS(CReconnectThread));
 				}
 			}
 		}
@@ -303,6 +309,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 				//no response!
 				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_ERROR, mQueryLastTag);
 				mQueryRunning = false;
+				mQueryRestart = false;
 			}
 			else
 			{
@@ -312,6 +319,7 @@ void CXMServerManager::OnMsgReceived(CXMSession *ses, CXMMessage *msg)
 				}
 				mQueryResponse = resp;
 				mQueryRunning = false;
+				mQueryRestart = false;
 
 				//update ui
 				SendEvent(XM_SERVERMSG, XM_SMU_QUERY_FINISH, mQueryLastTag);
@@ -476,11 +484,17 @@ void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 		
 		//stop all queries, etc
 		Lock();
-		if (mQueryRunning) {
+		if (mQueryRunning)
+		{
+			//stop the query
 			SendEvent(XM_SERVERMSG, XM_SMU_QUERY_ERROR, NULL);
 			mQueryRunning = false;
-		}
 
+			//set the reset flag.. when we reconnect,
+			//the query will be re-submitted
+			mQueryRestart = true;
+		}
+	
 		//force logout
 		mLoggedIn = false;
 		mLoginCanceled = false;
@@ -511,6 +525,10 @@ void CXMServerManager::OnStateChange(CXMSession *ses, UINT vold, UINT vnew)
 			!mRcExpectDead &&
 			mRcGoodLogin)
 		{
+			//try right now
+			mRcThread = AfxBeginThread(RUNTIME_CLASS(CReconnectThread));
+			
+			//start the reconnect timer
 			ReconnectAuto();
 		}
 		
@@ -773,24 +791,33 @@ DWORD CXMServerManager::QueryBegin(CXMQuery *query)
 
 	//check the new query
 	Lock();
-	if (!LimiterIndex(&query->mQuery) ||
-		!LimiterFilter(&query->mRejection))
+	if (query)
 	{
-		return 0;
+		if (!LimiterIndex(&query->mQuery) ||
+			!LimiterFilter(&query->mRejection))
+		{
+			return 0;
+		}
 	}
 
+	//reset the restart flag
+	mQueryRestart = false;
+
 	//store our new query
-	query->AddRef();
-	if (mQuery)
-		mQuery->Release();
-	mQuery = query;
+	if (query)
+	{
+		query->AddRef();
+		if (mQuery)
+			mQuery->Release();
+		mQuery = query;
+	}
 
 	//NOTE: addref and release MUST BE IN THAT ORDER, since they might be
 	//the same object, if you release first, it could get deleted
 
 	//send the query message
 	char* str = NULL;
-	if (FAILED(query->ToXmlString(&str))) {
+	if (FAILED(mQuery->ToXmlString(&str))) {
 		mQuery = NULL;
 		Unlock();
 		return 0;
@@ -802,8 +829,15 @@ DWORD CXMServerManager::QueryBegin(CXMQuery *query)
 	msg->GetField("query")->SetXml(str, false);
 
 	//set message tag
-	msg->tag = ++mQueryLastTag;
-	query->mTag = mQueryLastTag;
+	if (query)
+	{
+		msg->tag = ++mQueryLastTag;
+		query->mTag = mQueryLastTag;
+	}
+	else
+	{
+		msg->tag = mQueryLastTag;
+	}
 
 	//send the message
 	msg->Send();
@@ -831,6 +865,7 @@ bool CXMServerManager::QueryCancel()
 
 	//todo: send cancel msg to server
 	mQueryRunning = false;
+	mQueryRestart = false;
 
 	//send ui update
 	SendEvent(XM_SERVERMSG, XM_SMU_QUERY_CANCEL, mQueryLastTag);
@@ -1475,7 +1510,7 @@ void CLoginDialog::DoLogin()
 
 	//Any files that could not be added should likely be deleted,
 	//but only if its not auto-login!
-	#ifdef _INTERNAL
+	#ifdef _DEBUG
 	if (!config()->GetFieldBool(FIELD_LOGIN_AUTO_ENABLE))
 	{
 		//any errors?
@@ -1945,6 +1980,11 @@ private:
 			CDialog::OnCancel();
 			break;
 
+		case XM_SMU_LOGIN_RECEIVED:
+
+			//test
+			AfxMessageBox("Login Recieved");
+
 		case XM_SMU_LOGIN_FINISH:
 			
 			//success
@@ -1976,6 +2016,8 @@ private:
 	{
 		//unhook from server man
 		sm()->UnSubscribe(m_hWnd);
+
+		CDialog::OnDestroy();
 	}
 
 	DECLARE_MESSAGE_MAP()
@@ -2005,6 +2047,18 @@ bool CXMServerManager::ReconnectTry(int retries)
 	dlg.DoModal();
 	mRcAttempts += dlg.mConnected?0:1;
 
+	//if we managed to reconnect, and we were in the middle of a query,
+	//we should restart that query
+	if (dlg.mConnected && 
+		mQueryRestart)
+	{
+		if (mQuery)
+		{
+			//resubmit last query
+			QueryBegin(NULL);
+		}
+	}
+
 	//success
 	return dlg.mConnected;
 }
@@ -2024,7 +2078,8 @@ void CXMServerManager::ReconnectAuto()
 }
 
 //thread proc for reconnect asyncronously
-UINT __stdcall ReconnectThreadProc(LPVOID lpParameter)
+//UINT __stdcall ReconnectThreadProc(LPVOID lpParameter)
+BOOL CReconnectThread::InitInstance()
 {
 	//all we do is start the reconnect dialog
 	if (!sm()->ReconnectTry())
@@ -2032,5 +2087,7 @@ UINT __stdcall ReconnectThreadProc(LPVOID lpParameter)
 		//restart the timer
 		sm()->ReconnectAuto();
 	}
-	return (UINT)0;
+	return TRUE;
 }
+
+IMPLEMENT_DYNCREATE(CReconnectThread, CWinThread);

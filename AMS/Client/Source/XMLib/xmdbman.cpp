@@ -183,8 +183,12 @@ bool CXMDBManager::_ScanDirectory(const char* ipath)
 	char fullpath[MAX_PATH+1];
 	fullpathsize = strlen(ipath);
 	strncpy(fullpath, ipath, MAX_PATH);
-	fullpath[fullpathsize] = '\\';
-	fullpathsize++;
+	if (fullpath[fullpathsize-1] != '\\')
+	{
+		//append a backslash
+		fullpath[fullpathsize] = '\\';
+		fullpath[++fullpathsize] = '\0';
+	}
 
 	//recursively walk folders from path
 	CMD5 md5;
@@ -278,7 +282,7 @@ bool CXMDBManager::_ScanDirectory(const char* ipath)
 					{
 						mCallback->OnFileAddError(fullpath, &md5);
 
-						#ifdef _INTERNAL
+						#ifdef _DEBUG
 						ErrorFiles.AddTail(fullpath);
 						#endif
 					}

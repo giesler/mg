@@ -6,20 +6,11 @@
 --------------------Configuration: AMSClient - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Nick\LOCALS~1\Temp\RSPF9.tmp" with contents
-[
-/nologo /MTd /W3 /Gm /GX /ZI /Od /I "Source\Jpeg" /I "Source\xmlib" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_INTERNAL" /FR"Intermediate\Debug\Client/" /Fp"Intermediate\Debug\Client/AMSClient.pch" /YX /Fo"Intermediate\Debug\Client/" /Fd"Intermediate\Debug\Client/" /FD /GZ /c 
-"D:\AMS\Client\Source\xmpipelineserver.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\Nick\LOCALS~1\Temp\RSPF9.tmp" 
-<h3>Output Window</h3>
-Compiling...
-xmpipelineserver.cpp
 
 
 
 <h3>Results</h3>
-xmpipelineserver.obj - 0 error(s), 0 warning(s)
+AMSClient.exe - 0 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

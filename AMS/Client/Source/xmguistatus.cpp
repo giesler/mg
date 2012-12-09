@@ -158,6 +158,8 @@ BEGIN_MESSAGE_MAP(CXMGUIStatus, CWnd)
 
 	//listview stuff
 	ON_NOTIFY(LVN_DELETEITEM, IDC_FILES, OnThumbsDeleteItem)
+	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_DL_CANCEL, OnDLCancel)
 
 	//fold button
 	ON_COMMAND(ID_SHRINK, OnShrink)
@@ -196,6 +198,23 @@ void CXMGUIStatus::OnShrink()
 	CMainFrame *f = (CMainFrame*)GetParent();
 	f->GetClientRect(rc);
 	f->OnSize(0, rc.Width(), rc.Height());
+}
+
+void CXMGUIStatus::OnContextMenu(CWnd* pWnd, CPoint pos)
+{
+	//was it in the listview?
+	if (*pWnd!=mFiles)
+		return;
+
+	//only have a menu for downloads
+	if (mTabState == XMGUI_DL)
+	{
+		//create menu
+		CMenu menu;
+		menu.CreatePopupMenu();
+		menu.AppendMenu(MF_POPUP, (UINT)LoadMenu(AfxGetResourceHandle(), (LPCSTR)IDR_DL));
+		menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN|TPM_TOPALIGN, pos.x, pos.y, this, 0);
+	}
 }
 
 int CXMGUIStatus::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -885,6 +904,45 @@ void CXMGUIStatus::DLRefresh()
 		}
 	}
 	cm()->Unlock();
+}
+
+void CXMGUIStatus::OnDLCancel()
+{
+	//cancel each selected download
+	POSITION pos = mFiles.GetFirstSelectedItemPosition();
+	CMD5 *pmd5;
+	CXMClientManager::DownloadSlot *slot;
+	while (pos)
+	{
+		//get the md5 of this item
+		pmd5 = (CMD5*)mFiles.GetItemData(mFiles.GetNextSelectedItem(pos));
+		
+		//cancel any queued downloads
+		cm()->Lock();
+		for(DWORD i=0;i<cm()->GetQueuedFileCount();i++)
+		{
+			if(cm()->GetQueuedFile(i)->mItem->mMD5.IsEqual(*pmd5))
+			{
+				cm()->RemoveQueuedFile(i);
+				break;
+			}
+		}
+
+		//cancel currently downloading files
+		for (BYTE j=0;j<cm()->GetDownloadSlotCount();j++)
+		{
+			slot = cm()->GetDownloadSlot(j);
+			if (	slot->mState!=DSS_OPEN &&
+					!slot->mIsThumb &&
+					slot->mItem->mMD5.IsEqual(*pmd5))
+			{
+				//cancel this download
+				cm()->CancelDownloadingFile(j);
+				DLText(pmd5, "Canceling...");
+			}	
+		}
+		cm()->Unlock();
+	}
 }
 
 void CXMGUIStatus::DLClear()

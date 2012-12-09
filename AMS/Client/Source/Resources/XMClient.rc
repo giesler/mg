@@ -1206,6 +1206,11 @@ BEGIN
     END
 END
 
+IDR_DL MENU DISCARDABLE 
+BEGIN
+    MENUITEM "&Cancel",                     ID_DL_CANCEL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
