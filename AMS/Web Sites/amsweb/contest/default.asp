@@ -15,8 +15,8 @@ strOffset = "../"
 			Indexing Contest
 		</h3>
 		<p>
-			AMS is pleased to announce our new video card giveaway contest. Now you can win 
-			prizes for looking at porn!
+			AMS is pleased to offer our indexing contest. Now you can win prizes for 
+			looking at porn!
 		</p>
 		<p>
 			If you have no idea what AMS is, please see the <a href="../about/">about</a> section. 
@@ -36,22 +36,37 @@ strOffset = "../"
 						Download the Adult Media Swapper <a href="../download/">client</a> if you don’t 
 						already have it.</li>
 					<li>
-						Click on the contest button.</li>
+						Click on the contest button on the upper left corner of the client.</li>
 					<li>
-					Earn points by checking boxes that describe each picture.</b></li>
+						Earn points by checking boxes that describe each picture,</li>
+					<li>
+					-OR- by convincing friends to join using your e-mail address as the referrer.</b></li>
 			</ol>
 		</p>
 		<p>
-			<b>The person with the most points at the end of the month wins!</b>
+			<b>Prizes are awarded for first, second, and third place in addition to a randomly 
+				drawn prize!</b>
 		</p>
 		<br>
 		<h4>
 			Prizes:
 		</h4>
 		<p>
-			You get your choice of a <a href="http://www.3dblaster.com/products/Anni2mx/">Creative© 
-				3D Blaster® Annihilator 2 MX</a> video card or a <a href="http://www.soundblaster.com/products/xgamer5.1/">
-				Creative© Sound Blaster® Live! X-Gamer 5.1</a> sound card.
+			<ol>
+				<li>
+					Third place prize: <a href="http://www.logitech.com/cf/products/productfeatures.cfm/38">
+						Logitech© Quickcam® Express</a> USB digital video camera</li>
+				<li>
+					Second place prize: <a href="http://www.microsoft.com/products/hardware/sidewinder/devices/FFB2/default.htm">
+						Microsoft© Sidewinder® Force Feedback 2</a> joystick</li>
+				<li>
+					First place prize: <a href="http://www.hpcdwriter.com/products/9500i/overview.asp">HP 
+						9500i</a> 12x8x32 IDE CD-RW drive</li>
+				<li>
+					Random drawing: Every member with at least 1,000 points will be added to a 
+					random drawing for a <a href="http://www.riohome.com/products/rio600-32MB.htm">SONICblue 
+						Rio 600</a> 32mb portable MP3 player</li>
+			</ol>
 		</p>
 		<br>
 		<h4>
@@ -59,21 +74,27 @@ strOffset = "../"
 		</h4>
 		<p>
 			<ol>
-				<b>
-					<li>
-				</b>You must have a valid e-mail address to win. If we can’t contact you, the 
-				prize will go to the runner-up. Check your <a href="../account/">Account 
-					Information</a> to verify the e-mail address that we have on record.</li> <b>
-					<li>
-				</b>Indexes must be accurate. We screen all of the indexes and will disqualify 
-				anyone who is inaccurately describing pictures. Be sure to read the <a href="../support/software/indexing/">
-					Indexing FAQ</a> for details on how to correctly index files.</li> <b>
-					<li>
-				</b>You can only win twice per year. If it is your third time winning, the 
-				prize will go to the runner-up.</li> <b>
-					<li>
-				</b>This contest is only open to users in the United States or Canada. We will 
-				not ship any prizes outside of this area.</li>
+				<li>
+					You must have a valid e-mail address to win. If we can’t contact you, the prize 
+					will go to the runner-up. Check your <a href="../account/">Account Information</a>
+					to verify the e-mail address that we have on record.</li>
+				<li>
+					<b>Indexes must be accurate.</b> We screen all of the indexes and will 
+					disqualify anyone who is inaccurately describing pictures. Be sure to read the <a href="../support/software/indexing/">
+						Indexing FAQ</a> for details on how to correctly index files.</li>
+				<li>
+					Each person you refer must sign up using a unique IP address, have a valid 
+					e-mail address, and sign on to AMS at least once before points are credited to 
+					your account.</li>
+				<li>
+					This contest is only open to users in the United States or Canada. We will not 
+					ship any prizes outside of this area.</li>
+				<li>
+					The contest ends on midnight, Central time, on the last day of the month.</li>
+				<li>
+					You have one week to respond to our e-mail to claim your prize. We send out 
+					e-mail to the winners within two business days after the contest has ended to 
+					give us time to verify indexing accuracy.</li>
 			</ol>
 		</p>
 		<br>
@@ -82,6 +103,10 @@ strOffset = "../"
 		</h4>
 		<p>
 			<ul>
+				<li>
+					Make sure anyone you refer is using your correct e-mail address when signing 
+					up. Check your <a href="../account/">Account Information</a> to verify the 
+					e-mail address that we have on record.</li>
 				<li>
 					To get the most points possible, make sure you index each picture as completely 
 					as possible. Scoring is done on a weighted curve, meaning you’ll get more 
@@ -99,10 +124,16 @@ strOffset = "../"
 			Scoring:
 		</h4>
 		<p>
-			Scoring is done on a weighted curve, meaning you’ll get more points for 
-			indexing one picture completely then by indexing three pictures partially. The 
-			actual formula used to score each picture is listed below, but the graph is 
-			much easier to interpret:
+			Scoring for referrals is simple: For each friend you sign up (using your e-mail 
+			address as the referrer), you'll earn 100 points. You can earn a maximum of 
+			1,000 points using this method. Be sure to read the rules for additional 
+			details.
+		</p>
+		<p>
+			Scoring for the indexing is done on a weighted curve, meaning you’ll get more 
+			points for indexing one picture completely then by indexing three pictures 
+			partially. The actual formula used to score each picture is listed below, but 
+			the graph is much easier to interpret:
 		</p>
 		<table border="0">
 			<tr>
@@ -138,12 +169,17 @@ strOffset = "../"
 				products may cause to your system.</li>
 			<li>
 				You are responsible for any taxes associated with accepting these prizes.</li>
+			<li>
+				AMS is not responsible for any points/prizes lost due to e-mail problems, 
+				system downtime, Internet troubles, etc.</li>
+			<li>
+				The manufacture's of these prizes are in no way or form endorsing Adult Media 
+				Swapper.</li>
 		</ul>
 		</p>
 		<br>
 		<P>
-			<i>Sound Blaster Live! and 3D Blaster are registered trademarks of <a href="http://wwww.creative.com">
-					Creative Technology Ltd</a>. in the United States and/or other countries.</i>
+			<i>All company names and products are trademarks of their respective owners.</i>
 		</P>
 		<!-- #include file="../_footer.asp"-->
 	</body>
