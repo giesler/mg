@@ -25,14 +25,14 @@ LicenseText "You must agree to this license before installing."
 LicenseData "license.txt"
 
 InstallDir "$PROGRAMFILES\AMS"
-InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Line 2 Systems\Adult Media Swapper" ""
+InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\AMS" ""
 DirShow show ; (make this hide to not let the user change it)
 DirText "Select the directory to install AMS in"
 
 Section "" ; (default section)
 SetOutPath "$INSTDIR"
   ; add files / whatever that need to be installed here.
-  WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Line 2 Systems\Adult Media Swapper" "" "$INSTDIR"
+  WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\AMS" "" "$INSTDIR"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Adult Media Swapper" "DisplayName" "AMS (remove only)"
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Adult Media Swapper" "UninstallString" '"$INSTDIR\uninstams.exe"'
   ; Copy files
@@ -62,8 +62,6 @@ Function InstallMSXML
     File "msxml3.dll"
     File "msxml3r.dll"
     File "msxml3a.dll"
-  
-  MSXMLReg:
     DetailPrint "Registering MSXML3..."
     RegDLL "msxml3.dll"
     Goto MSXMLDone
@@ -100,6 +98,21 @@ Function CheckReqs
     StrCpy $2 "1"
 
   RASVersionDone:
+    ReadRegStr $5 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" "CurrentBuildNumber"   
+    StrCmp $5 "1381" NTSPCheck NTSPDone								; check if on NT4
+
+  NTSPCheck:
+    ReadRegStr $5 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" "CSDVersion"
+    StrCmp $5 "Service Pack 3" NTSPBad
+    StrCmp $5 "Service Pack 2" NTSPBad
+    StrCmp $5 "Service Pack 1" NTSPBad NTSPDone
+    
+
+  NTSPBad:
+    StrCpy $1 "$1Windows NT Service Pack 4 or greater is required.  Upgrade at http://www.microsoft.com/ntserver/nts/downloads/recommended/SP6/allSP6.asp"
+    StrCpy $2 "1"
+
+  NTSPDone:
 
   ; see if we found any missing reqs
   StrCmp $2 "0" CheckReqsDone MissingReqFound
@@ -123,7 +136,7 @@ Section Uninstall
   Delete "$INSTDIR\uninstams.exe"
   Delete "$INSTDIR\AMSClient.exe"
   Delete "$INSTDIR\ams.db"
-  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Line 2 Systems\Adult Media Swapper"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\AMS"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Adult Media Swapper"
   RMDir "$INSTDIR"
   Delete "$SMPROGRAMS\AMS\AMS.lnk"
