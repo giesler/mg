@@ -409,13 +409,98 @@ namespace XMedia
 					DoPing();
 					break;
 
-				case "collections":
-
+				case "collection":
+					DoCollection();
 					break;
 
 				default:
 					break;
 			}
+		}
+
+		protected void DoCollection()
+		{
+			//get data
+			int cid = Convert.ToInt32(GetField("collection").Value);
+			string action = GetField("action").Value.ToString();
+			string[] files = GetField("action").Value.ToString().Split(',');
+
+			//find the collection
+			XMCollection c = null;
+			lock(XMCollection.Collections)
+			{
+				c = XMCollection.FindCollection(cid);
+			}
+
+			//add/remove each item
+			XMAdo ado = XMAdo.FromPool();
+			string sql, s;
+			foreach(string s1 in files)
+			{
+				s = s1.ToLower();
+				try
+				{
+					//update database and xmcollection
+					if (action == "add")
+					{
+						//format query string
+						sql = string.Format(
+							"insert collectionentries(collectionid, md5) values({0},0x{1})",
+							cid, s);
+
+						//add to collection's entries list
+						lock(c)
+						{
+							SqlDataReader rs = null;
+							rs = ado.SqlExec("select * from media where md5=0x"+s);
+							if (rs.Read())
+							{
+								XMMediaItem mi = new XMMediaItem();
+								mi.Md5 = s;
+								mi.FileSize = Convert.ToInt32(rs["filesize"]);
+								mi.Width = Convert.ToInt32(rs["width"]);
+								mi.Height = Convert.ToInt32(rs["height"]);
+								mi.Sponsor = Convert.ToInt32(rs["sponsor"]);
+								c.Entries.Add(mi);
+							}
+							rs.Close();
+						}
+					}
+					else
+					{
+						//format query string
+						sql = string.Format(
+							"delete collectionentries where collectionid={0} and md5=0x{1}",
+							cid, s);
+
+						//remove from collection entry list
+						lock(c)
+						{
+							XMMediaItem rem = null;
+							foreach(XMMediaItem mi in c.Entries)
+							{
+								if (mi.Md5.ToLower() == s)
+								{
+									rem = mi;
+									break;
+								}
+							}
+							if (rem != null)
+							{
+								c.Entries.Remove(rem);
+							}
+						}
+					}
+					ado.SqlExecNoResults(sql);
+				}
+				catch
+				{
+					//dont really do anything.. usually
+					//they tried to insert dup
+					Debug.WriteLine("Error adding file to collection.");
+				}
+			}
+			ado.ReturnToPool();
 		}
 
 		protected void DoPing()

@@ -3,6 +3,10 @@
         ProjectType = "Local"
         ProductVersion = "7.0.9372"
         SchemaVersion = "1.0"
+        SccProjectName = "SAK"
+        SccLocalPath = "SAK"
+        SccAuxPath = "SAK"
+        SccProvider = "SAK"
     >
         <Build>
             <Settings
@@ -170,8 +174,13 @@
                 />
                 <File
                     RelPath = "xmserver.cs"
-                    SubType = "Component"
+                    SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmserver.resx"
+                    DependentUpon = "xmserver.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "xmserverinstaller.cs"

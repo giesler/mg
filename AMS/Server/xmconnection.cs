@@ -496,7 +496,8 @@ namespace XMedia
 		{
 			get
 			{
-				return ((IPEndPoint)mClient.LocalEndPoint).Address;
+				//return ((IPEndPoint)mClient.LocalEndPoint).Address;
+				return IPAddress.Parse(XMConfig.NetServerIp);
 			}
 		}
 

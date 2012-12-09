@@ -12,6 +12,7 @@
 			<field name="filecount">125</field>
 		</content>
 	</message>
+	
 	<!-- Login Message Server-Client -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -26,15 +27,18 @@
 			You must upgrade to the latest
 			version of AMS before you can 
 			log on.</field>
+			<field name="collections">1,1st Col;2,2nd Col;</field>
 			<field name="au/version">0.60</field>
 			<field name="au/required">true</field>
 		</content>
 	</message>
+	
 	<!-- Auto Update Message Client-Server -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
 		<request for="au" />
 	</message>
+	
 	<!-- Auto Update Message Server-Client -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -43,6 +47,7 @@
 		...
 		</binary>
 	</message>
+	
 	<!-- Ping Message Server-Client -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -51,6 +56,7 @@
 			<field name="reason">login or ping</field>
 		</content>
 	</message>
+	
 	<!-- Ping Message Client-Server -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -59,6 +65,7 @@
 			<field name="success">1</field>
 		</content>
 	</message>
+	
 	<!-- MOTD Server-Client -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -70,6 +77,7 @@
 			<field name="choices">Yes|No</field>
 		</content>
 	</message>
+	
 	<!-- MOTD Client-Server -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -78,6 +86,7 @@
 			<field name="answer">Yes</field>
 		</content>
 	</message>
+	
 	<!-- Listing Message Client-Server -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -97,6 +106,18 @@
 			</field>
 		</content>
 	</message>
+	
+	<!-- Collection Update Client-Server -->
+	<message sequence="0" reply="0">
+		<from host="127.0.0.1" />
+		<request for="collection" />
+		<content format="text/xml">
+			<field name="action">[add|remove]</field>
+			<field name="collection">1253</field>
+			<field name="list">0a2b,...</field>
+		</content>
+	</message>
+	
 	<!-- Index Update Message Client-Server -->
 	<message sequence="0" reply="0">
 		<from host="127.0.0.1" />
@@ -114,6 +135,7 @@
 			</field>
 		</content>
 	</message>
+	
 	<!-- Index Request From Client -->
 	<message>
 		<request for="index" />
@@ -122,13 +144,14 @@
 			<field mame="md5s">11234;12341234;12341234;12341234</field>
 		</content>
 	</message>
+	
 	<!-- Query Message Client-Server -->
 	<message sequence="0" reply="0">
 		<from></from>
 		<request for="query" />
 		<content format="text/xml">
 			<field name="query">
-				<query for="contest" />
+				<query for="contest|collection" id="123"/>
 				<query minsize="n" maxsize="n" minwidth="n" maxwidth="n" minheight="n" maxheight="n" filter="none">
 					<queryindex>
 						<!-- standard index fields --></queryindex>
@@ -138,6 +161,7 @@
 			</field>
 		</content>
 	</message>
+	
 	<!-- Query Response Message -->
 	<message sequence="0" reply="0">
 		<from></from>
@@ -153,6 +177,7 @@
 			</field>
 		</content>
 	</message>
+	
 	<!-- Client File Request -->
 	<message sequence="0" reply="0">
 		<from></from>
@@ -163,6 +188,7 @@
 			<field name="height">90</field>
 		</content>
 	</message>
+	
 	<!-- Client File Response -->
 	<message sequence="0" reply="0">
 		<from></from>
@@ -175,4 +201,5 @@
 		</content>
 		<binary md5="1234abcd" size="32767" />
 	</message>
+	
 </messages>

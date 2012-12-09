@@ -16,6 +16,8 @@
   </entry>
   <entry name="Net/ServerPort" unit="-" description="Port the server should listen on." value="25346">
   </entry>
+  <entry name="Net/ServerIp" unit="-" description="NOTE: doesent actually bind to this IP! Just reports it to the client!." value="0.0.0.0">
+  </entry>
   <entry name="Net/PingTimeout" unit="Milliseconds" description="Timespan to wait for connection and then for data during a client ping." value="750">
   </entry>
   <entry name="Net/KeepAliveInterval" unit="Minutes" description="Interval between keep-alive requests sent to the client." value="15">

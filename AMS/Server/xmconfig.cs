@@ -19,6 +19,7 @@ namespace XMedia
 		public static readonly bool		DBUseNT;
 		public static readonly int		NetClientPort;
 		public static readonly int		NetServerPort;
+		public static readonly string	NetServerIp;
 		public static readonly TimeSpan	NetPingTimeout;
 		public static readonly TimeSpan	NetKeepAliveInterval;
 		public static readonly TimeSpan	NetDormantTimeout;
@@ -45,6 +46,7 @@ namespace XMedia
 			DBUseNT = true;
 			NetClientPort = 25347;
 			NetServerPort = 25346;
+			NetServerIp = "0.0.0.0";
 			NetPingTimeout = TimeSpan.FromMilliseconds(750);
 			NetKeepAliveInterval = TimeSpan.FromMinutes(15);
 			NetDormantTimeout = TimeSpan.FromMinutes(10);
@@ -137,6 +139,9 @@ namespace XMedia
 								break;
 							case "Net/ServerPort":
 								NetServerPort = Convert.ToInt32(val);
+								break;
+							case "Net/ServerIp":
+								NetServerIp = val;
 								break;
 							case "Net/PingTimeout":
 								NetPingTimeout = TimeSpan.FromMilliseconds(Convert.ToInt32(val));

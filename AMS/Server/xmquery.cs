@@ -552,6 +552,8 @@ namespace XMedia
 		public uint MinSize, MaxSize;
 
 		//misc
+		public bool Collection = false;		//if true, this is a collection query
+		public int	CollectionId = 0;
 		public bool Contest = false;		//if true, no other fields are valid!
 		public bool Filter = true;			//if false, return records even
 											//if no computer have them
@@ -569,9 +571,11 @@ namespace XMedia
 				Contest = true;
 				return;
 			}
-			else
+			else if(query.GetAttribute("for")=="collection")
 			{
-				Contest = false;
+				CollectionId = Convert.ToInt32(query.GetAttribute("id"));
+				Collection = true;
+				return;
 			}
 
 			//get range checks
@@ -767,33 +771,53 @@ namespace XMedia
 						ret = new ArrayList(XMConfig.QueryResultsCutoff);
 						c = 0;
 
-						//loop until:
-						//	* we find enough results
-						//	* we search too many records
-						//	* we search EVERY record
-						start = item;
-						while (	(c < XMConfig.QuerySearchCutoff) &&				//max of 5k items searched
-								(ret.Count < XMConfig.QueryResultsCutoff) &&	//max of 20 results
-								(item.Next!=start) &&							//don't loop
-								!(msg.Query.Contest && ret.Count > 0)			//only 1 result for contest
-						)
+						//collection query? different loop for these
+						if (msg.Query.Collection)
 						{
-							//keep picture?
-							if (msg.Query.Test(item))
+							//get a ref to the collection
+							XMCollection col = XMCollection.FindCollection(msg.Query.CollectionId);
+							lock(col)
 							{
-								//does anyone have this online?
-								lock(item)
+								foreach(XMMediaItem mi in col.Entries)
 								{
-									if ((item.GetServersCount(mADO)>0) || (!msg.Query.Filter))
+									if ((mi.GetServersCount(mADO)>0) || (!msg.Query.Filter))
 									{
-										ret.Add(item);
+										ret.Add(mi);
 									}
 								}
 							}
-							
-							//next record
-							item = item.Next;
-							c++;
+						}
+						else
+						{
+							//loop until:
+							//	* we find enough results
+							//	* we search too many records
+							//	* we search EVERY record
+							start = item;
+							while (	(c < XMConfig.QuerySearchCutoff) &&				//max of 5k items searched
+								(ret.Count < XMConfig.QueryResultsCutoff) &&	//max of 20 results
+								(item.Next!=start) &&							//don't loop
+								!(msg.Query.Contest && ret.Count > 0)			//only 1 result for contest
+								)
+							{
+								//keep picture?
+								if (msg.Query.Test(item))
+								{
+									//does anyone have this online?
+									lock(item)
+									{
+										if ((item.GetServersCount(mADO)>0) || (!msg.Query.Filter))
+										{
+											ret.Add(item);
+										}
+									}
+								}
+								
+								//next record
+								item = item.Next;
+								c++;
+							}
+
 						}
 
 						//return results to client
@@ -1109,7 +1133,7 @@ namespace XMedia
 			XMLog.WriteLine(str, "QueryEngine");
 		}
 
-		public static void rs2mi(SqlDataReader rs, XMMediaItem mi)
+		public static bool rs2mi(SqlDataReader rs, XMMediaItem mi)
 		{
 			//get basic data on this item
 			XMGuid md5 = new XMGuid((byte[])rs["media_md5"]);
@@ -1166,7 +1190,79 @@ namespace XMedia
 			//copy index from temp location into mediaitem
 			mi.Indices = new XMIndex[temp.Count];
 			temp.CopyTo(mi.Indices, 0);
+
+			//we return the eof value
+			return eof;
 		}
 
+	}
+
+	public class XMCollection
+	{
+		//instance data
+		public int				CollectionId;
+		public XMGuid			Owner;
+		public ArrayList		Entries = new ArrayList();
+
+		//static data
+		public static Hashtable Collections;
+		public static XMCollection FindCollection(int id)
+		{
+			//look in the hashtable first
+			lock(Collections)
+			{
+				if (Collections.ContainsKey(id))
+				{
+					return (XMCollection)Collections[id];
+				}
+
+				//we dont have it in memory.. try and load it from the db
+				XMAdo ado = XMAdo.FromPool();
+				try
+				{
+					//query
+					SqlDataReader rs = ado.SqlExec(String.Format(
+						"select userid from collections where collectionid={0}",
+						id));
+					rs.Read();
+					
+					//fill out the new record
+					XMCollection c = new XMCollection();
+					c.CollectionId = id;
+					c.Owner = new XMGuid((byte[])rs["userid"]);
+					rs.Close();
+
+					//read entries
+					rs = ado.SqlExec(String.Format(
+						@"	select m.* from collectionentries ce
+							inner join media m on m.md5 = ce.md5
+							where ce.collectionid={0}",
+						id));
+					while (rs.Read())
+					{
+						//create a new media item
+						XMMediaItem mi = new XMMediaItem();
+						mi.Md5 = new XMGuid((byte[])rs["md5"]).ToString();
+						mi.FileSize = Convert.ToInt32(rs["filesize"]);
+						mi.Width = Convert.ToInt32(rs["width"]);
+						mi.Height = Convert.ToInt32(rs["height"]);
+						mi.Sponsor = Convert.ToInt32(rs["sponsor"]);
+						c.Entries.Add(mi);	
+					}
+					rs.Close();
+					ado.ReturnToPool();
+
+					//insert the collection into our hashtable
+					Collections[c.CollectionId] = c;
+					return c;
+				}
+				catch(Exception e)
+				{
+					XMLog.WriteLine(string.Format("Could not find collection: {0}.\nError: {1}", id, e.Message), "FindCollection", System.Diagnostics.EventLogEntryType.Error);
+					ado.ReturnToPool();
+					return null;
+				}
+			}
+		}
 	}
 }
