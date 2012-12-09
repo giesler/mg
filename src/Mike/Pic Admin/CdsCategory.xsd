@@ -1,0 +1,24 @@
+<xsd:schema id="CdsCategory" targetNamespace="http://www.tempuri.org/CdsCategory.xsd" xmlns="http://www.tempuri.org/CdsCategory.xsd" xmlns:xsd="http://www.w3.org/1999/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:element name="Category">
+    <xsd:complexType content="elementOnly">
+      <xsd:all>
+        <xsd:element name="CategoryID" msdata:ReadOnly="True" type="xsd:int"/>
+        <xsd:element name="ParentID" type="xsd:int"/>
+        <xsd:element name="CategoryName" type="xsd:string"/>
+        <xsd:element name="FullCategory" minOccurs="0" type="xsd:string"/>
+        <xsd:element name="AccessLevel" minOccurs="0" type="xsd:unsignedByte"/>
+      </xsd:all>
+    </xsd:complexType>
+    <xsd:key name="Constraint1" msdata:PrimaryKey="True">
+      <xsd:selector>.</xsd:selector>
+      <xsd:field>CategoryID</xsd:field>
+    </xsd:key>
+  </xsd:element>
+  <xsd:element name="CdsCategory" msdata:IsDataSet="True">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:element ref="Category"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
