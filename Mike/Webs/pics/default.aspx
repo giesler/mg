@@ -32,6 +32,11 @@
 									suggestions are welcome.
 								</p>
 								<p>
+									<b>Tip</b>: Press F11 to switch Internet Explorer to full screen mode - you 
+									won't have to scroll as much then. (Switch back to normal mode by hitting F11 
+									again.)
+								</p>
+								<p>
 									<STRONG>You can view pictures in one of two ways:</STRONG>
 								</p>
 								<UL>

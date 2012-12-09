@@ -14,7 +14,8 @@
 		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Zoom In"></pics:header>
 		<form id="picview" method="post" runat="server">
 			<p align="center">
-				<asp:Label ID="lblTitle" Runat="server">[Title]</asp:Label>
+				<a name="title">
+				<asp:Label ID="lblTitle" Runat="server">[Title]</asp:Label></a>
 				<br>
 				<i>
 					<asp:Label ID="lblPictureDate" Runat="server" Font-Size="smaller">[Date]</asp:Label>

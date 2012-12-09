@@ -166,12 +166,12 @@ namespace pics
 
 					if (intCurRec == intTotalCount) 
 					{
-						m_HttpRefreshURL = "5;URL=" + lnkReturn.NavigateUrl;
+						m_HttpRefreshURL = "10;URL=" + lnkReturn.NavigateUrl;
 					} 
 					else 
 					{
-						m_HttpRefreshURL = "5;URL=" 
-							+ strURL.Replace("{0}", Convert.ToString(intCurRec+1));
+						m_HttpRefreshURL = "10;URL=" 
+							+ strURL.Replace("{0}", Convert.ToString(intCurRec+1)) + "#title";
 					}
 
 				} 

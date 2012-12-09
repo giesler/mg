@@ -224,8 +224,7 @@ namespace pics
 			if (thumbs.HasPictures) 
 			{
 				lnkSlideshow.Visible = true;
-				lnkSlideshow.NavigateUrl = String.Format(PicPageURL + "&ss=1", startRecord.ToString());
-
+				lnkSlideshow.NavigateUrl = String.Format(PicPageURL + "&ss=1#title", startRecord.ToString());
 			}
 		}
 
