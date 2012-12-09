@@ -218,7 +218,13 @@ namespace pics
 			thumbs.TotalRecords		= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);
 			thumbs.StartRecord		= startRecord;
 			thumbs.RecordsPerPage	= 15;
-			thumbs.NoPictureMessage	= "<b>There are no pictures in this category.</b><br>Please select another category from the left.";
+
+			// if there are children categories, point to that if no pics here
+			if (childCategoryList.Visible)
+				thumbs.NoPictureMessage	= "<b>Please select a category from the left.</b>";
+			else
+				thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><br>"
+					+ "We may have added the category and not published pictures yet, so please check back later.";
 			thumbs.PageNavURL		= Request.Path + "?r=" + rootCategoryId	+ "&c=" + currentCategoryId + "&sr={0}";
 			pnlthumbs.Controls.Add(thumbs);
 
