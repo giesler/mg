@@ -2,31 +2,40 @@ VERSION 5.00
 Begin VB.Form fASPClean 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "ASP Cleanup"
-   ClientHeight    =   4575
+   ClientHeight    =   4785
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   8910
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4575
+   ScaleHeight     =   4785
    ScaleWidth      =   8910
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
+   Begin VB.CheckBox chkConfigFiles 
+      Caption         =   "Delete config files (global.asa, web.config)"
+      Height          =   255
+      Left            =   1320
+      TabIndex        =   6
+      Top             =   600
+      Value           =   1  'Checked
+      Width           =   5775
+   End
    Begin VB.CommandButton cmdCleanup 
       Caption         =   "&Cleanup"
       Enabled         =   0   'False
       Height          =   375
       Left            =   6960
       TabIndex        =   4
-      Top             =   3960
+      Top             =   4200
       Width           =   1455
    End
    Begin VB.ListBox lstFiles 
       Height          =   3180
       Left            =   360
       TabIndex        =   3
-      Top             =   720
+      Top             =   960
       Width           =   8175
    End
    Begin VB.CommandButton cmdLoadFileList 
@@ -48,7 +57,7 @@ Begin VB.Form fASPClean
       Height          =   255
       Left            =   480
       TabIndex        =   5
-      Top             =   4080
+      Top             =   4320
       Width           =   5175
    End
    Begin VB.Label Label1 
@@ -111,6 +120,8 @@ Private Sub LoadFileList(fld As Folder, strRoot As String)
     
     For Each f In fld.Files
         If f.Name = "vssver.scc" Or f.Name = "_vti_inf.html" Or f.Name = "postinfo.html" Then
+            fso.DeleteFile f.Path
+        ElseIf chkConfigFiles.Value = 1 And (f.Name = "global.asa" Or f.Name = "web.config") Then
             fso.DeleteFile f.Path
         Else
             If f.Attributes And ReadOnly Then
