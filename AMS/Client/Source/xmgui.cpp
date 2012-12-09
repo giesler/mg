@@ -220,7 +220,8 @@ CMainFrame::~CMainFrame()
 		mMalloc->Release();
 	}
 	if (mSysImageList) {
-		ImageList_Destroy(mSysImageList);
+		//NOTE: win9x, this destroys the system image list
+		//ImageList_Destroy(mSysImageList);
 	}
 	if (mCurrentView) {
 		mCurrentView->Release();
@@ -309,6 +310,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	#endif
 	if (!SetMenu(&menu))
 		return -1;
+	menu.Detach();
 
 	//folded file tree
 	if (mShrink.IsFolded())
@@ -816,7 +818,7 @@ void CMainFrame::GetChildName(LPSHELLFOLDER folder, LPITEMIDLIST item, DWORD fla
 		mMalloc->Free(name.pOleStr);
 	}
 	if(name.uType==STRRET_OFFSET) {
-		memcpy(out, item+name.uOffset, MAX_PATH);
+		strncpy(out, (char*)item+name.uOffset, MAX_PATH);
 	}
 }
 
@@ -856,6 +858,7 @@ int CMainFrame::GetChildIcon(LPSHELLFOLDER folder, LPITEMIDLIST item)
 	bool bdofq = false;
 	/*
 	NOTE: this code returns bogus results in release builds
+	*/
 	int icon;
 	LPSHELLICON shicon = NULL;
 	if (SUCCEEDED(folder->QueryInterface(IID_IShellIcon, (void**)&shicon)))
@@ -871,7 +874,7 @@ int CMainFrame::GetChildIcon(LPSHELLFOLDER folder, LPITEMIDLIST item)
 		}	
 		shicon->Release();
 	}
-	*/
+	
 
 	//no? try fully qualified pidl
 	SHFILEINFO fi;
