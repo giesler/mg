@@ -8,8 +8,7 @@
 	</HEAD>
 	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
 		<!-- top table with MSN2 logo -->
-		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures">
-		</pics:header>
+		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures"></pics:header>
 		<table align="left" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td>

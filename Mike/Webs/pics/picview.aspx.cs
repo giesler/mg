@@ -120,7 +120,7 @@ namespace pics
 					pnlDescription.Visible = false;
 
 				// now create the picture
-				Picture curPic = new Picture(Server);
+				Picture curPic = new Picture();
 				curPic.Filename = pr.Filename;
 				curPic.MaxHeight = 700;
 				curPic.MaxWidth  = 750;

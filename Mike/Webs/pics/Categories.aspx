@@ -1,5 +1,5 @@
-<%@ Page language="c#" Codebehind="Categories.aspx.cs" AutoEventWireup="false" Inherits="pics.Categories" smartNavigation="True" %>
 <%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
+<%@ Page language="c#" Codebehind="Categories.aspx.cs" AutoEventWireup="false" Inherits="pics.Categories" smartNavigation="True" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -18,12 +18,16 @@
 			<hr color="gainsboro" SIZE="1">
 			<table cellSpacing="2" cellPadding="0" width="100%" border="0" height="100%">
 				<tr>
-					<td style="BORDER-RIGHT: gainsboro thin solid" vAlign="top" width="100" rowSpan="3"><asp:panel id="childCategoryList" CssClass="note" Runat="server"><I>
-								<asp:Label id="categoriesInLabel" Runat="server">Categories in<br></asp:Label>
-								<asp:Label id="currentCategory" Runat="server">[current category]</asp:Label>:</I>
-							<BR>
-							<BR>
-						</asp:panel></td>
+					<td style="BORDER-RIGHT: gainsboro thin solid" vAlign="top" width="100" rowSpan="3">
+						<P><asp:panel id="childCategoryList" CssClass="note" Runat="server"><I>
+									<asp:Label id="categoriesInLabel" Runat="server">Categories in<br></asp:Label>
+									<asp:Label id="currentCategory" Runat="server">[current category]</asp:Label>:</I>
+								<BR>
+								<BR>
+							</asp:panel></P>
+						<P>&nbsp;</P>
+						<P>&nbsp;</P>
+					</td>
 					<td rowSpan="4">&nbsp;
 					</td>
 					<td vAlign="top" height="10%">

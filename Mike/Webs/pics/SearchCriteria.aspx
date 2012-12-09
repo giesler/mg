@@ -32,7 +32,8 @@
 										<asp:Label ID="noResults" Runat="server" Visible="False" CssClass="err">There were no results found for your search below.  Please change your search and try again.<br><br></asp:Label>
 									</P>
 									<p>
-										<b>Picture Description</b>:  You can search for pictures based on the picture description.
+										<b>Picture Description</b>: You can search for pictures based on the picture 
+										description.
 									</p>
 									<blockquote>
 										<p>
@@ -42,11 +43,12 @@
 									</blockquote>
 									<hr noshade>
 									<p>
-										<b>Picture Date</b>:  You can search for pictures based on the date of the picture.
+										<b>Picture Date</b>: You can search for pictures based on the date of the 
+										picture.
 									</p>
 									<blockquote>
 										<p>
-											<table style="COLOR: black">
+											<table>
 												<tr>
 													<td align="right">
 														Between
@@ -74,12 +76,13 @@
 									</blockquote>
 									<hr noshade>
 									<p>
-										<b>People</b>:  You can search for pictures based on the people in the picture. First, enter 
-										any part of the person's name. Then click 'Find'. This will show anyone with 
-										similiar names. Select the person or persons you would like to include, and 
-										click 'Add'. You can repeat the process to add as many names as you wish.
+										<b>People</b>: You can search for pictures based on the people in the picture. 
+										First, enter any part of the person's name. Then click 'Find'. This will show 
+										anyone with similiar names. Select the person or persons you would like to 
+										include, and click 'Add'. You can repeat the process to add as many names as 
+										you wish.
 									</p>
-									<picctls:PeopleSelector id="peopleSelector" runat="server"></picctls:PeopleSelector>
+									<picctls:PeopleSelector id="peopleSelector" runat="server" BackColor="101, 13, 0" ForeColor="White"></picctls:PeopleSelector>
 									<p>
 										<asp:RadioButtonList ID="personSearchOption" Runat="server" CssClass="blacktext" Visible="False">
 											<asp:ListItem value="0" Text="Search for pictures with one or more of the people listed above in the picture" Selected></asp:ListItem>

@@ -84,14 +84,11 @@ namespace pics
 			cn.Close();
 
 			// create new control
-			PagedThumbnailList thumbs = new PagedThumbnailList(Server);
+			ThumbnailList thumbs = new ThumbnailList();
 			thumbs.PageReturnURL	= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString()
 				+ "&type=random"; //"default.aspx";
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
-			thumbs.TotalRecords		= 1;
-			thumbs.StartRecord		= 1;
-			thumbs.RecordsPerPage	= 11;
-			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
+//			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
 			randomPicture.Controls.Add(thumbs);
 
 		}

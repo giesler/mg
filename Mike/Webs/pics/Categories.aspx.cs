@@ -209,7 +209,8 @@ namespace pics
 			cn.Close();
 
 			// create new control
-			PagedThumbnailList thumbs = new PagedThumbnailList(Server);
+			PagedThumbnailList thumbs = new PagedThumbnailList();
+			thumbs.ShowRecordNumber	= true;
 			thumbs.PageReturnURL	= PicPageURL;
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
 			thumbs.TotalRecords		= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);

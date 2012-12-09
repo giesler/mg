@@ -67,6 +67,7 @@ namespace pics
 		private void InitializeComponent()
 		{    
 			this.search.Click += new System.EventHandler(this.search_Click);
+			this.reset.Click += new System.EventHandler(this.reset_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -220,7 +221,7 @@ namespace pics
 				if (pictureDateStart.Text.Length > 0) 
 					System.DateTime.Parse(pictureDateStart.Text);
 			}
-			catch (FormatException fe) 
+			catch (FormatException) 
 			{
 				pictureDateStartBad.Visible = true;
 			}
@@ -229,13 +230,18 @@ namespace pics
 				if (pictureDateEnd.Text.Length > 0) 
 					System.DateTime.Parse(pictureDateEnd.Text);
 			}
-			catch (FormatException fe) 
+			catch (FormatException) 
 			{
 				pictureDateEndBad.Visible = true;
 			}
 
 			String id = SaveSearch();
 			Response.Redirect("SearchRun.aspx?id=" + id);
+		}
+
+		private void reset_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect("SearchCriteria.aspx");
 		}
 
 	}

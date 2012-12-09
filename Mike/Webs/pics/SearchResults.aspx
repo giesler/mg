@@ -11,16 +11,19 @@
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body topmargin="0" leftmargin="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Search Results">
-		</pics:header>
+		<pics:header id="ctlHeader" runat="server" size="small" header="Search Results"></pics:header>
 		<form id="Form1" method="post" runat="server">
+			<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">Below are the results of your search.</asp:panel>
+			<hr color="gainsboro" SIZE="1">
 			<table cellSpacing="2" cellPadding="0" width="100%" border="0">
 				<tr>
-					<td width="10%" rowspan="3" valign="top">
+					<td style="BORDER-RIGHT: gainsboro thin solid" width="10%" rowspan="3" valign="top">
 						<p class="note">
-							<asp:Label ID="SearchDescription" Runat="server" Visible="False"></asp:Label>
+							Search:<br>
 							<br>
-							<asp:HyperLink ID="ReturnToCriteria" Runat="server" Visible="False">(change)</asp:HyperLink>
+							<asp:Label ID="searchDescription" Runat="server"></asp:Label>
+							<br>
+							<asp:HyperLink ID="ReturnToCriteria" Runat="server">(change)</asp:HyperLink>
 						</p>
 					</td>
 					<td rowspan="4">

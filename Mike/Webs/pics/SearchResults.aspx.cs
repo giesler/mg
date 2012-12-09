@@ -20,7 +20,8 @@ namespace pics
 	{
 		protected System.Web.UI.WebControls.HyperLink ReturnToCriteria;
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
-		protected System.Web.UI.WebControls.Label SearchDescription;
+		protected System.Web.UI.WebControls.Panel youAreHerePanel;
+		protected System.Web.UI.WebControls.Label searchDescription;
 		protected System.Web.UI.WebControls.Panel pnlthumbs;
 	
 		public SearchResults()
@@ -53,7 +54,7 @@ namespace pics
 				// attempt to read search descirption
 				if (dr.Read()) 
 				{
-                    SearchDescription.Text = dr["SearchDescription"].ToString();
+                    searchDescription.Text = dr["SearchDescription"].ToString();
 				}
 
 				dr.Close();
@@ -125,8 +126,9 @@ namespace pics
 			cn.Close();
 
 			// create new control
-			PagedThumbnailList thumbs = new PagedThumbnailList(Server);
+			PagedThumbnailList thumbs = new PagedThumbnailList();
 			thumbs.PageReturnURL	= PicPageURL;
+			thumbs.ShowRecordNumber	= true;
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
 			thumbs.TotalRecords		= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);
 			thumbs.StartRecord		= intStartRecord;

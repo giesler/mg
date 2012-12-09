@@ -25,16 +25,12 @@ namespace pics.Controls
 		protected int maxHeight;
 		protected String filename;
 		protected System.Web.UI.WebControls.Image currentImage;
-		protected HttpServerUtility	server;
 
 		/// <summary>
 		/// Creates a new Picture object
 		/// </summary>
-		/// <param name="srvr">Server object of the current request</param>
-		public Picture(HttpServerUtility server)
-		{
-			this.server = server;
-		}
+		public Picture()
+		{}
 
 		protected override void CreateChildControls() 
 		{
@@ -67,7 +63,7 @@ namespace pics.Controls
 			
 			// figure out the filenames on the web server
 			String sourceFile = pics.Config.PictureDirectory + "\\" + filename.Replace("/", "\\");
-			String targetFile = server.MapPath("/piccache") + "\\" + targetImageURL.Replace("/", "\\");
+			String targetFile = HttpContext.Current.Server.MapPath("/piccache") + "\\" + targetImageURL.Replace("/", "\\");
 
 			// check datestamps - if the source file has changed get rid of the cached image
 			if (File.Exists(targetFile)) 
@@ -190,18 +186,15 @@ namespace pics.Controls
 	public class ThumbnailList : System.Web.UI.Control, System.Web.UI.INamingContainer
 	{
 		protected System.Web.UI.WebControls.DataList thumbList;
-		protected HttpServerUtility server;
 		protected String pageReturnURL;
 		protected String noPicturesMessage;
 		protected bool showRecordNumber;
 
 		/// <summary>
-		/// Creates a thumbnail list based on the DataSet
+		/// Basic constructor
 		/// </summary>
-		/// <param name="srvr">Current request server object</param>
-		public ThumbnailList(HttpServerUtility server)
+		public ThumbnailList()
 		{
-            this.server = server;
 
 			// set up dlPicture
 			thumbList = new DataList();
@@ -336,7 +329,7 @@ namespace pics.Controls
 				tctPic.Controls.Add(lnkPicZoomPic);
 
 				// Add picture to cell
-				Picture curPic = new Picture(server);
+				Picture curPic = new Picture();
 				curPic.Filename = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "FileName").ToString();
 				curPic.MaxHeight = 125;
 				curPic.MaxWidth  = 125;
@@ -382,27 +375,7 @@ namespace pics.Controls
 						"RecNumber", pageReturnURL);
 					tcCounter.Controls.Add(countLink);
 				}
-/*				Label lll = new Label();
-				lll.CssClass = "note";
-				lll.Text = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Title").ToString();
-				ttc.Controls.Add(lll);
 
-				// Add cell with link and description
-				TableCell tcInfo = new TableCell();
-				tr.Cells.Add(tcInfo);
-
-				// Add link to zoom in to picture
-				HyperLink lnkPicZoom	= new HyperLink();
-				lnkPicZoom.NavigateUrl	= System.Web.UI.DataBinder.Eval(e.Item.DataItem, 
-											"RecNumber", pageReturnURL);
-				lnkPicZoom.Text			= System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Title").ToString();
-				tcInfo.Controls.Add(lnkPicZoom);
-
-				// Add picture date
-				Label lblPicDate = new Label();
-				lblPicDate.Text  = "<br><br>" + System.Web.UI.DataBinder.Eval(e.Item.DataItem, "PictureDate", "{0:d}");
-				tcInfo.Controls.Add(lblPicDate);
-*/
 				// finally, add table to this dataitem
 				e.Item.Controls.Add(t);
 			}
@@ -466,6 +439,7 @@ namespace pics.Controls
 				showRecordNumber = value;
 			}
 		}
+
 	}
 	#endregion
 
@@ -479,7 +453,7 @@ namespace pics.Controls
 		protected int recordsPerPage;
 		protected String pageNavURL;
 
-		public PagedThumbnailList (HttpServerUtility server): base(server)
+		public PagedThumbnailList (): base()
 		{}
 
 
@@ -638,7 +612,6 @@ namespace pics.Controls
 	/// </summary>
 	public class PersonPicker : System.Web.UI.Control, System.Web.UI.INamingContainer
 	{
-		protected HttpServerUtility	_Server;
 		protected System.Web.UI.WebControls.Button btnFind;
 		protected System.Web.UI.WebControls.DataGrid dgPeople;
 		protected System.Web.UI.WebControls.TextBox txtName;
@@ -763,11 +736,15 @@ namespace pics.Controls
 		protected Button addPerson;
 		protected Button removePerson;
 		protected Label errorMessage;
-		
+		protected Color backColor;
+		protected Color foreColor;
+
 		public PeopleSelector() 
 		{
 			// Initialize stuff
 			searchEntry = new TextBox();
+			backColor	= Color.White;
+			foreColor	= Color.Black;
 
 			search = new Button();
 			search.Text = "Find";
@@ -801,8 +778,8 @@ namespace pics.Controls
 		{
 			// Main table
 			Table t = new Table();
-			t.BackColor = Color.White;
-			t.ForeColor = Color.Black;
+			t.BackColor = backColor;
+			t.ForeColor = foreColor;
 			this.Controls.Add(t);
 
 			// TOP ROW - with find box
@@ -968,6 +945,19 @@ namespace pics.Controls
 				}
 			}
 		}
+
+		public Color BackColor 
+		{
+			set { backColor = value; }
+			get { return backColor;  }
+		}
+
+		public Color ForeColor 
+		{
+			set { foreColor = value; }
+			get { return foreColor;  }
+		}
+
 	}
 	#endregion
 
