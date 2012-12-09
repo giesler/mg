@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMServer", "UMServer\UMServer.csproj", "{7103E5AD-756D-4D71-A557-74C615B75475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMServerHost", "UMServerHost\UMServerHost.csproj", "{7FE8E12B-4150-469E-B733-0EE68271EF69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMClient", "UMClient\UMClient.csproj", "{C65B9943-58E6-4489-A48D-A77092CD4C95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMService", "UMService\UMService.csproj", "{BDE57386-3B56-4061-801A-F117620E237F}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 5
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {174DD040-C62F-41BE-AC4F-F119B1D1BD4F}
+		SccProjectUniqueName1 = UMClient\\UMClient.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = UMClient\\
+		SccProjectUniqueName2 = UMServer\\UMServer.csproj
+		SccLocalPath2 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = UMServer\\
+		SccProjectUniqueName3 = UMServerHost\\UMServerHost.csproj
+		SccLocalPath3 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection3 = UMServerHost\\
+		SccProjectUniqueName4 = UMService\\UMService.csproj
+		SccLocalPath4 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection4 = UMService\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Debug.ActiveCfg = Debug|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Debug.Build.0 = Debug|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Release.ActiveCfg = Release|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Release.Build.0 = Release|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Debug.ActiveCfg = Debug|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Debug.Build.0 = Debug|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Release.ActiveCfg = Release|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Release.Build.0 = Release|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Debug.ActiveCfg = Debug|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Debug.Build.0 = Debug|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.ActiveCfg = Release|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.Build.0 = Release|.NET
+		{BDE57386-3B56-4061-801A-F117620E237F}.Debug.ActiveCfg = Debug|.NET
+		{BDE57386-3B56-4061-801A-F117620E237F}.Debug.Build.0 = Debug|.NET
+		{BDE57386-3B56-4061-801A-F117620E237F}.Release.ActiveCfg = Release|.NET
+		{BDE57386-3B56-4061-801A-F117620E237F}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
