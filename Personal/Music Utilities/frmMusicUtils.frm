@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}#1.0#0"; "msdxm.ocx"
-Begin VB.Form frmMP3Util 
+Begin VB.Form frmMPUtility 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "MP3 Utility"
+   Caption         =   "MP Utility"
    ClientHeight    =   3330
    ClientLeft      =   45
    ClientTop       =   330
@@ -327,7 +327,7 @@ Begin VB.Form frmMP3Util
       Width           =   3135
    End
 End
-Attribute VB_Name = "frmMP3Util"
+Attribute VB_Name = "frmMPUtility"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
