@@ -17,8 +17,9 @@ namespace UMClient
 	{
 		private UMPlayer umPlayer;
 		public MediaServer mediaServer;
-		public MediaCollection mediaCollection = new MediaCollection();
+		public DataSetMedia	dsMedia = new DataSetMedia();
 		private bool logging;
+		public string FileSharePath = @"\\sp\dfs\Music";
 
 		// This override ensures that if the object is idle for an extended 
 		// period, waiting for messages, it won't lose its lease. Without this 
@@ -54,6 +55,9 @@ namespace UMClient
 			mediaServer.RemovedFromQueueEvent += new RemovedFromQueueEventHandler(RemovedFromQueueEvent);
 			mediaServer.MoveInQeuueEvent += new MoveInQueueEventHandler(MovedInQueueEvent);
 
+			mediaServer.MediaCollectionReloadedEvent += new MediaCollectionReloadedEventHandler(MediaCollectionReloadedEvent);
+			mediaServer.MediaErrorEvent += new MediaErrorEventHandler(MediaErrorEvent);
+
 		}
 
 		public void Dispose() 
@@ -71,6 +75,10 @@ namespace UMClient
 			mediaServer.AddedToQueueEvent -= new AddedToQueueEventHandler(AddedToQueueEvent);
 			mediaServer.RemovedFromQueueEvent -= new RemovedFromQueueEventHandler(RemovedFromQueueEvent);
 			mediaServer.MoveInQeuueEvent -= new MoveInQueueEventHandler(MovedInQueueEvent);
+
+			mediaServer.MediaCollectionReloadedEvent -= new MediaCollectionReloadedEventHandler(MediaCollectionReloadedEvent);
+			mediaServer.MediaErrorEvent -= new MediaErrorEventHandler(MediaErrorEvent);
+
 		}
 
 		[OneWay]
@@ -145,6 +153,18 @@ namespace UMClient
             umPlayer.MovedInQueue(e.MediaId, e.Position, e.NewPosition);
 		}
 
+		[OneWay]
+		public void MediaCollectionReloadedEvent(object sender, EventArgs e) 
+		{
+			LoadMediaCollection();
+		}
+
+		[OneWay]
+		public void MediaErrorEvent(object sender, MediaErrorEventArgs e) 
+		{
+            umPlayer.ShowError(e.Message, e.MediaId);
+		}
+
 		public bool Logging 
 		{
 			get 
@@ -168,27 +188,18 @@ namespace UMClient
 			}
 		}
 
+		public DataSetMedia.MediaRow FindMediaRow(int mediaId) 
+		{
+			return dsMedia.Media.FindByMediaId(mediaId);
+		}
+
 		public void LoadMediaCollection() 
 		{
+			dsMedia.Clear();
+
 			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
-			SqlCommand cmd = new SqlCommand("select * from Media", cn);
-			cn.Open();
-
-			SqlDataReader dr = cmd.ExecuteReader();
-
-			while (dr.Read()) 
-			{
-				MediaCollectionEntry entry = new MediaCollectionEntry();
-				entry.MediaId	= Convert.ToInt32(dr["ID"]);
-				entry.MediaFile	= dr["Filename"].ToString();
-				entry.Name		= dr["Name"].ToString();
-				entry.Artist	= dr["Artist"].ToString();
-				entry.Duration	= Convert.ToDouble(dr["Duration"]);
-				mediaCollection.AddToCollection(entry);
-			}
-			dr.Close();
-			cn.Close();
-
+			SqlDataAdapter da = new SqlDataAdapter("select * from Media", cn);
+			da.Fill(dsMedia, "Media");
 		}
 
 	}

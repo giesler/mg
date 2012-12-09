@@ -85,7 +85,6 @@ namespace UMService
 		{
             // create a client connection to shut down the server
 
-
 		}
 	}
 }

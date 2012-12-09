@@ -106,6 +106,13 @@ namespace UMClient
 		private System.Windows.Forms.MenuItem menuItemColQueueBottom;
 		private System.Windows.Forms.MenuItem menuItem9;
 		private System.Windows.Forms.MenuItem menuColQueueAfter;
+		private System.Windows.Forms.MenuItem menuItemColDelete;
+		private System.Windows.Forms.ColumnHeader columnHeader11;
+		private System.Windows.Forms.ColumnHeader columnHeader12;
+		private System.Windows.Forms.ColumnHeader columnHeader13;
+		private System.Windows.Forms.ColumnHeader columnHeader14;
+		private System.Windows.Forms.ColumnHeader columnHeader15;
+		private System.Windows.Forms.ColumnHeader columnHeader16;
 		private DataSetMedia dsMedia;
 
 		public UMPlayer()
@@ -135,42 +142,48 @@ namespace UMClient
 
 		#region Basic play handling
 
+		/// <summary>
+		/// Set up the player with initial values set and such
+		/// </summary>
 		public void InitialState() 
 		{
-			int mediaId = client.mediaServer.CurrentMediaId;
-			MediaServer.PlayState playState = client.mediaServer.CurrentPlayState;
-
-			if (mediaId != 0) 
-			{
-				MediaCollectionEntry entry = client.mediaCollection[mediaId];
-
-				if (playState == MediaServer.PlayState.Playing) 
-				{
-					Playing(mediaId);
-				}
-			}
-
-			// set the volume bar
-			Volume_Changed(client.mediaServer.Volume);
-			Balance_Changed(client.mediaServer.Balance);
-			Rate_Changed(client.mediaServer.Rate);		
-			UMPlayer_Resize(this, new EventArgs());
-
 			// Load the media list
 			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
 			SqlDataAdapter da = new SqlDataAdapter("select * from Media", cn);
 			dsMedia = new DataSetMedia();
 			da.Fill(dsMedia, "Media");
 
+			// Get the currently playing song (if there is one)
+			int mediaId = client.mediaServer.CurrentMediaId;
+			MediaServer.PlayState playState = client.mediaServer.CurrentPlayState;
+
+			// If a song is playing, call the Playing function to init state
+			if (mediaId != 0) 
+			{
+				if (playState == MediaServer.PlayState.Playing) 
+				{
+					Playing(mediaId);
+				}
+			}
+
+			// Set the basic sliders and such
+			Volume_Changed(client.mediaServer.Volume);
+			Balance_Changed(client.mediaServer.Balance);
+			Rate_Changed(client.mediaServer.Rate);		
+			UMPlayer_Resize(this, new EventArgs());
 		}
 
+		/// <summary>
+		/// Sets up labels and such for the playing song
+		/// </summary>
+		/// <param name="mediaId">Current song</param>
 		public void Playing(int mediaId) 
 		{
-            MediaCollectionEntry entry = client.mediaCollection[mediaId];
+			DataSetMedia.MediaRow row = client.FindMediaRow(mediaId);
 
-			labelName.Text = entry.Name;
+			labelName.Text = row.Name;
 			labelName.Visible = true;
-			labelArtist.Text = entry.Artist;
+			labelArtist.Text = row.Artist;
 
 			buttonPlayStop.Text = "[]";
 			buttonPause.Enabled = true;
@@ -178,11 +191,16 @@ namespace UMClient
 			timerPaused.Enabled = false;
 
 			mediaBar.labelNowPlaying.Visible = true;
-			mediaBar.CurrentSong = entry.Name;
+			mediaBar.CurrentSong = row.Name;
 			mediaBar.buttonPlayStop.Text = "[]";
 			mediaBar.buttonPause.Enabled = true;
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Sets state to stopped
+		/// </summary>
 		public void Stopped() 
 		{
 			timerPaused.Enabled = false;
@@ -196,8 +214,13 @@ namespace UMClient
 			mediaBar.buttonPlayStop.Text = ">";
 			mediaBar.buttonPlayStop.Enabled = true;
 			buttonPause.Enabled = false;
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Sets state to paused
+		/// </summary>
 		public void Paused() 
 		{
 			buttonPlayStop.Enabled = true;
@@ -206,35 +229,75 @@ namespace UMClient
 
 			mediaBar.buttonPlayStop.Enabled = true;
 			mediaBar.buttonPause.Enabled = true;
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Sets the progress bar to the progress passed
+		/// </summary>
+		/// <param name="progress">Percentage of song completion</param>
 		public void Progress(double progress) 
 		{
             pictureBoxProgress.Width = Convert.ToInt32(((progress) * (double) (pictureBoxContainer.Width-4)));
 		}
 
+		/// <summary>
+		/// Set the volume
+		/// </summary>
+		/// <param name="volume">Percentage of volume</param>
 		public void Volume_Changed(double volume) 
 		{
 			pictureBoxVolume.Width = Convert.ToInt32(((volume) * (double) (pictureBoxVolumeContainer.Width-4)));
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Sets the rate
+		/// </summary>
+		/// <param name="rate">Sets the rate trackbar</param>
 		public void Rate_Changed(double rate) 
 		{
             trackBarRate.Value = (int) (rate * 100);
+
+			ClearWaitForMessage();
 		}
 		
+		/// <summary>
+		/// Sets the speaker balance
+		/// </summary>
+		/// <param name="balance">Balance value</param>
 		public void Balance_Changed(int balance) 
 		{
 			trackBarBalance.Value = balance;
+
+			ClearWaitForMessage();
+		}
+
+		public void ShowError(string errorDescription, int mediaId) 
+		{
+			DataSetMedia.MediaRow row = client.FindMediaRow(mediaId);
+
+			string mediaFileInfo = row.Artist + " - " + row.Name + "  [ID: " + row.MediaId.ToString() + "]";
+			MediaError error = new MediaError(errorDescription, mediaFileInfo, row.MediaFile);
+
+			error.Show();
 		}
 
 		#endregion
 
 		#region Queue handlers
 
+		/// <summary>
+		/// Add the item to the queue
+		/// </summary>
+		/// <param name="mediaId">Media item to add</param>
+		/// <param name="position">Position in the queue</param>
 		public void AddToQueue(int mediaId, int position) 
 		{
-            MediaListViewItem item = new MediaListViewItem(client.mediaCollection[mediaId]);
+			DataSetMedia.MediaRow row = client.FindMediaRow(mediaId);
+            MediaListViewItem item = new MediaListViewItem(row);
 
 			// see if we should add at end or insert in queue
 			if (position >= listViewQueue.Items.Count) 
@@ -245,37 +308,74 @@ namespace UMClient
 			{
 				listViewQueue.Items.Insert(position, item);
 			}
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Remove the item at the given position from the queue
+		/// </summary>
+		/// <param name="mediaId">Item's ID</param>
+		/// <param name="position">Position in queue</param>
 		public void RemoveFromQueue(int mediaId, int position) 
 		{	
-			listViewQueue.Items.RemoveAt(position);
+			MediaListViewItem item = (MediaListViewItem) listViewQueue.Items[position];
+
+			if (item.MediaEntry.MediaId == mediaId) 
+			{
+				listViewQueue.Items.Remove(item);
+			} 
+			else 
+			{
+				ShowError("The item in the queue at position " + position.ToString() + " did not match the item that should be deleted.  Reloading queue.", mediaId);
+				ReloadQueue();
+			}
+
+			ClearWaitForMessage();
 		}
 
-		public void MovedInQueue(int mediaId, int instance, int newPosition) 
+		/// <summary>
+		/// Move an item in the queue
+		/// </summary>
+		/// <param name="mediaId">Item to move</param>
+		/// <param name="position">Position of old item</param>
+		/// <param name="newPosition"></param>
+		public void MovedInQueue(int mediaId, int position, int newPosition) 
 		{
-			RemoveFromQueue(mediaId, instance);
+			RemoveFromQueue(mediaId, position);
 			AddToQueue(mediaId, newPosition);
 
 			listViewQueue.Items[newPosition].Selected = true;
+
+			ClearWaitForMessage();
 		}
 
+		/// <summary>
+		/// Reload the queue from the server
+		/// </summary>
 		public void ReloadQueue() 
 		{
-			
-			MediaCollection queueMedia = client.mediaServer.CurrentQueue();
+			ArrayList queue = client.mediaServer.CurrentQueue();
+
 			// Clear the current queue
 			listViewQueue.Items.Clear();
 
 			// Loop through adding listviewitems
-			foreach(MediaCollectionEntry entry in queueMedia) 
+			foreach(int mediaId in queue) 
 			{
-				listViewQueue.Items.Add(new MediaListViewItem(client.mediaCollection[entry.MediaId]));
+				listViewQueue.Items.Add(new MediaListViewItem(client.FindMediaRow(mediaId)));
 			}
+
+			ClearWaitForMessage();
 		}
 
 		#endregion
 		
+		/// <summary>
+		/// Add info to the textbox log
+		/// </summary>
+		/// <param name="function">Place event occurred</param>
+		/// <param name="message">Event details</param>
 		public void AddToLog(string function, string message) 
 		{
 			if (checkBoxShowLog.Checked) 
@@ -317,6 +417,8 @@ namespace UMClient
 			this.listViewQueue = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
 			this.contextMenuQueueItems = new System.Windows.Forms.ContextMenu();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
@@ -324,10 +426,30 @@ namespace UMClient
 			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuItem4 = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.listViewCollection = new System.Windows.Forms.ListView();
+			this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+			this.contextMenuMediaCollection = new System.Windows.Forms.ContextMenu();
+			this.menuItemColPlayNow = new System.Windows.Forms.MenuItem();
+			this.menuItem8 = new System.Windows.Forms.MenuItem();
+			this.menuItemColQueueTop = new System.Windows.Forms.MenuItem();
+			this.menuItemColQueueBottom = new System.Windows.Forms.MenuItem();
+			this.menuColQueueAfter = new System.Windows.Forms.MenuItem();
+			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.menuItemColEditInfo = new System.Windows.Forms.MenuItem();
+			this.menuItemColDelete = new System.Windows.Forms.MenuItem();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.treeViewCollection = new System.Windows.Forms.TreeView();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.listViewSearch = new System.Windows.Forms.ListView();
 			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
 			this.contextMenuSearchItems = new System.Windows.Forms.ContextMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -340,21 +462,6 @@ namespace UMClient
 			this.buttonSearch = new System.Windows.Forms.Button();
 			this.textBoxSearch = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.listViewCollection = new System.Windows.Forms.ListView();
-			this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
-			this.contextMenuMediaCollection = new System.Windows.Forms.ContextMenu();
-			this.menuItemColPlayNow = new System.Windows.Forms.MenuItem();
-			this.menuItem8 = new System.Windows.Forms.MenuItem();
-			this.menuItemColQueueTop = new System.Windows.Forms.MenuItem();
-			this.menuItemColQueueBottom = new System.Windows.Forms.MenuItem();
-			this.menuColQueueAfter = new System.Windows.Forms.MenuItem();
-			this.menuItem9 = new System.Windows.Forms.MenuItem();
-			this.menuItemColEditInfo = new System.Windows.Forms.MenuItem();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.treeViewCollection = new System.Windows.Forms.TreeView();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.listViewFiles = new System.Windows.Forms.ListView();
 			this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
@@ -384,8 +491,8 @@ namespace UMClient
 			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
-			this.tabPage4.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			this.tabPage5.SuspendLayout();
 			this.tabPage7.SuspendLayout();
 			this.tabPage6.SuspendLayout();
@@ -501,6 +608,7 @@ namespace UMClient
 			// 
 			this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.labelName.BackColor = System.Drawing.Color.Transparent;
 			this.labelName.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.labelName.Location = new System.Drawing.Point(8, 24);
 			this.labelName.Name = "labelName";
@@ -553,8 +661,8 @@ namespace UMClient
 			// 
 			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																					  this.tabPage1,
-																					  this.tabPage4,
 																					  this.tabPage2,
+																					  this.tabPage4,
 																					  this.tabPage5,
 																					  this.tabPage7,
 																					  this.tabPage6});
@@ -568,11 +676,13 @@ namespace UMClient
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.buttonQueueDown,
 																				   this.buttonQueueUp,
 																				   this.buttonQueueRemove,
 																				   this.listViewQueue});
+			this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Size = new System.Drawing.Size(504, 238);
@@ -617,11 +727,15 @@ namespace UMClient
 			this.listViewQueue.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.listViewQueue.BackColor = System.Drawing.SystemColors.Window;
 			this.listViewQueue.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																							this.columnHeader1,
 																							this.columnHeader2,
+																							this.columnHeader15,
+																							this.columnHeader16,
 																							this.columnHeader3});
 			this.listViewQueue.ContextMenu = this.contextMenuQueueItems;
+			this.listViewQueue.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.listViewQueue.FullRowSelect = true;
 			this.listViewQueue.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewQueue.HideSelection = false;
@@ -629,6 +743,7 @@ namespace UMClient
 			this.listViewQueue.Size = new System.Drawing.Size(456, 238);
 			this.listViewQueue.TabIndex = 0;
 			this.listViewQueue.View = System.Windows.Forms.View.Details;
+			this.listViewQueue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewQueue_KeyUp);
 			// 
 			// columnHeader1
 			// 
@@ -639,6 +754,14 @@ namespace UMClient
 			// 
 			this.columnHeader2.Text = "Artist";
 			this.columnHeader2.Width = 150;
+			// 
+			// columnHeader15
+			// 
+			this.columnHeader15.Text = "Album";
+			// 
+			// columnHeader16
+			// 
+			this.columnHeader16.Text = "Track";
 			// 
 			// columnHeader3
 			// 
@@ -684,8 +807,153 @@ namespace UMClient
 			this.menuItem2.Text = "&Refresh";
 			this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
 			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.listViewCollection,
+																				   this.splitter1,
+																				   this.treeViewCollection});
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(504, 238);
+			this.tabPage2.TabIndex = 4;
+			this.tabPage2.Text = "Media Collection";
+			// 
+			// listViewCollection
+			// 
+			this.listViewCollection.BackColor = System.Drawing.SystemColors.Window;
+			this.listViewCollection.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																								 this.columnHeader7,
+																								 this.columnHeader8,
+																								 this.columnHeader11,
+																								 this.columnHeader12,
+																								 this.columnHeader9});
+			this.listViewCollection.ContextMenu = this.contextMenuMediaCollection;
+			this.listViewCollection.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listViewCollection.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.listViewCollection.FullRowSelect = true;
+			this.listViewCollection.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.listViewCollection.HideSelection = false;
+			this.listViewCollection.Location = new System.Drawing.Point(195, 0);
+			this.listViewCollection.Name = "listViewCollection";
+			this.listViewCollection.Size = new System.Drawing.Size(309, 238);
+			this.listViewCollection.TabIndex = 2;
+			this.listViewCollection.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader7
+			// 
+			this.columnHeader7.Text = "Name";
+			this.columnHeader7.Width = 150;
+			// 
+			// columnHeader8
+			// 
+			this.columnHeader8.Text = "Artist";
+			this.columnHeader8.Width = 150;
+			// 
+			// columnHeader11
+			// 
+			this.columnHeader11.Text = "Album";
+			// 
+			// columnHeader12
+			// 
+			this.columnHeader12.Text = "Track";
+			this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// columnHeader9
+			// 
+			this.columnHeader9.Text = "Duration";
+			this.columnHeader9.Width = 100;
+			// 
+			// contextMenuMediaCollection
+			// 
+			this.contextMenuMediaCollection.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																									   this.menuItemColPlayNow,
+																									   this.menuItem8,
+																									   this.menuItemColEditInfo,
+																									   this.menuItemColDelete});
+			// 
+			// menuItemColPlayNow
+			// 
+			this.menuItemColPlayNow.Index = 0;
+			this.menuItemColPlayNow.Text = "&Play Now";
+			this.menuItemColPlayNow.Click += new System.EventHandler(this.menuItemColPlayNow_Click);
+			// 
+			// menuItem8
+			// 
+			this.menuItem8.Index = 1;
+			this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItemColQueueTop,
+																					  this.menuItemColQueueBottom,
+																					  this.menuColQueueAfter});
+			this.menuItem8.Text = "&Add To Queue";
+			// 
+			// menuItemColQueueTop
+			// 
+			this.menuItemColQueueTop.Index = 0;
+			this.menuItemColQueueTop.Text = "&Top of Queue";
+			this.menuItemColQueueTop.Click += new System.EventHandler(this.menuItemColQueueTop_Click);
+			// 
+			// menuItemColQueueBottom
+			// 
+			this.menuItemColQueueBottom.Index = 1;
+			this.menuItemColQueueBottom.Text = "&Bottom of Queue";
+			this.menuItemColQueueBottom.Click += new System.EventHandler(this.menuItemColQueueBottom_Click);
+			// 
+			// menuColQueueAfter
+			// 
+			this.menuColQueueAfter.Index = 2;
+			this.menuColQueueAfter.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																							  this.menuItem9});
+			this.menuColQueueAfter.Text = "&After";
+			this.menuColQueueAfter.Popup += new System.EventHandler(this.menuColQueueAfter_Popup);
+			// 
+			// menuItem9
+			// 
+			this.menuItem9.Index = 0;
+			this.menuItem9.Text = "Song list";
+			// 
+			// menuItemColEditInfo
+			// 
+			this.menuItemColEditInfo.Index = 2;
+			this.menuItemColEditInfo.Text = "&Edit Info";
+			this.menuItemColEditInfo.Click += new System.EventHandler(this.menuItemColEditInfo_Click);
+			// 
+			// menuItemColDelete
+			// 
+			this.menuItemColDelete.Index = 3;
+			this.menuItemColDelete.Text = "&Delete";
+			this.menuItemColDelete.Click += new System.EventHandler(this.menuItemColDelete_Click);
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(192, 0);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 238);
+			this.splitter1.TabIndex = 1;
+			this.splitter1.TabStop = false;
+			// 
+			// treeViewCollection
+			// 
+			this.treeViewCollection.BackColor = System.Drawing.SystemColors.Window;
+			this.treeViewCollection.Dock = System.Windows.Forms.DockStyle.Left;
+			this.treeViewCollection.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.treeViewCollection.HideSelection = false;
+			this.treeViewCollection.ImageIndex = -1;
+			this.treeViewCollection.Name = "treeViewCollection";
+			this.treeViewCollection.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+																						   new System.Windows.Forms.TreeNode("By Artist", new System.Windows.Forms.TreeNode[] {
+																																												  new System.Windows.Forms.TreeNode("Loading")}),
+																						   new System.Windows.Forms.TreeNode("By Album", new System.Windows.Forms.TreeNode[] {
+																																												 new System.Windows.Forms.TreeNode("Loading")})});
+			this.treeViewCollection.SelectedImageIndex = -1;
+			this.treeViewCollection.Size = new System.Drawing.Size(192, 238);
+			this.treeViewCollection.TabIndex = 0;
+			this.treeViewCollection.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCollection_AfterSelect);
+			this.treeViewCollection.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewCollection_BeforeExpand);
+			// 
 			// tabPage4
 			// 
+			this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage4.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.listViewSearch,
 																				   this.buttonSearch,
@@ -702,11 +970,15 @@ namespace UMClient
 			this.listViewSearch.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.listViewSearch.BackColor = System.Drawing.SystemColors.Window;
 			this.listViewSearch.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																							 this.columnHeader4,
 																							 this.columnHeader5,
+																							 this.columnHeader13,
+																							 this.columnHeader14,
 																							 this.columnHeader6});
 			this.listViewSearch.ContextMenu = this.contextMenuSearchItems;
+			this.listViewSearch.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.listViewSearch.FullRowSelect = true;
 			this.listViewSearch.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewSearch.HideSelection = false;
@@ -725,6 +997,14 @@ namespace UMClient
 			// 
 			this.columnHeader5.Text = "Artist";
 			this.columnHeader5.Width = 150;
+			// 
+			// columnHeader13
+			// 
+			this.columnHeader13.Text = "Album";
+			// 
+			// columnHeader14
+			// 
+			this.columnHeader14.Text = "Track";
 			// 
 			// columnHeader6
 			// 
@@ -800,6 +1080,8 @@ namespace UMClient
 			// 
 			this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBoxSearch.BackColor = System.Drawing.SystemColors.Window;
+			this.textBoxSearch.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.textBoxSearch.Location = new System.Drawing.Point(72, 8);
 			this.textBoxSearch.Name = "textBoxSearch";
 			this.textBoxSearch.Size = new System.Drawing.Size(360, 20);
@@ -816,128 +1098,9 @@ namespace UMClient
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Search for:";
 			// 
-			// tabPage2
-			// 
-			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.listViewCollection,
-																				   this.splitter1,
-																				   this.treeViewCollection});
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(504, 238);
-			this.tabPage2.TabIndex = 4;
-			this.tabPage2.Text = "Media Collection";
-			// 
-			// listViewCollection
-			// 
-			this.listViewCollection.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																								 this.columnHeader7,
-																								 this.columnHeader8,
-																								 this.columnHeader9});
-			this.listViewCollection.ContextMenu = this.contextMenuMediaCollection;
-			this.listViewCollection.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listViewCollection.FullRowSelect = true;
-			this.listViewCollection.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-			this.listViewCollection.HideSelection = false;
-			this.listViewCollection.Location = new System.Drawing.Point(195, 0);
-			this.listViewCollection.Name = "listViewCollection";
-			this.listViewCollection.Size = new System.Drawing.Size(309, 238);
-			this.listViewCollection.TabIndex = 2;
-			this.listViewCollection.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeader7
-			// 
-			this.columnHeader7.Text = "Name";
-			this.columnHeader7.Width = 150;
-			// 
-			// columnHeader8
-			// 
-			this.columnHeader8.Text = "Artist";
-			this.columnHeader8.Width = 150;
-			// 
-			// columnHeader9
-			// 
-			this.columnHeader9.Text = "Duration";
-			this.columnHeader9.Width = 100;
-			// 
-			// contextMenuMediaCollection
-			// 
-			this.contextMenuMediaCollection.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																									   this.menuItemColPlayNow,
-																									   this.menuItem8,
-																									   this.menuItemColEditInfo});
-			// 
-			// menuItemColPlayNow
-			// 
-			this.menuItemColPlayNow.Index = 0;
-			this.menuItemColPlayNow.Text = "&Play Now";
-			this.menuItemColPlayNow.Click += new System.EventHandler(this.menuItemColPlayNow_Click);
-			// 
-			// menuItem8
-			// 
-			this.menuItem8.Index = 1;
-			this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItemColQueueTop,
-																					  this.menuItemColQueueBottom,
-																					  this.menuColQueueAfter});
-			this.menuItem8.Text = "&Add To Queue";
-			// 
-			// menuItemColQueueTop
-			// 
-			this.menuItemColQueueTop.Index = 0;
-			this.menuItemColQueueTop.Text = "&Top of Queue";
-			this.menuItemColQueueTop.Click += new System.EventHandler(this.menuItemColQueueTop_Click);
-			// 
-			// menuItemColQueueBottom
-			// 
-			this.menuItemColQueueBottom.Index = 1;
-			this.menuItemColQueueBottom.Text = "&Bottom of Queue";
-			this.menuItemColQueueBottom.Click += new System.EventHandler(this.menuItemColQueueBottom_Click);
-			// 
-			// menuColQueueAfter
-			// 
-			this.menuColQueueAfter.Index = 2;
-			this.menuColQueueAfter.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							  this.menuItem9});
-			this.menuColQueueAfter.Text = "&After";
-			this.menuColQueueAfter.Popup += new System.EventHandler(this.menuColQueueAfter_Popup);
-			// 
-			// menuItem9
-			// 
-			this.menuItem9.Index = 0;
-			this.menuItem9.Text = "Song list";
-			// 
-			// menuItemColEditInfo
-			// 
-			this.menuItemColEditInfo.Index = 2;
-			this.menuItemColEditInfo.Text = "&Edit Info";
-			this.menuItemColEditInfo.Click += new System.EventHandler(this.menuItemColEditInfo_Click);
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(192, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 238);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
-			// 
-			// treeViewCollection
-			// 
-			this.treeViewCollection.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeViewCollection.HideSelection = false;
-			this.treeViewCollection.ImageIndex = -1;
-			this.treeViewCollection.Name = "treeViewCollection";
-			this.treeViewCollection.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-																						   new System.Windows.Forms.TreeNode("By Artist", new System.Windows.Forms.TreeNode[] {
-																																												  new System.Windows.Forms.TreeNode("Loading")})});
-			this.treeViewCollection.SelectedImageIndex = -1;
-			this.treeViewCollection.Size = new System.Drawing.Size(192, 238);
-			this.treeViewCollection.TabIndex = 0;
-			this.treeViewCollection.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCollection_AfterSelect);
-			this.treeViewCollection.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewCollection_BeforeExpand);
-			// 
 			// tabPage5
 			// 
+			this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage5.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.listViewFiles,
 																				   this.buttonRemoveFile,
@@ -956,8 +1119,10 @@ namespace UMClient
 			this.listViewFiles.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.listViewFiles.BackColor = System.Drawing.SystemColors.Window;
 			this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																							this.columnHeader10});
+			this.listViewFiles.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.listViewFiles.FullRowSelect = true;
 			this.listViewFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
 			this.listViewFiles.HideSelection = false;
@@ -1023,6 +1188,7 @@ namespace UMClient
 			// 
 			// tabPage7
 			// 
+			this.tabPage7.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage7.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.checkBoxShowLog,
 																				   this.textBoxLog});
@@ -1045,6 +1211,8 @@ namespace UMClient
 			this.textBoxLog.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBoxLog.BackColor = System.Drawing.SystemColors.Window;
+			this.textBoxLog.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.textBoxLog.Location = new System.Drawing.Point(8, 31);
 			this.textBoxLog.Multiline = true;
 			this.textBoxLog.Name = "textBoxLog";
@@ -1056,6 +1224,7 @@ namespace UMClient
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
 			this.tabPage6.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				   this.labelRate,
 																				   this.trackBarRate,
@@ -1177,8 +1346,8 @@ namespace UMClient
 			((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
-			this.tabPage4.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
+			this.tabPage4.ResumeLayout(false);
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage7.ResumeLayout(false);
 			this.tabPage6.ResumeLayout(false);
@@ -1202,6 +1371,7 @@ namespace UMClient
 
 		private void buttonPause_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			if (client.mediaServer.CurrentPlayState == MediaServer.PlayState.Playing) 
 			{
 				client.mediaServer.Pause();
@@ -1219,6 +1389,7 @@ namespace UMClient
 
 		private void buttonPlayStop_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			if (client.mediaServer.CurrentPlayState != MediaServer.PlayState.Stopped) 
 			{
 				client.mediaServer.Stop();
@@ -1231,16 +1402,20 @@ namespace UMClient
 
 		public void Next() 
 		{
+			SetWaitForMessage();
 			buttonNext_Click(this, new EventArgs());
 		}
 
 		private void buttonNext_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			client.mediaServer.Next();
 		}
 
 		private void buttonQueueRemove_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			ArrayList removeList = new ArrayList();
 
 			foreach (MediaListViewItem item in listViewQueue.SelectedItems) 
@@ -1267,14 +1442,14 @@ namespace UMClient
 		private void buttonSearch_Click(object sender, System.EventArgs e)
 		{
 			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
-			SqlCommand cmd = new SqlCommand("select ID from Media where Name like '%' + @SearchString + '%' or Artist like '%' + @SearchString + '%'", cn);
+			SqlCommand cmd = new SqlCommand("select MediaID from Media where Name like '%' + @SearchString + '%' or Artist like '%' + @SearchString + '%'", cn);
 			cmd.Parameters.Add("@SearchString", textBoxSearch.Text);
 
 			cn.Open();
 			SqlDataReader dr = cmd.ExecuteReader();
 			while (dr.Read()) 
 			{
-                listViewSearch.Items.Add(new MediaListViewItem(client.mediaCollection[Convert.ToInt32(dr["id"])]));
+                listViewSearch.Items.Add(new MediaListViewItem(client.FindMediaRow(Convert.ToInt32(dr[0]))));
 			}
 			dr.Close();
 			cn.Close();
@@ -1283,13 +1458,15 @@ namespace UMClient
 
 		private void menuItem1_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			MediaListViewItem item = (MediaListViewItem) listViewSearch.SelectedItems[0];
-			client.mediaServer.AddToQueue(item.MediaEntry.MediaId, 0);
-			client.mediaServer.Next();
+			client.mediaServer.PlayMediaId(item.MediaEntry.MediaId);
 		}
 
 		private void menuSearchTopOfQueue_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			foreach (MediaListViewItem item in listViewSearch.SelectedItems) 
 			{
 				client.mediaServer.AddToQueue(item.MediaEntry.MediaId, 0);
@@ -1299,6 +1476,8 @@ namespace UMClient
 
 		private void menuSearchBottomOfQueue_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			foreach (MediaListViewItem item in listViewSearch.SelectedItems) 
 			{
 				client.mediaServer.AddToQueue(item.MediaEntry.MediaId);
@@ -1308,6 +1487,8 @@ namespace UMClient
 
 		private void buttonQueueUp_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			MediaListViewItem item = (MediaListViewItem) listViewQueue.SelectedItems[0];
 
 			client.mediaServer.MoveInQueue(item.MediaEntry.MediaId, item.Index, item.Index -1);
@@ -1315,6 +1496,8 @@ namespace UMClient
 
 		private void buttonQueueDown_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			MediaListViewItem item = (MediaListViewItem) listViewQueue.SelectedItems[0];
 
 			client.mediaServer.MoveInQueue(item.MediaEntry.MediaId, item.Index, item.Index +1);
@@ -1322,24 +1505,29 @@ namespace UMClient
 
 		private void menuItem2_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			ReloadQueue();
 		}
 
 		private void menuItem3_Click(object sender, System.EventArgs e)
 		{
-			MediaListViewItem item = (MediaListViewItem) listViewQueue.SelectedItems[0];
+			SetWaitForMessage();
 
-			client.mediaServer.MoveInQueue(item.MediaEntry.MediaId, item.Index, 0);
-			client.mediaServer.Next();
+			MediaListViewItem item = (MediaListViewItem) listViewQueue.SelectedItems[0];
+			int mediaId = item.MediaEntry.MediaId;
+			client.mediaServer.RemoveFromQueue(mediaId, item.Index);
+			client.mediaServer.PlayMediaId(mediaId);
 		}
 
 		private void menuItem5_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			buttonQueueRemove_Click(sender, e);
 		}
 
 		private void menuSearchQueueAfter_Popup(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			menuSearchQueueAfter.MenuItems.Clear();
 
 			foreach (MediaListViewItem item in listViewQueue.Items)
@@ -1354,6 +1542,7 @@ namespace UMClient
 
 		private void menuSearchQueueAfterItem_Click(object sender, System.EventArgs e) 
 		{
+			SetWaitForMessage();
 			MenuItem menuItem = (MenuItem) sender;
 
 			int offset = 1;
@@ -1371,6 +1560,7 @@ namespace UMClient
 
 		private void pictureBoxContainer_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
+			SetWaitForMessage();
 			double newPosition = ((double)(e.X) / (double)(pictureBoxContainer.Width-4));
 			client.mediaServer.ChangePosition(newPosition);
 		}
@@ -1387,6 +1577,7 @@ namespace UMClient
 
 		private void UMPlayer_Load(object sender, System.EventArgs e)
 		{
+
 			ConnectionDialog connection = new ConnectionDialog();
 
 			if (connection.ShowDialog() == DialogResult.Cancel) 
@@ -1416,7 +1607,8 @@ namespace UMClient
 
 		private void pictureBoxVolumeContainer_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-            double newVolume = ((double)(e.X) / (double)(pictureBoxVolumeContainer.Width-4));
+			SetWaitForMessage();
+			double newVolume = ((double)(e.X) / (double)(pictureBoxVolumeContainer.Width-4));
 			client.mediaServer.Volume = newVolume;
 		}
 
@@ -1436,43 +1628,50 @@ namespace UMClient
 
 		private void EditMediaInfo(int mediaId, MediaListViewItem item) 
 		{
-			MediaEditor editor = new MediaEditor();
-			MediaCollectionEntry entry = client.mediaCollection[mediaId];
-
-			editor.MediaName = entry.Name;
-			editor.Artist	= entry.Artist;
-			editor.Filename	= entry.MediaFile;
-
+			DataSetMedia.MediaRow row = client.FindMediaRow(mediaId);
+			MediaEditor editor = new MediaEditor(row);
+			
 			if (editor.ShowDialog() == DialogResult.OK) 
 			{
 				// set up db connection
-				string sql = "update Media set Name = @Name, Artist = @Artist, Album = @Album, Genre = @Genre, Comments = @Comments where ID = @MediaID";
 				SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+				string sql = "update Media set Name = @Name, Artist = @Artist, Album = @Album, Track = @Track, Genre = @Genre, Comments = @Comments where MediaID = @MediaID";
 				SqlCommand cmd = new SqlCommand(sql, cn);
 
-				// set query params
-                cmd.Parameters.Add("@Name", editor.MediaName);
-				cmd.Parameters.Add("@Artist", editor.Artist);
-				cmd.Parameters.Add("@MediaID", mediaId);
-				cmd.Parameters.Add("@Album", editor.Album);
-				cmd.Parameters.Add("@Genre", editor.Genre);
-				cmd.Parameters.Add("@Comments", editor.Comments);
+				cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250, "Name");
+				cmd.Parameters.Add("@Artist", SqlDbType.NVarChar, 250, "Artist");
+				cmd.Parameters.Add("@Album", SqlDbType.NVarChar, 250, "Album");
+				cmd.Parameters.Add("@Track", SqlDbType.Int, 4, "Track");
+				cmd.Parameters.Add("@Genre", SqlDbType.NVarChar, 250, "Genre");
+				cmd.Parameters.Add("@Comments", SqlDbType.NVarChar, 250, "Comments");
+				cmd.Parameters.Add("@MediaID", SqlDbType.Int, 4, "MediaID");
 
-				// save to database
+				cmd.Parameters["@Name"].Value = row.Name;
+				cmd.Parameters["@Artist"].Value = row.Artist;
+				cmd.Parameters["@Album"].Value = row.Album;
+				if (!row.IsTrackNull())
+					cmd.Parameters["@Track"].Value = row.Track;
+				else 
+					cmd.Parameters["@Track"].Value = System.DBNull.Value;
+				cmd.Parameters["@Genre"].Value = row.Genre;
+				cmd.Parameters["@Comments"].Value = row.Comments;
+				cmd.Parameters["@MediaID"].Value = row.MediaId;
+                
 				cn.Open();
 				cmd.ExecuteNonQuery();
 				cn.Close();
 
-				// Save the in memory entry
-				entry.Name		= editor.MediaName;
-				entry.Artist	= editor.Artist;
+				row.AcceptChanges();
+				client.dsMedia.AcceptChanges();
 
 				// Set the listview item
 				if (item != null)
 				{
-					item.Text = entry.Name;
-					item.SubItems[1].Text = entry.Artist;
+					item.Text = row.Name;
+					item.SubItems[1].Text = row.Artist;
 				}
+
+				row = client.FindMediaRow(mediaId);
 			}
 
 		}
@@ -1492,16 +1691,26 @@ namespace UMClient
 
 			foreach (ListViewItem item in listViewFiles.Items) 
 			{
+				
 				string file		  = item.Tag.ToString();
-				string sourcePath = file.Substring(0, file.LastIndexOf(@"\")-1);
-				string sourceFile = file.Substring(file.LastIndexOf(@"\")+1);
+				string sourcePath = file.Substring(0, file.LastIndexOf(Path.DirectorySeparatorChar)-1);
+				string sourceFile = file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar)+1);
 
-				if (File.Exists(@"\\sp\dfs\Music\" + sourceFile)) 
+				// make sure file isn't already in target location
+				if (!file.StartsWith(client.FileSharePath)) 
 				{
-					string message = String.Format("The file '{0}' already exists in the music collection.  This file will be skipped.  Click 'Cancel' to abort adding files.",
-						sourceFile);
-					if (MessageBox.Show(message, "File already exists", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
-						return;
+					// Check if the same file already exists in the music share
+					if (File.Exists(client.FileSharePath + Path.DirectorySeparatorChar + sourceFile)) 
+					{
+						string message = String.Format("The file '{0}' already exists in the music collection.  This file will be skipped.  Click 'Cancel' to abort adding files.",
+							sourceFile);
+						if (MessageBox.Show(message, "File already exists", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+							return;
+					} 
+					else 
+					{
+						addFiles.Add(file);
+					}
 				} 
 				else 
 				{
@@ -1509,38 +1718,107 @@ namespace UMClient
 				}
 			}
 
+			// Now start actually adding the files
 			Status status = new Status("Adding files...", addFiles.Count);
 			DataSetMedia dsMedia = new DataSetMedia();
+			MediaPlayerHost mediaPlayerHost = new MediaPlayerHost();
 
+			// Copy files if needed and get basic info on the files
 			foreach (string file in addFiles) 
 			{
-				string sourcePath = file.Substring(0, file.LastIndexOf(@"\")-1);
-				string sourceFile = file.Substring(file.LastIndexOf(@"\")+1);
+				string sourcePath = file.Substring(0, file.LastIndexOf(Path.DirectorySeparatorChar)-1);
+				string sourceFile = file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar)+1);
+				string destFile   = "";
 
-				File.Copy(file, @"\\sp\dfs\Music\" + sourceFile, true);
-
-				string name = sourceFile.Substring(0, sourceFile.LastIndexOf(".")-1);
-				string artist = "";
-				if (name.IndexOf("-") > 0) 
+				// See if file is already placed
+				if (file.StartsWith(client.FileSharePath)) 
 				{
-					// TODO:  Parse name and artist here!
+					destFile   = file;
+				}
+				else 
+				{
+					destFile = client.FileSharePath + Path.DirectorySeparatorChar + sourceFile;
+					File.Copy(file, destFile, true);
 				}
 
-				// TODO: Load the song to get the duration
-                // Add to database
-                DataSetMedia.MediaRow row = dsMedia.Media.NewMediaRow();
-				row.Filename = @"\\sp\dfs\Music\" + sourceFile;
+				DataSetMedia.MediaRow row = dsMedia.Media.NewMediaRow();
+
+				row.Name = sourceFile.Substring(0, sourceFile.LastIndexOf(".")).Trim();
+				row.Artist = "";
+				row.MediaFile = destFile.Trim();
 				
+				// Check if a - in name, if so split name up
+				if (row.Name.IndexOf("-") > 0) 
+				{
+					string temp = row.Name;
+					row.Artist = temp.Substring(0, temp.IndexOf("-")-1).Trim();
+					row.Name   = temp.Substring(temp.IndexOf("-")+1).Trim();
+				}
+                
+				// Get the duration
+				mediaPlayerHost.MediaFile = row.MediaFile;
+				row.Duration = Convert.ToDecimal(mediaPlayerHost.Duration);                
+
+				dsMedia.Media.Rows.Add(row);
+
+				status.Increment(1);
 			}
+
+			// Save the dataset of new files
+			string sql = "insert media (MediaFile, Name, Artist, Duration) values (@MediaFile, @Name, @Artist, @Duration)";
+			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+			SqlCommand cmd = new SqlCommand(sql, cn);
+
+			// Set up params
+			cmd.Parameters.Add("@MediaFile", SqlDbType.NVarChar, 500);
+			cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Artist", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Duration", SqlDbType.Decimal, 9);
+
+			// Now run the command
+			cn.Open();
+			foreach (DataSetMedia.MediaRow row in dsMedia.Media.Rows) 
+			{
+				cmd.Parameters["@MediaFile"].Value  = row.MediaFile;
+				cmd.Parameters["@Name"].Value		= row.Name;
+				cmd.Parameters["@Artist"].Value		= row.Artist;
+				cmd.Parameters["@Duration"].Value	= row.Duration;
+
+				cmd.ExecuteNonQuery();
+			}
+			cn.Close();
+
+			// Now reload stuff on server and client side
+			client.mediaServer.ReloadMediaCollection();
+
+			// Remove entries that were added from the list
+			foreach (string file in addFiles) 
+			{
+				foreach (ListViewItem item in listViewFiles.Items) 
+				{
+					if (item.Tag.ToString().Equals(file))
+					{
+						listViewFiles.Items.Remove(item);
+						break;
+					}
+				}
+			}
+
+			status.Hide();
+
+            MessageBox.Show(addFiles.Count.ToString() + " files have been added.", "Add Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
 		}
 
 		private void trackBarBalance_Scroll(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			client.mediaServer.Balance = trackBarBalance.Value;
 		}
 
 		private void trackBarRate_Scroll(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			client.mediaServer.Rate = ((double)trackBarRate.Value / 100.0);
 		}
 
@@ -1614,6 +1892,8 @@ namespace UMClient
 		private void AddFile(string file) 
 		{
 			bool found = false;
+
+			// check if already in list of files
 			foreach (ListViewItem item in listViewFiles.Items) 
 			{
 				if (item.Tag.Equals(file)) 
@@ -1622,6 +1902,14 @@ namespace UMClient
 					break;
 				}
 			}
+
+			// check if already in music collection
+			DataView dv = new DataView(dsMedia.Media);
+			dv.RowFilter = "MediaFile = '" + file.Replace("'", "''") + "'";
+			if (dv.Count > 0) 
+				found = true;
+
+			// if not already in a list, add it
 			if (!found) 
 			{
 				ListViewItem item = new ListViewItem(file);
@@ -1681,17 +1969,23 @@ namespace UMClient
 			// Resize the file listview columns
 			listViewFiles.Columns[0].Width = listViewFiles.Width - 22;
 
-			listViewQueue.Columns[0].Width = (int)((listViewQueue.Width-22) * 0.50);
-			listViewQueue.Columns[1].Width = (int)((listViewQueue.Width-22) * 0.30);
-			listViewQueue.Columns[2].Width = (int)((listViewQueue.Width-22) * 0.20);
+			listViewQueue.Columns[0].Width = (int)((listViewQueue.Width-22) * 0.30);
+			listViewQueue.Columns[1].Width = (int)((listViewQueue.Width-22) * 0.25);
+			listViewQueue.Columns[2].Width = (int)((listViewQueue.Width-22) * 0.25);
+			listViewQueue.Columns[3].Width = (int)((listViewQueue.Width-22) * 0.10);
+			listViewQueue.Columns[4].Width = (int)((listViewQueue.Width-22) * 0.10);
 
-			listViewSearch.Columns[0].Width = (int)((listViewSearch.Width-22) * 0.50);
-			listViewSearch.Columns[1].Width = (int)((listViewSearch.Width-22) * 0.30);
-			listViewSearch.Columns[2].Width = (int)((listViewSearch.Width-22) * 0.20);
+			listViewSearch.Columns[0].Width = (int)((listViewSearch.Width-22) * 0.30);
+			listViewSearch.Columns[1].Width = (int)((listViewSearch.Width-22) * 0.25);
+			listViewSearch.Columns[2].Width = (int)((listViewSearch.Width-22) * 0.25);
+			listViewSearch.Columns[3].Width = (int)((listViewSearch.Width-22) * 0.10);
+			listViewSearch.Columns[4].Width = (int)((listViewSearch.Width-22) * 0.10);
 
-			listViewCollection.Columns[0].Width = (int)((listViewCollection.Width-22) * 0.50);
-			listViewCollection.Columns[1].Width = (int)((listViewCollection.Width-22) * 0.30);
-			listViewCollection.Columns[2].Width = (int)((listViewCollection.Width-22) * 0.20);
+			listViewCollection.Columns[0].Width = (int)((listViewCollection.Width-22) * 0.30);
+			listViewCollection.Columns[1].Width = (int)((listViewCollection.Width-22) * 0.25);
+			listViewCollection.Columns[2].Width = (int)((listViewCollection.Width-22) * 0.25);
+			listViewCollection.Columns[3].Width = (int)((listViewCollection.Width-22) * 0.10);
+			listViewCollection.Columns[4].Width = (int)((listViewCollection.Width-22) * 0.10);
 		}
 
 		private void textBoxSearch_Enter(object sender, System.EventArgs e)
@@ -1707,7 +2001,7 @@ namespace UMClient
 		private void tabControl1_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			// If the search tab, set focus in the search box
-			if (tabControl1.SelectedIndex == 1) 
+			if (tabControl1.SelectedIndex == 2) 
 			{
 				textBoxSearch.Focus();
 			}
@@ -1728,17 +2022,41 @@ namespace UMClient
 				{
 					cmd.CommandText = "select Artist from media where Artist <> '' group by Artist";
 				} 
+				else if (e.Node.Text.Equals("By Album")) 
+				{
+					cmd.CommandText = "select Album from media where Album <> '' group by Album";
+				}
+					// now check if an artist name clicked
+				else if (e.Node is ArtistTreeNode) 
+				{
+					cmd.CommandText = "select Album from media where Album <> '' and Artist = @Artist group by Album";
+					cmd.Parameters.Add("@Artist", e.Node.Text);
+				}
                 
-                cn.Open();
+				cn.Open();
 				SqlDataReader dr = cmd.ExecuteReader();
 				while (dr.Read()) 
 				{
-					e.Node.Nodes.Add(new ArtistTreeNode(dr[0].ToString()));
+					if (e.Node.Text.Equals("By Artist")) 
+					{
+						ArtistTreeNode n = new ArtistTreeNode(dr[0].ToString());
+						e.Node.Nodes.Add(n); 
+						n.Nodes.Add("Loading");
+					} 
+					else if (e.Node.Text.Equals("By Album")) 
+					{
+						e.Node.Nodes.Add(new AlbumTreeNode(dr[0].ToString()));
+					}
+						// artist name clicked
+					else if (e.Node is ArtistTreeNode) 
+					{
+						e.Node.Nodes.Add(new AlbumTreeNode(dr[0].ToString()));
+					}
 				}
 				dr.Close();
 				cn.Close();
 
-			}
+			} 
 		}
 
 		private void treeViewCollection_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
@@ -1753,18 +2071,36 @@ namespace UMClient
 				foreach (DataRowView rowView in dv) 
 				{
 					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
-					listViewCollection.Items.Add(new MediaListViewItem(client.mediaCollection[row.ID]));
+					DataSetMedia.MediaRow currentRow = client.FindMediaRow(row.MediaId);
+					listViewCollection.Items.Add(new MediaListViewItem(currentRow));
+				}
+
+			} 
+			else if (e.Node is AlbumTreeNode) 
+			{
+				listViewCollection.Items.Clear();
+
+				AlbumTreeNode albumNode = e.Node as AlbumTreeNode;
+
+				DataView dv = new DataView(dsMedia.Media, "Album = '" + albumNode.Album.Replace("'", "''") + "'", "Album", DataViewRowState.CurrentRows);
+				dv.Sort = "Track";
+
+				foreach (DataRowView rowView in dv) 
+				{
+					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
+					DataSetMedia.MediaRow currentRow = client.FindMediaRow(row.MediaId);
+					listViewCollection.Items.Add(new MediaListViewItem(currentRow));
 				}
 
 			}
+
 		}
 
 		private void menuItemColPlayNow_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
 			MediaListViewItem item = (MediaListViewItem) listViewCollection.SelectedItems[0];
-
-			client.mediaServer.MoveInQueue(item.MediaEntry.MediaId, item.Index, 0);
-			client.mediaServer.Next();
+			client.mediaServer.PlayMediaId(item.MediaEntry.MediaId);
 		}
 
 		private void menuItemColEditInfo_Click(object sender, System.EventArgs e)
@@ -1778,6 +2114,8 @@ namespace UMClient
 
 		private void menuItemColQueueTop_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
 			{
 				client.mediaServer.AddToQueue(item.MediaEntry.MediaId, 0);
@@ -1786,6 +2124,8 @@ namespace UMClient
 
 		private void menuItemColQueueBottom_Click(object sender, System.EventArgs e)
 		{
+			SetWaitForMessage();
+
 			foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
 			{
 				client.mediaServer.AddToQueue(item.MediaEntry.MediaId);
@@ -1808,6 +2148,7 @@ namespace UMClient
 
 		private void menuColQueueAfterItem_Click(object sender, System.EventArgs e) 
 		{
+			SetWaitForMessage();
 			MenuItem menuItem = (MenuItem) sender;
 
 			int offset = 1;
@@ -1818,14 +2159,87 @@ namespace UMClient
 			}
 		}
 
+		private void menuItemColDelete_Click(object sender, System.EventArgs e)
+		{
+			string msg = "";
+
+			if (listViewCollection.SelectedItems.Count == 1) 
+			{
+				ListViewItem item = listViewCollection.SelectedItems[0];
+				msg = "Are you sure you want to delete the entry '" + item.Text + "'?  You will not be able to recover it.";
+			} 
+			else 
+			{
+				msg = "Are you sure you want to delete the " + listViewCollection.SelectedItems.Count + " selected items?  You will not be able to recover it.";
+			}
+
+			if (MessageBox.Show(msg, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) 
+			{
+				SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+				System.Text.StringBuilder sb = new System.Text.StringBuilder();
+				ArrayList removeList = new ArrayList();
+
+				foreach (MediaListViewItem item in listViewCollection.SelectedItems) 
+				{
+					File.Delete(item.MediaEntry.MediaFile);
+					
+					if (sb.Length != 0)
+						sb.Append(", ");
+					sb.Append(item.MediaEntry.MediaId);
+
+					removeList.Add(item.MediaEntry.MediaId);
+				}
+				SqlCommand cmd = new SqlCommand("delete from media where mediaid in (" + sb.ToString() + ")", cn);
+
+				cn.Open();
+				cmd.ExecuteNonQuery();
+				cn.Close();
+
+				foreach (int mediaId in removeList) 
+				{
+					foreach (MediaListViewItem item in listViewCollection.Items) 
+					{
+						if (item.MediaEntry.MediaId == mediaId) 
+						{
+							DataSetMedia.MediaRow row = client.FindMediaRow(item.MediaEntry.MediaId);
+							row.Delete();
+							row.AcceptChanges();
+
+							listViewCollection.Items.Remove(item);
+							continue;
+						}
+					}
+				}
+			}
+		}
+
+		private void SetWaitForMessage() 
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			mediaBar.Cursor = Cursors.WaitCursor;
+		}
+
+		private void ClearWaitForMessage() 
+		{
+			Cursor.Current = Cursors.Default;
+			mediaBar.Cursor = Cursors.Default;
+		}
+
+		private void listViewQueue_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+		{
+			if ( (e.KeyCode == Keys.R && e.Control) || e.KeyCode == Keys.Delete )
+			{
+				buttonQueueRemove_Click(this, EventArgs.Empty);
+			}
+		}
 
 	}
 
 	public class MediaListViewItem: ListViewItem 
 	{
-		private MediaCollectionEntry entry;
+		private DataSetMedia.MediaRow entry;
 
-		public MediaListViewItem(UMServer.MediaCollectionEntry entry) : base()
+		public MediaListViewItem(DataSetMedia.MediaRow entry) : base()
 		{
 			this.entry = entry;
 
@@ -1834,11 +2248,18 @@ namespace UMClient
 			// Set the sub items
 			this.Text = entry.Name;
 			SubItems.Add(entry.Artist);
+			SubItems.Add(entry.Album);
+			if (entry.IsTrackNull())
+				SubItems.Add(String.Empty);
+			else if (entry.Track != 0)
+				SubItems.Add(entry.Track.ToString());
+			else
+				SubItems.Add(String.Empty);
 			SubItems.Add(durationString);
 
 		}
 
-		public MediaCollectionEntry MediaEntry 
+		public DataSetMedia.MediaRow MediaEntry 
 		{
 			get { return entry; }
 		}
@@ -1860,4 +2281,22 @@ namespace UMClient
 			set { artist = value; }
 		}
 	}
+
+	public class AlbumTreeNode: TreeNode 
+	{
+		private string album;
+
+		public AlbumTreeNode(string album) : base() 
+		{
+			this.album = album;
+			this.Text = album;
+		}
+
+		public string Album 
+		{
+			get { return album; }
+			set { album = value; }
+		}
+	}
+
 }

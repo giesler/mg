@@ -63,7 +63,7 @@ namespace UMServer
 			LogDiagnosticEvent("LoadMediaCollection", "Loading media collection.");
 
 			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
-			SqlCommand cmd = new SqlCommand("select ID, Filename from Media", cn);
+			SqlCommand cmd = new SqlCommand("select MediaID, MediaFile from Media", cn);
 			cn.Open();
 
 			SqlDataReader dr = cmd.ExecuteReader();
@@ -71,8 +71,8 @@ namespace UMServer
 			while (dr.Read()) 
 			{
 				MediaCollectionEntry entry = new MediaCollectionEntry();
-				entry.MediaId	= Convert.ToInt32(dr["ID"]);
-				entry.MediaFile	= dr["Filename"].ToString();
+				entry.MediaId	= Convert.ToInt32(dr["MediaID"]);
+				entry.MediaFile	= dr["MediaFile"].ToString();
 				mediaCollection.AddToCollection(entry);
 			}
 			dr.Close();
@@ -97,6 +97,7 @@ namespace UMServer
 		public event LogEventHandler LogEvent;
 
 		public event PongEventHandler PongEvent;
+
 		public void Ping() 
 		{
 			LogDiagnosticEvent("Ping", "");
@@ -104,6 +105,16 @@ namespace UMServer
 			if (PongEvent != null) 
 			{
 				PongEvent(this, new EventArgs());
+			}
+		}
+
+		public event MediaErrorEventHandler MediaErrorEvent;
+        
+		public void MediaError(int error, string message, Exception ex) 
+		{
+			if (MediaErrorEvent != null) 
+			{
+				MediaErrorEvent(this, new MediaErrorEventArgs(currentMediaId, error, message, ex));
 			}
 		}
 
@@ -213,13 +224,26 @@ namespace UMServer
 		/// </summary>
 		public void Next() 
 		{
+			TryNext(10);
+		}
+
+		/// <summary>
+		/// Attempt to start the next song in the queue, if possible
+		/// </summary>
+		/// <param name="count">Recursive count</param>
+		private void TryNext(int count) {
+
+			// make sure we don't loop through more than 10 times trying 'next'
+			if (count == 0) 
+			{
+				return;
+			}
+			count--;
+
 			LogDiagnosticEvent("Next", "");
 
 			// Pop the top queue entry
 			MediaCollectionEntry entry = mediaQueue.Dequeue();
-			FillQueue();
-
-			dxPlayer.MediaFile = entry.MediaFile;
 			currentMediaId = entry.MediaId;
 
 			// Notify everyone a song was removed
@@ -228,8 +252,36 @@ namespace UMServer
 				LogDiagnosticEvent("Next.RemovedFromQueueEvent", entry.MediaId.ToString());
 				RemovedFromQueueEvent(this, new QueueEventArgs(entry.MediaId, 0));
 			}
+			FillQueue();
+
+			// Make sure media ID exists
+			if (!System.IO.File.Exists(entry.MediaFile)) 
+			{
+				MediaError(2, "File does not exist", null);
+				TryNext(count);
+				return;
+			}
+
+			dxPlayer.MediaFile = entry.MediaFile;
+
+			if (!dxPlayer.IsValid) 
+			{
+				MediaError(1, "The file could not be loaded.", null);
+				TryNext(count);
+				return;
+			}
 
 			Play();
+		}
+
+		/// <summary>
+		/// Play the media now
+		/// </summary>
+		/// <param name="mediaId">ID of media to play</param>
+		public void PlayMediaId(int mediaId) 
+		{
+            AddToQueue(mediaId, 0);
+			Next();
 		}
 
 		public void ChangePosition(double newPosition) 
@@ -287,7 +339,7 @@ namespace UMServer
 
 			// Notify everyone a song was added
 			if (AddedToQueueEvent != null)
-				AddedToQueueEvent(this, new QueueEventArgs(mediaId, mediaQueue.Count-1));
+				AddedToQueueEvent(this, new QueueEventArgs(mediaId, mediaQueue.Count-1));  
 		}
 
 		/// <summary>
@@ -347,9 +399,15 @@ namespace UMServer
 		/// All songs in the current queue
 		/// </summary>
 		/// <returns>An ordered list of songs</returns>
-		public MediaCollection CurrentQueue() 
+		public ArrayList CurrentQueue() 
 		{
-			return mediaQueue;
+			ArrayList queue = new ArrayList();
+			foreach (MediaCollectionEntry entry in mediaQueue) 
+			{
+				queue.Add(entry.MediaId);
+			}
+
+			return queue;
 		}
 
 		private void FillQueue() 
@@ -386,6 +444,16 @@ namespace UMServer
 				BalanceChanged(this, new MediaBalanceEventArgs(e.Balance));
 		}
 
+		public event MediaCollectionReloadedEventHandler MediaCollectionReloadedEvent;
+
+		public void ReloadMediaCollection() 
+		{
+			LoadMediaCollection();
+
+			if (MediaCollectionReloadedEvent != null) 
+				MediaCollectionReloadedEvent(this, EventArgs.Empty);
+		}
+
 		#endregion
 	}
 
@@ -394,6 +462,7 @@ namespace UMServer
 	/* Basic diagnostic events */
 	public delegate void LogEventHandler(object sender, LogEventArgs e);
 	public delegate void PongEventHandler(object sender, EventArgs e);
+	public delegate void MediaErrorEventHandler(object sender, MediaErrorEventArgs e);
 	
 	/* Normal song events */
 	public delegate void PlayingSongEventHandler(object sender, MediaEventArgs e);
@@ -405,6 +474,7 @@ namespace UMServer
 	public delegate void VolumeEventHandler(object sender, MediaVolumeEventArgs e);
 	public delegate void RateEventHandler(object sender, MediaRateEventArgs e);
 	public delegate void BalanceEventHandler(object sender, MediaBalanceEventArgs e);
+	public delegate void MediaCollectionReloadedEventHandler(object sender, EventArgs e);
 
 	/* Queue related events */
 	public delegate void AddedToQueueEventHandler(object sender, QueueEventArgs e);
@@ -461,15 +531,64 @@ namespace UMServer
 	public class MediaEventArgs: EventArgs 
 	{
 		private int mediaId;
+		private string message;
 
 		public MediaEventArgs(int mediaId) 
 		{
 			this.mediaId = mediaId;
 		}
 
+		public MediaEventArgs(int mediaId, string message) 
+		{
+			this.mediaId = mediaId;
+			this.message = message;
+		}
+
 		public int MediaId
 		{
 			get { return mediaId; }
+		}
+
+		public string Message 
+		{
+			get { return message; }
+		}
+	}
+
+	[Serializable]
+	public class MediaErrorEventArgs: EventArgs 
+	{
+		private int mediaId;
+		private int error;
+		private string message;
+		private Exception ex;
+
+		public MediaErrorEventArgs(int mediaId, int error, string message, Exception ex) 
+		{
+			this.mediaId = mediaId;
+			this.error   = error;
+			this.message = message;
+			this.ex		 = ex;
+		}
+
+		public int MediaId
+		{
+			get { return mediaId; }
+		}
+
+		public int Error 
+		{
+			get { return error; }
+		}
+
+		public string Message 
+		{
+			get { return message; }
+		}
+
+		public Exception Exception 
+		{
+			get { return ex; }
 		}
 	}
 
@@ -566,7 +685,7 @@ namespace UMServer
 	/// Collection of media entries
 	/// </summary>
 	[Serializable]
-	public class MediaCollection: ReadOnlyCollectionBase 
+	internal class MediaCollection: ReadOnlyCollectionBase 
 	{
 		private Random random = new Random();
 
@@ -650,7 +769,7 @@ namespace UMServer
 		}
 	}
 
-	public class MediaCollectionEntry 
+	internal class MediaCollectionEntry 
 	{
 		private int mediaId;
 		private string mediaFile;

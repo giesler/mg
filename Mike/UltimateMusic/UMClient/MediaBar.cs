@@ -12,7 +12,6 @@ namespace UMClient
 	public class MediaBar : System.Windows.Forms.Form
 	{
 		public System.Windows.Forms.Label labelNowPlaying;
-		private System.ComponentModel.IContainer components;
 
 		private int startX, startY;
 		public System.Windows.Forms.Button buttonPlayStop;
@@ -30,6 +29,8 @@ namespace UMClient
 			InitializeComponent();
 
 			this.umPlayer = umPlayer;
+			this.TopLevel = true;
+			
 		}
 
 		/// <summary>
@@ -39,10 +40,6 @@ namespace UMClient
 		{
 			if( disposing )
 			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
 			}
 			base.Dispose( disposing );
 		}
@@ -127,6 +124,7 @@ namespace UMClient
 			// MediaBar
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.BackColor = System.Drawing.Color.Black;
 			this.ClientSize = new System.Drawing.Size(304, 16);
 			this.ControlBox = false;
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
@@ -135,6 +133,7 @@ namespace UMClient
 																		  this.buttonPause,
 																		  this.buttonPlayStop,
 																		  this.labelNowPlaying});
+			this.ForeColor = System.Drawing.Color.LimeGreen;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Location = new System.Drawing.Point(400, 0);
 			this.MaximizeBox = false;

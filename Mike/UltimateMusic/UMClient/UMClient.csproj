@@ -98,6 +98,30 @@
                     Lcid = "0"
                     WrapperTool = "tlbimp"
                 />
+                <Reference
+                    Name = "stdole"
+                    Guid = "{00020430-0000-0000-C000-000000000046}"
+                    VersionMajor = "2"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "primary"
+                />
+                <Reference
+                    Name = "MediaPlayer"
+                    Guid = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "AxMediaPlayer"
+                    Guid = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "aximp"
+                />
             </References>
         </Build>
         <Files>
@@ -127,25 +151,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "DataSetMedia.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetMedia.cs"
-                />
-                <File
-                    RelPath = "DataSetMedia.cs"
-                    DependentUpon = "DataSetMedia.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetMedia.xsx"
-                    DependentUpon = "DataSetMedia.xsd"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "MediaBar.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -163,6 +168,26 @@
                 <File
                     RelPath = "MediaEditor.resx"
                     DependentUpon = "MediaEditor.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MediaError.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MediaError.resx"
+                    DependentUpon = "MediaError.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MediaPlayerHost.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MediaPlayerHost.resx"
+                    DependentUpon = "MediaPlayerHost.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

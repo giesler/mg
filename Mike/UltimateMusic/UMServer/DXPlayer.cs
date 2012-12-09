@@ -63,6 +63,7 @@ namespace UMServer
 			if (StoppedEvent != null) 
 			{
 				StoppedEvent(this, new EventArgs());
+				ProgressEvent(this, new DXProgressEventArgs(0.0));
 			}
 		}
 
@@ -112,6 +113,21 @@ namespace UMServer
 				filegraphManager.Rate	 = mediaRate;
 				filegraphManager.Balance = mediaBalance;
 				initialized = true;
+			}
+		}
+
+		public bool IsValid 
+		{
+			get 
+			{
+				if (filegraphManager == null) 
+				{
+					return false;
+				} 
+				else 
+				{
+					return true;
+				}
 			}
 		}
 
