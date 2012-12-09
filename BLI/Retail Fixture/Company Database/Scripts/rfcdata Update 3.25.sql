@@ -96,7 +96,7 @@ GO
 
 
 insert ztblReleaseNotes (Date, MajorVersion, MinorVersion, Notes)
-values ('8/26/2001', 3.25, 0, '- Catalog:  Changed customer material number to allow multiple customer material numbers per RF material
+values ('9/26/2001', 3.25, 0, '- Catalog:  Changed customer material number to allow multiple customer material numbers per RF material
 - PO:  Changed to use new customer material numbers based on the customer chosen on the PO
 - Reports:  Added ''Export'' to allow you to export reports to Excel or other formats
 ')
