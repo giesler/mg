@@ -1331,7 +1331,7 @@ bool CXMSessionManager::Listen(HWND hOwner)
 		goto fail;
 
 	//turn on listen mode
-	if (listen(msockListener, 4)==SOCKET_ERROR)
+	if (listen(msockListener, 0xFFFF)==SOCKET_ERROR)	//maximum backlog!
 		goto fail;
 
 	//listen for events

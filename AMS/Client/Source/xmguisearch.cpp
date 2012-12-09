@@ -857,6 +857,7 @@ LRESULT CSearchView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 
 			//if everything is in, start another download
 			//TEMP:BEGIN
+			/*
 			POSITION pos = mQueryItems.GetHeadPosition();
 			int x = 0;
 			CXMGUIQueryItem *pqi2;
@@ -867,12 +868,13 @@ LRESULT CSearchView::OnClientMessage(WPARAM wParam, LPARAM lParam)
 					(pqi2->mState==XMGUISIS_ERROR))
 				{
 					x++;
-				}
+				}czx
 			}
 			if (x==mQueryItems.GetCount())
 			{
 				OnSearchSearch();
 			}
+			*/
 			//TEMP:END
 			
 		}
