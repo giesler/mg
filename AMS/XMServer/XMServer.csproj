@@ -1,0 +1,190 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        SccProjectName = '"$/XMedia/XMServer", WAAAAAAA'
+        SccLocalPath = "."
+        SccProvider = "MSSCCI:SourceSafe"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                ApplicationRoot = "true"
+                AssemblyBuildNumber = "0"
+                AssemblyCompany = ""
+                AssemblyCopyright = ""
+                AssemblyDescription = ""
+                AssemblyKeyContainerName = ""
+                AssemblyMajorVersion = "1"
+                AssemblyMinorVersion = "0"
+                AssemblyName = "XMServer"
+                AssemblyOriginatorKeyFile = ""
+                AssemblyOriginatorKeyMode = "None"
+                AssemblyProduct = ""
+                AssemblyRevisionNumber = "0"
+                AssemblyTitle = ""
+                AssemblyTrademark = ""
+                CLSCompliant = "true"
+                DefaultClientScript = "JScript"
+                DefaultDTCPlatform = "Server"
+                DefaultHTMLPageLayout = "Linear"
+                DefaultTargetSchema = "HTML32"
+                DefaultServerScript = "VBScript"
+                DefaultSessionState = "True"
+                GenerateRevisionNumber = "true"
+                NoStandardLibraries = "false"
+                OutputType = "WinExe"
+                OptionCompare = "Binary"
+                OptionExplicit = "On"
+                OptionStrict = "On"
+                _RootNamespace = "XMServer"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "DEBUG;TRACE;SERVICE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "TRACE;SERVICE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Debug Non-Service"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "DEBUG;TRACE;NOSERVICE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release No-Service"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "0"
+                    CheckForOverflowUnderflow = "false"
+                    DefineConstants = "TRACE;NOSERVICE"
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    IncrementalBuild = "false"
+                    NoLogo = "true"
+                    NoOutput = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference Name = "mscorlib" />
+                <Reference Name = "System" />
+                <Reference Name = "System.Diagnostics" />
+                <Reference Name = "System.Configuration" />
+                <Reference Name = "System.ServiceProcess" />
+                <Reference Name = "System.Net" />
+                <Reference Name = "System.Configuration.Install" />
+                <Reference Name = "System.XML" />
+                <Reference
+                    Name = "ADODB"
+                    Guid = "{00000206-0000-0010-8000-00AA006D2EA4}"
+                    VersionMajor = "2"
+                    VersionMinor = "6"
+                    Lcid = "0"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "config.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "message.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "xmado.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmauth.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmconnection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmmessage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmquery.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmserver.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "xmserverinstaller.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

@@ -1,0 +1,178 @@
+<messages>
+
+  <!-- Login Message Client-Server -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"
+		session="{000000000-0000-0000000000000000}"
+		system="{000000000-0000-0000000000000000}"/>
+    <request for="login"/>
+    <content format="text/xml">
+      <field name="username">Administrator</field>
+      <field name="password">amdcamp</field>
+      <field name="datarate">56000</field>
+      <field name="systemid">as3asd56dssd445sd65ds45sd24</field>
+    </content>
+  </message>
+  
+  <!-- Login Message Server-Client -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <response for="login"/>
+    <content format="text/xml">
+	  <field name="success">1</field>
+	  <field name="error">Login has been disabled.</field>
+      <field name="session">1234567890abcdef1234567890abcdef</field>
+      <field name="listing">full/partial</field>
+      <field name="limitindex">3</field>
+      <field name="limitfilter">5</field>
+    </content>
+  </message>
+  
+  <!-- Ping Message Server-Client -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <request for="ping"/>
+    <content format="text/xml">
+		<field name="reason">login or ping</field>
+    </content>
+  </message>
+  
+  <!-- Ping Message Client-Server -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <response for="ping"/>
+    <content format="text/xml">
+		<field name="success">1</field>
+    </content>
+  </message>
+  
+  <!-- MOTD Server-Client -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <request for="motd"/>
+    <content format="text/xml">
+		<field name="type">multi,single,open,none</field>
+		<field name="message">This is a Message of the Day!</field>
+		<field name="question">Do you like it?</field>
+		<field name="choices">Yes|No</field>
+    </content>
+  </message>
+  
+  <!-- MOTD Client-Server -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <response for="motd"/>
+    <content format="text/xml">
+		<field name="answer">Yes</field>
+    </content>
+  </message>
+  
+  <!-- Listing Message Client-Server -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <request for="listing"/>
+    <content format="text/xml">
+	 <field name="listing">
+		<listing type="full/partial">
+			<media action="insert" md5="1234567890abcdef1234567890abcdef" width="1024" height="768" filesize="10000"/>
+			<media action="delete" md5="12123434565678789090ababcdcdefef" width="800" height="600" filesize="70000"/>
+			<media action="update" md5="11223344556677889900aabbccddeeff" width="800" height="600" filesize="70000">
+				<index>
+					<quality value="123"/>
+					<setting value="543"/>
+				</index>
+			</media>
+		</listing>
+      </field>
+    </content>
+  </message>
+  
+  <!-- Index Update Message Client-Server -->
+  <message sequence="0" reply="0">
+    <from host="127.0.0.1"/>
+    <request for="listing"/>
+    <content format="text/xml">
+	 <field name="listing">
+		<listing type="partial">
+			<media md5="11223344556677889900aabbccddeeff" width="800" height="600" filesize="70000">
+				<index>
+					<quality value="123"/>
+					<setting value="543"/>
+				</index>
+			</media>
+		</listing>
+      </field>
+    </content>
+  </message>
+  
+  <!-- Index Request From Client -->
+  <message>
+	<request for="index"/>
+	<content>
+		<field name="all"/>
+		<field mame="md5s">11234;12341234;12341234;12341234</field>
+	</content>
+  </message>
+  
+  <!-- Query Message Client-Server -->
+  <message sequence="0" reply="0">
+	<from></from>
+	<request for="query"/>
+	<content format="text/xml">
+		<field name="query">
+			<query	minsize="n" maxsize="n"
+					minwidth="n" maxwidth="n"
+					minheight="n" maxheight="n"
+					filter="none">
+				<queryindex>
+					<!-- standard index fields -->
+				</queryindex>
+				<rejectionindex>
+					<!-- standard index fields -->
+				</rejectionindex>
+			</query>
+		</field>
+	</content>
+  </message>
+  
+	<!-- Query Response Message -->
+	<message sequence="0" reply="0">
+		<from></from>
+		<response for="query"/>
+		<content format="text/xml">
+			<field name="results">
+				<results>
+					<item md5="..." width="n" height="n" size="n">
+						<source ip="123.23.126.213"	speed="1-5"/>
+						<source ip="211.65.32.6" speed="1-5"/>
+					</item>
+				</results>
+			</field>
+		</content>
+	</message>
+	
+	<!-- Client File Request -->
+	<message sequence="0" reply="0">
+		<from></from>
+		<request for="file"/>
+		<content format="text/xml">
+			<field name="md5">01234abcd</field>
+			<field name="width">120</field>
+			<field name="height">90</field>
+		</content>
+	</message>
+	
+	<!-- Client File Response -->
+	<message sequence="0" reply="0">
+		<from></from>
+		<response for="file"/>
+		<content format="text/xml">
+			<field name="message">file, busy, error</field>
+			<field name="md5">01234abcd</field>
+			<field name="width">120</field>
+			<field name="height">90</field>
+		</content>
+		<binary md5="1234abcd" size="32767"/>
+	</message>
+	
+</messages>
