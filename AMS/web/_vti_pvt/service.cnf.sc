@@ -26,7 +26,7 @@ vti_autorecalc:IX|1
 vti_htmlextensions:SX|.htm.html.stm.html.htm.shtml.shtm.htt.htx.asp.alx.asa.
 vti_navbuttonhomelabel:SR|Home
 vti_createpostinfo:BX|false
-vti_insecureserverurl:SR|http://dq
+vti_insecureserverurl:SR|http://ams
 vti_disableautoimgsizeexts:SX|.asp
 vti_casesensitiveurls:IX|0
 vti_httpdversion:SX|Microsoft-IIS/5.0
