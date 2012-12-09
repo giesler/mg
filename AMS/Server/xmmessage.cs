@@ -585,7 +585,7 @@ namespace XMedia
 			{
 				//return all media for this user
 				all = true;
-				sql =	"select mi.*, m.width, m.height, m.filesize " +
+				sql =	"select m.md5 as 'media_md5', mi.*, m.width, m.height, m.filesize " +
 						"from mediaindex mi " +
 						"inner join media m on m.md5 = mi.md5 " +
 						"where mi.userid = " + Connection.UserID.ToStringDB();
@@ -619,7 +619,7 @@ namespace XMedia
 
 				//create sql
 				StringBuilder sb = new StringBuilder(1024);
-				sb.Append("select mi.*, m.width, m.height, m.filesize ");
+				sb.Append("select m.md5 as 'media_md5', mi.*, m.width, m.height, m.filesize ");
 				sb.Append("from mediaindex mi ");
 				sb.Append("inner join media m on m.md5 = mi.md5 ");
 				sb.Append("where (");

@@ -304,6 +304,7 @@ namespace XMedia
 					"where userid = " + user.ToStringDB());
 
 			//update the connection
+			con.Username = username;
 			con.SessionID = session;
 			con.UserID = user;
 			con.Datarate = datarate;
@@ -370,6 +371,8 @@ namespace XMedia
 		/// </summary>
 		public static void CheckConnections()
 		{
+			Trace.WriteLine("Checking connections...");
+
 			//open db cnnection
 			if (!EnsureConnection())
 				return;
@@ -389,7 +392,7 @@ namespace XMedia
 			//walk recordset
 			XMGuid uid = null;
 			XMGuid at = null;
-			IPAddress ip;
+			//IPAddress ip;
 			bool kill;
 			object[] cons = XMConnection.Connections;
 			while (!rs.EOF)
@@ -400,25 +403,33 @@ namespace XMedia
 					//get accesstoken and ip
 					uid = new XMGuid((byte[])rs.Fields["userid"].Value);
 					at = new XMGuid((byte[])rs.Fields["accesstoken"].Value);
-					ip = IPAddress.Parse((string)rs.Fields["hostip"].Value);
+					//ip = IPAddress.Parse((string)rs.Fields["hostip"].Value);
 
 					//search open connections
 					//note: we don't need to sync since this array was copied
 					foreach(XMConnection c in cons)
 					{
 						//test this connection
-						if (c.SessionID.Equals(at) &&
-							c.HostIP.Equals(ip))
+						if (c.SessionID != null)
 						{
-							//connection is alive
-							kill = false;
-							break;
+							if (c.SessionID.Equals(at)/* &&
+								c.HostIP.Equals(ip)*/)
+							{
+								//connection is alive
+								kill = false;
+								break;
+							}
+						}
+						else
+						{
+							Trace.WriteLine("CheckConnections: Skipping null session id.");
 						}
 					}
 				}
-				catch
+				catch(Exception e)
 				{
 					//we can continue, but make sure to move this user offline
+					Trace.WriteLine("Error checking for connection:\n"+e.ToString());
 					kill = true;
 				}
 

@@ -235,7 +235,7 @@ namespace XMedia
 
 							//get first null
 							foundmsg = false;
-							nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, size+retval);
+							nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
 							while(nullpos!=-1)
 							{
 								//found a null, convert to text and process
@@ -244,13 +244,16 @@ namespace XMedia
 								try 
 								{
 									ProcessMessage(msg);
+
+	
 								}
 								catch(Exception e)
 								{
 									//nothing
 									XMLog.WriteLine(e.ToString(), "ProcessMessage", EventLogEntryType.Error);
+									//mClient.Close();
 								}
-								
+
 								//create new buffer with just the excess
 								//from the original, reset size to end of
 								//valid data
@@ -260,9 +263,10 @@ namespace XMedia
 								buf = buf2;
 								buf2 = null;
 								size = 0;
-						
+																		
 								//try to get next null
-								nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, size+retval);
+								nullpos = Array.IndexOf(buf, (byte)0 /*null*/, size, retval);
+
 							}
 
 							if (!foundmsg)
@@ -284,9 +288,10 @@ namespace XMedia
 			}
 	
 			//if we have a session id, remove that sessions entries
-			//from the media storage table
+			//from the media bstorage table
 			try
 			{
+				XMLog.WriteLine("Losing connection to " + Username, "Connection", EventLogEntryType.Information);
 				if (!SessionID.Equals(new XMGuid()))
 				{
 					//release session
@@ -295,6 +300,13 @@ namespace XMedia
 			}
 			catch
 			{
+				Trace.WriteLine("Error calling KillSession.");
+			}
+
+			//remove ourselves from the collection
+			lock(mConnections)
+			{
+				mConnections.Remove(this);
 			}
 
 			return;
@@ -316,9 +328,11 @@ namespace XMedia
 			{
 				//error processing message.. record IP address
 				string str = String.Format(
-					"Error processing message from {0}: {1}", 
-					HostIP.Address.ToString(),
-					e.ToString());
+					"Error processing message from {0}({1}): {2}\n\tSource: {3}", 
+					Username,
+					HostIP.ToString(),
+					e.Message,
+					msg);
 				XMLog.WriteLine(str, "ProcessMessage", EventLogEntryType.Warning);
 			}
 

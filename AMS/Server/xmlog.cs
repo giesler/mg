@@ -52,10 +52,17 @@ namespace XMedia
 		public static void WriteLine(string Message, string Module, EventLogEntryType Type)
 		{
 			//First, write to the console
-			Trace.WriteLine(Message, Module);
+			try
+			{
+				Trace.WriteLine(Message, Module);
 
-			//Now add an event log entry
-			mLog.WriteEntry(Module + ": " + Message, Type);
+				//Now add an event log entry
+				mLog.WriteEntry(Module + ": " + Message, Type);
+			}
+			catch
+			{
+				Trace.WriteLine("Event log full.");
+			}
 		}
 	}
 }
