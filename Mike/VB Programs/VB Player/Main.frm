@@ -18,8 +18,25 @@ Begin VB.Form frmMain
    ScaleHeight     =   5760
    ScaleWidth      =   8490
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmdNext 
+      Caption         =   "> >"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   7920
+      TabIndex        =   43
+      Top             =   960
+      Width           =   495
+   End
    Begin MSComDlg.CommonDialog cdlg 
-      Left            =   6600
+      Left            =   6240
       Top             =   960
       _ExtentX        =   847
       _ExtentY        =   847
@@ -52,26 +69,22 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Fi&nd songs"
       TabPicture(2)   =   "Main.frx":047A
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "lvFind"
-      Tab(2).Control(1)=   "cmdFind"
-      Tab(2).Control(2)=   "txtFind"
-      Tab(2).Control(3)=   "lblFind"
+      Tab(2).Control(0)=   "lblFind"
+      Tab(2).Control(1)=   "txtFind"
+      Tab(2).Control(2)=   "cmdFind"
+      Tab(2).Control(3)=   "lvFind"
       Tab(2).ControlCount=   4
       TabCaption(3)   =   "Utilities"
       TabPicture(3)   =   "Main.frx":0496
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label4"
-      Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "cmdNewFileCheck"
-      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).Control(0)=   "cmdNewFileCheck"
+      Tab(3).Control(1)=   "Label4"
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Options"
       TabPicture(4)   =   "Main.frx":04B2
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "fraSongBar"
-      Tab(4).Control(0).Enabled=   0   'False
-      Tab(4).Control(1)=   "fraMainWindow"
-      Tab(4).Control(1).Enabled=   0   'False
+      Tab(4).Control(0)=   "fraMainWindow"
+      Tab(4).Control(1)=   "fraSongBar"
       Tab(4).ControlCount=   2
       Begin VB.Frame fraSongBar 
          Caption         =   "Song Bar"
@@ -237,7 +250,7 @@ Begin VB.Form frmMain
             _Version        =   327681
             Value           =   10
             BuddyControl    =   "txtQueueCount"
-            BuddyDispid     =   196622
+            BuddyDispid     =   196625
             OrigLeft        =   6720
             OrigTop         =   3720
             OrigRight       =   6960
@@ -496,7 +509,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   7920
+      Left            =   7320
       TabIndex        =   7
       Top             =   960
       Width           =   495
@@ -513,7 +526,7 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   7320
+      Left            =   6720
       TabIndex        =   6
       Top             =   960
       Width           =   495
@@ -1055,6 +1068,12 @@ ErrHand m_Module, "NewFileCheck"
 Exit Sub
 End Sub
 
+Private Sub cmdNext_Click()
+
+    PlaySong QueueList
+
+End Sub
+
 Private Sub cmdPause_Click()
 
     If wmp.PlayState = mpPlaying Then
@@ -1164,7 +1183,7 @@ Private Sub Form_Resize()
         Hide
         
         If cmbMainSysTray.ListIndex = 1 Or cmbMainSysTray.ListIndex = 0 Then
-            If ShellTrayAdd = 1 Then SubClass Me.hwnd
+            If ShellTrayAdd = 1 Then SubClass Me.hWnd
         End If
         
         UpdateSongBarWindow
@@ -1324,14 +1343,14 @@ End Sub
 Private Sub mnuFileExit_Click()
 
     ShellTrayRemove
-    Call PostMessage(Me.hwnd, WM_CLOSE, 0&, ByVal 0&)
+    Call PostMessage(Me.hWnd, WM_CLOSE, 0&, ByVal 0&)
     
 End Sub
 
 Public Function ExitApp()
 
     ShellTrayRemove
-    Call PostMessage(Me.hwnd, WM_CLOSE, 0&, ByVal 0&)
+    Call PostMessage(Me.hWnd, WM_CLOSE, 0&, ByVal 0&)
 
 End Function
 
@@ -1660,6 +1679,11 @@ Private Sub UpdateHistory()
     ' see if between 5% and 95%
     ElseIf dVote > 0.05 Then
         gConn.Execute "insert into History (mediaid, currentuser, datetime, vote) values (" & lblID.Caption & ", '" & GetNTUserName() & "', '" & Now & "', " & dVote & ")"
+        
+    ' see if before 5% - we want a negative vote
+    Else
+        gConn.Execute "insert into History (mediaid, currentuser, datetime, vote) values (" & lblID.Caption & ", '" & GetNTUserName() & "', '" & Now & "', -0.5)"
+        
     End If
 
 End Sub
@@ -1688,7 +1712,7 @@ On Error GoTo errHandler
     If Len(strTemp) > 38 Then strTemp = Left(strTemp, 38) & "..."
     fSongBar.lblCurSong.Caption = strTemp
     wmp.FileName = li.SubItems(3)
-    wmp.Play
+    If wmp.Duration > 0 Then wmp.Play
     sldCurSong.Max = wmp.Duration
     Caption = li.SubItems(1) & IIf(li.SubItems(2) <> "", " - " & li.SubItems(2), "")
     fSongBar.Caption = Caption
@@ -1698,6 +1722,9 @@ On Error GoTo errHandler
         UpdateQueue
     End If
     
+    If wmp.Duration = 0 Then
+        MsgBox "Cannot play the currently selected song - the song duration is 0.", vbExclamation
+    End If
     
 Exit Sub
 errHandler:
@@ -1849,7 +1876,7 @@ Public Function ShellTrayAdd() As Long
  
   With NID
      .cbSize = LenB(NID)
-     .hwnd = Me.hwnd
+     .hWnd = Me.hWnd
      .uID = 125&
      .uFlags = NIF_ICON Or NIF_TIP Or NIF_MESSAGE
      .uCallbackMessage = WM_MYHOOK
@@ -1875,20 +1902,20 @@ Private Sub UnSubClass()
   'restore the default message handling
   'before exiting
    If defWindowProc Then
-      SetWindowLong Me.hwnd, GWL_WNDPROC, defWindowProc
+      SetWindowLong Me.hWnd, GWL_WNDPROC, defWindowProc
       defWindowProc = 0
    End If
    
 End Sub
 
 
-Private Sub SubClass(hwnd As Long)
+Private Sub SubClass(hWnd As Long)
 
   'assign our own window message
   'procedure (WindowProc)
   
    On Error Resume Next
-   defWindowProc = SetWindowLong(hwnd, GWL_WNDPROC, AddressOf WindowProc)
+   defWindowProc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf WindowProc)
    
 End Sub
 
@@ -1896,10 +1923,10 @@ Private Sub UpdateMainWindow()
 
     ' first set main systray setting
     If cmbMainSysTray.ListIndex = 0 Then
-        If ShellTrayAdd = 1 Then SubClass Me.hwnd
+        If ShellTrayAdd = 1 Then SubClass Me.hWnd
     ElseIf cmbMainSysTray.ListIndex = 1 Then
         If WindowState = vbMinimized Then
-            If ShellTrayAdd = 1 Then SubClass Me.hwnd
+            If ShellTrayAdd = 1 Then SubClass Me.hWnd
         Else
             ShellTrayRemove
             UnSubClass
