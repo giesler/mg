@@ -581,6 +581,7 @@ private:
 	void DLText(DLTag tag, const char* text);
 	void DLRemove(DLTag tag);
 	void DLClear();
+	void DLRefreshProgress();
 
 	//pipeline
 	afx_msg LRESULT OnClientMessage(WPARAM wParam, LPARAM lParam);

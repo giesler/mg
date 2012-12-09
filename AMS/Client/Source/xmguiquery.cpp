@@ -191,6 +191,27 @@ protected:
 			return TRUE;
 		}
 
+	} mPageCat1;
+	friend class CPageCat1;
+
+	//CATAGORY 2
+	class CPageCat2 : public CPropertyPage
+	{
+	public:
+		CIndexBuilder *mParent;
+		void DoDataExchange(CDataExchange *pDX);
+		void OnOK();
+	} mPageCat2;
+	friend class CPageCat2;
+
+	//PICTURE
+	class CPagePicture : public CPropertyPage
+	{
+	public:
+		CIndexBuilder *mParent;
+		void DoDataExchange(CDataExchange *pDX);
+		void OnOK();
+
 		afx_msg void OnClear()
 		{
 			//reset all the marks for this index
@@ -225,26 +246,6 @@ protected:
 
 		DECLARE_MESSAGE_MAP()
 
-	} mPageCat1;
-	friend class CPageCat1;
-
-	//CATAGORY 2
-	class CPageCat2 : public CPropertyPage
-	{
-	public:
-		CIndexBuilder *mParent;
-		void DoDataExchange(CDataExchange *pDX);
-		void OnOK();
-	} mPageCat2;
-	friend class CPageCat2;
-
-	//PICTURE
-	class CPagePicture : public CPropertyPage
-	{
-	public:
-		CIndexBuilder *mParent;
-		void DoDataExchange(CDataExchange *pDX);
-		void OnOK();
 	} mPagePicture;
 	friend class CPagePicture;
 
@@ -465,21 +466,21 @@ void CIndexBuilder::Construct_Inner(int mode, CXMIndex* index)
 	mPageMale.mParent = this;
 
 	//add each property page
-	AddPage(&mPageCat1);
-	AddPage(&mPageCat2);
 	AddPage(&mPagePicture);
 	AddPage(&mPagePhysGen);
 	AddPage(&mPagePhysSpec);
 	AddPage(&mPageFemale);
 	AddPage(&mPageMale);
+	AddPage(&mPageCat1);
+	AddPage(&mPageCat2);
 }
 
 CIndexBuilder::~CIndexBuilder()
 {
 }
 
-BEGIN_MESSAGE_MAP(CIndexBuilder::CPageCat1, CPropertyPage)
-	ON_BN_CLICKED(IDC_CLEAR, CPageCat1::OnClear)
+BEGIN_MESSAGE_MAP(CIndexBuilder::CPagePicture, CPropertyPage)
+	ON_BN_CLICKED(IDC_CLEAR, CPagePicture::OnClear)
 END_MESSAGE_MAP()
 
 #define IB_GET(_PREFIX, _ITEM) ((IsDlgButtonChecked(_PREFIX##_ITEM)?1:0)<<_ITEM-1)

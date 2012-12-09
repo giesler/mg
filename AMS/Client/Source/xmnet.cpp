@@ -252,7 +252,16 @@ bool CXMSession::Alpha()
 
 			//this will cause the pump to break
 			//the next time around
-			PostQuitMessage(0);			
+			TRACE("Posting quit message on thread %d...\n", GetCurrentThreadId());
+			PostQuitMessage(0);	
+			TRACE("...done.\n");
+			//ASSERT(FALSE);
+			
+			//hack: for some reason, when a connection is cut postquitmessage seems
+			//to have no affect, and GetMessage() will block, so we need to send the
+			//close state now
+			SetState(XM_CLOSED);
+
 			break;
 
 		default:
@@ -268,8 +277,11 @@ bool CXMSession::Alpha()
 	this->CloseWindow();
 	this->CloseCOM();
 
-	//we are now officially closed
-	SetState(XM_CLOSED);
+	//we are now officially closed for business
+	if (GetState!=XM_CLOSED)
+	{
+		SetState(XM_CLOSED);
+	}
 
 	return true;
 }
@@ -937,12 +949,12 @@ int CXMSession::ReceiveChunk()
 		return retval;
 	}
 
-	//set the rx light
-	TxRxReceive();
-
 	//scan data for interest
 	ScanChunk(chunk, retval);
 	free(chunk);
+	
+	//set the rx light
+	TxRxReceive();
 
 	return retval;
 }

@@ -165,6 +165,7 @@ public:
 	{
 		bool mIsThumb;
 		BYTE mState;
+		BYTE mStateCount;
 		CXMSession *mSession;
 		DWORD mWidth, mHeight;
 		BYTE mCurrentHost;

@@ -473,6 +473,14 @@ void CSearchView::OnSavedEdit()
 
 void CSearchView::OnSavedDelete()
 {
+	// TEMP: break server connection
+	
+	/*
+	sm()->ServerClose();
+	return;
+	*/
+	// END TEMP
+
 	//delete the selected item
 	int i = mSavedList.GetCurSel();
 	if (i==LB_ERR)

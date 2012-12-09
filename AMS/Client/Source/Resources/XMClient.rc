@@ -184,13 +184,9 @@ BEGIN
                     190,84,89,8
     CONTROL         "Voyeur",IDC_CAT31,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
                     190,95,60,8
-    GROUPBOX        "Clear",IDC_STATIC,7,139,185,32
-    LTEXT           "Remove checkmarks in all tabs:",IDC_STATIC,13,152,110,
-                    11
-    PUSHBUTTON      "Clear",IDC_CLEAR,127,150,50,14
 END
 
-IDD_INDEX_PICTURE DIALOG DISCARDABLE  0, 0, 269, 170
+IDD_INDEX_PICTURE DIALOG DISCARDABLE  0, 0, 269, 209
 STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Picture"
 FONT 8, "MS Sans Serif"
@@ -228,7 +224,7 @@ BEGIN
                     WS_TABSTOP,102,70,37,8
     CONTROL         "12+",IDC_QUANTITY6,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,102,82,35,8
-    GROUPBOX        "Quality",IDC_STATIC,93,108,80,55
+    GROUPBOX        "Quality",IDC_STATIC,93,107,80,55
     CONTROL         "Low",IDC_QUALITY1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
                     102,122,39,8
     CONTROL         "Medium",IDC_QUALITY2,"Button",BS_AUTOCHECKBOX | 
@@ -248,6 +244,10 @@ BEGIN
                     190,67,34,8
     CONTROL         "XXX",IDC_RATING6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
                     190,79,32,8
+    GROUPBOX        "Clear",IDC_STATIC,7,169,185,32
+    LTEXT           "Remove checkmarks in all tabs:",IDC_STATIC,13,182,110,
+                    11
+    PUSHBUTTON      "Clear",IDC_CLEAR,127,180,50,14
 END
 
 IDD_INDEX_PHYSGEN DIALOG DISCARDABLE  0, 0, 273, 204
@@ -813,9 +813,10 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,186,24,50,14
     CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH,
                     7,71,173,14
-    RTEXT           "Status",IDC_RATE,7,88,170,10
+    RTEXT           "",IDC_RATE,7,88,170,10
     LTEXT           "Static",IDC_STATUS,7,58,172,10
-    LTEXT           "<auto-update explanation here>",IDC_STATIC,7,7,168,42
+    LTEXT           "Please wait while the latest version of AMS is downloaded to your computer. This should not take more than a few minutes. If the auto-update fails, go to www.adultmediaswapper.com to download the latest version manually.",
+                    IDC_STATIC,7,7,168,42
 END
 
 IDD_RECONNECT DIALOG DISCARDABLE  0, 0, 236, 30
@@ -823,7 +824,7 @@ STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP
 FONT 8, "MS Sans Serif"
 BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,179,7,50,16
-    LTEXT           "Your connect to the server was lost... automatically connecting with the login information you last used.",
+    LTEXT           "Your connection to the server was lost... automatically connecting with the login information you last used.",
                     IDC_STATIC,7,7,169,16
 END
 
@@ -835,8 +836,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,5,0,0
- PRODUCTVERSION 0,5,0,0
+ FILEVERSION 0,6,0,0
+ PRODUCTVERSION 0,6,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -854,14 +855,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Adult Media Swapper Client Executable\0"
-            VALUE "FileVersion", "0, 5, 0, 0\0"
+            VALUE "FileVersion", "0, 6, 0, 0\0"
             VALUE "InternalName", "AMSClient\0"
             VALUE "LegalCopyright", "Copyright (C) 2001 Line 2 Systems, Inc.\0"
             VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "ams.exe\0"
+            VALUE "OriginalFilename", "amsclient.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Adult Media Swapper\0"
-            VALUE "ProductVersion", "0, 5, 0, 0\0"
+            VALUE "ProductVersion", "0, 6, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -901,7 +902,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 262
         TOPMARGIN, 7
-        BOTTOMMARGIN, 163
+        BOTTOMMARGIN, 202
     END
 
     IDD_INDEX_PHYSGEN, DIALOG

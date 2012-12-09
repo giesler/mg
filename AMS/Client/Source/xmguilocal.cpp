@@ -59,6 +59,9 @@ void CLocalView::OnPaint()
 {
 	CPaintDC dc(this);
 	dc.FillSolidRect(&dc.m_ps.rcPaint, GetSysColor(COLOR_3DFACE));
+
+	//paint the preview
+	//mPreview.RedrawWindow();
 }
 
 UINT CLocalView::GetViewType()
@@ -78,7 +81,7 @@ bool CLocalView::Create(CWnd *hwParent, CRect &rect)
 	if (!CWnd::Create(
 			NULL,
 			"CLocalView_Holder",
-			WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,
+			WS_CHILD|WS_VISIBLE/*|WS_CLIPCHILDREN*/,
 			rect,
 			hwParent,
 			0,
@@ -129,7 +132,7 @@ bool CLocalView::Create(CWnd *hwParent, CRect &rect)
 	CBitmap *pbmp = new CBitmap();
 	pbmp->LoadBitmap(MAKEINTRESOURCE(IDB_LOGO_170));
 	mPreview.ShowBitmap(pbmp);
-
+	
 	//set the font for controls
 	CFont font;
 	font.CreateStockObject(ANSI_VAR_FONT);

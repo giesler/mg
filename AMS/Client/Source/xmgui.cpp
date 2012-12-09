@@ -90,7 +90,6 @@ void CMainFrame::OnSizeFinish(CRect &rTabs)
 {
 	//create a region defining the client area of the tab,
 	//minus the display region..
-	/*
 	HRGN hr = CreateRectRgn(0,0,1,1);
 	HRGN hrBase = CreateRectRgn(0, 0, rTabs.Width(), rTabs.Height());
 	HRGN hrDiff = CreateRectRgn(	mCurrentViewRect.left - rTabs.left,
@@ -99,13 +98,12 @@ void CMainFrame::OnSizeFinish(CRect &rTabs)
 									mCurrentViewRect.bottom - rTabs.top);
 	CombineRgn(hr, hrBase, hrDiff, RGN_DIFF);
 	mTabs.SetWindowRgn(hr, FALSE);
-	DeleteObject(hr);
+	//DeleteObject(hr);
 	DeleteObject(hrBase);
 	DeleteObject(hrDiff);
-	*/
-
+	
 	//now redraw things
-	mTabs.RedrawWindow(NULL, NULL, RDW_UPDATENOW);
+	//mTabs.RedrawWindow(NULL, NULL, RDW_UPDATENOW);
 	if (mCurrentView) {
 		mCurrentView->RedrawWindow(NULL, NULL, RDW_UPDATENOW);
 	}
@@ -379,7 +377,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
 		return FALSE;
-	cs.style |= WS_CLIPCHILDREN|WS_CLIPSIBLINGS;
+	cs.style |= WS_CLIPCHILDREN;
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 
 	//position the window

@@ -213,9 +213,7 @@ class CXMClientApp : public CWinApp
 public:
 	CXMClientApp();
 
-	inline char* Version() {
-		return "0.60";
-	}
+	char* Version();
 	bool m_bHasInit;
 	HANDLE m_hMutex;
 

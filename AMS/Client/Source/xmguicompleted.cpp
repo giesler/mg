@@ -151,6 +151,8 @@ void CCompletedView::OnPaint()
 {
 	CPaintDC dc(this);
 	dc.FillSolidRect(&dc.m_ps.rcPaint, ::GetSysColor(COLOR_3DFACE));
+
+	mPreview.RedrawWindow();
 }
 
 void CCompletedView::OnDestroy()

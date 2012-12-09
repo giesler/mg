@@ -125,6 +125,7 @@ int CImageViewer::OnCreate(LPCREATESTRUCT lpcs)
 	ShowBitmap(NULL);
 
 	//success
+	UpdateWindow();
 	return 0;
 }
 

@@ -133,6 +133,9 @@ bool CXMClientManager::OnInitialize()
 		return false;
 	}
 
+	//start a timer.. we use this to time-out download slots
+	SetTimer(mhWnd, 4565, 1000, NULL);
+
 	//success
 	return true;
 }
@@ -175,6 +178,31 @@ void CXMClientManager::OnWin32MsgPreview(UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	//forward messages to the session manager
 	sessions()->PreviewMessage(msg, wparam, lparam);
+
+	//timer message?
+	if (msg == WM_TIMER)
+	{
+		//is it for us?
+		if (wparam == 4565)
+		{
+			//increment the statecount property for
+			//each download that is closing
+			Lock();
+			for (BYTE i=0;i<mDownloadCount;i++)
+			{
+				if (mDownloads[i].mState == DSS_CLOSING)
+				{
+					//only 5 seconds to close
+					if (++(mDownloads[i].mState) > 5)
+					{
+						//clear out the slot
+						ClearDownload(i);
+					}
+				}
+			}
+			Unlock();
+		}
+	}
 }
 
 void CXMClientManager::OnWin32MsgReview(UINT msg, WPARAM wparam, LPARAM lparam)
@@ -966,6 +994,7 @@ void CXMClientManager::CancelDownloadingFile(DWORD i)
 					0);
 		mDownloads[i].mSession->Close();
 		mDownloads[i].mState = DSS_CLOSING;
+		mDownloads[i].mStateCount = 0;
 	}
 	Unlock();
 }
@@ -983,7 +1012,7 @@ void CXMClientManager::ClearThumbnailDownloads()
 	//cancel all current downloads
 	for (i=0;i<mDownloadCount;i++)
 	{
-		if (mDownloads[i].mIsThumb && mDownloads[i].mState==DSS_OPEN)
+		if (mDownloads[i].mIsThumb && mDownloads[i].mState!=DSS_OPEN)
 			CancelDownloadingFile(i);
 	}
 	Unlock();

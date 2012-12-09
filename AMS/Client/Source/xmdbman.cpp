@@ -135,12 +135,12 @@ bool CXMDBManager::ScanDirectory(char *path)
 	bool temp = false;
 	mCancelFlag = false;
 	mCallback->OnBeginScan();
-	//try {
+	try {
 		temp = _ScanDirectory(path);
-	//}
-	//catch (...) {
-	//	ASSERT(FALSE);
-	//}
+	}
+	catch (...) {
+		ASSERT(FALSE);
+	}
 
 	mCallback->OnEndScan();
 	if (!temp) {

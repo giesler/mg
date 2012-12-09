@@ -601,7 +601,7 @@ bool CXMServerManager::ServerIsOpen(bool reconnect)
 	//should try to auto-reconnect
 	if (!temp && reconnect)
 	{
-		ReconnectTry();
+		temp = ReconnectTry();
 	}
 
 	//done
@@ -654,17 +654,23 @@ bool CXMServerManager::LimiterFilter(CXMIndex *filter)
 bool CXMServerManager::QueryBegin(CXMQuery *query)
 {
 	//check state
-	Lock();
 	if (mQueryRunning) {
-		Unlock();
+		//Unlock();
 		return false;
 	}
-	if (!mServer) {
-		Unlock();
+	if (!ServerIsOpen(true))
+	{
+		//Unlock();
+		return false;
+	}
+	if (!LoginIsLoggedIn())
+	{
+		//Unlock();
 		return false;
 	}
 
 	//check the new query
+	Lock();
 	if (!LimiterIndex(&query->mQuery) ||
 		!LimiterIndex(&query->mRejection))
 	{
@@ -776,14 +782,18 @@ bool CXMServerManager::Login(const char *username, const char *password)
 	}
 
 	//store the username and password
-	if (mUsername) {
+	//note: is username and/or password are null, the previous
+	//username, password will be used
+	if (mUsername && username) {
 		free(mUsername);
 	}
-	if (mPassword) {
+	if (mPassword && password) {
 		free(mPassword);
 	}
-	mUsername = strdup(username);
-	mPassword = strdup(password);
+	if (username)
+		mUsername = strdup(username);
+	if (password)
+		mPassword = strdup(password);
 
 	//send the login message
 	CXMMessage *msg = new CXMMessage(mServer);
@@ -876,7 +886,7 @@ public:
 		//set initial control states
 		mStatus.SetWindowText("");
 		mRate.SetWindowText("");
-		mProgress.SetRange(0, 1);
+		mProgress.SetRange(0, 100);
 		mProgress.SetPos(0);
 
 		//ask the server for the file
@@ -948,10 +958,22 @@ private:
 	}
 	LRESULT OnProgress(WPARAM wParam, LPARAM lParam)
 	{
-		//modify the progress bar and rate text
+		//get current progress
 		DWORD dwTotal, dwCurrent;
 		CXMSession *ses = (CXMSession*)lParam;
 		ses->GetBinaryProgress(&dwTotal, &dwCurrent);
+		if (dwTotal==0)
+			return 0;
+
+		//update progress bar
+		int p = (int)(dwCurrent*100/dwTotal);
+		mProgress.SetPos(p);
+
+		//update the rate label
+		CString str;
+		str.Format("%d of %d (%d%%)", dwCurrent, dwTotal, p);
+		mRate.SetWindowText(str);
+
 		return 0;
 	}
 
@@ -1715,10 +1737,27 @@ public:
 	//init
 	BOOL OnInitDialog()
 	{
-		//begin the connection
-		if (!sm()->ServerOpen())
+		//hook into server updates
+		sm()->Subscribe(m_hWnd);
+
+		//already connected?
+		if (sm()->ServerIsOpen(false))
 		{
-			CDialog::OnCancel();
+			//skip to login
+			if (!sm()->Login(NULL, NULL))
+			{
+				AfxMessageBox("Could not begin login.");
+				CDialog::OnCancel();
+			}
+		}
+		else
+		{
+			//begin the connection
+			if (!sm()->ServerOpen())
+			{
+				AfxMessageBox("Could not connect to server.");
+				CDialog::OnCancel();
+			}
 		}
 
 		//success
@@ -1773,6 +1812,12 @@ private:
 		}
 	}
 
+	void OnDestroy()
+	{
+		//unhook from server man
+		sm()->UnSubscribe(m_hWnd);
+	}
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -1799,4 +1844,3 @@ bool CXMServerManager::ReconnectTry()
 	//success
 	return dlg.mConnected;
 }
-

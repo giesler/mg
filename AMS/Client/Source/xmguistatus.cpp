@@ -917,7 +917,6 @@ void CXMGUIStatus::DLInsert(DLTag tag, const char* text)
 	//check state
 	if (mTabState != XMGUI_DL)
 		return;
-
 	
 	//try the cache
 	dbman()->Lock();
@@ -941,6 +940,29 @@ void CXMGUIStatus::DLInsert(DLTag tag, const char* text)
 	//before the thumbnail came in.. in the future, we
 	//should display the thumbnail here when it becomes avail
 
+	//get the % complete
+	char sz[MAX_PATH+1];
+	DLTagD t = NULL;
+	strncpy(sz, text, MAX_PATH);
+	/*
+		for (BYTE j=0;j<cm()->GetDownloadSlotCount();j++)
+	{
+		t = cm()->GetDownloadSlot(j);
+		if (t->mItem->mMD5.IsEqual(*tag))
+		{
+			if (t->mSession)
+			{
+				DWORD dwc, dwt;
+				t->mSession->GetBinaryProgress(&dwt, &dwc);
+				if (dwt != 0)
+				{
+					_snprintf(sz, MAX_PATH, "%s (%d%%)", sz, (int)(dwc*100/dwt));
+				}
+			}
+		}
+	}
+	*/
+
 	//insert into listview
 	LVITEMA lvi;
 	lvi.mask = LVIF_TEXT|LVIF_PARAM|LVIF_IMAGE;
@@ -948,7 +970,7 @@ void CXMGUIStatus::DLInsert(DLTag tag, const char* text)
 	lvi.iSubItem = 0;
 	lvi.iImage = x;
 	lvi.lParam = (LPARAM)new CMD5(*tag);
-	lvi.pszText = const_cast<char*>(text);
+	lvi.pszText = sz;
 	mFiles.InsertItem(&lvi);
 }
 
@@ -1022,6 +1044,50 @@ void CXMGUIStatus::OnTimer(UINT nIDEvent)
 			mLightRx.mLit = rx;
 			mLightRx.RedrawWindow();
 			rx2 = rx;
+
+		}
+
+		//refresh download progress
+		DLRefreshProgress();
+	}
+}
+
+void CXMGUIStatus::DLRefreshProgress()
+{
+	//must be downloading
+	if (mTabState != XMGUI_DL)
+		return;
+
+	//loop through all download slots
+	char sz[MAX_PATH+1];
+	DLTagD t;
+	CMD5* md5;
+	for (int i=0;i<mFiles.GetItemCount();i++)
+	{
+		md5 = (CMD5*)mFiles.GetItemData(i);
+		for (BYTE j=0;j<cm()->GetDownloadSlotCount();j++)
+		{
+			t = cm()->GetDownloadSlot(j);
+			if ((t->mItem) &&						//it exists
+				(t->mItem->mMD5.IsEqual(*md5)) &&	//correct md5
+				(t->mState == DSS_RECEIVING))		//slot is receiving
+			{
+				if (t->mSession)
+				{
+					//create new label
+					DWORD dwc, dwt;
+					t->mSession->GetBinaryProgress(&dwt, &dwc);
+					if (dwt != 0)
+						_snprintf(sz, MAX_PATH, "Downloading... (%d%%)", (int)(dwc*100/dwt));
+					else
+						strncpy(sz, "Downloading...", MAX_PATH);
+					
+					//set label
+					mFiles.SetItemText(i, 0, sz);
+				}
+			}
 		}
 	}
+
+	//mFiles.RedrawWindow();
 }

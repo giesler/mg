@@ -128,14 +128,22 @@ public:
 
 bool DoPasswordCheck()
 {
+	//only allow 1 dialog at time
+	static bool incheck = false;
+	if (incheck)
+		return false;
+	incheck = true;
+
 	CPasswordProtect dlg(NULL);
 	dlg.m_strPassword = config()->GetField(FIELD_LOGIN_PROTECT_PASSWORD, false);
 	dlg.m_iTry = 3;
 	if (dlg.DoModal()!=IDOK ||
 		dlg.m_bFailed)
 	{	
+		incheck = false;
 		return false;
 	}
+	incheck = false;
 	return true;
 }
 
@@ -151,10 +159,16 @@ CXMClientApp::CXMClientApp()
 	m_hMutex = NULL;
 }
 
+char* CXMClientApp::Version()
+{
+	return "0.55";
+}
+	
+
 BOOL CXMClientApp::InitInstance()
 {
 	//only one instance of the application is allowed to run
-	m_hMutex = CreateMutex(NULL, FALSE, "ams_mutex");
+	m_hMutex = CreateMutex(NULL, TRUE, "ams_mutex");
 	if (!m_hMutex)
 	{
 		AfxMessageBox("AMS could not start do to an internal error.");
