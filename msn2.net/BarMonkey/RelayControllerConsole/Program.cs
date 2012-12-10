@@ -17,6 +17,8 @@ namespace msn2.net.BarMonkey.RelayController
                 serviceType = typeof(ConsoleRelayController);
             }
 
+            Console.WriteLine("Starting controller " + serviceType.Name);
+
             using (ServiceHost host = new ServiceHost(serviceType))
             {
                 host.Open();
