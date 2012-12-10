@@ -74,7 +74,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="test.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +113,6 @@
     <None Include="Service References\ShoppingListService\sls1.xsd" />
     <None Include="Service References\ShoppingListService\sls2.xsd" />
     <None Include="Service References\ShoppingListService\sls3.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
