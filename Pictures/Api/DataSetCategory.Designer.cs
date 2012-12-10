@@ -21,16 +21,16 @@ namespace msn2.net.Pictures {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("PictureDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("DataSetCategory")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class PictureDataSet : global::System.Data.DataSet {
+    public partial class DataSetCategory : global::System.Data.DataSet {
         
-        private PictureDataTable tablePicture;
+        private CategoryDataTable tableCategory;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public PictureDataSet() {
+        public DataSetCategory() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -40,7 +40,7 @@ namespace msn2.net.Pictures {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected PictureDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected DataSetCategory(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -53,8 +53,8 @@ namespace msn2.net.Pictures {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Picture"] != null)) {
-                    base.Tables.Add(new PictureDataTable(ds.Tables["Picture"]));
+                if ((ds.Tables["Category"] != null)) {
+                    base.Tables.Add(new CategoryDataTable(ds.Tables["Category"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -77,9 +77,9 @@ namespace msn2.net.Pictures {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PictureDataTable Picture {
+        public CategoryDataTable Category {
             get {
-                return this.tablePicture;
+                return this.tableCategory;
             }
         }
         
@@ -120,7 +120,7 @@ namespace msn2.net.Pictures {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public override global::System.Data.DataSet Clone() {
-            PictureDataSet cln = ((PictureDataSet)(base.Clone()));
+            DataSetCategory cln = ((DataSetCategory)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -142,8 +142,8 @@ namespace msn2.net.Pictures {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Picture"] != null)) {
-                    base.Tables.Add(new PictureDataTable(ds.Tables["Picture"]));
+                if ((ds.Tables["Category"] != null)) {
+                    base.Tables.Add(new CategoryDataTable(ds.Tables["Category"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -175,27 +175,27 @@ namespace msn2.net.Pictures {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         internal void InitVars(bool initTable) {
-            this.tablePicture = ((PictureDataTable)(base.Tables["Picture"]));
+            this.tableCategory = ((CategoryDataTable)(base.Tables["Category"]));
             if ((initTable == true)) {
-                if ((this.tablePicture != null)) {
-                    this.tablePicture.InitVars();
+                if ((this.tableCategory != null)) {
+                    this.tableCategory.InitVars();
                 }
             }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitClass() {
-            this.DataSetName = "PictureDataSet";
+            this.DataSetName = "DataSetCategory";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/PictureDataSet.xsd";
+            this.Namespace = "http://tempuri.org/DataSetCategory.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tablePicture = new PictureDataTable();
-            base.Tables.Add(this.tablePicture);
+            this.tableCategory = new CategoryDataTable();
+            base.Tables.Add(this.tableCategory);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializePicture() {
+        private bool ShouldSerializeCategory() {
             return false;
         }
         
@@ -208,7 +208,7 @@ namespace msn2.net.Pictures {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            PictureDataSet ds = new PictureDataSet();
+            DataSetCategory ds = new DataSetCategory();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             xs.Add(ds.GetSchemaSerializable());
@@ -219,7 +219,7 @@ namespace msn2.net.Pictures {
             return type;
         }
         
-        public delegate void PictureRowChangeEventHandler(object sender, PictureRowChangeEvent e);
+        public delegate void CategoryRowChangeEventHandler(object sender, CategoryRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -227,36 +227,28 @@ namespace msn2.net.Pictures {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PictureDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class CategoryDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
             
-            private global::System.Data.DataColumn columnPictureID;
+            private global::System.Data.DataColumn columnCategoryID;
             
-            private global::System.Data.DataColumn columnFilename;
+            private global::System.Data.DataColumn columnCategoryParentID;
             
-            private global::System.Data.DataColumn columnPictureDate;
+            private global::System.Data.DataColumn columnCategoryName;
             
-            private global::System.Data.DataColumn columnTitle;
+            private global::System.Data.DataColumn columnCategoryPath;
             
-            private global::System.Data.DataColumn columnDescription;
-            
-            private global::System.Data.DataColumn columnPictureBy;
-            
-            private global::System.Data.DataColumn columnPictureSort;
-            
-            private global::System.Data.DataColumn columnPictureAddDate;
-            
-            private global::System.Data.DataColumn columnPictureUpdateDate;
+            private global::System.Data.DataColumn columnCategoryDescription;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureDataTable() {
-                this.TableName = "Picture";
+            public CategoryDataTable() {
+                this.TableName = "Category";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PictureDataTable(global::System.Data.DataTable table) {
+            internal CategoryDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -272,71 +264,43 @@ namespace msn2.net.Pictures {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected PictureDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected CategoryDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureIDColumn {
+            public global::System.Data.DataColumn CategoryIDColumn {
                 get {
-                    return this.columnPictureID;
+                    return this.columnCategoryID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn FilenameColumn {
+            public global::System.Data.DataColumn CategoryParentIDColumn {
                 get {
-                    return this.columnFilename;
+                    return this.columnCategoryParentID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureDateColumn {
+            public global::System.Data.DataColumn CategoryNameColumn {
                 get {
-                    return this.columnPictureDate;
+                    return this.columnCategoryName;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn TitleColumn {
+            public global::System.Data.DataColumn CategoryPathColumn {
                 get {
-                    return this.columnTitle;
+                    return this.columnCategoryPath;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn DescriptionColumn {
+            public global::System.Data.DataColumn CategoryDescriptionColumn {
                 get {
-                    return this.columnDescription;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureByColumn {
-                get {
-                    return this.columnPictureBy;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureSortColumn {
-                get {
-                    return this.columnPictureSort;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureAddDateColumn {
-                get {
-                    return this.columnPictureAddDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn PictureUpdateDateColumn {
-                get {
-                    return this.columnPictureUpdateDate;
+                    return this.columnCategoryDescription;
                 }
             }
             
@@ -349,41 +313,43 @@ namespace msn2.net.Pictures {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureRow this[int index] {
+            public CategoryRow this[int index] {
                 get {
-                    return ((PictureRow)(this.Rows[index]));
+                    return ((CategoryRow)(this.Rows[index]));
                 }
             }
             
-            public event PictureRowChangeEventHandler PictureRowChanging;
+            public event CategoryRowChangeEventHandler CategoryRowChanging;
             
-            public event PictureRowChangeEventHandler PictureRowChanged;
+            public event CategoryRowChangeEventHandler CategoryRowChanged;
             
-            public event PictureRowChangeEventHandler PictureRowDeleting;
+            public event CategoryRowChangeEventHandler CategoryRowDeleting;
             
-            public event PictureRowChangeEventHandler PictureRowDeleted;
+            public event CategoryRowChangeEventHandler CategoryRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddPictureRow(PictureRow row) {
+            public void AddCategoryRow(CategoryRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureRow AddPictureRow(string Filename, System.DateTime PictureDate, string Title, string Description, int PictureBy, int PictureSort, System.DateTime PictureAddDate, System.DateTime PictureUpdateDate) {
-                PictureRow rowPictureRow = ((PictureRow)(this.NewRow()));
+            public CategoryRow AddCategoryRow(int CategoryParentID, string CategoryName, string CategoryPath, string CategoryDescription) {
+                CategoryRow rowCategoryRow = ((CategoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Filename,
-                        PictureDate,
-                        Title,
-                        Description,
-                        PictureBy,
-                        PictureSort,
-                        PictureAddDate,
-                        PictureUpdateDate};
-                rowPictureRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowPictureRow);
-                return rowPictureRow;
+                        CategoryParentID,
+                        CategoryName,
+                        CategoryPath,
+                        CategoryDescription};
+                rowCategoryRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowCategoryRow);
+                return rowCategoryRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CategoryRow FindByCategoryID(int CategoryID) {
+                return ((CategoryRow)(this.Rows.Find(new object[] {
+                            CategoryID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -393,107 +359,96 @@ namespace msn2.net.Pictures {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override global::System.Data.DataTable Clone() {
-                PictureDataTable cln = ((PictureDataTable)(base.Clone()));
+                CategoryDataTable cln = ((CategoryDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new PictureDataTable();
+                return new CategoryDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
-                this.columnPictureID = base.Columns["PictureID"];
-                this.columnFilename = base.Columns["Filename"];
-                this.columnPictureDate = base.Columns["PictureDate"];
-                this.columnTitle = base.Columns["Title"];
-                this.columnDescription = base.Columns["Description"];
-                this.columnPictureBy = base.Columns["PictureBy"];
-                this.columnPictureSort = base.Columns["PictureSort"];
-                this.columnPictureAddDate = base.Columns["PictureAddDate"];
-                this.columnPictureUpdateDate = base.Columns["PictureUpdateDate"];
+                this.columnCategoryID = base.Columns["CategoryID"];
+                this.columnCategoryParentID = base.Columns["CategoryParentID"];
+                this.columnCategoryName = base.Columns["CategoryName"];
+                this.columnCategoryPath = base.Columns["CategoryPath"];
+                this.columnCategoryDescription = base.Columns["CategoryDescription"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
-                this.columnPictureID = new global::System.Data.DataColumn("PictureID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureID);
-                this.columnFilename = new global::System.Data.DataColumn("Filename", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFilename);
-                this.columnPictureDate = new global::System.Data.DataColumn("PictureDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureDate);
-                this.columnTitle = new global::System.Data.DataColumn("Title", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTitle);
-                this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescription);
-                this.columnPictureBy = new global::System.Data.DataColumn("PictureBy", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureBy);
-                this.columnPictureSort = new global::System.Data.DataColumn("PictureSort", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureSort);
-                this.columnPictureAddDate = new global::System.Data.DataColumn("PictureAddDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureAddDate);
-                this.columnPictureUpdateDate = new global::System.Data.DataColumn("PictureUpdateDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPictureUpdateDate);
-                this.columnPictureID.AutoIncrement = true;
-                this.columnPictureID.AllowDBNull = false;
-                this.columnPictureID.ReadOnly = true;
-                this.columnTitle.DefaultValue = ((string)(""));
-                this.columnDescription.DefaultValue = ((string)(""));
-                this.columnPictureSort.AllowDBNull = false;
-                this.columnPictureSort.DefaultValue = ((int)(1));
+                this.columnCategoryID = new global::System.Data.DataColumn("CategoryID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryID);
+                this.columnCategoryParentID = new global::System.Data.DataColumn("CategoryParentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryParentID);
+                this.columnCategoryName = new global::System.Data.DataColumn("CategoryName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryName);
+                this.columnCategoryPath = new global::System.Data.DataColumn("CategoryPath", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryPath);
+                this.columnCategoryDescription = new global::System.Data.DataColumn("CategoryDescription", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryDescription);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("DataSetCategoryKey1", new global::System.Data.DataColumn[] {
+                                this.columnCategoryID}, true));
+                this.columnCategoryID.AutoIncrement = true;
+                this.columnCategoryID.AllowDBNull = false;
+                this.columnCategoryID.ReadOnly = true;
+                this.columnCategoryID.Unique = true;
+                this.columnCategoryParentID.AllowDBNull = false;
+                this.columnCategoryName.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureRow NewPictureRow() {
-                return ((PictureRow)(this.NewRow()));
+            public CategoryRow NewCategoryRow() {
+                return ((CategoryRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new PictureRow(builder);
+                return new CategoryRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Type GetRowType() {
-                return typeof(PictureRow);
+                return typeof(CategoryRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.PictureRowChanged != null)) {
-                    this.PictureRowChanged(this, new PictureRowChangeEvent(((PictureRow)(e.Row)), e.Action));
+                if ((this.CategoryRowChanged != null)) {
+                    this.CategoryRowChanged(this, new CategoryRowChangeEvent(((CategoryRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.PictureRowChanging != null)) {
-                    this.PictureRowChanging(this, new PictureRowChangeEvent(((PictureRow)(e.Row)), e.Action));
+                if ((this.CategoryRowChanging != null)) {
+                    this.CategoryRowChanging(this, new CategoryRowChangeEvent(((CategoryRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.PictureRowDeleted != null)) {
-                    this.PictureRowDeleted(this, new PictureRowChangeEvent(((PictureRow)(e.Row)), e.Action));
+                if ((this.CategoryRowDeleted != null)) {
+                    this.CategoryRowDeleted(this, new CategoryRowChangeEvent(((CategoryRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.PictureRowDeleting != null)) {
-                    this.PictureRowDeleting(this, new PictureRowChangeEvent(((PictureRow)(e.Row)), e.Action));
+                if ((this.CategoryRowDeleting != null)) {
+                    this.CategoryRowDeleting(this, new CategoryRowChangeEvent(((CategoryRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemovePictureRow(PictureRow row) {
+            public void RemoveCategoryRow(CategoryRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -501,7 +456,7 @@ namespace msn2.net.Pictures {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PictureDataSet ds = new PictureDataSet();
+                DataSetCategory ds = new DataSetCategory();
                 xs.Add(ds.GetSchemaSerializable());
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
@@ -520,7 +475,7 @@ namespace msn2.net.Pictures {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PictureDataTable";
+                attribute2.FixedValue = "CategoryDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -531,209 +486,94 @@ namespace msn2.net.Pictures {
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class PictureRow : global::System.Data.DataRow {
+        public partial class CategoryRow : global::System.Data.DataRow {
             
-            private PictureDataTable tablePicture;
+            private CategoryDataTable tableCategory;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PictureRow(global::System.Data.DataRowBuilder rb) : 
+            internal CategoryRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablePicture = ((PictureDataTable)(this.Table));
+                this.tableCategory = ((CategoryDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PictureID {
+            public int CategoryID {
                 get {
-                    return ((int)(this[this.tablePicture.PictureIDColumn]));
+                    return ((int)(this[this.tableCategory.CategoryIDColumn]));
                 }
                 set {
-                    this[this.tablePicture.PictureIDColumn] = value;
+                    this[this.tableCategory.CategoryIDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Filename {
+            public int CategoryParentID {
                 get {
-                    try {
-                        return ((string)(this[this.tablePicture.FilenameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Filename\' in table \'Picture\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableCategory.CategoryParentIDColumn]));
                 }
                 set {
-                    this[this.tablePicture.FilenameColumn] = value;
+                    this[this.tableCategory.CategoryParentIDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime PictureDate {
+            public string CategoryName {
                 get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tablePicture.PictureDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PictureDate\' in table \'Picture\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableCategory.CategoryNameColumn]));
                 }
                 set {
-                    this[this.tablePicture.PictureDateColumn] = value;
+                    this[this.tableCategory.CategoryNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Title {
-                get {
-                    if (this.IsTitleNull()) {
-                        return string.Empty;
-                    }
-                    else {
-                        return ((string)(this[this.tablePicture.TitleColumn]));
-                    }
-                }
-                set {
-                    this[this.tablePicture.TitleColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Description {
-                get {
-                    if (this.IsDescriptionNull()) {
-                        return string.Empty;
-                    }
-                    else {
-                        return ((string)(this[this.tablePicture.DescriptionColumn]));
-                    }
-                }
-                set {
-                    this[this.tablePicture.DescriptionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PictureBy {
+            public string CategoryPath {
                 get {
                     try {
-                        return ((int)(this[this.tablePicture.PictureByColumn]));
+                        return ((string)(this[this.tableCategory.CategoryPathColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PictureBy\' in table \'Picture\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CategoryPath\' in table \'Category\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePicture.PictureByColumn] = value;
+                    this[this.tableCategory.CategoryPathColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PictureSort {
-                get {
-                    return ((int)(this[this.tablePicture.PictureSortColumn]));
-                }
-                set {
-                    this[this.tablePicture.PictureSortColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime PictureAddDate {
+            public string CategoryDescription {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablePicture.PictureAddDateColumn]));
+                        return ((string)(this[this.tableCategory.CategoryDescriptionColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PictureAddDate\' in table \'Picture\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CategoryDescription\' in table \'Category\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablePicture.PictureAddDateColumn] = value;
+                    this[this.tableCategory.CategoryDescriptionColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime PictureUpdateDate {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tablePicture.PictureUpdateDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PictureUpdateDate\' in table \'Picture\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePicture.PictureUpdateDateColumn] = value;
-                }
+            public bool IsCategoryPathNull() {
+                return this.IsNull(this.tableCategory.CategoryPathColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsFilenameNull() {
-                return this.IsNull(this.tablePicture.FilenameColumn);
+            public void SetCategoryPathNull() {
+                this[this.tableCategory.CategoryPathColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetFilenameNull() {
-                this[this.tablePicture.FilenameColumn] = global::System.Convert.DBNull;
+            public bool IsCategoryDescriptionNull() {
+                return this.IsNull(this.tableCategory.CategoryDescriptionColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPictureDateNull() {
-                return this.IsNull(this.tablePicture.PictureDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPictureDateNull() {
-                this[this.tablePicture.PictureDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsTitleNull() {
-                return this.IsNull(this.tablePicture.TitleColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetTitleNull() {
-                this[this.tablePicture.TitleColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDescriptionNull() {
-                return this.IsNull(this.tablePicture.DescriptionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDescriptionNull() {
-                this[this.tablePicture.DescriptionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPictureByNull() {
-                return this.IsNull(this.tablePicture.PictureByColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPictureByNull() {
-                this[this.tablePicture.PictureByColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPictureAddDateNull() {
-                return this.IsNull(this.tablePicture.PictureAddDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPictureAddDateNull() {
-                this[this.tablePicture.PictureAddDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPictureUpdateDateNull() {
-                return this.IsNull(this.tablePicture.PictureUpdateDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPictureUpdateDateNull() {
-                this[this.tablePicture.PictureUpdateDateColumn] = global::System.Convert.DBNull;
+            public void SetCategoryDescriptionNull() {
+                this[this.tableCategory.CategoryDescriptionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -741,20 +581,20 @@ namespace msn2.net.Pictures {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class PictureRowChangeEvent : global::System.EventArgs {
+        public class CategoryRowChangeEvent : global::System.EventArgs {
             
-            private PictureRow eventRow;
+            private CategoryRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureRowChangeEvent(PictureRow row, global::System.Data.DataRowAction action) {
+            public CategoryRowChangeEvent(CategoryRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureRow Row {
+            public CategoryRow Row {
                 get {
                     return this.eventRow;
                 }

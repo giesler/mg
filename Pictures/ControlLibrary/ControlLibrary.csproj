@@ -1,7 +1,7 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.20706</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{051F201A-911A-441D-B249-5857DB882AA7}</ProjectGuid>
     <SccProjectName>SAK</SccProjectName>
@@ -29,6 +29,10 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <SignAssembly>true</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -73,6 +77,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -92,6 +99,9 @@
     </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -352,6 +362,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Category\CategorySelect.resx">
       <DependentUpon>CategorySelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
@@ -367,6 +378,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Group\GroupSelect.resx">
       <DependentUpon>GroupSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
@@ -374,15 +386,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Person\PeopleSelect.resx">
       <DependentUpon>PeopleSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\fAddPictures.resx">
       <DependentUpon>fAddPictures.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\fPicture.resx">
       <DependentUpon>fPicture.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\MultiPictureEdit.resx">
       <DependentUpon>MultiPictureEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Slideshow.resx">
       <DependentUpon>Slideshow.cs</DependentUpon>

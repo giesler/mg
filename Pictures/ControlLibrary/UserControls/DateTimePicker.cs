@@ -214,6 +214,8 @@ namespace msn2.net.Pictures.Controls.UserControls
                     }
                 }
             }
+
+            this.UpdateDisplay();            
         }
 
         public void FinishEdit()

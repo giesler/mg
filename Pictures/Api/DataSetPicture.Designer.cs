@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace msn2.net.Pictures.Controls {
+namespace msn2.net.Pictures {
     
     
     /// <summary>
@@ -660,13 +660,7 @@ namespace msn2.net.Pictures.Controls {
                 this.columnPictureID.AllowDBNull = false;
                 this.columnPictureID.ReadOnly = true;
                 this.columnPictureID.Unique = true;
-                this.columnTitle.DefaultValue = ((string)(""));
-                this.columnDescription.DefaultValue = ((string)(""));
-                this.columnPublish.DefaultValue = ((bool)(true));
-                this.columnRating.DefaultValue = ((byte)(0));
-                this.columnPictureBy.DefaultValue = ((int)(0));
                 this.columnPictureSort.AllowDBNull = false;
-                this.columnPictureSort.DefaultValue = ((int)(0));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1812,11 +1806,11 @@ namespace msn2.net.Pictures.Controls {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Description {
                 get {
-                    if (this.IsDescriptionNull()) {
-                        return string.Empty;
-                    }
-                    else {
+                    try {
                         return ((string)(this[this.tablePicture.DescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Description\' in table \'Picture\' is DBNull.", e);
                     }
                 }
                 set {
@@ -2000,22 +1994,12 @@ namespace msn2.net.Pictures.Controls {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PicturePersonRow[] GetPicturePersonRows() {
-                if ((this.Table.ChildRelations["PicturePicturePerson"] == null)) {
-                    return new PicturePersonRow[0];
+            public PictureCacheRow[] GetPictureCacheRows() {
+                if ((this.Table.ChildRelations["PicturePictureCache"] == null)) {
+                    return new PictureCacheRow[0];
                 }
                 else {
-                    return ((PicturePersonRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePicturePerson"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureGroupRow[] GetPictureGroupRows() {
-                if ((this.Table.ChildRelations["PicturePictureGroup"] == null)) {
-                    return new PictureGroupRow[0];
-                }
-                else {
-                    return ((PictureGroupRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePictureGroup"])));
+                    return ((PictureCacheRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePictureCache"])));
                 }
             }
             
@@ -2030,12 +2014,22 @@ namespace msn2.net.Pictures.Controls {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PictureCacheRow[] GetPictureCacheRows() {
-                if ((this.Table.ChildRelations["PicturePictureCache"] == null)) {
-                    return new PictureCacheRow[0];
+            public PictureGroupRow[] GetPictureGroupRows() {
+                if ((this.Table.ChildRelations["PicturePictureGroup"] == null)) {
+                    return new PictureGroupRow[0];
                 }
                 else {
-                    return ((PictureCacheRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePictureCache"])));
+                    return ((PictureGroupRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePictureGroup"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PicturePersonRow[] GetPicturePersonRows() {
+                if ((this.Table.ChildRelations["PicturePicturePerson"] == null)) {
+                    return new PicturePersonRow[0];
+                }
+                else {
+                    return ((PicturePersonRow[])(base.GetChildRows(this.Table.ChildRelations["PicturePicturePerson"])));
                 }
             }
         }

@@ -11,6 +11,9 @@ using System.Threading;
 using System.Web;
 using System.Net;
 using System.Text;
+using System.Xml;
+using System.Diagnostics;
+using System.Windows.Media.Imaging;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -88,6 +91,7 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuRotateRight90;
         private MenuItem menuRotateLeft90;
         private MenuItem menuRotate180;
+        private ToolStripButton toolFileInfo;
         private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
@@ -218,6 +222,10 @@ namespace msn2.net.Pictures.Controls
             this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
             this.mnuPictureList = new System.Windows.Forms.ContextMenu();
             this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
+            this.menuRotate = new System.Windows.Forms.MenuItem();
+            this.menuRotateRight90 = new System.Windows.Forms.MenuItem();
+            this.menuRotateLeft90 = new System.Windows.Forms.MenuItem();
+            this.menuRotate180 = new System.Windows.Forms.MenuItem();
             this.mnuPictureListDelete = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.mnuPictureListMoveUp = new System.Windows.Forms.MenuItem();
@@ -249,15 +257,12 @@ namespace msn2.net.Pictures.Controls
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolFileInfo = new System.Windows.Forms.ToolStripButton();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.rightListContainer = new System.Windows.Forms.SplitContainer();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
-            this.menuRotate = new System.Windows.Forms.MenuItem();
-            this.menuRotateRight90 = new System.Windows.Forms.MenuItem();
-            this.menuRotateLeft90 = new System.Windows.Forms.MenuItem();
-            this.menuRotate180 = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -317,6 +322,33 @@ namespace msn2.net.Pictures.Controls
             this.mnuPictureListEdit.Index = 0;
             this.mnuPictureListEdit.Text = "&Edit";
             this.mnuPictureListEdit.Click += new System.EventHandler(this.mnuPictureListEdit_Click);
+            // 
+            // menuRotate
+            // 
+            this.menuRotate.Index = 1;
+            this.menuRotate.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuRotateRight90,
+            this.menuRotateLeft90,
+            this.menuRotate180});
+            this.menuRotate.Text = "&Rotate";
+            // 
+            // menuRotateRight90
+            // 
+            this.menuRotateRight90.Index = 0;
+            this.menuRotateRight90.Text = "&Right 90";
+            this.menuRotateRight90.Click += new System.EventHandler(this.menuRotateRight90_Click);
+            // 
+            // menuRotateLeft90
+            // 
+            this.menuRotateLeft90.Index = 1;
+            this.menuRotateLeft90.Text = "&Left 90";
+            this.menuRotateLeft90.Click += new System.EventHandler(this.menuRotateLeft90_Click);
+            // 
+            // menuRotate180
+            // 
+            this.menuRotate180.Index = 2;
+            this.menuRotate180.Text = "180";
+            this.menuRotate180.Click += new System.EventHandler(this.menuRotate180_Click);
             // 
             // mnuPictureListDelete
             // 
@@ -464,7 +496,8 @@ namespace msn2.net.Pictures.Controls
             this.toolStripSelectAll,
             this.toolStripClearAll,
             this.toolStripSeparator2,
-            this.copytofolderToolStripButton});
+            this.copytofolderToolStripButton,
+            this.toolFileInfo});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1018, 25);
@@ -475,11 +508,11 @@ namespace msn2.net.Pictures.Controls
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(51, 22);
             this.toolStripLabel2.Text = "View by:";
             // 
             // viewbyToolStripComboBox
             // 
-            this.viewbyToolStripComboBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
             this.viewbyToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.viewbyToolStripComboBox.Items.AddRange(new object[] {
             "category",
@@ -488,18 +521,17 @@ namespace msn2.net.Pictures.Controls
             "person"});
             this.viewbyToolStripComboBox.Name = "viewbyToolStripComboBox";
             this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
-            this.viewbyToolStripComboBox.Text = "category";
             this.viewbyToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.viewbyToolStripComboBox_SelectedIndexChanged);
             this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(66, 22);
             this.toolStripLabel1.Text = "Image Size:";
             // 
             // imageSizeCombo
             // 
-            this.imageSizeCombo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
             this.imageSizeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imageSizeCombo.Items.AddRange(new object[] {
             "50",
@@ -510,35 +542,48 @@ namespace msn2.net.Pictures.Controls
             "300"});
             this.imageSizeCombo.Name = "imageSizeCombo";
             this.imageSizeCombo.Size = new System.Drawing.Size(75, 25);
-            this.imageSizeCombo.Text = "100";
             this.imageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.imageSizeCombo_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripSelectAll
             // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
+            this.toolStripSelectAll.Size = new System.Drawing.Size(59, 22);
             this.toolStripSelectAll.Text = "Select All";
             this.toolStripSelectAll.Click += new System.EventHandler(this.toolStripSelectAll_Click);
             // 
             // toolStripClearAll
             // 
             this.toolStripClearAll.Name = "toolStripClearAll";
+            this.toolStripClearAll.Size = new System.Drawing.Size(55, 22);
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // copytofolderToolStripButton
             // 
-            this.copytofolderToolStripButton.Image = msn2.net.Pictures.Controls.Properties.Resources.move;
+            this.copytofolderToolStripButton.Image = global::msn2.net.Pictures.Controls.Properties.Resources.move;
             this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
+            this.copytofolderToolStripButton.Size = new System.Drawing.Size(103, 22);
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
+            // 
+            // toolFileInfo
+            // 
+            this.toolFileInfo.Image = ((System.Drawing.Image)(resources.GetObject("toolFileInfo.Image")));
+            this.toolFileInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolFileInfo.Name = "toolFileInfo";
+            this.toolFileInfo.Size = new System.Drawing.Size(73, 22);
+            this.toolFileInfo.Text = "Get XMP";
+            this.toolFileInfo.Click += new System.EventHandler(this.toolFileInfo_Click);
             // 
             // mainSplitContainer
             // 
@@ -581,11 +626,12 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
+            this.pictureList1.SelectedItems = ((System.Collections.Generic.List<int>)(resources.GetObject("pictureList1.SelectedItems")));
             this.pictureList1.Size = new System.Drawing.Size(847, 223);
             this.pictureList1.TabIndex = 0;
-            this.pictureList1.SelectedChanged += new msn2.net.Pictures.Controls.PictureItemEventHandler(this.pictureList1_SelectedChanged);
-            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
+            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
+            this.pictureList1.SelectedChanged += new msn2.net.Pictures.Controls.PictureItemEventHandler(this.pictureList1_SelectedChanged);
             // 
             // panel1
             // 
@@ -606,33 +652,6 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
             // 
-            // menuRotate
-            // 
-            this.menuRotate.Index = 1;
-            this.menuRotate.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuRotateRight90,
-            this.menuRotateLeft90,
-            this.menuRotate180});
-            this.menuRotate.Text = "&Rotate";
-            // 
-            // menuRotateRight90
-            // 
-            this.menuRotateRight90.Index = 0;
-            this.menuRotateRight90.Text = "&Right 90";
-            this.menuRotateRight90.Click += new System.EventHandler(this.menuRotateRight90_Click);
-            // 
-            // menuRotateLeft90
-            // 
-            this.menuRotateLeft90.Index = 1;
-            this.menuRotateLeft90.Text = "&Left 90";
-            this.menuRotateLeft90.Click += new System.EventHandler(this.menuRotateLeft90_Click);
-            // 
-            // menuRotate180
-            // 
-            this.menuRotate180.Index = 2;
-            this.menuRotate180.Text = "180";
-            this.menuRotate180.Click += new System.EventHandler(this.menuRotate180_Click);
-            // 
             // fMain
             // 
             this.ClientSize = new System.Drawing.Size(1018, 405);
@@ -647,6 +666,7 @@ namespace msn2.net.Pictures.Controls
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             this.mainSplitContainer.ResumeLayout(false);
             this.rightListContainer.Panel1.ResumeLayout(false);
@@ -1259,5 +1279,161 @@ namespace msn2.net.Pictures.Controls
         {
             RotateSelectedPictures(RotateFlipType.Rotate180FlipNone);
         }
+
+        private void toolFileInfo_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Click 'Yes' to update date/time values or 'No' to only count the pictures with incorrect values.", 
+                "Change Picture Dates?", 
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            int diffCount = 0;
+
+            foreach (int pictureId in pictureList1.SelectedItems)
+            {
+                PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+                string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
+                
+                string metaDataDate = GetDatePictureTaken(fileName);
+                if (metaDataDate != null)
+                {
+                    DateTime dt = DateTime.Parse(metaDataDate);
+                    TimeSpan diff = picture.DateTaken - dt;
+                    if (diff.TotalHours > 3)
+                    {
+                        diffCount++;
+                        if (result == DialogResult.Yes)
+                        {
+                            picture.DateTaken = dt;
+                            PicContext.Current.PictureManager.Save(picture);
+                        }
+                        Debug.WriteLine(picture.Id.ToString() + ": Current: " + picture.DateTaken.ToString() + ", actual: " + dt.ToString());
+                    }
+                }
+            }
+
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show(diffCount.ToString() + " pictures were updated.", "Update Dates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(diffCount.ToString() + " pictures would be updated.", "Update Dates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private static string GetDatePictureTaken(string fileName)
+        {
+            string dateTaken = null;
+
+            using (StreamReader stream = new StreamReader(fileName))
+            {
+                BitmapSource source = BitmapFrame.Create(stream.BaseStream);
+                BitmapMetadata metaData = source.Metadata as BitmapMetadata;
+                if (metaData != null && metaData.DateTaken != null)
+                {
+                    dateTaken = metaData.DateTaken;
+                }
+            }
+
+            return dateTaken;
+        }
+
+        public static string GetXmpXmlDocFromImage(string filename)
+        {
+            string contents;
+            string xmlPart;
+            string beginCapture = "<rdf:RDF";
+            string endCapture = "</rdf:RDF>";
+            int beginPos;
+            int endPos;
+
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(filename))
+            {
+                contents = sr.ReadToEnd();
+                Debug.Write(contents.Length + " chars" + Environment.NewLine);
+                sr.Close();
+            }
+
+            beginPos = contents.IndexOf(beginCapture, 0);
+            endPos = contents.IndexOf(endCapture, 0);
+
+            Debug.Write("xml found at pos: " + beginPos.ToString() + " - " + endPos.ToString());
+
+            xmlPart = contents.Substring(beginPos, (endPos - beginPos) + endCapture.Length);
+
+            Debug.Write("Xml len: " + xmlPart.Length.ToString());
+
+            return xmlPart;
+        }
+
+        private XmlDocument LoadDoc(string xmpXmlDoc)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            try
+            {
+                doc.LoadXml(xmpXmlDoc);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("An error occured while loading XML metadata from image. The error was: " + ex.Message);
+            }
+
+            try
+            {
+                doc.LoadXml(xmpXmlDoc);
+
+                XmlNamespaceManager NamespaceManager = new XmlNamespaceManager(doc.NameTable);
+                NamespaceManager.AddNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+                NamespaceManager.AddNamespace("exif", "http://ns.adobe.com/exif/1.0/");
+                NamespaceManager.AddNamespace("x", "adobe:ns:meta/");
+                NamespaceManager.AddNamespace("xap", "http://ns.adobe.com/xap/1.0/");
+                NamespaceManager.AddNamespace("tiff", "http://ns.adobe.com/tiff/1.0/");
+                NamespaceManager.AddNamespace("dc", "http://purl.org/dc/elements/1.1/");
+
+                // get ratings
+                XmlNode xmlNode = doc.SelectSingleNode("/rdf:RDF/rdf:Description/xap:Rating", NamespaceManager);
+
+                // Alternatively, there is a common form of RDF shorthand that writes simple properties as
+                // attributes of the rdf:Description element.
+                if (xmlNode == null)
+                {
+                    xmlNode = doc.SelectSingleNode("/rdf:RDF/rdf:Description", NamespaceManager);
+                    xmlNode = xmlNode.Attributes["xap:Rating"];
+                }
+
+                if (xmlNode != null)
+                {
+                    Debug.WriteLine("Rating: " + xmlNode.InnerText);
+                }
+
+                // get keywords
+                xmlNode = doc.SelectSingleNode("/rdf:RDF/rdf:Description/dc:subject/rdf:Bag", NamespaceManager);
+
+                if (xmlNode != null)
+                {
+                    foreach (XmlNode li in xmlNode)
+                    {
+                        Debug.Write(li.InnerText + " ");
+                    }
+                }
+
+                // get description
+                xmlNode = doc.SelectSingleNode("/rdf:RDF/rdf:Description/dc:description/rdf:Alt", NamespaceManager);
+
+                if (xmlNode != null)
+                {
+                    Debug.Write(xmlNode.ChildNodes[0].InnerText);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error occured while readning meta-data from image. The error was: " + ex.Message);
+            }
+
+            return doc;
+        } 
     }
 }

@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -28,6 +28,9 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <SignAssembly>true</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -97,17 +100,15 @@
     <Compile Include="CategoryManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataSetCategory.cs">
+    <Compile Include="DataSetCategory.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
-      <SubType>code</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="DataSetPicture.cs">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-      <SubType>code</SubType>
-      <DesignTime>True</DesignTime>
+    <Compile Include="DataSetPicture.Designer.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </Compile>
     <Compile Include="GroupManager.cs" />
     <Compile Include="ImageUtilities.cs">
@@ -141,11 +142,11 @@
     </Compile>
     <Content Include="DataSetCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetCategory.cs</LastGenOutput>
+      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="DataSetPicture.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetPicture.cs</LastGenOutput>
+      <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="PictureDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>

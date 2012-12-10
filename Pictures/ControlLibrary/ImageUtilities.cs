@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -218,7 +219,23 @@ namespace msn2.net.Pictures.Controls
 
 			}
 		}
-	
-	
+
+
+        public static string GetDatePictureTaken(string fileName)
+        {
+            string dateTaken = null;
+
+            using (StreamReader stream = new StreamReader(fileName))
+            {
+                BitmapSource source = BitmapFrame.Create(stream.BaseStream);
+                BitmapMetadata metaData = source.Metadata as BitmapMetadata;
+                if (metaData != null && metaData.DateTaken != null)
+                {
+                    dateTaken = metaData.DateTaken;
+                }
+            }
+
+            return dateTaken;
+        }
 	}
 }

@@ -670,22 +670,31 @@ namespace msn2.net.Pictures.Controls
                 }
                 else 
                 {
-                    // Default to last modified time
-                    date = File.GetLastWriteTime(file);
-
-                    try
+                    // Try to read from metadata
+                    string dateTakenString = ImageUtilities.GetDatePictureTaken(file);
+                    if (dateTakenString != null)
                     {
-                        // Get 'date picture taken' if available
-                        data = ex.GetExifMetadata(file);
-
-                        if (data.DatePictureTaken.DisplayValue != null)
-                        {
-                            date = DateTime.Parse(data.DatePictureTaken.DisplayValue);
-                        }
+                        date = DateTime.Parse(dateTakenString);
                     }
-                    catch (Exception exc)
+                    else
                     {
-                        Trace.WriteLine(exc.Message);
+                        // Default to last modified time
+                        date = File.GetLastWriteTime(file);
+
+                        try
+                        {
+                            // Get 'date picture taken' if available
+                            data = ex.GetExifMetadata(file);
+
+                            if (data.DatePictureTaken.DisplayValue != null)
+                            {
+                                date = DateTime.Parse(data.DatePictureTaken.DisplayValue);
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            Trace.WriteLine(exc.Message);
+                        }
                     }
                 }
 

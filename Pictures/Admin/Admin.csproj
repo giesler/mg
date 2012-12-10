@@ -1,7 +1,7 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.20706</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{713EE988-88C2-4E72-8F5B-333B3D078CF7}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,7 +31,7 @@
     <SccProvider>SAK</SccProvider>
     <FallbackCulture>en-US</FallbackCulture>
     <UpdateUrlEnabled>false</UpdateUrlEnabled>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <SignManifests>true</SignManifests>
     <ManifestCertificateThumbprint>410B9C8611A9D530D10DEE4C38A9FF6D0FE5C4B3</ManifestCertificateThumbprint>
     <ManifestKeyFile>
@@ -57,6 +57,10 @@
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationVersion>2.1.115.5</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
