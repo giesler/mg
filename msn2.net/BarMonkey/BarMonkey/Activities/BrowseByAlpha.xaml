@@ -50,42 +50,38 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="26" />
             <RowDefinition />
-            <RowDefinition Height="72" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="252" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="3,0,0,0" VerticalAlignment="Center">
-            <TextBlock Text="SHOW: " Foreground="White" Padding="6,6,0,6" />
-            <TextBlock Text="MARGARITAS" Foreground="White" Name="filterMargaritas" MouseDown="OnFilterMargaritas" Padding="6" />
-            <TextBlock Text=" | " Foreground="White" Padding="0,5,0,0" />
-            <TextBlock Text="COCKTAILS" Foreground="White" Name="filterCocktails" MouseDown="OnFilterCocktails" Padding="6" />
-            <TextBlock Text=" | " Foreground="White" Padding="0,5,0,0" />
-            <TextBlock Text="ALL" Foreground="LightBlue" FontWeight="Bold" Name="filterAll" MouseDown="OnFilterAll" Padding="6" />
+        <StackPanel Orientation="Horizontal" Margin="3,-3,0,0" VerticalAlignment="Center">
+            <TextBlock Text="SHOW: " Foreground="White" Padding="6,6,0,6" FontSize="18" />
+            <TextBlock Text="MARGARITAS" Foreground="LightBlue" FontWeight="Bold" Name="filterMargaritas" MouseDown="OnFilterMargaritas" Padding="6" FontSize="18" />
+            <TextBlock Text=" | " Foreground="White" Padding="0,7,0,0" FontSize="14" />
+            <TextBlock Text="COCKTAILS" Foreground="White" Name="filterCocktails" MouseDown="OnFilterCocktails" Padding="6" FontSize="18" />
+            <TextBlock Text=" | " Foreground="White" Padding="0,7,0,0" FontSize="14" />
+            <TextBlock Text="ALL" Foreground="White" Name="filterAll" MouseDown="OnFilterAll" Padding="6" FontSize="18" />
         </StackPanel>
         <ListBox Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="0,2,0,0" Background="Transparent" BorderBrush="Transparent" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,6" Name="drinkItemGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="42" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" Name="drinkName" />
-                        <TextBlock Text="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="6,0,0,0" Foreground="Gray" TextWrapping="WrapWithOverflow" Name="drinkDescription" />
-                    </Grid>
+                    <StackPanel Margin="0,0,0,6" Name="item" Height="62">
+                        <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" Name="drinkName" Background="Transparent" />
+                        <TextBlock Text="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="6,-3,0,-3" Foreground="Silver" TextWrapping="WrapWithOverflow" Name="drinkDescription" Background="Transparent" />
+                    </StackPanel>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem},AncestorLevel=1 }, Path=IsSelected}" Value="True">
-                            
-                            <Setter TargetName="drinkName" Property="Foreground" Value="LightBlue" />
-                            <Setter TargetName="drinkDescription" Property="Foreground" Value="LightBlue" />
                             
                             <DataTrigger.EnterActions>                                
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="FontSize" From="24" To="30" Duration="0:0:0.5" />
-                                        <DoubleAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="FontSize" From="14" To="18" Duration="0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="FontSize" From="24" To="36" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="FontSize" From="14" To="22" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetName="item" Storyboard.TargetProperty="Height" From="62" To="88" Duration="0:0:0.3" />
+                                        <ColorAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="LightBlue" Duration="0:0:0.3" />
+                                        <ColorAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" To="LightBlue" Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
@@ -93,8 +89,11 @@
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="FontSize" From="30" To="24" Duration="0:0:0.5" />
-                                        <DoubleAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="FontSize" From="18" To="14" Duration="0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="FontSize" From="36" To="24" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="FontSize" From="22" To="14" Duration="0:0:0.3" />
+                                        <DoubleAnimation Storyboard.TargetName="item" Storyboard.TargetProperty="Height" From="88" To="62" Duration="0:0:0.3" />
+                                        <ColorAnimation Storyboard.TargetName="drinkName" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" From="LightBlue" To="White" Duration="0:0:0.3" />
+                                        <ColorAnimation Storyboard.TargetName="drinkDescription" Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)" From="LightBlue" To="White" Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
@@ -107,11 +106,11 @@
             <ListBoxItem Content="ListBoxItem 1" />
             <ListBoxItem Content="ListBoxItem 2"/>
         </ListBox>
-        <TextBlock Text="SIZE" Foreground="White" Margin="9,0,0,0" Grid.Column="1" VerticalAlignment="Center" />
+        <TextBlock Text="SIZE" Foreground="White" Margin="9,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="18" />
         <ListBox Name="containers" SelectionChanged="containers_SelectionChanged" Background="Transparent" Margin="0,2,0,0" Foreground="White" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" Name="name" />
+                    <Label FontSize="24" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" Name="name" />
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem},AncestorLevel=1 }, Path=IsSelected}" Value="True">
 
@@ -120,7 +119,7 @@
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="name" Storyboard.TargetProperty="FontSize" From="12" To="16" Duration="0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="name" Storyboard.TargetProperty="FontSize" From="24" To="36" Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
@@ -128,7 +127,7 @@
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="name" Storyboard.TargetProperty="FontSize" From="16" To="12" Duration="0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="name" Storyboard.TargetProperty="FontSize" From="36" To="24" Duration="0:0:0.3" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
@@ -140,7 +139,7 @@
         </ListBox>
         <bnc:NavigationBar Grid.Row="2" x:Name="navBar" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <bnc:NavigationBar.NextContent>
-                <TextBlock Text="POUR DRINK &gt;" Foreground="LightGreen" FontSize="40" FontWeight="Bold" />
+                <TextBlock Text="POUR DRINK &gt;" Foreground="LightGreen" FontSize="41" FontWeight="Bold" />
             </bnc:NavigationBar.NextContent>
         </bnc:NavigationBar>
     </Grid>

@@ -15,9 +15,32 @@
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <Label Name="view" FontSize="22" Content="settings" Style="{DynamicResource DefaultTextStyle}" />
-            <bnc:NavigationButtonStack x:Name="navStack" />
-            <Button Name="exit" Content="Exit" Click="exit_Click_1" />
+            <Label Name="view" FontSize="22" Content="ENTER PIN" Margin="12,0,0,0" Style="{DynamicResource DefaultTextStyle}" />
+            <bnc:NavigationButtonStack x:Name="navStack" Visibility="Collapsed" />
+            <Grid Name="numberPad">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Content="1" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="1" Content="2" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="2" Content="3" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Row="1" Content="4" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="1" Grid.Row="1" Content="5" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="2" Grid.Row="1" Content="6" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Row="2" Content="7" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="1" Grid.Row="2" Content="8" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="2" Grid.Row="2" Content="9" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />
+                <Button Grid.Column="1" Grid.Row="3" Content="0" Click="Button_Click_1" Style="{DynamicResource DefaultPinButtonStyle}" />                
+            </Grid>
+            <Button Name="exit" Content="Exit" Click="exit_Click_1" Visibility="Collapsed" />
         </StackPanel>
         <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />
     </Grid>

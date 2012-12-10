@@ -18,6 +18,7 @@ namespace BarMonkey
         public static List<Container> Containers { get; set; }
         public static string[] Messages {get; set;}
         public static bool GoToNewDrinkPage { get; set; }
+        public static bool IsPinValid { get; set; }
 
         protected override void OnActivated(EventArgs e)
         {
@@ -26,6 +27,11 @@ namespace BarMonkey
             if (File.Exists("motd.txt"))
             {
                 App.Messages = File.ReadAllLines("motd.txt");
+            }
+
+            if (BarMonkeyContext.Current.ConnectionString.ToLower().IndexOf("kenny") >= 0)
+            {
+                MessageBox.Show("DEV");
             }
         }
     }

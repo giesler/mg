@@ -26,7 +26,7 @@ namespace msn2.net.BarMonkey.Activities
         private Container container = null;
         private DispatcherTimer timer = null;
         private DateTime lastInput = DateTime.Now;
-        private string filter = string.Empty;
+        private string filter = "Margarita";
 
         public BrowseByAlpha()
         {

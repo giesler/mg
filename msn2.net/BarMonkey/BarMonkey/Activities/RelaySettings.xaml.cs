@@ -42,8 +42,7 @@ namespace msn2.net.BarMonkey.Activities
             //this.isAdmin = BarMonkeyContext.Current.CurrentUser.IsAdmin;
             this.EnableControls();
 
-            this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
-            this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
+            this.LoadDatabaseDropdowns();
 
             List<decimal> ouncesItems = new List<decimal>();
             for (decimal i = 0.0M; i < 200.0M; i++)
@@ -64,59 +63,86 @@ namespace msn2.net.BarMonkey.Activities
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
-        
+
+        void LoadDatabaseDropdowns()
+        {
+            int relaySelectedIndex = this.relay.SelectedIndex;
+            this.changingRelay = true;
+            this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
+            if (relaySelectedIndex >= 0)
+            {
+                this.relay.SelectedIndex = relaySelectedIndex;
+            }
+            this.changingRelay = false;
+
+            int ingredientSelectedIndex = this.ingredient.SelectedIndex;
+            this.changingIngredient = true;
+            this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
+            if (ingredientSelectedIndex >= 0)
+            {
+                this.ingredient.SelectedIndex = ingredientSelectedIndex;
+            }
+            this.changingIngredient = false;
+        }
+
         private void relay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Relay relay = this.relay.SelectedItem as Relay;
-
-            this.changingRelay = true;
-
-            Ingredient ingredient = BarMonkeyContext.Current.Ingredients.GetIngredientOnRelay(relay);
-            if (ingredient != null)
+            if (!this.changingRelay)
             {
-                this.ingredient.SelectedItem = ingredient;
-
+                this.changingRelay = true;
                 this.changingFlowRate = true;
-                this.ouncesPerSecond.SelectedItem = ingredient.OuncesPerSecond;
-                this.changingFlowRate = false;
-
                 this.changingRemaining = true;
-                this.ouncesRemaining.SelectedIndex = (int)ingredient.RemainingOunces;
-                this.changingRemaining = false;
-            }
-            else
-            {
-                this.ingredient.SelectedIndex = -1;
-                this.ouncesPerSecond.SelectedItem = -1;
-            }
 
-            this.changingRelay = false;
+                Relay relay = this.relay.SelectedItem as Relay;
+
+                BarMonkeyContext.Current.Reload();
+                this.LoadDatabaseDropdowns();
+
+                Ingredient ingredient = BarMonkeyContext.Current.Ingredients.GetIngredientOnRelay(relay);
+                if (ingredient != null)
+                {
+                    this.ingredient.SelectedItem = ingredient;
+                    this.ouncesPerSecond.SelectedItem = ingredient.OuncesPerSecond;
+                    this.ouncesRemaining.SelectedIndex = (int)ingredient.RemainingOunces;
+                }
+                else
+                {
+                    this.ingredient.SelectedIndex = -1;
+                    this.ouncesPerSecond.SelectedItem = -1;
+                    this.ouncesRemaining.SelectedIndex = -1;
+                }
+
+                this.changingFlowRate = false;
+                this.changingRemaining = false;
+                this.changingRelay = false;
+            }
         }
 
         private void ingredient_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.changingRelay == false && this.changingIngredient == false)
+            if (!this.changingIngredient)
             {
                 this.changingIngredient = true;
 
                 Relay relay = this.relay.SelectedItem as Relay;
-                Ingredient ingredient = this.ingredient.SelectedItem as Ingredient;
+                Ingredient newIngredient = this.ingredient.SelectedItem as Ingredient;
                 
-                if (ingredient != null)
+                if (newIngredient != null)
                 {
-                    if (ingredient.Relay != null)
+                    if (newIngredient.Relay != null)
                     {
+                        // Are we replacing an assignment?
                         Ingredient current = BarMonkeyContext.Current.Ingredients.GetIngredientOnRelay(relay);
                         if (current == null)
                         {
-                            BarMonkeyContext.Current.Relays.SetIngredient(relay, ingredient);
+                            this.SetIngredient(relay, newIngredient, e);
                         }
-                        else
+                        else if (current.Id != newIngredient.Id)
                         {
                             string message = string.Format(
                                 "Would you like to change '{0}' from relay {1} to relay {2} and remove '{3}'?",
-                                ingredient.Name,
-                                ingredient.RelayId,
+                                newIngredient.Name,
+                                newIngredient.RelayId,
                                 relay.Id,
                                 current.Name);
                             MessageBoxResult result = System.Windows.MessageBox.Show(
@@ -126,7 +152,7 @@ namespace msn2.net.BarMonkey.Activities
                                 MessageBoxImage.Question);
                             if (result == MessageBoxResult.Yes)
                             {
-                                BarMonkeyContext.Current.Relays.SetIngredient(relay, ingredient);
+                                this.SetIngredient(relay, newIngredient, e);
                             }
                             else
                             {
@@ -140,14 +166,36 @@ namespace msn2.net.BarMonkey.Activities
                                 }
                             }
                         }
+                        else
+                        {
+                            System.Diagnostics.Debug.Write("Matching");
+
+                        }
                     }
                     else
                     {
-                        BarMonkeyContext.Current.Relays.SetIngredient(relay, ingredient);
+                        this.SetIngredient(relay, newIngredient, e);
                     }
                 }
 
                 this.changingIngredient = false;
+            }
+        }
+
+        void SetIngredient(Relay relay, Ingredient ingredient, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                BarMonkeyContext.Current.Relays.SetIngredient(relay, ingredient);
+            }
+            catch (Exception ex)
+            {
+                if (e.RemovedItems.Count > 0)
+                {
+                    this.relay.SelectedItem = e.RemovedItems[0];
+                }
+
+                System.Windows.MessageBox.Show(ex.Message, "Error setting ingredient", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

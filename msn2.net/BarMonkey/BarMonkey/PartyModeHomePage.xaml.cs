@@ -26,10 +26,13 @@ namespace msn2.net.BarMonkey
             InitializeComponent();
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadDrinks), new object());
+
+            App.IsPinValid = false;
         }
         
         void LoadDrinks(object sender)
         {
+            BarMonkeyContext.Current.Reload();
             App.Drinks = BarMonkeyContext.Current.Drinks.GetDrinks();
             App.Containers = BarMonkeyContext.Current.Containers.GetContainers();
 

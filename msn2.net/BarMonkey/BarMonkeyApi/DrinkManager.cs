@@ -18,6 +18,7 @@ namespace msn2.net.BarMonkey
             var q = from d in base.Context.Data.Drinks
                     where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5 && di.Ingredient.RelayId.HasValue && di.Ingredient.RelayId.Value > 0)
                     && d.DrinkActualIngredients.Count > 0
+                    && d.IsPublished == true
                     orderby d.Name
                     select d;
             return q.ToList();
@@ -29,6 +30,7 @@ namespace msn2.net.BarMonkey
                     where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5 && di.Ingredient.RelayId.HasValue && di.Ingredient.RelayId.Value > 0)
                         && d.DrinkActualIngredients.Count > 0
                         && matchingChars.Contains(d.Name[0])
+                        && d.IsPublished == true
                     orderby d.Name
                     select d;
 

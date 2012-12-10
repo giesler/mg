@@ -28,11 +28,11 @@ namespace msn2.net.BarMonkey
 
         void contentFrame_Navigated(object sender, NavigationEventArgs e)
         {            
-            Page page = e.Content as Page;
+/*            Page page = e.Content as Page;
             if (page != null)
             {
                 this.pageTitle.Content = page.Title.ToLower();
-            }
+            }*/
         }
     }
 }

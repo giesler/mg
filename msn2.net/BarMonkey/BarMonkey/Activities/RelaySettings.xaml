@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
     Title="Relay Settings">
-    <Grid>
+    <Grid Name="rootGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*" />
             <ColumnDefinition Width="75*" />

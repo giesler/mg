@@ -33,7 +33,7 @@ namespace msn2.net.BarMonkey
                 Ingredient current = this.Context.Ingredients.GetIngredientOnRelay(relay);
                 if (current != null)
                 {
-                    current.RelayId = null;
+                    current.Relay = null;
                 }
             }
 

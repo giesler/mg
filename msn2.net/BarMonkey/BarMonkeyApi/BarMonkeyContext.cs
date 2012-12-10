@@ -8,10 +8,17 @@ namespace msn2.net.BarMonkey
     public class BarMonkeyContext
     {
         private BarMonkeyDataContext dataContext;
+        public string ConnectionString { get; private set; }
 
         public BarMonkeyContext()
         {
-            this.dataContext = new BarMonkeyDataContext();
+            this.ConnectionString = "Data Source=192.168.1.188;Initial Catalog=BarMonkey;User ID=bmuser;Password=foobar!12";
+            if (Environment.MachineName.ToLowerInvariant() != "mgduo")
+            {
+                this.ConnectionString = "Data Source=kenny;Initial Catalog=BarMonkey;User ID=bmuser;Password=foobar!12";
+            }
+
+            this.dataContext = new BarMonkeyDataContext(this.ConnectionString);
             this.Drinks = new DrinkManager(this);
             this.Users = new UserManager(this);
             this.Containers = new ContainerManager(this);
@@ -70,6 +77,11 @@ namespace msn2.net.BarMonkey
                     select u;
 
             this.currentUser = q.First<User>();
+        }
+
+        public void Reload()
+        {
+            this.dataContext = new BarMonkeyDataContext(this.ConnectionString);
         }
 
         public UserManager Users { get; private set; }

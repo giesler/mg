@@ -5,17 +5,5 @@
     <Page.Background>
         <SolidColorBrush Color="Black" />
     </Page.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="3">
-            <Label Name="pageTitle" FontSize="32" FontFamily="Segoe UI" Margin="6,-6,0,0" Foreground="White">page title</Label>
-        </StackPanel>
-        <Frame Name="contentFrame" Grid.Column="0" Grid.Row="1" Source="PartyModeHomePage.xaml" Margin="6" NavigationUIVisibility="Hidden" />
-    </Grid>
+    <Frame Name="contentFrame" Source="PartyModeHomePage.xaml" Margin="6" NavigationUIVisibility="Hidden" />
 </Page>

@@ -6,9 +6,9 @@
      >
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="400" />
             <ColumnDefinition />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="64px" />
@@ -44,8 +44,8 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="6" Name="garnishPanel">
-            <TextBlock Text="GARNISH" Foreground="White" />
-            <TextBlock Text="Top with something tasty" Foreground="White" TextWrapping="Wrap" FontSize="14pt" Name="garnish" />
+            <TextBlock Text="GARNISH" Foreground="White" FontSize="15" />
+            <TextBlock Text="Top with something tasty" Foreground="White" TextWrapping="Wrap" FontSize="24" Name="garnish" />
         </StackPanel>
     </Grid>
 </Page>

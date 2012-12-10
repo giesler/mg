@@ -5,6 +5,7 @@
 
 	<Application.Resources>
 		<Style x:Key="DefaultTextStyle" TargetType="Control">
+            <Setter Property="Foreground" Value="White" />
 		</Style>
 		<Style x:Key="DefaultLabelListBoxStyle" TargetType="ListBox">
 			<Setter Property="Opacity" Value="0.90" />
@@ -61,7 +62,7 @@
 		</Style>
 		<Style x:Key="DefaultButtonStyle" TargetType="Button">
 			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Margin" Value="2"/>
+			<Setter Property="Margin" Value="6"/>
 			<Setter Property="FontFamily" Value="Segoe UI"/>
 			<Setter Property="FontSize" Value="16px"/>
 			<Setter Property="FontWeight" Value="Bold"/>
@@ -119,7 +120,8 @@
 			</Setter>
 		</Style>
 
-		<Style x:Key="DefaultMetroButtonStyle" TargetType="Button">
+        
+        <Style x:Key="DefaultMetroButtonStyle" TargetType="Button">
 			<Setter Property="OverridesDefaultStyle" Value="True"/>
 			<Setter Property="Margin" Value="6"/>
 			<Setter Property="FontFamily" Value="Segoe UI"/>
@@ -180,9 +182,72 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<Style x:Name="DefaultListButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
-			<Setter Property="MinHeight" Value="60" />
-			<Setter Property="MinWidth" Value="80" />
+
+        <Style x:Key="DefaultPinButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="28px"/>
+            <Setter Property="VerticalContentAlignment" Value="Bottom" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+            <Setter Property="Background" Value="LightBlue" />
+            <Setter Property="Height" Value="90" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+							BorderThickness="1"
+							Padding="4,2" 
+							BorderBrush="DarkGray" 
+							CornerRadius="3" 
+							Background="{TemplateBinding Background}">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="content"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="DarkBlue" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="1.0" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Name="DefaultListButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+			<Setter Property="MinHeight" Value="124" />
+			<Setter Property="MinWidth" Value="124" />
 			<Setter Property="FontSize" Value="18pt" />
 			<Setter Property="Content" Value="{Binding Path=Name}" />
 			<Setter Property="Tag" Value="{Binding Path=Id}" />
@@ -197,6 +262,7 @@
 			<GradientStop Color="#FFB5B7B8" Offset="0.02"/>
 			<GradientStop Color="#FF415A74" Offset="0.17"/>
 		</LinearGradientBrush>
+
         <Style x:Key="EmptyButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#00000000"/>
             <Setter Property="BorderBrush" Value="#00000000"/>
@@ -206,12 +272,12 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="24pt"/>
             <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
+            <Setter Property="Template">                
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <ContentPresenter 
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                        Margin="{TemplateBinding Padding}" 
+                        Margin="6" 
                         RecognizesAccessKey="True" 
                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
