@@ -1,20 +1,22 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkey", "BarMonkey\BarMonkey.csproj", "{6AB540D6-CD83-465C-8D12-B1061B63C82C}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkey", "..\BarMonkey\BarMonkey.csproj", "{6AB540D6-CD83-465C-8D12-B1061B63C82C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkeyApi", "BarMonkeyApi\BarMonkeyApi.csproj", "{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkeyApi", "..\BarMonkeyApi\BarMonkeyApi.csproj", "{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
-		SccProjectUniqueName0 = BarMonkey\\BarMonkey.csproj
-		SccProjectName0 = \u0022$/msn2.net/BarMonkey/BarMonkey\u0022,\u0020EDQAAAAA
-		SccLocalPath0 = BarMonkey
-		SccProjectUniqueName1 = BarMonkeyApi\\BarMonkeyApi.csproj
-		SccProjectName1 = \u0022$/msn2.net/BarMonkey/BarMonkeyApi\u0022,\u0020BEQAAAAA
-		SccLocalPath1 = BarMonkeyApi
-		SccLocalPath2 = .
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://kenny:8080/tfs/main
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\BarMonkey\\BarMonkey.csproj
+		SccProjectName1 = ../BarMonkey
+		SccLocalPath1 = ..\\BarMonkey
+		SccProjectUniqueName2 = ..\\BarMonkeyApi\\BarMonkeyApi.csproj
+		SccProjectName2 = ../BarMonkeyApi
+		SccLocalPath2 = ..\\BarMonkeyApi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
