@@ -584,6 +584,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(TargetDir)\* \\192.168.1.188\BarNone\UI\</PostBuildEvent>
+    <PostBuildEvent>rem copy /y $(TargetDir)\* \\192.168.1.188\BarNone\UI\</PostBuildEvent>
   </PropertyGroup>
 </Project>

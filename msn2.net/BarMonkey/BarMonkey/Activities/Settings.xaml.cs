@@ -62,8 +62,8 @@ namespace msn2.net.BarMonkey.Activities
         private List<Activity> GetActivities()
         {
             List<Activity> list = new List<Activity>();
-            list.Add(new Activity { Name = "Ingredients", PageUrl = "Activities/IngredientSettings.xaml" });
-            list.Add(new Activity { Name = "Relays", PageUrl = "Activities/RelaySettings.xaml" });
+            list.Add(new Activity { Name = "INGREDIENTS", PageUrl = "Activities/IngredientSettings.xaml" });
+            list.Add(new Activity { Name = "RELAYS", PageUrl = "Activities/RelaySettings.xaml" });
 
             return list;
         }
@@ -105,7 +105,7 @@ namespace msn2.net.BarMonkey.Activities
                 this.timer.IsEnabled = true;
                 this.numberPad.IsEnabled = false;
                 this.input = string.Empty;
-                this.view.Content = "incorrect pin";
+                this.view.Content = "INCORRECT PIN";
             }
         }
 
@@ -113,7 +113,7 @@ namespace msn2.net.BarMonkey.Activities
         {
             this.timer.IsEnabled = false;
             this.numberPad.IsEnabled = true;
-            this.view.Content = "settings";
+            this.view.Content = "ENTER PIN";
 
             this.timer.Interval = TimeSpan.FromSeconds(this.timer.Interval.TotalSeconds * 2);
 

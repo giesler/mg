@@ -5,5 +5,12 @@
     <Page.Background>
         <SolidColorBrush Color="Black" />
     </Page.Background>
-    <Frame Name="contentFrame" Source="PartyModeHomePage.xaml" Margin="6" NavigationUIVisibility="Hidden" />
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="topRow" Height="0" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Padding="6" Name="environment" Background="Red" Content="DEV" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="25" Visibility="Collapsed" Foreground="White" />
+        <Frame Name="contentFrame" Source="PartyModeHomePage.xaml" Margin="6" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Grid.Row="1" />
+    </Grid>
 </Page>

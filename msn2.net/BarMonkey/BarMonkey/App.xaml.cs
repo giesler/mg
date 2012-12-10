@@ -28,11 +28,6 @@ namespace BarMonkey
             {
                 App.Messages = File.ReadAllLines("motd.txt");
             }
-
-            if (BarMonkeyContext.Current.ConnectionString.ToLower().IndexOf("kenny") >= 0)
-            {
-                MessageBox.Show("DEV");
-            }
         }
     }
 }

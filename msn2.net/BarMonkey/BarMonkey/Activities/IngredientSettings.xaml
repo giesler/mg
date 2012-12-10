@@ -16,13 +16,13 @@
             <RowDefinition Height="10px" />
             <RowDefinition Height="40px" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="75px" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}">Ingredient:</Label>
         <ComboBox Grid.Row="0" Grid.Column="1" Name="ingredient" FontSize="14pt" SelectionChanged="ingredient_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
+                    <Label Content="{Binding}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -30,7 +30,7 @@
         <ComboBox Grid.Row="1" Grid.Column="1" Name="relay" FontSize="14pt" SelectionChanged="relay_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Id}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
+                    <Label Content="{Binding}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

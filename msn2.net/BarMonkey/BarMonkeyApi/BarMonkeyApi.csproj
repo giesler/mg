@@ -85,6 +85,8 @@
     <Compile Include="ContainerManager.cs" />
     <Compile Include="Dispenser.cs" />
     <Compile Include="DrinkIngredient.cs" />
+    <Compile Include="Ingredient.cs" />
+    <Compile Include="Relay.cs" />
     <Compile Include="RelayManager.cs" />
     <Compile Include="DrinkManager.cs" />
     <Compile Include="IngredientManager.cs" />

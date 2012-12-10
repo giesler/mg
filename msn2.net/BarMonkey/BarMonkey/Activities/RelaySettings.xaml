@@ -16,13 +16,13 @@
             <RowDefinition Height="10px" />
             <RowDefinition Height="40px" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="75px" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}">Relay:</Label>
         <ComboBox Grid.Row="0" Grid.Column="1" Name="relay" FontSize="14pt" SelectionChanged="relay_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Id}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
+                    <Label Content="{Binding}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -30,7 +30,7 @@
         <ComboBox Grid.Row="1" Grid.Column="1" Name="ingredient" FontSize="14pt" SelectionChanged="ingredient_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
+                    <Label Content="{Binding}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -45,7 +45,7 @@
             <TextBox Name="seconds" HorizontalAlignment="Center" FontSize="14pt" Style="{DynamicResource DefaultTextBoxTextStyle}" Text="1.0" Width="100px" />
             <Button Name="plus" Style="{DynamicResource DefaultButtonStyle}" Content=" + " Click="plus_Click" />
             <Label Style="{DynamicResource DefaultDescriptionTextStyle}">seconds</Label>
-            <Button Name="openRelay" Click="openRelay_Click" Content="Open Relay" Style="{DynamicResource DefaultButtonStyle}" Padding="5" />
+            <Button Name="openRelay" Click="openRelay_Click" Content="Open Relay" Style="{DynamicResource DefaultButtonStyle}" Padding="15" />
             <Button Name="allOff" Click="allOff_Click" Content="All Off!" Style="{DynamicResource DefaultButtonStyle}" />
         </StackPanel>
         <TextBlock Grid.Row="6" Grid.Column="1" Name="statusLabel" Style="{DynamicResource DefaultTextBlockStyle}" />

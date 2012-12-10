@@ -24,6 +24,12 @@ namespace msn2.net.BarMonkey
             InitializeComponent();
 
             this.contentFrame.Navigated += new NavigatedEventHandler(contentFrame_Navigated);
+
+            if (BarMonkeyContext.Current.ConnectionString.ToLower().IndexOf("kenny") >= 0)
+            {
+                this.environment.Visibility = System.Windows.Visibility.Visible;
+                this.topRow.Height = new GridLength(40);
+            }
         }
 
         void contentFrame_Navigated(object sender, NavigationEventArgs e)

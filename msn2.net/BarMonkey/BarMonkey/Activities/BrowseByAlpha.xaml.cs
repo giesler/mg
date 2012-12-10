@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -33,13 +34,20 @@ namespace msn2.net.BarMonkey.Activities
             InitializeComponent();            
         }
 
+
+
+        public bool IsItemSelected
+        {
+            get { return (bool)GetValue(IsItemSelectedProperty); }
+            set { SetValue(IsItemSelectedProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsItemSelectedProperty =
+            DependencyProperty.Register("IsItemSelected", typeof(bool), typeof(BrowseByAlpha), new UIPropertyMetadata(false));
+
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
-            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
-            this.navBar.NextClicked += new EventHandler(navBar_NextClicked);
 
             this.LoadDrinks();
 
@@ -81,7 +89,7 @@ namespace msn2.net.BarMonkey.Activities
             }
         }
 
-        void navBar_NextClicked(object sender, EventArgs e)
+        void OnPourDrink(object sender, EventArgs e)
         {
             if (this.drinkList.SelectedIndex >= 0)
             {
@@ -95,8 +103,32 @@ namespace msn2.net.BarMonkey.Activities
 
         private void drinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.navBar.NextEnabled = true;
+            this.pourDrink.IsEnabled = true;
             this.lastInput = DateTime.Now;
+            this.IsItemSelected = this.drinkList.SelectedIndex >= 0;
+
+            
+            
+
+            /*
+             *                                             <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                                                       Storyboard.TargetName="Path1" 
+                                                                       Storyboard.TargetProperty="(Path.Stroke).(LinearGradientBrush.StartPoint)">
+                                                <SplinePointKeyFrame KeyTime="00:00:0" Value="0,1"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:4" Value="1,0"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                                                       Storyboard.TargetName="Path1" 
+                                                                       Storyboard.TargetProperty="(Path.Stroke).(LinearGradientBrush.EndPoint)">
+                                                <SplinePointKeyFrame KeyTime="00:00:0" Value="1,0"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:4" Value="0,1"/>
+                                                <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
+                                            </PointAnimationUsingKeyFrames>
+*/
+
         }
 
         private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -138,6 +170,11 @@ namespace msn2.net.BarMonkey.Activities
             this.filterMargaritas.Foreground = new SolidColorBrush(Colors.White);
 
             this.LoadDrinks();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            base.NavigationService.GoBack();
         }
     }
 }
