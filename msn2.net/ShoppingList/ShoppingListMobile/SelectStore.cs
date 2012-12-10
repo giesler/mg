@@ -14,6 +14,8 @@ namespace mn2.net.ShoppingList
     {
         private StoreItem selectedStore = null;
         private Timer timerResizeCheck = null;
+        private bool viewAllSelected = false;
+        private Dictionary<string, StoreItem> stores;
 
         public SelectStore()
         {
@@ -22,24 +24,30 @@ namespace mn2.net.ShoppingList
 
         public void ShowStores(Dictionary<string, StoreItem> items)
         {
+            this.stores = items;
+
             int index = 0;
 
             foreach (StoreItem store in items.Values)
             {
-                ListViewItem item = new ListViewItem(store.Name);
-                item.Tag = store;
-                if (store.Items.Count > 0)
+                if (store.Name != "All")
                 {
-                    item.SubItems.Add(store.Items.Count.ToString());
+                    ListViewItem item = new ListViewItem(store.Name);
+                    item.Tag = store;
+                    int itemCount = store.Items.Count;
+                    if (itemCount > 0)
+                    {
+                        item.SubItems.Add(itemCount.ToString());
+                    }
+                    item.BackColor = MainForm.ListColors[index];
+                    index++;
+                    if (index >= MainForm.ListColors.Length)
+                    {
+                        index = 0;
+                    }
+                    item.ForeColor = itemCount > 0 ? Color.Black : Color.Gray;
+                    this.list.Items.Add(item);
                 }
-                item.BackColor = MainForm.ListColors[index];
-                index++;
-                if (index >= MainForm.ListColors.Length)
-                {
-                    index = 0;
-                }
-                item.ForeColor = store.Items.Count > 0 ? Color.Black : Color.Gray;
-                this.list.Items.Add(item);
             }
         }
 
@@ -48,7 +56,11 @@ namespace mn2.net.ShoppingList
             get
             {
                 StoreItem store = null;
-                if (this.list.SelectedIndices.Count > 0)
+                if (this.viewAllSelected)
+                {
+                    store = this.stores["All"];
+                }
+                else if (this.list.SelectedIndices.Count > 0)
                 {
                     ListViewItem item = this.list.Items[this.list.SelectedIndices[0]];
                     store = (StoreItem)item.Tag;
@@ -107,6 +119,14 @@ namespace mn2.net.ShoppingList
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private void menuItemViewAll_Click(object sender, EventArgs e)
+        {
+            this.viewAllSelected = true;
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

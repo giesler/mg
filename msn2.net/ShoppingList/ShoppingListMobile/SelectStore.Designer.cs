@@ -30,20 +30,22 @@
         private void InitializeComponent()
         {
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
-            this.cancel = new System.Windows.Forms.MenuItem();
+            this.viewAll = new System.Windows.Forms.MenuItem();
             this.list = new System.Windows.Forms.ListView();
             this.nameColumn = new System.Windows.Forms.ColumnHeader();
             this.countColumn = new System.Windows.Forms.ColumnHeader();
+            this.cancel = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu1
             // 
+            this.mainMenu1.MenuItems.Add(this.viewAll);
             this.mainMenu1.MenuItems.Add(this.cancel);
             // 
-            // cancel
+            // viewAll
             // 
-            this.cancel.Text = "&Cancel";
-            this.cancel.Click += new System.EventHandler(this.cancel_Click);
+            this.viewAll.Text = "View All";
+            this.viewAll.Click += new System.EventHandler(this.menuItemViewAll_Click);
             // 
             // list
             // 
@@ -72,6 +74,11 @@
             this.countColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.countColumn.Width = 30;
             // 
+            // cancel
+            // 
+            this.cancel.Text = "Cancel";
+            this.cancel.Click += new System.EventHandler(this.cancel_Click);
+            // 
             // SelectStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -93,7 +100,8 @@
 
         private System.Windows.Forms.ListView list;
         private System.Windows.Forms.ColumnHeader nameColumn;
-        private System.Windows.Forms.MenuItem cancel;
+        private System.Windows.Forms.MenuItem viewAll;
         private System.Windows.Forms.ColumnHeader countColumn;
+        private System.Windows.Forms.MenuItem cancel;
     }
 }
