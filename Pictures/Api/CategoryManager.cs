@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -43,21 +44,7 @@ namespace msn2.net.Pictures
 
 		}
 
-		public DataSetCategory GetCategoryDataSet(int categoryId)
-		{
-			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlDataAdapter da	= new SqlDataAdapter("dbo.p_Category_Get", cn);
-			da.SelectCommand.CommandType	= CommandType.StoredProcedure;
-			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.Int);
-			da.SelectCommand.Parameters["@categoryId"].Value = categoryId;
-
-			DataSetCategory ds = new DataSetCategory();
-			da.Fill(ds, "Category");
-		    
-			return ds;
-		}
-
-		public CategoryCollection GetCategories(int categoryId, int minPictures)
+		public Collection<Category> GetCategories(int categoryId, int minPictures)
 		{
 			// get a dataset with categories
 			SqlConnection cn		= new SqlConnection(connectionString);
@@ -75,7 +62,7 @@ namespace msn2.net.Pictures
 			// Read data
 			cn.Open();
 			SqlDataReader dr		= cmd.ExecuteReader();
-			CategoryCollection cc	= new CategoryCollection();
+			Collection<Category> cc	= new Collection<Category>();
 			while (dr.Read())
 			{
 				cc.Add(new Category(dr, false));
@@ -295,119 +282,6 @@ namespace msn2.net.Pictures
 
 	}
 
-	[Serializable]
-	public class Category
-	{
-		public int CategoryId;
-		public string CategoryName;
-		public int CategoryParentId;
-		protected string description;
-		protected int parentCategoryId;
-		public int PictureId;
-		public DateTime FromDate;
-		public DateTime ToDate;
-
-		public Category()
-		{
-		}
-
-		public Category(SqlDataReader dr, bool includeDates)
-		{
-			CategoryId			= (int) dr["CategoryId"];
-			CategoryName		= dr["CategoryName"].ToString();
-			CategoryParentId	= (int) dr["CategoryParentId"];
-			PictureId			= (int) dr["PictureId"];
-			if (dr["CategoryDescription"] != null)
-			{
-				Description	= dr["CategoryDescription"].ToString();
-			}
-			parentCategoryId	= (int) dr["CategoryParentId"];
-			
-			if (includeDates)
-			{
-				if (dr["FromDate"] != System.DBNull.Value)
-				{
-					FromDate	= Convert.ToDateTime(dr["FromDate"]);
-				}
-				if (dr["ToDate"] != System.DBNull.Value)
-				{
-					ToDate		= Convert.ToDateTime(dr["ToDate"]);
-				}
-			}
-		}
-		
-		public string Description
-		{
-			get
-			{
-				return description;
-			}
-			set
-			{
-				description = value;
-			}
-		}
-		
-		public string Name
-		{
-			get 
-			{
-				return CategoryName;
-			}
-			set
-			{
-				CategoryName = value;
-			}
-		}
-
-		public int ParentCategoryId
-		{
-			get
-			{
-				return parentCategoryId;
-			}
-			set
-			{
-				parentCategoryId = value;
-			}
-		}
-
-		public override string ToString()
-		{
-			return CategoryName;
-		}
-	}
-
-	public class CategoryCollection: ReadOnlyCollectionBase
-	{
-		public void Add(Category category)
-		{
-			InnerList.Add(category);
-		}
-
-		public Category this[string name]
-		{
-			get
-			{
-				foreach (Category category in InnerList)
-				{
-					if (category.Name == name)
-						return category;
-				}
-				return null;
-			}
-		}
-
-		public Category this[int index]
-		{
-			get
-			{
-				return (Category) InnerList[index];
-			}
-		}
-	
-	
-	}
 
 }
 

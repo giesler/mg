@@ -113,6 +113,18 @@ namespace msn2.net.Pictures.Controls
             pictureList1.ItemSelected += new PictureItemEventHandler(pictureList1_ItemSelected);
             pictureList1.ItemUnselected += new PictureItemEventHandler(pictureList1_ItemUnselected);
             pictureList1.PictureDoubleClick += new PictureItemEventHandler(pictureList1_DoubleClick);
+
+//            Mapping.TopoMap map = new Mapping.TopoMap();
+//            map.Dock = DockStyle.Fill;
+//
+//            Form form = new Form();
+//            form.WindowState = FormWindowState.Maximized;
+//            form.Controls.Add(map);
+//
+//            form.Show();
+//            
+//            map.LoadMap();
+
         }
 		#endregion
 		#region Disposal
@@ -784,8 +796,14 @@ namespace msn2.net.Pictures.Controls
 				cacheStatus.Current = count;
 			}
 
-			cacheStatus.Dispose();
-			cacheStatus				= null;
+            if (cacheStatus.InvokeRequired)
+            {
+                cacheStatus.BeginInvoke(new MethodInvoker(cacheStatus.Close));
+            }
+            else
+            {
+                cacheStatus.Close();
+            }
 
 		}
 

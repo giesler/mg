@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -75,7 +76,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-			CategoryCollection categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
+			Collection<Category> categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
 
 			int columns				= 2;
 
@@ -119,7 +120,7 @@ namespace pics
 			}
 
 			// Now load the 'you are here' control
-			CategoryCollection	cc	= new CategoryCollection();
+			Collection<Category> cc	= new Collection<Category>();
 			Category parentCategory = currentCategory;
 			while (parentCategory.CategoryId != rootCategoryId) 
 			{

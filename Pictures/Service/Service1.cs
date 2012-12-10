@@ -21,12 +21,29 @@ namespace PictureService
 
         protected override void OnStart(string[] args)
         {
-            // TODO: Add code here to start your service.
+            fileSystemWatcher1.EnableRaisingEvents = true;
         }
 
         protected override void OnStop()
         {
-            // TODO: Add code here to perform any tear-down necessary to stop your service.
+            fileSystemWatcher1.EnableRaisingEvents = false;
+        }
+
+        private void fileSystemWatcher1_Created(object sender, System.IO.FileSystemEventArgs e)
+        {
+            try
+            {
+                eventLog1.WriteEntry("Processing file " + e.FullPath);
+
+            }
+            catch (Exception ex)
+            {
+                eventLog1.WriteEntry("Error processing file " + e.FullPath + ": " + ex.Message + ", " + ex.StackTrace);
+            }
+            finally
+            {
+                eventLog1.WriteEntry("Done processing file " + e.FullPath);
+            }
         }
     }
 }

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchImport.cs" />
     <Compile Include="ImageProvider.cs" />
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
@@ -62,6 +63,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service1.resx">
+      <DependentUpon>Service1.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.cs">
       <AutoGen>True</AutoGen>
@@ -83,6 +87,9 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
 </Project>

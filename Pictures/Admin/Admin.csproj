@@ -25,6 +25,10 @@
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <GenerateManifests>true</GenerateManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <PublishUrl>http://localhost/PictureAdmin</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -38,12 +42,8 @@
     <UpdateUrlEnabled>false</UpdateUrlEnabled>
     <WebPage>default.htm</WebPage>
     <ApplicationVersion>1.0.0.*</ApplicationVersion>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -135,14 +135,14 @@
     <None Include="PictureAdmin.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
     <BootstrapperFile Include="Microsoft.Net.Framework.2.0">
       <InProject>False</InProject>
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperFile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

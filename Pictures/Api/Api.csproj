@@ -94,6 +94,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Category.cs" />
     <Compile Include="CategoryManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +127,7 @@
     <Compile Include="PictureManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PictureSystem.cs" />
     <Compile Include="UserManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -145,6 +147,12 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PictureDataSet.Designer.cs</LastGenOutput>
     </Content>
+    <None Include="DataSetCategory.xsc">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategory.xss">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
     <None Include="DataSetCategory.xsx">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
