@@ -77,7 +77,7 @@ IDD_AUTORUN_DIALOG DIALOGEX 0, 0, 267, 121
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "Autorun Program"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&Install",IDOK,150,100,50,14,NOT WS_VISIBLE | NOT 
                     WS_TABSTOP
@@ -141,8 +141,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,22,0
- PRODUCTVERSION 2,0,22,0
+ FILEVERSION 2,1,25,0
+ PRODUCTVERSION 2,1,25,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -159,15 +159,15 @@ BEGIN
         BEGIN
             VALUE "Comments", "Contact vbsw@giesler.org regarding distribution\0"
             VALUE "CompanyName", "\0"
-            VALUE "FileDescription", "Visual Basic Setup Wrapper 2.00\0"
-            VALUE "FileVersion", "2, 0, 22, 0\0"
+            VALUE "FileDescription", "Visual Basic Setup Wrapper 2.01\0"
+            VALUE "FileVersion", "2, 1, 25, 0\0"
             VALUE "InternalName", "Autorun\0"
-            VALUE "LegalCopyright", "Copyright (C) 2001, Mike Giesler, vbsw@giesler.org, http://giesler.org/vbsw\0"
+            VALUE "LegalCopyright", "Copyright (C) 2001, Mike Giesler, vbsw@giesler.org, http://vbsw.giesler.org/\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "Autorun.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Autorun Application\0"
-            VALUE "ProductVersion", "2, 0, 22, 0\0"
+            VALUE "ProductVersion", "2, 1, 25, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

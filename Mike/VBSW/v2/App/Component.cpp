@@ -247,13 +247,13 @@ bool CComponent::IsCorrectOS()
 
 	// now check actual version numbers
 	dwMajor = atoi(mstrOSVersionMin.Left(mstrOSVersionMin.Find(".")));
-	dwMinor = atoi(mstrOSVersionMin.Mid(mstrOSVersionMin.Find(".")));
+	dwMinor = atoi(mstrOSVersionMin.Mid(mstrOSVersionMin.Find(".")+1));
 	if (osv.dwMajorVersion < dwMajor || 
 			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion < dwMinor))
 		return false;			// this OS is older then reqd
 
-	dwMajor = atoi(mstrOSVersionMax.Left(mstrOSVersionMin.Find(".")));
-	dwMinor = atoi(mstrOSVersionMax.Mid(mstrOSVersionMin.Find(".")));
+	dwMajor = atoi(mstrOSVersionMax.Left(mstrOSVersionMax.Find(".")));
+	dwMinor = atoi(mstrOSVersionMax.Mid(mstrOSVersionMax.Find(".")+1));
 	if (osv.dwMajorVersion > dwMajor || 
 			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion > dwMinor))
 		return false;			// this OS is newer then reqd
