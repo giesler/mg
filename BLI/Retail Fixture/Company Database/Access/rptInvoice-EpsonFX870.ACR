@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-672914157
+Checksum =1644752991
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -252,8 +252,7 @@ Begin Report
                     FontWeight =700
                     TabIndex =12
                     Name ="txtPO"
-                    ControlSource ="=IIf(IsNull([PO]),[BlanketPO],IIf(IsNull([BlanketPO]),[po],[PO]+' '+[BlanketPO])"
-                        ")"
+                    ControlSource ="=CombinePOFields([PO],[BlanketPO])"
                 End
                 Begin TextBox
                     TextAlign =2

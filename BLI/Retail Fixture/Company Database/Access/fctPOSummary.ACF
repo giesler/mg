@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =670989972
+Checksum =317921258
 Begin Form
     PopUp = NotDefault
     RecordSelectors = NotDefault
@@ -19,9 +19,9 @@ Begin Form
     Cycle =1
     GridX =24
     GridY =24
-    Width =5700
+    Width =5580
     DatasheetFontHeight =10
-    ItemSuffix =30
+    ItemSuffix =32
     Left =1740
     Top =1440
     Right =10725
@@ -32,6 +32,39 @@ Begin Form
     End
     Caption ="PO Summary"
     DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
+    PrtDevMode = Begin
+        0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000010000000000000001000000 ,
+        0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
+        0x2200000034020000114c35610000000000000000000000000000000000000000 ,
+        0x0000000000000000080000000100000000000000010000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+        0x00000000000000000000000000000000
+    End
+    PrtDevNames = Begin
+        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
+        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+    End
     Begin
         Begin Label
             BackStyle =0
@@ -63,14 +96,14 @@ Begin Form
             SpecialEffect =2
         End
         Begin Section
-            Height =4920
+            Height =5400
             BackColor =-2147483633
             Name ="Detail"
             Begin
                 Begin TextBox
                     OverlapFlags =85
                     TextAlign =1
-                    Left =1350
+                    Left =1380
                     Top =840
                     Width =1770
                     TabIndex =1
@@ -94,10 +127,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =79
                     Left =3120
-                    Top =4500
+                    Top =4920
                     Width =1020
                     Height =300
-                    TabIndex =11
+                    TabIndex =12
                     Name ="cmdOK"
                     Caption ="&OK"
                     OnClick ="[Event Procedure]"
@@ -107,10 +140,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =67
                     Left =4260
-                    Top =4500
+                    Top =4920
                     Width =1020
                     Height =300
-                    TabIndex =12
+                    TabIndex =13
                     Name ="cmdCancel"
                     Caption ="&Cancel"
                     OnClick ="[Event Procedure]"
@@ -131,10 +164,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =66
                     Left =4260
-                    Top =3840
+                    Top =4260
                     Width =1020
                     Height =300
-                    TabIndex =9
+                    TabIndex =10
                     Name ="cmdBrowse"
                     Caption ="&Browse"
                     OnClick ="[Event Procedure]"
@@ -145,10 +178,10 @@ Begin Form
                 Begin TextBox
                     OverlapFlags =85
                     TextAlign =1
-                    Left =1290
-                    Top =3840
+                    Left =1320
+                    Top =4260
                     Width =2850
-                    TabIndex =8
+                    TabIndex =9
                     Name ="txtFileName"
                     DefaultValue ="\"c:\\PO Summary.html\""
                     GUID = Begin
@@ -159,7 +192,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =180
-                            Top =3840
+                            Top =4260
                             Width =1020
                             Height =240
                             Name ="Label20"
@@ -173,9 +206,9 @@ Begin Form
                 Begin CheckBox
                     OverlapFlags =85
                     Left =1320
-                    Top =4200
+                    Top =4620
                     Width =2945
-                    TabIndex =10
+                    TabIndex =11
                     Name ="chkLaunchPage"
                     DefaultValue ="True"
                     GUID = Begin
@@ -184,8 +217,8 @@ Begin Form
                     Begin
                         Begin Label
                             OverlapFlags =247
-                            Left =1550
-                            Top =4170
+                            Left =1560
+                            Top =4620
                             Width =2655
                             Height =240
                             Name ="Label23"
@@ -216,7 +249,7 @@ Begin Form
                     Top =780
                     Width =1920
                     Height =2520
-                    TabIndex =7
+                    TabIndex =8
                     Name ="lstStore"
                     RowSourceType ="Table/View/StoredProc"
                     RowSource ="SELECT tlkuStore.StoreName FROM tlkuStore ORDER BY tlkuStore.StoreName"
@@ -227,10 +260,10 @@ Begin Form
                 End
                 Begin TextBox
                     OverlapFlags =85
-                    Left =1350
-                    Top =1200
+                    Left =1380
+                    Top =1560
                     Width =1080
-                    TabIndex =2
+                    TabIndex =3
                     Name ="datFrom"
                     InputMask ="99/99/00;0;_"
                     GUID = Begin
@@ -241,7 +274,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =240
-                            Top =1200
+                            Top =1560
                             Width =1020
                             Height =240
                             Name ="Label1"
@@ -254,10 +287,10 @@ Begin Form
                 End
                 Begin TextBox
                     OverlapFlags =85
-                    Left =1350
-                    Top =1560
+                    Left =1380
+                    Top =1920
                     Width =1080
-                    TabIndex =3
+                    TabIndex =4
                     Name ="datTo"
                     InputMask ="99/99/00;0;_"
                     GUID = Begin
@@ -268,7 +301,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =240
-                            Top =1560
+                            Top =1920
                             Width =1020
                             Height =240
                             Name ="Label24"
@@ -283,10 +316,10 @@ Begin Form
                     LimitToList = NotDefault
                     OverlapFlags =85
                     ListWidth =3600
-                    Left =1350
-                    Top =1920
+                    Left =1380
+                    Top =2280
                     Width =1770
-                    TabIndex =4
+                    TabIndex =5
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     GUID = Begin
                         0x8a9a95a8422fd3119033004033532b7f
@@ -300,7 +333,7 @@ Begin Form
                             OverlapFlags =85
                             TextAlign =3
                             Left =240
-                            Top =1920
+                            Top =2280
                             Width =1020
                             Height =240
                             Name ="Label25"
@@ -314,7 +347,7 @@ Begin Form
                 Begin Line
                     OverlapFlags =85
                     SpecialEffect =5
-                    Top =3720
+                    Top =4140
                     Width =5580
                     Name ="Line26"
                     GUID = Begin
@@ -326,10 +359,10 @@ Begin Form
                     OverlapFlags =85
                     ColumnCount =2
                     Left =1320
-                    Top =2640
+                    Top =3000
                     Width =1920
                     Height =660
-                    TabIndex =6
+                    TabIndex =7
                     Name ="lstWheatboard"
                     RowSourceType ="Value List"
                     RowSource ="1;\"Wheatboard\";2;\"Non-Wheatboard\";3;\"Both Wheat And Non\""
@@ -343,7 +376,7 @@ Begin Form
                         Begin Label
                             OverlapFlags =85
                             Left =300
-                            Top =2640
+                            Top =3000
                             Width =960
                             Height =240
                             Name ="Col1_Label"
@@ -358,10 +391,10 @@ Begin Form
                     LimitToList = NotDefault
                     OverlapFlags =85
                     TextAlign =1
-                    Left =1350
-                    Top =2280
+                    Left =1380
+                    Top =2640
                     Width =1740
-                    TabIndex =5
+                    TabIndex =6
                     ColumnInfo ="\"\";\"\";\"10\";\"50\""
                     GUID = Begin
                         0xdd77c3d2e33ed3119033004033532b7f
@@ -375,7 +408,7 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =3
                     Left =120
-                    Top =2280
+                    Top =2640
                     Width =1140
                     Height =240
                     Name ="Label193"
@@ -388,10 +421,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =83
                     Left =360
-                    Top =3480
+                    Top =3840
                     Width =2280
                     Height =180
-                    TabIndex =13
+                    TabIndex =14
                     Name ="chkShade"
                     DefaultValue ="True"
                     GUID = Begin
@@ -400,8 +433,8 @@ Begin Form
                     Begin
                         Begin Label
                             OverlapFlags =247
-                            Left =530
-                            Top =3420
+                            Left =540
+                            Top =3780
                             Width =2055
                             Height =240
                             Name ="Label28"
@@ -415,10 +448,10 @@ Begin Form
                 Begin CheckBox
                     OverlapFlags =85
                     Left =2880
-                    Top =3480
+                    Top =3840
                     Width =2280
                     Height =180
-                    TabIndex =14
+                    TabIndex =15
                     Name ="chkDescAtTop"
                     DefaultValue ="True"
                     GUID = Begin
@@ -427,8 +460,8 @@ Begin Form
                     Begin
                         Begin Label
                             OverlapFlags =247
-                            Left =3050
-                            Top =3420
+                            Left =3060
+                            Top =3780
                             Width =2055
                             Height =240
                             Name ="Label29"
@@ -445,10 +478,10 @@ Begin Form
                     TextAlign =1
                     ColumnCount =2
                     ListWidth =2880
-                    Left =1350
+                    Left =1380
                     Top =480
                     Width =1740
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"50\""
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"30\""
                     GUID = Begin
                         0xb7482c9b9c45e5488c8723a995990f3c
                     End
@@ -465,9 +498,35 @@ Begin Form
                             Top =480
                             Width =1020
                             Height =240
-                            ForeColor =255
                             Name ="Label13"
-                            Caption ="PO (Ref #):"
+                            Caption ="Ref #:"
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    Left =1380
+                    Top =1200
+                    Width =1740
+                    TabIndex =2
+                    Name ="txtBlanketPO"
+                    GUID = Begin
+                        0x414b246a2a675d418d6982f0833bdfb5
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =240
+                            Top =1200
+                            Width =1020
+                            Height =240
+                            Name ="Label31"
+                            Caption ="Blanket PO:"
+                            GUID = Begin
+                                0xe01e5a06d0e89a47a8c8bd21192e6253
+                            End
                         End
                     End
                 End
@@ -509,12 +568,6 @@ End Sub
 
 Private Sub cmdOK_Click()
 
-If IsNull(Me.txtPO) Then
-    MsgBox "You must enter a PO (Ref #).", vbExclamation
-    Me.txtPO.SetFocus
-    Exit Sub
-End If
-
 If IsNull(Me.curPOAmount) Then
     MsgBox "You must enter a PO amount.", vbExclamation
     Me.curPOAmount.SetFocus
@@ -533,10 +586,20 @@ OpenWaitForm "Building PO Summary web page..."
 Dim strMsg As String, strFilter As String, varItm As Variant
 
 'PO (required)
-If Right$(Me.txtPO, 1) = "*" Then
-  strFilter = "RefNum Like '" & Me.txtPO & "%'"
-Else
-  strFilter = "RefNum = '" & Me.txtPO & "'"
+If txtPO.Text <> "" Then
+  If Right$(Me.txtPO, 1) = "*" Then
+    strFilter = "RefNum Like '" & Me.txtPO & "%'"
+  Else
+    strFilter = "RefNum = '" & Me.txtPO & "'"
+  End If
+End If
+
+'Blanket PO
+If Me.txtBlanketPO <> "" Then
+    If strFilter <> "" Then strFilter = strFilter + " AND "
+    strFilter = strFilter & "[BlanketPO] = '" & Me.txtBlanketPO & "'"
+    If strMsg <> "" Then strMsg = strMsg + ", "
+    strMsg = strMsg & "Blanket PO = " & Me.txtBlanketPO
 End If
 
 'Date

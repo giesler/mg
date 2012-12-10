@@ -13,6 +13,6 @@ Public Const gstrServerUpdateEXE = "\\server1\database\dbupdate\dbupdate.exe"
 Public Const gstrDBOUser = "bli_dbo"
 Public Const gstrDBOPassword = "120960011014"
 
-Public Const cnVersionMajor = 3.28
+Public Const cnVersionMajor = 3.29
 Public Const cnVersionMinor = 0
-Public Const cnVersionDate = #1/16/2002#
+Public Const cnVersionDate = #1/30/2002#

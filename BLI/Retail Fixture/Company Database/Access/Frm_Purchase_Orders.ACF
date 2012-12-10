@@ -2079,6 +2079,8 @@ End Sub
 Private Sub txtPO_BeforeUpdate(Cancel As Integer)
 On Error GoTo errHandler:
 
+  If txtPO.Text = "" Then Exit Sub
+  
   Dim varResult
   If IsNull(Me.txtID) Then
     varResult = DLookup("PO", "Tbl_PO", "PO='" + Me.txtPO + "'")

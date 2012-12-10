@@ -674,7 +674,7 @@ Do While Not rAssocPO.EOF
   Print #lngFile, "<TD" & sColor & "><FONT FACE=""Arial"" SIZE=-1>" & rAssocPO!PO & "</FONT></TD>"
   Print #lngFile, "<TD" & sColor & "><FONT FACE=""Arial"" SIZE=-1>" & rAssocPO!Ship_Date & "</FONT></TD>"
   Print #lngFile, "<TD" & sColor & "><FONT FACE=""Arial"" SIZE=-1>" & rAssocPO!Arrive_Date & "</FONT></TD>"
-  Print #lngFile, "<TD" & sColor & "><FONT FACE=""Arial"" SIZE=-1>" & rAssocPO!Ship_via & "</FONT></TD>"
+  Print #lngFile, "<TD" & sColor & "><FONT FACE=""Arial"" SIZE=-1>" & rAssocPO!Ship_Via & "</FONT></TD>"
 
   ' open assoc po detail table
   sSQL = "SELECT Material, Quantiy FROM Tbl_Invoice_Items WHERE ID = " & rAssocPO!ID

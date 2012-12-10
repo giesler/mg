@@ -34,6 +34,19 @@ ErrHand "modMisc", "LookupCustMaterial"
 Exit Function
 End Function
 
+Public Function CombinePOFields(varPO As Variant, vBlanketPO As Variant)
+
+  If IsNull(varPO) And IsNull(vBlanketPO) Then
+    CombinePOFields = "Error"
+  ElseIf IsNull(varPO) Then
+    CombinePOFields = vBlanketPO
+  ElseIf IsNull(vBlanketPO) Then
+    CombinePOFields = varPO
+  Else
+    CombinePOFields = varPO + "  " + vBlanketPO
+  End If
+  
+End Function
 
 Public Function SplitPO(txtIn As String) As String
 
