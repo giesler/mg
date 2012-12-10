@@ -220,9 +220,6 @@ namespace msn2.net.Pictures.Controls
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
@@ -621,22 +618,6 @@ namespace msn2.net.Pictures.Controls
             this.filter.ImageIndex = 0;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
-            treeNode1.ImageIndex = 2;
-            treeNode1.Name = "";
-            treeNode1.SelectedImageIndex = 2;
-            treeNode1.Text = "Categories";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "Date Taken";
-            treeNode3.ImageIndex = 2;
-            treeNode3.Name = "";
-            treeNode3.SelectedImageIndex = 2;
-            treeNode3.Text = "Date Added";
-            this.filter.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
             this.filter.SelectedImageIndex = 0;
             this.filter.Size = new System.Drawing.Size(167, 364);
             this.filter.TabIndex = 0;

@@ -53,11 +53,11 @@
     <InstallUrl>\\stan.sp.msn2.net\Software\msn2.net\PictureAdmin\</InstallUrl>
     <ProductName>Picture Admin</ProductName>
     <PublisherName>msn2.net</PublisherName>
-    <MinimumRequiredVersion>2.5.122.16</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.5.122.27</MinimumRequiredVersion>
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>26</ApplicationRevision>
+    <ApplicationRevision>28</ApplicationRevision>
     <ApplicationVersion>2.5.122.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
