@@ -40,7 +40,7 @@ namespace giesler.org.lists
         void main_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PivotItem item = this.main.SelectedItem as PivotItem;
-            List list = item.Tag as List;
+            ListEx list = item.Tag as ListEx;
 
             if (list != null)
             {
@@ -200,6 +200,7 @@ namespace giesler.org.lists
 
                 this.updatingMessage.Text = "Loading from service...";
                 this.updatingMessage.Visibility = Visibility.Visible;
+                this.pbar.Visibility = System.Windows.Visibility.Visible;
             }
             //else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
             //{
@@ -337,5 +338,5 @@ namespace giesler.org.lists
                 deviceTotalMemory / 1024 / 1024, Environment.NewLine, applicationCurrentMemoryUsage / 1024 / 1024, applicationPeakMemoryUsage / 1024 / 1024);
             MessageBox.Show(msg, "Debug Info", MessageBoxButton.OK);
         }
-    }
+   }
 }
