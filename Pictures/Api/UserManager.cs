@@ -383,6 +383,32 @@ namespace msn2.net.Pictures
 			cn.Close();
 		}
 
+        public bool ResetPassword(string email, string password)
+        {
+            MD5 md5				= MD5.Create();
+			byte[] bPassword	= md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(password));
+			string encodedPassword = System.Text.ASCIIEncoding.ASCII.GetString(bPassword);
+
+            // set up a connection and command to update password
+			SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("dbo.up_UserManager_ResetPassword", cn);
+			cmd.CommandType  = CommandType.StoredProcedure;
+			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@password", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@success", SqlDbType.Bit);
+			cmd.Parameters["@success"].Direction = ParameterDirection.Output;
+
+			cmd.Parameters["@email"].Value = email;
+            cmd.Parameters["@password"].Value = encodedPassword;
+
+			// execute the command
+			cn.Open();
+			cmd.ExecuteNonQuery();
+			cn.Close();
+
+			return (bool) cmd.Parameters["@success"].Value;
+
+        }
 
 		public bool ResetPassword(string email, string password, Guid resetKey)
 		{
