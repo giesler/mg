@@ -7,19 +7,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="40" />
             <RowDefinition />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Choose your drink:" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
-        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="By Name" Style="{DynamicResource DefaultButtonStyle}" Click="byName_Click" />
-        <Button Grid.Column="0" Grid.Row="2" Margin="10" Content="By Ingredient" Style="{DynamicResource DefaultButtonStyle}" Click="byIngredient_Click" />
-        <Button Grid.Column="1" Grid.Row="0" Margin="10" Content="Top 10" Style="{DynamicResource DefaultButtonStyle}" Click="top10_Click" />
-        <Button Grid.Column="1" Grid.Row="1" Margin="10" Content="Shots" IsEnabled="False" Style="{DynamicResource DefaultButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="2" Margin="10" Content="Custom" IsEnabled="False" Style="{DynamicResource DefaultButtonStyle}" />
-        <bnc:NavigationBar Grid.Row="3" Grid.ColumnSpan="2" x:Name="navBar" />
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Label Name="viewby" FontSize="22" Content="view by" Style="{DynamicResource DefaultTextStyle}" />
+            <bnc:NavigationButtonStack x:Name="navStack" />
+        </StackPanel>
+        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />
     </Grid>
 </Page>

@@ -31,6 +31,17 @@ namespace msn2.net.BarMonkey.Activities
 
             this.navBar.BackClicked += delegate(object o, EventArgs a) {base.NavigationService.GoBack();};
             this.navBar.HomeClicked += delegate(object o, EventArgs a) {base.NavigationService.Navigate(new PartyModeHomePage());};
+
+            this.navStack.AddCommands(this.GetActivities());
+            this.navStack.NavigateToUri += delegate(Uri u) { this.NavigationService.Navigate(u); };
+        }
+
+        private List<Activity> GetActivities()
+        {
+            List<Activity> list = new List<Activity>();
+            list.Add(new Activity { Name = "Ingredients", PageUrl = "Activities/IngredientSettings.xaml" });
+            list.Add(new Activity { Name = "Relays", PageUrl = "Activities/RelaySettings.xaml" });
+            return list;
         }
 
         private void byName_Click(object sender, RoutedEventArgs e)

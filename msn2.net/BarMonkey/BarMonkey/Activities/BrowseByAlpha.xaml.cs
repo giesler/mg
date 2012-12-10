@@ -32,6 +32,8 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.OnInitialized(e);
 
+            this.description.Text = string.Empty;
+
             this.blocks = new List<TextBlock>();
             this.blocks.Add(this.blockA);
             this.blocks.Add(this.blockD);

@@ -15,25 +15,33 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetDrinks(char[] matchingChars)
         {
             var q = from d in base.Context.Data.Drinks
-                    where matchingChars.Contains(d.Name[0])
+                    where d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                        && d.DrinkIngredients.Count > 0
+                        && matchingChars.Contains(d.Name[0])
                     orderby d.Name
-                    select d;            
+                    select d;
 
             return q.ToList<Drink>();      
         }
 
         public List<Drink> GetDrinks(List<Ingredient> ingredients)
         {
-            List<Drink> drinks = (from d in base.Context.Data.Drinks select d).ToList<Drink>();
+            List<Drink> drinks = new List<Drink>();
 
-            foreach (Ingredient ingredient in ingredients)
+            if (ingredients.Count > 0)
             {
-                drinks = (from d in drinks
-                          join di in base.Context.Data.DrinkIngredients on d.Id equals di.DrinkId
-                          where di.IngredientId == ingredient.Id
-                          orderby d.Name
-                          // TODO: Limit on amount    && di.Ingredient.RemainingOunces > di.AmountOunces
-                          select d).Distinct<Drink>().ToList<Drink>();
+                drinks = (from d in base.Context.Data.Drinks select d).ToList<Drink>();
+
+                foreach (Ingredient ingredient in ingredients)
+                {
+                    drinks = (from d in drinks
+                              //join di in base.Context.Data.DrinkIngredients on d.Id equals di.DrinkId
+                              where d.DrinkIngredients.Where(di => di.IngredientId == ingredient.Id).Any()
+                                && d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                                && d.DrinkIngredients.Count > 0
+                              orderby d.Name
+                              select d).Distinct<Drink>().ToList<Drink>();
+                }
             }
 
             return drinks;
@@ -43,8 +51,8 @@ namespace msn2.net.BarMonkey
         {
             var q = from d in base.Context.Data.Drinks
                     where (d.Name.Contains(searchText) || d.Description.Contains(searchText))
+                        && d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
                         && d.DrinkIngredients.Count > 0
-                    // TODO: Limit on amount    && di.Ingredient.RemainingOunces > di.AmountOunces
                     orderby d.Name
                     select d;
             return q.ToList<Drink>();
@@ -53,6 +61,8 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetTopDrinks(int count)
         {
             var q = (from d in base.Context.Data.Drinks
+                     where d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                        && d.DrinkIngredients.Count > 0
                      orderby d.UserDrinkHistories.Count
                      select d).Take<Drink>(count);
 
@@ -82,15 +92,25 @@ namespace msn2.net.BarMonkey
             udh.Timestamp = DateTime.Now;
             base.Context.Data.UserDrinkHistories.InsertOnSubmit(udh);
 
-            //foreach (DrinkIngredient ingredient in drink.DrinkIngredients)
-            //{
-            //    UserDrinkIngredientHistory udih = new UserDrinkIngredientHistory();
-            //    udih.UserDrinkHistory = udh;
-            //    udih.IngredientId = ingredient.Id;
-            //    udih.AmountOunces = ingredient.AmountOunces * offset;
-            //    udih.Sequence = sequence;
-            //    base.Context.Data.UserDrinkIngredientHistories.Add(udih);
-            //}
+            base.Context.Data.SubmitChanges();
+
+            foreach (DrinkIngredient ingredient in drink.DrinkIngredients)
+            {
+                UserDrinkIngredientHistory udih = new UserDrinkIngredientHistory();
+                udih.UserDrinkHistory = udh;
+                udih.IngredientId = ingredient.IngredientId;
+                udih.AmountOunces = ingredient.AmountOunces * offset;
+                udih.Sequence = ingredient.Sequence;
+                base.Context.Data.UserDrinkIngredientHistories.InsertOnSubmit(udih);
+            }
+
+            base.Context.Data.SubmitChanges();
+
+            foreach (DrinkIngredient di in drink.DrinkIngredients)
+            {
+                Ingredient i = di.Ingredient;
+                i.RemainingOunces -= di.AmountOunces * offset;
+            }
 
             base.Context.Data.SubmitChanges();
         }

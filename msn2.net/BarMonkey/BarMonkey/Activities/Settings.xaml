@@ -6,14 +6,18 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="40" />
             <RowDefinition />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="1" Margin="20" Content="Relays" Style="{DynamicResource DefaultButtonStyle}" Click="relay_Click"/>
-        <bnc:NavigationBar Grid.Row="3" Grid.ColumnSpan="2" x:Name="navBar" />
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Label Name="view" FontSize="22" Content="view by" Style="{DynamicResource DefaultTextStyle}" />
+            <bnc:NavigationButtonStack x:Name="navStack" />
+        </StackPanel>
+        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />
     </Grid>
 </Page>

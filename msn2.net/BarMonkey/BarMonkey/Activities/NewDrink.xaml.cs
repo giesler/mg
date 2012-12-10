@@ -31,21 +31,18 @@ namespace msn2.net.BarMonkey.Activities
 
             this.navBar.BackClicked += delegate(object o, EventArgs a) {base.NavigationService.GoBack();};
             this.navBar.HomeClicked += delegate(object o, EventArgs a) {base.NavigationService.Navigate(new PartyModeHomePage());};
+
+            this.navStack.AddCommands(this.GetActivities());
+            this.navStack.NavigateToUri += delegate(Uri u) { this.NavigationService.Navigate(u); };
         }
 
-        private void byName_Click(object sender, RoutedEventArgs e)
+        private List<Activity> GetActivities()
         {
-            base.NavigationService.Navigate(new DrinkDisplayOptions());
-        }
-
-        private void byIngredient_Click(object sender, RoutedEventArgs e)
-        {
-            base.NavigationService.Navigate(new SelectIngredients());
-        }
-
-        private void top10_Click(object sender, RoutedEventArgs e)
-        {
-            base.NavigationService.Navigate(new Top10Drinks());
+            List<Activity> list = new List<Activity>();
+            list.Add(new Activity { Name = "Name", PageUrl = "Activities/DrinkDisplayOptions.xaml" });
+            list.Add(new Activity { Name = "Ingredient", PageUrl = "Activities/SelectIngredients.xaml" });
+            list.Add(new Activity { Name = "Top 10", PageUrl = "Activities/Top10Drinks.xaml" });
+            return list;
         }
     }
 }

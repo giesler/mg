@@ -26,7 +26,8 @@ namespace msn2.net.BarMonkey
             Ingredient current = BarMonkeyContext.Current.Ingredients.GetIngredientOnRelay(ingredient.Relay);
             if (current != null)
             {
-                current.Relay = null;
+                
+                current.RelayId = null;
             }
 
             ingredient.Relay = relay;

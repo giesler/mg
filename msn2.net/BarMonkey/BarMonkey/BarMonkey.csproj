@@ -36,7 +36,7 @@
     <PublisherName>msn2.net</PublisherName>
     <MinimumRequiredVersion>1.0.100.38</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>46</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.100.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -112,6 +112,10 @@
     <Page Include="Activities\BrowseByAlpha.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\IngredientSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Activities\DrinkByCategory.xaml">
       <SubType>Designer</SubType>
@@ -239,6 +243,9 @@
     </Compile>
     <Compile Include="Activities\BrowseByAlpha.xaml.cs">
       <DependentUpon>BrowseByAlpha.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\IngredientSettings.xaml.cs">
+      <DependentUpon>IngredientSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activities\DrinkByCategory.xaml.cs">
       <DependentUpon>DrinkByCategory.xaml</DependentUpon>
