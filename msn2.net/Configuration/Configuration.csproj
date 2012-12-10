@@ -91,6 +91,19 @@
                     AssemblyName = "System.Windows.Forms"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
                 />
+                <Reference
+                    Name = "Microsoft.Data.SqlXml"
+                    AssemblyName = "Microsoft.Data.SqlXml"
+                    HintPath = "..\..\..\Program Files\SQLXML 3.0\bin\Microsoft.Data.SqlXml.dll"
+                />
+                <Reference
+                    Name = "MessengerAPI"
+                    Guid = "{E02AD29E-80F5-46C6-B416-9B3EBDDF057E}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
             </References>
         </Build>
         <Files>
@@ -127,6 +140,25 @@
                 <File
                     RelPath = "DataSetCategory.xsx"
                     DependentUpon = "DataSetCategory.xsd"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "DataSetLogin.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DataSetLogin.cs"
+                />
+                <File
+                    RelPath = "DataSetLogin.cs"
+                    DependentUpon = "DataSetLogin.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "DataSetLogin.xsx"
+                    DependentUpon = "DataSetLogin.xsd"
                     BuildAction = "None"
                 />
                 <File

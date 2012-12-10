@@ -58,6 +58,7 @@ namespace msn2.net.Controls
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ComputerInfo));
 			this.graph1 = new msn2.net.Controls.Graph();
 			this.procPerf = new System.Diagnostics.PerformanceCounter();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -100,6 +101,7 @@ namespace msn2.net.Controls
 			this.ClientSize = new System.Drawing.Size(224, 62);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.graph1});
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ComputerInfo";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ComputerInfo";

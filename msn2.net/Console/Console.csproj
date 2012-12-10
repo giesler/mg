@@ -101,6 +101,14 @@
                     Project = "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "MessengerAPI"
+                    Guid = "{E02AD29E-80F5-46C6-B416-9B3EBDDF057E}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
             </References>
         </Build>
         <Files>
@@ -115,16 +123,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Form1.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Form1.resx"
-                    DependentUpon = "Form1.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Login.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -132,6 +130,16 @@
                 <File
                     RelPath = "Login.resx"
                     DependentUpon = "Login.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ProjectFConsole.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ProjectFConsole.resx"
+                    DependentUpon = "ProjectFConsole.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>

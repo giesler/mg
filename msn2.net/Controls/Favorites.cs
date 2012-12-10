@@ -10,6 +10,7 @@ using System.Threading;
 using System.Diagnostics;
 using msn2.net.Common;
 using msn2.net.Configuration;
+using System.Resources;
 
 namespace msn2.net.Controls
 {
@@ -26,6 +27,8 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.MenuItem menuItemDelete;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.ComponentModel.IContainer components = null;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private Guid dataId = new Guid("{40DEBAB8-3701-43d5-8447-223F8CC5763A}");
 
 		#endregion
@@ -38,8 +41,10 @@ namespace msn2.net.Controls
 			InitializeComponent();
 
 			treeViewCategory.ParentShellForm	= this;
-			treeViewCategory.RootNode			= ConfigurationSettings.Current.Data.Get("Favorites.Category");
-			
+			Data rootNode = ConfigurationSettings.Current.Data.Get("Favorites.Category");
+
+			treeViewCategory.RootNode = rootNode;
+
 		}
 
 		public Favorites(Data data): base(data)
@@ -47,11 +52,44 @@ namespace msn2.net.Controls
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
+			Data rootNode = data.Get("Favorites.CategoryTree");
+
+			#region Messenger Groups
+
+			// Make sure there are children for each Messenger Group
+			MessengerAPI.IMessengerGroups groups	= 
+				(MessengerAPI.IMessengerGroups) ConfigurationSettings.Current.Messenger.MyGroups;
+			DataCollection dataCollection			= rootNode.GetChildren(typeof(MessengerGroupData));
+			foreach (MessengerAPI.IMessengerGroup group in groups)
+			{
+				if (!dataCollection.Contains(group.Name))
+				{
+					dataCollection.Add(rootNode.Get(group.Name, typeof(MessengerGroupData)));
+				}
+
+				Data currentGroupData = dataCollection[group.Name];
+				DataCollection currentContacts = currentGroupData.GetChildren(typeof(MessengerContactData));
+
+				// Make sure all users in group are correctly listed
+				// Make sure contact list is correct
+				foreach (MessengerAPI.IMessengerContact contact in (MessengerAPI.IMessengerContacts) group.Contacts)
+				{
+					if (!currentContacts.Contains(contact.SigninName) && contact.SigninName != ConfigurationSettings.Current.MySigninName)
+					{
+						MessengerContactData contactData = 
+							new MessengerContactData(
+								ConfigurationSettings.Current.GetSigninId(contact.SigninName));
+						currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
+					}
+				}
+			}
+
+			#endregion
+
 			treeViewCategory.ParentShellForm	= this;
-			treeViewCategory.RootNode		= data.Get("Favorites.CategoryTree");
+			treeViewCategory.RootNode			= rootNode;
 
 			this.listViewFavorites.ContextMenu	= contextMenu1;
-
 		}
 
 		public new Point DefaultLocation
@@ -94,6 +132,8 @@ namespace msn2.net.Controls
 			this.treeViewCategory = new msn2.net.Controls.CategoryTreeView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.listViewFavorites = new System.Windows.Forms.ListView();
+			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
@@ -132,18 +172,30 @@ namespace msn2.net.Controls
 			// listViewFavorites
 			// 
 			this.listViewFavorites.AllowDrop = true;
+			this.listViewFavorites.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+																								this.columnHeader1,
+																								this.columnHeader2});
 			this.listViewFavorites.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listViewFavorites.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
 			this.listViewFavorites.HideSelection = false;
 			this.listViewFavorites.Location = new System.Drawing.Point(107, 0);
 			this.listViewFavorites.Name = "listViewFavorites";
 			this.listViewFavorites.Size = new System.Drawing.Size(309, 192);
 			this.listViewFavorites.SmallImageList = this.imageList1;
 			this.listViewFavorites.TabIndex = 7;
-			this.listViewFavorites.View = System.Windows.Forms.View.List;
+			this.listViewFavorites.View = System.Windows.Forms.View.Details;
 			this.listViewFavorites.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewFavorites_MouseUp);
 			this.listViewFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragDrop);
 			this.listViewFavorites.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragEnter);
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Name";
+			this.columnHeader1.Width = 200;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Type";
+			this.columnHeader2.Width = 200;
 			// 
 			// imageList1
 			// 
@@ -186,7 +238,6 @@ namespace msn2.net.Controls
 																		  this.listViewFavorites,
 																		  this.splitter1,
 																		  this.treeViewCategory});
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "Favorites";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Favorites";
@@ -202,9 +253,11 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_CategoryTreeView_AfterSelect(object sender, msn2.net.Controls.CategoryTreeViewEventArgs e)
 		{
-			Type[] types = new Type[2];
+			Type[] types = new Type[4];
 			types[0]	= typeof(FavoriteConfigData);
 			types[1]	= typeof(NoteConfigData);
+			types[2]	= typeof(msn2.net.Configuration.MessengerContactData);
+			types[3]	= typeof(msn2.net.Configuration.MessengerGroupData);
 
 			DataCollection col = e.Data.GetChildren(types);
 
@@ -366,6 +419,8 @@ namespace msn2.net.Controls
 			this.data		= data;
 
 			this.ImageIndex	= data.ConfigData.IconIndex;
+
+			this.SubItems.Add(data.DataType.ToString());
 		}
 
 		public Data Data 
@@ -380,7 +435,7 @@ namespace msn2.net.Controls
 
 	public class FavoriteConfigData: ConfigData
 	{
-		public static new int IconIndex
+		public override int IconIndex
 		{
 			get { return 1; }
 		}

@@ -166,20 +166,21 @@ namespace msn2.net.Configuration
 		{
 			Trace.Write(String.Format("nodeId: {0}", this.id), "GetChildren");
 
-			// Select all root categories for this user
-			string sql = "select * from FavoritesCategory "
-				+ "where UserId = @userId and ParentId = @nodeId"; //and ConfigTreeLocation = @configTreeLocation";
+			// Select all items with this as the parent
+			string sql = "select fc.* from FavoritesCategory fc inner join ItemParent ip on fc.CategoryId = ip.ItemId "
+				+ "where ip.ParentId = @nodeId";
+			
 			if (types != null && types[0] != null)
 				sql	= sql + " and ItemType in (" + TypeArrayToString(types) + ")";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
 			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
-			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+//			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
 //			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
 
 			// Set params to pass to SQL
-			da.SelectCommand.Parameters["@userId"].Value				= userId;
+//			da.SelectCommand.Parameters["@userId"].Value				= userId;
 			da.SelectCommand.Parameters["@nodeId"].Value				= this.id;
 //			da.SelectCommand.Parameters["@configTreeLocation"].Value	= this.configTreeLocation.ToString();
 
@@ -194,10 +195,13 @@ namespace msn2.net.Configuration
 				Type itemType = null;
 				foreach (Type currentType in types)
 				{
-					if (currentType.ToString() == row.ItemType)
+					if (currentType != null)
 					{
-						itemType = currentType;
-						break;
+						if (currentType.ToString() == row.ItemType)
+						{
+							itemType = currentType;
+							break;
+						}
 					}
 				}
 
@@ -403,7 +407,7 @@ namespace msn2.net.Configuration
 
 		#endregion
 
-		#region Add Calls
+		#region Get Calls
 
 		#region Overloads
 
@@ -507,6 +511,9 @@ namespace msn2.net.Configuration
 			da.SelectCommand.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
 			da.SelectCommand.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
 			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@itemAdded", SqlDbType.Bit);
+			da.SelectCommand.Parameters.Add("@itemKey", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters["@itemAdded"].Direction			= ParameterDirection.Output;
 
 			// Set command params
 			da.SelectCommand.Parameters["@categoryId"].Value			= newCategoryId;
@@ -514,6 +521,7 @@ namespace msn2.net.Configuration
 			da.SelectCommand.Parameters["@categoryName"].Value			= name;
 			da.SelectCommand.Parameters["@parentId"].Value				= this.id;
 			da.SelectCommand.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
+			da.SelectCommand.Parameters["@itemKey"].Value				= Guid.Empty;
 
 			// Set url only if it has a value
 			if (url != null)
@@ -529,6 +537,9 @@ namespace msn2.net.Configuration
 			if (data != null)
 			{
 				da.SelectCommand.Parameters["@itemData"].Value	= SerializeObject(data);
+				ConfigData configData = data as ConfigData;
+				if (configData != null)
+					da.SelectCommand.Parameters["@itemKey"].Value	= configData.ItemKey;
 			}
 			else
 			{
@@ -551,6 +562,33 @@ namespace msn2.net.Configuration
 			if (ds.FavoritesCategory.Rows.Count > 0)
 			{
 				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0], type);
+				
+				// Check if we need to update parents of other nodes
+				if (Convert.ToBoolean(da.SelectCommand.Parameters["@itemAdded"].Value))
+				{
+					DataCollection col = GetChildren(typeof(msn2.net.Configuration.MessengerContactData));
+					foreach (Data item in col)
+					{
+						// We need to add a link for this contact
+						MessengerContactData contactData = (MessengerContactData) item.ConfigData;
+					
+						// Find out what group they are using for us
+						Guid theirGroupId = LookupTheirGroupId(contactData);
+
+						// Add a row to link these
+						sql = "insert ItemParent (ItemId, ParentId) values (@itemId, @parentId)";
+						SqlCommand cmd = new SqlCommand(sql, cn);
+						cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
+						cmd.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
+						cmd.Parameters["@itemId"].Value = node.id;
+						cmd.Parameters["@parentId"].Value	= theirGroupId;
+
+						cn.Open();
+						cmd.ExecuteNonQuery();
+						cn.Close();
+					}
+				}
+				
 				return node;
 			}
 
@@ -630,6 +668,50 @@ namespace msn2.net.Configuration
 
 		#endregion
 
+		#region LookupTheirGroupId
+
+		private Hashtable cachedGroupIds = new Hashtable();
+
+		private Guid LookupTheirGroupId(MessengerContactData contactData)
+		{
+			Guid groupId = Guid.Empty;
+
+			// Check hash table
+			if (cachedGroupIds.Contains(contactData.ContactId))
+			{
+				return (Guid) cachedGroupIds[contactData.ContactId];
+			}
+
+			// Lookup parent for my contact ID
+			string sql = "select ParentId from FavoritesCategory where ItemType = @itemType and ItemKey = @itemKey and UserId = @userId";
+
+			SqlConnection cn = new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlCommand cmd   = new SqlCommand(sql, cn);
+
+			cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
+			cmd.Parameters.Add("@itemKey", SqlDbType.UniqueIdentifier);
+			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+
+			cmd.Parameters["@itemType"].Value		= contactData.GetType().ToString();
+			cmd.Parameters["@itemKey"].Value		= this.userId;
+			cmd.Parameters["@userId"].Value			= contactData.ContactId;
+
+			cn.Open();
+			SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+			
+			if (dr.Read())
+			{
+                groupId = new Guid(dr[0].ToString());
+			}
+			cn.Close();
+
+			cachedGroupIds.Add(contactData.ContactId, groupId);
+            
+			return groupId;
+		}
+
+		#endregion
+
 	}
 
 	#endregion
@@ -653,6 +735,30 @@ namespace msn2.net.Configuration
 			get { return (Data) InnerList[index]; }
 		}
 
+		public Data this[string name]
+		{
+			get 
+			{
+				foreach (Data item in InnerList)
+				{
+					if (item.Name == name)
+						return item;
+				}
+				return null;
+			}
+		}
+
+		public bool Contains(string name)
+		{
+			foreach (Data item in InnerList)
+			{
+				if (item.Name == name)
+					return true;
+			}
+
+			return false;
+		}
+
 	}
 
 	#endregion
@@ -661,9 +767,17 @@ namespace msn2.net.Configuration
 
 	public class ConfigData
 	{
-		public int IconIndex
+		private Guid itemKey = Guid.Empty;
+
+		public virtual int IconIndex
 		{
 			get { return 0; }
+		}
+
+		public Guid ItemKey
+		{
+			get { return itemKey; }
+			set { itemKey = value; }
 		}
 	}
 

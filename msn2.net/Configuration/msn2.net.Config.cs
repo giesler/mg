@@ -5,9 +5,13 @@ using System.Runtime.Remoting;
 using System.Collections;
 using System.Data.SqlClient;
 using System.Web.Caching;
+using Microsoft.Data.SqlXml;
+using System.Diagnostics;
 
 namespace msn2.net.Configuration
 {
+	#region Static Accessor
+
 	public class ConfigurationSettings
 	{
 		private static Config current;
@@ -16,168 +20,89 @@ namespace msn2.net.Configuration
 		{
 			get
 			{
+				// Create the config on the first call
 				if (current == null)
-				{
-//					lock (current)
-					{
-						if (current == null)
-						{
-							current = new Config();
-						}
-					}
-				}
+					current = new Config();
+
 				return current;
 			}
 		}
 	}
+
+	#endregion
 
 	/// <summary>
 	/// Central configuration
 	/// </summary>
 	public class Config
 	{
-		private Guid userId			= Guid.NewGuid();
+		
+		#region Declares
+
+		private string signinName	= "";
+		private string machineName	= Environment.MachineName;
+		private Guid signinId		= Guid.NewGuid();
 		private Guid machineId		= Guid.NewGuid();
 		private Guid policyId		= Guid.NewGuid();
 		private Guid configId		= Guid.NewGuid();
-		private ItemIdDictionary itemIdDictionary;
 		private Data data;
+		private MessengerAPI.MessengerClass messenger = null;
+		private Hashtable userList = new Hashtable();
 		
-		public void Login(Guid userId, Guid machineId, Guid policyId)
+		#endregion
+
+		#region Login
+
+		public void Login(MessengerAPI.MessengerClass messenger)
 		{
+			this.messenger				= messenger;
+
+			// Set up SP to retreive login IDs
+			SqlXmlCommand cmd			= new SqlXmlCommand(xmlConnectionString);
+			cmd.CommandText				= "EXEC dbo.s_Login ?, ?";
+			cmd.RootTag					= "Login";
+
+			// Create needed params
+			SqlXmlParameter param;
+			param						= cmd.CreateParameter();
+			param.Value					= messenger.MySigninName;
+			param						= cmd.CreateParameter();
+			param.Value					= System.Environment.MachineName;
+
+			// Create an adapter to fill a dataset
+			SqlXmlAdapter xmlAdapter	= new SqlXmlAdapter(cmd);
+			DataSet ds					= new DataSet();
+
+			// Fill the dataset
+			xmlAdapter.Fill(ds);
+
+			// Save config values
+			this.signinId				= new Guid(ds.Tables[0].Rows[0]["SigninId"].ToString());
+			this.machineId				= new Guid(ds.Tables[0].Rows[0]["MachineId"].ToString());
+
 			this.configId	= configId;
-			this.userId		= userId;
-            this.machineId	= machineId;			
 			this.policyId	= policyId;
 
-			itemIdDictionary = new ItemIdDictionary();
-
 			// load each tree
-			data = new Data(configId, userId, machineId, policyId);
+			data = new Data(configId, signinId, machineId, policyId);
+
 		}
+
+		#endregion
+
+		#region Root Data node
 
 		public Data Data
 		{
 			get { return data; }
 		}
 
-//		public Guid GetItemId(string itemName)
-//		{
-//            // Check for cache entry
-//			Guid itemId = itemIdDictionary.ItemId(itemName);
-//
-//			// If we didn't get anything, look up in db
-//			if (itemId == Guid.Empty)
-//			{
-//				SqlConnection cn = new SqlConnection(ConnectionString);
-//				SqlCommand cmd   = new SqlCommand("s_Configuration_Item_Get", cn);
-//				cmd.CommandType  = CommandType.StoredProcedure;
-//
-//				// Params for sp
-//				cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-//				cmd.Parameters.Add("@itemName", SqlDbType.NVarChar, 50);
-//				cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-//				cmd.Parameters["@itemId"].Direction = ParameterDirection.Output;
-//
-//				// Set sp values
-//				cmd.Parameters["@userId"].Value			 = userId;
-//				cmd.Parameters["@itemName"].Value		 = itemName;
-//
-//				// Run the sp
-//				cn.Open();
-//				cmd.ExecuteNonQuery();
-//				cn.Close();
-//
-//				itemId = (Guid) cmd.Parameters["@itemId"].Value;
-//				itemIdDictionary.Add(itemName, itemId);
-//			}
-//			
-//			return itemId;
-//
-//		}
-//
-//		public ItemAttribute GetItemAttribute(string itemName, string attributeName)
-//		{
-//			return GetItemAttribute(itemName, attributeName, 0);
-//		}
-//
-//		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue)
-//		{
-//			return GetItemAttribute(itemName, attributeName, defaultValue, false);
-//		}
-//
-//		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue, bool globalSetting)
-//		{
-//			SqlConnection cn = new SqlConnection(ConnectionString);
-//			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Get", cn);
-//			cmd.CommandType  = CommandType.StoredProcedure;
-//
-//			Guid itemId = GetItemId(itemName);
-//
-//			// Params for sp
-//			cmd.Parameters.Add("@configurationId", SqlDbType.UniqueIdentifier);
-//			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-//			cmd.Parameters.Add("@attributeName", SqlDbType.NVarChar, 50);
-//			cmd.Parameters.Add("@defaultValue", SqlDbType.NVarChar, 50);
-//			cmd.Parameters.Add("@attributeValue", SqlDbType.NVarChar, 50);
-//			cmd.Parameters["@attributeValue"].Direction = ParameterDirection.Output;
-//
-//			// Set sp values
-//			if (globalSetting)
-//				cmd.Parameters["@configurationId"].Value = System.DBNull.Value;
-//			else
-//				cmd.Parameters["@configurationId"].Value = configId;
-//			cmd.Parameters["@itemId"].Value			 = itemId;
-//			cmd.Parameters["@attributeName"].Value	 = attributeName;
-//			cmd.Parameters["@defaultValue"].Value	 = defaultValue;
-//
-//			// Run the sp
-//			cn.Open();
-//			cmd.ExecuteNonQuery();
-//			cn.Close();
-//
-//			ItemAttribute item = new ItemAttribute(cmd.Parameters["@AttributeValue"].Value);
-//			return item;
-//		}
-//
-//		public void SetItemAttribute(string itemName, string attributeName, object attributeValue)
-//		{
-//			SetItemAttribute(itemName, attributeName, attributeValue, false);
-//		}
-//
-//		public void SetItemAttribute(string itemName, string attributeName, object attributeValue, bool globalSetting)
-//		{
-//			SqlConnection cn = new SqlConnection(ConnectionString);
-//			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Set", cn);
-//			cmd.CommandType  = CommandType.StoredProcedure;
-//
-//			Guid itemId = GetItemId(itemName);
-//
-//			// Params for sp
-//			cmd.Parameters.Add("@ConfigurationId", SqlDbType.UniqueIdentifier);
-//			cmd.Parameters.Add("@ItemId", SqlDbType.UniqueIdentifier);
-//			cmd.Parameters.Add("@AttributeName", SqlDbType.NVarChar, 50);
-//			cmd.Parameters.Add("@AttributeValue", SqlDbType.NVarChar, 50);
-//
-//			// Set sp values
-//			if (globalSetting)
-//				cmd.Parameters["@ConfigurationId"].Value = System.DBNull.Value;
-//			else
-//				cmd.Parameters["@ConfigurationId"].Value = configId;
-//			cmd.Parameters["@ItemId"].Value			 = itemId;
-//			cmd.Parameters["@AttributeName"].Value	 = attributeName;
-//			cmd.Parameters["@AttributeValue"].Value	 = attributeValue.ToString();
-//
-//			// Run the sp
-//			cn.Open();
-//			cmd.ExecuteNonQuery();
-//			cn.Close();
-//			
-//		}
+		#endregion
 
 		#region ConnectionString
 
-		private string connectionString = "User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=projectf;Data Source=kyle;";
+		private string xmlConnectionString = @"User ID=projectflogin;Password=asd*%p\@ex(!;Persist Security Info=False;Initial Catalog=projectf;Data Source=barbrady;Provider=SQLOLEDB";
+		private string connectionString = @"User ID=projectflogin;Password=asd*%p\@ex(!;Persist Security Info=False;Initial Catalog=projectf;Data Source=barbrady";
 
 		/// <summary>
 		/// Get/set connectionString from config
@@ -197,167 +122,119 @@ namespace msn2.net.Configuration
 
 		#endregion
 
-		#region UserId
+		#region SigninId
 
 		/// <summary>
-		/// Currently logged in user.
+		/// Currently signed in user ID
 		/// </summary>
-		/// <remarks>
-		/// Broadcasts MSN2.net.LoginChangeEvent
-		/// </remarks>
-		public Guid UserId
+		public Guid SigninId
 		{
 			get
 			{
-				return userId;
+				return signinId;
 			}
 		}
 
 		#endregion
 
-		#region Logins
+		#region MySigninName
 
-		private DataSet logins;
-
-		/// <summary>
-		/// Currently logged in user.
-		/// </summary>
-		/// <remarks>
-		/// Broadcasts MSN2.net.LoginChangeEvent
-		/// </remarks>
-		public DataSet Logins
+		public string MySigninName
 		{
-			get
-			{
-				return logins;
-			}
-			set
-			{
-				logins = value;
-				//save
-			}
+			get { return signinName; }
 		}
 
-        
+		#endregion
+
+		#region Messenger
+
+		public MessengerAPI.MessengerClass Messenger
+		{
+			get { return messenger; }
+		}
+
+		#endregion
+
+		#region GetSigninId
+
+		public Guid GetSigninId(string signinName)
+		{
+			Guid signinId = Guid.Empty;
+
+			// Check for user in hash table
+			if (userList.Contains(signinName))
+			{
+				return (Guid) userList[signinName];
+			}
+
+			// Look up user in db
+			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlCommand cmd		= new SqlCommand("s_Lookup_SigninId", cn);
+			cmd.CommandType		= CommandType.StoredProcedure;
+
+			cmd.Parameters.Add("@signInName", SqlDbType.NVarChar, 255);
+			cmd.Parameters["@signInName"].Value = signinName;
+
+			cn.Open();
+			SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+
+			if (dr.Read())
+			{
+				signinId = new Guid(dr[0].ToString());
+			}
+
+			cn.Close();
+
+			userList.Add(signinName, signinId);
+
+			return signinId;
+		}
+
+
 		#endregion
 
 	}
 
-	public class ItemAttribute
+	#region MessengerGroupData
+
+	/// <summary>
+	/// Type specifier for category items in Config
+	/// </summary>
+	public class MessengerGroupData: ConfigData
 	{
-		private object layoutAttribute;
-	
-		public ItemAttribute(object o)
+		public MessengerGroupData()
+		{}
+	}
+
+	#endregion
+
+	#region MessengerContactData
+
+	/// <summary>
+	/// Type specifier for category items in Config
+	/// </summary>
+	public class MessengerContactData: ConfigData
+	{
+		public MessengerContactData()
+		{}
+
+		public MessengerContactData(Guid contactId)
 		{
-			this.layoutAttribute = o;
+			this.ItemKey	= contactId;
 		}
 
-		public int Integer
+		public Guid ContactId
 		{
-			get 
-			{
-				return Convert.ToInt32(layoutAttribute);
-			}
+			get { return this.ItemKey; }
+			set { this.ItemKey = value; }
 		}
 
-		public string[] StringArray
+		public override int IconIndex
 		{
-			get
-			{
-				return (layoutAttribute.ToString().Split(' '));
-			}
-		}
-
-		public Guid Guid
-		{
-			get
-			{
-				return new Guid(layoutAttribute.ToString());
-			}
-		}
-
-		public bool Boolean
-		{
-			get
-			{
-				if (layoutAttribute.ToString() == "0")
-					return false;
-				else
-					return true;
-			}
+			get { return 3; }
 		}
 	}
 
-	internal class ItemIdDictionary: System.Collections.DictionaryBase
-	{
-		public void Add(string itemName, Guid itemId)
-		{
-			this.Dictionary.Add(itemName, itemId);
-		}
+	#endregion
 
-		public Guid ItemId(string itemName)
-		{
-			object o = this.Dictionary[itemName];
-
-			if (o == null)
-				return Guid.Empty;
-			else
-				return (Guid) o;
-		}
-	}
-
-	public class FormSettingsCollection: System.Collections.CollectionBase
-	{
-		public FormSettings this[string name]
-		{
-			get
-			{
-				foreach (FormSettings f in InnerList)
-				{
-					if (f.Name == name)
-						return f;
-				}
-				return null;
-			}
-		}
-	}
-
-	public class FormSettings
-	{
-		private string name;
-		private int left;
-		private int right;
-		private int height;
-		private int width;
-
-		public string Name
-		{
-			get { return name; }
-			set { name = value; }
-		}
-
-		public int Left 
-		{
-			get { return left; }
-			set { left = value; }
-		}
-
-		public int Right
-		{
-			get { return right; }
-			set { right = value; }
-		}
-
-		public int Height
-		{
-			get { return height; }
-			set { height = value; }
-		}
-
-		public int Width
-		{
-			get { return width; }
-			set { width = value; }
-		}
-	}
 }

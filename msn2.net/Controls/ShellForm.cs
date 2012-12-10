@@ -95,6 +95,15 @@ namespace msn2.net.Controls
 		private Data formNode						= null;
 		private Data layoutData						= null;
 
+		// Form style properties
+		private int		titleHeight					= 18;
+		private int		borderWidth					= 3;
+		private int		buttonWidth					= 8;
+        private int		buttonHeight				= 8;
+		private System.Windows.Forms.PictureBox pictureBoxFormIcon;
+		private int		rollupHeight				= 18;
+
+
 		#endregion
 
 		#region Constructor and Disposal
@@ -154,6 +163,7 @@ namespace msn2.net.Controls
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ShellForm));
 			this.panelTitle = new System.Windows.Forms.Panel();
 			this.panelTitleText = new System.Windows.Forms.Panel();
+			this.pictureBoxFormIcon = new System.Windows.Forms.PictureBox();
 			this.labelTitle = new System.Windows.Forms.Label();
 			this.panelMoreButtons = new System.Windows.Forms.Panel();
 			this.panelButtons = new System.Windows.Forms.Panel();
@@ -181,7 +191,7 @@ namespace msn2.net.Controls
 																					 this.panelButtons});
 			this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panelTitle.Name = "panelTitle";
-			this.panelTitle.Size = new System.Drawing.Size(344, 0);
+			this.panelTitle.Size = new System.Drawing.Size(344, 16);
 			this.panelTitle.TabIndex = 0;
 			this.panelTitle.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelTitle_Layout);
 			// 
@@ -189,12 +199,22 @@ namespace msn2.net.Controls
 			// 
 			this.panelTitleText.BackColor = System.Drawing.Color.Transparent;
 			this.panelTitleText.Controls.AddRange(new System.Windows.Forms.Control[] {
+																						 this.pictureBoxFormIcon,
 																						 this.labelTitle});
 			this.panelTitleText.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelTitleText.Name = "panelTitleText";
-			this.panelTitleText.Size = new System.Drawing.Size(224, 0);
+			this.panelTitleText.Size = new System.Drawing.Size(224, 16);
 			this.panelTitleText.TabIndex = 5;
 			this.panelTitleText.Resize += new System.EventHandler(this.panelTitleText_Resize);
+			// 
+			// pictureBoxFormIcon
+			// 
+			this.pictureBoxFormIcon.BackColor = System.Drawing.Color.DimGray;
+			this.pictureBoxFormIcon.Name = "pictureBoxFormIcon";
+			this.pictureBoxFormIcon.Size = new System.Drawing.Size(16, 16);
+			this.pictureBoxFormIcon.TabIndex = 2;
+			this.pictureBoxFormIcon.TabStop = false;
+			this.pictureBoxFormIcon.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxFormIcon_Paint);
 			// 
 			// labelTitle
 			// 
@@ -203,12 +223,14 @@ namespace msn2.net.Controls
 			this.labelTitle.BackColor = System.Drawing.Color.Transparent;
 			this.labelTitle.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.labelTitle.ForeColor = System.Drawing.Color.LawnGreen;
+			this.labelTitle.Location = new System.Drawing.Point(16, 0);
 			this.labelTitle.Name = "labelTitle";
 			this.labelTitle.Size = new System.Drawing.Size(224, 23);
 			this.labelTitle.TabIndex = 1;
 			this.labelTitle.Text = "[title]";
 			this.labelTitle.MouseHover += new System.EventHandler(this.labelTitle_MouseHover);
 			this.labelTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.labelTitle_MouseUp);
+			this.labelTitle.DoubleClick += new System.EventHandler(this.labelTitle_DoubleClick);
 			this.labelTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelTitle_MouseMove);
 			this.labelTitle.MouseLeave += new System.EventHandler(this.labelTitle_MouseLeave);
 			this.labelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTitle_MouseDown);
@@ -219,7 +241,7 @@ namespace msn2.net.Controls
 			this.panelMoreButtons.Dock = System.Windows.Forms.DockStyle.Right;
 			this.panelMoreButtons.Location = new System.Drawing.Point(224, 0);
 			this.panelMoreButtons.Name = "panelMoreButtons";
-			this.panelMoreButtons.Size = new System.Drawing.Size(24, 0);
+			this.panelMoreButtons.Size = new System.Drawing.Size(24, 16);
 			this.panelMoreButtons.TabIndex = 7;
 			// 
 			// panelButtons
@@ -232,7 +254,7 @@ namespace msn2.net.Controls
 			this.panelButtons.Dock = System.Windows.Forms.DockStyle.Right;
 			this.panelButtons.Location = new System.Drawing.Point(248, 0);
 			this.panelButtons.Name = "panelButtons";
-			this.panelButtons.Size = new System.Drawing.Size(96, 0);
+			this.panelButtons.Size = new System.Drawing.Size(96, 16);
 			this.panelButtons.TabIndex = 6;
 			// 
 			// buttonOpacity
@@ -295,8 +317,9 @@ namespace msn2.net.Controls
 			// 
 			this.panelLeft.BackColor = System.Drawing.Color.DimGray;
 			this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panelLeft.Location = new System.Drawing.Point(0, 16);
 			this.panelLeft.Name = "panelLeft";
-			this.panelLeft.Size = new System.Drawing.Size(0, 262);
+			this.panelLeft.Size = new System.Drawing.Size(0, 246);
 			this.panelLeft.TabIndex = 2;
 			this.panelLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseUp);
 			this.panelLeft.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseMove);
@@ -306,9 +329,9 @@ namespace msn2.net.Controls
 			// 
 			this.panelRight.BackColor = System.Drawing.Color.DimGray;
 			this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panelRight.Location = new System.Drawing.Point(344, 0);
+			this.panelRight.Location = new System.Drawing.Point(344, 16);
 			this.panelRight.Name = "panelRight";
-			this.panelRight.Size = new System.Drawing.Size(0, 262);
+			this.panelRight.Size = new System.Drawing.Size(0, 246);
 			this.panelRight.TabIndex = 3;
 			this.panelRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelRight_MouseUp);
 			this.panelRight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelRight_MouseMove);
@@ -379,9 +402,10 @@ namespace msn2.net.Controls
 		{
 			if (formNode != null)
 			{
-				ShellFormConfigData layoutConfig = new ShellFormConfigData(this);
-				layoutData = formNode.Get("ShellFormConfigData", layoutConfig, ConfigTreeLocation.CustomConfigTree);
-				layoutConfig.Apply();
+				ShellFormConfigData defaultConfig = new ShellFormConfigData(this);
+				layoutData = formNode.Get("ShellFormConfigData", defaultConfig, typeof(ShellFormConfigData));
+				ShellFormConfigData layoutConfig = (ShellFormConfigData) layoutData.ConfigData;
+				layoutConfig.Apply(this);
 			}                
 		}
 
@@ -595,12 +619,16 @@ namespace msn2.net.Controls
 						lockedTo = instance;
 						instance.timerFadeIn.Enabled = true;
 						instance.timerFadeOut.Enabled = false;
+						
+						// We want to hide buttons that we want controlled by both instances
+						this.buttonOnTop.Visible		= false;
+						this.buttonOpacity.Visible		= false;
 
 						this.Left = instance.Left;
 						this.Top  = instance.Top + instance.Height;
 
 						// Snap widths if close
-						if (Math.Abs(this.Width - instance.Width) < 10)
+						if (Math.Abs(this.Width - instance.Width) < 20)
 						{
 							int newWidth = Math.Max(this.Width, instance.Width);
 							this.Width		= newWidth;
@@ -609,12 +637,6 @@ namespace msn2.net.Controls
 
 						Debug.WriteLine(this.Name + " locked to " + instance.Name);
 						break;
-					}
-						// See if we are within 10 of another instances upper left
-					else if ( (Math.Abs(instance.Left - newLeft) < 10)
-						&& (Math.Abs(newTop + this.Height - instance.Top) < 10) )
-					{
-						Debug.WriteLine(this.Name + " is within 10 of " + instance.Name);
 					}
 
 				}
@@ -625,8 +647,10 @@ namespace msn2.net.Controls
 					if (lockedTo != null && lockedTo == instance)
 					{
 						Debug.WriteLine(this.Name + " unlocked");
-						lockedTo.timerFadeIn.Enabled = false;
-						lockedTo.timerFadeOut.Enabled = true;
+						lockedTo.timerFadeIn.Enabled	= false;
+						lockedTo.timerFadeOut.Enabled	= true;
+						this.buttonOnTop.Visible		= true;
+						this.buttonOpacity.Visible		= true;
 						lockedTo = null;
 					}
 				}
@@ -755,30 +779,31 @@ namespace msn2.net.Controls
 
 		private void buttonOpacity_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			int width	= 8;
+			int width	= buttonWidth;
+			int height	= buttonHeight;
 			int x		= buttonOnTop.Width / 2 - (width / 2);
 			int y		= buttonOnTop.Height / 2 - (width / 2);
 
 			if (enableOpacityChanges)
 			{
-				using (Bitmap bmp = new Bitmap(width, width))
+				using (Bitmap bmp = new Bitmap(width, height))
 				{
-					for (int i = 0; i < 8; i += 2)
+					for (int i = 0; i < buttonWidth; i += 2)
 					{
-						for (int j = 1; j < 8; j += 2)
+						for (int j = 1; j < buttonHeight; j += 2)
 						{
 							bmp.SetPixel(i, j, Color.LawnGreen);
 						}
 					}
 					using (Brush brush = new TextureBrush(bmp))
 					{
-						e.Graphics.FillRectangle(brush, x, y, width, width);
+						e.Graphics.FillRectangle(brush, x, y, width, height);
 					}
 				}
 			}
 			else
 			{
-				e.Graphics.FillRectangle(new SolidBrush(Color.LawnGreen), x, y, width, width);
+				e.Graphics.FillRectangle(new SolidBrush(Color.LawnGreen), x, y, width, height);
 			}
 
 		}
@@ -787,6 +812,16 @@ namespace msn2.net.Controls
 		{
 			enableOpacityChanges = !enableOpacityChanges;
 			buttonOpacity.Refresh();
+
+			foreach (ShellForm instance in instances)
+			{
+				// Reposition any forms locked to this form
+				if (instance.lockedTo == this)
+				{
+					instance.EnableOpacityChanges = this.enableOpacityChanges;
+                    instance.Refresh();
+				}
+			}
 		}
 
 		private bool suspendOpacityChanges = false;
@@ -831,15 +866,15 @@ namespace msn2.net.Controls
 				// If we are in ProjectF style, move all controls down
 			{
 
-				panelTitle.Height = 16;
+				panelTitle.Height = titleHeight;
 				panelTitle.SendToBack();
 
-				panelLeft.Width   = 3;
+				panelLeft.Width   = borderWidth;
 				panelLeft.SendToBack();
 
-				panelRight.Width  = 3;
+				panelRight.Width  = borderWidth;
 				panelRight.SendToBack();
-				panelBottom.Height = 3;
+				panelBottom.Height = borderWidth;
 				panelBottom.Top   = this.Height - panelBottom.Height - panelTitle.Height;
 				panelBottom.SendToBack();
 
@@ -1010,23 +1045,35 @@ namespace msn2.net.Controls
 		private void buttonOnTop_Click(object sender, System.EventArgs e)
 		{
 			this.TopMost = !this.TopMost;
+			buttonOnTop.Refresh();
+
+			// set ontop for any forms locked to us
+			foreach (ShellForm instance in instances)
+			{
+				// Reposition any forms locked to this form
+				if (instance.lockedTo == this)
+				{
+					instance.TopMost = this.TopMost;
+				}
+			}
 		}
-		
+
 		private void buttonOnTop_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			int width	= 8;
+			int width	= buttonWidth;
+			int height	= buttonHeight;
 			int x		= buttonOnTop.Width / 2 - (width / 2);
-			int y		= buttonOnTop.Height / 2 - (width / 2);
+			int y		= buttonOnTop.Height / 2 - (height / 2);
 
 			if (this.TopMost)
 			{
-				e.Graphics.FillEllipse(new SolidBrush(Color.LawnGreen), x, y, width, width);
+				e.Graphics.FillEllipse(new SolidBrush(Color.LawnGreen), x, y, width, height);
 			}
 			else
 			{
 				using (Pen pen = new Pen(new SolidBrush(Color.LawnGreen)))
 				{
-					e.Graphics.DrawEllipse(pen, x, y, width, width);
+					e.Graphics.DrawEllipse(pen, x, y, width, height);
 				}
 			}
 		}
@@ -1064,7 +1111,7 @@ namespace msn2.net.Controls
 			else 
 			{
 				savedSize = new Size(this.Width, this.Height);
-				this.Height = 16;
+				this.Height = rollupHeight;
 				rolledUp = true;
 
 				if (Rollup_Collapse != null)
@@ -1103,8 +1150,8 @@ namespace msn2.net.Controls
 		
 		private void buttonRollup_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			int width	= 8;
-			int height  = 8;
+			int width	= buttonWidth;
+			int height  = buttonHeight;
 			int x		= buttonRollup.Width / 2 - (width / 2);		// = 4
 			int y		= buttonRollup.Height / 2 - (height / 2);	// = 4
 
@@ -1187,8 +1234,144 @@ namespace msn2.net.Controls
 				TitleMouseLeave(this, EventArgs.Empty);
 		}
 
+		private void pictureBoxFormIcon_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			// Darken the background.  Code from MagicLibrary.
+			// Calculate the IDE background colour as only half as dark as the control colour
+			int red = 255 - ((255 - SystemColors.Control.R) / 2);
+			int green = 255 - ((255 - SystemColors.Control.G) / 2);
+			int blue = 255 - ((255 - SystemColors.Control.B) / 2);
+			Color _backIDE = Color.FromArgb(red, green, blue);
+			e.Graphics.FillRectangle(new SolidBrush(_backIDE), e.ClipRectangle);
+
+			pictureBoxFormIcon.Top		= 1;
+			labelTitle.Top				= 1;
+			panelButtons.Top			= 1;
+			panelMoreButtons.Top		= 1;
+
+			// Draw the form icon.
+			e.Graphics.FillRectangle(new SolidBrush(panelTitle.BackColor), e.ClipRectangle);
+			e.Graphics.DrawIcon(this.Icon, e.ClipRectangle);
+
+		}
+
+		private void labelTitle_DoubleClick(object sender, System.EventArgs e)
+		{
+			if (this.WindowState != System.Windows.Forms.FormWindowState.Maximized)
+			{
+				this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			}
+			else
+			{
+				this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+			}
+		}
+
 		public event System.EventHandler TitleHover;
 		public event System.EventHandler TitleMouseLeave;
+
+		#endregion
+
+		#region Show/Hide buttons
+
+		private bool showOpacityButton		= true;
+		private bool showRollupButton		= true;
+		private bool showCloseButton		= true;
+		private bool showTopMostButton		= true;
+
+		[Category("Title Bar Buttons")]
+		public bool ShowOpacityButton
+		{
+			get { return showOpacityButton; }
+			set 
+			{
+				showOpacityButton = value;
+				UpdateButtons();
+			}
+		}
+
+		[Category("Title Bar Buttons")]
+		public bool ShowRollupButton
+		{
+			get { return showRollupButton; }
+			set 
+			{
+				showRollupButton = value;
+				UpdateButtons();
+			}
+		}
+
+		[Category("Title Bar Buttons")]
+		public bool ShowCloseButton
+		{
+			get { return showCloseButton; }
+			set
+			{
+				showCloseButton = value;
+				UpdateButtons();
+			}
+		}
+
+		[Category("Title Bar Buttons")]
+		public bool ShowTopMostButton
+		{
+			get { return showTopMostButton; }
+			set 
+			{ 
+				showTopMostButton = value; 
+				UpdateButtons();
+			}
+		}
+
+		private void UpdateButtons()
+		{
+			this.SuspendLayout();
+
+			// Show/hide buttons
+			buttonOpacity.Visible		= showOpacityButton;
+			buttonOnTop.Visible			= showTopMostButton;
+			buttonRollup.Visible		= showRollupButton;
+			buttonHide.Visible			= showCloseButton;
+
+			int visibleButtons = 0;
+
+			// Go through each button, moving it to leftmost as needed
+			if (showCloseButton)
+			{
+//				buttonHide.Left		= leftmostButton;
+				buttonHide.Dock		= DockStyle.Right;
+				buttonHide.BringToFront();
+				visibleButtons++;
+			}
+			if (showRollupButton)
+			{
+//				buttonRollup.Left	= leftmostButton;
+				buttonRollup.Dock	= DockStyle.Right;
+				buttonRollup.BringToFront();
+				visibleButtons++;
+			}
+			if (showTopMostButton)
+			{
+//				buttonOnTop.Left	= leftmostButton;
+				buttonOnTop.Dock	= DockStyle.Right;
+				buttonOnTop.BringToFront();
+				visibleButtons++;
+			}
+			if (showOpacityButton)
+			{
+//				buttonOpacity.Left	= leftmostButton;
+				buttonOpacity.Dock	= DockStyle.Right;
+				buttonOpacity.BringToFront();
+				visibleButtons++;
+			}
+
+			// TODO: Resize to width of buttons visible
+            // now resize panel buttons to correct size
+//			panelButtons.Left	= this.Width - (visibleButtons * buttonWidth);
+//			panelButtons.Width	= (visibleButtons * buttonWidth);
+
+			this.ResumeLayout(true);
+		}
 
 		#endregion
 
@@ -1275,7 +1458,7 @@ namespace msn2.net.Controls
 				this.top  = p.Y;
 		}
 
-		public void Apply()
+		public void Apply(ShellForm form)
 		{
 			if (form != null)
 			{

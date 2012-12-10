@@ -44,6 +44,7 @@ namespace msn2.net.Controls
 			this.RootNode			= rootNode;
 
 			menuItemProperties.Visible = false;
+
 		}
 
 		/// <summary> 
@@ -153,7 +154,11 @@ namespace msn2.net.Controls
 
 			Data data = (Data) node;
 
-			DataCollection cats = data.GetChildren(typeof(CategoryConfigData));
+			Type[] types	= new Type[2];
+			types[0]		= typeof(CategoryConfigData);
+            types[1]		= typeof(msn2.net.Configuration.MessengerGroupData);
+
+			DataCollection cats = data.GetChildren(types);
 
 			foreach (Data cat in cats)
 			{
@@ -336,7 +341,7 @@ namespace msn2.net.Controls
 	/// <summary>
 	/// Type specifier for category items in Config
 	/// </summary>
-	public class CategoryConfigData
+	public class CategoryConfigData: ConfigData
 	{
 	}
 

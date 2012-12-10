@@ -127,6 +127,19 @@
                     AssemblyName = "MagicLibrary"
                     HintPath = "..\..\Crownwood.Magic\currentVersion\bin\Debug\MagicLibrary.dll"
                 />
+                <Reference
+                    Name = "Microsoft.mshtml"
+                    AssemblyName = "Microsoft.mshtml"
+                    HintPath = "..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
+                />
+                <Reference
+                    Name = "MessengerAPI"
+                    Guid = "{E02AD29E-80F5-46C6-B416-9B3EBDDF057E}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
             </References>
         </Build>
         <Files>
@@ -167,10 +180,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "ENTIRNET.ICO"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "FavoriteEdit.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -178,6 +187,10 @@
                 <File
                     RelPath = "FavoriteEdit.resx"
                     DependentUpon = "FavoriteEdit.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "FavoriteIcon.ico"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -281,6 +294,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Recipe.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Recipe.resx"
+                    DependentUpon = "Recipe.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "ShellForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -298,6 +321,16 @@
                 <File
                     RelPath = "ShellLaunch.resx"
                     DependentUpon = "ShellLaunch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Status.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Status.resx"
+                    DependentUpon = "Status.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -328,6 +361,10 @@
                 <File
                     RelPath = "WebSearch.resx"
                     DependentUpon = "WebSearch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\Favorite.ico"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

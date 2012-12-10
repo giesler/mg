@@ -168,7 +168,7 @@ namespace msn2.net.Controls
 			set { note = value; }
 		}
 
-		public static new int IconIndex
+		public override int IconIndex
 		{
 			get { return 2; }
 		}
