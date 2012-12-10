@@ -11,7 +11,7 @@
 namespace pics {
     
     
-    public partial class Cdefault {
+    public partial class SearchResults {
         
         /// <summary>
         /// Form1 control.
@@ -41,129 +41,75 @@ namespace pics {
         protected global::pics.Controls.Sidebar Sidebar1;
         
         /// <summary>
-        /// searchPanel control.
+        /// picTasks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel searchPanel;
+        protected global::pics.Controls.ContentPanel picTasks;
         
         /// <summary>
-        /// searchQuery control.
+        /// picTaskList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchQuery;
+        protected global::pics.Controls.PictureTasks picTaskList;
         
         /// <summary>
-        /// search control.
+        /// Contentpanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button search;
+        protected global::pics.Controls.ContentPanel Contentpanel1;
         
         /// <summary>
-        /// mainFormLink control.
+        /// searchDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.OpenMainFormLink mainFormLink;
+        protected global::System.Web.UI.WebControls.Label searchDescription;
         
         /// <summary>
-        /// recentPictures control.
+        /// ReturnToCriteria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel recentPictures;
+        protected global::System.Web.UI.WebControls.HyperLink ReturnToCriteria;
         
         /// <summary>
-        /// contentRecentPictures control.
+        /// resultCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRecentPictures;
+        protected global::System.Web.UI.WebControls.Label resultCount;
         
         /// <summary>
-        /// dlRecent control.
+        /// childCategoryList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlRecent;
+        protected global::System.Web.UI.WebControls.Panel childCategoryList;
         
         /// <summary>
-        /// welcomeMessage control.
+        /// pnlthumbs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel welcomeMessage;
-        
-        /// <summary>
-        /// browsePicturesContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel browsePicturesContent;
-        
-        /// <summary>
-        /// rootCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.CategoryListViewItem rootCategory;
-        
-        /// <summary>
-        /// searchContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel searchContent;
-        
-        /// <summary>
-        /// contentRandomPicture control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRandomPicture;
-        
-        /// <summary>
-        /// randomPicture control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel randomPicture;
-        
-        /// <summary>
-        /// adminMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel adminMode;
+        protected global::System.Web.UI.WebControls.Panel pnlthumbs;
     }
 }

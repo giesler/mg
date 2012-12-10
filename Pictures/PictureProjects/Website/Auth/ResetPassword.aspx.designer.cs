@@ -8,19 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace pics {
+namespace pics.Auth {
     
     
-    public partial class Cdefault {
+    public partial class ResetPassword {
         
         /// <summary>
-        /// Form1 control.
+        /// Login control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm Login;
         
         /// <summary>
         /// header control.
@@ -41,129 +41,75 @@ namespace pics {
         protected global::pics.Controls.Sidebar Sidebar1;
         
         /// <summary>
-        /// searchPanel control.
+        /// pnlPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel searchPanel;
+        protected global::System.Web.UI.WebControls.Panel pnlPassword;
         
         /// <summary>
-        /// searchQuery control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchQuery;
+        protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
-        /// search control.
+        /// lblEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button search;
+        protected global::System.Web.UI.WebControls.Label lblEmail;
         
         /// <summary>
-        /// mainFormLink control.
+        /// txtNewPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.OpenMainFormLink mainFormLink;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
         
         /// <summary>
-        /// recentPictures control.
+        /// txtConfirmNewPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel recentPictures;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmNewPassword;
         
         /// <summary>
-        /// contentRecentPictures control.
+        /// btnOK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRecentPictures;
+        protected global::System.Web.UI.WebControls.Button btnOK;
         
         /// <summary>
-        /// dlRecent control.
+        /// pnlChanged control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlRecent;
+        protected global::System.Web.UI.WebControls.Panel pnlChanged;
         
         /// <summary>
-        /// welcomeMessage control.
+        /// loginLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel welcomeMessage;
-        
-        /// <summary>
-        /// browsePicturesContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel browsePicturesContent;
-        
-        /// <summary>
-        /// rootCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.CategoryListViewItem rootCategory;
-        
-        /// <summary>
-        /// searchContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel searchContent;
-        
-        /// <summary>
-        /// contentRandomPicture control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRandomPicture;
-        
-        /// <summary>
-        /// randomPicture control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel randomPicture;
-        
-        /// <summary>
-        /// adminMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel adminMode;
+        protected global::System.Web.UI.WebControls.HyperLink loginLink;
     }
 }

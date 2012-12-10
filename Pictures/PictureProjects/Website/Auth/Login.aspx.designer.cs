@@ -8,19 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace pics {
+namespace pics.auth {
     
     
-    public partial class Cdefault {
-        
-        /// <summary>
-        /// Form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
+    public partial class Login {
         
         /// <summary>
         /// header control.
@@ -41,129 +32,120 @@ namespace pics {
         protected global::pics.Controls.Sidebar Sidebar1;
         
         /// <summary>
-        /// searchPanel control.
+        /// panelMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel searchPanel;
+        protected global::System.Web.UI.WebControls.Panel panelMessage;
         
         /// <summary>
-        /// searchQuery control.
+        /// email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchQuery;
+        protected global::System.Web.UI.WebControls.TextBox email;
         
         /// <summary>
-        /// search control.
+        /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button search;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// mainFormLink control.
+        /// radioPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.OpenMainFormLink mainFormLink;
+        protected global::System.Web.UI.WebControls.RadioButton radioPassword;
         
         /// <summary>
-        /// recentPictures control.
+        /// password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel recentPictures;
+        protected global::System.Web.UI.WebControls.TextBox password;
         
         /// <summary>
-        /// contentRecentPictures control.
+        /// radioNewLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRecentPictures;
+        protected global::System.Web.UI.WebControls.RadioButton radioNewLogin;
         
         /// <summary>
-        /// dlRecent control.
+        /// radioHelpMe control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlRecent;
+        protected global::System.Web.UI.WebControls.RadioButton radioHelpMe;
         
         /// <summary>
-        /// welcomeMessage control.
+        /// chkSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel welcomeMessage;
+        protected global::System.Web.UI.WebControls.CheckBox chkSave;
         
         /// <summary>
-        /// browsePicturesContent control.
+        /// btnLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel browsePicturesContent;
+        protected global::System.Web.UI.WebControls.Button btnLogin;
         
         /// <summary>
-        /// rootCategory control.
+        /// pnlBadPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.CategoryListViewItem rootCategory;
+        protected global::pics.Controls.ErrorMessagePanel pnlBadPassword;
         
         /// <summary>
-        /// searchContent control.
+        /// lnkForgotPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel searchContent;
+        protected global::System.Web.UI.WebControls.HyperLink lnkForgotPassword;
         
         /// <summary>
-        /// contentRandomPicture control.
+        /// pnlBadEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::pics.Controls.ContentPanel contentRandomPicture;
+        protected global::pics.Controls.ErrorMessagePanel pnlBadEmail;
         
         /// <summary>
-        /// randomPicture control.
+        /// lnkNewLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel randomPicture;
-        
-        /// <summary>
-        /// adminMode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel adminMode;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNewLogin;
     }
 }

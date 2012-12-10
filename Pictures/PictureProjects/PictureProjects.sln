@@ -15,9 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomThumbSite", "RandomTh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{FC0705C3-099F-404A-A3A4-FBDA6ED93323}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebControlLibrary", "WebControlLibrary\WebControlLibrary.csproj", "{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 9
 		SccProjectUniqueName0 = Admin\\Admin.csproj
 		SccProjectName0 = \u0022$/Pictures/Admin\u0022,\u0020OBPAAAAA
 		SccLocalPath0 = Admin
@@ -40,6 +42,9 @@ Global
 		SccProjectUniqueName7 = Website\\Website.csproj
 		SccLocalPath7 = .
 		SccProjectFilePathRelativizedFromConnection7 = Website\\
+		SccProjectUniqueName8 = WebControlLibrary\\WebControlLibrary.csproj
+		SccLocalPath8 = .
+		SccProjectFilePathRelativizedFromConnection8 = WebControlLibrary\\
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +79,10 @@ Global
 		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

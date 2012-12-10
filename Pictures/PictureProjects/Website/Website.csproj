@@ -8,7 +8,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Website</RootNamespace>
+    <RootNamespace>pics.Controls</RootNamespace>
     <AssemblyName>Website</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
@@ -57,10 +57,152 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AuthNewCreateLogin.aspx" />
+    <Content Include="Admin\AuthNewLogin.aspx" />
+    <Content Include="Admin\AuthNewLoginNew.aspx" />
+    <Content Include="Auth\AuthStyles.css" />
+    <Content Include="Auth\ForgotPassword.aspx" />
+    <Content Include="Auth\Login.aspx" />
+    <Content Include="Auth\Logout.aspx" />
+    <Content Include="Auth\NewLogin.aspx" />
+    <Content Include="Auth\ResetPassword.aspx" />
+    <Content Include="Auth\why.aspx" />
+    <Content Include="Categories.aspx" />
+    <Content Include="Controls\AutoTimer.ascx" />
+    <Content Include="Controls\_contentbox.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="EditMyInfo.aspx" />
+    <Content Include="Images\blank.gif" />
+    <Content Include="Images\button_left.gif" />
+    <Content Include="Images\button_return.gif" />
+    <Content Include="Images\button_right.gif" />
+    <Content Include="Images\folder.gif" />
+    <Content Include="Images\folder.png" />
+    <Content Include="Images\Folder12x12.png" />
+    <Content Include="Images\folder64x64.png" />
+    <Content Include="Images\folderEmpty.png" />
+    <Content Include="Images\ie.jpg" />
+    <Content Include="Images\info.jpg" />
+    <Content Include="Images\info_icon.png" />
+    <Content Include="Images\msn2needlewash.gif" />
+    <Content Include="Images\msn2summer.gif" />
+    <Content Include="Images\msn2summer.png" />
+    <Content Include="Images\msn2summer2.png" />
+    <Content Include="Images\msn2summer3.png" />
+    <Content Include="Images\msn2_home.gif" />
+    <Content Include="Images\msn2_small.jpg" />
+    <Content Include="Images\msn2_small_panel.jpg" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\pipe-center.gif" />
+    <Content Include="Images\pipe-left.gif" />
+    <Content Include="Images\pipe-right.gif" />
+    <Content Include="Images\prev.png" />
+    <Content Include="Images\search.gif" />
+    <Content Include="Images\sideVerticalLine.gif" />
+    <Content Include="Images\slideshow.png" />
+    <Content Include="Images\slideshow12x9.png" />
+    <Content Include="Images\star.gif" />
+    <Content Include="Images\starf.gif" />
+    <Content Include="Images\stop_icon.png" />
+    <Content Include="Images\top_msn2.gif" />
+    <Content Include="Images\top_needle.gif" />
+    <Content Include="Images\top_panel.gif" />
+    <Content Include="Images\trans.gif" />
+    <Content Include="Impersonate.aspx" />
+    <Content Include="msn2.css" />
+    <Content Include="picview.aspx" />
+    <Content Include="picviewss.aspx" />
+    <Content Include="RandomPictureService.asmx" />
+    <Content Include="SearchCriteria.aspx" />
+    <Content Include="SearchResults.aspx" />
+    <Content Include="SearchRun.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AuthNewCreateLogin.aspx.cs">
+      <DependentUpon>AuthNewCreateLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AuthNewCreateLogin.aspx.designer.cs">
+      <DependentUpon>AuthNewCreateLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AuthNewLogin.aspx.cs">
+      <DependentUpon>AuthNewLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AuthNewLogin.aspx.designer.cs">
+      <DependentUpon>AuthNewLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AuthNewLoginNew.aspx.cs">
+      <DependentUpon>AuthNewLoginNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AuthNewLoginNew.aspx.designer.cs">
+      <DependentUpon>AuthNewLoginNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\NewLogin.aspx.designer.cs">
+      <DependentUpon>NewLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\why.aspx.designer.cs">
+      <DependentUpon>why.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AutoTimer.ascx.designer.cs">
+      <DependentUpon>AutoTimer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\_contentbox.ascx.designer.cs">
+      <DependentUpon>_contentbox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\NewLogin.aspx.cs">
+      <DependentUpon>NewLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\why.aspx.cs">
+      <DependentUpon>why.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoTimer.ascx.cs">
+      <DependentUpon>AutoTimer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\_contentbox.ascx.cs">
+      <DependentUpon>_contentbox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -68,7 +210,70 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EditMyInfo.aspx.cs">
+      <DependentUpon>EditMyInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditMyInfo.aspx.designer.cs">
+      <DependentUpon>EditMyInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Impersonate.aspx.cs">
+      <DependentUpon>Impersonate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Impersonate.aspx.designer.cs">
+      <DependentUpon>Impersonate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="picview.aspx.cs">
+      <DependentUpon>picview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="picview.aspx.designer.cs">
+      <DependentUpon>picview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="picviewss.aspx.cs">
+      <DependentUpon>picviewss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="picviewss.aspx.designer.cs">
+      <DependentUpon>picviewss.aspx</DependentUpon>
+    </Compile>
+    <None Include="Properties\AssemblyInfo.cs.orig" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchCriteria.aspx.cs">
+      <DependentUpon>SearchCriteria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchCriteria.aspx.designer.cs">
+      <DependentUpon>SearchCriteria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchResults.aspx.cs">
+      <DependentUpon>SearchResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchResults.aspx.designer.cs">
+      <DependentUpon>SearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchRun.aspx.cs">
+      <DependentUpon>SearchRun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchRun.aspx.designer.cs">
+      <DependentUpon>SearchRun.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Api\Api.csproj">
+      <Project>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</Project>
+      <Name>Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebControlLibrary\WebControlLibrary.csproj">
+      <Project>{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}</Project>
+      <Name>WebControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
