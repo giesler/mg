@@ -1,8 +1,0 @@
-﻿<Window x:Class="ShoppingListApp.Window1"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Shopping List" Height="186" Width="263" WindowStyle="ThreeDBorderWindow">
-    <Grid Height="141" Width="200">
-        
-    </Grid>
-</Window>
