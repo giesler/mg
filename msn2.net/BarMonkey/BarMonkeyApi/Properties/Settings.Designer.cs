@@ -33,5 +33,15 @@ namespace msn2.net.BarMonkey.Properties {
                 return ((string)(this["BarMonkeyConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=kenny;Initial Catalog=BarMonkey;User ID=bmuser;Password=foobar!12")]
+        public string BarMonkeyConnectionString1 {
+            get {
+                return ((string)(this["BarMonkeyConnectionString1"]));
+            }
+        }
     }
 }

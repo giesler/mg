@@ -31,9 +31,6 @@ namespace msn2.net.BarMonkey
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertDrink(Drink instance);
-    partial void UpdateDrink(Drink instance);
-    partial void DeleteDrink(Drink instance);
     partial void InsertUserFavorite(UserFavorite instance);
     partial void UpdateUserFavorite(UserFavorite instance);
     partial void DeleteUserFavorite(UserFavorite instance);
@@ -67,10 +64,13 @@ namespace msn2.net.BarMonkey
     partial void InsertDrinkActualIngredient(DrinkActualIngredient instance);
     partial void UpdateDrinkActualIngredient(DrinkActualIngredient instance);
     partial void DeleteDrinkActualIngredient(DrinkActualIngredient instance);
+    partial void InsertDrink(Drink instance);
+    partial void UpdateDrink(Drink instance);
+    partial void DeleteDrink(Drink instance);
     #endregion
 		
 		public BarMonkeyDataContext() : 
-				base(global::msn2.net.BarMonkey.Properties.Settings.Default.BarMonkeyConnectionString, mappingSource)
+				base(global::msn2.net.BarMonkey.Properties.Settings.Default.BarMonkeyConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -97,14 +97,6 @@ namespace msn2.net.BarMonkey
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Drink> Drinks
-		{
-			get
-			{
-				return this.GetTable<Drink>();
-			}
 		}
 		
 		public System.Data.Linq.Table<UserFavorite> UserFavorites
@@ -195,389 +187,19 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		public System.Data.Linq.Table<Drink> Drinks
+		{
+			get
+			{
+				return this.GetTable<Drink>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUsersFavoriteDrinks")]
 		public ISingleResult<GetUsersFavoriteDrinksResult> GetUsersFavoriteDrinks([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> userId)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId);
 			return ((ISingleResult<GetUsersFavoriteDrinksResult>)(result.ReturnValue));
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Drink")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Drink : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Description;
-		
-		private int _CreatedBy;
-		
-		private System.DateTime _CreatedDate;
-		
-		private bool _IsPublished;
-		
-		private string _ImageUrl;
-		
-		private EntitySet<UserFavorite> _UserFavorites;
-		
-		private EntitySet<DrinkIngredient> _DrinkIngredients;
-		
-		private EntitySet<UserDrinkHistory> _UserDrinkHistories;
-		
-		private EntitySet<DrinkActualIngredient> _DrinkActualIngredients;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnCreatedByChanging(int value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedDateChanging(System.DateTime value);
-    partial void OnCreatedDateChanged();
-    partial void OnIsPublishedChanging(bool value);
-    partial void OnIsPublishedChanged();
-    partial void OnImageUrlChanging(string value);
-    partial void OnImageUrlChanged();
-    #endregion
-		
-		public Drink()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public int CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="SmallDateTime NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.DateTime CreatedDate
-		{
-			get
-			{
-				return this._CreatedDate;
-			}
-			set
-			{
-				if ((this._CreatedDate != value))
-				{
-					this.OnCreatedDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedDate = value;
-					this.SendPropertyChanged("CreatedDate");
-					this.OnCreatedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPublished", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public bool IsPublished
-		{
-			get
-			{
-				return this._IsPublished;
-			}
-			set
-			{
-				if ((this._IsPublished != value))
-				{
-					this.OnIsPublishedChanging(value);
-					this.SendPropertyChanging();
-					this._IsPublished = value;
-					this.SendPropertyChanged("IsPublished");
-					this.OnIsPublishedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public string ImageUrl
-		{
-			get
-			{
-				return this._ImageUrl;
-			}
-			set
-			{
-				if ((this._ImageUrl != value))
-				{
-					this.OnImageUrlChanging(value);
-					this.SendPropertyChanging();
-					this._ImageUrl = value;
-					this.SendPropertyChanged("ImageUrl");
-					this.OnImageUrlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserFavorite", Storage="_UserFavorites", ThisKey="Id", OtherKey="DrinkId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
-		public EntitySet<UserFavorite> UserFavorites
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._UserFavorites.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._UserFavorites;
-			}
-			set
-			{
-				this._UserFavorites.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkIngredient", Storage="_DrinkIngredients", ThisKey="Id", OtherKey="DrinkId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
-		public EntitySet<DrinkIngredient> DrinkIngredients
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._DrinkIngredients.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._DrinkIngredients;
-			}
-			set
-			{
-				this._DrinkIngredients.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserDrinkHistory", Storage="_UserDrinkHistories", ThisKey="Id", OtherKey="DrinkId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
-		public EntitySet<UserDrinkHistory> UserDrinkHistories
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._UserDrinkHistories.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._UserDrinkHistories;
-			}
-			set
-			{
-				this._UserDrinkHistories.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_DrinkActualIngredients", ThisKey="Id", OtherKey="DrinkId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
-		public EntitySet<DrinkActualIngredient> DrinkActualIngredients
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._DrinkActualIngredients.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._DrinkActualIngredients;
-			}
-			set
-			{
-				this._DrinkActualIngredients.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_UserFavorites(UserFavorite entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = this;
-		}
-		
-		private void detach_UserFavorites(UserFavorite entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = null;
-		}
-		
-		private void attach_DrinkIngredients(DrinkIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = this;
-		}
-		
-		private void detach_DrinkIngredients(DrinkIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = null;
-		}
-		
-		private void attach_UserDrinkHistories(UserDrinkHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = this;
-		}
-		
-		private void detach_UserDrinkHistories(UserDrinkHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = null;
-		}
-		
-		private void attach_DrinkActualIngredients(DrinkActualIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = this;
-		}
-		
-		private void detach_DrinkActualIngredients(DrinkActualIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Drink = null;
-		}
-		
-		private void Initialize()
-		{
-			this._UserFavorites = new EntitySet<UserFavorite>(new Action<UserFavorite>(this.attach_UserFavorites), new Action<UserFavorite>(this.detach_UserFavorites));
-			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
-			this._UserDrinkHistories = new EntitySet<UserDrinkHistory>(new Action<UserDrinkHistory>(this.attach_UserDrinkHistories), new Action<UserDrinkHistory>(this.detach_UserDrinkHistories));
-			this._DrinkActualIngredients = new EntitySet<DrinkActualIngredient>(new Action<DrinkActualIngredient>(this.attach_DrinkActualIngredients), new Action<DrinkActualIngredient>(this.detach_DrinkActualIngredients));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
 		}
 	}
 	
@@ -594,9 +216,9 @@ namespace msn2.net.BarMonkey
 		
 		private int _DrinkId;
 		
-		private EntityRef<Drink> _Drink;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Drink> _Drink;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -686,40 +308,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserFavorite", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
-		public Drink Drink
-		{
-			get
-			{
-				return this._Drink.Entity;
-			}
-			set
-			{
-				Drink previousValue = this._Drink.Entity;
-				if (((previousValue != value) 
-							|| (this._Drink.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Drink.Entity = null;
-						previousValue.UserFavorites.Remove(this);
-					}
-					this._Drink.Entity = value;
-					if ((value != null))
-					{
-						value.UserFavorites.Add(this);
-						this._DrinkId = value.Id;
-					}
-					else
-					{
-						this._DrinkId = default(int);
-					}
-					this.SendPropertyChanged("Drink");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserFavorite", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -754,6 +342,40 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserFavorite", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
+		public Drink Drink
+		{
+			get
+			{
+				return this._Drink.Entity;
+			}
+			set
+			{
+				Drink previousValue = this._Drink.Entity;
+				if (((previousValue != value) 
+							|| (this._Drink.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Drink.Entity = null;
+						previousValue.UserFavorites.Remove(this);
+					}
+					this._Drink.Entity = value;
+					if ((value != null))
+					{
+						value.UserFavorites.Add(this);
+						this._DrinkId = value.Id;
+					}
+					else
+					{
+						this._DrinkId = default(int);
+					}
+					this.SendPropertyChanged("Drink");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -776,8 +398,8 @@ namespace msn2.net.BarMonkey
 		
 		private void Initialize()
 		{
-			this._Drink = default(EntityRef<Drink>);
 			this._User = default(EntityRef<User>);
+			this._Drink = default(EntityRef<Drink>);
 			OnCreated();
 		}
 		
@@ -808,9 +430,9 @@ namespace msn2.net.BarMonkey
 		
 		private decimal _AmountOunces;
 		
-		private EntityRef<Drink> _Drink;
-		
 		private EntityRef<Ingredient> _Ingredient;
+		
+		private EntityRef<Drink> _Drink;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -969,40 +591,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkIngredient", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
-		public Drink Drink
-		{
-			get
-			{
-				return this._Drink.Entity;
-			}
-			set
-			{
-				Drink previousValue = this._Drink.Entity;
-				if (((previousValue != value) 
-							|| (this._Drink.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Drink.Entity = null;
-						previousValue.DrinkIngredients.Remove(this);
-					}
-					this._Drink.Entity = value;
-					if ((value != null))
-					{
-						value.DrinkIngredients.Add(this);
-						this._DrinkId = value.Id;
-					}
-					else
-					{
-						this._DrinkId = default(int);
-					}
-					this.SendPropertyChanged("Drink");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ingredient_DrinkIngredient", Storage="_Ingredient", ThisKey="IngredientId", OtherKey="Id", IsForeignKey=true)]
 		public Ingredient Ingredient
 		{
@@ -1037,6 +625,40 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkIngredient", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
+		public Drink Drink
+		{
+			get
+			{
+				return this._Drink.Entity;
+			}
+			set
+			{
+				Drink previousValue = this._Drink.Entity;
+				if (((previousValue != value) 
+							|| (this._Drink.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Drink.Entity = null;
+						previousValue.DrinkIngredients.Remove(this);
+					}
+					this._Drink.Entity = value;
+					if ((value != null))
+					{
+						value.DrinkIngredients.Add(this);
+						this._DrinkId = value.Id;
+					}
+					else
+					{
+						this._DrinkId = default(int);
+					}
+					this.SendPropertyChanged("Drink");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1059,8 +681,8 @@ namespace msn2.net.BarMonkey
 		
 		private void Initialize()
 		{
-			this._Drink = default(EntityRef<Drink>);
 			this._Ingredient = default(EntityRef<Ingredient>);
+			this._Drink = default(EntityRef<Drink>);
 			OnCreated();
 		}
 		
@@ -1448,9 +1070,9 @@ namespace msn2.net.BarMonkey
 		
 		private EntitySet<UserDrinkIngredientHistory> _UserDrinkIngredientHistories;
 		
-		private EntityRef<Drink> _Drink;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Drink> _Drink;
 		
 		private bool serializing;
 		
@@ -1584,40 +1206,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserDrinkHistory", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
-		public Drink Drink
-		{
-			get
-			{
-				return this._Drink.Entity;
-			}
-			set
-			{
-				Drink previousValue = this._Drink.Entity;
-				if (((previousValue != value) 
-							|| (this._Drink.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Drink.Entity = null;
-						previousValue.UserDrinkHistories.Remove(this);
-					}
-					this._Drink.Entity = value;
-					if ((value != null))
-					{
-						value.UserDrinkHistories.Add(this);
-						this._DrinkId = value.Id;
-					}
-					else
-					{
-						this._DrinkId = default(int);
-					}
-					this.SendPropertyChanged("Drink");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserDrinkHistory", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
 		public User User
 		{
@@ -1648,6 +1236,40 @@ namespace msn2.net.BarMonkey
 						this._UserId = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserDrinkHistory", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
+		public Drink Drink
+		{
+			get
+			{
+				return this._Drink.Entity;
+			}
+			set
+			{
+				Drink previousValue = this._Drink.Entity;
+				if (((previousValue != value) 
+							|| (this._Drink.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Drink.Entity = null;
+						previousValue.UserDrinkHistories.Remove(this);
+					}
+					this._Drink.Entity = value;
+					if ((value != null))
+					{
+						value.UserDrinkHistories.Add(this);
+						this._DrinkId = value.Id;
+					}
+					else
+					{
+						this._DrinkId = default(int);
+					}
+					this.SendPropertyChanged("Drink");
 				}
 			}
 		}
@@ -1687,8 +1309,8 @@ namespace msn2.net.BarMonkey
 		private void Initialize()
 		{
 			this._UserDrinkIngredientHistories = new EntitySet<UserDrinkIngredientHistory>(new Action<UserDrinkIngredientHistory>(this.attach_UserDrinkIngredientHistories), new Action<UserDrinkIngredientHistory>(this.detach_UserDrinkIngredientHistories));
-			this._Drink = default(EntityRef<Drink>);
 			this._User = default(EntityRef<User>);
+			this._Drink = default(EntityRef<Drink>);
 			OnCreated();
 		}
 		
@@ -3181,9 +2803,9 @@ namespace msn2.net.BarMonkey
 		
 		private System.Nullable<int> _IngredientId;
 		
-		private EntityRef<Drink> _Drink;
-		
 		private EntityRef<Ingredient> _Ingredient;
+		
+		private EntityRef<Drink> _Drink;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3342,40 +2964,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
-		public Drink Drink
-		{
-			get
-			{
-				return this._Drink.Entity;
-			}
-			set
-			{
-				Drink previousValue = this._Drink.Entity;
-				if (((previousValue != value) 
-							|| (this._Drink.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Drink.Entity = null;
-						previousValue.DrinkActualIngredients.Remove(this);
-					}
-					this._Drink.Entity = value;
-					if ((value != null))
-					{
-						value.DrinkActualIngredients.Add(this);
-						this._DrinkId = value.Id;
-					}
-					else
-					{
-						this._DrinkId = default(int);
-					}
-					this.SendPropertyChanged("Drink");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ingredient_DrinkActualIngredient", Storage="_Ingredient", ThisKey="IngredientId", OtherKey="Id", IsForeignKey=true)]
 		public Ingredient Ingredient
 		{
@@ -3410,6 +2998,40 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
+		public Drink Drink
+		{
+			get
+			{
+				return this._Drink.Entity;
+			}
+			set
+			{
+				Drink previousValue = this._Drink.Entity;
+				if (((previousValue != value) 
+							|| (this._Drink.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Drink.Entity = null;
+						previousValue.DrinkActualIngredients.Remove(this);
+					}
+					this._Drink.Entity = value;
+					if ((value != null))
+					{
+						value.DrinkActualIngredients.Add(this);
+						this._DrinkId = value.Id;
+					}
+					else
+					{
+						this._DrinkId = default(int);
+					}
+					this.SendPropertyChanged("Drink");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3432,8 +3054,8 @@ namespace msn2.net.BarMonkey
 		
 		private void Initialize()
 		{
-			this._Drink = default(EntityRef<Drink>);
 			this._Ingredient = default(EntityRef<Ingredient>);
+			this._Drink = default(EntityRef<Drink>);
 			OnCreated();
 		}
 		
@@ -3442,6 +3064,434 @@ namespace msn2.net.BarMonkey
 		public void OnDeserializing(StreamingContext context)
 		{
 			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Drink")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Drink : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private int _CreatedBy;
+		
+		private System.DateTime _CreatedDate;
+		
+		private bool _IsPublished;
+		
+		private string _ImageUrl;
+		
+		private string _Category;
+		
+		private string _GarnishMessage;
+		
+		private EntitySet<UserFavorite> _UserFavorites;
+		
+		private EntitySet<DrinkIngredient> _DrinkIngredients;
+		
+		private EntitySet<UserDrinkHistory> _UserDrinkHistories;
+		
+		private EntitySet<DrinkActualIngredient> _DrinkActualIngredients;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnCreatedByChanging(int value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedDateChanging(System.DateTime value);
+    partial void OnCreatedDateChanged();
+    partial void OnIsPublishedChanging(bool value);
+    partial void OnIsPublishedChanged();
+    partial void OnImageUrlChanging(string value);
+    partial void OnImageUrlChanged();
+    partial void OnCategoryChanging(string value);
+    partial void OnCategoryChanged();
+    partial void OnGarnishMessageChanging(string value);
+    partial void OnGarnishMessageChanged();
+    #endregion
+		
+		public Drink()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(512)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public int CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="SmallDateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public System.DateTime CreatedDate
+		{
+			get
+			{
+				return this._CreatedDate;
+			}
+			set
+			{
+				if ((this._CreatedDate != value))
+				{
+					this.OnCreatedDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDate = value;
+					this.SendPropertyChanged("CreatedDate");
+					this.OnCreatedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPublished", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public bool IsPublished
+		{
+			get
+			{
+				return this._IsPublished;
+			}
+			set
+			{
+				if ((this._IsPublished != value))
+				{
+					this.OnIsPublishedChanging(value);
+					this.SendPropertyChanging();
+					this._IsPublished = value;
+					this.SendPropertyChanged("IsPublished");
+					this.OnIsPublishedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string ImageUrl
+		{
+			get
+			{
+				return this._ImageUrl;
+			}
+			set
+			{
+				if ((this._ImageUrl != value))
+				{
+					this.OnImageUrlChanging(value);
+					this.SendPropertyChanging();
+					this._ImageUrl = value;
+					this.SendPropertyChanged("ImageUrl");
+					this.OnImageUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public string Category
+		{
+			get
+			{
+				return this._Category;
+			}
+			set
+			{
+				if ((this._Category != value))
+				{
+					this.OnCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._Category = value;
+					this.SendPropertyChanged("Category");
+					this.OnCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GarnishMessage", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public string GarnishMessage
+		{
+			get
+			{
+				return this._GarnishMessage;
+			}
+			set
+			{
+				if ((this._GarnishMessage != value))
+				{
+					this.OnGarnishMessageChanging(value);
+					this.SendPropertyChanging();
+					this._GarnishMessage = value;
+					this.SendPropertyChanged("GarnishMessage");
+					this.OnGarnishMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserFavorite", Storage="_UserFavorites", ThisKey="Id", OtherKey="DrinkId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		public EntitySet<UserFavorite> UserFavorites
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._UserFavorites.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._UserFavorites;
+			}
+			set
+			{
+				this._UserFavorites.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkIngredient", Storage="_DrinkIngredients", ThisKey="Id", OtherKey="DrinkId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
+		public EntitySet<DrinkIngredient> DrinkIngredients
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DrinkIngredients.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DrinkIngredients;
+			}
+			set
+			{
+				this._DrinkIngredients.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_UserDrinkHistory", Storage="_UserDrinkHistories", ThisKey="Id", OtherKey="DrinkId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
+		public EntitySet<UserDrinkHistory> UserDrinkHistories
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._UserDrinkHistories.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._UserDrinkHistories;
+			}
+			set
+			{
+				this._UserDrinkHistories.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_DrinkActualIngredients", ThisKey="Id", OtherKey="DrinkId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		public EntitySet<DrinkActualIngredient> DrinkActualIngredients
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DrinkActualIngredients.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DrinkActualIngredients;
+			}
+			set
+			{
+				this._DrinkActualIngredients.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UserFavorites(UserFavorite entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = this;
+		}
+		
+		private void detach_UserFavorites(UserFavorite entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = null;
+		}
+		
+		private void attach_DrinkIngredients(DrinkIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = this;
+		}
+		
+		private void detach_DrinkIngredients(DrinkIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = null;
+		}
+		
+		private void attach_UserDrinkHistories(UserDrinkHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = this;
+		}
+		
+		private void detach_UserDrinkHistories(UserDrinkHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = null;
+		}
+		
+		private void attach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = this;
+		}
+		
+		private void detach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = null;
+		}
+		
+		private void Initialize()
+		{
+			this._UserFavorites = new EntitySet<UserFavorite>(new Action<UserFavorite>(this.attach_UserFavorites), new Action<UserFavorite>(this.detach_UserFavorites));
+			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
+			this._UserDrinkHistories = new EntitySet<UserDrinkHistory>(new Action<UserDrinkHistory>(this.attach_UserDrinkHistories), new Action<UserDrinkHistory>(this.detach_UserDrinkHistories));
+			this._DrinkActualIngredients = new EntitySet<DrinkActualIngredient>(new Action<DrinkActualIngredient>(this.attach_DrinkActualIngredients), new Action<DrinkActualIngredient>(this.detach_DrinkActualIngredients));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	

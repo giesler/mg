@@ -16,7 +16,7 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetDrinks()
         {
             var q = from d in base.Context.Data.Drinks
-                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5 && di.Ingredient.RelayId.HasValue && di.Ingredient.RelayId.Value > 0)
                     && d.DrinkActualIngredients.Count > 0
                     orderby d.Name
                     select d;
@@ -26,7 +26,7 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetDrinks(char[] matchingChars)
         {
             var q = from d in base.Context.Data.Drinks
-                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5 && di.Ingredient.RelayId.HasValue && di.Ingredient.RelayId.Value > 0)
                         && d.DrinkActualIngredients.Count > 0
                         && matchingChars.Contains(d.Name[0])
                     orderby d.Name

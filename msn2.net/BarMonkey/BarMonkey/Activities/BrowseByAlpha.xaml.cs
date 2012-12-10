@@ -26,6 +26,7 @@ namespace msn2.net.BarMonkey.Activities
         private Container container = null;
         private DispatcherTimer timer = null;
         private DateTime lastInput = DateTime.Now;
+        private string filter = string.Empty;
 
         public BrowseByAlpha()
         {
@@ -40,13 +41,30 @@ namespace msn2.net.BarMonkey.Activities
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
             this.navBar.NextClicked += new EventHandler(navBar_NextClicked);
 
-            this.drinkList.ItemsSource = App.Drinks;
-            this.drinkList.IsEnabled = true;
+            this.LoadDrinks();
 
             this.containers.ItemsSource = App.Containers;
             this.containers.SelectedIndex = this.containers.Items.Count - 1;
 
             this.timer = new DispatcherTimer(TimeSpan.FromSeconds(10), DispatcherPriority.Background, this.OnTimer, this.Dispatcher);
+        }
+
+        void LoadDrinks()
+        {
+            if (this.drinkList.ItemsSource == null && this.drinkList.Items.Count > 0)
+            {
+                this.drinkList.Items.Clear();
+            }
+
+            if (string.IsNullOrEmpty(this.filter))            
+            {
+                this.drinkList.ItemsSource = App.Drinks;
+            }
+            else
+            {
+                this.drinkList.ItemsSource = App.Drinks.Where(d => d.Category.ToLower() == this.filter.ToLower());
+            }
+            this.drinkList.IsEnabled = true;
         }
 
         void OnTimer(object sender, EventArgs e)
@@ -87,5 +105,39 @@ namespace msn2.net.BarMonkey.Activities
             this.lastInput = DateTime.Now;
         }
 
+        private void OnFilterMargaritas(object sender, MouseButtonEventArgs e)
+        {
+            this.SetFilter("Margarita");
+            this.filterMargaritas.FontWeight = FontWeights.Bold;
+            this.filterMargaritas.Foreground = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        private void OnFilterCocktails(object sender, MouseButtonEventArgs e)
+        {
+            this.SetFilter("Cocktail");
+            this.filterCocktails.FontWeight = FontWeights.Bold;
+            this.filterCocktails.Foreground = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        private void OnFilterAll(object sender, MouseButtonEventArgs e)
+        {
+            this.SetFilter("");
+            this.filterAll.FontWeight = FontWeights.Bold;
+            this.filterAll.Foreground = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        void SetFilter(string filter)
+        {
+            this.filter = filter;
+            this.filterAll.FontWeight = FontWeights.Normal;
+            this.filterCocktails.FontWeight = FontWeights.Normal;
+            this.filterMargaritas.FontWeight = FontWeights.Normal;
+
+            this.filterAll.Foreground = new SolidColorBrush(Colors.White);
+            this.filterCocktails.Foreground = new SolidColorBrush(Colors.White);
+            this.filterMargaritas.Foreground = new SolidColorBrush(Colors.White);
+
+            this.LoadDrinks();
+        }
     }
 }

@@ -15,6 +15,7 @@ using msn2.net.BarMonkey;
 using System.Windows.Threading;
 using msn2.net.BarMonkey.RelayControllerService;
 using System.Threading;
+using System.Diagnostics;
 
 namespace BarMonkey.Activities
 {
@@ -26,7 +27,8 @@ namespace BarMonkey.Activities
         private Drink drink;
         private Container container;
         private Dispenser disp;
-        private MediaPlayer mediaPlayer;
+        private MediaPlayer mediaPlayer;        
+        private DispatcherTimer timer;
 
         public PourDrink()
         {
@@ -39,7 +41,33 @@ namespace BarMonkey.Activities
 
             this.mediaPlayer = new MediaPlayer();
             this.mediaPlayer.MediaEnded += new EventHandler(mediaPlayer_MediaEnded);
-            this.mediaPlayer.Open(new Uri("margaritaville.wav", UriKind.Relative));            
+            this.mediaPlayer.MediaFailed += mediaPlayer_MediaFailed;
+            this.mediaPlayer.MediaOpened += mediaPlayer_MediaOpened;
+            this.mediaPlayer.IsMuted = true;
+            this.mediaPlayer.Open(new Uri("margaritaville.wav", UriKind.Relative));
+
+            this.timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, this.OnTimer, this.Dispatcher);
+        }
+
+        void mediaPlayer_MediaOpened(object sender, EventArgs e)
+        {
+            int totalSeconds = (int) this.mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+            int randomStart = new Random().Next(0, totalSeconds-30);
+            this.mediaPlayer.Position = new TimeSpan(0, 0, randomStart);
+            this.mediaPlayer.IsMuted = false;
+        }
+
+        void mediaPlayer_MediaFailed(object sender, ExceptionEventArgs e)
+        {
+            Trace.WriteLine(e.ErrorException.Message);
+        }
+                
+        void OnTimer(object sender, EventArgs e)
+        {
+            if (this.statusPanel.Visibility == System.Windows.Visibility.Visible && this.pbar.Value < this.pbar.Maximum)
+            {
+                this.pbar.Value++;
+            }
         }
 
         void mediaPlayer_MediaEnded(object sender, EventArgs e)
@@ -69,6 +97,10 @@ namespace BarMonkey.Activities
             this.home.Visibility = System.Windows.Visibility.Visible;
             this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
             this.pbar.Visibility = System.Windows.Visibility.Collapsed;
+            if (!string.IsNullOrEmpty(this.garnish.Text))
+            {
+                this.garnishPanel.Visibility = System.Windows.Visibility.Visible;
+            }
             this.mediaPlayer.Stop();
             this.pbar.Value = 0;
             this.Title = "cheers!";
@@ -85,6 +117,7 @@ namespace BarMonkey.Activities
 
             this.statusPanel.Visibility = System.Windows.Visibility.Visible;
             this.pbar.Visibility = System.Windows.Visibility.Visible;
+            this.pbar.Maximum = this.disp.EstimatedDuration.TotalSeconds + 10;
         }
 
         public void SetDrink(Drink drink, Container container)
@@ -96,6 +129,8 @@ namespace BarMonkey.Activities
             this.repeat.Visibility = Visibility.Hidden;
             this.home.Visibility = System.Windows.Visibility.Hidden;
             this.pbar.Visibility = System.Windows.Visibility.Collapsed;
+            this.garnishPanel.Visibility = System.Windows.Visibility.Collapsed;
+            this.garnish.Text = drink.GarnishMessage;
 
             this.Title = "pouring " + this.drink.Name.ToLower();
             this.statusLabel.Content = "connecting...";

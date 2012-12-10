@@ -574,13 +574,15 @@
     <Resource Include="Resources\appbar.refresh.rest.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="margaritaville.wav" />
+    <None Include="margaritaville.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="motd.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(TargetDir)\* \\mgduo\BarNone\UI\</PostBuildEvent>
+    <PostBuildEvent>copy /y $(TargetDir)\* \\192.168.1.188\BarNone\UI\</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -106,6 +106,7 @@ namespace msn2.net.BarMonkey
                 items.Add(new BatchItem { Group = groupId, RelayNumber = lightRelayNumber, Seconds = groupMaxTimes[groupId] });
             }
 
+            /*
             if (container.WaterFlushOunces > 0)
             {
                 Ingredient waterIngredient = BarMonkeyContext.Current.Ingredients.GetIngredient("Water");
@@ -113,6 +114,7 @@ namespace msn2.net.BarMonkey
 
                 items.Add(new BatchItem { Group = 999, RelayNumber = (int)waterIngredient.RelayId, Seconds = (double)duration });
             }
+            */
 
             if (this.OnPourStarted != null)
             {
