@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicWeb", "PicWeb\PicWeb.csproj", "{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureHttpHelpers", "PictureHttpHelpers\PictureHttpHelpers.csproj", "{D64690E2-39E4-49EF-89C0-95A1B30B64AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{051F201A-911A-441D-B249-5857DB882AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{713EE988-88C2-4E72-8F5B-333B3D078CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://kenny:8080/tfs/main
+		SccProjectUniqueName0 = PicWeb\\PicWeb.csproj
+		SccProjectName0 = PicWeb
+		SccAuxPath0 = http://kenny:8080/tfs/main
+		SccLocalPath0 = PicWeb
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = Api\\Api.csproj
+		SccProjectName1 = Api
+		SccAuxPath1 = http://kenny:8080/tfs/main
+		SccLocalPath1 = Api
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = PictureHttpHelpers\\PictureHttpHelpers.csproj
+		SccProjectName2 = PictureHttpHelpers
+		SccAuxPath2 = http://kenny:8080/tfs/main
+		SccLocalPath2 = PictureHttpHelpers
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = ControlLibrary\\ControlLibrary.csproj
+		SccProjectName3 = ControlLibrary
+		SccAuxPath3 = http://kenny:8080/tfs/main
+		SccLocalPath3 = ControlLibrary
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = Admin\\Admin.csproj
+		SccProjectName4 = Admin
+		SccAuxPath4 = http://kenny:8080/tfs/main
+		SccLocalPath4 = Admin
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName5 = Service\\Service.csproj
+		SccProjectName5 = Service
+		SccAuxPath5 = http://kenny:8080/tfs/main
+		SccLocalPath5 = Service
+		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
