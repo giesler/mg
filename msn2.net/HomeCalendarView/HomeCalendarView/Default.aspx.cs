@@ -33,7 +33,7 @@ namespace HomeCalendarView
             this.refreshTimer.Tick += new EventHandler<EventArgs>(refreshTimer_Tick);
             this.refreshTimer.Interval = 60 * 1000 * new Random().Next(18, 23);
 
-            this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM dd").ToLower();
+            this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM d").ToLower();
             //this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
@@ -395,7 +395,7 @@ namespace HomeCalendarView
                 string timeString = doc.DocumentElement.SelectSingleNode("observation_time_rfc822").InnerText;
                 timeString = timeString.Substring(0, timeString.IndexOf("-") - 1);
                 DateTime updateTime = DateTime.Parse(timeString);
-                this.tempUpdateTime.Text = updateTime.ToString("h:mm");
+                this.tempUpdateTime.Text = "@" + updateTime.ToString("h:mm");
 
                 string windDirection = doc.DocumentElement.SelectSingleNode("wind_dir").InnerText;
                 string windMph = doc.DocumentElement.SelectSingleNode("wind_mph").InnerText;
@@ -443,17 +443,17 @@ namespace HomeCalendarView
                     string gusts = doc.DocumentElement.SelectSingleNode("wind_gust_mph").InnerText;
                     if (gusts != "NA")
                     {
-                        this.windGustPanel.Visible = true;
-                        this.gustMph.Text = gusts;
-                    }
-                    else
-                    {
-                        this.windGustPanel.Visible = false;
+                        this.windLabel.Text += ", gusts to " + gusts;
                     }
                 }
 
                 this.windChill.Text = doc.DocumentElement.SelectSingleNode("windchill_f").InnerText + "&deg;";
                 this.visibility.Text = doc.DocumentElement.SelectSingleNode("visibility_mi").InnerText;
+
+                if (this.visibility.Text.EndsWith(".00"))
+                {
+                    this.visibility.Text = this.visibility.Text.Replace(".00", "");
+                }
 
                 string conditionImage = doc.DocumentElement.SelectSingleNode("icon_url_base").InnerText;
                 conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
@@ -503,7 +503,7 @@ namespace HomeCalendarView
                 var items = from item in alertFeed.Elements("channel").Elements("item")
                             select item;
 
-                if (items.Count() == 0)
+                if (items.Count() != 0)
                 {
                     this.warningCell.Visible = true;
                     this.warnings.Controls.Clear();

@@ -140,24 +140,6 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Label windLabel;
         
         /// <summary>
-        /// windGustPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel windGustPanel;
-        
-        /// <summary>
-        /// gustMph control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label gustMph;
-        
-        /// <summary>
         /// windChill control.
         /// </summary>
         /// <remarks>
