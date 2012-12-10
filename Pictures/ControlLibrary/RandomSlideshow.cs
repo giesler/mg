@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
@@ -7,13 +8,13 @@ using System.Configuration;
 
 namespace msn2.net.Pictures.Controls
 {
-    public class RandomSlideshow: Slideshow
+    public class RandomSlideshow : Slideshow
     {
         private List<PictureData> pictures = new List<PictureData>();
         protected Timer timer = new Timer();
         private Label errorLabel = new Label();
 
-        public RandomSlideshow():
+        public RandomSlideshow() :
             base(new PictureControlSettings(), null, null)
         {
             base.getPreviousId = new GetPreviousItemIdDelegate(GetPreviousPicture);
@@ -57,7 +58,7 @@ namespace msn2.net.Pictures.Controls
             this.timer.Tick += new EventHandler(timer_Tick);
 
             if (PicContext.Current != null)
-            {   
+            {
                 base.SetPicture(PicContext.Current.PictureManager.GetRandomPicture());
                 this.timer.Enabled = true;
                 this.timer.Start();
@@ -102,7 +103,7 @@ namespace msn2.net.Pictures.Controls
             int index = GetPictureIndex(currentPictureId);
             if (index > 0)
             {
-                return this.pictures[index-1];
+                return this.pictures[index - 1];
             }
 
             return null;
@@ -113,12 +114,23 @@ namespace msn2.net.Pictures.Controls
             int index = GetPictureIndex(currentPictureId);
             if (index < 0 || index == pictures.Count-1)
             {
-                PictureData randomPicture = PicContext.Current.PictureManager.GetRandomPicture();
-                pictures.Add(randomPicture);
+                PictureData addedPicture = null;
+                do
+                {
+                    PictureData randomPicture = PicContext.Current.PictureManager.GetRandomPicture();
+
+                    addedPicture = pictures.Find(p => p.Id == randomPicture.Id);
+                    if (addedPicture == null)
+                    {
+                        pictures.Add(randomPicture);
+                    }
+
+                } while (addedPicture != null);
             }
 
             return pictures[index + 1];
         }
+
 
         private int GetPictureIndex(int pictureId)
         {
