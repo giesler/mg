@@ -35,6 +35,7 @@ namespace msn2.net.QueuePlayer.Client
 			this.mediaFileInfo.Text	= mediaFileInfo;
 			this.filename.Text		= filename;
 			
+			this.Dialog = true;
 		}
 
 		/// <summary>

@@ -1,3 +1,4 @@
+#region Usings
 using System;
 using QuartzTypeLib;
 using System.Timers;
@@ -5,6 +6,7 @@ using msn2.net.QueuePlayer.Shared;
 using System.Collections;
 using System.Threading;
 using System.Diagnostics;
+#endregion
 
 namespace msn2.net.QueuePlayer
 {
@@ -13,6 +15,7 @@ namespace msn2.net.QueuePlayer
 	/// </summary>
 	public class DirectXPlayer: IServerPlayer, IDisposable
 	{
+		#region Declares
 		private FilgraphManagerClass filegraphManager;
 		private System.Timers.Timer timer;
 		private bool initialized = false;
@@ -21,12 +24,16 @@ namespace msn2.net.QueuePlayer
 		private Thread preloadThread;
 		private bool enableOutput = true;
 
-		// defaults
+		/// <summary>
+		/// Defaults
+		/// </summary>
 		private int	   mediaVolume  = 0;
 		private int    mediaBalance = 0;
 		private double mediaRate	= 1;
 		private int	   MUTE_VOLUME  = -4000;
+		#endregion
 
+		#region Constructor
 		public DirectXPlayer()
 		{
 			timer = new System.Timers.Timer(1000);
@@ -35,6 +42,8 @@ namespace msn2.net.QueuePlayer
 			preloadThread = new Thread(new ThreadStart(PreloadMediaThread));
 			preloadThread.Start();
 		}
+
+		#endregion
 
 		#region Disposal
 
@@ -397,13 +406,14 @@ namespace msn2.net.QueuePlayer
 
 		public void PreloadMedia(string filename)
 		{
-			preloadQueue.Enqueue(filename);
-
-			// if a thread isn't already loading media, kick one off
-			if (preloadThread.ThreadState == System.Threading.ThreadState.Suspended)
-			{
-				preloadThread.Resume();
-			}
+			// Removed for perf reasons
+//			preloadQueue.Enqueue(filename);
+//
+//			// if a thread isn't already loading media, kick one off
+//			if (preloadThread.ThreadState == System.Threading.ThreadState.Suspended)
+//			{
+//				preloadThread.Resume();
+//			}
 		}
 
 		// Loads all media in the queue
@@ -463,6 +473,7 @@ namespace msn2.net.QueuePlayer
 
 	#endregion
 
+	#region MedisSourceDictionary
 	internal class MediaSourceDictionary: DictionaryBase
 	{
 		private Queue filenameQueue = new Queue();
@@ -513,4 +524,5 @@ namespace msn2.net.QueuePlayer
 		}
 
 	}
+	#endregion
 }

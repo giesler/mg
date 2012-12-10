@@ -57,7 +57,7 @@ namespace msn2.net.QueuePlayer.Client
 		private msn2.net.Controls.ProgressBar progressBarCurrent;
 		private DataSetMedia.MediaRow currentMediaEntry = null;
 		private msn2.net.Controls.ProgressBar titleProgressBar = null;
-		private TitleBarButtons titleBarButtons = null;
+		private TitleBarControl [] buttons;
 
 		#endregion
 		#region Windows Form Designer generated code
@@ -273,12 +273,22 @@ namespace msn2.net.QueuePlayer.Client
 
 		}
 		#endregion
-		#region Constructor / Disposal
+		#region Constructors
 
 		/// <summary>
 		/// Creates a new UMPlayer object
 		/// </summary>
 		public UMPlayer()
+		{
+			InternalConstructor();
+		}
+
+		public UMPlayer(msn2.net.Configuration.Data data): base(data)
+		{
+			InternalConstructor();
+		}
+
+		private void InternalConstructor()
 		{
 			System.Threading.Thread.CurrentThread.Name = "UMPlayer Thread";
 
@@ -286,9 +296,105 @@ namespace msn2.net.QueuePlayer.Client
 			log = new Log(this);
 
 			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
-			
+
+			QueuePlayerClient.SetPlayer(this);
+
+			ConnectionDialog connection = new ConnectionDialog();
+
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Connecting to server...");
+
+			// Create the client
+			client = new Client(this);
+
+			// make sure we are connected
+			while (!client.Connected)
+			{
+				string msg = String.Format("The server '{0}' is not responding.", connection.HostName);
+				if (MessageBox.Show(msg, "Connection Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+				{
+					this.Visible = false;
+					Application.Exit();
+					return;
+				}
+				client = new Client(this);
+			}
+
+			// Progress bar for title region
+			titleProgressBar						= new msn2.net.Controls.ProgressBar();
+			titleProgressBar.ProgressBackColor		= Color.LawnGreen;
+			titleProgressBar.RemainingBackColor		= Color.LightGray;
+			titleProgressBar.ShowProgressValue		= false;
+			titleProgressBar.ShowRemainingValue		= false;
+			titleProgressBar.ChangeValueEvent		+= new msn2.net.Controls.ChangeValueDelegate(this.progressBarCurrent_ChangeValueEvent);
+			titleProgressBar.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
+			this.AddTitleBarControl(titleProgressBar, 0, 14, 2, false);
+
+			// Title bar buttons
+			buttons = new TitleBarControl[4];
+			buttons[0]		= new TitleBarControl("titleButtonNext", null, new PaintEventHandler(titleButtonNext_Paint));
+			buttons[0].MouseUp += new MouseEventHandler(buttonNext_MouseUp);
+			buttons[1]		= new TitleBarControl("titleButtonStop", new EventHandler(buttonStop_Click), new PaintEventHandler(titleButtonStop_Paint));
+			buttons[2]		= new TitleBarControl("titleButtonPlayPause", new EventHandler(buttonPlayPause_Click), new PaintEventHandler(titleButtonPlayPause_Paint));
+			buttons[3]		= new TitleBarControl("titleButtonPrevious", new EventHandler(buttonPrevious_Click), new PaintEventHandler(titleButtonPrevious_Paint));
+			this.AddButtons(buttons, false);
+
+			status.Message = "Loading songs...";
+			InitialState();
+			timerPing.Enabled = true;
+
+			// see if we want to play locally
+			if (connection.checkBoxPlayLocally.Checked)
+			{
+				client.StartLocalPlayer();
+			}
+			connection.Dispose();
+
+			status.Dispose();
+
+			this.Visible = true;
+
+			this.Location		= new Point(Screen.PrimaryScreen.WorkingArea.Width - 50 - this.Width, 50);
+			this.TopMost		= true;
+
+			WebBrowser browser		= new WebBrowser("QueuePlayer Media", false);
+			browser.HideTitlebarButtons();
+			browser.Visible			= true;
+			browser.Visible			= false;
+			browser.Width			= this.Width * 2;
+			browser.Height			= 500;
+			browser.Left			= 200;
+			browser.Top				= 200;
+			browser.TabAppearance	= Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
+            			
+			playerQueue = new PlayerQueue();
+			browser.AddNewTab(playerQueue);
+
+			history = new History();
+			browser.AddNewTab(history);
+
+			playlists = new Playlists();
+			browser.AddNewTab(playlists);
+
+			Search search = new Search();
+			browser.AddNewTab(search);
+
+			BrowseCollection browser1 = new BrowseCollection();
+			browser.AddNewTab(browser1);
+
+			newMedia = new NewMedia();
+			browser.AddNewTab(newMedia);
+
+			AddSongs addSongs = new AddSongs();
+			browser.AddNewTab(addSongs);
+
+			advanced = new Advanced();
+			browser.AddNewTab(advanced);
+
+			browser.AddNewTab(log);
 		}
 
+		#endregion
+		#region Disposal
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -338,119 +444,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void UMPlayer_Load(object sender, System.EventArgs e)
 		{
-
-			QueuePlayerClient.SetPlayer(this);
-
-			ConnectionDialog connection = new ConnectionDialog();
-
-			//			if (connection.ShowDialog() == DialogResult.Cancel) 
-			//			{
-			//				Application.Exit();
-			//				this.Dispose();
-			//				return;
-			//			}
-
-			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Connecting to server...");
-
-			// Create the client
-			client = new Client(this);
-
-			// make sure we are connected
-			while (!client.Connected)
-			{
-				string msg = String.Format("The server '{0}' is not responding.", connection.HostName);
-				if (MessageBox.Show(msg, "Connection Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
-				{
-					this.Visible = false;
-					Application.Exit();
-					return;
-				}
-				client = new Client(this);
-			}
-
-			// Progress bar for title region
-			titleProgressBar						= new msn2.net.Controls.ProgressBar();
-			titleProgressBar.ProgressBackColor		= Color.LawnGreen;
-			titleProgressBar.RemainingBackColor		= Color.LightGray;
-			titleProgressBar.ShowProgressValue		= false;
-			titleProgressBar.ShowRemainingValue		= false;
-			titleProgressBar.ChangeValueEvent		+= new msn2.net.Controls.ChangeValueDelegate(this.progressBarCurrent_ChangeValueEvent);
-			titleProgressBar.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
-			this.AddTitleBarControl(titleProgressBar, 0, 14, 2, false);
-
-			// Title bar buttons
-			titleBarButtons						= new TitleBarButtons(this);
-			this.AddButtons(titleBarButtons, titleBarButtons.Width, false);
-			
-
-			status.Message = "Loading songs...";
-			InitialState();
-			timerPing.Enabled = true;
-
-			// see if we want to play locally
-			if (connection.checkBoxPlayLocally.Checked)
-			{
-				client.StartLocalPlayer();
-			}
-			connection.Dispose();
-
-			status.Dispose();
-
-			this.Visible = true;
-
-			this.Location		= new Point(Screen.PrimaryScreen.WorkingArea.Width - 50 - this.Width, 50);
-			this.TopMost		= true;
-//			TabForm tabForm		= new TabForm(this);
-//			tabForm.Location	= new Point(this.Left, this.Top + this.Height);
-//			tabForm.Size		= new Size(this.Width, this.Height * 3);
-//			tabForm.TopMost		= true;
-//            
-//			Crownwood.Magic.Controls.TabControl tab1 = new Crownwood.Magic.Controls.TabControl();
-//			tab1.Appearance = Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
-//			tab1.Style		= Crownwood.Magic.Common.VisualStyle.ProjectF;
-//			//tab1.appAppearance = Crownwood.Magic.Common.VisualStyle.ProjectF; // Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
-//			tab1.ShowClose  = false;
-//			tab1.Dock		= DockStyle.Fill;
-//			tab1.PositionTop = true;
-//			tab1.Font		 = new Font("Arial", 8);
-//			tabForm.panelTabs.Controls.Add(tab1);
-//			tab1.BringToFront();
-//			tabForm.Show();
-
-			WebBrowser browser		= new WebBrowser("QueuePlayer Media", false);
-			browser.Width			= this.Width;
-			browser.Height			= 500;
-			browser.TabAppearance	= Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
-            			
-			playerQueue = new PlayerQueue();
-			browser.AddNewTab(playerQueue);
-
-			history = new History();
-			browser.AddNewTab(history);
-
-			playlists = new Playlists();
-			browser.AddNewTab(playlists);
-
-			Search search = new Search();
-			browser.AddNewTab(search);
-
-			BrowseCollection browser1 = new BrowseCollection();
-			browser.AddNewTab(browser1);
-
-			newMedia = new NewMedia();
-			browser.AddNewTab(newMedia);
-
-			AddSongs addSongs = new AddSongs();
-			browser.AddNewTab(addSongs);
-
-			advanced = new Advanced();
-			browser.AddNewTab(advanced);
-
-			browser.AddNewTab(log);
-//			browser.Show();
-
-			browser.Visible = true;
-
 		}
 
 		#endregion
@@ -482,7 +475,7 @@ namespace msn2.net.QueuePlayer.Client
 				buttonPlayPause.Refresh();
 				timerPaused.Enabled = false;
 
-				titleBarButtons.Refresh();
+				RefreshTitlebarButtons();
 
 				tooltip.labelName.Text = currentMediaEntry.Name;
 				if (currentMediaEntry.IsArtistNull())
@@ -529,7 +522,7 @@ namespace msn2.net.QueuePlayer.Client
 			this.TitleVisible = true;
 
 			buttonPlayPause.Refresh();
-			titleBarButtons.Refresh();
+			RefreshTitlebarButtons();
 
 			ClearWaitForMessage();
 		}
@@ -545,7 +538,7 @@ namespace msn2.net.QueuePlayer.Client
 		public void Paused() 
 		{
 			buttonPlayPause.Refresh();
-			titleBarButtons.Refresh();
+			RefreshTitlebarButtons();
 			
 			timerPaused.Enabled = true;            
 
@@ -1641,9 +1634,12 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void UMPlayer_Rollup_Collapse(object sender, System.EventArgs e)
 		{
-			titleBarButtons.Visible		= true;
+			foreach (TitleBarControl control in buttons)
+			{
+				control.Visible			= true;
+			}
 			titleProgressBar.Visible	= true;
-			this.MoreButtonsWidth		= titleBarButtons.Width;
+			// not needed with buttons[] ??? this.MoreButtonsWidth		= titleBarButtons.Width;
 
 			if (currentMediaEntry == null)
 				this.Text = "Queue Player";
@@ -1653,7 +1649,10 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void UMPlayer_Rollup_Expand(object sender, System.EventArgs e)
 		{
-			titleBarButtons.Visible		= false;
+			foreach (TitleBarControl control in buttons)
+			{
+				control.Visible			= false;
+			}
 			titleProgressBar.Visible	= false;
 			this.MoreButtonsWidth		= 0;
 
@@ -1732,6 +1731,117 @@ namespace msn2.net.QueuePlayer.Client
 			e.Graphics.DrawString("Volume:", new Font("Arial", 8), new SolidBrush(Color.Black), 2, 4);
 		}
 
+
+		#region Titlebar Button Paint functions
+
+		private void RefreshTitlebarButtons()
+		{
+			foreach (TitleBarControl control in buttons)
+			{
+				control.Refresh();
+			}
+		}
+
+		private void titleButtonPrevious_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			int width	= 6;
+			int height  = 6;
+			int x		= e.ClipRectangle.Width / 2 - (width / 2);
+			int y		= e.ClipRectangle.Height / 2 - (height / 2);
+			int offset	= 5;
+
+			// draw play
+			Point[] points = new Point[4];
+
+			points[0] = new Point(x + width + offset/2, y);						// upper left
+			points[1] = new Point(x + width + offset/2, y + height);	// center right
+			points[2] = new Point(x + offset/2, y + height / 2);				// lower left
+			points[3] = new Point(x + width + offset/2, y);						// upper left again
+
+			e.Graphics.FillPolygon(new SolidBrush(Color.Black), points, System.Drawing.Drawing2D.FillMode.Alternate);
+
+			points[0] = new Point(x + width - offset/2, y);						// upper left
+			points[1] = new Point(x + width - offset/2, y + height);			// center right
+			points[2] = new Point(x - offset/2, y + height / 2);				// lower left
+			points[3] = new Point(x + width - offset/2, y);						// upper left again
+
+			e.Graphics.FillPolygon(new SolidBrush(Color.Black), points, System.Drawing.Drawing2D.FillMode.Alternate);
+		}
+
+		private void titleButtonPlayPause_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			int width	= 6;
+			int height  = 6;
+			int x		= e.ClipRectangle.Width / 2 - (width / 2);
+			int y		= e.ClipRectangle.Height / 2 - (height / 2);
+			int offset	= 2;
+
+			if (client.mediaServer.CurrentPlayState == msn2.net.QueuePlayer.Server.MediaServer.PlayState.Playing)
+			{
+				// draw pause
+				Point pt1 = new Point(x + width / 2 - offset, y);
+				Point pt2 = new Point(x + width / 2 - offset, y + height);
+
+				Point pt3 = new Point(x + width / 2 + offset, y);
+				Point pt4 = new Point(x + width / 2 + offset, y + height);
+
+				using (Pen pen = new Pen(new SolidBrush(Color.Black), 2))
+				{
+					e.Graphics.DrawLine(pen, pt1, pt2);
+					e.Graphics.DrawLine(pen, pt3, pt4);
+				}
+			}
+			else
+			{
+				// draw play
+				Point[] points = new Point[4];
+
+				points[0] = new Point(x, y);						// upper left
+				points[1] = new Point(x + width, y + height /2);	// center right
+				points[2] = new Point(x, y + height);				// lower left
+				points[3] = new Point(x, y);						// upper left again
+
+				e.Graphics.FillPolygon(new SolidBrush(Color.Black), points, System.Drawing.Drawing2D.FillMode.Alternate);
+			}
+
+		}
+
+		private void titleButtonStop_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			int width	= 6;
+			int x		= e.ClipRectangle.Width / 2 - (width / 2);
+			int y		= e.ClipRectangle.Height / 2 - (width / 2);
+
+			e.Graphics.FillRectangle(new SolidBrush(Color.Black), x, y, width, width);
+		}
+
+		private void titleButtonNext_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			int width	= 6;
+			int height  = 6;
+			int x		= e.ClipRectangle.Width / 2 - (width / 2);
+			int y		= e.ClipRectangle.Height / 2 - (height / 2);
+			int offset	= 5;
+
+			// draw play
+			Point[] points = new Point[4];
+
+			points[0] = new Point(x - offset/2, y);						// upper left
+			points[1] = new Point(x + width - offset/2, y + height /2);	// center right
+			points[2] = new Point(x - offset/2, y + height);				// lower left
+			points[3] = new Point(x - offset/2, y);						// upper left again
+
+			e.Graphics.FillPolygon(new SolidBrush(Color.Black), points, System.Drawing.Drawing2D.FillMode.Alternate);
+
+			points[0] = new Point(x + offset/2, y);						// upper left
+			points[1] = new Point(x + width + offset/2, y + height /2);	// center right
+			points[2] = new Point(x + offset/2, y + height);				// lower left
+			points[3] = new Point(x + offset/2, y);						// upper left again
+
+			e.Graphics.FillPolygon(new SolidBrush(Color.Black), points, System.Drawing.Drawing2D.FillMode.Alternate);
+		}
+
+		#endregion
 
 	}
 

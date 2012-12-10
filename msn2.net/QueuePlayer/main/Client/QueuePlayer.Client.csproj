@@ -262,7 +262,7 @@
                 />
                 <File
                     RelPath = "MediaError.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
@@ -370,16 +370,6 @@
                 <File
                     RelPath = "TabForm.resx"
                     DependentUpon = "TabForm.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "TitleBarButtons.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TitleBarButtons.resx"
-                    DependentUpon = "TitleBarButtons.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
