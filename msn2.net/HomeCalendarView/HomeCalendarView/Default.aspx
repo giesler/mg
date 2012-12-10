@@ -45,10 +45,6 @@
             border-bottom-style: solid;
             padding: 2px 2px 2px 2px;
         }
-        .dayForecast
-        {
-            height: 100px;
-        }
         .defaultText
         {
             font-size: 8pt;
@@ -74,7 +70,7 @@
         {
             background-color: #ececec;
             padding: 2px;
-            height: 75px;
+            height: 69px;
             border-bottom-color: Gray;
             border-bottom-width: 1px;
             border-bottom-style: solid;
@@ -127,7 +123,7 @@
         }
     </style>
 </head>
-<body class="defaultText" style="border: solid 1px silver">
+<body class="defaultText" style="border: solid 1px silver; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
     <form id="form1" runat="server">
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel" RenderMode="Inline">
@@ -135,7 +131,7 @@
             <asp:Timer ID="refreshTimer" runat="server" Interval="30000" Enabled="true" />
             <asp:Timer ID="dataLoadTimer" runat="server" Interval="5000" Enabled="false" />
             <div class="headerRow">
-                <table width="100%" border="0">
+                <table width="100%" border="0" cellpadding="1" cellspacing="0">
                     <tr>
                         <td width="90" valign="top">
                             <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
