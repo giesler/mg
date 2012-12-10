@@ -1,0 +1,350 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.0.9466"
+        SchemaVersion = "1.0"
+        ProjectGuid = "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
+        SccProjectName = "SAK"
+        SccLocalPath = "SAK"
+        SccAuxPath = "SAK"
+        SccProvider = "SAK"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "msn2.net.Controls"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                RootNamespace = "msn2.net.Controls"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
+                />
+                <Reference
+                    Name = "SHDocVw"
+                    Guid = "{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}"
+                    VersionMajor = "1"
+                    VersionMinor = "1"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "AxSHDocVw"
+                    Guid = "{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}"
+                    VersionMajor = "1"
+                    VersionMinor = "1"
+                    Lcid = "0"
+                    WrapperTool = "aximp"
+                />
+                <Reference
+                    Name = "MagicLibrary"
+                    AssemblyName = "MagicLibrary"
+                    HintPath = "..\..\Crownwood.Magic\currentVersion\bin\Debug\MagicLibrary.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
+                />
+                <Reference
+                    Name = "Configuration"
+                    Project = "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "System.Web.Services"
+                    AssemblyName = "System.Web.Services"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
+                />
+                <Reference
+                    Name = "Common"
+                    Project = "{A267194C-A021-4267-A491-AD3919394F9A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CommonCode.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CommonCode.resx"
+                    DependentUpon = "CommonCode.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ENTIRNET.ICO"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FavoriteEdit.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FavoriteEdit.resx"
+                    DependentUpon = "FavoriteEdit.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Favorites.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Favorites.resx"
+                    DependentUpon = "Favorites.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Form.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Form.resx"
+                    DependentUpon = "Form.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "InputPrompt.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "InputPrompt.resx"
+                    DependentUpon = "InputPrompt.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MiniBrowser.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MiniBrowser.resx"
+                    DependentUpon = "MiniBrowser.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MSNBCHeadlines.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MSNBCHeadlines.resx"
+                    DependentUpon = "MSNBCHeadlines.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MSNBCWeather.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MSNBCWeather.resx"
+                    DependentUpon = "MSNBCWeather.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Notes.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Notes.resx"
+                    DependentUpon = "Notes.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ProgressBar.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ProgressBar.resx"
+                    DependentUpon = "ProgressBar.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RandomPicture.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RandomPicture.resx"
+                    DependentUpon = "RandomPicture.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellForm.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellForm.resx"
+                    DependentUpon = "ShellForm.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellLaunch.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellLaunch.resx"
+                    DependentUpon = "ShellLaunch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WebBrowser.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebBrowser.resx"
+                    DependentUpon = "WebBrowser.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WebBrowserControl.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebBrowserControl.resx"
+                    DependentUpon = "WebBrowserControl.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WebSearch.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebSearch.resx"
+                    DependentUpon = "WebSearch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\Icon1.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Icons\TopMost-false.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Icons\TopMost-true.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web References\dev\RandomPictureService.disco"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\dev\RandomPictureService.wsdl"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\dev\Reference.map"
+                    BuildAction = "None"
+                    Generator = "MSDiscoCodeGenerator"
+                    LastGenOutput = "Reference.cs"
+                />
+                <File
+                    RelPath = "Web References\dev\Reference.cs"
+                    DependentUpon = "Reference.map"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <Folder
+                    RelPath = "Web References\dev\"
+                    WebReferenceUrl = "http://dev/pics/RandomPictureService.asmx"
+                    UrlBehavior = "Static"
+                />
+                <Folder
+                    RelPath = "Web References\"
+                    WebReferences = "TRUE"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

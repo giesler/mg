@@ -1,0 +1,51 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{45988AEB-8FB0-4964-93FE-43CCC7713511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {8B05E1D2-5B92-4D82-B515-DF9C3E84F263}
+		SccProjectUniqueName1 = Configuration\\Configuration.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = Configuration\\
+		SccProjectUniqueName2 = Console\\Console.csproj
+		SccLocalPath2 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = Console\\
+		SccProjectUniqueName3 = Controls\\Controls.csproj
+		SccLocalPath3 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection3 = Controls\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.ActiveCfg = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.Build.0 = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.ActiveCfg = Release|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.Build.0 = Release|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.ActiveCfg = Debug|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.Build.0 = Debug|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.ActiveCfg = Release|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.Build.0 = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.ActiveCfg = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
