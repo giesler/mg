@@ -47,6 +47,45 @@ Private mstrMouseClick As String
 Private mintLeft As Integer
 Private mintTop As Integer
 
+' Sounds
+Private mstrMouseEnter As String
+Private mstrMouseExit As String
+Private mstrMouseDown As String
+Private mstrMouseUp As String
+
+Public Property Let MouseEnter(ByVal vData As String)
+    mstrMouseEnter = vData
+End Property
+
+Public Property Get MouseEnter() As String
+    MouseEnter = mstrMouseEnter
+End Property
+
+Public Property Let MouseExit(ByVal vData As String)
+    mstrMouseExit = vData
+End Property
+
+Public Property Get MouseExit() As String
+    MouseExit = mstrMouseExit
+End Property
+
+Public Property Let MouseDown(ByVal vData As String)
+    mstrMouseDown = vData
+End Property
+
+Public Property Get MouseDown() As String
+    MouseDown = mstrMouseDown
+End Property
+
+Public Property Let MouseUp(ByVal vData As String)
+    mstrMouseUp = vData
+End Property
+
+Public Property Get MouseUp() As String
+    MouseUp = mstrMouseUp
+End Property
+
+
 Public Property Let Default(ByVal vData As Boolean)
   mblnDefault = vData
 End Property
@@ -54,6 +93,7 @@ End Property
 Public Property Get Default() As Boolean
   Default = mblnDefault
 End Property
+
 
 Public Property Let Cancel(ByVal vData As Boolean)
   mblnCancel = vData
@@ -63,6 +103,7 @@ Public Property Get Cancel() As Boolean
   Cancel = mblnCancel
 End Property
 
+
 Public Property Let RestartPrompt(ByVal vData As Boolean)
   mblnRestartPrompt = vData
 End Property
@@ -70,6 +111,7 @@ End Property
 Public Property Get RestartPrompt() As Boolean
   RestartPrompt = mblnRestartPrompt
 End Property
+
 
 Public Property Let ComponentCheck(ByVal vData As Boolean)
   mblnComponentCheck = vData
@@ -79,6 +121,7 @@ Public Property Get ComponentCheck() As Boolean
   ComponentCheck = mblnComponentCheck
 End Property
 
+
 Public Property Let Standard(ByVal vData As String)
   mstrStandard = vData
 End Property
@@ -86,6 +129,7 @@ End Property
 Public Property Get Standard() As String
   Standard = mstrStandard
 End Property
+
 
 Public Property Let MouseOver(ByVal vData As String)
   mstrMouseOver = vData
@@ -116,76 +160,51 @@ Public Property Let Top(ByVal vData As Integer)
 End Property
 
 Public Property Get Top() As Integer
-  Top = mintTop
+    Top = mintTop
 End Property
 
 
 Public Property Let URL(ByVal vData As String)
-'used when assigning a value to the property, on the left side of an assignment.
-'Syntax: X.URL = 5
     mstrURL = vData
 End Property
 
 Public Property Get URL() As String
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.URL
     URL = mstrURL
 End Property
 
 
 Public Property Set Settings(ByVal vData As CSettingsFile)
-'used when assigning an Object to the property, on the left side of a Set statement.
-'Syntax: Set x.Settings = Form1
     Set mvarSettings = vData
 End Property
 
-
 Public Property Get Settings() As CSettingsFile
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.Settings
     Set Settings = mvarSettings
 End Property
 
 
 Public Property Let SetupCommandLine(ByVal vData As String)
-'used when assigning a value to the property, on the left side of an assignment.
-'Syntax: X.SetupCommandLine = 5
     mstrSetupCommandLine = vData
 End Property
 
-
 Public Property Get SetupCommandLine() As String
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.SetupCommandLine
     SetupCommandLine = mstrSetupCommandLine
 End Property
 
 
-
 Public Property Let SetupCommand(ByVal vData As String)
-'used when assigning a value to the property, on the left side of an assignment.
-'Syntax: X.SetupCommand = 5
     mstrSetupCommand = vData
 End Property
 
-
 Public Property Get SetupCommand() As String
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.SetupCommand
     SetupCommand = mstrSetupCommand
 End Property
 
 
 Public Property Let ButtonType(ByVal vData As ButtonTypeEnum)
-'used when assigning an Object to the property, on the left side of a Set statement.
-'Syntax: Set x.ComponentType = Form1
     mvarButtonType = vData
 End Property
 
-
 Public Property Get ButtonType() As ButtonTypeEnum
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.ComponentType
     ButtonType = mvarButtonType
 End Property
 
@@ -198,6 +217,7 @@ Public Property Get ID() As String
   ID = mstrID
 End Property
 
+
 Public Property Let Name(pstrIn As String)
   mstrName = pstrIn
 End Property
@@ -205,6 +225,7 @@ End Property
 Public Property Get Name() As String
   Name = mstrName
 End Property
+
 
 Public Property Let Enabled(pblnIn As Boolean)
   mblnEnabled = pblnIn
@@ -214,6 +235,7 @@ Public Property Get Enabled() As Boolean
   Enabled = mblnEnabled
 End Property
 
+
 Public Property Let Delete(pblnIn As Boolean)
   mblnDelete = pblnIn
 End Property
@@ -221,6 +243,7 @@ End Property
 Public Property Get Delete() As Boolean
   Delete = mblnDelete
 End Property
+
 
 Public Function Init()
 
@@ -268,6 +291,12 @@ Public Function Load(ByRef pobjCIni As CIni)
   pobjCIni.ReadValue mstrID, "RestartPrompt", strTemp, "0"
   mblnRestartPrompt = IIf(strTemp = "1", True, False)
   
+  ' button sound information
+  pobjCIni.ReadValue mstrID, "MouseEnter", mstrMouseEnter
+  pobjCIni.ReadValue mstrID, "MouseExit", mstrMouseExit
+  pobjCIni.ReadValue mstrID, "MouseDown", mstrMouseDown
+  pobjCIni.ReadValue mstrID, "MouseUp", mstrMouseUp
+  
 End Function
 
 Public Function Save(ByRef pobjCIni As CIni)
@@ -297,6 +326,12 @@ Public Function Save(ByRef pobjCIni As CIni)
   pobjCIni.WriteValue mstrID, "SetupCommandLine", mstrSetupCommandLine
   pobjCIni.WriteValue mstrID, "URL", mstrURL
   pobjCIni.WriteValue mstrID, "RestartPrompt", IIf(mblnRestartPrompt, "1", "0")
+  
+  ' Button sound information
+  pobjCIni.WriteValue mstrID, "MouseEnter", mstrMouseEnter
+  pobjCIni.WriteValue mstrID, "MouseExit", mstrMouseExit
+  pobjCIni.WriteValue mstrID, "MouseDown", mstrMouseDown
+  pobjCIni.WriteValue mstrID, "MouseUp", mstrMouseUp
   
 End Function
 

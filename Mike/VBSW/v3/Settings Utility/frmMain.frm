@@ -1,18 +1,18 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H80000004&
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "VBSW Settings Utility"
-   ClientHeight    =   5700
+   ClientHeight    =   5490
    ClientLeft      =   150
    ClientTop       =   720
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5700
+   ScaleHeight     =   5490
    ScaleWidth      =   6675
    StartUpPosition =   3  'Windows Default
    Begin MSComctlLib.StatusBar StatusBar1 
@@ -20,7 +20,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   0
       TabIndex        =   9
-      Top             =   5445
+      Top             =   5235
       Width           =   6675
       _ExtentX        =   11774
       _ExtentY        =   450
@@ -53,57 +53,79 @@ Begin VB.Form frmMain
       _Version        =   393216
       Style           =   1
       Tabs            =   4
-      Tab             =   3
       TabsPerRow      =   4
       TabHeight       =   520
       Enabled         =   0   'False
       BackColor       =   -2147483644
       TabCaption(0)   =   "Program Settings"
       TabPicture(0)   =   "frmMain.frx":0000
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label2"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label1"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "Label5"
+      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "Label3"
+      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "Label8"
+      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).Control(5)=   "Label38"
+      Tab(0).Control(5).Enabled=   0   'False
       Tab(0).Control(6)=   "Line1"
+      Tab(0).Control(6).Enabled=   0   'False
       Tab(0).Control(7)=   "txtProgramName"
+      Tab(0).Control(7).Enabled=   0   'False
       Tab(0).Control(8)=   "txtRootPath"
       Tab(0).Control(8).Enabled=   0   'False
       Tab(0).Control(9)=   "cmdSplashBrowse"
+      Tab(0).Control(9).Enabled=   0   'False
       Tab(0).Control(10)=   "txtSplash"
+      Tab(0).Control(10).Enabled=   0   'False
       Tab(0).ControlCount=   11
       TabCaption(1)   =   "Components"
       TabPicture(1)   =   "frmMain.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label10"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdAdd"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "lvComponents"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "cmdEdit"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdDelete"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "cmdDownload"
+      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "cmdMoveUp"
+      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).Control(7)=   "cmdMoveDown"
+      Tab(1).Control(7).Enabled=   0   'False
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "Buttons"
       TabPicture(2)   =   "frmMain.frx":0038
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label6"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "lvButtons"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "cmdDeleteButton"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "cmdEditButton"
+      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "cmdAddButton"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "cmdSetAsDefault"
+      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "cmdSetAsCancel"
+      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Program Options"
       TabPicture(3)   =   "frmMain.frx":0054
-      Tab(3).ControlEnabled=   -1  'True
+      Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "fraRebootOption"
-      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "Frame2"
-      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       Begin VB.CommandButton cmdSetAsCancel 
          Caption         =   "Set As Cancel"
@@ -124,7 +146,7 @@ Begin VB.Form frmMain
       Begin VB.Frame Frame2 
          Caption         =   " Dialog Options "
          Height          =   1335
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   31
          Top             =   1560
          Width           =   6015
@@ -166,7 +188,7 @@ Begin VB.Form frmMain
       Begin VB.Frame fraRebootOption 
          Caption         =   " Reboot Option "
          Height          =   975
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   27
          Top             =   480
          Width           =   6015
@@ -222,7 +244,7 @@ Begin VB.Form frmMain
       End
       Begin VB.TextBox txtSplash 
          Height          =   285
-         Left            =   -73680
+         Left            =   1320
          TabIndex        =   18
          ToolTipText     =   "Bitmap that will be loaded by autorun.exe"
          Top             =   1740
@@ -231,7 +253,7 @@ Begin VB.Form frmMain
       Begin VB.CommandButton cmdSplashBrowse 
          Caption         =   "Browse"
          Height          =   285
-         Left            =   -69600
+         Left            =   5400
          TabIndex        =   17
          Top             =   1740
          Width           =   855
@@ -263,7 +285,7 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtRootPath 
          BackColor       =   &H80000004&
          Height          =   285
-         Left            =   -73680
+         Left            =   1320
          Locked          =   -1  'True
          TabIndex        =   7
          TabStop         =   0   'False
@@ -272,7 +294,7 @@ Begin VB.Form frmMain
       End
       Begin VB.TextBox txtProgramName 
          Height          =   285
-         Left            =   -73680
+         Left            =   1320
          TabIndex        =   5
          ToolTipText     =   "Program name that will appear in the title bar and message boxes"
          Top             =   900
@@ -386,15 +408,15 @@ Begin VB.Form frmMain
       End
       Begin VB.Line Line1 
          BorderColor     =   &H00808080&
-         X1              =   -74880
-         X2              =   -68760
+         X1              =   120
+         X2              =   6240
          Y1              =   4620
          Y2              =   4620
       End
       Begin VB.Label Label38 
          Caption         =   "For more information/help, on the web go to http://giesler.org/vbsw."
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   21
          Top             =   4740
          Width           =   6135
@@ -402,7 +424,7 @@ Begin VB.Form frmMain
       Begin VB.Label Label8 
          Caption         =   "The dialog will be resized to the size of the BMP specified."
          Height          =   255
-         Left            =   -73560
+         Left            =   1440
          TabIndex        =   20
          Top             =   2040
          Width           =   4335
@@ -410,7 +432,7 @@ Begin VB.Form frmMain
       Begin VB.Label Label3 
          Caption         =   "Background:"
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   19
          Top             =   1740
          Width           =   1095
@@ -420,7 +442,7 @@ Begin VB.Form frmMain
          Caption         =   "Basic program settings appear on this tab."
          ForeColor       =   &H80000017&
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   16
          Top             =   360
          Width           =   6255
@@ -438,7 +460,7 @@ Begin VB.Form frmMain
       Begin VB.Label Label1 
          Caption         =   "Root:"
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   8
          Top             =   1260
          Width           =   1095
@@ -446,7 +468,7 @@ Begin VB.Form frmMain
       Begin VB.Label Label2 
          Caption         =   "Name:"
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   6
          Top             =   900
          Width           =   855
