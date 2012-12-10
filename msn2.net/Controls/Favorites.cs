@@ -14,19 +14,23 @@ namespace msn2.net.Controls
 {
 	public class Favorites : msn2.net.Controls.ShellForm
 	{
-		private Crownwood.Magic.Controls.TabControl tabControl1;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItemAdd;
-		private System.Windows.Forms.MenuItem menuItemEdit;
 		private System.Windows.Forms.MenuItem menuItemDelete;
 		private System.ComponentModel.IContainer components = null;
+		private System.Windows.Forms.TreeView treeViewCategory;
+		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.ListView listView1;
+		private FavoritesService.FavoritesService favService = null;
 		
 		public Favorites()
 		{
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
-			LoadGroups();
+			favService = new FavoritesService.FavoritesService();
+			favService.Credentials = new System.Net.NetworkCredential("admin", "tOO", "sp");
+			LoadCategories();
 
 			this.Left = Screen.PrimaryScreen.Bounds.Left + 150;
 			this.Top  = Screen.PrimaryScreen.Bounds.Bottom - this.Height - 100;
@@ -54,37 +58,20 @@ namespace msn2.net.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tabControl1 = new Crownwood.Magic.Controls.TabControl();
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
-			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
+			this.treeViewCategory = new System.Windows.Forms.TreeView();
+			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.listView1 = new System.Windows.Forms.ListView();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// tabControl1
-			// 
-			this.tabControl1.Appearance = Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiForm;
-			this.tabControl1.ContextMenu = this.contextMenu1;
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.HotTextColor = System.Drawing.SystemColors.ActiveCaption;
-			this.tabControl1.HotTrack = false;
-			this.tabControl1.ImageList = null;
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.PositionTop = true;
-			this.tabControl1.SelectedIndex = -1;
-			this.tabControl1.ShowArrows = true;
-			this.tabControl1.ShowClose = false;
-			this.tabControl1.ShrinkPagesToFit = false;
-			this.tabControl1.Size = new System.Drawing.Size(416, 192);
-			this.tabControl1.TabIndex = 1;
-			this.tabControl1.TextColor = System.Drawing.SystemColors.MenuText;
-			this.tabControl1.SelectionChanged += new System.EventHandler(this.tabControl1_SelectionChanged);
 			// 
 			// contextMenu1
 			// 
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																						 this.menuItemAdd,
-																						 this.menuItemEdit,
 																						 this.menuItemDelete});
 			// 
 			// menuItemAdd
@@ -93,17 +80,40 @@ namespace msn2.net.Controls
 			this.menuItemAdd.Text = "&Add";
 			this.menuItemAdd.Click += new System.EventHandler(this.menuItemAdd_Click);
 			// 
-			// menuItemEdit
-			// 
-			this.menuItemEdit.Index = 1;
-			this.menuItemEdit.Text = "&Edit";
-			this.menuItemEdit.Click += new System.EventHandler(this.menuItemEdit_Click);
-			// 
 			// menuItemDelete
 			// 
-			this.menuItemDelete.Index = 2;
+			this.menuItemDelete.Index = 1;
 			this.menuItemDelete.Text = "&Delete";
 			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
+			// 
+			// treeViewCategory
+			// 
+			this.treeViewCategory.ContextMenu = this.contextMenu1;
+			this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Left;
+			this.treeViewCategory.HideSelection = false;
+			this.treeViewCategory.ImageIndex = -1;
+			this.treeViewCategory.LabelEdit = true;
+			this.treeViewCategory.Name = "treeViewCategory";
+			this.treeViewCategory.SelectedImageIndex = -1;
+			this.treeViewCategory.Size = new System.Drawing.Size(121, 192);
+			this.treeViewCategory.TabIndex = 5;
+			this.treeViewCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeViewCategory_AfterLabelEdit);
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(121, 0);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 192);
+			this.splitter1.TabIndex = 6;
+			this.splitter1.TabStop = false;
+			// 
+			// listView1
+			// 
+			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listView1.Location = new System.Drawing.Point(124, 0);
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(292, 192);
+			this.listView1.TabIndex = 7;
 			// 
 			// Favorites
 			// 
@@ -111,53 +121,88 @@ namespace msn2.net.Controls
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(416, 192);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.tabControl1});
+																		  this.listView1,
+																		  this.splitter1,
+																		  this.treeViewCategory});
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "Favorites";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Favorites";
+			this.TitleVisible = true;
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 		#endregion
 
-		private void LoadGroups()
+		private void LoadCategories()
 		{
-			tabControl1.TabPages.Clear();
-
-			string [] groups = ConfigurationSettings.Current.GetItemAttribute("Favorites", "Groups").StringArray;
             
-			foreach (string group in groups)
+			FavoritesService.DataSetCategory dsCategory = favService.GetRootCategories(ConfigurationSettings.Current.UserId.ToString());
+
+			foreach (FavoritesService.DataSetCategory.FavoritesCategoryRow row in dsCategory.FavoritesCategory)
 			{
-//                FavoritePage page = new FavoritePage(group);
-//				tabControl1.TabPages.Add(page);
+				CategoryTreeNode node = new CategoryTreeNode(row.CategoryId.ToString(), row.CategoryName);
+				treeViewCategory.Nodes.Add(node);
 			}
-
-		}
-
-		private void tabControl1_SelectionChanged(object sender, System.EventArgs e)
-		{
-			FavoritePage page = (FavoritePage) tabControl1.TabPages[tabControl1.SelectedIndex];
-			page.Page_Selected(this, e);
+            
 		}
 
 		private void menuItemAdd_Click(object sender, System.EventArgs e)
 		{
-//			SqlConnection cn = new SqlConnection(msn2.net.Config.ConnectionString);
-//			cn.Open();
-//			SqlCommand cmd = new SqlCommand("s_Favs_Group_Add", cn);
-//			cmd.CommandType = CommandType.StoredProcedure;
-            		
-		}
 
-		private void menuItemEdit_Click(object sender, System.EventArgs e)
-		{
-			
+			// First get a new name
+			InputPrompt prompt = new InputPrompt("Enter the new category name:");
+			if (prompt.ShowDialog(this) == DialogResult.Cancel)
+				return;
+
+            CategoryTreeNode parentNode = null;
+
+			// see if we have a node selected - if so use as parent
+			if (treeViewCategory.SelectedNode != null)
+			{
+				parentNode = (CategoryTreeNode) treeViewCategory.SelectedNode;
+			}
+
+			string newCategoryId = null;
+
+			// Add category
+			if (parentNode == null)
+			{
+				newCategoryId = favService.AddRootCategory(ConfigurationSettings.Current.UserId.ToString(), prompt.Value);
+				treeViewCategory.Nodes.Add(new CategoryTreeNode(newCategoryId, prompt.Value));
+			}
+			else
+			{
+				newCategoryId = favService.AddChildCategory(
+					ConfigurationSettings.Current.UserId.ToString(), prompt.Value, parentNode.CategoryId);
+				parentNode.Nodes.Add(new CategoryTreeNode(newCategoryId, prompt.Value));
+			}
+            		
 		}
 
 		private void menuItemDelete_Click(object sender, System.EventArgs e)
 		{
-		
+			if (treeViewCategory.SelectedNode == null)
+				return;
+
+			CategoryTreeNode node = (CategoryTreeNode) treeViewCategory.SelectedNode;
+
+            if (MessageBox.Show("Are you sure you want to delete the selected category?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+				return;
+
+            favService.DeleteCategory(ConfigurationSettings.Current.UserId.ToString(), node.CategoryId);
+			
+			treeViewCategory.Nodes.Remove(node);
+		}
+
+		private void treeViewCategory_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
+		{
+			CategoryTreeNode node = (CategoryTreeNode) e.Node;
+
+			favService.UpdateCategory(ConfigurationSettings.Current.UserId.ToString(), node.CategoryId, e.Label);
+
 		}
 
 		#region FavoritesPage - Tab page
@@ -257,6 +302,21 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		public class CategoryTreeNode: TreeNode
+		{
+			private string categoryId;
+
+			public CategoryTreeNode(string categoryId, string categoryName)
+			{
+				this.Text		= categoryName;
+				this.categoryId	= categoryId;
+			}
+
+			public string CategoryId
+			{
+				get { return categoryId; }
+			}
+		}
 	}
 }
 

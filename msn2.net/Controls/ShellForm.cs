@@ -137,7 +137,7 @@ namespace msn2.net.Controls
 																					 this.panelButtons});
 			this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panelTitle.Name = "panelTitle";
-			this.panelTitle.Size = new System.Drawing.Size(344, 16);
+			this.panelTitle.Size = new System.Drawing.Size(344, 0);
 			this.panelTitle.TabIndex = 0;
 			this.panelTitle.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelTitle_Layout);
 			// 
@@ -148,7 +148,7 @@ namespace msn2.net.Controls
 																						 this.labelTitle});
 			this.panelTitleText.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelTitleText.Name = "panelTitleText";
-			this.panelTitleText.Size = new System.Drawing.Size(224, 16);
+			this.panelTitleText.Size = new System.Drawing.Size(224, 0);
 			this.panelTitleText.TabIndex = 5;
 			this.panelTitleText.Resize += new System.EventHandler(this.panelTitleText_Resize);
 			// 
@@ -175,7 +175,7 @@ namespace msn2.net.Controls
 			this.panelMoreButtons.Dock = System.Windows.Forms.DockStyle.Right;
 			this.panelMoreButtons.Location = new System.Drawing.Point(224, 0);
 			this.panelMoreButtons.Name = "panelMoreButtons";
-			this.panelMoreButtons.Size = new System.Drawing.Size(24, 16);
+			this.panelMoreButtons.Size = new System.Drawing.Size(24, 0);
 			this.panelMoreButtons.TabIndex = 7;
 			// 
 			// panelButtons
@@ -188,7 +188,7 @@ namespace msn2.net.Controls
 			this.panelButtons.Dock = System.Windows.Forms.DockStyle.Right;
 			this.panelButtons.Location = new System.Drawing.Point(248, 0);
 			this.panelButtons.Name = "panelButtons";
-			this.panelButtons.Size = new System.Drawing.Size(96, 16);
+			this.panelButtons.Size = new System.Drawing.Size(96, 0);
 			this.panelButtons.TabIndex = 6;
 			// 
 			// buttonOpacity
@@ -251,9 +251,8 @@ namespace msn2.net.Controls
 			// 
 			this.panelLeft.BackColor = System.Drawing.Color.DimGray;
 			this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panelLeft.Location = new System.Drawing.Point(0, 16);
 			this.panelLeft.Name = "panelLeft";
-			this.panelLeft.Size = new System.Drawing.Size(0, 246);
+			this.panelLeft.Size = new System.Drawing.Size(0, 262);
 			this.panelLeft.TabIndex = 2;
 			this.panelLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseUp);
 			this.panelLeft.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseMove);
@@ -263,9 +262,9 @@ namespace msn2.net.Controls
 			// 
 			this.panelRight.BackColor = System.Drawing.Color.DimGray;
 			this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panelRight.Location = new System.Drawing.Point(344, 16);
+			this.panelRight.Location = new System.Drawing.Point(344, 0);
 			this.panelRight.Name = "panelRight";
-			this.panelRight.Size = new System.Drawing.Size(0, 246);
+			this.panelRight.Size = new System.Drawing.Size(0, 262);
 			this.panelRight.TabIndex = 3;
 			this.panelRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelRight_MouseUp);
 			this.panelRight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelRight_MouseMove);

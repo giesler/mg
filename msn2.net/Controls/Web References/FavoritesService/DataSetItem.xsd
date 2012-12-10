@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:mstns="http://tempuri.org/DataSetItem.xsd" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns="http://tempuri.org/DataSetItem.xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://tempuri.org/DataSetItem.xsd" id="DataSetItem" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element msdata:IsDataSet="true" name="DataSetItem">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="FavoritesItem">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="ItemId" type="xs:string" />
+              <xs:element minOccurs="0" name="ItemName" type="xs:string" />
+              <xs:element minOccurs="0" name="ItemUrl" type="xs:string" />
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="CategoryId" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique msdata:PrimaryKey="true" name="DataSetItemKey1">
+      <xs:selector xpath=".//mstns:FavoritesItem" />
+      <xs:field xpath="mstns:ItemId" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

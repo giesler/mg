@@ -1,11 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{45988AEB-8FB0-4964-93FE-43CCC7713511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Controls\Controls.csproj", "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A267194C-A021-4267-A491-AD3919394F9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
 EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
@@ -13,22 +13,22 @@ Global
 		SccLocalPath0 = .
 		CanCheckoutShared = false
 		SolutionUniqueID = {8B05E1D2-5B92-4D82-B515-DF9C3E84F263}
-		SccProjectUniqueName1 = Configuration\\Configuration.csproj
+		SccProjectUniqueName1 = Console\\Console.csproj
 		SccLocalPath1 = .
 		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection1 = Configuration\\
-		SccProjectUniqueName2 = Console\\Console.csproj
-		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection1 = Console\\
+		SccProjectUniqueName2 = Controls\\Controls.csproj
+		SccProjectName2 = \u0022$/msn2.net/Controls\u0022,\u0020RTNAAAAA
+		SccLocalPath2 = Controls
 		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection2 = Console\\
-		SccProjectUniqueName3 = Controls\\Controls.csproj
-		SccLocalPath3 = .
+		SccProjectUniqueName3 = Common\\Common.csproj
+		SccProjectName3 = \u0022$/msn2.net/Common\u0022,\u0020JWNAAAAA
+		SccLocalPath3 = Common
 		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection3 = Controls\\
-		SccProjectUniqueName4 = Common\\Common.csproj
-		SccLocalPath4 = .
+		SccProjectUniqueName4 = Configuration\\Configuration.csproj
+		SccProjectName4 = \u0022$/msn2.net/Configuration\u0022,\u0020NTNAAAAA
+		SccLocalPath4 = Configuration
 		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection4 = Common\\
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug
@@ -37,22 +37,22 @@ Global
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.ActiveCfg = Debug|.NET
-		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.Build.0 = Debug|.NET
-		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.ActiveCfg = Release|.NET
-		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.Build.0 = Release|.NET
 		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.ActiveCfg = Debug|.NET
 		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.Build.0 = Debug|.NET
 		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.ActiveCfg = Release|.NET
 		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.Build.0 = Release|.NET
-		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.ActiveCfg = Debug|.NET
-		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
-		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
-		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.ActiveCfg = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.Build.0 = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.ActiveCfg = Release|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.Build.0 = Release|.NET
 		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.ActiveCfg = Debug|.NET
 		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.Build.0 = Debug|.NET
 		{A267194C-A021-4267-A491-AD3919394F9A}.Release.ActiveCfg = Release|.NET
 		{A267194C-A021-4267-A491-AD3919394F9A}.Release.Build.0 = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.ActiveCfg = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

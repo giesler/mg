@@ -163,7 +163,7 @@ namespace msn2.net.Configuration
 
 		#region ConnectionString
 
-		private string connectionString = "User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=webdb;Data Source=kyle;";
+		private string connectionString = "User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=projectf;Data Source=kyle;";
 
 		/// <summary>
 		/// Get/set connectionString from config
@@ -183,9 +183,7 @@ namespace msn2.net.Configuration
 
 		#endregion
 
-		#region CurrentUser
-
-		private string currentUser;
+		#region UserId
 
 		/// <summary>
 		/// Currently logged in user.
@@ -193,16 +191,11 @@ namespace msn2.net.Configuration
 		/// <remarks>
 		/// Broadcasts MSN2.net.LoginChangeEvent
 		/// </remarks>
-		public string CurrentUser
+		public Guid UserId
 		{
 			get
 			{
-				return currentUser;
-			}
-			set
-			{
-				currentUser = value;
-				//save
+				return userId;
 			}
 		}
 
