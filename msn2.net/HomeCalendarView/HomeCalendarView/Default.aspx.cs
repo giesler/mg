@@ -143,10 +143,14 @@ namespace HomeCalendarView
             try
             {
                 GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
-                string xml = weatherService.NDFDgenByDay(this.currentLocation.Lattitude, 
+                string xml = weatherService.NDFDgenByDay(this.currentLocation.Lattitude,
                     this.currentLocation.Longitude, DateTime.Now.Date, "7", GovWeatherService.formatType.Item12hourly);
-                cache.Add(this.CacheName("forecastCache"), xml, null, DateTime.Now.AddMinutes(20), 
+                cache.Add(this.CacheName("forecastCache"), xml, null, DateTime.Now.AddMinutes(20),
                     TimeSpan.Zero, CacheItemPriority.Normal, null);
+            }
+            catch (Exception ex)
+            {
+                Trace.Write(ex.ToString());
             }
             finally
             {
