@@ -269,7 +269,7 @@ namespace HomeCalendarView
                 if (fcastList.Count > 0)
                 {
                     int offset = 0;
-                    if (fcastList[0].Day != "Today" && fcastList[0].Day != "This Afternoon")
+                    if (fcastList[0].Day != "Today" && fcastList[0].Day != "This Afternoon" && fcastList[0].Day != "Late Afternoon")
                     {
                         offset = -1;
                         this.todayLow.ImageAltText = fcastList[0].Forecast;

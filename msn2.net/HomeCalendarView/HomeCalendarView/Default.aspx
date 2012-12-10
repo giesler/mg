@@ -19,8 +19,8 @@
         }
         .dimText
         {
-        	font-size: smaller;
-        	color: Gray;
+            font-size: smaller;
+            color: Gray;
         }
         .hiText
         {
@@ -83,6 +83,13 @@
         {
             padding: 2px;
         }
+        .vertLabel
+        {
+            writing-mode: tb-rl;
+            filter: flipv fliph;
+            font-size: smaller;
+            color: Gray;
+        }
     </style>
 </head>
 <body class="defaultText" style="border: solid 1px silver">
@@ -118,7 +125,7 @@
                                     <table cellpadding="2" cellspacing="0" runat="server" id="currentConditionsTable"
                                         visible="false">
                                         <tr>
-                                            <td>
+                                            <td align="right" valign="top">
                                                 <asp:Label runat="server" ID="currentTemp" CssClass="nowTemp">32</asp:Label>
                                                 <br />
                                                 <asp:Label runat="server" ID="tempUpdateTime" CssClass="propText" ForeColor="Gray" />
@@ -181,19 +188,29 @@
                                         </tr>
                                     </table>
                                 </td>
-                                <td align="center" rowspan="2" width="120">
-                                    <div style="width: 160px; border: solid 1px gray; padding: 2px" runat="server" id="todayForeastDiv"
-                                        visible="false">
-                                        <div style="float: left; width: 50%">
-                                            <ucb:ForecastItem ID="todayHigh" runat="server" TemperatureExtreme="High" Visible="false" />
-                                        </div>
-                                        <div style="float: left; width: 50%">
-                                            <ucb:ForecastItem ID="todayLow" runat="server" TemperatureExtreme="Low" Visible="false" />
-                                        </div>
-                                    </div>
-                                    <div class="dimText" runat="server" id="todayForecastLoading">
-                                        loading forecast...
-                                    </div>
+                                <td align="center" rowspan="2" width="170px">
+                                    <table cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <font class="vertLabel">forecast</font>
+                                            </td>
+                                            <td>
+                                                <div runat="server" id="todayForeastDiv" visible="false">
+                                                    <div style="width: 160px; border: solid 1px gray; padding: 2px;">
+                                                        <div style="float: left; width: 50%">
+                                                            <ucb:ForecastItem ID="todayHigh" runat="server" TemperatureExtreme="High" Visible="false" />
+                                                        </div>
+                                                        <div style="float: left; width: 50%">
+                                                            <ucb:ForecastItem ID="todayLow" runat="server" TemperatureExtreme="Low" Visible="false" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dimText" runat="server" id="todayForecastLoading" style="width: 160px; height: 60px; border: solid 1px gray; padding: 2px; vertical-align: middle; text-align: center">
+                                                    loading...
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
                             <tr>
