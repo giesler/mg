@@ -331,8 +331,9 @@
                         <asp:Panel runat="server" ID="upcomingEvents" />
                     </div>
                     <div style="float: right; padding: 2px 4px 2px 2px">
+                  Calendar: 
                         <a href="http://home.msn2.net/Lists/Events/NewForm.aspx?RootFolder=%2FLists%2FEvents&Source=http%3A%2F%2Fhome%2Emsn2%2Enet%2FLists%2FEvents%2Fcalendar%2Easpx"
-                            target="_top">Add</a>
+                            target="_top">Add</a> | <a href="http://home.msn2.net/Lists/Events/" target="_top">View</a>
                     </div>
                 </div>
             </asp:Panel>

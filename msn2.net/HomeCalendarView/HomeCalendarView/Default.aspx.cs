@@ -370,39 +370,51 @@ namespace HomeCalendarView
 
         private void DisplayCalendar()
         {
-            List<CalendarItem> items = GetCalendarItems();
+            List<CalendarItem> items = null;
 
-            todaysEvents.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.Date).ToList<CalendarItem>());
-            day1Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(1).Date).ToList<CalendarItem>());
-            day2Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(2).Date).ToList<CalendarItem>());
-            day3Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(3).Date).ToList<CalendarItem>());
-            day4Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(4).Date).ToList<CalendarItem>());
-
-            var q = from ci in items
-                    where ci.EventDate.Date >= DateTime.Now.AddDays(5).Date && ci.EventDate.Date <= DateTime.Now.AddDays(14)
-                    orderby ci.EventDate
-                    select ci;
-            int count = 0;
-            foreach (CalendarItem item in q.Take(3))
+            try
             {
-                if (count > 0)
+                items = GetCalendarItems();
+            }
+            catch (Exception ex)
+            {
+                this.upcomingEvents.Controls.Add(new Label { Text = "Error loading: " + ex.Message });
+            }
+
+            if (items != null)
+            {
+                todaysEvents.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.Date).ToList<CalendarItem>());
+                day1Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(1).Date).ToList<CalendarItem>());
+                day2Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(2).Date).ToList<CalendarItem>());
+                day3Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(3).Date).ToList<CalendarItem>());
+                day4Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(4).Date).ToList<CalendarItem>());
+
+                var q = from ci in items
+                        where ci.EventDate.Date >= DateTime.Now.AddDays(5).Date && ci.EventDate.Date <= DateTime.Now.AddDays(14)
+                        orderby ci.EventDate
+                        select ci;
+                int count = 0;
+                foreach (CalendarItem item in q.Take(3))
                 {
-                    Label comma = new Label();
-                    comma.Text = ", ";
-                    this.upcomingEvents.Controls.Add(comma);
+                    if (count > 0)
+                    {
+                        Label comma = new Label();
+                        comma.Text = ", ";
+                        this.upcomingEvents.Controls.Add(comma);
+                    }
+
+                    Label label = new Label();
+                    label.Text = this.GetDateString(item.EventDate) + ": ";
+                    this.upcomingEvents.Controls.Add(label);
+
+                    HyperLink eventLink = new HyperLink();
+                    eventLink.Text = item.Title;
+                    eventLink.NavigateUrl = item.Url;
+                    eventLink.Target = "_top";
+                    this.upcomingEvents.Controls.Add(eventLink);
+
+                    count++;
                 }
-
-                Label label = new Label();
-                label.Text = this.GetDateString(item.EventDate) + ": ";
-                this.upcomingEvents.Controls.Add(label);
-
-                HyperLink eventLink = new HyperLink();
-                eventLink.Text = item.Title;
-                eventLink.NavigateUrl = item.Url;
-                eventLink.Target = "_top";
-                this.upcomingEvents.Controls.Add(eventLink);
-
-                count++;
             }
         }
 
