@@ -641,7 +641,18 @@ namespace HomeCalendarView
                 var items = from item in alertFeed.Elements(ns + "entry")
                             select item;
 
-                if (items.Count() != 0)
+                bool itemsExist = false;
+                if (items.Count() > 0)
+                {
+                    // Check for 'No warnings' condition
+                    var i = items.First();
+                    if (i.Element(ns + "summary") != null)
+                    {
+                        itemsExist = true;
+                    }                    
+                }
+
+                if (itemsExist)
                 {
                     this.warningCell.Visible = true;
                     this.warnings.Controls.Clear();
