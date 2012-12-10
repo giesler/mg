@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-934184734
+Checksum =-1854295839
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -13,7 +13,7 @@ Begin Report
     GridY =24
     Width =10807
     DatasheetFontHeight =10
-    ItemSuffix =47
+    ItemSuffix =49
     Left =525
     Top =270
     Right =10845
@@ -103,9 +103,8 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =120
                     Top =2280
-                    Width =1680
+                    Width =1440
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -114,7 +113,7 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =1800
+                    Left =1440
                     Top =2280
                     Width =1440
                     Height =360
@@ -126,7 +125,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3960
+                    Left =3600
                     Top =2160
                     Width =840
                     Height =480
@@ -138,9 +137,9 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4920
+                    Left =4440
                     Top =2160
-                    Width =720
+                    Width =840
                     Height =480
                     FontSize =10
                     FontWeight =700
@@ -150,7 +149,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5760
+                    Left =5280
                     Top =2280
                     Width =1080
                     Height =360
@@ -161,7 +160,7 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =6840
+                    Left =6360
                     Top =2280
                     Width =2520
                     Height =360
@@ -178,9 +177,9 @@ Begin Report
                 Begin Label
                     TextAlign =3
                     TextFontFamily =34
-                    Left =9360
+                    Left =9600
                     Top =2280
-                    Width =1440
+                    Width =1200
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -190,7 +189,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3240
+                    Left =2880
                     Top =2160
                     Width =795
                     Height =480
@@ -236,30 +235,44 @@ Begin Report
                         0xe9afeb8a35fb4a499925f0bc5a262a63
                     End
                 End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8880
+                    Top =2160
+                    Width =780
+                    Height =495
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label47"
+                    Caption ="STORE #"
+                    GUID = Begin
+                        0xee25a6beebf2de40936e10806903e94d
+                    End
+                End
             End
         End
         Begin Section
             KeepTogether = NotDefault
             CanGrow = NotDefault
-            Height =543
+            Height =660
             Name ="Detail"
             Begin
                 Begin TextBox
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4800
-                    Width =960
+                    Left =4440
+                    Width =840
                     Height =540
                     FontSize =10
                     Name ="Ship_Date"
                     ControlSource ="Ship_Date"
+                    Format ="m/d/yy"
                 End
                 Begin TextBox
                     OldBorderStyle =1
                     TextFontFamily =34
-                    Left =120
-                    Width =1680
                     Height =540
                     FontSize =10
                     TabIndex =1
@@ -270,19 +283,20 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3960
+                    Left =3600
                     Width =840
                     Height =540
                     FontSize =10
                     TabIndex =2
                     Name ="Arrive_Date"
                     ControlSource ="Arrive_Date"
+                    Format ="m/d/yy"
                 End
                 Begin TextBox
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5760
+                    Left =5280
                     Width =1080
                     Height =540
                     FontSize =10
@@ -295,7 +309,7 @@ Begin Report
                     ScrollBars =2
                     OldBorderStyle =1
                     TextFontFamily =34
-                    Left =6840
+                    Left =6360
                     Width =2520
                     Height =543
                     FontSize =10
@@ -306,12 +320,12 @@ Begin Report
                 Begin TextBox
                     OldBorderStyle =1
                     TextFontFamily =34
-                    Left =1800
+                    Left =1440
                     Height =540
                     FontSize =10
                     TabIndex =5
                     Name ="PO"
-                    ControlSource ="PO"
+                    ControlSource ="PONumber"
                 End
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
@@ -319,7 +333,8 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =3
                     TextFontFamily =34
-                    Left =9360
+                    Left =9600
+                    Width =1200
                     Height =543
                     FontSize =10
                     TabIndex =6
@@ -331,13 +346,28 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3240
+                    Left =2880
                     Width =720
                     Height =540
                     FontSize =10
                     TabIndex =7
                     Name ="Text39"
                     ControlSource ="ShelfType"
+                End
+                Begin TextBox
+                    OldBorderStyle =1
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =8880
+                    Width =720
+                    Height =540
+                    FontSize =10
+                    TabIndex =8
+                    Name ="Text48"
+                    ControlSource ="Ship_StoreNo"
+                    GUID = Begin
+                        0x0db07f830b6b6046a15b71aae7aa13aa
+                    End
                 End
             End
         End

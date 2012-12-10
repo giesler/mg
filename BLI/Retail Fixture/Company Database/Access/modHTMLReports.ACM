@@ -145,7 +145,7 @@ lngReturn = ShellExecute(f.hwnd, "Open", strURL, 0&, 0&, SW_SHOWNORMAL)
 
 End Sub
 
-Public Function OutputPOPage(txtFileName As String, txtPO As String, curPOTotal As Currency, strFilter As String, strMsg As String, flgUseShade As Boolean, flgDescAtTop As Boolean) As Boolean
+Public Function OutputPOPage(txtFileName As String, txtPO As Variant, curPOTotal As Currency, strFilter As String, strMsg As String, flgUseShade As Boolean, flgDescAtTop As Boolean) As Boolean
 On Error GoTo OutputPOPage_Err
 
 Dim rsData As ADODB.Recordset, strColor As String, flgShade As Boolean
@@ -161,6 +161,7 @@ If strFilter <> "" Then
 End If
 strSQL = strSQL + "GROUP BY po.Ship_StoreNo, poi.Material"
 Set rsData = New ADODB.Recordset
+rsData.CursorLocation = adUseClient
 rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly
 Set rsData.ActiveConnection = Nothing
 If rsData.BOF And rsData.EOF Then
@@ -200,7 +201,9 @@ Print #lngFile, "<BODY>"
 Print #lngFile, "<CENTER>"
 Print #lngFile, "<FONT FACE=""Arial"" SIZE=+2>Retail Fixture - PO Summary</FONT><BR>"
 Print #lngFile, "<FONT FACE=""Arial""><I>" & Date & "</I></FONT><BR>"
-Print #lngFile, "<FONT FACE=""Arial"">PO: " & txtPO & "</FONT><BR>"
+If Not IsNull(txtPO) Then
+  Print #lngFile, "<FONT FACE=""Arial"">PO: " & txtPO & "</FONT><BR>"
+End If
 Print #lngFile, "<FONT FACE=""Arial"" SIZE=""-2"">" & strMsg & "</FONT><BR><BR>"
 Print #lngFile, "<TABLE WIDTH=""95%"" BORDER=1 CELLPADDING=2 CELLSPACING=0>"
 Print #lngFile, "</CENTER>"
@@ -396,24 +399,26 @@ Dim rsData As ADODB.Recordset
 Dim lngFile As Long, fldCur As ADODB.Field, intLoop As Integer, varCur As Variant
 Dim curTotal As Currency, strSQL As String, iQty As Integer, iCur As Integer
 
-'Open recordset
-strSQL = "SELECT po.Ship_StoreNo AS [Store #], po.PO AS [PO #], po.Ship_Address1 AS [Mall], " _
-    & "po.Ship_City AS [City], po.Ship_State AS [State], SUM(Weight) AS [Weight], " _
-    & "po.FTofTruckAmount AS [FT of Truck], NULL AS [Comments], " _
-    & "po.Date_Ordered AS [PO Date], po.Ship_Date AS [Ship Date], " _
-    & "cat.CashwrapName, Sum(poi.Quanity) AS Quantity " _
-    & "FROM Tbl_Catalog cat INNER JOIN Tbl_PO_Items poi ON poi.Material = cat.Material INNER JOIN Tbl_PO po ON poi.ID = po.ID "
-strSQL = strSQL & " WHERE cat.Cashwrap = 1 "
-If strFilter <> "" Then
-  strSQL = strSQL & "And " & strFilter & " "
-End If
-strSQL = strSQL & "GROUP BY po.Ship_StoreNo, po.PO, po.Ship_Address1, po.Ship_City, " _
-    & "po.Ship_State, po.FTofTruckAmount,  " _
-    & "po.Date_Ordered, po.Ship_Date, cat.CashwrapName "
-strSQL = strSQL & "ORDER BY po.Ship_StoreNo, po.PO"
+gConn.CommandTimeout = 180
 
+'Open recordset
+strSQL = "sp_Report_CashwrapFisher '" + DQ(strFilter) + "'"
+
+OpenCancelStatus "Processing report..."
 Set rsData = New ADODB.Recordset
-rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly
+rsData.CursorLocation = adUseClient
+rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly, adAsyncExecute
+While rsData.State = adStateExecuting
+  DoEvents
+  If CancelStatus Then
+    rsData.Cancel
+    CloseCancelStatus
+    CloseStatusForm
+    Exit Function
+  End If
+Wend
+CloseCancelStatus
+
 Set rsData.ActiveConnection = Nothing
 If rsData.BOF And rsData.EOF Then
   MsgBox "There are no POs that match the entered criteria.", vbExclamation
@@ -427,7 +432,7 @@ OpenWaitForm "Loading PO comments..."
 Dim rsComments As ADODB.Recordset
 Set rsComments = New ADODB.Recordset
 rsComments.CursorLocation = adUseClient
-rsComments.Open "select PO, Comments from Tbl_PO", gConn, adOpenStatic, adLockReadOnly
+rsComments.Open "select ID, Comments from Tbl_PO", gConn, adOpenStatic, adLockReadOnly
 rsComments.ActiveConnection = Nothing
 
 Dim rsCT As ADODB.Recordset, strCols(10) As String
@@ -470,7 +475,9 @@ Print #lngFile, "</CENTER>"
 'Header row
 Print #lngFile, "<TR>"
 For Each fldCur In rsCT.Fields
+  If fldCur.Name <> "ID" Then
     Print #lngFile, "<TD><FONT FACE=""Arial"" SIZE=-1>" & fldCur.Name & "</FONT></TD>"
+  End If
 Next fldCur
 Print #lngFile, "</TR>"
 
@@ -478,7 +485,7 @@ Print #lngFile, "</TR>"
 Dim flgShade As Boolean, strColor As String
 flgShade = True
 iQty = rsCT.RecordCount
-OpenStatusForm "Outputting PO details...", iQty
+OpenCancelStatus "Outputting PO details...", iQty
 iCur = 0
 Do While Not rsCT.EOF
     Print #lngFile, "<TR>"
@@ -491,12 +498,14 @@ Do While Not rsCT.EOF
         varCur = rsCT.Fields(intLoop).Value
         If IsNull(varCur) And rsCT.Fields(intLoop).Name <> "Comments" Then
             Print #lngFile, "<TD" & strColor & " valign=""top""><FONT FACE=""Arial"" SIZE=-1>&nbsp;</FONT></TD>"
+        ElseIf rsCT.Fields(intLoop).Name = "ID" Then
+          'ignore
         Else
             Select Case rsCT.Fields(intLoop).Name
                 Case "Store #", "PO #", "Mall", "Job #", "PO Date", "Ship Date"
                     Print #lngFile, "<TD ALIGN=""left""" & strColor & " valign=""top""><FONT FACE=""Arial"" SIZE=-1>" & varCur & "</FONT></TD>"
                 Case "Comments"
-                    rsComments.Find "PO = '" & rsCT.Fields("PO #") & "'"
+                    rsComments.Find "ID = '" & rsCT.Fields("ID") & "'"
                     varCur = Nz(rsComments.Fields("Comments"), "&nbsp;")
                     Print #lngFile, "<TD ALIGN=""left""" & strColor & " valign=""top""><FONT FACE=""Arial"" SIZE=-1>" & varCur & "</FONT></TD>"
                     rsComments.MoveFirst
@@ -504,13 +513,23 @@ Do While Not rsCT.EOF
                     Print #lngFile, "<TD ALIGN=""center""" & strColor & " valign=""top""><FONT FACE=""Arial"" SIZE=-1>" & varCur & "</FONT></TD>"
             End Select
         End If
+        
     Next intLoop
     Print #lngFile, "</TR>"
     rsCT.MoveNext
     flgShade = Not flgShade
     iCur = iCur + 1
-    UpdateStatusForm iCur
+    DoEvents
+    UpdateCancelStatus iCur
+    If CancelStatus Then
+      Close #lngFile
+      CloseCancelStatus
+      CloseWaitForm
+      CloseStatusForm
+      Exit Function
+    End If
 Loop
+CloseCancelStatus
 CloseStatusForm
 
 'total each column
@@ -524,6 +543,8 @@ For Each fldCur In rsCT.Fields
       Print #lngFile, "<TD ALIGN=""LEFT""><FONT FACE=""Arial"" SIZE=-1>TOTALS:</FONT></TD>"
     Case "PO #", "Mall", "Job #", "PO Date", "Ship Date", "City", "State", "FT of Truck", "Weight", "Comments"
       Print #lngFile, "<TD ALIGN=""CENTER""><FONT FACE=""Arial"" SIZE=-1>&nbsp;</FONT></TD>"
+    Case "ID"
+      'ignore
     Case Else
       varCur = ColSum(rsCT, fldCur.Name) ' DSum("[" & fldCur.Name & "]", rsct.Name)
       If IsNull(varCur) Then
@@ -594,7 +615,19 @@ sSQL = "SELECT ti.PO, ti.Shipped_Name, ti.Shipped_Address1, ti.Shipped_Address2,
   & "ti.Shipped_State, ti.Shipped_Zip, ti.ship_Date, ti.arrive_date, tpo.Ship_via, ti.ID "
 sSQL = sSQL & "FROM Tbl_Invoice AS ti INNER JOIN Tbl_PO AS tpo ON ti.ID = tpo.ID "
 sSQL = sSQL & "WHERE ti.GroupID = '" & sPO & "'"
-rAssocPO.Open sSQL, gConn, adOpenStatic, adLockReadOnly
+
+OpenCancelStatus "Processing report..."
+rAssocPO.Open sSQL, gConn, adOpenStatic, adLockReadOnly, adAsyncExecute
+While rAssocPO.State = adStateExecuting
+  DoEvents
+  If CancelStatus Then
+    rAssocPO.Cancel
+    CloseCancelStatus
+    CloseStatusForm
+    Exit Function
+  End If
+Wend
+
 If rAssocPO.BOF And rAssocPO.EOF Then
   MsgBox "There were no POs found under the blanket PO '" & sPO & "'.", vbExclamation
   rAssocPO.Close
@@ -760,28 +793,30 @@ End If
 End Function
 
 Public Function OutputCWF2Page(txtFileName As String, strFilter As String, strMsg As String, flgUseShade As Boolean, strSelDate As String) As Boolean
-'On Error GoTo OutputCWF2Page_Err
+On Error GoTo OutputCWF2Page_Err
 
 Dim rsData As ADODB.Recordset
 Dim lngFile As Long, fldCur As ADODB.Field, intLoop As Integer, varCur As Variant
 Dim curTotal As Currency, strSQL As String, iQty As Integer, iCur As Integer
 
 'Open recordset
-strSQL = "SELECT po.PO AS [PO #], po.Ship_Name AS [Ship To], po.Ship_City AS City, po.Ship_State AS State, " _
-    & "po.Date_Ordered AS [PO Date], po.Ship_Date AS [Ship Date], po.Ship_Via AS [Carrier], " _
-    & "po.[Pro#] AS [Pro #], cat.CashwrapName, Sum(poi.Quanity) AS Quantity " _
-    & "FROM Tbl_Catalog cat INNER JOIN Tbl_PO_Items poi ON poi.Material = cat.Material INNER JOIN Tbl_PO po ON poi.ID = po.ID "
-strSQL = strSQL & " WHERE cat.Cashwrap = 1 "
-If strFilter <> "" Then
-  strSQL = strSQL & "And " & strFilter & " "
-End If
-strSQL = strSQL & "GROUP BY po.PO, po.Ship_Name, po.Ship_City, po.Ship_State, po.Date_Ordered, " _
-        & "po.Ship_Date, po.Ship_Via, po.[Pro#], cat.CashwrapName "
-strSQL = strSQL & "ORDER BY po.PO"
+strSQL = "sp_Report_CashwrapFisher2 '" + DQ(strFilter) + "'"
 
+OpenCancelStatus "Processing report..."
 Set rsData = New ADODB.Recordset
-rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly
-Set rsData.ActiveConnection = Nothing
+rsData.CursorLocation = adUseClient
+rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly, adAsyncExecute
+While rsData.State = adStateExecuting
+  DoEvents
+  If CancelStatus Then
+    rsData.Cancel
+    CloseCancelStatus
+    CloseStatusForm
+    Exit Function
+  End If
+Wend
+CloseCancelStatus
+
 If rsData.BOF And rsData.EOF Then
   MsgBox "There are no POs that match the entered criteria.", vbExclamation
   rsData.Close
@@ -808,7 +843,6 @@ If rsCT.BOF And rsCT.EOF Then
   Exit Function
 End If
 
-
 'Open file for output
 lngFile = FreeFile
 Open txtFileName For Output As lngFile
@@ -827,7 +861,9 @@ Print #lngFile, "</CENTER>"
 'Header row
 Print #lngFile, "<TR>"
 For Each fldCur In rsCT.Fields
+  If fldCur.Name <> "ID" Then
     Print #lngFile, "<TD><FONT FACE=""Arial"" SIZE=-1>" & fldCur.Name & "</FONT></TD>"
+  End If
 Next fldCur
 Print #lngFile, "</TR>"
 
@@ -835,7 +871,7 @@ Print #lngFile, "</TR>"
 Dim flgShade As Boolean, strColor As String
 flgShade = True
 iQty = rsCT.RecordCount
-OpenStatusForm "Outputting PO details...", iQty
+OpenCancelStatus "Outputting PO details...", iQty
 iCur = 0
 Do While Not rsCT.EOF
     Print #lngFile, "<TR>"
@@ -852,6 +888,8 @@ Do While Not rsCT.EOF
             Select Case rsCT.Fields(intLoop).Name
                 Case "Store #", "PO #", "Mall", "Job #", "PO Date", "Ship Date"
                     Print #lngFile, "<TD ALIGN=""left""" & strColor & "><FONT FACE=""Arial"" SIZE=-1>" & varCur & "</FONT></TD>"
+                Case "ID"
+                    ' ignore
                 Case Else
                     Print #lngFile, "<TD ALIGN=""center""" & strColor & "><FONT FACE=""Arial"" SIZE=-1>" & varCur & "</FONT></TD>"
             End Select
@@ -861,9 +899,18 @@ Do While Not rsCT.EOF
     rsCT.MoveNext
     flgShade = Not flgShade
     iCur = iCur + 1
-    UpdateStatusForm iCur
+    UpdateCancelStatus iCur
+    DoEvents
+    If CancelStatus Then
+      Close #lngFile
+      CloseCancelStatus
+      CloseStatusForm
+      CloseWaitForm
+      Exit Function
+    End If
 Loop
 CloseStatusForm
+CloseCancelStatus
 
 'total each column
 Print #lngFile, "<TR>"
@@ -876,6 +923,8 @@ For Each fldCur In rsCT.Fields
       Print #lngFile, "<TD ALIGN=""LEFT""><FONT FACE=""Arial"" SIZE=-1>TOTALS:</FONT></TD>"
     Case "Ship To", "City", "State", "PO Date", "Ship Date", "Carrier", "Ship Via", "Pro #"
       Print #lngFile, "<TD ALIGN=""CENTER""><FONT FACE=""Arial"" SIZE=-1>&nbsp;</FONT></TD>"
+    Case "ID"
+      'ignore
     Case Else
       varCur = ColSum(rsCT, fldCur.Name) ' DSum("[" & fldCur.Name & "]", rstCTQuery.Name)
       If IsNull(varCur) Then
@@ -918,7 +967,7 @@ End Function
 
 
 Public Function OutputShipSummary(txtFileName As String, strFilter As String, strMsg As String, flgUseShade As Boolean, strSelDate As String) As Boolean
-'On Error GoTo OutputShipSummary_Err
+On Error GoTo OutputShipSummary_Err
 
 'TODO:  fix this report
 MsgBox "The shipment summary report does not work right now.  It is being converted.", vbExclamation

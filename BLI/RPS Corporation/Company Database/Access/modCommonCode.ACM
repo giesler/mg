@@ -20,6 +20,8 @@ Public flgDebug As Boolean
 
 Private Const mstrModName = "modCommonCode"
 
+Private cancelForm As Form_fdlgStatusBarCancel
+
 Public Function GetDBDate() As String
 On Error GoTo errHandler
     
@@ -102,6 +104,7 @@ End Sub
 Public Function gConn() As ADODB.Connection
 
   Set gConn = CurrentProject.Connection
+  gConn.CommandTimeout = 180
 
 End Function
 
@@ -119,6 +122,7 @@ Public Function ErrHand(Optional strLocation As String, Optional strFunction As 
       f.lblFunction.Caption = strFunction
       CloseWaitForm
       CloseStatusForm
+      CloseCancelStatus
       Pause f
   End Select
     
@@ -179,6 +183,63 @@ Exit Function
 errHandler:
 ErrHand mstrModName, "UpdateStatusForm"
 Exit Function
+End Function
+
+Public Function UpdateCancelStatus(curStep As Integer, Optional Status As String)
+
+  If Not IsMissing(Status) And Status <> "" Then
+    cancelForm.lblStatus.Caption = Status
+  End If
+  
+  cancelForm.boxStatus.Width = (curStep / intStatusSteps) * cancelForm.boxBack.Width
+    
+  cancelForm.Repaint
+
+End Function
+
+Public Function OpenCancelStatus(message As String, Optional maxProgress As Integer)
+On Error GoTo errHandler
+
+  Set cancelForm = New Form_fdlgStatusBarCancel
+  cancelForm.lblStatus.Caption = message
+  
+  If Not IsMissing(maxProgress) Then
+    intStatusSteps = maxProgress
+    cancelForm.boxStatus.Visible = True
+    cancelForm.boxBack.Visible = True
+  End If
+  
+  cancelForm.Visible = True
+  cancelForm.Repaint
+
+Exit Function
+errHandler:
+ErrHand mstrModName, "OpenCancelStatus"
+Exit Function
+End Function
+
+Public Function CloseCancelStatus()
+On Error GoTo errHandler
+
+  If Not cancelForm Is Nothing Then
+    cancelForm.Visible = False
+    Set cancelForm = Nothing
+  End If
+  
+Exit Function
+errHandler:
+ErrHand mstrModName, "CloseCancelStatus"
+Exit Function
+End Function
+
+Public Function CancelStatus() As Boolean
+  
+  If cancelForm.Cancel Then
+    CancelStatus = True
+  Else
+    CancelStatus = False
+  End If
+
 End Function
 
 Public Function CloseStatusForm()
