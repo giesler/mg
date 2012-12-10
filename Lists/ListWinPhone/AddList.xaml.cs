@@ -26,14 +26,14 @@ namespace giesler.org.lists
             this.add.IsEnabled = false;
             this.adding.Visibility = System.Windows.Visibility.Visible;
 
-            ListDataServiceClient svc = new ListDataServiceClient();
+            IListDataProvider svc = App.DataProvider;
             svc.AddListCompleted += new EventHandler<AddListCompletedEventArgs>(svc_AddListCompleted);
             svc.AddListAsync(App.AuthDataList, this.name.Text.Trim());
         }
 
         void svc_AddListCompleted(object sender, AddListCompletedEventArgs e)
         {
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();
 
             NavigationService.GoBack();

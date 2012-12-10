@@ -25,7 +25,7 @@ namespace giesler.org.lists
         {
             Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
 
-            ListDataServiceClient svc = new ListDataServiceClient();
+            IListDataProvider svc = App.DataProvider;
             svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
             svc.AddListItemAsync(App.AuthDataList, listUniqueId, this.text.Text.Trim());
 
@@ -38,7 +38,7 @@ namespace giesler.org.lists
 
         void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
         {
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();
         }
 

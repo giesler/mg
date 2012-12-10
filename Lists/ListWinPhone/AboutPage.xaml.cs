@@ -21,7 +21,9 @@ namespace giesler.org.lists
             InitializeComponent();
 
             Assembly a = Assembly.GetExecutingAssembly();
-            
+            AssemblyName an = new AssemblyName(a.FullName);
+
+            this.details.Text = string.Format("Version {0}{1}{1}(c) 2011 - Mike Giesler", an.Version, Environment.NewLine);
         }
     }
 }

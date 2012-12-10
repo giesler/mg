@@ -1012,7 +1012,7 @@ namespace giesler.org.lists.ListData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ListDataServiceClient : System.ServiceModel.ClientBase<giesler.org.lists.ListData.IListDataService>, giesler.org.lists.ListData.IListDataService {
+    public partial class ListDataServiceClient : System.ServiceModel.ClientBase<giesler.org.lists.ListData.IListDataService>, giesler.org.lists.ListData.IListDataService, IListDataProvider {
         
         private BeginOperationDelegate onBeginAddListDelegate;
         

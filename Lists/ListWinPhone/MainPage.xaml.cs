@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using giesler.org.lists.ListData;
+using Microsoft.Phone.Info;
 
 namespace giesler.org.lists
 {
@@ -42,6 +43,7 @@ namespace giesler.org.lists
                 item.Header = list.Name.ToLowerInvariant();
 
                 TextBlock blk = new TextBlock() { Text = "loading..." };
+                blk.Margin = new Thickness(12, 12, 0, 0);
                 item.Content = blk;
 
                 this.main.Items.Add(item);
@@ -69,7 +71,7 @@ namespace giesler.org.lists
 
             if (App.Items == null)
             {
-                ListDataServiceClient svc2 = new ListDataServiceClient();
+                IListDataProvider svc2 = App.DataProvider;
                 svc2.GetAllListItemsCompleted += new EventHandler<GetAllListItemsCompletedEventArgs>(svc2_GetAllListItemsCompleted);
                 svc2.GetAllListItemsAsync(App.AuthDataList);
             }
@@ -97,7 +99,7 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message);
             }
 
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();
         }
 
@@ -120,7 +122,7 @@ namespace giesler.org.lists
 
         void listControl_DeleteListItem(ListItem item)
         {
-            ListDataServiceClient svc = new ListDataServiceClient();
+            IListDataProvider svc = App.DataProvider;
             svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
             svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
         }
@@ -132,7 +134,7 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message, "Delete Error", MessageBoxButton.OK);
             }
 
-            ListDataServiceClient client = (ListDataServiceClient)sender;
+            IListDataProvider client = (IListDataProvider)sender;
             client.CloseAsync();
         }
 
@@ -140,21 +142,24 @@ namespace giesler.org.lists
         {
             bool loading = App.Items == null || App.Lists == null;
 
-            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
-            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = !loading;
-            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
-            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+            if (this.ApplicationBar != null && this.ApplicationBar.Buttons.Count > 0)
+            {
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = !loading;
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+            }
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
+            if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
             {
                 NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
             }
             else if (App.Lists == null)
             {
-                ListDataServiceClient svc = new ListDataServiceClient();
+                IListDataProvider svc = App.DataProvider;
                 svc.GetListsCompleted += new EventHandler<GetListsCompletedEventArgs>(svc_GetListsCompleted);
                 svc.GetListsAsync(App.AuthDataList);
             }
@@ -182,7 +187,7 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message);
             }
 
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();
         }
 
@@ -215,6 +220,17 @@ namespace giesler.org.lists
         private void aboutMenu_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
+        }
+
+        private void debug_Click(object sender, EventArgs e)
+        {
+            long deviceTotalMemory = (long)DeviceExtendedProperties.GetValue("DeviceTotalMemory");
+            long applicationCurrentMemoryUsage = (long)DeviceExtendedProperties.GetValue("ApplicationCurrentMemoryUsage");
+            long applicationPeakMemoryUsage = (long)DeviceExtendedProperties.GetValue("ApplicationPeakMemoryUsage");
+
+            string msg = string.Format("Device: {0}{1}Current: {2}{1}Peak: {3}",
+                deviceTotalMemory / 1024 / 1024, Environment.NewLine, applicationCurrentMemoryUsage / 1024 / 1024, applicationPeakMemoryUsage / 1024 / 1024);
+            MessageBox.Show(msg, "Debug Info", MessageBoxButton.OK);
         }
     }
 }

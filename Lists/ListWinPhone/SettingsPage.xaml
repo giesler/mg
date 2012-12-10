@@ -17,7 +17,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="LISTS SETTINGS">
+        <controls:Pivot Title="{StaticResource AppNameSettingsPage}">
             <!--Pivot item one-->
             <controls:PivotItem Header="my lists" Name="listsPivot">
                 <Grid>

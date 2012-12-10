@@ -18,7 +18,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="LISTS" Name="main">
+        <controls:Pivot Title="{StaticResource AppName}" Name="main">
             <!--Pivot item one-->
             <controls:PivotItem Header="">
                 <TextBlock />
@@ -35,6 +35,7 @@
             <shell:ApplicationBarIconButton x:Name="settingsButton" IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" Click="settingsButton_Click" IsEnabled="False" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="aboutMenu" Text="About..." Click="aboutMenu_Click" />
+                <shell:ApplicationBarMenuItem x:Name="debug" Text="Debug" Click="debug_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

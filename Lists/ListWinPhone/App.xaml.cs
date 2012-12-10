@@ -57,6 +57,7 @@ namespace giesler.org.lists
 
             // Phone-specific initialization
             InitializePhoneApplication();
+
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -160,6 +161,13 @@ namespace giesler.org.lists
         public static string LiveIdAccessToken { get; set; }
         public static string LiveIdRefreshToken { get; set; }
         public static List<Contact> LiveContacts { get; set; }
+        internal static IListDataProvider DataProvider
+        {
+            get
+            {
+                return new ListDataServiceClient();
+            }
+        }
 
         public static ListData.ClientAuthenticationData AuthDataList
         {
@@ -209,6 +217,18 @@ namespace giesler.org.lists
             LiveIdUserId = GetSetting("LiveId.UserId");
             LiveIdAccessToken = GetSetting("LiveId.AccessToken");
             LiveIdRefreshToken = GetSetting("LiveId.RefreshToken");
+
+#if DEBUG
+/*            if (AuthData.PersonUniqueId == Guid.Empty)
+            {
+                AuthData.PersonUniqueId = new Guid("{feea96d5-3919-42af-8db2-eada650a7dec}"); // giesler@live.com
+            }
+            if (AuthData.DeviceUniqueId == Guid.Empty)
+            {
+                AuthData.DeviceUniqueId = new Guid("{0a0e9d2d-125c-4eef-b4e4-540ddedcf99e}");  // emulator
+            }
+ */
+#endif
 
             Debug.WriteLine(LiveIdUserId);
             Debug.WriteLine(LiveIdAccessToken);
