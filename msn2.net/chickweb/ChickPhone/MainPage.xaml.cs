@@ -23,6 +23,7 @@ namespace ChickPhone
         DispatcherTimer hideConnectMessage;
         bool inGet1 = false;
         bool inGet2 = false;
+        bool inGet3 = false;
         string appRoot = "http://cc.msn2.net/";
 
         // Constructor
@@ -89,8 +90,7 @@ namespace ChickPhone
                 this.inGet1 = true;
                 WebClient imgLoader = new WebClient();
                 imgLoader.OpenReadCompleted += new OpenReadCompletedEventHandler(imgLoader1_OpenReadCompleted);
-
-
+                
                 string url = string.Format("{0}getimg.aspx?c={1}&id={2}", this.appRoot, "1", Guid.NewGuid());
                 Uri uri = new Uri(url);
                 imgLoader.OpenReadAsync(uri);
@@ -103,6 +103,17 @@ namespace ChickPhone
                 imgLoader.OpenReadCompleted += new OpenReadCompletedEventHandler(imgLoader2_OpenReadCompleted);
 
                 string url = string.Format("{0}getimg.aspx?c={1}&id={2}", this.appRoot, "2", Guid.NewGuid());
+                Uri uri = new Uri(url);
+                imgLoader.OpenReadAsync(uri);
+            }
+
+            if (!this.inGet3)
+            {
+                this.inGet3 = true;
+                WebClient imgLoader = new WebClient();
+                imgLoader.OpenReadCompleted += new OpenReadCompletedEventHandler(imgLoader3_OpenReadCompleted);
+
+                string url = string.Format("{0}getimg.aspx?c={1}&id={2}&r=1", this.appRoot, "3", Guid.NewGuid());
                 Uri uri = new Uri(url);
                 imgLoader.OpenReadAsync(uri);
             }
@@ -133,6 +144,19 @@ namespace ChickPhone
                 this.inGet2 = false;
             }
         }
+        
+        void imgLoader3_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                this.SetError(this.img2txt, e.Error.Message);
+            }
+            else
+            {
+                CompleteRead(this.img3a, this.imgFadeTo3a, this.img3b, this.imgFadeTo3b, this.img3txt, e);
+                this.inGet3 = false;
+            }
+        }
 
         void CompleteRead(Image i1, Storyboard s1, Image i2, Storyboard s2, TextBlock txt, OpenReadCompletedEventArgs e)
         {
@@ -149,7 +173,7 @@ namespace ChickPhone
                     {
                         BitmapImage bmp = new BitmapImage();
                         bmp.SetSource(e.Result);
-
+                        
                         if (s1.GetCurrentState() == ClockState.Active)
                         {
                             s1.Stop();
@@ -157,7 +181,7 @@ namespace ChickPhone
                         i1.Source = i2.Source;
                         i2.Source = bmp;
                         s2.Begin();
-
+                                                
                         txt.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     catch (Exception ex)

@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td align="center">
-                Camera <asp:LinkButton ID="cam1" runat="server" Enabled="false">1</asp:LinkButton> | <asp:LinkButton ID="cam2" runat="server">2</asp:LinkButton> 
+                Camera <asp:LinkButton ID="cam1" runat="server" Enabled="false">1</asp:LinkButton> | <asp:LinkButton ID="cam2" runat="server">2</asp:LinkButton> | <asp:LinkButton ID="cam3" runat="server">3</asp:LinkButton> 
             </td>
         </tr>
     </table>

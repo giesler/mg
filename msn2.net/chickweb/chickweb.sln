@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chickweb", "chickweb\chickweb.csproj", "{92129D60-915A-4AF9-9C8D-A6583881D56E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickWebApp", "ChickWebApp\ChickWebApp.csproj", "{F64F5E97-574B-4185-860A-55A2050BCE1C}"
@@ -9,19 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickPhone", "ChickPhone\Ch
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://kenny:8080/tfs/main
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = ChickPhone\\ChickPhone.csproj
-		SccProjectName1 = ChickPhone
 		SccLocalPath1 = ChickPhone
-		SccProjectUniqueName2 = chickweb\\chickweb.csproj
-		SccProjectName2 = chickweb
 		SccLocalPath2 = chickweb
-		SccProjectUniqueName3 = ChickWebApp\\ChickWebApp.csproj
-		SccProjectName3 = ChickWebApp
 		SccLocalPath3 = ChickWebApp
+		SccNumberOfProjects = 4
+		SccProjectName1 = ChickPhone
+		SccProjectName2 = chickweb
+		SccProjectName3 = ChickWebApp
+		SccProjectUniqueName1 = ChickPhone\\ChickPhone.csproj
+		SccProjectUniqueName2 = chickweb\\chickweb.csproj
+		SccProjectUniqueName3 = ChickWebApp\\ChickWebApp.csproj
+		SccTeamFoundationServer = http://kenny:8080/tfs/main
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +32,20 @@ Global
 		Release|Windows Phone = Release|Windows Phone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{92129D60-915A-4AF9-9C8D-A6583881D56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92129D60-915A-4AF9-9C8D-A6583881D56E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92129D60-915A-4AF9-9C8D-A6583881D56E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -52,20 +66,6 @@ Global
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Windows Phone.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

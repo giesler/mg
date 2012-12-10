@@ -25,6 +25,7 @@ namespace ChickWebApp
         bool inGet1 = false;
         bool inGet2 = false;
         App app = null;
+        string pic1camNumber = "1";
 
         public MainPage(App app)
         {
@@ -77,12 +78,12 @@ namespace ChickWebApp
                 WebClient imgLoader = new WebClient();
                 imgLoader.OpenReadCompleted += new OpenReadCompletedEventHandler(imgLoader1_OpenReadCompleted);
 
-                string url = string.Format("{0}getimg.aspx?c={1}&id={2}", App.GetAppRoot(), "1", Guid.NewGuid());
+                string url = string.Format("{0}getimg.aspx?c={1}&id={2}", App.GetAppRoot(), this.pic1camNumber, Guid.NewGuid());
                 Uri uri = new Uri(url);
                 imgLoader.OpenReadAsync(uri);
             }
 
-            if (!this.inGet2)
+            if (!this.inGet2 && this.picColumnSplitter.Width.Value > 0)
             {
                 this.inGet2 = true;
                 WebClient imgLoader = new WebClient();
@@ -189,6 +190,18 @@ namespace ChickWebApp
         private void img_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             this.Reset();
+        }
+
+        private void switchView_Click_1(object sender, RoutedEventArgs e)
+        {
+            bool showPic2 = this.picColumn2.Width.Value == 0;
+
+            this.picColumn2.Width = showPic2 ? new GridLength(188, GridUnitType.Star) : new GridLength(0);
+            this.picColumnSplitter.Width = showPic2 ? new GridLength(12) : new GridLength(0);
+            this.pic1camNumber = showPic2 ? "1" : "3";
+
+            this.img1a.Source = null;
+            this.img1b.Source = null;
         }
     }
 }

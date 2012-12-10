@@ -25,14 +25,23 @@ namespace chickweb
                 cam = Request.QueryString["c"];
             }
 
-            string address = "192.168.1.1:8080";
-            if (cam == "2")
+            string address = "192.168.1.25:8888";
+            bool rotate = true;
+
+            if (cam == "3")
             {
-                address = "192.168.1.5:8080";
+                cam = "1";
+                address = "192.168.1.1:8080";
+                rotate = false;
             }
-            
-            string url = string.Format("http://{0}/cam_1.jpg?{1}",
-                address, DateTime.Now.ToString("yymmddhhmmsstt"));
+
+            if (Request.QueryString["r"] == "1")
+            {
+                rotate = true;
+            }
+
+            string url = string.Format("http://{0}/cam_{1}.jpg?{2}",
+                address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = WebRequestMethods.Http.Get;
 
@@ -44,7 +53,11 @@ namespace chickweb
                     {
                         using (System.Drawing.Image img = System.Drawing.Image.FromStream(s))
                         {
-                            img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
+                            if (rotate)
+                            {
+                                img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
+                            }
+
                             img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                             Response.End();
