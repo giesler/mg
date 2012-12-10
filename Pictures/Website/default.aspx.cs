@@ -48,13 +48,21 @@ namespace pics
 			DataSetPicture dsPics	= PicContext.Current.PictureManager.RandomImageData();
 
 			// create new control
-            int pictureId = Convert.ToInt32(dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString());
-			ThumbnailList thumbs = new ThumbnailList();
-			thumbs.PageReturnURL	= BuildRandomPageUrl(pictureId, "default.aspx");
-			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
-//			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
-			randomPicture.Controls.Add(thumbs);
-
+            if (dsPics.Tables["Pictures"].Rows.Count > 0)
+            {
+                int pictureId = Convert.ToInt32(dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString());
+                ThumbnailList thumbs = new ThumbnailList();
+                thumbs.PageReturnURL = BuildRandomPageUrl(pictureId, "default.aspx");
+                thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
+                //			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
+                randomPicture.Controls.Add(thumbs);
+            }
+            else
+            {
+                Label label = new Label();
+                label.Text = "You do not have permission to view any pictures.";
+                contentRecentPictures.Controls.Add(label);
+            }
 		}
 
         public static string BuildRandomPageUrl(int pictureId, string refUrl)
