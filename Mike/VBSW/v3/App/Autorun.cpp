@@ -56,7 +56,7 @@ BOOL CAutorunApp::InitInstance()
 	m_blnCancel = false;
 
 	// make sure we have a valid settings.ini file
-	CString strSettingsPath = gUtils.EXEPath() + "vbsw\\settings.ini";
+	CString strSettingsPath = gUtils.EXEPath() + "ia\\settings.ini";
 	if (!gUtils.FileExists(strSettingsPath)) {
 		gLog.LogEvent("No settings.ini found at '" + strSettingsPath + "'.  Program terminated.");
 		CString strErrMsg; strErrMsg.Format(IDS_NOSETTINGS, strSettingsPath);
@@ -67,20 +67,23 @@ BOOL CAutorunApp::InitInstance()
 	// load basic settings
 	LoadSettings();
 
-	// check if this is setup.exe, if so skip dialog
 	bool bIsSetup = false;
-	CString strFileName = gUtils.EXEName(); 
-	if (strFileName.CompareNoCase("setup.exe") == 0) {
-		bIsSetup = true;
-		gLog.LogEvent("Running in setup only mode");
-	}
-
 	bool showDialog = true;
 	CDlgButton* pButton = NULL;
 
 	// Initialize dialog in case we need it below
 	CAutorunDlg dlg;
 	dlg.LoadButtons(&mlstButtons);
+
+	// check if this is setup.exe, if so skip dialog
+	CString strFileName = gUtils.EXEName(); 
+	if (mtypDisplayType != DisplayTypeNormalDisplay) {
+		if (mtypDisplayType == DisplayTypeSkipSplashDisplay || strFileName.CompareNoCase(mstrSkipProgramName) == 0) {
+			bIsSetup = true;
+			pButton = dlg.FindDefaultButton();
+			gLog.LogEvent("Running in setup only mode");
+		}
+	}
 
 	// Handle command line options
 	if (m_lpCmdLine[0] != '\0') {
@@ -99,6 +102,11 @@ BOOL CAutorunApp::InitInstance()
 			gLog.LogEvent("Ignoring unknown command line: " + strCommand);
 		}
 
+	}
+
+	// Finally, we may want to simply use the default button
+	if (mtypDisplayType == DisplayTypeSkipSplashDisplay) {
+		gLog.LogEvent("Skipping splash dialog and running default button.");
 	}
 
 	// loop until we want to stop showing the dialog
@@ -120,6 +128,10 @@ BOOL CAutorunApp::InitInstance()
 			pButton = dlg.selectedButton;
 
 		}
+
+		// If we have a null button, get the default button
+		if (pButton == NULL)
+			pButton = dlg.FindDefaultButton();
 
 		// See if we need to do system updates
 		if (pButton->mblnComponentCheck) {
@@ -164,12 +176,16 @@ BOOL CAutorunApp::InitInstance()
 				break;
 
 			case DlgButtonTypeLaunchUrl:
-				AfxMessageBox("Launch URL: " + pButton->mstrUrl, MB_OK);
+				ShellExecute(NULL, "open", pButton->mstrUrl, NULL, NULL, SW_SHOWNORMAL);
 				break;
 
 			case DlgButtonTypeShellExecute:
-				AfxMessageBox("Shell Execute: " + pButton->mstrFile, MB_OK);
-				
+				if (gUtils.FileExists(pButton->mstrFile)) {
+					ShellExecute(NULL, "open", pButton->mstrFile, NULL, NULL, SW_SHOWNORMAL);
+				} else {
+					gLog.LogEvent("The file '" + pButton->mstrFile + "' could not be found.");
+					AfxMessageBox("The file '" + pButton->mstrFile + "' could not be found.", MB_ICONERROR);
+				}
 				break;
 
 			default:
@@ -207,7 +223,7 @@ bool CAutorunApp::SysUpdates() {
 	LPCTSTR lpAppName; TCHAR * lpReturnedString; 
 	lpReturnedString = (TCHAR*) malloc(1000);
 
-	CString lpFileName = gUtils.EXEPath() + "vbsw\\settings.ini";
+	CString lpFileName = gUtils.EXEPath() + "ia\\settings.ini";
 	lpAppName = "Settings";
 	
 	// NOTE: must have called a get string before this due to win95/98 bug, Q198906
@@ -326,7 +342,7 @@ void CAutorunApp::LoadSettings() {
 
 	TCHAR * lpReturnedString; 
 	lpReturnedString = (TCHAR*) malloc(1000);
-	CString sFileName = gUtils.EXEPath() + "vbsw\\settings.ini";
+	CString sFileName = gUtils.EXEPath() + "ia\\settings.ini";
 
 	// Start by getting basic settings
 	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, sFileName);
@@ -342,6 +358,7 @@ void CAutorunApp::LoadSettings() {
 		mblnTimerReboot = true;
 	mintTimerSeconds = GetPrivateProfileInt("Settings", "RebootPromptSeconds", 20, sFileName);
 
+	mtypDisplayType = (DisplayType) GetPrivateProfileInt("Settings", "DisplayType", 0, sFileName);
 
 	//TODO: remove
 	GetPrivateProfileString("Settings", "Setup", "setup\\setup.exe", lpReturnedString, 255, sFileName);
@@ -350,6 +367,11 @@ void CAutorunApp::LoadSettings() {
 	//TODO: remove
 	GetPrivateProfileString("Settings", "CmdLine", "", lpReturnedString, 255, sFileName);
 	mstrCmdLine = lpReturnedString;
+
+
+	GetPrivateProfileString("Settings", "SkipProgramName", "", lpReturnedString, 255, sFileName);
+	mstrSkipProgramName = lpReturnedString;
+	
 
 	// Load buttons
 	// NOTE: must have called a get string before this due to win95/98 bug, Q198906

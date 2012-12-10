@@ -77,6 +77,7 @@ CAutorunDlg::CAutorunDlg(CWnd* pParent /*=NULL*/)
 	// get defaults
 	mstrAppName.LoadString(IDS_DEFAULTPROGRAMNAME);
 	LoadSettings();
+	selectedButton = NULL;
 }
 
 void CAutorunDlg::DoDataExchange(CDataExchange* pDX)
@@ -375,7 +376,7 @@ void CAutorunDlg::LoadSettings()
 	lpReturnedString = (TCHAR*) malloc(1000);
 
 	// Start by getting basic settings
-	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
+	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, gUtils.EXEPath() + "ia\\settings.ini");
 	mstrAppName = lpReturnedString;
 
 	// Free allocated strings
@@ -397,7 +398,7 @@ CString CAutorunDlg::GetINIString(CString strName)
 	lpReturnedString = (TCHAR*) malloc(1000);
 
 	// Start by getting basic settings
-	GetPrivateProfileString("Settings", strName, strReturn, lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
+	GetPrivateProfileString("Settings", strName, strReturn, lpReturnedString, 255, gUtils.EXEPath() + "ia\\settings.ini");
 	strReturn = lpReturnedString;
 
 		// Free allocated strings
@@ -410,7 +411,7 @@ CString CAutorunDlg::GetINIString(CString strName)
 
 int CAutorunDlg::GetINIInt(CString strName, int intDefault)
 {		
-	return (GetPrivateProfileInt("Settings", strName, intDefault, gUtils.EXEPath() + "vbsw\\settings.ini"));
+	return (GetPrivateProfileInt("Settings", strName, intDefault, gUtils.EXEPath() + "ia\\settings.ini"));
 }
 
 void CAutorunDlg::PlayButtonSound(CString sound) 
@@ -436,5 +437,25 @@ CDlgButton* CAutorunDlg::FindButtonById(CString id)
 	}
 
 	gLog.LogEvent("Unable to find button " + id);
+	return NULL;
+}
+
+CDlgButton* CAutorunDlg::FindDefaultButton()
+{
+
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// Loop through the button list
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		
+		if (pobjDlgButton->mblnDefault)
+			return pobjDlgButton;
+
+	}
+
+	gLog.LogEvent("Unable to find default button");
 	return NULL;
 }

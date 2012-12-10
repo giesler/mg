@@ -3,14 +3,14 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmButton 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Button Properties"
-   ClientHeight    =   5910
+   ClientHeight    =   4560
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6405
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5910
+   ScaleHeight     =   4560
    ScaleWidth      =   6405
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -18,28 +18,28 @@ Begin VB.Form frmButton
       Caption         =   "&OK"
       Default         =   -1  'True
       Height          =   375
-      Left            =   3240
+      Left            =   3120
       TabIndex        =   11
-      Top             =   5400
+      Top             =   4080
       Width           =   1335
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "&Cancel"
       Height          =   375
-      Left            =   4680
+      Left            =   4560
       TabIndex        =   10
-      Top             =   5400
+      Top             =   4080
       Width           =   1335
    End
    Begin TabDlg.SSTab tb 
-      Height          =   5175
+      Height          =   3855
       Left            =   120
       TabIndex        =   12
       Top             =   120
       Width           =   6150
       _ExtentX        =   10848
-      _ExtentY        =   9128
+      _ExtentY        =   6800
       _Version        =   393216
       Style           =   1
       Tabs            =   4
@@ -50,10 +50,16 @@ Begin VB.Form frmButton
       TabPicture(0)   =   "frmButton.frx":0000
       Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label1"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label12"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "txtName"
+      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "chkComponentCheck"
-      Tab(0).ControlCount=   4
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "fraDialogAction"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).ControlCount=   5
       TabCaption(1)   =   "Button Action"
       TabPicture(1)   =   "frmButton.frx":001C
       Tab(1).ControlEnabled=   -1  'True
@@ -87,62 +93,60 @@ Begin VB.Form frmButton
       Tab(1).Control(13).Enabled=   0   'False
       Tab(1).Control(14)=   "txtFile"
       Tab(1).Control(14).Enabled=   0   'False
-      Tab(1).Control(15)=   "fraDialogAction"
-      Tab(1).Control(15).Enabled=   0   'False
-      Tab(1).ControlCount=   16
+      Tab(1).ControlCount=   15
       TabCaption(2)   =   "Images"
       TabPicture(2)   =   "frmButton.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label7"
-      Tab(2).Control(1)=   "Label5"
-      Tab(2).Control(2)=   "Label13"
-      Tab(2).Control(3)=   "Label17"
-      Tab(2).Control(4)=   "Label18"
-      Tab(2).Control(5)=   "Label19"
-      Tab(2).Control(6)=   "Label29"
-      Tab(2).Control(7)=   "Label31"
+      Tab(2).Control(0)=   "txtTop"
+      Tab(2).Control(1)=   "txtLeft"
+      Tab(2).Control(2)=   "txtMouseClick"
+      Tab(2).Control(3)=   "cmdMouseClickBrowse"
+      Tab(2).Control(4)=   "txtMouseOver"
+      Tab(2).Control(5)=   "cmdMouseOverBrowse"
+      Tab(2).Control(6)=   "txtStandard"
+      Tab(2).Control(7)=   "cmdStandardBrowse"
       Tab(2).Control(8)=   "Label6"
-      Tab(2).Control(9)=   "cmdStandardBrowse"
-      Tab(2).Control(10)=   "txtStandard"
-      Tab(2).Control(11)=   "cmdMouseOverBrowse"
-      Tab(2).Control(12)=   "txtMouseOver"
-      Tab(2).Control(13)=   "cmdMouseClickBrowse"
-      Tab(2).Control(14)=   "txtMouseClick"
-      Tab(2).Control(15)=   "txtLeft"
-      Tab(2).Control(16)=   "txtTop"
+      Tab(2).Control(9)=   "Label31"
+      Tab(2).Control(10)=   "Label29"
+      Tab(2).Control(11)=   "Label19"
+      Tab(2).Control(12)=   "Label18"
+      Tab(2).Control(13)=   "Label17"
+      Tab(2).Control(14)=   "Label13"
+      Tab(2).Control(15)=   "Label5"
+      Tab(2).Control(16)=   "Label7"
       Tab(2).ControlCount=   17
       TabCaption(3)   =   "Sounds"
       TabPicture(3)   =   "frmButton.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label8"
-      Tab(3).Control(1)=   "Label10"
-      Tab(3).Control(2)=   "Label11"
-      Tab(3).Control(3)=   "Label14"
-      Tab(3).Control(4)=   "Label15"
-      Tab(3).Control(5)=   "cmdMouseEnter"
+      Tab(3).Control(0)=   "txtMouseUp"
+      Tab(3).Control(1)=   "cmdMouseUp"
+      Tab(3).Control(2)=   "txtMouseDown"
+      Tab(3).Control(3)=   "cmdMouseDown"
+      Tab(3).Control(4)=   "txtMouseExit"
+      Tab(3).Control(5)=   "cmdMouseExit"
       Tab(3).Control(6)=   "txtMouseEnter"
-      Tab(3).Control(7)=   "cmdMouseExit"
-      Tab(3).Control(8)=   "txtMouseExit"
-      Tab(3).Control(9)=   "cmdMouseDown"
-      Tab(3).Control(10)=   "txtMouseDown"
-      Tab(3).Control(11)=   "cmdMouseUp"
-      Tab(3).Control(12)=   "txtMouseUp"
+      Tab(3).Control(7)=   "cmdMouseEnter"
+      Tab(3).Control(8)=   "Label15"
+      Tab(3).Control(9)=   "Label14"
+      Tab(3).Control(10)=   "Label11"
+      Tab(3).Control(11)=   "Label10"
+      Tab(3).Control(12)=   "Label8"
       Tab(3).ControlCount=   13
       Begin VB.Frame fraDialogAction 
          Caption         =   " Splash Dialog "
          Height          =   1095
-         Left            =   360
+         Left            =   -74400
          TabIndex        =   52
-         Top             =   2040
+         Top             =   1800
          Width           =   4695
          Begin VB.OptionButton optDialogAction 
-            Caption         =   "Do not show again when button action is complete"
+            Caption         =   "Show when button action is completed"
             Height          =   255
-            Index           =   0
+            Index           =   2
             Left            =   120
             TabIndex        =   55
-            Top             =   240
-            Width           =   4095
+            Top             =   720
+            Width           =   4215
          End
          Begin VB.OptionButton optDialogAction 
             Caption         =   "Show when button action is started"
@@ -154,13 +158,13 @@ Begin VB.Form frmButton
             Width           =   4335
          End
          Begin VB.OptionButton optDialogAction 
-            Caption         =   "Show when button action is completed"
+            Caption         =   "Do not show again when button action is complete"
             Height          =   255
-            Index           =   2
+            Index           =   0
             Left            =   120
             TabIndex        =   53
-            Top             =   720
-            Width           =   4215
+            Top             =   240
+            Width           =   4095
          End
       End
       Begin VB.TextBox txtFile 
@@ -169,7 +173,7 @@ Begin VB.Form frmButton
          Left            =   1320
          TabIndex        =   50
          ToolTipText     =   "Friendly name for prompts and such"
-         Top             =   4320
+         Top             =   3120
          Width           =   3735
       End
       Begin VB.OptionButton optButtonAction 
@@ -178,7 +182,7 @@ Begin VB.Form frmButton
          Index           =   3
          Left            =   120
          TabIndex        =   49
-         Top             =   3960
+         Top             =   2760
          Width           =   5655
       End
       Begin VB.TextBox txtMouseUp 
@@ -355,7 +359,7 @@ Begin VB.Form frmButton
          Left            =   1320
          TabIndex        =   6
          ToolTipText     =   "Friendly name for prompts and such"
-         Top             =   3600
+         Top             =   2400
          Width           =   3735
       End
       Begin VB.OptionButton optButtonAction 
@@ -364,7 +368,7 @@ Begin VB.Form frmButton
          Index           =   2
          Left            =   120
          TabIndex        =   7
-         Top             =   4680
+         Top             =   3480
          Width           =   5655
       End
       Begin VB.OptionButton optButtonAction 
@@ -373,7 +377,7 @@ Begin VB.Form frmButton
          Index           =   1
          Left            =   120
          TabIndex        =   5
-         Top             =   3240
+         Top             =   2040
          Width           =   5655
       End
       Begin VB.OptionButton optButtonAction 
@@ -399,7 +403,7 @@ Begin VB.Form frmButton
          Height          =   255
          Left            =   360
          TabIndex        =   51
-         Top             =   4320
+         Top             =   3120
          Width           =   615
       End
       Begin VB.Label Label15 
@@ -539,7 +543,7 @@ Begin VB.Form frmButton
          Height          =   255
          Left            =   360
          TabIndex        =   16
-         Top             =   3600
+         Top             =   2400
          Width           =   615
       End
       Begin VB.Label Label2 
@@ -723,11 +727,7 @@ Private Sub optButtonAction_Click(Index As Integer)
   Me.txtURL.BackColor = vbButtonFace
   Me.txtFile.Enabled = False
   Me.txtFile.BackColor = vbButtonFace
-  fraDialogAction.Enabled = False
   mblnDirty = True
-  For i = 0 To optDialogAction.Count - 1
-    optDialogAction(i).Enabled = False
-  Next i
   
   Select Case Index
     Case 0
@@ -737,10 +737,6 @@ Private Sub optButtonAction_Click(Index As Integer)
       Me.txtCmdLine.Enabled = True
       Me.txtCmdLine.BackColor = vbWindowBackground
       Me.chkRestartPrompt.Enabled = True
-      fraDialogAction.Enabled = True
-      For i = 0 To optDialogAction.Count - 1
-        optDialogAction(i).Enabled = True
-      Next i
     Case 1
       Me.txtURL.Enabled = True
       Me.txtURL.BackColor = vbWindowBackground

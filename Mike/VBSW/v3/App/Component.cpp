@@ -604,7 +604,7 @@ bool CComponent::Install(CSetupDlg* &sDlg)
 	// open reg key, and set that we installed this component
 	long h; HKEY hRegKey; LPDWORD hResult = 0;
 	char chTemp[2] = "1";
-	LPCTSTR sKey = "Software\\giesler.org\\VBSW\\Installed Components";	
+	LPCTSTR sKey = "Software\\giesler.org\\Install Assistant\\Installed Components";	
 	h = RegCreateKeyEx(HKEY_CURRENT_USER, sKey,0,NULL,REG_OPTION_NON_VOLATILE, KEY_SET_VALUE, NULL, &hRegKey, hResult);
 	if (h == ERROR_SUCCESS) {
 		h = RegSetValueEx(hRegKey, mstrId, 0, REG_SZ, (byte*)&chTemp, strlen(chTemp) + 1);
@@ -630,7 +630,7 @@ bool CComponent::InstallAttempted()
 	// open the registry key and look for pstrComponentId
 	HRESULT hResult; HKEY hKey; char chData[255]; DWORD lDataLen = 255;
 	CString strSubKey;
-	LPCTSTR sKey = "Software\\giesler.org\\VBSW\\Installed Components";	
+	LPCTSTR sKey = "Software\\giesler.org\\Install Assistant\\Installed Components";	
 
 	hResult = RegOpenKeyEx(HKEY_CURRENT_USER, sKey, NULL, KEY_QUERY_VALUE, &hKey);
 	if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed

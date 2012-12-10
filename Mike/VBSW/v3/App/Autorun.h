@@ -23,6 +23,12 @@
 extern CLog gLog;
 extern CUtilities gUtils;
 
+enum DisplayType {
+	DisplayTypeNormalDisplay = 0,
+	DisplayTypeSkipSplashDisplay,
+	DisplayTypeProgramNameDisplay
+};
+
 /////////////////////////////////////////////////////////////////////////////
 // CAutorunApp:
 // See Autorun.cpp for the implementation of this class
@@ -56,6 +62,8 @@ public:
 		bool m_blnCancel;
 		bool mblnTimerReboot;
 		int  mintTimerSeconds;
+		CString mstrSkipProgramName;
+		DisplayType mtypDisplayType;
 		bool DependsInstalled(CComponent * pcComp);
 		CList<CComponent*, CComponent*> mlstComps;
 		CList<CDlgButton*, CDlgButton*> mlstButtons;

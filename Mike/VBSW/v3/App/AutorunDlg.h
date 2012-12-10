@@ -19,6 +19,7 @@ public:
 
 	void LoadButtons(CList<CDlgButton*, CDlgButton*> * mlstButtons);	// loads buttons for dialog
 	CDlgButton* FindButtonById(CString id);
+	CDlgButton* FindDefaultButton();
 
 	CDlgButton* selectedButton;
 	CList<CDlgButton*, CDlgButton*> * mlstButtons;

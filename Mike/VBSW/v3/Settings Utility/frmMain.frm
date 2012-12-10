@@ -5,14 +5,14 @@ Begin VB.Form frmMain
    BackColor       =   &H80000004&
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "IA Settings Utility"
-   ClientHeight    =   5490
+   ClientHeight    =   5730
    ClientLeft      =   150
    ClientTop       =   840
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5490
+   ScaleHeight     =   5730
    ScaleWidth      =   6675
    StartUpPosition =   3  'Windows Default
    Begin MSComctlLib.StatusBar StatusBar1 
@@ -20,7 +20,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   0
       TabIndex        =   9
-      Top             =   5235
+      Top             =   5475
       Width           =   6675
       _ExtentX        =   11774
       _ExtentY        =   450
@@ -707,11 +707,11 @@ Private Sub cmdFileNew_Click()
   Dim sFoldername As String, lpIDList As Long
 
   Set mobjSettings = New CSettingsFile
-  sFoldername = GetFolderName(lpIDList, "Select the folder where you would like to create a new VBSW project", Me)
+  sFoldername = GetFolderName(lpIDList, "Select the folder where you would like to create a new Install Assistant project", Me)
   If sFoldername = "" Then Exit Sub
 
-  If Dir(sFoldername & "\vbsw\", vbDirectory) = "" Then
-    MkDir sFoldername & "\vbsw"
+  If Dir(sFoldername & "\ia\", vbDirectory) = "" Then
+    MkDir sFoldername & "\ia"
   End If
   
   If mobjSettings.Load(lpIDList, sFoldername) Then
@@ -840,8 +840,8 @@ Private Sub Form_Load()
 '    Me.mnuRecent(1).Caption = GetSetting("VBSWSettings", "Main", "RecentFile", "")
 '  End If
   
-  Me.Left = GetSetting("VBSWSettings", "Main", "FormLeft", Me.Left)
-  Me.Top = GetSetting("VBSWSettings", "Main", "FormTop", Me.Top)
+  Me.Left = GetSetting("IASettings", "Main", "FormLeft", Me.Left)
+  Me.Top = GetSetting("IASettings", "Main", "FormTop", Me.Top)
   
 End Sub
 
@@ -860,16 +860,16 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     End If
   End If
   If Not (mobjSettings Is Nothing) Then
-    SaveSetting "VBSWSettings", "Main", "RecentFile", mobjSettings.RootPath
-    SaveSetting "VBSWSettings", "Main", "RecentFileIDList", mobjSettings.RootPathIDList
+    SaveSetting "IASettings", "Main", "RecentFile", mobjSettings.RootPath
+    SaveSetting "IASettings", "Main", "RecentFileIDList", mobjSettings.RootPathIDList
   End If
   
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
 
-  SaveSetting "VBSWSettings", "Main", "FormLeft", Me.Left
-  SaveSetting "VBSWSettings", "Main", "FormTop", Me.Top
+  SaveSetting "IASettings", "Main", "FormLeft", Me.Left
+  SaveSetting "IASettings", "Main", "FormTop", Me.Top
 
 End Sub
 
@@ -905,10 +905,10 @@ Private Sub mnuFileOpen_Click()
   Dim sFoldername As String, lpIDList As Long
 
   Set mobjSettings = New CSettingsFile
-  sFoldername = GetFolderName(lpIDList, "Select the folder containing the existing VBSW project (root folder; containing 'vbsw' folder)", Me)
+  sFoldername = GetFolderName(lpIDList, "Select the folder containing the existing Install Assistant project (root folder; containing 'ia' folder)", Me)
   If sFoldername = "" Then Exit Sub
-  If Not FileExists(sFoldername & "\vbsw\settings.ini") Then
-    MsgBox "The file '" & sFoldername & "\vbsw\settings.ini' does not exist.", vbExclamation
+  If Not FileExists(sFoldername & "\ia\settings.ini") Then
+    MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
     Exit Sub
   End If
 
@@ -985,7 +985,7 @@ End Sub
 
 Private Sub mnuFileSaveAs_Click()
 
-MsgBox "To save the current VBSW project as another project, simply close this program and copy the entire directory structure.", vbInformation
+MsgBox "To save the current Install Assistant project as another project, simply close this program and copy the entire directory structure.", vbInformation
 
 End Sub
 
@@ -1003,12 +1003,12 @@ Private Sub mnuRecent_Click(Index As Integer)
   Dim sFoldername As String, sIDList As String
   If Index = 1 Then
     sFoldername = mnuRecent(Index).Caption
-    If Not FileExists(sFoldername & "\vbsw\settings.ini") Then
-      MsgBox "The file '" & sFoldername & "\vbsw\settings.ini' does not exist.", vbExclamation
+    If Not FileExists(sFoldername & "\ia\settings.ini") Then
+      MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
       Exit Sub
     End If
   
-    sIDList = GetSetting("VBSWSettings", "Main", "RecentFileIDList", "")
+    sIDList = GetSetting("IASettings", "Main", "RecentFileIDList", "")
     
     Set mobjSettings = New CSettingsFile
     If mobjSettings.Load(CLng(sIDList), sFoldername) Then
