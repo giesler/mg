@@ -47,7 +47,7 @@ namespace msn2.net.Pictures.Controls
             mail.Subject = string.Format(
                 "Picture Admin v{0} - {1}",
                 fvi.FileVersion,
-                exceptionName);
+                exception.GetType().FullName);
             mail.Body = message;
 
             SmtpClient client = new SmtpClient(PictureConfig.Load().SmtpServer);
