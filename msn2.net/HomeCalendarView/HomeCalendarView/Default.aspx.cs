@@ -13,37 +13,64 @@ using System.Xml.Linq;
 using System.Net;
 using System.Xml;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Threading;
+using System.Web.Caching;
 
 namespace HomeCalendarView
 {
     public partial class _Default : System.Web.UI.Page
     {
-        protected override void OnLoad(EventArgs e)
+        protected override void OnInit(EventArgs e)
         {
+            base.OnInit(e);
+
+            this.lastUpdateTime.Text = DateTime.Now.ToShortTimeString();
+            this.dataLoadTimer.Enabled = false;
+            this.dataLoadTimer.Tick += new EventHandler<EventArgs>(dataLoadTimer_Tick);
             this.closeWarning.Click += new EventHandler(closeWarning_Click);
+            this.refreshTimer.Tick += new EventHandler<EventArgs>(refreshTimer_Tick);
+            this.refreshTimer.Interval = 60 * 1000 * new Random().Next(18, 23);
 
             this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM dd").ToLower();
-            this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
+            //this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
             this.day4Label.Text = DateTime.Now.AddDays(4).ToString("dddd").ToLower();
 
+            Trace.Write("Current weather");
             DisplayCurrent();
 
+            Trace.Write("Cal");
             DisplayCalendar();
 
+            Trace.Write("Forecast");
             DisplayForecast();
 
+            Trace.Write("Forecast details");
+            DisplayForecastDetails();
+
+            Trace.Write("Alerts");
             DisplayWeatherAlerts();
 
-            if (this.IsPostBack)
-            {
-                if (this.Request["_EVENTARGUMENT"] != null)
-                {
-                    this.warningPanel.Visible = true;
-                    this.forecastPanel.Visible = false;
-                }
-            }
+            Trace.Write("Done");
+
+            this.reenableTimer = this.dataLoadTimer.Enabled;
+        }
+
+        bool reenableTimer = false;
+
+        void dataLoadTimer_Tick(object sender, EventArgs e)
+        {
+            Trace.Write("Timer");
+            this.dataLoadTimer.Enabled = this.reenableTimer;
+        }
+
+        void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            this.refreshTimer.Enabled = true;
+            this.lastUpdateTime.Text = DateTime.Now.ToShortTimeString();
         }
 
         void closeWarning_Click(object sender, EventArgs e)
@@ -51,103 +78,224 @@ namespace HomeCalendarView
             this.warningPanel.Visible = false;
             this.forecastPanel.Visible = true;
         }
-        
+
+        private void LoadForecast(object sender)
+        {
+            System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
+
+            try
+            {
+                decimal lat = 47.6727M;
+                decimal lng = -122.187M;
+                GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
+                string xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", GovWeatherService.formatType.Item12hourly);
+                cache.Add("forecastCache", xml, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, CacheItemPriority.Normal, null);
+            }
+            finally
+            {
+                cache.Remove("LoadForecast");
+            }
+        }
+
         private void DisplayForecast()
         {
-            GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
-
-            decimal lat = 47.6727M;
-            decimal lng = -122.187M;
-
             string xml = null;
             object cacheItem = HttpContext.Current.Cache["forecastCache"];
             if (cacheItem == null)
             {
-                xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", HomeCalendarView.GovWeatherService.formatType.Item12hourly);
-                HttpContext.Current.Cache.Add("forecastCache", xml, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+                this.dataLoadTimer.Enabled = true;
+
+                if (base.Cache["LoadForecast"] == null)
+                {
+                    base.Cache.Add("LoadForecast", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadForecast), HttpContext.Current.Cache);
+                }
             }
             else
             {
                 xml = cacheItem.ToString();
             }
 
-            XmlDocument weatherXml = new XmlDocument();
-            weatherXml.LoadXml(xml);
-
-            int offset = 0;
-            if (DateTime.Now.Hour > 15)
+            if (xml != null)
             {
-                offset = -1;
-                this.todayHighTemp.Visible = false;
-                this.todayWeatherImage2.Visible = false;
-                this.precipToday2.Visible = false;
-            }
+                this.todayForeastDiv.Visible = true;
+                this.todayForecastLoading.Visible = false;
 
-            foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
-            {
-                switch (tempNode.Attributes["type"].Value)
+                this.todayHigh.Visible = true;
+                this.todayLow.Visible = true;
+                this.day1High.Visible = true;
+                this.day1Low.Visible = true;
+                this.day2High.Visible = true;
+                this.day2Low.Visible = true;
+                this.day3High.Visible = true;
+                this.day3Low.Visible = true;
+                this.day4High.Visible = true;
+                this.day4Low.Visible = true;
+
+                XmlDocument weatherXml = new XmlDocument();
+                weatherXml.LoadXml(xml);
+
+                int offset = 0;
+                if (DateTime.Now.Hour > 15)
                 {
-                    case "maximum":
-                        if (offset == 0)
-                        {
-                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText + "&deg;";
-                        }
-                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText + "&deg;";
-                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText + "&deg;";
-                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText + "&deg;";
-                        day4High.Text = tempNode.ChildNodes[5 + offset].InnerText + "&deg;";
-                        break;
+                    offset = -1;
+                    this.todayHigh.Visible = false;
+                }
 
-                    case "minimum":
-                        todayLowTemp.Text = tempNode.ChildNodes[1].InnerText + "&deg;";
-                        day1Low.Text = tempNode.ChildNodes[2].InnerText + "&deg;";
-                        day2Low.Text = tempNode.ChildNodes[3].InnerText + "&deg;";
-                        day3Low.Text = tempNode.ChildNodes[4].InnerText + "&deg;";
-                        day4Low.Text = tempNode.ChildNodes[5].InnerText + "&deg;";
-                        break;
+                foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
+                {
+                    switch (tempNode.Attributes["type"].Value)
+                    {
+                        case "maximum":
+                            if (offset == 0)
+                            {
+                                this.todayHigh.Temperature = tempNode.ChildNodes[1].InnerText + "&deg;";
+                            }
+                            this.day1High.Temperature = tempNode.ChildNodes[2 + offset].InnerText + "&deg;";
+                            this.day2High.Temperature = tempNode.ChildNodes[3 + offset].InnerText + "&deg;";
+                            this.day3High.Temperature = tempNode.ChildNodes[4 + offset].InnerText + "&deg;";
+                            this.day4High.Temperature = tempNode.ChildNodes[5 + offset].InnerText + "&deg;";
+                            break;
+
+                        case "minimum":
+                            this.todayLow.Temperature = tempNode.ChildNodes[1].InnerText + "&deg;";
+                            this.day1Low.Temperature = tempNode.ChildNodes[2].InnerText + "&deg;";
+                            this.day2Low.Temperature = tempNode.ChildNodes[3].InnerText + "&deg;";
+                            this.day3Low.Temperature = tempNode.ChildNodes[4].InnerText + "&deg;";
+                            this.day4Low.Temperature = tempNode.ChildNodes[5].InnerText + "&deg;";
+                            break;
+                    }
+                }
+
+                XmlNode precipNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/probability-of-precipitation");
+                this.todayHigh.Precipitation = precipNode.ChildNodes[1].InnerText + "%";
+                this.todayLow.Precipitation = precipNode.ChildNodes[2].InnerText + "%";
+                this.day1High.Precipitation = precipNode.ChildNodes[3 + offset].InnerText + "%";
+                this.day1Low.Precipitation = precipNode.ChildNodes[4 + offset].InnerText + "%";
+                this.day2High.Precipitation = precipNode.ChildNodes[5 + offset].InnerText + "%";
+                this.day2Low.Precipitation = precipNode.ChildNodes[6 + offset].InnerText + "%";
+                this.day3High.Precipitation = precipNode.ChildNodes[7 + offset].InnerText + "%";
+                this.day3Low.Precipitation = precipNode.ChildNodes[8 + offset].InnerText + "%";
+                this.day4High.Precipitation = precipNode.ChildNodes[9 + offset].InnerText + "%";
+                this.day4Low.Precipitation = precipNode.ChildNodes[10 + offset].InnerText + "%";
+
+                XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
+                XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
+
+                this.todayHigh.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
+                this.todayHigh.ImageAltText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
+                this.todayLow.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
+                this.todayLow.ImageAltText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
+
+                this.day1High.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
+                this.day1High.ImageAltText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
+                this.day1Low.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
+                this.day1Low.ImageAltText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
+                this.day2High.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
+                this.day2High.ImageAltText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
+                this.day2Low.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
+                this.day2Low.ImageAltText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
+                this.day3High.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
+                this.day3High.ImageAltText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
+                this.day3Low.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
+                this.day3Low.ImageAltText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
+                this.day4High.ImageUrl = conditionsNode.ChildNodes[9 + offset].InnerText;
+                this.day4High.ImageAltText = descriptionNode.ChildNodes[9 + offset].Attributes["weather-summary"].Value;
+                this.day4Low.ImageUrl = conditionsNode.ChildNodes[10 + offset].InnerText;
+                this.day4Low.ImageAltText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
+            }
+        }
+        
+        private void LoadForecastDetails(object sender)
+        {
+            System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
+
+            try
+            {
+                WebRequest req = WebRequest.Create("http://www.wrh.noaa.gov/forecast/MapClick.php?site=sew&smap=1&textField1=47.67273&textField2=-122.18730&TextType=1");
+                WebResponse response = req.GetResponse();
+                Stream st = response.GetResponseStream();
+                StreamReader sr = new StreamReader(st);
+                string fileContents = sr.ReadToEnd();
+                cache.Add("fcast2", fileContents, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+                sr.Close();
+                st.Close();
+                response.Close();
+            }
+            finally
+            {
+                cache.Remove("LoadForecastDetails");
+            }
+        }
+
+        private void DisplayForecastDetails()
+        {
+            Regex forecastDescriptionRegex = new Regex(@"((<b>(?<period>(\w| )+)\: </b>)(?<fcast>.+?))<br>");
+
+            string fileContents = null;
+            object cacheItem = HttpContext.Current.Cache["fcast2"];
+            if (cacheItem == null)
+            {                
+                this.dataLoadTimer.Enabled = true;
+
+                if (base.Cache["LoadForecastDetails"] == null)
+                {
+                    base.Cache.Add("LoadForecastDetails", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadForecastDetails), HttpContext.Current.Cache);
                 }
             }
-
-            XmlNode precipNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/probability-of-precipitation");
-            precipToday1.Text = precipNode.ChildNodes[1].InnerText + "%";
-            if (offset == 0)
+            else
             {
-                precipToday2.Text = precipNode.ChildNodes[2].InnerText + "%";
+                fileContents = cacheItem.ToString();
             }
-            precipDay1am.Text = precipNode.ChildNodes[3 + offset].InnerText + "%";
-            precipDay1pm.Text = precipNode.ChildNodes[4 + offset].InnerText + "%";
-            precipDay2am.Text = precipNode.ChildNodes[5 + offset].InnerText + "%";
-            precipDay2pm.Text = precipNode.ChildNodes[6 + offset].InnerText + "%";
-            precipDay3am.Text = precipNode.ChildNodes[7 + offset].InnerText + "%";
-            precipDay3pm.Text = precipNode.ChildNodes[8 + offset].InnerText + "%";
-            precipDay4am.Text = precipNode.ChildNodes[9 + offset].InnerText + "%";
-            precipDay4pm.Text = precipNode.ChildNodes[10 + offset].InnerText + "%";
 
-            XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
-            XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
-            todayWeatherImage1.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
-            todayWeatherImage1.AlternateText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
-            if (offset == 0)
+            if (fileContents != null)
             {
-                todayWeatherImage2.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
-                todayWeatherImage2.AlternateText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
+                List<FCastItem> fcastList = new List<FCastItem>();
+                Match match = forecastDescriptionRegex.Match(fileContents);
+
+                while (match.Success == true)
+                {
+                    Group period = match.Groups["period"];
+                    Group fcast = match.Groups["fcast"];
+
+                    if (period != null && fcast != null)
+                    {
+                        fcastList.Add(new FCastItem { Day = period.Value, Forecast = fcast.Value });
+                    }
+                    match = match.NextMatch();
+                }
+
+                if (fcastList.Count > 0)
+                {
+                    int offset = 0;
+                    if (fcastList[0].Day != "Today" && fcastList[0].Day != "This Afternoon")
+                    {
+                        offset = -1;
+                        this.todayLow.ImageAltText = fcastList[0].Forecast;
+                    }
+                    else
+                    {
+                        this.todayHigh.ImageAltText = fcastList[0].Forecast;
+                        this.todayLow.ImageAltText = fcastList[1].Forecast;
+                    }
+
+                    this.day1High.ImageAltText = fcastList[2 + offset].Forecast;
+                    this.day1Low.ImageAltText = fcastList[3 + offset].Forecast;
+                    this.day2High.ImageAltText = fcastList[4 + offset].Forecast;
+                    this.day2Low.ImageAltText = fcastList[5 + offset].Forecast;
+                    this.day3High.ImageAltText = fcastList[6 + offset].Forecast;
+                    this.day3Low.ImageAltText = fcastList[7 + offset].Forecast;
+                    this.day4High.ImageAltText = fcastList[8 + offset].Forecast;
+                    this.day4Low.ImageAltText = fcastList[9 + offset].Forecast;
+                }
             }
-            day1Image1.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
-            day1Image1.AlternateText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
-            day1Image2.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
-            day1Image2.AlternateText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
-            day2Image1.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
-            day2Image1.AlternateText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
-            day2Image2.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
-            day2Image2.AlternateText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
-            day3Image1.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
-            day3Image1.AlternateText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
-            day3Image2.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
-            day3Image2.AlternateText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
-            day4Image1.ImageUrl = conditionsNode.ChildNodes[9 + offset].InnerText;
-            day4Image1.AlternateText = descriptionNode.ChildNodes[9 + offset].Attributes["weather-summary"].Value;
-            day4Image2.ImageUrl = conditionsNode.ChildNodes[10 + offset].InnerText;
-            day4Image2.AlternateText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
+        }
+
+        private class FCastItem
+        {
+            public string Day;
+            public string Forecast;
         }
 
         private static void GetLatLong(GovWeatherService.ndfdXML weatherService, out decimal lat, out decimal lng)
@@ -201,92 +349,246 @@ namespace HomeCalendarView
             }
         }
 
+        void LoadCurrent(object sender)
+        {
+            System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
+                cache.Add("current", doc, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            finally
+            {
+                cache.Remove("LoadCurrent");
+            }
+        }
+
         private void DisplayCurrent()
         {
             XmlDocument doc = null;
             object cacheItem = HttpContext.Current.Cache["current"];
             if (cacheItem == null)
             {
-                doc = new XmlDocument();
-                doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
-                HttpContext.Current.Cache.Add("current", doc, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+                this.dataLoadTimer.Enabled = true;
+
+                if (base.Cache["LoadCurrent"] == null)
+                {
+                    base.Cache.Add("LoadCurrent", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadCurrent), HttpContext.Current.Cache);
+                }
             }
             else
             {
                 doc = (XmlDocument)cacheItem;
             }
 
-            this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText + "&deg;";
-
-            string windDirection = doc.DocumentElement.SelectSingleNode("wind_dir").InnerText;
-            string windMph = doc.DocumentElement.SelectSingleNode("wind_mph").InnerText;
-            if (windMph == "NA")
+            if (doc != null)
             {
-                this.windLabel.Text = "calm";
-            }
-            else
-            {
-                decimal windSpeed = decimal.Parse(windMph);
-                this.windLabel.Text = windDirection + " at " + ((int)windSpeed).ToString() + " mph";
-            }
+                this.currentConditionsTable.Visible = true;
+                this.currentConditionsLoading.Visible = false;
 
-            this.windChill.Text = doc.DocumentElement.SelectSingleNode("windchill_f").InnerText;
-            this.visibility.Text = doc.DocumentElement.SelectSingleNode("visibility_mi").InnerText;
+                this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText + "&deg;";
 
-            string conditionImage = doc.DocumentElement.SelectSingleNode("icon_url_base").InnerText;
-            conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
-            this.currentCondition.ImageUrl = conditionImage;
-            this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
+                string timeString = doc.DocumentElement.SelectSingleNode("observation_time_rfc822").InnerText;
+                timeString = timeString.Substring(0, timeString.IndexOf("-") - 1);
+                DateTime updateTime = DateTime.Parse(timeString);
+                this.tempUpdateTime.Text = updateTime.ToString("h:mm");
+
+                string windDirection = doc.DocumentElement.SelectSingleNode("wind_dir").InnerText;
+                string windMph = doc.DocumentElement.SelectSingleNode("wind_mph").InnerText;
+                if (windMph == "NA")
+                {
+                    this.windLabel.Text = "calm";
+                }
+                else
+                {
+                    if (windDirection == "South")
+                    {
+                        windDirection = "S";
+                    }
+                    else if (windDirection == "North")
+                    {
+                        windDirection = "N";
+                    }
+                    else if (windDirection == "East")
+                    {
+                        windDirection = "E";
+                    }
+                    else if (windDirection == "West")
+                    {
+                        windDirection = "W";
+                    }
+                    else if (windDirection == "Southeast")
+                    {
+                        windDirection = "SE";
+                    }
+                    else if (windDirection == "Southwest")
+                    {
+                        windDirection = "SW";
+                    }
+                    else if (windDirection == "Northeast")
+                    {
+                        windDirection = "NE";
+                    }
+                    else if (windDirection == "Northwest")
+                    {
+                        windDirection = "NW";
+                    }
+                    decimal windSpeed = decimal.Parse(windMph);
+                    this.windLabel.Text = windDirection + " at " + ((int)windSpeed).ToString() + " mph";
+
+                    string gusts = doc.DocumentElement.SelectSingleNode("wind_gust_mph").InnerText;
+                    if (gusts != "NA")
+                    {
+                        this.windGustPanel.Visible = true;
+                        this.gustMph.Text = gusts;
+                    }
+                    else
+                    {
+                        this.windGustPanel.Visible = false;
+                    }
+                }
+
+                this.windChill.Text = doc.DocumentElement.SelectSingleNode("windchill_f").InnerText + "&deg;";
+                this.visibility.Text = doc.DocumentElement.SelectSingleNode("visibility_mi").InnerText;
+
+                string conditionImage = doc.DocumentElement.SelectSingleNode("icon_url_base").InnerText;
+                conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
+                this.currentCondition.ImageUrl = conditionImage;
+                this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
+                this.currentConditionText.Text = this.currentCondition.AlternateText;
+            }
         }
+
+        void LoadAlerts(object sender)
+        {
+            System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
+
+            try
+            {
+                XElement alertFeed = XElement.Load("http://www.weather.gov/alerts/wwarssget.php?zone=WAZ505");
+                cache.Add("alerts", alertFeed, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            finally
+            {
+                cache.Remove("LoadAlerts");
+            }
+        }
+
+        XElement alertFeed = null;
 
         private void DisplayWeatherAlerts()
         {
-            XElement alertFeed = null;
             object cacheItem = HttpContext.Current.Cache["alerts"];
             if (cacheItem == null)
             {
-                alertFeed = XElement.Load("http://www.weather.gov/alerts/wwarssget.php?zone=WAZ505");
-                HttpContext.Current.Cache.Add("alerts", alertFeed, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+                this.dataLoadTimer.Enabled = true;
+
+                if (base.Cache["LoadAlerts"] == null)
+                {
+                    base.Cache.Add("LoadAlerts", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadAlerts), HttpContext.Current.Cache);
+                }
             }
             else
             {
                 alertFeed = (XElement)cacheItem;
             }
 
-            var items = from item in alertFeed.Elements("channel").Elements("item")
-                        select item;
-
-            if (items.Count() == 0)
+            if (alertFeed != null)
             {
-                this.warningCell.Visible = false;
-            }
-            else
-            {
-                this.warningCell.Visible = true;
-                this.warnings.Controls.Clear();
+                var items = from item in alertFeed.Elements("channel").Elements("item")
+                            select item;
 
-                foreach (var o in items)
+                if (items.Count() == 0)
                 {
-                    string title = o.Element("title").Value.Replace(" - East Puget Sound Lowlands (Washington)", "").Trim();
-                    string description = o.Element("description").Value;
-                    string shortDescription = description;
-                    if (description.IndexOf("<br><br>") > 0)
+                    this.warningCell.Visible = true;
+                    this.warnings.Controls.Clear();
+
+                    int index = 0;
+                    bool falseAlert = false;
+
+                    foreach (var o in items)
                     {
-                        shortDescription = description.Substring(0, description.IndexOf("<br><br>") - 1).Replace("<br>", " ");
+                        string title = o.Element("title").Value.Replace(" - East Puget Sound Lowlands (Washington)", "").Trim();
+                        string description = o.Element("description").Value;
+                        string shortDescription = CleanupDescription(title, ref description);
+
+                        LinkButton link = new LinkButton { Text = title + "<BR>", ToolTip = shortDescription };
+
+                        link.Command += new CommandEventHandler(link_Command);
+                        link.CommandArgument = index.ToString();
+                        this.warnings.Controls.Add(link);
+
+                        index++;
+
+                        if (description.IndexOf("There are no active watches, warnings or advisories") >= 0
+                            || shortDescription.IndexOf("There are no active watches, warnings or advisories") >= 0)
+                        {
+                            falseAlert = true;
+                        }
                     }
 
-                    if (description.IndexOf("$$") > 0)
+                    if (falseAlert == true)
                     {
-                        description = description.Substring(0, description.IndexOf("$$"));
+                        this.warningCell.Visible = false;
                     }
-
-                    LinkButton link = new LinkButton { Text = title, ToolTip = shortDescription };
-                    link.Click += new EventHandler(link_Click);
-                    this.warnings.Controls.Add(link);
-
-                    this.warningText.Text = description.ToLower();
+                    else
+                    {
+                        this.severeWeatherAlertLabel.Text = index > 1 ? "Severe&nbsp;Weather&nbsp;Alerts" : "Severe&nbsp;Weather&nbsp;Alert";
+                    }
                 }
-            }                        
+            }
+        }
+
+        private static string CleanupDescription(string title, ref string description)
+        {
+            string shortDescription = title;
+
+            int breakIndex = description.IndexOf("<br><br>", 2);
+            int endIndex = description.IndexOf("$$");
+
+            if (breakIndex > 0 && breakIndex + 10 < endIndex)
+            {
+                shortDescription = description.Substring(0, description.IndexOf("<br><br>") - 1).Replace("<br>", " ");
+
+                description = description.Substring(shortDescription.Length);
+                int startIndex = description.IndexOf("<br><br>");
+                if (startIndex > 0)
+                {
+                    description = description.Substring(startIndex + 8);
+                }
+            }
+
+            if (description.IndexOf("$$") > 0)
+            {
+                description = description.Substring(0, description.IndexOf("$$"));
+            }
+            if (description.StartsWith("<br><br>"))
+            {
+                description = description.Substring(8);
+            }
+            return shortDescription;
+        }
+
+        void link_Command(object sender, CommandEventArgs e)
+        {
+            this.warningPanel.Visible = true;
+            this.forecastPanel.Visible = false;
+
+            int index = int.Parse(e.CommandArgument.ToString());
+
+            var alert = (from item in alertFeed.Elements("channel").Elements("item")
+                         select item).ElementAt(index);
+
+            string title = alert.Element("title").Value;
+            string description = alert.Element("description").Value;
+            string shortDescription = CleanupDescription(title, ref description);
+
+            this.warningTitle.Text = shortDescription;
+            this.warningText.Text = description.ToLower().Replace("<br><br>", "<br /><br />").Replace("<br>", " ");
         }
 
         void link_Click(object sender, EventArgs e)
@@ -342,7 +644,7 @@ namespace HomeCalendarView
 
                             if (recur == "0")
                             {
-                                items.Add(new CalendarItem { Title = title, EventDate = eventDate, EndDate = endDate, Url = BuildItemUrl(id), Location=location });
+                                items.Add(new CalendarItem { Title = title, EventDate = eventDate, EndDate = endDate, Url = BuildItemUrl(id), Location = location });
                             }
                             else
                             {
@@ -384,7 +686,7 @@ namespace HomeCalendarView
             return "http://home.msn2.net/Lists/Events/DispForm.aspx?ID=" + id.ToString();
         }
 
-        private static void ProcessWeeklyRecurrence(List<CalendarItem> items, string title, string id, 
+        private static void ProcessWeeklyRecurrence(List<CalendarItem> items, string title, string id,
             string location, DateTime eventDate, DateTime endDate, XmlNode weeklyNode)
         {
             List<int> sundayOffsets = new List<int>();
@@ -412,7 +714,7 @@ namespace HomeCalendarView
                     {
                         if (DateInRange(candidateDate) == true)
                         {
-                            items.Add(new CalendarItem { Title = title, EventDate = candidateDate, EndDate = endDate, Url = BuildItemUrl(id), Location=location });
+                            items.Add(new CalendarItem { Title = title, EventDate = candidateDate, EndDate = endDate, Url = BuildItemUrl(id), Location = location });
                         }
                     }
                 }
@@ -455,14 +757,12 @@ namespace HomeCalendarView
             viewFields.AppendChild(field1);
         }
 
-
         private void AddAttribute(XmlDocument doc, XmlNode node, string name, string val)
         {
             XmlAttribute att = doc.CreateAttribute(name);
             att.Value = val;
             node.Attributes.Append(att);
         }
-
     }
 
     public class CalendarItem

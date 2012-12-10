@@ -23,6 +23,33 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// updatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanel;
+        
+        /// <summary>
+        /// refreshTimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer refreshTimer;
+        
+        /// <summary>
+        /// dataLoadTimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer dataLoadTimer;
+        
+        /// <summary>
         /// todayLabel control.
         /// </summary>
         /// <remarks>
@@ -30,6 +57,42 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label todayLabel;
+        
+        /// <summary>
+        /// todayDateLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label todayDateLabel;
+        
+        /// <summary>
+        /// todaysEvents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HomeCalendarView.CalendarItemDisplay todaysEvents;
+        
+        /// <summary>
+        /// currentConditionsLoading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl currentConditionsLoading;
+        
+        /// <summary>
+        /// currentConditionsTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable currentConditionsTable;
         
         /// <summary>
         /// currentTemp control.
@@ -41,6 +104,15 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Label currentTemp;
         
         /// <summary>
+        /// tempUpdateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label tempUpdateTime;
+        
+        /// <summary>
         /// currentCondition control.
         /// </summary>
         /// <remarks>
@@ -50,6 +122,15 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Image currentCondition;
         
         /// <summary>
+        /// currentConditionText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label currentConditionText;
+        
+        /// <summary>
         /// windLabel control.
         /// </summary>
         /// <remarks>
@@ -57,6 +138,24 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label windLabel;
+        
+        /// <summary>
+        /// windGustPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel windGustPanel;
+        
+        /// <summary>
+        /// gustMph control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label gustMph;
         
         /// <summary>
         /// windChill control.
@@ -86,6 +185,15 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell warningCell;
         
         /// <summary>
+        /// severeWeatherAlertLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label severeWeatherAlertLabel;
+        
+        /// <summary>
         /// warnings control.
         /// </summary>
         /// <remarks>
@@ -95,76 +203,49 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Panel warnings;
         
         /// <summary>
-        /// todayWeatherImage1 control.
+        /// todayForeastDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image todayWeatherImage1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayForeastDiv;
         
         /// <summary>
-        /// todayHighTemp control.
+        /// todayHigh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label todayHighTemp;
+        protected global::HomeCalendarView.ForecastItem todayHigh;
         
         /// <summary>
-        /// todayWeatherImage2 control.
+        /// todayLow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image todayWeatherImage2;
+        protected global::HomeCalendarView.ForecastItem todayLow;
         
         /// <summary>
-        /// todayLowTemp control.
+        /// todayForecastLoading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label todayLowTemp;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayForecastLoading;
         
         /// <summary>
-        /// precipToday1 control.
+        /// lastUpdateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipToday1;
-        
-        /// <summary>
-        /// precipToday2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipToday2;
-        
-        /// <summary>
-        /// todaysEvents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay todaysEvents;
-        
-        /// <summary>
-        /// todayDateLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label todayDateLabel;
+        protected global::System.Web.UI.WebControls.Label lastUpdateTime;
         
         /// <summary>
         /// warningPanel control.
@@ -174,6 +255,15 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel warningPanel;
+        
+        /// <summary>
+        /// warningTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label warningTitle;
         
         /// <summary>
         /// closeWarning control.
@@ -203,15 +293,6 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Panel forecastPanel;
         
         /// <summary>
-        /// forecastRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow forecastRow;
-        
-        /// <summary>
         /// day1Label control.
         /// </summary>
         /// <remarks>
@@ -227,7 +308,7 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day1High;
+        protected global::HomeCalendarView.ForecastItem day1High;
         
         /// <summary>
         /// day1Low control.
@@ -236,7 +317,16 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day1Low;
+        protected global::HomeCalendarView.ForecastItem day1Low;
+        
+        /// <summary>
+        /// day1Events control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HomeCalendarView.CalendarItemDisplay day1Events;
         
         /// <summary>
         /// day2Label control.
@@ -254,7 +344,7 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day2High;
+        protected global::HomeCalendarView.ForecastItem day2High;
         
         /// <summary>
         /// day2Low control.
@@ -263,7 +353,16 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day2Low;
+        protected global::HomeCalendarView.ForecastItem day2Low;
+        
+        /// <summary>
+        /// day2Events control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HomeCalendarView.CalendarItemDisplay day2Events;
         
         /// <summary>
         /// day3Label control.
@@ -281,7 +380,7 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day3High;
+        protected global::HomeCalendarView.ForecastItem day3High;
         
         /// <summary>
         /// day3Low control.
@@ -290,7 +389,16 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day3Low;
+        protected global::HomeCalendarView.ForecastItem day3Low;
+        
+        /// <summary>
+        /// day3Events control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HomeCalendarView.CalendarItemDisplay day3Events;
         
         /// <summary>
         /// day4Label control.
@@ -308,7 +416,7 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day4High;
+        protected global::HomeCalendarView.ForecastItem day4High;
         
         /// <summary>
         /// day4Low control.
@@ -317,178 +425,7 @@ namespace HomeCalendarView {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label day4Low;
-        
-        /// <summary>
-        /// day1Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day1Image1;
-        
-        /// <summary>
-        /// precipDay1am control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay1am;
-        
-        /// <summary>
-        /// day1Image2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day1Image2;
-        
-        /// <summary>
-        /// precipDay1pm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay1pm;
-        
-        /// <summary>
-        /// day2Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day2Image1;
-        
-        /// <summary>
-        /// precipDay2am control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay2am;
-        
-        /// <summary>
-        /// day2Image2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day2Image2;
-        
-        /// <summary>
-        /// precipDay2pm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay2pm;
-        
-        /// <summary>
-        /// day3Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day3Image1;
-        
-        /// <summary>
-        /// precipDay3am control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay3am;
-        
-        /// <summary>
-        /// day3Image2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day3Image2;
-        
-        /// <summary>
-        /// precipDay3pm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay3pm;
-        
-        /// <summary>
-        /// day4Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day4Image1;
-        
-        /// <summary>
-        /// precipDay4am control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay4am;
-        
-        /// <summary>
-        /// day4Image2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image day4Image2;
-        
-        /// <summary>
-        /// precipDay4pm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label precipDay4pm;
-        
-        /// <summary>
-        /// day1Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day1Events;
-        
-        /// <summary>
-        /// day2Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day2Events;
-        
-        /// <summary>
-        /// day3Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day3Events;
+        protected global::HomeCalendarView.ForecastItem day4Low;
         
         /// <summary>
         /// day4Events control.
