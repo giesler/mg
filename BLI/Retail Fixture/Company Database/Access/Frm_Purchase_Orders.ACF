@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-2002909515
+Checksum =-2002909516
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -19,7 +19,7 @@ Begin Form
     Right =12645
     Bottom =7725
     TimerInterval =500
-    MaxRecords =20000
+    MaxRecords =200000
     RecSrcDt = Begin
         0x806719a5bff6e140
     End
