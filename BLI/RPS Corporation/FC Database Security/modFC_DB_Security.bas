@@ -400,6 +400,9 @@ On Error GoTo LoadUserList_Err
 Dim r As New Recordset
 Dim sUList As String, sName As String
 
+' update list in db
+cnn.Execute "spGetNTUserList"
+
 r.Open "select * from UserList where HideUser=0", cnn, adOpenForwardOnly, adLockReadOnly
 
 fSU.lvUsers.ListItems.Clear
