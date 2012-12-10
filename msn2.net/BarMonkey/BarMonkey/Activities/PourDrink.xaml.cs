@@ -86,6 +86,8 @@ namespace BarMonkey.Activities
             relayClient.BeginSendBatch(batch, pourComplete, new object());
 
             this.statusLabel.Content = "pouring...";
+
+            BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
         }
 
         private void pourComplete(IAsyncResult ar)

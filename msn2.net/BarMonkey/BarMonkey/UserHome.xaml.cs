@@ -41,8 +41,8 @@ namespace BarMonkey
             base.OnInitialized(e);
 
             this.activityList.ItemsSource = this.GetActivities();
-
             this.favoriteList.ItemsSource = BarMonkeyContext.Current.Drinks.GetFavorites();
+            this.latestList.ItemsSource = BarMonkeyContext.Current.Drinks.GetLatest(10);
         }
 
         private void selectActivity_Click(object sender, RoutedEventArgs e)
@@ -88,7 +88,18 @@ namespace BarMonkey
 
         public string PageUrl { get; set; }
 
-        public bool IsEnabled { get; set; }
+        private bool isEnabled = true;
+        public bool IsEnabled
+        {
+            get
+            {
+                return this.isEnabled;
+            }
+            set
+            {
+                this.isEnabled = value;
+            }
+        }
 
         public override string ToString()
         {

@@ -18,18 +18,24 @@
 		<Label Grid.Row="0" FontSize="20" Grid.Column="0" HorizontalAlignment="Center">Favorites</Label>
 		<Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Center">Latest</Label>
 		<Label Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalAlignment="Center">Activites</Label>
-		<ListBox Grid.Row="1" Grid.Column="0" Name="favoriteList" Background="Transparent" BorderThickness="0" >
+		<ListBox Grid.Row="1" Grid.Column="0" Name="favoriteList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Button Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Click="favorite_Click" />
+					<Button FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Click="favorite_Click" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<ListBox Grid.Row="1" Grid.Column="1" Name="latestList" Background="Transparent" BorderThickness="0" />
+		<ListBox Grid.Row="1" Grid.Column="1" Name="latestList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Button FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Click="favorite_Click" />
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
 		<ListBox Grid.Row="1" Grid.Column="2" Name="activityList" Background="Transparent" HorizontalContentAlignment="Stretch" BorderThickness="0">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Button FontSize="14pt" Content="{Binding Path=Name}" Name="selectActivity" Click="selectActivity_Click" />
+					<Button FontSize="14pt" Content="{Binding Path=Name}" IsEnabled="{Binding Path=IsEnabled}" Name="selectActivity" Click="selectActivity_Click" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
