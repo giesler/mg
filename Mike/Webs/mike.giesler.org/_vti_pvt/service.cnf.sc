@@ -20,7 +20,7 @@ vti_oldestcompatibleversion:SR|2.0.0.0
 vti_structfrom_localhost\:80/mike:TR|25 Jun 2000 10:10:48 -0700
 vti_restartmanual:IX|0
 vti_defaultcharset:SR|windows-1252
-vti_defaultlanguage:SR|en
+vti_defaultlanguage:SR|en-us
 vti_publishmetainfokeys:VR|vti_assignedto vti_approvallevel vti_categories vti_description
 vti_hassearchbot:BR|false
 vti_autorecalc:IX|1
