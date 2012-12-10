@@ -295,6 +295,7 @@ namespace msn2.net.Pictures
                     join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
                     where per.PersonID == this.picContext.CurrentUser.Id 
                         && p.PictureDate > fromTime && p.PictureDate < toTime
+                    orderby p.PictureDate
                     select p;
 
             return q.Distinct().ToList();
