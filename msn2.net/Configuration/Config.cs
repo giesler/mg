@@ -196,7 +196,6 @@ namespace msn2.net.Configuration
 		#region Declares
 
 		private Guid itemKey = Guid.Empty;
-		protected string typeName = "ConfigData";
 		private ShellActionList shellActionList = new ShellActionList();
 		
 		#endregion
@@ -212,11 +211,6 @@ namespace msn2.net.Configuration
 		{
 			get { return itemKey; }
 			set { itemKey = value; }
-		}
-
-		public string TypeName
-		{
-			get { return typeName; }
 		}
 
 		#endregion

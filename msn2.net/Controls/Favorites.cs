@@ -302,6 +302,7 @@ namespace msn2.net.Controls
 
 	public class FavoriteConfigData: msn2.net.Configuration.ConfigData
 	{
+		public static string TypeName = "Favorite";
 
 		public override int IconIndex
 		{

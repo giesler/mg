@@ -136,6 +136,7 @@ namespace msn2.net.Controls
 
 	public class NoteConfigData: msn2.net.Configuration.ConfigData
 	{
+		public static string TypeName = "Note";
 		private string note;
 
 		public NoteConfigData()

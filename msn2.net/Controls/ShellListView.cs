@@ -52,10 +52,10 @@ namespace msn2.net.Controls
 		{
 			InitializeComponent();
 
-			Type[] def  = new Type[3];
+			Type[] def  = new Type[2];
 			def[0]		= typeof(FavoriteConfigData);
 			def[1]		= typeof(NoteConfigData);
-			def[2]		= typeof(RecipeConfigData);
+			//def[2]		= typeof(RecipeConfigData);
 			this.types	= def;
 
 			// Set up context menu
@@ -97,11 +97,11 @@ namespace msn2.net.Controls
 			this.listViewFavorites = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.SuspendLayout();
 			// 
 			// listViewFavorites
@@ -131,6 +131,13 @@ namespace msn2.net.Controls
 			this.columnHeader2.Text = "Type";
 			this.columnHeader2.Width = 200;
 			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// contextMenu1
 			// 
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
@@ -157,19 +164,13 @@ namespace msn2.net.Controls
 			this.menuItemDelete.Text = "&Delete";
 			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
 			// 
-			// imageList1
-			// 
-			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
 			// ShellListView
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.listViewFavorites});
 			this.Name = "ShellListView";
 			this.Size = new System.Drawing.Size(150, 130);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShellListView_Paint);
 			this.ResumeLayout(false);
 
 		}
@@ -250,7 +251,10 @@ namespace msn2.net.Controls
 			MenuItem addMenu = contextMenu.MenuItems.Add("Add");
 			foreach (Type t in types)
 			{
-				MenuItem menuItem = new MenuItem(t.ToString(), new EventHandler(menuItemAdd_Click));
+				object retVal = t.InvokeMember("TypeName", BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public, null, null, new object[] {});
+
+				AddMenuItem menuItem = new AddMenuItem(retVal.ToString(), new EventHandler(menuItemAdd_Click), t);
+				
 				addMenu.MenuItems.Add(menuItem);
 			}
 
@@ -267,27 +271,21 @@ namespace msn2.net.Controls
 
 		private void menuItemAdd_Click(object sender, System.EventArgs e)
 		{
-            MenuItem item = (MenuItem) sender;
+            AddMenuItem item = (AddMenuItem) sender;
 			
 			// Get the type of item clicked
-			foreach (Type t in types)
-			{
-				if (item.Text == t.ToString())
-				{
-					MethodInfo mi = t.GetMethod("Add");
-					object[] methodParams = new object[2];
-					methodParams [0] = this;
-					methodParams [1] = new ConfigDataAddEventArgs(this.parentForm, this.Data);
-					object retVal = mi.Invoke(new object(), methodParams );
+			MethodInfo mi = item.Type.GetMethod("Add");
+			object[] methodParams = new object[2];
+			methodParams [0] = this;
+			methodParams [1] = new ConfigDataAddEventArgs(this.parentForm, this.Data);
+			object retVal = mi.Invoke(new object(), methodParams );
 
-					// Update form if user didn't cancel
-					if (retVal != null)
-					{
-						Data newData = (Data) retVal;
-						DataListViewItem listViewItem = new DataListViewItem(newData);
-						listViewFavorites.Items.Add(listViewItem);
-					}
-				}
+			// Update form if user didn't cancel
+			if (retVal != null)
+			{
+				Data newData = (Data) retVal;
+				DataListViewItem listViewItem = new DataListViewItem(newData);
+				listViewFavorites.Items.Add(listViewItem);
 			}
 		
 		}
@@ -401,6 +399,33 @@ namespace msn2.net.Controls
 			this.menuItemAdd.MenuItems.Add("Favorite", new EventHandler(menuItemAdd_Click));
 			//this.menuItemAdd.MenuItems.Add("Note", new EventHandler(menuItemAdd_Note_Click));
 			//this.menuItemAdd.MenuItems.Add("Recipe", new EventHandler(menuItemAdd_Recipe_Click));
+		}
+
+		#endregion
+
+		private void ShellListView_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+		}
+
+		#region AddMenuItem class
+
+		private class AddMenuItem: MenuItem
+		{
+			private Type type;
+
+			public AddMenuItem(string text, System.EventHandler onClick, Type type): base(text, onClick)
+			{
+				this.type = type;
+			}
+
+			public Type Type
+			{
+				get 
+				{ 
+					return type;
+				}
+			}
 		}
 
 		#endregion

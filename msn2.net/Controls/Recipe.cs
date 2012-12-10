@@ -303,6 +303,8 @@ namespace msn2.net.Controls
 
 	public class RecipeConfigData: msn2.net.Configuration.ConfigData
 	{
+		public static string TypeName = "Note";
+
 		private string note;
 		private string url;
 		private string description;
