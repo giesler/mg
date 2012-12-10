@@ -391,7 +391,7 @@ namespace msn2.net.Pictures
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_ResetPassword", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
-			cmd.Parameters.Add("@guid", SqlDbType.Binary);
+			cmd.Parameters.Add("@guid", SqlDbType.UniqueIdentifier);
 			cmd.Parameters.Add("@password", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@success", SqlDbType.Bit);
 			cmd.Parameters["@success"].Direction = ParameterDirection.Output;

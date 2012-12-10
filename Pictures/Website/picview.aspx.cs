@@ -36,6 +36,7 @@ namespace pics
 		protected System.Web.UI.WebControls.LinkButton clearBasket;
         protected int pictureId;
         protected string ratingServerCallbackFunction;
+        protected string callbackReturnValue = null;
 
         #endregion
 
@@ -445,7 +446,7 @@ namespace pics
             return string.Format("Average: {0:0.0}", average);
         }
 
-        public string RaiseCallbackEvent(string eventArgument)
+        public void RaiseCallbackEvent(string eventArgument)
         {
             Trace.Write("RaiseCallbackEvent started");
 
@@ -458,7 +459,13 @@ namespace pics
 
             Trace.Write("RaiseCallbackEvent ended: " + returnValue);
 
-            return returnValue;
+            callbackReturnValue = returnValue;
         }
+
+        public string GetCallbackResult()
+        {
+            return callbackReturnValue;
+        }
+        
     }
 }

@@ -94,6 +94,17 @@ namespace pics.auth
 //				byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(password.Text);
 //				byte[] bOut = crypt.ComputeHash(b);
 
+                if (Request.QueryString["ReturnURL"] != null)
+                {
+                    string url = Request.QueryString["ReturnURL"];
+                    if (url.IndexOf("Logout.aspx") > 0)
+                    {
+                        FormsAuthentication.SetAuthCookie(info.Id.ToString(), chkSave.Checked);
+                        Response.Redirect("../default.aspx");
+                        return;
+                    }
+                }
+
 				FormsAuthentication.RedirectFromLoginPage(info.Id.ToString(), chkSave.Checked);
 			}
 			else if (valid)

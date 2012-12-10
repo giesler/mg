@@ -25,7 +25,9 @@ namespace pics.Auth
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
 		}
 
 		private void Page_Init(object sender, EventArgs e)
