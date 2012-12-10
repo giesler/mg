@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1674782635
+Checksum =-135318971
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -416,7 +416,7 @@ Begin Form
                     Height =240
                     ForeColor =8388608
                     Name ="lblShipAddress1"
-                    Caption ="Address 1: "
+                    Caption ="Mall: "
                     OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
                     GUID = Begin
                         0x4eb5b693fa761c48908804f79410a1bf

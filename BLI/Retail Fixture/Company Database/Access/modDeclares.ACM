@@ -15,4 +15,4 @@ Public Const gstrDBOPassword = "120960011014"
 
 Public Const cnVersionMajor = 3.34
 Public Const cnVersionMinor = 0
-Public Const cnVersionDate = #9/21/2002#
+Public Const cnVersionDate = #10/2/2002#

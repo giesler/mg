@@ -1,10 +1,11 @@
 Version =19
 VersionRequired =19
-Checksum =-2002909516
+Checksum =82247750
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
     DividingLines = NotDefault
+    AllowAdditions = NotDefault
     DefaultView =0
     AllowUpdating =4
     ScrollBars =0
@@ -13,11 +14,11 @@ Begin Form
     GridX =24
     GridY =24
     Width =11985
-    ItemSuffix =279
+    ItemSuffix =285
     Left =405
-    Top =405
-    Right =12645
-    Bottom =7725
+    Top =795
+    Right =12390
+    Bottom =8400
     TimerInterval =500
     MaxRecords =200000
     RecSrcDt = Begin
@@ -36,8 +37,8 @@ Begin Form
     End
     PrtDevMode = Begin
         0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
-        0x010400059c00340243ef800701000100ea0a6f08640001000f00680102000100 ,
-        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000010000000000000001000000 ,
         0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
         0x2200000034020000114c35610000000000000000000000000000000000000000 ,
@@ -60,8 +61,9 @@ Begin Form
         0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
-        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+        0x080011002900010077696e73706f6f6c005c5c6b796c655c4850204c61736572 ,
+        0x4a657420323130300049505f31302e31302e312e393000000000000000000000 ,
+        0x00000000000000
     End
     OnTimer ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
@@ -712,7 +714,7 @@ Begin Form
                             Width =1020
                             Height =240
                             Name ="lblFTofTruck"
-                            Caption ="FT of Truck"
+                            Caption ="Truck Space"
                             FontName ="Arial"
                             GUID = Begin
                                 0x494507dec9fb4e4784943bc8fbb99c1f
@@ -955,7 +957,7 @@ Begin Form
                                     Height =240
                                     ForeColor =8388608
                                     Name ="lblShipAddress1"
-                                    Caption ="Address 1: "
+                                    Caption ="Mall:"
                                     FontName ="Arial"
                                     OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
                                     GUID = Begin
@@ -1447,38 +1449,6 @@ Begin Form
                         0x07a3f554b66dda4698dbd627d9c75089
                     End
                 End
-                Begin ComboBox
-                    RowSourceTypeInt =1
-                    OverlapFlags =87
-                    Left =9180
-                    Top =3840
-                    Width =2100
-                    TabIndex =23
-                    GUID = Begin
-                        0xf50073327de43942b17228e216a87cda
-                    End
-                    Name ="Combo275"
-                    ControlSource ="TruckSpace"
-                    RowSourceType ="Value List"
-                    RowSource ="1/4;1/2;3/4;Full"
-                    OnGotFocus ="=ControlGotFocus()"
-                    OnLostFocus ="=ControlLostFocus()"
-                    Begin
-                        Begin Label
-                            OverlapFlags =93
-                            TextAlign =3
-                            Left =8040
-                            Top =3840
-                            Width =1140
-                            Height =240
-                            Name ="Label276"
-                            Caption ="Truck Space:"
-                            GUID = Begin
-                                0x8e8bd172b874cc42a669e5bf56aaaca8
-                            End
-                        End
-                    End
-                End
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
@@ -1488,7 +1458,7 @@ Begin Form
                     Top =3900
                     Width =6720
                     Height =420
-                    TabIndex =24
+                    TabIndex =23
                     Name ="Text277"
                     ControlSource ="TrafficComments"
                     FontName ="Arial"
@@ -1529,7 +1499,7 @@ Begin Form
                     TabIndex =1
                     Name ="cmdPrevious"
                     Caption ="Previous"
-                    OnClick ="=fRecNav(\"prev\")"
+                    OnClick ="[Event Procedure]"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1584,7 +1554,7 @@ Begin Form
                     TabIndex =3
                     Name ="cmdNext"
                     Caption ="Next"
-                    OnClick ="=fRecNav(\"next\")"
+                    OnClick ="[Event Procedure]"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1623,7 +1593,7 @@ Begin Form
                     FontWeight =400
                     Name ="cmdFirst"
                     Caption ="First"
-                    OnClick ="=fRecNav(\"first\")"
+                    OnClick ="[Event Procedure]"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1663,7 +1633,7 @@ Begin Form
                     TabIndex =4
                     Name ="cmdLast"
                     Caption ="Last"
-                    OnClick ="=fRecNav(\"last\")"
+                    OnClick ="[Event Procedure]"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1705,7 +1675,7 @@ Begin Form
                     Name ="cmdNew"
                     Caption ="&New"
                     StatusBarText ="Goto a new record"
-                    OnClick ="=fRecNav(\"new\")"
+                    OnClick ="[Event Procedure]"
                     FontName ="Arial"
                     ControlTipText ="Create New Purchase Order"
                 End
@@ -1770,6 +1740,8 @@ Private mblnInitPO As Boolean     ' flag to track if we are in InitPO function a
 Private mlngJumpToID As Long      ' jump to this ID when recordset loaded
 Private mlngTicks As Long         ' number of ticks left before giving up
 Private mblnLoading As Boolean
+
+Private mbIsNewPO As Boolean
 
 Private Sub chkCancelPO_Click()
 On Error GoTo errHandler
@@ -1946,6 +1918,71 @@ ErrHand Me.Name, "cmdFinished"
 Exit Sub
 End Sub
 
+Private Sub cmdFirst_Click()
+
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+    
+    ' Now do the normal thing
+    fRecNav "first"
+    
+End Sub
+
+Private Sub cmdLast_Click()
+
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+    
+    ' Now do the normal thing
+    fRecNav "last"
+    
+End Sub
+
+Private Sub cmdNew_Click()
+
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+    
+    ' Now do the normal thing
+    fRecNav "new"
+
+End Sub
+
+Private Sub cmdNext_Click()
+
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+    
+    ' Now do the normal thing
+    fRecNav "next"
+
+End Sub
+
+Private Sub cmdPrevious_Click()
+
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+    
+    ' Now do the normal thing
+    fRecNav "prev"
+    
+End Sub
+
 Private Sub cmdSendReplyTo_Click()
 
     Dim lngReturn As Long
@@ -1999,6 +2036,9 @@ On Error GoTo errHandler
 '    Me.subPOItems.LinkChildFields = ""
   End If
   
+  ' NN 10/1/02
+  mbIsNewPO = True
+  
 Exit Sub
 errHandler:
 ErrHand Me.Name, "Form_BeforeInsert"
@@ -2008,13 +2048,17 @@ End Sub
 Private Sub Form_Close()
 On Error GoTo errHandler
 
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+
   DoCmd.Close acForm, "fdlgFind"
   Call CSStopDDE
 
 Exit Sub
 errHandler:
-ErrHand Me.Name, "Form_Close"
-Exit Sub
 End Sub
 
 Private Sub Form_Current()
@@ -2022,6 +2066,20 @@ On Error GoTo errHandler
 
   Dim lngID As Long, i As Long
 
+    ' NN 10/1/02
+    mbIsNewPO = False
+    If Me.txtID <> 0 Then
+        Dim rs
+        Set rs = gConn.Execute("SELECT NotDoneYet FROM Tbl_Po WHERE ID=" & Me.txtID)
+        If Not rs.EOF Then
+            If rs("NotDoneYet") = True Then
+                Me.Detail0.BackColor = vbRed
+            Else
+               Me.Detail0.BackColor = vb3DFace
+            End If
+        End If
+    End If
+    
   ' Reset flag just in case, and if a new rec run InitPO
   mblnInitPO = False
   If IsNull(Me.txtID) Then
