@@ -20,6 +20,8 @@ namespace HomeCalendarView
     {
         protected override void OnLoad(EventArgs e)
         {
+            this.closeWarning.Click += new EventHandler(closeWarning_Click);
+
             this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM dd").ToLower();
             this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
@@ -31,22 +33,44 @@ namespace HomeCalendarView
             DisplayCalendar();
 
             DisplayForecast();
+
+            DisplayWeatherAlerts();
+
+            if (this.IsPostBack)
+            {
+                if (this.Request["_EVENTARGUMENT"] != null)
+                {
+                    this.warningPanel.Visible = true;
+                    this.forecastPanel.Visible = false;
+                }
+            }
         }
 
+        void closeWarning_Click(object sender, EventArgs e)
+        {
+            this.warningPanel.Visible = false;
+            this.forecastPanel.Visible = true;
+        }
+        
         private void DisplayForecast()
         {
             GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
 
-            string latLongList = weatherService.LatLonListZipCode("98033");
-            XmlDocument latLongDoc = new XmlDocument();
-            latLongDoc.LoadXml(latLongList);
-            latLongList = latLongDoc.DocumentElement.InnerText; ;
+            decimal lat = 47.6727M;
+            decimal lng = -122.187M;
 
-            string[] latLongs = latLongList.Split(',');
-            decimal lat = decimal.Parse(latLongs[0]);
-            decimal lng = decimal.Parse(latLongs[1]);
+            string xml = null;
+            object cacheItem = HttpContext.Current.Cache["forecastCache"];
+            if (cacheItem == null)
+            {
+                xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", HomeCalendarView.GovWeatherService.formatType.Item12hourly);
+                HttpContext.Current.Cache.Add("forecastCache", xml, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            else
+            {
+                xml = cacheItem.ToString();
+            }
 
-            string xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", HomeCalendarView.GovWeatherService.formatType.Item12hourly);
             XmlDocument weatherXml = new XmlDocument();
             weatherXml.LoadXml(xml);
 
@@ -57,7 +81,6 @@ namespace HomeCalendarView
                 this.todayHighTemp.Visible = false;
                 this.todayWeatherImage2.Visible = false;
                 this.precipToday2.Visible = false;
-                this.highPrefix.Visible = false;
             }
 
             foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
@@ -67,20 +90,20 @@ namespace HomeCalendarView
                     case "maximum":
                         if (offset == 0)
                         {
-                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText;
+                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText + "&deg;";
                         }
-                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText;
-                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText;
-                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText;
-                        day4High.Text = tempNode.ChildNodes[5 + offset].InnerText;
+                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText + "&deg;";
+                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText + "&deg;";
+                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText + "&deg;";
+                        day4High.Text = tempNode.ChildNodes[5 + offset].InnerText + "&deg;";
                         break;
 
                     case "minimum":
-                        todayLowTemp.Text = tempNode.ChildNodes[1].InnerText;
-                        day1Low.Text = tempNode.ChildNodes[2].InnerText;
-                        day2Low.Text = tempNode.ChildNodes[3].InnerText;
-                        day3Low.Text = tempNode.ChildNodes[4].InnerText;
-                        day4Low.Text = tempNode.ChildNodes[5].InnerText;
+                        todayLowTemp.Text = tempNode.ChildNodes[1].InnerText + "&deg;";
+                        day1Low.Text = tempNode.ChildNodes[2].InnerText + "&deg;";
+                        day2Low.Text = tempNode.ChildNodes[3].InnerText + "&deg;";
+                        day3Low.Text = tempNode.ChildNodes[4].InnerText + "&deg;";
+                        day4Low.Text = tempNode.ChildNodes[5].InnerText + "&deg;";
                         break;
                 }
             }
@@ -127,6 +150,19 @@ namespace HomeCalendarView
             day4Image2.AlternateText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
         }
 
+        private static void GetLatLong(GovWeatherService.ndfdXML weatherService, out decimal lat, out decimal lng)
+        {
+            string latLongList = weatherService.LatLonListZipCode("98033");
+
+            XmlDocument latLongDoc = new XmlDocument();
+            latLongDoc.LoadXml(latLongList);
+            latLongList = latLongDoc.DocumentElement.InnerText; ;
+
+            string[] latLongs = latLongList.Split(',');
+            lat = decimal.Parse(latLongs[0]);
+            lng = decimal.Parse(latLongs[1]);
+        }
+
         private void DisplayCalendar()
         {
             List<CalendarItem> items = GetCalendarItems();
@@ -167,15 +203,33 @@ namespace HomeCalendarView
 
         private void DisplayCurrent()
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
+            XmlDocument doc = null;
+            object cacheItem = HttpContext.Current.Cache["current"];
+            if (cacheItem == null)
+            {
+                doc = new XmlDocument();
+                doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
+                HttpContext.Current.Cache.Add("current", doc, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            else
+            {
+                doc = (XmlDocument)cacheItem;
+            }
 
-            this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText;
+            this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText + "&deg;";
 
             string windDirection = doc.DocumentElement.SelectSingleNode("wind_dir").InnerText;
-            decimal windSpeed = decimal.Parse(doc.DocumentElement.SelectSingleNode("wind_mph").InnerText);
+            string windMph = doc.DocumentElement.SelectSingleNode("wind_mph").InnerText;
+            if (windMph == "NA")
+            {
+                this.windLabel.Text = "calm";
+            }
+            else
+            {
+                decimal windSpeed = decimal.Parse(windMph);
+                this.windLabel.Text = windDirection + " at " + ((int)windSpeed).ToString() + " mph";
+            }
 
-            this.windLabel.Text = windDirection + " at " + ((int)windSpeed).ToString() + " mph";
             this.windChill.Text = doc.DocumentElement.SelectSingleNode("windchill_f").InnerText;
             this.visibility.Text = doc.DocumentElement.SelectSingleNode("visibility_mi").InnerText;
 
@@ -183,6 +237,62 @@ namespace HomeCalendarView
             conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
             this.currentCondition.ImageUrl = conditionImage;
             this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
+        }
+
+        private void DisplayWeatherAlerts()
+        {
+            XElement alertFeed = null;
+            object cacheItem = HttpContext.Current.Cache["alerts"];
+            if (cacheItem == null)
+            {
+                alertFeed = XElement.Load("http://www.weather.gov/alerts/wwarssget.php?zone=WAZ505");
+                HttpContext.Current.Cache.Add("alerts", alertFeed, null, DateTime.MaxValue, new TimeSpan(0, 5, 0), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            else
+            {
+                alertFeed = (XElement)cacheItem;
+            }
+
+            var items = from item in alertFeed.Elements("channel").Elements("item")
+                        select item;
+
+            if (items.Count() == 0)
+            {
+                this.warningCell.Visible = false;
+            }
+            else
+            {
+                this.warningCell.Visible = true;
+                this.warnings.Controls.Clear();
+
+                foreach (var o in items)
+                {
+                    string title = o.Element("title").Value.Replace(" - East Puget Sound Lowlands (Washington)", "").Trim();
+                    string description = o.Element("description").Value;
+                    string shortDescription = description;
+                    if (description.IndexOf("<br><br>") > 0)
+                    {
+                        shortDescription = description.Substring(0, description.IndexOf("<br><br>") - 1).Replace("<br>", " ");
+                    }
+
+                    if (description.IndexOf("$$") > 0)
+                    {
+                        description = description.Substring(0, description.IndexOf("$$"));
+                    }
+
+                    LinkButton link = new LinkButton { Text = title, ToolTip = shortDescription };
+                    link.Click += new EventHandler(link_Click);
+                    this.warnings.Controls.Add(link);
+
+                    this.warningText.Text = description.ToLower();
+                }
+            }                        
+        }
+
+        void link_Click(object sender, EventArgs e)
+        {
+            this.forecastPanel.Visible = false;
+            this.warningPanel.Visible = true;
         }
 
         private List<CalendarItem> GetCalendarItems()

@@ -77,6 +77,24 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Label visibility;
         
         /// <summary>
+        /// warningCell control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell warningCell;
+        
+        /// <summary>
+        /// warnings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel warnings;
+        
+        /// <summary>
         /// todayWeatherImage1 control.
         /// </summary>
         /// <remarks>
@@ -84,15 +102,6 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image todayWeatherImage1;
-        
-        /// <summary>
-        /// highPrefix control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label highPrefix;
         
         /// <summary>
         /// todayHighTemp control.
@@ -111,15 +120,6 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image todayWeatherImage2;
-        
-        /// <summary>
-        /// lowPrefix control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lowPrefix;
         
         /// <summary>
         /// todayLowTemp control.
@@ -165,6 +165,51 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label todayDateLabel;
+        
+        /// <summary>
+        /// warningPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel warningPanel;
+        
+        /// <summary>
+        /// closeWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton closeWarning;
+        
+        /// <summary>
+        /// warningText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label warningText;
+        
+        /// <summary>
+        /// forecastPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel forecastPanel;
+        
+        /// <summary>
+        /// forecastRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow forecastRow;
         
         /// <summary>
         /// day1Label control.
