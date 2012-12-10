@@ -60,6 +60,8 @@ namespace msn2.net.Pictures
         {
             PictureScreenSaver ss = new PictureScreenSaver();
             ss.Interval = Properties.Settings.Default.SlideshowInterval;
+            ss.Path = Properties.Settings.Default.Path;
+            ss.GroupId = Properties.Settings.Default.Group;
             Application.Run(ss);
         }
     }

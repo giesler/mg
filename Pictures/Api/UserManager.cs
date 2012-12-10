@@ -14,11 +14,11 @@ namespace msn2.net.Pictures
 	/// </summary>
 	public class UserManager
 	{
-		private string connectionString;
+		private PicContext context;
 
-		public UserManager(string connectionString)
+		public UserManager(PicContext context)
 		{
-			this.connectionString = connectionString;
+            this.context = context;
 		}
 
 		/// <summary>
@@ -31,7 +31,7 @@ namespace msn2.net.Pictures
 		public int AddNewUserRequest(string name, string email, string password)
 		{
 			// add new login request
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd   = new SqlCommand("sp_LoginRequest_Add", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
 
@@ -63,7 +63,7 @@ namespace msn2.net.Pictures
 		public Guid GetPasswordResetKey(string email)
 		{
 			// connect to db and see if email is found
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd   = new SqlCommand("sp_ForgotPassword", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 150);
@@ -90,7 +90,7 @@ namespace msn2.net.Pictures
 		{
 
 			// set up a connection and command to retreive info
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_PersonInfo", cn);
 			SqlDataReader dr	= null;
 			PersonInfo info		= null;
@@ -134,7 +134,7 @@ namespace msn2.net.Pictures
 		public PersonInfo GetPerson(string userName)
 		{
 			// set up a connection and command to retreive info
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_PersonInfoByUserName", cn);
 			SqlDataReader dr	= null;
 			PersonInfo info		= null;
@@ -170,7 +170,7 @@ namespace msn2.net.Pictures
         public PersonInfo GetPersonByEmail(string email)
         {
             // set up a connection and command to retreive info
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("dbo.sp_PersonInfoByEmail", cn);
             SqlDataReader dr = null;
             PersonInfo info = null;
@@ -209,7 +209,7 @@ namespace msn2.net.Pictures
 
 			// set up a connection and command to retreive info
 			
-            SqlConnection cn	= new SqlConnection(connectionString);
+            SqlConnection cn	= new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_Login2", cn);
 			SqlDataReader dr	= null;
 			PersonInfo info		= null;
@@ -293,11 +293,15 @@ namespace msn2.net.Pictures
 			
 		}
 
+        public IQueryable<Person> GetPeople()
+        {
+            return this.context.DataContext.Persons;
+        }
 
 		public PersonInfo GetNewUserRequest(int id)
 		{
 			// set up objects to get info
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd   = new SqlCommand("sp_LoginRequest_Retreive", cn);
 			SqlDataReader dr = null;
 			PersonInfo info	 = null;
@@ -340,7 +344,7 @@ namespace msn2.net.Pictures
 		public void AssociateRequestWithPerson(int requestId, int personId)
 		{
 			// create conneciton, command
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_LoginRequest_Associate", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@RequestID", SqlDbType.Int);
@@ -371,7 +375,7 @@ namespace msn2.net.Pictures
 		public void AddNewPerson(int requestId, string firstName, string lastName, string fullName)
 		{
 			// set up connection, command
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_LoginRequest_NewPerson", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
 
@@ -413,7 +417,7 @@ namespace msn2.net.Pictures
 			string encodedPassword = System.Text.ASCIIEncoding.ASCII.GetString(bPassword);
 
             // set up a connection and command to update password
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("dbo.up_UserManager_ResetPassword", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
@@ -436,7 +440,7 @@ namespace msn2.net.Pictures
 		public bool ResetPassword(string email, string password, Guid resetKey)
 		{
 			// set up a connection and command to update password
-			SqlConnection cn = new SqlConnection(connectionString);
+			SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_ResetPassword", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
@@ -461,7 +465,7 @@ namespace msn2.net.Pictures
 		{
 			PersonInfoCollection col	= new PersonInfoCollection();
 
-			SqlConnection cn			= new SqlConnection(connectionString);
+			SqlConnection cn			= new SqlConnection(this.context.Config.ConnectionString);
 			SqlCommand cmd				= new SqlCommand("dbo.sp_Person_Find", cn);
 			SqlDataReader dr			= null;
 			cmd.CommandType				= CommandType.StoredProcedure;

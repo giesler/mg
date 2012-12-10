@@ -117,6 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Group.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="Http\GetImageHttpHandler.cs" />
     <Compile Include="Http\PicHttpModule.cs" />

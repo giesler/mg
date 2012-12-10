@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace msn2.net.Pictures.Controls.Picture
+namespace msn2.net.Pictures.Controls
 {
     /// <summary>
     /// Interaction logic for PictureFlowList.xaml

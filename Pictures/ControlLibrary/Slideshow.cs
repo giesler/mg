@@ -76,7 +76,12 @@ namespace msn2.net.Pictures.Controls
 
         public void SetPicture(PictureData picture)
         {
-            this.picture = PicContext.Current.PictureManager.GetPicture(picture.Id);
+            this.SetPicture(picture.Id);
+        }
+
+        public void SetPicture(int id)
+        {
+            this.picture = PicContext.Current.PictureManager.GetPicture(id);
 
             this.item.SetPicture(picture);
 

@@ -63,7 +63,8 @@ namespace msn2.net.Pictures
 
         public static bool LoginWindowsUser(PictureConfig config)
         {
-            UserManager userManager = new UserManager(config.ConnectionString);
+            PicContext context = new PicContext(config);
+            UserManager userManager = new UserManager(context);
             PersonInfo loginInfo = null;
 
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
@@ -81,7 +82,8 @@ namespace msn2.net.Pictures
         {
             string dbPassword = UserManager.GetEncryptedPassword(password);
 
-            UserManager userManager = new UserManager(config.ConnectionString);
+            PicContext context = new PicContext(config);
+            UserManager userManager = new UserManager(context);
 
             bool isValidEmail = false;
             PersonInfo loginInfo = userManager.Login(userName, dbPassword, ref isValidEmail);
@@ -104,8 +106,8 @@ namespace msn2.net.Pictures
 			pictureManager	= new PictureManager(this);
 			categoryManager	= new CategoryManager(config.ConnectionString);
             pictureCache = new PictureCacheInfo();
-            userManager		= new UserManager(config.ConnectionString);
-            groupManager = new GroupManager(config.ConnectionString);
+            userManager		= new UserManager(this);
+            groupManager = new GroupManager(this);
 			currentUser		= null;
             this.picData = new PictureDataContext(config.ConnectionString);
 		}

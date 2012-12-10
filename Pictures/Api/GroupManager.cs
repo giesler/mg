@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Linq;
 
 namespace msn2.net.Pictures
 {
     public class GroupManager
     {
-        private string connectionString;
+        private PicContext context;
 
-        internal GroupManager(string connectionString)
+        internal GroupManager(PicContext context)
         {
-            this.connectionString = connectionString;
+            this.context = context;
         }
 
         public PersonGroupInfo GetGroup(int groupId)
         {
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("up_GroupManager_GetGroup", cn);
             SqlDataReader dr = null;
             PersonGroupInfo group = null;
@@ -63,6 +64,11 @@ namespace msn2.net.Pictures
             }
 
             return group;
+        }
+
+        public IQueryable<Group> GetGroups()
+        {
+            return this.context.DataContext.Groups;
         }
     }
 }

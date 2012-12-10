@@ -13,12 +13,17 @@ namespace msn2.net.Pictures.Controls
         private List<PictureData> pictures = new List<PictureData>();
         protected Timer timer = new Timer();
         private Label errorLabel = new Label();
+        public string Path { get; set; }
+        public int GroupId { get; set; }
 
         public RandomSlideshow() :
             base(new PictureControlSettings(), null, null)
         {
             base.getPreviousId = new GetPreviousItemIdDelegate(GetPreviousPicture);
             base.getNextId = new GetNextItemIdDelegate(GetNextPicture);
+
+            this.Path = @"\";
+            this.GroupId = 0;
 
             this.errorLabel = new Label();
             this.errorLabel.ForeColor = Color.Red;
@@ -59,10 +64,19 @@ namespace msn2.net.Pictures.Controls
 
             if (PicContext.Current != null)
             {
-                base.SetPicture(PicContext.Current.PictureManager.GetRandomPicture());
+                Picture pic = this.GetRandomPicture();
+                if (pic != null)
+                {
+                    base.SetPicture(pic.Id);
+                }
                 this.timer.Enabled = true;
                 this.timer.Start();
             }
+        }
+
+        Picture GetRandomPicture()
+        {
+            return PicContext.Current.PictureManager.GetRandomPicture(750, 700, this.Path, this.GroupId);
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -112,23 +126,40 @@ namespace msn2.net.Pictures.Controls
         private PictureData GetNextPicture(int currentPictureId)
         {
             int index = GetPictureIndex(currentPictureId);
-            if (index < 0 || index == pictures.Count-1)
+            PictureData addedPicture = null;
+            if (index < 0 || index == pictures.Count - 1)
             {
-                PictureData addedPicture = null;
+                int retryCount = 100;
                 do
                 {
-                    PictureData randomPicture = PicContext.Current.PictureManager.GetRandomPicture();
-
-                    addedPicture = pictures.Find(p => p.Id == randomPicture.Id);
-                    if (addedPicture == null)
+                    Picture randomPicture = this.GetRandomPicture();
+                    if (randomPicture != null)
                     {
-                        pictures.Add(randomPicture);
+                        PictureData pd = PicContext.Current.PictureManager.GetPicture(randomPicture.Id);
+
+                        addedPicture = pictures.Find(p => p.Id == pd.Id);
+
+                        if (addedPicture == null)
+                        {
+                            pictures.Add(pd);
+                        }
                     }
 
-                } while (addedPicture != null);
+                    retryCount--;
+
+                } while (addedPicture != null && retryCount > 0);
             }
 
-            return pictures[index + 1];
+            PictureData pic = null;
+            if (addedPicture == null)
+            {
+                this.pictures.Clear();
+            }
+            else
+            {
+                pic = pictures[index + 1];
+            }
+            return pic;
         }
 
 

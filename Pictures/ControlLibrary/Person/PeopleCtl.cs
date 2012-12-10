@@ -60,7 +60,7 @@ namespace msn2.net.Pictures.Controls
 
         private void ReloadThread(object state)
         {
-            this.cachedPersonList = (from p in PicContext.Current.DataContext.Persons
+            this.cachedPersonList = (from p in PicContext.Current.UserManager.GetPeople()
                                      select p).ToList<Person>();
         
             this.Invoke(new MethodInvoker(delegate (){
