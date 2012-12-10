@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	// A delegate type for hooking up change notifications.
 	public delegate void AddedGroupEventHandler(object sender, GroupPickerEventArgs e);
@@ -28,7 +28,7 @@ namespace PicAdmin
 		private System.Windows.Forms.Button btnRemove;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private PicAdmin.GroupControl groupControl;
+		private msn2.net.Pictures.Controls.GroupControl groupControl;
 		private System.Windows.Forms.ListView selectedGroups;
 		protected bool allowRemoveEveryone = true;
 
@@ -73,7 +73,7 @@ namespace PicAdmin
 		{
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.btnAdd = new System.Windows.Forms.Button();
-			this.groupControl = new PicAdmin.GroupControl();
+			this.groupControl = new msn2.net.Pictures.Controls.GroupControl();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRemove = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
@@ -108,7 +108,7 @@ namespace PicAdmin
 			this.groupControl.Name = "groupControl";
 			this.groupControl.Size = new System.Drawing.Size(150, 168);
 			this.groupControl.TabIndex = 0;
-			this.groupControl.DoubleClickGroup += new PicAdmin.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
+			this.groupControl.DoubleClickGroup += new msn2.net.Pictures.Controls.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
 			// 
 			// panel2
 			// 
@@ -261,7 +261,7 @@ namespace PicAdmin
 			selectedGroups.Items.Clear();
 		}
 
-		private void groupControl_DoubleClickGroup(object sender, PicAdmin.GroupControlEventArgs e)
+		private void groupControl_DoubleClickGroup(object sender, msn2.net.Pictures.Controls.GroupControlEventArgs e)
 		{
 			btnAdd_Click(sender, e);
 		}

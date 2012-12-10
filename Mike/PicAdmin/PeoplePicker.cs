@@ -6,7 +6,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	// A delegate type for hooking up change notifications.
 	public delegate void AddedPersonEventHandler(object sender, PersonPickerEventArgs e);
@@ -25,7 +25,7 @@ namespace PicAdmin
 	public class PersonPicker : System.Windows.Forms.UserControl
 	{
 
-		private PicAdmin.DataSetCategory dsCategory = new PicAdmin.DataSetCategory();
+		private msn2.net.Pictures.Controls.DataSetCategory dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Splitter splitter1;
@@ -33,7 +33,7 @@ namespace PicAdmin
 		private System.Windows.Forms.ListView lvPeople;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.Button btnRemove;
-		private PicAdmin.PeopleCtl peopleCtl1;
+		private msn2.net.Pictures.Controls.PeopleCtl peopleCtl1;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -69,7 +69,7 @@ namespace PicAdmin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.peopleCtl1 = new PicAdmin.PeopleCtl();
+			this.peopleCtl1 = new msn2.net.Pictures.Controls.PeopleCtl();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lvPeople = new System.Windows.Forms.ListView();
@@ -87,7 +87,7 @@ namespace PicAdmin
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(192, 192);
 			this.peopleCtl1.TabIndex = 0;
-			this.peopleCtl1.DoubleClickPerson += new PicAdmin.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
+			this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnAdd
 			// 
@@ -250,7 +250,7 @@ namespace PicAdmin
 			}
 		}
 
-		private void peopleCtl1_DoubleClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
+		private void peopleCtl1_DoubleClickPerson(object sender, msn2.net.Pictures.Controls.PersonCtlEventArgs e)
 		{
 			btnAdd_Click(sender, e );
 		}

@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fEditCategory.
@@ -24,8 +24,8 @@ namespace PicAdmin
 		private System.Windows.Forms.TextBox txtDescription;
 		private System.Data.SqlClient.SqlConnection cn;
 		private System.Data.SqlClient.SqlDataAdapter daCategory;
-		private PicAdmin.DataSetCategory dsCategory;
-		private PicAdmin.GroupPicker groupPicker1;
+		private msn2.net.Pictures.Controls.DataSetCategory dsCategory;
+		private msn2.net.Pictures.Controls.GroupPicker groupPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daCategoryGroup;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand2;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand2;
@@ -56,7 +56,8 @@ namespace PicAdmin
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+			cn.ConnectionString =  Config.ConnectionString;
+			this.Opacity		= Config.Opacity;
 
 		}
 
@@ -83,7 +84,7 @@ namespace PicAdmin
 		private void InitializeComponent()
 		{
 			this.cn = new System.Data.SqlClient.SqlConnection();
-			this.dsCategory = new PicAdmin.DataSetCategory();
+			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -102,7 +103,7 @@ namespace PicAdmin
 			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.txtCategoryName = new System.Windows.Forms.TextBox();
-			this.groupPicker1 = new PicAdmin.GroupPicker();
+			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.checkBoxPublish = new System.Windows.Forms.CheckBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.categoryDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -111,8 +112,7 @@ namespace PicAdmin
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
-				"info=False;workstation id=CHEF;packet size=4096";
+			this.cn.ConnectionString = Config.ConnectionString;
 			// 
 			// dsCategory
 			// 
@@ -145,8 +145,7 @@ namespace PicAdmin
 			// 
 			// sqlConnection1
 			// 
-			this.sqlConnection1.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
-				"er id=sa;workstation id=CHEF;packet size=4096";
+			this.sqlConnection1.ConnectionString = Config.ConnectionString;
 			// 
 			// daCategory
 			// 
@@ -318,8 +317,8 @@ namespace PicAdmin
 			this.groupPicker1.Name = "groupPicker1";
 			this.groupPicker1.Size = new System.Drawing.Size(392, 136);
 			this.groupPicker1.TabIndex = 7;
-			this.groupPicker1.RemovedGroup += new PicAdmin.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
-			this.groupPicker1.AddedGroup += new PicAdmin.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
+			this.groupPicker1.RemovedGroup += new msn2.net.Pictures.Controls.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
+			this.groupPicker1.AddedGroup += new msn2.net.Pictures.Controls.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
 			// 
 			// checkBoxPublish
 			// 
@@ -419,7 +418,7 @@ namespace PicAdmin
 			Visible = false;
 		}
 
-		private void groupPicker1_AddedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_AddedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			// add the group to the PictureGroup dataset
 			dsCategory.CategoryGroup.AddCategoryGroupRow(
@@ -427,7 +426,7 @@ namespace PicAdmin
 
 		}
 
-		private void groupPicker1_RemovedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_RemovedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			int categoryId = dsCategory.Category[0].CategoryID;
 

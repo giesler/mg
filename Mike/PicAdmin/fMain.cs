@@ -7,8 +7,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Threading;
+using Crownwood.Magic.Docking;
+using System.Web;
+using System.Net;
+using System.Text;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
     
 	/// <summary>
@@ -16,6 +20,7 @@ namespace PicAdmin
 	/// </summary>
 	public class fMain : System.Windows.Forms.Form
 	{
+		#region Sorter
 		public class PicListViewSorter : IComparer 
 		{
 			public int Compare(Object obj1, Object obj2) 
@@ -29,6 +34,9 @@ namespace PicAdmin
 			}
 		}
             
+		#endregion
+
+		#region Declares
 		private System.Windows.Forms.MainMenu mainMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuFileExit;
@@ -55,7 +63,6 @@ namespace PicAdmin
 		private System.Windows.Forms.ContextMenu mnuPictureList;
 		private System.Windows.Forms.MenuItem mnuPictureListEdit;
 		private System.Windows.Forms.MenuItem mnuPictureListDelete;
-
 		protected Image imgCurImage = null;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem mnuPictureListMoveUp;
@@ -63,8 +70,8 @@ namespace PicAdmin
 		private System.Windows.Forms.ColumnHeader columnHeader6;
 		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.TreeView tvAddedDate;
-		private PicAdmin.CategoryTree categoryTree1;
-		private PicAdmin.PeopleCtl peopleCtl1;
+		private msn2.net.Pictures.Controls.CategoryTree categoryTree1;
+		private msn2.net.Pictures.Controls.PeopleCtl peopleCtl1;
 		private System.Windows.Forms.MenuItem menuUpdateCachedPictures;
 		private System.Windows.Forms.ImageList pictureList;
 		private System.Windows.Forms.StatusBar statusBar1;
@@ -78,14 +85,22 @@ namespace PicAdmin
 		private System.Windows.Forms.MenuItem menuItemThumbs;
 		private System.Windows.Forms.MenuItem menuItemDetails;
 		private System.ComponentModel.IContainer components;
+		private string currentListViewQuery;
+		private System.Windows.Forms.MenuItem menuItem5;
+		protected Crownwood.Magic.Docking.DockingManager dockingManager;
+		#endregion
 
+		#region Constructor
 		public fMain()
 		{
-			fStatus stat = new fStatus();
-			stat.StatusText = "Loading...";
-			stat.Max = 0;
+			// Show status window
+			fStatus stat			= new fStatus();
+			stat.StatusText			= "Loading...";
+			stat.Max				= 0;
 			stat.Show();
 			stat.Refresh();
+
+			dockingManager			= new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 
 			//
 			// Required for Windows Form Designer support
@@ -93,7 +108,7 @@ namespace PicAdmin
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+			cn.ConnectionString		= Config.ConnectionString;
 
 			lvPics.ListViewItemSorter = new PicListViewSorter();
 
@@ -104,7 +119,8 @@ namespace PicAdmin
 			stat = null;
 			
 		}
-
+		#endregion
+		#region Disposal
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -119,7 +135,7 @@ namespace PicAdmin
 			}
 			base.Dispose( disposing );
 		}
-
+		#endregion
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -144,11 +160,11 @@ namespace PicAdmin
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tvDates = new System.Windows.Forms.TreeView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.categoryTree1 = new PicAdmin.CategoryTree();
+			this.categoryTree1 = new msn2.net.Pictures.Controls.CategoryTree();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.tvAddedDate = new System.Windows.Forms.TreeView();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.peopleCtl1 = new PicAdmin.PeopleCtl();
+			this.peopleCtl1 = new msn2.net.Pictures.Controls.PeopleCtl();
 			this.daPictureDate = new System.Data.SqlClient.SqlDataAdapter();
 			this.mnuPictureList = new System.Windows.Forms.ContextMenu();
 			this.mnuPictureListEdit = new System.Windows.Forms.MenuItem();
@@ -162,7 +178,11 @@ namespace PicAdmin
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuAddPictures = new System.Windows.Forms.MenuItem();
 			this.menuUpdateCachedPictures = new System.Windows.Forms.MenuItem();
+			this.menuItem5 = new System.Windows.Forms.MenuItem();
 			this.menuFileExit = new System.Windows.Forms.MenuItem();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.menuItemThumbs = new System.Windows.Forms.MenuItem();
+			this.menuItemDetails = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.statusBar1 = new System.Windows.Forms.StatusBar();
 			this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
@@ -171,9 +191,6 @@ namespace PicAdmin
 			this.toolBarButton1 = new System.Windows.Forms.ToolBarButton();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.splitter3 = new System.Windows.Forms.Splitter();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.menuItemThumbs = new System.Windows.Forms.MenuItem();
-			this.menuItemDetails = new System.Windows.Forms.MenuItem();
 			this.panelPic.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -273,8 +290,7 @@ namespace PicAdmin
 																					  this.tabPage2,
 																					  this.tabPage4,
 																					  this.tabPage3});
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.tabControl1.Location = new System.Drawing.Point(0, 25);
+			this.tabControl1.Location = new System.Drawing.Point(280, 112);
 			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -319,7 +335,7 @@ namespace PicAdmin
 			this.categoryTree1.Name = "categoryTree1";
 			this.categoryTree1.Size = new System.Drawing.Size(248, 513);
 			this.categoryTree1.TabIndex = 0;
-			this.categoryTree1.ClickCategory += new PicAdmin.ClickCategoryEventHandler(this.categoryTree1_ClickCategory);
+			this.categoryTree1.ClickCategory += new msn2.net.Pictures.Controls.ClickCategoryEventHandler(this.categoryTree1_ClickCategory);
 			// 
 			// tabPage4
 			// 
@@ -359,7 +375,7 @@ namespace PicAdmin
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(248, 513);
 			this.peopleCtl1.TabIndex = 0;
-			this.peopleCtl1.ClickPerson += new PicAdmin.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
+			this.peopleCtl1.ClickPerson += new msn2.net.Pictures.Controls.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
 			// 
 			// daPictureDate
 			// 
@@ -407,7 +423,7 @@ namespace PicAdmin
 			// 
 			// menuItem3
 			// 
-			this.menuItem3.Index = 2;
+			this.menuItem3.Index = 3;
 			this.menuItem3.Text = "-";
 			// 
 			// lvPics
@@ -426,9 +442,9 @@ namespace PicAdmin
 			this.lvPics.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvPics.HideSelection = false;
 			this.lvPics.LargeImageList = this.pictureList;
-			this.lvPics.Location = new System.Drawing.Point(259, 25);
+			this.lvPics.Location = new System.Drawing.Point(3, 25);
 			this.lvPics.Name = "lvPics";
-			this.lvPics.Size = new System.Drawing.Size(437, 352);
+			this.lvPics.Size = new System.Drawing.Size(693, 352);
 			this.lvPics.SmallImageList = this.pictureList;
 			this.lvPics.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.lvPics.TabIndex = 8;
@@ -453,6 +469,7 @@ namespace PicAdmin
 			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.menuAddPictures,
 																					  this.menuUpdateCachedPictures,
+																					  this.menuItem5,
 																					  this.menuItem3,
 																					  this.menuFileExit});
 			this.menuItem1.Text = "&File";
@@ -469,20 +486,47 @@ namespace PicAdmin
 			this.menuUpdateCachedPictures.Text = "Update Cached Pictures";
 			this.menuUpdateCachedPictures.Click += new System.EventHandler(this.menuUpdateCachedPictures_Click);
 			// 
+			// menuItem5
+			// 
+			this.menuItem5.Index = 2;
+			this.menuItem5.Text = "&Validate cached pictures";
+			this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
+			// 
 			// menuFileExit
 			// 
-			this.menuFileExit.Index = 3;
+			this.menuFileExit.Index = 4;
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Index = 1;
+			this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.menuItemThumbs,
+																					  this.menuItemDetails});
+			this.menuItem4.Text = "&View";
+			// 
+			// menuItemThumbs
+			// 
+			this.menuItemThumbs.Checked = true;
+			this.menuItemThumbs.Index = 0;
+			this.menuItemThumbs.Text = "&Thumbnails";
+			this.menuItemThumbs.Click += new System.EventHandler(this.menuItemThumbs_Click);
+			// 
+			// menuItemDetails
+			// 
+			this.menuItemDetails.Index = 1;
+			this.menuItemDetails.Text = "&Details";
+			this.menuItemDetails.Click += new System.EventHandler(this.menuItemDetails_Click);
 			// 
 			// panel1
 			// 
 			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
 																				 this.panelPic});
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(259, 380);
+			this.panel1.Location = new System.Drawing.Point(3, 380);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(437, 184);
+			this.panel1.Size = new System.Drawing.Size(693, 184);
 			this.panel1.TabIndex = 5;
 			// 
 			// statusBar1
@@ -527,7 +571,7 @@ namespace PicAdmin
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(256, 25);
+			this.splitter1.Location = new System.Drawing.Point(0, 25);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(3, 539);
 			this.splitter1.TabIndex = 12;
@@ -536,43 +580,22 @@ namespace PicAdmin
 			// splitter3
 			// 
 			this.splitter3.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.splitter3.Location = new System.Drawing.Point(259, 377);
+			this.splitter3.Location = new System.Drawing.Point(3, 377);
 			this.splitter3.Name = "splitter3";
-			this.splitter3.Size = new System.Drawing.Size(437, 3);
+			this.splitter3.Size = new System.Drawing.Size(693, 3);
 			this.splitter3.TabIndex = 13;
 			this.splitter3.TabStop = false;
-			// 
-			// menuItem4
-			// 
-			this.menuItem4.Index = 1;
-			this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItemThumbs,
-																					  this.menuItemDetails});
-			this.menuItem4.Text = "&View";
-			// 
-			// menuItemThumbs
-			// 
-			this.menuItemThumbs.Checked = true;
-			this.menuItemThumbs.Index = 0;
-			this.menuItemThumbs.Text = "&Thumbnails";
-			this.menuItemThumbs.Click += new System.EventHandler(this.menuItemThumbs_Click);
-			// 
-			// menuItemDetails
-			// 
-			this.menuItemDetails.Index = 1;
-			this.menuItemDetails.Text = "&Details";
-			this.menuItemDetails.Click += new System.EventHandler(this.menuItemDetails_Click);
 			// 
 			// fMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(696, 589);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.tabControl1,
 																		  this.lvPics,
 																		  this.splitter3,
 																		  this.panel1,
 																		  this.splitter1,
-																		  this.tabControl1,
 																		  this.toolBar1,
 																		  this.statusBar1,
 																		  this.splitter2});
@@ -594,7 +617,7 @@ namespace PicAdmin
 
 		}
 		#endregion
-
+		#region STAThread - Main
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -603,6 +626,7 @@ namespace PicAdmin
 		{
 			Application.Run(new fMain());
 		}
+		#endregion
 
 		private void menuItem2_Click(object sender, System.EventArgs e)
 		{
@@ -700,6 +724,10 @@ namespace PicAdmin
 			pbPic.Width = pbPic.Parent.Width;
 			pbPic.Height = pbPic.Parent.Height;
 
+			// Now dock stuff
+			Content c = dockingManager.Contents.Add(tabControl1, "Filter");
+			dockingManager.AddContentWithState(c, Crownwood.Magic.Docking.State.DockLeft);
+
 		}
 
 		private void tvDates_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
@@ -715,6 +743,8 @@ namespace PicAdmin
 
 		private void AddPicturesToList(String strWhereClause) 
 		{
+
+			currentListViewQuery	= strWhereClause;
 
 			// clear current list
 			lvPics.Items.Clear();
@@ -746,9 +776,9 @@ namespace PicAdmin
 					li.SubItems.Add("");
 
 				/*
-				using (Image img = Image.FromFile(@"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString()) ) 
+				using (Image img = Image.FromFile(@"\\ike\piccache\" + dr["Filename"].ToString()) ) 
 				{
-                    pictureList.Images.Add(img); 
+					pictureList.Images.Add(img); 
 				}
 				li.ImageIndex = pictureList.Images.Count-1;
 				*/
@@ -802,8 +832,9 @@ namespace PicAdmin
 			{
 				string filename = li.SubItems[3].Text;                
                 
-				using (Image img = Image.FromFile(@"\\kenny\inetpub\pics.msn2.net\piccache\" + filename) ) 
+				using (Image img = Image.FromFile(@"\\ike\piccache\" + filename) ) 
 				{
+					Image frameImage	= new Bitmap(125, 125);
 					pictureList.Images.Add(img); 
 				}
 				li.ImageIndex = pictureList.Images.Count-1;
@@ -837,7 +868,7 @@ namespace PicAdmin
 				ListViewItem li;
 				li = lvPics.SelectedItems[0];
 
-				String strFile = @"\\kenny\inetpub\pictures\" + li.SubItems[3].Text;
+				String strFile = @"\\ike\pictures\" + li.SubItems[3].Text;
 				strFile = strFile.Replace("/", "\\");
 
 
@@ -850,7 +881,7 @@ namespace PicAdmin
 				
 				if (dr.Read()) 
 				{
-                    strFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+					strFile = @"\\ike\piccache\" + dr["Filename"].ToString();
 				}
 				dr.Close();
 
@@ -894,72 +925,14 @@ namespace PicAdmin
 			if (lvPics.SelectedItems.Count == 0) return;
 			li = lvPics.SelectedItems[0];
 
-			bool initialPicture = true;
 			fPicture f = new fPicture();
-			fPicture fOld = null;
+			f.NavigationControlsDataQuery	= currentListViewQuery;
 
-			while (f.MovePrevious || f.MoveNext || initialPicture) 
-			{
-				// Check if we should move to previous item, if not exit
-				if (f.MovePrevious) 
-				{
-					if (li.Index > 0)
-						li = lvPics.Items[li.Index-1];
-					else
-						break;
-				} 
-					// Check if we should move to next item, if not exit
-				else if (f.MoveNext)
-				{
-					if (li.Index < lvPics.Items.Count-1)
-						li = lvPics.Items[li.Index+1];
-					else
-						break;
-				}
-					// Otherwise it is the first / selected list item
-				else 
-				{
-					li = lvPics.SelectedItems[0];
-					initialPicture = false;
-				}
+			f.MainForm = this;
 
-				f = new fPicture();
-				f.MainForm = this;
-				if (fOld != null) 
-				{
-					f.Left = fOld.Left;
-					f.Top  = fOld.Top;
-					f.Width = fOld.Width;
-					f.Height = fOld.Height;
-					f.WindowState = fOld.WindowState;
-				}
-
-				// Load the selected picture
-				f.LoadPicture(Convert.ToInt32(li.Tag));
-				f.ShowDialog();
-
-				// If not cancelling, update title
-				if (!f.mblnCancel) 
-				{
-					li.SubItems[2].Text = f.Title;
-					if (f.Publish) 
-					{
-						li.SubItems[4].Text = "x";
-						li.ForeColor = Color.Green; 
-					}
-					else 
-					{
-						li.SubItems[4].Text = "";
-						li.ForeColor = Color.Red;
-					}
-				}
-				else
-					break;
-
-				// Set the ref to the old copy
-				fOld = f;
-
-			}
+			// Load the selected picture
+			f.LoadPicture(Convert.ToInt32(li.Tag));
+			f.Show();
 
 		}
 
@@ -972,7 +945,7 @@ namespace PicAdmin
 
 		}
 
-		private void categoryTree1_ClickCategory(object sender, PicAdmin.CategoryTreeEventArgs e)
+		private void categoryTree1_ClickCategory(object sender, msn2.net.Pictures.Controls.CategoryTreeEventArgs e)
 		{
 				
 			/*AddPicturesToList("p.PictureID in "
@@ -984,7 +957,7 @@ namespace PicAdmin
 				+ e.categoryRow.CategoryID.ToString() + ")");
 		}
 
-		private void peopleCtl1_ClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
+		private void peopleCtl1_ClickPerson(object sender, msn2.net.Pictures.Controls.PersonCtlEventArgs e)
 		{
 
 			AddPicturesToList("p.PictureID in "
@@ -1029,7 +1002,7 @@ namespace PicAdmin
 							try 
 							{
 								string cachedFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
-                                if (File.Exists(cachedFile))
+								if (File.Exists(cachedFile))
 									File.Delete(cachedFile);
 							} 
 							catch (IOException ioe) 
@@ -1053,7 +1026,7 @@ namespace PicAdmin
 					}
 					catch (IOException ioe) 
 					{
-                        MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					}
 					
 
@@ -1141,7 +1114,7 @@ namespace PicAdmin
 				mnuPictureListDelete.Enabled = true;
 				mnuPictureListEdit.Enabled   = true;
 
-                // only enable up and down with one item selected, and not when at top or bottom
+				// only enable up and down with one item selected, and not when at top or bottom
 				if (lvPics.SelectedItems.Count == 1) 
 				{
 					if (lvPics.SelectedItems[0].Index != 0)
@@ -1180,30 +1153,82 @@ namespace PicAdmin
 		private void menuUpdateCachedPictures_Click(object sender, System.EventArgs e)
 		{
 
-			if (MessageBox.Show("This will check ALL images to see if the date/time stamp has changed, and will recreate any cached images that are out of date.", 
-				"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
-				MessageBoxDefaultButton.Button2) == DialogResult.OK) 
+			if (cacheStatus == null)
 			{
-
-				ImageUtilities util = new ImageUtilities();
-
-				SqlDataAdapter da = new SqlDataAdapter("select * from Picture", cn);
-				DataSetPicture dsPicture = new DataSetPicture();
-				da.Fill(dsPicture, "Picture");
-
-				fStatus stat = new fStatus(this, "Creating cached images...", dsPicture.Picture.Rows.Count);
-				int count = 0;
-
-				foreach (DataSetPicture.PictureRow row in dsPicture.Picture.Rows) 
+				if (MessageBox.Show("This will check ALL images to see if the date/time stamp has changed, and will recreate any cached images that are out of date.", 
+					"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
+					MessageBoxDefaultButton.Button2) == DialogResult.OK) 
 				{
-					util.CreateUpdateCache(row.PictureID);
+					cacheStatus = new fStatus(this, "Starting process...", 0);
 
-					count++;
-					stat.Current = count;
-					if (count % 10 == 0)
-						stat.StatusText = "Creating cached images... (" + count.ToString() + "/" + dsPicture.Picture.Rows.Count + ")";
+					Thread t = new Thread(new ThreadStart(ProcessCache));
+					t.Start();
 				}
 			}
+			else
+			{
+				MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
+			}
+
+		}
+
+		private fStatus cacheStatus;
+
+		private void CheckForCacheFiles()
+		{
+			SqlDataAdapter da		= new SqlDataAdapter("select * from PictureCache", cn);
+			SqlCommandBuilder bld	= new SqlCommandBuilder(da);
+			DataSet ds				= new DataSet();
+
+			// Get the current cache list
+			da.Fill(ds, "PictureCache");
+
+			cacheStatus.StatusText	= "Verifying images...";
+			cacheStatus.Max			= ds.Tables["PictureCache"].Rows.Count;
+
+			foreach (DataRow dr in ds.Tables["PictureCache"].Rows)
+			{
+				// Check if file exists
+				string filename		= @"\\kenny\InetPub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+
+				if (!File.Exists(filename))
+				{
+					dr.Delete();
+				}
+
+				cacheStatus.Current++;
+			}
+
+			ds.WriteXml(@"c:\deletes.xml");
+			da.Update(ds, "PictureCache");
+
+			cacheStatus.Dispose();
+			cacheStatus				= null;
+		}
+
+		private void ProcessCache()
+		{
+			ImageUtilities util = new ImageUtilities();
+
+			SqlDataAdapter da = new SqlDataAdapter("select * from Picture", cn);
+			DataSetPicture dsPicture = new DataSetPicture();
+			da.Fill(dsPicture, "Picture");
+
+			cacheStatus.StatusText	= "Creating cached images...";
+			cacheStatus.Max			= dsPicture.Picture.Rows.Count;
+			int count				= 0;
+
+			foreach (DataSetPicture.PictureRow row in dsPicture.Picture.Rows) 
+			{
+				util.CreateUpdateCache(row.PictureID);
+
+				count++;
+				cacheStatus.Current = count;
+			}
+
+			cacheStatus.Dispose();
+			cacheStatus				= null;
+
 		}
 
 		private void menuItemThumbs_Click(object sender, System.EventArgs e)
@@ -1220,7 +1245,27 @@ namespace PicAdmin
 			lvPics.View = View.Details;
 		}
 
+		private void menuItem5_Click(object sender, System.EventArgs e)
+		{
 
+			if (cacheStatus == null)
+			{
+				if (MessageBox.Show("This will verify ALL cached image rows.", 
+					"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
+					MessageBoxDefaultButton.Button2) == DialogResult.OK) 
+				{
+					cacheStatus = new fStatus(this, "Starting process...", 0);
 
-	}
+					Thread t = new Thread(new ThreadStart(CheckForCacheFiles));
+					t.Start();
+				}
+			}
+			else
+			{
+				MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
+			}
+
+		}
+
+	}	
 }

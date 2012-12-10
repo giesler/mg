@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://tempuri.org/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:i0="http://tempuri.org/PictureDataSet.xsd" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://tempuri.org/PictureDataSet.xsd" location="http://www.msn2.net/Pictures/PictureManager.asmx?schema=PictureDataSet" />
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://tempuri.org/PictureDataSet.xsd" />
+      <s:element name="GetPictureImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pictureId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxWidth" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxHeight" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPictureImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPictureImageResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RotateImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pictureId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rft" type="s0:RotateFlipType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="RotateFlipType">
+        <s:restriction base="s:string">
+          <s:enumeration value="RotateNoneFlipNone" />
+          <s:enumeration value="Rotate90FlipNone" />
+          <s:enumeration value="Rotate180FlipNone" />
+          <s:enumeration value="Rotate270FlipNone" />
+          <s:enumeration value="RotateNoneFlipX" />
+          <s:enumeration value="Rotate90FlipX" />
+          <s:enumeration value="Rotate180FlipX" />
+          <s:enumeration value="Rotate270FlipX" />
+          <s:enumeration value="RotateNoneFlipY" />
+          <s:enumeration value="Rotate90FlipY" />
+          <s:enumeration value="Rotate180FlipY" />
+          <s:enumeration value="Rotate270FlipY" />
+          <s:enumeration value="RotateNoneFlipXY" />
+          <s:enumeration value="Rotate90FlipXY" />
+          <s:enumeration value="Rotate180FlipXY" />
+          <s:enumeration value="Rotate270FlipXY" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RotateImageResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPicture">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pictureId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPictureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPictureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any namespace="http://tempuri.org/PictureDataSet.xsd" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPicturesByCategory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="categoryId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPicturesByCategoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPicturesByCategoryResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any namespace="http://tempuri.org/PictureDataSet.xsd" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
+      <s:element name="PictureDataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any namespace="http://tempuri.org/PictureDataSet.xsd" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </types>
+  <message name="GetPictureImageSoapIn">
+    <part name="parameters" element="s0:GetPictureImage" />
+  </message>
+  <message name="GetPictureImageSoapOut">
+    <part name="parameters" element="s0:GetPictureImageResponse" />
+  </message>
+  <message name="RotateImageSoapIn">
+    <part name="parameters" element="s0:RotateImage" />
+  </message>
+  <message name="RotateImageSoapOut">
+    <part name="parameters" element="s0:RotateImageResponse" />
+  </message>
+  <message name="GetPictureSoapIn">
+    <part name="parameters" element="s0:GetPicture" />
+  </message>
+  <message name="GetPictureSoapOut">
+    <part name="parameters" element="s0:GetPictureResponse" />
+  </message>
+  <message name="GetPicturesByCategorySoapIn">
+    <part name="parameters" element="s0:GetPicturesByCategory" />
+  </message>
+  <message name="GetPicturesByCategorySoapOut">
+    <part name="parameters" element="s0:GetPicturesByCategoryResponse" />
+  </message>
+  <message name="GetPictureImageHttpGetIn">
+    <part name="pictureId" type="s:string" />
+    <part name="maxWidth" type="s:string" />
+    <part name="maxHeight" type="s:string" />
+  </message>
+  <message name="GetPictureImageHttpGetOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <message name="RotateImageHttpGetIn">
+    <part name="pictureId" type="s:string" />
+    <part name="rft" type="s:string" />
+  </message>
+  <message name="RotateImageHttpGetOut" />
+  <message name="GetPictureHttpGetIn">
+    <part name="pictureId" type="s:string" />
+  </message>
+  <message name="GetPictureHttpGetOut">
+    <part name="Body" element="s0:PictureDataSet" />
+  </message>
+  <message name="GetPicturesByCategoryHttpGetIn">
+    <part name="categoryId" type="s:string" />
+  </message>
+  <message name="GetPicturesByCategoryHttpGetOut">
+    <part name="Body" element="s0:PictureDataSet" />
+  </message>
+  <message name="GetPictureImageHttpPostIn">
+    <part name="pictureId" type="s:string" />
+    <part name="maxWidth" type="s:string" />
+    <part name="maxHeight" type="s:string" />
+  </message>
+  <message name="GetPictureImageHttpPostOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <message name="RotateImageHttpPostIn">
+    <part name="pictureId" type="s:string" />
+    <part name="rft" type="s:string" />
+  </message>
+  <message name="RotateImageHttpPostOut" />
+  <message name="GetPictureHttpPostIn">
+    <part name="pictureId" type="s:string" />
+  </message>
+  <message name="GetPictureHttpPostOut">
+    <part name="Body" element="s0:PictureDataSet" />
+  </message>
+  <message name="GetPicturesByCategoryHttpPostIn">
+    <part name="categoryId" type="s:string" />
+  </message>
+  <message name="GetPicturesByCategoryHttpPostOut">
+    <part name="Body" element="s0:PictureDataSet" />
+  </message>
+  <portType name="PictureManagerSoap">
+    <operation name="GetPictureImage">
+      <input message="s0:GetPictureImageSoapIn" />
+      <output message="s0:GetPictureImageSoapOut" />
+    </operation>
+    <operation name="RotateImage">
+      <input message="s0:RotateImageSoapIn" />
+      <output message="s0:RotateImageSoapOut" />
+    </operation>
+    <operation name="GetPicture">
+      <input message="s0:GetPictureSoapIn" />
+      <output message="s0:GetPictureSoapOut" />
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <input message="s0:GetPicturesByCategorySoapIn" />
+      <output message="s0:GetPicturesByCategorySoapOut" />
+    </operation>
+  </portType>
+  <portType name="PictureManagerHttpGet">
+    <operation name="GetPictureImage">
+      <input message="s0:GetPictureImageHttpGetIn" />
+      <output message="s0:GetPictureImageHttpGetOut" />
+    </operation>
+    <operation name="RotateImage">
+      <input message="s0:RotateImageHttpGetIn" />
+      <output message="s0:RotateImageHttpGetOut" />
+    </operation>
+    <operation name="GetPicture">
+      <input message="s0:GetPictureHttpGetIn" />
+      <output message="s0:GetPictureHttpGetOut" />
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <input message="s0:GetPicturesByCategoryHttpGetIn" />
+      <output message="s0:GetPicturesByCategoryHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="PictureManagerHttpPost">
+    <operation name="GetPictureImage">
+      <input message="s0:GetPictureImageHttpPostIn" />
+      <output message="s0:GetPictureImageHttpPostOut" />
+    </operation>
+    <operation name="RotateImage">
+      <input message="s0:RotateImageHttpPostIn" />
+      <output message="s0:RotateImageHttpPostOut" />
+    </operation>
+    <operation name="GetPicture">
+      <input message="s0:GetPictureHttpPostIn" />
+      <output message="s0:GetPictureHttpPostOut" />
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <input message="s0:GetPicturesByCategoryHttpPostIn" />
+      <output message="s0:GetPicturesByCategoryHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="PictureManagerSoap" type="s0:PictureManagerSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="GetPictureImage">
+      <soap:operation soapAction="http://tempuri.org/GetPictureImage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RotateImage">
+      <soap:operation soapAction="http://tempuri.org/RotateImage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPicture">
+      <soap:operation soapAction="http://tempuri.org/GetPicture" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <soap:operation soapAction="http://tempuri.org/GetPicturesByCategory" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="PictureManagerHttpGet" type="s0:PictureManagerHttpGet">
+    <http:binding verb="GET" />
+    <operation name="GetPictureImage">
+      <http:operation location="/GetPictureImage" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="RotateImage">
+      <http:operation location="/RotateImage" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output />
+    </operation>
+    <operation name="GetPicture">
+      <http:operation location="/GetPicture" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <http:operation location="/GetPicturesByCategory" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="PictureManagerHttpPost" type="s0:PictureManagerHttpPost">
+    <http:binding verb="POST" />
+    <operation name="GetPictureImage">
+      <http:operation location="/GetPictureImage" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="RotateImage">
+      <http:operation location="/RotateImage" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output />
+    </operation>
+    <operation name="GetPicture">
+      <http:operation location="/GetPicture" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetPicturesByCategory">
+      <http:operation location="/GetPicturesByCategory" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PictureManager">
+    <port name="PictureManagerSoap" binding="s0:PictureManagerSoap">
+      <soap:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
+    </port>
+    <port name="PictureManagerHttpGet" binding="s0:PictureManagerHttpGet">
+      <http:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
+    </port>
+    <port name="PictureManagerHttpPost" binding="s0:PictureManagerHttpPost">
+      <http:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
+    </port>
+  </service>
+</definitions>

@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fPersonSelect.
@@ -14,7 +14,7 @@ namespace PicAdmin
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
-		private PicAdmin.PeopleCtl peopleCtl1;
+		private msn2.net.Pictures.Controls.PeopleCtl peopleCtl1;
 
 		private bool mblnCancel = false;
 
@@ -59,7 +59,7 @@ namespace PicAdmin
 		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.btnOK = new System.Windows.Forms.Button();
-			this.peopleCtl1 = new PicAdmin.PeopleCtl();
+			this.peopleCtl1 = new msn2.net.Pictures.Controls.PeopleCtl();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -90,7 +90,7 @@ namespace PicAdmin
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(240, 216);
 			this.peopleCtl1.TabIndex = 3;
-			this.peopleCtl1.DoubleClickPerson += new PicAdmin.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
+			this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
 			// btnCancel
 			// 
@@ -142,7 +142,7 @@ namespace PicAdmin
 			Visible = false;
 		}
 
-		private void peopleCtl1_DoubleClickPerson(object sender, PicAdmin.PersonCtlEventArgs e)
+		private void peopleCtl1_DoubleClickPerson(object sender, msn2.net.Pictures.Controls.PersonCtlEventArgs e)
 		{
 			btnOK_Click(sender, e);
 		}

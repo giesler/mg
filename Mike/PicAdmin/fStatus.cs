@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fStatus.
@@ -31,7 +31,14 @@ namespace PicAdmin
 			//
 		}
 
-		public fStatus(Form centerOn, String status, int max) 
+		public fStatus(string status)
+		{
+			InitializeComponent();
+
+			this.StatusText		= status;
+		}
+
+		public fStatus(Form centerOn, string status, int max) 
 		{
 			InitializeComponent();
 
@@ -83,6 +90,10 @@ namespace PicAdmin
 			{
 				if (value <= 0)
 					progressBar1.Visible = false;
+				else
+				{
+					progressBar1.Visible	= true;
+				}
 
 				progressBar1.Maximum = value;
 				Refresh();

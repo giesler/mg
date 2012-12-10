@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for PersonSelect.
@@ -26,7 +26,7 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdmin.DataSetPerson dsPerson;
+		private msn2.net.Pictures.Controls.DataSetPerson dsPerson;
 
 		private DataSetPerson.PersonRow pr;
 
@@ -36,7 +36,7 @@ namespace PicAdmin
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+			cn.ConnectionString = Config.ConnectionString;
 
 		}
 
@@ -72,7 +72,7 @@ namespace PicAdmin
 			this.txtPictureBy = new System.Windows.Forms.TextBox();
 			this.btnSelectPictureBy = new System.Windows.Forms.Button();
 			this.btnSelectPerson = new System.Windows.Forms.Button();
-			this.dsPerson = new PicAdmin.DataSetPerson();
+			this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
 			this.SuspendLayout();
 			// 

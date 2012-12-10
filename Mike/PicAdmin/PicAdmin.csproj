@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.0.9372"
+        ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
         ProjectGuid = "{051F201A-911A-441D-B249-5857DB882AA7}"
         SccProjectName = "SAK"
@@ -13,14 +13,14 @@
             <Settings
                 ApplicationIcon = "..\..\..\Program Files\Microsoft Visual Studio .NET\Common7\Graphics\icons\Writing\BOOK01B.ICO"
                 AssemblyKeyContainerName = ""
-                AssemblyName = "PicAdmin"
+                AssemblyName = "msn2.net.Pictures.Controls"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "WinExe"
-                RootNamespace = "PicAdmin"
+                OutputType = "Library"
+                RootNamespace = "msn2.net.Pictures.Controls"
                 StartupObject = "PicAdmin.fMain"
             >
                 <Config
@@ -81,10 +81,24 @@
                     Name = "System.XML"
                     AssemblyName = "System.Xml"
                 />
+                <Reference
+                    Name = "System.Web.Services"
+                    AssemblyName = "System.Web.Services"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
+                />
+                <Reference
+                    Name = "MagicLibrary"
+                    AssemblyName = "MagicLibrary"
+                    HintPath = "..\..\..\Program Files\Crownwood Consulting Ltd\Magic Library 1.7\Bin\MagicLibrary.dll"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "app.config"
+                    BuildAction = "None"
+                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
@@ -206,6 +220,26 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "EditCategoryLink.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "EditCategoryLink.resx"
+                    DependentUpon = "EditCategoryLink.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "EditPictureLink.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "EditPictureLink.resx"
+                    DependentUpon = "EditPictureLink.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "fAddPictures.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -286,6 +320,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "fSelectCategory.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "fSelectCategory.resx"
+                    DependentUpon = "fSelectCategory.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "fStatus.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -321,6 +365,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "OpenMainFormLink.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "OpenMainFormLink.resx"
+                    DependentUpon = "OpenMainFormLink.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "PeopleCtl.cs"
                     SubType = "UserControl"
                     BuildAction = "Compile"
@@ -349,6 +403,71 @@
                     RelPath = "PersonSelect.resx"
                     DependentUpon = "PersonSelect.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "PictureDisplay.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PictureDisplay.resx"
+                    DependentUpon = "PictureDisplay.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "PictureFilter.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PictureFilter.resx"
+                    DependentUpon = "PictureFilter.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SaveSlideshow.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SaveSlideshow.resx"
+                    DependentUpon = "SaveSlideshow.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web References\picsvc\PictureDataSet.xsd"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\picsvc\PictureManager.disco"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\picsvc\PictureManager.wsdl"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\picsvc\Reference.map"
+                    BuildAction = "None"
+                    Generator = "MSDiscoCodeGenerator"
+                    LastGenOutput = "Reference.cs"
+                />
+                <File
+                    RelPath = "Web References\picsvc\Reference.cs"
+                    DependentUpon = "Reference.map"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <Folder
+                    RelPath = "Web References\picsvc\"
+                    WebReferenceUrl = "http://www.msn2.net/Pictures/PictureManager.asmx"
+                    UrlBehavior = "Static"
+                />
+                <Folder
+                    RelPath = "Web References\"
+                    WebReferences = "TRUE"
                 />
             </Include>
         </Files>

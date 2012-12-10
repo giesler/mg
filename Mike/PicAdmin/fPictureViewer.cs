@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fPictureViewer.
@@ -70,7 +70,7 @@ namespace PicAdmin
 				pbPic.Image = null;
 				strFile = strFile.Replace("/", "\\");
 
-				String strFullFile = "\\\\kenny\\inetpub\\pictures\\" + strFile;
+				String strFullFile = "\\\\ike\\pictures\\" + strFile;
 
 				// figure out the temp location, create directory if needed
 				String strTempFile = System.Environment.GetEnvironmentVariable("TEMP")

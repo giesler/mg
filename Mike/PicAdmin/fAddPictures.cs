@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -7,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fAddPictures.
@@ -29,14 +30,14 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand2;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand2;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand2;
-		private PicAdmin.DataSetPicture dsPicture;
+		private msn2.net.Pictures.Controls.DataSetPicture dsPicture;
 		private System.Windows.Forms.Button btnRemovePictures;
 		private System.Data.SqlClient.SqlDataAdapter daPicture;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
-		private PicAdmin.CategoryPicker categoryPicker1;
-		private PicAdmin.GroupPicker groupPicker1;
+		private msn2.net.Pictures.Controls.CategoryPicker categoryPicker1;
+		private msn2.net.Pictures.Controls.GroupPicker groupPicker1;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.DateTimePicker dtPictureDate;
@@ -44,7 +45,7 @@ namespace PicAdmin
 		private System.Windows.Forms.RadioButton radioCustomDate;
 		private System.Windows.Forms.RadioButton radioPictureDate;
 		private System.Windows.Forms.Label label1;
-		private PicAdmin.PersonSelect personSelect1;
+		private msn2.net.Pictures.Controls.PersonSelect personSelect1;
 		private System.Data.SqlClient.SqlDataAdapter daPictureGroup;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand3;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand3;
@@ -56,6 +57,7 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand3;
 		private System.Windows.Forms.CheckBox checkboxSortList;
+		private System.Windows.Forms.CheckBox publishPictures;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -69,7 +71,7 @@ namespace PicAdmin
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+			cn.ConnectionString = Config.ConnectionString;
 
 			// add everyone group by default
 			groupPicker1.AddSelectedGroup(1);
@@ -101,11 +103,11 @@ namespace PicAdmin
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.sqlDeleteCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
-			this.personSelect1 = new PicAdmin.PersonSelect();
+			this.personSelect1 = new msn2.net.Pictures.Controls.PersonSelect();
 			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlInsertCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.btnAdd = new System.Windows.Forms.Button();
-			this.groupPicker1 = new PicAdmin.GroupPicker();
+			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.label1 = new System.Windows.Forms.Label();
@@ -116,7 +118,7 @@ namespace PicAdmin
 			this.radioCustomDate = new System.Windows.Forms.RadioButton();
 			this.radioPictureDate = new System.Windows.Forms.RadioButton();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.categoryPicker1 = new PicAdmin.CategoryPicker();
+			this.categoryPicker1 = new msn2.net.Pictures.Controls.CategoryPicker();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.lstFiles = new System.Windows.Forms.ListBox();
 			this.lblFiles = new System.Windows.Forms.Label();
@@ -133,10 +135,11 @@ namespace PicAdmin
 			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.dsPicture = new PicAdmin.DataSetPicture();
+			this.dsPicture = new msn2.net.Pictures.Controls.DataSetPicture();
 			this.btnRemovePictures = new System.Windows.Forms.Button();
 			this.openFileDialogPic = new System.Windows.Forms.OpenFileDialog();
 			this.checkboxSortList = new System.Windows.Forms.CheckBox();
+			this.publishPictures = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -236,6 +239,7 @@ namespace PicAdmin
 			// tabPage3
 			// 
 			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.publishPictures,
 																				   this.label1,
 																				   this.personSelect1,
 																				   this.groupBox1});
@@ -563,6 +567,16 @@ namespace PicAdmin
 			this.checkboxSortList.TabIndex = 11;
 			this.checkboxSortList.Text = "Sort list by filename before adding";
 			// 
+			// publishPictures
+			// 
+			this.publishPictures.Checked = true;
+			this.publishPictures.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.publishPictures.Location = new System.Drawing.Point(24, 136);
+			this.publishPictures.Name = "publishPictures";
+			this.publishPictures.Size = new System.Drawing.Size(416, 24);
+			this.publishPictures.TabIndex = 10;
+			this.publishPictures.Text = "Publish all pictures to site now";
+			// 
 			// fAddPictures
 			// 
 			this.AcceptButton = this.btnAdd;
@@ -619,7 +633,7 @@ namespace PicAdmin
 				{
 					try 
 					{
-                        ParseFilenameDateTime(file);
+						ParseFilenameDateTime(file);
 					} 
 					catch (Exception ex) 
 					{
@@ -633,7 +647,14 @@ namespace PicAdmin
 			// disable controls
 			btnAdd.Enabled = false;
 			btnAddPictures.Enabled = false;
-			
+
+			Thread t	= new Thread(new ThreadStart(ImportFile));
+			t.Start();
+
+		}
+
+		private void ImportFile()
+		{
 			// open a status window, file copying could take time
 			fStatus stat = new fStatus(this, "Adding pictures...", lstFiles.Items.Count);
 
@@ -664,7 +685,7 @@ namespace PicAdmin
 					+ date.Month.ToString("00") + "\\" + date.Day.ToString("00") + "\\";
 
 				// Build the full directory to use, and create it if not there
-				string targetDirectory = "\\\\kenny\\inetpub\\pictures\\" + dateString;
+				string targetDirectory = "\\\\ike\\pictures\\" + dateString;
 				if (!Directory.Exists(targetDirectory))
 					Directory.CreateDirectory(targetDirectory);
 
@@ -694,7 +715,7 @@ namespace PicAdmin
 				pictureRow.Filename		= targetFile;
 				pictureRow.PictureDate = date;
 				pictureRow.Title		= "(new picture)";
-				pictureRow.Publish		= false;
+				pictureRow.Publish		= publishPictures.Checked;
 				pictureRow.Rating		= 50;
 				pictureRow.PictureSort  = intCurPicSort;
 				pictureRow.PictureAddDate = DateTime.Now;
@@ -758,8 +779,8 @@ namespace PicAdmin
 				string newFilename = directory + pr.PictureID.ToString("000000") + extension;
 
 				// rename the file
-				File.Move("\\\\kenny\\inetpub\\pictures\\" + oldFilename,
-						  "\\\\kenny\\inetpub\\pictures\\" + newFilename);
+				File.Move("\\\\ike\\pictures\\" + oldFilename,
+						  "\\\\ike\\pictures\\" + newFilename);
 
 				pr.Filename = newFilename;
 
@@ -792,9 +813,15 @@ namespace PicAdmin
 			stat.StatusText = "Done.";
 
 			// close dialog
-			stat.Visible = false;
+			stat.Hide();
+			stat.Dispose();
 			mblnCancel = false;
 			Visible = false;
+		}
+
+		public void AddCategory(int categoryId)
+		{
+			categoryPicker1.AddSelectedCategory(categoryId);
 		}
 
 		private void btnAddPictures_Click(object sender, System.EventArgs e)

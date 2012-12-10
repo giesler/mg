@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	// A delegate type for hooking up change notifications.
 	public delegate void AddedCategoryEventHandler(object sender, CategoryPickerEventArgs e);
@@ -23,7 +23,7 @@ namespace PicAdmin
 	/// </summary>
 	public class CategoryPicker : System.Windows.Forms.UserControl
 	{
-		private PicAdmin.CategoryTree categoryTree1;
+		private msn2.net.Pictures.Controls.CategoryTree categoryTree1;
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button btnRemoveCategory;
@@ -33,7 +33,7 @@ namespace PicAdmin
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 
 		private ArrayList arCategory = new ArrayList();
-		private PicAdmin.DataSetCategory dsCategory = new PicAdmin.DataSetCategory();
+		private msn2.net.Pictures.Controls.DataSetCategory dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 
 		/// <summary> 
 		/// Required designer variable.
@@ -69,7 +69,7 @@ namespace PicAdmin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.dsCategory = new PicAdmin.DataSetCategory();
+			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 			this.lvCategories = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.btnAddCategory = new System.Windows.Forms.Button();
@@ -77,7 +77,7 @@ namespace PicAdmin
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRemoveCategory = new System.Windows.Forms.Button();
-			this.categoryTree1 = new PicAdmin.CategoryTree();
+			this.categoryTree1 = new msn2.net.Pictures.Controls.CategoryTree();
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -168,7 +168,7 @@ namespace PicAdmin
 			this.categoryTree1.Name = "categoryTree1";
 			this.categoryTree1.Size = new System.Drawing.Size(200, 176);
 			this.categoryTree1.TabIndex = 0;
-			this.categoryTree1.DoubleClickCategory += new PicAdmin.DoubleClickCategoryEventHandler(this.categoryTree1_DoubleClickCategory);
+			this.categoryTree1.DoubleClickCategory += new msn2.net.Pictures.Controls.DoubleClickCategoryEventHandler(this.categoryTree1_DoubleClickCategory);
 			// 
 			// CategoryPicker
 			// 
@@ -294,7 +294,7 @@ namespace PicAdmin
             lvCategories.Items.Clear();
 		}
 
-		private void categoryTree1_DoubleClickCategory(object sender, PicAdmin.CategoryTreeEventArgs e)
+		private void categoryTree1_DoubleClickCategory(object sender, msn2.net.Pictures.Controls.CategoryTreeEventArgs e)
 		{
             btnAddCategory_Click(sender, e);
 		}

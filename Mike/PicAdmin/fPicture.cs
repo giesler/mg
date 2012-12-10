@@ -7,18 +7,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fPicture.
 	/// </summary>
 	public class fPicture : System.Windows.Forms.Form
 	{
-		private System.Windows.Forms.TextBox txtTitle;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
+		#region Declares
+
 		private System.Windows.Forms.Panel panelPic;
-		private System.Windows.Forms.PictureBox pbPic;
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
 
@@ -30,7 +28,7 @@ namespace PicAdmin
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage3;
-		private PicAdmin.CategoryPicker categoryPicker1;
+		private msn2.net.Pictures.Controls.CategoryPicker categoryPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPictureCategory;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand2;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand2;
@@ -41,14 +39,11 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand3;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand3;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand3;
-		private PicAdmin.PersonPicker personPicker1;
-		private System.Windows.Forms.Label label3;
-		private PicAdmin.PersonSelect personSelect1;
+		private msn2.net.Pictures.Controls.PersonPicker personPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPicture;
-		private PicAdmin.DataSetPicture dsPicture;
+		private msn2.net.Pictures.Controls.DataSetPicture dsPicture;
 		private fPictureViewer fPV;
 
-		private Image imgCurImage;
 		private bool m_blnMoveNext;
 		private bool m_blnMovePrevious;
 		private System.Windows.Forms.Button btnMoveNext;
@@ -81,16 +76,38 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
-		private PicAdmin.GroupPicker groupPicker1;
+		private msn2.net.Pictures.Controls.GroupPicker groupPicker1;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand4;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand4;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand4;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand4;
-		private System.Windows.Forms.DateTimePicker pictureDatePicker;
 
 		private bool buttonPushed = false;
+		private msn2.net.Pictures.Controls.PictureDisplay pictureDisplay1;
 
-		public String Title 
+		private string navigationControlsDataQuery;
+		#endregion
+		private System.Windows.Forms.TabPage tabPageBasicInfo;
+		private System.Windows.Forms.DateTimePicker pictureDatePicker;
+		private msn2.net.Pictures.Controls.PersonSelect personSelect1;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox txtTitle;
+
+		public string NavigationControlsDataQuery
+		{
+			get
+			{
+				return navigationControlsDataQuery;
+			}
+			set
+			{
+				navigationControlsDataQuery = value;
+			}
+		}
+
+		public string Title 
 		{
 			get 
 			{
@@ -119,7 +136,7 @@ namespace PicAdmin
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = "data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False";
+			cn.ConnectionString = Config.ConnectionString;
 		}
 
 		/// <summary>
@@ -161,47 +178,48 @@ namespace PicAdmin
 			this.sqlInsertCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand3 = new System.Data.SqlClient.SqlCommand();
-			this.txtTitle = new System.Windows.Forms.TextBox();
-			this.dsPicture = new PicAdmin.DataSetPicture();
+			this.dsPicture = new msn2.net.Pictures.Controls.DataSetPicture();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.daPictureCategory = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlDeleteCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand2 = new System.Data.SqlClient.SqlCommand();
-			this.personSelect1 = new PicAdmin.PersonSelect();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.txtDescription = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.personPicker1 = new PicAdmin.PersonPicker();
+			this.personPicker1 = new msn2.net.Pictures.Controls.PersonPicker();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.categoryPicker1 = new PicAdmin.CategoryPicker();
+			this.categoryPicker1 = new msn2.net.Pictures.Controls.CategoryPicker();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.groupPicker1 = new PicAdmin.GroupPicker();
+			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.btnMovePrevious = new System.Windows.Forms.Button();
 			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.label2 = new System.Windows.Forms.Label();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.menuImage = new System.Windows.Forms.ContextMenu();
 			this.menuItem10 = new System.Windows.Forms.MenuItem();
-			this.pbPic = new System.Windows.Forms.PictureBox();
 			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.btnMoveNext = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
 			this.rating = new System.Windows.Forms.NumericUpDown();
 			this.chkPublish = new System.Windows.Forms.CheckBox();
 			this.panelPic = new System.Windows.Forms.Panel();
+			this.pictureDisplay1 = new msn2.net.Pictures.Controls.PictureDisplay();
 			this.daPictureGroup = new System.Data.SqlClient.SqlDataAdapter();
 			this.daPicture = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlDeleteCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.sqlInsertCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand4 = new System.Data.SqlClient.SqlCommand();
+			this.tabPageBasicInfo = new System.Windows.Forms.TabPage();
 			this.pictureDatePicker = new System.Windows.Forms.DateTimePicker();
+			this.personSelect1 = new msn2.net.Pictures.Controls.PersonSelect();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtTitle = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -210,6 +228,7 @@ namespace PicAdmin
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.rating)).BeginInit();
 			this.panelPic.SuspendLayout();
+			this.tabPageBasicInfo.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// sqlSelectCommand1
@@ -221,8 +240,8 @@ namespace PicAdmin
 			// 
 			// sqlConnection1
 			// 
-			this.sqlConnection1.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
-				"er id=sa;workstation id=CHEF;packet size=4096";
+			this.sqlConnection1.ConnectionString = "data source=kyle;integrated security=sspi;initial catalog=picdb;persist security " +
+				"info=False";
 			// 
 			// menuItem8
 			// 
@@ -337,18 +356,6 @@ namespace PicAdmin
 			this.sqlUpdateCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			this.sqlUpdateCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, "PictureID"));
 			// 
-			// txtTitle
-			// 
-			this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.txtTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.Title"));
-			this.txtTitle.Location = new System.Drawing.Point(72, 8);
-			this.txtTitle.Name = "txtTitle";
-			this.txtTitle.Size = new System.Drawing.Size(472, 20);
-			this.txtTitle.TabIndex = 1;
-			this.txtTitle.Text = "";
-			this.txtTitle.Enter += new System.EventHandler(this.txtTitle_Enter);
-			// 
 			// dsPicture
 			// 
 			this.dsPicture.DataSetName = "DataSetPicture";
@@ -360,7 +367,7 @@ namespace PicAdmin
 			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(488, 456);
+			this.btnCancel.Location = new System.Drawing.Point(248, 224);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(64, 24);
 			this.btnCancel.TabIndex = 16;
@@ -414,30 +421,20 @@ namespace PicAdmin
 			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_CategoryID", System.Data.SqlDbType.Int, 4, "CategoryID"));
 			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PictureID", System.Data.SqlDbType.Int, 4, "PictureID"));
 			// 
-			// personSelect1
-			// 
-			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.personSelect1.Location = new System.Drawing.Point(72, 56);
-			this.personSelect1.Name = "personSelect1";
-			this.personSelect1.SelectedPerson = null;
-			this.personSelect1.SelectedPersonID = 0;
-			this.personSelect1.Size = new System.Drawing.Size(472, 21);
-			this.personSelect1.TabIndex = 5;
-			// 
 			// tabControl1
 			// 
 			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
+																					  this.tabPageBasicInfo,
 																					  this.tabPage1,
 																					  this.tabPage3,
 																					  this.tabPage2,
 																					  this.tabPage4});
-			this.tabControl1.Location = new System.Drawing.Point(16, 120);
+			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(536, 208);
+			this.tabControl1.Size = new System.Drawing.Size(304, 208);
 			this.tabControl1.TabIndex = 11;
 			// 
 			// tabPage1
@@ -446,7 +443,7 @@ namespace PicAdmin
 																				   this.txtDescription});
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(528, 182);
+			this.tabPage1.Size = new System.Drawing.Size(296, 182);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Description";
 			// 
@@ -458,7 +455,7 @@ namespace PicAdmin
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
 			this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtDescription.Size = new System.Drawing.Size(528, 182);
+			this.txtDescription.Size = new System.Drawing.Size(296, 182);
 			this.txtDescription.TabIndex = 0;
 			this.txtDescription.Text = "";
 			// 
@@ -468,7 +465,7 @@ namespace PicAdmin
 																				   this.personPicker1});
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(528, 182);
+			this.tabPage3.Size = new System.Drawing.Size(296, 182);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "People";
 			// 
@@ -476,10 +473,12 @@ namespace PicAdmin
 			// 
 			this.personPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.personPicker1.Name = "personPicker1";
-			this.personPicker1.Size = new System.Drawing.Size(528, 182);
+			this.personPicker1.Size = new System.Drawing.Size(296, 182);
 			this.personPicker1.TabIndex = 0;
-			this.personPicker1.RemovedPerson += new PicAdmin.RemovedPersonEventHandler(this.personPicker1_RemovedPerson);
-			this.personPicker1.AddedPerson += new PicAdmin.AddedPersonEventHandler(this.personPicker1_AddedPerson);
+			this.personPicker1.Enter += new System.EventHandler(this.personPicker1_Enter);
+			this.personPicker1.RemovedPerson += new msn2.net.Pictures.Controls.RemovedPersonEventHandler(this.personPicker1_RemovedPerson);
+			this.personPicker1.AddedPerson += new msn2.net.Pictures.Controls.AddedPersonEventHandler(this.personPicker1_AddedPerson);
+			this.personPicker1.Leave += new System.EventHandler(this.personPicker1_Leave);
 			// 
 			// tabPage2
 			// 
@@ -487,7 +486,7 @@ namespace PicAdmin
 																				   this.categoryPicker1});
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(528, 182);
+			this.tabPage2.Size = new System.Drawing.Size(296, 182);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Categories";
 			// 
@@ -495,10 +494,10 @@ namespace PicAdmin
 			// 
 			this.categoryPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.categoryPicker1.Name = "categoryPicker1";
-			this.categoryPicker1.Size = new System.Drawing.Size(528, 182);
+			this.categoryPicker1.Size = new System.Drawing.Size(296, 182);
 			this.categoryPicker1.TabIndex = 0;
-			this.categoryPicker1.AddedCategory += new PicAdmin.AddedCategoryEventHandler(this.categoryPicker1_AddedCategory);
-			this.categoryPicker1.RemovedCategory += new PicAdmin.RemovedCategoryEventHandler(this.categoryPicker1_RemovedCategory);
+			this.categoryPicker1.AddedCategory += new msn2.net.Pictures.Controls.AddedCategoryEventHandler(this.categoryPicker1_AddedCategory);
+			this.categoryPicker1.RemovedCategory += new msn2.net.Pictures.Controls.RemovedCategoryEventHandler(this.categoryPicker1_RemovedCategory);
 			// 
 			// tabPage4
 			// 
@@ -506,7 +505,7 @@ namespace PicAdmin
 																				   this.groupPicker1});
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(528, 182);
+			this.tabPage4.Size = new System.Drawing.Size(296, 182);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Security";
 			// 
@@ -515,16 +514,16 @@ namespace PicAdmin
 			this.groupPicker1.AllowRemoveEveryone = true;
 			this.groupPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupPicker1.Name = "groupPicker1";
-			this.groupPicker1.Size = new System.Drawing.Size(528, 182);
+			this.groupPicker1.Size = new System.Drawing.Size(296, 182);
 			this.groupPicker1.TabIndex = 0;
-			this.groupPicker1.RemovedGroup += new PicAdmin.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
-			this.groupPicker1.AddedGroup += new PicAdmin.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
+			this.groupPicker1.RemovedGroup += new msn2.net.Pictures.Controls.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
+			this.groupPicker1.AddedGroup += new msn2.net.Pictures.Controls.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
 			// 
 			// btnOK
 			// 
 			this.btnOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnOK.Location = new System.Drawing.Point(416, 456);
+			this.btnOK.Location = new System.Drawing.Point(176, 224);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(64, 24);
 			this.btnOK.TabIndex = 15;
@@ -536,11 +535,12 @@ namespace PicAdmin
 			this.btnMovePrevious.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnMovePrevious.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnMovePrevious.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnMovePrevious.Location = new System.Drawing.Point(320, 456);
+			this.btnMovePrevious.Location = new System.Drawing.Point(80, 224);
 			this.btnMovePrevious.Name = "btnMovePrevious";
 			this.btnMovePrevious.Size = new System.Drawing.Size(40, 24);
 			this.btnMovePrevious.TabIndex = 13;
 			this.btnMovePrevious.Text = "&<<";
+			this.btnMovePrevious.Visible = false;
 			this.btnMovePrevious.Click += new System.EventHandler(this.btnMovePrevious_Click);
 			// 
 			// sqlInsertCommand1
@@ -551,14 +551,6 @@ namespace PicAdmin
 			this.sqlInsertCommand1.Connection = this.sqlConnection1;
 			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
 			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Current, null));
-			// 
-			// label2
-			// 
-			this.label2.Location = new System.Drawing.Point(16, 32);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(48, 16);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Date:";
 			// 
 			// sqlUpdateCommand1
 			// 
@@ -586,15 +578,6 @@ namespace PicAdmin
 			this.menuItem10.Index = 1;
 			this.menuItem10.Text = "-";
 			// 
-			// pbPic
-			// 
-			this.pbPic.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pbPic.Name = "pbPic";
-			this.pbPic.Size = new System.Drawing.Size(192, 132);
-			this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.pbPic.TabIndex = 0;
-			this.pbPic.TabStop = false;
-			// 
 			// sqlDeleteCommand1
 			// 
 			this.sqlDeleteCommand1.CommandText = "DELETE FROM PictureGroup WHERE (PictureGroupID = @PictureGroupID) AND (GroupID = " +
@@ -612,36 +595,22 @@ namespace PicAdmin
 			this.btnMoveNext.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnMoveNext.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnMoveNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnMoveNext.Location = new System.Drawing.Point(368, 456);
+			this.btnMoveNext.Location = new System.Drawing.Point(128, 224);
 			this.btnMoveNext.Name = "btnMoveNext";
 			this.btnMoveNext.Size = new System.Drawing.Size(40, 24);
 			this.btnMoveNext.TabIndex = 14;
 			this.btnMoveNext.Text = "&>>";
+			this.btnMoveNext.Visible = false;
 			this.btnMoveNext.Click += new System.EventHandler(this.btnMoveNext_Click);
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(168, 88);
+			this.label4.Location = new System.Drawing.Point(184, 336);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(56, 23);
 			this.label4.TabIndex = 7;
 			this.label4.Text = "Rating:";
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(16, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(48, 16);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Title:";
-			// 
-			// label3
-			// 
-			this.label3.Location = new System.Drawing.Point(16, 56);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(48, 16);
-			this.label3.TabIndex = 4;
-			this.label3.Text = "By:";
+			this.label4.Visible = false;
 			// 
 			// rating
 			// 
@@ -651,20 +620,22 @@ namespace PicAdmin
 																	 0,
 																	 0,
 																	 0});
-			this.rating.Location = new System.Drawing.Point(216, 88);
+			this.rating.Location = new System.Drawing.Point(232, 336);
 			this.rating.Name = "rating";
 			this.rating.Size = new System.Drawing.Size(48, 20);
 			this.rating.TabIndex = 8;
 			this.rating.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.rating.Visible = false;
 			// 
 			// chkPublish
 			// 
 			this.chkPublish.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.dsPicture, "Picture.Publish"));
-			this.chkPublish.Location = new System.Drawing.Point(72, 80);
+			this.chkPublish.Location = new System.Drawing.Point(88, 328);
 			this.chkPublish.Name = "chkPublish";
 			this.chkPublish.Size = new System.Drawing.Size(88, 24);
 			this.chkPublish.TabIndex = 6;
 			this.chkPublish.Text = "Publish";
+			this.chkPublish.Visible = false;
 			// 
 			// panelPic
 			// 
@@ -673,11 +644,19 @@ namespace PicAdmin
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.panelPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.panelPic.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.pbPic});
+																				   this.pictureDisplay1});
 			this.panelPic.Location = new System.Drawing.Point(16, 336);
 			this.panelPic.Name = "panelPic";
-			this.panelPic.Size = new System.Drawing.Size(196, 136);
+			this.panelPic.Size = new System.Drawing.Size(0, 0);
 			this.panelPic.TabIndex = 12;
+			this.panelPic.Visible = false;
+			// 
+			// pictureDisplay1
+			// 
+			this.pictureDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pictureDisplay1.Name = "pictureDisplay1";
+			this.pictureDisplay1.Size = new System.Drawing.Size(0, 0);
+			this.pictureDisplay1.TabIndex = 0;
 			// 
 			// daPictureGroup
 			// 
@@ -766,38 +745,94 @@ namespace PicAdmin
 			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, "PictureID"));
 			// 
+			// tabPageBasicInfo
+			// 
+			this.tabPageBasicInfo.Controls.AddRange(new System.Windows.Forms.Control[] {
+																						   this.pictureDatePicker,
+																						   this.personSelect1,
+																						   this.label3,
+																						   this.label2,
+																						   this.label1,
+																						   this.txtTitle});
+			this.tabPageBasicInfo.Location = new System.Drawing.Point(4, 22);
+			this.tabPageBasicInfo.Name = "tabPageBasicInfo";
+			this.tabPageBasicInfo.Size = new System.Drawing.Size(296, 182);
+			this.tabPageBasicInfo.TabIndex = 4;
+			this.tabPageBasicInfo.Text = "Picture Info";
+			// 
 			// pictureDatePicker
 			// 
 			this.pictureDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.pictureDatePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dsPicture, "Picture.PictureDate"));
-			this.pictureDatePicker.Location = new System.Drawing.Point(72, 32);
+			this.pictureDatePicker.Location = new System.Drawing.Point(56, 32);
 			this.pictureDatePicker.Name = "pictureDatePicker";
-			this.pictureDatePicker.Size = new System.Drawing.Size(472, 20);
-			this.pictureDatePicker.TabIndex = 3;
+			this.pictureDatePicker.Size = new System.Drawing.Size(232, 20);
+			this.pictureDatePicker.TabIndex = 9;
+			// 
+			// personSelect1
+			// 
+			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.personSelect1.Location = new System.Drawing.Point(56, 56);
+			this.personSelect1.Name = "personSelect1";
+			this.personSelect1.SelectedPerson = null;
+			this.personSelect1.SelectedPersonID = 0;
+			this.personSelect1.Size = new System.Drawing.Size(232, 21);
+			this.personSelect1.TabIndex = 11;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 56);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(48, 16);
+			this.label3.TabIndex = 10;
+			this.label3.Text = "By:";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(8, 32);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 16);
+			this.label2.TabIndex = 8;
+			this.label2.Text = "Date:";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 8);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(48, 16);
+			this.label1.TabIndex = 6;
+			this.label1.Text = "Title:";
+			// 
+			// txtTitle
+			// 
+			this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.txtTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.Title"));
+			this.txtTitle.Location = new System.Drawing.Point(56, 8);
+			this.txtTitle.Name = "txtTitle";
+			this.txtTitle.Size = new System.Drawing.Size(232, 20);
+			this.txtTitle.TabIndex = 7;
+			this.txtTitle.Text = "";
 			// 
 			// fPicture
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(560, 486);
+			this.ClientSize = new System.Drawing.Size(320, 254);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.pictureDatePicker,
 																		  this.rating,
 																		  this.label4,
 																		  this.btnMovePrevious,
 																		  this.btnMoveNext,
-																		  this.personSelect1,
-																		  this.label3,
 																		  this.chkPublish,
 																		  this.btnCancel,
 																		  this.btnOK,
 																		  this.panelPic,
-																		  this.label2,
-																		  this.label1,
-																		  this.txtTitle,
 																		  this.tabControl1});
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.MinimizeBox = false;
 			this.Name = "fPicture";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -814,6 +849,7 @@ namespace PicAdmin
 			this.tabPage4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.rating)).EndInit();
 			this.panelPic.ResumeLayout(false);
+			this.tabPageBasicInfo.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -826,34 +862,20 @@ namespace PicAdmin
 			mblnCancel = true;
 			this.Visible = false;
 
-			// get rid of current image if we have one
-			if (imgCurImage != null) 
-			{   
-				imgCurImage.Dispose();
-				imgCurImage = null;
-			}
-			pbPic.Image = null;
 			if (fPV != null)
 				fPV.Dispose();
 		}
 
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
-			buttonPushed = true;
+			buttonPushed			= true;
 
 			// reset next and previous
-			m_blnMoveNext = false;
-			m_blnMovePrevious = false;
+			m_blnMoveNext			= false;
+			m_blnMovePrevious		= false;
 
 			SavePicture();
 
-			// get rid of current image if we have one
-			if (imgCurImage != null) 
-			{   
-				imgCurImage.Dispose();
-				imgCurImage = null;
-			}
-			pbPic.Image = null;
 			if (fPV != null)
 				fPV.Dispose();
 		}
@@ -869,7 +891,55 @@ namespace PicAdmin
 			daPictureGroup.Update(dsPicture, "PictureGroup");
 
 			mblnCancel = false;
-			this.Visible = false;
+			
+			if (m_blnMoveNext || m_blnMovePrevious)
+			{
+
+				SqlCommand cmd = new SqlCommand("select PictureId from Picture p where " + navigationControlsDataQuery, cn);
+				cn.Open();
+                
+				SqlDataReader dr	= cmd.ExecuteReader(CommandBehavior.SingleResult);
+				int previous		= 0;
+				int next			= 0;
+				while (dr.Read())
+				{
+					int current		= dr.GetInt32(0);
+
+					// Check if current record matches and previous was what we wanted
+					if (current == pictureId && m_blnMovePrevious)
+					{
+						next = previous;
+						break;
+					}
+
+					// Check if previous was pictureId, then we are now on the right rec
+					if (previous == pictureId && m_blnMoveNext)
+					{
+						next = current;
+						break;
+					}
+
+					// Save this rec
+					previous		= current;
+				}
+				dr.Close();
+				cn.Close();
+
+				// If we got a value, load it
+				if (next != 0)
+				{
+					LoadPicture(next);
+				}
+				else
+				{
+					this.Visible	= false;
+				}
+			}
+			else
+			{
+				this.Dispose();
+			}
+
 		}
 
 		public bool LoadPicture(int id) 
@@ -921,75 +991,30 @@ namespace PicAdmin
 			}
 
 			// load picture if possible
-			String strFileName = dsPicture.Picture[0].Filename.ToString();
-
-			if (strFileName.Length > 0) 
-			{
-				LoadImage();
-			}
+//			string strFileName = dsPicture.Picture[0].Filename.ToString();
+//			if (strFileName.Length > 0) 
+//			{
+//				LoadImage();
+//			}
 
 			return true;
 		}
 
 		public bool LoadImage() 
 		{
+			pictureDisplay1.LoadImage(pictureId);
 
-			try 
-			{
-				// get rid of current image if we have one
-				if (imgCurImage != null) 
-				{   
-					imgCurImage.Dispose();
-					imgCurImage = null;
-				}
-				pbPic.Image = null;
-
-				// See if there is a resized image
-				string strFile = "";
-				cn.Open();
-				SqlCommand cmd = new SqlCommand("select * from PictureCache where PictureID = @PictureID and MaxWidth = 750 and MaxHeight = 700", cn);
-				cmd.Parameters.Add("@PictureID", Convert.ToInt32(pictureId));
-				SqlDataReader dr = cmd.ExecuteReader();
-				if (dr.Read()) 
-				{
-					strFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
-				}
-				dr.Close();
-				cn.Close();
-
-
-				// save the filename
-				m_Filename = strFile;
-				String strFullFile = "\\\\kenny\\inetpub\\pictures\\" + strFile;
-
-				// Load the file
-				imgCurImage = Image.FromFile(strFile);
-			
-				// figure out dimensions to use
-				panelPic.Width = (int) ( ( (float) imgCurImage.Width / (float) imgCurImage.Height) * (float) panelPic.Height );
-				pbPic.Width = panelPic.Width;
-				pbPic.Height = panelPic.Height;
-
-				pbPic.Image = imgCurImage;
-				return true;
-			}
-			catch (System.IO.FileNotFoundException fnfe) 
-			{
-				Console.WriteLine(fnfe.ToString());
-				pbPic.Image = null;
-				return false;
-			}
-
+			return false;
 		}
 
-		private void categoryPicker1_AddedCategory(object sender, PicAdmin.CategoryPickerEventArgs e)
+		private void categoryPicker1_AddedCategory(object sender, msn2.net.Pictures.Controls.CategoryPickerEventArgs e)
 		{
 			// add the category to the PictureCategory dataset
 			dsPicture.PictureCategory.AddPictureCategoryRow
 				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.CategoryID);
 		}
 
-		private void categoryPicker1_RemovedCategory(object sender, PicAdmin.CategoryPickerEventArgs e)
+		private void categoryPicker1_RemovedCategory(object sender, msn2.net.Pictures.Controls.CategoryPickerEventArgs e)
 		{
 			DataSetPicture.PictureCategoryRow pcr = 
 				dsPicture.PictureCategory.FindByPictureIDCategoryID(dsPicture.Picture[0].PictureID, e.CategoryID);
@@ -1001,14 +1026,14 @@ namespace PicAdmin
 
 		}
 
-		private void personPicker1_AddedPerson(object sender, PicAdmin.PersonPickerEventArgs e)
+		private void personPicker1_AddedPerson(object sender, msn2.net.Pictures.Controls.PersonPickerEventArgs e)
 		{
 			// add the person to the PicturePerson dataset
 			dsPicture.PicturePerson.AddPicturePersonRow
 				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.PersonID);
 		}
 
-		private void personPicker1_RemovedPerson(object sender, PicAdmin.PersonPickerEventArgs e)
+		private void personPicker1_RemovedPerson(object sender, msn2.net.Pictures.Controls.PersonPickerEventArgs e)
 		{
 			DataSetPicture.PicturePersonRow ppr = 
 				dsPicture.PicturePerson.FindByPictureIDPersonID(dsPicture.Picture[0].PictureID, e.PersonID);
@@ -1027,6 +1052,7 @@ namespace PicAdmin
 			m_blnMoveNext = true;
 			m_blnMovePrevious = false;
 			SavePicture();
+
 		}
 
 		private void btnMovePrevious_Click(object sender, System.EventArgs e)
@@ -1064,45 +1090,29 @@ namespace PicAdmin
 			RotateImage(RotateFlipType.Rotate90FlipNone);
 		}
 
-		private void RotateImage(RotateFlipType rft)
+		public void RotateImage(RotateFlipType rft)
 		{
-
-			fStatus fStat = new fStatus(this, "Performing image operation...", 0);
-            
 			// clear image on main form if present
-			m_fMain.ClearCurrentImage();
-
-			// clear current image if present
-			if (imgCurImage != null) 
+			if (m_fMain != null)
 			{
-				imgCurImage.Dispose();
-				imgCurImage = null;
+				m_fMain.ClearCurrentImage();
 			}
-			pbPic.Image = null;
-			
-			// Load image
-			String strFile = "\\\\kenny\\inetpub\\pictures\\" + dsPicture.Picture.Rows[0]["Filename"];
-			imgCurImage = Image.FromFile(strFile);
 
-			// Rotate amount passed
-			imgCurImage.RotateFlip(rft);
-			fStat.StatusText = "Saving to disk...";
-			imgCurImage.Save(strFile);
+			fStatus status = new fStatus("Please wait while the image is rotated...");
+			status.Show();
 
-			fStat.StatusText = "Updating cached images...";
-			ImageUtilities imageUtils = new ImageUtilities();
-			imageUtils.CreateUpdateCache(pictureId);
-			
-			fStat.StatusText = "Reloading modified file...";
-			LoadImage();
-						
-			
-			fStat.Visible = false;
+			picsvc.PictureManager pm			= new picsvc.PictureManager();
+			pm.RotateImage(Convert.ToInt32(pictureId), (picsvc.RotateFlipType) Enum.Parse(typeof(picsvc.RotateFlipType), rft.ToString()));
+
+			status.Hide();
+			status.Dispose();
+
+			MessageBox.Show("The image has been resized.  Refresh the web page to view the updated image.", "Rotate Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void fPicture_Load(object sender, System.EventArgs e)
 		{
-			pbPic.ContextMenu = menuImage;
+//			pbPic.ContextMenu = menuImage;
 		}
 
 		private void menuItem3_Click(object sender, System.EventArgs e)
@@ -1138,14 +1148,14 @@ namespace PicAdmin
 			
 		}
 
-		private void groupPicker1_AddedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_AddedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			// add the group to the PictureGroup dataset
 			dsPicture.PictureGroup.AddPictureGroupRow
 				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.GroupID);
 		}
 
-		private void groupPicker1_RemovedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_RemovedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			int pictureId = dsPicture.Picture[0].PictureID;
 
@@ -1175,6 +1185,16 @@ namespace PicAdmin
 
 		}
 
+		private void personPicker1_Enter(object sender, System.EventArgs e)
+		{
+			this.AcceptButton = null;
+		}
+
+		private void personPicker1_Leave(object sender, System.EventArgs e)
+		{
+			this.AcceptButton = btnOK;
+		}
+
 		public bool MoveNext 
 		{
 			get 
@@ -1196,6 +1216,9 @@ namespace PicAdmin
 			set 
 			{
 				m_fMain = value;
+
+				btnMoveNext.Visible = true;
+				btnMovePrevious.Visible	= true;
 			}
 		}
 

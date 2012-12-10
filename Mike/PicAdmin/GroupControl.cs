@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	// events
 	public delegate void ClickGroupEventHandler(object sender, GroupControlEventArgs e);
@@ -30,7 +30,7 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdmin.DataSetGroup dsGroup;
+		private msn2.net.Pictures.Controls.DataSetGroup dsGroup;
 		private System.Windows.Forms.ListView groupList;
 		private System.Windows.Forms.MenuItem menuAdd;
 		private System.Windows.Forms.MenuItem menuEdit;
@@ -97,7 +97,7 @@ namespace PicAdmin
 			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.dsGroup = new PicAdmin.DataSetGroup();
+			this.dsGroup = new msn2.net.Pictures.Controls.DataSetGroup();
 			((System.ComponentModel.ISupportInitialize)(this.dsGroup)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -170,8 +170,7 @@ namespace PicAdmin
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
-				"er id=sa;workstation id=CHEF;packet size=4096";
+			this.cn.ConnectionString = Config.ConnectionString;
 			// 
 			// sqlInsertCommand1
 			// 

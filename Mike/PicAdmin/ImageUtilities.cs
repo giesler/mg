@@ -6,8 +6,27 @@ using System.Drawing.Imaging;
 using System.Text;
 using System.IO;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
+	public class Config
+	{
+		public static string ConnectionString
+		{
+			get
+			{
+				return "data source=kyle;integrated security=sspi;initial catalog=picdb;persist security info=False";
+			}
+		}
+
+		public static double Opacity
+		{
+			get
+			{
+				return 0.80;
+			}
+		}
+	}
+
 	/// <summary>
 	/// Summary description for ImageUtilities.
 	/// </summary>
@@ -20,7 +39,7 @@ namespace PicAdmin
 		public ImageUtilities()
 		{
 			// Set up connection
-			sqlConnection = new SqlConnection("data source=kyle;initial catalog=picdb;user id=sa;password=too;persist security info=False");
+			sqlConnection = new SqlConnection(Config.ConnectionString);
 
 			// Data adapter for picture details
 			daPicture = new SqlDataAdapter("select * from Picture where PictureID = @PictureID", sqlConnection);
@@ -156,8 +175,8 @@ namespace PicAdmin
 			}
             
 			// figure out the filenames on the web server
-			string sourceFile = @"\\kenny\InetPub\Pictures\" + pictureRow.Filename;
-			string targetFile = @"\\kenny\InetPub\pics.msn2.net\piccache\" + cacheRow.Filename;
+			string sourceFile = @"\\ike\Pictures\" + pictureRow.Filename;
+			string targetFile = @"\\ike\piccache\" + cacheRow.Filename;
 
 			// Make sure the target directory exists first
 			string path = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));

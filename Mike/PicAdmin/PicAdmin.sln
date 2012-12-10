@@ -4,12 +4,12 @@ EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
 		SccNumberOfProjects = 2
-		SccProjectUniqueName0 = PicAdmin.csproj
 		SccLocalPath0 = .
 		CanCheckoutShared = false
+		SolutionUniqueID = {4ED1CBA8-4098-4E11-975C-8ADB6AAAA932}
+		SccProjectUniqueName1 = PicAdmin.csproj
 		SccLocalPath1 = .
 		CanCheckoutShared = false
-		SolutionUniqueID = {4ED1CBA8-4098-4E11-975C-8ADB6AAAA932}
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug

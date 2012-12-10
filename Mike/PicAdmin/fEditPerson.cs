@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace PicAdmin
+namespace msn2.net.Pictures.Controls
 {
 	/// <summary>
 	/// Summary description for fPromptText.
@@ -25,7 +25,7 @@ namespace PicAdmin
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtFullName;
 		private System.Data.SqlClient.SqlConnection cn;
-		private PicAdmin.DataSetPerson dsPerson;
+		private msn2.net.Pictures.Controls.DataSetPerson dsPerson;
 		private bool mblnCancel = false;
 		protected int mintPersonID;
 		private System.Windows.Forms.Label label3;
@@ -35,7 +35,7 @@ namespace PicAdmin
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand2;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand2;
 		private System.Data.SqlClient.SqlDataAdapter daPerson;
-		private PicAdmin.GroupPicker groupPicker1;
+		private msn2.net.Pictures.Controls.GroupPicker groupPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPersonGroup;
 		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
@@ -84,7 +84,7 @@ namespace PicAdmin
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.txtFullName = new System.Windows.Forms.TextBox();
-			this.dsPerson = new PicAdmin.DataSetPerson();
+			this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
 			this.daPersonGroup = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.cn = new System.Data.SqlClient.SqlConnection();
@@ -92,7 +92,7 @@ namespace PicAdmin
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.txtLastName = new System.Windows.Forms.TextBox();
-			this.groupPicker1 = new PicAdmin.GroupPicker();
+			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.sqlDeleteCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlInsertCommand2 = new System.Data.SqlClient.SqlCommand();
@@ -121,6 +121,7 @@ namespace PicAdmin
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnCancel.CausesValidation = false;
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnCancel.Location = new System.Drawing.Point(320, 320);
@@ -172,8 +173,7 @@ namespace PicAdmin
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;password=tOO;persist security info=True;us" +
-				"er id=sa;workstation id=CHEF;packet size=4096";
+			this.cn.ConnectionString = Config.ConnectionString;
 			// 
 			// sqlInsertCommand1
 			// 
@@ -181,28 +181,28 @@ namespace PicAdmin
 				"ersonGroupID, PersonID, GroupID FROM PersonGroup WHERE (GroupID = @Select_GroupI" +
 				"D) AND (PersonID = @Select_PersonID)";
 			this.sqlInsertCommand1.Connection = this.cn;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, "GroupID"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_GroupID", System.Data.SqlDbType.Int, 4, "GroupID"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// sqlSelectCommand1
 			// 
 			this.sqlSelectCommand1.CommandText = "SELECT PersonGroupID, PersonID, GroupID FROM PersonGroup WHERE (PersonID = @Perso" +
 				"nID)";
 			this.sqlSelectCommand1.Connection = this.cn;
-			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// sqlUpdateCommand1
 			// 
 			this.sqlUpdateCommand1.CommandText = @"UPDATE PersonGroup SET PersonID = @PersonID, GroupID = @GroupID WHERE (GroupID = @Original_GroupID) AND (PersonID = @Original_PersonID); SELECT PersonGroupID, PersonID, GroupID FROM PersonGroup WHERE (GroupID = @Select_GroupID) AND (PersonID = @Select_PersonID)";
 			this.sqlUpdateCommand1.Connection = this.cn;
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, "GroupID"));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_GroupID", System.Data.SqlDbType.Int, 4, "GroupID"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// txtLastName
 			// 
@@ -229,8 +229,8 @@ namespace PicAdmin
 			this.groupPicker1.Name = "groupPicker1";
 			this.groupPicker1.Size = new System.Drawing.Size(398, 136);
 			this.groupPicker1.TabIndex = 10;
-			this.groupPicker1.RemovedGroup += new PicAdmin.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
-			this.groupPicker1.AddedGroup += new PicAdmin.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
+			this.groupPicker1.RemovedGroup += new msn2.net.Pictures.Controls.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
+			this.groupPicker1.AddedGroup += new msn2.net.Pictures.Controls.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
 			// 
 			// sqlDeleteCommand2
 			// 
@@ -276,7 +276,7 @@ namespace PicAdmin
 			this.sqlSelectCommand2.CommandText = "SELECT PersonID, LastName, FirstName, FullName, Email FROM Person WHERE (PersonID" +
 				" = @PersonID)";
 			this.sqlSelectCommand2.Connection = this.cn;
-			this.sqlSelectCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlSelectCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// sqlUpdateCommand2
 			// 
@@ -295,7 +295,7 @@ namespace PicAdmin
 			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Current, null));
+			this.sqlUpdateCommand2.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
 			// 
 			// lblCaption
 			// 
@@ -320,6 +320,10 @@ namespace PicAdmin
 			this.txtFirstName.Text = "";
 			this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFirstName_Validating);
 			this.txtFirstName.Validated += new System.EventHandler(this.txtFirstName_Validated);
+			// 
+			// errorProvider1
+			// 
+			this.errorProvider1.DataMember = null;
 			// 
 			// btnOK
 			// 
@@ -439,7 +443,7 @@ namespace PicAdmin
 				txtFullName.Text = txtFirstName.Text + " " + txtLastName.Text;
 		}
 
-		private void groupPicker1_AddedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_AddedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			// add the group to the PictureGroup dataset
 			dsPerson.PersonGroup.AddPersonGroupRow(
@@ -447,7 +451,7 @@ namespace PicAdmin
 
 		}
 
-		private void groupPicker1_RemovedGroup(object sender, PicAdmin.GroupPickerEventArgs e)
+		private void groupPicker1_RemovedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			DataSetPerson.PersonGroupRow row = 
 				dsPerson.PersonGroup.FindByPersonIDGroupID(dsPerson.Person[0].PersonID, e.GroupID);
