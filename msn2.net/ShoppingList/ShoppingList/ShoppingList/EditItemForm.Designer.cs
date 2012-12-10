@@ -30,15 +30,25 @@
         private void InitializeComponent()
         {
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuOK = new System.Windows.Forms.MenuItem();
             this.menuCancel = new System.Windows.Forms.MenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // mainMenu1
             // 
             this.mainMenu1.MenuItems.Add(this.menuOK);
             this.mainMenu1.MenuItems.Add(this.menuCancel);
+            // 
+            // menuOK
+            // 
+            this.menuOK.Text = "&OK";
+            this.menuOK.Click += new System.EventHandler(this.menuOK_Click);
+            // 
+            // menuCancel
+            // 
+            this.menuCancel.Text = "&Cancel";
+            this.menuCancel.Click += new System.EventHandler(this.menuCancel_Click);
             // 
             // textBox1
             // 
@@ -52,16 +62,8 @@
             this.textBox1.Size = new System.Drawing.Size(234, 262);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // menuOK
-            // 
-            this.menuOK.Text = "&OK";
-            this.menuOK.Click += new System.EventHandler(this.menuOK_Click);
-            // 
-            // menuCancel
-            // 
-            this.menuCancel.Text = "&Cancel";
-            this.menuCancel.Click += new System.EventHandler(this.menuCancel_Click);
+            this.textBox1.GotFocus += new System.EventHandler(this.textBox1_GotFocus);
+            this.textBox1.LostFocus += new System.EventHandler(this.textBox1_LostFocus);
             // 
             // EditItemForm
             // 

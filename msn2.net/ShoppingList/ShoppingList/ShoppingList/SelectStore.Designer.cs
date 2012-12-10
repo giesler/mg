@@ -32,7 +32,8 @@
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
             this.cancel = new System.Windows.Forms.MenuItem();
             this.list = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.nameColumn = new System.Windows.Forms.ColumnHeader();
+            this.countColumn = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -47,24 +48,29 @@
             // list
             // 
             this.list.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.list.Columns.Add(this.columnHeader1);
+            this.list.Columns.Add(this.nameColumn);
+            this.list.Columns.Add(this.countColumn);
+            this.list.Dock = System.Windows.Forms.DockStyle.Fill;
             this.list.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular);
             this.list.FullRowSelect = true;
             this.list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.list.Location = new System.Drawing.Point(3, 3);
+            this.list.Location = new System.Drawing.Point(0, 0);
             this.list.Name = "list";
-            this.list.Size = new System.Drawing.Size(234, 262);
+            this.list.Size = new System.Drawing.Size(240, 268);
             this.list.TabIndex = 0;
             this.list.View = System.Windows.Forms.View.Details;
             this.list.SelectedIndexChanged += new System.EventHandler(this.list_SelectedIndexChanged);
             // 
-            // columnHeader1
+            // nameColumn
             // 
-            this.columnHeader1.Text = "ColumnHeader";
-            this.columnHeader1.Width = 100;
+            this.nameColumn.Text = "ColumnHeader";
+            this.nameColumn.Width = 100;
+            // 
+            // countColumn
+            // 
+            this.countColumn.Text = "ColumnHeader";
+            this.countColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.countColumn.Width = 30;
             // 
             // SelectStore
             // 
@@ -86,7 +92,8 @@
         #endregion
 
         private System.Windows.Forms.ListView list;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader nameColumn;
         private System.Windows.Forms.MenuItem cancel;
+        private System.Windows.Forms.ColumnHeader countColumn;
     }
 }
