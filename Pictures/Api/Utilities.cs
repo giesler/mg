@@ -23,7 +23,7 @@ namespace msn2.net.Pictures
         public static PictureConfig Load()
 		{
 			PictureConfig config;
-            config.ConnectionString = "data source=stan.sp.msn2.net;initial catalog=picdb;User ID=PictureAdminUser;Password=si82izmwiae2;persist security info=False";
+            config.ConnectionString = "data source=stan;initial catalog=picdb;User ID=PictureAdminUser;Password=si82izmwiae2;persist security info=False";
             config.PictureDirectory = @"\\stan.sp.msn2.net\Pictures\pics.msn2.net\";
             config.SmtpServer		= "192.168.1.5";
             config.CacheDirectory = @"\\ned.sp.msn2.net\picCache\";
