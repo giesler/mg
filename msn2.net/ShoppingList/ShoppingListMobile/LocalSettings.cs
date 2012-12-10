@@ -49,7 +49,7 @@ namespace msn2.net.ShoppingList
             writer.WriteEndElement();
 
             writer.WriteStartElement("stl");
-            foreach (StoreItem store in this.LatestItems.Values)
+            foreach (StoreItem store in this.LatestItems.Values.OrderBy(i => i.Name))
             {
                 writer.WriteStartElement("st");
                 writer.WriteAttributeString("name", store.Name);

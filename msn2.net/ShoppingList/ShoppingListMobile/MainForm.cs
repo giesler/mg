@@ -405,6 +405,11 @@ namespace msn2.net.ShoppingList
             if (this.selectedStore == null)
             {
                 this.selectedStore = this.settings.latestItems.Values.First<StoreItem>();
+                StoreItem grocery = this.settings.latestItems.Values.FirstOrDefault(i => i.Name.ToLower() == "grocery store");
+                if (grocery != null)
+                {
+                    this.selectedStore = grocery;
+                }
             }
 
             this.storeLabel.Text = this.selectedStore.Name;
@@ -841,13 +846,12 @@ namespace msn2.net.ShoppingList
         {
             this.timerResizeCheck.Enabled = false;
             this.SetColumnWidth();
-            Trace.WriteLine("Resize check tick");
         }
 
         void SetColumnWidth()
         {
             int width = this.listView.ClientSize.Width;
-            if (this.listView.Columns.Count > 0)
+            if (this.listView.Columns.Count > 0 && width > 0)
             {
                 if (this.listView.Columns[0].Width != width)
                 {
