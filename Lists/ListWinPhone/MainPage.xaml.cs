@@ -26,89 +26,162 @@ namespace giesler.org.lists
     {
         private bool backgroundOperationActive = false;
         private bool loadedFromStorage = false;
+        private Timer lastRefreshDisplayTimer = null;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            this.main.SelectionChanged += new SelectionChangedEventHandler(main_SelectionChanged);
         }
 
         public bool AttemptedStorageLoad { get; set; }
+        private bool isLoading = false;
 
         void main_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PivotItem item = this.main.SelectedItem as PivotItem;
-            ListEx list = item.Tag as ListEx;
-
-            if (list != null)
+            if (!isLoading)
             {
-                App.SelectedList = list.UniqueId;
-                App.Current.SaveSettings();
+                PivotItemEx item = this.main.Items[this.main.SelectedIndex] as PivotItemEx;
+                if (item != null)
+                {
+                    ListEx list = item.Tag as ListEx;
+
+                    if (list != null)
+                    {
+                        App.SelectedList = list.UniqueId;
+                        App.Current.SaveSettings();
+                    }
+
+                    if (!item.IsLoaded)
+                    {
+                        item.IsLoaded = true;
+
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(DelayControlUpdateThread), item);
+                    }
+                }
             }
+        }
+
+        private void DelayControlUpdateThread(object sender)
+        {
+            Thread.Sleep(100);
+
+            Dispatcher.BeginInvoke(new WaitCallback(this.AddListItems), sender);
+        }
+
+        private void AddListItems(object sender)
+        {
+            PivotItemEx item = (PivotItemEx)sender;
+            ListEx list = (ListEx)item.Tag;
+            StoreItemList listControl = new StoreItemList();
+            item.Content = listControl;
+            listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
+
+            var q = list.Items.OrderBy(i => i.Name);
+            listControl.Load(q);
         }
 
         private void DisplayLoadedLists(List<ListEx> lists)
         {
             App.Lists = lists;
-            int clearCount = this.main.Items.Count;
 
-            int cur = -1;
-            int selectIndex = -1;
-            foreach (ListEx list in lists)
+            this.isLoading = true;
+            this.main.Items.Clear();
+
+            ListEx selected = null;
+            if (App.SelectedList != Guid.Empty)
             {
-                cur++;
-
-                PivotItem item = new PivotItem();
-                item.Tag = list;
-                item.Header = list.Name.ToLowerInvariant();
-
-                TextBlock blk = new TextBlock() { Text = "loading..." };
-                blk.Margin = new Thickness(12, 12, 0, 0);
-                item.Content = blk;
-
-                this.main.Items.Add(item);
-
-                if (list.UniqueId == App.SelectedList)
+                selected = App.Lists.FirstOrDefault(l => l.UniqueId == App.SelectedList);
+                if (selected != null)
                 {
-                    selectIndex = cur;
+                    int index = App.Lists.OrderBy(l => l.Name).ToList().IndexOf(selected);
+
+                    App.Lists = new List<ListEx>();
+                    lists.OrderBy(l => l.Name).Skip(index).ToList().ForEach(l => App.Lists.Add(l));
+                    lists.OrderBy(l => l.Name).Take(index).ToList().ForEach(l => App.Lists.Add(l));
                 }
             }
 
-            while (clearCount-- > 0)
+            foreach (ListEx list in App.Lists)
             {
-                this.main.Items.RemoveAt(clearCount);
+                PivotItemEx item = new PivotItemEx();
+                item.Tag = list;
+                item.Header = list.Name.ToLowerInvariant();
+                this.main.Items.Add(item);
             }
 
-            if (selectIndex >= 0)
-            {
-                this.main.SelectedIndex = selectIndex;
-            }
+            this.isLoading = false;
 
-            foreach (PivotItem item in this.main.Items)
-            {
-                StoreItemList listControl = new StoreItemList();
-                item.Content = listControl;
-                listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
+            // Adding items sets the selectedindex, but doens't trigger selection
+            this.main.SelectedIndex = 0;
+            this.main.SelectedItem = this.main.Items[0];
 
-                ListEx list = item.Tag as ListEx;
-
-                var q = list.Items.OrderBy(i => i.Name);
-                listControl.Load(q);
-            }
+            this.main_SelectionChanged(null, null);
 
             this.UpdateControls();
 
-            if (this.loadedFromStorage == true && App.LastRefreshTime.AddMinutes(30) < DateTime.Now)
+            TimeSpan refreshDuration = DateTime.Now - App.LastRefreshTime;
+            if (refreshDuration.TotalSeconds > 90)
             {
-                this.refreshButton_Click(null, null);
-                this.loadedFromStorage = false;
+                this.updatingMessage.Text = "Last updated " + GetDurationString(refreshDuration);
+                this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
+                this.lastRefreshDisplayTimer = new Timer(new TimerCallback(OnLastRefreshHide), new object(), 1000 * 5, Timeout.Infinite);
             }
             else
             {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
+                this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
             }
+        }
+
+        static string GetDurationString(TimeSpan duration)
+        {
+            string durationText = string.Empty;
+            if (duration.TotalMinutes < 1)
+            {
+                durationText = "under one minute ago";
+            }
+            else if (duration.TotalSeconds < 120)
+            {
+                durationText = string.Format("1 minute ago");
+            }
+            else if (duration.TotalMinutes < 60)
+            {
+                durationText = string.Format("{0:0} minutes ago", duration.TotalMinutes);
+            }
+            else if (duration.TotalMinutes < 120)
+            {
+                durationText = string.Format("1 hour ago");
+            }
+            else if (duration.TotalHours < 24)
+            {
+                durationText = string.Format("{0:0} hours ago", duration.TotalHours);
+            }
+            else if (duration.TotalHours < 48)
+            {
+                durationText = string.Format("Yesterday");
+            }
+            else if (duration.TotalHours < 72)
+            {
+                durationText = "The day before yesterday";
+            }
+            else if (duration.TotalHours < 96)
+            {
+                durationText = "The day before the day before yesterday";
+            }
+            else
+            {
+                durationText = string.Format("{0:0} days ago", duration.TotalDays);
+            }
+            return durationText;
+        }
+
+        private void OnLastRefreshHide(object sender)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
+            });
         }
 
         void listControl_DeleteListItem(ListItem item)
@@ -130,10 +203,14 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message, "Delete Error", MessageBoxButton.OK);
             }
 
+            this.updatingMessage.Visibility = Visibility.Collapsed;
+
             this.ToggleBackgroundOperationStatus(false);
 
             ListDataServiceClient client = (ListDataServiceClient)sender;
             client.CloseAsync();
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
         }
 
         void ToggleBackgroundOperationStatus(bool isActive)
@@ -190,28 +267,48 @@ namespace giesler.org.lists
             //string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
             //MessageBox.Show(msg);
 
-            if (App.Lists != null && App.Lists.Count > 0)
+            bool isLoaded = false;
+            if (this.main.Items.Count > 0)
             {
-                this.DisplayLoadedLists(App.Lists);
-            }
-            if (App.Lists.Count == 0)
-            {
-                this.ReloadAll();
+                PivotItemEx item = this.main.SelectedItem as PivotItemEx;
+                if (item != null)
+                {
+                    ListEx list = item.Tag as ListEx;
+                    if (list.UniqueId == App.SelectedList)
+                    {
+                        isLoaded = true;
 
-                this.updatingMessage.Text = "Loading from service...";
-                this.updatingMessage.Visibility = Visibility.Visible;
-                this.pbar.Visibility = System.Windows.Visibility.Visible;
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(DelayControlUpdateThread), item);
+                    }
+                }
             }
-            //else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
-            //{
-            //    NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
-            //}
-            else
+
+            if (!isLoaded)
             {
-                this.updatingMessage.Visibility = Visibility.Collapsed;
+                if (App.Lists != null && App.Lists.Count > 0)
+                {
+                    this.DisplayLoadedLists(App.Lists);
+                }
+                if (App.Lists.Count == 0)
+                {
+                    this.ReloadAll();
+
+                    this.updatingMessage.Text = "Loading from service...";
+                    this.updatingMessage.Visibility = Visibility.Visible;
+                    this.pbar.Visibility = System.Windows.Visibility.Visible;
+                }
+                //else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
+                //{
+                //    NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
+                //}
             }
 
             this.UpdateControls();
+
+            if (App.LastRefreshTime.AddMinutes(30) < DateTime.Now)
+            {
+                this.ReloadAll();
+            }
         }
 
         void ReloadAll()
@@ -254,9 +351,10 @@ namespace giesler.org.lists
                 }
 
                 App.Lists = lists;
-                
+
                 App.LastRefreshTime = DateTime.Now;
-                App.Current.SaveSettings();
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
 
                 DisplayLoadedLists(lists);
             }
@@ -305,7 +403,7 @@ namespace giesler.org.lists
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            PivotItem item = (PivotItem)this.main.SelectedItem;
+            PivotItem item = (PivotItem)this.main.Items[this.main.SelectedIndex];
             List list = (List)item.Tag;
 
             NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + list.UniqueId, UriKind.Relative));
@@ -313,7 +411,7 @@ namespace giesler.org.lists
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-//            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+            //            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
 
             this.LoadFromStorage(null);
         }
@@ -338,5 +436,5 @@ namespace giesler.org.lists
                 deviceTotalMemory / 1024 / 1024, Environment.NewLine, applicationCurrentMemoryUsage / 1024 / 1024, applicationPeakMemoryUsage / 1024 / 1024);
             MessageBox.Show(msg, "Debug Info", MessageBoxButton.OK);
         }
-   }
+    }
 }

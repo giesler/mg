@@ -7,12 +7,20 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="40" d:DesignWidth="200">
-    
+    d:DesignHeight="25" d:DesignWidth="200">
+
     <Grid x:Name="LayoutRoot">
-        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
-            <CheckBox Name="itemCheck" Checked="itemCheck_Checked" Tag="{Binding}"  Unchecked="itemCheck_Unchecked"/>
-            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Margin="0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="12*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="100*" />
+        </Grid.ColumnDefinitions>
+        <CheckBox Name="itemCheck" Checked="itemCheck_Checked" Tag="{Binding}" Unchecked="itemCheck_Unchecked" Grid.RowSpan="3" VerticalAlignment="Top" />
+        <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" Text="{Binding Name}" Grid.Column="1" MouseLeftButtonDown="OnLeftMouseDown" MouseLeftButtonUp="OnLeftMouseUp" Margin="12,0" Grid.RowSpan="3" />
+        <ProgressBar Name="progressBar1" Maximum="50" Visibility="Collapsed" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </UserControl>

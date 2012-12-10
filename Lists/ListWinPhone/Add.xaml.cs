@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using giesler.org.lists.ListData;
+using Microsoft.Phone.Shell;
+using System.Threading;
 
 namespace giesler.org.lists
 {
@@ -23,23 +25,28 @@ namespace giesler.org.lists
             Guid listId = App.SelectedList;
             List list = App.Lists.FirstOrDefault(l => l.UniqueId == listId);
 
-            this.PageTitle.Text = list.Name;
+            this.PageTitle.Text = list.Name.ToLower();
+
+            this.Loaded += new RoutedEventHandler(OnPageLoaded);
         }
 
-        void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
+        void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
-            svc.CloseAsync();
+            this.text.Focus();
         }
 
         private void text_TextChanged(object sender, TextChangedEventArgs e)
         {
-// BUGBUG:            this.addButton.IsEnabled = this.text.Text.Trim().Length > 0;
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = this.text.Text.Trim().Length > 0;
         }
 
-        private void ok_Click(object sender, RoutedEventArgs e)
+        private void OnAdd(object sender, EventArgs e)
         {
             Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
+
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
+            this.text.IsEnabled = false;
+            this.pbar.Visibility = System.Windows.Visibility.Visible;
 
             ListDataServiceClient svc = App.DataProvider;
             svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
@@ -47,12 +54,25 @@ namespace giesler.org.lists
 
             ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
             list.Items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
-            list.Items  = list.Items.OrderBy(i => i.Name).ToList();
+            list.Items = list.Items.OrderBy(i => i.Name).ToList();
 
             NavigationService.GoBack();
         }
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
+        void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
+        {
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            svc.CloseAsync();
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
+        }
+
+        void SaveLists(object sender)
+        {
+            App.Current.SaveAll();
+        }
+
+        private void OnCancel(object sender, EventArgs e)
         {
             NavigationService.GoBack();
         }

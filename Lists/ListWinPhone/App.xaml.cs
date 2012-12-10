@@ -162,7 +162,19 @@ namespace giesler.org.lists
         public static string LiveIdAccessToken { get; set; }
         public static string LiveIdRefreshToken { get; set; }
         public static List<Contact> LiveContacts { get; set; }
-        public static Guid SelectedList { get; set; }
+        public static Guid SelectedList
+        {
+            get
+            {
+                return selectedList;
+            }
+            set
+            {
+                selectedList = value;
+            }
+        }
+
+        static Guid selectedList;
 
         public static DateTime lastRefreshTime = DateTime.MinValue;
         public static DateTime LastRefreshTime
@@ -216,7 +228,7 @@ namespace giesler.org.lists
             SetAppSetting("LiveId.UserId", liveAuth.UserId);
             SetAppSetting("LiveId.AccessToken", liveAuth.AccessToken);
             SetAppSetting("LiveId.RefreshToken", liveAuth.RefreshToken);
-            
+
             AuthData = listAuth;
 
             LiveIdUserId = liveAuth.UserId;
@@ -287,17 +299,20 @@ namespace giesler.org.lists
                 }
             }
 
-            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            lock (this.dataLockObject)
             {
-                if (store.FileExists(settingFileName))
+                using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
                 {
-                    store.DeleteFile(settingFileName);
-                }
+                    if (store.FileExists(settingFileName))
+                    {
+                        store.DeleteFile(settingFileName);
+                    }
 
-                using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Create, store))
-                {
-                    doc.Save(stream);
-                    stream.Close();
+                    using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Create, store))
+                    {
+                        doc.Save(stream);
+                        stream.Close();
+                    }
                 }
             }
         }
@@ -330,7 +345,7 @@ namespace giesler.org.lists
                 {
                     SelectedList = new Guid(temp);
                 }
-#if DEBUG
+                //#if DEBUG
                 if (AuthData.PersonUniqueId == Guid.Empty)
                 {
                     AuthData.PersonUniqueId = new Guid("{feea96d5-3919-42af-8db2-eada650a7dec}"); // giesler@live.com
@@ -340,7 +355,7 @@ namespace giesler.org.lists
                     AuthData.DeviceUniqueId = new Guid("{0a0e9d2d-125c-4eef-b4e4-540ddedcf99e}");  // emulator
                 }
 
-#endif
+                //#endif
 
                 string lastTime = GetSetting("LastRefreshTime");
                 if (!string.IsNullOrEmpty(lastTime))
@@ -353,31 +368,41 @@ namespace giesler.org.lists
                 Debug.WriteLine(LiveIdRefreshToken);
 
                 App.Lists = new List<ListEx>();
-                using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+                lock (this.dataLockObject)
                 {
-                    if (store.FileExists(settingFileName))
+                    using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
                     {
-                        IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Open, store);
-                        XDocument doc = XDocument.Load(stream);
-
-                        XElement dataElement = doc.Element("data");
-                        XElement listsElement = dataElement.Element("lists");
-                        foreach (XElement listElement in listsElement.Elements("list"))
+                        if (store.FileExists(settingFileName))
                         {
-                            string name = listElement.Element("name").Value;
-                            Guid uniqueId = new Guid(listElement.Attribute("uniqueId").Value);
-
-                            ListEx list = new ListEx { Name = name, UniqueId = uniqueId };
-                            App.Lists.Add(list);
-
-                            XElement itemsElement = listElement.Element("items");
-                            foreach (XElement itemElement in itemsElement.Elements("item"))
+                            try
                             {
-                                string itemName = itemElement.Element("name").Value;
-                                Guid itemUniqueId = new Guid(itemElement.Attribute("uniqueId").Value);
+                                IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Open, store);
+                                XDocument doc = XDocument.Load(stream);
 
-                                ListItemEx item = new ListItemEx { Name = itemName, UniqueId = itemUniqueId, ListUniqueId = list.UniqueId };
-                                list.Items.Add(item);
+                                XElement dataElement = doc.Element("data");
+                                XElement listsElement = dataElement.Element("lists");
+                                foreach (XElement listElement in listsElement.Elements("list"))
+                                {
+                                    string name = listElement.Element("name").Value;
+                                    Guid uniqueId = new Guid(listElement.Attribute("uniqueId").Value);
+
+                                    ListEx list = new ListEx { Name = name, UniqueId = uniqueId };
+                                    App.Lists.Add(list);
+
+                                    XElement itemsElement = listElement.Element("items");
+                                    foreach (XElement itemElement in itemsElement.Elements("item"))
+                                    {
+                                        string itemName = itemElement.Element("name").Value;
+                                        Guid itemUniqueId = new Guid(itemElement.Attribute("uniqueId").Value);
+
+                                        ListItemEx item = new ListItemEx { Name = itemName, UniqueId = itemUniqueId, ListUniqueId = list.UniqueId };
+                                        list.Items.Add(item);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.ToString());
                             }
                         }
                     }

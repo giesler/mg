@@ -24,7 +24,7 @@
             </controls:PivotItem>
         </controls:Pivot>
         <ProgressBar Height="7" HorizontalAlignment="Left" Margin="12,3,0,0" Name="pbar" VerticalAlignment="Top" Width="456" IsIndeterminate="True" Visibility="Collapsed" />
-        <TextBlock Height="27" HorizontalAlignment="Left" Margin="216,17,0,0" Name="updatingMessage" Text="Starting..." VerticalAlignment="Top" Width="252" TextAlignment="Right" FontSize="20" Visibility="Collapsed" />
+        <TextBlock Height="27" HorizontalAlignment="Left" Margin="118,17,0,0" Name="updatingMessage" Text="Starting..." VerticalAlignment="Top" Width="350" TextAlignment="Right" FontSize="20" Visibility="Visible" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

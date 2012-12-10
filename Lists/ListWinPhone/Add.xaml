@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" 
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -22,7 +22,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,9,0,40">
-            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="ADD" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="add" Margin="9,-8,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
@@ -36,10 +36,15 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBox Name="text" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" TextChanged="text_TextChanged" Margin="0,0,0,0" FontSize="20" />
-            <Button Content="Add" Margin="4" Name="ok" Click="ok_Click" Grid.Row="2" />
-            <Button Content="Cancel" Margin="4" Name="cancel" Click="cancel_Click" Grid.Row="2" Grid.Column="1" />
+            <TextBox Name="text" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" TextChanged="text_TextChanged" Margin="0,0,0,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" MaxLength="50" TextWrapping="Wrap" />
         </Grid>
+        <ProgressBar Height="7" HorizontalAlignment="Left" Margin="12,3,0,0" Name="pbar" VerticalAlignment="Top" Width="456" IsIndeterminate="True" Visibility="Collapsed" />
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="addButton" IconUri="/Images/appbar.add.rest.png" Text="add" Click="OnAdd" IsEnabled="False" />
+            <shell:ApplicationBarIconButton x:Name="cancelButton" IconUri="/Images/appbar.cancel.rest.png" Text="jump" Click="OnCancel" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
