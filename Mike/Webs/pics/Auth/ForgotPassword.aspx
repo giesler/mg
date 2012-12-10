@@ -1,5 +1,4 @@
-<%@ Register TagPrefix="pics" TagName="sidebar" Src="../Controls/_sidebar.ascx" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <%@ Page language="c#" Codebehind="ForgotPassword.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.ForgotPassword" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -12,13 +11,15 @@
 	<body topmargin="0" leftmargin="0">
 		<!-- top table with MSN2 logo -->
 		<form runat="server" id="Login" method="post">
-			<pics:header id="ctlHeader" header="Pictures - Sign In" size="small" runat="server"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - Sign In"></picctls:Header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
 					<td height="3" class="msn2headerfade" colspan="3"><IMG height="3" src="images/blank.gif"></td>
 				</tr>
 				<tr>
-					<td class="msn2sidebar" width="125"><pics:sidebar id="Sidebar1" runat="server"></pics:sidebar></td>
+					<td class="msn2sidebar" width="125">
+						<picctls:Sidebar id="Sidebar1" runat="server"></picctls:Sidebar>
+					</td>
 					<td class="msn2sidebarfade" width="4"></td>
 					<td class="msn2contentwindow" vAlign="top">
 						<!-- Main content -->
