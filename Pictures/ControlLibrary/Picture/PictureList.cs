@@ -27,8 +27,14 @@ namespace msn2.net.Pictures.Controls
 
         public void LoadPictures(PictureCollection pictures)
         {
+            flowLayoutPanel1.SuspendLayout();
+
             selectedItems.Clear();
             flowLayoutPanel1.Controls.Clear();
+
+            flowLayoutPanel1.ResumeLayout(true);
+
+            flowLayoutPanel1.SuspendLayout();
 
             foreach (PictureData picture in pictures)
             {
@@ -40,6 +46,8 @@ namespace msn2.net.Pictures.Controls
                 pi.Height = imageSize;
                 flowLayoutPanel1.Controls.Add(pi);
             }
+
+            flowLayoutPanel1.ResumeLayout();
         }
 
         public List<int> SelectedItems

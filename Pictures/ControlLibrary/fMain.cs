@@ -1139,7 +1139,7 @@ namespace msn2.net.Pictures.Controls
                     string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
 
                     string destFilename = destFolder + @"\" + picture.Id.ToString() + "_" +
-                        picture.Title + "." + fileExtenstion;
+                        SafeFilename(picture.Title) + "." + fileExtenstion;
 
                     bool loop = true;
                     bool abort = false;
@@ -1172,6 +1172,25 @@ namespace msn2.net.Pictures.Controls
                     }
                 }
             }
+        }
+
+        private string SafeFilename(string title)
+        {
+            // \ / ; * ? " < > |
+
+            string output = title;
+
+            output = output.Replace(@"\", "_");
+            output = output.Replace(@"/", "_");
+            output = output.Replace(@";", "_");
+            output = output.Replace(@"*", "_");
+            output = output.Replace(@"?", "_");
+            output = output.Replace(@"""", "_");
+            output = output.Replace(@"<", "_");
+            output = output.Replace(@">", "_");
+            output = output.Replace(@"|", "_");
+
+            return output;
         }
 
         private void toolStrip1_Click(object sender, EventArgs e)

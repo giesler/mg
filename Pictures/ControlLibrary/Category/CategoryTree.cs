@@ -379,7 +379,7 @@ namespace msn2.net.Pictures.Controls
             {
                 node.Nodes.Clear();
             };
-            this.BeginInvoke(clearDelegate, new object[] { n });
+            this.Invoke(clearDelegate, new object[] { n });
             
 			// load child nodes from dvCategory
             List<Category> categories = PicContext.Current.CategoryManager.GetCategories(

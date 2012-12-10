@@ -174,7 +174,7 @@ namespace msn2.net.Pictures.Controls
 
         void categoryTree_ClickCategory(object sender, CategoryTreeEventArgs e)
         {
-            whereClause = string.Format("p.PictureID in (select pc.PictureID from PictureCategory pc where pc.CategoryID = {0})", e.Category.CategoryId);
+            whereClause = string.Format("p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))", e.Category.CategoryId);
 
             if (null != RefreshView)
             {

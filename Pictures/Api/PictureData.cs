@@ -24,8 +24,15 @@ namespace msn2.net.Pictures
 
             if (dr.FieldCount > 8)
             {
-                this.height = dr.GetInt32(8);
-                this.width = dr.GetInt32(9);
+                if (dr.IsDBNull(8) == false)
+                {
+                    this.averageRating = dr.GetDecimal(8);
+                }
+
+                if (dr.IsDBNull(9) == false)
+                {
+                    this.userRating = dr.GetByte(9);
+                }
             }
 
             dirty = false;
@@ -44,22 +51,6 @@ namespace msn2.net.Pictures
             get
             {
                 return fileName;
-            }
-        }
-
-        public int Height
-        {
-            get
-            {
-                return height;
-            }
-        }
-
-        public int Width
-        {
-            get
-            {
-                return width;
             }
         }
 
@@ -126,18 +117,34 @@ namespace msn2.net.Pictures
 			}
 		}
 
+        public int UserRating
+        {
+            get
+            {
+                return this.userRating;
+            }
+        }
+
+        public decimal AverageRating
+        {
+            get
+            {
+                return this.averageRating;
+            }
+        }
+
         #region Declares
 
         private bool dirty;
         private int id;
         private string fileName;
-        private int height;
-        private int width;
         private DateTime dateTaken;
         private string title;
         private string description;
         private DateTime dateAdded;
         private DateTime dateUpdated;
+        private int userRating;
+        private decimal averageRating;
 
         #endregion
     }

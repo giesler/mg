@@ -333,8 +333,10 @@ namespace msn2.net.Pictures
             PictureCollection pictures = new PictureCollection();
 
             string sql = "select 1 as RecNumber, p.PictureID, p.PictureDate, p.Title, p.Description, p.Filename, ";
-            sql         += "p.PictureAddDate, p.PictureUpdateDate ";
+            sql         += "p.PictureAddDate, p.PictureUpdateDate, p.AverageRating, pr.Rating ";
             sql += "from Picture p ";
+            sql += " left outer join PictureRating pr on pr.PictureId = p.PictureId  AND pr.PersonId = ";
+            sql += PicContext.Current.CurrentUser.Id.ToString() + " ";
             if (sqlWhereClause.Length > 0)
             {
                 sql += "WHERE " + sqlWhereClause + " ";

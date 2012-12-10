@@ -27,7 +27,7 @@ namespace msn2.net.Pictures.Controls
         private Form sourceForm = null;
         private PictureControlSettings settings;
         private bool loading = false;
-
+        
         private Slideshow(): this(new PictureControlSettings(), null, null)
         {
         }
@@ -89,6 +89,9 @@ namespace msn2.net.Pictures.Controls
             {
                 LoadCategories();
             }
+
+            this.DisplayStarRating(picture.UserRating);
+            this.DisplayAverageRating();
 
             UpdateControls();
         }
@@ -539,6 +542,196 @@ namespace msn2.net.Pictures.Controls
                 return this.item;
             }
         }
+
+        private void star1_Click(object sender, EventArgs e)
+        {
+            SaveStarRating(1);
+        }
+
+        private void star2_Click(object sender, EventArgs e)
+        {
+            SaveStarRating(2);
+        }
+
+        private void star3_Click(object sender, EventArgs e)
+        {
+            SaveStarRating(3);
+        }
+
+        private void star4_Click(object sender, EventArgs e)
+        {
+            SaveStarRating(4);
+        }
+
+        private void star5_Click(object sender, EventArgs e)
+        {
+            SaveStarRating(5);
+        }
+
+        private void star1_MouseEnter(object sender, EventArgs e)
+        {
+            this.DisplayStarRating(1);
+        }
+
+        private void star1_MouseLeave(object sender, EventArgs e)
+        {
+            this.DisplayCurrentStarRating();
+        }
+
+        private void star2_MouseEnter(object sender, EventArgs e)
+        {
+            this.DisplayStarRating(2);
+        }
+
+        private void star2_MouseLeave(object sender, EventArgs e)
+        {
+            this.DisplayCurrentStarRating();
+        }
+
+        private void star3_MouseEnter(object sender, EventArgs e)
+        {
+            this.DisplayStarRating(3);
+        }
+
+        private void star3_MouseLeave(object sender, EventArgs e)
+        {
+            this.DisplayCurrentStarRating();
+        }
+
+        private void star4_MouseEnter(object sender, EventArgs e)
+        {
+            this.DisplayStarRating(4);
+        }
+
+        private void star4_MouseLeave(object sender, EventArgs e)
+        {
+            this.DisplayCurrentStarRating();
+        }
+
+        private void star5_MouseEnter(object sender, EventArgs e)
+        {
+            this.DisplayStarRating(5);
+        }
+
+        private void star5_MouseLeave(object sender, EventArgs e)
+        {
+            this.DisplayCurrentStarRating();
+        }
+
+        private void DisplayCurrentStarRating()
+        {
+            if (this.picture != null)
+            {
+                this.DisplayStarRating(this.picture.UserRating);
+            }
+            else
+            {
+                this.DisplayStarRating(0);
+            }
+        }
+
+        private void DisplayStarRating(int rating)
+        {
+            star1.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star2.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star3.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star4.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star5.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+
+            if (rating > 0)
+            {
+                star1.Image = global::msn2.net.Pictures.Controls.Properties.Resources.star;
+
+                if (rating > 1)
+                {
+                    star2.Image = global::msn2.net.Pictures.Controls.Properties.Resources.star;
+
+                    if (rating > 2)
+                    {
+                        star3.Image = global::msn2.net.Pictures.Controls.Properties.Resources.star;
+
+                        if (rating > 3)
+                        {
+                            star4.Image = global::msn2.net.Pictures.Controls.Properties.Resources.star;
+
+                            if (rating > 4)
+                            {
+                                star5.Image = global::msn2.net.Pictures.Controls.Properties.Resources.star;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DisplayAverageRating()
+        {
+            averageLabel.Visible = false;
+
+            // Only display if user has rated
+            if (this.picture != null && this.picture.UserRating > 0)
+            {
+                averageLabel.Text = string.Format("Avg {0:0.0}", this.picture.AverageRating);
+                averageLabel.Visible = true;
+            }
+        }
+
+        private void ClearHoverState()
+        {
+            star1.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star2.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star3.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star4.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+            star5.Image = global::msn2.net.Pictures.Controls.Properties.Resources.starf;
+
+            if (this.picture != null)
+            {
+                DisplayStarRating(this.picture.UserRating);
+                DisplayAverageRating();
+            }
+        }
+
+        private void SaveStarRating(int stars)
+        {
+            if (this.picture != null)
+            {
+                PicContext.Current.PictureManager.RatePicture(
+                    this.picture.Id,
+                    stars);
+
+                this.picture = PicContext.Current.PictureManager.GetPicture(this.picture.Id);
+
+                DisplayStarRating(stars);
+                DisplayAverageRating();
+            }
+        }
+
+        private void openImage_Click(object sender, EventArgs e)
+        {
+            if (this.picture != null)
+            {
+                string path = System.IO.Path.Combine(
+                    PicContext.Current.Config.PictureDirectory,
+                    this.picture.Filename);
+
+                if (System.IO.File.Exists(path) == true)
+                {
+                    Process p = new Process();
+                    p.StartInfo = new ProcessStartInfo(path);
+                    p.Start();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "The file '" + path + "' does not exist or you do not have permissions to access it.",
+                        "Fiel not found",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
+
     }
 
     public delegate PictureData GetNextItemIdDelegate(int currentItem);

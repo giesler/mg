@@ -33,11 +33,11 @@
     <UpdateUrlEnabled>false</UpdateUrlEnabled>
     <ApplicationRevision>18</ApplicationRevision>
     <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>B7FAAF40C20B503A6F23854D13407CAE97589116</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>BEE894EB20FB9FE6DFC0B15FC1E92519DE855FE4</ManifestCertificateThumbprint>
     <ManifestKeyFile>
     </ManifestKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublishUrl>\\ike\websites\admin.pics.msn2.net\install\</PublishUrl>
+    <PublishUrl>\\sp\data\Software\msn2.net\PictureAdmin\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -47,14 +47,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>\\ike\websites\admin.pics.msn2.net\install\</InstallUrl>
+    <InstallUrl>\\sp\data\Software\msn2.net\PictureAdmin\</InstallUrl>
     <SupportUrl>http://home.msn2.net/</SupportUrl>
     <ProductName>Picture Admin</ProductName>
     <PublisherName>msn2.net</PublisherName>
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationVersion>2.1.104.%2a</ApplicationVersion>
+    <ApplicationVersion>2.1.106.%2a</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
