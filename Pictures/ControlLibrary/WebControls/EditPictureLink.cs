@@ -63,7 +63,7 @@ namespace msn2.net.Pictures.Controls
 		public void SetAsCategoryPic(int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+			PicContext context	= PicContext.Load(PictureConfig.Load(), personId);
 
             List<Category> categories = context.PictureManager.GetPictureCategories(pictureId);
 			if (categories.Count == 0)
@@ -112,7 +112,7 @@ namespace msn2.net.Pictures.Controls
 		public void AddToCategory(int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 
 			// Get categoyr id
 			fSelectCategory cat	= new fSelectCategory();
@@ -127,7 +127,7 @@ namespace msn2.net.Pictures.Controls
 		public void EditPicture(int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 
 			ShowDetailsForm(pictureId);
 		}

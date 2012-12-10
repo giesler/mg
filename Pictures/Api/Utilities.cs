@@ -19,11 +19,8 @@ namespace msn2.net.Pictures
 		public string SmtpServer;
 		public string PictureDirectory;
 		public string CacheDirectory;
-	}
 
-	public class Msn2Config
-	{
-		public static PictureConfig Load()
+        public static PictureConfig Load()
 		{
 			PictureConfig config;
             config.ConnectionString = "data source=barbrady.sp.msn2.net;initial catalog=picdb;User ID=PictureAdminUser;Password=si82izmwiae2;persist security info=False";

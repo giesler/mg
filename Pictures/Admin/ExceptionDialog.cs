@@ -50,7 +50,7 @@ namespace msn2.net.Pictures.Controls
                 exceptionName);
             mail.Body = message;
 
-            SmtpClient client = new SmtpClient(Msn2Config.Load().SmtpServer);
+            SmtpClient client = new SmtpClient(PictureConfig.Load().SmtpServer);
             client.UseDefaultCredentials = true;
             client.Send(mail);
 

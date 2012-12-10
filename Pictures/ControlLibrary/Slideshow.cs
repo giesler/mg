@@ -28,10 +28,8 @@ namespace msn2.net.Pictures.Controls
         private PictureControlSettings settings;
         private bool loading = false;
 
-        private Slideshow()
+        private Slideshow(): this(new PictureControlSettings(), null, null)
         {
-            this.settings = new PictureControlSettings();
-            InitializeComponent();
         }
 
         public Slideshow(
@@ -39,6 +37,7 @@ namespace msn2.net.Pictures.Controls
             GetPreviousItemIdDelegate getPreviousId, 
             GetNextItemIdDelegate getNextId)
         {
+            
             this.getPreviousId = getPreviousId;
             this.getNextId = getNextId;
             this.settings = settings;
@@ -46,6 +45,13 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
 
             this.KeyPreview = true;
+
+            item = new PictureItem(picture);
+            item.DrawShadow = false;
+            item.DrawBorder = false;
+            item.Dock = DockStyle.Fill;
+            this.Controls.Add(item);
+
         }
 
         protected PictureData CurrentPicture
@@ -63,18 +69,9 @@ namespace msn2.net.Pictures.Controls
 
         public void SetPicture(PictureData picture)
         {
-            if (null != item)
-            {
-                this.Controls.Remove(item);
-                item.Dispose();
-            }
             this.picture = picture;
 
-            item = new PictureItem(picture);
-            item.DrawShadow = false;
-            item.DrawBorder = false;
-            item.Dock = DockStyle.Fill;
-            this.Controls.Add(item);
+            this.item.SetPicture(picture);
 
             if (null != editor)
             {
@@ -200,16 +197,16 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void Slideshow_KeyPress(object sender, KeyPressEventArgs e)
-        {
-        }
-
-        private void Slideshow_KeyDown(object sender, KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
                 this.Close();
+            }
+            else
+            {
+                base.OnKeyDown(e);
             }
         }
 
@@ -242,6 +239,18 @@ namespace msn2.net.Pictures.Controls
         private void toolNext_Click(object sender, EventArgs e)
         {
             PictureData picture = getNextId(item.PictureId);
+            SetPicture(picture);
+        }
+
+        protected void Next()
+        {
+            PictureData picture = getNextId(item.PictureId);
+            SetPicture(picture);
+        }
+
+        protected void Previous()
+        {
+            PictureData picture = getPreviousId(item.PictureId);
             SetPicture(picture);
         }
 
@@ -503,6 +512,21 @@ namespace msn2.net.Pictures.Controls
 
         #endregion
 
+        protected ToolStrip ToolStip
+        {
+            get
+            {
+                return this.toolStip;
+            }
+        }
+
+        protected PictureItem PictureItem
+        {
+            get
+            {
+                return this.item;
+            }
+        }
     }
 
     public delegate PictureData GetNextItemIdDelegate(int currentItem);

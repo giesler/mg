@@ -21,21 +21,23 @@ namespace msn2.net.Pictures.Controls
     {
         private PictureData picture;
 
-        public PictureItem()
+        public PictureItem(): this(null)
         {
-            InitializeComponent();
         }
 
-        public PictureItem(PictureData picture)
+        public PictureItem(PictureData picture): base()
         {
             this.picture = picture;
 
             InitializeComponent();
-            this.Resize += new EventHandler(PictureItem_Resize);
-            this.Paint  += new PaintEventHandler(PictureItem_Paint);
-            this.Disposed += new EventHandler(PictureItem_Disposed);
+            InternalConstructor();
+        }
 
-            this.pictureId = picture.Id;
+        private void InternalConstructor()
+        {
+            this.Resize += new EventHandler(PictureItem_Resize);
+            this.Paint += new PaintEventHandler(PictureItem_Paint);
+            this.Disposed += new EventHandler(PictureItem_Disposed);
         }
 
         public PictureData Picture
@@ -46,12 +48,16 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private int pictureId;
         public int PictureId
         {
             get
             {
-                return pictureId;
+                if (picture != null)
+                {
+                    return picture.Id;
+                }
+
+                return 0;
             }
         }
 
@@ -73,7 +79,6 @@ namespace msn2.net.Pictures.Controls
         {
             // no background
         }
-
 
         protected override CreateParams CreateParams
         {
@@ -127,6 +132,29 @@ namespace msn2.net.Pictures.Controls
                 Console.WriteLine(fnfe.ToString());
                 return;
             }
+        }
+
+        public void SetPicture(PictureData item)
+        {
+            if (image != null)
+            {
+                image.Dispose();
+                image = null;
+            }
+            if (smallImage != null)
+            {
+                smallImage.Dispose();
+                smallImage = null;
+            }
+            if (sizedImage != null)
+            {
+                sizedImage.Dispose();
+                sizedImage = null;
+            }
+
+            this.picture = item;
+
+            this.RepaintImage();
         }
 
         void RepaintImage()
@@ -221,6 +249,11 @@ namespace msn2.net.Pictures.Controls
         }
 
         void PictureItem_Paint(object sender, PaintEventArgs e)
+        {
+            PaintItem(e, 0, 0);
+        }
+
+        public void PaintPicture(PaintEventArgs e)
         {
             PaintItem(e, 0, 0);
         }

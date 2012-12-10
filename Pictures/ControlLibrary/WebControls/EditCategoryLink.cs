@@ -151,7 +151,7 @@ namespace msn2.net.Pictures.Controls
 		private void AddPics()
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 
 			fAddPictures f = new fAddPictures();
 			f.AddCategory(categoryId);
@@ -161,7 +161,7 @@ namespace msn2.net.Pictures.Controls
 		public void SaveSlideshow(int categoryId, int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 
 			SaveSlideshow ss	= new SaveSlideshow(context, categoryId);
 			ss.ShowDialog();
@@ -170,7 +170,7 @@ namespace msn2.net.Pictures.Controls
 		public void PublishCat(int categoryId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), 1);
+            PicContext context = PicContext.Load(PictureConfig.Load(), 1);
 
 			context.CategoryManager.PublishCategory(categoryId);
 
@@ -180,7 +180,7 @@ namespace msn2.net.Pictures.Controls
 		public bool AddPicsToCategory(string pictureList, int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 			
 			string[] ar = pictureList.Split(',');
 			int []  ids = new int[ar.Length];
@@ -206,7 +206,7 @@ namespace msn2.net.Pictures.Controls
 		public bool AddGroupsToPics(string pictureList, int personId)
 		{
 			// First log in
-			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+            PicContext context = PicContext.Load(PictureConfig.Load(), personId);
 			
 			string[] ar = pictureList.Split(',');
 			int []  ids = new int[ar.Length];

@@ -102,31 +102,18 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
-            PictureConfig config = Msn2Config.Load();
-            UserManager userManager = new UserManager(config.ConnectionString);
-            PersonInfo loginInfo = null;
-
-            //
-            // Lookup Windows user first
-            //
-
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            loginInfo = userManager.GetPerson(userName);
-
-            if (loginInfo == null)
+            // Login
+            PictureConfig config = PictureConfig.Load();
+            if (PicContext.LoginWindowsUser(config) == false)
             {
                 // Prompt for email/pwd
-                loginInfo = LoginUser(stat, userManager, loginInfo);
-
-                if (loginInfo == null)
+                if (LoginUser(config, stat) == false)
                 {
                     return;
-                }
+                }                
             }
 
             stat.StatusText = "Loading pictures...";
-
-            PicContext.Load(Msn2Config.Load(), loginInfo.Id);
 
             // Set the connection string
             cn.ConnectionString = PicContext.Current.Config.ConnectionString;
@@ -159,7 +146,7 @@ namespace msn2.net.Pictures.Controls
 
         }
 
-        private PersonInfo LoginUser(fStatus stat, UserManager userManager, PersonInfo loginInfo)
+        private bool LoginUser(PictureConfig config, fStatus stat)
         {
             //
             // Prompt for login info
@@ -172,16 +159,9 @@ namespace msn2.net.Pictures.Controls
                 stat.StatusText = "Logging on...";
                 stat.Show(this);
 
-                bool isValidEmail = false;
-                string password = UserManager.GetEncryptedPassword(loginDialog.Password);
-                loginInfo = userManager.Login(
-                    loginDialog.Email,
-                    password,
-                    ref isValidEmail);
-
-                if (loginInfo != null)
+                if (PicContext.Login(config, loginDialog.Email, loginDialog.Password) == true)
                 {
-                    settings.Last_Login_Email = loginInfo.Email;
+                    settings.Last_Login_Email = loginDialog.Email;
                     break;
                 }
 
@@ -198,7 +178,8 @@ namespace msn2.net.Pictures.Controls
 
                 stat.Hide();
             }
-            return loginInfo;
+
+            return (PicContext.Current != null);
         }
 
 		#endregion

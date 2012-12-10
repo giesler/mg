@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using msn2.net.Configuration;
+using System.Configuration;
 
 namespace msn2.net.Common
 {
@@ -53,7 +53,7 @@ namespace msn2.net.Common
 			string sql = "select * from FavoritesCategory "
 				+ "where UserId = @userId and ParentId = @parentId and ItemType = @itemType";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn	= new SqlConnection(Config.Current.ConnectionString);
 			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
 			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
@@ -110,7 +110,7 @@ namespace msn2.net.Common
 			string sql = "insert into FavoritesCategory (CategoryId, UserId, CategoryName, ParentId, ItemType) "
 				+ "values (@categoryId, @userId, @categoryName, @parentId, @itemType)";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn	= new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
@@ -150,7 +150,7 @@ namespace msn2.net.Common
 			string sql = "update FavoritesCategory set CategoryName = @categoryName "
 				+ "where CategoryId = @categoryId and UserId = @userId";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+            SqlConnection cn = new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
@@ -184,7 +184,7 @@ namespace msn2.net.Common
 			string sql = "delete from FavoritesCategory "
 				+ "where CategoryId = @categoryId and UserId = @userId";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+            SqlConnection cn = new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
@@ -252,7 +252,7 @@ namespace msn2.net.Common
 			string sql = "insert into FavoritesItem (CategoryId, UserId, ItemName, ItemUrl, ItemId) "
 				+ "values (@categoryId, @userId, @itemName, @itemUrl, @itemId)";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+            SqlConnection cn = new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
@@ -292,7 +292,7 @@ namespace msn2.net.Common
 			string sql = "update FavoritesItem sCategory set ItemName = @itemName and ItemUrl = @itemUrl "
 				+ "where CategoryId = @categoryId and UserId = @userId";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+            SqlConnection cn = new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
@@ -327,7 +327,7 @@ namespace msn2.net.Common
 			string sql = "delete from FavoritesItem "
 				+ "where CategoryId = @categoryId and UserId = @userId";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+            SqlConnection cn = new SqlConnection(Config.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);

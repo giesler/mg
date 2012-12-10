@@ -8,13 +8,15 @@ namespace msn2.net.Pictures.Controls
     public class RandomSlideshow: Slideshow
     {
         private List<PictureData> pictures = new List<PictureData>();
-        private Timer timer = new Timer();
+        protected Timer timer = new Timer();
 
         public RandomSlideshow():
             base(new PictureControlSettings(), null, null)
         {
             base.getPreviousId = new GetPreviousItemIdDelegate(GetPreviousPicture);
             base.getNextId = new GetNextItemIdDelegate(GetNextPicture);
+
+            this.timer.Interval = 8 * 1000;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -22,7 +24,6 @@ namespace msn2.net.Pictures.Controls
             base.OnLoad(e);
 
             this.timer.Tick += new EventHandler(timer_Tick);
-            this.timer.Interval = 8 * 1000;
 
             if (PicContext.Current != null)
             {   

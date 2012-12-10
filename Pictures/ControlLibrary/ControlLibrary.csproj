@@ -199,6 +199,9 @@
     <Compile Include="RandomSlideshow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ScreenSaver.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WebControls\EditCategoryLink.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -516,10 +519,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\msn2.net\Controls\Controls.csproj">
-      <Project>{270EC567-4AB7-49F1-9466-D1BA35F704FD}</Project>
-      <Name>Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Api\Api.csproj">
       <Project>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>

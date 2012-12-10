@@ -9,8 +9,6 @@ namespace msn2.net.Pictures.Controls
 {
     public class PictureControlSettings : ApplicationSettingsBase
     {
-        private string lastEmail;
-
         public PictureControlSettings()
         {
         }

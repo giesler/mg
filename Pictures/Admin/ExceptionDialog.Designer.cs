@@ -63,7 +63,6 @@
             // ExceptionDialog
             // 
             this.AcceptButton = this.button1;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(422, 216);
             this.Controls.Add(this.button1);

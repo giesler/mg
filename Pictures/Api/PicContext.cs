@@ -27,7 +27,7 @@ namespace msn2.net.Pictures
 
 		private void context_BeginRequest(object sender, EventArgs e)
 		{
-			PictureConfig config	= Msn2Config.Load();
+			PictureConfig config	= PictureConfig.Load();
 
 			PicContext context		= new PicContext(config);
             
@@ -180,6 +180,38 @@ namespace msn2.net.Pictures
             return context;
 		}
 
+        public static bool LoginWindowsUser(PictureConfig config)
+        {
+            UserManager userManager = new UserManager(config.ConnectionString);
+            PersonInfo loginInfo = null;
+
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            loginInfo = userManager.GetPerson(userName);
+
+            if (loginInfo != null)
+            {
+                Load(config, loginInfo.Id);
+            }
+
+            return (PicContext.Current != null);
+        }
+
+        public static bool Login(PictureConfig config, string userName, string password)
+        {
+            string dbPassword = UserManager.GetEncryptedPassword(password);
+
+            UserManager userManager = new UserManager(config.ConnectionString);
+
+            bool isValidEmail = false;
+            PersonInfo loginInfo = userManager.Login(userName, password, ref isValidEmail);
+            if (loginInfo != null)
+            {
+                Load(config, loginInfo.Id);
+            }
+
+            return (PicContext.Current != null);
+        }
+        
 		#endregion
 
 		#region Internal constructor
@@ -286,4 +318,5 @@ namespace msn2.net.Pictures
 
 		#endregion
 	}
+
 }

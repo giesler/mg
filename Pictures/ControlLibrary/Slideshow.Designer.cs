@@ -149,8 +149,6 @@
             this.Name = "Slideshow";
             this.Text = "Slideshow";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Slideshow_KeyPress);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Slideshow_KeyDown);
             this.toolStip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
