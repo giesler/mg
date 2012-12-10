@@ -91,7 +91,7 @@ namespace msn2.net.Common
 		/// <returns>New category Guid</returns>
 		public Guid AddRootCategory(string categoryName)
 		{
-			return AddChildCategory(categoryName, treeId);
+			return AddChildCategory(categoryName, treeId, "msn2.net.Category");
 		}
 
 		/// <summary>
@@ -101,14 +101,14 @@ namespace msn2.net.Common
 		/// <param name="parentId">Guid of the parent category</param>
 		/// <param name="userId">Guid for current user</param>
 		/// <returns>New cateogry Guid</returns>
-		public Guid AddChildCategory(string categoryName, Guid parentId)
+		public Guid AddChildCategory(string categoryName, Guid parentId, string itemType)
 		{
 			// Get a new cat id and guids for params
 			Guid newCategoryId	= Guid.NewGuid();
 
 			// insert new child cat
-			string sql = "insert into FavoritesCategory (CategoryId, UserId, CategoryName, ParentId) "
-				+ "values (@categoryId, @userId, @categoryName, @parentId)";
+			string sql = "insert into FavoritesCategory (CategoryId, UserId, CategoryName, ParentId, ItemType) "
+				+ "values (@categoryId, @userId, @categoryName, @parentId, @itemType)";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
@@ -117,12 +117,14 @@ namespace msn2.net.Common
 			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
 			cmd.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
 			cmd.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
+			cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
 
 			// Set command params
 			cmd.Parameters["@categoryId"].Value		= newCategoryId;
 			cmd.Parameters["@userId"].Value			= userId;
 			cmd.Parameters["@categoryName"].Value	= categoryName;
 			cmd.Parameters["@parentId"].Value		= parentId;
+			cmd.Parameters["@itemType"].Value		= itemType;
 
 			// Run the command to add the db row
 			cn.Open();
@@ -200,36 +202,36 @@ namespace msn2.net.Common
 
 		#endregion
 
-		#region GetItem
-
-		/// <summary>
-		/// Returns items for the current user and category
-		/// </summary>
-		/// <param name="categoryId">Guid of current category</param>
-		/// <param name="userId">Guid of current user</param>
-		public DataSet GetItems(Guid categoryId)
-		{
-
-			// Select all root categories for this user
-			string sql = "select * from FavoritesItems where UserId = @userId and CategoryId = @categoryId";
-
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
-			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
-
-			// Set params to pass to SQL
-			da.SelectCommand.Parameters["@userId"].Value		= userId;
-			da.SelectCommand.Parameters["@categoryId"].Value	= categoryId;
-
-			DataSet items = new DataSetItem();
-			da.Fill(items);
-
-			return items;                                    
-
-		}
-
-		#endregion
+//		#region GetItem
+//
+//		/// <summary>
+//		/// Returns items for the current user and category
+//		/// </summary>
+//		/// <param name="categoryId">Guid of current category</param>
+//		/// <param name="userId">Guid of current user</param>
+//		public DataSet GetItems(Guid categoryId)
+//		{
+//
+//			// Select all root categories for this user
+//			string sql = "select * from FavoritesItems where UserId = @userId and CategoryId = @categoryId";
+//
+//			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+//			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
+//			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+//			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
+//
+//			// Set params to pass to SQL
+//			da.SelectCommand.Parameters["@userId"].Value		= userId;
+//			da.SelectCommand.Parameters["@categoryId"].Value	= categoryId;
+//
+//			DataSet items = new DataSetItem();
+//			da.Fill(items);
+//
+//			return items;                                    
+//
+//		}
+//
+//		#endregion
 
 		#region AddItem
 
