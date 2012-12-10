@@ -35,12 +35,24 @@ namespace QSS
         DispatcherTimer videoTimer = null;
         bool videoPlaying = false;
         MediaElement activeMedia = null;
-        
-        public MainWindow()
+        MediaElement inactiveMedia = null;
+        bool loadingImage = false;
+        DispatcherTimer loadCompleteCheck = null;
+        Storyboard storyboard = null;
+
+        public MainWindow(string[] args)
         {
             InitializeComponent();
 
             this.Path = @"c:\nr";
+
+            foreach (string arg in args)
+            {
+                if (arg.StartsWith("/p:"))
+                {
+                    this.Path = arg.Substring(3);
+                }
+            }
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
 
             this.Cursor = Cursors.None;
@@ -49,6 +61,10 @@ namespace QSS
             this.videoTimer = new DispatcherTimer();
             this.videoTimer.Interval = TimeSpan.FromMilliseconds(500);
             this.videoTimer.Tick += new EventHandler(this.OnVideoTimerTick);
+
+            this.loadCompleteCheck = new DispatcherTimer();
+            this.loadCompleteCheck.Interval = TimeSpan.FromMilliseconds(200);
+            this.loadCompleteCheck.Tick += new EventHandler(this.OnLoadCompleteCheck);
         }
 
         protected override void OnActivated(EventArgs e)
@@ -76,11 +92,26 @@ namespace QSS
             }
         }
 
+        void OnLoadCompleteCheck(object sender, EventArgs e)
+        {
+            if (this.activeMedia.DownloadProgress >= 1)
+            {
+                this.loadCompleteCheck.IsEnabled = false;
+                this.loadingImage = false;
+
+                this.activeMedia.Opacity = 1;
+                this.activeMedia.Visibility = System.Windows.Visibility.Visible;
+                this.inactiveMedia.Opacity = 0;
+                this.inactiveMedia.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
         void LoadPics(object sender)
         {
             string[] files = Directory.GetFiles(this.Path, "*.jpg", SearchOption.AllDirectories);
             string[] avis = Directory.GetFiles(this.Path, "*.avi", SearchOption.AllDirectories);
             string[] mpgs = Directory.GetFiles(this.Path, "*.mpg", SearchOption.AllDirectories);
+
             List<string> all = new List<string>();
             files.ToList().ForEach(i => all.Add(i));
             avis.ToList().ForEach(i => all.Add(i));
@@ -194,11 +225,12 @@ namespace QSS
                 if (this.activeMedia == this.item2)
                 {
                     this.item2.Source = this.activeMedia.Source;
-                    
+
                     this.activeMedia = this.item1;
+                    this.inactiveMedia = this.item2;
 
                     sb = (Storyboard)this.grid.FindResource("itemFadeTo1");
-                    cur = (Storyboard) this.grid.FindResource("itemFadeTo2");
+                    cur = (Storyboard)this.grid.FindResource("itemFadeTo2");
                 }
                 else
                 {
@@ -206,16 +238,18 @@ namespace QSS
                     {
                         this.item1.Source = this.activeMedia.Source;
                     }
-                    
+
                     this.activeMedia = this.item2;
+                    this.inactiveMedia = this.item1;
 
                     sb = (Storyboard)this.grid.FindResource("itemFadeTo2");
                     cur = (Storyboard)this.grid.FindResource("itemFadeTo1");
                 }
 
-                this.activeMedia.Source = uri;                                
-                
-                sb.Begin(this.activeMedia, true);
+                this.activeMedia.Source = uri;
+                this.loadingImage = true;
+                this.loadCompleteCheck.IsEnabled = true;
+                this.storyboard = sb;
             }
             catch (Exception ex)
             {
@@ -231,12 +265,12 @@ namespace QSS
             {
                 this.Close();
             }
-            else if (e.Key == System.Windows.Input.Key.Right)
+            else if (e.Key == System.Windows.Input.Key.Right && !this.loadingImage)
             {
                 this.videoPlaying = false;
                 this.CreateTimer(true);
             }
-            else if (e.Key == System.Windows.Input.Key.Left)
+            else if (e.Key == System.Windows.Input.Key.Left && !this.loadingImage)
             {
                 this.videoPlaying = false;
                 if (this.randomMode)
@@ -260,14 +294,22 @@ namespace QSS
             else if (e.Key == System.Windows.Input.Key.Up)
             {
                 this.interval++;
-                this.CreateTimer(false);
+
+                if (!this.loadingImage)
+                {
+                    this.CreateTimer(false);
+                }
             }
             else if (e.Key == System.Windows.Input.Key.Down && this.interval > 1)
             {
                 this.interval--;
-                this.CreateTimer(false);
+
+                if (!this.loadingImage)
+                {
+                    this.CreateTimer(false);
+                }
             }
-            else if (e.Key == System.Windows.Input.Key.Delete && this.CurrentIndex >= 0)
+            else if (e.Key == System.Windows.Input.Key.Delete && this.CurrentIndex >= 0 && !this.loadingImage)
             {
                 if (this.randomMode)
                 {
@@ -275,7 +317,7 @@ namespace QSS
                 }
                 else
                 {
-                   ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeletePic), this.SortedFiles[this.CurrentSortedIndex]);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeletePic), this.SortedFiles[this.CurrentSortedIndex]);
                 }
                 this.DisplayNextPicture(null);
             }
@@ -297,7 +339,7 @@ namespace QSS
             {
                 this.paused = !this.paused;
 
-                if (!this.paused)
+                if (!this.paused && !this.loadingImage)
                 {
                     this.DisplayNextPicture(null);
                 }

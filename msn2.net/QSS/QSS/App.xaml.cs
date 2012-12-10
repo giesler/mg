@@ -23,9 +23,9 @@ namespace QSS
 
             foreach (Screen screen in Screen.AllScreens)
             {
-                if (index != 0 || !e.Args.Contains("/secondary"))
+                if (index != 0 || !e.Args.Contains("/s"))
                 {
-                    MainWindow window = new MainWindow();
+                    MainWindow window = new MainWindow(e.Args);
                     window.Top = screen.Bounds.Top;
                     window.Left = screen.Bounds.Left;
                     window.Topmost = true;
@@ -44,7 +44,7 @@ namespace QSS
 
                     window.Show();
 
-                    if (e.Args.Contains("/primary"))
+                    if (e.Args.Contains("/p"))
                     {
                         break;
                     }
