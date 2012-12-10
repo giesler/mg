@@ -19,6 +19,8 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
 
             LoadTreeView(dates, fieldName);
+
+            this.tv.HideSelection = false;
         }
 
         private void LoadTreeView(DateCollection dates, string fieldName)

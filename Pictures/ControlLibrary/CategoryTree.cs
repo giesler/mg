@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -58,12 +59,14 @@ namespace msn2.net.Pictures.Controls
 			tvCategory.Nodes.Clear();
 
 			// load first node
-			dvCategory.RowFilter = "CategoryID = 1";
-			TreeNode nRoot = new TreeNode("Categories");
-			nRoot.Tag = (DataSetCategory.CategoryRow) dvCategory[0].Row;
+            Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+
+			CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
 			tvCategory.Nodes.Add(nRoot);
 
-			// load first level
+            tvCategory.HideSelection = false;
+
+            // load first level
 			FillChildren(nRoot, 2);
 			nRoot.Expand();	
 
@@ -83,6 +86,14 @@ namespace msn2.net.Pictures.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+        public CategoryTreeNode SelectedNode
+        {
+            get
+            {
+                return tvCategory.SelectedNode as CategoryTreeNode;
+            }
+        }
 
 		#region Component Designer generated code
 		/// <summary> 
@@ -285,9 +296,7 @@ namespace msn2.net.Pictures.Controls
 
 		private void menuAddChildCat_Click(object sender, System.EventArgs e)
 		{
-
-			TreeNode n;
-			n = tvCategory.SelectedNode;
+			CategoryTreeNode n = this.SelectedNode;
 			if (n == null) 
 			{
 				MessageBox.Show("You must select a category to add a sub category.", "Add Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -295,39 +304,27 @@ namespace msn2.net.Pictures.Controls
 			}
 
 			fEditCategory ec = new fEditCategory();
-			ec.NewCategory(((DataSetCategory.CategoryRow)n.Tag).CategoryID);
+            
+			ec.NewCategory(n.Category.CategoryId);
 
 			ec.ShowDialog();
 
 			if (!ec.Cancel) 
 			{
 				// add new tree node
-                TreeNode nChild = new TreeNode(ec.SelectedCategory.CategoryName);
-                n.Nodes.Add(nChild);
-
-				// add database rec
-				//DataSetCategory.CategoryRow cr = dsCategory.Category.NewCategoryRow();
-				//cr.CategoryParentID		= ((DataSetCategory.CategoryRow)nChild.Parent.Tag).CategoryID;
-				//cr.CategoryName			= p.Value.ToString();
-				//dsCategory.Category.AddCategoryRow(cr);
-
-				// reload the updated row
-				daCategory.Fill(dsCategory, "Category");
-
-				// get key and update node tag
-                nChild.Tag = dsCategory.Category.FindByCategoryID(ec.SelectedCategory.CategoryID);
+                CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.SelectedCategory);
+                n.Nodes.Add(newCategoryNode);
 	
 				// expand parent node and select new node
 				n.Expand();
-				tvCategory.SelectedNode = nChild;
+				tvCategory.SelectedNode = newCategoryNode;
 			}
 
 		}
 
 		private void menuEditCatName_Click(object sender, System.EventArgs e)
 		{
-			TreeNode n;
-			n = tvCategory.SelectedNode;
+			CategoryTreeNode n = this.SelectedNode;
 			if (n == null) 
 			{
 				MessageBox.Show("You must select a category to edit it.", "Edit Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -339,32 +336,23 @@ namespace msn2.net.Pictures.Controls
 			}
 
 			fEditCategory ec = new fEditCategory();
-			ec.CategoryID = ((DataSetCategory.CategoryRow) n.Tag).CategoryID;
-			ec.ShowDialog();
+            ec.CategoryID = n.Category.CategoryId;
+            ec.ShowDialog();
 
 			if (!ec.Cancel) 
 			{
-				n.Text = ec.SelectedCategory.CategoryName;
-				if (ec.SelectedCategory.Publish) 
-				{
-					n.ForeColor = Color.Green;
-				}
-				else 
-				{
-					n.ForeColor = Color.Red;
-				}
+                n.Update(ec.SelectedCategory);
 			}
 
 		}
 
 		private void menuDeleteCat_Click(object sender, System.EventArgs e)
 		{
-			TreeNode n;
-			n = tvCategory.SelectedNode;
+			CategoryTreeNode n = this.SelectedNode;
 
 			if (n.Nodes.Count > 0) 
 			{
-				MessageBox.Show("You cannot currently delete a category with children categories.  Please delete the children first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				MessageBox.Show("You cannot currently delete a category that contains categories.  Please delete the categories below first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 				return;
 			}
 
@@ -378,92 +366,93 @@ namespace msn2.net.Pictures.Controls
 			if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  All categories below it will also be deleted.  No pictures will be deleted, but picture-category associations may be.", 
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 			{
-				DataSetCategory.CategoryRow cr = dsCategory.Category.FindByCategoryID( ((DataSetCategory.CategoryRow)n.Tag).CategoryID );
+				DataSetCategory.CategoryRow cr = dsCategory.Category.FindByCategoryID( 
+                    n.Category.CategoryId);
 				cr.Delete();
-				daCategory.Update(dsCategory, "Category");
-                tvCategory.Nodes.Remove(n);
+				tvCategory.Nodes.Remove(n);
 			}
 		}
 
 		private void tvCategory_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
 		{
-			// see if a new node
-			if (e.Node.Tag.ToString() == "") 
-			{
-				MessageBox.Show( "Invalid node...");
-			}
-			// otherwise an existing node
-			else 
-			{
-                DataSetCategory.CategoryRow cr = dsCategory.Category.FindByCategoryID(
-					((DataSetCategory.CategoryRow)e.Node.Tag).CategoryID);
-				cr.CategoryName = e.Label;
-				cr.EndEdit();
-			}
+            CategoryTreeNode node = e.Node as CategoryTreeNode;
 
-			// either way, update the database
-			daCategory.Update(dsCategory, "Category");
+            throw new NotImplementedException("Category update is not implemetned.");
 		}
 
 		private void tvCategory_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
 			if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Text == "<to load>")
-                FillChildren(e.Node, 2);
+                FillChildren(e.Node as CategoryTreeNode , 2);
 		}
 
-		private void FillChildren(TreeNode n, int intLevelsToGo) 
+		private void FillChildren(CategoryTreeNode n, int intLevelsToGo) 
 		{
 			// clear out all child nodes
 			n.Nodes.Clear();
             
 			// load child nodes from dvCategory
-			DataSetCategory.CategoryRow crParent = (DataSetCategory.CategoryRow) n.Tag;
 
-            DataView dv     = new DataView(dsCategory.Category);
-            dv.RowFilter    = "CategoryParentID = " + crParent.CategoryID.ToString() + " And CategoryID <> 1";
+            Collection<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+                n.Category.CategoryId);
 
-			TreeNode nChild;
-
-			foreach (DataRowView dr in dv) 
+			foreach (Category category in categories) 
 			{
-				// add this row as a node
-				DataSetCategory.CategoryRow cr = (DataSetCategory.CategoryRow) dr.Row;
-				nChild = n.Nodes.Add(cr.CategoryName.ToString());
-                System.Diagnostics.Trace.WriteLine(nChild.FullPath);
-                nChild.Tag = cr;
-
-				if (cr.Publish) 
-				{
-					nChild.ForeColor = Color.Green;
-				}
-				else 
-				{
-					nChild.ForeColor = Color.Red;
-				}
+                CategoryTreeNode childNode = new CategoryTreeNode(category);
+                n.Nodes.Add(childNode);
 
                 if (intLevelsToGo > 0)
-					FillChildren(nChild, intLevelsToGo-1);
+					this.FillChildren(childNode, intLevelsToGo-1);
                 else
                     // add a fake node to be filled in
-                    nChild.Nodes.Add("<to load>");
+                    childNode.Nodes.Add("<to load>");
             }
 
-
 		}
 
-		public DataSetCategory.CategoryRow FindCategoryInfo(int CategoryID) 
-		{
-            return (dsCategory.Category.FindByCategoryID(CategoryID));
-		}
+        public void SetSelectedCategory(Category category)
+        {
+            string path = category.Path;
+            CategoryTreeNode current = tvCategory.Nodes[0] as CategoryTreeNode;
+            this.SetSelectedCategory(current, category);
+        }
 
-		public DataSetCategory.CategoryRow SelectedCategory
+        private void SetSelectedCategory(CategoryTreeNode node, Category selectCategory)
+        {
+            if (!node.IsExpanded)
+            {
+                node.Expand();
+            }
+            
+            // Find child node with path
+            foreach (CategoryTreeNode childNode in node.Nodes)
+            {
+                string childNodePath = childNode.FullPath.Substring(childNode.FullPath.IndexOf(@"\"));
+
+                if (childNodePath == selectCategory.Path)
+                {
+                    this.tvCategory.SelectedNode = childNode;
+                    break;
+                }
+                else if (childNodePath.StartsWith(selectCategory.Path))
+                {
+                    this.SetSelectedCategory(childNode, selectCategory);
+                }
+            }
+        }
+
+
+        public Category SelectedCategory
 		{
 			get 
 			{
-                if (tvCategory.SelectedNode == null)
-					return null;
+                CategoryTreeNode node = this.SelectedNode;
+                if (node == null)
+                {
+                    return null;
+                }
 
-				return (DataSetCategory.CategoryRow) tvCategory.SelectedNode.Tag;
+                return node.Category;
 			}
 
 		}
@@ -474,16 +463,13 @@ namespace msn2.net.Pictures.Controls
 
 		private void tvCategory_DoubleClick(object sender, System.EventArgs e)
 		{
-			TreeNode n = tvCategory.SelectedNode;
+			CategoryTreeNode n = this.SelectedNode;
 			if (n == null)
 				return;
 
 			// Fire event for other controls to catch if they want
-			CategoryTreeEventArgs ex = new CategoryTreeEventArgs();
-			ex.categoryRow = (DataSetCategory.CategoryRow) n.Tag;
-			if (ex == null)
-				System.Diagnostics.Debug.Write("ex.CategoryRow is null");
-
+			CategoryTreeEventArgs ex = new CategoryTreeEventArgs(n.Category);
+			
 			if (DoubleClickCategory != null)
 				DoubleClickCategory(this, ex);
 
@@ -494,13 +480,12 @@ namespace msn2.net.Pictures.Controls
 			if (e.Action != TreeViewAction.Unknown) 
 			{
 
-				TreeNode n = tvCategory.SelectedNode;
+				CategoryTreeNode n = this.SelectedNode;
 				if (n == null)
 					return;
 
 				// Fire event for other controls to catch if they want
-				CategoryTreeEventArgs ex = new CategoryTreeEventArgs();
-				ex.categoryRow = (DataSetCategory.CategoryRow) n.Tag;
+				CategoryTreeEventArgs ex = new CategoryTreeEventArgs(n.Category);
 			
 				if (ClickCategory != null)
 					ClickCategory(this, ex);
@@ -527,7 +512,42 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryTreeEventArgs: EventArgs 
 	{
-		public DataSetCategory.CategoryRow categoryRow;
+        private Category category;
+
+        public CategoryTreeEventArgs(Category category)
+        {
+            this.category = category;
+        }
+
+        public Category Category
+        {
+            get
+            {
+                return this.category;
+            }
+        }
 	}
 
+    public class CategoryTreeNode : TreeNode
+    {
+        private Category category;
+        public Category Category
+        {
+            get
+            {
+                return category;
+            }
+        }
+
+        public CategoryTreeNode(Category category)
+        {
+            this.Update(category);
+        }
+
+        public void Update(Category category)
+        {
+            this.category = category;
+            this.Text = category.Name;
+        }
+    }
 }

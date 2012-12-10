@@ -11,7 +11,20 @@ namespace msn2.net.Pictures.Controls
 	/// </summary>
 	public class fSelectCategory : System.Windows.Forms.Form
 	{
-		private msn2.net.Pictures.Controls.CategoryTree categoryTree1;
+        private static Category lastSelected = null;
+        private static fSelectCategory current = null;
+
+        public static fSelectCategory GetSelectCategoryDialog()
+        {
+            if (current == null)
+            {
+                current = new fSelectCategory();
+            }
+
+            return current;
+        }
+
+        private msn2.net.Pictures.Controls.CategoryTree categoryTree1;
 		private System.Windows.Forms.Button ok;
 		private System.Windows.Forms.Button cancel;
 		/// <summary>
@@ -26,10 +39,11 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            if (lastSelected != null)
+            {
+                categoryTree1.SetSelectedCategory(lastSelected);
+            }
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -114,9 +128,11 @@ namespace msn2.net.Pictures.Controls
 		{
 			DialogResult	= DialogResult.OK;
 			Visible			= false;
-		}
 
-		public DataSetCategory.CategoryRow SelectedCategory
+            lastSelected = this.SelectedCategory;
+        }
+
+		public Category SelectedCategory
 		{
 			get
 			{

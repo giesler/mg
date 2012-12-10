@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -15,6 +16,7 @@ namespace msn2.net.Pictures.Controls
     public partial class MultiPictureEdit : UserControl
     {
         private List<int> pictures;
+        private Hashtable pictureCategories = new Hashtable();
 
         public MultiPictureEdit()
         {
@@ -39,6 +41,8 @@ namespace msn2.net.Pictures.Controls
             description.ClearItems();
 
             UpdateControls();
+
+            this.pictureCategories.Clear();
         }
 
         public void AddPicture(int pictureId)
@@ -50,7 +54,118 @@ namespace msn2.net.Pictures.Controls
             description.AddItem(pictureId, data.Description);
             dateTaken.AddItem(pictureId, data.DateTaken);
 
+            Collection<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(pictureId);
+            this.pictureCategories.Add(pictureId, categories);
+
+            this.UpdateCategories();
+        
             UpdateControls();
+        }
+
+        private void UpdateCategories()
+        {
+            if (this.AllPicturesHaveSameCategories())
+            {
+                this.categoryList.Visible = true;
+                this.differentCategoriesLabel.Visible = false;
+                categoryList.Clear();
+                Collection<Category> categories = null;
+                foreach (Collection<Category> tempCategories in this.pictureCategories.Values)
+                {
+                    categories = tempCategories;
+                    break;
+                }
+                if (categories != null)
+                {
+                    foreach (Category category in categories)
+                    {
+                        categoryList.AddCategory(category);
+                    }
+                }
+            }
+            else
+            {
+                this.categoryList.Visible = false;
+                this.differentCategoriesLabel.Visible = true;
+            }
+        }
+
+        private bool AllPicturesHaveSameCategories()
+        {
+            int count = 0;
+
+            foreach (Collection<Category> categories in this.pictureCategories.Values)
+            {
+                if (count == 0)
+                {
+                    count = categories.Count;
+                }
+
+                if (categories.Count != count)
+                {
+                    return false;
+                }
+
+                // Check items against each other category collection
+                foreach (Category category in categories)
+                {
+                    // Make sure in all other picture category hash tables
+                    foreach (Collection<Category> tempCategories in this.pictureCategories.Values)
+                    {
+                        bool found = false;
+                        foreach (Category tempCategory in tempCategories)
+                        {
+                            if (tempCategory.CategoryId == category.CategoryId)
+                            {
+                                found = true;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+            }
+
+            return true;
+        }
+
+        public void AddCategory(Category category)
+        {
+            if (!categoryList.ContainsCategory(category))
+            {
+                categoryList.AddCategory(category);
+
+                foreach (Collection<Category> categories in this.pictureCategories.Values)
+                {
+                    categories.Add(category);
+                }
+            }
+        }
+
+        public void RemoveCategory(Category category)
+        {
+            categoryList.RemoveCategory(category);
+
+            foreach (Collection<Category> categories in this.pictureCategories.Values)
+            {
+                categories.Remove(category);
+            }
+        }
+
+        public Collection<Category> GetCurrentCategories()
+        {
+            Collection<Category> categories = new Collection<Category>();
+
+            foreach (CategoryItem item in this.categoryList.Controls)
+            {
+                categories.Add(item.Category);
+            }
+
+            return categories;
         }
 
         public void RemovePicture(int pictureId)
@@ -59,6 +174,9 @@ namespace msn2.net.Pictures.Controls
             title.RemoveItem(pictureId);
             description.RemoveItem(pictureId);
             dateTaken.RemoveItem(pictureId);
+            
+            this.pictureCategories.Remove(pictureId);
+            this.UpdateCategories();
 
             UpdateControls();
         }
@@ -69,7 +187,7 @@ namespace msn2.net.Pictures.Controls
             titleLabel.ForeColor = labelColor;
             descriptionLabel.ForeColor = labelColor;
             labelDateTaken.ForeColor = labelColor;
-
+            categoryLabel.ForeColor = labelColor;
         }
 
         private void title_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)

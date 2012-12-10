@@ -25,7 +25,8 @@ namespace msn2.net.Pictures.Controls
             this.Resize += new EventHandler(PictureItem_Resize);
             this.Paint  += new PaintEventHandler(PictureItem_Paint);
             this.Disposed += new EventHandler(PictureItem_Disposed);
-            
+
+            this.DoubleBuffered = true;
             this.pictureId = pictureId;
         }
 

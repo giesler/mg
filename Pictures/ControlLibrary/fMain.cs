@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
@@ -73,6 +74,7 @@ namespace msn2.net.Pictures.Controls
         private ToolStripLabel toolStripLabel1;
         private ToolStripButton toolStripSelectAll;
         private ToolStripButton toolStripClearAll;
+        private ToolStripButton copytofolderToolStripButton;
         private PictureList pictureList1;
         private SelectedPicturePanel selectedPictures;
         private ToolStripComboBox imageSizeCombo;
@@ -93,8 +95,10 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
+            stat.StatusText = "Yep, it still takes a while to start...";
+            stat.Refresh();
 
-			// Set the connection string
+            // Set the connection string
 			cn.ConnectionString		= Config.ConnectionString;
 
             PicContext.Load(Msn2Config.Load(), 1);
@@ -178,13 +182,14 @@ namespace msn2.net.Pictures.Controls
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
+            this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
             ((System.ComponentModel.ISupportInitialize)(this.daPictureDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
@@ -371,7 +376,7 @@ namespace msn2.net.Pictures.Controls
 // 
 // statusBar1
 // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 558);
+            this.statusBar1.Location = new System.Drawing.Point(0, 285);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -411,21 +416,10 @@ namespace msn2.net.Pictures.Controls
 // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2MinSize = 150;
-            this.splitContainer1.Size = new System.Drawing.Size(693, 558);
-            this.splitContainer1.SplitterDistance = 404;
+            this.splitContainer1.Size = new System.Drawing.Size(693, 285);
+            this.splitContainer1.SplitterDistance = 131;
             this.splitContainer1.TabIndex = 15;
             this.splitContainer1.Text = "splitContainer1";
-// 
-// pictureList1
-// 
-            this.pictureList1.BackColor = System.Drawing.Color.White;
-            this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureList1.Location = new System.Drawing.Point(0, 25);
-            this.pictureList1.Name = "pictureList1";
-            this.pictureList1.Size = new System.Drawing.Size(693, 379);
-            this.pictureList1.TabIndex = 0;
-            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
-            this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
 // 
 // toolStrip1
 // 
@@ -433,7 +427,8 @@ namespace msn2.net.Pictures.Controls
             this.toolStripLabel1,
             this.imageSizeCombo,
             this.toolStripSelectAll,
-            this.toolStripClearAll});
+            this.toolStripClearAll,
+            this.copytofolderToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Raft = System.Windows.Forms.RaftingSides.None;
@@ -476,6 +471,13 @@ namespace msn2.net.Pictures.Controls
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
 // 
+// copytofolderToolStripButton
+// 
+            this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
+            this.copytofolderToolStripButton.SettingsKey = "fMain.copytofolderToolStripButton";
+            this.copytofolderToolStripButton.Text = "Copy to folder";
+            this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
+// 
 // panel1
 // 
             this.panel1.Controls.Add(this.selectedPictures);
@@ -486,8 +488,20 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Size = new System.Drawing.Size(693, 150);
             this.panel1.TabIndex = 6;
 // 
+// pictureList1
+// 
+            this.pictureList1.BackColor = System.Drawing.Color.White;
+            this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureList1.Location = new System.Drawing.Point(0, 25);
+            this.pictureList1.Name = "pictureList1";
+            this.pictureList1.Size = new System.Drawing.Size(693, 106);
+            this.pictureList1.TabIndex = 0;
+            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
+            this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
+// 
 // selectedPictures
 // 
+            this.selectedPictures.BackColor = System.Drawing.SystemColors.Control;
             this.selectedPictures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedPictures.Location = new System.Drawing.Point(0, 0);
             this.selectedPictures.Name = "selectedPictures";
@@ -497,7 +511,7 @@ namespace msn2.net.Pictures.Controls
 // fMain
 // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(693, 574);
+            this.ClientSize = new System.Drawing.Size(693, 301);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusBar1);
             this.Menu = this.mainMenu1;
@@ -537,7 +551,9 @@ namespace msn2.net.Pictures.Controls
 		{
 			currentListViewQuery	= strWhereClause;
 
-			// figure out SQL statement
+            statusBar1.Panels[0].Text = "Loading pictures";
+
+            // figure out SQL statement
 			String strSQL = "select p.PictureID, PictureDate, Title, "
 				+ "pc.Filename, Publish, PictureSort "
 				+ "from Picture p inner join PictureCache pc on pc.PictureID = p.PictureID "
@@ -551,6 +567,10 @@ namespace msn2.net.Pictures.Controls
 			SqlDataAdapter da = new SqlDataAdapter(strSQL, cn);
             DataSet ds = new DataSet();
             da.Fill(ds);
+
+            this.selectedPictures.ClearPictures();
+
+            statusBar1.Panels[0].Text = "Loading " + ds.Tables[0].Rows.Count.ToString() + " pictures";
 
             pictureList1.LoadPictures(ds);
 
@@ -836,13 +856,14 @@ namespace msn2.net.Pictures.Controls
 
         private void menuAddToCategory_Click(object sender, EventArgs e)
         {
-            fSelectCategory cat = new fSelectCategory();
+            fSelectCategory cat = fSelectCategory.GetSelectCategoryDialog();
             if (cat.ShowDialog(this) == DialogResult.OK)
             {
                 foreach (int pictureId in pictureList1.SelectedItems)
                 {
-                    PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryID);
+                    PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryId);
                 }
+                
             }
         }
 
@@ -853,7 +874,7 @@ namespace msn2.net.Pictures.Controls
             {
                 foreach (int pictureId in pictureList1.SelectedItems)
                 {
-                    PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.CategoryID);
+                    PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.CategoryId);
                 }
             }
         }
@@ -891,7 +912,7 @@ namespace msn2.net.Pictures.Controls
 
         void pictureList1_DoubleClick(object sender, PictureItemEventArgs e)
         {
-            if (pictureList1.SelectedItems.Count == 0)
+            if (e.PictureId == 0)
             {
                 return;
             }
@@ -901,6 +922,7 @@ namespace msn2.net.Pictures.Controls
             Slideshow ss = new Slideshow(new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
                 new GetNextItemIdDelegate(pictureList1.GetNextPicture));
             ss.SetPicture(e.PictureId);
+            ss.SetSourceForm(this);
             ss.Show();
 
 //            fPicture f = new fPicture();
@@ -950,6 +972,60 @@ namespace msn2.net.Pictures.Controls
         private void pictureList1_MultiSelectEnd(object sender, EventArgs e)
         {
             this.selectedPictures.MultiSelectEnd();
+        }
+
+        private void copytofolderToolStripButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowNewFolderButton = true;
+
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string destFolder = dialog.SelectedPath;
+
+                foreach (int pictureId in pictureList1.SelectedItems)
+                {
+                    PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+
+                    string sourceFilename = PicContext.Current.Config.PictureDirectory
+                        + @"\" + picture.Filename;
+
+                    string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
+
+                    string destFilename = destFolder + @"\" + picture.Id.ToString() + "_" +
+                        picture.Title + "." + fileExtenstion;
+
+                    bool loop = true;
+                    bool abort = false;
+
+                    while (loop)
+                    {
+                        if (File.Exists(sourceFilename))
+                        {
+                            File.Copy(sourceFilename, destFilename, true);
+                            loop = false;
+                        }
+                        else
+                        {
+                            DialogResult response = MessageBox.Show("Unable to find picture #" + picture.Id.ToString() + ": " + sourceFilename, "Can't find file", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Exclamation);
+                            if (response == DialogResult.Abort)
+                            {
+                                loop = false;
+                                abort = true;
+                            }
+                            else if (response == DialogResult.Ignore)
+                            {
+                                loop = false;
+                            }
+                        }
+                    }
+
+                    if (abort)
+                    {
+                        break;
+                    }
+                }
+            }
         }
     }
 }

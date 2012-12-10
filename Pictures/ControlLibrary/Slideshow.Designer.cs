@@ -36,12 +36,13 @@
             this.sepToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.previousPictureToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.nextPictureToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.sepToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.propertiesToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.leftRaftingContainer2 = new System.Windows.Forms.RaftingContainer();
             this.leftRaftingContainer3 = new System.Windows.Forms.RaftingContainer();
             this.topRaftingContainer1 = new System.Windows.Forms.RaftingContainer();
             this.bottomRaftingContainer1 = new System.Windows.Forms.RaftingContainer();
-            this.sepToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.propertiesToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addtocategoryToolStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topRaftingContainer)).BeginInit();
@@ -82,7 +83,8 @@
             this.previousPictureToolStripButton,
             this.nextPictureToolStripButton,
             this.sepToolStripSeparator1,
-            this.propertiesToolStripButton});
+            this.propertiesToolStripButton,
+            this.addtocategoryToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Raft = System.Windows.Forms.RaftingSides.Top;
@@ -115,6 +117,18 @@
             this.nextPictureToolStripButton.Text = "&Next Picture";
             this.nextPictureToolStripButton.Click += new System.EventHandler(this.nextPictureToolStripButton_Click);
 // 
+// sepToolStripSeparator1
+// 
+            this.sepToolStripSeparator1.Name = "sepToolStripSeparator1";
+            this.sepToolStripSeparator1.SettingsKey = "Slideshow.sepToolStripSeparator1";
+// 
+// propertiesToolStripButton
+// 
+            this.propertiesToolStripButton.Name = "propertiesToolStripButton";
+            this.propertiesToolStripButton.SettingsKey = "Slideshow.propertiesToolStripButton";
+            this.propertiesToolStripButton.Text = "Properties";
+            this.propertiesToolStripButton.Click += new System.EventHandler(this.propertiesToolStripButton_Click);
+// 
 // leftRaftingContainer2
 // 
             this.leftRaftingContainer2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -136,17 +150,12 @@
             this.bottomRaftingContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomRaftingContainer1.Name = "bottomRaftingContainer1";
 // 
-// sepToolStripSeparator1
+// addtocategoryToolStripButton
 // 
-            this.sepToolStripSeparator1.Name = "sepToolStripSeparator1";
-            this.sepToolStripSeparator1.SettingsKey = "Slideshow.sepToolStripSeparator1";
-// 
-// propertiesToolStripButton
-// 
-            this.propertiesToolStripButton.Name = "propertiesToolStripButton";
-            this.propertiesToolStripButton.SettingsKey = "Slideshow.propertiesToolStripButton";
-            this.propertiesToolStripButton.Text = "Properties";
-            this.propertiesToolStripButton.Click += new System.EventHandler(this.propertiesToolStripButton_Click);
+            this.addtocategoryToolStripButton.Name = "addtocategoryToolStripButton";
+            this.addtocategoryToolStripButton.SettingsKey = "Slideshow.addtocategoryToolStripButton";
+            this.addtocategoryToolStripButton.Text = "&Add to category...";
+            this.addtocategoryToolStripButton.Click += new System.EventHandler(this.addtocategoryToolStripButton_Click);
 // 
 // Slideshow
 // 
@@ -196,5 +205,6 @@
         private System.Windows.Forms.ToolStripButton nextPictureToolStripButton;
         private System.Windows.Forms.ToolStripSeparator sepToolStripSeparator1;
         private System.Windows.Forms.ToolStripButton propertiesToolStripButton;
+        private System.Windows.Forms.ToolStripButton addtocategoryToolStripButton;
     }
 }

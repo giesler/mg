@@ -44,7 +44,17 @@ namespace msn2.net.Pictures
 
 		}
 
-		public Collection<Category> GetCategories(int categoryId, int minPictures)
+        public Category GetRootCategory()
+        {
+            return this.GetCategory(1);
+        }
+
+        public Collection<Category> GetCategories(int categoryId)
+        {
+            return this.GetCategories(categoryId, 0);
+        }
+
+        public Collection<Category> GetCategories(int categoryId, int minPictures)
 		{
 			// get a dataset with categories
 			SqlConnection cn		= new SqlConnection(connectionString);

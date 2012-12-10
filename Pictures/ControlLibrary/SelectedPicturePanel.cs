@@ -36,6 +36,22 @@ namespace msn2.net.Pictures.Controls
             UpdateControls();
         }
 
+        public void ClearPictures()
+        {
+            List<int> pictures = new List<int>();
+            foreach (PictureItem item in this.pictureStack1.Pictures)
+            {
+                pictures.Add(item.PictureId);
+            }
+
+            this.MultiSelectStart();
+            foreach (int pictureId in pictures)
+            {
+                this.RemovePicture(pictureId);
+            }
+            this.MultiSelectEnd();
+        }
+
         public void MultiSelectStart()
         {
             this.pictureStack1.SuspendPaint = true;
@@ -96,24 +112,32 @@ namespace msn2.net.Pictures.Controls
 
         void addToCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            fSelectCategory selCat = new fSelectCategory();
+            fSelectCategory selCat = fSelectCategory.GetSelectCategoryDialog();
             if (selCat.ShowDialog(this) == DialogResult.OK)
             {
                 foreach (PictureItem item in this.pictureStack1.Pictures)
                 {
-                    PicContext.Current.PictureManager.AddToCategory(item.PictureId, selCat.SelectedCategory.CategoryID);
+                    PicContext.Current.PictureManager.AddToCategory(item.PictureId, selCat.SelectedCategory.CategoryId);
                 }
+                this.pictureDetailEditor.AddCategory(selCat.SelectedCategory);
             }
         }
 
         void removeFromCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            fSelectCategory selCat = new fSelectCategory();
-            if (selCat.ShowDialog(this) == DialogResult.OK)
+            Collection<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
+
+            CategoryListDialog dialog = new CategoryListDialog(categories);
+            if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (PictureItem item in this.pictureStack1.Pictures)
+                Collection<Category> removeList = dialog.GetSelectedCategories();
+                foreach (Category category in removeList)
                 {
-                    PicContext.Current.PictureManager.RemoveFromCategory(item.PictureId, selCat.SelectedCategory.CategoryID);
+                    foreach (PictureItem item in this.pictureStack1.Pictures)
+                    {
+                        PicContext.Current.PictureManager.RemoveFromCategory(item.PictureId, category.CategoryId);
+                     }
+                    this.pictureDetailEditor.RemoveCategory(category);
                 }
             }
         }

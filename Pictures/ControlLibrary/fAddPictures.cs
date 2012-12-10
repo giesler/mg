@@ -111,6 +111,7 @@ namespace msn2.net.Pictures.Controls
             this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.autoRotate = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -139,7 +140,6 @@ namespace msn2.net.Pictures.Controls
             this.btnRemovePictures = new System.Windows.Forms.Button();
             this.openFileDialogPic = new System.Windows.Forms.OpenFileDialog();
             this.checkboxSortList = new System.Windows.Forms.CheckBox();
-            this.autoRotate = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -254,6 +254,15 @@ namespace msn2.net.Pictures.Controls
             this.tabPage3.Size = new System.Drawing.Size(464, 190);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Details";
+// 
+// autoRotate
+// 
+            this.autoRotate.AutoSize = true;
+            this.autoRotate.Location = new System.Drawing.Point(16, 121);
+            this.autoRotate.Name = "autoRotate";
+            this.autoRotate.Size = new System.Drawing.Size(154, 17);
+            this.autoRotate.TabIndex = 10;
+            this.autoRotate.Text = "&Automatically rotate pictures";
 // 
 // label1
 // 
@@ -576,17 +585,6 @@ namespace msn2.net.Pictures.Controls
             this.checkboxSortList.TabIndex = 11;
             this.checkboxSortList.Text = "Sort list by filename before adding";
 // 
-// autoRotate
-// 
-            this.autoRotate.AutoSize = true;
-            this.autoRotate.Checked = true;
-            this.autoRotate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoRotate.Location = new System.Drawing.Point(16, 121);
-            this.autoRotate.Name = "autoRotate";
-            this.autoRotate.Size = new System.Drawing.Size(154, 17);
-            this.autoRotate.TabIndex = 10;
-            this.autoRotate.Text = "&Automatically rotate pictures";
-// 
 // fAddPictures
 // 
             this.AcceptButton = this.btnAdd;
@@ -802,7 +800,7 @@ namespace msn2.net.Pictures.Controls
 
 				// rename the file
 				string picDirectory = PicContext.Current.Config.PictureDirectory;
-				File.Move(picDirectory + oldFilename, picDirectory + newFilename);
+                this.MoveFile(picDirectory + oldFilename, picDirectory + newFilename);
 
 				// Allow move to complete
 				Thread.Sleep(500);
@@ -853,6 +851,32 @@ namespace msn2.net.Pictures.Controls
 			mblnCancel = false;
 
             FinishImport();
+        }
+
+        private void MoveFile(string source, string dest)
+        {
+            bool moved = false;
+            int count = 0;
+
+            while (!moved)
+            {
+                try
+                {
+                    File.Move(source, dest);
+                    moved = true;
+                }
+                catch (IOException)
+                {
+                    if (count > 200)
+                    {
+                        MessageBox.Show("Unable to copy " + source + " to " + dest);
+                        throw;
+                    }
+                    Thread.Sleep(100);
+                }
+
+                count++;
+            }
         }
 
         private void FinishImport()

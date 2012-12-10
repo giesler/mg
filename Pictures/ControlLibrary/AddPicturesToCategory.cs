@@ -22,9 +22,9 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private int[] pictures;
-		private DataSetCategory.CategoryRow category;
+		private Category category;
 
-		public AddPicturesToCategory(int[] pictures, DataSetCategory.CategoryRow category)
+		public AddPicturesToCategory(int[] pictures, Category category)
 		{
 			//
 			// Required for Windows Form Designer support
@@ -34,7 +34,7 @@ namespace msn2.net.Pictures.Controls
 			this.pictures	= pictures;
 			this.category	= category;
 			label2.Text		= string.Format("{0} picutres", pictures.Length);
-			label3.Text		= category.CategoryName;
+			label3.Text		= category.Name;
 		}
 
 		/// <summary>
@@ -134,7 +134,7 @@ namespace msn2.net.Pictures.Controls
 
 			foreach (int pictureId in this.pictures)
 			{
-				picMan.AddToCategory(pictureId, category.CategoryID);
+				picMan.AddToCategory(pictureId, this.category.CategoryId);
 			}
 		
 			this.Visible	= false;

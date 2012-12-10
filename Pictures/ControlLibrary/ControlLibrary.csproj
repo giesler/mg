@@ -101,6 +101,24 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CategoryItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryItem.Designer.cs">
+      <DependentUpon>CategoryItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CategoryFlowLayoutPanel.Designer.cs">
+      <DependentUpon>CategoryFlowLayoutPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CategoryListDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoryListDialog.Designer.cs">
+      <DependentUpon>CategoryListDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="CategoryPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>

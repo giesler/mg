@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -318,20 +319,26 @@ namespace msn2.net.Pictures
 			return ds;
 		}
 
-		public DataSet GetPictureCategories(int pictureId)
+		public Collection<Category> GetPictureCategories(int pictureId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlDataAdapter da	= new SqlDataAdapter("sp_Picture_GetCategories", cn);
-			DataSet ds			= new DataSet();
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-			da.SelectCommand.Parameters.Add("@pictureId", SqlDbType.Int);
-			da.SelectCommand.Parameters["@pictureId"].Value	= pictureId;
+            Collection<Category> categories = new Collection<Category>();
+
+            SqlConnection cn	= new SqlConnection(connectionString);
+			SqlCommand cmd      = new SqlCommand("sp_Picture_GetCategories", cn);
+			cmd.CommandType     = CommandType.StoredProcedure;
+			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+			cmd.Parameters["@pictureId"].Value	= pictureId;
 
 			try
 			{
 				cn.Open();
-				da.Fill(ds);
-			}
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Category category = new Category(dr, false);
+                    categories.Add(category);
+                }
+            }
 			catch (SqlException ex)
 			{
 				throw ex;
@@ -344,7 +351,7 @@ namespace msn2.net.Pictures
 				}
 			}
 
-			return ds;
+			return categories;
 		}
 
 		public DataSet GetPicturePeople(int pictureId)

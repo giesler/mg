@@ -183,41 +183,35 @@ namespace msn2.net.Pictures.Controls
 
 		private void btnAddCategory_Click(object sender, System.EventArgs e)
 		{
-			DataSetCategory.CategoryRow cr = categoryTree1.SelectedCategory;
+			Category category = categoryTree1.SelectedCategory;
 
-			if (cr == null) 
-			{
+            if (category == null)
+            {
 				MessageBox.Show("You must select a category.");
 				return;
 			}
 
 			// make sure row isn't already added
-			foreach (ListViewItem liTemp in lvCategories.Items) 
+			foreach (CategoryListViewItem liTemp in lvCategories.Items) 
 			{
-				if (((DataSetCategory.CategoryRow) liTemp.Tag).CategoryID == cr.CategoryID) 
+				if (liTemp.Category.CategoryId == category.CategoryId) 
 				{
-					MessageBox.Show("The category '" + cr.CategoryName + "' has already been added.","Add Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-					return;
+                    return;
 				}
 			}
 
-			ListViewItem li = lvCategories.Items.Add(cr.CategoryName);
-			li.Tag = cr;
+            CategoryListViewItem li = new CategoryListViewItem(category);
+            lvCategories.Items.Add(li);
 
-			CategoryPickerEventArgs ex = new CategoryPickerEventArgs();
-			ex.CategoryID = cr.CategoryID;
-
-			if (AddedCategory != null)
-				AddedCategory(this, ex);
-
-			// add to dsCategory
-//			DataSetCategory.CategoryRow cRow = dsCategory.Category.AddCategoryRow(
-//				cr.CategoryParentID, cr.CategoryName, cr.CategoryPath);
-//			cRow.CategoryID = ex.CategoryID;
+            if (AddedCategory != null)
+            {
+                CategoryPickerEventArgs ex = new CategoryPickerEventArgs(category);
+                AddedCategory(this, ex);
+            }
 
 			// add to arCategory if not there
-			if (!arCategory.Contains(cr.CategoryID))
-				arCategory.Add(cr.CategoryID);
+			if (!arCategory.Contains(category.CategoryId))
+				arCategory.Add(category.CategoryId);
 
 		}
 
@@ -229,54 +223,36 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			foreach (ListViewItem li in lvCategories.SelectedItems) 
+			foreach (CategoryListViewItem li in lvCategories.SelectedItems) 
 			{
-				CategoryPickerEventArgs ex = new CategoryPickerEventArgs();
-				DataSetCategory.CategoryRow cr = (DataSetCategory.CategoryRow) li.Tag;
-				ex.CategoryID = cr.CategoryID;
+				CategoryPickerEventArgs ex = new CategoryPickerEventArgs(li.Category);
 				lvCategories.Items.Remove(li);
 
-				// remove from dsCategory
-				DataSetCategory.CategoryRow crLocal = dsCategory.Category.FindByCategoryID(cr.CategoryID);
-				if (crLocal != null)
-                    dsCategory.Category.RemoveCategoryRow(crLocal);
-
 				// remove from arCategory if there
-				if (arCategory.Contains(cr.CategoryID))
-					arCategory.Remove(cr.CategoryID);
+				if (arCategory.Contains(li.Category.CategoryId))
+                    arCategory.Remove(li.Category.CategoryId);
 
-				// fire event
+                // fire event
 				if (RemovedCategory != null)
 					RemovedCategory (this, ex);
 			}
 
 		}
 
-		public void AddSelectedCategory(int CategoryID) 
+		public void AddSelectedCategory(int categoryId) 
 		{
-            DataSetCategory.CategoryRow cr = categoryTree1.FindCategoryInfo(CategoryID);
 
-			if (cr == null) 
-			{
-				MessageBox.Show("Category information for id " + CategoryID.ToString() + " was not found.");
-				return;
-			}
+            Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 
-			ListViewItem li = lvCategories.Items.Add(cr.CategoryName);
-			li.Tag = cr;
+            if (category != null)
+            {
+                CategoryListViewItem item = new CategoryListViewItem(category);
 
-			// add to dsCategory
-			DataSetCategory.CategoryRow newcr = dsCategory.Category.NewCategoryRow();
-			newcr.CategoryParentID  = cr.CategoryParentID;
-			newcr.CategoryName		= cr.CategoryName;
-			newcr.CategoryPath      = cr.CategoryPath;
-			dsCategory.Category.AddCategoryRow(newcr);
-
-			// add to arCategory if not there
-			if (!arCategory.Contains(cr.CategoryID))
-				arCategory.Add(cr.CategoryID);
-
-		}
+                // add to arCategory if not there
+                if (!arCategory.Contains(category.CategoryId))
+                    arCategory.Add(category.CategoryId);
+            }
+        }
 
 		public void ClearSelectedCategories() 
 		{
@@ -303,14 +279,6 @@ namespace msn2.net.Pictures.Controls
 		{
 			// Set category tree to half form width
 			categoryTree1.Width = this.Width / 2 - panel1.Width / 2;
-		}
-
-		public DataSetCategory datasetCategory 
-		{
-			get 
-			{
-				return dsCategory;
-			}
 		}
 
 		public System.Collections.ArrayList selectedCategories
@@ -342,10 +310,9 @@ namespace msn2.net.Pictures.Controls
 
             List<int> selected = new List<int>(lvCategories.Items.Count);
 
-            foreach (ListViewItem item in lvCategories.Items) 
+            foreach (CategoryListViewItem item in lvCategories.Items) 
 			{
-				DataSetCategory.CategoryRow row = (DataSetCategory.CategoryRow) item.Tag;
-				selected.Add(row.CategoryID);
+				selected.Add(item.Category.CategoryId);
 			}
 
             return selected;
@@ -360,8 +327,39 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryPickerEventArgs: EventArgs 
 	{
-		public int CategoryID;
+        private Category category;
+
+        public CategoryPickerEventArgs(Category category)
+        {
+            this.category = category;
+        }
+
+        public Category Category
+        {
+            get
+            {
+                return this.category;
+            }
+        }
 	}
 
+    public class CategoryListViewItem : ListViewItem
+    {
+        private Category category;
+
+        public CategoryListViewItem(Category category)
+        {
+            this.category = category;
+            this.Text = category.Name;
+        }
+
+        public Category Category
+        {
+            get
+            {
+                return this.category;
+            }
+        }
+    }
 
 }

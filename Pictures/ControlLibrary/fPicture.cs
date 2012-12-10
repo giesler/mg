@@ -1046,7 +1046,7 @@ namespace msn2.net.Pictures.Controls
 		{
 			// add the category to the PictureCategory dataset
 			dsPicture.PictureCategory.AddPictureCategoryRow
-				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.CategoryID);
+				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.Category.CategoryId);
 
 			UpdateCategoryList();
 		}
@@ -1054,7 +1054,7 @@ namespace msn2.net.Pictures.Controls
 		private void categoryPicker1_RemovedCategory(object sender, msn2.net.Pictures.Controls.CategoryPickerEventArgs e)
 		{
 			DataSetPicture.PictureCategoryRow pcr = 
-				dsPicture.PictureCategory.FindByPictureIDCategoryID(dsPicture.Picture[0].PictureID, e.CategoryID);
+				dsPicture.PictureCategory.FindByPictureIDCategoryID(dsPicture.Picture[0].PictureID, e.Category.CategoryId);
 			
 			if (pcr != null) 
 			{

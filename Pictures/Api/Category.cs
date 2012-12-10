@@ -21,6 +21,7 @@ namespace msn2.net.Pictures
         public int PictureId;
         public DateTime FromDate;
         public DateTime ToDate;
+        private string path;
 
         public Category()
         {
@@ -37,6 +38,7 @@ namespace msn2.net.Pictures
                 Description = dr["CategoryDescription"].ToString();
             }
             parentCategoryId = (int)dr["CategoryParentId"];
+            path = dr["CategoryPath"].ToString();
 
             if (includeDates)
             {
@@ -60,6 +62,14 @@ namespace msn2.net.Pictures
             set
             {
                 description = value;
+            }
+        }
+
+        public string Path
+        {
+            get
+            {
+                return this.path;
             }
         }
 

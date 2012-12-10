@@ -17,7 +17,9 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
 
-		protected bool mblnCancel = false;
+        private Category category;
+
+        protected bool mblnCancel = false;
 		protected int mintCategoryID = 0;
 		protected int mintParentCategoryID = 0;
 		protected DataSetCategory.CategoryRow curCategoryRow;
@@ -395,7 +397,12 @@ namespace msn2.net.Pictures.Controls
 			this.BindingContext[dsCategory, "Category"].EndCurrentEdit();
 			daCategory.Update(dsCategory, "Category");
 			daCategoryGroup.Update(dsCategory, "CategoryGroup");
-			Visible = false;
+
+            DataSetCategory.CategoryRow row = dsCategory.Category.Rows[0] as DataSetCategory.CategoryRow;
+            int categoryId = row.CategoryID;
+            this.category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+
+            Visible = false;
 /*			}
 			// otherwise we want to add a record
 			else
@@ -534,11 +541,11 @@ namespace msn2.net.Pictures.Controls
 			}
 		}
 
-		public DataSetCategory.CategoryRow SelectedCategory 
+		public Category SelectedCategory 
 		{
 			get 
 			{
-				return curCategoryRow;
+				return category;
 			}
 		}
 	}

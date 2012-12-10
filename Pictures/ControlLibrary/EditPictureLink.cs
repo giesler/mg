@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -64,15 +65,15 @@ namespace msn2.net.Pictures.Controls
 			// First log in
 			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
 
-			DataSet ds	= context.PictureManager.GetPictureCategories(pictureId);
-			if (ds.Tables[0].Rows.Count == 0)
+			Collection<Category> categories = context.PictureManager.GetPictureCategories(pictureId);
+			if (categories.Count == 0)
 			{
 				MessageBox.Show("Please add this picture to a category before setting it as a category picture.", "No category", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
-			else if (ds.Tables[0].Rows.Count == 1)
+			else if (categories.Count == 1)
 			{
-				int categoryId = (int) ds.Tables[0].Rows[0]["CategoryId"];
-				context.CategoryManager.SetCategoryPictureId(categoryId, pictureId);
+                int categoryId = categories[0].CategoryId;
+                context.CategoryManager.SetCategoryPictureId(categoryId, pictureId);
 
 				MessageBox.Show("This picture is now the index picture for this category.", "Index Picture Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
@@ -120,7 +121,7 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			context.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryID);
+			context.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryId);
 		}
 
 		public void EditPicture(int personId)

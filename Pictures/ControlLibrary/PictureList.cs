@@ -22,6 +22,7 @@ namespace msn2.net.Pictures.Controls
         {
             InitializeComponent();
             selectedItems = new List<int>();
+            this.DoubleBuffered = true;
         }
 
         public void LoadPictures(DataSet ds)
@@ -67,6 +68,13 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+
+            this.ClearSelections();
+        }
+
         private PictureItem FindItem(int pictureId)
         {
             foreach (PictureItem item in flowLayoutPanel1.Controls)
@@ -84,7 +92,10 @@ namespace msn2.net.Pictures.Controls
         {
             foreach (PictureItem item in flowLayoutPanel1.Controls)
             {
-                item.Selected = false;
+                if (item.Selected)
+                {
+                    item.Selected = false;
+                }
             }
         }
 
@@ -242,34 +253,46 @@ namespace msn2.net.Pictures.Controls
             if (Control.ModifierKeys != Keys.Control
                 && Control.ModifierKeys != Keys.Shift)
             {
-                ClearAll(item);
+                this.ClearAll(item);
             }
 
-            item.Selected = !item.Selected;
-
-            if (item.Selected)
+            if (!item.Selected)
             {
+                item.Selected = true;
+
                 selectedItems.Add(item.PictureId);
                 if (null != ItemSelected)
                 {
                     ItemSelected(this, new PictureItemEventArgs(item.PictureId));
-                }
-            }
-            else
-            {
-                selectedItems.Remove(item.PictureId);
-                if (null != ItemUnselected)
-                {
-                    ItemUnselected(this, new PictureItemEventArgs(item.PictureId));
-                }
-            }
 
-            if (null != SelectedChanged)
+                }
+                if (null != SelectedChanged)
+                {
+                    SelectedChanged(this, new PictureItemEventArgs(item.PictureId));
+                }
+            }
+            else if (item.Selected)
             {
-                SelectedChanged(this, new PictureItemEventArgs(item.PictureId));
+                if (Control.ModifierKeys == Keys.Control || Control.ModifierKeys == Keys.Shift)
+                {
+                    item.Selected = false;
+
+                    selectedItems.Remove(item.PictureId);
+
+                    if (null != ItemUnselected)
+                    {
+                        ItemUnselected(this, new PictureItemEventArgs(item.PictureId));
+                    }
+                    if (null != SelectedChanged)
+                    {
+                        SelectedChanged(this, new PictureItemEventArgs(item.PictureId));
+                    }
+
+                }
             }
 
         }
+
     }
 
     public delegate void PictureItemEventHandler(object sender, PictureItemEventArgs e);

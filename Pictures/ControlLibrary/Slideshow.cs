@@ -20,6 +20,7 @@ namespace msn2.net.Pictures.Controls
         private GetNextItemIdDelegate getNextId;
         private int pictureId;
         private PictureProperties editor;
+        private Form sourceForm = null;
 
         public Slideshow(GetPreviousItemIdDelegate getPreviousId, GetNextItemIdDelegate getNextId)
         {
@@ -30,6 +31,11 @@ namespace msn2.net.Pictures.Controls
 
             this.KeyPreview = true;
 
+        }
+
+        public void SetSourceForm(Form sourceForm)
+        {
+            this.sourceForm = sourceForm;
         }
 
         private void closeToolStripButton_Click(object sender, EventArgs e)
@@ -62,6 +68,11 @@ namespace msn2.net.Pictures.Controls
         private void closeToolStripButton_Click_1(object sender, EventArgs e)
         {
             this.Close();
+
+            if (this.sourceForm != null)
+            {
+                this.sourceForm.Focus();
+            }
         }
 
         private void Slideshow_KeyPress(object sender, KeyPressEventArgs e)
@@ -123,6 +134,15 @@ namespace msn2.net.Pictures.Controls
             else
             {
                 this.editor.Hide();
+            }
+        }
+
+        private void addtocategoryToolStripButton_Click(object sender, EventArgs e)
+        {
+            fSelectCategory selCat = fSelectCategory.GetSelectCategoryDialog();
+            if (selCat.ShowDialog(this) == DialogResult.OK)
+            {
+                PicContext.Current.PictureManager.AddToCategory(this.pictureId, selCat.SelectedCategory.CategoryId);
             }
         }
 
