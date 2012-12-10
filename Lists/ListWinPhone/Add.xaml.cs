@@ -45,9 +45,9 @@ namespace giesler.org.lists
             svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
             svc.AddListItemAsync(App.AuthDataList, listUniqueId, this.text.Text.Trim());
 
-            List<ListItemEx> items = App.Items;
-            items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
-            App.Items = items.OrderBy(i => i.Name).ToList();
+            ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
+            list.Items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
+            list.Items  = list.Items.OrderBy(i => i.Name).ToList();
 
             NavigationService.GoBack();
         }

@@ -35,6 +35,8 @@ namespace giesler.org.lists
             this.main.SelectionChanged += new SelectionChangedEventHandler(main_SelectionChanged);
         }
 
+        public bool AttemptedStorageLoad { get; set; }
+
         void main_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PivotItem item = this.main.SelectedItem as PivotItem;
@@ -47,21 +49,14 @@ namespace giesler.org.lists
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            App.Current.LoadAll();
-        }
-
-        private void DisplayLoadedLists(List<List> lists)
+        private void DisplayLoadedLists(List<ListEx> lists)
         {
             App.Lists = lists;
             int clearCount = this.main.Items.Count;
 
             int cur = -1;
             int selectIndex = -1;
-            foreach (List list in lists)
+            foreach (ListEx list in lists)
             {
                 cur++;
 
@@ -91,7 +86,19 @@ namespace giesler.org.lists
                 this.main.SelectedIndex = selectIndex;
             }
 
-            this.LoadItems(App.Items);
+            foreach (PivotItem item in this.main.Items)
+            {
+                StoreItemList listControl = new StoreItemList();
+                item.Content = listControl;
+                listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
+
+                ListEx list = item.Tag as ListEx;
+
+                var q = list.Items.OrderBy(i => i.Name);
+                listControl.Load(q);
+            }
+
+            this.UpdateControls();
 
             if (this.loadedFromStorage == true && App.LastRefreshTime.AddMinutes(30) < DateTime.Now)
             {
@@ -102,23 +109,6 @@ namespace giesler.org.lists
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
             }
-        }
-
-        private void LoadItems(List<ListItemEx> items)
-        {
-            foreach (PivotItem item in this.main.Items)
-            {
-                StoreItemList listControl = new StoreItemList();
-                item.Content = listControl;
-                listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
-                
-                List list = item.Tag as List;
-
-                var q = items.Where(i => i.ListUniqueId == list.UniqueId).OrderBy(i => i.Name);
-                listControl.Load(q);
-            }
-
-            this.UpdateControls();
         }
 
         void listControl_DeleteListItem(ListItem item)
@@ -154,7 +144,7 @@ namespace giesler.org.lists
 
         void UpdateControls()
         {
-            bool loading = App.Items == null || App.Lists == null || this.backgroundOperationActive == true;
+            bool loading = App.Lists == null || this.backgroundOperationActive == true;
 
             this.pbar.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
             if (loading && this.updatingMessage.Visibility == System.Windows.Visibility.Collapsed)
@@ -176,7 +166,7 @@ namespace giesler.org.lists
                 StoreItemList list = item.Content as StoreItemList;
                 if (list != null)
                 {
-                    list.ToggleEnabled(loading == false);                    
+                    list.ToggleEnabled(loading == false);
                 }
             }
         }
@@ -195,36 +185,29 @@ namespace giesler.org.lists
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            App.Current.LoadAll();
+
             //string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
             //MessageBox.Show(msg);
 
-            this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
-            
-            if (!App.AttemptedStorageLoad)
+            if (App.Lists != null && App.Lists.Count > 0)
             {
-                this.updatingMessage.Text = "Loading from storage...";
-                this.updatingMessage.Visibility = Visibility.Visible;
-
-                ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadFromStorage), new object());
-                this.ToggleBackgroundOperationStatus(true);
-
+                this.DisplayLoadedLists(App.Lists);
             }
-            else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
-            {
-                NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
-            }
-            else if (App.Lists == null)
+            if (App.Lists.Count == 0)
             {
                 this.ReloadAll();
 
-#if DEBUG
                 this.updatingMessage.Text = "Loading from service...";
                 this.updatingMessage.Visibility = Visibility.Visible;
-#endif
             }
+            //else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
+            //{
+            //    NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
+            //}
             else
             {
-                this.DisplayLoadedLists(App.Lists);
+                this.updatingMessage.Visibility = Visibility.Collapsed;
             }
 
             this.UpdateControls();
@@ -252,27 +235,25 @@ namespace giesler.org.lists
             if (e.Error == null)
             {
                 List<Guid> uniqueLists = new List<Guid>();
-                List<List> lists = new List<List>();
-                List<ListItemEx> items = new List<ListItemEx>();
-                foreach (var i in e.Result)
+                List<ListEx> lists = new List<ListEx>();
+                foreach (var resultItem in e.Result)
                 {
-                    if (uniqueLists.Contains(i.UniqueId) == false)
+                    if (uniqueLists.Contains(resultItem.UniqueId) == false)
                     {
-                        List list = new List { Name = i.Name, UniqueId = i.UniqueId };
+                        ListEx list = new ListEx { Name = resultItem.Name, UniqueId = resultItem.UniqueId };
                         uniqueLists.Add(list.UniqueId);
                         lists.Add(list);
                     }
 
-                    if (i.ItemUniqueId.HasValue)
+                    if (resultItem.ItemUniqueId.HasValue)
                     {
-                        ListItemEx item = new ListItemEx { Name = i.ItemName, UniqueId = i.ItemUniqueId.Value, ListUniqueId = i.UniqueId };
-                        items.Add(item);
+                        ListItemEx item = new ListItemEx { Name = resultItem.ItemName, UniqueId = resultItem.ItemUniqueId.Value, ListUniqueId = resultItem.UniqueId };
+                        lists.FirstOrDefault(l => l.UniqueId == resultItem.UniqueId).Items.Add(item);
                     }
                 }
 
                 App.Lists = lists;
-                App.Items = items;
-
+                
                 App.LastRefreshTime = DateTime.Now;
                 App.Current.SaveSettings();
 
@@ -292,19 +273,23 @@ namespace giesler.org.lists
             try
             {
                 App.Current.LoadAll();
+
                 this.loadedFromStorage = true;
             }
             catch (Exception ex)
             {
                 // todo: log
-                App.Lists = null;
-                App.Items = null;
+                App.Lists = new List<ListEx>();
                 Debug.WriteLine(ex.ToString());
             }
 
-            App.AttemptedStorageLoad = true;
+            Dispatcher.BeginInvoke(new RoutedEventHandler(this.OnLoadedFromStorage), null, null);
+        }
 
-            Dispatcher.BeginInvoke(new RoutedEventHandler(this.MainPage_Loaded), null, null);
+        void OnLoadedFromStorage(object sender, EventArgs e)
+        {
+            this.DisplayLoadedLists(App.Lists);
+            this.UpdateControls();
         }
 
         void SaveLists(object sender)
@@ -321,20 +306,19 @@ namespace giesler.org.lists
         {
             PivotItem item = (PivotItem)this.main.SelectedItem;
             List list = (List)item.Tag;
-            
+
             NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + list.UniqueId, UriKind.Relative));
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+//            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+
+            this.LoadFromStorage(null);
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            App.Lists = null;
-            App.Items = null;
-
             this.ReloadAll();
         }
 

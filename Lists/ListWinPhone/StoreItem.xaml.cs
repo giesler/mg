@@ -51,7 +51,7 @@ namespace giesler.org.lists
             if (itemCheck.IsChecked.Value && checkTime.AddSeconds(5) < DateTime.Now)
             {
                 ListItemEx item = (ListItemEx)itemCheck.Tag;
-                App.Items.Remove(item);
+                App.Lists.FirstOrDefault(l => l.UniqueId == item.ListUniqueId).Items.Remove(item);
 
                 if (this.OnRemove != null)
                 {
