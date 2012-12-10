@@ -2155,7 +2155,7 @@ namespace pics.Controls
 
 			// Retreive the list of seleted items
 			selectedList = Global.SelectedPictures;
-			Page.RegisterHiddenField("selectedPicIds", selectedList.GetListAsString());
+			Page.ClientScript.RegisterHiddenField("selectedPicIds", selectedList.GetListAsString());
 
 			// Show certain content for no selected
 			if (selectedList.Count == 0)
@@ -2194,7 +2194,7 @@ namespace pics.Controls
 			sb2.Append(" }");
 			sb2.Append("}");
 			sb2.Append("// </script>");
-			Page.RegisterClientScriptBlock("selectedWindowScript", sb2.ToString());
+			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "selectedWindowScript", sb2.ToString());
 
 			
 			base.OnPreRender (e);

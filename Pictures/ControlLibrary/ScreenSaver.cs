@@ -16,7 +16,6 @@ namespace msn2.net.Pictures.Controls
         private Point mouseLocation;
 
         private Timer hideLoadingImageTimer = new Timer();
-        private bool displayPicInfo = false;
 
         public PictureScreenSaver()
         {

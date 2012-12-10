@@ -69,9 +69,9 @@ namespace pics
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@PersonID", personId);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
+			daPics.SelectCommand.Parameters.AddWithValue("@PersonID", personId);
+			daPics.SelectCommand.Parameters.AddWithValue("@MaxWidth", 125);
+			daPics.SelectCommand.Parameters.AddWithValue("@MaxHeight", 125);
 
 			// run the SP, set datasource to the picture list
 			cn.Open();

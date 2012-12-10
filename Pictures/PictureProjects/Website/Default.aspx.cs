@@ -47,13 +47,15 @@ namespace pics
 			// run the SP, set datasource to the picture list
             Picture pic = PicContext.Current.PictureManager.GetRandomPicture();
             PictureData ds = PicContext.Current.PictureManager.GetPicture(pic.Id);
+            List<PictureData> list = new List<PictureData>();
+            list.Add(ds);
 
 			// create new control
             if (pic != null)
             {
                 ThumbnailList thumbs = new ThumbnailList();
                 thumbs.PageReturnURL = BuildRandomPageUrl(pic.Id, "default.aspx");
-                thumbs.ThumbsDataSource = ds;
+                thumbs.ThumbsDataSource = list;
                 randomPicture.Controls.Add(thumbs);
             }
             else
