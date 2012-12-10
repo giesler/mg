@@ -3,6 +3,5 @@
              x:Class="SLExpressControls.App"
              >
     <Application.Resources>
-        
     </Application.Resources>
 </Application>

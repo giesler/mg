@@ -66,6 +66,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ItemEditor.xaml.cs">
+      <DependentUpon>ItemEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page.xaml.cs">
       <DependentUpon>Page.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,11 @@
   </ItemGroup>
   <ItemGroup>
     <SilverlightPage Include="Page.xaml">
+      <Generator>MSBuild:CompileXaml</Generator>
+    </SilverlightPage>
+  </ItemGroup>
+  <ItemGroup>
+    <SilverlightPage Include="ItemEditor.xaml">
       <Generator>MSBuild:CompileXaml</Generator>
     </SilverlightPage>
   </ItemGroup>

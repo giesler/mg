@@ -1,7 +1,25 @@
 ﻿<UserControl x:Class="SLExpressControls.Page"
     xmlns="http://schemas.microsoft.com/client/2007" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:Data="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data">
+    xmlns:Data="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data"
+    xmlns:SLC="clr-namespace:SLExpressControls">
+    <UserControl.Resources>
+        <Style x:Name="plainListStyle" TargetType="ListBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <ScrollViewer 
+                                VerticalScrollBarVisibility="Auto" 
+                                HorizontalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
@@ -10,9 +28,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="storeList" Grid.RowSpan="2" SelectionChanged="storeList_SelectionChanged" />
+        <ListBox x:Name="storeList" Grid.RowSpan="2" SelectionChanged="storeList_SelectionChanged" Style="{StaticResource plainListStyle}" />
         <Grid Grid.Column="1" Margin="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -23,7 +41,7 @@
             <Button Grid.Column="1" Margin="2" Content="Add" x:Name="add" Click="add_Click" IsEnabled="False" />
             <Button Grid.Column="2" Margin="2" Content="Bulk Add" x:Name="bulkadd" Click="bulkadd_Click" />
         </Grid>
-        <ListBox x:Name="items" Grid.Row="1" Grid.Column="1" Margin="3">
+        <ListBox x:Name="items" Grid.Row="1" Grid.Column="1" Margin="3" Style="{StaticResource plainListStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -31,14 +49,15 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="50" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Content="{Binding ListItem}" />
-                        <HyperlinkButton Content="Edit" Grid.Column="1" VerticalAlignment="Center" />
+                        <CheckBox Content="{Binding ListItem}" Margin="2" />
+                        <HyperlinkButton x:Name="edit" Content="Edit" Grid.Column="1" VerticalAlignment="Center" Click="edit_Click"  />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBlock Grid.Column="1" Grid.Row="1" x:Name="loading" VerticalAlignment="Center"
                    HorizontalAlignment="Center" Text="loading..." Foreground="DarkGray" Visibility="Collapsed" />   
+        <SLC:ItemEditor x:Name="editor" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.RowSpan="2" />       
         <TextBox Grid.Row="2" Grid.ColumnSpan="2" x:Name="debug" FontSize="10" />
     </Grid>
 </UserControl>
