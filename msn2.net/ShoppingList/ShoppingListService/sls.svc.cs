@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Xml;
 using System.Net;
+using System.Configuration;
 
 namespace msn2.net.ShoppingList
 {
@@ -62,6 +63,18 @@ namespace msn2.net.ShoppingList
             this.dataContext.SubmitChanges();
 
             return new ShoppingListItem { Id = item.Id, ListItem = item.Name, Store = item.Store.Name };
+        }
+
+        public string GetMobileClientVersion()
+        {
+            string version = ConfigurationManager.AppSettings["mobileClientVersion"];
+
+            if (string.IsNullOrEmpty(version))
+            {
+                version = "1.0.0.0";
+            }
+
+            return version;
         }
 
         public void UpdateShoppingListItem(ShoppingListItem listItem)

@@ -27,5 +27,8 @@ namespace msn2.net.ShoppingList
         
         [OperationContract]
         void UpdateShoppingListItem(ShoppingListItem listItem);
+
+        [OperationContract]
+        string GetMobileClientVersion();
     }
 }
