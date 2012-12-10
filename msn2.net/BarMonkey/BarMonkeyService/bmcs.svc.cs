@@ -44,5 +44,17 @@ namespace BarMonkeyService
             Dispenser disp = new Dispenser();
             disp.PourDrink(bmc, drink, container);
         }
+
+        public void PourIngredient(int relayId, int seconds)
+        {
+            Dispenser disp = new Dispenser();
+            disp.PourIngredient(relayId, seconds);
+        }
+
+        public void TurnOffAllRelays()
+        {
+            Dispenser disp = new Dispenser();
+            disp.TurnOffAllRelays();
+        }
     }
 }

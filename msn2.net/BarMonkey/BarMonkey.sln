@@ -45,29 +45,39 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		NoPhone|Any CPU = NoPhone|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
 		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
 		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{705555D4-139D-48EC-8E29-55E5AD91D82B}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{705555D4-139D-48EC-8E29-55E5AD91D82B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
 		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD64CC7-BADF-4BA0-A710-35C56140F89A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
 		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B354B5E-0A70-4E09-9B31-D2510AA9D467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

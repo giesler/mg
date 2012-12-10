@@ -98,5 +98,10 @@ namespace BarMonkeyPhone
             this.leftMouseDownPoint = e.GetPosition(this);
             this.leftMouseDownBlock = (TextBlock)sender;
         }
+
+        private void OnSettingsClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/settings.xaml", UriKind.Relative));
+        }
     }
 }

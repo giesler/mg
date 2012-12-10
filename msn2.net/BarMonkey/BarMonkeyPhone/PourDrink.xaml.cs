@@ -60,7 +60,7 @@ namespace BarMonkeyPhone
 
                 BarMonkeyClientServiceClient client = App.GetClient();
                 client.PourDrinkCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_PourDrinkCompleted);
-                client.PourDrinkAsync(drinkId, 2);
+                client.PourDrinkAsync(drinkId, 4);
             }
             else
             {

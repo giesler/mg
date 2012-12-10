@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Forms;
+using msn2.net.BarMonkey;
 
 namespace BarMonkey
 {
@@ -29,7 +30,9 @@ namespace BarMonkey
             if (Screen.PrimaryScreen.Bounds.Width < 1025)
             {
                 this.WindowState = WindowState.Maximized;
-            }            
+            }
+
+            BarMonkeyContext.Current.Login(9);
         }
     }
 }

@@ -70,11 +70,11 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesRemaining.ItemsSource = ounces;
 
             this.ingredient.SelectedIndex = 0;
-            
+
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
-        
+
         private void relay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.changingRelay == false && this.changingIngredient == false)
@@ -167,11 +167,11 @@ namespace msn2.net.BarMonkey.Activities
                 Ingredient ingredient = this.ingredient.SelectedItem as Ingredient;
                 ingredient.OuncesPerSecond = (decimal)this.ouncesPerSecond.SelectedItem;
                 BarMonkeyContext.Current.Ingredients.UpdateIngredient(ingredient);
-                
+
                 this.changingFlowRate = false;
             }
         }
-        
+
         private void ouncesRemaining_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.changingRemaining == false)
@@ -185,7 +185,7 @@ namespace msn2.net.BarMonkey.Activities
                 this.changingRemaining = false;
             }
         }
-        
+
         private void openRelay_Click(object sender, RoutedEventArgs e)
         {
             ThreadPool.QueueUserWorkItem(this.Connect, true);
@@ -200,7 +200,7 @@ namespace msn2.net.BarMonkey.Activities
             try
             {
                 relayClient.ConnectTest();
-                
+
                 if ((bool)openOnConnect == true)
                 {
                     Dispatcher.Invoke(DispatcherPriority.Normal, new MethodInvoker(this.onConnected));
@@ -226,7 +226,7 @@ namespace msn2.net.BarMonkey.Activities
                 Relay relay = (Relay)this.relay.SelectedItem;
 
                 List<BatchItem> items = new List<BatchItem>();
-                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
+                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds, Group = 1 });
 
                 relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
 
@@ -305,7 +305,7 @@ namespace msn2.net.BarMonkey.Activities
 
         private void OnConnectedForAllOff(IAsyncResult result)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(this.onPourCompleted), null); 
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(this.onPourCompleted), null);
         }
 
         private void minus_Click(object sender, RoutedEventArgs e)

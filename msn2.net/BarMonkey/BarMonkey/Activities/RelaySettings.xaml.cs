@@ -233,7 +233,7 @@ namespace msn2.net.BarMonkey.Activities
                 Relay relay = (Relay)this.relay.SelectedItem;
 
                 List<BatchItem> items = new List<BatchItem>();
-                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
+                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds, Group = 1 });
 
                 relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
 

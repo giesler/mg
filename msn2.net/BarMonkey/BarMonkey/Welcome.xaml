@@ -4,13 +4,7 @@
     x:Class="BarMonkeyControls.Welcome"
     Title="Welcome" x:Name="Welcome1" xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:msn2_net_BarMonkey="clr-namespace:msn2.net.BarMonkey;assembly=msn2.net.BarMonkey">
 	<Page.Background>
-		<LinearGradientBrush StartPoint="0,0" EndPoint="1,1" SpreadMethod="Pad">
-			<LinearGradientBrush.GradientStops>
-				<GradientStop Color="Gray" Offset="0" />
-				<GradientStop Color="White" Offset=".75" />
-				<GradientStop Color="Gray" Offset="1" />
-			</LinearGradientBrush.GradientStops>
-		</LinearGradientBrush>
+        <SolidColorBrush Color="Silver" />
 	</Page.Background>
 	<Grid>
 		<Grid.ColumnDefinitions>

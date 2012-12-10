@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using msn2.net.BarMonkey.RelayControllerService;
+using System.Net;
 
 namespace msn2.net.BarMonkey
 {
@@ -57,9 +58,6 @@ namespace msn2.net.BarMonkey
 
             this.EstimatedDuration = new TimeSpan(0, 0, (int)fullDuration);
             
-            int lightRelayNumber = 36;
-            items.Add(new BatchItem { Group = 0, RelayNumber = lightRelayNumber, Seconds = (double)fullDuration });
-
             List<Ingredient> actualIngredients = new List<Ingredient>();
 
             foreach (DrinkActualIngredient di in q)
@@ -88,6 +86,26 @@ namespace msn2.net.BarMonkey
                 items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds = (double)duration });
             }
 
+            Dictionary<int, double> groupMaxTimes = new Dictionary<int, double>();
+
+            foreach (BatchItem item in items.OrderBy(i => i.Group))
+            {
+                if (groupMaxTimes.ContainsKey(item.Group) == false)
+                {
+                    groupMaxTimes.Add(item.Group, item.Seconds);
+                }
+                else if (groupMaxTimes[item.Group] < item.Seconds)
+                {
+                    groupMaxTimes[item.Group] = item.Seconds;
+                }
+            }
+
+            int lightRelayNumber = 36;
+            foreach (int groupId in groupMaxTimes.Keys)
+            {
+                items.Add(new BatchItem { Group = groupId, RelayNumber = lightRelayNumber, Seconds = groupMaxTimes[groupId] });
+            }
+
             if (container.WaterFlushOunces > 0)
             {
                 Ingredient waterIngredient = BarMonkeyContext.Current.Ingredients.GetIngredient("Water");
@@ -100,8 +118,8 @@ namespace msn2.net.BarMonkey
             {
                 this.OnPourStarted(this, EventArgs.Empty);
             }
-
-            relayClient.SendBatch(items.ToArray<BatchItem>());
+            
+            relayClient.SendBatch(items.OrderBy(i => i.Group).ToArray<BatchItem>());
 
             if (BarMonkeyContext.Current.ImpersonateUser != null)
             {
@@ -125,9 +143,28 @@ namespace msn2.net.BarMonkey
             return duration;
         }
 
+        public void PourIngredient(int relayId, int seconds)
+        {
+            RelayControllerClient relayClient = new RelayControllerClient();
+            relayClient.ConnectTest();
+
+            List<BatchItem> items = new List<BatchItem>();
+            items.Add(new BatchItem() { RelayNumber = relayId, Seconds = seconds, Group = 1 });
+
+            relayClient.SendBatch(items.ToArray<BatchItem>());            
+        }
+
+        public void TurnOffAllRelays()
+        {
+            RelayControllerClient relayClient = new RelayControllerClient();
+            relayClient.ConnectTest();
+
+            relayClient.TurnAllOff();
+        }
+
         public void ConnectTest()
         {
-            RelayControllerClient relay = new RelayControllerClient();
+            RelayControllerClient relay = new RelayControllerClient("NetTcpBinding_IRelayController");
             relay.ConnectTest();
         }
     }

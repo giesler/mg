@@ -60,13 +60,31 @@ namespace msn2.net.BarMonkey
         }
 
         public List<Drink> GetTopDrinks(int count)
-        {
+        {/*
+            var q = from uh in base.Context.Data.UserDrinkHistories
+                    group uh by uh.DrinkId into g
+                    select new
+                    {
+                        DrinkId = g.Key,
+                        Count = (int)g.Count()
+                    };
+
+// TODO: fix top dri9nks
+            /*int current = 0;
+            List<Drink> drinks = new List<Drink>();
+            while (drinks.Count < count && current < )
+            {
+                var i = q[current];
+
+                current++;
+            }
+          */
             var q = (from d in base.Context.Data.Drinks
                      where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
                         && d.DrinkActualIngredients.Count > 0
                      orderby d.UserDrinkHistories.Count
                      select d).Take<Drink>(count);
-
+            
             return q.ToList<Drink>();
         }
 
@@ -100,7 +118,7 @@ namespace msn2.net.BarMonkey
                 UserDrinkIngredientHistory udih = new UserDrinkIngredientHistory();
                 udih.UserDrinkHistory = udh;
                 udih.IngredientId = ingredient.IngredientId.Value;
-                udih.AmountOunces = ingredient.AmountOunces * offset;
+                udih.AmountOunces = ingredient.AmountOunces;
                 udih.Sequence = ingredient.Sequence;
                 base.Context.Data.UserDrinkIngredientHistories.InsertOnSubmit(udih);
             }
@@ -110,7 +128,7 @@ namespace msn2.net.BarMonkey
             foreach (DrinkActualIngredient di in drink.DrinkActualIngredients)
             {
                 Ingredient i = base.Context.Ingredients.GetIngredient(di.IngredientId.Value);
-                i.RemainingOunces -= di.AmountOunces * offset;
+                i.RemainingOunces -= di.AmountOunces;
             }
 
             base.Context.Data.SubmitChanges();

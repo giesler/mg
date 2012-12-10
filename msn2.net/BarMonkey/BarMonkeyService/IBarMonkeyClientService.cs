@@ -22,6 +22,12 @@ namespace BarMonkeyService
         void PourDrink(int drinkId, int containerId);
 
         [OperationContract]
+        void PourIngredient(int relayId, int seconds);
+
+        [OperationContract]
+        void TurnOffAllRelays();
+
+        [OperationContract]
         void ConnectTest();
     }
 }

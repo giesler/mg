@@ -3,12 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="PartyModeMainPage">
     <Page.Background>
-        <LinearGradientBrush EndPoint="0.05,1" StartPoint="0,0.3">
-            <GradientStop Color="#FF130951" Offset="0.096"/>
-            <GradientStop Color="#FF9D97BD" Offset="1"/>
-            <GradientStop Color="#FF18171B" Offset="0"/>
-            <GradientStop Color="#FF625A8A" Offset="0.673"/>
-        </LinearGradientBrush>
+        <SolidColorBrush Color="Silver" />
     </Page.Background>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,24 +12,20 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45px" />
+            <RowDefinition Height="60px" />
             <RowDefinition Height="5px" />
             <RowDefinition />
             <RowDefinition Height="10px" />
         </Grid.RowDefinitions>
         <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" >
             <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="DarkGray" Offset="0" />
-                    <GradientStop Color="#FF283AA8" Offset="0.25" />
-                    <GradientStop Color="DarkGray" Offset="0.99" />
-                    <GradientStop Color="Black" Offset="1" />
-                    <GradientStop Color="#FF141C4A" Offset="0.885"/>
-                </LinearGradientBrush>
+                <SolidColorBrush Color="DarkBlue" />
             </Rectangle.Fill>
         </Rectangle>
-        <Label Name="barNoneTitle" Grid.Column="0" Grid.Row="0" FontSize="22" FontWeight="Bold" Foreground="White">BarNone</Label>
-        <Label Grid.Column="2" Name="pageTitle" HorizontalAlignment="Right" Grid.Row="0" FontSize="25" Foreground="White">[Page Title]</Label>
+        <StackPanel Orientation="Vertical">
+            <Label Name="barNoneTitle" Grid.Column="0" FontSize="12" Foreground="White" FontFamily="Segoe UI">BARNONE</Label>
+            <Label Name="pageTitle" FontSize="22" Foreground="White" FontFamily="Segoe UI" Margin="0,-6,0,0">page title</Label>
+        </StackPanel>
         <Frame Name="contentFrame" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Source="PartyModeHomePage.xaml" />
     </Grid>
 </Page>

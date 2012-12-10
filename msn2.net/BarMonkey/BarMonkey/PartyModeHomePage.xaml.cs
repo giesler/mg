@@ -25,21 +25,16 @@ namespace msn2.net.BarMonkey
             InitializeComponent();
         }
 
-        protected override void OnInitialized(EventArgs e)
+        private void newDrink_Click(object sender, RoutedEventArgs e)
         {
-            base.OnInitialized(e);
-
-            this.navStack.AddCommands(GetActivities());
-            this.navStack.NavigateToUri += delegate(Uri u) { this.NavigationService.Navigate(u); };
+            Uri uri = new Uri("pack://application:,,,/Activities/NewDrink.xaml");
+            NavigationService.Navigate(uri);
         }
 
-        private List<Activity> GetActivities()
+        private void settings_Click(object sender, RoutedEventArgs e)
         {
-            List<Activity> list = new List<Activity>();
-            list.Add(new Activity { Name = "New Drink", PageUrl = "Activities/NewDrink.xaml" });
-            //list.Add(new Activity { Name = "Statistics", PageUrl = "Activities/Statistics.xaml" });
-            list.Add(new Activity { Name = "Settings", PageUrl = "Activities/Settings.xaml" });
-            return list;
+            Uri uri = new Uri("pack://application:,,,/Activities/Settings.xaml");
+            NavigationService.Navigate(uri);
         }
     }
 }
