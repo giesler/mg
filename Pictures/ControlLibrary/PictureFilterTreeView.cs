@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Linq;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -131,7 +132,7 @@ namespace msn2.net.Pictures.Controls
                 new object[] { n });
 
             // load child nodes from dvCategory
-            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(
                 parentCategory.Id);
 
             foreach (Category category in categories)
@@ -211,24 +212,15 @@ namespace msn2.net.Pictures.Controls
             TreeNode selectedNode = this.SelectedNode;
             if (selectedNode != null)
             {
-                fEditCategory ec = new fEditCategory();
-
                 CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
-                if (parentNode != null)
-                {
-                    ec.NewCategory(parentNode.Category.Id);
-                }
-                else
-                {
-                    ec.NewCategory(PicContext.Current.CategoryManager.GetRootCategory().Id);
-                }
+                Category category = new Category();
+                category.ParentId = parentNode == null ? PicContext.Current.CategoryManager.GetRootCategory().Id : parentNode.Category.Id;
 
-                ec.ShowDialog();
-
-                if (!ec.Cancel)
+                CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, category);
+                if (ec.ShowDialog() == DialogResult.OK)
                 {
                     // add new tree node
-                    CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.SelectedCategory);
+                    CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.Category);
                     newCategoryNode.ContextMenu = this.categoryContextMenu;
                     selectedNode.Nodes.Add(newCategoryNode);
 
@@ -244,13 +236,10 @@ namespace msn2.net.Pictures.Controls
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
             if (node != null)
             {
-                fEditCategory ec = new fEditCategory();
-                ec.CategoryID = node.Category.Id;
-                ec.ShowDialog();
-
-                if (!ec.Cancel)
+                CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, node.Category);
+                if (ec.ShowDialog() == DialogResult.OK)
                 {
-                    node.Update(ec.SelectedCategory);
+                    node.Update(ec.Category);
                 }
             }
         }
@@ -332,6 +321,27 @@ namespace msn2.net.Pictures.Controls
         private delegate void DateLoadDelegate(DateCollection dates, string fieldName, TreeNodeCollection nodes, int imageIndex);
 
         #endregion
+
+        public IQueryable<Picture> GetPictureQuery()
+        {
+            IQueryable<Picture> query = null;
+
+            if (this.SelectedNode is CategoryTreeNode)
+            {
+                Category category = ((CategoryTreeNode)this.SelectedNode).Category;
+
+                query = from p in PicContext.Current.PictureManager.GetPictures()
+                        where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
+                        select p;
+            }
+            else
+            {
+                query = from p in PicContext.Current.PictureManager.GetPictures()
+                        select p;
+            }
+
+            return query;
+        }
 
         public string WhereClause
         {

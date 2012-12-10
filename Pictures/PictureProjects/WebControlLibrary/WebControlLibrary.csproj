@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controls.cs" />
-    <Compile Include="getimage.cs" />
     <Compile Include="global.asax.cs" />
     <Compile Include="header.cs" />
     <Compile Include="mainform.aspx.cs">

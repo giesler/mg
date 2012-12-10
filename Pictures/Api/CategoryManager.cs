@@ -32,15 +32,16 @@ namespace msn2.net.Pictures
             return this.GetCategory(1);
         }
 
-        public List<Category> GetCategories(int categoryId)
+        public List<Category> GetChildrenCategories(int categoryId)
         {
             var q = from c in this.context.DataContext.Categories
-                    where c.Id == categoryId &&
+                    where c.ParentId == categoryId && c.Id != categoryId &&
                         (from cg in c.CategoryGroups
                          where (from pg in cg.Group.PersonGroups
                                 where pg.PersonID == this.context.CurrentUser.Id
                                 select pg).Any()
                          select cg).Any()
+                    orderby c.Name
                     select c;
             return q.ToList();
         }
@@ -64,7 +65,7 @@ namespace msn2.net.Pictures
                          select pg).Any()
                     select c;
 
-            return q.Distinct().OrderBy(c=>c.Name).ToList();
+            return q.Distinct().OrderBy(c => c.Name).ToList();
         }
 
         public int PictureCount(int categoryId)
@@ -80,11 +81,11 @@ namespace msn2.net.Pictures
                     join c in this.context.DataContext.Categories on pc.CategoryID equals c.Id
                     where ((recursive == false && pc.CategoryID == categoryId) || (recursive == true && c.Path.StartsWith(category.Path))) &&
                           (from cg in c.CategoryGroups
-                           where cg.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                           where cg.Group.PersonGroups.Any(p => p.PersonID == this.context.CurrentUser.Id)
                            select cg).Any()
-                           && 
+                           &&
                            (from picsec in this.context.DataContext.PictureGroups
-                            where picsec.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                            where picsec.Group.PersonGroups.Any(p => p.PersonID == this.context.CurrentUser.Id)
                                 && picsec.PictureID == pc.PictureID
                             select picsec).Any()
                             && pc.Picture.Publish == true
@@ -107,9 +108,9 @@ namespace msn2.net.Pictures
                            ((recursive && c.Path.StartsWith(category.Path)) || (recursive == false && c.Id == categoryId)) &&
                            (from pc in c.PictureCategories
                             join cg in c.CategoryGroups on pc.CategoryID equals cg.CategoryID
-                            where cg.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                            where cg.Group.PersonGroups.Any(p => p.PersonID == this.context.CurrentUser.Id)
                                 && (from picgrp in this.context.DataContext.PictureGroups
-                                    where picgrp.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                                    where picgrp.Group.PersonGroups.Any(p => p.PersonID == this.context.CurrentUser.Id)
                                         && picgrp.PictureID == pc.PictureID
                                     select picgrp).Any()
                             select pc).Any()
@@ -251,7 +252,7 @@ namespace msn2.net.Pictures
 
         void ReloadCategoryCache(int categoryId)
         {
-            List<Category> subCats = this.GetCategories(categoryId);
+            List<Category> subCats = this.GetChildrenCategories(categoryId);
             SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("sp_CategorySubCategoryUpdate", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -296,6 +297,12 @@ namespace msn2.net.Pictures
                 stats.EndTime = q.Skip(stats.PictureCount - 1).First().PictureDate;
             }
             return stats;
+        }
+
+        public void Add(Category category)
+        {
+            this.context.DataContext.Categories.InsertOnSubmit(category);
+            this.context.DataContext.SubmitChanges();
         }
     }
 

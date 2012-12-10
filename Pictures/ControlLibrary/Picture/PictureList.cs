@@ -25,7 +25,7 @@ namespace msn2.net.Pictures.Controls
             this.DoubleBuffered = true;
         }
 
-        public void LoadPictures(PictureCollection pictures)
+        public void LoadPictures(List<Picture> pictures)
         {
             this.SuspendLayout();
 

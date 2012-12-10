@@ -107,11 +107,6 @@
     <Compile Include="CategoryManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataSetCategory.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataSetPicture.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -139,12 +134,6 @@
       <DependentUpon>Picture.dbml</DependentUpon>
     </Compile>
     <Compile Include="PictureCache.cs" />
-    <Compile Include="PictureData.cs" />
-    <Compile Include="PictureDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PictureDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="PictureManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -163,31 +152,12 @@
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="DataSetCategory.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="DataSetPicture.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PictureDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>PictureDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="API_Diagram.cd" />
-    <None Include="DataSetCategory.xsc">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetCategory.xss">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetCategory.xsx">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
     <None Include="DataSetPicture.xsc">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
@@ -202,15 +172,6 @@
       <LastGenOutput>Picture.designer.cs</LastGenOutput>
     </None>
     <None Include="PictureAdmin.snk" />
-    <None Include="PictureDataSet.xsc">
-      <DependentUpon>PictureDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="PictureDataSet.xss">
-      <DependentUpon>PictureDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="PictureDataSet.xsx">
-      <DependentUpon>PictureDataSet.xsd</DependentUpon>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -223,7 +184,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Picture.dbml.layout">
       <DependentUpon>Picture.dbml</DependentUpon>
     </None>

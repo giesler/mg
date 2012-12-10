@@ -14,7 +14,6 @@ namespace msn2.net.Pictures.Controls
 	public class PersonPicker : System.Windows.Forms.UserControl
 	{
 
-		private msn2.net.Pictures.Controls.DataSetCategory dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Splitter splitter1;
@@ -23,17 +22,11 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.Button btnRemove;
 		private msn2.net.Pictures.Controls.PeopleCtl peopleCtl1;
-
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 
 		public PersonPicker()
 		{
-			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
 		}
 
 		/// <summary> 
@@ -163,9 +156,6 @@ namespace msn2.net.Pictures.Controls
 		}
 		#endregion
 
-		
-		// An event that clients can use to be notified whenever the
-		// elements of the list change.
 		public event AddedPersonEventHandler AddedPerson;
         public event RemovedPersonEventHandler RemovedPerson;
 

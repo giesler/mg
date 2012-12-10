@@ -28,8 +28,8 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.MenuItem menuRefresh;
         private System.Windows.Forms.MenuItem menuSaveSlideshow;
         private MenuItem menuItem2;
-        private PictureDataSet pictureDataSet1;
-		/// <summary> 
+        
+        /// <summary> 
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -169,8 +169,6 @@ namespace msn2.net.Pictures.Controls
             this.menuDeleteCat = new System.Windows.Forms.MenuItem();
             this.menuEditCatName = new System.Windows.Forms.MenuItem();
             this.menuAddChildCat = new System.Windows.Forms.MenuItem();
-            this.pictureDataSet1 = new msn2.net.Pictures.PictureDataSet();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // tvCategory
@@ -259,18 +257,11 @@ namespace msn2.net.Pictures.Controls
             this.menuAddChildCat.Text = "";
             this.menuAddChildCat.Click += new System.EventHandler(this.menuAddChildCat_Click);
             // 
-            // pictureDataSet1
-            // 
-            this.pictureDataSet1.DataSetName = "PictureDataSet";
-            this.pictureDataSet1.Locale = new System.Globalization.CultureInfo("en-US");
-            this.pictureDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // CategoryTree
             // 
             this.Controls.Add(this.tvCategory);
             this.Name = "CategoryTree";
             this.Size = new System.Drawing.Size(120, 92);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureDataSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -285,16 +276,14 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			fEditCategory ec = new fEditCategory();
-            
-			ec.NewCategory(n.Category.Id);
+            Category category = new Category { ParentId = n.Category.Id };
 
-			ec.ShowDialog();
+			CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, category);
 
-			if (!ec.Cancel) 
+			if (ec.ShowDialog() == DialogResult.OK)
 			{
 				// add new tree node
-                CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.SelectedCategory);
+                CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.Category);
                 n.Nodes.Add(newCategoryNode);
 	
 				// expand parent node and select new node
@@ -317,13 +306,10 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			fEditCategory ec = new fEditCategory();
-            ec.CategoryID = n.Category.Id;
-            ec.ShowDialog();
-
-			if (!ec.Cancel) 
-			{
-                n.Update(ec.SelectedCategory);
+			CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, n.Category);
+            if (ec.ShowDialog() == DialogResult.OK)
+            {
+                n.Update(ec.Category);
 			}
 
 		}
@@ -390,7 +376,7 @@ namespace msn2.net.Pictures.Controls
             this.Invoke(clearDelegate, new object[] { n });
             
 			// load child nodes from dvCategory
-            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(
                 n.Category.Id);
 
 			foreach (Category category in categories) 

@@ -19,16 +19,14 @@ namespace msn2.net.Pictures
             int maxWidth = Convert.ToInt32(context.Request.QueryString["mw"]);
             int maxHeight = Convert.ToInt32(context.Request.QueryString["mh"]);
 
-            DataSet ds = PicContext.Current.PictureManager.GetPicture(pictureId, maxWidth, maxHeight);
+            Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
 
-            // Check if we got the picture - user may not have access
-            if (ds.Tables[0].Rows.Count == 1)
+            if (picture != null)
             {
-                DataRow dr = ds.Tables[0].Rows[0];
-                string strCache = PicContext.Current.Config.CacheDirectory;
-                string filename = dr["FileName"].ToString();
+                PictureCache cachedImage = PicContext.Current.PictureManager.GetPictureCache(pictureId, maxWidth, maxHeight);
 
-                filename = strCache + filename.Replace(@"\", @"/");
+                string strCache = PicContext.Current.Config.CacheDirectory;
+                string filename = strCache + cachedImage.Filename.Replace(@"\", @"/");
 
                 context.Response.ContentType = "image/jpeg";
 

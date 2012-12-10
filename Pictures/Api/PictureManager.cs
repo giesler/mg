@@ -186,40 +186,6 @@ namespace msn2.net.Pictures
 
         }
 
-        public PictureDataSet GetPicture(int pictureId, int maxWidth, int maxHeight)
-        {
-            // Set up SP to retreive picture
-            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
-            SqlCommand cmdPic = new SqlCommand("p_GetPicture", cn);
-            cmdPic.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
-
-            // set up params on the SP
-            cmdPic.Parameters.Add("@PictureID", SqlDbType.Int);
-            cmdPic.Parameters.Add("@StartRecord", SqlDbType.Int);
-            cmdPic.Parameters.Add("@ReturnCount", SqlDbType.Int);
-            cmdPic.Parameters.Add("@MaxHeight", SqlDbType.Int);
-            cmdPic.Parameters.Add("@MaxWidth", SqlDbType.Int);
-            cmdPic.Parameters.Add("@PersonID", SqlDbType.Int);
-            cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
-            cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
-
-            cmdPic.Parameters["@StartRecord"].Value = 0;
-            cmdPic.Parameters["@ReturnCount"].Value = 1;
-            cmdPic.Parameters["@PictureId"].Value = pictureId;
-            cmdPic.Parameters["@MaxHeight"].Value = maxHeight;
-            cmdPic.Parameters["@MaxWidth"].Value = maxWidth;
-            cmdPic.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
-
-            // run the SP, set datasource to the picture list
-            cn.Open();
-            PictureDataSet ds = new PictureDataSet();
-            daPic.Fill(ds, "Picture");
-            cn.Close();
-
-            return ds;
-        }
-
         public Image GetPictureImage(Picture picture, int maxWidth, int maxHeight)
         {
             Image image = this.picContext.PictureCache.GetImage(picture, maxWidth, maxHeight);
@@ -237,31 +203,14 @@ namespace msn2.net.Pictures
 
             return rating.Rating;
         }
-        
-        public void Save(PictureData pictureData)
-        {
-            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
-            SqlCommand cmd = new SqlCommand("up_PictureManager_Save", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@id", SqlDbType.Int);
-            cmd.Parameters.Add("@title", SqlDbType.NVarChar, 255);
-            cmd.Parameters.Add("@description", SqlDbType.NVarChar, 2000);
-            cmd.Parameters.Add("@dateTaken", SqlDbType.DateTime);
-
-            cmd.Parameters["@id"].Value = pictureData.Id;
-            cmd.Parameters["@title"].Value = pictureData.Title;
-            cmd.Parameters["@description"].Value = pictureData.Description;
-            cmd.Parameters["@dateTaken"].Value = pictureData.DateTaken;
-
-            cn.Open();
-            cmd.ExecuteNonQuery();
-            cn.Close();
-        }
 
         public Picture GetPicture(int pictureId)
         {
-            Picture picture = this.picContext.DataContext.Pictures.FirstOrDefault(p => p.PictureID == pictureId);
+            Picture picture = (from p in this.picContext.DataContext.Pictures
+                               where p.PictureGroups.Any(
+                                    pg => pg.Group.PersonGroups.Any(
+                                        i => i.PersonID == this.picContext.CurrentUser.Id))
+                               select p).FirstOrDefault();
             return picture;
         }
 
@@ -297,50 +246,6 @@ namespace msn2.net.Pictures
                     select p;
 
             return q.ToList();
-        }
-
-        public PictureCollection GetPictures(string sqlWhereClause)
-        {
-            PictureCollection pictures = new PictureCollection();
-
-            string sql = "select 1 as RecNumber, p.PictureID, p.PictureDate, p.Title, p.Description, p.Filename, ";
-            sql += "p.PictureAddDate, p.PictureUpdateDate, p.AverageRating, pr.Rating ";
-            sql += "from Picture p ";
-            sql += " left outer join PictureRating pr on pr.PictureId = p.PictureId  AND pr.PersonId = ";
-            sql += PicContext.Current.CurrentUser.Id.ToString() + " ";
-            if (sqlWhereClause.Length > 0)
-            {
-                sql += "WHERE " + sqlWhereClause + " ";
-            }
-            sql += "ORDER BY PictureDate, PictureSort";
-
-            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
-            SqlCommand cmd = new SqlCommand(sql, cn);
-            SqlDataReader dr = null;
-
-            try
-            {
-                cn.Open();
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    pictures.Add(new PictureData(dr));
-                }
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                if (cn.State == ConnectionState.Open)
-                {
-                    cn.Close();
-                }
-            }
-
-            return pictures;
         }
 
         public static string GetSqlSortFieldName(PictureSortField sortField)
@@ -410,7 +315,6 @@ namespace msn2.net.Pictures
 
             return dsPics;
         }
-
 
         public List<PersonGroupInfo> GetPictureGroups(int pictureId)
         {
@@ -501,38 +405,6 @@ namespace msn2.net.Pictures
             return people;
         }
 
-
-        [Obsolete]
-        public DataSetPicture RandomImageData()
-        {
-            return RandomImageData(PicContext.Current.CurrentUser.Id);
-        }
-
-        [Obsolete]
-        public DataSetPicture RandomImageData(int personId)
-        {
-            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
-            SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
-            daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-            // set up params on the SP
-            daPics.SelectCommand.Parameters.Add("@PersonID", SqlDbType.Int);
-            daPics.SelectCommand.Parameters.Add("@MaxWidth", SqlDbType.Int);
-            daPics.SelectCommand.Parameters.Add("@MaxHeight", SqlDbType.Int);
-
-            daPics.SelectCommand.Parameters["@PersonID"].Value = personId;
-            daPics.SelectCommand.Parameters["@MaxWidth"].Value = 125;
-            daPics.SelectCommand.Parameters["@MaxHeight"].Value = 125;
-
-            // run the SP, set datasource to the picture list
-            cn.Open();
-            DataSetPicture dsPics = new DataSetPicture();
-            daPics.Fill(dsPics, "Pictures");
-            cn.Close();
-
-            return dsPics;
-        }
-
         public DateCollection GetPictureDates()
         {
             return GetDates("p_GetPictureDates");
@@ -565,21 +437,9 @@ namespace msn2.net.Pictures
 
         }
 
-    }
-
-    public class PictureCollection : ReadOnlyCollectionBase
-    {
-        public void Add(PictureData picture)
+        public IQueryable<Picture> GetPictures()
         {
-            base.InnerList.Add(picture);
-        }
-
-        public PictureData this[int index]
-        {
-            get
-            {
-                return base.InnerList[index] as PictureData;
-            }
+            return this.picContext.DataContext.Pictures;
         }
     }
 

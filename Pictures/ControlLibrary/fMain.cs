@@ -14,6 +14,7 @@ using System.Text;
 using System.Xml;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
+using System.Linq;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -829,53 +830,6 @@ namespace msn2.net.Pictures.Controls
 				
 		}
 
-//		private void SwapSortVals(ListViewItem li1, ListViewItem li2) 
-//		{
-//			// open connection
-//			if (cn.State != ConnectionState.Open)
-//				cn.Open();
-//
-//			SqlTransaction trans = cn.BeginTransaction();
-//			SqlCommand cmd = new SqlCommand();
-//			cmd.Connection  = cn;
-//			cmd.Transaction = trans;
-//
-//			try 
-//			{
-//
-//				// Update the database for the current picture
-//				cmd.CommandText = "update Picture set PictureSort = " + li2.SubItems[5].Text 
-//					+ " where PictureID = " + li1.Tag;
-//				cmd.ExecuteNonQuery();
-//
-//				// Update the database for the other picture
-//				cmd.CommandText = "update Picture set PictureSort = " + li1.SubItems[5].Text 
-//					+ " where PictureID = " + li2.Tag;
-//				cmd.ExecuteNonQuery();
-//
-//				trans.Commit();
-//
-//				// Get the current value and save it
-//				String strTempVal = li1.SubItems[5].Text;
-//			
-//				// Update the list items
-//				li1.SubItems[5].Text = li2.SubItems[5].Text;
-//				li2.SubItems[5].Text = strTempVal;
-//				lvPics.Sort();
-//            
-//			}
-//			catch (Exception excep) 
-//			{
-//				trans.Rollback();			
-//				MessageBox.Show(excep.ToString());
-//			}
-//			finally 
-//			{
-//				// Close connection
-//				cn.Close();
-//			}
-//		}
-//
 		private void mnuPictureList_Popup(object sender, System.EventArgs e)
 		{
 
@@ -1089,22 +1043,23 @@ namespace msn2.net.Pictures.Controls
 
             this.selectedPictures.ClearPictures();
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), currentListViewQuery);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), this.filter.GetPictureQuery());
         }
 
-        private void QueryPictures(object query)
+        private void QueryPictures(object oQuery)
         {
-            if (query != null)
+            if (oQuery != null)
             {
-                PictureCollection allPictures = PicContext.Current.PictureManager.GetPictures(query.ToString());
+                IQueryable<Picture> query = (IQueryable<Picture>)oQuery;
+                List<Picture> pictures = query.ToList<Picture>();
 
-                this.BeginInvoke(new WaitCallback(DisplayPictures), allPictures);
+                this.BeginInvoke(new WaitCallback(DisplayPictures), pictures);
             }
         }
 
         private void DisplayPictures(object pics)
         {
-            PictureCollection allPictures = (PictureCollection)pics;
+            List<Picture> allPictures = (List<Picture>)pics;
             int maxCount = int.Parse(this.maxPicCount.SelectedItem.ToString());
 
             if (allPictures.Count < maxCount)
@@ -1117,7 +1072,7 @@ namespace msn2.net.Pictures.Controls
             {
                 statusBar1.Panels[0].Text = "Displaying " + maxCount.ToString() + "/" + allPictures.Count.ToString() + " pictures...";
 
-                PictureCollection displayPictures = new PictureCollection();
+                List<Picture> displayPictures = new List<Picture>();
                 for (int i = 0; i < maxCount; i++)
                 {
                     displayPictures.Add(allPictures[i]);

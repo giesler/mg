@@ -162,11 +162,6 @@
     <Compile Include="Category\CategorySelect.Designer.cs">
       <DependentUpon>CategorySelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSetCategory.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataSetGroup.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,7 +240,7 @@
     <Compile Include="Picture\fAddPictures.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Category\fEditCategory.cs">
+    <Compile Include="Category\CategoryEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Person\fEditPerson.cs">
@@ -439,8 +434,8 @@
       <DependentUpon>EditPictureLink.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Category\fEditCategory.resx">
-      <DependentUpon>fEditCategory.cs</DependentUpon>
+    <EmbeddedResource Include="Category\CategoryEditDialog.resx">
+      <DependentUpon>CategoryEditDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Person\fEditPerson.resx">
@@ -499,11 +494,6 @@
       <Generator>MSDataSetGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>DataSetGroup.Designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataSetCategory.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </Content>
     <None Include="DataSetPerson.xsc">
       <DependentUpon>DataSetPerson.xsd</DependentUpon>

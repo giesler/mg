@@ -23,7 +23,7 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
         }
 
-        public void DisplayPictures(PictureCollection pictures)
+        public void DisplayPictures(List<Picture> pictures)
         {
             this.PhotosListBox.ItemsSource = null;
 

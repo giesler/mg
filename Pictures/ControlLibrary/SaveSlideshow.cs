@@ -342,18 +342,9 @@ namespace msn2.net.Pictures.Controls
 
         public string GetPictureFilename(int pictureId, int maxWidth, int maxHeight)
         {
-            DataSet ds = picContext.PictureManager.GetPicture(pictureId, maxWidth, maxHeight);
+            PictureCache pc = picContext.PictureManager.GetPictureCache(pictureId, maxWidth, maxHeight);
 
-
-            String strAppPath = @"/";
-
-            string filename = ds.Tables[0].Rows[0]["FileName"].ToString();
-
-            filename = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
-
-            return filename;
-
+            return @"/piccache/" + pc.Filename.Replace(@"\", @"/");
         }
-
     }
 }
