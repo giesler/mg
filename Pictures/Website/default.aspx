@@ -1,4 +1,4 @@
-<%@ Page language="c#" Classname="pics.Cdefault" CompileWith="default.aspx.cs" %>
+<%@ Page language="c#" ClassName="pics.Cdefault" CodeFile="default.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -16,7 +16,7 @@
 				</TR>
 				<TR>
 					<TD class="msn2sidebar" vAlign="top" width="125"><picctls:sidebar id="Sidebar1" runat="server">
-							<picctls:contentpanel id="searchPanel" title="Search" runat="server" visible="false" align="center" width="100%">
+							<picctls:contentpanel id="searchPanel" title="Search" runat="server" visible="false" width="100%">
 <asp:TextBox id="searchQuery" Runat="server" Width="100px"></asp:TextBox>&nbsp; 
       <BR>
 <asp:Button id="search" Text=" Search " Runat="server" CssClass="smallButton"></asp:Button></picctls:contentpanel>
@@ -26,7 +26,6 @@
 						</picctls:sidebar></TD>
 					<TD class="msn2sidebarfade" width="4"></TD>
 					<TD class="msn2contentwindow" vAlign="top"><!-- Main content -->
-					<b>WARNING: Password ignore enabled!<br /></b>
 						<TABLE cellPadding="4" border="0" width="100%" align="center">
 							<TR>
 								<TD vAlign="top" width="50%">

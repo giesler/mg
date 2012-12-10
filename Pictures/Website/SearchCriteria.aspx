@@ -1,5 +1,5 @@
-<%@ Page language="c#" smartNavigation="False" Classname="pics.SearchCriteria" CodeFile="SearchCriteria.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
+<%@ Page language="c#" smartNavigation="False" ClassName="pics.SearchCriteria" CodeFile="SearchCriteria.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

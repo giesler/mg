@@ -18,9 +18,10 @@ namespace pics
 	/// <summary>
 	/// Summary description for picview.
 	/// </summary>
-	public partial class picview 
+	public partial class picview: ICallbackEventHandler
 	{
 		#region Declares
+
 		protected System.Web.UI.WebControls.Panel pnlDescription;
 		protected System.Web.UI.WebControls.Panel pnlPeople;
 		protected System.Web.UI.WebControls.Panel Panel1;
@@ -31,18 +32,39 @@ namespace pics
 		protected System.Web.UI.WebControls.Label Label8;
 		protected System.Web.UI.WebControls.HyperLink Hyperlink3;
 		protected System.Web.UI.WebControls.Panel Panel3;
-		protected String m_HttpRefreshURL;
+		protected string m_HttpRefreshURL;
 		protected System.Web.UI.WebControls.LinkButton clearBasket;
-		#endregion
+        protected int pictureId;
+        protected string ratingServerCallbackFunction;
 
-// 		public picview()
-// 		{
-// 			Page.Init += new System.EventHandler(Page_Init);
-// 		}
+        #endregion
+
+        public string RatingServerCallbackFunction
+        {
+            get
+            {
+                return this.ratingServerCallbackFunction;
+            }
+        }
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            ratingServerCallbackFunction = Page.ClientScript.GetCallbackEventReference(
+                this,
+                "rating",
+                "OnRatingSaved",
+                "rating");
+
+            if (ViewState["pictureId"] != null)
+            {
+                this.pictureId = Convert.ToInt32(ViewState["pictureId"].ToString());
+            }
+        }
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-
 			// Set link to return to list
 			if (Request.QueryString["RefURL"] != null) 
 			{
@@ -123,7 +145,9 @@ namespace pics
 				cn.Open();
 				DataSet ds = new DataSet();
 				daPic.Fill(ds, "Picture");
-				DataRow dr = ds.Tables[0].Rows[0];
+                cn.Close();
+
+                DataRow dr = ds.Tables[0].Rows[0];
 
 				// now set the controls on the page
 				if (!dr.IsNull("Title") && dr["Title"].ToString().Length > 0)
@@ -138,11 +162,38 @@ namespace pics
 					lblPictureDesc.Text = dr["Description"].ToString();
 				else
 					lblPictureDesc.Text = "";
+                if (!dr.IsNull("Rating"))
+                {
+                    Page.RegisterHiddenField("ratingValue", dr["Rating"].ToString());
+                    decimal average = Decimal.Parse(dr["AverageRating"].ToString());
+                    string averageText = this.GetAverageText(average);
+                    averageRating.Controls.Add(new HtmlLiteral(averageText));
+                }
+                else
+                {
+                    Page.RegisterHiddenField("ratingValue", "0");
+                }
+                if (!dr.IsNull("PictureByFullName"))
+                {
+                    pictureBy.Text = "Taken by: " + dr["PictureByFullName"].ToString();
+                }
+                else
+                {
+                    pictureBy.Text = "";
+                }
 
 				// now create the picture
 				Picture curPic = new Picture();
 				//curPic.Filename = dr["Filename"].ToString();
-				int pictureId = (int) dr["PictureId"];
+				pictureId = (int) dr["PictureId"];
+                if (this.ViewState["pictureId"] == null)
+                {
+                    this.ViewState.Add("pictureId", pictureId);
+                }
+                else
+                {
+                    this.ViewState["pictureId"] = pictureId;
+                }
 				curPic.SetPictureById(pictureId, 700, 750);
 				curPic.Height   = Convert.ToInt32(dr["Height"]);
 				curPic.Width	= Convert.ToInt32(dr["Width"]);
@@ -240,6 +291,7 @@ namespace pics
 					lblPictures.Text = intTotalCount.ToString();
 				}
 
+
 				// if in random mode, hide page controls
 //				if (sourceType.Equals("random"))
 //					pnlPageControls.Visible = false;
@@ -248,6 +300,30 @@ namespace pics
 
 		}
 
+        public static PictureSortField GetSortFieldById(int id)
+        {
+            // also in categories.aspx.cs
+
+            PictureSortField sortField = PictureSortField.DatePictureTaken;
+            switch (id)
+            {
+                case 0:
+                    sortField = PictureSortField.DatePictureTaken;
+                    break;
+                case 1:
+                    sortField = PictureSortField.DatePictureAdded;
+                    break;
+                case 2:
+                    sortField = PictureSortField.DatePictureUpdated;
+                    break;
+                default:
+                    throw new ApplicationException("The sort order querystring variable value for 'sf' was not recognized");
+            }
+
+            return sortField;
+        }
+
+
         private void SetSortFields(SqlCommand cmd)
         {
             string sqlSortField = "PictureDate";
@@ -255,7 +331,7 @@ namespace pics
             if (Request.QueryString["sf"] != null)
             {
                 int sortFieldId = Convert.ToInt32(Request.QueryString["sf"]);
-                PictureSortField sortField = Categories.GetSortFieldById(sortFieldId);
+                PictureSortField sortField = GetSortFieldById(sortFieldId);
                 sqlSortField = PictureManager.GetSqlSortFieldName(sortField);
             }
             
@@ -316,8 +392,6 @@ namespace pics
 
 		private void Page_Init(object sender, EventArgs e)
 		{
-			InitializeComponent();
-
 			clearBasket			= new LinkButton();
 			clearBasket.Text	= "Clear basket";
 			clearBasket.Click	+= new EventHandler(clearBasket_Click);
@@ -333,17 +407,6 @@ namespace pics
 			}
 		}
 
-		#region Web Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-		#region Private Methods
 		private void SetCategory(int categoryId)
 		{
 			CategoryManager catMan		= PicContext.Current.CategoryManager;
@@ -351,11 +414,30 @@ namespace pics
 			lblCategory.Text			= cat.Name;
 
 		}
-		#endregion
-
 		private void clearBasket_Click(object sender, EventArgs e)
 		{
 
 		}
-	}
+
+        private string GetAverageText(decimal average)
+        {
+            return string.Format("Average: {0:0.0}", average);
+        }
+
+        public string RaiseCallbackEvent(string eventArgument)
+        {
+            Trace.Write("RaiseCallbackEvent started");
+
+            string returnValue = string.Empty;
+
+            int rating = Convert.ToInt32(eventArgument);
+
+            decimal average = PicContext.Current.PictureManager.RatePicture(pictureId, rating);
+            returnValue = this.GetAverageText(average);
+
+            Trace.Write("RaiseCallbackEvent ended: " + returnValue);
+
+            return returnValue;
+        }
+    }
 }

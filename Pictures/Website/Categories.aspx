@@ -1,4 +1,4 @@
-<%@ Page language="c#" smartNavigation="False" Classname="pics.Categories" CodeFile="Categories.aspx.cs" %>
+<%@ Page language="c#" smartNavigation="False" ClassName="pics.Categories" CodeFile="Categories.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

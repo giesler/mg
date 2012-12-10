@@ -305,6 +305,17 @@ A:visited.infoPanelText
 	font-size: 10pt;
 }
 
+.inlinePanel
+{
+    display: inline;
+}
+
+.infoPanelSubText
+{
+	color: white;
+	font-size: 8pt;
+}
+
 .infoPanelCategory
 {
 	font-size: 8pt;

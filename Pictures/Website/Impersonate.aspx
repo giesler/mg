@@ -19,8 +19,8 @@
 				<tr>
 					<td class="msn2sidebar" vAlign="top" width="125" rowSpan="3">
 						<picctls:sidebar id="Sidebar1" runat="server"></picctls:sidebar>
-						<PICCTLS:CONTENTPANEL id="picTasks" title="Picture Tasks" runat="server" visible="false" Width="100%"></PICCTLS:CONTENTPANEL>
-						<PICCTLS:PICTURETASKS id="picTaskList" runat="server" visible="true"></PICCTLS:PICTURETASKS>
+						<picctls:ContentPanel id="picTasks" title="Picture Tasks" runat="server" visible="false" Width="100%"></picctls:ContentPanel>
+						<picctls:PictureTasks id="picTaskList" runat="server" visible="true"></picctls:PictureTasks>
 					</td>
 				</tr>
 				<tr height="25">

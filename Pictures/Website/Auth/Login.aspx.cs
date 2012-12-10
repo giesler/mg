@@ -43,10 +43,10 @@ namespace pics.auth
 			}
 
 			// Check if we have username and pw
-			if (email.Text.Length > 0 && password.Text.Length > 0)
-			{
-				btnLogin_Click(this, EventArgs.Empty);
-			}
+            //if (email.Text.Length > 0 && password.Text.Length > 0)
+            //{
+            //    btnLogin_Click(this, EventArgs.Empty);
+            //}
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -81,13 +81,14 @@ namespace pics.auth
 			{
 				Response.Redirect("NewLogin.aspx?ref=3&email=" + Server.UrlEncode(email.Text));
 			}
+            Page.GetPostBackEventReference(this);
 
 			// encrypt the password
-			MD5 md5 = new MD5CryptoServiceProvider();
-			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(password.Text));
+            MD5 md5 = MD5.Create();
+            byte[] bPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(password.Text));
 
 			bool valid	= false;
-			string pwd	= ASCIIEncoding.ASCII.GetString(bPassword);
+			string pwd	= Encoding.ASCII.GetString(bPassword);
 
 			PersonInfo info = PicContext.Current.UserManager.Login(email.Text, pwd, ref valid);
 
@@ -118,4 +119,5 @@ namespace pics.auth
 		}
 		#endregion
 	}
+
 }

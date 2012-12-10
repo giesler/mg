@@ -348,6 +348,9 @@ namespace pics
 
         public static PictureSortField GetSortFieldById(int id)
         {
+            // also in picview.aspx.cs
+
+
             PictureSortField sortField = PictureSortField.DatePictureTaken;
             switch (id)
             {
@@ -373,7 +376,7 @@ namespace pics
 			if (Request.QueryString["sr"] != null)
 				startRecord = Convert.ToInt32(Request.QueryString["sr"]);
 
-            PictureSortField sortField = GetSortFieldById(this.GetCurrentSortFieldId());
+            PictureSortField sortField = Categories.GetSortFieldById(this.GetCurrentSortFieldId());
 
             PictureSortOrder sortOrder = PictureSortOrder.SortAscending;
             if (this.sortOrder.SelectedIndex != 0)

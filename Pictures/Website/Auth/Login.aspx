@@ -1,4 +1,4 @@
-<%@ Page language="c#" Classname="pics.auth.Login" CodeFile="Login.aspx.cs" %>
+<%@ Page language="c#" Classname="pics.auth.Login" CodeFile="Login.aspx.cs" Debug="true" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

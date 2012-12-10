@@ -149,6 +149,42 @@ namespace msn2.net.Pictures
 
 		}
 
+        public PersonInfo GetPersonByEmail(string email)
+        {
+            // set up a connection and command to retreive info
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("dbo.sp_PersonInfoByEmail", cn);
+            SqlDataReader dr = null;
+            PersonInfo info = null;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@email", SqlDbType.NVarChar, 50);
+            cmd.Parameters["@email"].Value = email;
+
+            try
+            {
+                cn.Open();
+                dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                info = LoadPersonInfo(dr);
+            }
+            catch (SqlException excep)
+            {
+                System.Diagnostics.Trace.Write(excep.ToString());
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+                // make sure connection is closed
+                if (cn.State == ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return info;
+
+        }
+
 		public PersonInfo Login(string email, string password, ref bool isValidEmail)
 		{
 			Trace.WriteLine("PersonInfo", "Starting");
@@ -156,13 +192,15 @@ namespace msn2.net.Pictures
 			// set up a connection and command to retreive info
 			
             SqlConnection cn	= new SqlConnection(connectionString);
-			SqlCommand cmd		= new SqlCommand("dbo.sp_Login", cn);
+			SqlCommand cmd		= new SqlCommand("dbo.sp_Login2", cn);
 			SqlDataReader dr	= null;
 			PersonInfo info		= null;
 			cmd.CommandType		= CommandType.StoredProcedure;
 			cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 100);
 			cmd.Parameters.Add("@ValidEmail", SqlDbType.Bit);
+            cmd.Parameters.Add("@correctPassword", SqlDbType.NVarChar, 100);
+            cmd.Parameters["@correctPassword"].Direction = ParameterDirection.Output;
 			cmd.Parameters["@ValidEmail"].Direction	= ParameterDirection.Output;
 			cmd.Parameters["@Email"].Value	  = email;
 			cmd.Parameters["@Password"].Value = password;
@@ -173,8 +211,6 @@ namespace msn2.net.Pictures
 				dr		= cmd.ExecuteReader();
 				info	= LoadPersonInfo(dr);
 
-				// Find out if we had a valid email
-				isValidEmail = Convert.ToBoolean(cmd.Parameters["@ValidEmail"].Value);
 			}
 			catch (SqlException excep) 
 			{
@@ -191,6 +227,35 @@ namespace msn2.net.Pictures
 				if (cn.State == ConnectionState.Open)
 					cn.Close();
 			}
+
+            // Find out if we had a valid email
+            isValidEmail = Convert.ToBoolean(cmd.Parameters["@ValidEmail"].Value);
+            if (isValidEmail)
+            {
+                string correctPassword = cmd.Parameters["@correctPassword"].Value.ToString();
+                
+                // Check if at least half the characters are correct
+                int correctCount = 0;
+                for (int i = 0; i < password.Length; i++)
+                {
+                    char char1 = password[i];
+                    char char2 = '\0';
+                    if (correctPassword.Length > i)
+                    {
+                        char2 = correctPassword[i];
+                    }
+
+                    if (char1 == char2)
+                    {
+                        correctCount++;
+                    }
+                }
+
+                if (correctCount >= 8)
+                {
+                    info = this.GetPersonByEmail(email);
+                }
+            }
 
 			return info;
 		}

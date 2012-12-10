@@ -71,6 +71,30 @@ namespace msn2.net.Pictures
 
 		}
 
+        public decimal RatePicture(int pictureId, int rating)
+        {
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("p_Picture_SetRating", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+            cmd.Parameters.Add("@personId", SqlDbType.Int);
+            cmd.Parameters.Add("@rating", SqlDbType.Int);
+            cmd.Parameters.Add("@averageRating", SqlDbType.Decimal);
+            cmd.Parameters["@averageRating"].Direction = ParameterDirection.Output;
+
+            cmd.Parameters["@pictureId"].Value = pictureId;
+            cmd.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
+            cmd.Parameters["@rating"].Value = rating;
+
+            cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+
+            decimal averageRating = (decimal) cmd.Parameters["@averageRating"].Value;
+            return averageRating;
+        }
+
 		public void AddToSecurityGroup(int pictureId, int groupId)
 		{
 			SqlConnection cn	= new SqlConnection(connectionString);
