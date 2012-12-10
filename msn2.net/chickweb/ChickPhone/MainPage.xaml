@@ -1,0 +1,62 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ChickPhone.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <TextBlock Name="info" Text="connecting to network" HorizontalAlignment="Right" />
+        <controls:Panorama>
+            <!--            <controls:Panorama.Background>
+                <ImageBrush ImageSource="PanoramaBackground.png"/>
+            </controls:Panorama.Background>-->
+ 
+            <controls:PanoramaItem Header="cam 1" Name="cam1">
+                <Grid>
+                    <Grid.Resources>
+                        <Storyboard x:Name="imgFadeTo1b" BeginTime="0">
+                            <DoubleAnimation Storyboard.TargetName="img1b" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.4" BeginTime="0:0:0.0" />
+                        </Storyboard>
+                        <Storyboard x:Name="imgFadeTo1a" BeginTime="0">
+                            <DoubleAnimation Storyboard.TargetName="img1a" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.4" BeginTime="0:0:0.0" />
+                        </Storyboard>
+                    </Grid.Resources>
+                    <Image x:Name="img1a" Stretch="Uniform" />
+                    <Image x:Name="img1b" Stretch="Uniform" />
+                    <TextBlock x:Name="img1txt" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" Text="loading" />
+                </Grid>
+            </controls:PanoramaItem>
+ 
+            <controls:PanoramaItem Header="cam 2" Name="cam2">
+                <Grid>
+                    <Grid.Resources>
+                        <Storyboard x:Name="imgFadeTo2b" BeginTime="0">
+                            <DoubleAnimation Storyboard.TargetName="img2b" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.4" BeginTime="0:0:0.0" />
+                        </Storyboard>
+                        <Storyboard x:Name="imgFadeTo2a" BeginTime="0">
+                            <DoubleAnimation Storyboard.TargetName="img2a" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.4" BeginTime="0:0:0.0" />
+                        </Storyboard>
+                    </Grid.Resources>
+                    <Image x:Name="img2a" Grid.Column="2" Grid.Row="2" Stretch="Uniform" Grid.ColumnSpan="2" />
+                    <Image x:Name="img2b" Grid.Column="2" Grid.Row="2" Stretch="Uniform" Grid.ColumnSpan="2" />
+                    <TextBlock x:Name="img2txt" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" Text="loading" />
+                </Grid>
+            </controls:PanoramaItem>
+        </controls:Panorama>
+    </Grid>
+ 
+    <!--Panorama-based applications should not show an ApplicationBar-->
+
+</phone:PhoneApplicationPage>
