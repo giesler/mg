@@ -34,9 +34,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLExpress", "SLExpress\SLEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLExpressControls", "SLExpressControls\SLExpressControls.csproj", "{81C27DFF-4337-48CC-B874-6C629BA45C8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListServices", "ListServices\ListServices.csproj", "{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
 		SccLocalPath0 = ..
 		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
@@ -58,6 +60,9 @@ Global
 		SccProjectUniqueName5 = SLExpressControls\\SLExpressControls.csproj
 		SccProjectName5 = \u0022$/msn2.net/ShoppingList/SLExpressControls\u0022,\u0020GARAAAAA
 		SccLocalPath5 = SLExpressControls
+		SccProjectUniqueName6 = ListServices\\ListServices.csproj
+		SccLocalPath6 = ..
+		SccProjectFilePathRelativizedFromConnection6 = ShoppingList\\ListServices\\
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -197,6 +202,31 @@ Global
 		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugMobileOnly|.NET.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugMobileOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugMobileOnly|Any CPU.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugMobileOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugMobileOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugSite|.NET.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugSite|Any CPU.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugSite|Any CPU.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugSite|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugSite|Mixed Platforms.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugTrayOnly|.NET.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugTrayOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugTrayOnly|Any CPU.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugTrayOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.DebugTrayOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Release|.NET.ActiveCfg = Release|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

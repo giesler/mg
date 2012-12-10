@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SLExpress._Default" %>
+
 <%@ Import Namespace="System.Web.Configuration" %>
 <%@ Import Namespace="Microsoft.Live" %>
 <%@ Register TagPrefix="wl" Namespace="Microsoft.Live" Assembly="Microsoft.Live.AuthHandler, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" %>
@@ -8,6 +9,15 @@
     <meta http-equiv="Expires" content="-1" />
     <title>My eLists</title>
     <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
+    <script type="text/javascript">
+        function startDelete(cbx) {
+            
+        }
+
+        function deleteTimer() {
+
+        }
+    </script>
     <style type="text/css">
         html, body
         {
@@ -24,6 +34,29 @@
             height: 100%;
             text-align: center;
         }
+        .main
+        {
+            width: 80%;
+            margin: auto;
+        }
+        .left
+        {
+            width: 20%;
+            float: left;
+            text-align: left;
+            display: inline;
+        }
+        .right
+        {
+            width: 80%;
+            float: right;
+            text-align: left;
+            display: inline;
+        }
+        .signin
+        {
+            height: 26px;
+        }
     </style>
 </head>
 <body style="height: 100%; margin: 0px">
@@ -37,25 +70,29 @@
         callback-url="<%=WebConfigurationManager.AppSettings["wl_wrap_client_callback"]%>?wl_session_id=<%=SessionId%>"
         client-id="<%=WebConfigurationManager.AppSettings["wl_wrap_client_id"]%>" scope="WL_Profiles.View, WL_Contacts.View">
     </wl:app>
-    <wl:signin signedouttext="Sign in" theme="white" />
-    <p>
-        <% if (UserId == null)
-           { %>
-        This application does not know who you are! Click the <b>Sign in</b> link above.
-        <% }
-           else
-           { %>
-        Now this application knows that you are the user with ID = "<b><%=UserId%></b>".
-        <% } %>
-    </p>
+    <div class="signin">
+        <wl:signin signedouttext="Sign in" theme="white" />
+    </div>
     <form id="form1" runat="server" style="height: 100%">
-    <asp:Panel runat="server" ID="topPanel">
-        <asp:DropDownList ID="list" runat="server" AutoPostBack="true" />
-    </asp:Panel>
-    <asp:Panel runat="server" ID="itemPanel">
-        <asp:ListBox ID="items" runat="server" AutoPostBack="true" />
-    </asp:Panel>
-    <asp:Panel runat="server" ID="addPanel">
+    <div class="main">
+        <div class="left">
+            <asp:Panel runat="server" ID="topPanel">
+                <asp:ListBox ID="list" runat="server" AutoPostBack="true" Rows="10" />
+            </asp:Panel>
+        </div>
+        <div class="right">
+            <asp:Panel runat="server" ID="itemPanel">
+                <asp:Repeater runat="server" ID="items">
+                    <ItemTemplate>
+                        <input name="<%# DataBinder.Eval(Container.DataItem, "UniqueId") %>" value="on" type="checkbox" disabled="disabled">
+                            <%# DataBinder.Eval(Container.DataItem, "Name") %>
+                        </input><br />
+                    </ItemTemplate>
+                </asp:Repeater>
+            </asp:Panel>
+        </div>
+    </div>
+    <asp:Panel runat="server" ID="addPanel" Visible="false">
         <asp:TextBox ID="add" runat="server" MaxLength="50" />
         <br />
         <asp:Button ID="addButton" runat="server" Text="Add" />

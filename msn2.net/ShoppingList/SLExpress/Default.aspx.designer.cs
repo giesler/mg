@@ -46,7 +46,7 @@ namespace SLExpress {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList list;
+        protected global::System.Web.UI.WebControls.ListBox list;
         
         /// <summary>
         /// itemPanel control.
@@ -64,7 +64,7 @@ namespace SLExpress {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox items;
+        protected global::System.Web.UI.WebControls.Repeater items;
         
         /// <summary>
         /// addPanel control.
