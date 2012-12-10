@@ -14,12 +14,12 @@
             <RowDefinition />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Top Drinks" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="0" Grid.Row="1" Content="Top Ingredients" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="0" Grid.Row="2" Content="Total Dispensed" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="0" Content="Most Recent Drinks" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="1" Content="# of Drinks" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="2" Content="BarNone Age" Style="{DynamicResource DefaultGridButtonStyle}" />
+        <Button Grid.Column="0" Grid.Row="0" Margin="10" Content="Top Drinks" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="Top Ingredients" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="0" Grid.Row="2" Margin="10" Content="Total Dispensed" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="1" Grid.Row="0" Margin="10" Content="Most Recent Drinks" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="1" Grid.Row="1" Margin="10" Content="# of Drinks" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="1" Grid.Row="2" Margin="10" Content="BarNone Age" Style="{DynamicResource DefaultButtonStyle}" />
         <bnc:NavigationBar Grid.Row="3" Grid.ColumnSpan="2" x:Name="navBar" />
     </Grid>
 </Page>

@@ -14,12 +14,12 @@
             <RowDefinition />
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Choose your drink:" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
-        <Button Grid.Column="0" Grid.Row="1" Content="By Name" Style="{DynamicResource DefaultGridButtonStyle}" Click="byName_Click" />
-        <Button Grid.Column="0" Grid.Row="2" Content="By Ingredient" Style="{DynamicResource DefaultGridButtonStyle}" Click="byIngredient_Click" />
-        <Button Grid.Column="1" Grid.Row="0" Content="Top 10" IsEnabled="False" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="1" Content="Shots" IsEnabled="False" Style="{DynamicResource DefaultGridButtonStyle}" />
-        <Button Grid.Column="1" Grid.Row="2" Content="Custom" IsEnabled="False" Style="{DynamicResource DefaultGridButtonStyle}" />
+        <Label Grid.Column="0" Grid.Row="0" Margin="10" Content="Choose your drink:" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
+        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="By Name" Style="{DynamicResource DefaultButtonStyle}" Click="byName_Click" />
+        <Button Grid.Column="0" Grid.Row="2" Margin="10" Content="By Ingredient" Style="{DynamicResource DefaultButtonStyle}" Click="byIngredient_Click" />
+        <Button Grid.Column="1" Grid.Row="0" Margin="10" Content="Top 10" IsEnabled="False" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="1" Grid.Row="1" Margin="10" Content="Shots" IsEnabled="False" Style="{DynamicResource DefaultButtonStyle}" />
+        <Button Grid.Column="1" Grid.Row="2" Margin="10" Content="Custom" IsEnabled="False" Style="{DynamicResource DefaultButtonStyle}" />
         <bnc:NavigationBar Grid.Row="3" Grid.ColumnSpan="2" x:Name="navBar" />
     </Grid>
 </Page>

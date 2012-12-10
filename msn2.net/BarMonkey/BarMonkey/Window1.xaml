@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BarMonkey.Window1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Bar Monkey" Height="600" Width="800">
+    Title="Bar None" Height="600" Width="800">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
