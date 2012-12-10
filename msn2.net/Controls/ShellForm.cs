@@ -405,8 +405,12 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Load(object sender, System.EventArgs e)
 		{
+			panelTitle.BringToFront();
+			
 			if (formNode != null)
 			{
+				Trace.WriteLine("Reading config data for " + this.Name);
+
 				ShellFormConfigData defaultConfig = new ShellFormConfigData(this);
 				layoutData = formNode.Get("ShellFormConfigData", defaultConfig, typeof(ShellFormConfigData));
 				ShellFormConfigData layoutConfig = (ShellFormConfigData) layoutData.ConfigData;
