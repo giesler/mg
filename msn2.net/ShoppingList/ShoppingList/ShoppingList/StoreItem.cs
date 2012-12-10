@@ -5,7 +5,7 @@ using System.Text;
 
 namespace msn2.net.ShoppingList
 {
-    class StoreItem
+    public class StoreItem
     {
         public StoreItem(string name)
         {

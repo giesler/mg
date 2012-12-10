@@ -231,6 +231,18 @@
         "CertificateHash" = "8:"
         "TimeStampServer" = "8:"
         }
+        "DebugMobileOnly"
+        {
+        "DisplayName" = "8:DebugMobileOnly"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:DebugMobileOnly\\ShoppingListCab.cab"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "SignOutput" = "11:FALSE"
+        "CertificateHash" = "8:"
+        "TimeStampServer" = "8:"
+        }
         "DebugTrayOnly"
         {
         "DisplayName" = "8:DebugTrayOnly"
@@ -652,7 +664,7 @@
         {
             "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_AE85DD0CEC2D467DB4A5A5E181796F1C"
             {
-            "SourcePath" = "8:..\\ShoppingList\\obj\\DebugTrayOnly\\ShoppingList.exe"
+            "SourcePath" = "8:..\\ShoppingList\\obj\\DebugMobileOnly\\ShoppingList.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_181C0E496A7E4088A64697FF0A54D41D"

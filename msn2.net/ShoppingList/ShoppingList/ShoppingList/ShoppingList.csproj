@@ -60,7 +60,19 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMobileOnly|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugMobileOnly\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;PocketPC</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
     <Reference Include="Microsoft.WindowsMobile.PocketOutlook, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -90,9 +102,6 @@
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EditItemForm.resx">
@@ -112,10 +121,20 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectStore.resx">
+      <DependentUpon>SelectStore.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SelectStore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectStore.Designer.cs">
+      <DependentUpon>SelectStore.cs</DependentUpon>
     </Compile>
     <Compile Include="ShoppingListViewItem.cs" />
     <Compile Include="StoreItem.cs" />
