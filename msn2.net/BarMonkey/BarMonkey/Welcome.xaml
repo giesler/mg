@@ -24,14 +24,16 @@
 			<RowDefinition Height="46" />
 		</Grid.RowDefinitions>
 
-		<Label Grid.ColumnSpan="3" Grid.Row="0" Name="welcome" FontSize="22" Content="welcome"/>
-		<ItemsControl Grid.Row="1" Grid.Column="1" Name="userList" FontSize="22" Background="Transparent" HorizontalContentAlignment="Stretch">
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Button FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Click="user_click" />
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
+		<StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+			<Label Name="welcome" FontSize="22" Content="welcome"/>
+			<ItemsControl Name="userList" FontSize="22" Background="Transparent" HorizontalContentAlignment="Stretch">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Style="{DynamicResource DefaultListButtonStyle}" Click="user_click" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
 	</Grid>
 
 </Page>

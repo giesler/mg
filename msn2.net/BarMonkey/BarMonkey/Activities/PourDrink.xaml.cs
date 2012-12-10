@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using msn2.net.BarMonkey;
 using System.Windows.Threading;
 using BarMonkey.RelayControllerService;
+using System.Threading;
 
 namespace BarMonkey.Activities
 {
@@ -50,7 +51,25 @@ namespace BarMonkey.Activities
 
             this.statusLabel.Content = "connecting...";
 
-            relayClient.BeginConnectTest(connectComplete, new object());
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Connect));
+        }
+
+        private void Connect(object foo)
+        {
+            try
+            {
+                relayClient.ConnectTest();
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new WaitCallback(displayException), ex);
+            }
+        }
+
+        private void displayException(object o)
+        {
+            Exception exception = (Exception)o;
+            this.statusLabel.Content = exception.ToString();
         }
 
         private void connectComplete(IAsyncResult ar)

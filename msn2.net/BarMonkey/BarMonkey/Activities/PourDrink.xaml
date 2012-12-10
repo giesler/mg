@@ -5,6 +5,9 @@
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition  />
+			<ColumnDefinition Width="150" />
+			<ColumnDefinition Width="150" />
+			<ColumnDefinition  />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="50px" />
@@ -14,11 +17,10 @@
 			<RowDefinition Height="50px" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" />
-		<Label Name="statusLabel" FontSize="18" Content="[status]" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-		<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center">
-			<Button Name="repeat" Content="Pour Again" FontSize="20" Click="repeat_Click" />
-			<Button Name="gohome" Content="Home" FontSize="20" Click="gohome_Click" />
-		</StackPanel>
+		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource DefaultTextStyle}" />
+		<Label Name="statusLabel" FontSize="18" Content="[status]" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
+		
+		<Button Grid.Row="4" Grid.Column="1" Name="repeat" Content="Pour Again" FontSize="20" Click="repeat_Click" Style="{DynamicResource DefaultButtonStyle}" />
+		<Button Grid.Row="4" Grid.Column="2" Name="gohome" Content="Home" FontSize="20" Click="gohome_Click" Style="{DynamicResource DefaultButtonStyle}" />
 	</Grid>
 </Page>

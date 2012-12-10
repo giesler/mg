@@ -46,6 +46,7 @@ namespace msn2.net.BarMonkey
             //    udih.UserDrinkHistory = udh;
             //    udih.IngredientId = ingredient.Id;
             //    udih.AmountOunces = ingredient.AmountOunces * offset;
+            //    udih.Sequence = sequence;
             //    base.Context.Data.UserDrinkIngredientHistories.Add(udih);
             //}
 

@@ -32,7 +32,7 @@ namespace BarMonkey
 
             Key key = Key.NumPad0;
 
-            switch (button.Content.ToString())
+            switch (button.Tag.ToString())
             {
                 case "DEL":
                     key = Key.Delete;

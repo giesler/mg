@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BarMonkey.Activities
+namespace BarMonkey.Activities.Admin
 {
     /// <summary>
     /// Interaction logic for Admin.xaml
@@ -22,6 +22,47 @@ namespace BarMonkey.Activities
         public Admin()
         {
             InitializeComponent();
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            this.activityList.ItemsSource = this.GetActivities();
+        }
+
+        private List<Activity> GetActivities()
+        {
+            List<Activity> list = new List<Activity>();
+            list.Add(new Activity { Name = "Users", IsEnabled = false });
+            list.Add(new Activity { Name = "Ingredients", IsEnabled = false });
+            list.Add(new Activity { Name = "Drinks", IsEnabled = false });
+            list.Add(new Activity { Name = "Settings", IsEnabled = false });
+            return list;
+        }
+
+        private void selectActivity_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+
+            Activity match = null;
+
+            foreach (Activity a in this.GetActivities())
+            {
+                if (a.Name == b.Content.ToString())
+                {
+                    match = a;
+                    break;
+                }
+            }
+
+            if (match != null && match.PageUrl != null)
+            {
+                Uri uri = new Uri(string.Format(
+                    "pack://application:,,,/{0}",
+                    match.PageUrl));
+                base.NavigationService.Navigate(uri);
+            }
         }
     }
 }

@@ -74,6 +74,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Activities\Admin\Editors\IngredientEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\Admin\ItemEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\Admin\Ingredients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Activities\CustomDrink.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +144,15 @@
   <ItemGroup>
     <Compile Include="Activities\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\Admin\Editors\IngredientEditor.xaml.cs">
+      <DependentUpon>IngredientEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\Admin\ItemEditor.xaml.cs">
+      <DependentUpon>ItemEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\Admin\Ingredients.xaml.cs">
+      <DependentUpon>Ingredients.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activities\CustomDrink.xaml.cs">
       <DependentUpon>CustomDrink.xaml</DependentUpon>

@@ -13,35 +13,35 @@
 			<RowDefinition />
 			<RowDefinition Height="80px" />
 		</Grid.RowDefinitions>
-		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" />
+		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" Style="{DynamicResource DefaultTextStyle}" />
 		<StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3">
-			<Label Name="description" Content="[description]" />
+			<Label Name="description" Content="[description]" Style="{DynamicResource DefaultDescriptionTextStyle}" />
 			<StackPanel>
-				<Label Content="Ingredients" FontStyle="Italic" />
-				<CheckBox Name="favorite" Content="Include in my favorites" Click="addToFavorites_Click" />
+				<CheckBox Name="favorite" Content="Include in my favorites" Click="addToFavorites_Click" Style="{DynamicResource DefaultDescriptionTextStyle}" Padding="2" />
+				<Label Content="Ingredients" FontStyle="Italic" Style="{DynamicResource DefaultDescriptionTextStyle}" />
 				<ItemsControl Name="ingredients">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
-								<Label Content="- "/>
-								<Label Content="{Binding Path=Name}" />
-								<Label Content=" (" />
-								<Label Content="{Binding Path=Amount}" />
-								<Label Content=")" />
+								<Label Content="- " Style="{DynamicResource DefaultDescriptionTextStyle}" />
+								<Label Content="{Binding Path=Name}" Style="{DynamicResource DefaultDescriptionTextStyle}" />
+								<Label Content=" (" Style="{DynamicResource DefaultDescriptionTextStyle}" />
+								<Label Content="{Binding Path=Amount}" Style="{DynamicResource DefaultDescriptionTextStyle}" />
+								<Label Content=")" Style="{DynamicResource DefaultDescriptionTextStyle}" />
 							</StackPanel>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 			</StackPanel>
 		</StackPanel>
-		<Button Name="go" Content="POUR" Grid.Row="3" Grid.Column="1" FontSize="20" FontWeight="Bold" Click="go_Click" />
-		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" SelectionChanged="containers_SelectionChanged">
+		<Button Name="go" Content="POUR" Grid.Row="3" Grid.Column="1" FontSize="20" Click="go_Click" Style="{DynamicResource DefaultButtonStyle}" />
+		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" SelectionChanged="containers_SelectionChanged" Background="Transparent" BorderThickness="0" Style="{DynamicResource DefaultTextStyle}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultTextStyle}" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<Label Content="Select your glass size" FontSize="14pt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+		<Label Content="Select your glass size" FontSize="14pt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{DynamicResource DefaultTextStyle}" />
 	</Grid>
 </Page>

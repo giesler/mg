@@ -31,7 +31,7 @@ namespace BarMonkey
             list.Add(new Activity { Name = "Search Drinks", PageUrl = "Activities/SearchDrinks.xaml" });
             list.Add(new Activity { Name = "Make a drink for...", IsEnabled = false });
             list.Add(new Activity { Name = "Custom Drink", IsEnabled = false });
-            list.Add(new Activity { Name = "Admin", IsEnabled = false });
+            list.Add(new Activity { Name = "Admin", PageUrl="Activities/Admin.xaml" });
             return list;
         }
 
@@ -67,7 +67,6 @@ namespace BarMonkey
                     match.PageUrl));
                 base.NavigationService.Navigate(uri);
             }
-
         }
 
         private void favorite_Click(object sender, RoutedEventArgs e)

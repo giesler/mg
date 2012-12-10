@@ -12,13 +12,13 @@
 			<RowDefinition Height="80px" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<TextBox Grid.Row="0" Grid.Column="0" FontSize="22" Name="searchText" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" />
-		<bm:NumericKeypad Grid.Row="1" Grid.Column="0" x:Name="keyPad" />
+		<TextBox Grid.Row="0" Grid.Column="0" FontSize="30" FontWeight="Bold" Name="searchText" Background="Silver" Opacity=".5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
+		<bm:NumericKeypad Grid.Row="1" Grid.Column="0" x:Name="keyPad" VerticalAlignment="Top" />
 		<Label Grid.Column="1" Grid.Row="0" Content="" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Name="statusLabel" />
 		<ListBox Grid.Column="1" Grid.Row="1" Name="resultList" HorizontalContentAlignment="Stretch" Background="Transparent" BorderThickness="0">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Button FontSize="14pt" Content="{Binding Path=Name}" Click="selectDrink" Tag="{Binding Path=Id}" />
+					<Button Style="{DynamicResource DefaultListButtonStyle}" Click="selectDrink" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
