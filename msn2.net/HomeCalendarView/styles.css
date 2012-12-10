@@ -31,9 +31,6 @@
 }
 .dayHeader
 {
-    border-bottom-color: Gray;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
     padding: 2px 2px 2px 2px;
 }
 .defaultText
@@ -49,7 +46,6 @@
 .dateLabel
 {
     font-size: 8pt;
-    font-weight: bold;
 }
 .nowTemp
 {
@@ -62,9 +58,6 @@
     background-color: #ececec;
     padding: 2px;
     height: 69px;
-    border-bottom-color: Gray;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
 }
 .today
 {
@@ -123,6 +116,7 @@
 	   padding: 5px; margin: 10px; z-index: 100;
 	   color: #AAA; background: black;
 	   font: 10px Verdana, sans-serif; text-align: center;}
-	   
-
-
+        
+a:link {
+    text-decoration:  none;
+}

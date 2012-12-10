@@ -8,8 +8,7 @@
     <title>home.msn2.net Calendar</title>
     <link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
-<body class="defaultText" style="border: solid 1px black; padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px">
+<body class="defaultText" style="padding: 0px; margin: 0px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <form id="form1" runat="server">
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel" RenderMode="Inline">
@@ -39,10 +38,10 @@
                                 <asp:Label runat="server" ID="todayDateLabel" /></small>
                                 <br />
                                 <br />
-                                                        <asp:LinkButton runat="server" ID="selectKirkland" CssClass="cityName" Text="Kirkland"
-                            OnClick="onCityClick" />
+                                                        <asp:LinkButton runat="server" ID="selectKirkland" CssClass="cityName" Text="KIRKLAND"
+                            OnClick="onCityClick" Enabled="false" />
                         &nbsp;|&nbsp;<asp:LinkButton runat="server" ID="selectPackwood" CssClass="cityName"
-                            OnClick="onCityClick" Text="Packwood" />
+                            OnClick="onCityClick" Text="PACKWOOD" />
 
                         </td>
                         <td rowspan="2" width="8">
@@ -105,7 +104,7 @@
                                     </td>
                                     <td>
                                         <div runat="server" id="todayForeastDiv" visible="false">
-                                            <div style="width: 160px; border: solid 1px gray; padding: 2px;" runat="server" id="todayForecastInnerDiv">
+                                            <div style="width: 160px; padding: 2px;" runat="server" id="todayForecastInnerDiv">
                                                 <div style="float: left; width: 50%" runat="server" id="todayHighDiv">
                                                     <ucb:ForecastItem ID="todayHigh" runat="server" TemperatureExtreme="High" Visible="false" />
                                                 </div>

@@ -40,7 +40,7 @@ namespace HomeCalendarView
         {
             base.OnInit(e);
 
-            LocationData kirkland = new LocationData { Name = "Kirkland" };
+            LocationData kirkland = new LocationData { Name = "KIRKLAND" };
             kirkland.Lattitude = 47.67881M;
             kirkland.Longitude = -122.20724M;
             kirkland.NoaaCurrentConditionsLocation = "KSEA";
@@ -48,7 +48,7 @@ namespace HomeCalendarView
             kirkland.CurrentConditionsUrl = "http://www.nws.noaa.gov/data/current_obs/KSEA.xml";
             this.locations.Add(kirkland);
 
-            LocationData packwood = new LocationData { Name = "Packwood" };
+            LocationData packwood = new LocationData { Name = "PACKWOOD" };
             packwood.Lattitude = 46.4797M;
             packwood.Longitude = -121.822M;
             packwood.NoaaCurrentConditionsLocation = "WAZ519";
@@ -58,7 +58,7 @@ namespace HomeCalendarView
 
             this.currentLocation = kirkland;
             
-            this.lastUpdateTime.Text = "Last update: " + DateTime.Now.ToShortTimeString();
+            this.lastUpdateTime.Text = "LAST UPDATE: " + DateTime.Now.ToShortTimeString();
             this.dataLoadTimer.Enabled = false;
             this.dataLoadTimer.Tick += new EventHandler<EventArgs>(dataLoadTimer_Tick);
             this.closeWarning.Click += new EventHandler(closeWarning_Click);
@@ -66,7 +66,7 @@ namespace HomeCalendarView
             this.refreshTimer.Interval = 60 * 1000 * new Random().Next(18, 23);
 
             this.todayLabel.Text = DateTime.Now.ToString("dddd MMMM d").ToUpper(); 
-            this.todayDateLabel.Text = "Last update " + DateTime.Now.ToShortTimeString();
+            this.todayDateLabel.Text = "LAST UPDATE " + DateTime.Now.ToShortTimeString();
             //this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToUpper();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToUpper();
@@ -505,8 +505,7 @@ namespace HomeCalendarView
                         string gusts = q.InnerText;
                         if (gusts != "NA")                        
                         {
-                            int val = 0;
-                            if (int.TryParse(gusts, out val) && val == 0)
+                            if (gusts == "0" || gusts == "0.0")
                             {
                                 this.windLabel.Text += ",<br />calm";
                             }
@@ -924,6 +923,8 @@ namespace HomeCalendarView
                 this.currentLocation = this.locations[0];
                 this.selectPackwood.Font.Bold = false;
                 this.selectKirkland.Font.Bold = true;
+                this.selectKirkland.Enabled = false;
+                this.selectPackwood.Enabled = true;
                 Session["c"] = 0;
             }
             else
@@ -931,6 +932,8 @@ namespace HomeCalendarView
                 this.currentLocation = this.locations[1];
                 this.selectPackwood.Font.Bold = true;
                 this.selectKirkland.Font.Bold = false;
+                this.selectKirkland.Enabled = true;
+                this.selectPackwood.Enabled = false;
                 Session["c"] = 1;
             }
 
