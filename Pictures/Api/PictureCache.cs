@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Diagnostics;
 
 #endregion
 
@@ -56,7 +57,14 @@ namespace msn2.net.Pictures
             {
                 if (File.GetLastWriteTime(sourceFile) > File.GetLastWriteTime(targetFile))
                 {
-                    File.Delete(targetFile);
+                    try
+                    {
+                        File.Delete(targetFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine("Failed to delete " + targetFile);
+                    }
                 }
             }
 

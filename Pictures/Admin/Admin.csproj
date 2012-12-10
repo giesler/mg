@@ -54,12 +54,12 @@
     <SupportUrl>http://home.msn2.net/</SupportUrl>
     <ProductName>Picture Admin</ProductName>
     <PublisherName>msn2.net</PublisherName>
-    <MinimumRequiredVersion>2.3.121.5</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.3.122.5</MinimumRequiredVersion>
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>11</ApplicationRevision>
-    <ApplicationVersion>2.3.121.%2a</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>2.3.122.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -200,6 +200,44 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="msn2.net.Common.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="msn2.net.Pictures.Controls.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="msn2.net.Pictures.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="PictureAdmin.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

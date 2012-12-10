@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading;
 
 #endregion
 
@@ -27,17 +28,18 @@ namespace msn2.net.Pictures.Controls
         private Form sourceForm = null;
         private PictureControlSettings settings;
         private bool loading = false;
-        
-        private Slideshow(): this(new PictureControlSettings(), null, null)
+
+        private Slideshow()
+            : this(new PictureControlSettings(), null, null)
         {
         }
 
         public Slideshow(
             PictureControlSettings settings,
-            GetPreviousItemIdDelegate getPreviousId, 
+            GetPreviousItemIdDelegate getPreviousId,
             GetNextItemIdDelegate getNextId)
         {
-            
+
             this.getPreviousId = getPreviousId;
             this.getNextId = getNextId;
             this.settings = settings;
@@ -191,7 +193,7 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_Group_Height = this.groupSelect.Height;
                     this.groupSelect.Close();
                 }
-                
+
                 if (this.categorySelect != null)
                 {
                     this.settings.Slideshow_Category_IsOpen = this.categorySelect.Visible;
@@ -292,12 +294,12 @@ namespace msn2.net.Pictures.Controls
             toolNext.Enabled = false;
             toolPrevious.Image = global::msn2.net.Pictures.Controls.Properties.Resources.up;
             toolNext.Image = global::msn2.net.Pictures.Controls.Properties.Resources.down;
-            
+
             if (null != getPreviousId)
             {
                 PictureData previousItem = getPreviousId(item.PictureId);
 
-                 if (previousItem != null)
+                if (previousItem != null)
                 {
                     toolPrevious.Enabled = true;
 
@@ -331,7 +333,7 @@ namespace msn2.net.Pictures.Controls
                 }
             }
         }
-    
+
         private void toolClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -408,7 +410,7 @@ namespace msn2.net.Pictures.Controls
             if (selCat.ShowDialog(this) == DialogResult.OK)
             {
                 PicContext.Current.PictureManager.AddToCategory(
-                    this.picture.Id, 
+                    this.picture.Id,
                     selCat.SelectedCategory.CategoryId);
             }
         }
@@ -813,29 +815,55 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.picture != null)
             {
-                string path = System.IO.Path.Combine(
-                    PicContext.Current.Config.PictureDirectory,
-                    this.picture.Filename);
-
-                if (System.IO.File.Exists(path) == true)
-                {
-                    Process p = new Process();
-                    p.StartInfo = new ProcessStartInfo(path);
-                    p.Start();
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "The file '" + path + "' does not exist or you do not have permissions to access it.",
-                        "Fiel not found",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
-                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback(OpenFileThread), this.picture);
             }
         }
 
-    }
+        private void OpenFileThread(object oPic)
+        {
+            PictureData picture = (PictureData)oPic;
 
-    public delegate PictureData GetNextItemIdDelegate(int currentItem);
-    public delegate PictureData GetPreviousItemIdDelegate(int currentItem);
+            string path = System.IO.Path.Combine(
+                PicContext.Current.Config.PictureDirectory,
+                picture.Filename);
+
+            if (System.IO.File.Exists(path) == true)
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(path);
+                p.Start();
+
+                while (p.HasExited == false)
+                {
+                    if (this.IsDisposed == false && this.picture != null)
+                    {
+                        ImageUtilities util = new ImageUtilities();
+                        util.CreateUpdateCache(picture.Id);
+                        this.BeginInvoke(new ReloadImageDelegate(this.ReloadImage), picture);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    "The file '" + path + "' does not exist or you do not have permissions to access it.",
+                    "Fiel not found",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private delegate void ReloadImageDelegate(PictureData picture);
+
+        private void ReloadImage(PictureData picture)
+        {
+            if (this.picture != null && picture.Id == this.picture.Id)
+            {
+                SetPicture(picture);
+            }
+        }
+
+        public delegate PictureData GetNextItemIdDelegate(int currentItem);
+        public delegate PictureData GetPreviousItemIdDelegate(int currentItem);
+    }
 }
