@@ -21,9 +21,9 @@ namespace HomeCalendarView
         protected override void OnLoad(EventArgs e)
         {
             this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM dd").ToLower();
-            this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd");
-            this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd");
-            this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd");
+            this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
+            this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
+            this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
 
             List<CalendarItem> items = GetCalendarItems();
 
@@ -52,7 +52,7 @@ namespace HomeCalendarView
 
                 HyperLink eventLink = new HyperLink();
                 eventLink.Text = item.Title;
-//                eventLink.NavigateUrl = item.Url;
+                eventLink.NavigateUrl = item.Url;
                 eventLink.Target = "_top";
                 this.upcomingEvents.Controls.Add(eventLink);
 
@@ -74,15 +74,28 @@ namespace HomeCalendarView
             XmlDocument weatherXml = new XmlDocument();
             weatherXml.LoadXml(xml);
 
+            int offset = 0;
+            if (DateTime.Now.Hour > 14)
+            {
+                offset = -1;
+                this.todayHighTemp.Visible = false;
+                this.todayWeatherImage2.Visible = false;
+                this.precipToday2.Visible = false;
+                this.todayTempDivider.Text = "Low ";
+            }
+
             foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
             {
                 switch (tempNode.Attributes["type"].Value)
                 {
                     case "maximum":
-                        todayHighTemp.Text = tempNode.ChildNodes[1].InnerText;
-                        day1High.Text = tempNode.ChildNodes[2].InnerText;
-                        day2High.Text = tempNode.ChildNodes[3].InnerText;
-                        day3High.Text = tempNode.ChildNodes[4].InnerText;
+                        if (offset == 0)
+                        {
+                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText;
+                        }
+                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText;
+                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText;
+                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText;
                         break;
 
                     case "minimum":
@@ -96,37 +109,42 @@ namespace HomeCalendarView
 
             XmlNode precipNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/probability-of-precipitation");
             precipToday1.Text = precipNode.ChildNodes[1].InnerText + "%";
-            precipToday2.Text = precipNode.ChildNodes[2].InnerText + "%";
-            precipDay1am.Text = precipNode.ChildNodes[3].InnerText + "%";
-            precipDay1pm.Text = precipNode.ChildNodes[4].InnerText + "%";
-            precipDay2am.Text = precipNode.ChildNodes[5].InnerText + "%";
-            precipDay2pm.Text = precipNode.ChildNodes[6].InnerText + "%";
-            precipDay3am.Text = precipNode.ChildNodes[7].InnerText + "%";
-            precipDay3pm.Text = precipNode.ChildNodes[8].InnerText + "%";
+            if (offset == 0)
+            {
+                precipToday2.Text = precipNode.ChildNodes[2].InnerText + "%";
+            }
+            precipDay1am.Text = precipNode.ChildNodes[3 + offset].InnerText + "%";
+            precipDay1pm.Text = precipNode.ChildNodes[4 + offset].InnerText + "%";
+            precipDay2am.Text = precipNode.ChildNodes[5 + offset].InnerText + "%";
+            precipDay2pm.Text = precipNode.ChildNodes[6 + offset].InnerText + "%";
+            precipDay3am.Text = precipNode.ChildNodes[7 + offset].InnerText + "%";
+            precipDay3pm.Text = precipNode.ChildNodes[8 + offset].InnerText + "%";
 
             XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
             XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
             todayWeatherImage1.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
             todayWeatherImage1.AlternateText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
-            todayWeatherImage2.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
-            todayWeatherImage2.AlternateText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
-            day1Image1.ImageUrl = conditionsNode.ChildNodes[3].InnerText;
-            day1Image1.AlternateText = descriptionNode.ChildNodes[3].Attributes["weather-summary"].Value;
-            day1Image2.ImageUrl = conditionsNode.ChildNodes[4].InnerText;
-            day1Image2.AlternateText = descriptionNode.ChildNodes[4].Attributes["weather-summary"].Value;
-            day2Image1.ImageUrl = conditionsNode.ChildNodes[5].InnerText;
-            day2Image1.AlternateText = descriptionNode.ChildNodes[5].Attributes["weather-summary"].Value;
-            day2Image2.ImageUrl = conditionsNode.ChildNodes[6].InnerText;
-            day2Image2.AlternateText = descriptionNode.ChildNodes[6].Attributes["weather-summary"].Value;
-            day3Image1.ImageUrl = conditionsNode.ChildNodes[7].InnerText;
-            day3Image1.AlternateText = descriptionNode.ChildNodes[7].Attributes["weather-summary"].Value;
-            day3Image2.ImageUrl = conditionsNode.ChildNodes[8].InnerText;
-            day3Image2.AlternateText = descriptionNode.ChildNodes[8].Attributes["weather-summary"].Value;
+            if (offset == 0)
+            {
+                todayWeatherImage2.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
+                todayWeatherImage2.AlternateText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
+            }
+            day1Image1.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
+            day1Image1.AlternateText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
+            day1Image2.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
+            day1Image2.AlternateText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
+            day2Image1.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
+            day2Image1.AlternateText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
+            day2Image2.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
+            day2Image2.AlternateText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
+            day3Image1.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
+            day3Image1.AlternateText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
+            day3Image2.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
+            day3Image2.AlternateText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
         }
 
         private List<CalendarItem> GetCalendarItems()
         {
-
             homenet.Lists listService = new HomeCalendarView.homenet.Lists();
             listService.Credentials = new NetworkCredential("mc", "4362", "sp");
 
@@ -141,7 +159,8 @@ namespace HomeCalendarView
             AddViewField(doc, viewFields, "EndDate");
             AddViewField(doc, viewFields, "RecurrenceData");
             AddViewField(doc, viewFields, "fRecurrence");
-            AddViewField(doc, viewFields, "EncodedAbsUrl");
+            AddViewField(doc, viewFields, "Id");
+            AddViewField(doc, viewFields, "Location");
 
             XmlNode queryNode = doc.CreateElement("QueryOptions");
             queryNode.InnerXml = "<RecurrencePatternXMLVersion>v3</RecurrencePatternXMLVersion>";
@@ -162,11 +181,16 @@ namespace HomeCalendarView
                             DateTime eventDate = DateTime.Parse(rowNode.Attributes["ows_EventDate"].Value);
                             DateTime endDate = DateTime.Parse(rowNode.Attributes["ows_EndDate"].Value);
                             string recur = rowNode.Attributes["ows_fRecurrence"].Value;
-                            string url = rowNode.Attributes["ows_EncodedAbsUrl"].Value;
+                            string id = rowNode.Attributes["ows_ID"].Value;
+                            string location = string.Empty;
+                            if (rowNode.Attributes["ows_Location"] != null)
+                            {
+                                location = rowNode.Attributes["ows_Location"].Value;
+                            }
 
                             if (recur == "0")
                             {
-                                items.Add(new CalendarItem { Title = title, EventDate = eventDate, EndDate = endDate, Url = url });
+                                items.Add(new CalendarItem { Title = title, EventDate = eventDate, EndDate = endDate, Url = BuildItemUrl(id), Location=location });
                             }
                             else
                             {
@@ -180,7 +204,7 @@ namespace HomeCalendarView
                                     XmlNode weeklyNode = repeatNode.SelectSingleNode("weekly");
                                     if (weeklyNode != null)
                                     {
-                                        ProcessWeeklyRecurrence(items, title, url, ref eventDate, ref endDate, weeklyNode);
+                                        ProcessWeeklyRecurrence(items, title, id, location, eventDate, endDate, weeklyNode);
                                     }
                                     else
                                     {
@@ -203,7 +227,13 @@ namespace HomeCalendarView
             return items;
         }
 
-        private static void ProcessWeeklyRecurrence(List<CalendarItem> items, string title, string url, ref DateTime eventDate, ref DateTime endDate, XmlNode weeklyNode)
+        public static string BuildItemUrl(string id)
+        {
+            return "http://home.msn2.net/Lists/Events/DispForm.aspx?ID=" + id.ToString();
+        }
+
+        private static void ProcessWeeklyRecurrence(List<CalendarItem> items, string title, string id, 
+            string location, DateTime eventDate, DateTime endDate, XmlNode weeklyNode)
         {
             List<int> sundayOffsets = new List<int>();
             CheckForWeekday(weeklyNode, sundayOffsets, 0, "su");
@@ -230,7 +260,7 @@ namespace HomeCalendarView
                     {
                         if (DateInRange(candidateDate) == true)
                         {
-                            items.Add(new CalendarItem { Title = title, EventDate = candidateDate, EndDate = endDate, Url = url });
+                            items.Add(new CalendarItem { Title = title, EventDate = candidateDate, EndDate = endDate, Url = BuildItemUrl(id), Location=location });
                         }
                     }
                 }
@@ -289,5 +319,6 @@ namespace HomeCalendarView
         public DateTime EventDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Url { get; set; }
+        public string Location { get; set; }
     }
 }

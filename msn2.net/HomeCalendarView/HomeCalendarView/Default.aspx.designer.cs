@@ -32,6 +32,15 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Label todayHighTemp;
         
         /// <summary>
+        /// todayTempDivider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label todayTempDivider;
+        
+        /// <summary>
         /// todayLowTemp control.
         /// </summary>
         /// <remarks>

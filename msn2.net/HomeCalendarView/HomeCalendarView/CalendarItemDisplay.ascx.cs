@@ -34,10 +34,35 @@ namespace HomeCalendarView
                 TableCell cell = new TableCell();
                 row.Cells.Add(cell);
 
+                if (item.EventDate.Hour > 0)
+                {
+                    Label hourLabel = new Label();
+                    hourLabel.Text = item.EventDate.ToString("h tt") + ": ";
+                    if (item.EventDate.Minute > 0)
+                    {
+                        hourLabel.Text = item.EventDate.ToString("h:mm tt") + ": ";
+                    }
+                    cell.Controls.Add(hourLabel);
+                }
+
                 HyperLink lnk = new HyperLink();
                 lnk.Text = item.Title;
                 lnk.Target = "_top";
-                //lnk.NavigateUrl = item.Url;
+                string toolTip = string.Empty;
+                if (item.Location.Length > 0)
+                {
+                    toolTip = item.Location + Environment.NewLine;
+                }
+                if (item.EventDate.Date == item.EndDate.Date)
+                {
+                    toolTip += string.Format("{0:h:mm tt} - {1:h:mm tt}", item.EventDate, item.EndDate);
+                }
+                else
+                {
+                    toolTip += string.Format("{0:h:mm tt} - {1:MM/dd h:mm tt}", item.EventDate, item.EndDate);
+                }
+                lnk.ToolTip = toolTip;
+                lnk.NavigateUrl = item.Url;
                 cell.Controls.Add(lnk);
             }
 

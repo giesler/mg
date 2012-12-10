@@ -10,19 +10,19 @@
         {
             font-size: smaller;
             color: Gray;
-        	font-weight: bold;
+            font-weight: bold;
         }
         .hiText
         {
-            color: Blue;
+            color: Red;
             font-size: 10pt;
-        	font-weight: bold;
+            font-weight: bold;
         }
         .loText
         {
-            color: Red;
+            color: Blue;
             font-size: 10pt;
-        	font-weight: bold;
+            font-weight: bold;
         }
         .altColor
         {
@@ -36,48 +36,48 @@
         }
         .noEventsText
         {
-        	color: Gray;
+            color: Gray;
         }
         .dateLabel
         {
-        	font-size: 10pt;
-        	font-weight: bold;
+            font-size: 10pt;
+            font-weight: bold;
         }
     </style>
 </head>
 <body class="defaultText">
     <form id="form1" runat="server">
-    <div>
+    <div style="height: 100%">
         <table width="100%" cellpadding="3" cellspacing="0" border="0" height="100%">
-            <tr>
-                <td width="10%" class="dateLabel">
+            <tr class="headerRow">
+                <td width="10%" class="dateLabel" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     today
                 </td>
-                <td width="10%" align="center">
+                <td width="10%" align="center" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" CssClass="hiText" ID="todayHighTemp">45</asp:Label>
-                    /
+                    <asp:Label runat="server" ID="todayTempDivider" Text="/" />
                     <asp:Label runat="server" CssClass="loText" ID="todayLowTemp">32</asp:Label>
                 </td>
-                <td width="10%" class="altColor">
+                <td width="10%" class="altColor" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" ID="day1Label" CssClass="dateLabel">Day 1</asp:Label>
                 </td>
-                <td width="10%" class="altColor" align="center">
+                <td width="10%" class="altColor" align="center" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" CssClass="hiText" ID="day1High">45</asp:Label>
                     /
                     <asp:Label runat="server" CssClass="loText" ID="day1Low">32</asp:Label>
                 </td>
-                <td width="10%">
+                <td width="10%" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" ID="day2Label" CssClass="dateLabel">Day 2</asp:Label>
                 </td>
-                <td width="10%" align="center">
+                <td width="10%" align="center" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" CssClass="hiText" ID="day2High">44</asp:Label>
                     /
                     <asp:Label runat="server" CssClass="loText" ID="day2Low">33</asp:Label>
                 </td>
-                <td width="10%" class="altColor">
+                <td width="10%" class="altColor" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" ID="day3Label" CssClass="dateLabel">Day 3</asp:Label>
                 </td>
-                <td width="10%" class="altColor" align="center">
+                <td width="10%" class="altColor" align="center" style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;">
                     <asp:Label runat="server" CssClass="hiText" ID="day3High">44</asp:Label>
                     /
                     <asp:Label runat="server" CssClass="loText" ID="day3Low">31</asp:Label>
@@ -134,7 +134,7 @@
                 </td>
             </tr>
             <tr style="background-color: #B6BCC4">
-                <td colspan="8">
+                <td colspan="7">
                     <table>
                         <tr>
                             <td>
@@ -145,6 +145,10 @@
                             </td>
                         </tr>
                     </table>
+                </td>
+                <td align="right">
+                    <a href="http://home.msn2.net/Lists/Events/NewForm.aspx?RootFolder=%2FLists%2FEvents&Source=http%3A%2F%2Fhome%2Emsn2%2Enet%2FLists%2FEvents%2Fcalendar%2Easpx"
+                        target="_top">Add</a>
                 </td>
             </tr>
         </table>
