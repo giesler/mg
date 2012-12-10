@@ -355,18 +355,22 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fPromptText.resx">
       <DependentUpon>fPromptText.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fStatus.resx">
       <DependentUpon>fStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Group\GroupSelect.resx">
       <DependentUpon>GroupSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Person\PeopleSelect.resx">
       <DependentUpon>PeopleSelect.cs</DependentUpon>
@@ -466,7 +470,9 @@
     <None Include="Web References\picsvc\PictureDataSet.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\picsvc\PictureDataSet.xsd" />
+    <None Include="Web References\picsvc\PictureDataSet.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\picsvc\PictureManager.disco" />
     <None Include="Web References\picsvc\PictureManager.wsdl" />
     <None Include="Web References\picsvc\Reference.map">

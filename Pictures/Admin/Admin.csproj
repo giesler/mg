@@ -33,7 +33,7 @@
     <UpdateUrlEnabled>false</UpdateUrlEnabled>
     <ApplicationRevision>18</ApplicationRevision>
     <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>BEE894EB20FB9FE6DFC0B15FC1E92519DE855FE4</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>AF0F4EB308F7FDC4514757CB5CD3C7DF33AA86B5</ManifestCertificateThumbprint>
     <ManifestKeyFile>
     </ManifestKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -45,16 +45,17 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>\\sp\data\Software\msn2.net\PictureAdmin\</InstallUrl>
     <SupportUrl>http://home.msn2.net/</SupportUrl>
     <ProductName>Picture Admin</ProductName>
     <PublisherName>msn2.net</PublisherName>
+    <MinimumRequiredVersion>2.1.110.5</MinimumRequiredVersion>
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationVersion>2.1.109.%2a</ApplicationVersion>
+    <ApplicationVersion>2.1.110.5</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
