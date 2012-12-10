@@ -557,7 +557,7 @@ namespace pics.Controls
 					panel.Controls.Add(checkBox);
 
 					// See if we need to set the checkbox state
-					PictureIdCollection mySelectedList	= (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+					PictureIdCollection mySelectedList	= Global.SelectedPictures;
 					if (mySelectedList.Contains(pictureId))
 					{
 						checkBox.Checked			= true;
@@ -920,11 +920,11 @@ namespace pics.Controls
 			if (adminMode)
 			{
 				string groups = "";
-				DataSet ds = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
-				foreach (DataRow dr in ds.Tables[0].Rows)
+				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
+				foreach (string groupName in groupNames)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += dr["GroupName"].ToString();
+					groups += groupName;
 				}
 				groups = "Groups: " + groups + "<br />";
 				catCell.Controls.Add(new HtmlLiteral(groups));
@@ -2154,7 +2154,7 @@ namespace pics.Controls
 				return;
 
 			// Retreive the list of seleted items
-			selectedList = (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+			selectedList = Global.SelectedPictures;
 			Page.RegisterHiddenField("selectedPicIds", selectedList.GetListAsString());
 
 			// Show certain content for no selected
@@ -2207,7 +2207,7 @@ namespace pics.Controls
 
 		private void clearBasket_Click(object sender, EventArgs e)
 		{
-			selectedList = (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+            selectedList = Global.SelectedPictures;
 			selectedList.Clear();
 		}
 

@@ -17,7 +17,7 @@ namespace pics.Admin
 	/// <summary>
 	/// Summary description for AuthNewLoginNew.
 	/// </summary>
-	public partial class AuthNewLoginNew 
+	public partial class AuthNewLoginNew : Page
 	{
 	
 // 		public AuthNewLoginNew()

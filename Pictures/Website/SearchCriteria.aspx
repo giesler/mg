@@ -60,7 +60,6 @@
 							picture.
 						</p>
 						<blockquote>
-							<p>
 								<table>
 									<tr>
 										<td align="right">
@@ -85,7 +84,6 @@
 										</td>
 									</tr>
 								</table>
-							</p>
 						</blockquote>
 						<hr noshade>
 						<p>

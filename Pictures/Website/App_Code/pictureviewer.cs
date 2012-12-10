@@ -108,7 +108,7 @@ namespace pics.Controls
 				panel.Controls.Add(checkBox);
 
 				// See if we need to set the checkbox state
-				PictureIdCollection mySelectedList	= (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+				PictureIdCollection mySelectedList	= Global.SelectedPictures;
 				if (mySelectedList.Contains(pictureId))
 				{
 					checkBox.Checked			= true;
@@ -190,7 +190,7 @@ namespace pics.Controls
 				checkCell.Controls.Add(checkBox);
 
 				// See if we need to set the checkbox state
-				PictureIdCollection mySelectedList	= (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+				PictureIdCollection mySelectedList	= Global.SelectedPictures;
 				if (mySelectedList.Contains(pictureId))
 				{
 					checkBox.Checked			= true;

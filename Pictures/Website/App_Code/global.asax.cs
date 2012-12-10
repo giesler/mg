@@ -44,15 +44,28 @@ namespace pics
 			}
 		}
 
+        public static PictureIdCollection SelectedPictures
+        {
+            get
+            {
+                HttpSessionState session = HttpContext.Current.Session;
+                if (session["MySelectedList"] == null)
+                {
+                    session["MySelectedList"] = new PictureIdCollection();
+                }
+
+                return (PictureIdCollection) session["MySelectedList"];
+            }
+            set
+            {
+                HttpSessionState session = HttpContext.Current.Session;
+                session["MySelectedList"] = value;
+                
+            }
+        }
+
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-		}
- 
-		protected void Session_Start(Object sender, EventArgs e)
-		{
-			Session["MySelectedList"]		= new PictureIdCollection();
-			Session["editMode"]				= false;
-
 		}
 
 		protected void Application_BeginRequest(Object sender, EventArgs e)

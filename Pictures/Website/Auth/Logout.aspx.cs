@@ -26,10 +26,6 @@ namespace pics.Auth
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 
-			// sign out
-			Session.Clear();
-			FormsAuthentication.SignOut();
-
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -38,7 +34,7 @@ namespace pics.Auth
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-		}
+        }
 
 		#region Web Form Designer generated code
 		/// <summary>
@@ -50,5 +46,13 @@ namespace pics.Auth
 
 		}
 		#endregion
-	}
+
+        protected void signoutLink_Click(object sender, EventArgs e)
+        {
+            // sign out
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
+        }
+}
 }

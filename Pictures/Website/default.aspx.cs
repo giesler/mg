@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -38,9 +39,9 @@ namespace pics
 			Literal br = new Literal();
 			br.Text = "<br>";
 
-			DataSet ds = PicContext.Current.CategoryManager.RecentCategorires();
+			List<Category> recentCategories = PicContext.Current.CategoryManager.RecentCategorires();
 
-			dlRecent.DataSource = ds;
+            dlRecent.DataSource = recentCategories;
 			dlRecent.DataBind();
 
 			// run the SP, set datasource to the picture list
@@ -49,12 +50,20 @@ namespace pics
 			// create new control
             int pictureId = Convert.ToInt32(dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString());
 			ThumbnailList thumbs = new ThumbnailList();
-			thumbs.PageReturnURL	= pics.picview.BuildRandomPageUrl(pictureId, "default.aspx");
+			thumbs.PageReturnURL	= BuildRandomPageUrl(pictureId, "default.aspx");
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
 //			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
 			randomPicture.Controls.Add(thumbs);
 
 		}
+
+        public static string BuildRandomPageUrl(int pictureId, string refUrl)
+        {
+            string url = "picview.aspx?p=" + pictureId.ToString()
+                + "&type=random&RefUrl=" + HttpContext.Current.Server.UrlEncode(refUrl);
+
+            return url;
+        }
 
 		private void Page_Init(object sender, EventArgs e)
 		{

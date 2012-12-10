@@ -146,7 +146,7 @@ namespace pics
 			Category parentCategory = currentCategory;
 			while (parentCategory.CategoryId != rootCategoryId) 
 			{
-				parentCategory	= catManager.GetCategory(parentCategory.ParentCategoryId);
+				parentCategory	= catManager.GetCategory(parentCategory.ParentId);
 
 				// create a view to find the parent
 				cc.Add(parentCategory);
@@ -272,11 +272,12 @@ namespace pics
 			if (showEditControls)
 			{
 				string groups = "";
-				DataSet ds = PicContext.Current.CategoryManager.GetCategoryGroups(currentCategory.CategoryId);
-				foreach (DataRow dr in ds.Tables[0].Rows)
+				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(
+                    currentCategory.CategoryId);
+				foreach (string groupName in groupNames)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += dr["GroupName"].ToString();
+					groups += groupName;
 				}
 				groups = "Groups: " + groups + "<br />";
 				if (t2r1c3.Controls.Count > 0) 
@@ -436,7 +437,7 @@ namespace pics
             
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(new HtmlLiteral("<hr style=\"border:1px\">"));
 
-			PictureIdCollection mySelectedList	= (PictureIdCollection) Session["MySelectedList"];
+			PictureIdCollection mySelectedList	= Global.SelectedPictures;
 			if (e.Checked)
 			{
 				mySelectedList.Add(e.PicId);
@@ -499,7 +500,7 @@ namespace pics
 		{
 			int categoryId		= Convert.ToInt32(currentCategoryId);
 			int count			= 0;
-			PictureIdCollection mySelectedList	= (PictureIdCollection) Session["MySelectedList"];
+			PictureIdCollection mySelectedList	= Global.SelectedPictures;
 
 			// Get current category pic ids
 			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
