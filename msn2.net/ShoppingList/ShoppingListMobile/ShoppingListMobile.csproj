@@ -109,7 +109,6 @@
     <Compile Include="ExceptionDialog.Designer.cs">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hook.cs" />
     <Compile Include="LocalSettings.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

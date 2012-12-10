@@ -151,6 +151,25 @@ namespace mn2.net.ShoppingList.sls {
         public void EndUpdateShoppingListItem(System.IAsyncResult asyncResult) {
             this.EndInvoke(asyncResult);
         }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IShoppingListService/GetMobileClientVersion", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string GetMobileClientVersion() {
+            object[] results = this.Invoke("GetMobileClientVersion", new object[0]);
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginGetMobileClientVersion(System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("GetMobileClientVersion", new object[0], callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public string EndGetMobileClientVersion(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((string)(results[0]));
+        }
     }
     
     /// <remarks/>

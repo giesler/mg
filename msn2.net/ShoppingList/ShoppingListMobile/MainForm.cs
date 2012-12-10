@@ -16,6 +16,7 @@ using mn2.net.ShoppingList;
 using System.Net.Sockets;
 using Microsoft.WindowsCE.Forms;
 using WinForms = System.Windows.Forms;
+using System.Reflection;
 
 namespace msn2.net.ShoppingList
 {
@@ -42,7 +43,7 @@ namespace msn2.net.ShoppingList
         string addMenuSelectedStore = null;
 
         IContainer components = null;
-        ShoppingListView listView;
+        ListView listView;
         TextBox newItem;
         Button add;
         Label statusLabel;
@@ -57,6 +58,7 @@ namespace msn2.net.ShoppingList
         MenuItem menuUndo;
         MenuItem menuUpdateApp;
         MenuItem menuSettings;
+        MenuItem menuAbout;
         MenuItem menuExit;
         MenuItem menuTextSize;
         MenuItem menuTextBigger;
@@ -73,6 +75,7 @@ namespace msn2.net.ShoppingList
         WinForms.Timer timerResizeCheck;
         WinForms.Timer timerProgress;
         WinForms.Timer timerDelete;
+        bool checkedForUpdate = false;
 
         #endregion
 
@@ -115,6 +118,11 @@ namespace msn2.net.ShoppingList
             this.menuSettings.Click += new EventHandler(menuSettings_Click);
             this.rightMenu.MenuItems.Add(this.menuSettings);
 
+            this.menuAbout = new MenuItem();
+            this.menuAbout.Text = "&About";
+            this.menuAbout.Click += new EventHandler(menuAbout_Click);
+            this.rightMenu.MenuItems.Add(this.menuAbout);
+
             this.rightMenu.MenuItems.Add(new MenuItem() { Text = "-" });
 
             this.menuTextSize = new MenuItem();
@@ -156,7 +164,7 @@ namespace msn2.net.ShoppingList
 
             #endregion
 
-            this.listView = new ShoppingListView();
+            this.listView = new ListView();
             this.listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.listView.FullRowSelect = true;
             this.listView.HeaderStyle = ColumnHeaderStyle.None;
@@ -166,8 +174,6 @@ namespace msn2.net.ShoppingList
             this.listView.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
             this.listView.KeyDown += new KeyEventHandler(listView1_KeyDown);
             this.listView.Parent = this;
-            this.listView.OnMouseDown += new MouseEventHandler(listView_OnMouseDown);
-            this.listView.OnMouseUp += new MouseEventHandler(listView_OnMouseUp);
             this.defaultFontSize = this.listView.Font.Size;
 
             this.newItem = new TextBox();
@@ -411,6 +417,65 @@ namespace msn2.net.ShoppingList
             {
                 this.loadAllItemsAfterStores = false;
                 this.LoadAllItems();
+            }
+                        
+        }
+
+        void CheckForUpdate()
+        {
+            try
+            {
+                string latest = this.GetShoppingListService().GetMobileClientVersion();
+                string[] version = latest.Split('.');
+                AssemblyName an = Assembly.GetExecutingAssembly().GetName();
+                bool oldBuild = false;
+
+                int major = int.Parse(version[0]);
+                int minor = int.Parse(version[1]);
+                int build = int.Parse(version[2]);
+                int rev = int.Parse(version[3]);
+
+                if (major > an.Version.Major)
+                {
+                    oldBuild = true;
+                }
+                else if (major == an.Version.Major)
+                {
+                    if (minor > an.Version.Minor)
+                    {
+                        oldBuild = true;
+                    }
+                    else if (minor == an.Version.Minor)
+                    {
+                        if (build > an.Version.Build)
+                        {
+                            oldBuild = true;
+                        }
+                        else if (build == an.Version.Build && rev > an.Version.Revision)
+                        {
+                            oldBuild = true;
+                        }
+                    }
+                }
+
+                if (oldBuild)
+                {
+                    this.BeginInvoke(new WaitCallback(this.UpdatePrompt), oldBuild);
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.ToString());
+            }
+        }
+
+        void UpdatePrompt(object sender)
+        {
+            DialogResult result = MessageBox.Show("An update is available.  Would you like to install it now?", "Update Client",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.Yes)
+            {
+                this.menuUpdateApp_Click(this, EventArgs.Empty);
             }
         }
 
@@ -657,6 +722,13 @@ namespace msn2.net.ShoppingList
             this.progressBar.Visible = false;
             this.timerProgress.Enabled = false;
             this.SizeControls();
+
+            if (this.checkedForUpdate == false)
+            {
+                this.checkedForUpdate = true;
+                Thread t = new Thread(new ThreadStart(this.CheckForUpdate));
+                t.Start();
+            }
         }
 
         void ReloadItemList()
@@ -1095,6 +1167,19 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        void menuAbout_Click(object sender, EventArgs e)
+        {
+            AssemblyName an = Assembly.GetExecutingAssembly().GetName();
+            DateTime dt = File.GetCreationTime(an.CodeBase);
+
+            string dtString = dt.Date == DateTime.Now.Date ? dt.ToShortTimeString() : dt.ToShortDateString();
+
+            string versionInfo = string.Format("Shopping List Mobile v{0}.{1}.{2}.{3}, {4}", 
+                an.Version.Major, an.Version.Minor, an.Version.Build, an.Version.Revision, dtString);
+
+            MessageBox.Show(versionInfo, "About", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
+        }
+
         void menuExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -1489,103 +1574,5 @@ namespace msn2.net.ShoppingList
                 this.SwitchStore(e.X > this.mouseDownStart.X);
             }
         }
-
-        void listView_OnMouseUp(object sender, MouseEventArgs e)
-        {
-            this.HandleMouseUp(e);
-        }
-
-        void listView_OnMouseDown(object sender, MouseEventArgs e)
-        {
-            this.HandleMouseDown(e);
-        }
-    }
-
-    public class ShoppingListView : ListView
-    {
-        private ListViewHook hook;
-
-        public event MouseEventHandler OnMouseUp;
-        public event MouseEventHandler OnMouseDown;
-
-        public ShoppingListView()
-        {
-            hook = new ListViewHook(this);
-            hook.MouseDown += new MouseEventHandler(hook_MouseDown);
-            hook.MouseUp += new MouseEventHandler(hook_MouseUp);
-        }
-
-        void hook_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (this.OnMouseUp != null)
-            {
-                this.OnMouseUp(this, e);
-            }            
-        }
-
-        void hook_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (this.OnMouseDown != null)
-            {
-                this.OnMouseDown(this, e);
-            }
-        }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            this.hook = new ListViewHook(this);
-            base.OnHandleCreated(e);
-        }
-    }
-
-    class ListViewHook : Hook
-    {
-        ListView lv;
-
-        public event MouseEventHandler MouseDown;
-        public event MouseEventHandler MouseUp;
-
-        public ListViewHook(ListView lv)
-        {
-            this.lv = lv;
-            base.Attach(lv);
-        }
-
-        short SignedLoWord(int val)
-        {
-            return (short)(val & 0xffff);
-        }
-
-        short SignedHiWord(int val)
-        {
-            return (short)((val >> 0x10) & 0xffff);
-        }
-
-        protected override int WndProc(IntPtr hWnd, uint msg, IntPtr wparam, IntPtr lparam)
-        {
-            if (msg == WM_LBUTTONDOWN)
-            {
-                if (this.MouseDown != null)
-                {
-                    MouseEventArgs e = new MouseEventArgs(MouseButtons.Left, 1,
-                        (int)SignedLoWord(lparam.ToInt32()), (int)SignedHiWord(lparam.ToInt32()), 0);
-                    this.MouseDown(this, e);
-                }
-            }
-            else if (msg == WM_LBUTTONUP)
-            {
-                if (this.MouseUp != null)
-                {
-                    MouseEventArgs e = new MouseEventArgs(MouseButtons.Left, 1,
-                        (int)SignedLoWord(lparam.ToInt32()), (int)SignedHiWord(lparam.ToInt32()), 0);
-                    this.MouseUp(this, e);
-                }
-            }
-
-            return base.WndProc(hWnd, msg, wparam, lparam);
-        }
-
-        const int WM_LBUTTONDOWN = 0x201;
-        const int WM_LBUTTONUP = 0x202;
     }
 }
