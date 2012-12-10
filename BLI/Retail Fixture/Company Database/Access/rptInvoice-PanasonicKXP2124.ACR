@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1619734420
+Checksum =-1892323888
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -301,6 +301,16 @@ Begin Report
             Height =361
             Name ="Detail"
             Begin
+                Begin Subform
+                    Left =2280
+                    Top =360
+                    Width =6135
+                    Height =1
+                    Name ="subPOSubItems"
+                    SourceObject ="Report.rsubInvSubItems"
+                    LinkChildFields ="afkItemNum"
+                    LinkMasterFields ="apkInvoiceItem"
+                End
                 Begin TextBox
                     TextAlign =3
                     TextFontFamily =34
@@ -308,8 +318,12 @@ Begin Report
                     Width =600
                     Height =360
                     FontSize =10
+                    TabIndex =1
                     Name ="Label239"
                     ControlSource ="Quantiy"
+                    GUID = Begin
+                        0x82d6be1e514f5b4db1540999feebdb97
+                    End
                 End
                 Begin TextBox
                     TextAlign =3
@@ -318,9 +332,12 @@ Begin Report
                     Width =1080
                     Height =360
                     FontSize =10
-                    TabIndex =1
+                    TabIndex =2
                     Name ="Label241"
                     ControlSource ="Unit_Price"
+                    GUID = Begin
+                        0x375bbd3c96f9db48b21ce6d11de13734
+                    End
                 End
                 Begin TextBox
                     TextAlign =3
@@ -329,10 +346,13 @@ Begin Report
                     Width =1200
                     Height =360
                     FontSize =10
-                    TabIndex =2
-                    Name ="ExtPrice"
-                    ControlSource ="=[Quantiy]*[Unit_Price]"
+                    TabIndex =3
+                    Name ="txtExtPrice"
+                    ControlSource ="LineExtPrice"
                     Format ="$#,##0.00;($#,##0.00)"
+                    GUID = Begin
+                        0xb99d9a629602984cb4b801a50e701f0c
+                    End
                 End
                 Begin TextBox
                     TextAlign =3
@@ -344,28 +364,37 @@ Begin Report
                     TabIndex =4
                     Name ="Text0"
                     ControlSource ="Material"
+                    GUID = Begin
+                        0xbad4023af25d754a8b9e242bf234129d
+                    End
                 End
                 Begin TextBox
                     TextAlign =1
                     TextFontFamily =34
-                    Left =2280
-                    Width =6240
+                    Left =3120
+                    Width =5400
                     Height =360
                     FontSize =10
-                    TabIndex =3
+                    TabIndex =5
                     Name ="Label240"
                     ControlSource ="MatDescription"
+                    GUID = Begin
+                        0x65e0eaea5f6a1445b8b510086645d20c
+                    End
                 End
-                Begin Subform
-                    Left =2280
-                    Top =360
-                    Width =6135
-                    Height =1
-                    TabIndex =5
-                    Name ="subPOSubItems"
-                    SourceObject ="Report.rsubInvSubItems"
-                    LinkChildFields ="afkItemNum"
-                    LinkMasterFields ="apkInvoiceItem"
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =2160
+                    Width =900
+                    Height =360
+                    FontSize =10
+                    TabIndex =6
+                    Name ="Text288"
+                    ControlSource ="CustMaterial"
+                    GUID = Begin
+                        0x25160567cfe4454fb0f372732a00cf52
+                    End
                 End
             End
         End

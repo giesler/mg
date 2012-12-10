@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-430814053
+Checksum =1650861994
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -22,10 +22,10 @@ Begin Report
     OnNoData ="[Event Procedure]"
     Toolbar ="RFReportToolBar"
     RecSrcDt = Begin
-        0xb4dfb25b7922e240
+        0xb603afcb3739e240
     End
     InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\"), Ge"
-        "tSPVar(\"StoreNo\"), GetSPVar(\"RefNum\")"
+        "tSPVar(\"StoreNo\"), GetSPVar(\"RefNum\"), GetSPVar(\"BlanketPO\")"
     RecordSource ="dbo.sp_Report_CurrentBuildSummary"
     Caption ="Current Build Summary"
     OnOpen ="[Event Procedure]"
@@ -346,6 +346,7 @@ On Error GoTo errHandler
   fC.lblDate.Caption = "Shipped Date:"
   fC.txtStoreNo.Visible = True
   fC.txtRefNum.Visible = True
+  fC.txtBlanketPO.Visible = True
   
   Pause fC
 
@@ -357,6 +358,7 @@ On Error GoTo errHandler
     SetSPVar "SoldName", fC.cmbSoldName
     SetSPVar "StoreNo", fC.txtStoreNo
     SetSPVar "RefNum", fC.txtRefNum
+    SetSPVar "BlanketPO", fC.txtBlanketPO
     strCrit = FormatFromTo(fC.datFrom, fC.datTo)
     If strCrit <> "" Then strCrit = "Ship Date " + strCrit
     If fC.cmbSoldName <> "" Then
@@ -370,6 +372,10 @@ On Error GoTo errHandler
     If fC.txtRefNum <> "" Then
       If strCrit <> "" Then strCrit = strCrit + ", "
       strCrit = strCrit + "Ref #: " + fC.txtRefNum
+    End If
+    If fC.txtBlanketPO <> "" Then
+      If strCrit <> "" Then strCrit = strCrit + ", "
+      strCrit = strCrit + "Blanket PO #: " + fC.txtBlanketPO
     End If
     Me.lblCriteria.Caption = strCrit
   End If

@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1264015363
+Checksum =-1348364171
 Begin Form
     PopUp = NotDefault
     Modal = NotDefault
@@ -22,7 +22,7 @@ Begin Form
     GridY =24
     Width =4560
     DatasheetFontHeight =10
-    ItemSuffix =19
+    ItemSuffix =21
     Left =1740
     Top =1440
     Right =10725
@@ -88,7 +88,7 @@ Begin Form
             SpecialEffect =2
         End
         Begin Section
-            Height =2640
+            Height =3060
             BackColor =-2147483633
             Name ="Detail"
             Begin
@@ -137,10 +137,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =79
                     Left =2640
-                    Top =2280
+                    Top =2700
                     Width =840
                     Height =300
-                    TabIndex =5
+                    TabIndex =6
                     Name ="cmdOK"
                     Caption ="&OK"
                     OnClick ="[Event Procedure]"
@@ -162,10 +162,10 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =67
                     Left =3600
-                    Top =2280
+                    Top =2700
                     Width =840
                     Height =300
-                    TabIndex =6
+                    TabIndex =7
                     Name ="cmdCancel"
                     Caption ="&Cancel"
                     OnClick ="[Event Procedure]"
@@ -261,6 +261,32 @@ Begin Form
                             Caption ="Ref #:"
                             GUID = Begin
                                 0xa167adb2573eab4ea80d079ea53f2dcc
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    Left =1800
+                    Top =2220
+                    Width =2520
+                    TabIndex =5
+                    Name ="txtBlanketPO"
+                    GUID = Begin
+                        0x802830ccf81c5148a121398c69526fe7
+                    End
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            Left =180
+                            Top =2220
+                            Width =1500
+                            Height =240
+                            Name ="Label20"
+                            Caption ="Blanket PO #:"
+                            GUID = Begin
+                                0x414211cb2d829241aff3decf2a887c90
                             End
                         End
                     End

@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =668455109
+Checksum =900587788
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -121,9 +121,9 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3720
+                    Left =3000
                     Top =2460
-                    Width =780
+                    Width =840
                     Height =480
                     FontSize =10
                     FontWeight =700
@@ -133,7 +133,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4500
+                    Left =3840
                     Top =2460
                     Width =780
                     Height =480
@@ -145,7 +145,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5280
+                    Left =4620
                     Top =2580
                     Width =1080
                     Height =360
@@ -156,7 +156,7 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =6360
+                    Left =5700
                     Top =2580
                     Width =2220
                     Height =360
@@ -173,7 +173,7 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =8580
+                    Left =7920
                     Top =2580
                     Width =1500
                     Height =360
@@ -181,18 +181,6 @@ Begin Report
                     FontWeight =700
                     Name ="Label36"
                     Caption ="SHIP TO"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =3000
-                    Top =2460
-                    Width =795
-                    Height =480
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label38"
-                    Caption ="SHELF TYPE"
                 End
                 Begin Line
                     BorderWidth =1
@@ -220,10 +208,10 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =10080
-                    Top =2460
-                    Width =720
-                    Height =480
+                    Left =9420
+                    Top =2580
+                    Width =1380
+                    Height =360
                     FontSize =10
                     FontWeight =700
                     Name ="Label40"
@@ -244,7 +232,7 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4500
+                    Left =3840
                     Width =780
                     Height =720
                     FontSize =10
@@ -266,8 +254,8 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3720
-                    Width =780
+                    Left =3000
+                    Width =840
                     Height =720
                     FontSize =10
                     TabIndex =2
@@ -279,7 +267,7 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5280
+                    Left =4620
                     Width =1080
                     Height =720
                     FontSize =10
@@ -292,7 +280,7 @@ Begin Report
                     ScrollBars =2
                     OldBorderStyle =1
                     TextFontFamily =34
-                    Left =6360
+                    Left =5700
                     Width =2220
                     Height =723
                     FontSize =10
@@ -317,7 +305,7 @@ Begin Report
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =8580
+                    Left =7920
                     Width =1500
                     Height =723
                     FontSize =10
@@ -326,28 +314,16 @@ Begin Report
                     ControlSource ="Ship_Name"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =3000
-                    Width =720
-                    Height =720
-                    FontSize =10
-                    TabIndex =7
-                    Name ="Text39"
-                    ControlSource ="ShelfType"
-                End
-                Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
                     OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =10080
-                    Width =720
+                    Left =9420
+                    Width =1380
                     Height =723
                     FontSize =10
-                    TabIndex =8
+                    TabIndex =7
                     Name ="Text41"
                     ControlSource ="Ship_StoreNo"
                     GUID = Begin

@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1644752991
+Checksum =677445713
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -13,7 +13,7 @@ Begin Report
     GridY =24
     Width =11400
     DatasheetFontHeight =10
-    ItemSuffix =288
+    ItemSuffix =289
     Left =1260
     Top =600
     Right =9090
@@ -322,8 +322,8 @@ Begin Report
                 Begin TextBox
                     TextAlign =1
                     TextFontFamily =34
-                    Left =2280
-                    Width =6240
+                    Left =3120
+                    Width =5400
                     Height =360
                     FontSize =10
                     TabIndex =3
@@ -340,6 +340,20 @@ Begin Report
                     SourceObject ="Report.rsubInvSubItems"
                     LinkChildFields ="afkItemNum"
                     LinkMasterFields ="apkInvoiceItem"
+                End
+                Begin TextBox
+                    TextAlign =3
+                    TextFontFamily =34
+                    Left =2160
+                    Width =900
+                    Height =360
+                    FontSize =10
+                    TabIndex =6
+                    Name ="Text288"
+                    ControlSource ="CustMaterial"
+                    GUID = Begin
+                        0x14aab32367d8b543984fb6bb92bd9f31
+                    End
                 End
             End
         End

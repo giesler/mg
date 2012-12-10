@@ -967,27 +967,26 @@ End Function
 
 
 Public Function OutputShipSummary(txtFileName As String, strFilter As String, strMsg As String, flgUseShade As Boolean, strSelDate As String) As Boolean
-On Error GoTo OutputShipSummary_Err
-
-'TODO:  fix this report
-MsgBox "The shipment summary report does not work right now.  It is being converted.", vbExclamation
-
-Exit Function
+'On Error GoTo OutputShipSummary_Err
 
 Dim rsData As ADODB.Recordset
 Dim lngFile As Long, fldCur As ADODB.Field, intLoop As Integer, varCur As Variant
 Dim curTotal As Currency, strSQL As String, iQty As Integer, iCur As Integer
 
 'Open recordset
-strSQL = "SELECT po.PO, po.Date_Ordered, po.Purchaser, po.Job_Number, po.Ship_Address1, " _
-    & "po.Ship_Name, po.Ship_Date, po.Arrive_Date, po.Ship_Via, po.[Pro#], " _
-    & "cat.Description, Sum(poi.Quanity) AS Quantity " _
+strSQL = "SELECT " _
+    & "po.PO [PO #], po.Date_Ordered [Date Ordered], po.Purchaser [Purchasing Agent], " _
+    & "po.Job_Number [Job #], po.Ship_Address1 AS [Mall Name], " _
+    & "po.Ship_Name AS [Store Type], po.Ship_Date [Ship Date], " _
+    & "po.Arrive_Date AS [ETA Date], po.Arrive_Date AS [STA Date], po.Ship_Via AS [Carrier Name], " _
+    & "po.[Pro#] AS [Tracking #], " _
+    & "cat.Material, Sum(poi.Quanity) AS Quantity " _
     & "FROM Tbl_PO po INNER JOIN Tbl_PO_Items poi ON po.ID = poi.ID INNER JOIN Tbl_Catalog cat ON cat.Material = poi.Material "
 If strFilter <> "" Then
     strSQL = strSQL & " WHERE " & strFilter & " "
 End If
 strSQL = strSQL & "GROUP BY po.PO, po.Date_Ordered, po.Purchaser, po.Job_Number, " _
-  & "po.Ship_Address1, po.Ship_Name, po.Ship_Date, po.Arrive_Date, po.Ship_Via, po.[Pro#], cat.Description"
+  & "po.Ship_Address1, po.Ship_Name, po.Ship_Date, po.Arrive_Date, po.Ship_Via, po.[Pro#], cat.Material"
 
 Set rsData = New ADODB.Recordset
 rsData.Open strSQL, gConn, adOpenStatic, adLockReadOnly
@@ -1008,10 +1007,20 @@ End If
 'strCols(5) = "Ship Date"
 'Set rsCT = CrossTabRS(rsData, "CashwrapName", strCols, "Quantity")
 
-Dim rsCT As ADODB.Recordset, strCols(1) As String
-strCols(0) = "Date_Ordered"
-strCols(1) = "Purchaser"
-Set rsCT = CrossTabRS(rsData, "PO", strCols, "Quantity")
+Dim rsCT As ADODB.Recordset, strCols(11) As String
+strCols(0) = "PO #"
+strCols(1) = "Date Ordered"
+strCols(2) = "Purchasing Agent"
+strCols(3) = "Job #"
+strCols(4) = "Mall Name"
+strCols(5) = "Store Type"
+strCols(6) = "Ship Date"
+strCols(7) = "ETA Date"
+strCols(8) = "STA Date"
+strCols(9) = "Carrier Name"
+strCols(10) = "Tracking #"
+
+Set rsCT = CrossTabRS(rsData, "Material", strCols, "Quantity")
 rsData.Close
 Set rsData = Nothing
 
@@ -1039,17 +1048,14 @@ Print #lngFile, "</CENTER>"
 'Header row
 Print #lngFile, "<TR>"
 For Each fldCur In rsCT.Fields
-  Select Case fldCur.Name
-    Case "PO #", "Date Ordered", "Purchasing Agent", "Job #", "Store Type", "Mall Name", "Ship Date", "STA Date", "ETA Date", "Carrier Name", "Tracking #"
-      Print #lngFile, "<TD><FONT FACE=""Arial"" SIZE=-1>" & fldCur.Name & "</FONT></TD>"
-  End Select
+  Print #lngFile, "<TD><FONT FACE=""Arial"" SIZE=-1>" & fldCur.Name & "</FONT></TD>"
 Next fldCur
 Print #lngFile, "</TR>"
 
 'Now print row details (qty's per store)
 Dim flgShade As Boolean, strColor As String
 flgShade = True
-OpenStatusForm "Outputting PO details...", iQty
+OpenStatusForm "Outputting PO details...", rsCT.RecordCount
 iCur = 0
 Do While Not rsCT.EOF
     Print #lngFile, "<TR>"
@@ -1060,10 +1066,7 @@ Do While Not rsCT.EOF
     End If
     For intLoop = 0 To rsCT.Fields.Count - 1
         varCur = rsCT.Fields(intLoop)
-        Select Case rsCT.Fields(intLoop).Name
-          Case "PO #", "Date Ordered", "Purchasing Agent", "Job #", "Store Type", "Mall Name", "Ship Date", "STA Date", "ETA Date", "Carrier Name", "Tracking #"
-            Print #lngFile, "<TD ALIGN=""left""" & strColor & "><FONT FACE=""Arial"" SIZE=-1>" & Nz(varCur, "&nbsp;") & "</FONT></TD>"
-        End Select
+        Print #lngFile, "<TD ALIGN=""left""" & strColor & "><FONT FACE=""Arial"" SIZE=-1>" & Nz(varCur, "&nbsp;") & "</FONT></TD>"
     Next intLoop
     Print #lngFile, "</TR>"
     rsCT.MoveNext
@@ -1141,7 +1144,7 @@ Public Function CrossTabRS(rsInput As ADODB.Recordset, _
   ' Create table fields for non value non header fields
   For Each fld In rsInput.Fields
     If fld.Name <> pstrColHead And fld.Name <> pstrValue Then
-      rsOut.Fields.Append fld.Name, fld.Type, fld.DefinedSize, adFldIsNullable
+      rsOut.Fields.Append Trim(fld.Name), fld.Type, fld.DefinedSize, adFldIsNullable
     End If
   Next fld
 
@@ -1156,7 +1159,7 @@ Public Function CrossTabRS(rsInput As ADODB.Recordset, _
     End If
     rsInput.MoveNext
   Loop
-
+  
   ' Now append rows
   varTemp = ""
   For i = LBound(pstrRowHeads) To UBound(pstrRowHeads) - 1
