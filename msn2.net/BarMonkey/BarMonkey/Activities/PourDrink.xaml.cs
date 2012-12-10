@@ -27,7 +27,6 @@ namespace BarMonkey.Activities
         private Container container;
         private Dispenser disp;
         private MediaPlayer mediaPlayer;
-        private DispatcherTimer timer;
 
         public PourDrink()
         {
@@ -40,9 +39,7 @@ namespace BarMonkey.Activities
 
             this.mediaPlayer = new MediaPlayer();
             this.mediaPlayer.MediaEnded += new EventHandler(mediaPlayer_MediaEnded);
-            this.mediaPlayer.Open(new Uri("twilightzone.wav", UriKind.Relative));
-
-            //this.timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, this.OnTimer, this.Dispatcher);
+            this.mediaPlayer.Open(new Uri("margaritaville.wav", UriKind.Relative));            
         }
 
         void mediaPlayer_MediaEnded(object sender, EventArgs e)
@@ -103,7 +100,7 @@ namespace BarMonkey.Activities
             this.Title = "pouring " + this.drink.Name.ToLower();
             this.statusLabel.Content = "connecting...";
 
-            //this.mediaPlayer.Play();
+            this.mediaPlayer.Play();
 
             while (true)
             {
@@ -149,8 +146,8 @@ namespace BarMonkey.Activities
             }
             else
             {
-                Uri uri = new Uri("pack://application:,,,/PartyModeHomePage.xaml");
-                
+                App.GoToNewDrinkPage = true;
+                Uri uri = new Uri("pack://application:,,,/PartyModeHomePage.xaml");                
                 this.NavigationService.Navigate(uri);
             }            
         }        

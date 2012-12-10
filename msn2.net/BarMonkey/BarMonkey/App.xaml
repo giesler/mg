@@ -10,18 +10,22 @@
 			<Setter Property="Opacity" Value="0.90" />
 			<Setter Property="FontSize" Value="18pt" />
 			<Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="White" />
 		</Style>
 		<Style x:Key="DefaultDescriptionTextStyle" TargetType="Control" BasedOn="{StaticResource DefaultTextStyle}">
 			<Setter Property="FontSize" Value="16pt" />
-		</Style>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
 		<Style x:Key="DefaultTextBlockStyle" TargetType="TextBlock">
 			<Setter Property="FontSize" Value="16pt" />
 			<Setter Property="TextWrapping" Value="Wrap" />
-		</Style>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
 		<Style x:Key="DefaultColumnHeaderStyle" TargetType="Label">
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="FontSize" Value="20" />
-		</Style>
+            <Setter Property="Foreground" Value="White" />
+        </Style>
 		<Style x:Key="DefaultButtonStyleNoAutoSize" TargetType="Control">
 			<Setter Property="Background" Value="{DynamicResource DefaultButtonFace}" />
 			<Setter Property="RenderTransformOrigin" Value="0,0" />
@@ -176,24 +180,6 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<Style x:Key="DefaultButtonStyleOld" TargetType="Control">
-			<Setter Property="Width" Value="Auto" />
-			<Setter Property="Height" Value="Auto" />
-			<Setter Property="Background" Value="{DynamicResource DefaultButtonFace}" />
-			<Setter Property="RenderTransformOrigin" Value="0,0" />
-			<Setter Property="FontWeight" Value="SemiBold" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontSize" Value="14pt" />
-			<Setter Property="OpacityMask">
-				<Setter.Value>
-					<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-						<GradientStop Color="#FF000000" Offset="0"/>
-						<GradientStop Color="#FFFFFFFF" Offset="1"/>
-					</LinearGradientBrush>
-				</Setter.Value>
-			</Setter>
-			<Setter Property="FontStretch" Value="Normal"/>
-		</Style>
 		<Style x:Name="DefaultListButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
 			<Setter Property="MinHeight" Value="60" />
 			<Setter Property="MinWidth" Value="80" />
@@ -233,6 +219,5 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Application.Resources>
 </Application>

@@ -27,7 +27,7 @@ namespace msn2.net.BarMonkey
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadDrinks), new object());
         }
-
+        
         void LoadDrinks(object sender)
         {
             App.Drinks = BarMonkeyContext.Current.Drinks.GetDrinks();
@@ -38,14 +38,23 @@ namespace msn2.net.BarMonkey
 
         void EnableActions(object sender)
         {
-            this.newDrink.IsEnabled = true;
-            this.settings.IsEnabled = true;
-            this.commands.Visibility = System.Windows.Visibility.Visible;
-            this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
+            if (App.GoToNewDrinkPage)
+            {
+                App.GoToNewDrinkPage = false;
+                newDrink_Click(this, null);
+            }
+            else
+            {
+                this.newDrink.IsEnabled = true;
+                this.settings.IsEnabled = true;
+                this.commands.Visibility = System.Windows.Visibility.Visible;
+                this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         private void newDrink_Click(object sender, RoutedEventArgs e)
         {
+            this.newDrink.Visibility = System.Windows.Visibility.Collapsed;
             Uri uri = new Uri("pack://application:,,,/Activities/BrowseByAlpha.xaml");
             NavigationService.Navigate(uri);
         }

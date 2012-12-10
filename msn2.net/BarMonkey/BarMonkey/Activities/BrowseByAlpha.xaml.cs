@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using BarMonkey;
 using BarMonkey.Activities;
 
@@ -23,10 +24,12 @@ namespace msn2.net.BarMonkey.Activities
     public partial class BrowseByAlpha : Page
     {
         private Container container = null;
+        private DispatcherTimer timer = null;
+        private DateTime lastInput = DateTime.Now;
 
         public BrowseByAlpha()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -43,8 +46,21 @@ namespace msn2.net.BarMonkey.Activities
             this.containers.ItemsSource = App.Containers;
             this.containers.SelectedIndex = this.containers.Items.Count - 1;
 
-            this.sweetness.ItemsSource = BarMonkeyContext.Current.Sweetnesses;
-            this.sweetness.SelectedIndex = 0;
+            this.timer = new DispatcherTimer(TimeSpan.FromSeconds(10), DispatcherPriority.Background, this.OnTimer, this.Dispatcher);
+        }
+
+        void OnTimer(object sender, EventArgs e)
+        {
+            if (this.lastInput.AddSeconds(120) < DateTime.Now)
+            {
+                this.timer.IsEnabled = false;
+                this.timer.Stop();
+
+                if (this.NavigationService != null)
+                {
+                    NavigationService.GoBack();
+                }
+            }
         }
 
         void navBar_NextClicked(object sender, EventArgs e)
@@ -61,12 +77,14 @@ namespace msn2.net.BarMonkey.Activities
 
         private void drinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.navBar.NextEnabled = true;            
+            this.navBar.NextEnabled = true;
+            this.lastInput = DateTime.Now;
         }
 
         private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.container = this.containers.SelectedItem as Container;
+            this.lastInput = DateTime.Now;
         }
 
     }

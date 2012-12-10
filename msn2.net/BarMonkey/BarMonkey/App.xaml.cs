@@ -17,6 +17,7 @@ namespace BarMonkey
         public static List<Drink> Drinks { get; set; }
         public static List<Container> Containers { get; set; }
         public static string[] Messages {get; set;}
+        public static bool GoToNewDrinkPage { get; set; }
 
         protected override void OnActivated(EventArgs e)
         {

@@ -15,7 +15,7 @@
             <RowDefinition />
             <RowDefinition Height="220px" />
         </Grid.RowDefinitions>
-        <TextBlock Name="motd" FontSize="32" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" TextWrapping="WrapWithOverflow" TextAlignment="Center" />
+        <TextBlock Name="motd" FontSize="32" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" TextWrapping="WrapWithOverflow" TextAlignment="Center" Foreground="White" />
         <StackPanel Name="statusPanel" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Name="statusLabel" FontSize="22" Content="[status]" Style="{DynamicResource DefaultTextStyle}" HorizontalAlignment="Center" Foreground="DarkGray" />
             <ProgressBar Height="6" Name="pbar" Width="200" IsIndeterminate="True" />

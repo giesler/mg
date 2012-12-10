@@ -12,7 +12,7 @@
             <ColumnDefinition />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
-        <ListBox Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="6" Background="Transparent">
+        <ListBox Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="6" Background="Transparent" BorderBrush="DarkGray">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,0,0,6">
@@ -20,36 +20,25 @@
                             <RowDefinition Height="42" />
                             <RowDefinition Height="30" />
                         </Grid.RowDefinitions>
-                        <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
-                        <Label Content="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="0,-9,0,0" />
+                        <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" />
+                        <Label Content="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="0,-9,0,0" Foreground="Gray" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Column="1" Margin="0,-12,0,0">
-            <TextBlock Text="CONTAINER" />
-            <ListBox Name="containers" SelectionChanged="containers_SelectionChanged" Background="Transparent" Margin="0,2,0,0">
+            <TextBlock Text="CONTAINER" Foreground="White" />
+            <ListBox Name="containers" SelectionChanged="containers_SelectionChanged" Background="Transparent" Margin="0,2,0,0" Foreground="White" BorderBrush="DarkGray">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <TextBlock Text="SWEETNESS" Margin="0,12,0,0" />
-            <ListBox Name="sweetness" Background="Transparent">
-                <!--                    <ListBox.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Silver" />
-                    </ListBox.Resources>-->
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                        <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
         <bnc:NavigationBar Grid.Row="1" x:Name="navBar" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <bnc:NavigationBar.NextContent>
-                <TextBlock Text="pour drink --&gt;" Foreground="Green" FontSize="32" />
+                <TextBlock Text="pour drink --&gt;" Foreground="LightGreen" FontSize="36" FontWeight="Bold" />
             </bnc:NavigationBar.NextContent>
         </bnc:NavigationBar>
     </Grid>
