@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using msn2.net.Pictures;
+using System.Text;
 
 namespace pics.Auth
 {
@@ -22,12 +23,7 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.RequiredFieldValidator EmailValidator;
 		protected System.Web.UI.WebControls.RegularExpressionValidator EmailRegexVal;
 	
-// 		public NewLogin()
-// 		{
-// 			Page.Init += new System.EventHandler(Page_Init);
-// 		}
-
-		private void Page_Load(object sender, System.EventArgs e)
+		void Page_Load(object sender, System.EventArgs e)
 		{
 			if (!Page.IsPostBack)
 			{
@@ -40,8 +36,7 @@ namespace pics.Auth
 			}
 
 		}
-
-
+        
 		public PasswordRequestType PageRequestType
 		{
 			get
@@ -62,7 +57,7 @@ namespace pics.Auth
 			}
 		}
 
-		private void Page_Init(object sender, EventArgs e)
+		void Page_Init(object sender, EventArgs e)
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
@@ -82,47 +77,56 @@ namespace pics.Auth
 		#endregion
 
         protected void btnSend_Click(object sender, System.EventArgs e)
-		{
-			// encrypt the password
-			MD5 md5 = MD5.Create();
-			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtPassword.Text));
+        {
+            if (this.vtxt.Text.Trim() != "etades")
+            {
+                pnlError.Visible = true;
+                pnlNewLogin.Visible = false;
+                
+            }
+            else
+            {
+                // encrypt the password
+                MD5 md5 = MD5.Create();
+                byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtPassword.Text));
 
-			// Add a new user request
-			int id = PicContext.Current.UserManager.AddNewUserRequest(txtName.Text, txtLookupEmail.Text, 
-				System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
-            
-			// figure out who to send to
-			String strSendTo;
-			strSendTo = lstRequest.SelectedItem.Value + "@msn2.net";
+                // Add a new user request
+                int id = PicContext.Current.UserManager.AddNewUserRequest(txtName.Text, txtLookupEmail.Text,
+                    System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
 
-			// create the message body
-			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
+                // figure out who to send to
+                string strSendTo = lstRequest.SelectedItem.Value + "@msn2.net";
 
-			sb.Append("<p>Someone used your name to request a new login to msn2.net.  Wow, cool, huh!?!?  ");
-			sb.Append("</p>");
-			sb.Append("<p>Name: <b>" + txtName.Text + "</b></<br />>");
-			sb.Append("Email: <a href=\"mailto:" + txtLookupEmail.Text + "\"><b>" + Server.HtmlEncode(txtLookupEmail.Text) + "</a></b></p>");
-			sb.Append("<a href=\"http://" + Request.Url.Host + Request.ApplicationPath + "/Admin/AuthNewLogin.aspx");
-			sb.Append("?id=" + id.ToString() + "\">Click here to authorize</a>");
-			sb.Append("<p>If you don't want to authorize them, just ignore this message.  They know who it was sent to, though.</p>");
+                // create the message body
+                StringBuilder sb = new StringBuilder(1000);
 
-			// Send an email to correct person
-			MailMessage msg = new MailMessage();
-			msg.From	= new MailAddress("MSN2 Login System <login@msn2.net>");
-			msg.To.Add(new MailAddress(strSendTo));
-			msg.Headers.Add("Reply-To", txtName.Text + "<" + txtLookupEmail.Text + ">");
-			msg.Subject = "New User on pics.msn2.net";
-			msg.Body	= Msn2Mail.BuildMessage(sb.ToString());
-            msg.IsBodyHtml = true;
+                sb.Append("<p>Someone used your name to request a new login to msn2.net.  Wow, cool, huh!?!?  ");
+                sb.Append("</p>");
+                sb.Append("<p>Name: <b>" + txtName.Text + "</b><br />");
+                sb.Append("<p>Comments: <b>" + comments.Text + "</b><br />");
+                sb.Append("Email: <a href=\"mailto:" + txtLookupEmail.Text + "\"><b>" + Server.HtmlEncode(txtLookupEmail.Text) + "</a></b></p>");
+                sb.Append("<a href=\"http://" + Request.Url.Host + Request.ApplicationPath + "/Admin/AuthNewLogin.aspx");
+                sb.Append("?id=" + id.ToString() + "\">Click here to authorize</a>");
+                sb.Append("<p>If you don't want to authorize them, just ignore this message.  They know who it was sent to, though.</p>");
 
-			// Send the email message
-			SmtpClient client = new SmtpClient(PicContext.Current.Config.SmtpServer);
-            client.Send(msg);
+                // Send an email to correct person
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("MSN2 Login System <login@msn2.net>");
+                msg.To.Add(new MailAddress(strSendTo));
+                msg.Headers.Add("Reply-To", txtName.Text + "<" + txtLookupEmail.Text + ">");
+                msg.Subject = "New User on pics.msn2.net";
+                msg.Body = Msn2Mail.BuildMessage(sb.ToString());
+                msg.IsBodyHtml = true;
 
-			// show user a brief message
-			pnlInfo.Visible		= true;
-			pnlNewLogin.Visible = false;
-		}
+                // Send the email message
+                SmtpClient client = new SmtpClient(PicContext.Current.Config.SmtpServer);
+                client.Send(msg);
+
+                // show user a brief message
+                pnlInfo.Visible = true;
+                pnlNewLogin.Visible = false;
+            }
+        }
 
         protected void btnEmailLookup_Click(object sender, System.EventArgs e)
 		{
@@ -141,7 +145,7 @@ namespace pics.Auth
 			if (resetKey != Guid.Empty) 
 			{
 				// build message
-				System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
+				StringBuilder sb = new StringBuilder(1000);
 
 				Trace.Write("EmailLookup", "PasswordRequestType = " + PageRequestType.ToString());
 

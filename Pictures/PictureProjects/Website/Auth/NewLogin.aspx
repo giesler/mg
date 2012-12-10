@@ -155,6 +155,15 @@
                                             <asp:TextBox ID="txtConfirmPassword" Width="175px" runat="server" TextMode="Password"></asp:TextBox>
                                         </td>
                                     </tr>
+                                    <tr class="logintablecontent">
+                                        <td class="logintabletext" valign="top">
+                                            Automated login script check:
+                                        </td>
+                                        <td class="logintabletext">
+                                            Please enter the following text: etades<br />
+                                            <asp:TextBox runat="server" ID="vtxt" />
+                                        </td>
+                                    </tr>
                                     <tr class="loginTableContent">
                                         <td class="loginTableText">
                                             Send request to:
@@ -166,6 +175,14 @@
                                                 <asp:ListItem Text="Neil"></asp:ListItem>
                                                 <asp:ListItem Text="Nick"></asp:ListItem>
                                             </asp:DropDownList>
+                                        </td>
+                                    </tr>
+                                    <tr class="loginTableContent">
+                                        <td class="loginTableText">
+                                            Comments:
+                                        </td>
+                                        <td class="loginTableText">
+                                            <asp:TextBox runat="server" ID="comments" MaxLength="255"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr class="loginTableContent">
@@ -182,6 +199,11 @@
                             </td>
                         </tr>
                     </table>
+                </asp:Panel>
+                <asp:Panel runat="server" ID="pnlError" Visible="false">
+                    <p>
+                        Invalid entry. Click back to correct the form or move along...
+                    </p>
                 </asp:Panel>
                 <asp:Panel ID="pnlInfo" runat="server" Visible="False" Width="100%">
                     <p>
