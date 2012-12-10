@@ -16,8 +16,10 @@ namespace RandomThumbSite
 {
     public partial class _Default : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             PicContext context = PicContext.Current;
             PictureData random = context.PictureManager.GetRandomPicture();
 
@@ -50,6 +52,23 @@ namespace RandomThumbSite
 
             this.imageLink.Target = "_new";
             this.imageLink.NavigateUrl = string.Format("http://pics.msn2.net/picview.aspx?p={0}&type=random", random.Id);
+
+            string title = random.Title;
+            if (title.Length > 15)
+            {
+                title = title.Substring(0, 14) + "...";
+                this.titleLabel.ToolTip = random.Title;
+            }
+            this.titleLabel.Text = title;
+
+            this.dateLabel.Text = random.DateTaken.ToShortDateString();
+
+            if (categories.Length > 15)
+            {
+                this.categories.ToolTip = categories;
+                categories = categories.Substring(0, 14);
+            }
+            this.categories.Text = categories;
         }
 
         protected void next_Click(object sender, EventArgs e)
