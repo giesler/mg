@@ -85,6 +85,8 @@ namespace SLExpress
                 LinkButton button = new LinkButton { Text = list.Name, ID = list.UniqueId.ToString() };
                 button.Click += new EventHandler(OnMoveItemStart);
                 this.moveItemList.Controls.Add(button);
+
+                this.moveItemList.Controls.Add(new Literal { Text = "<br />" });
             }
 
             if (this.list.Items.Count > 0)
@@ -139,19 +141,39 @@ namespace SLExpress
 
                     TextBox tb = new TextBox { Text = i.Name };
                     tb.ID = "TB:" + i.UniqueId.ToString();
+                    tb.Columns = 50;
                     this.editItems.Controls.Add(tb);
                     
                     Button btn = new Button { Text = "save" };
                     btn.Click += new EventHandler(OnSaveItem);
-                    this.editPanel.Controls.Add(btn);
+                    this.editItems.Controls.Add(btn);
+
+                    Button delete = new Button { Text = "delete" };
+                    delete.Click += new EventHandler(OnDeleteItem);
+                    this.editItems.Controls.Add(delete);
 
                     Button move = new Button { Text = "move" };
                     move.Click += new EventHandler(OnMoveItemStart);
-                    this.editPanel.Controls.Add(move);
+                    //this.editItems.Controls.Add(move);
 
-                    this.editPanel.Controls.Add(new LiteralControl("<br />"));
+                    this.editItems.Controls.Add(new LiteralControl("<br />"));
                 }
             }
+        }
+
+        void OnDeleteItem(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            int index = btn.Parent.Controls.IndexOf(btn);
+            TextBox tb = (TextBox)btn.Parent.Controls[index - 2];
+            Guid itemId = new Guid(tb.ID.ToString().Substring(3));
+
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"]; 
+            ListDataService lds = new ListDataService();
+            lds.DeleteListItem(authData, itemId);
+
+            this.LoadLists();
         }
 
         void OnMoveItemStart(object sender, EventArgs e)
@@ -159,11 +181,12 @@ namespace SLExpress
             Button btn = (Button)sender;
 
             int index = btn.Parent.Controls.IndexOf(btn);
-            TextBox tb = (TextBox)btn.Parent.Controls[index - 1];
+            TextBox tb = (TextBox)btn.Parent.Controls[index - 3];
             Guid itemId = new Guid(tb.ID.ToString().Substring(3));
 
             this.editItems.Visible = false;
             this.moveItemId.Value = itemId.ToString();
+            this.moveItem.Visible = true;
 
             this.addMode.Enabled = false;
             this.viewMode.Enabled = false;
@@ -275,7 +298,7 @@ namespace SLExpress
             this.main.Visible = true;
         }
 
-        void OnCancelMove(object sender, EventArgs e)
+        protected void OnCancelMove(object sender, EventArgs e)
         {
             this.addMode.Enabled = true;
             this.viewMode.Enabled = true;

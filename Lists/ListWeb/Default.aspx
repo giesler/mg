@@ -25,8 +25,8 @@
     <hr noshade />
     <asp:Panel runat="server" CssClass="main">
         <asp:Panel ID="modePanel" runat="server">
-            <asp:LinkButton ID="addMode" Text="add" runat="server" OnClick="OnAdd" CssClass="modeLink" />
-            <asp:LinkButton ID="editMode" Text="edit" runat="server" OnClick="OnEdit" CssClass="modeLink" />
+            <asp:LinkButton ID="addMode" Text="add" runat="server" OnClick="OnAdd" CssClass="modeLink" /> |
+            <asp:LinkButton ID="editMode" Text="edit" runat="server" OnClick="OnEdit" CssClass="modeLink" /> |
             <asp:LinkButton ID="viewMode" Text="view" Font-Bold="true" Enabled="false" runat="server"
                 CssClass="modeLink" OnClick="OnView" />
             <asp:Panel runat="server" ID="topPanel">
