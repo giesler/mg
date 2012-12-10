@@ -848,7 +848,17 @@ namespace msn2.net.Pictures.Controls
         void menuAddPictures_Click(object sender, System.EventArgs e)
         {
 
-            AddPictureDialog f = new AddPictureDialog(PicContext.Current);
+            Category category = null;
+            if (this.filter.SelectedNode is CategoryTreeNode)
+            {
+                category = ((CategoryTreeNode)this.filter.SelectedNode).Category;
+                if (category.Path == "" || this.filter.SelectedNode.Nodes.Count > 0)
+                {
+                    category = null;
+                }
+            }
+
+            AddPictureDialog f = new AddPictureDialog(PicContext.Current, category);
             try
             {
                 if (f.ShowDialog(this) == DialogResult.OK)

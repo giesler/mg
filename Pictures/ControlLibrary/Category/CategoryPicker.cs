@@ -277,6 +277,11 @@ namespace msn2.net.Pictures.Controls
 		{
 		}
 
+        public void LoadTree()
+        {
+            this.categoryTree1.LoadTree();
+        }
+
 		public System.Collections.ArrayList selectedCategories
 		{
 			get 

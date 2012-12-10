@@ -46,7 +46,7 @@ namespace msn2.net.Pictures.Controls
         private fStatus stat;
         private PicContext context;
 
-		public AddPictureDialog(PicContext context)
+		public AddPictureDialog(PicContext context, Category category)
 		{
             this.context = context;
 
@@ -54,6 +54,12 @@ namespace msn2.net.Pictures.Controls
 
             // add everyone group by default
 			groupPicker1.AddSelectedGroup(1);
+            this.categoryPicker1.LoadTree();
+
+            if (category != null)
+            {
+                this.categoryPicker1.AddSelectedCategory(category.Id);
+            }
 
             this.AcceptButton = this.btnAdd;
             this.CancelButton = this.btnCancel;

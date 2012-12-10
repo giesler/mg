@@ -44,11 +44,9 @@ namespace msn2.net.Pictures.Controls
             this.tvCategory.ImageList.Images.Add(CommonImages.Folder);
         }
 
-        protected override void OnLoad(EventArgs e)
+        public void LoadTree()
         {
-            base.OnLoad(e);
-
-            RefreshTree();
+            this.RefreshTree();
         }
 
         private void RefreshTree()
