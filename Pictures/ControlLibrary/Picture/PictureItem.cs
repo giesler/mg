@@ -174,7 +174,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
-                this.Refresh();
+                this.Invalidate();
             }
         }
 

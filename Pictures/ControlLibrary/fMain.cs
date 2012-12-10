@@ -84,6 +84,10 @@ namespace msn2.net.Pictures.Controls
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton copytofolderToolStripButton;
+        private MenuItem menuRotate;
+        private MenuItem menuRotateRight90;
+        private MenuItem menuRotateLeft90;
+        private MenuItem menuRotate180;
         private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
@@ -240,16 +244,20 @@ namespace msn2.net.Pictures.Controls
             this.viewbyToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.rightListContainer = new System.Windows.Forms.SplitContainer();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.menuRotate = new System.Windows.Forms.MenuItem();
+            this.menuRotateRight90 = new System.Windows.Forms.MenuItem();
+            this.menuRotateLeft90 = new System.Windows.Forms.MenuItem();
+            this.menuRotate180 = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -273,7 +281,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // mnuPictureListMoveDown
             // 
-            this.mnuPictureListMoveDown.Index = 4;
+            this.mnuPictureListMoveDown.Index = 5;
             this.mnuPictureListMoveDown.Shortcut = System.Windows.Forms.Shortcut.CtrlD;
             this.mnuPictureListMoveDown.Text = "Move D&own";
             // 
@@ -290,6 +298,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.mnuPictureList.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuPictureListEdit,
+            this.menuRotate,
             this.mnuPictureListDelete,
             this.menuItem2,
             this.mnuPictureListMoveUp,
@@ -311,59 +320,59 @@ namespace msn2.net.Pictures.Controls
             // 
             // mnuPictureListDelete
             // 
-            this.mnuPictureListDelete.Index = 1;
+            this.mnuPictureListDelete.Index = 2;
             this.mnuPictureListDelete.Shortcut = System.Windows.Forms.Shortcut.Del;
             this.mnuPictureListDelete.Text = "&Delete";
             this.mnuPictureListDelete.Click += new System.EventHandler(this.mnuPictureListDelete_Click);
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 2;
+            this.menuItem2.Index = 3;
             this.menuItem2.Text = "-";
             // 
             // mnuPictureListMoveUp
             // 
-            this.mnuPictureListMoveUp.Index = 3;
+            this.mnuPictureListMoveUp.Index = 4;
             this.mnuPictureListMoveUp.Shortcut = System.Windows.Forms.Shortcut.CtrlU;
             this.mnuPictureListMoveUp.Text = "Move &Up";
             // 
             // menuItem6
             // 
-            this.menuItem6.Index = 5;
+            this.menuItem6.Index = 6;
             this.menuItem6.Text = "&Picture Info";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
             // 
             // menuItem7
             // 
-            this.menuItem7.Index = 6;
+            this.menuItem7.Index = 7;
             this.menuItem7.Text = "-";
             // 
             // menuAddToCategory
             // 
-            this.menuAddToCategory.Index = 7;
+            this.menuAddToCategory.Index = 8;
             this.menuAddToCategory.Text = "&Add to category...";
             this.menuAddToCategory.Click += new System.EventHandler(this.menuAddToCategory_Click);
             // 
             // menuRemoveFromCategory
             // 
-            this.menuRemoveFromCategory.Index = 8;
+            this.menuRemoveFromCategory.Index = 9;
             this.menuRemoveFromCategory.Text = "&Remove from category...";
             this.menuRemoveFromCategory.Click += new System.EventHandler(this.menuRemoveFromCategory_Click);
             // 
             // menuItem8
             // 
-            this.menuItem8.Index = 9;
+            this.menuItem8.Index = 10;
             this.menuItem8.Text = "-";
             // 
             // menuAddSecurityGroup
             // 
-            this.menuAddSecurityGroup.Index = 10;
+            this.menuAddSecurityGroup.Index = 11;
             this.menuAddSecurityGroup.Text = "Add security gruop...";
             this.menuAddSecurityGroup.Click += new System.EventHandler(this.menuAddSecurityGroup_Click);
             // 
             // menuRemoveSecurityGroup
             // 
-            this.menuRemoveSecurityGroup.Index = 11;
+            this.menuRemoveSecurityGroup.Index = 12;
             this.menuRemoveSecurityGroup.Text = "Remove security group...";
             this.menuRemoveSecurityGroup.Click += new System.EventHandler(this.menuRemoveSecurityGroup_Click);
             // 
@@ -504,6 +513,10 @@ namespace msn2.net.Pictures.Controls
             this.imageSizeCombo.Text = "100";
             this.imageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.imageSizeCombo_SelectedIndexChanged);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            // 
             // toolStripSelectAll
             // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
@@ -515,6 +528,17 @@ namespace msn2.net.Pictures.Controls
             this.toolStripClearAll.Name = "toolStripClearAll";
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            // 
+            // copytofolderToolStripButton
+            // 
+            this.copytofolderToolStripButton.Image = msn2.net.Pictures.Controls.Properties.Resources.move;
+            this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
+            this.copytofolderToolStripButton.Text = "Copy to folder";
+            this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
             // 
             // mainSplitContainer
             // 
@@ -582,20 +606,32 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
             // 
-            // toolStripSeparator1
+            // menuRotate
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.menuRotate.Index = 1;
+            this.menuRotate.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuRotateRight90,
+            this.menuRotateLeft90,
+            this.menuRotate180});
+            this.menuRotate.Text = "&Rotate";
             // 
-            // toolStripSeparator2
+            // menuRotateRight90
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.menuRotateRight90.Index = 0;
+            this.menuRotateRight90.Text = "&Right 90";
+            this.menuRotateRight90.Click += new System.EventHandler(this.menuRotateRight90_Click);
             // 
-            // copytofolderToolStripButton
+            // menuRotateLeft90
             // 
-            this.copytofolderToolStripButton.Image = msn2.net.Pictures.Controls.Properties.Resources.move;
-            this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
-            this.copytofolderToolStripButton.Text = "Copy to folder";
-            this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
+            this.menuRotateLeft90.Index = 1;
+            this.menuRotateLeft90.Text = "&Left 90";
+            this.menuRotateLeft90.Click += new System.EventHandler(this.menuRotateLeft90_Click);
+            // 
+            // menuRotate180
+            // 
+            this.menuRotate180.Index = 2;
+            this.menuRotate180.Text = "180";
+            this.menuRotate180.Click += new System.EventHandler(this.menuRotate180_Click);
             // 
             // fMain
             // 
@@ -1173,6 +1209,36 @@ namespace msn2.net.Pictures.Controls
             RandomSlideshow random = new RandomSlideshow();
             random.SetSourceForm(this);
             random.Show();
+        }
+
+        private void menuRotateRight90_Click(object sender, EventArgs e)
+        {
+            RotateSelectedPictures(RotateFlipType.Rotate90FlipNone);
+        }
+        
+        private void RotateSelectedPictures(RotateFlipType rft)
+        {
+            PictureManager pm = PicContext.Current.PictureManager;
+            
+            foreach (int pictureId in pictureList1.SelectedItems)
+            {
+                pm.RotateImage(pictureId, rft);
+
+                ImageUtilities iu = new ImageUtilities();
+                iu.CreateUpdateCache(pictureId);
+
+                pictureList1.ReloadPicture(pictureId);
+            }
+        }
+
+        private void menuRotateLeft90_Click(object sender, EventArgs e)
+        {
+            RotateSelectedPictures(RotateFlipType.Rotate270FlipNone);
+        }
+
+        private void menuRotate180_Click(object sender, EventArgs e)
+        {
+            RotateSelectedPictures(RotateFlipType.Rotate180FlipNone);
         }
     }
 }

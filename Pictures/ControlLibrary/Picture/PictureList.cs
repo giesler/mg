@@ -87,6 +87,13 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
+        public void ReloadPicture(int pictureId)
+        {
+            PictureItem item = FindItem(pictureId);
+            PictureData data = PicContext.Current.PictureManager.GetPicture(pictureId);
+            item.SetPicture(data);
+        }
+
         public PictureData GetSelectedPictureData()
         {
             PictureData val = null;
