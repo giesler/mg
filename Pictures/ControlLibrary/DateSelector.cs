@@ -18,34 +18,34 @@ namespace msn2.net.Pictures.Controls
         {
             InitializeComponent();
 
-            LoadTreeView(dates, fieldName);
+            LoadTreeView(dates, fieldName, tv.Nodes, 0);
 
             this.tv.HideSelection = false;
         }
 
-        private void LoadTreeView(DateCollection dates, string fieldName)
+        public static void LoadTreeView(DateCollection dates, string fieldName, TreeNodeCollection rootCollection, int imageIndex)
         {
             foreach (DateItem item in dates)
             {
-                TreeNode nYear = GetNode(tv.Nodes, item.Year.ToString());
+                DateFilterTreeNode nYear = GetNode(rootCollection, item.Year.ToString(), imageIndex);
                 nYear.Tag = "DatePart(yyyy, " + fieldName + ") = " + nYear.Text;
-                if (item.Year == DateTime.Now.Year)
-                {
-                    nYear.Expand();
-                }
+                //if (item.Year == DateTime.Now.Year)
+                //{
+                //    nYear.Expand();
+                //}
 
-                TreeNode nMonth = GetNode(nYear.Nodes, MonthString(item.Month));
+                DateFilterTreeNode nMonth = GetNode(nYear.Nodes, MonthString(item.Month), imageIndex);
                 nMonth.Tag = "DatePart(yyyy, " + fieldName + ") = " + nYear.Text + " AND "
                     + "DatePart(mm, " + fieldName + ") = " + item.Month.ToString();
 
-                TreeNode nDay = GetNode(nMonth.Nodes, nMonth.Text + " " + item.Day.ToString());
+                DateFilterTreeNode nDay = GetNode(nMonth.Nodes, nMonth.Text + " " + item.Day.ToString(), imageIndex);
                 nDay.Tag = "DatePart(yyyy, " + fieldName + ") = " + nYear.Text + " AND "
                     + "DatePart(mm, " + fieldName + ") = " + item.Month.ToString() + " AND "
                     + "DatePart(dd, " + fieldName + ") = " + item.Day.ToString();
             }
         }
 
-        private String MonthString(int Month)
+        private static string MonthString(int Month)
         {
             switch (Month)
             {
@@ -64,19 +64,21 @@ namespace msn2.net.Pictures.Controls
             }
             return "Invalid Month";
         }
-
-
-        private TreeNode GetNode(TreeNodeCollection cNodes, String sNode)
+        
+        private static DateFilterTreeNode GetNode(TreeNodeCollection cNodes, string sNode, int imageIndex)
         {
-            foreach (TreeNode n in cNodes)
+            foreach (DateFilterTreeNode n in cNodes)
             {
                 if (n.Text == sNode)
                     return n;
             }
 
             // not found, so add
-            return cNodes.Add(sNode);
-
+            DateFilterTreeNode node = new DateFilterTreeNode(sNode);
+            node.ImageIndex = imageIndex;
+            node.SelectedImageIndex = imageIndex;
+            cNodes.Add(node);
+            return node;
         }
 
         private void tv_AfterSelect(object sender, TreeViewEventArgs e)
@@ -96,5 +98,10 @@ namespace msn2.net.Pictures.Controls
         public event EventHandler ItemSelected;
 
         public string WhereClause;
+    }
+
+    public class DateFilterTreeNode : TreeNode
+    {
+        public DateFilterTreeNode(string text) : base(text) { }
     }
 }

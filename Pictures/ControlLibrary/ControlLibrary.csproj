@@ -32,7 +32,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -80,11 +80,23 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
@@ -100,7 +112,13 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
@@ -116,6 +134,9 @@
     </Compile>
     <Compile Include="Base\BaseLinkList.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\PropertyForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Category\CategoryLinkItem.cs">
       <SubType>UserControl</SubType>
@@ -198,6 +219,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PictureControlSettings.cs" />
+    <Compile Include="PictureFilterTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Picture\PictureFlowList.xaml.cs">
+      <DependentUpon>PictureFlowList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -478,6 +505,12 @@
       <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="DataSetPerson.xsc">
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPerson.xss">
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </None>
     <None Include="PictureAdmin.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -497,6 +530,8 @@
     </None>
     <None Include="Resources\down.gif" />
     <None Include="Resources\Folder.bmp" />
+    <EmbeddedResource Include="Resources\calendar.ico" />
+    <EmbeddedResource Include="Resources\refresh.ico" />
     <Content Include="Resources\FOLDER02.ICO" />
     <None Include="Resources\up.gif" />
     <None Include="Resources\user.bmp" />
@@ -506,6 +541,7 @@
     <None Include="Resources\starf.gif" />
     <None Include="Resources\star.gif" />
     <None Include="Resources\openfolderHS.bmp" />
+    <EmbeddedResource Include="Resources\refresh2.ico" />
     <Content Include="xp_close.gif" />
     <EmbeddedResource Include="Resources\folder.ico" />
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">
@@ -521,6 +557,12 @@
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
       <Name>Api</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Picture\PictureFlowList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

@@ -70,10 +70,7 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuAddSecurityGroup;
         private MenuItem menuRemoveSecurityGroup;
 
-        private ViewPanel viewPanel;
         private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel2;
-        private ToolStripComboBox viewbyToolStripComboBox;
         private ToolStripLabel toolStripLabel1;
         private ToolStripComboBox imageSizeCombo;
         private ToolStripButton toolStripSelectAll;
@@ -92,6 +89,7 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuRotateLeft90;
         private MenuItem menuRotate180;
         private ToolStripButton toolFileInfo;
+        private PictureFilterTreeView filter;
         private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
@@ -126,10 +124,7 @@ namespace msn2.net.Pictures.Controls
             // Set the connection string
             cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-            viewPanel = new ViewPanel();
-            viewPanel.RefreshView += new EventHandler(viewPanel_RefreshView);
-            viewPanel.Dock = DockStyle.Fill;
-            this.mainSplitContainer.Panel1.Controls.Add(viewPanel);
+            this.filter.Load();
 
             pictureList1.ContextMenu = mnuPictureList;
 
@@ -248,8 +243,6 @@ namespace msn2.net.Pictures.Controls
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.viewbyToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -259,6 +252,7 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolFileInfo = new System.Windows.Forms.ToolStripButton();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.filter = new msn2.net.Pictures.Controls.PictureFilterTreeView();
             this.rightListContainer = new System.Windows.Forms.SplitContainer();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -266,6 +260,7 @@ namespace msn2.net.Pictures.Controls
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
             this.rightListContainer.Panel1.SuspendLayout();
@@ -488,8 +483,6 @@ namespace msn2.net.Pictures.Controls
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel2,
-            this.viewbyToolStripComboBox,
             this.toolStripLabel1,
             this.imageSizeCombo,
             this.toolStripSeparator1,
@@ -503,26 +496,6 @@ namespace msn2.net.Pictures.Controls
             this.toolStrip1.Size = new System.Drawing.Size(1018, 25);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.Click += new System.EventHandler(this.toolStrip1_Click);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(51, 22);
-            this.toolStripLabel2.Text = "View by:";
-            // 
-            // viewbyToolStripComboBox
-            // 
-            this.viewbyToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.viewbyToolStripComboBox.Items.AddRange(new object[] {
-            "category",
-            "date picture taken",
-            "date picture added",
-            "person"});
-            this.viewbyToolStripComboBox.Name = "viewbyToolStripComboBox";
-            this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
-            this.viewbyToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.viewbyToolStripComboBox_SelectedIndexChanged);
-            this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
             // 
             // toolStripLabel1
             // 
@@ -591,6 +564,10 @@ namespace msn2.net.Pictures.Controls
             this.mainSplitContainer.Location = new System.Drawing.Point(0, 25);
             this.mainSplitContainer.Name = "mainSplitContainer";
             // 
+            // mainSplitContainer.Panel1
+            // 
+            this.mainSplitContainer.Panel1.Controls.Add(this.filter);
+            // 
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
@@ -598,6 +575,18 @@ namespace msn2.net.Pictures.Controls
             this.mainSplitContainer.SplitterDistance = 167;
             this.mainSplitContainer.TabIndex = 17;
             this.mainSplitContainer.Text = "splitContainer2";
+            // 
+            // filter
+            // 
+            this.filter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filter.HideSelection = false;
+            this.filter.ImageIndex = 0;
+            this.filter.Location = new System.Drawing.Point(0, 0);
+            this.filter.Name = "filter";
+            this.filter.SelectedImageIndex = 0;
+            this.filter.Size = new System.Drawing.Size(167, 364);
+            this.filter.TabIndex = 0;
+            this.filter.FilterChanged += new msn2.net.Pictures.Controls.FilterChangedHandler(this.filter_FilterChanged);
             // 
             // rightListContainer
             // 
@@ -667,6 +656,7 @@ namespace msn2.net.Pictures.Controls
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             this.mainSplitContainer.ResumeLayout(false);
             this.rightListContainer.Panel1.ResumeLayout(false);
@@ -713,23 +703,6 @@ namespace msn2.net.Pictures.Controls
             this.Close();
 		}
 
-		private void AddPicturesToList(String strWhereClause) 
-		{
-			currentListViewQuery	= strWhereClause;
-
-            statusBar1.Panels[0].Text = "Loading pictures";
-
-            PictureCollection pictures = PicContext.Current.PictureManager.GetPictures(strWhereClause);
-
-            this.selectedPictures.ClearPictures();
-
-            statusBar1.Panels[0].Text = "Loading " + pictures.Count.ToString() + " pictures";
-
-            pictureList1.LoadPictures(pictures);
-
-			statusBar1.Panels[0].Text = pictures.Count + " pictures";
-		}
-
 		private void menuAddPictures_Click(object sender, System.EventArgs e)
 		{
 			
@@ -742,8 +715,8 @@ namespace msn2.net.Pictures.Controls
             {
                 // BUGBUG: accesibility exception
             }
-            viewPanel.RefreshData();
 
+            this.filter.Load();
 		}
 
 		private void mnuPictureListEdit_Click(object sender, System.EventArgs e)
@@ -1066,10 +1039,23 @@ namespace msn2.net.Pictures.Controls
 
         }
 
-        void viewPanel_RefreshView(object sender, EventArgs e)
+        private void filter_FilterChanged(string whereClause)
         {
-            this.AddPicturesToList(viewPanel.WhereClause);
-        }
+            this.currentListViewQuery = whereClause;
+
+            statusBar1.Panels[0].Text = "Loading pictures";
+
+            PictureCollection pictures = PicContext.Current.PictureManager.GetPictures(currentListViewQuery);
+
+            this.selectedPictures.ClearPictures();
+
+            statusBar1.Panels[0].Text = "Loading " + pictures.Count.ToString() + " pictures";
+
+            pictureList1.LoadPictures(pictures);
+
+            statusBar1.Panels[0].Text = pictures.Count + " pictures";
+        } 
+
 
         void pictureList1_DoubleClick(object sender, PictureItemEventArgs e)
         {
@@ -1213,36 +1199,6 @@ namespace msn2.net.Pictures.Controls
             return output;
         }
 
-        private void toolStrip1_Click(object sender, EventArgs e)
-        {
-        
-        }
-
-        private void viewbyToolStripComboBox_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void viewbyToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ViewMode viewMode = ViewMode.Category;
-            switch (viewbyToolStripComboBox.SelectedIndex)
-            {
-                case 0:
-                    break;
-                case 1:
-                    viewMode = ViewMode.DatePictureTaken;
-                    break;
-                case 2:
-                    viewMode = ViewMode.DatePictureAdded;
-                    break;
-                case 3:
-                    viewMode = ViewMode.Person;
-                    break;
-            }
-
-            this.viewPanel.SetView(viewMode);
-        }
-
         private void menuRandomSlideshow_Click(object sender, EventArgs e)
         {
             RandomSlideshow random = new RandomSlideshow();
@@ -1282,6 +1238,18 @@ namespace msn2.net.Pictures.Controls
 
         private void toolFileInfo_Click(object sender, EventArgs e)
         {
+            if (pictureList1.SelectedItems.Count > 0)
+            {
+                PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureList1.SelectedItems[0]);
+                string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
+
+                string xmp = GetXmpXmlDocFromImage(fileName);
+                MessageBox.Show(xmp, "XMP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void UpdateDateTimes()
+        {                
             DialogResult result = MessageBox.Show(
                 "Click 'Yes' to update date/time values or 'No' to only count the pictures with incorrect values.", 
                 "Change Picture Dates?", 
@@ -1294,7 +1262,7 @@ namespace msn2.net.Pictures.Controls
                 PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureId);
                 string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
                 
-                string metaDataDate = GetDatePictureTaken(fileName);
+                string metaDataDate = ImageUtilities.GetDatePictureTaken(fileName);
                 if (metaDataDate != null)
                 {
                     DateTime dt = DateTime.Parse(metaDataDate);
@@ -1320,23 +1288,6 @@ namespace msn2.net.Pictures.Controls
             {
                 MessageBox.Show(diffCount.ToString() + " pictures would be updated.", "Update Dates", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private static string GetDatePictureTaken(string fileName)
-        {
-            string dateTaken = null;
-
-            using (StreamReader stream = new StreamReader(fileName))
-            {
-                BitmapSource source = BitmapFrame.Create(stream.BaseStream);
-                BitmapMetadata metaData = source.Metadata as BitmapMetadata;
-                if (metaData != null && metaData.DateTaken != null)
-                {
-                    dateTaken = metaData.DateTaken;
-                }
-            }
-
-            return dateTaken;
         }
 
         public static string GetXmpXmlDocFromImage(string filename)
@@ -1434,6 +1385,7 @@ namespace msn2.net.Pictures.Controls
             }
 
             return doc;
-        } 
+        }
+
     }
 }

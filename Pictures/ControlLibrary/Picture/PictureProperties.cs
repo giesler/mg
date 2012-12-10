@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-    partial class PictureProperties : Form
+    partial class PictureProperties : PropertyForm
     {
         public PictureProperties()
         {

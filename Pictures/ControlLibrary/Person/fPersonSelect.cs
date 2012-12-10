@@ -82,7 +82,6 @@ namespace msn2.net.Pictures.Controls
             this.peopleCtl1.TabIndex = 0;
             this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
             this.peopleCtl1.Load += new System.EventHandler(this.peopleCtl1_Load);
-            this.peopleCtl1.ClickPerson += new msn2.net.Pictures.Controls.ClickPersonEventHandler(this.peopleCtl1_ClickPerson);
             // 
             // btnCancel
             // 

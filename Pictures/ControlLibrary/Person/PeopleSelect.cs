@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-    public partial class PeopleSelect : Form
+    public partial class PeopleSelect : PropertyForm
     {
         public PeopleSelect()
         {

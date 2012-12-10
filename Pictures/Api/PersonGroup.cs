@@ -4,13 +4,13 @@ using System.Text;
 
 namespace msn2.net.Pictures
 {
-    public class PersonGroup
+    public class PersonGroupInfo
     {
         private int id;
         private string name;
         private List<PersonInfo> members;
 
-        public PersonGroup(int id, string name)
+        public PersonGroupInfo(int id, string name)
         {
             this.id = id;
             this.name = name;

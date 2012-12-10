@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.20706</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,6 +31,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -78,8 +79,14 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
@@ -120,6 +127,11 @@
     <Compile Include="PicContext.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PicDataClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PicDataClasses.dbml</DependentUpon>
+    </Compile>
     <Compile Include="PictureCache.cs" />
     <Compile Include="PictureData.cs" />
     <Compile Include="PictureDataSet.Designer.cs">
@@ -134,6 +146,11 @@
     <Compile Include="PictureSystem.cs" />
     <Compile Include="PictureWatcher.cs" />
     <Compile Include="PersonGroup.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UserManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,14 +160,17 @@
     <Content Include="DataSetCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DataSetPicture.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="PictureDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PictureDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="API_Diagram.cd" />
     <None Include="DataSetCategory.xsc">
@@ -171,6 +191,10 @@
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
+    <None Include="PicDataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PicDataClasses.designer.cs</LastGenOutput>
+    </None>
     <None Include="PictureAdmin.snk" />
     <None Include="PictureDataSet.xsc">
       <DependentUpon>PictureDataSet.xsd</DependentUpon>
@@ -190,7 +214,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="PicDataClasses.dbml.layout">
+      <DependentUpon>PicDataClasses.dbml</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

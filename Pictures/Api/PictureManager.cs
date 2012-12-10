@@ -441,7 +441,7 @@ namespace msn2.net.Pictures
 		}
 
 
-		public List<PersonGroup> GetPictureGroups(int pictureId)
+		public List<PersonGroupInfo> GetPictureGroups(int pictureId)
 		{
 			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd = new SqlCommand("sp_Picture_GetGruops", cn);
@@ -450,7 +450,7 @@ namespace msn2.net.Pictures
 			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
 			cmd.Parameters["@pictureId"].Value	= pictureId;
 
-            List<PersonGroup> list = new List<PersonGroup>();
+            List<PersonGroupInfo> list = new List<PersonGroupInfo>();
 
 			try
 			{
@@ -459,7 +459,7 @@ namespace msn2.net.Pictures
                 dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
                 while (dr.Read())
                 {
-                    PersonGroup group = new PersonGroup(
+                    PersonGroupInfo group = new PersonGroupInfo(
                         dr.GetInt32(1),
                         dr.GetString(0));
                     list.Add(group);
@@ -480,9 +480,9 @@ namespace msn2.net.Pictures
 			return list;
 		}
 
-		public List<Category> GetPictureCategories(int pictureId)
+		public List<CategoryInfo> GetPictureCategories(int pictureId)
 		{
-            List<Category> categories = new List<Category>();
+            List<CategoryInfo> categories = new List<CategoryInfo>();
 
             SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd      = new SqlCommand("sp_Picture_GetCategories", cn);
@@ -496,7 +496,7 @@ namespace msn2.net.Pictures
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Category category = new Category(dr, false);
+                    CategoryInfo category = new CategoryInfo(dr, false);
                     categories.Add(category);
                 }
             }

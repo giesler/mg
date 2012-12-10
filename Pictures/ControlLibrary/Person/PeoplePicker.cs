@@ -75,18 +75,18 @@ namespace msn2.net.Pictures.Controls
             this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.peopleCtl1.Location = new System.Drawing.Point(0, 0);
             this.peopleCtl1.Name = "peopleCtl1";
-            this.peopleCtl1.Size = new System.Drawing.Size(297, 283);
+            this.peopleCtl1.Size = new System.Drawing.Size(210, 283);
             this.peopleCtl1.TabIndex = 0;
             this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAdd.Location = new System.Drawing.Point(7, 118);
+            this.btnAdd.Location = new System.Drawing.Point(5, 120);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(66, 23);
+            this.btnAdd.Size = new System.Drawing.Size(24, 23);
             this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "&Add ->";
+            this.btnAdd.Text = ">";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel1
@@ -94,9 +94,9 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Controls.Add(this.lvPeople);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(307, 0);
+            this.panel1.Location = new System.Drawing.Point(220, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(233, 283);
+            this.panel1.Size = new System.Drawing.Size(320, 283);
             this.panel1.TabIndex = 2;
             // 
             // lvPeople
@@ -107,10 +107,11 @@ namespace msn2.net.Pictures.Controls
             this.lvPeople.FullRowSelect = true;
             this.lvPeople.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvPeople.HideSelection = false;
-            this.lvPeople.Location = new System.Drawing.Point(79, 0);
+            this.lvPeople.Location = new System.Drawing.Point(32, 0);
             this.lvPeople.Name = "lvPeople";
-            this.lvPeople.Size = new System.Drawing.Size(154, 283);
+            this.lvPeople.Size = new System.Drawing.Size(288, 283);
             this.lvPeople.TabIndex = 1;
+            this.lvPeople.UseCompatibleStateImageBehavior = false;
             this.lvPeople.View = System.Windows.Forms.View.Details;
             this.lvPeople.SelectedIndexChanged += new System.EventHandler(this.lvPeople_SelectedIndexChanged);
             this.lvPeople.DoubleClick += new System.EventHandler(this.lvPeople_DoubleClick);
@@ -127,22 +128,22 @@ namespace msn2.net.Pictures.Controls
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(79, 283);
+            this.panel2.Size = new System.Drawing.Size(32, 283);
             this.panel2.TabIndex = 0;
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(7, 147);
+            this.btnRemove.Location = new System.Drawing.Point(5, 149);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(66, 23);
+            this.btnRemove.Size = new System.Drawing.Size(24, 23);
             this.btnRemove.TabIndex = 0;
-            this.btnRemove.Text = "<- &Remove";
+            this.btnRemove.Text = "<";
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(297, 0);
+            this.splitter1.Location = new System.Drawing.Point(210, 0);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(10, 283);
             this.splitter1.TabIndex = 1;

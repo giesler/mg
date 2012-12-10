@@ -10,20 +10,20 @@ namespace msn2.net.Pictures.Controls
         {
         }
 
-        public GroupLinkItem Add(PersonGroup group)
+        public GroupLinkItem Add(PersonGroupInfo group)
         {
             GroupLinkItem item = new GroupLinkItem(group);
             this.Controls.Add(item);
             return item;
         }
 
-        public bool Contains(PersonGroup group)
+        public bool Contains(PersonGroupInfo group)
         {
             GroupLinkItem item = this.Find(group);
             return (item != null);
         }
 
-        public GroupLinkItem Find(PersonGroup group)
+        public GroupLinkItem Find(PersonGroupInfo group)
         {
             foreach (GroupLinkItem item in this.Controls)
             {
@@ -36,7 +36,7 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
-        public void Remove(PersonGroup group)
+        public void Remove(PersonGroupInfo group)
         {
             foreach (GroupLinkItem item in this.Controls)
             {

@@ -112,11 +112,11 @@ namespace msn2.net.Pictures.Controls
 
         private void LoadGroups()
         {
-            List<PersonGroup> groups = PicContext.Current.PictureManager.GetPictureGroups(this.picture.Id);
+            List<PersonGroupInfo> groups = PicContext.Current.PictureManager.GetPictureGroups(this.picture.Id);
 
             this.loading = true;
             groupSelect.GroupPicker.ClearSelectedGroups();
-            foreach (PersonGroup group in groups)
+            foreach (PersonGroupInfo group in groups)
             {
                 groupSelect.GroupPicker.AddSelectedGroup(group.Id);
             }
@@ -125,11 +125,11 @@ namespace msn2.net.Pictures.Controls
 
         private void LoadCategories()
         {
-            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(this.picture.Id);
+            List<CategoryInfo> categories = PicContext.Current.PictureManager.GetPictureCategories(this.picture.Id);
 
             this.loading = true;
             categorySelect.CategoryPicker.ClearSelectedCategories();
-            foreach (Category category in categories)
+            foreach (CategoryInfo category in categories)
             {
                 categorySelect.CategoryPicker.AddSelectedCategory(category.CategoryId);
             }
@@ -376,7 +376,6 @@ namespace msn2.net.Pictures.Controls
                 {
                     this.editor.SetPicture(this.picture);
                 }
-                this.editor.Opacity = 0.75f;
                 this.editor.Left = PictureControlSettings.GetSafeLeft(this.editor, this.settings.Slideshow_Editor_Left);
                 this.editor.Top = PictureControlSettings.GetSafeTop(this.editor, this.settings.Slideshow_Editor_Top);
                 this.editor.Width = this.settings.Slideshow_Editor_Width;
@@ -421,7 +420,6 @@ namespace msn2.net.Pictures.Controls
             if (this.peopleSelect == null)
             {
                 this.peopleSelect = new PeopleSelect();
-                this.peopleSelect.Opacity = 0.75f;
                 this.peopleSelect.Left = PictureControlSettings.GetSafeLeft(this.peopleSelect, this.settings.Slideshow_People_Left);
                 this.peopleSelect.Top = PictureControlSettings.GetSafeTop(this.peopleSelect, this.settings.Slideshow_People_Top);
                 this.peopleSelect.Width = this.settings.Slideshow_People_Width;
@@ -495,7 +493,6 @@ namespace msn2.net.Pictures.Controls
             if (this.groupSelect == null)
             {
                 this.groupSelect = new GroupSelect();
-                this.groupSelect.Opacity = 0.75f;
                 this.groupSelect.Left = PictureControlSettings.GetSafeLeft(this.groupSelect, this.settings.Slideshow_Group_Left);
                 this.groupSelect.Top = PictureControlSettings.GetSafeTop(this.groupSelect, this.settings.Slideshow_Group_Top);
                 this.groupSelect.Height = this.settings.Slideshow_Group_Height;
@@ -532,7 +529,7 @@ namespace msn2.net.Pictures.Controls
 
                 if (this.editor != null)
                 {
-                    PersonGroup group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
+                    PersonGroupInfo group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
                     this.editor.Editor.AddGroup(group);
                 }
             }
@@ -548,7 +545,7 @@ namespace msn2.net.Pictures.Controls
 
                 if (this.editor != null)
                 {
-                    PersonGroup group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
+                    PersonGroupInfo group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
                     this.editor.Editor.RemoveGroup(group);
                 }
             }
@@ -569,7 +566,6 @@ namespace msn2.net.Pictures.Controls
             if (this.categorySelect == null)
             {
                 this.categorySelect = new CategorySelect();
-                this.categorySelect.Opacity = 0.75f;
                 this.categorySelect.Left = PictureControlSettings.GetSafeLeft(this.categorySelect, this.settings.Slideshow_Category_Left);
                 this.categorySelect.Top = PictureControlSettings.GetSafeTop(this.categorySelect, this.settings.Slideshow_Category_Top);
                 this.categorySelect.Width = this.settings.Slideshow_Category_Width;
@@ -837,7 +833,6 @@ namespace msn2.net.Pictures.Controls
                 }
             }
         }
-
 
     }
 

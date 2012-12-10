@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 namespace msn2.net.Pictures
 {
     [Serializable]
-    public class Category
+    public class CategoryInfo
     {
 		private int categoryId;
 
@@ -64,11 +64,11 @@ namespace msn2.net.Pictures
 
         private string path;
 		
-        internal Category()
+        internal CategoryInfo()
         {
         }
 
-        internal Category(SqlDataReader dr, bool includeDates)
+        internal CategoryInfo(SqlDataReader dr, bool includeDates)
         {
             this.categoryId = (int)dr["CategoryId"];
             this.name = dr["CategoryName"].ToString();
@@ -134,7 +134,7 @@ namespace msn2.net.Pictures
         {
             bool returnValue = false;
 
-            Category cat = obj as Category;
+            CategoryInfo cat = obj as CategoryInfo;
             if (cat != null)
             {
                 returnValue = cat.CategoryId == this.CategoryId;

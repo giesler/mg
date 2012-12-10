@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-    public partial class GroupSelect : Form
+    public partial class GroupSelect : PropertyForm
     {
         public GroupSelect()
         {

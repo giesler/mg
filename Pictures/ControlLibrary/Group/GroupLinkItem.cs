@@ -7,15 +7,15 @@ namespace msn2.net.Pictures.Controls
 {
     public class GroupLinkItem: BaseLinkItem
     {
-        private PersonGroup group;
+        private PersonGroupInfo group;
 
-        public GroupLinkItem(PersonGroup group)
+        public GroupLinkItem(PersonGroupInfo group)
         {
             this.group = group;
             this.Text = group.Name;
         }
 
-        public PersonGroup Group
+        public PersonGroupInfo Group
         {
             get
             {

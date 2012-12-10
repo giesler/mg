@@ -11,7 +11,7 @@ namespace msn2.net.Pictures.Controls
 	/// </summary>
 	public class fSelectCategory : System.Windows.Forms.Form
 	{
-        private static Category lastSelected = null;
+        private static CategoryInfo lastSelected = null;
         private static fSelectCategory current = null;
 
         public static fSelectCategory GetSelectCategoryDialog()
@@ -131,7 +131,7 @@ namespace msn2.net.Pictures.Controls
             lastSelected = this.SelectedCategory;
         }
 
-		public Category SelectedCategory
+		public CategoryInfo SelectedCategory
 		{
 			get
 			{

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Database Name="picdb" Class="PicDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=stan.sp.msn2.net;Initial Catalog=picdb;Persist Security Info=True;User ID=PictureAdminUser;Password=si82izmwiae2" SettingsObjectName="msn2.net.Pictures.Properties.Settings" SettingsPropertyName="picdbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryPath" Type="System.String" DbType="NVarChar(2500)" CanBeNull="true" />
+      <Column Name="CategoryDescription" Type="System.String" DbType="NVarChar(2500)" CanBeNull="true" />
+      <Column Name="CategoryDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Publish" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastModified" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PictureId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Category_PictureCategory" Member="PictureCategories" OtherKey="CategoryID" Type="PictureCategory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CategorySubCategory" Member="CategorySubCategories">
+    <Type Name="CategorySubCategory">
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubCategoryID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Group]" Member="Groups">
+    <Type Name="Group">
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Group_PersonGroup" Member="PersonGroups" OtherKey="GroupID" Type="PersonGroup" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoginRequest" Member="LoginRequests">
+    <Type Name="LoginRequest">
+      <Column Name="RequestID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="RequestDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Complete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person" Id="ID1">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ResetPWGuid" Type="System.Byte[]" DbType="Binary(16)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ResetPWExpire" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="WindowsUserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Person_PersonGroup" Member="PersonGroups" OtherKey="PersonID" Type="PersonGroup" />
+      <Association Name="Person_PictureComment" Member="PictureComments" OtherKey="PersonId" Type="PictureComment" />
+      <Association Name="Person_PicturePerson" Member="PicturePersons" OtherKey="PersonID" Type="PicturePerson" />
+      <Association Name="Person_PictureRating" Member="PictureRatings" OtherKey="PersonId" Type="PictureRating" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonGroup" Member="PersonGroups">
+    <Type Name="PersonGroup">
+      <Column Name="PersonGroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Group_PersonGroup" Member="Group" ThisKey="GroupID" Type="Group" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PersonGroup" Member="Person" ThisKey="PersonID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Picture" Member="Pictures">
+    <Type Name="Picture">
+      <Column Name="PictureID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Filename" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="PictureDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="Publish" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Rating" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PictureBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PictureSort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PictureAddDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PictureUpdateDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="AverageRating" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Association Name="Picture_PictureCache" Member="PictureCaches" OtherKey="PictureID" Type="PictureCache" />
+      <Association Name="Picture_PictureCategory" Member="PictureCategories" OtherKey="PictureID" Type="PictureCategory" />
+      <Association Name="Picture_PictureComment" Member="PictureComments" OtherKey="PictureId" Type="PictureComment" />
+      <Association Name="Picture_PicturePerson" Member="PicturePersons" OtherKey="PictureID" Type="PicturePerson" />
+      <Association Name="Picture_PictureRating" Member="PictureRatings" OtherKey="PictureId" Type="PictureRating" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PictureCache" Member="PictureCaches">
+    <Type Name="PictureCache">
+      <Column Name="PictureCacheID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PictureID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Filename" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxHeight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxWidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Picture_PictureCache" Member="Picture" ThisKey="PictureID" Type="Picture" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PictureCategory" Member="PictureCategories">
+    <Type Name="PictureCategory">
+      <Column Name="PictureID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PictureCategoryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Category_PictureCategory" Member="Category" ThisKey="CategoryID" Type="Category" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Picture_PictureCategory" Member="Picture" ThisKey="PictureID" Type="Picture" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PictureComment" Member="PictureComments">
+    <Type Name="PictureComment">
+      <Column Name="PictureCommnetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PictureId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Person_PictureComment" Member="Person" ThisKey="PersonId" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Picture_PictureComment" Member="Picture" ThisKey="PictureId" Type="Picture" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PictureLog" Member="PictureLogs">
+    <Type Name="PictureLog">
+      <Column Name="PictureLogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PictureID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LogDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="LogDetails" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PicturePerson" Member="PicturePersons">
+    <Type Name="PicturePerson">
+      <Column Name="PictureID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PicturePersonID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Person_PicturePerson" Member="Person" ThisKey="PersonID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Picture_PicturePerson" Member="Picture" ThisKey="PictureID" Type="Picture" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PictureRating" Member="PictureRatings">
+    <Type Name="PictureRating">
+      <Column Name="RatingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PictureId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rating" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="Person_PictureRating" Member="Person" ThisKey="PersonId" Type="Person" IsForeignKey="true" />
+      <Association Name="Picture_PictureRating" Member="Picture" ThisKey="PictureId" Type="Picture" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecentCategories" Member="RecentCategories">
+    <Type Name="RecentCategory">
+      <Column Name="RecentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RecentCategoryID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RecentDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.up_Person_GetRecent" Method="GetRecentlySelectedUsers">
+    <ElementType IdRef="ID1" />
+  </Function>
+</Database>

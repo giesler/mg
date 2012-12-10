@@ -78,22 +78,22 @@ namespace msn2.net.Pictures.Controls
                 if (PicContext.Current != null)
                 {
                     // load first node
-                    Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+                    CategoryInfo rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
                     CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
-                    AddCategoryTreeNode(null, nRoot);
-
                     tvCategory.HideSelection = false;
 
                     // load first level
                     FillChildren(nRoot, 2);
 
                     // Expand root node
-                    ExpandTreeNodeDelegate expandDelegate = delegate(TreeNode expandNode)
-                    {
-                        expandNode.Expand();
-                    };
-                    this.BeginInvoke(expandDelegate, new object[] { nRoot });
+                    this.BeginInvoke(new ExpandTreeNodeDelegate(
+                        delegate(TreeNode expandNode)
+                        {
+                            tvCategory.Nodes.Add(expandNode);
+                            expandNode.Expand();
+                        }), 
+                        new object[] { nRoot });
                 }
             }
             catch (Exception ex)
@@ -165,11 +165,11 @@ namespace msn2.net.Pictures.Controls
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuRefresh = new System.Windows.Forms.MenuItem();
             this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuDeleteCat = new System.Windows.Forms.MenuItem();
             this.menuEditCatName = new System.Windows.Forms.MenuItem();
             this.menuAddChildCat = new System.Windows.Forms.MenuItem();
             this.pictureDataSet1 = new msn2.net.Pictures.PictureDataSet();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,14 +178,16 @@ namespace msn2.net.Pictures.Controls
             this.tvCategory.ContextMenu = this.contextMenu1;
             this.tvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvCategory.HideSelection = false;
+            this.tvCategory.Indent = 10;
             this.tvCategory.Location = new System.Drawing.Point(0, 0);
             this.tvCategory.Name = "tvCategory";
+            this.tvCategory.ShowRootLines = false;
             this.tvCategory.Size = new System.Drawing.Size(120, 92);
             this.tvCategory.TabIndex = 0;
+            this.tvCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvCategory_AfterLabelEdit);
             this.tvCategory.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvCategory_BeforeExpand);
             this.tvCategory.DoubleClick += new System.EventHandler(this.tvCategory_DoubleClick);
             this.tvCategory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvCategory_AfterSelect);
-            this.tvCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvCategory_AfterLabelEdit);
             // 
             // contextMenu1
             // 
@@ -233,6 +235,12 @@ namespace msn2.net.Pictures.Controls
             this.menuSaveSlideshow.Text = "&Save slideshow...";
             this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
             // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 6;
+            this.menuItem2.Text = "&Publish to homepage";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
             // menuDeleteCat
             // 
             this.menuDeleteCat.Index = -1;
@@ -255,12 +263,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.pictureDataSet1.DataSetName = "PictureDataSet";
             this.pictureDataSet1.Locale = new System.Globalization.CultureInfo("en-US");
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.Index = 6;
-            this.menuItem2.Text = "&Publish to homepage";
-            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            this.pictureDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // CategoryTree
             // 
@@ -382,10 +385,10 @@ namespace msn2.net.Pictures.Controls
             this.Invoke(clearDelegate, new object[] { n });
             
 			// load child nodes from dvCategory
-            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+            List<CategoryInfo> categories = PicContext.Current.CategoryManager.GetCategories(
                 n.Category.CategoryId);
 
-			foreach (Category category in categories) 
+			foreach (CategoryInfo category in categories) 
 			{
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
                 this.AddCategoryTreeNode(n, childNode);
@@ -403,14 +406,14 @@ namespace msn2.net.Pictures.Controls
             }
 		}
 
-        public void SetSelectedCategory(Category category)
+        public void SetSelectedCategory(CategoryInfo category)
         {
             string path = category.Path;
             CategoryTreeNode current = tvCategory.Nodes[0] as CategoryTreeNode;
             this.SetSelectedCategory(current, category);
         }
 
-        private void SetSelectedCategory(CategoryTreeNode node, Category selectCategory)
+        private void SetSelectedCategory(CategoryTreeNode node, CategoryInfo selectCategory)
         {
             if (!node.IsExpanded)
             {
@@ -435,7 +438,7 @@ namespace msn2.net.Pictures.Controls
         }
 
 
-        public Category SelectedCategory
+        public CategoryInfo SelectedCategory
 		{
 			get 
 			{
@@ -517,14 +520,14 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryTreeEventArgs: EventArgs 
 	{
-        private Category category;
+        private CategoryInfo category;
 
-        public CategoryTreeEventArgs(Category category)
+        public CategoryTreeEventArgs(CategoryInfo category)
         {
             this.category = category;
         }
 
-        public Category Category
+        public CategoryInfo Category
         {
             get
             {
@@ -535,8 +538,8 @@ namespace msn2.net.Pictures.Controls
     
     public class CategoryTreeNode : TreeNode
     {
-        private Category category;
-        public Category Category
+        private CategoryInfo category;
+        public CategoryInfo Category
         {
             get
             {
@@ -544,12 +547,12 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public CategoryTreeNode(Category category)
+        public CategoryTreeNode(CategoryInfo category)
         {
             this.Update(category);
         }
 
-        public void Update(Category category)
+        public void Update(CategoryInfo category)
         {
             this.category = category;
             this.Text = category.Name;

@@ -134,7 +134,7 @@ namespace msn2.net.Pictures
 
 		private PictureManager	pictureManager;
 		private CategoryManager	categoryManager;
-        private PictureCache    pictureCache;
+        private PictureCacheInfo    pictureCache;
         private UserManager		userManager;
         private GroupManager groupManager;
 		private PictureConfig	config;
@@ -222,7 +222,7 @@ namespace msn2.net.Pictures
 
 			pictureManager	= new PictureManager(config.ConnectionString);
 			categoryManager	= new CategoryManager(config.ConnectionString);
-            pictureCache = new PictureCache();
+            pictureCache = new PictureCacheInfo();
             userManager		= new UserManager(config.ConnectionString);
             groupManager = new GroupManager(config.ConnectionString);
 			currentUser		= null;
@@ -267,7 +267,7 @@ namespace msn2.net.Pictures
 			}
 		}
 
-        public PictureCache PictureCache
+        public PictureCacheInfo PictureCache
         {
             get
             {
@@ -317,6 +317,20 @@ namespace msn2.net.Pictures
 		}
 
 		#endregion
+
+        private PicDataClassesDataContext dataContext = null;
+
+        public PicDataClassesDataContext DataContext
+        {
+            get
+            {
+                if (this.dataContext == null)
+                {
+                    this.dataContext = new PicDataClassesDataContext(config.ConnectionString);
+                }
+                return this.dataContext;
+            }
+        }
 	}
 
 }

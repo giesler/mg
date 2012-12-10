@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -29,21 +31,16 @@ namespace msn2.net.Pictures.Controls
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
-		private System.Data.SqlClient.SqlConnection sqlConnection1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TextBox findString;
-		private System.Windows.Forms.Button buttonSearch;
-		private System.Windows.Forms.TreeView tvBrowse;
-		private System.Windows.Forms.Splitter alphaSplitter;
-		private System.Windows.Forms.TreeView tvGroups;
-		private System.Windows.Forms.Splitter groupSplitter;
-		private System.Windows.Forms.ListView lvFind;
-		private System.Windows.Forms.ListView lvBrowse;
-		private System.Windows.Forms.ListView lvGroups;
-		private System.Windows.Forms.TabPage tabPageBrowse;
-		private System.Windows.Forms.TabPage tabPageGroups;
-		private System.Windows.Forms.TabPage tabPageFind;
-
+        private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private msn2.net.Pictures.Controls.picsvc.PictureManager pictureManager1;
+        private TextBox searchText;
+        private SplitContainer splitContainer1;
+        private FlowLayoutPanel matchList;
+        private LinkLabel addLink;
+        private Label matchCount;
+        private Label label1;
+        private FlowLayoutPanel recentList;
+        private List<Person> cachedPersonList = new List<Person>();
 
 		/// <summary> 
 		/// Required designer variable.
@@ -54,8 +51,6 @@ namespace msn2.net.Pictures.Controls
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
-            lvFind.ContextMenu = this.contextMenu1;
 
             if (this.DesignMode == false)
             {
@@ -68,7 +63,7 @@ namespace msn2.net.Pictures.Controls
                         this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
                         // Load all people
-                        daPerson.Fill(dsPerson, "Person");
+                        ReloadPeople();
                     }
                 }
                 catch (SqlException ex)
@@ -77,6 +72,17 @@ namespace msn2.net.Pictures.Controls
                 }
             }
 
+        }
+
+        private void ReloadPeople()
+        {
+            dsPerson = new DataSetPerson();
+            daPerson.Fill(dsPerson, "Person");
+
+            this.cachedPersonList = (from p in PicContext.Current.DataContext.Persons
+                                     select p).ToList<Person>();
+
+            this.AddPersonList(PicContext.Current.UserManager.GetRecentUsers(), this.recentList);
         }
 
 		/// <summary> 
@@ -102,45 +108,6 @@ namespace msn2.net.Pictures.Controls
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PeopleCtl));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("A-D");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("E-H");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("I-L");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("M-P");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Q-T");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("U-Z");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Full Name", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("A-D");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("E-H");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("I-L");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("M-P");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Q-T");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("U-Z");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("First Name", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("A-D");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("E-H");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("I-L");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("M-P");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Q-T");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("U-Z");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Last Name", new System.Windows.Forms.TreeNode[] {
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20});
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.dvPersonFullName = new System.Data.DataView();
             this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
@@ -157,28 +124,22 @@ namespace msn2.net.Pictures.Controls
             this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageFind = new System.Windows.Forms.TabPage();
-            this.lvFind = new System.Windows.Forms.ListView();
-            this.findString = new System.Windows.Forms.TextBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
-            this.tabPageBrowse = new System.Windows.Forms.TabPage();
-            this.lvBrowse = new System.Windows.Forms.ListView();
-            this.alphaSplitter = new System.Windows.Forms.Splitter();
-            this.tvBrowse = new System.Windows.Forms.TreeView();
-            this.tabPageGroups = new System.Windows.Forms.TabPage();
-            this.lvGroups = new System.Windows.Forms.ListView();
-            this.groupSplitter = new System.Windows.Forms.Splitter();
-            this.tvGroups = new System.Windows.Forms.TreeView();
+            this.pictureManager1 = new msn2.net.Pictures.Controls.picsvc.PictureManager();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.matchList = new System.Windows.Forms.FlowLayoutPanel();
+            this.addLink = new System.Windows.Forms.LinkLabel();
+            this.matchCount = new System.Windows.Forms.Label();
+            this.recentList = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPageFind.SuspendLayout();
-            this.tabPageBrowse.SuspendLayout();
-            this.tabPageGroups.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cn
@@ -197,6 +158,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.dsPerson.DataSetName = "DataSetPicture";
             this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
+            this.dsPerson.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // contextMenu1
             // 
@@ -304,211 +266,121 @@ namespace msn2.net.Pictures.Controls
             new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
             new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID")});
             // 
-            // tabControl1
+            // pictureManager1
             // 
-            this.tabControl1.Controls.Add(this.tabPageFind);
-            this.tabControl1.Controls.Add(this.tabPageBrowse);
-            this.tabControl1.Controls.Add(this.tabPageGroups);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(479, 383);
-            this.tabControl1.TabIndex = 10;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.pictureManager1.Credentials = null;
+            this.pictureManager1.Url = "http://www.msn2.net/Pictures/PictureManager.asmx";
+            this.pictureManager1.UseDefaultCredentials = false;
             // 
-            // tabPageFind
+            // searchText
             // 
-            this.tabPageFind.Controls.Add(this.lvFind);
-            this.tabPageFind.Controls.Add(this.findString);
-            this.tabPageFind.Controls.Add(this.buttonSearch);
-            this.tabPageFind.Location = new System.Drawing.Point(4, 22);
-            this.tabPageFind.Name = "tabPageFind";
-            this.tabPageFind.Size = new System.Drawing.Size(471, 357);
-            this.tabPageFind.TabIndex = 2;
-            this.tabPageFind.Text = "Search";
+            this.searchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchText.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.searchText.Location = new System.Drawing.Point(4, 4);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(249, 20);
+            this.searchText.TabIndex = 11;
+            this.searchText.Text = "<enter name>";
+            this.searchText.TextChanged += new System.EventHandler(this.searchText_TextChanged);
+            this.searchText.Enter += new System.EventHandler(this.searchText_Enter);
             // 
-            // lvFind
+            // splitContainer1
             // 
-            this.lvFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvFind.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvFind.HideSelection = false;
-            this.lvFind.Location = new System.Drawing.Point(0, 32);
-            this.lvFind.MultiSelect = false;
-            this.lvFind.Name = "lvFind";
-            this.lvFind.Size = new System.Drawing.Size(471, 325);
-            this.lvFind.TabIndex = 3;
-            this.lvFind.View = System.Windows.Forms.View.List;
-            this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
-            this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
+            this.splitContainer1.Location = new System.Drawing.Point(7, 33);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // findString
+            // splitContainer1.Panel1
             // 
-            this.findString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainer1.Panel1.Controls.Add(this.matchList);
+            this.splitContainer1.Panel1.Controls.Add(this.addLink);
+            this.splitContainer1.Panel1.Controls.Add(this.matchCount);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.recentList);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Size = new System.Drawing.Size(246, 276);
+            this.splitContainer1.SplitterDistance = 122;
+            this.splitContainer1.TabIndex = 14;
+            // 
+            // matchList
+            // 
+            this.matchList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.findString.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.findString.Location = new System.Drawing.Point(0, 8);
-            this.findString.Name = "findString";
-            this.findString.Size = new System.Drawing.Size(400, 20);
-            this.findString.TabIndex = 1;
-            this.findString.Text = "<enter name>";
-            this.findString.Enter += new System.EventHandler(this.findString_Enter);
-            this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
+            this.matchList.AutoScroll = true;
+            this.matchList.BackColor = System.Drawing.SystemColors.Window;
+            this.matchList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.matchList.Location = new System.Drawing.Point(0, 24);
+            this.matchList.Name = "matchList";
+            this.matchList.Size = new System.Drawing.Size(246, 95);
+            this.matchList.TabIndex = 0;
             // 
-            // buttonSearch
+            // addLink
             // 
-            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(407, 8);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(59, 23);
-            this.buttonSearch.TabIndex = 2;
-            this.buttonSearch.Text = "&Search";
-            this.buttonSearch.Click += new System.EventHandler(this.button1_Click);
+            this.addLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addLink.Location = new System.Drawing.Point(169, 8);
+            this.addLink.Name = "addLink";
+            this.addLink.Size = new System.Drawing.Size(74, 13);
+            this.addLink.TabIndex = 15;
+            this.addLink.TabStop = true;
+            this.addLink.Text = "&Add new...";
+            this.addLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.addLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.addLink_LinkClicked);
             // 
-            // tabPageBrowse
+            // matchCount
             // 
-            this.tabPageBrowse.Controls.Add(this.lvBrowse);
-            this.tabPageBrowse.Controls.Add(this.alphaSplitter);
-            this.tabPageBrowse.Controls.Add(this.tvBrowse);
-            this.tabPageBrowse.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBrowse.Name = "tabPageBrowse";
-            this.tabPageBrowse.Size = new System.Drawing.Size(471, 357);
-            this.tabPageBrowse.TabIndex = 0;
-            this.tabPageBrowse.Text = "Browse Alphabetical List";
+            this.matchCount.Location = new System.Drawing.Point(3, 8);
+            this.matchCount.Name = "matchCount";
+            this.matchCount.Size = new System.Drawing.Size(160, 16);
+            this.matchCount.TabIndex = 14;
+            this.matchCount.Text = "Enter text above to search";
             // 
-            // lvBrowse
+            // recentList
             // 
-            this.lvBrowse.ContextMenu = this.contextMenu1;
-            this.lvBrowse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvBrowse.FullRowSelect = true;
-            this.lvBrowse.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvBrowse.HideSelection = false;
-            this.lvBrowse.Location = new System.Drawing.Point(126, 0);
-            this.lvBrowse.MultiSelect = false;
-            this.lvBrowse.Name = "lvBrowse";
-            this.lvBrowse.Size = new System.Drawing.Size(345, 357);
-            this.lvBrowse.TabIndex = 6;
-            this.lvBrowse.View = System.Windows.Forms.View.List;
-            this.lvBrowse.SelectedIndexChanged += new System.EventHandler(this.lvBrowse_SelectedIndexChanged);
-            this.lvBrowse.DoubleClick += new System.EventHandler(this.lvBrowse_DoubleClick);
+            this.recentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.recentList.AutoScroll = true;
+            this.recentList.BackColor = System.Drawing.SystemColors.Window;
+            this.recentList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.recentList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.recentList.Location = new System.Drawing.Point(0, 20);
+            this.recentList.Name = "recentList";
+            this.recentList.Size = new System.Drawing.Size(246, 127);
+            this.recentList.TabIndex = 15;
             // 
-            // alphaSplitter
+            // label1
             // 
-            this.alphaSplitter.Location = new System.Drawing.Point(123, 0);
-            this.alphaSplitter.Name = "alphaSplitter";
-            this.alphaSplitter.Size = new System.Drawing.Size(3, 357);
-            this.alphaSplitter.TabIndex = 5;
-            this.alphaSplitter.TabStop = false;
-            // 
-            // tvBrowse
-            // 
-            this.tvBrowse.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tvBrowse.Location = new System.Drawing.Point(0, 0);
-            this.tvBrowse.Name = "tvBrowse";
-            treeNode1.Name = "";
-            treeNode1.Text = "A-D";
-            treeNode2.Name = "";
-            treeNode2.Text = "E-H";
-            treeNode3.Name = "";
-            treeNode3.Text = "I-L";
-            treeNode4.Name = "";
-            treeNode4.Text = "M-P";
-            treeNode5.Name = "";
-            treeNode5.Text = "Q-T";
-            treeNode6.Name = "";
-            treeNode6.Text = "U-Z";
-            treeNode7.Name = "";
-            treeNode7.Text = "Full Name";
-            treeNode8.Name = "";
-            treeNode8.Text = "A-D";
-            treeNode9.Name = "";
-            treeNode9.Text = "E-H";
-            treeNode10.Name = "";
-            treeNode10.Text = "I-L";
-            treeNode11.Name = "";
-            treeNode11.Text = "M-P";
-            treeNode12.Name = "";
-            treeNode12.Text = "Q-T";
-            treeNode13.Name = "";
-            treeNode13.Text = "U-Z";
-            treeNode14.Name = "";
-            treeNode14.Text = "First Name";
-            treeNode15.Name = "";
-            treeNode15.Text = "A-D";
-            treeNode16.Name = "";
-            treeNode16.Text = "E-H";
-            treeNode17.Name = "";
-            treeNode17.Text = "I-L";
-            treeNode18.Name = "";
-            treeNode18.Text = "M-P";
-            treeNode19.Name = "";
-            treeNode19.Text = "Q-T";
-            treeNode20.Name = "";
-            treeNode20.Text = "U-Z";
-            treeNode21.Name = "";
-            treeNode21.Text = "Last Name";
-            this.tvBrowse.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode14,
-            treeNode21});
-            this.tvBrowse.Size = new System.Drawing.Size(123, 357);
-            this.tvBrowse.TabIndex = 4;
-            this.tvBrowse.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBrowse_AfterSelect);
-            // 
-            // tabPageGroups
-            // 
-            this.tabPageGroups.Controls.Add(this.lvGroups);
-            this.tabPageGroups.Controls.Add(this.groupSplitter);
-            this.tabPageGroups.Controls.Add(this.tvGroups);
-            this.tabPageGroups.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGroups.Name = "tabPageGroups";
-            this.tabPageGroups.Size = new System.Drawing.Size(471, 357);
-            this.tabPageGroups.TabIndex = 1;
-            this.tabPageGroups.Text = "Browse by Group";
-            // 
-            // lvGroups
-            // 
-            this.lvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvGroups.Location = new System.Drawing.Point(124, 0);
-            this.lvGroups.Name = "lvGroups";
-            this.lvGroups.Size = new System.Drawing.Size(347, 357);
-            this.lvGroups.TabIndex = 9;
-            // 
-            // groupSplitter
-            // 
-            this.groupSplitter.Location = new System.Drawing.Point(121, 0);
-            this.groupSplitter.Name = "groupSplitter";
-            this.groupSplitter.Size = new System.Drawing.Size(3, 357);
-            this.groupSplitter.TabIndex = 8;
-            this.groupSplitter.TabStop = false;
-            // 
-            // tvGroups
-            // 
-            this.tvGroups.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tvGroups.Location = new System.Drawing.Point(0, 0);
-            this.tvGroups.Name = "tvGroups";
-            this.tvGroups.Size = new System.Drawing.Size(121, 357);
-            this.tvGroups.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Recently selected";
             // 
             // PeopleCtl
             // 
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.searchText);
             this.Name = "PeopleCtl";
-            this.Size = new System.Drawing.Size(479, 383);
+            this.Size = new System.Drawing.Size(259, 313);
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageFind.ResumeLayout(false);
-            this.tabPageFind.PerformLayout();
-            this.tabPageBrowse.ResumeLayout(false);
-            this.tabPageGroups.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 		#endregion
@@ -534,63 +406,83 @@ namespace msn2.net.Pictures.Controls
 				prNew.PersonID  = pr.PersonID;
 				dsPerson.Person.AddPersonRow(prNew);
 
+                this.selectedPerson = prNew;
+
+                FireSelectPerson();
+
+                this.ReloadPeople();
 			}
 
 
 		}
 
-		private void menuEditPerson_Click(object sender, System.EventArgs e)
-		{
-            ListViewItem person = null;
-
-			// make sure a person is selected
-            if (lvBrowse.SelectedItems.Count == 0)
+        private void FireSelectPerson()
+        {
+            if (DoubleClickPerson != null)
             {
-                if (lvFind.SelectedItems.Count == 0)
-                {
-                    return;
-                }
+                DoubleClickPerson(this, new PersonCtlEventArgs() { personRow = selectedPerson });
+            }
 
-                person = lvFind.SelectedItems[0];
+            LinkLabel match = null;
+            foreach (LinkLabel ll in this.recentList.Controls)
+            {
+                int id = (int)ll.Tag;
+                if (id == selectedPerson.PersonID)
+                {
+                    match = ll;
+                    break;
+                }
+            }
+
+            if (match == null)
+            {
+                match = CreatePersonLabel(selectedPerson.FullName, selectedPerson.PersonID);
+                this.recentList.Controls.Add(match);
+                match.BringToFront();
             }
             else
             {
-                person = lvBrowse.SelectedItems[0];
+                match.BringToFront();
             }
-			
-			DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) person.Tag;
-			fEditPerson p = new fEditPerson();
-			p.PersonID = pr.PersonID;
+        }
 
-			p.ShowDialog();
+		private void menuEditPerson_Click(object sender, System.EventArgs e)
+		{
+            //ListViewItem person = null;
 
-			if (!p.Cancel) 
-			{
-				pr = p.SelectedPerson;
-			}
+            //DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) person.Tag;
+            //fEditPerson p = new fEditPerson();
+            //p.PersonID = pr.PersonID;
+
+            //p.ShowDialog();
+
+            //if (!p.Cancel) 
+            //{
+            //    pr = p.SelectedPerson;
+            //}
 
 		}
 
 		private void menuDeletePerson_Click(object sender, System.EventArgs e)
 		{
-			if (lvBrowse.SelectedItems.Count == 0) 
-			{
-				MessageBox.Show("You must select a person to delete.", "Delete Person", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-				return;
-			}
+            //if (lvBrowse.SelectedItems.Count == 0) 
+            //{
+            //    MessageBox.Show("You must select a person to delete.", "Delete Person", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
 
-			ListViewItem item = lvBrowse.SelectedItems[0];
+            //ListViewItem item = lvBrowse.SelectedItems[0];
 
-			// make sure we want to delete
-			if (MessageBox.Show("Would you like to delete '" + item.Text + "'?", 
-				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
-			{
-				DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) item.Tag;
-				pr.Delete();
-				daPerson.Update(dsPerson, "Person");
+            //// make sure we want to delete
+            //if (MessageBox.Show("Would you like to delete '" + item.Text + "'?", 
+            //    "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
+            //{
+            //    DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) item.Tag;
+            //    pr.Delete();
+            //    daPerson.Update(dsPerson, "Person");
 
-				lvBrowse.Items.Remove(lvBrowse.SelectedItems[0]);
-			}
+            //    lvBrowse.Items.Remove(lvBrowse.SelectedItems[0]);
+            //}
 		}
 
 
@@ -599,45 +491,13 @@ namespace msn2.net.Pictures.Controls
 			return (dsPerson.Person.FindByPersonID(PersonID));
 		}
 
+        private DataSetPerson.PersonRow selectedPerson = null;
+
 		public DataSetPerson.PersonRow SelectedPerson
 		{
 			get 
 			{
-				if (tabControl1.SelectedTab == tabPageFind)
-				{
-					if (lvFind.SelectedItems.Count == 0)
-					{
-						return null;
-					}
-					else
-					{
-						return (DataSetPerson.PersonRow) lvFind.SelectedItems[0].Tag;
-					}
-				}
-				else if (tabControl1.SelectedTab == tabPageBrowse)
-				{
-					if (lvBrowse.SelectedItems.Count == 0)
-					{
-						return null;
-					}
-					else
-					{
-						return (DataSetPerson.PersonRow) lvBrowse.SelectedItems[0].Tag;
-					}
-				} 
-				else if (tabControl1.SelectedTab == tabPageGroups)
-				{
-					if (lvGroups.SelectedItems.Count == 0)
-					{
-						return null;
-					}
-					else
-					{
-						return (DataSetPerson.PersonRow) lvGroups.SelectedItems[0].Tag;
-					}
-				}			
-
-				return null;
+                return selectedPerson;
 			}
 
 		}
@@ -646,214 +506,69 @@ namespace msn2.net.Pictures.Controls
 		public event ClickPersonEventHandler ClickPerson;
 		public event DoubleClickPersonEventHandler DoubleClickPerson;
 
+        private void searchText_TextChanged(object sender, EventArgs e)
+        {
+            string text = searchText.Text.ToLower();
 
-		private void findString_Enter(object sender, System.EventArgs e)
-		{
-			if (findString.Text.Equals("<enter name>"))
-			{
-				findString.Text = "";
-				findString.ForeColor = Color.FromKnownColor(KnownColor.WindowText);
-			}
-		}
+            List<Person> list = (from p in this.cachedPersonList
+                    where p.FirstName.ToLower().Contains(text) 
+                        || p.LastName.ToLower().Contains(text) 
+                        || p.FullName.ToLower().Contains(text)
+                    select p).ToList<Person>();
 
-		private void button1_Click(object sender, System.EventArgs e)
-		{
-			string search = findString.Text;
-			bool selectedPerson = false;
+            AddPersonList(list, this.matchList);
 
-			dvPersonFind.RowFilter = "LastName like '%" + search + "%' OR FirstName like '%" + search + "%' OR FullName like '%" + search + "%'";
-			foreach (DataRowView dr in dvPersonFind) 
-			{
-				// add this row as a listitem
-				DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) dr.Row;
-				ListViewItem child = lvFind.Items.Add(pr.FullName);
-				child.Tag = pr;
+            this.matchCount.Text = "Found " + list.Count.ToString() + " matches";
+        }
 
-				if (!selectedPerson) 
-				{
-					selectedPerson = true;
-					child.Selected = true;
-				}
-			}
-            
-			findString.SelectAll();
-			findString.Focus();
-		
-			// Select this person if the only one
-			if (dvPersonFind.Count == 1)
-			{
-				if (DoubleClickPerson != null)
-				{
-					PersonCtlEventArgs ex = new PersonCtlEventArgs();
-					ex.personRow = (DataSetPerson.PersonRow) dvPersonFind[0].Row;
+        private void AddPersonList(List<Person> list, Control parentControl)
+        {
+            parentControl.Controls.Clear();
+            foreach (Person p in list)
+            {
+                string fullName = p.FullName;
+                int id = p.PersonID;
 
-					DoubleClickPerson(this, ex);
-				}
-			}
-		}
+                LinkLabel ll = CreatePersonLabel(fullName, id);
+                parentControl.Controls.Add(ll);
+            }
+        }
 
-		private void findString_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
-		{
-			if (e.KeyChar == 13 ) 
-			{
-				button1_Click(sender, e);
-				e.Handled = true;
-			}
-		}
+        private LinkLabel CreatePersonLabel(string fullName, int id)
+        {
+            LinkLabel ll = new LinkLabel();
+            ll.Width = this.matchList.ClientSize.Width;
+            ll.Height = 14;
+            ll.Anchor = AnchorStyles.Left & AnchorStyles.Right;
+            ll.Text = fullName;
+            ll.Tag = id;
+            ll.Click += new EventHandler(ll_Click);
+            return ll;
+        }
 
-		private void lvBrowse_DoubleClick(object sender, System.EventArgs e)
-		{
+        void ll_Click(object sender, EventArgs e)
+        {
+            LinkLabel ll = (LinkLabel)sender;
+            selectedPerson = FindPersonInfo((int)ll.Tag);
+            this.FireSelectPerson();
+        }
 
-			// make sure someone is selected
-			if (lvBrowse.SelectedItems.Count == 0)
-				return;
+        private void addLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            menuAddPerson_Click(null, null);
+        }
 
-			// Get the selected person
-			ListViewItem item = lvBrowse.SelectedItems[0];
+        private void searchText_Enter(object sender, EventArgs e)
+        {
+            if (this.searchText.Text.Equals("<enter name>"))
+            {
+                this.searchText.Text = "";
+                this.searchText.ForeColor = Color.FromKnownColor(KnownColor.WindowText);
+            }
 
-			// Fire event for other controls to catch if they want
-			PersonCtlEventArgs ex = new PersonCtlEventArgs();
-			ex.personRow = (DataSetPerson.PersonRow) item.Tag;
-			
-			if (DoubleClickPerson != null)
-				DoubleClickPerson(this, ex);
-
-		}
-
-		private void tvBrowse_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
-		{
-			
-			if (e.Action != TreeViewAction.Unknown)
-			{
-
-				TreeNode n = e.Node;
-
-				// Check if we are on a letter range node
-				if (n.Text.Length != 3 || !n.Text.Substring(1, 1).Equals("-"))
-				{
-					return;				
-				}
-
-				// Clear our listview
-				lvBrowse.Items.Clear();
-
-				string rowFilter = "FullName ";
-				DataView dv = dvPersonFullName;
-				TreeNode nParent = n.Parent;
-
-				// select the appropriate view
-				if (nParent.Text == "Full Name")
-				{
-					dv = dvPersonFullName;
-				}
-				else if (nParent.Text == "First Name")
-				{
-					dv = dvPersonFirstName;
-					rowFilter = "FirstName ";
-				}
-				else if (nParent.Text == "Last Name")
-				{
-					dv = dvPersonLastName;
-					rowFilter = "LastName ";
-				}
-
-				if (n.Text == "A-D")
-					rowFilter = String.Format("{0} > 'A%' and {0} < 'E%'", rowFilter);
-				else if (n.Text == "E-H")
-					rowFilter = String.Format("{0} > 'E%' and {0} < 'I%'", rowFilter);
-				else if (n.Text == "I-L")
-					 rowFilter = String.Format("{0} > 'I%' and {0} < 'M%'", rowFilter);
-				else if (n.Text == "M-P")
-					 rowFilter = String.Format("{0} > 'M%' and {0} < 'Q%'", rowFilter);
-				else if (n.Text == "Q-T")
-					 rowFilter = String.Format("{0} > 'Q%' and {0} < 'U%'", rowFilter);
-				else if (n.Text == "U-Z")
-					 rowFilter = String.Format("{0} > 'U%'", rowFilter);
-
-				dv.RowFilter = rowFilter;
-
-				ListViewItem item;
-
-				foreach (DataRowView dr in dv) 
-				{
-					// add this row as a node
-					DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) dr.Row;
-					if (nParent.Text == "Full Name")
-						item = lvBrowse.Items.Add(pr.FullName);
-					else if (nParent.Text == "First Name")
-						item = lvBrowse.Items.Add(pr.FirstName + " " + pr.LastName);
-					else //if (n.Tag.ToString() == "LastName")
-						item = lvBrowse.Items.Add(pr.LastName + ", " + pr.FirstName);
-
-					item.Tag = pr;
-				}
-		
-			}
-		}
-
-		private void lvBrowse_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			
-			// make sure someone is selected
-			if (lvBrowse.SelectedItems.Count == 0)
-				return;
-
-			// Get the selected person
-			ListViewItem item = lvBrowse.SelectedItems[0];
-
-			// Fire event for other controls to catch if they want
-			PersonCtlEventArgs ex = new PersonCtlEventArgs();
-			ex.personRow = (DataSetPerson.PersonRow) item.Tag;
-			
-			if (ClickPerson != null)
-				ClickPerson(this, ex);
-		}
-
-		private void lvFind_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			// make sure someone is selected
-			if (lvFind.SelectedItems.Count == 0)
-				return;
-
-			// Get the selected person
-			ListViewItem item = lvFind.SelectedItems[0];
-
-			// Fire event for other controls to catch if they want
-			PersonCtlEventArgs ex = new PersonCtlEventArgs();
-			ex.personRow = (DataSetPerson.PersonRow) item.Tag;
-			
-			if (ClickPerson != null)
-				ClickPerson(this, ex);
-		
-		}
-
-		private void lvFind_DoubleClick(object sender, System.EventArgs e)
-		{
-			// make sure someone is selected
-			if (lvFind.SelectedItems.Count == 0)
-				return;
-
-			// Get the selected person
-			ListViewItem item = lvFind.SelectedItems[0];
-
-			// Fire event for other controls to catch if they want
-			PersonCtlEventArgs ex = new PersonCtlEventArgs();
-			ex.personRow = (DataSetPerson.PersonRow) item.Tag;
-			
-			if (DoubleClickPerson != null)
-				DoubleClickPerson(this, ex);
-		}
-
-		private void tabControl1_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			// Check if we are on the find page
-			if (tabControl1.SelectedIndex == 2)
-			{
-				findString.Focus();
-			}
-		
-		}
-
+            this.searchText.SelectionStart = 0;
+            this.searchText.SelectionLength = this.searchText.Text.Length;
+        }
 	}
 
 	// events

@@ -216,11 +216,14 @@ namespace msn2.net.Pictures.Controls
 			fPersonSelect fPS = new fPersonSelect();
 			fPS.ShowDialog();
 
-			if (!fPS.Cancel) 
-			{
-				pr = fPS.SelectedPerson;
-				txtPersonName.Text = pr.FullName;
-			}
+            if (!fPS.Cancel)
+            {
+                pr = fPS.SelectedPerson;
+                if (pr != null)
+                {
+                    txtPersonName.Text = pr.FullName;
+                }
+            }
 
 		}
 

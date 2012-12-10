@@ -33,9 +33,10 @@ namespace msn2.net.Pictures.Controls
             // 
             // personPicker1
             // 
-            this.personPicker1.Location = new System.Drawing.Point(2, 3);
+            this.personPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.personPicker1.Location = new System.Drawing.Point(0, 0);
             this.personPicker1.Name = "personPicker1";
-            this.personPicker1.Size = new System.Drawing.Size(540, 283);
+            this.personPicker1.Size = new System.Drawing.Size(547, 289);
             this.personPicker1.TabIndex = 0;
             // 
             // PeopleSelect

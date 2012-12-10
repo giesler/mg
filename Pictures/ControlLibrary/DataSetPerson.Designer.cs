@@ -274,7 +274,7 @@ namespace msn2.net.Pictures.Controls {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PersonDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class PersonDataTable : global::System.Data.TypedTableBase<PersonRow> {
             
             private global::System.Data.DataColumn columnPersonID;
             
@@ -430,11 +430,6 @@ namespace msn2.net.Pictures.Controls {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override global::System.Data.DataTable Clone() {
                 PersonDataTable cln = ((PersonDataTable)(base.Clone()));
                 cln.InitVars();
@@ -483,6 +478,7 @@ namespace msn2.net.Pictures.Controls {
                 this.columnPersonID.AllowDBNull = false;
                 this.columnPersonID.ReadOnly = true;
                 this.columnPersonID.Unique = true;
+                this.columnEmail.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -573,7 +569,7 @@ namespace msn2.net.Pictures.Controls {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PersonGroupDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class PersonGroupDataTable : global::System.Data.TypedTableBase<PersonGroupRow> {
             
             private global::System.Data.DataColumn columnPersonGroupID;
             
@@ -680,11 +676,6 @@ namespace msn2.net.Pictures.Controls {
                 return ((PersonGroupRow)(this.Rows.Find(new object[] {
                             PersonID,
                             GroupID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

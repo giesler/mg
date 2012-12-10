@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace msn2.net.Pictures
 {
@@ -487,5 +489,11 @@ namespace msn2.net.Pictures
             return pwd;
         }
 
+        public List<Person> GetRecentUsers()
+        {
+            var q = from p in PicContext.Current.DataContext.GetRecentlySelectedUsers()
+                    select p;
+            return q.ToList<Person>();
+        }
 	}
 }

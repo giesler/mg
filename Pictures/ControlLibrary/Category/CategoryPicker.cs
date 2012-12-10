@@ -85,8 +85,8 @@ namespace msn2.net.Pictures.Controls
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lvCategories);
-            this.splitContainer1.Size = new System.Drawing.Size(484, 189);
-            this.splitContainer1.SplitterDistance = 340;
+            this.splitContainer1.Size = new System.Drawing.Size(349, 189);
+            this.splitContainer1.SplitterDistance = 205;
             this.splitContainer1.TabIndex = 5;
             this.splitContainer1.Text = "splitContainer1";
             // 
@@ -95,7 +95,7 @@ namespace msn2.net.Pictures.Controls
             this.categoryTree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.categoryTree1.Location = new System.Drawing.Point(0, 0);
             this.categoryTree1.Name = "categoryTree1";
-            this.categoryTree1.Size = new System.Drawing.Size(249, 189);
+            this.categoryTree1.Size = new System.Drawing.Size(169, 189);
             this.categoryTree1.TabIndex = 5;
             this.categoryTree1.ClickCategory += new msn2.net.Pictures.Controls.ClickCategoryEventHandler(this.categoryTree1_ClickCategory);
             this.categoryTree1.DoubleClickCategory += new msn2.net.Pictures.Controls.DoubleClickCategoryEventHandler(this.categoryTree1_DoubleClickCategory);
@@ -105,31 +105,31 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Controls.Add(this.btnRemoveCategory);
             this.panel1.Controls.Add(this.btnAddCategory);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(249, 0);
+            this.panel1.Location = new System.Drawing.Point(169, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(91, 189);
+            this.panel1.Size = new System.Drawing.Size(36, 189);
             this.panel1.TabIndex = 4;
             // 
             // btnRemoveCategory
             // 
             this.btnRemoveCategory.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnRemoveCategory.Enabled = false;
-            this.btnRemoveCategory.Location = new System.Drawing.Point(13, 88);
+            this.btnRemoveCategory.Location = new System.Drawing.Point(6, 90);
             this.btnRemoveCategory.Name = "btnRemoveCategory";
-            this.btnRemoveCategory.Size = new System.Drawing.Size(69, 23);
+            this.btnRemoveCategory.Size = new System.Drawing.Size(23, 23);
             this.btnRemoveCategory.TabIndex = 2;
-            this.btnRemoveCategory.Text = "< &Remove";
+            this.btnRemoveCategory.Text = "<";
             this.btnRemoveCategory.Click += new System.EventHandler(this.btnRemoveCategory_Click);
             // 
             // btnAddCategory
             // 
             this.btnAddCategory.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnAddCategory.Enabled = false;
-            this.btnAddCategory.Location = new System.Drawing.Point(13, 59);
+            this.btnAddCategory.Location = new System.Drawing.Point(6, 61);
             this.btnAddCategory.Name = "btnAddCategory";
-            this.btnAddCategory.Size = new System.Drawing.Size(69, 23);
+            this.btnAddCategory.Size = new System.Drawing.Size(23, 23);
             this.btnAddCategory.TabIndex = 2;
-            this.btnAddCategory.Text = "&Add >";
+            this.btnAddCategory.Text = ">";
             this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // lvCategories
@@ -143,6 +143,7 @@ namespace msn2.net.Pictures.Controls
             this.lvCategories.Name = "lvCategories";
             this.lvCategories.Size = new System.Drawing.Size(140, 189);
             this.lvCategories.TabIndex = 5;
+            this.lvCategories.UseCompatibleStateImageBehavior = false;
             this.lvCategories.View = System.Windows.Forms.View.Details;
             this.lvCategories.Resize += new System.EventHandler(this.lvCategories_Resize);
             this.lvCategories.SelectedIndexChanged += new System.EventHandler(this.lvCategories_SelectedIndexChanged);
@@ -157,7 +158,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.Controls.Add(this.splitContainer1);
             this.Name = "CategoryPicker";
-            this.Size = new System.Drawing.Size(484, 189);
+            this.Size = new System.Drawing.Size(349, 189);
             this.Load += new System.EventHandler(this.CategoryPicker_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -178,7 +179,7 @@ namespace msn2.net.Pictures.Controls
 		{
             if (btnAddCategory.Enabled == true)
             {
-                Category category = categoryTree1.SelectedCategory;
+                CategoryInfo category = categoryTree1.SelectedCategory;
 
                 // make sure row isn't already added
                 foreach (CategoryListViewItem liTemp in lvCategories.Items)
@@ -230,8 +231,7 @@ namespace msn2.net.Pictures.Controls
 
 		public void AddSelectedCategory(int categoryId) 
 		{
-
-            Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+            CategoryInfo category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 
             if (category != null)
             {
@@ -344,14 +344,14 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryPickerEventArgs: EventArgs 
 	{
-        private Category category;
+        private CategoryInfo category;
 
-        public CategoryPickerEventArgs(Category category)
+        public CategoryPickerEventArgs(CategoryInfo category)
         {
             this.category = category;
         }
 
-        public Category Category
+        public CategoryInfo Category
         {
             get
             {
@@ -362,15 +362,15 @@ namespace msn2.net.Pictures.Controls
 
     public class CategoryListViewItem : ListViewItem
     {
-        private Category category;
+        private CategoryInfo category;
 
-        public CategoryListViewItem(Category category)
+        public CategoryListViewItem(CategoryInfo category)
         {
             this.category = category;
             this.Text = category.Name;
         }
 
-        public Category Category
+        public CategoryInfo Category
         {
             get
             {

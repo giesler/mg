@@ -25,5 +25,35 @@ namespace msn2.net.Pictures.Controls
                 return folder;
             }
         }
+
+        private static Bitmap calendar;
+
+        public static Bitmap Calendar
+        {
+            get
+            {
+                if (calendar == null)
+                {
+                    calendar = new Bitmap(typeof(Resources.ResourceLocator), "calendar.ico");
+                } 
+                return calendar;
+            }
+        }
+
+
+        private static Bitmap refresh;
+
+        public static Bitmap Refresh
+        {
+            get
+            {
+                if (refresh == null)
+                {
+                    refresh = new Bitmap(typeof(Resources.ResourceLocator), "refresh.ico");
+                }
+                return refresh;
+            }
+        }
+
     }
 }

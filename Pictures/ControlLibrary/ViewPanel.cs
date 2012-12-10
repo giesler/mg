@@ -131,7 +131,6 @@ namespace msn2.net.Pictures.Controls
             {
                 peoplePicker = new PeopleCtl();
                 peoplePicker.Dock = DockStyle.Fill;
-                peoplePicker.ClickPerson += new ClickPersonEventHandler(peoplePicker_ClickPerson);
             }
 
             this.Controls.Clear();
@@ -182,14 +181,5 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        void peoplePicker_ClickPerson(object sender, PersonCtlEventArgs e)
-        {
-            whereClause = string.Format("p.PictureID in (select PictureID from PicturePerson where PersonID = {0})", e.personRow.PersonID);
-
-            if (null != RefreshView)
-            {
-                RefreshView(this, EventArgs.Empty);
-            }
-        }
     }
 }

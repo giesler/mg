@@ -22,9 +22,9 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private int[] pictures;
-		private Category category;
+		private CategoryInfo category;
 
-		public AddPicturesToCategory(int[] pictures, Category category)
+		public AddPicturesToCategory(int[] pictures, CategoryInfo category)
 		{
 			//
 			// Required for Windows Form Designer support

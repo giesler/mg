@@ -11,10 +11,31 @@ using System.Drawing.Imaging;
 
 namespace msn2.net.Pictures
 {
-    public class PictureCache
+    public enum PictureCacheSize
     {
-        public PictureCache()
+        Small = 0,
+        Medium = 1,
+        Large = 2,
+        FullSize = 3
+    }
+
+    public class PictureCacheInfo
+    {
+        public PictureCacheInfo()
         {
+        }
+
+        public string GetImageFileName(PictureData picture, int maxWidth, int maxHeight)
+        {
+            string cacheName = this.GetCacheName(picture.Id, maxWidth, maxHeight);
+            string targetFile = PicContext.Current.Config.CacheDirectory + cacheName;
+
+            if (File.Exists(targetFile) == false)
+            {
+                targetFile = null;
+            }
+
+            return targetFile;
         }
 
         public Image GetImage(PictureData picture, int maxWidth, int maxHeight)
@@ -113,5 +134,31 @@ namespace msn2.net.Pictures
             return nameBuilder.ToString();
         }
 
+        public PictureCacheData GetPictureCacheData(PictureData picture, PictureCacheSize size)
+        {
+            int maxWidth = 125;
+            int maxHeight = 125;
+
+            if (size == PictureCacheSize.Medium)
+            {
+                maxWidth = 750;
+                maxHeight = 700;
+            }
+
+            string cacheFile= GetImageFileName(picture, maxWidth, maxHeight);
+
+            return new PictureCacheData {PictureData = picture, Filename = cacheFile};
+        }
+    }
+
+
+    public class PictureCacheData
+    {
+        public PictureCacheData()
+        {
+        }
+
+        public PictureData PictureData { get; set; }
+        public string Filename { get; set; }
     }
 }

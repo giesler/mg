@@ -15,12 +15,12 @@ namespace msn2.net.Pictures
             this.connectionString = connectionString;
         }
 
-        public PersonGroup GetGroup(int groupId)
+        public PersonGroupInfo GetGroup(int groupId)
         {
             SqlConnection cn = new SqlConnection(this.connectionString);
             SqlCommand cmd = new SqlCommand("up_GroupManager_GetGroup", cn);
             SqlDataReader dr = null;
-            PersonGroup group = null;
+            PersonGroupInfo group = null;
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@groupId", SqlDbType.Int);
@@ -34,7 +34,7 @@ namespace msn2.net.Pictures
 
                 if (dr.Read())
                 {
-                    group = new PersonGroup(
+                    group = new PersonGroupInfo(
                         dr.GetInt32(0),
                         dr.GetString(1));
                 }

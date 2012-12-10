@@ -20,12 +20,12 @@ namespace msn2.net.Pictures
 			this.connectionString	= connectionString;
 		}
 
-		public Category GetCategory(int categoryId)
+		public CategoryInfo GetCategory(int categoryId)
 		{
             int personId = PicContext.Current.CurrentUser.Id;
 
             HttpContext context = HttpContext.Current;
-            Category category = null;
+            CategoryInfo category = null;
             string cacheKey = "Category." + categoryId.ToString() + ".Person." + personId.ToString();
 
             if (context != null)
@@ -33,7 +33,7 @@ namespace msn2.net.Pictures
                 object cacheObject = context.Cache[cacheKey];
                 if (cacheObject != null)
                 {
-                    category = cacheObject as Category;
+                    category = cacheObject as CategoryInfo;
                     return category;
                 }
             }            
@@ -52,7 +52,7 @@ namespace msn2.net.Pictures
 
 			if (dr.Read())
 			{
-				category					= new Category(dr, true);
+				category					= new CategoryInfo(dr, true);
 			}
 
 			dr.Close();
@@ -67,17 +67,17 @@ namespace msn2.net.Pictures
 
 		}
 
-        public Category GetRootCategory()
+        public CategoryInfo GetRootCategory()
         {
             return this.GetCategory(1);
         }
 
-        public List<Category> GetCategories(int categoryId)
+        public List<CategoryInfo> GetCategories(int categoryId)
         {
             return this.GetCategories(categoryId, 0);
         }
 
-        public List<Category> GetCategories(int categoryId, int minPictures)
+        public List<CategoryInfo> GetCategories(int categoryId, int minPictures)
 		{
 			// get a dataset with categories
 			SqlConnection cn		= new SqlConnection(connectionString);
@@ -95,10 +95,10 @@ namespace msn2.net.Pictures
 			// Read data
 			cn.Open();
 			SqlDataReader dr		= cmd.ExecuteReader();
-			List<Category> cc	= new List<Category>();
+			List<CategoryInfo> cc	= new List<CategoryInfo>();
 			while (dr.Read())
 			{
-				cc.Add(new Category(dr, false));
+				cc.Add(new CategoryInfo(dr, false));
 			}
 			dr.Close();
 			cn.Close();
@@ -254,7 +254,7 @@ namespace msn2.net.Pictures
 
 		}
 
-		public List<Category> RecentCategorires()
+		public List<CategoryInfo> RecentCategorires()
 		{
 			SqlConnection cn  = new SqlConnection(connectionString);
 			SqlCommand cmd    = new SqlCommand("dbo.sp_RecentCategories", cn);
@@ -263,7 +263,7 @@ namespace msn2.net.Pictures
 			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
 			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
 
-			List<Category> categories = new List<Category>();
+			List<CategoryInfo> categories = new List<CategoryInfo>();
             
 			try
 			{
@@ -271,7 +271,7 @@ namespace msn2.net.Pictures
 				dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
 				while (dr.Read())
 				{
-					categories.Add(new Category(dr, false));
+					categories.Add(new CategoryInfo(dr, false));
 				}
 			}
 			catch (SqlException)

@@ -219,8 +219,7 @@ namespace msn2.net.Pictures.Controls
 
 			}
 		}
-
-
+        
         public static string GetDatePictureTaken(string fileName)
         {
             string dateTaken = null;

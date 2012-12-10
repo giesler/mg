@@ -17,7 +17,7 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
 
-        private Category category;
+        private CategoryInfo category;
 
         protected bool mblnCancel = false;
 		protected int mintCategoryID = 0;
@@ -549,7 +549,7 @@ namespace msn2.net.Pictures.Controls
 			}
 		}
 
-		public Category SelectedCategory 
+		public CategoryInfo SelectedCategory 
 		{
 			get 
 			{

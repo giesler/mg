@@ -14,20 +14,20 @@ namespace msn2.net.Pictures.Controls
 {
     partial class CategoryListDialog : Form
     {
-        public CategoryListDialog(List<Category> categories)
+        public CategoryListDialog(List<CategoryInfo> categories)
         {
             InitializeComponent();
 
-            foreach (Category category in categories)
+            foreach (CategoryInfo category in categories)
             {
                 CategoryListItem item = new CategoryListItem(category);
                 this.listBox1.Items.Add(item);
             }
         }
 
-        public Category GetSelectedCategory()
+        public CategoryInfo GetSelectedCategory()
         {
-            Category category = null;
+            CategoryInfo category = null;
 
             if (this.listBox1.SelectedItems.Count > 0)
             {
@@ -38,9 +38,9 @@ namespace msn2.net.Pictures.Controls
             return category;
         }
 
-        public List<Category> GetSelectedCategories()
+        public List<CategoryInfo> GetSelectedCategories()
         {
-            List<Category> categories = new List<Category>();
+            List<CategoryInfo> categories = new List<CategoryInfo>();
 
             foreach (CategoryListItem item in this.listBox1.SelectedItems)
             {
@@ -65,14 +65,14 @@ namespace msn2.net.Pictures.Controls
 
     public class CategoryListItem
     {
-        private Category category;
+        private CategoryInfo category;
 
-        public CategoryListItem(Category category)
+        public CategoryListItem(CategoryInfo category)
         {
             this.category = category;
         }
 
-        public Category Category
+        public CategoryInfo Category
         {
             get
             {

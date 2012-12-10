@@ -62,12 +62,12 @@ namespace msn2.net.Pictures.Controls
             description.AddItem(picture.Id, picture.Description);
             dateTaken.AddItem(picture.Id, picture.DateTaken);
 
-            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
+            List<CategoryInfo> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
             this.pictureCategories.Add(picture.Id, categories);
 
             this.UpdateCategories();
 
-            List<PersonGroup> loadedGroups = PicContext.Current.PictureManager.GetPictureGroups(picture.Id);
+            List<PersonGroupInfo> loadedGroups = PicContext.Current.PictureManager.GetPictureGroups(picture.Id);
             this.pictureGroups.Add(picture.Id, loadedGroups);
 
             this.UpdateGroups();
@@ -89,15 +89,15 @@ namespace msn2.net.Pictures.Controls
                 this.categoryList.Visible = true;
                 this.differentCategoriesLabel.Visible = false;
                 categoryList.Clear();
-                List<Category> categories = null;
-                foreach (List<Category> tempCategories in this.pictureCategories.Values)
+                List<CategoryInfo> categories = null;
+                foreach (List<CategoryInfo> tempCategories in this.pictureCategories.Values)
                 {
                     categories = tempCategories;
                     break;
                 }
                 if (categories != null)
                 {
-                    foreach (Category category in categories)
+                    foreach (CategoryInfo category in categories)
                     {
                         categoryList.Add(category);
                     }
@@ -114,7 +114,7 @@ namespace msn2.net.Pictures.Controls
         {
             int count = 0;
 
-            foreach (List<Category> categories in this.pictureCategories.Values)
+            foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
             {
                 if (count == 0)
                 {
@@ -127,13 +127,13 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 // Check items against each other group collection
-                foreach (Category category in categories)
+                foreach (CategoryInfo category in categories)
                 {
                     // Make sure in all other picture group hash tables
-                    foreach (List<Category> tempCategories in this.pictureCategories.Values)
+                    foreach (List<CategoryInfo> tempCategories in this.pictureCategories.Values)
                     {
                         bool found = false;
-                        foreach (Category tempCategory in tempCategories)
+                        foreach (CategoryInfo tempCategory in tempCategories)
                         {
                             if (tempCategory.CategoryId == category.CategoryId)
                             {
@@ -153,38 +153,38 @@ namespace msn2.net.Pictures.Controls
             return true;
         }
 
-        public void AddCategory(Category category)
+        public void AddCategory(CategoryInfo category)
         {
             if (!categoryList.Contains(category))
             {
                 categoryList.Add(category);
 
-                foreach (List<Category> categories in this.pictureCategories.Values)
+                foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
                 {
                     categories.Add(category);
                 }
             }
         }
 
-        public void RemoveCategory(Category category)
+        public void RemoveCategory(CategoryInfo category)
         {
             categoryList.Remove(category);
 
-            foreach (List<Category> categories in this.pictureCategories.Values)
+            foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
             {
                 categories.Remove(category);
             }
         }
 
-        public List<Category> GetAllCurrentCategories()
+        public List<CategoryInfo> GetAllCurrentCategories()
         {
-            List<Category> categories = new List<Category>();
+            List<CategoryInfo> categories = new List<CategoryInfo>();
 
             foreach (PictureData picture in this.pictures.Values)
             {
-                List<Category> picCategories = PicContext.Current.PictureManager.GetPictureCategories(
+                List<CategoryInfo> picCategories = PicContext.Current.PictureManager.GetPictureCategories(
                     picture.Id);
-                foreach (Category category in picCategories)
+                foreach (CategoryInfo category in picCategories)
                 {
                     if (categories.Contains(category) == false)
                     {
@@ -196,9 +196,9 @@ namespace msn2.net.Pictures.Controls
             return categories;
         }
 
-        public List<Category> GetCurrentCategories()
+        public List<CategoryInfo> GetCurrentCategories()
         {
-            List<Category> categories = new List<Category>();
+            List<CategoryInfo> categories = new List<CategoryInfo>();
 
             foreach (CategoryLinkItem item in this.categoryList.Controls)
             {
@@ -219,15 +219,15 @@ namespace msn2.net.Pictures.Controls
                 this.groups.Visible = true;
                 this.differentGroupsLabel.Visible = false;
                 groups.Clear();
-                List<PersonGroup> firstPictureGroups = null;
-                foreach (List<PersonGroup> tempGroups in this.pictureGroups.Values)
+                List<PersonGroupInfo> firstPictureGroups = null;
+                foreach (List<PersonGroupInfo> tempGroups in this.pictureGroups.Values)
                 {
                     firstPictureGroups = tempGroups;
                     break;
                 }
                 if (firstPictureGroups != null)
                 {
-                    foreach (PersonGroup group in firstPictureGroups)
+                    foreach (PersonGroupInfo group in firstPictureGroups)
                     {
                         groups.Add(group);
                     }
@@ -244,7 +244,7 @@ namespace msn2.net.Pictures.Controls
         {
             int count = 0;
 
-            foreach (List<PersonGroup> picturePersonGroups in this.pictureGroups.Values)
+            foreach (List<PersonGroupInfo> picturePersonGroups in this.pictureGroups.Values)
             {
                 if (count == 0)
                 {
@@ -257,13 +257,13 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 // Check items against each other group collection
-                foreach (PersonGroup group in picturePersonGroups)
+                foreach (PersonGroupInfo group in picturePersonGroups)
                 {
                     // Make sure in all other picture group hash tables
-                    foreach (List<PersonGroup> tempGroups in this.pictureGroups.Values)
+                    foreach (List<PersonGroupInfo> tempGroups in this.pictureGroups.Values)
                     {
                         bool found = false;
-                        foreach (PersonGroup tempGroup in tempGroups)
+                        foreach (PersonGroupInfo tempGroup in tempGroups)
                         {
                             if (tempGroup.Id == group.Id)
                             {
@@ -283,32 +283,32 @@ namespace msn2.net.Pictures.Controls
             return true;
         }
 
-        public void AddGroup(PersonGroup group)
+        public void AddGroup(PersonGroupInfo group)
         {
             if (!groups.Contains(group))
             {
                 groups.Add(group);
 
-                foreach (List<PersonGroup> personGroup in this.pictureGroups.Values)
+                foreach (List<PersonGroupInfo> personGroup in this.pictureGroups.Values)
                 {
                     personGroup.Add(group);
                 }
             }
         }
 
-        public void RemoveGroup(PersonGroup group)
+        public void RemoveGroup(PersonGroupInfo group)
         {
             this.pictureGroups.Remove(group);
 
-            foreach (List<PersonGroup> personGroup in this.pictureGroups.Values)
+            foreach (List<PersonGroupInfo> personGroup in this.pictureGroups.Values)
             {
                 personGroup.Remove(group);
             }
         }
 
-        public List<PersonGroup> GetCurrentGroups()
+        public List<PersonGroupInfo> GetCurrentGroups()
         {
-            List<PersonGroup> personGroup = new List<PersonGroup>();
+            List<PersonGroupInfo> personGroup = new List<PersonGroupInfo>();
 
             foreach (GroupLinkItem item in this.groups.Controls)
             {

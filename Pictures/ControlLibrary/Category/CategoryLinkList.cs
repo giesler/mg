@@ -19,20 +19,20 @@ namespace msn2.net.Pictures.Controls
         {
         }
 
-        public CategoryLinkItem Add(Category category)
+        public CategoryLinkItem Add(CategoryInfo category)
         {
             CategoryLinkItem item = new CategoryLinkItem(category);
             this.Controls.Add(item);
             return item;
         }
 
-        public bool Contains(Category category)
+        public bool Contains(CategoryInfo category)
         {
             CategoryLinkItem item = this.Find(category);
             return (item != null);
         }
 
-        public CategoryLinkItem Find(Category category)
+        public CategoryLinkItem Find(CategoryInfo category)
         {
             foreach (CategoryLinkItem item in this.Controls)
             {
@@ -45,7 +45,7 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
         
-        public void Remove(Category category)
+        public void Remove(CategoryInfo category)
         {
             foreach (CategoryLinkItem item in this.Controls)
             {

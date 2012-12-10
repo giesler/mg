@@ -1077,7 +1077,7 @@ namespace msn2.net.Pictures.Controls
 
 			foreach (int categoryId in categoryPicker1.selectedCategories)
 			{
-				Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+				CategoryInfo category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 				setCategoryPicSelection.Items.Add(category);
 			}
 		}
@@ -1250,7 +1250,7 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			Category category = (Category) setCategoryPicSelection.SelectedItem;
+			CategoryInfo category = (CategoryInfo) setCategoryPicSelection.SelectedItem;
 			
 			PicContext.Current.CategoryManager.SetCategoryPictureId(category.CategoryId, this.pictureId);
 		}
