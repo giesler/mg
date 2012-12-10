@@ -19,6 +19,7 @@ namespace HomeCalendarView
             string url = "http://192.168.1.114/image.jpg?cidx=" + DateTime.Now.ToString();
             HttpWebRequest req = (HttpWebRequest) HttpWebRequest.Create(url);
             req.Method = WebRequestMethods.Http.Get;
+            req.Credentials = new NetworkCredential("admin", "camping");
 
             using (HttpWebResponse response = (HttpWebResponse) req.GetResponse())
             {
