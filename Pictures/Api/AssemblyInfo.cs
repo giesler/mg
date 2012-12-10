@@ -6,12 +6,13 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyDescription("")]
+
+[assembly: AssemblyTitle("MSN2 Picture Admin")]
+[assembly: AssemblyDescription("Admin program for pictures on pics.msn2.net.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("msn2.net")]
+[assembly: AssemblyProduct("MSN2 Pictures")]
+[assembly: AssemblyCopyright("(c) 2005 - Mike Giesler")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
@@ -26,5 +27,6 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("2.0.0.0")]
+
 

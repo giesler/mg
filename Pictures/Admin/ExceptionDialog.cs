@@ -8,11 +8,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
-using System.Web.Mail;
+using System.Net.Mail;
+using System.Reflection;
+using System.Diagnostics;
+using System.IO;
 
 #endregion
 
-namespace msn2.net.Pictures
+namespace msn2.net.Pictures.Controls
 {
     partial class ExceptionDialog : Form
     {
@@ -24,29 +27,65 @@ namespace msn2.net.Pictures
 
             InitializeComponent();
 
-            label1.Text = "An unhandled error has occurred.";
-            label2.Text = ex.GetType().ToString() + ": " + ex.Message;
+            labelTitle.Text = "An unhandled error has occurred.";
+            labelDetails.Text = ex.GetType().ToString() + ": " + ex.Message;
 
-            button1.Text = "&Send to Mike";
             button1.Click += new EventHandler(button1_Click);
         }
 
         void button1_Click(object sender, EventArgs e)
         {
-            string exceptionName = "Exception: " + exception;
-            string message = exceptionName + Environment.NewLine + "Stack Trace: " + Environment.NewLine;
-            message += exception.StackTrace.ToString();
+            string exceptionName = exception.GetType().FullName + ": " + exception.Message;
+            string message = ExceptionToString(exception);
+
+            string loc = Assembly.GetExecutingAssembly().Location;
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(loc);
 
             MailMessage mail = new MailMessage();
-            mail.To = "mike@giesler.org";
-            mail.Subject = "Picture Admin Exception: " + exceptionName;
+            mail.To.Add("mike@giesler.org");
+            mail.From = new MailAddress(Environment.UserName + "@msn2.net");
+            mail.Subject = string.Format(
+                "Picture Admin v{0} - {1}",
+                fvi.FileVersion,
+                exceptionName);
             mail.Body = message;
-            mail.From = Environment.UserName + "@msn2.net";
 
-            SmtpMail.SmtpServer = Msn2Config.Load().SmtpServer;
-            SmtpMail.Send(mail);
+            SmtpClient client = new SmtpClient(Msn2Config.Load().SmtpServer);
+            client.UseDefaultCredentials = true;
+            client.Send(mail);
 
             this.Close();
+        }
+
+        private void buttonCopy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public static string ExceptionToString(Exception ex)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(ex.GetType().FullName);
+            sb.Append(": ");
+            sb.AppendLine(ex.Message);
+            sb.Append("Stack trace: ");
+            sb.AppendLine(ex.StackTrace);
+
+            Exception innerException = ex.InnerException;
+            while (innerException != null)
+            {
+                sb.AppendLine("------  Inner Exception -------------------------");
+                sb.Append(innerException.GetType().FullName);
+                sb.Append(": ");
+                sb.AppendLine(innerException.Message);
+                sb.Append("Stack trace: ");
+                sb.AppendLine(innerException.StackTrace);
+
+                innerException = innerException.InnerException;
+            }
+
+            return sb.ToString();
         }
     }
 }

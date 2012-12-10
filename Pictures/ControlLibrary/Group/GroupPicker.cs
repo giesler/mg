@@ -18,10 +18,10 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button btnRemove;
 		private System.Windows.Forms.Button btnAdd;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private msn2.net.Pictures.Controls.GroupControl groupControl;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.ListView selectedGroups;
 		protected bool allowRemoveEveryone = true;
+        private GroupControl groupControl;
 
 		public event AddedGroupEventHandler AddedGroup;
 		public event RemovedGroupEventHandler RemovedGroup;
@@ -55,6 +55,18 @@ namespace msn2.net.Pictures.Controls
 			base.Dispose( disposing );
 		}
 
+        public string RightListColumnHeaderText
+        {
+            get
+            {
+                return this.selectedGroups.Columns[0].Text;
+            }
+            set
+            {
+                this.selectedGroups.Columns[0].Text = value;
+            }
+        }
+
 		#region Component Designer generated code
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -62,108 +74,110 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.btnAdd = new System.Windows.Forms.Button();
-			this.groupControl = new msn2.net.Pictures.Controls.GroupControl();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.btnRemove = new System.Windows.Forms.Button();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.selectedGroups = new System.Windows.Forms.ListView();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.panel2.SuspendLayout();
-			this.panel1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(150, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 168);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
-			// 
-			// btnAdd
-			// 
-			this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAdd.Location = new System.Drawing.Point(4, 56);
-			this.btnAdd.Name = "btnAdd";
-			this.btnAdd.Size = new System.Drawing.Size(24, 23);
-			this.btnAdd.TabIndex = 0;
-			this.btnAdd.Text = ">";
-			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-			// 
-			// groupControl
-			// 
-			this.groupControl.Dock = System.Windows.Forms.DockStyle.Left;
-			this.groupControl.Location = new System.Drawing.Point(0, 0);
-			this.groupControl.Name = "groupControl";
-			this.groupControl.Size = new System.Drawing.Size(150, 168);
-			this.groupControl.TabIndex = 0;
-			this.groupControl.DoubleClickGroup += new msn2.net.Pictures.Controls.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
-			// 
-			// panel2
-			// 
-			this.panel2.Controls.Add(this.btnRemove);
-			this.panel2.Controls.Add(this.btnAdd);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panel2.Location = new System.Drawing.Point(0, 0);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(32, 168);
-			this.panel2.TabIndex = 0;
-			// 
-			// btnRemove
-			// 
-			this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnRemove.Location = new System.Drawing.Point(4, 88);
-			this.btnRemove.Name = "btnRemove";
-			this.btnRemove.Size = new System.Drawing.Size(24, 23);
-			this.btnRemove.TabIndex = 0;
-			this.btnRemove.Text = "<";
-			this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-			// 
-			// panel1
-			// 
-			this.panel1.Controls.Add(this.selectedGroups);
-			this.panel1.Controls.Add(this.panel2);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(153, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(287, 168);
-			this.panel1.TabIndex = 2;
-			// 
-			// selectedGroups
-			// 
-			this.selectedGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																							 this.columnHeader1});
-			this.selectedGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.selectedGroups.FullRowSelect = true;
-			this.selectedGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-			this.selectedGroups.HideSelection = false;
-			this.selectedGroups.Location = new System.Drawing.Point(32, 0);
-			this.selectedGroups.Name = "selectedGroups";
-			this.selectedGroups.Size = new System.Drawing.Size(255, 168);
-			this.selectedGroups.TabIndex = 1;
-			this.selectedGroups.View = System.Windows.Forms.View.Details;
-			this.selectedGroups.DoubleClick += new System.EventHandler(this.selectedGroups_DoubleClick);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Selected Gruops";
-			this.columnHeader1.Width = 1000;
-			// 
-			// GroupPicker
-			// 
-			this.Controls.Add(this.panel1);
-			this.Controls.Add(this.splitter1);
-			this.Controls.Add(this.groupControl);
-			this.Name = "GroupPicker";
-			this.Size = new System.Drawing.Size(440, 168);
-			this.Load += new System.EventHandler(this.GroupPicker_Load);
-			this.panel2.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.ResumeLayout(false);
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.selectedGroups = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.groupControl = new msn2.net.Pictures.Controls.GroupControl();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(192, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 168);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Location = new System.Drawing.Point(19, 59);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(65, 23);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "&Add >";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnRemove);
+            this.panel2.Controls.Add(this.btnAdd);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(99, 168);
+            this.panel2.TabIndex = 0;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnRemove.Enabled = false;
+            this.btnRemove.Location = new System.Drawing.Point(19, 88);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(65, 23);
+            this.btnRemove.TabIndex = 0;
+            this.btnRemove.Text = "< &Remove";
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.selectedGroups);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(195, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(245, 168);
+            this.panel1.TabIndex = 2;
+            // 
+            // selectedGroups
+            // 
+            this.selectedGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.selectedGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectedGroups.FullRowSelect = true;
+            this.selectedGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.selectedGroups.HideSelection = false;
+            this.selectedGroups.Location = new System.Drawing.Point(99, 0);
+            this.selectedGroups.Name = "selectedGroups";
+            this.selectedGroups.Size = new System.Drawing.Size(146, 168);
+            this.selectedGroups.TabIndex = 1;
+            this.selectedGroups.View = System.Windows.Forms.View.Details;
+            this.selectedGroups.SelectedIndexChanged += new System.EventHandler(this.selectedGroups_SelectedIndexChanged);
+            this.selectedGroups.DoubleClick += new System.EventHandler(this.selectedGroups_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Shared With";
+            this.columnHeader1.Width = 1000;
+            // 
+            // groupControl
+            // 
+            this.groupControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl.Location = new System.Drawing.Point(0, 0);
+            this.groupControl.Name = "groupControl";
+            this.groupControl.Size = new System.Drawing.Size(192, 168);
+            this.groupControl.TabIndex = 0;
+            this.groupControl.ClickGroup += new msn2.net.Pictures.Controls.ClickGroupEventHandler(this.groupControl_ClickGroup);
+            this.groupControl.DoubleClickGroup += new msn2.net.Pictures.Controls.DoubleClickGroupEventHandler(this.groupControl_DoubleClickGroup);
+            // 
+            // GroupPicker
+            // 
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.groupControl);
+            this.Name = "GroupPicker";
+            this.Size = new System.Drawing.Size(440, 168);
+            this.Load += new System.EventHandler(this.GroupPicker_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -304,6 +318,25 @@ namespace msn2.net.Pictures.Controls
             }
 
             return selected;
+        }
+
+        private void groupControl_ClickGroup(object sender, GroupControlEventArgs e)
+        {
+            this.UpdateControls();
+        }
+
+        private void UpdateControls()
+        {
+            bool leftItemSelected = (groupControl.SelectedGroup != null);
+            bool rightItemSelected = (selectedGroups.SelectedItems.Count > 0);
+
+            btnAdd.Enabled = leftItemSelected;
+            btnRemove.Enabled = rightItemSelected;
+        }
+
+        private void selectedGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.UpdateControls();
         }
 
     }

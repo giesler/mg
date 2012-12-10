@@ -32,11 +32,11 @@ namespace msn2.net.Pictures.Controls
 		private System.Data.SqlClient.SqlConnection sqlConnection1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TextBox findString;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonSearch;
 		private System.Windows.Forms.TreeView tvBrowse;
-		private System.Windows.Forms.Splitter splitter1;
+		private System.Windows.Forms.Splitter alphaSplitter;
 		private System.Windows.Forms.TreeView tvGroups;
-		private System.Windows.Forms.Splitter splitter2;
+		private System.Windows.Forms.Splitter groupSplitter;
 		private System.Windows.Forms.ListView lvFind;
 		private System.Windows.Forms.ListView lvBrowse;
 		private System.Windows.Forms.ListView lvGroups;
@@ -161,14 +161,14 @@ namespace msn2.net.Pictures.Controls
             this.tabPageFind = new System.Windows.Forms.TabPage();
             this.lvFind = new System.Windows.Forms.ListView();
             this.findString = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.tabPageBrowse = new System.Windows.Forms.TabPage();
             this.lvBrowse = new System.Windows.Forms.ListView();
-            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.alphaSplitter = new System.Windows.Forms.Splitter();
             this.tvBrowse = new System.Windows.Forms.TreeView();
             this.tabPageGroups = new System.Windows.Forms.TabPage();
             this.lvGroups = new System.Windows.Forms.ListView();
-            this.splitter2 = new System.Windows.Forms.Splitter();
+            this.groupSplitter = new System.Windows.Forms.Splitter();
             this.tvGroups = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
@@ -315,14 +315,14 @@ namespace msn2.net.Pictures.Controls
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(479, 383);
-            this.tabControl1.TabIndex = 4;
+            this.tabControl1.TabIndex = 10;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageFind
             // 
             this.tabPageFind.Controls.Add(this.lvFind);
             this.tabPageFind.Controls.Add(this.findString);
-            this.tabPageFind.Controls.Add(this.button1);
+            this.tabPageFind.Controls.Add(this.buttonSearch);
             this.tabPageFind.Location = new System.Drawing.Point(4, 22);
             this.tabPageFind.Name = "tabPageFind";
             this.tabPageFind.Size = new System.Drawing.Size(471, 357);
@@ -340,7 +340,7 @@ namespace msn2.net.Pictures.Controls
             this.lvFind.MultiSelect = false;
             this.lvFind.Name = "lvFind";
             this.lvFind.Size = new System.Drawing.Size(471, 325);
-            this.lvFind.TabIndex = 7;
+            this.lvFind.TabIndex = 3;
             this.lvFind.View = System.Windows.Forms.View.List;
             this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
             this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
@@ -353,25 +353,25 @@ namespace msn2.net.Pictures.Controls
             this.findString.Location = new System.Drawing.Point(0, 8);
             this.findString.Name = "findString";
             this.findString.Size = new System.Drawing.Size(400, 20);
-            this.findString.TabIndex = 4;
+            this.findString.TabIndex = 1;
             this.findString.Text = "<enter name>";
             this.findString.Enter += new System.EventHandler(this.findString_Enter);
             this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
             // 
-            // button1
+            // buttonSearch
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(407, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(59, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "&Search";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(407, 8);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(59, 23);
+            this.buttonSearch.TabIndex = 2;
+            this.buttonSearch.Text = "&Search";
+            this.buttonSearch.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabPageBrowse
             // 
             this.tabPageBrowse.Controls.Add(this.lvBrowse);
-            this.tabPageBrowse.Controls.Add(this.splitter1);
+            this.tabPageBrowse.Controls.Add(this.alphaSplitter);
             this.tabPageBrowse.Controls.Add(this.tvBrowse);
             this.tabPageBrowse.Location = new System.Drawing.Point(4, 22);
             this.tabPageBrowse.Name = "tabPageBrowse";
@@ -386,22 +386,22 @@ namespace msn2.net.Pictures.Controls
             this.lvBrowse.FullRowSelect = true;
             this.lvBrowse.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvBrowse.HideSelection = false;
-            this.lvBrowse.Location = new System.Drawing.Point(107, 0);
+            this.lvBrowse.Location = new System.Drawing.Point(126, 0);
             this.lvBrowse.MultiSelect = false;
             this.lvBrowse.Name = "lvBrowse";
-            this.lvBrowse.Size = new System.Drawing.Size(364, 357);
-            this.lvBrowse.TabIndex = 2;
+            this.lvBrowse.Size = new System.Drawing.Size(345, 357);
+            this.lvBrowse.TabIndex = 6;
             this.lvBrowse.View = System.Windows.Forms.View.List;
             this.lvBrowse.SelectedIndexChanged += new System.EventHandler(this.lvBrowse_SelectedIndexChanged);
             this.lvBrowse.DoubleClick += new System.EventHandler(this.lvBrowse_DoubleClick);
             // 
-            // splitter1
+            // alphaSplitter
             // 
-            this.splitter1.Location = new System.Drawing.Point(104, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 357);
-            this.splitter1.TabIndex = 1;
-            this.splitter1.TabStop = false;
+            this.alphaSplitter.Location = new System.Drawing.Point(123, 0);
+            this.alphaSplitter.Name = "alphaSplitter";
+            this.alphaSplitter.Size = new System.Drawing.Size(3, 357);
+            this.alphaSplitter.TabIndex = 5;
+            this.alphaSplitter.TabStop = false;
             // 
             // tvBrowse
             // 
@@ -454,14 +454,14 @@ namespace msn2.net.Pictures.Controls
             treeNode7,
             treeNode14,
             treeNode21});
-            this.tvBrowse.Size = new System.Drawing.Size(104, 357);
-            this.tvBrowse.TabIndex = 0;
+            this.tvBrowse.Size = new System.Drawing.Size(123, 357);
+            this.tvBrowse.TabIndex = 4;
             this.tvBrowse.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBrowse_AfterSelect);
             // 
             // tabPageGroups
             // 
             this.tabPageGroups.Controls.Add(this.lvGroups);
-            this.tabPageGroups.Controls.Add(this.splitter2);
+            this.tabPageGroups.Controls.Add(this.groupSplitter);
             this.tabPageGroups.Controls.Add(this.tvGroups);
             this.tabPageGroups.Location = new System.Drawing.Point(4, 22);
             this.tabPageGroups.Name = "tabPageGroups";
@@ -472,26 +472,26 @@ namespace msn2.net.Pictures.Controls
             // lvGroups
             // 
             this.lvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvGroups.Location = new System.Drawing.Point(91, 0);
+            this.lvGroups.Location = new System.Drawing.Point(124, 0);
             this.lvGroups.Name = "lvGroups";
-            this.lvGroups.Size = new System.Drawing.Size(380, 357);
-            this.lvGroups.TabIndex = 2;
+            this.lvGroups.Size = new System.Drawing.Size(347, 357);
+            this.lvGroups.TabIndex = 9;
             // 
-            // splitter2
+            // groupSplitter
             // 
-            this.splitter2.Location = new System.Drawing.Point(88, 0);
-            this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 357);
-            this.splitter2.TabIndex = 1;
-            this.splitter2.TabStop = false;
+            this.groupSplitter.Location = new System.Drawing.Point(121, 0);
+            this.groupSplitter.Name = "groupSplitter";
+            this.groupSplitter.Size = new System.Drawing.Size(3, 357);
+            this.groupSplitter.TabIndex = 8;
+            this.groupSplitter.TabStop = false;
             // 
             // tvGroups
             // 
             this.tvGroups.Dock = System.Windows.Forms.DockStyle.Left;
             this.tvGroups.Location = new System.Drawing.Point(0, 0);
             this.tvGroups.Name = "tvGroups";
-            this.tvGroups.Size = new System.Drawing.Size(88, 357);
-            this.tvGroups.TabIndex = 0;
+            this.tvGroups.Size = new System.Drawing.Size(121, 357);
+            this.tvGroups.TabIndex = 7;
             // 
             // PeopleCtl
             // 

@@ -84,14 +84,8 @@ namespace msn2.net.Pictures.Controls
         {
             taskList.Controls.Clear();
 
-            LinkLabel removeSecurityGroup = new LinkLabel();
-            removeSecurityGroup.Text = "Remove security group";
-            removeSecurityGroup.LinkClicked += new LinkLabelLinkClickedEventHandler(removeSecurityGroup_LinkClicked);
-            removeSecurityGroup.Dock = DockStyle.Top;
-            taskList.Controls.Add(removeSecurityGroup);
-
             LinkLabel addSecurityGroup = new LinkLabel();
-            addSecurityGroup.Text = "Add security group";
+            addSecurityGroup.Text = "Share with...";
             addSecurityGroup.LinkClicked += new LinkLabelLinkClickedEventHandler(addSecurityGroup_LinkClicked);
             addSecurityGroup.Dock = DockStyle.Top;
             taskList.Controls.Add(addSecurityGroup);

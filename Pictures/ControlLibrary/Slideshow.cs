@@ -14,16 +14,18 @@ using System.Diagnostics;
 
 namespace msn2.net.Pictures.Controls
 {
-    partial class Slideshow : Form
+    public partial class Slideshow : Form
     {
         private PictureItem item;
-        private GetPreviousItemIdDelegate getPreviousId;
-        private GetNextItemIdDelegate getNextId;
+        protected GetPreviousItemIdDelegate getPreviousId;
+        protected GetNextItemIdDelegate getNextId;
         private PictureData picture;
         private PictureProperties editor;
         private PeopleSelect peopleSelect;
+        private GroupSelect groupSelect;
         private Form sourceForm = null;
         private PictureControlSettings settings;
+        private bool loading = false;
 
         private Slideshow()
         {
@@ -43,6 +45,14 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
 
             this.KeyPreview = true;
+        }
+
+        protected PictureData CurrentPicture
+        {
+            get
+            {
+                return this.picture;
+            }
         }
 
         public void SetSourceForm(Form sourceForm)
@@ -73,6 +83,10 @@ namespace msn2.net.Pictures.Controls
             {
                 LoadPeople();
             }
+            if (this.groupSelect != null)
+            {
+                LoadGroups();
+            }
 
             UpdateControls();
         }
@@ -80,11 +94,27 @@ namespace msn2.net.Pictures.Controls
         private void LoadPeople()
         {
             List<PersonInfo> people = PicContext.Current.PictureManager.GetPicturePeople(this.picture.Id);
+
+            this.loading = true;
             peopleSelect.PersonPicker.ClearSelectedPeople();
             foreach (PersonInfo person in people)
             {
                 peopleSelect.PersonPicker.AddSelectedPerson(person.Id);
             }
+            this.loading = false;
+        }
+
+        private void LoadGroups()
+        {
+            List<PersonGroup> groups = PicContext.Current.PictureManager.GetPictureGroups(this.picture.Id);
+
+            this.loading = true;
+            groupSelect.GroupPicker.ClearSelectedGroups();
+            foreach (PersonGroup group in groups)
+            {
+                groupSelect.GroupPicker.AddSelectedGroup(group.Id);
+            }
+            this.loading = false;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -122,6 +152,14 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_People_Left = this.peopleSelect.Left;
                     this.settings.Slideshow_People_Top = this.peopleSelect.Top;
                     this.peopleSelect.Close();
+                }
+
+                if (this.groupSelect != null)
+                {
+                    this.settings.Slideshow_Group_IsOpen = this.groupSelect.Visible;
+                    this.settings.Slideshow_Group_Left = this.groupSelect.Left;
+                    this.settings.Slideshow_People_Top = this.groupSelect.Top;
+                    this.groupSelect.Close();
                 }
 
                 if (this.sourceForm != null)
@@ -251,27 +289,33 @@ namespace msn2.net.Pictures.Controls
 
         void PersonPicker_AddedPerson(object sender, PersonPickerEventArgs e)
         {
-            PicContext.Current.PictureManager.AddPerson(
-                this.picture.Id,
-                e.PersonID);
-
-            if (this.editor != null)
+            if (this.loading == false)
             {
-                PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
-                this.editor.Editor.AddPerson(person);
+                PicContext.Current.PictureManager.AddPerson(
+                    this.picture.Id,
+                    e.PersonID);
+
+                if (this.editor != null)
+                {
+                    PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
+                    this.editor.Editor.AddPerson(person);
+                }
             }
         }
 
         void PersonPicker_RemovedPerson(object sender, PersonPickerEventArgs e)
         {
-            PicContext.Current.PictureManager.RemovePerson(
-                this.picture.Id,
-                e.PersonID);
-
-            if (this.editor != null)
+            if (this.loading == false)
             {
-                PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
-                this.editor.Editor.RemovePerson(person);
+                PicContext.Current.PictureManager.RemovePerson(
+                    this.picture.Id,
+                    e.PersonID);
+
+                if (this.editor != null)
+                {
+                    PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
+                    this.editor.Editor.RemovePerson(person);
+                }
             }
         }
 
@@ -279,6 +323,73 @@ namespace msn2.net.Pictures.Controls
         {
             this.toolPeople.Checked = false;
             this.peopleSelect = null;
+        }
+
+        private void toolGroups_Click(object sender, EventArgs e)
+        {
+            if (this.groupSelect == null)
+            {
+                this.groupSelect = new GroupSelect();
+                this.groupSelect.Opacity = 0.75f;
+                this.groupSelect.Left = PictureControlSettings.GetSafeLeft(this.groupSelect, this.settings.Slideshow_Group_Left);
+                this.groupSelect.Top = PictureControlSettings.GetSafeTop(this.groupSelect, this.settings.Slideshow_Group_Top);
+                this.groupSelect.FormClosed += new FormClosedEventHandler(groupSelect_FormClosed);
+                this.groupSelect.GroupPicker.AddedGroup += new AddedGroupEventHandler(GroupPicker_AddedGroup);
+                this.groupSelect.GroupPicker.RemovedGroup += new RemovedGroupEventHandler(GroupPicker_RemovedGroup);
+
+                if (this.picture != null)
+                {
+                    LoadGroups();
+                }
+            }
+
+            toolGroups.Checked = !toolGroups.Checked;
+            if (toolGroups.Checked == true)
+            {
+                this.groupSelect.Show(this);
+            }
+            else
+            {
+                this.groupSelect.Hide();
+            }
+        }
+
+        void GroupPicker_AddedGroup(object sender, GroupPickerEventArgs e)
+        {
+            if (loading == false)
+            {
+                PicContext.Current.PictureManager.AddToSecurityGroup(
+                    this.picture.Id,
+                    e.GroupID);
+
+                if (this.editor != null)
+                {
+                    PersonGroup group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
+                    this.editor.Editor.AddGroup(group);
+                }
+            }
+        }
+
+        void GroupPicker_RemovedGroup(object sender, GroupPickerEventArgs e)
+        {
+            if (loading == false)
+            {
+                PicContext.Current.PictureManager.RemoveFromSecurityGroup(
+                    this.picture.Id,
+                    e.GroupID);
+
+                if (this.editor != null)
+                {
+                    PersonGroup group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
+                    this.editor.Editor.RemoveGroup(group);
+                }
+            }
+        }
+
+        void groupSelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.toolGroups.Checked = false;
+            this.groupSelect = null;
         }
 
         

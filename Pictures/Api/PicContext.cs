@@ -136,6 +136,7 @@ namespace msn2.net.Pictures
 		private CategoryManager	categoryManager;
         private PictureCache    pictureCache;
         private UserManager		userManager;
+        private GroupManager groupManager;
 		private PictureConfig	config;
 		private PersonInfo		currentUser;
 		private static string CONTEXTKEY = "asdfasf";
@@ -191,6 +192,7 @@ namespace msn2.net.Pictures
 			categoryManager	= new CategoryManager(config.ConnectionString);
             pictureCache = new PictureCache();
             userManager		= new UserManager(config.ConnectionString);
+            groupManager = new GroupManager(config.ConnectionString);
 			currentUser		= null;
 		}
 
@@ -248,6 +250,14 @@ namespace msn2.net.Pictures
 				return userManager;
 			}
 		}
+
+        public GroupManager GroupManager
+        {
+            get
+            {
+                return this.groupManager;
+            }
+        }
 
 		public PictureConfig Config
 		{

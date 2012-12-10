@@ -4,8 +4,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using msn2.net.Pictures.Controls;
 
-namespace PicAdminTest
+namespace msn2.net.Pictures
 {
 	/// <summary>
 	/// Summary description for Form1.
@@ -128,8 +129,16 @@ namespace PicAdminTest
 		{
 		//	Application.Run(new Form1());
 
-            msn2.net.Pictures.Controls.fMain f = new msn2.net.Pictures.Controls.fMain();
-            Application.Run(f);
+            try
+            {
+                msn2.net.Pictures.Controls.fMain f = new msn2.net.Pictures.Controls.fMain();
+                Application.Run(f);
+            }
+            catch (Exception ex)
+            {
+                ExceptionDialog dialog = new ExceptionDialog(ex);
+                dialog.ShowDialog();
+            }
         }
 
         private void button1_Click(object sender, System.EventArgs e)

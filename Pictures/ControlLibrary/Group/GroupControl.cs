@@ -40,19 +40,21 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-            this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+            if (PicContext.Current != null)
+            {
+                this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-            // load the list of people
-			daGroup.Fill(dsGroup, "Group");
+                // load the list of people
+                daGroup.Fill(dsGroup, "Group");
 
-			// fill the listview
-			foreach (DataSetGroup.GroupRow row in dsGroup.Group.Rows) 
-			{
-                ListViewItem item = new ListViewItem(row.GroupName);
-				item.Tag = row;
-				groupList.Items.Add(item);
-			}
-
+                // fill the listview
+                foreach (DataSetGroup.GroupRow row in dsGroup.Group.Rows)
+                {
+                    ListViewItem item = new ListViewItem(row.GroupName);
+                    item.Tag = row;
+                    groupList.Items.Add(item);
+                }
+            }
 		}
 
 		/// <summary> 
@@ -159,10 +161,6 @@ namespace msn2.net.Pictures.Controls
 			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "GroupID", System.Data.DataRowVersion.Original, null));
 			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "GroupName", System.Data.DataRowVersion.Original, null));
 			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@GroupName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "GroupName", System.Data.DataRowVersion.Original, null));
-			// 
-			// cn
-			// 
-            this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
             // 
 			// sqlInsertCommand1
 			// 

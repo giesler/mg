@@ -38,6 +38,7 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
+
 			RefreshTree();
 
             this.tvCategory.ImageList = new ImageList();
@@ -47,20 +48,22 @@ namespace msn2.net.Pictures.Controls
 		public void RefreshTree () 
 		{
 			// clear tree
-			tvCategory.Nodes.Clear();
+            if (PicContext.Current != null)
+            {
+                tvCategory.Nodes.Clear();
 
-			// load first node
-            Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+                // load first node
+                Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
-			CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
-			tvCategory.Nodes.Add(nRoot);
+                CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
+                tvCategory.Nodes.Add(nRoot);
 
-            tvCategory.HideSelection = false;
+                tvCategory.HideSelection = false;
 
-            // load first level
-			FillChildren(nRoot, 2);
-			nRoot.Expand();	
-
+                // load first level
+                FillChildren(nRoot, 2);
+                nRoot.Expand();
+            }
 		}
 
 		/// <summary> 
@@ -295,9 +298,16 @@ namespace msn2.net.Pictures.Controls
 
 		private void tvCategory_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
-			if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Text == "<to load>")
-                FillChildren(e.Node as CategoryTreeNode , 2);
+            CategoryTreeNode node = (CategoryTreeNode)e.Node;
+
+            ValidateChildrenLoaded(node);
 		}
+
+        private void ValidateChildrenLoaded(CategoryTreeNode node)
+        {
+            if (node.Nodes.Count == 1 && node.Nodes[0].Text == "<to load>")
+                FillChildren(node, 2);
+        }
 
 		private void FillChildren(CategoryTreeNode n, int intLevelsToGo) 
 		{
@@ -305,7 +315,6 @@ namespace msn2.net.Pictures.Controls
 			n.Nodes.Clear();
             
 			// load child nodes from dvCategory
-
             List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
                 n.Category.CategoryId);
 
@@ -321,6 +330,10 @@ namespace msn2.net.Pictures.Controls
                     childNode.Nodes.Add("<to load>");
             }
 
+            if (CategoryChildrenLoaded != null)
+            {
+                CategoryChildrenLoaded(this, new CategoryTreeEventArgs(n.Category));
+            }
 		}
 
         public void SetSelectedCategory(Category category)
@@ -373,6 +386,7 @@ namespace msn2.net.Pictures.Controls
 		// events
 		public event ClickCategoryEventHandler ClickCategory;
 		public event DoubleClickCategoryEventHandler DoubleClickCategory;
+        public event ClickCategoryEventHandler CategoryChildrenLoaded;
 
 		private void tvCategory_DoubleClick(object sender, System.EventArgs e)
 		{
@@ -390,9 +404,11 @@ namespace msn2.net.Pictures.Controls
 
 		private void tvCategory_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
+            // Make sure children loaded
+            ValidateChildrenLoaded(e.Node as CategoryTreeNode);
+
 			if (e.Action != TreeViewAction.Unknown) 
 			{
-
 				CategoryTreeNode n = this.SelectedNode;
 				if (n == null)
 					return;

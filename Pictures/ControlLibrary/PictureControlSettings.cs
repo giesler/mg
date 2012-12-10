@@ -98,6 +98,49 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Group_Left
+        {
+            get
+            {
+                return (int)this["Slideshow_Group_Left"];
+            }
+            set
+            {
+
+                this["Slideshow_Group_Left"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Group_Top
+        {
+            get
+            {
+                return (int)this["Slideshow_Group_Top"];
+            }
+            set
+            {
+                this["Slideshow_Group_Top"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("False")]
+        public bool Slideshow_Group_IsOpen
+        {
+            get
+            {
+                return (bool)this["Slideshow_Group_IsOpen"];
+            }
+            set
+            {
+                this["Slideshow_Group_IsOpen"] = value;
+            }
+        }
+
         public static int GetSafeLeft(Form form, int suggestedLeft)
         {
             Rectangle formRectange = Screen.FromControl(form).WorkingArea;

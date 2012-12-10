@@ -11,6 +11,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("msn2.net")]
 [assembly: AssemblyProduct("MSN2 Pictures")]
-[assembly: AssemblyCopyright("(c) 2004 - Mike Giesler")]
+[assembly: AssemblyCopyright("(c) 2005 - Mike Giesler")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("2.0.0.0")]
+

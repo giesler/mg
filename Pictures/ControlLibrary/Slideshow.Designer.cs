@@ -28,21 +28,22 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Slideshow));
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStip = new System.Windows.Forms.ToolStrip();
             this.toolClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolPrevious = new System.Windows.Forms.ToolStripButton();
             this.toolNext = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolProperties = new System.Windows.Forms.ToolStripButton();
-            this.toolAddToCategory = new System.Windows.Forms.ToolStripButton();
             this.toolPeople = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1.SuspendLayout();
+            this.toolAddToCategory = new System.Windows.Forms.ToolStripButton();
+            this.toolGroups = new System.Windows.Forms.ToolStripButton();
+            this.toolStip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
+            // toolStip
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolClose,
             this.toolStripSeparator1,
             this.toolPrevious,
@@ -50,12 +51,13 @@
             this.toolStripSeparator2,
             this.toolProperties,
             this.toolPeople,
-            this.toolAddToCategory});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(703, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolAddToCategory,
+            this.toolGroups});
+            this.toolStip.Location = new System.Drawing.Point(0, 0);
+            this.toolStip.Name = "toolStip";
+            this.toolStip.Size = new System.Drawing.Size(703, 25);
+            this.toolStip.TabIndex = 0;
+            this.toolStip.Text = "toolStrip1";
             // 
             // toolClose
             // 
@@ -71,7 +73,7 @@
             // 
             // toolPrevious
             // 
-            this.toolPrevious.Image = ((System.Drawing.Image)(resources.GetObject("toolPrevious.Image")));
+            this.toolPrevious.Image = msn2.net.Pictures.Controls.Properties.Resources.up;
             this.toolPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolPrevious.Name = "toolPrevious";
             this.toolPrevious.Text = "Previous";
@@ -79,7 +81,7 @@
             // 
             // toolNext
             // 
-            this.toolNext.Image = ((System.Drawing.Image)(resources.GetObject("toolNext.Image")));
+            this.toolNext.Image = msn2.net.Pictures.Controls.Properties.Resources.down;
             this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolNext.Name = "toolNext";
             this.toolNext.Text = "Next";
@@ -97,14 +99,6 @@
             this.toolProperties.Text = "Properties";
             this.toolProperties.Click += new System.EventHandler(this.toolProperties_Click);
             // 
-            // toolAddToCategory
-            // 
-            this.toolAddToCategory.Image = ((System.Drawing.Image)(resources.GetObject("toolAddToCategory.Image")));
-            this.toolAddToCategory.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolAddToCategory.Name = "toolAddToCategory";
-            this.toolAddToCategory.Text = "Add to category...";
-            this.toolAddToCategory.Click += new System.EventHandler(this.toolAddToCategory_Click);
-            // 
             // toolPeople
             // 
             this.toolPeople.Image = ((System.Drawing.Image)(resources.GetObject("toolPeople.Image")));
@@ -113,18 +107,34 @@
             this.toolPeople.Text = "People";
             this.toolPeople.Click += new System.EventHandler(this.toolPeople_Click);
             // 
+            // toolAddToCategory
+            // 
+            this.toolAddToCategory.Image = ((System.Drawing.Image)(resources.GetObject("toolAddToCategory.Image")));
+            this.toolAddToCategory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAddToCategory.Name = "toolAddToCategory";
+            this.toolAddToCategory.Text = "Add to category...";
+            this.toolAddToCategory.Click += new System.EventHandler(this.toolAddToCategory_Click);
+            // 
+            // toolGroups
+            // 
+            this.toolGroups.Image = ((System.Drawing.Image)(resources.GetObject("toolGroups.Image")));
+            this.toolGroups.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolGroups.Name = "toolGroups";
+            this.toolGroups.Text = "Shared With";
+            this.toolGroups.Click += new System.EventHandler(this.toolGroups_Click);
+            // 
             // Slideshow
             // 
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(703, 606);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Slideshow";
             this.Text = "Slideshow";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Slideshow_KeyPress);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Slideshow_KeyDown);
-            this.toolStrip1.ResumeLayout(false);
+            this.toolStip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,15 +142,16 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolClose;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolClose;
         private System.Windows.Forms.ToolStripButton toolPrevious;
         private System.Windows.Forms.ToolStripButton toolNext;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolProperties;
-        private System.Windows.Forms.ToolStripButton toolAddToCategory;
-        private System.Windows.Forms.ToolStripButton toolPeople;
+        protected System.Windows.Forms.ToolStrip toolStip;
+        protected System.Windows.Forms.ToolStripButton toolProperties;
+        protected System.Windows.Forms.ToolStripButton toolPeople;
+        protected System.Windows.Forms.ToolStripButton toolAddToCategory;
+        protected System.Windows.Forms.ToolStripButton toolGroups;
 
     }
 }

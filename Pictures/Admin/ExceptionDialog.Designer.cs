@@ -1,4 +1,4 @@
-﻿namespace msn2.net.Pictures
+﻿namespace msn2.net.Pictures.Controls
 {
     partial class ExceptionDialog
     {
@@ -27,45 +27,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.labelDetails = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // labelTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 14);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(12, 12);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(53, 20);
+            this.labelTitle.TabIndex = 0;
+            this.labelTitle.Text = "label1";
             // 
-            // label2
+            // labelDetails
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 14);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.labelDetails.AutoSize = true;
+            this.labelDetails.Location = new System.Drawing.Point(13, 45);
+            this.labelDetails.Name = "labelDetails";
+            this.labelDetails.Size = new System.Drawing.Size(33, 13);
+            this.labelDetails.TabIndex = 1;
+            this.labelDetails.Text = "details";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(201, 115);
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Location = new System.Drawing.Point(237, 181);
             this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(173, 23);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
+            this.button1.Text = "Send error to Mike and Close";
             // 
             // ExceptionDialog
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(305, 147);
+            this.CancelButton = this.button1;
+            this.ClientSize = new System.Drawing.Size(422, 216);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelDetails);
+            this.Controls.Add(this.labelTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExceptionDialog";
-            this.Text = "ExceptionDialog";
+            this.Text = "Unhandled Exception";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -73,8 +81,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Label labelDetails;
         private System.Windows.Forms.Button button1;
 
     }

@@ -21,6 +21,11 @@ namespace msn2.net.Pictures.Controls
     {
         private PictureData picture;
 
+        public PictureItem()
+        {
+            InitializeComponent();
+        }
+
         public PictureItem(PictureData picture)
         {
             this.picture = picture;

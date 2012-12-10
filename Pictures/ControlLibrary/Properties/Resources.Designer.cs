@@ -65,6 +65,18 @@ namespace msn2.net.Pictures.Controls.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap down {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("down", resourceCulture)));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap up {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("up", resourceCulture)));
+            }
+        }
+        
         internal static System.Drawing.Bitmap xp_close {
             get {
                 return ((System.Drawing.Bitmap)(ResourceManager.GetObject("xp_close", resourceCulture)));

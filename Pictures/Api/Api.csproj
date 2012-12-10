@@ -110,6 +110,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="GroupManager.cs" />
     <Compile Include="ImageUtilities.cs">
       <SubType>Code</SubType>
     </Compile>

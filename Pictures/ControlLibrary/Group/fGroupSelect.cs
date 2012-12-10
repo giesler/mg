@@ -56,64 +56,64 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label1 = new System.Windows.Forms.Label();
-			this.btnOK = new System.Windows.Forms.Button();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.groupControl1 = new msn2.net.Pictures.Controls.GroupControl();
-			this.SuspendLayout();
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(8, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(320, 24);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Select a group:";
-			// 
-			// btnOK
-			// 
-			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnOK.Location = new System.Drawing.Point(104, 264);
-			this.btnOK.Name = "btnOK";
-			this.btnOK.TabIndex = 1;
-			this.btnOK.Text = "&OK";
-			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-			// 
-			// btnCancel
-			// 
-			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(184, 264);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.TabIndex = 2;
-			this.btnCancel.Text = "&Cancel";
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-			// 
-			// groupControl1
-			// 
-			this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupControl1.Location = new System.Drawing.Point(8, 32);
-			this.groupControl1.Name = "groupControl1";
-			this.groupControl1.Size = new System.Drawing.Size(248, 224);
-			this.groupControl1.TabIndex = 3;
-			// 
-			// fGroupSelect
-			// 
-			this.AcceptButton = this.btnOK;
-			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(272, 294);
-			this.Controls.Add(this.groupControl1);
-			this.Controls.Add(this.btnCancel);
-			this.Controls.Add(this.btnOK);
-			this.Controls.Add(this.label1);
-			this.Name = "fGroupSelect";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Select...";
-			this.ResumeLayout(false);
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.groupControl1 = new msn2.net.Pictures.Controls.GroupControl();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(8, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(320, 24);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Select a group:";
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.Location = new System.Drawing.Point(104, 264);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "&OK";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(184, 264);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "&Cancel";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Location = new System.Drawing.Point(8, 32);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(248, 224);
+            this.groupControl1.TabIndex = 3;
+            // 
+            // fGroupSelect
+            // 
+            this.AcceptButton = this.btnOK;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(272, 294);
+            this.Controls.Add(this.groupControl1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.label1);
+            this.Name = "fGroupSelect";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Select...";
+            this.ResumeLayout(false);
 
 		}
 		#endregion

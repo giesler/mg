@@ -160,6 +160,12 @@
     <Compile Include="Group\GroupLinkList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Group\GroupSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Group\GroupSelect.Designer.cs">
+      <DependentUpon>GroupSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person\PeopleSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RandomSlideshow.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="WebControls\EditCategoryLink.cs">
       <SubType>UserControl</SubType>
@@ -332,8 +341,23 @@
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fPromptText.resx">
+      <DependentUpon>fPromptText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fStatus.resx">
+      <DependentUpon>fStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Group\GroupSelect.resx">
+      <DependentUpon>GroupSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Person\PeopleSelect.resx">
       <DependentUpon>PeopleSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Picture\fAddPictures.resx">
+      <DependentUpon>fAddPictures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Picture\fPicture.resx">
+      <DependentUpon>fPicture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\MultiPictureEdit.resx">
       <DependentUpon>MultiPictureEdit.cs</DependentUpon>
@@ -456,7 +480,9 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\down.gif" />
     <Content Include="Resources\FOLDER02.ICO" />
+    <None Include="Resources\up.gif" />
     <Content Include="xp_close.gif" />
     <EmbeddedResource Include="Resources\folder.ico" />
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">

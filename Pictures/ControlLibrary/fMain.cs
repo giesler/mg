@@ -81,6 +81,7 @@ namespace msn2.net.Pictures.Controls
         private PictureList pictureList1;
         private SelectedPicturePanel selectedPictures;
         private ToolStripButton copytofolderToolStripButton;
+        private MenuItem menuRandomSlideshow;
         private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
@@ -101,10 +102,33 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
-            stat.StatusText = "Yep, it still takes a while to start...";
+            stat.StatusText = "Loading picture categories and dates...";
             stat.Refresh();
 
-            PicContext.Load(Msn2Config.Load(), 1);
+            //
+            // Find Windows user
+            //
+
+            PictureConfig config = Msn2Config.Load();
+            UserManager userManager = new UserManager(config.ConnectionString);
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            PersonInfo loginInfo = userManager.GetPerson(userName);
+            if (loginInfo == null)
+            {
+                string message = string.Format(
+                    "The Windows user name '{0}' was not listed as a valid user in the MSN2 picture user list.  To use the picture admin program have Mike add '{0}'.",
+                    userName);
+
+                MessageBox.Show(
+                    message,
+                    "Unknown User",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                Application.Exit();
+            }
+
+            PicContext.Load(Msn2Config.Load(), loginInfo.Id);
 
             // Set the connection string
             cn.ConnectionString = PicContext.Current.Config.ConnectionString;
@@ -201,6 +225,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
+            this.menuRandomSlideshow = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -320,7 +345,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuItem3
             // 
-            this.menuItem3.Index = 3;
+            this.menuItem3.Index = 4;
             this.menuItem3.Text = "-";
             // 
             // mainMenu1
@@ -333,6 +358,7 @@ namespace msn2.net.Pictures.Controls
             this.menuItem1.Index = 0;
             this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuAddPictures,
+            this.menuRandomSlideshow,
             this.menuUpdateCachedPictures,
             this.menuItem5,
             this.menuItem3,
@@ -347,25 +373,25 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuUpdateCachedPictures
             // 
-            this.menuUpdateCachedPictures.Index = 1;
+            this.menuUpdateCachedPictures.Index = 2;
             this.menuUpdateCachedPictures.Text = "Update Cached Pictures";
             this.menuUpdateCachedPictures.Click += new System.EventHandler(this.menuUpdateCachedPictures_Click);
             // 
             // menuItem5
             // 
-            this.menuItem5.Index = 2;
+            this.menuItem5.Index = 3;
             this.menuItem5.Text = "&Validate cached pictures";
             this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
             // 
             // menuFileExit
             // 
-            this.menuFileExit.Index = 4;
+            this.menuFileExit.Index = 5;
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 599);
+            this.statusBar1.Location = new System.Drawing.Point(0, 515);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -422,6 +448,7 @@ namespace msn2.net.Pictures.Controls
             this.viewbyToolStripComboBox.Name = "viewbyToolStripComboBox";
             this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
             this.viewbyToolStripComboBox.Text = "category";
+            this.viewbyToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.viewbyToolStripComboBox_SelectedIndexChanged);
             this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
             // 
             // toolStripLabel1
@@ -472,7 +499,7 @@ namespace msn2.net.Pictures.Controls
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 574);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 490);
             this.mainSplitContainer.SplitterDistance = 167;
             this.mainSplitContainer.TabIndex = 17;
             this.mainSplitContainer.Text = "splitContainer2";
@@ -493,8 +520,8 @@ namespace msn2.net.Pictures.Controls
             // 
             this.rightListContainer.Panel2.Controls.Add(this.panel1);
             this.rightListContainer.Panel2MinSize = 50;
-            this.rightListContainer.Size = new System.Drawing.Size(847, 574);
-            this.rightListContainer.SplitterDistance = 370;
+            this.rightListContainer.Size = new System.Drawing.Size(847, 490);
+            this.rightListContainer.SplitterDistance = 349;
             this.rightListContainer.TabIndex = 16;
             this.rightListContainer.Text = "splitContainer1";
             // 
@@ -504,7 +531,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
-            this.pictureList1.Size = new System.Drawing.Size(847, 370);
+            this.pictureList1.Size = new System.Drawing.Size(847, 349);
             this.pictureList1.TabIndex = 0;
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
@@ -516,7 +543,7 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(847, 200);
+            this.panel1.Size = new System.Drawing.Size(847, 137);
             this.panel1.TabIndex = 6;
             // 
             // selectedPictures
@@ -525,12 +552,18 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedPictures.Location = new System.Drawing.Point(0, 0);
             this.selectedPictures.Name = "selectedPictures";
-            this.selectedPictures.Size = new System.Drawing.Size(847, 200);
+            this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
+            // 
+            // menuRandomSlideshow
+            // 
+            this.menuRandomSlideshow.Index = 1;
+            this.menuRandomSlideshow.Text = "&Random slideshow";
+            this.menuRandomSlideshow.Click += new System.EventHandler(this.menuRandomSlideshow_Click);
             // 
             // fMain
             // 
-            this.ClientSize = new System.Drawing.Size(1018, 615);
+            this.ClientSize = new System.Drawing.Size(1018, 531);
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
@@ -566,12 +599,14 @@ namespace msn2.net.Pictures.Controls
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            base.OnClosing(e);
+
             settings.Save();
         }
 
 		private void menuItem2_Click(object sender, System.EventArgs e)
 		{
-			Application.Exit();
+            this.Close();
 		}
 
 		private void AddPicturesToList(String strWhereClause) 
@@ -597,7 +632,7 @@ namespace msn2.net.Pictures.Controls
 			fAddPictures f = new fAddPictures();
             try
             {
-                f.ShowDialog();
+                f.ShowDialog(this);
             }
             catch (ArgumentException)
             {
@@ -1057,6 +1092,10 @@ namespace msn2.net.Pictures.Controls
 
         private void viewbyToolStripComboBox_Click(object sender, EventArgs e)
         {
+        }
+
+        private void viewbyToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
             ViewMode viewMode = ViewMode.Category;
             switch (viewbyToolStripComboBox.SelectedIndex)
             {
@@ -1074,6 +1113,13 @@ namespace msn2.net.Pictures.Controls
             }
 
             this.viewPanel.SetView(viewMode);
+        }
+
+        private void menuRandomSlideshow_Click(object sender, EventArgs e)
+        {
+            RandomSlideshow random = new RandomSlideshow();
+            random.SetSourceForm(this);
+            random.Show();
         }
     }
 }

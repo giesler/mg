@@ -8,11 +8,13 @@ namespace msn2.net.Pictures
     {
         private int id;
         private string name;
+        private List<PersonInfo> members;
 
         public PersonGroup(int id, string name)
         {
             this.id = id;
             this.name = name;
+            this.members = new List<PersonInfo>();
         }
 
         public int Id
@@ -28,6 +30,14 @@ namespace msn2.net.Pictures
             get
             {
                 return this.name;
+            }
+        }
+
+        public List<PersonInfo> Members
+        {
+            get
+            {
+                return this.members;
             }
         }
     }
