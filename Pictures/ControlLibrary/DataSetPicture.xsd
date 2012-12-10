@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetPicture" targetNamespace="http://tempuri.org/DataSetPicture.xsd" xmlns:mstns="http://tempuri.org/DataSetPicture.xsd" xmlns="http://tempuri.org/DataSetPicture.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" GeneratorTypeConverterClassName="Converter" Modifier="AutoLayout, AnsiClass, NotPublic, Public" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetPicture" msdata:IsDataSet="true" msprop:User_DataSetName="DataSetPicture" msprop:DSGenerator_DataSetName="DataSetPicture">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Picture" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PictureDataTable" msprop:User_TableName="Picture" msprop:Generator_RowClassName="PictureRow" msprop:Generator_RowEvArgName="PictureRowChangeEvent" msprop:Generator_RowEvHandlerName="PictureRowChangeEventHandler" msprop:Generator_TablePropName="Picture" msprop:Generator_TableVarName="tablePicture">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementStep="-1" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" />
+              <xs:element name="Filename" msprop:Generator_DelegateName="FilenameChangeEventHandler" msprop:Generator_ChangingEventName="FilenameChanging" msprop:Generator_ColumnVarNameInTable="columnFilename" msprop:Generator_EventArgName="FilenameChangeEventArg" msprop:User_ColumnName="Filename" msprop:Generator_ColumnPropNameInRow="Filename" msprop:Generator_ChangedEventName="FilenameChanged" msprop:Generator_ColumnPropNameInTable="FilenameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PictureDate" msprop:Generator_DelegateName="PictureDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureDate" msprop:Generator_EventArgName="PictureDateChangeEventArg" msprop:User_ColumnName="PictureDate" msprop:Generator_ColumnPropNameInRow="PictureDate" msprop:Generator_ChangedEventName="PictureDateChanged" msprop:Generator_ColumnPropNameInTable="PictureDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Title" msprop:Generator_DelegateName="TitleChangeEventHandler" msprop:Generator_ChangingEventName="TitleChanging" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_EventArgName="TitleChangeEventArg" msprop:User_ColumnName="Title" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ChangedEventName="TitleChanged" msprop:Generator_ColumnPropNameInTable="TitleColumn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_DelegateName="DescriptionChangeEventHandler" msprop:Generator_ChangingEventName="DescriptionChanging" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_EventArgName="DescriptionChangeEventArg" msprop:User_ColumnName="Description" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ChangedEventName="DescriptionChanged" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="Publish" msprop:Generator_DelegateName="PublishChangeEventHandler" msprop:Generator_ChangingEventName="PublishChanging" msprop:Generator_ColumnVarNameInTable="columnPublish" msprop:Generator_EventArgName="PublishChangeEventArg" msprop:User_ColumnName="Publish" msprop:Generator_ColumnPropNameInRow="Publish" msprop:Generator_ChangedEventName="PublishChanged" msprop:Generator_ColumnPropNameInTable="PublishColumn" type="xs:boolean" default="true" minOccurs="0" />
+              <xs:element name="Rating" msprop:Generator_DelegateName="RatingChangeEventHandler" msprop:Generator_ChangingEventName="RatingChanging" msprop:Generator_ColumnVarNameInTable="columnRating" msprop:Generator_EventArgName="RatingChangeEventArg" msprop:User_ColumnName="Rating" msprop:Generator_ColumnPropNameInRow="Rating" msprop:Generator_ChangedEventName="RatingChanged" msprop:Generator_ColumnPropNameInTable="RatingColumn" type="xs:unsignedByte" default="0" minOccurs="0" />
+              <xs:element name="PictureBy" msprop:Generator_DelegateName="PictureByChangeEventHandler" msprop:Generator_ChangingEventName="PictureByChanging" msprop:Generator_ColumnVarNameInTable="columnPictureBy" msprop:Generator_EventArgName="PictureByChangeEventArg" msprop:User_ColumnName="PictureBy" msprop:Generator_ColumnPropNameInRow="PictureBy" msprop:Generator_ChangedEventName="PictureByChanged" msprop:Generator_ColumnPropNameInTable="PictureByColumn" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="PictureSort" msprop:Generator_DelegateName="PictureSortChangeEventHandler" msprop:Generator_ChangingEventName="PictureSortChanging" msprop:Generator_ColumnVarNameInTable="columnPictureSort" msprop:Generator_EventArgName="PictureSortChangeEventArg" msprop:User_ColumnName="PictureSort" msprop:Generator_ColumnPropNameInRow="PictureSort" msprop:Generator_ChangedEventName="PictureSortChanged" msprop:Generator_ColumnPropNameInTable="PictureSortColumn" type="xs:int" default="0" />
+              <xs:element name="PictureAddDate" msprop:Generator_DelegateName="PictureAddDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureAddDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureAddDate" msprop:Generator_EventArgName="PictureAddDateChangeEventArg" msprop:User_ColumnName="PictureAddDate" msprop:Generator_ColumnPropNameInRow="PictureAddDate" msprop:Generator_ChangedEventName="PictureAddDateChanged" msprop:Generator_ColumnPropNameInTable="PictureAddDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PictureUpdateDate" msprop:Generator_DelegateName="PictureUpdateDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureUpdateDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureUpdateDate" msprop:Generator_EventArgName="PictureUpdateDateChangeEventArg" msprop:User_ColumnName="PictureUpdateDate" msprop:Generator_ColumnPropNameInRow="PictureUpdateDate" msprop:Generator_ChangedEventName="PictureUpdateDateChanged" msprop:Generator_ColumnPropNameInTable="PictureUpdateDateColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PictureCache" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PictureCacheDataTable" msprop:User_TableName="PictureCache" msprop:Generator_RowClassName="PictureCacheRow" msprop:Generator_RowEvArgName="PictureCacheRowChangeEvent" msprop:Generator_RowEvHandlerName="PictureCacheRowChangeEventHandler" msprop:Generator_TablePropName="PictureCache" msprop:Generator_TableVarName="tablePictureCache">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureCacheID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementStep="-1" msprop:Generator_DelegateName="PictureCacheIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureCacheIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureCacheID" msprop:Generator_EventArgName="PictureCacheIDChangeEventArg" msprop:User_ColumnName="PictureCacheID" msprop:Generator_ColumnPropNameInRow="PictureCacheID" msprop:Generator_ChangedEventName="PictureCacheIDChanged" msprop:Generator_ColumnPropNameInTable="PictureCacheIDColumn" type="xs:int" />
+              <xs:element name="PictureID" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" />
+              <xs:element name="Filename" msprop:Generator_DelegateName="FilenameChangeEventHandler" msprop:Generator_ChangingEventName="FilenameChanging" msprop:Generator_ColumnVarNameInTable="columnFilename" msprop:Generator_EventArgName="FilenameChangeEventArg" msprop:User_ColumnName="Filename" msprop:Generator_ColumnPropNameInRow="Filename" msprop:Generator_ChangedEventName="FilenameChanged" msprop:Generator_ColumnPropNameInTable="FilenameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Height" msprop:Generator_DelegateName="HeightChangeEventHandler" msprop:Generator_ChangingEventName="HeightChanging" msprop:Generator_ColumnVarNameInTable="columnHeight" msprop:Generator_EventArgName="HeightChangeEventArg" msprop:User_ColumnName="Height" msprop:Generator_ColumnPropNameInRow="Height" msprop:Generator_ChangedEventName="HeightChanged" msprop:Generator_ColumnPropNameInTable="HeightColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Width" msprop:Generator_DelegateName="WidthChangeEventHandler" msprop:Generator_ChangingEventName="WidthChanging" msprop:Generator_ColumnVarNameInTable="columnWidth" msprop:Generator_EventArgName="WidthChangeEventArg" msprop:User_ColumnName="Width" msprop:Generator_ColumnPropNameInRow="Width" msprop:Generator_ChangedEventName="WidthChanged" msprop:Generator_ColumnPropNameInTable="WidthColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="MaxHeight" msprop:Generator_DelegateName="MaxHeightChangeEventHandler" msprop:Generator_ChangingEventName="MaxHeightChanging" msprop:Generator_ColumnVarNameInTable="columnMaxHeight" msprop:Generator_EventArgName="MaxHeightChangeEventArg" msprop:User_ColumnName="MaxHeight" msprop:Generator_ColumnPropNameInRow="MaxHeight" msprop:Generator_ChangedEventName="MaxHeightChanged" msprop:Generator_ColumnPropNameInTable="MaxHeightColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="MaxWidth" msprop:Generator_DelegateName="MaxWidthChangeEventHandler" msprop:Generator_ChangingEventName="MaxWidthChanging" msprop:Generator_ColumnVarNameInTable="columnMaxWidth" msprop:Generator_EventArgName="MaxWidthChangeEventArg" msprop:User_ColumnName="MaxWidth" msprop:Generator_ColumnPropNameInRow="MaxWidth" msprop:Generator_ChangedEventName="MaxWidthChanged" msprop:Generator_ColumnPropNameInTable="MaxWidthColumn" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PictureCategory" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PictureCategoryDataTable" msprop:User_TableName="PictureCategory" msprop:Generator_RowClassName="PictureCategoryRow" msprop:Generator_RowEvArgName="PictureCategoryRowChangeEvent" msprop:Generator_RowEvHandlerName="PictureCategoryRowChangeEventHandler" msprop:Generator_TablePropName="PictureCategory" msprop:Generator_TableVarName="tablePictureCategory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureID" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" />
+              <xs:element name="CategoryID" msprop:Generator_DelegateName="CategoryIDChangeEventHandler" msprop:Generator_ChangingEventName="CategoryIDChanging" msprop:Generator_ColumnVarNameInTable="columnCategoryID" msprop:Generator_EventArgName="CategoryIDChangeEventArg" msprop:User_ColumnName="CategoryID" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_ChangedEventName="CategoryIDChanged" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PictureGroup" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PictureGroupDataTable" msprop:User_TableName="PictureGroup" msprop:Generator_RowClassName="PictureGroupRow" msprop:Generator_RowEvArgName="PictureGroupRowChangeEvent" msprop:Generator_RowEvHandlerName="PictureGroupRowChangeEventHandler" msprop:Generator_TablePropName="PictureGroup" msprop:Generator_TableVarName="tablePictureGroup">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementStep="-1" msprop:Generator_DelegateName="PictureGroupIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureGroupIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureGroupID" msprop:Generator_EventArgName="PictureGroupIDChangeEventArg" msprop:User_ColumnName="PictureGroupID" msprop:Generator_ColumnPropNameInRow="PictureGroupID" msprop:Generator_ChangedEventName="PictureGroupIDChanged" msprop:Generator_ColumnPropNameInTable="PictureGroupIDColumn" type="xs:int" />
+              <xs:element name="PictureID" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="GroupID" msprop:Generator_DelegateName="GroupIDChangeEventHandler" msprop:Generator_ChangingEventName="GroupIDChanging" msprop:Generator_ColumnVarNameInTable="columnGroupID" msprop:Generator_EventArgName="GroupIDChangeEventArg" msprop:User_ColumnName="GroupID" msprop:Generator_ColumnPropNameInRow="GroupID" msprop:Generator_ChangedEventName="GroupIDChanged" msprop:Generator_ColumnPropNameInTable="GroupIDColumn" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PicturePerson" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PicturePersonDataTable" msprop:User_TableName="PicturePerson" msprop:Generator_RowClassName="PicturePersonRow" msprop:Generator_RowEvArgName="PicturePersonRowChangeEvent" msprop:Generator_RowEvHandlerName="PicturePersonRowChangeEventHandler" msprop:Generator_TablePropName="PicturePerson" msprop:Generator_TableVarName="tablePicturePerson">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureID" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" />
+              <xs:element name="PersonID" msprop:Generator_DelegateName="PersonIDChangeEventHandler" msprop:Generator_ChangingEventName="PersonIDChanging" msprop:Generator_ColumnVarNameInTable="columnPersonID" msprop:Generator_EventArgName="PersonIDChangeEventArg" msprop:User_ColumnName="PersonID" msprop:Generator_ColumnPropNameInRow="PersonID" msprop:Generator_ChangedEventName="PersonIDChanged" msprop:Generator_ColumnPropNameInTable="PersonIDColumn" type="xs:int" />
+              <xs:element name="PicturePersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_DelegateName="PicturePersonIDChangeEventHandler" msprop:Generator_ChangingEventName="PicturePersonIDChanging" msprop:Generator_ColumnVarNameInTable="columnPicturePersonID" msprop:Generator_EventArgName="PicturePersonIDChangeEventArg" msprop:User_ColumnName="PicturePersonID" msprop:Generator_ColumnPropNameInRow="PicturePersonID" msprop:Generator_ChangedEventName="PicturePersonIDChanged" msprop:Generator_ColumnPropNameInTable="PicturePersonIDColumn" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="DataSetPictureKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Picture" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:unique>
+    <xs:unique name="DataSetPictureKey2" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PictureCache" />
+      <xs:field xpath="mstns:PictureCacheID" />
+    </xs:unique>
+    <xs:unique name="DataSetPictureKey3" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PictureCategory" />
+      <xs:field xpath="mstns:PictureID" />
+      <xs:field xpath="mstns:CategoryID" />
+    </xs:unique>
+    <xs:unique name="DataSetPictureKey4" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PictureGroup" />
+      <xs:field xpath="mstns:PictureGroupID" />
+    </xs:unique>
+    <xs:unique name="DataSetPictureKey5" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PicturePerson" />
+      <xs:field xpath="mstns:PictureID" />
+      <xs:field xpath="mstns:PersonID" />
+    </xs:unique>
+    <xs:keyref name="PicturePicturePerson" refer="DataSetPictureKey1" msprop:rel_Generator_RelationVarName="relationPicturePicturePerson" msprop:rel_User_ParentTable="Picture" msprop:rel_User_ChildTable="PicturePerson" msprop:rel_User_RelationName="PicturePicturePerson" msprop:rel_Generator_ParentPropName="PictureRow" msprop:rel_Generator_ChildPropName="GetPicturePersonRows">
+      <xs:selector xpath=".//mstns:PicturePerson" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:keyref>
+    <xs:keyref name="PicturePictureGroup" refer="DataSetPictureKey1" msprop:rel_Generator_RelationVarName="relationPicturePictureGroup" msprop:rel_User_ParentTable="Picture" msprop:rel_User_ChildTable="PictureGroup" msprop:rel_User_RelationName="PicturePictureGroup" msprop:rel_Generator_ParentPropName="PictureRow" msprop:rel_Generator_ChildPropName="GetPictureGroupRows">
+      <xs:selector xpath=".//mstns:PictureGroup" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:keyref>
+    <xs:keyref name="PicturePictureCategory" refer="DataSetPictureKey1" msprop:rel_Generator_RelationVarName="relationPicturePictureCategory" msprop:rel_User_ParentTable="Picture" msprop:rel_User_ChildTable="PictureCategory" msprop:rel_User_RelationName="PicturePictureCategory" msprop:rel_Generator_ParentPropName="PictureRow" msprop:rel_Generator_ChildPropName="GetPictureCategoryRows">
+      <xs:selector xpath=".//mstns:PictureCategory" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:keyref>
+    <xs:keyref name="PicturePictureCache" refer="DataSetPictureKey1" msprop:rel_Generator_RelationVarName="relationPicturePictureCache" msprop:rel_User_ParentTable="Picture" msprop:rel_User_ChildTable="PictureCache" msprop:rel_User_RelationName="PicturePictureCache" msprop:rel_Generator_ParentPropName="PictureRow" msprop:rel_Generator_ChildPropName="GetPictureCacheRows">
+      <xs:selector xpath=".//mstns:PictureCache" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="DataSetPerson" targetNamespace="http://tempuri.org/DataSetPerson.xsd" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns="http://tempuri.org/DataSetPerson.xsd" xmlns:mstns="http://tempuri.org/DataSetPerson.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DataSetPerson" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Person">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
+							<xs:element name="LastName" type="xs:string" minOccurs="0" />
+							<xs:element name="FirstName" type="xs:string" minOccurs="0" />
+							<xs:element name="FullName" type="xs:string" minOccurs="0" />
+							<xs:element name="Email" type="xs:string" minOccurs="0" />
+							<xs:element name="Password" type="xs:string" minOccurs="0" />
+							<xs:element name="ResetPWGuid" type="xs:base64Binary" minOccurs="0" />
+							<xs:element name="ResetPWExpire" type="xs:dateTime" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PersonGroup">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PersonGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" msdata:AutoIncrementSeed="0" msdata:AutoIncrementStep="-1" />
+							<xs:element name="PersonID" type="xs:int" />
+							<xs:element name="GroupID" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:unique name="DataSetPersonKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:Person" />
+			<xs:field xpath="mstns:PersonID" />
+		</xs:unique>
+		<xs:unique name="DataSetPersonKey2" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:PersonGroup" />
+			<xs:field xpath="mstns:PersonID" />
+			<xs:field xpath="mstns:GroupID" />
+		</xs:unique>
+		<xs:key name="key1">
+			<xs:selector xpath=".//mstns:Person" />
+			<xs:field xpath="mstns:PersonID" />
+		</xs:key>
+		<xs:keyref name="PersonPersonGroup" refer="key1">
+			<xs:selector xpath=".//mstns:PersonGroup" />
+			<xs:field xpath="mstns:PersonID" />
+		</xs:keyref>
+	</xs:element>
+</xs:schema>

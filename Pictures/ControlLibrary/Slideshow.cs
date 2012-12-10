@@ -167,6 +167,8 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_Editor_IsOpen = this.editor.Visible;
                     this.settings.Slideshow_Editor_Left = this.editor.Left;
                     this.settings.Slideshow_Editor_Top = this.editor.Top;
+                    this.settings.Slideshow_Editor_Height = this.editor.Height;
+                    this.settings.Slideshow_Editor_Width = this.editor.Width;
                     this.editor.Close();
                 }
 
@@ -175,6 +177,8 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_People_IsOpen = this.peopleSelect.Visible;
                     this.settings.Slideshow_People_Left = this.peopleSelect.Left;
                     this.settings.Slideshow_People_Top = this.peopleSelect.Top;
+                    this.settings.Slideshow_People_Height = this.peopleSelect.Height;
+                    this.settings.Slideshow_People_Width = this.peopleSelect.Width;
                     this.peopleSelect.Close();
                 }
 
@@ -182,7 +186,9 @@ namespace msn2.net.Pictures.Controls
                 {
                     this.settings.Slideshow_Group_IsOpen = this.groupSelect.Visible;
                     this.settings.Slideshow_Group_Left = this.groupSelect.Left;
-                    this.settings.Slideshow_People_Top = this.groupSelect.Top;
+                    this.settings.Slideshow_Group_Top = this.groupSelect.Top;
+                    this.settings.Slideshow_Group_Width = this.groupSelect.Width;
+                    this.settings.Slideshow_Group_Height = this.groupSelect.Height;
                     this.groupSelect.Close();
                 }
                 
@@ -191,6 +197,8 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_Category_IsOpen = this.categorySelect.Visible;
                     this.settings.Slideshow_Category_Left = this.categorySelect.Left;
                     this.settings.Slideshow_Category_Top = this.categorySelect.Top;
+                    this.settings.Slideshow_Category_Width = this.settings.Slideshow_Category_Width;
+                    this.settings.Slideshow_Category_Height = this.settings.Slideshow_Category_Height;
                     this.categorySelect.Close();
                 }
 
@@ -371,6 +379,9 @@ namespace msn2.net.Pictures.Controls
                 this.editor.Opacity = 0.75f;
                 this.editor.Left = PictureControlSettings.GetSafeLeft(this.editor, this.settings.Slideshow_Editor_Left);
                 this.editor.Top = PictureControlSettings.GetSafeTop(this.editor, this.settings.Slideshow_Editor_Top);
+                this.editor.Width = this.settings.Slideshow_Editor_Width;
+                this.editor.Height = this.settings.Slideshow_Editor_Height;
+
                 this.editor.FormClosed += new FormClosedEventHandler(this.OnPropertiesClosed);
             }
 
@@ -413,6 +424,8 @@ namespace msn2.net.Pictures.Controls
                 this.peopleSelect.Opacity = 0.75f;
                 this.peopleSelect.Left = PictureControlSettings.GetSafeLeft(this.peopleSelect, this.settings.Slideshow_People_Left);
                 this.peopleSelect.Top = PictureControlSettings.GetSafeTop(this.peopleSelect, this.settings.Slideshow_People_Top);
+                this.peopleSelect.Width = this.settings.Slideshow_People_Width;
+                this.peopleSelect.Height = this.settings.Slideshow_People_Width;
                 this.peopleSelect.FormClosed += new FormClosedEventHandler(peopleSelect_FormClosed);
                 this.peopleSelect.PersonPicker.AddedPerson += new AddedPersonEventHandler(PersonPicker_AddedPerson);
                 this.peopleSelect.PersonPicker.RemovedPerson += new RemovedPersonEventHandler(PersonPicker_RemovedPerson);
@@ -485,6 +498,8 @@ namespace msn2.net.Pictures.Controls
                 this.groupSelect.Opacity = 0.75f;
                 this.groupSelect.Left = PictureControlSettings.GetSafeLeft(this.groupSelect, this.settings.Slideshow_Group_Left);
                 this.groupSelect.Top = PictureControlSettings.GetSafeTop(this.groupSelect, this.settings.Slideshow_Group_Top);
+                this.groupSelect.Height = this.settings.Slideshow_Group_Height;
+                this.groupSelect.Width = this.settings.Slideshow_Group_Width;
                 this.groupSelect.FormClosed += new FormClosedEventHandler(groupSelect_FormClosed);
                 this.groupSelect.GroupPicker.AddedGroup += new AddedGroupEventHandler(GroupPicker_AddedGroup);
                 this.groupSelect.GroupPicker.RemovedGroup += new RemovedGroupEventHandler(GroupPicker_RemovedGroup);
@@ -557,6 +572,8 @@ namespace msn2.net.Pictures.Controls
                 this.categorySelect.Opacity = 0.75f;
                 this.categorySelect.Left = PictureControlSettings.GetSafeLeft(this.categorySelect, this.settings.Slideshow_Category_Left);
                 this.categorySelect.Top = PictureControlSettings.GetSafeTop(this.categorySelect, this.settings.Slideshow_Category_Top);
+                this.categorySelect.Width = this.settings.Slideshow_Category_Width;
+                this.categorySelect.Height = this.settings.Slideshow_Category_Height;
                 this.categorySelect.FormClosed += new FormClosedEventHandler(categorySelect_FormClosed);
                 this.categorySelect.CategoryPicker.AddedCategory += new AddedCategoryEventHandler(CategoryPicker_AddedCategory);
                 this.categorySelect.CategoryPicker.RemovedCategory += new RemovedCategoryEventHandler(CategoryPicker_RemovedCategory);

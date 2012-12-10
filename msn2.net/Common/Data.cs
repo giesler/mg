@@ -49,7 +49,7 @@ namespace msn2.net.Configuration
 		#region Constructors
 
 		// used for top level node
-		internal Data(Guid configId, Guid userId, Guid machineId, Guid policyId, string storageUrl)
+		public Data(Guid configId, Guid userId, Guid machineId, Guid policyId, string storageUrl)
 		{
 			this.configId		= configId;
 			this.userId			= userId;

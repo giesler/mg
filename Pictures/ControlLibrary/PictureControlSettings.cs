@@ -43,6 +43,34 @@ namespace msn2.net.Pictures.Controls
         }
 
         [UserScopedSetting()]
+        [DefaultSettingValue("300")]
+        public int Slideshow_Editor_Width
+        {
+            get
+            {
+                return (int)this["Slideshow_Editor_Width"];
+            }
+            set
+            {
+                this["Slideshow_Editor_Width"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Editor_Height
+        {
+            get
+            {
+                return (int)this["Slideshow_Editor_Height"];
+            }
+            set
+            {
+                this["Slideshow_Editor_Height"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
         [DefaultSettingValue("False")]
         public bool Slideshow_Editor_IsOpen
         {
@@ -81,6 +109,34 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 this["Slideshow_People_Top"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("300")]
+        public int Slideshow_People_Width
+        {
+            get
+            {
+                return (int)this["Slideshow_People_Width"];
+            }
+            set
+            {
+                this["Slideshow_People_Width"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_People_Height
+        {
+            get
+            {
+                return (int)this["Slideshow_People_Height"];
+            }
+            set
+            {
+                this["Slideshow_People_Height"] = value;
             }
         }
 
@@ -128,6 +184,34 @@ namespace msn2.net.Pictures.Controls
         }
 
         [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Group_Height
+        {
+            get
+            {
+                return (int)this["Slideshow_Group_Height"];
+            }
+            set
+            {
+                this["Slideshow_Group_Height"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("300")]
+        public int Slideshow_Group_Width
+        {
+            get
+            {
+                return (int)this["Slideshow_Group_Width"];
+            }
+            set
+            {
+                this["Slideshow_Group_Width"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
         [DefaultSettingValue("False")]
         public bool Slideshow_Group_IsOpen
         {
@@ -166,6 +250,34 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 this["Slideshow_Category_Top"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("300")]
+        public int Slideshow_Category_Width
+        {
+            get
+            {
+                return (int)this["Slideshow_Category_Width"];
+            }
+            set
+            {
+                this["Slideshow_Category_Width"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Category_Height
+        {
+            get
+            {
+                return (int)this["Slideshow_Category_Height"];
+            }
+            set
+            {
+                this["Slideshow_Category_Height"] = value;
             }
         }
 

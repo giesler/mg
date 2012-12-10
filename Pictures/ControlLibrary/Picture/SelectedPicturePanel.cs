@@ -27,7 +27,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureStack1.AddPicture(picture);
             this.pictureDetailEditor.AddPicture(picture);
 
-            if (this.multiSelectMode = false)
+            if (this.multiSelectMode == false)
             {
                 UpdateControls();
             }
@@ -38,7 +38,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureStack1.RemovePicture(pictureId);
             this.pictureDetailEditor.RemovePicture(pictureId);
 
-            if (this.multiSelectMode = false)
+            if (this.multiSelectMode == false)
             {
                 UpdateControls();
             }
@@ -77,6 +77,7 @@ namespace msn2.net.Pictures.Controls
             this.multiSelectMode = false;
             this.pictureStack1.SuspendPaint = false;
             this.pictureStack1.Refresh();
+            this.UpdateControls();
         }
 
         private void UpdateControls()
