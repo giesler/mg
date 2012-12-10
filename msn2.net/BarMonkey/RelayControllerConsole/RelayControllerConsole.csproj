@@ -156,7 +156,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(TargetDir)\* \\stan\software\msn2.net\BarNone\Console</PostBuildEvent>
+    <PostBuildEvent>copy /y $(TargetDir)\* \\mgduo\BarNone\Relay</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
