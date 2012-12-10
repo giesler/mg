@@ -167,6 +167,20 @@ namespace giesler.org.lists
         public static List<Contact> LiveContacts { get; set; }
         public static Guid SelectedList { get; set; }
 
+        public static DateTime lastRefreshTime = DateTime.MinValue;
+        public static DateTime LastRefreshTime
+        {
+            get
+            {
+                return lastRefreshTime;
+            }
+
+            set
+            {
+                lastRefreshTime = value;
+            }
+        }
+
         internal static ListDataServiceClient DataProvider
         {
             get
@@ -205,7 +219,7 @@ namespace giesler.org.lists
             SetAppSetting("LiveId.UserId", liveAuth.UserId);
             SetAppSetting("LiveId.AccessToken", liveAuth.AccessToken);
             SetAppSetting("LiveId.RefreshToken", liveAuth.RefreshToken);
-
+            
             AuthData = listAuth;
 
             LiveIdUserId = liveAuth.UserId;
@@ -234,6 +248,8 @@ namespace giesler.org.lists
 
         public void SaveSettings()
         {
+            SetAppSetting("LastRefreshTime", lastRefreshTime.ToString());
+            
             lock (this.settingsLockObject)
             {
                 settings.Save();
@@ -325,6 +341,12 @@ namespace giesler.org.lists
                 }
 
 #endif
+
+                string lastTime = GetSetting("LastRefreshTime");
+                if (!string.IsNullOrEmpty(lastTime))
+                {
+                    App.LastRefreshTime = DateTime.Parse(lastTime);
+                }
 
                 Debug.WriteLine(LiveIdUserId);
                 Debug.WriteLine(LiveIdAccessToken);

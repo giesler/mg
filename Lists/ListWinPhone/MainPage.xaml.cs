@@ -17,6 +17,8 @@ using giesler.org.lists.ListData;
 using Microsoft.Phone.Info;
 using System.Diagnostics;
 using System.Threading;
+using System.Reflection;
+using System.Text;
 
 namespace giesler.org.lists
 {
@@ -91,7 +93,7 @@ namespace giesler.org.lists
 
             this.LoadItems(App.Items);
 
-            if (this.loadedFromStorage == true)
+            if (this.loadedFromStorage == true && App.LastRefreshTime.AddMinutes(30) < DateTime.Now)
             {
                 this.refreshButton_Click(null, null);
                 this.loadedFromStorage = false;
@@ -125,6 +127,9 @@ namespace giesler.org.lists
             svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
             svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
 
+            this.updatingMessage.Text = "Deleting...";
+            this.updatingMessage.Visibility = Visibility.Visible;
+
             this.ToggleBackgroundOperationStatus(true);
         }
 
@@ -152,6 +157,11 @@ namespace giesler.org.lists
             bool loading = App.Items == null || App.Lists == null || this.backgroundOperationActive == true;
 
             this.pbar.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
+            if (loading && this.updatingMessage.Visibility == System.Windows.Visibility.Collapsed)
+            {
+                // TODO: This shouldn't run...
+                //ShowStack();
+            }
 
             if (this.ApplicationBar != null && this.ApplicationBar.Buttons.Count > 0)
             {
@@ -171,23 +181,33 @@ namespace giesler.org.lists
             }
         }
 
+        private static void ShowStack()
+        {
+            StackTrace st = new StackTrace();
+            StackFrame[] sf = st.GetFrames();
+            StringBuilder sb = new StringBuilder();
+            foreach (var s in sf)
+            {
+                sb.AppendLine(s.GetMethod().DeclaringType.FullName + "." + s.GetMethod().Name);
+            }
+            MessageBox.Show(sb.ToString());
+        }
+
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
-            Debug.WriteLine(msg);
+            //string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
+            //MessageBox.Show(msg);
 
             this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
             
             if (!App.AttemptedStorageLoad)
             {
+                this.updatingMessage.Text = "Loading from storage...";
+                this.updatingMessage.Visibility = Visibility.Visible;
+
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadFromStorage), new object());
                 this.ToggleBackgroundOperationStatus(true);
 
-                this.updatingMessage.Text = "Loading...";
-
-#if DEBUG
-                this.updatingMessage.Text = "Loading from storage...";
-#endif
             }
             else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
             {
@@ -199,12 +219,12 @@ namespace giesler.org.lists
 
 #if DEBUG
                 this.updatingMessage.Text = "Loading from service...";
+                this.updatingMessage.Visibility = Visibility.Visible;
 #endif
             }
             else
             {
                 this.DisplayLoadedLists(App.Lists);
-                this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
             }
 
             this.UpdateControls();
@@ -212,19 +232,22 @@ namespace giesler.org.lists
 
         void ReloadAll()
         {
+            //ShowStack();
+
             ListDataServiceClient svc = App.DataProvider;
             svc.GetAllCompleted += new EventHandler<GetAllCompletedEventArgs>(svc_GetAllCompleted);
             svc.GetAllAsync(App.AuthDataList);
 
-            this.ToggleBackgroundOperationStatus(true);
-
             this.updatingMessage.Text = "Updating...";
             this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
+
+            this.ToggleBackgroundOperationStatus(true);
         }
 
         void svc_GetAllCompleted(object sender, GetAllCompletedEventArgs e)
         {
             this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
+            this.ToggleBackgroundOperationStatus(false);
 
             if (e.Error == null)
             {
@@ -250,14 +273,15 @@ namespace giesler.org.lists
                 App.Lists = lists;
                 App.Items = items;
 
+                App.LastRefreshTime = DateTime.Now;
+                App.Current.SaveSettings();
+
                 DisplayLoadedLists(lists);
             }
             else
             {
                 MessageBox.Show(e.Error.Message);
             }
-
-            this.ToggleBackgroundOperationStatus(false);
 
             ListDataServiceClient svc = (ListDataServiceClient)sender;
             svc.CloseAsync();
