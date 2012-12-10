@@ -31,34 +31,41 @@ namespace SLExpress
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (HttpContext.Current.Session["wl_appInfo"] == null)
             {
-                //this.client.GetLists(auth);
+                Response.Redirect("signin.aspx");
             }
-
-
-            /* If the user token has been cached in a site cookie, attempt
-               to process it and extract the user ID. */
-
-            HttpRequest req = HttpContext.Current.Request;
-            HttpCookie loginCookie = req.Cookies[LoginCookie];
-
-            if (loginCookie != null)
+            else
             {
-                string token = loginCookie.Value;
-
-                if (!string.IsNullOrEmpty(token))
+                if (!Page.IsPostBack)
                 {
-                    WindowsLiveLogin.User user = wll.ProcessToken(token);
+                    //this.client.GetLists(auth);
+                }
 
-                    if (user != null)
+
+                /* If the user token has been cached in a site cookie, attempt
+                   to process it and extract the user ID. */
+
+                HttpRequest req = HttpContext.Current.Request;
+                HttpCookie loginCookie = req.Cookies[LoginCookie];
+
+                if (loginCookie != null)
+                {
+                    string token = loginCookie.Value;
+
+                    if (!string.IsNullOrEmpty(token))
                     {
-                        UserId = user.Id;
+                        WindowsLiveLogin.User user = wll.ProcessToken(token);
+
+                        if (user != null)
+                        {
+                            UserId = user.Id;
+                        }
                     }
                 }
             }
-        }
-        
+        }  
+      
         protected string SessionId
         {
             get

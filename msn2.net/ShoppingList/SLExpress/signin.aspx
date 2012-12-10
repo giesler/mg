@@ -15,8 +15,9 @@
             }
             if (e.get_resultCode() === Microsoft.Live.AsyncResultCode.success) {
                 // Get the data context and load contacts.
-                dataContext = Microsoft.Live.App.get_dataContext();
-                dataContext.loadAll(Microsoft.Live.DataType.contacts, contactsLoaded);
+                window.location.href = "default.aspx";
+//                dataContext = Microsoft.Live.App.get_dataContext();
+//                dataContext.loadAll(Microsoft.Live.DataType.contacts, contactsLoaded);
             }
         }
         function contactsLoaded(dataLoadCompletedEventArgs) {
