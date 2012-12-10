@@ -11,7 +11,9 @@ namespace SLExpress
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Cookies["l_authCookie_p"].Expires = DateTime.Now.AddDays(-100);
+            Response.Cookies["l_authCookie_d"].Expires = DateTime.Now.AddDays(-100);
+            Session["authData"] = null;
         }
     }
 }

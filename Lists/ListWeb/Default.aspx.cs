@@ -10,7 +10,6 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using WindowsLive;
 using msn2.net.ShoppingList;
 using System.Text;
 
@@ -18,9 +17,6 @@ namespace SLExpress
 {
     public partial class _Default : System.Web.UI.Page
     {
-        const string LoginCookie = "webauthtoken";
-        static WindowsLiveLogin wll = new WindowsLiveLogin(true);
-        protected static string AppId = wll.AppId;
         protected string UserId;
 
         public _Default()
@@ -38,18 +34,18 @@ namespace SLExpress
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current.Session["l_authData"] == null)
+            if (HttpContext.Current.Session["authData"] == null)
             {
                 if (HttpContext.Current.Request.Cookies["l_authCookie_p"] != null && HttpContext.Current.Request.Cookies["l_authCookie_d"] != null)
                 {
                     Guid uid = new Guid(HttpContext.Current.Request.Cookies["l_authCookie_p"].Value);
                     Guid did = new Guid(HttpContext.Current.Request.Cookies["l_authCookie_d"].Value);
                     ClientAuthenticationData authData = new ClientAuthenticationData { PersonUniqueId = uid, DeviceUniqueId = did };
-                    HttpContext.Current.Session["l_authData"] = authData;
+                    HttpContext.Current.Session["authData"] = authData;
                 }
             }
 
-            if (HttpContext.Current.Session["l_authData"] != null)
+            if (HttpContext.Current.Session["authData"] != null)
             {
                 if (!Page.IsPostBack)
                 {
@@ -60,37 +56,16 @@ namespace SLExpress
             }
             else
             {
-                this.list.Visible = false;
+                Response.Redirect("signin.aspx");
             }
 
-            /* If the user token has been cached in a site cookie, attempt
-               to process it and extract the user ID. */
-
-            HttpRequest req = HttpContext.Current.Request;
-            HttpCookie loginCookie = req.Cookies["liveid"];
-
-            if (loginCookie != null)
-            {
-                UserId = loginCookie.Value;
-                //string token = loginCookie.Value;
-
-                //if (!string.IsNullOrEmpty(token))
-                //{
-                //    WindowsLiveLogin.User user = wll.ProcessToken(token);
-
-                //    if (user != null)
-                //    {
-                //        UserId = user.Id;
-                //    }
-                //}
-            }
         }
 
         private void LoadLists()
         {
             int selectedIndex = this.list.SelectedIndex;
 
-            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["l_authData"];
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
             ListDataService lds = new ListDataService();
             System.Collections.Generic.List<GetListsResult> lists = lds.GetLists(authData);
             
@@ -126,7 +101,7 @@ namespace SLExpress
             if (this.list.SelectedIndex >= 0)
             {
                 Guid listId = new Guid(this.list.SelectedValue);
-                ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["l_authData"];
+                ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
                 ListDataService lds = new ListDataService();
                 var q = lds.GetListItems(authData, listId);
                 foreach (var i in q.OrderBy(i => i.Name))
@@ -164,7 +139,7 @@ namespace SLExpress
         {
             if (this.add.Text.Trim().Length > 0)
             {
-                ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["l_authData"];
+                ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
                 Guid selectedList = new Guid(this.list.SelectedValue);
 
                 ListDataService lds = new ListDataService();
@@ -184,21 +159,11 @@ namespace SLExpress
             CheckBox cb = (CheckBox)sender;
 
             ListDataService lds = new ListDataService();
-            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["l_authData"];
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
             Guid id = new Guid(cb.ID);
             lds.DeleteListItem(authData, id);
 
             this.LoadLists();
-        }
-        
-        protected string SessionId
-        {
-            get
-            {
-                SessionIdProvider oauth = new SessionIdProvider();
-                return oauth.GetSessionId(HttpContext.Current);
-            }
-        }
-
+        }        
     }
 }

@@ -1,0 +1,46 @@
+﻿
+html, body
+{
+    overflow: auto;
+}
+body
+{
+    font-family: Segoe UI, Arial, Tahoma;
+}
+.main
+{
+    font-size: 12pt;
+}
+.rightTop
+{
+    text-align: right;
+    float: right;
+    margin: 3px;
+}
+.left
+{
+    text-align: left;
+    bottom: 0px;
+    top: 0px;
+    width: 10%;
+    padding: 5px;
+}
+.right
+{
+    text-align: left;
+    width: 90%;
+    padding: 5px;
+}
+.add
+{
+    padding: 5px;
+}
+.signin
+{
+    height: 26px;
+}
+.list
+{
+    font-family: Segoe UI, Arial, Tahoma;
+    font-size: 10pt;
+}
