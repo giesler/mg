@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Live.AuthHandler">
-      <HintPath>..\..\..\Externals\Microsoft.Live.AuthHandler.dll</HintPath>
+      <HintPath>..\..\Externals\Microsoft.Live.AuthHandler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
