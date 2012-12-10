@@ -91,14 +91,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
-      <s:element name="PictureDataSet" nillable="true">
-        <s:complexType>
-          <s:sequence>
-            <s:any namespace="http://tempuri.org/PictureDataSet.xsd" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </types>
   <message name="GetPictureImageSoapIn">
@@ -125,56 +117,6 @@
   <message name="GetPicturesByCategorySoapOut">
     <part name="parameters" element="s0:GetPicturesByCategoryResponse" />
   </message>
-  <message name="GetPictureImageHttpGetIn">
-    <part name="pictureId" type="s:string" />
-    <part name="maxWidth" type="s:string" />
-    <part name="maxHeight" type="s:string" />
-  </message>
-  <message name="GetPictureImageHttpGetOut">
-    <part name="Body" element="s0:base64Binary" />
-  </message>
-  <message name="RotateImageHttpGetIn">
-    <part name="pictureId" type="s:string" />
-    <part name="rft" type="s:string" />
-  </message>
-  <message name="RotateImageHttpGetOut" />
-  <message name="GetPictureHttpGetIn">
-    <part name="pictureId" type="s:string" />
-  </message>
-  <message name="GetPictureHttpGetOut">
-    <part name="Body" element="s0:PictureDataSet" />
-  </message>
-  <message name="GetPicturesByCategoryHttpGetIn">
-    <part name="categoryId" type="s:string" />
-  </message>
-  <message name="GetPicturesByCategoryHttpGetOut">
-    <part name="Body" element="s0:PictureDataSet" />
-  </message>
-  <message name="GetPictureImageHttpPostIn">
-    <part name="pictureId" type="s:string" />
-    <part name="maxWidth" type="s:string" />
-    <part name="maxHeight" type="s:string" />
-  </message>
-  <message name="GetPictureImageHttpPostOut">
-    <part name="Body" element="s0:base64Binary" />
-  </message>
-  <message name="RotateImageHttpPostIn">
-    <part name="pictureId" type="s:string" />
-    <part name="rft" type="s:string" />
-  </message>
-  <message name="RotateImageHttpPostOut" />
-  <message name="GetPictureHttpPostIn">
-    <part name="pictureId" type="s:string" />
-  </message>
-  <message name="GetPictureHttpPostOut">
-    <part name="Body" element="s0:PictureDataSet" />
-  </message>
-  <message name="GetPicturesByCategoryHttpPostIn">
-    <part name="categoryId" type="s:string" />
-  </message>
-  <message name="GetPicturesByCategoryHttpPostOut">
-    <part name="Body" element="s0:PictureDataSet" />
-  </message>
   <portType name="PictureManagerSoap">
     <operation name="GetPictureImage">
       <input message="s0:GetPictureImageSoapIn" />
@@ -191,42 +133,6 @@
     <operation name="GetPicturesByCategory">
       <input message="s0:GetPicturesByCategorySoapIn" />
       <output message="s0:GetPicturesByCategorySoapOut" />
-    </operation>
-  </portType>
-  <portType name="PictureManagerHttpGet">
-    <operation name="GetPictureImage">
-      <input message="s0:GetPictureImageHttpGetIn" />
-      <output message="s0:GetPictureImageHttpGetOut" />
-    </operation>
-    <operation name="RotateImage">
-      <input message="s0:RotateImageHttpGetIn" />
-      <output message="s0:RotateImageHttpGetOut" />
-    </operation>
-    <operation name="GetPicture">
-      <input message="s0:GetPictureHttpGetIn" />
-      <output message="s0:GetPictureHttpGetOut" />
-    </operation>
-    <operation name="GetPicturesByCategory">
-      <input message="s0:GetPicturesByCategoryHttpGetIn" />
-      <output message="s0:GetPicturesByCategoryHttpGetOut" />
-    </operation>
-  </portType>
-  <portType name="PictureManagerHttpPost">
-    <operation name="GetPictureImage">
-      <input message="s0:GetPictureImageHttpPostIn" />
-      <output message="s0:GetPictureImageHttpPostOut" />
-    </operation>
-    <operation name="RotateImage">
-      <input message="s0:RotateImageHttpPostIn" />
-      <output message="s0:RotateImageHttpPostOut" />
-    </operation>
-    <operation name="GetPicture">
-      <input message="s0:GetPictureHttpPostIn" />
-      <output message="s0:GetPictureHttpPostOut" />
-    </operation>
-    <operation name="GetPicturesByCategory">
-      <input message="s0:GetPicturesByCategoryHttpPostIn" />
-      <output message="s0:GetPicturesByCategoryHttpPostOut" />
     </operation>
   </portType>
   <binding name="PictureManagerSoap" type="s0:PictureManagerSoap">
@@ -268,89 +174,9 @@
       </output>
     </operation>
   </binding>
-  <binding name="PictureManagerHttpGet" type="s0:PictureManagerHttpGet">
-    <http:binding verb="GET" />
-    <operation name="GetPictureImage">
-      <http:operation location="/GetPictureImage" />
-      <input>
-        <http:urlEncoded />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-    <operation name="RotateImage">
-      <http:operation location="/RotateImage" />
-      <input>
-        <http:urlEncoded />
-      </input>
-      <output />
-    </operation>
-    <operation name="GetPicture">
-      <http:operation location="/GetPicture" />
-      <input>
-        <http:urlEncoded />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-    <operation name="GetPicturesByCategory">
-      <http:operation location="/GetPicturesByCategory" />
-      <input>
-        <http:urlEncoded />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-  </binding>
-  <binding name="PictureManagerHttpPost" type="s0:PictureManagerHttpPost">
-    <http:binding verb="POST" />
-    <operation name="GetPictureImage">
-      <http:operation location="/GetPictureImage" />
-      <input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-    <operation name="RotateImage">
-      <http:operation location="/RotateImage" />
-      <input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </input>
-      <output />
-    </operation>
-    <operation name="GetPicture">
-      <http:operation location="/GetPicture" />
-      <input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-    <operation name="GetPicturesByCategory">
-      <http:operation location="/GetPicturesByCategory" />
-      <input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </input>
-      <output>
-        <mime:mimeXml part="Body" />
-      </output>
-    </operation>
-  </binding>
   <service name="PictureManager">
     <port name="PictureManagerSoap" binding="s0:PictureManagerSoap">
       <soap:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
-    </port>
-    <port name="PictureManagerHttpGet" binding="s0:PictureManagerHttpGet">
-      <http:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
-    </port>
-    <port name="PictureManagerHttpPost" binding="s0:PictureManagerHttpPost">
-      <http:address location="http://www.msn2.net/Pictures/PictureManager.asmx" />
     </port>
   </service>
 </definitions>

@@ -183,10 +183,6 @@ namespace msn2.net.Controls
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// timerFadeOut
-			// 
-			this.timerFadeOut.Enabled = false;
-			// 
 			// timerFadeIn
 			// 
 			this.timerFadeIn.Enabled = false;
@@ -239,12 +235,13 @@ namespace msn2.net.Controls
 			// 
 			// shellListView1
 			// 
+			this.shellListView1.AutoScroll = true;
 			this.shellListView1.Data = null;
 			this.shellListView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.shellListView1.Location = new System.Drawing.Point(153, 0);
 			this.shellListView1.Name = "shellListView1";
 			this.shellListView1.ParentShellForm = null;
-			this.shellListView1.Size = new System.Drawing.Size(263, 192);
+			this.shellListView1.Size = new System.Drawing.Size(199, 192);
 			this.shellListView1.TabIndex = 10;
 			this.shellListView1.Types = new System.Type[] {
 															  typeof(msn2.net.Controls.FavoriteConfigData),
@@ -253,7 +250,7 @@ namespace msn2.net.Controls
 			// Favorites
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(416, 192);
+			this.ClientSize = new System.Drawing.Size(352, 192);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.shellListView1,
 																		  this.splitter1,
@@ -261,7 +258,6 @@ namespace msn2.net.Controls
 			this.Name = "Favorites";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Favorites";
-			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 

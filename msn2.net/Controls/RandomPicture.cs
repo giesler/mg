@@ -5,6 +5,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.IO;
+using msn2.net.Configuration;
+using System.Diagnostics;
+using System.Data;
+using System.Xml;
+using System.Net;
 
 namespace msn2.net.Controls
 {
@@ -13,13 +18,14 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Timer timer1;
 		private System.ComponentModel.IContainer components = null;
+		private System.Drawing.Image image;
+		private string pictureRootPath = "http://pics/piccache";
 
-		public RandomPicture()
+		public RandomPicture(Data data): base(data)
 		{
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
-			// TODO: Add any initialization after the InitializeComponent call
 		}
 
 		/// <summary>
@@ -51,6 +57,14 @@ namespace msn2.net.Controls
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
+			// 
 			// pictureBox1
 			// 
 			this.pictureBox1.BackColor = System.Drawing.Color.Black;
@@ -75,6 +89,7 @@ namespace msn2.net.Controls
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "RandomPicture";
 			this.Text = "Random Picture";
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.RandomPicture_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -84,6 +99,11 @@ namespace msn2.net.Controls
 
 		private void timer1_Tick(object sender, System.EventArgs e)
 		{
+			timer1.Enabled = false;
+
+			pics.RandomPictureService randomPicture = new pics.RandomPictureService();
+			randomPicture.BeginRandomImageData(1, new AsyncCallback(RandomImageCallback), randomPicture);
+
 // TODO: add rnadom picture status
 //			dev.RandomPictureService picService = new dev.RandomPictureService();
 //			byte[] picBytes = picService.RandomImage(1);
@@ -92,6 +112,43 @@ namespace msn2.net.Controls
 //		
 //			Image img = Image.FromStream(memStream);
 //			pictureBox1.Image = img;
+		}
+
+		private void RandomImageCallback(System.IAsyncResult result)
+		{
+			if (result.IsCompleted)
+			{
+				pics.RandomPictureService randomPicture = (pics.RandomPictureService) result.AsyncState;
+				DataSet ds = randomPicture.EndRandomImageData(result);
+				
+				try
+				{
+				
+					Debug.WriteLine(ds.Tables[1].Rows.Count);
+
+					string path = pictureRootPath + @"/" + ds.Tables[1].Rows[0]["Filename"].ToString().Replace(@"\", @"/");
+					WebRequest req = WebRequest.Create(path);
+					WebResponse response = req.GetResponse();
+					image = Image.FromStream(response.GetResponseStream());
+					response.Close();
+					this.Invalidate();
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine(ex.Message);
+					Debug.WriteLine(ex.StackTrace);					
+				}
+			}
+
+			timer1.Enabled = true;
+		}
+
+		private void RandomPicture_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			if (image != null)
+			{				
+				e.Graphics.DrawImage(image, 0, 0, 200, 200);
+			}
 		}
 	}
 }

@@ -81,9 +81,9 @@ namespace msn2.net.QueuePlayer.Server
 			while (playerThread.IsAlive) 
 				Thread.Sleep(100);
 
-#if !DEBUG
-			Next();
-#endif
+//#if !DEBUG
+//			Next();
+//#endif
 		}
 
 		#endregion

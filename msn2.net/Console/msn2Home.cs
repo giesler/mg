@@ -19,6 +19,10 @@ namespace msn2.net.ProjectF
 		{
 			string baseUrl = "http://home/_vti_bin/owssvr.dll?Using=Default%2ehtm";
 
+			if (System.Configuration.ConfigurationSettings.AppSettings["homeUrl"] != null)
+			{
+				baseUrl = System.Configuration.ConfigurationSettings.AppSettings["homeUrl"];
+			}
 			Crownwood.Magic.Controls.TabPage page = base.AddNewTab("Home", baseUrl, msn2.net.Controls.WebBrowserControl.DefaultClickBehavior.OpenLink);
 
 			// Hook into navigate event
@@ -87,5 +91,7 @@ namespace msn2.net.ProjectF
 
 		#endregion
 	}
+
+	
 }
 

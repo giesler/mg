@@ -57,6 +57,7 @@ namespace msn2.net.Pictures.Controls
 
 			// Set the connection string
 			cn.ConnectionString =  Config.ConnectionString;
+			sqlConnection1.ConnectionString = Config.ConnectionString;
 			this.Opacity		= Config.Opacity;
 
 		}

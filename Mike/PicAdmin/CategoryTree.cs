@@ -8,16 +8,6 @@ using System.Data.SqlClient;
 
 namespace msn2.net.Pictures.Controls
 {
-	// events
-	public delegate void ClickCategoryEventHandler(object sender, CategoryTreeEventArgs e);
-	public delegate void DoubleClickCategoryEventHandler(object sender, CategoryTreeEventArgs e);
-
-	// class for passing events up
-	public class CategoryTreeEventArgs: EventArgs 
-	{
-		public DataSetCategory.CategoryRow categoryRow;
-	}
-
 
 	/// <summary>
 	/// Summary description for CategoryTree.
@@ -42,6 +32,7 @@ namespace msn2.net.Pictures.Controls
 		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
 		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
+		private System.Windows.Forms.MenuItem menuSaveSlideshow;
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -118,6 +109,7 @@ namespace msn2.net.Pictures.Controls
 			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 			this.menuEditCatName = new System.Windows.Forms.MenuItem();
 			this.menuAddChildCat = new System.Windows.Forms.MenuItem();
+			this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).BeginInit();
 			this.SuspendLayout();
@@ -197,9 +189,10 @@ namespace msn2.net.Pictures.Controls
 			this.tvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tvCategory.HideSelection = false;
 			this.tvCategory.ImageIndex = -1;
+			this.tvCategory.Location = new System.Drawing.Point(0, 0);
 			this.tvCategory.Name = "tvCategory";
 			this.tvCategory.SelectedImageIndex = -1;
-			this.tvCategory.Size = new System.Drawing.Size(120, 30);
+			this.tvCategory.Size = new System.Drawing.Size(120, 10);
 			this.tvCategory.TabIndex = 0;
 			this.tvCategory.DoubleClick += new System.EventHandler(this.tvCategory_DoubleClick);
 			this.tvCategory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvCategory_AfterSelect);
@@ -213,7 +206,8 @@ namespace msn2.net.Pictures.Controls
 																						 this.menuEdit,
 																						 this.menuDelete,
 																						 this.menuItem1,
-																						 this.menuRefresh});
+																						 this.menuRefresh,
+																						 this.menuSaveSlideshow});
 			// 
 			// menuAddChild
 			// 
@@ -258,7 +252,6 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.dsCategory.DataSetName = "DataSetCategory";
 			this.dsCategory.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsCategory.Namespace = "http://tempuri.org/DataSetCategory.xsd";
 			// 
 			// menuEditCatName
 			// 
@@ -272,12 +265,17 @@ namespace msn2.net.Pictures.Controls
 			this.menuAddChildCat.Text = "";
 			this.menuAddChildCat.Click += new System.EventHandler(this.menuAddChildCat_Click);
 			// 
+			// menuSaveSlideshow
+			// 
+			this.menuSaveSlideshow.Index = 5;
+			this.menuSaveSlideshow.Text = "&Save slideshow...";
+			this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
+			// 
 			// CategoryTree
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.tvCategory});
+			this.Controls.Add(this.tvCategory);
 			this.Name = "CategoryTree";
-			this.Size = new System.Drawing.Size(120, 30);
+			this.Size = new System.Drawing.Size(120, 10);
 			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).EndInit();
 			this.ResumeLayout(false);
@@ -512,5 +510,28 @@ namespace msn2.net.Pictures.Controls
 			RefreshTree();
 		}
 
+		private void menuSaveSlideshow_Click(object sender, System.EventArgs e)
+		{
+
+			if (SelectedCategory != null)
+			{
+				SaveSlideshow ss	= new SaveSlideshow();
+				ss.CategoryId		= SelectedCategory.CategoryID;
+				ss.ShowDialog();
+			}
+
+		}
+
 	}
+
+	// events
+	public delegate void ClickCategoryEventHandler(object sender, CategoryTreeEventArgs e);
+	public delegate void DoubleClickCategoryEventHandler(object sender, CategoryTreeEventArgs e);
+
+	// class for passing events up
+	public class CategoryTreeEventArgs: EventArgs 
+	{
+		public DataSetCategory.CategoryRow categoryRow;
+	}
+
 }

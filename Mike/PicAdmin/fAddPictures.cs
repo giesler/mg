@@ -58,6 +58,7 @@ namespace msn2.net.Pictures.Controls
 		private System.Data.SqlClient.SqlCommand sqlDeleteCommand3;
 		private System.Windows.Forms.CheckBox checkboxSortList;
 		private System.Windows.Forms.CheckBox publishPictures;
+		private System.Windows.Forms.CheckBox checkBoxFilenameTitle;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -110,6 +111,7 @@ namespace msn2.net.Pictures.Controls
 			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.publishPictures = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.radioFilenameDate = new System.Windows.Forms.RadioButton();
@@ -139,7 +141,7 @@ namespace msn2.net.Pictures.Controls
 			this.btnRemovePictures = new System.Windows.Forms.Button();
 			this.openFileDialogPic = new System.Windows.Forms.OpenFileDialog();
 			this.checkboxSortList = new System.Windows.Forms.CheckBox();
-			this.publishPictures = new System.Windows.Forms.CheckBox();
+			this.checkBoxFilenameTitle = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -153,7 +155,7 @@ namespace msn2.net.Pictures.Controls
 			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(400, 360);
+			this.btnCancel.Location = new System.Drawing.Point(400, 384);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.TabIndex = 8;
 			this.btnCancel.Text = "&Cancel";
@@ -207,7 +209,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.btnAdd.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAdd.Location = new System.Drawing.Point(320, 360);
+			this.btnAdd.Location = new System.Drawing.Point(320, 384);
 			this.btnAdd.Name = "btnAdd";
 			this.btnAdd.TabIndex = 7;
 			this.btnAdd.Text = "&Add";
@@ -233,21 +235,32 @@ namespace msn2.net.Pictures.Controls
 			this.tabControl1.Location = new System.Drawing.Point(8, 160);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(472, 192);
+			this.tabControl1.Size = new System.Drawing.Size(472, 216);
 			this.tabControl1.TabIndex = 10;
 			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
+																				   this.checkBoxFilenameTitle,
 																				   this.publishPictures,
 																				   this.label1,
 																				   this.personSelect1,
 																				   this.groupBox1});
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(464, 166);
+			this.tabPage3.Size = new System.Drawing.Size(464, 190);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Details";
+			// 
+			// publishPictures
+			// 
+			this.publishPictures.Checked = true;
+			this.publishPictures.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.publishPictures.Location = new System.Drawing.Point(24, 136);
+			this.publishPictures.Name = "publishPictures";
+			this.publishPictures.Size = new System.Drawing.Size(416, 24);
+			this.publishPictures.TabIndex = 10;
+			this.publishPictures.Text = "Publish all pictures to site now";
 			// 
 			// label1
 			// 
@@ -567,22 +580,22 @@ namespace msn2.net.Pictures.Controls
 			this.checkboxSortList.TabIndex = 11;
 			this.checkboxSortList.Text = "Sort list by filename before adding";
 			// 
-			// publishPictures
+			// checkBoxFilenameTitle
 			// 
-			this.publishPictures.Checked = true;
-			this.publishPictures.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.publishPictures.Location = new System.Drawing.Point(24, 136);
-			this.publishPictures.Name = "publishPictures";
-			this.publishPictures.Size = new System.Drawing.Size(416, 24);
-			this.publishPictures.TabIndex = 10;
-			this.publishPictures.Text = "Publish all pictures to site now";
+			this.checkBoxFilenameTitle.Checked = true;
+			this.checkBoxFilenameTitle.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxFilenameTitle.Location = new System.Drawing.Point(24, 160);
+			this.checkBoxFilenameTitle.Name = "checkBoxFilenameTitle";
+			this.checkBoxFilenameTitle.Size = new System.Drawing.Size(416, 24);
+			this.checkBoxFilenameTitle.TabIndex = 11;
+			this.checkBoxFilenameTitle.Text = "Use filename as title of picture";
 			// 
 			// fAddPictures
 			// 
 			this.AcceptButton = this.btnAdd;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(496, 390);
+			this.ClientSize = new System.Drawing.Size(496, 414);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.checkboxSortList,
 																		  this.tabControl1,
@@ -714,7 +727,16 @@ namespace msn2.net.Pictures.Controls
 				
 				pictureRow.Filename		= targetFile;
 				pictureRow.PictureDate = date;
-				pictureRow.Title		= "(new picture)";
+				if (checkBoxFilenameTitle.Checked)
+				{
+					string fileTitle	= file.Substring(file.LastIndexOf(@"\")+1);
+					fileTitle			= fileTitle.Substring(0, fileTitle.LastIndexOf("."));  // strip off extension
+					pictureRow.Title	= fileTitle;
+				}
+				else
+				{
+					pictureRow.Title	= "(new picture)";
+				}
 				pictureRow.Publish		= publishPictures.Checked;
 				pictureRow.Rating		= 50;
 				pictureRow.PictureSort  = intCurPicSort;

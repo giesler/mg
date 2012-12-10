@@ -48,14 +48,20 @@ namespace msn2.net.QueuePlayer.Client
 
 		public void AddToLog(string area, string description)
 		{
-            textBoxLog.Text += DateTime.Now.ToShortTimeString() + ": " + area + ": " + description + Environment.NewLine;
-			textBoxLog.SelectionStart = textBoxLog.Text.Length;
+			if (checkBoxShowLog.Checked)
+			{
+				textBoxLog.Text += DateTime.Now.ToShortTimeString() + ": " + area + ": " + description + Environment.NewLine;
+				textBoxLog.SelectionStart = textBoxLog.Text.Length;
+			}
 		}
 
 		public void AddToLog(string area, string description, int mediaId)
 		{
-			textBoxLog.Text += DateTime.Now.ToShortTimeString() + ": " + area + ": " + description + "[" + mediaId.ToString() + "]" + Environment.NewLine;
-			textBoxLog.SelectionStart = textBoxLog.Text.Length;
+			if (checkBoxShowLog.Checked)
+			{
+				textBoxLog.Text += DateTime.Now.ToShortTimeString() + ": " + area + ": " + description + "[" + mediaId.ToString() + "]" + Environment.NewLine;
+				textBoxLog.SelectionStart = textBoxLog.Text.Length;
+			}
 		}
 
 		#region Windows Form Designer generated code

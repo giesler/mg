@@ -380,7 +380,7 @@ namespace msn2.net.Controls
 			this.buttonHide.BackColor = System.Drawing.Color.Transparent;
 			this.buttonHide.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonHide.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonHide.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.buttonHide.ForeColor = System.Drawing.Color.Black;
 			this.buttonHide.Location = new System.Drawing.Point(102, 2);
 			this.buttonHide.Name = "buttonHide";
 			this.buttonHide.Size = new System.Drawing.Size(18, 14);
@@ -1582,6 +1582,14 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
+
+		public void Save()
+		{
+			if (Data != null)
+			{
+				Data.Save();
+			}
+		}
 
 		private void panelTitle_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{

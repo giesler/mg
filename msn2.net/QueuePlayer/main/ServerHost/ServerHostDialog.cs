@@ -15,15 +15,15 @@ namespace msn2.net.QueuePlayer.ServerHost
 	/// <summary>
 	/// Summary description for Form1.
 	/// </summary>
-	public class ServerHostDialog : msn2.net.Controls.ShellForm
+	public class ServerHostDialog : System.Windows.Forms.Form
 	{
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.TextBox textBox1;
 	//		private HttpChannel channel = null;
 		private TcpChannel channel = null;
+		private System.Windows.Forms.TextBox textBox1;
 		private MediaServer server = null;
 
 		/// <summary>
@@ -43,18 +43,19 @@ namespace msn2.net.QueuePlayer.ServerHost
 			RemotingConfiguration.RegisterWellKnownServiceType(typeof(MediaServer), 
 				"MyMedia", WellKnownObjectMode.Singleton);
 						
-			MediaServer server = new MediaServer();
-			server.LogEvent += new LogEventHandler(Server_LogEvent);
-
-#if DEBUG
-			this.Visible = true;
-			this.TopMost = true;
+			server = new MediaServer();
+			//server.LogEvent += new LogEventHandler(Server_LogEvent);
+			
+//			this.Visible = true;
+//			this.TopMost = true;
 			this.Left = Screen.PrimaryScreen.WorkingArea.Right  - this.Width;
 			this.Top  = Screen.PrimaryScreen.WorkingArea.Bottom - this.Height;
-#endif
 //			RemotingConfiguration.Configure("UMServerHost.exe.config");
+
+			this.Visible = false;
 		}
 
+		#region Disposal
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -69,6 +70,7 @@ namespace msn2.net.QueuePlayer.ServerHost
 			}
 			base.Dispose( disposing );
 		}
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -91,6 +93,7 @@ namespace msn2.net.QueuePlayer.ServerHost
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
 			this.notifyIcon1.Text = "Server Host Control";
 			this.notifyIcon1.Visible = true;
+			this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
 			// 
 			// contextMenu1
 			// 
@@ -119,6 +122,7 @@ namespace msn2.net.QueuePlayer.ServerHost
 			this.ClientSize = new System.Drawing.Size(242, 88);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.textBox1});
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Location = new System.Drawing.Point(10, 10);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -126,6 +130,7 @@ namespace msn2.net.QueuePlayer.ServerHost
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "QueuePlayer Server";
+			this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
 			this.Load += new System.EventHandler(this.ServerHostDialog_Load);
 			this.ResumeLayout(false);
 
@@ -138,13 +143,23 @@ namespace msn2.net.QueuePlayer.ServerHost
 		[STAThread]
 		static void Main() 
 		{
-			Application.Run(new ServerHostDialog());
+			ServerHostDialog dialog = new ServerHostDialog();
+
+			Application.Run(dialog);
+
+			Environment.Exit(0);
 		}
 
 		private void menuItem1_Click(object sender, System.EventArgs e)
 		{
 			notifyIcon1.Visible = false;
-			Application.Exit();
+
+			if (server != null)
+			{
+				server.Shutdown();
+				server = null;
+			}
+			this.Close();
 		}
 
 		private void ServerHostDialog_Load(object sender, System.EventArgs e)
@@ -167,6 +182,11 @@ namespace msn2.net.QueuePlayer.ServerHost
 			textBox1.Text += e.Function + ": " + e.Message + "\n";
 			textBox1.SelectionStart = textBox1.Text.Length-1;
 			textBox1.ScrollToCaret();
+		}
+
+		private void notifyIcon1_Click(object sender, System.EventArgs e)
+		{
+			this.Visible = !this.Visible;
 		}
 
 

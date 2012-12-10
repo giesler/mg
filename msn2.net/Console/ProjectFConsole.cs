@@ -9,6 +9,11 @@ using System.Reflection;
 using System.Diagnostics;
 using msn2.net.Controls;
 using msn2.net.Configuration;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Remoting.Channels.Http;
+using System.Runtime.Remoting.Messaging;
 #endregion
 
 namespace msn2.net.ProjectF
@@ -70,6 +75,11 @@ namespace msn2.net.ProjectF
 
 			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 
+			if (System.IO.File.Exists("msn2.net.ProjectF.exe.config"))
+			{
+				RemotingConfiguration.Configure("msn2.net.ProjectF.exe.config");
+			}
+
 			// Make sure we are signed in, if not, sign in
 			//if (messenger.MyStatus == MessengerAPI.MISTATUS.MISTATUS_ONLINE)
 			{
@@ -80,6 +90,7 @@ namespace msn2.net.ProjectF
 //				status = new Status("Waiting for you to sign in to Windows Messenger...");
 //			}
 			
+
 		}
 
 		/// <summary>
@@ -138,13 +149,13 @@ namespace msn2.net.ProjectF
 			this.panelFormList.AutoScroll = true;
 			this.panelFormList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelFormList.Name = "panelFormList";
-			this.panelFormList.Size = new System.Drawing.Size(192, 126);
+			this.panelFormList.Size = new System.Drawing.Size(544, 0);
 			this.panelFormList.TabIndex = 5;
 			// 
 			// ProjectFConsole
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(192, 126);
+			this.ClientSize = new System.Drawing.Size(200, 0);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.panelFormList,
 																		  this.listView1});
@@ -160,6 +171,7 @@ namespace msn2.net.ProjectF
 			this.Leave += new System.EventHandler(this.ProjectFConsole_Leave);
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
 			this.Load += new System.EventHandler(this.ProjectFConsole_Load);
+			this.Enter += new System.EventHandler(this.ProjectFConsole_Enter);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -430,6 +442,17 @@ namespace msn2.net.ProjectF
 		private void ProjectFConsole_Leave(object sender, System.EventArgs e)
 		{
 			//this.RolledUp = true;
+		}
+
+		private void ProjectFConsole_Enter(object sender, System.EventArgs e)
+		{
+			foreach (FormListViewItem item in listView1.Items)
+			{
+				if (item.ShellForm.Visible)
+				{
+					item.ShellForm.BringToFront();
+				}
+			}
 		}
 	}
 }

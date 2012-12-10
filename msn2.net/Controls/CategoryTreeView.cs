@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using msn2.net.Common;
 using msn2.net.Configuration;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace msn2.net.Controls
 {
@@ -15,9 +16,9 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class CategoryTreeView : System.Windows.Forms.UserControl
 	{
-		private System.ComponentModel.IContainer components;
 		#region Declares
 
+		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.TreeView treeViewCategory;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItemAdd;
@@ -29,6 +30,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItemRefresh;
 		private CategoryTreeNode rootNode		= null;
+		private Queue loadNodes					= new Queue();
 		
 		#endregion
 
@@ -159,9 +161,12 @@ namespace msn2.net.Controls
 		#endregion
 	
 		#region Load tree sections
-
 		public void LoadChildCategories(CategoryTreeNode node)
 		{
+//			loadNodes.Enque(node);
+			node.ImageIndex = 2;
+            
+			// Start a new thread to load this
 
 			Data data = (Data) node.Data;
 

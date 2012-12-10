@@ -1,8 +1,8 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.0.9466"
-        SchemaVersion = "1.0"
+        ProductVersion = "7.10.3052"
+        SchemaVersion = "2.0"
         ProjectGuid = "{051F201A-911A-441D-B249-5857DB882AA7}"
         SccProjectName = "SAK"
         SccLocalPath = "SAK"
@@ -11,7 +11,7 @@
     >
         <Build>
             <Settings
-                ApplicationIcon = "..\..\..\Program Files\Microsoft Visual Studio .NET\Common7\Graphics\icons\Writing\BOOK01B.ICO"
+                ApplicationIcon = "FOLDER02.ICO"
                 AssemblyKeyContainerName = ""
                 AssemblyName = "msn2.net.Pictures.Controls"
                 AssemblyOriginatorKeyFile = ""
@@ -20,8 +20,11 @@
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
                 RootNamespace = "msn2.net.Pictures.Controls"
-                StartupObject = "PicAdmin.fMain"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = "msn2.net.Pictures.Controls.fMain"
             >
                 <Config
                     Name = "Debug"
@@ -34,6 +37,8 @@
                     DebugSymbols = "true"
                     FileAlignment = "4096"
                     IncrementalBuild = "true"
+                    NoStdLib = "false"
+                    NoWarn = ""
                     Optimize = "false"
                     OutputPath = "bin\Debug\"
                     RegisterForComInterop = "false"
@@ -52,6 +57,8 @@
                     DebugSymbols = "false"
                     FileAlignment = "4096"
                     IncrementalBuild = "true"
+                    NoStdLib = "false"
+                    NoWarn = ""
                     Optimize = "true"
                     OutputPath = "bin\Release\"
                     RegisterForComInterop = "false"
@@ -89,7 +96,8 @@
                 <Reference
                     Name = "MagicLibrary"
                     AssemblyName = "MagicLibrary"
-                    HintPath = "..\..\..\Program Files\Crownwood Consulting Ltd\Magic Library 1.7\Bin\MagicLibrary.dll"
+                    HintPath = "..\..\..\Program Files\Crownwood Consulting Ltd\Magic Library 1.7.4\Bin\MagicLibrary.DLL"
+                    AssemblyFolderKey = "hklm\dn\magic library"
                 />
             </References>
         </Build>

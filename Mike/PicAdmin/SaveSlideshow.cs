@@ -164,7 +164,7 @@ namespace msn2.net.Pictures.Controls
 				// Create objects
 				picsvc.PictureDataSet ds	= new picsvc.PictureDataSet();
 				picsvc.PictureManager pm	= new picsvc.PictureManager();
-				pm.Url						= @"http://www.msn2.net/Pictures/PictureManager.asmx";
+				pm.Url						= @"http://localhost/pics/PictureManager.asmx";
 				pm.Credentials				= System.Net.CredentialCache.DefaultCredentials;
 
 				// Figure out how many pictures we have

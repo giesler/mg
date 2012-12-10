@@ -55,22 +55,22 @@ namespace msn2.net.QueuePlayer.Client
 			radioButtonInProcess.Checked = true;
 			buttonConnect_Click(this, EventArgs.Empty);
 #endif
-			string server = ConfigurationSettings.AppSettings["server"];
-			if (server != null)
-			{
-				textBoxHost.Text = server;
-
-//				ChannelServices.RegisterChannel(new TcpChannel(0));
-//				RemotingConfiguration.RegisterWellKnownClientType(
-//					typeof(MediaServer),
-//					"tcp://" + textBoxHost.Text + ":777/RemotingMedia/MyMedia");
-			}
-			else
-			{
+//			string server = ConfigurationSettings.AppSettings["server"];
+//			if (server != null)
+//			{
+//				textBoxHost.Text = server;
+//
+//			}
+//			else
+//			{
 //				textBoxHost.Text = "localhost";
-			}
-
-
+//			}
+//
+//
+//			ChannelServices.RegisterChannel(new TcpChannel(0));
+//			RemotingConfiguration.RegisterWellKnownClientType(
+//				typeof(MediaServer),
+//				"tcp://" + textBoxHost.Text + ":777/RemotingMedia/MyMedia");
 		}
 
 		/// <summary>

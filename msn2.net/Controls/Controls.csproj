@@ -1,8 +1,8 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.0.9466"
-        SchemaVersion = "1.0"
+        ProductVersion = "7.10.3052"
+        SchemaVersion = "2.0"
         ProjectGuid = "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
         SccProjectName = "SAK"
         SccLocalPath = "SAK"
@@ -20,7 +20,10 @@
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
                 RootNamespace = "msn2.net.Controls"
+                RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
                 <Config
@@ -34,6 +37,8 @@
                     DebugSymbols = "true"
                     FileAlignment = "4096"
                     IncrementalBuild = "true"
+                    NoStdLib = "false"
+                    NoWarn = ""
                     Optimize = "false"
                     OutputPath = "bin\Debug\"
                     RegisterForComInterop = "false"
@@ -52,6 +57,8 @@
                     DebugSymbols = "false"
                     FileAlignment = "4096"
                     IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
                     Optimize = "true"
                     OutputPath = "bin\Release\"
                     RegisterForComInterop = "false"
@@ -171,7 +178,7 @@
                 />
                 <File
                     RelPath = "CommonCode.cs"
-                    SubType = "Component"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -290,6 +297,16 @@
                 <File
                     RelPath = "RandomPicture.resx"
                     DependentUpon = "RandomPicture.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RDC.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RDC.resx"
+                    DependentUpon = "RDC.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -433,6 +450,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "WebBrowserForm.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebBrowserForm.resx"
+                    DependentUpon = "WebBrowserForm.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "WebSearch.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -515,6 +542,42 @@
                     RelPath = "Shell\UserControl.resx"
                     DependentUpon = "UserControl.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web References\pics\DataSetPicture.xsd"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\pics\DataSetPicture.xsx"
+                    DependentUpon = "DataSetPicture.xsd"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\pics\RandomPictureService.disco"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\pics\RandomPictureService.wsdl"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\pics\Reference.map"
+                    BuildAction = "None"
+                    Generator = "MSDiscoCodeGenerator"
+                    LastGenOutput = "Reference.cs"
+                />
+                <File
+                    RelPath = "Web References\pics\Reference.cs"
+                    DependentUpon = "Reference.map"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <Folder
+                    RelPath = "Web References\pics\"
+                    WebReferenceUrl = "http://pics/RandomPictureService.asmx?op=RandomImageData"
+                    UrlBehavior = "Static"
                 />
                 <Folder
                     RelPath = "Web References\"

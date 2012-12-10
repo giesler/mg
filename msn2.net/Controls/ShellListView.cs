@@ -118,6 +118,7 @@ namespace msn2.net.Controls
 			this.listViewFavorites.Name = "listViewFavorites";
 			this.listViewFavorites.Size = new System.Drawing.Size(150, 130);
 			this.listViewFavorites.SmallImageList = this.imageList1;
+			this.listViewFavorites.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.listViewFavorites.TabIndex = 8;
 			this.listViewFavorites.View = System.Windows.Forms.View.List;
 			this.listViewFavorites.Resize += new System.EventHandler(this.listViewFavorites_Resize);

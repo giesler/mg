@@ -357,6 +357,7 @@ namespace msn2.net.QueuePlayer.Client
 			this.TopMost		= true;
 
 			WebBrowser browser		= new WebBrowser("QueuePlayer Media", false);
+			browser.Icon			= this.Icon;
 			browser.HideTitlebarButtons();
 			browser.Visible			= true;
 			browser.Visible			= false;
@@ -432,6 +433,10 @@ namespace msn2.net.QueuePlayer.Client
 				{
 					Playing(mediaId);
 				}
+			}
+			else
+			{
+				Next();
 			}
 
 			// Set the basic sliders and such

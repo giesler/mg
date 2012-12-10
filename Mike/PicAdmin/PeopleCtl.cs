@@ -68,7 +68,8 @@ namespace msn2.net.Pictures.Controls
 			try
 			{
 				// Set the connection string
-				cn.ConnectionString = Config.ConnectionString;
+				this.sqlConnection1.ConnectionString	= Config.ConnectionString;
+				this.cn.ConnectionString				= Config.ConnectionString;
 
 				// Load all people
 				daPerson.Fill(dsPerson, "Person");

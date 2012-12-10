@@ -14,7 +14,7 @@ namespace msn2.net.Pictures.Controls
 		{
 			get
 			{
-				return "data source=kyle;integrated security=sspi;initial catalog=picdb;persist security info=False";
+				return "data source=barbrady;integrated security=sspi;initial catalog=picdb;persist security info=False";
 			}
 		}
 
@@ -22,7 +22,7 @@ namespace msn2.net.Pictures.Controls
 		{
 			get
 			{
-				return 0.80;
+				return 1;
 			}
 		}
 	}

@@ -46,8 +46,8 @@ namespace msn2.net.Controls
 //			this.Left = 0;
 
 			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.WebSearch.ico"));
-			this.Icon = new System.Drawing.Icon(icon, 16, 16);
+			//System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.WebSearch.ico"));
+			//this.Icon = new System.Drawing.Icon(icon, 16, 16);
 
 			// Add items to listview
 			SearchListViewItem item = new SearchListViewItem(new WebSearchConfigData(), listViewSearch.SmallImageList);
@@ -92,6 +92,7 @@ namespace msn2.net.Controls
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WebSearch));
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.labelSearchFor = new System.Windows.Forms.Label();
 			this.labelSearchLocation = new System.Windows.Forms.Label();
@@ -149,6 +150,7 @@ namespace msn2.net.Controls
 			this.listViewSearch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.listViewSearch.FullRowSelect = true;
 			this.listViewSearch.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.listViewSearch.HideSelection = false;
 			this.listViewSearch.HoverSelection = true;
 			this.listViewSearch.Location = new System.Drawing.Point(8, 88);
 			this.listViewSearch.MultiSelect = false;
@@ -175,12 +177,10 @@ namespace msn2.net.Controls
 																		  this.labelSearchLocation,
 																		  this.labelSearchFor,
 																		  this.textBox1});
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.Name = "WebSearch";
 			this.ShowInTaskbar = true;
-			this.ShowOpacityButton = false;
-			this.ShowRollupButton = false;
-			this.ShowTopMostButton = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Search";
 			this.Load += new System.EventHandler(this.WebSearch_Load);
