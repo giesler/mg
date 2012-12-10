@@ -15,6 +15,10 @@
             overflow: hidden;
             text-align: center;
         }
+        img
+        {
+            -ms-interpolation-mode: bicubic;
+        }
     </style>
 </head>
 <body style="font-family: Tahoma; font-size: small; margin: 0px 0px 0px 0px;" runat="server"

@@ -94,6 +94,8 @@ namespace pics.Controls
                 image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
             }
 
+            image.Style.Add("-ms-interpolation-mode", "bicubic");
+
 			// If we have height / width, set them
 			if (height > 0)
 				image.Height = height;
