@@ -245,7 +245,14 @@ namespace msn2.net.Pictures.Controls
             {
                 string whereClause = null;
 
-                if (this.SelectedNode is CategoryTreeNode || this.SelectedNode is DateFilterTreeNode)
+                if (this.SelectedNode is CategoryTreeNode)
+                {
+                    CategoryTreeNode categoryNode = (CategoryTreeNode)this.SelectedNode;
+                    whereClause = string.Format(
+                        "p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))",
+                        categoryNode.Category.CategoryId);
+                }
+                else if (this.SelectedNode is DateFilterTreeNode)
                 {
                     whereClause = this.SelectedNode.Tag.ToString();
                 }

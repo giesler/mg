@@ -219,21 +219,21 @@ namespace msn2.net.Pictures.Controls
                 format.Alignment = StringAlignment.Center;
                 format.LineAlignment = StringAlignment.Center;
                 Font font = new Font("Arial", 6);
-                RectangleF rect = new RectangleF(0, 0, e.ClipRectangle.Width, e.ClipRectangle.Height);
-                if (e.ClipRectangle.Width > imageHeight && e.ClipRectangle.Height > imageHeight)
+                RectangleF rect = new RectangleF(0, 0, this.Width, this.Height);
+                if (rect.Width > imageHeight && rect.Height > imageHeight)
                 {
-                    rect.X = e.ClipRectangle.Width / 2 - (imageHeight / 2);
-                    rect.Y = e.ClipRectangle.Height / 2 - (imageHeight / 2);
+                    rect.X = this.Width / 2 - (imageHeight / 2);
+                    rect.Y = this.Height / 2 - (imageHeight / 2);
                     rect.Width = imageHeight;
                     rect.Height = imageHeight;
-                }
-                try
-                {
-                    e.Graphics.DrawImage(CommonImages.Refresh, rect);
-                }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine("Exception writing Loading: " + ex.Message);
+                    try
+                    {
+                        e.Graphics.DrawImage(CommonImages.Refresh, rect);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine("Exception writing Loading: " + ex.Message);
+                    }
                 }
             }
         }
@@ -443,7 +443,7 @@ namespace msn2.net.Pictures.Controls
                     int newHeight = 0;
                     int newWidth = 0;
 
-                    int offset = (drawShadow ? (this.Height > 150 ? 4 : 2) : 0);
+                    int offset = (drawShadow ? (this.Height > 150 ? 2 : 1) : 0);
 
                     // Add image border
                     int imageBorder = (drawBorder | selected ? (this.Height < 75 ? 1 : 2) : 0);
@@ -479,7 +479,11 @@ namespace msn2.net.Pictures.Controls
 
                         if (drawShadow)
                         {
-                            Rectangle dropRectangle = new Rectangle(newX + padding, newY + padding, newWidth + offset + imageBorder - (padding * 2), newHeight + offset + imageBorder - (padding * 2));
+                            Rectangle dropRectangle = new Rectangle(
+                                newX + padding, 
+                                newY + padding, 
+                                newWidth + offset + imageBorder - (padding * 2), 
+                                newHeight + offset + imageBorder - (padding * 2));
                             RectangleDropShadow(g, dropRectangle, Color.DarkGray, 4, 200);
                         }
 
