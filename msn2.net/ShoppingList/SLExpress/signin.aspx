@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wl="http://apis.live.net/js/2010">
 <head id="Head1" runat="server">
-    <title></title>
+    <title>My eLists - sign in</title>
     <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
     <script type="text/javascript">
         function signInComplete(e) {

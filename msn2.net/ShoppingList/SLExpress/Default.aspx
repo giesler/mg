@@ -1,12 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SLExpress._Default" %>
-
+<%@ Import Namespace="System.Web.Configuration" %>
+<%@ Import Namespace="Microsoft.Live" %>
 <%@ Register TagPrefix="wl" Namespace="Microsoft.Live" Assembly="Microsoft.Live.AuthHandler, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
-<head runat="server">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wl="http://apis.live.net/js/2010">
+<head id="Head1" runat="server">
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
-    <title>Shopping List</title>
+    <title>My eLists</title>
+    <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
     <style type="text/css">
         html, body
         {
@@ -32,10 +33,11 @@
         //window.location.href = "sl.aspx";
         //}
     </script>
-    <!--
-    <iframe id="WebAuthControl" name="WebAuthControl" src="http://login.live.com/controls/WebAuth.htm?appid=<%=AppId%>&style=font-size%3A+10pt%3B+font-family%3A+verdana%3B+background%3A+white%3B"
-        width="80px" height="20px" marginwidth="0" marginheight="0" align="middle" frameborder="0"
-        scrolling="no"></iframe> -->
+    <wl:app channel-url="<%=WebConfigurationManager.AppSettings["wl_wrap_channel_url"]%>"
+        callback-url="<%=WebConfigurationManager.AppSettings["wl_wrap_client_callback"]%>?wl_session_id=<%=SessionId%>"
+        client-id="<%=WebConfigurationManager.AppSettings["wl_wrap_client_id"]%>" scope="WL_Profiles.View, WL_Contacts.View">
+    </wl:app>
+    <wl:signin signedouttext="Sign in" theme="white" />
     <p>
         <% if (UserId == null)
            { %>
