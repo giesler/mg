@@ -84,13 +84,14 @@ namespace msn2.net.Controls
 
 		private void timer1_Tick(object sender, System.EventArgs e)
 		{
-			dev.RandomPictureService picService = new dev.RandomPictureService();
-			byte[] picBytes = picService.RandomImage(1);
-
-			MemoryStream memStream = new MemoryStream(picBytes);
-		
-			Image img = Image.FromStream(memStream);
-			pictureBox1.Image = img;
+// TODO: add rnadom picture status
+//			dev.RandomPictureService picService = new dev.RandomPictureService();
+//			byte[] picBytes = picService.RandomImage(1);
+//
+//			MemoryStream memStream = new MemoryStream(picBytes);
+//		
+//			Image img = Image.FromStream(memStream);
+//			pictureBox1.Image = img;
 		}
 	}
 }

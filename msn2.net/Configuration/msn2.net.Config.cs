@@ -90,7 +90,7 @@ namespace msn2.net.Configuration
 
 		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue)
 		{
-			return GetItemAttribute(itemName, attributeName, 0, false);
+			return GetItemAttribute(itemName, attributeName, defaultValue, false);
 		}
 
 		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue, bool globalSetting)
@@ -123,7 +123,8 @@ namespace msn2.net.Configuration
 			cmd.ExecuteNonQuery();
 			cn.Close();
 
-			return new ItemAttribute(cmd.Parameters["@AttributeValue"].Value);
+			ItemAttribute item = new ItemAttribute(cmd.Parameters["@AttributeValue"].Value);
+			return item;
 		}
 
 		public void SetItemAttribute(string itemName, string attributeName, object attributeValue)
@@ -263,6 +264,25 @@ namespace msn2.net.Configuration
 			get
 			{
 				return (layoutAttribute.ToString().Split(' '));
+			}
+		}
+
+		public Guid Guid
+		{
+			get
+			{
+				return new Guid(layoutAttribute.ToString());
+			}
+		}
+
+		public bool Boolean
+		{
+			get
+			{
+				if (layoutAttribute.ToString() == "0")
+					return false;
+				else
+					return true;
 			}
 		}
 	}

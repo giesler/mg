@@ -126,7 +126,7 @@
                 />
                 <File
                     RelPath = "Login.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

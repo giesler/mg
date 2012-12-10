@@ -30,27 +30,34 @@ namespace msn2.net.ProjectF
 			//
 			InitializeComponent();
 
-			Assembly a = Assembly.LoadFrom(@"d:\vss\msn2.net\QueuePlayer\main\client\bin\debug\msn2.net.queuePlayer.Client.dll");
+			// THE NEXT LINES OF CODE ARE FROM MAGIC LIBRARY 
+			// Calculate the IDE background colour as only half as dark as the control colour
+			int red = 255 - ((255 - SystemColors.Control.R) / 3);
+			int green = 255 - ((255 - SystemColors.Control.G) / 3);
+			int blue = 255 - ((255 - SystemColors.Control.B) / 3);
+			listView1.BackColor = Color.FromArgb(red, green, blue);
 
-			Type [] types = a.GetTypes();
-
-			foreach (Type t in types)
-			{
-				if (t.IsClass)
-				{
-					Debug.WriteLine("Class: " + t.FullName);					
-					if (t.IsSubclassOf(typeof(msn2.net.Controls.ShellForm))
-						&& t.FullName == "msn2.net.QueuePlayer.Client.UMPlayer")
-					{
-						object o;
-						o = Activator.CreateInstance(t);
-                        ShellForm f = (ShellForm) o;
-
-						listView1.Items.Add(
-									new FormListViewItem(this, f));
-					}
-				}
-			}
+//			Assembly a = Assembly.LoadFrom(@"d:\vss\msn2.net\QueuePlayer\main\client\bin\debug\msn2.net.queuePlayer.Client.dll");
+//
+//			Type [] types = a.GetTypes();
+//
+//			foreach (Type t in types)
+//			{
+//				if (t.IsClass)
+//				{
+//					Debug.WriteLine("Class: " + t.FullName);					
+//					if (t.IsSubclassOf(typeof(msn2.net.Controls.ShellForm))
+//						&& t.FullName == "msn2.net.QueuePlayer.Client.UMPlayer")
+//					{
+//						object o;
+//						o = Activator.CreateInstance(t);
+//                        ShellForm f = (ShellForm) o;
+//
+//						listView1.Items.Add(
+//									new FormListViewItem(this, f));
+//					}
+//				}
+//			}
 
 			Guid userId		= new Guid("80192EF9-784E-474D-88AA-96385915D485");
 			Guid configId	= new Guid("87B16D45-50C8-46B0-8658-281A2D2ABE04");
@@ -69,23 +76,23 @@ namespace msn2.net.ProjectF
 //			listView1.Items.Add(
 //				new FormListViewItem(this, new msn2.net.QueuePlayer.Client.UMPlayer()));
 
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.MSNBCHeadlines()));
-
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.MSNBCHeadlines()));
+//
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
 
 			listView1.Items.Add(
 				new FormListViewItem(this, new msn2.net.Controls.Favorites()));
 
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.Notes()));
-
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.WebSearch()));
-
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.ShellLaunch()));
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.Notes()));
+//
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.WebSearch()));
+//
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.ShellLaunch()));
 
 //			listView1.Items.Add(
 //				new FormListViewItem(this, new msn2.net.Controls.RandomPicture()));
@@ -121,6 +128,14 @@ namespace msn2.net.ProjectF
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
+			// 
 			// listView1
 			// 
 			this.listView1.CheckBoxes = true;
@@ -128,7 +143,7 @@ namespace msn2.net.ProjectF
 			this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
 			this.listView1.MultiSelect = false;
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(144, 0);
+			this.listView1.Size = new System.Drawing.Size(232, 142);
 			this.listView1.TabIndex = 1;
 			this.listView1.View = System.Windows.Forms.View.List;
 			this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView1_ItemCheck);
@@ -136,7 +151,7 @@ namespace msn2.net.ProjectF
 			// Form1
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(144, 0);
+			this.ClientSize = new System.Drawing.Size(232, 142);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.listView1});
 			this.Name = "Form1";

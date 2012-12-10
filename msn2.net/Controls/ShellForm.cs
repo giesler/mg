@@ -13,34 +13,6 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class ShellForm : System.Windows.Forms.Form
 	{
-		private System.ComponentModel.IContainer components;
-		private Size fixedSize  = new Size(0, 0);
-		private System.Windows.Forms.Panel panelTitle;
-		private bool allowUnload = true;
-		private bool enableOpacityChanges = true;
-		protected System.Timers.Timer timerFadeOut;
-		private System.Windows.Forms.Panel panelLeft;
-		private System.Windows.Forms.Panel panelRight;
-		private System.Windows.Forms.Panel panelBottom;
-		private System.Windows.Forms.Panel panelSizeNWSE;
-		protected System.Timers.Timer timerFadeIn;
-		private Size savedSize = new Size(0, 0);
-		private bool rolledUp = false;
-		private bool autoLayout = false;
-		private FormBorderStyle actualFormBorderStyle;
-
-		protected ShellForm lockedTo = null;
-		protected ArrayList lockedForms = new ArrayList();
-		private System.Windows.Forms.ImageList imageListTitleBar;
-		private System.Windows.Forms.Panel panelTitleText;
-		private System.Windows.Forms.Label labelTitle;
-		private System.Windows.Forms.Panel panelButtons;
-		private System.Windows.Forms.Button buttonOpacity;
-		private System.Windows.Forms.Button buttonRollup;
-		private System.Windows.Forms.Button buttonOnTop;
-		private System.Windows.Forms.Button buttonHide;
-		private System.Windows.Forms.Panel panelMoreButtons;
-
 		#region Static instance functionality
 
 		private static ArrayList instances	= new ArrayList();
@@ -64,12 +36,49 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		#region Declares
+
+		// WinForms declares
+		private System.ComponentModel.IContainer components;
+		private System.Windows.Forms.Panel panelTitle;
+		protected System.Timers.Timer timerFadeOut;
+		private System.Windows.Forms.Panel panelLeft;
+		private System.Windows.Forms.Panel panelRight;
+		private System.Windows.Forms.Panel panelBottom;
+		private System.Windows.Forms.Panel panelSizeNWSE;
+		protected System.Timers.Timer timerFadeIn;
+		private FormBorderStyle actualFormBorderStyle;
+		private System.Windows.Forms.ImageList imageListTitleBar;
+		private System.Windows.Forms.Panel panelTitleText;
+		private System.Windows.Forms.Label labelTitle;
+		private System.Windows.Forms.Panel panelButtons;
+		private System.Windows.Forms.Button buttonOpacity;
+		private System.Windows.Forms.Button buttonRollup;
+		private System.Windows.Forms.Button buttonOnTop;
+		private System.Windows.Forms.Button buttonHide;
+		private System.Windows.Forms.Panel panelMoreButtons;
+
+		// Property declares
+		private Size	fixedSize					= new Size(0, 0);
+		private bool	allowUnload					= true;
+		private bool	enableOpacityChanges		= true;
+		private Size	savedSize					= new Size(0, 0);
+		private bool	rolledUp					= false;
+		private bool	autoLayout					= false;
+		protected ShellForm lockedTo				= null;
+		protected ArrayList lockedForms				= new ArrayList();
+
+		#endregion
+
+		#region Constructor and Disposal
+
 		public ShellForm()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
-			InitializeComponent();
+			if (!DesignMode)
+				InitializeComponent();
 
 			timerFadeOut = new System.Timers.Timer(75);
 			timerFadeOut.Elapsed += new System.Timers.ElapsedEventHandler(FadeOut_Elapsed);
@@ -98,6 +107,8 @@ namespace msn2.net.Controls
 			
 			RemoveInstance(this);
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -327,6 +338,58 @@ namespace msn2.net.Controls
 			this.ResumeLayout(false);
 
 		}
+		#endregion
+
+		#region Load
+
+		private void ShellForm_Load(object sender, System.EventArgs e)
+		{
+			if (autoLayout)
+			{
+				// Now retreive any saved values			
+				this.Left		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Left", this.Left).Integer;
+				this.Top		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Top", this.Top).Integer;
+				this.TopMost	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "TopMost", this.TopMost).Boolean;
+//				this.RolledUp	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "RolledUp", this.rolledUp).Boolean;
+				this.EnableOpacityChanges = ConfigurationSettings.Current.GetItemAttribute(this.Name, "EnableOpacityChanges", this.enableOpacityChanges).Boolean;
+			}
+		}
+
+		#endregion
+
+		#region Layout
+
+		private bool savedBorderStyle = false;
+
+		private void ShellForm_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
+		{
+			System.Diagnostics.Debug.WriteLine(this.Name + ": " + this.GetHashCode().ToString());
+
+			// Add mouseover cursors if not in a fixed style
+			if (!DesignMode && this.Parent == null)
+			{
+				if (!savedBorderStyle)
+				{
+					System.Diagnostics.Debug.WriteLine("Display: " + this.FormBorderStyle.ToString());
+					actualFormBorderStyle = this.FormBorderStyle;
+					this.FormBorderStyle = FormBorderStyle.None;
+					savedBorderStyle = true;
+
+					LayoutForProjectF();
+				}
+
+				// If window is sizable, we want to show the cursors
+				if (actualFormBorderStyle == FormBorderStyle.SizableToolWindow
+					|| actualFormBorderStyle == FormBorderStyle.Sizable)
+				{
+					this.panelLeft.Cursor		= System.Windows.Forms.Cursors.SizeWE;
+					this.panelRight.Cursor		= System.Windows.Forms.Cursors.SizeWE;
+					this.panelBottom.Cursor		= System.Windows.Forms.Cursors.SizeNS;
+					this.panelSizeNWSE.Cursor	= System.Windows.Forms.Cursors.SizeNWSE;
+				}
+			}		
+		}
+
 		#endregion
 
 		#region Properties
@@ -579,6 +642,9 @@ namespace msn2.net.Controls
 					// save the positions
 					ConfigurationSettings.Current.SetItemAttribute(this.Name, "Left", this.Left);
 					ConfigurationSettings.Current.SetItemAttribute(this.Name, "Top", this.Top);
+					ConfigurationSettings.Current.SetItemAttribute(this.Name, "TopMost", this.TopMost);
+					ConfigurationSettings.Current.SetItemAttribute(this.Name, "RolledUp", this.RolledUp);
+					ConfigurationSettings.Current.SetItemAttribute(this.Name, "EnableOpacityChanges", this.EnableOpacityChanges);
 				}
 			}
 		}
@@ -920,7 +986,6 @@ namespace msn2.net.Controls
 		{
 			this.TopMost = !this.TopMost;
 		}
-
 		
 		private void buttonOnTop_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
@@ -1078,49 +1143,7 @@ namespace msn2.net.Controls
 
 		#endregion
 
-		private void ShellForm_Load(object sender, System.EventArgs e)
-		{
-			if (autoLayout)
-			{
-				// Now retreive any saved values			
-				this.Left		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Left", this.Left).Integer;
-				this.Top		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Top", this.Top).Integer;
-			}
-		}
-
-		private bool savedBorderStyle = false;
-
-		private void ShellForm_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
-		{
-			System.Diagnostics.Debug.WriteLine(this.Name + ": " + this.GetHashCode().ToString());
-
-			// Add mouseover cursors if not in a fixed style
-			if (!DesignMode && this.Parent == null)
-			{
-				if (!savedBorderStyle)
-				{
-					System.Diagnostics.Debug.WriteLine("Display: " + this.FormBorderStyle.ToString());
-					actualFormBorderStyle = this.FormBorderStyle;
-					this.FormBorderStyle = FormBorderStyle.None;
-					savedBorderStyle = true;
-
-					LayoutForProjectF();
-				}
-
-				// If window is sizable, we want to show the cursors
-				if (actualFormBorderStyle == FormBorderStyle.SizableToolWindow
-					|| actualFormBorderStyle == FormBorderStyle.Sizable)
-				{
-					this.panelLeft.Cursor		= System.Windows.Forms.Cursors.SizeWE;
-					this.panelRight.Cursor		= System.Windows.Forms.Cursors.SizeWE;
-					this.panelBottom.Cursor		= System.Windows.Forms.Cursors.SizeNS;
-					this.panelSizeNWSE.Cursor	= System.Windows.Forms.Cursors.SizeNWSE;
-				}
-			}
-			
-
-		
-		}
+		#region Title functions
 
 		private void labelTitle_MouseHover(object sender, System.EventArgs e)
 		{
@@ -1141,6 +1164,8 @@ namespace msn2.net.Controls
 
 		public event System.EventHandler TitleHover;
 		public event System.EventHandler TitleMouseLeave;
+
+		#endregion
 
 	}
 }

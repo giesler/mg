@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-
 namespace msn2.net.Controls
 {
 	public class ShellLaunch : msn2.net.Controls.ShellForm
@@ -19,8 +18,6 @@ namespace msn2.net.Controls
 		{
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
-
-			// TODO: Add any initialization after the InitializeComponent call
 		}
 
 		/// <summary>

@@ -13,6 +13,9 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class ProgressBar : System.Windows.Forms.UserControl
 	{
+
+		#region Declares
+
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -29,13 +32,14 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.PictureBox pictureBoxProgress;
 		private bool showRemainingValue		= true;
 
+		#endregion
+
+		#region Constructor & Disposal
+
 		public ProgressBar()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
-			// TODO: Add any initialization after the InitForm call
-
 		}
 
 		/// <summary> 
@@ -52,6 +56,8 @@ namespace msn2.net.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Component Designer generated code
 		/// <summary> 
