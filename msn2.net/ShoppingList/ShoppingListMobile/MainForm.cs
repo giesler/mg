@@ -29,7 +29,7 @@ namespace msn2.net.ShoppingList
         bool loadAllItemsAfterStores = false;
         StoreItem selectedStore = null;
         object lockObject = new object();
-        public static Color[] ListColors = new Color[] { Color.LightCyan, Color.White };
+        public static Color[] ListColors = new Color[] { Color.White, Color.FromArgb(211, 255, 227) };
 
         IContainer components = null;
         MainMenu mainMenu1;
@@ -147,7 +147,7 @@ namespace msn2.net.ShoppingList
             this.listView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = ColumnHeaderStyle.None;
-            this.listView1.Bounds = new Rectangle(3, 50, 234, 206);
+            this.listView1.Bounds = new Rectangle(3, 50, 235, 206);
             this.listView1.TabIndex = 0;
             this.listView1.View = View.Details;
             this.listView1.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
@@ -157,7 +157,7 @@ namespace msn2.net.ShoppingList
 
             this.newItem = new TextBox();
             this.newItem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            this.newItem.Bounds = new Rectangle(3, 26, 164, 21);
+            this.newItem.Bounds = new Rectangle(3, 26, 167, 21);
             this.newItem.TabIndex = 1;
             this.newItem.GotFocus += new EventHandler(this.newItem_GotFocus);
             this.newItem.KeyPress += new KeyPressEventHandler(this.newItem_KeyPress);
@@ -166,7 +166,7 @@ namespace msn2.net.ShoppingList
 
             this.add = new Button();
             this.add.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.add.Bounds = new Rectangle(173, 26, 64, 21);
+            this.add.Bounds = new Rectangle(173, 26, 65, 21);
             this.add.TabIndex = 2;
             this.add.Text = "&Add";
             this.add.Click += new EventHandler(this.add_Click);
@@ -196,7 +196,7 @@ namespace msn2.net.ShoppingList
 
             this.storeLabel = new Label();
             this.storeLabel.Font = new Font("Tahoma", 12F, FontStyle.Bold);
-            this.storeLabel.Bounds = new Rectangle(3, 2, 168, 24);
+            this.storeLabel.Bounds = new Rectangle(3, 3, 168, 24);
             this.storeLabel.Text = "Loading...";
             this.storeLabel.Parent = this;
 
@@ -213,10 +213,11 @@ namespace msn2.net.ShoppingList
             this.Text = "Shopping List";
 
             this.progressBar = new ProgressBar();
-            this.progressBar.Bounds = new Rectangle(3, 249, 234, 8);
+            this.progressBar.Bounds = new Rectangle(3, 248, 235, 8);
             this.progressBar.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right;
             this.progressBar.Maximum = 30;
             this.progressBar.Parent = this;
+            this.progressBar.BringToFront();
 
             this.timerProgress = new WinForms.Timer();
             this.timerProgress.Tick += new EventHandler(timerProgress_Tick);
@@ -610,6 +611,8 @@ namespace msn2.net.ShoppingList
                 this.listView1.ContextMenu = this.listViewContextMenu;
             }
 
+            int selectedIndex = this.listView1.SelectedIndices.Count > 0 ? this.listView1.SelectedIndices[0] : 0;
+
             this.listView1.Items.Clear();
 
             if (this.selectedStore != null)
@@ -628,6 +631,13 @@ namespace msn2.net.ShoppingList
                     index++;
                 }
                 this.listView1.EndUpdate();
+            }
+
+            if (this.listView1.Items.Count > 0)
+            {
+                selectedIndex = this.listView1.Items.Count > selectedIndex ? selectedIndex : this.listView1.Items.Count - 1;
+                this.listView1.Items[selectedIndex].Selected = true;
+                this.listView1.Items[selectedIndex].Focused = true;
             }
 
             this.UpdateStatus();
@@ -687,7 +697,7 @@ namespace msn2.net.ShoppingList
 
         void SetColumnWidth()
         {
-            int width = this.listView1.ClientSize.Width - 9;
+            int width = this.listView1.ClientSize.Width - 4;
             if (this.listView1.Columns.Count > 0)
             {
                 if (this.listView1.Columns[0].Width != width)
@@ -850,6 +860,11 @@ namespace msn2.net.ShoppingList
                 {
                     store.Items.Remove(item.Item);
                 }
+            }
+
+            if (removeList.Count > 0)
+            {
+                this.SizeControls();
             }
 
             if (pending == false && this.timerDelete != null)
@@ -1256,8 +1271,8 @@ namespace msn2.net.ShoppingList
 
             if (this.menuRefresh.Enabled == false)
             {
-                offset += this.progressBar.Height;
-                pbarOffset = this.progressBar.Height;
+                offset += this.progressBar.Height + 5;
+                pbarOffset = this.progressBar.Height + 4;
             }
 
             this.listView1.Height = this.ClientSize.Height - this.listView1.Top - this.statusLabel.Height - offset;
