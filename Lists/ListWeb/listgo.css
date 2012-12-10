@@ -16,6 +16,7 @@ body
     text-align: right;
     float: right;
     margin: 3px;
+    text-decoration: none;
 }
 .left
 {
@@ -43,7 +44,6 @@ body
 {
     font-family: Segoe UI, Arial, Tahoma;
     font-size: 10pt;
-    padding-top: 10px;
 }
 .modeLink
 {

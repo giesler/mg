@@ -143,6 +143,11 @@ namespace msn2.net.ShoppingList
 
         public AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name)
         {
+            return this.AddListItemWithId(auth, listUniqueId, Guid.NewGuid(), name);
+        }
+
+        public AddListItemReturnValue AddListItemWithId(ClientAuthenticationData auth, Guid listUniqueId, Guid itemUniqueId, string name)
+        {
             this.WaitForServerCallSleepTime();
 
             AddListItemReturnValue returnVal = new AddListItemReturnValue();
@@ -151,7 +156,6 @@ namespace msn2.net.ShoppingList
             {
                 Person person = ValidateAuth(context, auth, true);
                 bool? isDuplicate = false;
-                Guid itemUniqueId = Guid.NewGuid();
                 int? listItemId = 0;
 
                 context.AddListItem(person.Id, auth.DeviceUniqueId, name, listUniqueId, itemUniqueId, ref isDuplicate, ref listItemId);

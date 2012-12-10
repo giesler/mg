@@ -40,6 +40,15 @@ namespace SLExpress {
         protected global::System.Web.UI.WebControls.Panel modePanel;
         
         /// <summary>
+        /// list control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList list;
+        
+        /// <summary>
         /// addMode control.
         /// </summary>
         /// <remarks>
@@ -65,24 +74,6 @@ namespace SLExpress {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton viewMode;
-        
-        /// <summary>
-        /// topPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel topPanel;
-        
-        /// <summary>
-        /// list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList list;
         
         /// <summary>
         /// addPanel control.

@@ -35,6 +35,9 @@ namespace msn2.net.ShoppingList
         AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name);
 
         [OperationContract]
+        AddListItemReturnValue AddListItemWithId(ClientAuthenticationData auth, Guid listUniqueId, Guid itemUniqueId, string name);
+
+        [OperationContract]
         UpdateListItemReturnData UpdateListItem(ClientAuthenticationData auth, ListItem item);
 
         [OperationContract]

@@ -18,6 +18,7 @@ namespace SLExpress
     public partial class _Default : System.Web.UI.Page
     {
         protected string UserId;
+        int editItemColumns = 30;
 
         public _Default()
         {
@@ -30,6 +31,12 @@ namespace SLExpress
             this.list.SelectedIndexChanged += new EventHandler(OnListSelectedIndexChanged);
             this.addButton.Click += new EventHandler(addButton_Click);
             this.cancelButton.Click += new EventHandler(cancelButton_Click);
+
+            if (Request.Browser.IsMobileDevice)
+            {
+                this.editItemColumns = 25;
+
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -58,7 +65,6 @@ namespace SLExpress
             {
                 Response.Redirect("signin.aspx");
             }
-
         }
 
         private void LoadLists()
@@ -141,7 +147,7 @@ namespace SLExpress
 
                     TextBox tb = new TextBox { Text = i.Name };
                     tb.ID = "TB:" + i.UniqueId.ToString();
-                    tb.Columns = 50;
+                    tb.Columns = this.editItemColumns;
                     this.editItems.Controls.Add(tb);
                     
                     Button btn = new Button { Text = "save" };
@@ -189,6 +195,7 @@ namespace SLExpress
             this.moveItem.Visible = true;
 
             this.addMode.Enabled = false;
+            this.editMode.Enabled = false;
             this.viewMode.Enabled = false;
         }
 
@@ -257,11 +264,8 @@ namespace SLExpress
         protected void OnAdd(object sender, EventArgs e)
         {
             this.addMode.Font.Bold = true;
-            this.addMode.Enabled = false;
             this.editMode.Font.Bold = false;
-            this.editMode.Enabled = true;
             this.viewMode.Font.Bold = false;
-            this.viewMode.Enabled = true;
 
             this.addPanel.Visible = true;
             this.editPanel.Visible = false;
@@ -273,12 +277,9 @@ namespace SLExpress
         protected void OnEdit(object sender, EventArgs e)
         {
             this.addMode.Font.Bold = false;
-            this.addMode.Enabled = true;
             this.editMode.Font.Bold = true;
-            this.editMode.Enabled = false;
             this.viewMode.Font.Bold = false;
-            this.viewMode.Enabled = true;
-
+            
             this.addPanel.Visible = false;
             this.editPanel.Visible = true;
             this.main.Visible = false;
@@ -287,11 +288,8 @@ namespace SLExpress
         protected void OnView(object sender, EventArgs e)
         {
             this.addMode.Font.Bold = false;
-            this.addMode.Enabled = true;
             this.editMode.Font.Bold = false;
-            this.editMode.Enabled = true;
             this.viewMode.Font.Bold = true;
-            this.viewMode.Enabled = false;
 
             this.addPanel.Visible = false;
             this.editPanel.Visible = false;
@@ -301,6 +299,7 @@ namespace SLExpress
         protected void OnCancelMove(object sender, EventArgs e)
         {
             this.addMode.Enabled = true;
+            this.editMode.Enabled = true;
             this.viewMode.Enabled = true;
 
             this.editItems.Visible = true;

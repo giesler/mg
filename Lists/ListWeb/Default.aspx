@@ -7,6 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <meta content="user-scalable=no, width=device-width" name="viewport" />
+    <meta name="MobileOptimized" content="width">
     <title>ListGo</title>
     <script type="text/javascript">
         function startDelete(cbx) {
@@ -21,22 +22,23 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    ListGo <a href="#" onclick="onSignOut();" id="signOut" class="rightTop">Sign Out</a>
+    ListGo <a href="#" onclick="onSignOut();" id="signOut" class="rightTop">sign out</a>
     <hr noshade />
     <asp:Panel runat="server" CssClass="main">
         <asp:Panel ID="modePanel" runat="server">
-            <asp:LinkButton ID="addMode" Text="add" runat="server" OnClick="OnAdd" CssClass="modeLink" /> |
-            <asp:LinkButton ID="editMode" Text="edit" runat="server" OnClick="OnEdit" CssClass="modeLink" /> |
-            <asp:LinkButton ID="viewMode" Text="view" Font-Bold="true" Enabled="false" runat="server"
-                CssClass="modeLink" OnClick="OnView" />
-            <asp:Panel runat="server" ID="topPanel">
-                <asp:DropDownList ID="list" runat="server" AutoPostBack="true" CssClass="list" />
-            </asp:Panel>
+            <asp:DropDownList ID="list" runat="server" AutoPostBack="true" CssClass="list" />
+            <asp:LinkButton ID="addMode" Text="add" runat="server" OnClick="OnAdd" CssClass="modeLink" />
+            |
+            <asp:LinkButton ID="editMode" Text="edit" runat="server" OnClick="OnEdit" CssClass="modeLink" />
+            |
+            <asp:LinkButton ID="viewMode" Text="view" Font-Bold="true" runat="server" CssClass="modeLink"
+                OnClick="OnView" />
+            <hr />
         </asp:Panel>
         <asp:Panel runat="server" ID="addPanel" Visible="false" CssClass="add">
             <asp:Label ID="addLabel" runat="server" Text="Add items (one per line)" />
             <br />
-            <asp:TextBox ID="add" runat="server" Rows="10" Columns="50" TextMode="MultiLine" />
+            <asp:TextBox ID="add" runat="server" Rows="10" Columns="30" TextMode="MultiLine" />
             <br />
             <asp:Button ID="addButton" runat="server" Text="Add" />
             <asp:Button ID="cancelButton" runat="server" Text="Cancel" />

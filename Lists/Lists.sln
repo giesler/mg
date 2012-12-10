@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListWeb", "ListWeb\ListWeb.csproj", "{7451A1A1-67F6-4A79-8934-3338E8EAA870}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListWinPhone", "ListWinPhone\ListWinPhone.csproj", "{4AC053EE-389A-4133-9182-964175002B35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ED347463-382E-4C20-A33F-741D851D9327} = {ED347463-382E-4C20-A33F-741D851D9327}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Live", "..\Externals\Microsoft.Live\Microsoft.Live.csproj", "{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}"
 EndProject

@@ -8,13 +8,14 @@
     <title>ListGo - Signing out</title>
     <script src="https://js.live.net/v5.0/wl.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="listgo.css" />
+    <meta content="user-scalable=no, width=device-width" name="viewport" />
+    <meta name="MobileOptimized" content="width" />
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
         Signing out...
         <script type="text/javascript">
-
             WL.init({
                 client_id: "<%=WebConfigurationManager.AppSettings["Live_Client_Id"]%>",
                 redirect_uri: "http://listgo.mobi/signin.aspx"
