@@ -1,3 +1,4 @@
+#region Usings
 using System;
 using System.Drawing;
 using System.Collections;
@@ -8,6 +9,7 @@ using System.Reflection;
 using System.Diagnostics;
 using msn2.net.Controls;
 using msn2.net.Configuration;
+#endregion
 
 namespace msn2.net.ProjectF
 {
@@ -30,7 +32,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region Declares
 
 		private System.Windows.Forms.ListView listView1;
@@ -41,7 +42,6 @@ namespace msn2.net.ProjectF
 		private Crownwood.Magic.Docking.DockingManager dockManager = null;
 
 		#endregion
-
 		#region Constructor / Disposal
 
 		public ProjectFConsole()
@@ -98,7 +98,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -161,7 +160,6 @@ namespace msn2.net.ProjectF
 
 		}
 		#endregion
-
 		#region Toggle visible on form
 
 		private void listView1_ItemCheck(object sender, System.Windows.Forms.ItemCheckEventArgs e)
@@ -171,7 +169,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region Event Handlers
 
 		private void listView1_ItemActivate(object sender, EventArgs e)
@@ -182,7 +179,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region Form Closing
 
 		private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -195,12 +191,11 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region Static shellform subscriptions
 
 		private void ShellForm_ItemAdded(object sender, msn2.net.Controls.ShellFormAddedEventArgs e)
 		{
-			//TODO: if (e.ShellForm.Data != null)
+			if (e.ShellForm.TabPage == null)  //TODO: if (e.ShellForm.Data != null)
 			{
 				ShellFormListItem item = new ShellFormListItem(e.ShellForm);
 				panelFormList.Controls.Add(item);
@@ -224,7 +219,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-
 		#region FormListViewItem class
 
 		private class FormListViewItem: ListViewItem
@@ -295,7 +289,6 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
-	
 		#region Messenger Event Handlers
 		
 		private void Messenger_SignIn(int hr)
@@ -374,7 +367,6 @@ namespace msn2.net.ProjectF
 			browser.AddStaticTab("Technology", String.Format(baseUrl, 5, new TimeSpan(1, 0, 8)));
 			browser.AddStaticTab("TV News", String.Format(baseUrl, 6, new TimeSpan(1, 0, 10)));
 			browser.AddStaticTab("Opinions", String.Format(baseUrl, 7, new TimeSpan(3, 0, 0)));
-//			browser.Show();
 				
 			baseUrl = "http://home.msn2.net/weather.aspx?aid={0}";
             browser = new WebBrowser(ConfigurationSettings.Current.Data.Get("MSNBCWeather"), "MSNBC Weather", 397, 200);
@@ -383,14 +375,13 @@ namespace msn2.net.ProjectF
 			browser.AddStaticTab("Kirkland", String.Format(baseUrl, "WAKI", new TimeSpan(0, 30, 1)));
 			browser.AddStaticTab("Seattle", String.Format(baseUrl, "SEA"), new TimeSpan(2, 0, 0));
 			browser.AddStaticTab("Madison", String.Format(baseUrl, "MSN"), new TimeSpan(2, 0, 2));
-//			browser.Show();
 
-//			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
-//			player.Show();
+			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
+			player.Show();
 
 			Favorites favs = new Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
 //			favs.Show();
-			ComputerInfo cInfo = new ComputerInfo(ConfigurationSettings.Current.Data.Get(Environment.MachineName));
+//			ComputerInfo cInfo = new ComputerInfo(ConfigurationSettings.Current.Data.Get(Environment.MachineName));
 //			cInfo.Show();
 			WebSearch webSearch = new WebSearch(ConfigurationSettings.Current.Data.Get("Search"));
 			webSearch.Show();

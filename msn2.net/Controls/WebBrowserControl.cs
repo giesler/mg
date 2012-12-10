@@ -9,6 +9,7 @@ using mshtml;
 using System.Runtime.InteropServices;
 using msn2.net.Configuration;
 using msn2.net.Controls;
+using System.Drawing.Drawing2D;
 
 namespace msn2.net.Controls
 {
@@ -90,6 +91,7 @@ namespace msn2.net.Controls
 			object o = null;
 			axWebBrowser1.Navigate("about:blank", ref o, ref o, ref o, ref o);
 			object oOcx = axWebBrowser1.GetOcx();
+			axWebBrowser1.NavigateError += new AxSHDocVw.DWebBrowserEvents2_NavigateErrorEventHandler(axWebBrowser1_NavigateError);
 
 			try
 			{
@@ -260,6 +262,11 @@ namespace msn2.net.Controls
 		#endregion
 
 		#region WebBrowser control events
+
+		private void axWebBrowser1_NavigateError(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateErrorEvent e)
+		{
+			Debug.WriteLine(e.uRL + ": " + e.statusCode);
+		}
 
 		private void axWebBrowser1_NavigateComplete2(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateComplete2Event e)
 		{
@@ -643,7 +650,19 @@ namespace msn2.net.Controls
 
 		private void panelStatus_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, Color.DimGray);
+			int middle = e.ClipRectangle.Height / 2;
+
+			Rectangle bottom		= new Rectangle(e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width, middle);
+			Rectangle top	= new Rectangle(e.ClipRectangle.Left, e.ClipRectangle.Top + middle, e.ClipRectangle.Width, middle);
+
+			LinearGradientBrush topBrush
+								= new LinearGradientBrush(top, Color.LightGray, msn2.net.Common.Drawing.LightenColor(Color.LightGray), LinearGradientMode.Vertical);
+			e.Graphics.FillRectangle(topBrush, top);
+			LinearGradientBrush bottomBrush
+								= new LinearGradientBrush(bottom, msn2.net.Common.Drawing.LightenColor(Color.LightGray), Color.LightGray, LinearGradientMode.Vertical);
+			e.Graphics.FillRectangle(bottomBrush, bottom);
+
+//			msn2.net.Common.Drawing.ShadeRegion(e, Color.DimGray);
 
 			e.Graphics.DrawString(this.labelStatus.Text, this.labelStatus.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelStatus.Location, labelStatus.Size));
 		}

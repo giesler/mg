@@ -1,3 +1,4 @@
+#region Using
 using System;
 using System.Drawing;
 using System.Collections;
@@ -5,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using msn2.net.Configuration;
 using System.Diagnostics;
+#endregion
 
 namespace msn2.net.Controls
 {
@@ -61,7 +63,6 @@ namespace msn2.net.Controls
 		#endregion
 
 		#endregion
-
 		#region Declares
 
 		// WinForms declares
@@ -95,7 +96,7 @@ namespace msn2.net.Controls
 		private Data formNode						= null;
 		private Data layoutData						= null;
 		private bool	shadedBackground			= false;
-
+		
 		// Form style properties
 		private int		titleHeight					= 18;
 		private int		borderWidth					= 3;
@@ -104,13 +105,14 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.PictureBox pictureBoxFormIcon;
 		private int		rollupHeight				= 18;
 		private bool	dialog						= false;
-
+		
 		private int		fadeInTimerInterval			= 50;
 		private int		fadeOutTimerInterval		= 70;
 		protected bool	fadeInEnabled				= true;
-
+		
+		private Crownwood.Magic.Controls.TabPage tabPage = null;
+		
 		#endregion
-
 		#region Constructor and Disposal
 
 		public ShellForm()
@@ -170,7 +172,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -419,7 +420,6 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
-
 		#region Load
 
 		private void ShellForm_Load(object sender, System.EventArgs e)
@@ -429,7 +429,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Layout
 
 		private bool savedBorderStyle = false;
@@ -460,13 +459,44 @@ namespace msn2.net.Controls
 				}
 			}		
 
+			// Hide the borders if we are in a tabpage
+			if (this.tabPage != null)
+			{
+				this.panelTitle.Visible		= false;
+				this.panelLeft.Visible		= false;
+				this.panelRight.Visible		= false;
+				this.panelBottom.Visible	= false;
+			}
+			else
+			{
+				this.panelTitle.Visible		= true;
+				this.panelLeft.Visible		= true;
+				this.panelRight.Visible		= true;
+				this.panelBottom.Visible	= true;
+			}
+
 			LayoutForProjectF();
 
 		}
 
 		#endregion
-
 		#region Properties
+
+		public Crownwood.Magic.Controls.TabPage TabPage
+		{
+			get
+			{
+				return tabPage;
+			}
+			set
+			{
+				tabPage = value;
+
+				// Add and remove from shellform collection
+				ShellForm.RemoveInstance(this);
+				ShellForm.AddInstance(this);
+			}
+		}
 
 		public bool AllowUnload
 		{
@@ -627,7 +657,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Form Moving code
 
 		private bool moving = false;
@@ -760,7 +789,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Close
 
 		private void button1_Click(object sender, System.EventArgs e)
@@ -791,7 +819,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Form fade in/out
 
 		private void ShellForm_Activated(object sender, System.EventArgs e)
@@ -944,7 +971,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Layout code
 
 		private bool sized = false;
@@ -1028,7 +1054,6 @@ namespace msn2.net.Controls
 		private ArrayList layoutControlList = new ArrayList();
 
 		#endregion
-
 		#region Sizing code
 
 		private bool sizing = false;
@@ -1145,7 +1170,6 @@ namespace msn2.net.Controls
 		#endregion
 
 		#endregion
-
 		#region TopMost
 
 		private void buttonOnTop_Click(object sender, System.EventArgs e)
@@ -1185,7 +1209,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Rollup
 
 		private bool rollupHover = false;
@@ -1284,7 +1307,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Adding Controls
 
 		public void AddTitleBarControl(Control c, int left, int top, int height, bool visible)
@@ -1320,7 +1342,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Title functions
 
 		private void labelTitle_MouseHover(object sender, System.EventArgs e)
@@ -1377,7 +1398,6 @@ namespace msn2.net.Controls
 		public event System.EventHandler TitleMouseLeave;
 
 		#endregion
-
 		#region Show/Hide buttons
 
 		private bool showOpacityButton		= true;
@@ -1480,7 +1500,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Paint
 
 		private void ShellForm_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -1492,11 +1511,11 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region ShadeRegion
 
 
 		#endregion
+		#region Methods
 
 		public DialogResult ShowShellDialog(System.Windows.Forms.IWin32Window owner)
 		{
@@ -1524,6 +1543,8 @@ namespace msn2.net.Controls
 			return result;
 		}
 
+		#endregion
+		#region Mouse events
 		private void ShellForm_MouseHover(object sender, System.EventArgs e)
 		{
 // TODO:			if (this.Opacity != 1.0)
@@ -1541,6 +1562,7 @@ namespace msn2.net.Controls
 		{
 			Trace.WriteLine(this.Name + ": MouseLeave");
 		}
+		#endregion
 	}
 
 	#region Static delegates

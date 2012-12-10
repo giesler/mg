@@ -23,7 +23,6 @@ namespace msn2.net.Controls
 		private WebBrowserTitleBarButtons titleBarButtons = null;
 
 		#endregion
-
 		#region Constructors
 
 		public WebBrowser(Data data): base(data)
@@ -139,7 +138,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Methods
 
 		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
@@ -162,6 +160,7 @@ namespace msn2.net.Controls
 		public Crownwood.Magic.Controls.TabPage AddNewTab(ShellForm form)
 		{
 			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(form.Text, form);
+			form.TabPage = page;
 			tabControl.TabPages.Add(page);
 
 			return page;
@@ -227,7 +226,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Disposal
 
 		/// <summary>
@@ -246,7 +244,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -283,7 +280,6 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
-
 		#region Event Handlers
 
 		#region Title Bar buttons
@@ -341,7 +337,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Properties
 
 		public bool ShowClose
@@ -368,8 +363,19 @@ namespace msn2.net.Controls
 			}
 		}
 
-		#endregion
+		public Crownwood.Magic.Controls.TabControl.VisualAppearance TabAppearance
+		{
+			get
+			{
+				return tabControl.Appearance;
+			}
+			set
+			{
+				tabControl.Appearance = value;
+			}
+		}
 
+		#endregion
 	}
 
 }

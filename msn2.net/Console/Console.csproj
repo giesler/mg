@@ -105,11 +105,6 @@
                     WrapperTool = "tlbimp"
                 />
                 <Reference
-                    Name = "MagicLibrary"
-                    Project = "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
                     Name = "System.Web"
                     AssemblyName = "System.Web"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
@@ -128,6 +123,11 @@
                     Name = "Microsoft.mshtml"
                     AssemblyName = "Microsoft.mshtml"
                     HintPath = "..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
+                />
+                <Reference
+                    Name = "MagicLibrary"
+                    Project = "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
                     Name = "msn2.net.QueuePlayer.Client"
@@ -159,7 +159,7 @@
                 />
                 <File
                     RelPath = "Login.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
