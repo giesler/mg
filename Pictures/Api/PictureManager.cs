@@ -1,11 +1,13 @@
 using System;
 using System.Data;
+using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 namespace msn2.net.Pictures
 {
@@ -28,16 +30,16 @@ namespace msn2.net.Pictures
 	/// </summary>
 	public class PictureManager
 	{
-		private string connectionString;
+		private PicContext picContext;
 
-		public PictureManager(string connectionString)
+		public PictureManager(PicContext picContext)
 		{
-			this.connectionString	= connectionString;
+            this.picContext = picContext;
 		}
 
 		public void AddToCategory(int pictureId, int categoryId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("p_Picture_AddToCategory", cn);
 			cmd.CommandType		= CommandType.StoredProcedure;
 
@@ -55,7 +57,7 @@ namespace msn2.net.Pictures
 
 		public void RemoveFromCategory(int pictureId, int categoryId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("p_Picture_RemoveFromCategory", cn); 
 			cmd.CommandType		= CommandType.StoredProcedure;
 
@@ -73,7 +75,7 @@ namespace msn2.net.Pictures
 
         public void AddPerson(int pictureId, int personId)
         {
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("p_Picture_AddPerson", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -91,7 +93,7 @@ namespace msn2.net.Pictures
 
         public void RemovePerson(int pictureId, int personId)
         {
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("p_Picture_RemovePerson", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -109,7 +111,7 @@ namespace msn2.net.Pictures
 
         public decimal RatePicture(int pictureId, int rating)
         {
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("p_Picture_SetRating", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -133,7 +135,7 @@ namespace msn2.net.Pictures
 
 		public void AddToSecurityGroup(int pictureId, int groupId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd		= new SqlCommand("p_Picture_AddToSecurityGroup", cn); 
 			cmd.CommandType		= CommandType.StoredProcedure;
 
@@ -150,7 +152,7 @@ namespace msn2.net.Pictures
 
         public void RemoveFromSecurityGroup(int pictureId, int groupId)
         {
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("p_Picture_RemoveFromSecurityGroup", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -187,7 +189,7 @@ namespace msn2.net.Pictures
         public PictureDataSet GetPicture(int pictureId, int maxWidth, int maxHeight)
 		{
 			// Set up SP to retreive picture
-			SqlConnection cn		= new SqlConnection(connectionString);
+			SqlConnection cn		= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmdPic		= new SqlCommand("p_GetPicture", cn);
 			cmdPic.CommandType		= CommandType.StoredProcedure;
 			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
@@ -226,7 +228,7 @@ namespace msn2.net.Pictures
 
         public void Save(PictureData pictureData)
         {
-            SqlConnection cn = new SqlConnection(connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("up_PictureManager_Save", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -248,7 +250,7 @@ namespace msn2.net.Pictures
         public PictureData GetPicture(int pictureId)
 		{
 			// init connection and command
-			SqlConnection cn		= new SqlConnection(connectionString);
+			SqlConnection cn		= new SqlConnection(this.picContext.Config.ConnectionString);
 
 			// Set up SP to retreive pictures
 			SqlCommand cmdPic		= new SqlCommand("dbo.up_PictureManager_GetPicture", cn);
@@ -276,38 +278,32 @@ namespace msn2.net.Pictures
             return data;
         }
 
-        public PictureData GetRandomPicture()
+        public Picture GetRandomPicture()
         {
-            // init connection and command
-            SqlConnection cn = new SqlConnection(connectionString);
+            return this.GetRandomPicture(125, 125, @"\", 0);
+        }
 
-            // Set up SP to retreive pictures
-            SqlCommand cmdPic = new SqlCommand("dbo.p_RandomPicture", cn);
-            cmdPic.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
+        public Picture GetRandomPicture(int maxWidth, int maxHeight, string path, int overrideGroupId)
+        {
+            var q = this.picContext.DataContext.GetRandomPicture(
+                this.picContext.CurrentUser.Id, maxWidth, maxHeight, path, overrideGroupId);
 
-            // Set up params for SP
-            cmdPic.Parameters.Add("@personId", SqlDbType.Int);
-			cmdPic.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
+            Picture picture = q.FirstOrDefault<Picture>();
+            
+            return picture;
+        }
 
-            // run the SP, set datasource to the picture list
-            cn.Open();
-            SqlDataReader dr = cmdPic.ExecuteReader(CommandBehavior.SingleRow);
-            PictureData data = null;
-            if (dr.Read())
-            {
-                data = new PictureData(dr);
-            }
-            dr.Close();
-            cn.Close();
-
-            return data;
+        public PictureCache GetPictureCache(int pictureId, int maxWidth, int maxHeight)
+        {
+            PictureCache pc = this.picContext.DataContext.PictureCaches.FirstOrDefault(
+                i => i.PictureID == pictureId && i.MaxWidth == maxWidth && i.MaxHeight == maxHeight);
+            return pc;
         }
 
         public PictureDataSet GetPicturesByCategory(int categoryId)
 		{
 			// init connection and command
-			SqlConnection cn		= new SqlConnection(connectionString);
+			SqlConnection cn		= new SqlConnection(this.picContext.Config.ConnectionString);
 
 			// Set up SP to retreive pictures
 			SqlCommand cmdPic		= new SqlCommand("up_PictureManager_GetPicturesByCategory", cn);
@@ -343,7 +339,7 @@ namespace msn2.net.Pictures
             }
             sql += "ORDER BY PictureDate, PictureSort";
 
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand(sql, cn);
             SqlDataReader dr = null;
 
@@ -396,7 +392,7 @@ namespace msn2.net.Pictures
             int maxWidth, int maxHeight, PictureSortField sortField, PictureSortOrder sortOrder, ref int totalCount)
 		{
 			// init connection and command to get pictures
-			SqlConnection cn  = new SqlConnection(connectionString);
+			SqlConnection cn  = new SqlConnection(this.picContext.Config.ConnectionString);
 
 			// Set up SP to retreive pictures
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Category_GetPictures", cn);
@@ -443,7 +439,7 @@ namespace msn2.net.Pictures
 
 		public List<PersonGroupInfo> GetPictureGroups(int pictureId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd = new SqlCommand("sp_Picture_GetGruops", cn);
             SqlDataReader dr = null;
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -484,7 +480,7 @@ namespace msn2.net.Pictures
 		{
             List<CategoryInfo> categories = new List<CategoryInfo>();
 
-            SqlConnection cn	= new SqlConnection(connectionString);
+            SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd      = new SqlCommand("sp_Picture_GetCategories", cn);
 			cmd.CommandType     = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
@@ -517,7 +513,7 @@ namespace msn2.net.Pictures
 
 		public List<PersonInfo> GetPicturePeople(int pictureId)
 		{
-			SqlConnection cn	= new SqlConnection(connectionString);
+			SqlConnection cn	= new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlCommand cmd      = new SqlCommand("sp_Picture_GetPeople", cn);
             SqlDataReader dr    = null;
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -567,8 +563,7 @@ namespace msn2.net.Pictures
         [Obsolete]
 		public DataSetPicture RandomImageData(int personId)
 		{
-
-			SqlConnection cn  = new SqlConnection(connectionString);
+			SqlConnection cn  = new SqlConnection(this.picContext.Config.ConnectionString);
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
@@ -602,7 +597,7 @@ namespace msn2.net.Pictures
 
         private DateCollection GetDates(string proc)
         {
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand(proc, cn);
             cmd.CommandType = CommandType.StoredProcedure;
 

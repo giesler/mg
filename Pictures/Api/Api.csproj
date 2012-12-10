@@ -129,10 +129,13 @@
     <Compile Include="PicContext.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PicDataClasses.designer.cs">
+    <Compile Include="Picture.cs">
+      <DependentUpon>Picture.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Picture.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PicDataClasses.dbml</DependentUpon>
+      <DependentUpon>Picture.dbml</DependentUpon>
     </Compile>
     <Compile Include="PictureCache.cs" />
     <Compile Include="PictureData.cs" />
@@ -193,9 +196,9 @@
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
-    <None Include="PicDataClasses.dbml">
+    <None Include="Picture.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>PicDataClasses.designer.cs</LastGenOutput>
+      <LastGenOutput>Picture.designer.cs</LastGenOutput>
     </None>
     <None Include="PictureAdmin.snk" />
     <None Include="PictureDataSet.xsc">
@@ -220,8 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="PicDataClasses.dbml.layout">
-      <DependentUpon>PicDataClasses.dbml</DependentUpon>
+    <None Include="Picture.dbml.layout">
+      <DependentUpon>Picture.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

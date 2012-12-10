@@ -20,9 +20,6 @@ namespace RandomThumbSite
         {
             base.OnLoad(e);
 
-            PicContext context = PicContext.Current;
-            PictureData random = context.PictureManager.GetRandomPicture();
-
             int maxWidth = 125;
             if (Request["mw"] != null)
             {
@@ -33,42 +30,111 @@ namespace RandomThumbSite
             {
                 maxHeight = int.Parse(Request["mh"]);
             }
-
-            string categories = string.Empty;
-            foreach (CategoryInfo cat in context.PictureManager.GetPictureCategories(random.Id))
+            string path = @"\";
+            if (Request["p"] != null)
             {
-                if (categories.Length > 0)
+                path = Request["p"];
+            }
+            float scale = 1.0F;
+            if (Request["s"] != null)
+            {
+                scale = float.Parse(Request["s"]);
+            }
+            string bgColor = "#5D646D";
+            if (Request["b"] != null)
+            {
+                bgColor = Request["b"];
+            }
+            if (Request["d"] != null)
+            {
+                this.details.Visible = Request["d"] != "0";
+            }
+            int maxWidthFixed = 0;
+            if (Request["mwf"] != null)
+            {
+                maxWidthFixed = int.Parse(Request["mwf"]);
+            }
+            int maxHeightFixed = 0;
+            if (Request["mhf"] != null)
+            {
+                maxHeightFixed = int.Parse(Request["mhf"]);
+            }
+
+            this.bodyTag.Style.Add("background-color", bgColor);
+
+            int heightOffset = this.details.Visible ? 50 : 5;
+            this.picPanel.Height = (int)(scale * maxHeight) + heightOffset;
+            this.picPanel.Width = (int)(scale * maxWidth) + 5;
+
+            if (maxHeightFixed > 0 && this.picPanel.Height.Value > maxHeightFixed)
+            {
+                this.picPanel.Height = maxHeightFixed;
+            }
+            if (maxWidthFixed > 0 && this.picPanel.Width.Value > maxWidthFixed)
+            {
+                this.picPanel.Width = maxWidthFixed;
+            }
+
+            PicContext context = PicContext.Current;
+            Picture random = context.PictureManager.GetRandomPicture(maxWidth, maxHeight, path, 0);
+            PictureCache pc = context.PictureManager.GetPictureCache(random.Id, maxWidth, maxHeight);
+
+            if (random != null)
+            {
+                string categories = string.Empty;
+                foreach (CategoryInfo cat in context.PictureManager.GetPictureCategories(random.Id))
                 {
-                    categories += ", ";
+                    if (categories.Length > 0)
+                    {
+                        categories += ", ";
+                    }
+                    categories += cat.Name;
                 }
-                categories += cat.Name;
+
+                string url = string.Format("getpic.axd?p={0}&mw={1}&mh={2}", random.Id, maxWidth, maxHeight);
+                string imageInfo = string.Format("{0}{1}{2}{1}{3}", random.Title, Environment.NewLine, random.PictureDate.ToShortDateString(), categories);
+
+                this.image.ImageUrl = url;
+                this.image.AlternateText = imageInfo;
+                                
+                this.image.Height = Unit.Pixel((int) (scale * pc.Height));
+                this.image.Width = Unit.Pixel((int) (scale * pc.Width));
+
+                if (maxHeightFixed  > 0 && maxHeightFixed > this.image.Height.Value)
+                {
+                    this.image.Height = maxHeightFixed;
+                    this.image.Width = Unit.Empty;
+                }
+                else if (maxWidthFixed > 0 && maxWidthFixed > this.image.Width.Value)
+                {
+                    this.image.Width = maxWidthFixed;
+                    this.image.Height = Unit.Empty;
+                }
+
+                this.imageLink.Target = "_new";
+                this.imageLink.NavigateUrl = string.Format("http://pics.msn2.net/picview.aspx?p={0}&type=random", random.Id);
+
+                string title = random.Title;
+                if (title.Length > 15)
+                {
+                    title = title.Substring(0, 14) + "...";
+                    this.titleLabel.ToolTip = random.Title;
+                }
+                this.titleLabel.Text = title;
+
+                this.dateLabel.Text = random.PictureDate.ToShortDateString();
+
+                if (categories.Length > 15)
+                {
+                    this.categories.ToolTip = categories;
+                    categories = categories.Substring(0, 14);
+                }
+                this.categories.Text = categories;
             }
-
-            string url = string.Format("getpic.axd?p={0}&mw={1}&mh={2}", random.Id, maxWidth, maxHeight);
-            string imageInfo = string.Format("{0}{1}{2}{1}{3}", random.Title, Environment.NewLine, random.DateTaken.ToShortDateString(), categories);
-
-            this.image.ImageUrl = url;
-            this.image.AlternateText = imageInfo;
-
-            this.imageLink.Target = "_new";
-            this.imageLink.NavigateUrl = string.Format("http://pics.msn2.net/picview.aspx?p={0}&type=random", random.Id);
-
-            string title = random.Title;
-            if (title.Length > 15)
+            else
             {
-                title = title.Substring(0, 14) + "...";
-                this.titleLabel.ToolTip = random.Title;
+                this.titleLabel.Text = "No picture";
             }
-            this.titleLabel.Text = title;
-
-            this.dateLabel.Text = random.DateTaken.ToShortDateString();
-
-            if (categories.Length > 15)
-            {
-                this.categories.ToolTip = categories;
-                categories = categories.Substring(0, 14);
-            }
-            this.categories.Text = categories;
         }
 
         protected void next_Click(object sender, EventArgs e)

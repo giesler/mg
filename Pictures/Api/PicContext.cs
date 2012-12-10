@@ -21,6 +21,7 @@ namespace msn2.net.Pictures
 		private PersonInfo		currentUser;
 		private static string CONTEXTKEY = "asdfasf";
 		private static PicContext context;
+        private PictureDataContext picData;
 
 		#endregion
 
@@ -100,12 +101,13 @@ namespace msn2.net.Pictures
 		{
 			this.config		= config;
 
-			pictureManager	= new PictureManager(config.ConnectionString);
+			pictureManager	= new PictureManager(this);
 			categoryManager	= new CategoryManager(config.ConnectionString);
             pictureCache = new PictureCacheInfo();
             userManager		= new UserManager(config.ConnectionString);
             groupManager = new GroupManager(config.ConnectionString);
 			currentUser		= null;
+            this.picData = new PictureDataContext(config.ConnectionString);
 		}
 
 		#endregion
@@ -187,6 +189,14 @@ namespace msn2.net.Pictures
 			}
 		}
 
+        internal PictureDataContext DataContext
+        {
+            get
+            {
+                return this.picData;
+            }
+        }
+
 		#endregion
 
 		#region Internal Methods
@@ -198,19 +208,6 @@ namespace msn2.net.Pictures
 
 		#endregion
 
-        private PicDataClassesDataContext dataContext = null;
-
-        public PicDataClassesDataContext DataContext
-        {
-            get
-            {
-                if (this.dataContext == null)
-                {
-                    this.dataContext = new PicDataClassesDataContext(config.ConnectionString);
-                }
-                return this.dataContext;
-            }
-        }
 	}
 
 }
