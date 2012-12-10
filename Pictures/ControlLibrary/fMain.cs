@@ -92,8 +92,6 @@ namespace msn2.net.Pictures.Controls
 			fStatus stat			= new fStatus();
 			stat.StatusText			= "Loading...";
 			stat.Max				= 0;
-			stat.Show();
-			stat.Refresh();
 
             settings.Reload();
 
@@ -102,31 +100,29 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
-            stat.StatusText = "Loading picture categories and dates...";
-            stat.Refresh();
-
-            //
-            // Find Windows user
-            //
-
             PictureConfig config = Msn2Config.Load();
             UserManager userManager = new UserManager(config.ConnectionString);
+            PersonInfo loginInfo = null;
+
+            //
+            // Lookup Windows user first
+            //
+
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            PersonInfo loginInfo = userManager.GetPerson(userName);
+            loginInfo = userManager.GetPerson(userName);
+
             if (loginInfo == null)
             {
-                string message = string.Format(
-                    "The Windows user name '{0}' was not listed as a valid user in the MSN2 picture user list.  To use the picture admin program have Mike add '{0}'.",
-                    userName);
+                // Prompt for email/pwd
+                loginInfo = LoginUser(stat, userManager, loginInfo);
 
-                MessageBox.Show(
-                    message,
-                    "Unknown User",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                Application.Exit();
+                if (loginInfo == null)
+                {
+                    return;
+                }
             }
+
+            stat.StatusText = "Loading pictures...";
 
             PicContext.Load(Msn2Config.Load(), loginInfo.Id);
 
@@ -137,9 +133,6 @@ namespace msn2.net.Pictures.Controls
             viewPanel.RefreshView += new EventHandler(viewPanel_RefreshView);
             viewPanel.Dock = DockStyle.Fill;
             this.mainSplitContainer.Panel1.Controls.Add(viewPanel);
-
-            stat.Hide();
-			stat = null;
 
             pictureList1.ContextMenu = mnuPictureList;
 
@@ -159,7 +152,53 @@ namespace msn2.net.Pictures.Controls
 //            
 //            map.LoadMap();
 
+            stat.Close();
+            stat = null;
+
         }
+
+        private PersonInfo LoginUser(fStatus stat, UserManager userManager, PersonInfo loginInfo)
+        {
+            //
+            // Prompt for login info
+            //
+
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.Email = settings.Last_Login_Email;
+            while (loginDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                stat.StatusText = "Logging on...";
+                stat.Show(this);
+
+                bool isValidEmail = false;
+                string password = UserManager.GetEncryptedPassword(loginDialog.Password);
+                loginInfo = userManager.Login(
+                    loginDialog.Email,
+                    password,
+                    ref isValidEmail);
+
+                if (loginInfo != null)
+                {
+                    settings.Last_Login_Email = loginInfo.Email;
+                    break;
+                }
+
+                DialogResult result = MessageBox.Show(
+                    this,
+                    "Login failed.",
+                    "MSN2 Login",
+                    MessageBoxButtons.RetryCancel,
+                    MessageBoxIcon.Exclamation);
+                if (result == DialogResult.Cancel)
+                {
+                    break;
+                }
+
+                stat.Hide();
+            }
+            return loginInfo;
+        }
+
 		#endregion
 		#region Disposal
 		/// <summary>
@@ -596,6 +635,18 @@ namespace msn2.net.Pictures.Controls
 			Application.Run(new fMain());
 		}
 		#endregion
+
+        protected override void OnLoad(EventArgs e)
+        {
+            if (PicContext.Current == null)
+            {
+                this.Close();
+            }
+            else
+            {
+                base.OnLoad(e);
+            }
+        }
 
         protected override void OnClosing(CancelEventArgs e)
         {

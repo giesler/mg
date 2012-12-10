@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace msn2.net.Pictures
 {
@@ -448,5 +450,16 @@ namespace msn2.net.Pictures
 
 			return col;
 		}
+
+        public static string GetEncryptedPassword(string textPassword)
+        {
+            // encrypt the password
+            MD5 md5 = MD5.Create();
+            byte[] bPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(textPassword));
+
+            string pwd = Encoding.ASCII.GetString(bPassword);
+            return pwd;
+        }
+
 	}
 }

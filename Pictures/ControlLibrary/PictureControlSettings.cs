@@ -9,6 +9,8 @@ namespace msn2.net.Pictures.Controls
 {
     public class PictureControlSettings : ApplicationSettingsBase
     {
+        private string lastEmail;
+
         public PictureControlSettings()
         {
         }
@@ -141,6 +143,21 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("")]
+        public string Last_Login_Email
+        {
+            get
+            {
+                return this.lastEmail;
+            }
+            set
+            {
+                this.lastEmail = value;
+            }
+        }
+
+
         public static int GetSafeLeft(Form form, int suggestedLeft)
         {
             Rectangle formRectange = Screen.FromControl(form).WorkingArea;
@@ -174,5 +191,6 @@ namespace msn2.net.Pictures.Controls
 
             return suggestedTop;
         }
+
     }
 }
