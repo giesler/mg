@@ -60,14 +60,18 @@ namespace msn2.net.BarMonkey
 
         public bool IsFavorite(int drinkId)
         {
-            int userId = base.Context.CurrentUser.Id;
+            int userId = base.Context.CurrentUser == null ? 0 : base.Context.CurrentUser.Id;
+            int val = 0;
 
-            var q = from f in base.Context.Data.UserFavorites
-                    where f.DrinkId == drinkId && f.UserId == userId
-                    select f;
-            int count = q.Count<UserFavorite>();
+            if (userId > 0)
+            {
+                var q = from f in base.Context.Data.UserFavorites
+                        where f.DrinkId == drinkId && f.UserId == userId
+                        select f;
+                val = q.Count<UserFavorite>();
+            }
 
-            return count > 0;
+            return val > 0;
         }
 
         public void SetFavorite(int drinkId, bool? isFavorite)

@@ -42,6 +42,11 @@ namespace BarMonkey.Activities
                     this.containers.SelectedItem = c;
                 }
             }
+
+            if (BarMonkeyContext.Current.ImpersonateUser != null)
+            {
+                this.favorite.Visibility = Visibility.Hidden;
+            }
         }
 
         public void SetDrink(Drink drink)
@@ -79,12 +84,6 @@ namespace BarMonkey.Activities
             public string Amount { get; set; }
         }
 
-        private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.container = this.containers.SelectedItem as Container;
-            this.UpdateDrinkDetails();
-        }
-
         private void go_Click(object sender, RoutedEventArgs e)
         {
             PourDrink pour = new PourDrink();
@@ -95,6 +94,12 @@ namespace BarMonkey.Activities
         private void addToFavorites_Click(object sender, RoutedEventArgs e)
         {
             BarMonkeyContext.Current.Drinks.SetFavorite(this.drink.Id, this.favorite.IsChecked);
+        }
+
+        private void container_Click(object sender, RoutedEventArgs e)
+        {
+            this.container = this.containers.SelectedItem as Container;
+            this.UpdateDrinkDetails();
         }
     }
 

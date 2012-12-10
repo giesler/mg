@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BarMonkey.RelayControllerService {
+namespace msn2.net.BarMonkey.RelayControllerService {
     using System.Runtime.Serialization;
     using System;
     
@@ -103,21 +103,21 @@ namespace BarMonkey.RelayControllerService {
         void EndConnectTest(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRelayController/SendBatch", ReplyAction="http://tempuri.org/IRelayController/SendBatchResponse")]
-        void SendBatch(BarMonkey.RelayControllerService.BatchItem[] batch);
+        void SendBatch(msn2.net.BarMonkey.RelayControllerService.BatchItem[] batch);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IRelayController/SendBatch", ReplyAction="http://tempuri.org/IRelayController/SendBatchResponse")]
-        System.IAsyncResult BeginSendBatch(BarMonkey.RelayControllerService.BatchItem[] batch, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSendBatch(msn2.net.BarMonkey.RelayControllerService.BatchItem[] batch, System.AsyncCallback callback, object asyncState);
         
         void EndSendBatch(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface IRelayControllerChannel : BarMonkey.RelayControllerService.IRelayController, System.ServiceModel.IClientChannel {
+    public interface IRelayControllerChannel : msn2.net.BarMonkey.RelayControllerService.IRelayController, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class RelayControllerClient : System.ServiceModel.ClientBase<BarMonkey.RelayControllerService.IRelayController>, BarMonkey.RelayControllerService.IRelayController {
+    public partial class RelayControllerClient : System.ServiceModel.ClientBase<msn2.net.BarMonkey.RelayControllerService.IRelayController>, msn2.net.BarMonkey.RelayControllerService.IRelayController {
         
         public RelayControllerClient() {
         }
@@ -150,11 +150,11 @@ namespace BarMonkey.RelayControllerService {
             base.Channel.EndConnectTest(result);
         }
         
-        public void SendBatch(BarMonkey.RelayControllerService.BatchItem[] batch) {
+        public void SendBatch(msn2.net.BarMonkey.RelayControllerService.BatchItem[] batch) {
             base.Channel.SendBatch(batch);
         }
         
-        public System.IAsyncResult BeginSendBatch(BarMonkey.RelayControllerService.BatchItem[] batch, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginSendBatch(msn2.net.BarMonkey.RelayControllerService.BatchItem[] batch, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginSendBatch(batch, callback, asyncState);
         }
         

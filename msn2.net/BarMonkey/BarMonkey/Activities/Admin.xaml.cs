@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using msn2.net.BarMonkey;
 
 namespace BarMonkey.Activities.Admin
 {
@@ -35,7 +36,7 @@ namespace BarMonkey.Activities.Admin
         {
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "Users", IsEnabled = false });
-            list.Add(new Activity { Name = "Ingredients", IsEnabled = false });
+            list.Add(new Activity { Name = "Ingredients", PageUrl="Activities/Admin/Ingredients.xaml"});
             list.Add(new Activity { Name = "Drinks", IsEnabled = false });
             list.Add(new Activity { Name = "Settings", IsEnabled = false });
             return list;

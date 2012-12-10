@@ -30,7 +30,11 @@ namespace BarMonkey.Activities
         {
             base.OnInitialized(e);
 
-            this.keyPad.KeyPressed += new EventHandler<NumericKeypadPressedEventArgs>(keyPad_KeyPressed);
+            this.numPad.KeyPressed += new EventHandler<NumericKeypadPressedEventArgs>(keyPad_KeyPressed);
+            this.kb.KeyboardButtonPressed += new KeyboardButtonPressedEvent(kb_KeyboardButtonPressed);
+
+            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
+            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
 
         private Key lastKey = Key.End;
@@ -81,6 +85,23 @@ namespace BarMonkey.Activities
 
             lastKey = e.Key;
             lastKeyPress = DateTime.Now;
+        }
+
+        void kb_KeyboardButtonPressed(string content)
+        {
+            if (content == "DEL")
+            {
+                if (this.searchText.Text.Length > 0)
+                {
+                    this.searchText.Text = this.searchText.Text.Substring(0, this.searchText.Text.Length - 1);
+                }
+            }
+            else
+            {
+                this.searchText.Text += content;
+            }
+
+            this.UpdateResultList();
         }
 
         void selectDrink(object sender, EventArgs e)
@@ -175,6 +196,27 @@ namespace BarMonkey.Activities
             list.Add(new NumericKeyMapping() { Key = Key.NumPad9, Chars = new string[] { "w", "x", "y", "z", "9" } });
             return list;
         }
+
+        private void ToggleNumPad_Click(object sender, RoutedEventArgs e)
+        {
+            this.toggleKb.IsChecked = !this.toggleNumPad.IsChecked;
+            this.UpdateInputPanel();
+        }
+
+        private void ToggleKeyboard_Click(object sender, RoutedEventArgs e)
+        {
+            this.toggleNumPad.IsChecked = !this.toggleKb.IsChecked;
+            this.UpdateInputPanel();
+        }
+
+        private void UpdateInputPanel()
+        {
+            bool showNumPad = (this.toggleNumPad.IsChecked == true);
+
+            this.kb.Visibility = showNumPad == true ? Visibility.Hidden : Visibility.Visible;
+            this.numPad.Visibility = showNumPad == true ? Visibility.Visible : Visibility.Hidden;
+        }
+
     }
 
 

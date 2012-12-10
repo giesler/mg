@@ -30,7 +30,7 @@ namespace BarMonkeyControls
         {
             base.OnInitialized(e);
 
-            userList.ItemsSource = BarMonkeyContext.Current.Data.Users.ToList<User>();
+            userList.ItemsSource = BarMonkeyContext.Current.Users.GetUsers();
         }
 
         private void user_click(object sender, EventArgs e)
@@ -42,6 +42,13 @@ namespace BarMonkeyControls
             UserPage userPage = new UserPage();
             this.NavigationService.Navigate(userPage);
         }
+
+        private void partyMode_Click(object sender, RoutedEventArgs e)
+        {
+            PartyModeMainPage partyPage = new PartyModeMainPage();
+            this.NavigationService.Navigate(partyPage);
+        }
+
 
     }
 }

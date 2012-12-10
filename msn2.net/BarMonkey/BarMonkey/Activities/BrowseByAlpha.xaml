@@ -1,0 +1,16 @@
+﻿<Page x:Class="msn2.net.BarMonkey.Activities.BrowseByAlpha"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="BrowseByAlpha">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="214*" />
+            <ColumnDefinition Width="86*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62*" />
+            <RowDefinition Height="196*" />
+            <RowDefinition Height="42*" />
+        </Grid.RowDefinitions>
+    </Grid>
+</Page>

@@ -1,0 +1,23 @@
+﻿<Page x:Class="msn2.net.BarMonkey.PartyModeHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
+    Title="Main Menu">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="46" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Label Name="welcome" FontSize="22" Content="welcome" Style="{DynamicResource DefaultTextStyle}" />
+            <bnc:NavigationButtonStack x:Name="navStack" />
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="BarMonkey.NumericKeypad"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Height="267" Width="277">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<UserControl.Resources>
 		<Style x:Key="buttonNumericTextStyle">
 			<Style.Setters>
@@ -9,6 +8,7 @@
 				<Setter Property="Control.HorizontalAlignment" Value="Center" />
 				<Setter Property="Control.VerticalAlignment" Value="Top" />
 				<Setter Property="Control.Padding" Value="0" />
+				<Setter Property="Control.Foreground" Value="White" />
 			</Style.Setters>
 		</Style>
 		<Style x:Key="buttonAlphaTextStyle">
@@ -17,6 +17,7 @@
 				<Setter Property="Control.FontWeight" Value="Bold" />
 				<Setter Property="Control.HorizontalAlignment" Value="Center" />
 				<Setter Property="Control.Padding" Value="2" />
+				<Setter Property="Control.Foreground" Value="White" />
 			</Style.Setters>
 		</Style>
 	</UserControl.Resources>
@@ -32,67 +33,67 @@
 			<RowDefinition />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<Button Grid.Column="0" Grid.Row="0" Click="buttonPressed" Tag="1" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="0" Grid.Row="0" Click="buttonPressed" Tag="1" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="1" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content=" " Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="1" Grid.Row="0" Click="buttonPressed" Tag="2" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="1" Grid.Row="0" Click="buttonPressed" Tag="2" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="2" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="a b c" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="2" Grid.Row="0" Click="buttonPressed" Tag="3" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="2" Grid.Row="0" Click="buttonPressed" Tag="3" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="3" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="d e f" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="0" Grid.Row="1" Click="buttonPressed" Tag="4" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="0" Grid.Row="1" Click="buttonPressed" Tag="4" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="4" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="g h i" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="1" Grid.Row="1" Click="buttonPressed" Tag="5" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="1" Grid.Row="1" Click="buttonPressed" Tag="5" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="5" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="j k l" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="2" Grid.Row="1" Click="buttonPressed"  Tag="6" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="2" Grid.Row="1" Click="buttonPressed"  Tag="6" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="6" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="m n o" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="0" Grid.Row="2" Click="buttonPressed" Tag="7" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="0" Grid.Row="2" Click="buttonPressed" Tag="7" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="7" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="p q r s" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="1" Grid.Row="2" Click="buttonPressed" Tag="8" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="1" Grid.Row="2" Click="buttonPressed" Tag="8" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="8" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="t u v" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="2" Grid.Row="2" Click="buttonPressed" Tag="9" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="2" Grid.Row="2" Click="buttonPressed" Tag="9" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="9" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="w x y z" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="0" Grid.Row="3" Click="buttonPressed" Tag="DEL" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="0" Grid.Row="3" Click="buttonPressed" Tag="DEL" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content=" " Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="DEL" Style="{StaticResource buttonAlphaTextStyle}" />
 			</StackPanel>
 		</Button>
-		<Button Grid.Column="1" Grid.Row="3" Click="buttonPressed" Tag="0" Style="{DynamicResource DefaultButtonStyle}">
+		<Button Grid.Column="1" Grid.Row="3" Click="buttonPressed" Tag="0" Style="{StaticResource DefaultButtonStyleNoAutoSize}">
 			<StackPanel>
 				<Label Content="0" Style="{StaticResource buttonNumericTextStyle}" />
 				<Label Content="_" Style="{StaticResource buttonAlphaTextStyle}" />

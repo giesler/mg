@@ -25,7 +25,7 @@ namespace BarMonkey
         {
             InitializeComponent();
 
-            this.userName.Content = BarMonkeyContext.Current.CurrentUser.Name;
+            this.UpdateUserName();
             this.pageTitle.Content = this.Title;
 
             this.contentFrame.Navigated += new NavigatedEventHandler(contentFrame_Navigated);
@@ -37,17 +37,33 @@ namespace BarMonkey
             if (page != null)
             {
                 this.pageTitle.Content = page.Title.ToLower();
+                this.UpdateUserName();
             }
         }
 
         protected void logout_click(object sender, EventArgs e)
         {
+            BarMonkeyContext.Current.ImpersonateUser = null;
             this.NavigationService.Navigate(new Welcome());
         }
 
         protected void home_click(object sender, EventArgs e)
         {
+            BarMonkeyContext.Current.ImpersonateUser = null;
             this.contentFrame.Navigate(new UserHome());
+        }
+
+        private void UpdateUserName()
+        {
+            if (BarMonkeyContext.Current.ImpersonateUser == null)
+            {
+                this.userName.Content = BarMonkeyContext.Current.CurrentUser.Name;
+            }
+            else
+            {
+                this.userName.Content = BarMonkeyContext.Current.CurrentUser.Name 
+                    + " choosing for " + BarMonkeyContext.Current.ImpersonateUser.Name;
+            }
         }
     }
 }

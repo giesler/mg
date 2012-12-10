@@ -35,10 +35,10 @@
 			</StackPanel>
 		</StackPanel>
 		<Button Name="go" Content="POUR" Grid.Row="3" Grid.Column="1" FontSize="20" Click="go_Click" Style="{DynamicResource DefaultButtonStyle}" />
-		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" SelectionChanged="containers_SelectionChanged" Background="Transparent" BorderThickness="0" Style="{DynamicResource DefaultTextStyle}">
+		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" Background="Transparent" BorderThickness="0" Style="{DynamicResource DefaultTextStyle}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultTextStyle}" />
+					<RadioButton FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultTextStyle}" Click="container_Click" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

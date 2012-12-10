@@ -18,20 +18,24 @@ namespace BarMonkey
     /// <summary>
     /// Interaction logic for UserHome.xaml
     /// </summary>
-    public partial class UserHome : Page
+    public partial class ImpersonateUserHome : Page
     {
-        public UserHome()
+        private User impersonateUser = null;
+
+        public ImpersonateUserHome()
         {
+            this.impersonateUser = BarMonkeyContext.Current.ImpersonateUser;
+
             InitializeComponent();
+
+            this.Title = this.impersonateUser.Name + "'s home";            
         }
 
         private List<Activity> GetActivities()
         {
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "Search Drinks", PageUrl = "Activities/SearchDrinks.xaml" });
-            list.Add(new Activity { Name = "Make a drink for...", PageUrl = "Activities/SelectUser.xaml" });
             list.Add(new Activity { Name = "Custom Drink", IsEnabled = false });
-            list.Add(new Activity { Name = "Admin", PageUrl="Activities/Admin.xaml" });
             return list;
         }
 
@@ -41,8 +45,8 @@ namespace BarMonkey
             base.OnInitialized(e);
 
             this.activityList.ItemsSource = this.GetActivities();
-            this.favoriteList.ItemsSource = BarMonkeyContext.Current.Drinks.GetFavorites();
-            this.latestList.ItemsSource = BarMonkeyContext.Current.Drinks.GetLatest(10);
+            this.favoriteList.ItemsSource = BarMonkeyContext.Current.Drinks.GetFavorites(this.impersonateUser.Id);
+            this.latestList.ItemsSource = BarMonkeyContext.Current.Drinks.GetLatest(10, this.impersonateUser.Id);
         }
 
         private void selectActivity_Click(object sender, RoutedEventArgs e)

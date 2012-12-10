@@ -8,10 +8,10 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BarMonkey")]
+[assembly: AssemblyTitle("BarNone")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BarMonkey")]
+[assembly: AssemblyCompany("msn2.net")]
+[assembly: AssemblyProduct("BarNone")]
 [assembly: AssemblyCopyright("Copyright @  2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]

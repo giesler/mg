@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using msn2.net.BarMonkey;
 using System.Windows.Threading;
-using BarMonkey.RelayControllerService;
+using msn2.net.BarMonkey.RelayControllerService;
 using System.Threading;
 
 namespace BarMonkey.Activities
@@ -25,7 +25,7 @@ namespace BarMonkey.Activities
     {
         private Drink drink;
         private Container container;
-        private RelayControllerService.RelayControllerClient relayClient = new BarMonkey.RelayControllerService.RelayControllerClient();
+        private RelayControllerClient relayClient = new RelayControllerClient();
 
         public PourDrink()
         {
@@ -106,7 +106,14 @@ namespace BarMonkey.Activities
 
             this.statusLabel.Content = "pouring...";
 
-            BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
+            if (BarMonkeyContext.Current.ImpersonateUser != null)
+            {
+                BarMonkeyContext.Current.Drinks.LogDrink(drink, offset, BarMonkeyContext.Current.ImpersonateUser.Id);
+            }
+            else
+            {
+                BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
+            }
         }
 
         private void pourComplete(IAsyncResult ar)
