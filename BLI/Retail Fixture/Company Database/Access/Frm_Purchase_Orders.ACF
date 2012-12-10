@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1315827512
+Checksum =1056915883
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -15,9 +15,9 @@ Begin Form
     Width =11985
     ItemSuffix =285
     Left =405
-    Top =795
+    Top =1185
     Right =12390
-    Bottom =8400
+    Bottom =7245
     TimerInterval =500
     MaxRecords =200000
     RecSrcDt = Begin
@@ -1498,7 +1498,7 @@ Begin Form
                     TabIndex =1
                     Name ="cmdPrevious"
                     Caption ="Previous"
-                    OnClick ="[Event Procedure]"
+                    OnClick ="=NavButtonClick(\"previous\")"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1553,7 +1553,7 @@ Begin Form
                     TabIndex =3
                     Name ="cmdNext"
                     Caption ="Next"
-                    OnClick ="[Event Procedure]"
+                    OnClick ="=NavButtonClick(\"next\")"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1592,7 +1592,7 @@ Begin Form
                     FontWeight =400
                     Name ="cmdFirst"
                     Caption ="First"
-                    OnClick ="[Event Procedure]"
+                    OnClick ="=NavButtonClick(\"first\")"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1632,7 +1632,7 @@ Begin Form
                     TabIndex =4
                     Name ="cmdLast"
                     Caption ="Last"
-                    OnClick ="[Event Procedure]"
+                    OnClick ="=NavButtonClick(\"last\")"
                     PictureData = Begin
                         0x2800000019000000180000000100040000000000800100000000000000000000 ,
                         0x0000000000000000000000000000800000800000008080008000000080008000 ,
@@ -1674,7 +1674,7 @@ Begin Form
                     Name ="cmdNew"
                     Caption ="&New"
                     StatusBarText ="Goto a new record"
-                    OnClick ="[Event Procedure]"
+                    OnClick ="=NavButtonClick(\"new\")"
                     FontName ="Arial"
                     ControlTipText ="Create New Purchase Order"
                 End
@@ -1742,6 +1742,13 @@ Private mblnLoading As Boolean
 
 Private mbIsNewPO As Boolean
 
+Private Sub MarkPODone()
+    If mbIsNewPO = True Then
+        Me.Recordset("NotDoneYet") = 0
+        mbIsNewPO = False
+    End If
+End Sub
+
 Private Sub chkCancelPO_Click()
 On Error GoTo errHandler
 
@@ -1783,11 +1790,12 @@ On Error GoTo errHandler
   lngID = Me.txtID
   
     ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-  
+    'If mbIsNewPO = True Then
+    '    gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+    '    mbIsNewPO = False
+    'End If
+    MarkPODone
+    
   ' Verify we can create an invoice first
   If Me.cmbStatus = "Completed" Then
     If MsgBox("You have already completed this PO.  Would you like to delete the associated invoice and recreate it?", vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then Exit Sub
@@ -1866,11 +1874,8 @@ On Error GoTo errHandler
   Dim varTmp As Variant, lngCurID As Long
   
     ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-  
+    MarkPODone
+    
   ' Verify data
   If IsNull(Me.txtID) Then
     MsgBox "You must enter information about this new PO first.", vbExclamation
@@ -1929,70 +1934,12 @@ ErrHand Me.Name, "cmdFinished"
 Exit Sub
 End Sub
 
-Private Sub cmdFirst_Click()
-
-    ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
+Private Function NavButtonClick(strButton As String)
     
-    ' Now do the normal thing
-    fRecNav "first"
+    MarkPODone
+    fRecNav strButton
     
-End Sub
-
-Private Sub cmdLast_Click()
-
-    ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-    
-    ' Now do the normal thing
-    fRecNav "last"
-    
-End Sub
-
-Private Sub cmdNew_Click()
-
-    ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-    
-    ' Now do the normal thing
-    fRecNav "new"
-
-End Sub
-
-Private Sub cmdNext_Click()
-
-    ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-    
-    ' Now do the normal thing
-    fRecNav "next"
-
-End Sub
-
-Private Sub cmdPrevious_Click()
-
-    ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
-    
-    ' Now do the normal thing
-    fRecNav "prev"
-    
-End Sub
+End Function
 
 Private Sub cmdSendReplyTo_Click()
 
@@ -2060,10 +2007,7 @@ Private Sub Form_Close()
 On Error GoTo errHandler
 
     ' NN 10/1/02
-    If mbIsNewPO = True Then
-        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
-        mbIsNewPO = False
-    End If
+    MarkPODone
 
   DoCmd.Close acForm, "fdlgFind"
   Call CSStopDDE
@@ -2081,7 +2025,8 @@ On Error GoTo errHandler
     mbIsNewPO = False
     If Me.txtID <> 0 Then
         Dim rs
-        Set rs = gConn.Execute("SELECT NotDoneYet FROM Tbl_Po WHERE ID=" & Me.txtID)
+        'Set rs = gConn.Execute("SELECT NotDoneYet FROM Tbl_Po WHERE ID=" & Me.txtID)
+        Set rs = Me.Recordset
         If Not rs.EOF Then
             If rs("NotDoneYet") = True Then
                 Me.Detail0.BackColor = vbRed
