@@ -24,7 +24,7 @@ namespace pics.Auth
 	/// <summary>
 	/// Summary description for NewLogin.
 	/// </summary>
-	public partial class NewLogin 
+    public partial class NewLogin : Page
 	{
 		protected System.Web.UI.WebControls.TextBox txtEmail;
 		protected System.Web.UI.WebControls.RequiredFieldValidator EmailValidator;

@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page Language="c#" ClassName="pics.picview" CodeFile="picview.aspx.cs" Debug="true" %>
+<%@ Page Language="c#" Inherits="pics.picview" CodeFile="picview.aspx.cs" Debug="true" %>
 <%@ Register TagPrefix="uc1" TagName="AutoTimer" Src="Controls/AutoTimer.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <html>
@@ -136,7 +136,7 @@
                             <asp:DataList ID="categoryList" runat="server" Width="100%" CssClass="infoPanelText"
                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
                                 <ItemTemplate>
-                                    <asp:Label ID="Label6" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CategoryName") %>'>
+                                    <asp:Label ID="Label6" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Name") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <SeparatorTemplate>

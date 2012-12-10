@@ -25,7 +25,9 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.MenuItem menuDelete;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuRefresh;
-		private System.Windows.Forms.MenuItem menuSaveSlideshow;
+        private System.Windows.Forms.MenuItem menuSaveSlideshow;
+        private MenuItem menuItem2;
+        private PictureDataSet pictureDataSet1;
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -91,108 +93,120 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.tvCategory = new System.Windows.Forms.TreeView();
+            this.contextMenu1 = new System.Windows.Forms.ContextMenu();
+            this.menuAddChild = new System.Windows.Forms.MenuItem();
+            this.menuEdit = new System.Windows.Forms.MenuItem();
+            this.menuDelete = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuRefresh = new System.Windows.Forms.MenuItem();
+            this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
+            this.menuDeleteCat = new System.Windows.Forms.MenuItem();
+            this.menuEditCatName = new System.Windows.Forms.MenuItem();
+            this.menuAddChildCat = new System.Windows.Forms.MenuItem();
+            this.pictureDataSet1 = new msn2.net.Pictures.PictureDataSet();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureDataSet1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // tvCategory
+            // 
+            this.tvCategory.ContextMenu = this.contextMenu1;
+            this.tvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvCategory.HideSelection = false;
+            this.tvCategory.Location = new System.Drawing.Point(0, 0);
+            this.tvCategory.Name = "tvCategory";
+            this.tvCategory.Size = new System.Drawing.Size(120, 92);
+            this.tvCategory.TabIndex = 0;
+            this.tvCategory.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvCategory_BeforeExpand);
+            this.tvCategory.DoubleClick += new System.EventHandler(this.tvCategory_DoubleClick);
+            this.tvCategory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvCategory_AfterSelect);
+            this.tvCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvCategory_AfterLabelEdit);
+            // 
+            // contextMenu1
+            // 
+            this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuAddChild,
+            this.menuEdit,
+            this.menuDelete,
+            this.menuItem1,
+            this.menuRefresh,
+            this.menuSaveSlideshow,
+            this.menuItem2});
+            // 
+            // menuAddChild
+            // 
+            this.menuAddChild.Index = 0;
+            this.menuAddChild.Text = "&Add Child";
+            this.menuAddChild.Click += new System.EventHandler(this.menuAddChildCat_Click);
+            // 
+            // menuEdit
+            // 
+            this.menuEdit.Index = 1;
+            this.menuEdit.Text = "&Edit";
+            this.menuEdit.Click += new System.EventHandler(this.menuEditCatName_Click);
+            // 
+            // menuDelete
+            // 
+            this.menuDelete.Index = 2;
+            this.menuDelete.Text = "&Delete";
+            this.menuDelete.Click += new System.EventHandler(this.menuDeleteCat_Click);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 3;
+            this.menuItem1.Text = "-";
+            // 
+            // menuRefresh
+            // 
+            this.menuRefresh.Index = 4;
+            this.menuRefresh.Text = "&Refresh";
+            this.menuRefresh.Click += new System.EventHandler(this.menuRefresh_Click);
+            // 
+            // menuSaveSlideshow
+            // 
+            this.menuSaveSlideshow.Index = 5;
+            this.menuSaveSlideshow.Text = "&Save slideshow...";
+            this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
+            // 
+            // menuDeleteCat
+            // 
+            this.menuDeleteCat.Index = -1;
+            this.menuDeleteCat.Text = "";
+            this.menuDeleteCat.Click += new System.EventHandler(this.menuDeleteCat_Click);
+            // 
+            // menuEditCatName
+            // 
+            this.menuEditCatName.Index = -1;
+            this.menuEditCatName.Text = "";
+            this.menuEditCatName.Click += new System.EventHandler(this.menuEditCatName_Click);
+            // 
+            // menuAddChildCat
+            // 
+            this.menuAddChildCat.Index = -1;
+            this.menuAddChildCat.Text = "";
+            this.menuAddChildCat.Click += new System.EventHandler(this.menuAddChildCat_Click);
+            // 
+            // pictureDataSet1
+            // 
+            this.pictureDataSet1.DataSetName = "PictureDataSet";
+            this.pictureDataSet1.Locale = new System.Globalization.CultureInfo("en-US");
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 6;
+            this.menuItem2.Text = "&Publish to homepage";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
+            // CategoryTree
+            // 
+            this.Controls.Add(this.tvCategory);
+            this.Name = "CategoryTree";
+            this.Size = new System.Drawing.Size(120, 92);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureDataSet1)).EndInit();
+            this.ResumeLayout(false);
 
-			this.tvCategory = new System.Windows.Forms.TreeView();
-			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
-			this.menuAddChild = new System.Windows.Forms.MenuItem();
-			this.menuEdit = new System.Windows.Forms.MenuItem();
-			this.menuDelete = new System.Windows.Forms.MenuItem();
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.menuRefresh = new System.Windows.Forms.MenuItem();
-			this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
-			this.menuDeleteCat = new System.Windows.Forms.MenuItem();
-
-			this.menuEditCatName = new System.Windows.Forms.MenuItem();
-			this.menuAddChildCat = new System.Windows.Forms.MenuItem();
-            this.SuspendLayout();			// 
-			// tvCategory
-			// 
-			this.tvCategory.ContextMenu = this.contextMenu1;
-			this.tvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tvCategory.HideSelection = false;
-			this.tvCategory.ImageIndex = -1;
-			this.tvCategory.Location = new System.Drawing.Point(0, 0);
-			this.tvCategory.Name = "tvCategory";
-			this.tvCategory.SelectedImageIndex = -1;
-			this.tvCategory.Size = new System.Drawing.Size(120, 112);
-			this.tvCategory.TabIndex = 0;
-			this.tvCategory.DoubleClick += new System.EventHandler(this.tvCategory_DoubleClick);
-			this.tvCategory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvCategory_AfterSelect);
-			this.tvCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.tvCategory_AfterLabelEdit);
-			this.tvCategory.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvCategory_BeforeExpand);
-			// 
-			// contextMenu1
-			// 
-			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						 this.menuAddChild,
-																						 this.menuEdit,
-																						 this.menuDelete,
-																						 this.menuItem1,
-																						 this.menuRefresh,
-																						 this.menuSaveSlideshow});
-			// 
-			// menuAddChild
-			// 
-			this.menuAddChild.Index = 0;
-			this.menuAddChild.Text = "&Add Child";
-			this.menuAddChild.Click += new System.EventHandler(this.menuAddChildCat_Click);
-			// 
-			// menuEdit
-			// 
-			this.menuEdit.Index = 1;
-			this.menuEdit.Text = "&Edit";
-			this.menuEdit.Click += new System.EventHandler(this.menuEditCatName_Click);
-			// 
-			// menuDelete
-			// 
-			this.menuDelete.Index = 2;
-			this.menuDelete.Text = "&Delete";
-			this.menuDelete.Click += new System.EventHandler(this.menuDeleteCat_Click);
-			// 
-			// menuItem1
-			// 
-			this.menuItem1.Index = 3;
-			this.menuItem1.Text = "-";
-			// 
-			// menuRefresh
-			// 
-			this.menuRefresh.Index = 4;
-			this.menuRefresh.Text = "&Refresh";
-			this.menuRefresh.Click += new System.EventHandler(this.menuRefresh_Click);
-			// 
-			// menuSaveSlideshow
-			// 
-			this.menuSaveSlideshow.Index = 5;
-			this.menuSaveSlideshow.Text = "&Save slideshow...";
-			this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
-			// 
-			// menuDeleteCat
-			// 
-			this.menuDeleteCat.Index = -1;
-			this.menuDeleteCat.Text = "";
-			this.menuDeleteCat.Click += new System.EventHandler(this.menuDeleteCat_Click);
-
-			// 
-			// menuEditCatName
-			// 
-			this.menuEditCatName.Index = -1;
-			this.menuEditCatName.Text = "";
-			this.menuEditCatName.Click += new System.EventHandler(this.menuEditCatName_Click);
-			// 
-			// menuAddChildCat
-			// 
-			this.menuAddChildCat.Index = -1;
-			this.menuAddChildCat.Text = "";
-			this.menuAddChildCat.Click += new System.EventHandler(this.menuAddChildCat_Click);
-			// 
-			// CategoryTree
-			// 
-			this.Controls.Add(this.tvCategory);
-			this.Name = "CategoryTree";
-			this.Size = new System.Drawing.Size(120, 112);
-			this.ResumeLayout(false);
-
-		}
+        }
 		#endregion
 
 		private void menuAddChildCat_Click(object sender, System.EventArgs e)
@@ -400,7 +414,16 @@ namespace msn2.net.Pictures.Controls
 		private void menuSaveSlideshow_Click(object sender, System.EventArgs e)
 		{
 
-		}
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            CategoryTreeNode n = this.SelectedNode;
+            if (n == null)
+                return;
+
+            PicContext.Current.CategoryManager.PublishCategory(n.Category.CategoryId);
+        }
 
 	}
 

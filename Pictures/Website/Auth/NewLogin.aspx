@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.Auth.NewLogin" CodeFile="NewLogin.aspx.cs" %>
+<%@ Page language="c#" Inherits="pics.Auth.NewLogin" CodeFile="NewLogin.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -9,10 +9,10 @@
 		<LINK href="AuthStyles.css" type="text/css" rel="stylesheet">
 		<script language="javascript">
 			function setLoginFocus() { 
-				if (document.Login.txtName)
-					document.Login.txtName.focus();
-				if (document.Login.txtLookupEmail)
-					document.Login.txtLookupEmail.focus();
+				if (document.all['txtName'])
+					document.all['txtName'].focus();
+				if (document.all['txtLookupEmail'])
+					document.all['txtLookupEmail'].focus();
 			}
 		</script>
 	</HEAD>

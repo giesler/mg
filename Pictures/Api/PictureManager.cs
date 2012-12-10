@@ -230,6 +230,33 @@ namespace msn2.net.Pictures
             return data;
         }
 
+        public PictureData GetRandomPicture()
+        {
+            // init connection and command
+            SqlConnection cn = new SqlConnection(connectionString);
+
+            // Set up SP to retreive pictures
+            SqlCommand cmdPic = new SqlCommand("dbo.p_RandomPicture", cn);
+            cmdPic.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
+
+            // Set up params for SP
+            cmdPic.Parameters.Add("@personId", PicContext.Current.CurrentUser.Id);
+
+            // run the SP, set datasource to the picture list
+            cn.Open();
+            SqlDataReader dr = cmdPic.ExecuteReader(CommandBehavior.SingleRow);
+            PictureData data = null;
+            if (dr.Read())
+            {
+                data = new PictureData(dr);
+            }
+            dr.Close();
+            cn.Close();
+
+            return data;
+        }
+
         public PictureDataSet GetPicturesByCategory(int categoryId)
 		{
 			// init connection and command
@@ -299,11 +326,11 @@ namespace msn2.net.Pictures
 
             if (sortField == PictureSortField.DatePictureAdded)
             {
-                sortFieldSqlName = "PictureDate";
+                sortFieldSqlName = "PictureAddDate";
             }
             else if (sortField == PictureSortField.DatePictureTaken)
             {
-                sortFieldSqlName = "PictureAddDate";
+                sortFieldSqlName = "PictureDate";
             }
             else if (sortField == PictureSortField.DatePictureUpdated)
             {
@@ -448,11 +475,13 @@ namespace msn2.net.Pictures
 		}
 
 
-		public DataSetPicture RandomImageData()
+        [Obsolete]
+        public DataSetPicture RandomImageData()
 		{
 			return RandomImageData(PicContext.Current.CurrentUser.Id);
 		}
 
+        [Obsolete]
 		public DataSetPicture RandomImageData(int personId)
 		{
 

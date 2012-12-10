@@ -1,6 +1,6 @@
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Data.SqlClient" %>
-<%@ Page language="c#" debug="true" Classname="pics.SearchRun" CompileWith="SearchRun.aspx.cs" %>
+<%@ Page language="c#" debug="true" Inherits="pics.SearchRun" CodeFile="SearchRun.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

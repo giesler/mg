@@ -18,7 +18,7 @@ namespace pics.Auth
 	/// <summary>
 	/// Summary description for ForgotPassword.
 	/// </summary>
-	public partial class ForgotPassword 
+    public partial class ForgotPassword : Page
 	{
 		#region Declares
 

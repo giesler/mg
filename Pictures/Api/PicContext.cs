@@ -14,7 +14,10 @@ namespace msn2.net.Pictures
 		{
 			context.BeginRequest += new EventHandler(context_BeginRequest);
 			context.AuthenticateRequest	+= new EventHandler(context_AuthenticateRequest);
+        
 		}
+
+        
 
 		public void Dispose()
 		{
@@ -43,15 +46,83 @@ namespace msn2.net.Pictures
 				if (Double.TryParse(userName, System.Globalization.NumberStyles.Integer, null, out result))
 				{
 					int personId = (int) result;
-					PicContext.Current.SetCurrentUser(PicContext.Current.UserManager.GetPerson(personId));
+					PicContext.Current.SetCurrentUser(GetPersonById(personId));
 				}
 				else
 				{
 					HttpContext.Current.Trace.Write("Trying NT login...");
-					PicContext.Current.SetCurrentUser(PicContext.Current.UserManager.GetPerson(userName));
+					PicContext.Current.SetCurrentUser(GetPersonByWindowsLogin(userName));
 				}
 			}
 		}
+
+        private PersonInfo GetPersonById(int personId)
+        {
+            HttpContext httpContext = HttpContext.Current;
+            PersonInfo personInfo = null;
+            string cacheKey = "PersonInfo.Person." + personId.ToString();
+
+            if (httpContext != null)
+            {
+                object cacheObject = httpContext.Cache[cacheKey];
+                if (cacheObject != null)
+                {
+                    personInfo = cacheObject as PersonInfo;
+                    return personInfo;
+                }
+            }
+
+            if (personInfo == null)
+            {
+                personInfo = PicContext.Current.UserManager.GetPerson(personId);
+            }
+
+            if (httpContext != null)
+            {
+                httpContext.Cache.Add(
+                    cacheKey,
+                    personInfo,
+                    null,
+                    DateTime.MaxValue,
+                    TimeSpan.FromMinutes(1), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+
+            return personInfo;
+        }
+
+        private PersonInfo GetPersonByWindowsLogin(string personId)
+        {
+            HttpContext httpContext = HttpContext.Current;
+            PersonInfo personInfo = null;
+            string cacheKey = "PersonInfo.Person." + personId.ToString();
+
+            if (httpContext != null)
+            {
+                object cacheObject = httpContext.Cache[cacheKey];
+                if (cacheObject != null)
+                {
+                    personInfo = cacheObject as PersonInfo;
+                }
+            }
+
+            if (personInfo == null)
+            {
+                personInfo = PicContext.Current.UserManager.GetPerson(personId);
+            }
+
+            if (httpContext != null)
+            {
+                httpContext.Cache.Add(
+                    cacheKey,
+                    personInfo,
+                    null,
+                    DateTime.MaxValue,
+                    TimeSpan.FromMinutes(1), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+
+            return personInfo;
+        }
+
 	}
 
 	/// <summary>
@@ -76,9 +147,36 @@ namespace msn2.net.Pictures
 
 		public static PicContext Load(PictureConfig config, int personId)
 		{
-			context = new PicContext(config);
-			context.SetCurrentUser(context.userManager.GetPerson(personId));
-			return context;
+            HttpContext httpContext = HttpContext.Current;
+            PicContext picContext = null;
+            string personContextKey = "PicContext.PersonId." + personId.ToString();
+
+            if (httpContext != null)
+            {
+                object cachedPicContextObject = httpContext.Cache[personContextKey];
+                if (cachedPicContextObject != null)
+                {
+                    picContext = cachedPicContextObject as PicContext;
+                }
+            }
+
+            if (context == null)
+            {
+                context = new PicContext(config);
+                context.SetCurrentUser(context.userManager.GetPerson(personId));
+            }
+
+            if (httpContext != null)
+            {
+                httpContext.Cache.Add(
+                    personContextKey, 
+                    context, null, DateTime.MinValue, 
+                    TimeSpan.FromMinutes(1), 
+                    System.Web.Caching.CacheItemPriority.Normal, 
+                    null);
+            }
+
+            return context;
 		}
 
 		#endregion

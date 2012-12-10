@@ -108,6 +108,12 @@ namespace msn2.net.Pictures.Controls
             addToCategory.Dock = DockStyle.Top;
             taskList.Controls.Add(addToCategory);
 
+            LinkLabel setCategoryIndexPic = new LinkLabel();
+            setCategoryIndexPic.Text = "Set as index pic";
+            setCategoryIndexPic.LinkClicked += new LinkLabelLinkClickedEventHandler(this.setCategoryIndexPic_LinkClicked);
+            setCategoryIndexPic.Dock = DockStyle.Top;
+            taskList.Controls.Add(setCategoryIndexPic);
+
         }
 
         void addToCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -120,6 +126,38 @@ namespace msn2.net.Pictures.Controls
                     PicContext.Current.PictureManager.AddToCategory(item.PictureId, selCat.SelectedCategory.CategoryId);
                 }
                 this.pictureDetailEditor.AddCategory(selCat.SelectedCategory);
+            }
+        }
+
+        void setCategoryIndexPic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            int pictureCount = this.pictureStack1.Pictures.Count;
+            if (pictureCount > 1)
+            {
+                MessageBox.Show("You can only set one picture as the category index picture.", "Set Index", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                List<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
+
+                if (categories.Count == 1)
+                {
+                    PicContext.Current.CategoryManager.SetCategoryPictureId(
+                        categories[0].CategoryId,
+                        this.pictureStack1.Pictures[0].PictureId);
+                }
+                else
+                {
+                    CategoryListDialog dialog = new CategoryListDialog(categories);
+                    dialog.SelectionMode = SelectionMode.One;
+                    if (dialog.ShowDialog(this) == DialogResult.OK)
+                    {
+                        Category category = dialog.GetSelectedCategory();
+                        PicContext.Current.CategoryManager.SetCategoryPictureId(
+                            category.CategoryId,
+                            this.pictureStack1.Pictures[0].PictureId);
+                    }
+                }
             }
         }
 

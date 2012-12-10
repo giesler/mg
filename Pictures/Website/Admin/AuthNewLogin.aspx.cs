@@ -17,7 +17,7 @@ namespace pics.Admin
 	/// <summary>
 	/// Summary description for AuthNewLogin.
 	/// </summary>
-	public partial class AuthNewLogin 
+	public partial class AuthNewLogin : Page
 	{
 		#region Declares
 

@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.Auth.why" CompileWith="why.aspx.cs" %>
+<%@ Page language="c#" Inherits="pics.Auth.why" CodeFile="why.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

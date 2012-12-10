@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page Language="c#" ClassName="pics.Admin.AuthNewLogin" CodeFile="AuthNewLogin.aspx.cs" %>
+<%@ Page Language="c#" Inherits="pics.Admin.AuthNewLogin" CodeFile="AuthNewLogin.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

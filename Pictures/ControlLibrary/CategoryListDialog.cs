@@ -25,6 +25,18 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        public Category GetSelectedCategory()
+        {
+            Category category = null;
+
+            if (this.listBox1.SelectedItems.Count > 0)
+            {
+                category = (Category) this.listBox1.SelectedItem;
+            }
+
+            return category;
+        }
+
         public List<Category> GetSelectedCategories()
         {
             List<Category> categories = new List<Category>();
@@ -35,6 +47,18 @@ namespace msn2.net.Pictures.Controls
             }
 
             return categories;
+        }
+
+        public SelectionMode SelectionMode
+        {
+            get
+            {
+                return this.listBox1.SelectionMode;
+            }
+            set
+            {
+                this.listBox1.SelectionMode = value;
+            }
         }
     }
 

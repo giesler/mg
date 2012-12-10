@@ -17,7 +17,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for Cdefault.
 	/// </summary>
-	public partial class Cdefault 
+	public partial class Cdefault : Page
 	{
 		#region Declares
 
@@ -47,9 +47,9 @@ namespace pics
 			DataSetPicture dsPics	= PicContext.Current.PictureManager.RandomImageData();
 
 			// create new control
+            int pictureId = Convert.ToInt32(dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString());
 			ThumbnailList thumbs = new ThumbnailList();
-			thumbs.PageReturnURL	= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString()
-				+ "&type=random&RefUrl=default.aspx"; //"default.aspx";
+			thumbs.PageReturnURL	= pics.picview.BuildRandomPageUrl(pictureId, "default.aspx");
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
 //			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
 			randomPicture.Controls.Add(thumbs);

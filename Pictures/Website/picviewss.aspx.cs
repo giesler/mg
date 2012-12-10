@@ -17,7 +17,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for picview.
 	/// </summary>
-	public partial class picviewss 
+	public partial class picviewss : Page
 	{
 		#region Declares
 		protected System.Web.UI.WebControls.Panel pnlDescription;

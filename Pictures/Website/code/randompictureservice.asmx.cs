@@ -62,8 +62,7 @@ namespace pics
 //			return "Hello World";
 //		}
 
-		[WebMethod]
-		public byte[] RandomImage(int personId)
+		private byte[] RandomImage(int personId)
 		{
 			SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);

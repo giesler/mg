@@ -78,6 +78,7 @@ namespace msn2.net.Pictures
 
 		public PersonInfo GetPerson(int personId)
 		{
+
 			// set up a connection and command to retreive info
 			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_PersonInfo", cn);

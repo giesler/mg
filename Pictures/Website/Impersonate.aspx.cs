@@ -14,7 +14,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for Impersonate.
 	/// </summary>
-	public partial class Impersonate 
+	public partial class Impersonate : Page
 	{
 	
 		private void Page_Load(object sender, System.EventArgs e)

@@ -16,7 +16,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for SearchRun.
 	/// </summary>
-	public partial class SearchRun 
+	public partial class SearchRun : Page
 	{
 		protected string redirectHeader;
 

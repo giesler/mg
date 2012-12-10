@@ -1,4 +1,4 @@
-<%@ Page language="c#" Classname="pics.auth.Login" CodeFile="Login.aspx.cs" Debug="true" %>
+<%@ Page language="c#" Inherits="pics.auth.Login" CodeFile="Login.aspx.cs" Debug="true" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -85,8 +85,8 @@ find out how to change it.
 <BR>
 			</picctls:ErrorMessagePanel>
 			<picctls:ErrorMessagePanel id="pnlBadEmail" title="Unrecognized Email" runat="server" visible="false"><B>
-					The email address you entered was not recognized.</B> <BR>If 
-this is your email address, click 
+					The email address you entered was not recognized.</B> <BR>Try another email address you may have, or if this 
+					is the correct address, click 
 <asp:HyperLink id="lnkNewLogin" Runat="server">here</asp:HyperLink>&nbsp;to set 
 your password. <BR>
 			</picctls:ErrorMessagePanel>

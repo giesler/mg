@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.40607</ProductVersion>
+    <ProductVersion>8.0.50110</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{051F201A-911A-441D-B249-5857DB882AA7}</ProjectGuid>
     <SccProjectName>SAK</SccProjectName>
@@ -108,7 +108,6 @@
       <DependentUpon>CategoryItem.cs</DependentUpon>
     </Compile>
     <Compile Include="CategoryFlowLayoutPanel.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CategoryFlowLayoutPanel.Designer.cs">
       <DependentUpon>CategoryFlowLayoutPanel.cs</DependentUpon>
@@ -208,7 +207,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mapping\TopoMap.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Mapping\TopoMapReader.cs" />
     <Compile Include="MultiPictureEdit.cs">
@@ -309,79 +307,104 @@
     </Compile>
     <EmbeddedResource Include="AddPicturesToCategory.resx">
       <DependentUpon>AddPicturesToCategory.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CategoryTree.resx">
       <DependentUpon>CategoryTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditCategoryLink.resx">
       <DependentUpon>EditCategoryLink.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditPictureLink.resx">
       <DependentUpon>EditPictureLink.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fAddPictures.resx">
       <DependentUpon>fAddPictures.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fEditCategory.resx">
       <DependentUpon>fEditCategory.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fEditPerson.resx">
       <DependentUpon>fEditPerson.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fGroupSelect.resx">
       <DependentUpon>fGroupSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fPersonSelect.resx">
       <DependentUpon>fPersonSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fPicture.resx">
       <DependentUpon>fPicture.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fPictureViewer.resx">
       <DependentUpon>fPictureViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fPromptText.resx">
       <DependentUpon>fPromptText.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fSelectCategory.resx">
       <DependentUpon>fSelectCategory.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fStatus.resx">
       <DependentUpon>fStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupControl.resx">
       <DependentUpon>GroupControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupPicker.resx">
       <DependentUpon>GroupPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenMainFormLink.resx">
       <DependentUpon>OpenMainFormLink.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PeopleCtl.resx">
       <DependentUpon>PeopleCtl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PeoplePicker.resx">
       <DependentUpon>PeoplePicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PersonSelect.resx">
       <DependentUpon>PersonSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PictureDisplay.resx">
       <DependentUpon>PictureDisplay.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SaveSlideshow.resx">
       <DependentUpon>SaveSlideshow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="DataSetCategory.xsc">

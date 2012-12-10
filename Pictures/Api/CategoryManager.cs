@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Web;
 
 namespace msn2.net.Pictures
 {
@@ -21,17 +22,34 @@ namespace msn2.net.Pictures
 
 		public Category GetCategory(int categoryId)
 		{
+            int personId = PicContext.Current.CurrentUser.Id;
+
+            HttpContext context = HttpContext.Current;
+            Category category = null;
+            string cacheKey = "Category." + categoryId.ToString() + ".Person." + personId.ToString();
+
+            if (context != null)
+            {
+                object cacheObject = context.Cache[cacheKey];
+                if (cacheObject != null)
+                {
+                    category = cacheObject as Category;
+                    return category;
+                }
+            }            
+
 			SqlConnection cn				= new SqlConnection(connectionString);
 			SqlCommand cmd					= new SqlCommand("p_Category_Get", cn);
 			cmd.CommandType					= CommandType.StoredProcedure;
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
 			cmd.Parameters["@categoryId"].Value	= categoryId;
+            cmd.Parameters.Add("@personId", SqlDbType.Int);
+            cmd.Parameters["@personId"].Value = personId;
 
 			cn.Open();
 			SqlDataReader dr				= cmd.ExecuteReader(CommandBehavior.SingleRow);
 
-			Category category				= null;
 			if (dr.Read())
 			{
 				category					= new Category(dr, true);
@@ -39,6 +57,11 @@ namespace msn2.net.Pictures
 
 			dr.Close();
 			cn.Close();
+
+            if (context != null)
+            {
+                context.Cache.Add(cacheKey, category, null, DateTime.MaxValue, TimeSpan.FromMinutes(10), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
 
 			return category;
 

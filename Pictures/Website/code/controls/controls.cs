@@ -791,10 +791,7 @@ namespace pics.Controls
 		{
 			if (HttpContext.Current != null)
 			{
-				if (HttpContext.Current.Session["editMode"] != null)
-				{
-					adminMode = (bool) HttpContext.Current.Session["editMode"];
-				}
+                adminMode = Global.AdminMode;
 			}
 
 			Table t					= new Table();
@@ -813,10 +810,10 @@ namespace pics.Controls
 			}
 
 			// Get counts of sub items
-			int picCount = catManager.PictureCount(category.CategoryId);
-			int catCount = catManager.CategoryCount(category.CategoryId);
-			int recursivePicCount = catManager.PictureCount(category.CategoryId, true);
-			int recursiveCatCount = catManager.CategoryCount(category.CategoryId, true);
+            int picCount = this.GetRecursivePictureCount(category.CategoryId, false);
+            int catCount = this.GetRecursiveCategoryCount(category.CategoryId, false);
+            int recursivePicCount = this.GetRecursivePictureCount(category.CategoryId, true);
+            int recursiveCatCount = this.GetRecursiveCategoryCount(category.CategoryId, true);
 
 			TableCell catCell		= new TableCell();
 			catCell.Width			= Unit.Pixel(folderWidth);
@@ -943,11 +940,11 @@ namespace pics.Controls
 				}
 				if (picCount == 1)
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString() + " picture"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString("#,##0") + " picture"));
 				}
 				else
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString() + " pictures"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString("#,##0") + " pictures"));
 				}
 //				prevText = true;
 			}
@@ -967,11 +964,11 @@ namespace pics.Controls
 				}
 				else if (recursivePicCount == 1)
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 				else
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 			}
 
@@ -979,6 +976,67 @@ namespace pics.Controls
 
 		}
 		#endregion
+
+        private int GetRecursivePictureCount(int categoryId, bool recursive)
+        {
+            int pictureCount = -1;
+            HttpContext context = HttpContext.Current;
+            string cacheKey = string.Format("PictureCount.PersonId.{0}.CategoryId.{1}.Pictures.Recursive.{2}", 
+                PicContext.Current.CurrentUser.Id,
+                categoryId,
+                recursive);
+
+            if (context != null)
+            {
+                object cachedObject = context.Cache[cacheKey];
+                if (cachedObject != null)
+                {
+                    pictureCount = Convert.ToInt32(cachedObject.ToString());
+                    return pictureCount;
+                }
+            }
+
+            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.CategoryId, recursive);
+
+            if (context != null)
+            {
+                context.Cache.Add(cacheKey, pictureCount, null, DateTime.MaxValue, TimeSpan.FromMinutes(10), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+
+            return pictureCount;
+        }
+
+
+        private int GetRecursiveCategoryCount(int categoryId, bool recursive)
+        {
+            int categoryCount = -1;
+            HttpContext context = HttpContext.Current;
+            string cacheKey = string.Format("PictureCount.PersonId.{0}.CategoryId.{1}.Categories.Recursive.{2}", 
+                PicContext.Current.CurrentUser.Id,
+                categoryId,
+                recursive);
+
+            if (context != null)
+            {
+                object cachedObject = context.Cache[cacheKey];
+                if (cachedObject != null)
+                {
+                    categoryCount = Convert.ToInt32(cachedObject.ToString());
+                    return categoryCount;
+                }
+            }
+
+            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.CategoryId, recursive);
+
+            if (context != null)
+            {
+                context.Cache.Add(cacheKey, categoryCount, null, DateTime.MaxValue, TimeSpan.FromMinutes(10), System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+
+            return categoryCount;
+        }
+
+
 	}
 
 	#endregion
@@ -1888,7 +1946,8 @@ namespace pics.Controls
 				// If logged in
 				if (httpContext.Request.IsAuthenticated) 
 				{
-					if (httpContext.Session["editMode"] != null && (bool) httpContext.Session["editMode"])
+                    bool adminMode = Global.AdminMode;
+                    if (adminMode)
 					{
 						selectedWindow = new SelectedWindow();
 						childControls.Add(selectedWindow);

@@ -17,7 +17,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for SearchResults.
 	/// </summary>
-	public partial class SearchResults 
+	public partial class SearchResults : Page
 	{
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
 		protected System.Web.UI.WebControls.Panel youAreHerePanel;

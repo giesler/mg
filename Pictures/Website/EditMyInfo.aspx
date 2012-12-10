@@ -1,4 +1,4 @@
-<%@ Page language="c#" Classname="pics.EditMyInfo" CompileWith="EditMyInfo.aspx.cs" %>
+<%@ Page language="c#" Inherits="pics.EditMyInfo" CodeFile="EditMyInfo.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

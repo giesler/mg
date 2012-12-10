@@ -18,7 +18,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for picview.
 	/// </summary>
-	public partial class picview: ICallbackEventHandler
+	public partial class picview: Page, ICallbackEventHandler
 	{
 		#region Declares
 
@@ -38,6 +38,14 @@ namespace pics
         protected string ratingServerCallbackFunction;
 
         #endregion
+
+        public static string BuildRandomPageUrl(int pictureId, string refUrl)
+        {
+            string url = "picview.aspx?p=" + pictureId.ToString()
+                + "&type=random&RefUrl=" + HttpContext.Current.Server.UrlEncode(refUrl);
+
+            return url;
+        }
 
         public string RatingServerCallbackFunction
         {
@@ -205,7 +213,7 @@ namespace pics
 				curPic.ID		= "currentPicture";
 				tdPicture.Controls.Add(curPic);
 
-				if ((bool) Session["editMode"])
+				if (Global.AdminMode)
 				{
 					PictureEditFormLink ef = new PictureEditFormLink( (int) dr["PictureId"] );
 					editLinkPanel.Controls.Add(ef);
@@ -284,6 +292,14 @@ namespace pics
 						lnkNext.Visible = true;
 						lnkNext.NavigateUrl = strURL.Replace("{0}", Convert.ToString(intCurRec+1));
 					}
+                    else if (sourceType.Equals("random"))
+                    {
+                        //http://localhost/pics/picview.aspx?p=1615&type=random&RefUrl=default.aspx
+                        lnkNext.Visible = true;
+                        int randomPictureId = PicContext.Current.PictureManager.GetRandomPicture().Id;
+                        lnkNext.NavigateUrl = picview.BuildRandomPageUrl(randomPictureId,
+                            Request.QueryString["refUrl"]);
+                    }
 				}
 
 				if (sourceType.Equals("random"))

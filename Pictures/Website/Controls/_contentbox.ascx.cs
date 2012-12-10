@@ -4,13 +4,14 @@ namespace pics.Controls
 	using System.Data;
 	using System.Drawing;
 	using System.Web;
+    using System.Web.UI;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
 	/// <summary>
 	///		Summary description for __contentbox.
 	/// </summary>
-	public partial  class __contentbox 
+	public partial class _contentbox : UserControl
 	{
 
 		private void Page_Load(object sender, System.EventArgs e)

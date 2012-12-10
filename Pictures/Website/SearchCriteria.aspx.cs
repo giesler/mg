@@ -16,7 +16,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for SearchCriteria.
 	/// </summary>
-	public partial class SearchCriteria 
+	public partial class SearchCriteria : Page
 	{
 		protected System.Web.UI.WebControls.Panel youAreHerePanel;
 	

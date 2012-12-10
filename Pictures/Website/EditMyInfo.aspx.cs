@@ -14,7 +14,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for EditMyInfo.
 	/// </summary>
-	public partial class EditMyInfo 
+	public partial class EditMyInfo : Page
 	{
 	
 		private void Page_Load(object sender, System.EventArgs e)

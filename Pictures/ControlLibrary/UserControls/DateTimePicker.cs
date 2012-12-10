@@ -147,7 +147,9 @@ namespace msn2.net.Pictures.Controls.UserControls
         {
             datePicker.Value = value;
 
-            hourPicker.Value = (value.Hour > 12 ? value.Hour - 12 : value.Hour);
+            int hour = (value.Hour > 12 ? value.Hour - 12 : value.Hour);
+            if (hour == 0) hour = 12;
+            hourPicker.Value = hour;
             minutePicker.SelectedItem = FindItem(minutePicker, value.Minute.ToString("00"));
             string ampm = (value.Hour > 12 ? "pm" : "am");
             ampmPicker.SelectedItem = FindItem(ampmPicker, ampm);

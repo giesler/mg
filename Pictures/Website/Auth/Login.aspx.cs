@@ -20,7 +20,7 @@ namespace pics.auth
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public partial class Login 
+    public partial class Login : Page
 	{
 		#region Declares
 		protected pics.Controls.ErrorMessagePanel pnlBadPassword1;
@@ -104,18 +104,18 @@ namespace pics.auth
 			}
 			else if (valid)
 			{
-				pnlBadPassword.Visible		= false;
-				pnlBadEmail.Visible			= true;
-
-				lnkNewLogin.NavigateUrl		= "NewLogin.aspx?email=" + Server.UrlEncode(email.Text);
-			}
-			else
-			{
 				pnlBadPassword.Visible		= true;
 				pnlBadEmail.Visible			= false;
 
-				lnkForgotPassword.NavigateUrl = "ForgotPassword.aspx?email=" + Server.UrlEncode(email.Text);
+                lnkForgotPassword.NavigateUrl = "ForgotPassword.aspx?email=" + Server.UrlEncode(email.Text);
 			}
+			else
+			{
+				pnlBadPassword.Visible		= false;
+				pnlBadEmail.Visible			= true;
+
+                lnkNewLogin.NavigateUrl = "NewLogin.aspx?email=" + Server.UrlEncode(email.Text);
+            }
 		}
 		#endregion
 	}

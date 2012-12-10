@@ -1,4 +1,4 @@
-<%@ Control Language="c#" Classname="pics.Controls.AutoTimer"  CompileWith="AutoTimer.ascx.cs" %>
+<%@ Control Language="c#" Inherits="pics.Controls.AutoTimer"  CodeFile="AutoTimer.ascx.cs" %>
 <div id="progressBox" class="progressBox">
 <div id="progressBar" class="progressBar"><img src="Images/blank.gif" height="3" width="1"></div>
 </div>

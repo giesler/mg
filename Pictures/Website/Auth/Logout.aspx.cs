@@ -15,7 +15,7 @@ namespace pics.Auth
 	/// <summary>
 	/// Summary description for Logout.
 	/// </summary>
-	public partial class Logout 
+    public partial class Logout : Page
 	{
 	
 // 		public Logout()

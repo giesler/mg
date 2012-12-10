@@ -18,7 +18,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public partial class Categories 
+	public partial class Categories : Page
 	{
 		#region Declares
 
@@ -61,8 +61,8 @@ namespace pics
                     this.sortOrder.SelectedIndex = sortOrderIndex;
                 }
             }
-            
-            showEditControls	= (bool) Session["editMode"];
+
+            showEditControls = Global.AdminMode;
 
 			// Figure out what to use as the root ID
 			if (Request.QueryString["r"] == null)

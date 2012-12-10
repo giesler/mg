@@ -1,1 +1,1 @@
-<%@ Control Language="c#" Classname="pics.Controls.__contentbox"  CompileWith="_contentbox.ascx.cs" %>
+<%@ Control Language="c#" Inherits="pics.Controls._contentbox"  CodeFile="_contentbox.ascx.cs" %>

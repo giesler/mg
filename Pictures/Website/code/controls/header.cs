@@ -184,7 +184,7 @@ namespace pics.Controls
 					lnkLogout.NavigateUrl = strAppPath + "Auth/Logout.aspx";
 					tc.Controls.Add(lnkLogout);
 
-					bool showEditControls	= (bool) httpContext.Session["editMode"];
+                    bool showEditControls = Global.AdminMode;
 					if (PicContext.Current.CurrentUser.Id < 3 || PicContext.Current.CurrentUser.Id == 4)
 					{
 						tc.Controls.Add(new HtmlLiteral("&nbsp;|&nbsp;"));

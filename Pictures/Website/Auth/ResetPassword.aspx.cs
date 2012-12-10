@@ -17,7 +17,7 @@ namespace pics.Auth
 	/// <summary>
 	/// Summary description for ResetPassword.
 	/// </summary>
-	public partial class ResetPassword 
+    public partial class ResetPassword : Page
 	{
 		#region Declares
 
