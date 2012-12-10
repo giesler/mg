@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =977200605
+Checksum =-1652630487
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =275
     Left =405
     Top =405
-    Right =12390
-    Bottom =7470
+    Right =12645
+    Bottom =7725
     TimerInterval =500
     MaxRecords =20000
     RecSrcDt = Begin
@@ -750,6 +750,7 @@ Begin Form
                     Name ="txtBlanketPO"
                     ControlSource ="BlanketPO"
                     StatusBarText ="Internal Tracking Number (Invoice Number)"
+                    AfterUpdate ="[Event Procedure]"
                     OnDblClick ="=OpenFind(\"Blanket PO\",\"Start\",\"txtBlanketPO\")"
                     FontName ="Arial"
                     OnGotFocus ="=ControlGotFocus()"
@@ -1832,8 +1833,8 @@ On Error GoTo errHandler
     MsgBox "You cannot 'finish' a cancelled PO.", vbCritical
     Exit Sub
   End If
-  If IsNull(Me.txtPO) Or Me.txtPO = "" Then
-    MsgBox "You must fill in the Purchase Order # before saving this record.", vbExclamation
+  If (IsNull(Me.txtPO) And IsNull(Me.txtBlanketPO)) Then
+    MsgBox "You must fill in the Purchase Order # or Blanket PO # before saving this record.", vbExclamation
     Exit Sub
   End If
   If IsNull(Me.txtShipName) Or Me.txtShipName = "" Then
@@ -1923,8 +1924,8 @@ End Sub
 Private Sub Form_BeforeInsert(Cancel As Integer)
 On Error GoTo errHandler
   
-  If Screen.ActiveControl.Name <> "txtPO" Then
-    MsgBox "You must enter a PO number.", vbExclamation
+  If Screen.ActiveControl.Name <> "txtPO" And Screen.ActiveControl.Name <> "txtBlanketPO" Then
+    MsgBox "You must enter a PO number or blanket PO number.", vbExclamation
     Me.txtPO.SetFocus
     Cancel = True
   Else
@@ -2025,6 +2026,10 @@ ErrHand Me.Name, "Form_Timer"
 Exit Sub
 End Sub
 
+Private Sub txtBlanketPO_AfterUpdate()
+  txtPO_AfterUpdate
+End Sub
+
 Private Sub txtJobNumber_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
@@ -2041,13 +2046,15 @@ On Error GoTo errHandler
   intAttempt = 0
   
 RetryAfterUpdate:
-  If IsNull(Me.txtPO) Then Exit Sub
+  If IsNull(Me.txtPO) And IsNull(Me.txtBlanketPO) Then Exit Sub
       
   If IsNull(Me.txtID) Or Me.txtID = 0 Then
+    
     Me.txtID = DMax("[id]", "Tbl_PO") + 1
     If Me.Dirty Then DoCmd.RunCommand acCmdSaveRecord
     Me.subPOItems.Form.RecordSource = "SELECT * FROM Tbl_PO_Items WHERE ID = " + CStr(Me.txtID)
     Me.subPOItems.Form.AllowAdditions = True
+    
   End If
   CloseWaitForm
   
