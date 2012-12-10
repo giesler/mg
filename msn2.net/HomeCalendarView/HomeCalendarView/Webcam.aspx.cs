@@ -16,25 +16,25 @@ namespace HomeCalendarView
         {
             base.OnInit(e);
 
-            string url = "http://192.168.1.114/image.jpg?cidx=" + DateTime.Now.ToString();
+            string url = string.Format("http://192.168.1.1:8080/cam_1.jpg?{0}", DateTime.Now);
             HttpWebRequest req = (HttpWebRequest) HttpWebRequest.Create(url);
             req.Method = WebRequestMethods.Http.Get;
-            req.Credentials = new NetworkCredential("admin", "camping");
-
+            
             using (HttpWebResponse response = (HttpWebResponse) req.GetResponse())
             {
                 using (Stream s = response.GetResponseStream())
                 {
                     System.Drawing.Image i = System.Drawing.Image.FromStream(s);
                     s.Close();
+                    i.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
-                    System.Drawing.Image thumb = new System.Drawing.Bitmap(80, 60, i.PixelFormat);
+                    System.Drawing.Image thumb = new System.Drawing.Bitmap(60, 80, i.PixelFormat);
                     Graphics g = Graphics.FromImage(thumb);
                     g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                     g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-
-                    Rectangle rect = new Rectangle(0, 0, 80, 60);
+                    
+                    Rectangle rect = new Rectangle(0, 0, 60, 80);
                     g.DrawImage(i, rect);
 
                     Response.ContentType = "image/jpeg";

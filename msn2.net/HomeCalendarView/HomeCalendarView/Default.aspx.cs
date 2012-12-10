@@ -251,7 +251,7 @@ namespace HomeCalendarView
                 SetImageProperties(this.day2High, conditionsNode.ChildNodes[5]);
                 SetImageProperties(this.day2Low, conditionsNode.ChildNodes[6]);
                 SetImageProperties(this.day3High, conditionsNode.ChildNodes[7]);
-                SetImageProperties(this.day3High, conditionsNode.ChildNodes[8]);
+                SetImageProperties(this.day3Low, conditionsNode.ChildNodes[8]);
                 SetImageProperties(this.day4High, conditionsNode.ChildNodes[9]);
                 SetImageProperties(this.day4Low, conditionsNode.ChildNodes[10]);
             }

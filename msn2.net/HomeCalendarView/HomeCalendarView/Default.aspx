@@ -19,12 +19,12 @@
             <div class="headerRow">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
                     <tr>
-                        <td valign="top" width="80">
+                        <td valign="top" width="45">
                             <table border="1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="http://webcam.msn2.net/" Target=_blank>
-                                            <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="80" ImageUrl="~/Webcam.aspx" BorderWidth="0" />
+                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="http://chicks.msn2.net/long" Target=_blank>
+                                            <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="40" ImageUrl="http://chicks.msn2.net/long" BorderWidth="0" />
                                         </asp:HyperLink>
                                     </td>
                                 </tr>
