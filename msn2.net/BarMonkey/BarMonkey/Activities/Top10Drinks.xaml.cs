@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BarMonkey.Activities;
+using msn2.net.BarMonkey.BarMonkeyClientService;
 
 namespace msn2.net.BarMonkey.Activities
 {
@@ -29,8 +30,15 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.OnInitialized(e);
 
-            List<Drink> drinks = BarMonkeyContext.Current.Drinks.GetTopDrinks(10);
+            BarMonkeyClientServiceClient svc = new BarMonkeyClientServiceClient();
+            svc.GetTopDrinksCompleted += new EventHandler<GetTopDrinksCompletedEventArgs>(svc_GetTopDrinksCompleted);
+            svc.GetTopDrinksAsync(10);
+        }
 
+        void svc_GetTopDrinksCompleted(object sender, GetTopDrinksCompletedEventArgs e)
+        {
+            List<Drink> drinks = e.Result;
+            
             this.top5.ItemsSource = drinks.Take<Drink>(5);
             this.next5.ItemsSource = drinks.Skip<Drink>(5);
 

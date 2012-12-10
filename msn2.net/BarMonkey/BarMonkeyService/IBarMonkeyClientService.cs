@@ -14,6 +14,14 @@ namespace BarMonkeyService
     {
         [OperationContract]
         List<Drink> GetTopDrinks(int count);
+        
+        [OperationContract]
+        List<Drink> GetAllDrinks();
 
+        [OperationContract]
+        void PourDrink(int drinkId, int containerId);
+
+        [OperationContract]
+        void ConnectTest();
     }
 }

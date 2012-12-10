@@ -21,5 +21,28 @@ namespace BarMonkeyService
             List<Drink> drinks = bmc.Drinks.GetTopDrinks(count);
             return drinks;
         }
+
+        public List<Drink> GetAllDrinks()
+        {
+            BarMonkeyContext bmc = new BarMonkeyContext();
+            List<Drink> drinks = bmc.Drinks.GetDrinks(string.Empty).OrderBy(i => i.Name).ToList();
+            return drinks;
+        }
+
+        public void ConnectTest()
+        {
+            Dispenser disp = new Dispenser();
+            disp.ConnectTest();
+        }
+
+        public void PourDrink(int drinkId, int containerId)
+        {
+            BarMonkeyContext bmc = new BarMonkeyContext();
+            Drink drink = bmc.Drinks.GetDrink(drinkId);
+            Container container = bmc.Containers.GetContainer(containerId);
+
+            Dispenser disp = new Dispenser();
+            disp.PourDrink(bmc, drink, container);
+        }
     }
 }

@@ -13,13 +13,43 @@
   <wsdl:message name="IBarMonkeyClientService_GetTopDrinks_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTopDrinksResponse" />
   </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_GetAllDrinks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDrinks" />
+  </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_GetAllDrinks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDrinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_PourDrink_InputMessage">
+    <wsdl:part name="parameters" element="tns:PourDrink" />
+  </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_PourDrink_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PourDrinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_ConnectTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectTest" />
+  </wsdl:message>
+  <wsdl:message name="IBarMonkeyClientService_ConnectTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectTestResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBarMonkeyClientService">
     <wsdl:operation name="GetTopDrinks">
       <wsdl:input wsaw:Action="http://tempuri.org/IBarMonkeyClientService/GetTopDrinks" message="tns:IBarMonkeyClientService_GetTopDrinks_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBarMonkeyClientService/GetTopDrinksResponse" message="tns:IBarMonkeyClientService_GetTopDrinks_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllDrinks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBarMonkeyClientService/GetAllDrinks" message="tns:IBarMonkeyClientService_GetAllDrinks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBarMonkeyClientService/GetAllDrinksResponse" message="tns:IBarMonkeyClientService_GetAllDrinks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PourDrink">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBarMonkeyClientService/PourDrink" message="tns:IBarMonkeyClientService_PourDrink_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBarMonkeyClientService/PourDrinkResponse" message="tns:IBarMonkeyClientService_PourDrink_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConnectTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBarMonkeyClientService/ConnectTest" message="tns:IBarMonkeyClientService_ConnectTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBarMonkeyClientService/ConnectTestResponse" message="tns:IBarMonkeyClientService_ConnectTest_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding_IBarMonkeyClientService" type="tns:IBarMonkeyClientService">
+  <wsdl:binding name="silverlightBinding_IBarMonkeyClientService" type="tns:IBarMonkeyClientService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetTopDrinks">
       <soap:operation soapAction="http://tempuri.org/IBarMonkeyClientService/GetTopDrinks" style="document" />
@@ -30,9 +60,36 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllDrinks">
+      <soap:operation soapAction="http://tempuri.org/IBarMonkeyClientService/GetAllDrinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PourDrink">
+      <soap:operation soapAction="http://tempuri.org/IBarMonkeyClientService/PourDrink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConnectTest">
+      <soap:operation soapAction="http://tempuri.org/IBarMonkeyClientService/ConnectTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="BarMonkeyClientService">
-    <wsdl:port name="BasicHttpBinding_IBarMonkeyClientService" binding="tns:BasicHttpBinding_IBarMonkeyClientService">
+    <wsdl:port name="silverlightBinding_IBarMonkeyClientService" binding="tns:silverlightBinding_IBarMonkeyClientService">
       <soap:address location="http://chef/bm/bmcs.svc" />
     </wsdl:port>
   </wsdl:service>

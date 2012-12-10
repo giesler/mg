@@ -1,1 +1,18 @@
-﻿<configuration />
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="silverlightBinding_IBarMonkeyClientService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://chef/bm/bmcs.svc" binding="basicHttpBinding"
+                bindingConfiguration="silverlightBinding_IBarMonkeyClientService"
+                contract="BarMonkeyClientService.IBarMonkeyClientService"
+                name="silverlightBinding_IBarMonkeyClientService" />
+        </client>
+    </system.serviceModel>
+</configuration>

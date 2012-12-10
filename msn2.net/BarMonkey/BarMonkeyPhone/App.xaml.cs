@@ -12,27 +12,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using BarMonkeyPhone.BarMonkeyClientService;
 
 namespace BarMonkeyPhone
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
 
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
+        public static BarMonkeyClientServiceClient GetClient()
         {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
-
-                return viewModel;
-            }
+            BarMonkeyClientServiceClient client = new BarMonkeyClientServiceClient();
+            return client;
         }
 
         /// <summary>
@@ -53,7 +43,7 @@ namespace BarMonkeyPhone
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -80,11 +70,7 @@ namespace BarMonkeyPhone
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+            
         }
 
         // Code to execute when the application is deactivated (sent to background)

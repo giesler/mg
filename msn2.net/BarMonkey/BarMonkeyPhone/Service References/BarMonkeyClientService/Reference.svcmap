@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="395df75f-2939-4225-af1c-a1656b0fa4b7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6ea6fe7a-41cb-4932-a6ac-ee47db332074" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -23,11 +23,11 @@
     <MetadataSource Address="http://chef/bm/bmcs.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="BarMonkeyClientService.wsdl" MetadataType="Wsdl" ID="5e20963f-8ce9-4bad-98fb-895433e6ed79" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?wsdl" />
-    <MetadataFile FileName="bmcs.disco" MetadataType="Disco" ID="b3908802-a786-47cd-a92c-3c39c3939e69" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?disco" />
-    <MetadataFile FileName="bmcs.xsd" MetadataType="Schema" ID="284179de-6e8d-44ee-8f71-8101fafb30b2" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd0" />
-    <MetadataFile FileName="bmcs1.xsd" MetadataType="Schema" ID="b442910e-7e89-41d9-b687-32da38d63413" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd1" />
-    <MetadataFile FileName="bmcs2.xsd" MetadataType="Schema" ID="21f8f94b-3154-4848-b03e-16c15c6f1416" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd2" />
+    <MetadataFile FileName="BarMonkeyClientService.wsdl" MetadataType="Wsdl" ID="67c87d03-6c4e-4f14-b76f-c916c3c45826" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?wsdl" />
+    <MetadataFile FileName="bmcs.disco" MetadataType="Disco" ID="4c8a8e27-bf85-4804-9c95-412d9370a5b1" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?disco" />
+    <MetadataFile FileName="bmcs.xsd" MetadataType="Schema" ID="2343dbc9-16a3-4486-8ab1-9ecb4e497900" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd0" />
+    <MetadataFile FileName="bmcs1.xsd" MetadataType="Schema" ID="b8bc2605-f093-4cb5-8357-351aa5fef9e0" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd1" />
+    <MetadataFile FileName="bmcs2.xsd" MetadataType="Schema" ID="13d84143-48b4-4655-ad3b-df2ebd515f94" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

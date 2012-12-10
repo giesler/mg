@@ -25,18 +25,48 @@ namespace BarMonkey.Activities
     {
         private Drink drink;
         private Container container;
-        private RelayControllerClient relayClient = new RelayControllerClient();
+        private Dispenser disp;
 
         public PourDrink()
         {
             InitializeComponent();
+
+            this.disp = new Dispenser();
+            this.disp.OnPourStarted += new EventHandler(disp_OnPourStarted);
+            this.disp.OnPourConnectCompleted += new EventHandler(disp_OnPourConnectCompleted);
+            this.disp.OnPourCompleted += new EventHandler(disp_OnPourCompleted);
+        }
+
+        void disp_OnPourCompleted(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(new WaitCallback(this.OnCompleted), new object());
+        }
+
+        void SetStatusText(object text)
+        {
+            this.statusLabel.Content = text.ToString();
+        }
+
+        void disp_OnPourConnectCompleted(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(new WaitCallback(this.SetStatusText), "connected");
+        }
+
+        void OnCompleted(object sender)
+        {
+            this.statusLabel.Content = "Cheers!";
+            this.repeat.Visibility = Visibility.Visible;
+            this.navBar.IsEnabled = true;
+        }
+
+        void disp_OnPourStarted(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(new WaitCallback(this.SetStatusText), "pouring...");
         }
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-            // TODO: Close client
 
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
@@ -54,19 +84,18 @@ namespace BarMonkey.Activities
 
             this.statusLabel.Content = "connecting...";
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(Connect));
+            ThreadPool.QueueUserWorkItem(new WaitCallback(PourThread), new object());
         }
 
-        private void Connect(object foo)
+        private void PourThread(object o)
         {
             try
             {
-                relayClient.ConnectTest();
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(onConnected), null);
+                this.disp.PourDrink(BarMonkeyContext.Current, this.drink, this.container);
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(DispatcherPriority.Normal, new WaitCallback(displayException), ex);
+                Dispatcher.BeginInvoke(new WaitCallback(this.displayException), ex);
             }
         }
 
@@ -77,113 +106,9 @@ namespace BarMonkey.Activities
             this.navBar.IsEnabled = true;
         }
 
-        private void onConnected(IAsyncResult ar)
-        {
-            this.statusLabel.Content = "sending...";
-
-            var q = from di in this.drink.DrinkIngredients
-                    orderby di.Group, di.Sequence
-                    select di;
-
-            decimal totalOunces = (from di in this.drink.DrinkIngredients select di.AmountOunces).Sum();
-            decimal offset = this.container.Size / totalOunces;
-
-            List<BatchItem> items = new List<BatchItem>();
-
-            decimal fullDuration = 0;
-            decimal currentStageDuration = 0;
-            int currentGroup = -1;
-            foreach (DrinkIngredient di in q)
-            {
-                if (currentGroup != di.Group)
-                {
-                    fullDuration += currentStageDuration;
-                    currentGroup = di.Group;
-                    currentStageDuration = 0;
-                }
-
-                decimal duration = GetOutputDuration(offset, di);
-                if (duration > currentStageDuration)
-                {
-                    currentStageDuration = duration;
-                }
-            }
-            fullDuration += currentStageDuration;
-
-            int lightRelayNumber = 35;
-            int soundRelayNumber = 34;
-            items.Add(new BatchItem { Group = 0, RelayNumber = lightRelayNumber, Seconds = (double)fullDuration });
-            items.Add(new BatchItem { Group = 0, RelayNumber = soundRelayNumber, Seconds = (double)fullDuration });
-
-            foreach (DrinkIngredient di in q)
-            {
-                decimal duration = GetOutputDuration(offset, di);
-
-                int relayNumber = (int)di.Ingredient.RelayId;
-                
-                items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds=(double)duration});
-            }
-
-            if (this.container.WaterFlushOunces > 0)
-            {
-                Ingredient waterIngredient = BarMonkeyContext.Current.Ingredients.GetIngredient("Water");
-                decimal duration = this.container.WaterFlushOunces * waterIngredient.OuncesPerSecond;
-
-                items.Add(new BatchItem { Group = 999, RelayNumber = (int)waterIngredient.RelayId, Seconds = (double)duration });
-            }
-
-            bool pouring = false;
-            try
-            {
-                relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
-                pouring = true;
-            }
-            catch (Exception ex)
-            {
-                this.displayException(ex);
-            }
-
-            if (pouring == true)
-            {
-                this.statusLabel.Content = "pouring...";
-
-                if (BarMonkeyContext.Current.ImpersonateUser != null)
-                {
-                    BarMonkeyContext.Current.Drinks.LogDrink(drink, offset, BarMonkeyContext.Current.ImpersonateUser.Id);
-                }
-                else
-                {
-                    BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
-                }
-            }
-        }
-
-        private static decimal GetOutputDuration(decimal offset, DrinkIngredient di)
-        {
-            decimal outputAmount = di.AmountOunces * offset;
-            decimal duration = outputAmount * di.Ingredient.OuncesPerSecond;
-            return duration;
-        }
-
-        private void pourComplete(IAsyncResult ar)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(onPourCompleted), ar);
-        }
-
-        private void onPourCompleted(IAsyncResult ar)
-        {
-            this.statusLabel.Content = "Cheers!";
-
-            this.repeat.Visibility = Visibility.Visible;
-            this.navBar.IsEnabled = true;
-        }
-
         private void repeat_Click(object sender, RoutedEventArgs e)
         {
-            onConnected(null);
-
-            this.repeat.Visibility = Visibility.Hidden;
-            this.navBar.IsEnabled = false;
+            this.SetDrink(this.drink, this.container);
         }
 
         private void gohome_Click(object sender, RoutedEventArgs e)

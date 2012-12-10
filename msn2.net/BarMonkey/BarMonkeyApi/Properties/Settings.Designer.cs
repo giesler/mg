@@ -26,7 +26,8 @@ namespace msn2.net.BarMonkey.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=stan;Initial Catalog=BarMonkey;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=stan;Initial Catalog=BarMonkey;Persist Security Info=True;User ID=bmu" +
+            "ser;Password=foobar!12")]
         public string BarMonkeyConnectionString {
             get {
                 return ((string)(this["BarMonkeyConnectionString"]));

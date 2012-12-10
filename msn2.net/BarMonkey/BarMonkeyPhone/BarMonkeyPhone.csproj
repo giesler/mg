@@ -70,14 +70,15 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PourDrink.xaml.cs">
+      <DependentUpon>PourDrink.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\BarMonkeyClientService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -88,14 +89,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="PourDrink.xaml">
       <SubType>Designer</SubType>
-    </DesignData>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Service References\BarMonkeyClientService\BarMonkeyPhone.BarMonkeyClientService.Drink.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BarMonkeyClientService\bmcs.disco" />
+    <None Include="Service References\BarMonkeyClientService\configuration91.svcinfo" />
+    <None Include="Service References\BarMonkeyClientService\configuration.svcinfo" />
+    <None Include="Service References\BarMonkeyClientService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\BarMonkeyClientService\BarMonkeyClientService.wsdl" />
     <None Include="Service References\BarMonkeyClientService\bmcs.xsd">
       <SubType>Designer</SubType>
@@ -106,7 +118,6 @@
     <None Include="Service References\BarMonkeyClientService\bmcs2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -115,13 +126,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\BarMonkeyClientService\bmcs.disco" />
-    <None Include="Service References\BarMonkeyClientService\configuration91.svcinfo" />
-    <None Include="Service References\BarMonkeyClientService\configuration.svcinfo" />
-    <None Include="Service References\BarMonkeyClientService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
