@@ -239,9 +239,8 @@ namespace msn2.net.Pictures.Controls
 			fPromptText f = new fPromptText();
 			f.FormCaption = "New Group";
 			f.Message	  = "Group Name:";
-			f.ShowDialog();
 
-			if (!f.Cancel) 
+			if (f.ShowDialog() == DialogResult.OK) 
 			{
 				// check for dupes
 				foreach (ListViewItem item in groupList.Items) 
@@ -309,9 +308,8 @@ namespace msn2.net.Pictures.Controls
 			f.FormCaption = "Edit Group";
 			f.Message	  = "Group Name:";
 			f.Value		  = row.GroupName;
-			f.ShowDialog();
 
-			if (!f.Cancel) 
+            if (f.ShowDialog() == DialogResult.OK) 
 			{
 				// check for dupes
 				foreach (ListViewItem itemCheck in groupList.Items) 

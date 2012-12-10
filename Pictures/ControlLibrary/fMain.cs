@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Windows.Media.Imaging;
 using System.Drawing.Imaging;
+using System.Collections.Specialized;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -98,7 +99,11 @@ namespace msn2.net.Pictures.Controls
         private ToolStripLabel toolStripLabel3;
         private ToolStripComboBox ratingFilterType;
         private ToolStripComboBox ratingFilterValue;
+        private MenuItem menuItem9;
+        private MenuItem menuItem10;
+        private MenuItem menuItem11;
         bool loading = true;
+        private fStatus statusDialog = new fStatus();
         #endregion
 
         #region Constructor
@@ -262,6 +267,9 @@ namespace msn2.net.Pictures.Controls
             this.menuUpdateCachedPictures = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem9 = new System.Windows.Forms.MenuItem();
+            this.menuItem10 = new System.Windows.Forms.MenuItem();
+            this.menuItem11 = new System.Windows.Forms.MenuItem();
             this.menuFileExit = new System.Windows.Forms.MenuItem();
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
@@ -435,7 +443,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuItem3
             // 
-            this.menuItem3.Index = 5;
+            this.menuItem3.Index = 8;
             this.menuItem3.Text = "-";
             // 
             // mainMenu1
@@ -452,6 +460,9 @@ namespace msn2.net.Pictures.Controls
             this.menuUpdateCachedPictures,
             this.menuItem4,
             this.menuItem5,
+            this.menuItem9,
+            this.menuItem10,
+            this.menuItem11,
             this.menuItem3,
             this.menuFileExit});
             this.menuItem1.Text = "&File";
@@ -486,9 +497,26 @@ namespace msn2.net.Pictures.Controls
             this.menuItem5.Text = "&Validate cached pictures";
             this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
             // 
+            // menuItem9
+            // 
+            this.menuItem9.Index = 5;
+            this.menuItem9.Text = "Read Keywords...";
+            this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
+            // 
+            // menuItem10
+            // 
+            this.menuItem10.Index = 6;
+            this.menuItem10.Text = "Add Keyword...";
+            this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+            // 
+            // menuItem11
+            // 
+            this.menuItem11.Index = 7;
+            this.menuItem11.Text = "&Write tags";
+            // 
             // menuFileExit
             // 
-            this.menuFileExit.Index = 6;
+            this.menuFileExit.Index = 9;
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
             // 
@@ -674,10 +702,8 @@ namespace msn2.net.Pictures.Controls
             // 
             this.filter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filter.HideSelection = false;
-            this.filter.ImageIndex = 0;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
-            this.filter.SelectedImageIndex = 0;
             this.filter.Size = new System.Drawing.Size(167, 301);
             this.filter.TabIndex = 0;
             this.filter.FilterChanged += new msn2.net.Pictures.Controls.FilterChangedHandler(this.filter_FilterChanged);
@@ -1188,7 +1214,9 @@ namespace msn2.net.Pictures.Controls
         {
             if (oQuery != null)
             {
+                
                 IQueryable<Picture> query = (IQueryable<Picture>)oQuery;
+                
                 List<Picture> pictures = query.ToList<Picture>();
 
                 this.BeginInvoke(new WaitCallback(DisplayPictures), pictures);
@@ -1331,7 +1359,7 @@ namespace msn2.net.Pictures.Controls
 
                         string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
 
-                        string destFilename = string.Format(@"{0}\{1}.{2}", destFolder,  SafeFilename(picture.Title), fileExtenstion);
+                        string destFilename = string.Format(@"{0}\{1}.{2}", destFolder, SafeFilename(picture.Title), fileExtenstion);
 
                         int instance = 1;
                         while (File.Exists(destFilename))
@@ -1688,5 +1716,46 @@ namespace msn2.net.Pictures.Controls
                 maxPicCount_SelectedIndexChanged(this, EventArgs.Empty);
             }
         }
+
+        private void menuItem9_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ShowTags(dialog.FileName);
+            }
+        }
+
+        void ShowTags(string fileName)
+        {
+            string[] tags = ImageUtilities.GetTags(fileName);
+            string msg = "";
+            for (int i = 0; i < tags.Length; i++)
+            {
+                if (i > 0)
+                {
+                    msg += ", ";
+                }
+                msg += tags[i];
+            }
+
+            MessageBox.Show(msg, fileName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        private void menuItem10_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                fPromptText text = new fPromptText();
+                text.Message = "Enter the tag to add";
+                if (text.ShowDialog() == DialogResult.OK)
+                {
+                    ImageUtilities.AddTags(dialog.FileName, new string[] { text.Value });
+                    ShowTags(dialog.FileName);
+                }
+            }
+        }
+
     }
 }

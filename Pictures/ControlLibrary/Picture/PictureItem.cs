@@ -227,6 +227,12 @@ namespace msn2.net.Pictures.Controls
                 Trace.WriteLine(dnf.ToString());
                 RepaintImage();
             }
+            catch (Exception ex)
+            {
+                this.imageReadError = true;
+                Trace.WriteLine(ex);
+                RepaintImage();
+            }
         }
 
         public void SetPicture(Picture item)

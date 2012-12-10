@@ -348,7 +348,7 @@ namespace msn2.net.Pictures.Controls
             {
                 Category category = ((CategoryTreeNode)this.SelectedNode).Category;
 
-                query = from p in PicContext.Current.PictureManager.GetPictures()
+                query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
                         where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
                             && ((ratingType == RatingEquality.All)
                                 || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
@@ -367,7 +367,7 @@ namespace msn2.net.Pictures.Controls
 
                     DateTime fullDate = DateTime.Parse(filter.Text + ", " + filter.Parent.Parent.Text);
 
-                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                    query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
                             where (dateAdded && p.PictureAddDate.Value.Date == fullDate.Date)
                                 || (!dateAdded && p.PictureDate.Date == fullDate.Date)
                                 && ((ratingType == RatingEquality.All)
@@ -384,7 +384,7 @@ namespace msn2.net.Pictures.Controls
                     int month = int.Parse(tag.Substring(tag.LastIndexOf("=") + 1));
                     int year = int.Parse(filter.Parent.Text);
 
-                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                    query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
                             where (dateAdded && p.PictureAddDate.Value.Month == month
                                         && p.PictureAddDate.Value.Year == year)
                                 || (!dateAdded && p.PictureDate.Month == month
@@ -401,7 +401,7 @@ namespace msn2.net.Pictures.Controls
                     bool dateAdded = filter.Parent.Text.Contains("Added");
                     int year = int.Parse(filter.Text);
                     
-                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                    query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
                             where (dateAdded && p.PictureAddDate.Value.Year == year)
                                 || (!dateAdded && p.PictureDate.Year == year)
                                 && ((ratingType == RatingEquality.All)
@@ -415,7 +415,7 @@ namespace msn2.net.Pictures.Controls
 
             if (query == null)
             {
-                query = from p in PicContext.Current.PictureManager.GetPictures()
+                query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
                         select p;
             }
 

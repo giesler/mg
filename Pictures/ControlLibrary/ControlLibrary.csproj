@@ -224,9 +224,6 @@
     <Compile Include="Picture\PictureDetails.Designer.cs">
       <DependentUpon>PictureDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Picture\PictureFlowList.xaml.cs">
-      <DependentUpon>PictureFlowList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Picture\PictureListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -537,12 +534,6 @@
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
       <Name>Api</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Picture\PictureFlowList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

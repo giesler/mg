@@ -19,16 +19,14 @@ namespace msn2.net.Pictures.Controls
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-		private bool mblnCancel = false;
-
+		
 		public fPromptText()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-
-	}
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -114,29 +112,17 @@ namespace msn2.net.Pictures.Controls
 
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
-			mblnCancel = false;
+            this.DialogResult = DialogResult.OK;
             this.Close();
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
-			mblnCancel = true;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
 		}
 
-		public bool Cancel
-		{
-			get
-			{
-				return mblnCancel;
-			}
-			set
-			{
-				mblnCancel = value;
-			}
-		}
-
-		public String FormCaption
+        public String FormCaption
 		{
 			set 
 			{
