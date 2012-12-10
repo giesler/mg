@@ -34,6 +34,7 @@ namespace msn2.net.BarMonkey
         {
             BarMonkeyContext.Current.Reload();
             App.Drinks = BarMonkeyContext.Current.Drinks.GetDrinks();
+            App.TopDrinks = BarMonkeyContext.Current.Drinks.GetTopDrinks(10);
             App.Containers = BarMonkeyContext.Current.Containers.GetContainers();
 
             this.Dispatcher.BeginInvoke(new WaitCallback(this.EnableActions), new object());

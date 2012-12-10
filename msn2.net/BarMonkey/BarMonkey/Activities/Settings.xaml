@@ -42,6 +42,13 @@
             </Grid>
             <Button Name="exit" Content="EXIT" Click="exit_Click_1" Visibility="Collapsed" />
         </StackPanel>
-        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />
+        <StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="3">
+            <Button x:Name="back" Click="back_Click" Style="{DynamicResource EmptyButtonStyle}" Margin="10" IsEnabled="True" >
+                <Grid>
+                    <Image Source="/Resources/appbar.basecircle.rest.png" />
+                    <Image Source="/Resources/appbar.back.rest.png" />
+                </Grid>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

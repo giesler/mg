@@ -59,9 +59,6 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesRemaining.ItemsSource = ounces;
 
             this.relay.SelectedIndex = 0;
-            
-            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
-            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
 
         void LoadDatabaseDropdowns()
@@ -244,7 +241,6 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesRemaining.IsEnabled = false;
             this.seconds.IsEnabled = false;
             this.openRelay.IsEnabled = false;
-            this.navBar.IsEnabled = false;
             this.plus.IsEnabled = false;
             this.minus.IsEnabled = false;
             this.allOff.IsEnabled = false;
@@ -314,7 +310,6 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesRemaining.IsEnabled = this.isAdmin;
             this.seconds.IsEnabled = true;
             this.openRelay.IsEnabled = true;
-            this.navBar.IsEnabled = true;
             this.plus.IsEnabled = true;
             this.minus.IsEnabled = true;
             this.allOff.IsEnabled = true;
@@ -366,6 +361,11 @@ namespace msn2.net.BarMonkey.Activities
             double secs = double.Parse(this.seconds.Text);
             secs += 0.5;
             this.seconds.Text = secs.ToString();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            base.NavigationService.GoBack();
         }
     }
 }

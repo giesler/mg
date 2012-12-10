@@ -43,9 +43,6 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.OnInitialized(e);
 
-            this.navBar.BackClicked += delegate(object o, EventArgs a) {base.NavigationService.GoBack();};
-            this.navBar.HomeClicked += delegate(object o, EventArgs a) {base.NavigationService.Navigate(new PartyModeHomePage());};
-
             this.navStack.AddCommands(this.GetActivities());
             this.navStack.NavigateToUri += delegate(Uri u) { this.NavigationService.Navigate(u); };
 
@@ -81,6 +78,11 @@ namespace msn2.net.BarMonkey.Activities
         private void exit_Click_1(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        void back_Click(object sender, RoutedEventArgs e)
+        {
+            base.NavigationService.GoBack();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

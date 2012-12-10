@@ -15,6 +15,7 @@ namespace BarMonkey
     public partial class App : Application
     {
         public static List<Drink> Drinks { get; set; }
+        public static List<Drink> TopDrinks { get; set; }
         public static List<Container> Containers { get; set; }
         public static string[] Messages {get; set;}
         public static bool GoToNewDrinkPage { get; set; }

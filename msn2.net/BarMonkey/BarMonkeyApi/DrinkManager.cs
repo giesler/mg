@@ -94,6 +94,7 @@ namespace msn2.net.BarMonkey
             var q = (from d in base.Context.Data.Drinks
                      where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
                         && d.DrinkActualIngredients.Count > 0
+                        && d.UserDrinkHistories.All(dh => dh.Timestamp > DateTime.Now.AddDays(-1))
                      orderby d.UserDrinkHistories.Count
                      select d).Take<Drink>(count);
             

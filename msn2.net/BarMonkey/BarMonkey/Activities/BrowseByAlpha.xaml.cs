@@ -31,7 +31,7 @@ namespace msn2.net.BarMonkey.Activities
 
         public BrowseByAlpha()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
 
@@ -64,9 +64,13 @@ namespace msn2.net.BarMonkey.Activities
                 this.drinkList.Items.Clear();
             }
 
-            if (string.IsNullOrEmpty(this.filter))            
+            if (string.IsNullOrEmpty(this.filter))
             {
                 this.drinkList.ItemsSource = App.Drinks;
+            }
+            else if (this.filter.ToLower() == "top")
+            {
+                this.drinkList.ItemsSource = App.TopDrinks;
             }
             else
             {
@@ -103,31 +107,49 @@ namespace msn2.net.BarMonkey.Activities
 
         private void drinkList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.pourDrink.IsEnabled = true;
-            this.lastInput = DateTime.Now;
             this.IsItemSelected = this.drinkList.SelectedIndex >= 0;
 
-            
-            
+            this.pourDrink.IsEnabled = this.IsItemSelected;
+            this.lastInput = DateTime.Now;
+
+            GradientStopCollection stops = new GradientStopCollection();
+            stops.Add(new GradientStop(Colors.LightGreen, 0.25));
+            stops.Add(new GradientStop(Colors.White, 0));
+            stops.Add(new GradientStop(Colors.White, 0.5));
+            stops.Add(new GradientStop(Colors.LightGreen, 0.75));
+            stops.Add(new GradientStop(Colors.White, 1));
+
+            if (this.IsItemSelected)
+            {
+                LinearGradientBrush brush = new LinearGradientBrush(stops, new Point(0.5, 0), new Point(0.5, 1));
+
+                TransformGroup transform = new TransformGroup();
+                transform.Children.Add(new ScaleTransform { CenterX = 0.5, CenterY = 0.5 });
+                transform.Children.Add(new SkewTransform { CenterX = 0.5, CenterY = 0.5 });
+                transform.Children.Add(new RotateTransform { CenterX = 0.5, CenterY = 0.5, Angle = 90 });
+                transform.Children.Add(new TranslateTransform());
+                brush.RelativeTransform = transform;
+
+                this.pourDrink.Foreground = brush;
+            }
 
             /*
-             *                                             <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
-                                                                       Storyboard.TargetName="Path1" 
-                                                                       Storyboard.TargetProperty="(Path.Stroke).(LinearGradientBrush.StartPoint)">
-                                                <SplinePointKeyFrame KeyTime="00:00:0" Value="0,1"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:4" Value="1,0"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
-                                            </PointAnimationUsingKeyFrames>
-                                            <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
-                                                                       Storyboard.TargetName="Path1" 
-                                                                       Storyboard.TargetProperty="(Path.Stroke).(LinearGradientBrush.EndPoint)">
-                                                <SplinePointKeyFrame KeyTime="00:00:0" Value="1,0"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:4" Value="0,1"/>
-                                                <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
-                                            </PointAnimationUsingKeyFrames>
-*/
+             *                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF03A203" Offset="0.274"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FFBCBDBC" Offset="0.513"/>
+                        <GradientStop Color="#FF19A819" Offset="0.726"/>
+                        <GradientStop Color="#FFBEBFBE" Offset="1"/>
+                    </LinearGradientBrush>
+            */
 
         }
 
@@ -149,6 +171,13 @@ namespace msn2.net.BarMonkey.Activities
             this.SetFilter("Cocktail");
             this.filterCocktails.FontWeight = FontWeights.Bold;
             this.filterCocktails.Foreground = new SolidColorBrush(Colors.LightBlue);
+        }
+
+        private void OnFilterTop(object sender, MouseButtonEventArgs e)
+        {
+            this.SetFilter("Top");
+            this.filterTop.FontWeight = FontWeights.Bold;
+            this.filterTop.Foreground = new SolidColorBrush(Colors.LightBlue);
         }
 
         private void OnFilterAll(object sender, MouseButtonEventArgs e)

@@ -49,6 +49,14 @@
             <Button Name="allOff" Click="allOff_Click" Content="All Off!" Style="{DynamicResource DefaultButtonStyle}" />
         </StackPanel>
         <TextBlock Grid.Row="6" Grid.Column="1" Name="statusLabel" Style="{DynamicResource DefaultTextBlockStyle}" />
-        <bnc:NavigationBar Grid.Row="7" Grid.ColumnSpan="2" x:Name="navBar" />
+        <StackPanel Orientation="Horizontal" Grid.Row="7" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+            <Button x:Name="back" Click="back_Click" Style="{DynamicResource EmptyButtonStyle}" Margin="10" IsEnabled="True" >
+                <Grid>
+                    <Image Source="/Resources/appbar.basecircle.rest.png" />
+                    <Image Source="/Resources/appbar.back.rest.png" />
+                </Grid>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Page>

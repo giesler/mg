@@ -41,52 +41,52 @@
 		</Style>-->
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+        <Style TargetType="{x:Type TextBlock}" x:Key="pourGradientStyle">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF03A203" Offset="0.274"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FFBCBDBC" Offset="0.513"/>
+                        <GradientStop Color="#FF19A819" Offset="0.726"/>
+                        <GradientStop Color="#FFBEBFBE" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Page.Triggers>
         <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="drinkList">
             <EventTrigger.Actions>
                 <BeginStoryboard>
-                    <Storyboard>
-                        <!--                        <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
-                                                                       Storyboard.TargetName="pourDrink" 
-                                                                       Storyboard.TargetProperty="(Foreground).(LinearGradientBrush.StartPoint)" RepeatBehavior="Forever" >
-                            <SplinePointKeyFrame KeyTime="00:00:0" Value="0,1"/>
-                            <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
-                            <SplinePointKeyFrame KeyTime="00:00:4" Value="1,0"/>
-                            <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
-                        </PointAnimationUsingKeyFrames>
-                        <PointAnimationUsingKeyFrames BeginTime="00:00:00" 
-                                                                       Storyboard.TargetName="pourDrink" 
-                                                                       Storyboard.TargetProperty="(Foreground).(LinearGradientBrush.EndPoint)" RepeatBehavior="Forever">
-                            <SplinePointKeyFrame KeyTime="00:00:0" Value="1,0"/>
-                            <SplinePointKeyFrame KeyTime="00:00:2" Value=".5,.5"/>
-                            <SplinePointKeyFrame KeyTime="00:00:4" Value="0,1"/>
-                            <SplinePointKeyFrame KeyTime="00:00:6" Value=".5,.5"/>
-                        </PointAnimationUsingKeyFrames>
-                        
-                                        		<GradientStop Color="#FF03A203" Offset="0.274"/>
-                		<GradientStop Color="White"/>
-                		<GradientStop Color="#FFBCBDBC" Offset="0.513"/>
-                		<GradientStop Color="#FF19A819" Offset="0.726"/>
-                		<GradientStop Color="#FFBEBFBE" Offset="1"/>
-
-                        -->
+                    <Storyboard Name="pourStoryboard"><!--
                         <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(LinearGradientBrush.StartPoint)" Storyboard.TargetName="pourDrink" RepeatBehavior="Forever">
                             <EasingPointKeyFrame KeyTime="0" Value="0.5,0"/>
-                            <EasingPointKeyFrame KeyTime="0:0:2" Value="0.5,0.3" />
-                            <EasingPointKeyFrame KeyTime="0:0:4" Value="0.5,0.5" />
-                            <EasingPointKeyFrame KeyTime="0:0:6" Value="0.5,0.7" />
-                            <EasingPointKeyFrame KeyTime="0:0:8" Value="0.5,1" />
+                            <EasingPointKeyFrame KeyTime="0:0:2" Value="0.5,1" />
+                            <EasingPointKeyFrame KeyTime="0:0:4" Value="0.5,0" />
+                            <EasingPointKeyFrame KeyTime="0:0:6" Value="0.5,0.5" />
                         </PointAnimationUsingKeyFrames>
                         <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="pourDrink" RepeatBehavior="Forever">
                             <EasingPointKeyFrame KeyTime="0" Value="0.5,1"/>
-                            <EasingPointKeyFrame KeyTime="0:0:3" Value="0.5,0"/>
-                            <EasingPointKeyFrame KeyTime="0:0:5" Value="0.5,0.5"/>
-                            <EasingPointKeyFrame KeyTime="0:0:7" Value="0.5,1"/>
-                            <EasingPointKeyFrame KeyTime="0:0:9" Value="0.5,0.5"/>
-                        </PointAnimationUsingKeyFrames>
+                            <EasingPointKeyFrame KeyTime="0:0:2" Value="0.5,0"/>
+                            <EasingPointKeyFrame KeyTime="0:0:4" Value="0.5,1"/>
+                            <EasingPointKeyFrame KeyTime="0:0:6" Value="0.5,0.5"/>
+                        </PointAnimationUsingKeyFrames>-->
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[0].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[1].Color" Storyboard.TargetName="pourDrink" From="LightGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[2].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[3].Color" Storyboard.TargetName="pourDrink" From="LightGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[4].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
                     </Storyboard>
-                </BeginStoryboard>                
+                </BeginStoryboard>
             </EventTrigger.Actions>
         </EventTrigger>
     </Page.Triggers>
@@ -106,6 +106,8 @@
             <TextBlock Text=" | " Foreground="White" Padding="0,10,0,0" FontSize="14" />
             <TextBlock Text="COCKTAILS" Foreground="White" Name="filterCocktails" MouseDown="OnFilterCocktails" Padding="9" FontSize="18" />
             <TextBlock Text=" | " Foreground="White" Padding="0,10,0,0" FontSize="14" />
+            <TextBlock Text="TOP" Foreground="White" Name="filterTop" MouseDown="OnFilterTop" Padding="9" FontSize="18" />
+            <TextBlock Text=" | " Foreground="White" Padding="0,10,0,0" FontSize="14" />
             <TextBlock Text="ALL" Foreground="White" Name="filterAll" MouseDown="OnFilterAll" Padding="9" FontSize="18" />
         </StackPanel>
         <ListBox Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="0,2,0,0" Background="Transparent" BorderBrush="Transparent" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -117,7 +119,6 @@
                     </StackPanel>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem},AncestorLevel=1 }, Path=IsSelected}" Value="True">
-
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -187,27 +188,9 @@
                 <Image Source="/Resources/appbar.back.rest.png" />
             </Grid>
         </Button>
-        <Button Click="OnPourDrink" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="False" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource EmptyButtonStyle}">
+        <Button Click="OnPourDrink" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource EmptyButtonStyle}">
             <Button.Content>
-                <TextBlock Text="POUR DRINK &gt;" FontSize="48" FontWeight="Bold" Name="pourDrink">
-                <TextBlock.Foreground>
-                	<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                		<LinearGradientBrush.RelativeTransform>
-                			<TransformGroup>
-                				<ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                				<SkewTransform CenterY="0.5" CenterX="0.5"/>
-                				<RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
-                				<TranslateTransform/>
-                			</TransformGroup>
-                		</LinearGradientBrush.RelativeTransform>
-                		<GradientStop Color="#FF03A203" Offset="0.274"/>
-                		<GradientStop Color="White"/>
-                		<GradientStop Color="#FFBCBDBC" Offset="0.513"/>
-                		<GradientStop Color="#FF19A819" Offset="0.726"/>
-                		<GradientStop Color="#FFBEBFBE" Offset="1"/>
-                	</LinearGradientBrush>
-                </TextBlock.Foreground>
-                </TextBlock>
+                <TextBlock Text="POUR DRINK &gt;" FontSize="52" FontWeight="Bold" Name="pourDrink" Foreground="Gray" />
             </Button.Content>
         </Button>
     </Grid>
