@@ -718,6 +718,15 @@
                 {
                 }
             }
+            "{F6DFDB62-1DD1-498B-89B7-27BAC542EE5A}:_E4BC200038FA4996BB63DC16FF8B2872"
+            {
+            "Name" = "8:#1919"
+            "Condition" = "8:"
+            "Property" = "8:%CE17%"
+                "Folders"
+                {
+                }
+            }
         }
         "Product"
         {
@@ -794,15 +803,15 @@
         }
         "Shortcut"
         {
-            "{971D45E9-E38C-49AC-B36E-4C5BEA533350}:_F4E75CD27D8D4FB8BCE6C32202E0CF09"
+            "{971D45E9-E38C-49AC-B36E-4C5BEA533350}:_81DC89EA29654A6FA01CFCBE670F6E10"
             {
             "Name" = "8:Shopping List"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "Target" = "8:"
-            "Folder" = "8:_69A5F3418856435CB32247868B9960CD"
-            "WorkingFolder" = "8:_181C0E496A7E4088A64697FF0A54D41D"
+            "Target" = "8:_9EB8307EBA8D41BCA1B73497D3D8F62E"
+            "Folder" = "8:_E4BC200038FA4996BB63DC16FF8B2872"
+            "WorkingFolder" = "8:_D37F5458873E4A94859658247F0B2944"
             }
         }
     }

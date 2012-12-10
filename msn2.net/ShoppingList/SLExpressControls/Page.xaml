@@ -39,6 +39,6 @@
         </ListBox>
         <TextBlock Grid.Column="1" Grid.Row="1" x:Name="loading" VerticalAlignment="Center"
                    HorizontalAlignment="Center" Text="loading..." Foreground="DarkGray" Visibility="Collapsed" />   
-        <TextBox Grid.Row="2" Grid.ColumnSpan="2" x:Name="debug" ScrollViewer.VerticalScrollBarVisibility="Visible" FontSize="10pt" />
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" x:Name="debug" FontSize="10" />
     </Grid>
 </UserControl>

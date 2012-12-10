@@ -42,6 +42,12 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -58,12 +64,27 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ajax.aspx" />
     <Content Include="ClientBin\SLExpressControls.xap" />
     <Content Include="Default.aspx" />
+    <None Include="Service References\ShoppingListService\sls.disco" />
+    <None Include="Service References\ShoppingListService\configuration91.svcinfo" />
+    <None Include="Service References\ShoppingListService\configuration.svcinfo" />
+    <None Include="Service References\ShoppingListService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ajax.aspx.cs">
+      <DependentUpon>ajax.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ajax.aspx.designer.cs">
+      <DependentUpon>ajax.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -72,6 +93,27 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ShoppingListService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ShoppingListService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ShoppingListService\ShoppingListService.wsdl" />
+    <None Include="Service References\ShoppingListService\SLExpress.ShoppingListService.ShoppingListItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ShoppingListService\sls.xsd" />
+    <None Include="Service References\ShoppingListService\sls1.xsd" />
+    <None Include="Service References\ShoppingListService\sls2.xsd" />
+    <None Include="Service References\ShoppingListService\sls3.xsd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -91,7 +133,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61794</DevelopmentServerPort>
+          <DevelopmentServerPort>61795</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

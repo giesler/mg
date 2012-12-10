@@ -21,8 +21,8 @@ namespace SLExpressControls
         {
             InitializeComponent();
 
-            //client.GetStoresCompleted += new EventHandler<GetStoresCompletedEventArgs>(client_GetStoresCompleted);
-            //client.GetStoresAsync();
+            client.GetStoresCompleted += new EventHandler<GetStoresCompletedEventArgs>(client_GetStoresCompleted);
+            client.GetStoresAsync();
         }
 
         void client_GetStoresCompleted(object sender, GetStoresCompletedEventArgs e)
