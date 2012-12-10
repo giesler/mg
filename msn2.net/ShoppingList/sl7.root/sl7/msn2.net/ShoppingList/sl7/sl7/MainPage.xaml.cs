@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -22,51 +23,34 @@ namespace giesler.org.lists
         public MainPage()
         {
             InitializeComponent();
-
-            // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
-        void svc_GetStoresCompleted(object sender, svc1.GetStoresCompletedEventArgs e)
+        private void LoadLists(List<List> lists)
         {
-            if (e.Error == null)
-            {
-                LoadStores(e.Result);
-
-                //this.jumpButton.IsEnabled = true;
-            }
-            else
-            {
-                MessageBox.Show(e.Error.Message);
-            }
-
-            svc1.ShoppingListServiceClient svc = (svc1.ShoppingListServiceClient)sender;
-            svc.CloseAsync();
-        }
-
-        private void LoadStores(List<string> stores)
-        {
-            App.Stores = stores;
+            App.Lists = lists;
             int clearCount = this.main.Items.Count;
 
-            PivotItem select = null;
-            foreach (string store in stores)
+            int cur = -1;
+            int selectIndex = -1;
+            foreach (List list in lists)
             {
+                cur++;
+
                 PivotItem item = new PivotItem();
-                item.Tag = store;
-                item.Header = store.ToLowerInvariant();
+                item.Tag = list;
+                item.Header = list.Name.ToLowerInvariant();
 
                 TextBlock blk = new TextBlock() { Text = "loading..." };
                 item.Content = blk;
 
                 this.main.Items.Add(item);
 
-                if (NavigationContext.QueryString.ContainsKey("s"))
+                if (NavigationContext.QueryString.ContainsKey("listUniqueId"))
                 {
-                    if (item.Tag.ToString() == NavigationContext.QueryString["s"])
+                    if (list.UniqueId.ToString() == NavigationContext.QueryString["listUniqueId"])
                     {
-                        select = item;
+                        selectIndex = cur;
                     }
                 }
             }
@@ -76,18 +60,18 @@ namespace giesler.org.lists
                 this.main.Items.RemoveAt(clearCount);
             }
 
-            if (select != null)
+            if (selectIndex >= 0)
             {
-                this.main.SelectedItem = select;
+                this.main.SelectedIndex = selectIndex;
             }
 
             this.loading.Visibility = System.Windows.Visibility.Collapsed;
 
             if (App.Items == null)
             {
-                svc1.ShoppingListServiceClient svc2 = new svc1.ShoppingListServiceClient();
-                svc2.GetShoppingListItemsCompleted += new EventHandler<svc1.GetShoppingListItemsCompletedEventArgs>(svc2_GetShoppingListItemsCompleted);
-                svc2.GetShoppingListItemsAsync();
+                ListDataServiceClient svc2 = new ListDataServiceClient();
+                svc2.GetAllListItemsCompleted += new EventHandler<GetAllListItemsCompletedEventArgs>(svc2_GetAllListItemsCompleted);
+                svc2.GetAllListItemsAsync(App.AuthDataList);
             }
             else
             {
@@ -95,11 +79,17 @@ namespace giesler.org.lists
             }
         }
 
-        void svc2_GetShoppingListItemsCompleted(object sender, svc1.GetShoppingListItemsCompletedEventArgs e)
+        void svc2_GetAllListItemsCompleted(object sender, GetAllListItemsCompletedEventArgs e)
         {
             if (e.Error == null)
             {
-                App.Items = e.Result;
+                List<ListItemEx> items = new List<ListItemEx>();
+                foreach (var i in e.Result)
+                {
+                    items.Add(new ListItemEx { UniqueId = i.UniqueId, Name = i.Name, ListUniqueId = i.ListUniqueId });
+                }
+
+                App.Items = items;
                 this.LoadItems(App.Items);
             }
             else
@@ -107,46 +97,93 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message);
             }
 
-            svc1.ShoppingListServiceClient svc = (svc1.ShoppingListServiceClient)sender;
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
             svc.CloseAsync();
         }
 
-        private void LoadItems(List<svc1.ShoppingListItem> items)
+        private void LoadItems(List<ListItemEx> items)
         {
             foreach (PivotItem item in this.main.Items)
             {
-                StoreItemList list = new StoreItemList();
-                item.Content = list;
+                StoreItemList listControl = new StoreItemList();
+                item.Content = listControl;
+                listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
+                
+                List list = item.Tag as List;
 
-                var q = items.Where(i => i.Store.ToString() == item.Tag.ToString());
-                list.Load(q);// t.DataContext = q;
+                var q = items.Where(i => i.ListUniqueId == list.UniqueId).OrderBy(i => i.Name);
+                listControl.Load(q);
             }
 
-            foreach (ApplicationBarIconButton b in this.ApplicationBar.Buttons)
-            {
-                b.IsEnabled = true;
-            }
+            this.UpdateControls();
         }
 
-        // Load data for the ViewModel Items
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        void listControl_DeleteListItem(ListItem item)
         {
-            if (!App.ViewModel.IsDataLoaded)
+            ListDataServiceClient svc = new ListDataServiceClient();
+            svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
+            svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
+        }
+
+        void svc_DeleteListItemCompleted(object sender, DeleteListItemCompletedEventArgs e)
+        {
+            if (e.Error != null)
             {
-                App.ViewModel.LoadData();
+                MessageBox.Show(e.Error.Message, "Delete Error", MessageBoxButton.OK);
             }
 
-            if (App.Stores == null)
+            ListDataServiceClient client = (ListDataServiceClient)sender;
+            client.CloseAsync();
+        }
+
+        void UpdateControls()
+        {
+            bool loading = App.Items == null || App.Lists == null;
+
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = !loading;
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
             {
-                svc1.ShoppingListServiceClient svc = new svc1.ShoppingListServiceClient();
-                svc.GetStoresAsync();
-                svc.GetStoresCompleted += new EventHandler<svc1.GetStoresCompletedEventArgs>(svc_GetStoresCompleted);
+                NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
+            }
+            else if (App.Lists == null)
+            {
+                ListDataServiceClient svc = new ListDataServiceClient();
+                svc.GetListsCompleted += new EventHandler<GetListsCompletedEventArgs>(svc_GetListsCompleted);
+                svc.GetListsAsync(App.AuthDataList);
             }
             else
             {
-                this.LoadStores(App.Stores);
+                this.LoadLists(App.Lists);
             }
 
+            this.UpdateControls();
+        }
+
+        void svc_GetListsCompleted(object sender, GetListsCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                List<List> lists = new List<List>();
+                foreach (var i in e.Result)
+                {
+                    lists.Add(new List { Name = i.Name, UniqueId = i.UniqueId });
+                }
+                LoadLists(lists);
+            }
+            else
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            svc.CloseAsync();
         }
 
         private void jumpButton_Click(object sender, EventArgs e)
@@ -157,8 +194,22 @@ namespace giesler.org.lists
         private void addButton_Click(object sender, EventArgs e)
         {
             PivotItem item = (PivotItem)this.main.SelectedItem;
-            string store = item.Tag.ToString();
-            NavigationService.Navigate(new Uri("/Add.xaml?store=" + store, UriKind.Relative));
+            List list = (List)item.Tag;
+            
+            NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + list.UniqueId, UriKind.Relative));
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            App.Lists = null;
+            App.Items = null;
+
+            this.MainPage_Loaded(null, null);
         }
     }
 }

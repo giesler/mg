@@ -31,7 +31,8 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton x:Name="addButton" IconUri="/Images/appbar.add.rest.png" Text="add" Click="addButton_Click" IsEnabled="False" />
             <shell:ApplicationBarIconButton x:Name="jumpButton" IconUri="/Images/appbar.next.rest.png" Text="jump" Click="jumpButton_Click" IsEnabled="False" />
-            <!--<shell:ApplicationBarIconButton x:Name="settingsButton" IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" />-->
+            <shell:ApplicationBarIconButton x:Name="refreshButton" IconUri="/Images/appbar.refresh.rest.png" Text="refresh" Click="refreshButton_Click" IsEnabled="False" />
+            <shell:ApplicationBarIconButton x:Name="settingsButton" IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" Click="settingsButton_Click" IsEnabled="False" />
 <!--            <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>

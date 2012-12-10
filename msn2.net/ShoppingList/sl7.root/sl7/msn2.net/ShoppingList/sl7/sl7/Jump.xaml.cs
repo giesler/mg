@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -19,17 +20,17 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
-            this.storeList.ItemsSource = App.Stores;
+            this.storeList.ItemsSource = App.Lists;
         }
 
-        public string SelectedStore { get; private set; }
+        public List SelectedList { get; private set; }
         
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             TextBlock tb = (TextBlock)sender;
-            this.SelectedStore = tb.Text;
+            this.SelectedList = (List)tb.Tag;
 
-            Uri uri = new Uri("/MainPage.xaml?s=" + tb.Text, UriKind.Relative);
+            Uri uri = new Uri("/MainPage.xaml?listUniqueId=" + this.SelectedList.UniqueId, UriKind.Relative);
             NavigationService.Navigate(uri);
         }
     }

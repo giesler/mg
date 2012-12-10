@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="la.svc" />
+    <Content Include="lds.svc" />
     <Content Include="sls.svc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -111,6 +113,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientAuthenticationData.cs" />
+    <Compile Include="DeleteListItemReturnData.cs" />
+    <Compile Include="IListAuthentication.cs" />
+    <Compile Include="la.svc.cs">
+      <DependentUpon>la.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IListDataService.cs" />
+    <Compile Include="lds.svc.cs">
+      <DependentUpon>lds.svc</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -127,6 +139,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SLSData.dbml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateListItemReturnData.cs" />
     <Compile Include="Web References\homenet\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,6 +190,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

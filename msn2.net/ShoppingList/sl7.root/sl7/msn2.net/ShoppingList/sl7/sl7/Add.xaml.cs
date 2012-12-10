@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using giesler.org.lists.svc1;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -21,25 +22,25 @@ namespace giesler.org.lists
             InitializeComponent();
         }
 
-        void svc_AddShoppingListItemCompleted(object sender, svc1.AddShoppingListItemCompletedEventArgs e)
-        {
-            svc1.ShoppingListServiceClient svc = (svc1.ShoppingListServiceClient)sender;
-            svc.CloseAsync();
-        }
-
         private void ok_Click(object sender, EventArgs e)
         {
-            string store = NavigationContext.QueryString["store"];
+            Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
 
-            svc1.ShoppingListServiceClient svc = new svc1.ShoppingListServiceClient();
-            svc.AddShoppingListItemCompleted += new EventHandler<svc1.AddShoppingListItemCompletedEventArgs>(svc_AddShoppingListItemCompleted);
-            svc.AddShoppingListItemAsync(store, this.text.Text.Trim());
+            ListDataServiceClient svc = new ListDataServiceClient();
+            svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
+            svc.AddListItemAsync(App.AuthDataList, listUniqueId, this.text.Text.Trim());
 
-            List<ShoppingListItem> items = App.Items;
-            items.Add(new svc1.ShoppingListItem { Id = -1, ListItem = this.text.Text.Trim(), Store = store });
-            App.Items = items.OrderBy(i => i.ListItem).ToList();
+            List<ListItemEx> items = App.Items;
+            items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
+            App.Items = items.OrderBy(i => i.Name).ToList();
 
-            NavigationService.Navigate(new Uri("/MainPage.xaml?s=" + store, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/MainPage.xaml?listUniqueId=" + listUniqueId.ToString(), UriKind.Relative));
+        }
+
+        void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
+        {
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            svc.CloseAsync();
         }
 
         private void cancel_Click(object sender, EventArgs e)

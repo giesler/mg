@@ -12,7 +12,7 @@
     <Grid x:Name="LayoutRoot">
         <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
             <CheckBox Name="itemCheck" Checked="itemCheck_Checked" Tag="{Binding}"  Unchecked="itemCheck_Unchecked"/>
-            <TextBlock Text="{Binding ListItem}" TextWrapping="Wrap" Margin="0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Margin="0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

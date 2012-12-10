@@ -10,19 +10,22 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Threading;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
     public partial class StoreItemList : UserControl
     {
+        public event DeleteListItemEventHandler DeleteListItem;
+
         public StoreItemList()
         {
             InitializeComponent();
         }
 
-        public void Load(IEnumerable<svc1.ShoppingListItem> items)
+        public void Load(IEnumerable<ListItemEx> items)
         {
-            foreach (svc1.ShoppingListItem item in items)
+            foreach (ListItemEx item in items)
             {
                 StoreItem display = new StoreItem { Item = item };
                 display.DataContext = item;
@@ -35,31 +38,13 @@ namespace giesler.org.lists
         {
             StoreItem item = (StoreItem)sender;
 
-            svc1.ShoppingListServiceClient svc = new svc1.ShoppingListServiceClient();
-            svc.DeleteShoppingListItemAsync(item.Item, item);
-            svc.DeleteShoppingListItemCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(svc_DeleteShoppingListItemCompleted);
-            // BUGBUG: should keep in list until complete
-
-            item.IsEnabled = false;
-        }
-
-        void svc_DeleteShoppingListItemCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            svc1.ShoppingListServiceClient svc = (svc1.ShoppingListServiceClient)sender;
-            StoreItem item = (StoreItem)e.UserState;
-
-            if (e.Error == null)
+            if (this.DeleteListItem != null)
             {
+                this.DeleteListItem(item.Item);
                 this.list.Items.Remove(item);
             }
-            else
-            {
-                item.IsEnabled = true;
-                MessageBox.Show(e.Error.Message, "Delete error", MessageBoxButton.OK);
-            }
-
-            svc.CloseAsync();
         }
-
     }
+
+    public delegate void DeleteListItemEventHandler(ListItem item);
 }

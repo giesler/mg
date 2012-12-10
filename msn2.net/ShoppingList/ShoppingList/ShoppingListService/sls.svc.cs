@@ -52,16 +52,19 @@ namespace msn2.net.ShoppingList
 
         public ShoppingListItem AddShoppingListItem(string storeName, string listItem)
         {
-            Store store = (from s in this.dataContext.Stores
-                          where s.Name == storeName
-                          select s).First<Store>();
+            List list = (from l in this.dataContext.Lists
+                         where l.Name == storeName && l.ListPersons.Any(p => p.PersonId == 1)
+                         select l).First();
 
-            StoreItem item = new StoreItem() { Name = listItem, Store = store };
+            ListItem item = new ListItem{ Name=listItem, ListId = list.Id, AddedByPersonId=1, UniqueId=Guid.NewGuid()};
+            item.AddedTime = DateTime.UtcNow;
+            item.ChangeDeviceId = 1;
+            item.ChangedTime = DateTime.UtcNow;
             
-            this.dataContext.StoreItems.InsertOnSubmit(item);
+            this.dataContext.ListItems.InsertOnSubmit(item);
             this.dataContext.SubmitChanges();
 
-            return new ShoppingListItem { Id = item.Id, ListItem = item.Name, Store = item.Store.Name };
+            return new ShoppingListItem { Id = item.Id, ListItem = item.Name, Store = item.List.Name };
         }
 
         public void UpdateShoppingListItem(ShoppingListItem listItem)
@@ -76,11 +79,11 @@ namespace msn2.net.ShoppingList
 
         public void DeleteShoppingListItem(ShoppingListItem listItem)
         {
-            StoreItem item = (from si in this.dataContext.StoreItems
-                              where si.Id == listItem.Id
-                              select si).First<StoreItem>();
+            ListItem item = (from li in this.dataContext.ListItems
+                             where li.Id == listItem.Id
+                             select li).First();
 
-            this.dataContext.StoreItems.DeleteOnSubmit(item);
+            this.dataContext.ListItems.DeleteOnSubmit(item);
             this.dataContext.SubmitChanges();
         }
     }

@@ -13,28 +13,16 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Collections.ObjectModel;
+using Microsoft.Live;
+using System.IO.IsolatedStorage;
+using System.Diagnostics;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
-
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
-
-                return viewModel;
-            }
-        }
+        private static IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -75,6 +63,19 @@ namespace giesler.org.lists
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            this.LoadSettings();
+        }
+
+        string GetSetting(string name)
+        {
+            string val = null;
+
+            if (settings.Contains(name) && settings[name] != null)
+            {
+                val = settings[name].ToString();
+            }
+
+            return val;
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -82,10 +83,6 @@ namespace giesler.org.lists
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -98,7 +95,6 @@ namespace giesler.org.lists
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            // Ensure that required application state is persisted here.
         }
 
         // Code to execute if a navigation fails
@@ -157,7 +153,78 @@ namespace giesler.org.lists
 
         #endregion
 
-        public static List<string> Stores { get; set; }
-        public static List<svc1.ShoppingListItem> Items { get; set; }
+        public static List<List> Lists { get; set; }
+        public static List<ListItemEx> Items { get; set; }
+        public static ListAuth.ClientAuthenticationData AuthData { get; set; }
+        public static string LiveIdUserId { get; set; }
+        public static string LiveIdAccessToken { get; set; }
+        public static string LiveIdRefreshToken { get; set; }
+        public static List<Contact> LiveContacts { get; set; }
+
+        public static ListData.ClientAuthenticationData AuthDataList
+        {
+            get
+            {
+                ListData.ClientAuthenticationData data = null;
+
+                if (AuthData != null)
+                {
+                    data = new ClientAuthenticationData { DeviceUniqueId = AuthData.DeviceUniqueId, PersonUniqueId = AuthData.PersonUniqueId };
+                }
+
+                return data;
+            }
+        }
+
+        public static void SetClientAuth(ListAuth.ClientAuthenticationData listAuth, AppAuthentication liveAuth)
+        {
+            SetAppSetting("Auth.PersonUniqueId", listAuth.PersonUniqueId.ToString());
+            SetAppSetting("Auth.DeviceUniqueId", listAuth.DeviceUniqueId.ToString());
+            SetAppSetting("LiveId.UserId", liveAuth.UserId);
+            SetAppSetting("LiveId.AccessToken", liveAuth.AccessToken);
+            SetAppSetting("LiveId.RefreshToken", liveAuth.RefreshToken);
+
+            AuthData = listAuth;
+
+            LiveIdUserId = liveAuth.UserId;
+            LiveIdAccessToken = liveAuth.AccessToken;
+            LiveIdRefreshToken = liveAuth.RefreshToken;
+
+            settings.Save();
+        }
+
+        void LoadSettings()
+        {
+            AuthData = new ListAuth.ClientAuthenticationData();
+            string temp = GetSetting("Auth.PersonUniqueId");
+            if (!string.IsNullOrEmpty(temp))
+            {
+                AuthData.PersonUniqueId = new Guid(temp);
+            }
+            temp = GetSetting("Auth.DeviceUniqueId");
+            if (!string.IsNullOrEmpty(temp))
+            {
+                AuthData.DeviceUniqueId = new Guid(temp);
+            }
+            LiveIdUserId = GetSetting("LiveId.UserId");
+            LiveIdAccessToken = GetSetting("LiveId.AccessToken");
+            LiveIdRefreshToken = GetSetting("LiveId.RefreshToken");
+
+            Debug.WriteLine(LiveIdUserId);
+            Debug.WriteLine(LiveIdAccessToken);
+            Debug.WriteLine(LiveIdRefreshToken);
+        }
+
+        static void SetAppSetting(string name, string value)
+        {
+            if (App.settings.Contains(name))
+            {
+                App.settings[name] = value;
+            }
+            else
+            {
+                App.settings.Add(name, value);
+            }
+        }
     }
 }

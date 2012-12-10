@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Threading;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -25,7 +26,7 @@ namespace giesler.org.lists
             InitializeComponent();
         }
         
-        public svc1.ShoppingListItem Item { get; set; }
+        public ListItem Item { get; set; }
 
         private void itemCheck_Checked(object sender, RoutedEventArgs e)
         {
@@ -49,7 +50,7 @@ namespace giesler.org.lists
 
             if (itemCheck.IsChecked.Value && checkTime.AddSeconds(5) < DateTime.Now)
             {
-                svc1.ShoppingListItem item = (svc1.ShoppingListItem)itemCheck.Tag;
+                ListItemEx item = (ListItemEx)itemCheck.Tag;
                 App.Items.Remove(item);
 
                 if (this.OnRemove != null)

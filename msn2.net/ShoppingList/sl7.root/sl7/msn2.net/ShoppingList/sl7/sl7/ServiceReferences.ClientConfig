@@ -6,12 +6,26 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
+                <binding name="silverlightBinding_IListAuthentication" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="silverlightBinding_IListDataService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
             </basicHttpBinding>
         </bindings>
         <client>
             <endpoint address="http://svc.msn2.net/sl/sls.svc" binding="basicHttpBinding"
                 bindingConfiguration="Binding1_IShoppingListService" contract="svc1.IShoppingListService"
                 name="Binding1_IShoppingListService" />
+            <endpoint address="http://svc.msn2.net/sl/la.svc" binding="basicHttpBinding"
+                bindingConfiguration="silverlightBinding_IListAuthentication"
+                contract="ListAuth.IListAuthentication" name="silverlightBinding_IListAuthentication" />
+            <endpoint address="http://svc.msn2.net/sl/lds.svc" binding="basicHttpBinding"
+                bindingConfiguration="silverlightBinding_IListDataService"
+                contract="ListData.IListDataService" name="silverlightBinding_IListDataService" />
         </client>
     </system.serviceModel>
 </configuration>

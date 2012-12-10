@@ -70,17 +70,37 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditStorePage.xaml.cs">
+      <DependentUpon>EditStorePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GetLiveIdPage.xaml.cs">
+      <DependentUpon>GetLiveIdPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Jump.xaml.cs">
       <DependentUpon>Jump.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListItemEx.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ListAuth\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ListData\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\svc1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="StoreItem.xaml.cs">
       <DependentUpon>StoreItem.xaml</DependentUpon>
@@ -88,8 +108,6 @@
     <Compile Include="StoreItemList.xaml.cs">
       <DependentUpon>StoreItemList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -97,6 +115,14 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Add.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditStorePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GetLiveIdPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,10 +134,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
-    </DesignData>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StoreItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +154,53 @@
     <Content Include="Images\appbar.cancel.rest.png" />
     <Content Include="Images\appbar.feature.settings.rest.png" />
     <Content Include="Images\appbar.next.rest.png" />
+    <None Include="Service References\ListAuth\giesler.org.lists.ListAuth.Person.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListAuth\giesler.org.lists.ListAuth.PersonDevice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListAuth\la.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListAuth\la1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListAuth\la2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListAuth\ListAuthentication.wsdl" />
+    <None Include="Service References\ListData\giesler.org.lists.ListData.AddListItemReturnValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.AddListReturnValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.DeleteListItemReturnData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.GetAllListItemsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.GetListsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.UpdateListItemReturnData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.UpdateListReturnValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ListData\lds.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\lds1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\lds2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\ListDataService.wsdl" />
     <None Include="Service References\svc1\giesler.org.lists.svc1.ShoppingListItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -135,6 +208,21 @@
     <None Include="Service References\svc1\configuration91.svcinfo" />
     <None Include="Service References\svc1\configuration.svcinfo" />
     <None Include="Service References\svc1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Images\appbar.refresh.rest.png" />
+    <None Include="Service References\ListAuth\la.disco" />
+    <None Include="Service References\ListAuth\configuration91.svcinfo" />
+    <None Include="Service References\ListAuth\configuration.svcinfo" />
+    <None Include="Service References\ListAuth\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ListData\lds.disco" />
+    <None Include="Service References\ListData\configuration91.svcinfo" />
+    <None Include="Service References\ListData\configuration.svcinfo" />
+    <None Include="Service References\ListData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -166,8 +254,21 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ListAuth\" />
+    <WCFMetadataStorage Include="Service References\ListData\" />
     <WCFMetadataStorage Include="Service References\svc1\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Externals\Microsoft.Live\Microsoft.Live.csproj">
+      <Project>{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}</Project>
+      <Name>Microsoft.Live</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj">
+      <Project>{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}</Project>
+      <Name>System.Data.Services.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ListAuthentication" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://svc.msn2.net/sl/la.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://svc.msn2.net/sl/la.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://svc.msn2.net/sl/la.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IListAuthentication_GetPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPerson" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_GetPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_UpdatePerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePerson" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_UpdatePerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_AddDevice_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDevice" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_AddDevice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDeviceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_RemoveDevice_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDevice" />
+  </wsdl:message>
+  <wsdl:message name="IListAuthentication_RemoveDevice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDeviceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IListAuthentication">
+    <wsdl:operation name="GetPerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IListAuthentication/GetPerson" message="tns:IListAuthentication_GetPerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IListAuthentication/GetPersonResponse" message="tns:IListAuthentication_GetPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IListAuthentication/UpdatePerson" message="tns:IListAuthentication_UpdatePerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IListAuthentication/UpdatePersonResponse" message="tns:IListAuthentication_UpdatePerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDevice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IListAuthentication/AddDevice" message="tns:IListAuthentication_AddDevice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IListAuthentication/AddDeviceResponse" message="tns:IListAuthentication_AddDevice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDevice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IListAuthentication/RemoveDevice" message="tns:IListAuthentication_RemoveDevice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IListAuthentication/RemoveDeviceResponse" message="tns:IListAuthentication_RemoveDevice_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="silverlightBinding_IListAuthentication" type="tns:IListAuthentication">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPerson">
+      <soap:operation soapAction="http://tempuri.org/IListAuthentication/GetPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePerson">
+      <soap:operation soapAction="http://tempuri.org/IListAuthentication/UpdatePerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDevice">
+      <soap:operation soapAction="http://tempuri.org/IListAuthentication/AddDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDevice">
+      <soap:operation soapAction="http://tempuri.org/IListAuthentication/RemoveDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ListAuthentication">
+    <wsdl:port name="silverlightBinding_IListAuthentication" binding="tns:silverlightBinding_IListAuthentication">
+      <soap:address location="http://svc.msn2.net/sl/la.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
