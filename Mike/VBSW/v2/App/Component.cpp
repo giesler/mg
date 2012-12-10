@@ -411,11 +411,13 @@ bool CComponent::RunRegKeyCheck()
 
 	hResult = RegOpenKeyEx(hKey, strSubKey, NULL, KEY_QUERY_VALUE, &hKey);
 	if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed
+		gLog.LogEvent(mstrId + ": Reg Key not found");
 		hResult = RegCloseKey(hKey); 
 		return false;
 	} else {
 		hResult = RegQueryValueEx(hKey, strValueName, NULL, NULL, (LPBYTE)&chData, &lDataLen);
 		if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed
+			gLog.LogEvent(mstrId + ": Reg key not found");
 			hResult = RegCloseKey(hKey); 
 			return false;
 		}
@@ -425,10 +427,13 @@ bool CComponent::RunRegKeyCheck()
 	// now check actual value
 	strTemp.Insert(0, chData);
 
-	if (mstrRegKeyCheckValue.CompareNoCase(strTemp) > 0)
+	if (mstrRegKeyCheckValue.CompareNoCase(strTemp) > 0) {
+		gLog.LogEvent(mstrId + ": Reg key is less than required value (" + strTemp + ")");
 		return false;
+	}
 
 	// it is installed...
+	gLog.LogEvent(mstrId + ": Reg key match (" + strTemp + ")");
 	return true;
 
 }
