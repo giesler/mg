@@ -216,6 +216,7 @@ namespace msn2.net.ProjectF
 				if (item.ShellForm == e.ShellForm)
 				{
 					panelFormList.Controls.Remove(item);
+					panelFormList.Refresh();
 					return;
 				}
 			}
@@ -350,7 +351,7 @@ namespace msn2.net.ProjectF
 			ConfigurationSettings.Current.Login(null, storageUrl);
 
 			//			login l = new login();
-			//			if (l.showdialog(this) == dialogresult.cancel)
+			//			if (l.ShowShellDialog(this) == dialogresult.cancel)
 			//			{
 			//				this.dialogresult = dialogresult.cancel;
 			//				this.close();

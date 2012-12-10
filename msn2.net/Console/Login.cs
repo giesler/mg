@@ -196,7 +196,7 @@ namespace msn2.net.ProjectF
             InputPrompt prompt = new InputPrompt("Enter a user name");
 			prompt.Dialog = true;
 
-			while (prompt.ShowDialog(this) != DialogResult.Cancel)
+			while (prompt.ShowShellDialog(this) != DialogResult.Cancel)
 			{
 				bool inUse = false;
 
@@ -279,7 +279,7 @@ namespace msn2.net.ProjectF
 			InputPrompt prompt = new InputPrompt("Enter a config name");
 			prompt.Dialog = true;
 
-			while (prompt.ShowDialog(this) != DialogResult.Cancel)
+			while (prompt.ShowShellDialog(this) != DialogResult.Cancel)
 			{
 				bool inUse = false;
 

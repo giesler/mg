@@ -124,6 +124,8 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		#region Default location
+
 		public new Point DefaultLocation
 		{
 			get 
@@ -134,6 +136,8 @@ namespace msn2.net.Controls
 				return p;
 			}
 		}
+
+		#endregion
 
 		#region Disposal
 
@@ -296,8 +300,9 @@ namespace msn2.net.Controls
 
 	#region FavoriteConfigData
 
-	public class FavoriteConfigData: ConfigData
+	public class FavoriteConfigData: msn2.net.Configuration.ConfigData
 	{
+
 		public override int IconIndex
 		{
 			get { return 1; }
@@ -305,10 +310,39 @@ namespace msn2.net.Controls
 
 		public FavoriteConfigData()
 		{
+		}
+
+		#region Add
+
+		public static new Data Add(object sender, ConfigDataAddEventArgs e)
+		{
+			FavoriteEdit f = new FavoriteEdit();
+
+			if (f.ShowShellDialog(e.Owner) == DialogResult.Cancel)
+				return null;
+
+			FavoriteConfigData favConfigData = new FavoriteConfigData();
+			return e.Parent.Get(f.Title, f.Url, favConfigData, typeof(FavoriteConfigData));
+		}
+
+		#endregion
+
+		#region Edit
+
+		public static void Edit(object sender, ConfigDataAddEventArgs e)
+		{
+			FavoriteEdit fv = new FavoriteEdit(e.Parent);
+
+			if (fv.ShowShellDialog(e.Owner) == DialogResult.Cancel)
+			{
+				e.Cancel = true;
+				return;
+			}
+			return; // e.Parent;
 
 		}
 
-		
+		#endregion
 	}
 
 	#endregion

@@ -161,6 +161,7 @@ namespace msn2.net.Controls
 			this.labelMessage.Name = "labelMessage";
 			this.labelMessage.Size = new System.Drawing.Size(288, 32);
 			this.labelMessage.TabIndex = 6;
+			this.labelMessage.Visible = false;
 			// 
 			// Status
 			// 
@@ -210,6 +211,8 @@ namespace msn2.net.Controls
 		private void Status_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+
+			e.Graphics.DrawString(this.labelMessage.Text, this.labelMessage.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelMessage.Location, labelMessage.Size));
 		}
 
 		#endregion

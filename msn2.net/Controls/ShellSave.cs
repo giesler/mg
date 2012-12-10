@@ -18,7 +18,7 @@ namespace msn2.net.Controls
 		private msn2.net.Controls.ShellButton buttonOK;
 		private msn2.net.Controls.ShellButton buttonCancel;
 		private System.ComponentModel.Container components = null;
-		private msn2.net.Common.ConfigData configData = null;
+		private msn2.net.Configuration.ConfigData configData = null;
 
 		#endregion
 
@@ -30,7 +30,7 @@ namespace msn2.net.Controls
 			categoryTreeView.RootData = ConfigurationSettings.Current.Data.Get("Favorites").Get("msn2.net");
 		}
 
-		public ShellSave(msn2.net.Common.ConfigData configData)
+		public ShellSave(msn2.net.Configuration.ConfigData configData)
 		{
 			InternalConstructor();
 			this.configData	= configData;

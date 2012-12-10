@@ -205,7 +205,7 @@ namespace msn2.net.Controls
 			InputPrompt prompt = new InputPrompt("Enter the new category name:");
 			prompt.Dialog = true;
 
-			if (prompt.ShowDialog(this.parentShellForm) == DialogResult.Cancel)
+			if (prompt.ShowShellDialog(this.parentShellForm) == DialogResult.Cancel)
 				return;
 
 			Guid newCategoryId = Guid.Empty;
@@ -341,7 +341,7 @@ namespace msn2.net.Controls
 	/// <summary>
 	/// Type specifier for category items in Config
 	/// </summary>
-	public class CategoryConfigData: ConfigData
+	public class CategoryConfigData: msn2.net.Configuration.ConfigData
 	{
 		private CategoryType categoryType = CategoryType.PersonalCategory;
 
@@ -378,4 +378,5 @@ namespace msn2.net.Controls
 
 	#endregion
 
+	// TODO: Make extensible - each category has it's own expand functions to populate date
 }

@@ -291,7 +291,7 @@ namespace msn2.net.Controls
 				ShellSave shellSave	= new ShellSave();
 				shellSave.Visible = false;
 				
-				if (shellSave.ShowDialog(this) == DialogResult.OK)
+				if (shellSave.ShowShellDialog(this) == DialogResult.OK)
 				{
 					shellSave.Data.Get(page.Title, browser.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
 				}

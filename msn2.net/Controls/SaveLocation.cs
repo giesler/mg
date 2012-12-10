@@ -98,7 +98,7 @@ namespace msn2.net.Controls
 		{
             CategoryBrowser browser = new CategoryBrowser(ConfigurationSettings.Current.Data.Get("Favorites.Category"));
 			
-			if (browser.ShowDialog(this) == DialogResult.OK)
+			if (browser.ShowShellDialog(this) == DialogResult.OK)
 			{
 				ListViewItem item = listViewLocation.Items.Add(browser.SelectedCategory.Text);
 				item.Tag = browser.SelectedCategory;

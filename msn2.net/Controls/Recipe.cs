@@ -288,7 +288,7 @@ namespace msn2.net.Controls
 		{
 			InputPrompt p = new InputPrompt("Name the new recipe:");
 
-			if (p.ShowDialog(owner) == DialogResult.Cancel)
+			if (p.ShowShellDialog(owner) == DialogResult.Cancel)
 				return null;
 
 			RecipeConfigData recipeConfigData = new RecipeConfigData();
@@ -301,7 +301,7 @@ namespace msn2.net.Controls
 
 	#region RecipeConfigData
 
-	public class RecipeConfigData: msn2.net.Common.ConfigData
+	public class RecipeConfigData: msn2.net.Configuration.ConfigData
 	{
 		private string note;
 		private string url;

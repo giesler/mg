@@ -15,8 +15,8 @@ namespace msn2.net.Controls
 	{
 		#region Declares
 
-		private System.Windows.Forms.Button buttonOK;
-		private System.Windows.Forms.Button buttonCancel;
+		private msn2.net.Controls.ShellButton buttonOK;
+		private msn2.net.Controls.ShellButton buttonCancel;
 		private System.Windows.Forms.Panel panelTreeView;
 		private System.ComponentModel.Container components = null;
 		private CategoryTreeView categoryTreeView = null;
@@ -73,9 +73,11 @@ namespace msn2.net.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.buttonOK = new System.Windows.Forms.Button();
-			this.buttonCancel = new System.Windows.Forms.Button();
+			this.buttonOK = new msn2.net.Controls.ShellButton();
+			this.buttonCancel = new msn2.net.Controls.ShellButton();
 			this.panelTreeView = new System.Windows.Forms.Panel();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonOK
@@ -85,6 +87,7 @@ namespace msn2.net.Controls
 			this.buttonOK.Location = new System.Drawing.Point(128, 248);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(72, 24);
+			this.buttonOK.StartColor = System.Drawing.Color.LightGray;
 			this.buttonOK.TabIndex = 1;
 			this.buttonOK.Text = "&OK";
 			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -97,6 +100,7 @@ namespace msn2.net.Controls
 			this.buttonCancel.Location = new System.Drawing.Point(208, 248);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(72, 24);
+			this.buttonCancel.StartColor = System.Drawing.Color.LightGray;
 			this.buttonCancel.TabIndex = 2;
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -123,6 +127,10 @@ namespace msn2.net.Controls
 																		  this.buttonOK});
 			this.Name = "CategoryBrowser";
 			this.Text = "CategoryBrowser";
+			this.TitleVisible = true;
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.CategoryBrowser_Paint);
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -138,6 +146,15 @@ namespace msn2.net.Controls
 		private void buttonOK_Click(object sender, System.EventArgs e)
 		{
 			this.DialogResult = DialogResult.OK;
+		}
+
+		#endregion
+
+		#region Paint
+
+		private void CategoryBrowser_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 
 		#endregion

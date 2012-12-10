@@ -35,7 +35,7 @@ namespace msn2.net.Configuration
 		private Guid			id;
 		private string			name;
 		private Guid			parentId;
-		private msn2.net.Common.ConfigData		configData;
+		private msn2.net.Configuration.ConfigData		configData;
 		private string			url;
 		
 		private Guid			configId;
@@ -89,7 +89,7 @@ namespace msn2.net.Configuration
 				// Get the data too
 				if (!row.IsItemDataNull() && row.ItemData.Length > 0)
 				{
-					this.configData = (msn2.net.Common.ConfigData) msn2.net.Common.Utilities.DeserializeObject(row.ItemData, this.dataType);
+					this.configData = (msn2.net.Configuration.ConfigData) msn2.net.Common.Utilities.DeserializeObject(row.ItemData, this.dataType);
 				}
 			}
 
@@ -144,7 +144,7 @@ namespace msn2.net.Configuration
 			set { dataType = value; }
 		}
 
-		public msn2.net.Common.ConfigData ConfigData
+		public msn2.net.Configuration.ConfigData ConfigData
 		{
 			get { return configData; }
 			set { configData = value; }
@@ -339,17 +339,17 @@ namespace msn2.net.Configuration
 			return Get(name, null, null, type, configTreeLocation);
 		}
 
-		public Data Get(string name, msn2.net.Common.ConfigData data, ConfigTreeLocation configTreeLocation)
+		public Data Get(string name, msn2.net.Configuration.ConfigData data, ConfigTreeLocation configTreeLocation)
 		{
 			return Get(name, null, data, null, configTreeLocation);
 		}
 
-		public Data Get(string name, msn2.net.Common.ConfigData data, Type type)
+		public Data Get(string name, msn2.net.Configuration.ConfigData data, Type type)
 		{
 			return Get(name, null, data, type);
 		}
 
-		public Data Get(string name, msn2.net.Common.ConfigData data, Type type, ConfigTreeLocation configTreeLocation)
+		public Data Get(string name, msn2.net.Configuration.ConfigData data, Type type, ConfigTreeLocation configTreeLocation)
 		{
 			return Get(name, null, data, type, configTreeLocation);
 		}
@@ -374,18 +374,18 @@ namespace msn2.net.Configuration
 			return Get(name, url, null, type, configTreeLocation);
 		}
 
-		public Data Get(string name, string url, msn2.net.Common.ConfigData data)
+		public Data Get(string name, string url, msn2.net.Configuration.ConfigData data)
 		{
 			return Get(name, url, data, data.GetType());
 		}
 
-		public Data Get(string name, string url, msn2.net.Common.ConfigData data, ConfigTreeLocation configTreeLocation)
+		public Data Get(string name, string url, msn2.net.Configuration.ConfigData data, ConfigTreeLocation configTreeLocation)
 		{
 			return Get(name, url, data, data.GetType(), configTreeLocation);
 		}
 	
 
-		public Data Get(string name, string url, msn2.net.Common.ConfigData data, Type type)
+		public Data Get(string name, string url, msn2.net.Configuration.ConfigData data, Type type)
 		{
 			return Get(name, url, data, type, ConfigTreeLocation.UserConfigTree);
 		}
@@ -399,7 +399,7 @@ namespace msn2.net.Configuration
 		/// <param name="parentId">Guid of the parent category</param>
 		/// <param name="userId">Guid for current user</param>
 		/// <returns>New cateogry Guid</returns>
-		public Data Get(string name, string url, msn2.net.Common.ConfigData data, Type type, ConfigTreeLocation configTreeLocation)
+		public Data Get(string name, string url, msn2.net.Configuration.ConfigData data, Type type, ConfigTreeLocation configTreeLocation)
 		{
 			string itemType = null;
 			if (type != null)

@@ -130,26 +130,11 @@ namespace msn2.net.Controls
 			}
 		}
 
-		#region Add
-
-		public static Data Add(System.Windows.Forms.IWin32Window owner, Data parent)
-		{
-			InputPrompt p = new InputPrompt("Name the new note:");
-
-			if (p.ShowDialog(owner) == DialogResult.Cancel)
-				return null;
-
-			NoteConfigData noteConfigData = new NoteConfigData("");
-			return parent.Get(p.Value, noteConfigData, typeof(NoteConfigData));
-		}
-
-		#endregion
-
 	}
 
 	#region NoteConfigData
 
-	public class NoteConfigData: msn2.net.Common.ConfigData
+	public class NoteConfigData: msn2.net.Configuration.ConfigData
 	{
 		private string note;
 
@@ -171,6 +156,33 @@ namespace msn2.net.Controls
 		{
 			get { return 2; }
 		}
+
+		#region Add
+
+		public static new Data Add(object sender, ConfigDataAddEventArgs e)
+		{
+			InputPrompt p = new InputPrompt("Name the new note:");
+
+			if (p.ShowShellDialog(e.Owner) == DialogResult.Cancel)
+				return null;
+
+			NoteConfigData noteConfigData = new NoteConfigData("");
+			return e.Parent.Get(p.Value, noteConfigData, typeof(NoteConfigData));
+		}
+
+		#endregion
+
+		#region Edit
+
+		public static void Edit(object sender, ConfigDataAddEventArgs e)
+		{
+			Notes note = new Notes(e.Parent);
+			note.Show();
+
+			return; // e.Parent;
+		}
+
+		#endregion
 
 	}
 

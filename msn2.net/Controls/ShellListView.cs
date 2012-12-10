@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using msn2.net.Configuration;
+using msn2.net.Common;
+using System.Reflection;
 
 namespace msn2.net.Controls
 {
@@ -27,6 +29,7 @@ namespace msn2.net.Controls
 		private ShellForm parentForm = null;
 		private Data data = null;
 		private ContextMenu contextMenu = null;
+		private Type[] types = null;
 
 		#endregion
 
@@ -48,6 +51,12 @@ namespace msn2.net.Controls
 		private void InternalConstructor()
 		{
 			InitializeComponent();
+
+			Type[] def  = new Type[3];
+			def[0]		= typeof(FavoriteConfigData);
+			def[1]		= typeof(NoteConfigData);
+			def[2]		= typeof(RecipeConfigData);
+			this.types	= def;
 
 			// Set up context menu
 			contextMenu = new ContextMenu();
@@ -168,6 +177,18 @@ namespace msn2.net.Controls
 
 		#region Properties
 
+		public Type[] Types
+		{
+			get 
+			{
+				return types;
+			}
+			set
+			{
+				types = value;
+			}
+		}
+
 		public Data Data 
 		{
 			get 
@@ -180,13 +201,6 @@ namespace msn2.net.Controls
 
 				if (data != null)
 				{
-					Type[] types = new Type[3];
-					types[0]	= typeof(FavoriteConfigData);
-					types[1]	= typeof(NoteConfigData);
-					types[2]	= typeof(RecipeConfigData);
-//					types[3]	= typeof(msn2.net.Configuration.MessengerContactData);
-//					types[4]	= typeof(msn2.net.Configuration.MessengerGroupData);
-
 					DataCollection col = data.GetChildren(types);
 
 					listViewFavorites.Items.Clear();
@@ -218,29 +232,63 @@ namespace msn2.net.Controls
 
 		private void ContextMenu_Popup(object sender, System.EventArgs e)
 		{
+			
 			// Populate the context menu with this type's menu
 			if (listViewFavorites.SelectedItems.Count == 0)
 			{
-				contextMenu.MenuItems.Clear();
-				return;
 			}
 
-			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
+			contextMenu.MenuItems.Clear();
 
-			//item.Data.ConfigData.IconIndex
+			DataListViewItem item = null;
+			if (listViewFavorites.SelectedItems.Count != 0)
+			{
+				item = (DataListViewItem) listViewFavorites.SelectedItems[0];
+			}
+
+			// Build add list
+			MenuItem addMenu = contextMenu.MenuItems.Add("Add");
+			foreach (Type t in types)
+			{
+				MenuItem menuItem = new MenuItem(t.ToString(), new EventHandler(menuItemAdd_Click));
+				addMenu.MenuItems.Add(menuItem);
+			}
+
+			if (item != null)
+			{
+				// Build edit list
+				MenuItem editMenu = contextMenu.MenuItems.Add("Edit", new EventHandler(menuItemEdit_Click));
+
+				// Delete
+				MenuItem deleteMenu = contextMenu.MenuItems.Add("Delete", new EventHandler(menuItemDelete_Click));
+			}
+
 		}
 
 		private void menuItemAdd_Click(object sender, System.EventArgs e)
 		{
-			FavoriteEdit f = new FavoriteEdit(parentForm);
-			f.Dialog = true;
+            MenuItem item = (MenuItem) sender;
+			
+			// Get the type of item clicked
+			foreach (Type t in types)
+			{
+				if (item.Text == t.ToString())
+				{
+					MethodInfo mi = t.GetMethod("Add");
+					object[] methodParams = new object[2];
+					methodParams [0] = this;
+					methodParams [1] = new ConfigDataAddEventArgs(this.parentForm, this.Data);
+					object retVal = mi.Invoke(new object(), methodParams );
 
-			if (f.ShowDialog(this) == DialogResult.Cancel)
-				return;
-
-			Data newData = data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
-			DataListViewItem item = new DataListViewItem(newData);
-			listViewFavorites.Items.Add(item);
+					// Update form if user didn't cancel
+					if (retVal != null)
+					{
+						Data newData = (Data) retVal;
+						DataListViewItem listViewItem = new DataListViewItem(newData);
+						listViewFavorites.Items.Add(listViewItem);
+					}
+				}
+			}
 		
 		}
 
@@ -251,29 +299,31 @@ namespace msn2.net.Controls
 
 			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
 
+			// Find out if type contains an 'Edit' method
+			Type t = item.Data.ConfigData.GetType();
+			MethodInfo methodInfo = t.GetMethod("Edit");
+			if (methodInfo != null)
+			{
+				object[] methodParams = new object[2];
+				methodParams [0] = this;
+				methodParams [1] = new ConfigDataAddEventArgs(this.parentForm, item.Data);
+				Object retVal = methodInfo.Invoke(new object(), methodParams );
+
+				// BUGBUG: Check retVal or event args for cancel
+			}
+
 			if (item.Data.DataType == typeof(FavoriteConfigData))
 			{
-				FavoriteEdit fv = new FavoriteEdit(parentForm);
-				fv.Title	= item.Data.Text;
-				fv.Url		= item.Data.Url;
-
-				if (fv.ShowDialog(parentForm) == DialogResult.Cancel)
-					return;
-
-				item.Data.Text		= fv.Title;
-				item.Data.Url		= fv.Url;
-
-				item.Data.Save();
 			}
 			else if (item.Data.DataType == typeof(NoteConfigData))
 			{
-				Notes note = new Notes(item.Data);
-				note.Show();
+//				Notes note = new Notes(item.Data);
+//				note.Show();
 			}
 			else if (item.Data.DataType == typeof(RecipeConfigData))
 			{
-				Recipe recipe = new Recipe(item.Data);
-				recipe.Show();
+//				Recipe recipe = new Recipe(item.Data);
+//				recipe.Show();
 			}		
 		}
 
@@ -314,30 +364,6 @@ namespace msn2.net.Controls
 			}
 		}
 
-		public void menuItemAdd_Note_Click(object sender, System.EventArgs e)
-		{
-			// Attempt to create new item
-			Data newData = Notes.Add(parentForm, data);
-			if (newData != null)
-			{
-				// Add to listview
-				DataListViewItem item = new DataListViewItem(newData);
-				listViewFavorites.Items.Add(item);			
-			}
-		}
-
-		private void menuItemAdd_Recipe_Click(object sender, System.EventArgs e)
-		{
-			// Attempt to create new item
-			Data newData = Recipe.Add(parentForm, data);
-			if (newData != null)
-			{
-				// Add to listview
-				DataListViewItem item = new DataListViewItem(newData);
-				listViewFavorites.Items.Add(item);			
-			}
-		}
-
 		#endregion
 
 		#region Drag and Drop URLs
@@ -354,10 +380,11 @@ namespace msn2.net.Controls
 		{
 			if (e.Data.GetDataPresent(DataFormats.Text))
 			{
-				FavoriteEdit f = new FavoriteEdit(parentForm);
+				FavoriteEdit f = new FavoriteEdit();
+				f.Dialog = true;
 				f.Url = e.Data.GetData(DataFormats.Text).ToString();
 
-				if (f.ShowDialog(this) == DialogResult.Cancel)
+				if (f.ShowShellDialog(this.parentForm) == DialogResult.Cancel)
 					return;
 
 				Data newData = data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
@@ -372,8 +399,8 @@ namespace msn2.net.Controls
 
 			// Add each item we want to display
 			this.menuItemAdd.MenuItems.Add("Favorite", new EventHandler(menuItemAdd_Click));
-			this.menuItemAdd.MenuItems.Add("Note", new EventHandler(menuItemAdd_Note_Click));
-			this.menuItemAdd.MenuItems.Add("Recipe", new EventHandler(menuItemAdd_Recipe_Click));
+			//this.menuItemAdd.MenuItems.Add("Note", new EventHandler(menuItemAdd_Note_Click));
+			//this.menuItemAdd.MenuItems.Add("Recipe", new EventHandler(menuItemAdd_Recipe_Click));
 		}
 
 		#endregion

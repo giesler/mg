@@ -197,7 +197,7 @@ namespace msn2.net.Controls
 
 	#region SearchConfigData
 
-	public class SearchConfigData: msn2.net.Common.ConfigData
+	public class SearchConfigData: msn2.net.Configuration.ConfigData
 	{
 		private string searchString;
 

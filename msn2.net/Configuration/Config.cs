@@ -31,6 +31,8 @@ namespace msn2.net.Configuration
 
 	#endregion
 
+	#region CONFIG CLASS
+
 	/// <summary>
 	/// Central configuration
 	/// </summary>
@@ -87,7 +89,7 @@ namespace msn2.net.Configuration
 
 		#region ConnectionString
 
-		private string xmlConnectionString = @"User ID=projectflogin;Password=asd*%p\@ex(!;Persist Security Info=False;Initial Catalog=projectf;Data Source=barbrady;Provider=SQLOLEDB";
+		//private string xmlConnectionString = @"User ID=projectflogin;Password=asd*%p\@ex(!;Persist Security Info=False;Initial Catalog=projectf;Data Source=barbrady;Provider=SQLOLEDB";
 		private string connectionString = @"User ID=projectflogin;Password=asd*%p\@ex(!;Persist Security Info=False;Initial Catalog=projectf;Data Source=barbrady";
 
 		/// <summary>
@@ -181,12 +183,222 @@ namespace msn2.net.Configuration
 
 	}
 
+	#endregion
+
+	#region CONFIGDATA class
+
+	/// <summary>
+	/// Base class for data stored in config system
+	/// </summary>
+	public class ConfigData
+	{
+
+		#region Declares
+
+		private Guid itemKey = Guid.Empty;
+		protected string typeName = "ConfigData";
+		private ShellActionList shellActionList = new ShellActionList();
+		
+		#endregion
+
+		#region Properties
+
+		public virtual int IconIndex
+		{
+			get { return 0; }
+		}
+
+		public Guid ItemKey
+		{
+			get { return itemKey; }
+			set { itemKey = value; }
+		}
+
+		public string TypeName
+		{
+			get { return typeName; }
+		}
+
+		#endregion
+
+		/// <summary>
+		/// List of actions associated with class
+		/// </summary>
+		[System.Xml.Serialization.XmlIgnore]
+		public ShellActionList ShellActionList
+		{
+			get
+			{
+				return shellActionList;
+			}
+		}
+
+		protected void AddShellAction(ShellAction action)
+		{
+			shellActionList.Add(action);
+		}
+
+		public static void Add(object sender, ConfigDataAddEventArgs e)
+		{
+		}
+
+	}
+
+	public class ConfigDataAddEventArgs: EventArgs
+	{
+		#region Declares
+
+		private System.Windows.Forms.IWin32Window owner;
+		private Data parent;
+		private bool cancel;
+
+		#endregion
+
+		#region Constructor
+
+		public ConfigDataAddEventArgs(System.Windows.Forms.IWin32Window owner, Data parent)
+		{
+			this.owner		= owner;
+			this.parent		= parent;
+		}
+
+		#endregion
+
+		#region Properties
+
+		public System.Windows.Forms.IWin32Window Owner
+		{
+			get 
+			{ 
+				return owner;
+			}
+		}
+
+		public Data Parent
+		{
+			get
+			{
+				return parent;
+			}
+		}
+
+		public bool Cancel
+		{
+			get
+			{
+				return cancel;
+			}
+			set
+			{
+				cancel = value;
+			}
+		}
+
+		#endregion
+	}
+
+	public class ShellAction
+	{
+		private string name;
+		private string description;
+		private string help;
+		private EventHandler eventHandler;
+
+		public ShellAction(string name, string description, string help, EventHandler eventHandler)
+		{
+			this.name			= name;
+			this.description	= description;
+			this.help			= help;
+			if (eventHandler != null)
+			{
+				this.eventHandler	+= eventHandler;
+			}
+		}
+
+		#region Properties
+
+		public string Name
+		{
+			get 
+			{
+				return name;
+			}
+			set
+			{
+				name = value;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return description;
+			}
+			set
+			{
+				description = value;
+			}
+		}
+
+		public string Help
+		{
+			get
+			{
+				return help;
+			}
+			set
+			{
+				help = value;
+			}
+		}
+
+		public EventHandler EventHandler
+		{
+			get
+			{
+				return eventHandler;
+			}
+		}
+
+		#endregion
+
+	}
+
+	public class ShellActionList: System.Collections.ReadOnlyCollectionBase
+	{
+		// TODO: Change to use hash table
+		public ShellAction this[string name]
+		{
+			get
+			{
+				foreach (ShellAction action in InnerList)
+				{
+					if (action.Name == name)
+					{
+						return action;
+					}
+				}
+
+				return null; 
+			}
+		}
+
+		internal void Add(ShellAction action)
+		{
+			InnerList.Add(action);
+		}
+	}
+
+
+	#endregion
+
 	#region MessengerGroupData
 
 	/// <summary>
 	/// Type specifier for category items in Config
 	/// </summary>
-	public class MessengerGroupData: msn2.net.Common.ConfigData
+	public class MessengerGroupData: msn2.net.Configuration.ConfigData
 	{
 		public MessengerGroupData()
 		{}
@@ -199,7 +411,7 @@ namespace msn2.net.Configuration
 	/// <summary>
 	/// Type specifier for category items in Config
 	/// </summary>
-	public class MessengerContactData: msn2.net.Common.ConfigData
+	public class MessengerContactData: msn2.net.Configuration.ConfigData
 	{
 		public MessengerContactData()
 		{}

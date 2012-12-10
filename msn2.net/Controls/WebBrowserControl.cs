@@ -164,7 +164,6 @@ namespace msn2.net.Controls
 			// panelStatus
 			// 
 			this.panelStatus.BackColor = System.Drawing.Color.DimGray;
-			this.panelStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panelStatus.Controls.AddRange(new System.Windows.Forms.Control[] {
 																					  this.labelStatus});
 			this.panelStatus.Location = new System.Drawing.Point(72, 120);
@@ -182,6 +181,7 @@ namespace msn2.net.Controls
 			this.labelStatus.Size = new System.Drawing.Size(128, 23);
 			this.labelStatus.TabIndex = 0;
 			this.labelStatus.Text = "loading...";
+			this.labelStatus.Visible = false;
 			// 
 			// timerShowStatus
 			// 
@@ -547,7 +547,7 @@ namespace msn2.net.Controls
 			// Save to location
 			ShellSave shellSave	= new ShellSave();
 			
-			if (shellSave.ShowDialog(this.ParentForm) == DialogResult.OK)
+			if (shellSave.ShowShellDialog(this.ParentForm) == DialogResult.OK)
 			{
 				shellSave.Data.Get(newTitle, newUrl, new FavoriteConfigData(), typeof(FavoriteConfigData));
 			}
@@ -590,6 +590,8 @@ namespace msn2.net.Controls
 		private void panelStatus_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.DimGray);
+
+			e.Graphics.DrawString(this.labelStatus.Text, this.labelStatus.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelStatus.Location, labelStatus.Size));
 		}
 
 	}

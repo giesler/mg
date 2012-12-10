@@ -179,8 +179,6 @@ namespace msn2.net.Controls
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ShellForm));
-
-			
 			this.panelTitle = new System.Windows.Forms.Panel();
 			this.panelTitleText = new System.Windows.Forms.Panel();
 			this.pictureBoxFormIcon = new System.Windows.Forms.PictureBox();
@@ -406,8 +404,11 @@ namespace msn2.net.Controls
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.ShellForm_Closing);
 			this.Load += new System.EventHandler(this.ShellForm_Load);
 			this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ShellForm_Layout);
+			this.MouseHover += new System.EventHandler(this.ShellForm_MouseHover);
 			this.Activated += new System.EventHandler(this.ShellForm_Activated);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShellForm_Paint);
+			this.MouseEnter += new System.EventHandler(this.ShellForm_MouseEnter);
+			this.MouseLeave += new System.EventHandler(this.ShellForm_MouseLeave);
 			this.Deactivate += new System.EventHandler(this.ShellForm_Deactivate);
 			this.panelTitle.ResumeLayout(false);
 			this.panelTitleText.ResumeLayout(false);
@@ -497,6 +498,10 @@ namespace msn2.net.Controls
 			set
 			{
 				this.dialog = value;
+				if (value)
+				{
+					ShellForm.RemoveInstance(this);
+				}
 			}
 		}
         
@@ -1478,6 +1483,49 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		public DialogResult ShowShellDialog(System.Windows.Forms.IWin32Window owner)
+		{
+			ShellForm parentForm = (ShellForm) owner;
+			bool opacitySetting = false;
+			this.Dialog = true;
+
+			if (parentForm != null)
+			{
+				opacitySetting = parentForm.enableOpacityChanges;
+
+				if (opacitySetting)
+				{
+					parentForm.enableOpacityChanges = false;
+				}
+			}
+
+			DialogResult result = base.ShowDialog(owner);
+
+			if (parentForm != null && opacitySetting)
+			{
+				parentForm.enableOpacityChanges = true;
+			}
+
+			return result;
+		}
+
+		private void ShellForm_MouseHover(object sender, System.EventArgs e)
+		{
+// TODO:			if (this.Opacity != 1.0)
+//			{
+//				this.Activate();
+//			}
+		}
+
+		private void ShellForm_MouseEnter(object sender, System.EventArgs e)
+		{
+			Trace.WriteLine(this.Name + ": MouseEnter");
+		}
+
+		private void ShellForm_MouseLeave(object sender, System.EventArgs e)
+		{
+			Trace.WriteLine(this.Name + ": MouseLeave");
+		}
 	}
 
 	#region Static delegates
@@ -1533,9 +1581,9 @@ namespace msn2.net.Controls
 
 	#endregion
 
-	#region ShellFormmsn2.net.Common.ConfigData
+	#region ShellFormmsn2.net.Configuration.ConfigData
 
-	public class ShellFormConfigData: msn2.net.Common.ConfigData
+	public class ShellFormConfigData: msn2.net.Configuration.ConfigData
 	{
 		private int left;
 		private int top;

@@ -37,6 +37,7 @@ namespace msn2.net.ProjectF
 			shellForm.VisibleChanged	+= new EventHandler(Page_VisibleChanged);
 			shellForm.TextChanged		+= new EventHandler(Page_TextChanged);
 			shellForm.AllowUnload		= false;
+			this.shellButton1.Text		= shellForm.Text;
 		}
 
 		#endregion
@@ -141,7 +142,7 @@ namespace msn2.net.ProjectF
 
 		#region Properties
 
-		public ShellForm ShellForm
+		public msn2.net.Controls.ShellForm ShellForm
 		{
 			get
 			{

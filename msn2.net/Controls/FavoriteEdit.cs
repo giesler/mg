@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using msn2.net.Configuration;
 
 namespace msn2.net.Controls
 {
@@ -13,27 +14,30 @@ namespace msn2.net.Controls
 	{
 		#region Declares
 
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.TextBox textBoxURL;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Button buttonOK;
-		private System.Windows.Forms.Button buttonCancel;
+		private msn2.net.Controls.ShellButton buttonOK;
+		private msn2.net.Controls.ShellButton buttonCancel;
 		private System.Windows.Forms.ErrorProvider errorProvider1;
+		private System.Windows.Forms.Label labelName;
+		private System.Windows.Forms.Label labelUrl;
 		private System.ComponentModel.Container components = null;
 
 		#endregion
 
 		#region Constructors
 
-		public FavoriteEdit(ShellForm parent)
+		public FavoriteEdit()
 		{
+			InitializeComponent();
+		}
 
-			//
-			// Required for Windows Form Designer support
-			//
+		public FavoriteEdit(Data data): base(data)
+		{
 			InitializeComponent();
 
+			this.Title	= data.Text;
+			this.Url	= data.Url;
 		}
 
 		#endregion
@@ -64,12 +68,12 @@ namespace msn2.net.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label1 = new System.Windows.Forms.Label();
+			this.labelName = new System.Windows.Forms.Label();
 			this.textBoxName = new System.Windows.Forms.TextBox();
 			this.textBoxURL = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.buttonOK = new System.Windows.Forms.Button();
-			this.buttonCancel = new System.Windows.Forms.Button();
+			this.labelUrl = new System.Windows.Forms.Label();
+			this.buttonOK = new msn2.net.Controls.ShellButton();
+			this.buttonCancel = new msn2.net.Controls.ShellButton();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
@@ -83,13 +87,14 @@ namespace msn2.net.Controls
 			// 
 			this.timerFadeIn.Enabled = false;
 			// 
-			// label1
+			// labelName
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(56, 23);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Name:";
+			this.labelName.Location = new System.Drawing.Point(8, 8);
+			this.labelName.Name = "labelName";
+			this.labelName.Size = new System.Drawing.Size(56, 23);
+			this.labelName.TabIndex = 0;
+			this.labelName.Text = "Name:";
+			this.labelName.Visible = false;
 			// 
 			// textBoxName
 			// 
@@ -115,13 +120,14 @@ namespace msn2.net.Controls
 			this.textBoxURL.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxURL_Validating);
 			this.textBoxURL.Validated += new System.EventHandler(this.textBoxURL_Validated);
 			// 
-			// label2
+			// labelUrl
 			// 
-			this.label2.Location = new System.Drawing.Point(8, 32);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(56, 23);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "URL:";
+			this.labelUrl.Location = new System.Drawing.Point(8, 32);
+			this.labelUrl.Name = "labelUrl";
+			this.labelUrl.Size = new System.Drawing.Size(56, 23);
+			this.labelUrl.TabIndex = 3;
+			this.labelUrl.Text = "URL:";
+			this.labelUrl.Visible = false;
 			// 
 			// buttonOK
 			// 
@@ -146,10 +152,6 @@ namespace msn2.net.Controls
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
-			// errorProvider1
-			// 
-			this.errorProvider1.DataMember = null;
-			// 
 			// FavoriteEdit
 			// 
 			this.AcceptButton = this.buttonOK;
@@ -160,13 +162,14 @@ namespace msn2.net.Controls
 																		  this.buttonCancel,
 																		  this.buttonOK,
 																		  this.textBoxURL,
-																		  this.label2,
+																		  this.labelUrl,
 																		  this.textBoxName,
-																		  this.label1});
+																		  this.labelName});
 			this.Name = "FavoriteEdit";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Favorite";
 			this.TitleVisible = true;
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FavoriteEdit_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -178,6 +181,14 @@ namespace msn2.net.Controls
 
 		private void buttonOK_Click(object sender, System.EventArgs e)
 		{
+			// Save any data if it exists
+			if (Data != null)
+			{
+				Data.Text	= this.Title;
+				Data.Url	= this.Url;
+				Data.Save();
+			}
+
 			this.Visible = false;
 		}
 
@@ -240,6 +251,19 @@ namespace msn2.net.Controls
 		{
 			get { return textBoxURL.Text; }
 			set {	 textBoxURL.Text = value; }
+		}
+
+		#endregion
+		
+		#region Paint
+
+		private void FavoriteEdit_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+
+			e.Graphics.DrawString(this.labelName.Text, this.labelName.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelName.Location, labelName.Size));
+			e.Graphics.DrawString(this.labelUrl.Text, this.labelUrl.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelUrl.Location, labelUrl.Size));
+
 		}
 
 		#endregion

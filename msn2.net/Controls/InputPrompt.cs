@@ -104,10 +104,6 @@ namespace msn2.net.Controls
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
-			// errorProvider1
-			// 
-			this.errorProvider1.DataMember = null;
-			// 
 			// InputPrompt
 			// 
 			this.AcceptButton = this.buttonOK;
@@ -125,6 +121,7 @@ namespace msn2.net.Controls
 			this.Text = "Input Prompt";
 			this.TitleVisible = true;
 			this.Load += new System.EventHandler(this.InputPrompt_Load);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.InputPrompt_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -165,6 +162,11 @@ namespace msn2.net.Controls
 		private void textBoxInput_TextChanged(object sender, System.EventArgs e)
 		{
 		
+		}
+
+		private void InputPrompt_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 
 		public string Value
