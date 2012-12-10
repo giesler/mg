@@ -203,6 +203,15 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.WebControls.Panel warnings;
         
         /// <summary>
+        /// todayForecastLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label todayForecastLabel;
+        
+        /// <summary>
         /// todayForeastDiv control.
         /// </summary>
         /// <remarks>
@@ -212,6 +221,24 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayForeastDiv;
         
         /// <summary>
+        /// todayForecastInnerDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayForecastInnerDiv;
+        
+        /// <summary>
+        /// todayHighDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayHighDiv;
+        
+        /// <summary>
         /// todayHigh control.
         /// </summary>
         /// <remarks>
@@ -219,6 +246,15 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::HomeCalendarView.ForecastItem todayHigh;
+        
+        /// <summary>
+        /// todayLowDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl todayLowDiv;
         
         /// <summary>
         /// todayLow control.

@@ -26,7 +26,7 @@ namespace HomeCalendarView
         {
             base.OnInit(e);
 
-            this.lastUpdateTime.Text = DateTime.Now.ToShortTimeString();
+            this.lastUpdateTime.Text = "Last update: " + DateTime.Now.ToShortTimeString();
             this.dataLoadTimer.Enabled = false;
             this.dataLoadTimer.Tick += new EventHandler<EventArgs>(dataLoadTimer_Tick);
             this.closeWarning.Click += new EventHandler(closeWarning_Click);
@@ -135,12 +135,13 @@ namespace HomeCalendarView
                 XmlDocument weatherXml = new XmlDocument();
                 weatherXml.LoadXml(xml);
 
-                int offset = 0;
-                if (DateTime.Now.Hour > 15)
-                {
-                    offset = -1;
-                    this.todayHigh.Visible = false;
-                }
+                bool night = DateTime.Now.Hour > 15;
+
+                int offset = night ? -1 : 0;
+                this.todayHigh.Visible = !night;
+                this.todayHighDiv.Visible = !night;
+                this.todayForecastInnerDiv.Style[HtmlTextWriterStyle.Width] = night ? "80px" : "160px";
+                this.todayForecastLabel.Text = night ? "tonight" : "forecast";
 
                 foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
                 {
@@ -205,7 +206,7 @@ namespace HomeCalendarView
                 this.day4Low.ImageAltText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
             }
         }
-        
+
         private void LoadForecastDetails(object sender)
         {
             System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
@@ -235,7 +236,7 @@ namespace HomeCalendarView
             string fileContents = null;
             object cacheItem = HttpContext.Current.Cache["fcast2"];
             if (cacheItem == null)
-            {                
+            {
                 this.dataLoadTimer.Enabled = true;
 
                 if (base.Cache["LoadForecastDetails"] == null)
