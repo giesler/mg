@@ -332,26 +332,31 @@ namespace msn2.net.Pictures.Controls
 		{
 			CategoryTreeNode n = this.SelectedNode;
 
-			if (n.Nodes.Count > 0) 
-			{
-				MessageBox.Show("You cannot delete a category that contains categories.  Please delete the categories below it first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-				return;
-			}
-
-			if (n == null) 
-			{
-				MessageBox.Show("You must select a category to delete it.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-				return;
-			}
-
-			// make sure we want to delete
-			if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  No pictures will be deleted.", 
-				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
-			{
-                PicContext.Current.CategoryManager.DeleteCategory(n.Category.CategoryId);
-                tvCategory.Nodes.Remove(n);
-			}
+            DeleteCategoryNode(n);
 		}
+
+        public static void DeleteCategoryNode(CategoryTreeNode n)
+        {
+            if (n.Nodes.Count > 0)
+            {
+                MessageBox.Show("You cannot delete a category that contains categories.  Please delete the categories below it first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            if (n == null)
+            {
+                MessageBox.Show("You must select a category to delete it.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            // make sure we want to delete
+            if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  No pictures will be deleted.",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                PicContext.Current.CategoryManager.DeleteCategory(n.Category.CategoryId);
+                n.Parent.Nodes.Remove(n);
+            }
+        }
 
 		private void tvCategory_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
 		{

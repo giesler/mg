@@ -148,23 +148,26 @@ namespace msn2.net.Pictures.Controls
 
         public void SetPicture(PictureData item)
         {
-            if (image != null)
+            lock (this.lockObject)
             {
-                image.Dispose();
-                image = null;
-            }
-            if (smallImage != null)
-            {
-                smallImage.Dispose();
-                smallImage = null;
-            }
-            if (sizedImage != null)
-            {
-                sizedImage.Dispose();
-                sizedImage = null;
-            }
+                if (image != null)
+                {
+                    image.Dispose();
+                    image = null;
+                }
+                if (smallImage != null)
+                {
+                    smallImage.Dispose();
+                    smallImage = null;
+                }
+                if (sizedImage != null)
+                {
+                    sizedImage.Dispose();
+                    sizedImage = null;
+                }
 
-            this.picture = item;
+                this.picture = item;
+            }
 
             this.RepaintImage();
         }
@@ -200,9 +203,11 @@ namespace msn2.net.Pictures.Controls
             Refresh();
         }
 
+        public bool HideLoadingImage { get; set; }
+
         void PrintLoading(PaintEventArgs e)
         {
-            using (Brush brush = Brushes.Black)
+            if (this.HideLoadingImage == false)
             {
                 int imageHeight = 16;
                 if (e.ClipRectangle.Height > 500)
@@ -419,78 +424,109 @@ namespace msn2.net.Pictures.Controls
             try
             {
                 bool useSmallImage = bool.Parse(oUseSmallImage.ToString());
-                float imageHeight = (useSmallImage ? smallImage.Height : image.Height);
-                float imageWidth = (useSmallImage ? smallImage.Width : image.Width);
+                float imageHeight = 0F;
+                float imageWidth = 0F;
 
-                int newX = 0;
-                int newY = 0;
-                int newHeight = 0;
-                int newWidth = 0;
-
-                int offset = (drawShadow ? (this.Height > 150 ? 4 : 2) : 0);
-
-                // Add image border
-                int imageBorder = (drawBorder | selected ? (this.Height < 75 ? 1 : 2) : 0);
-
-                // Check if we need to fit the picture horizontally or vertically
-                if (imageWidth / this.Width > imageHeight / this.Height)
+                lock (this.lockObject)
                 {
-                    // Image is wider then tall
-                    newWidth = this.Width - offset - imageBorder;
-                    newHeight = Convert.ToInt32(newWidth * imageHeight / imageWidth);
-                    newY = (this.Height - newHeight) / 2;
-                }
-                else
-                {
-                    newHeight = this.Height - offset - imageBorder;
-                    newWidth = Convert.ToInt32(newHeight * imageWidth / imageHeight);
-                    newX = (this.Width - newWidth) / 2;
+                    if ((this.smallImage != null && useSmallImage) || this.image != null)
+                    {
+                        imageHeight = (useSmallImage ? smallImage.Height : image.Height);
+                        imageWidth = (useSmallImage ? smallImage.Width : image.Width);
+                    }
                 }
 
-                sizedImage = new Bitmap(this.Width, this.Height);
-                using (Graphics g = Graphics.FromImage(sizedImage))
+                if (imageHeight > 0 && imageWidth > 0)
                 {
-                    int padding = (this.Width > 75 ? 3 : 2);
+                    int newX = 0;
+                    int newY = 0;
+                    int newHeight = 0;
+                    int newWidth = 0;
 
-                    if (this.drawBorder == false)
+                    int offset = (drawShadow ? (this.Height > 150 ? 4 : 2) : 0);
+
+                    // Add image border
+                    int imageBorder = (drawBorder | selected ? (this.Height < 75 ? 1 : 2) : 0);
+
+                    // Check if we need to fit the picture horizontally or vertically
+                    if (imageWidth / this.Width > imageHeight / this.Height)
                     {
-                        padding = 0;
-                    }
-
-                    // Draw drop shadow
-                    sizedImageRectangle = new Rectangle(newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
-
-                    if (drawShadow)
-                    {
-                        Rectangle dropRectangle = new Rectangle(newX + padding, newY + padding, newWidth + offset + imageBorder - (padding * 2), newHeight + offset + imageBorder - (padding * 2));
-                        RectangleDropShadow(g, dropRectangle, Color.DarkGray, 4, 200);
-                    }
-
-                    if (imageBorder > 0)
-                    {
-                        using (Brush b = new SolidBrush(Color.White))
-                        {
-                            g.FillRectangle(b, newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
-                        }
-                    }
-
-                    // Draw actual image
-                    if (useSmallImage)
-                    {
-                        g.DrawImage(smallImage, newX + imageBorder + padding, newY + imageBorder + padding,
-                            newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
+                        // Image is wider then tall
+                        newWidth = this.Width - offset - imageBorder;
+                        newHeight = Convert.ToInt32(newWidth * imageHeight / imageWidth);
+                        newY = (this.Height - newHeight) / 2;
                     }
                     else
                     {
-                        g.DrawImage(image, newX + imageBorder + padding, newY + imageBorder + padding,
-                            newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
+                        newHeight = this.Height - offset - imageBorder;
+                        newWidth = Convert.ToInt32(newHeight * imageWidth / imageHeight);
+                        newX = (this.Width - newWidth) / 2;
+                    }
+
+                    bool drewImage = false;
+                    sizedImage = new Bitmap(this.Width, this.Height);
+                    using (Graphics g = Graphics.FromImage(sizedImage))
+                    {
+                        int padding = (this.Width > 75 ? 3 : 2);
+
+                        if (this.drawBorder == false)
+                        {
+                            padding = 0;
+                        }
+
+                        // Draw drop shadow
+                        sizedImageRectangle = new Rectangle(newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
+
+                        if (drawShadow)
+                        {
+                            Rectangle dropRectangle = new Rectangle(newX + padding, newY + padding, newWidth + offset + imageBorder - (padding * 2), newHeight + offset + imageBorder - (padding * 2));
+                            RectangleDropShadow(g, dropRectangle, Color.DarkGray, 4, 200);
+                        }
+
+                        if (imageBorder > 0)
+                        {
+                            using (Brush b = new SolidBrush(Color.White))
+                            {
+                                g.FillRectangle(b, newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
+                            }
+                        }
+
+                        // Draw actual image
+                        lock (this.lockObject)
+                        {
+                            if (useSmallImage)
+                            {
+                                if (this.smallImage != null)
+                                {
+                                    g.DrawImage(smallImage, newX + imageBorder + padding, newY + imageBorder + padding,
+                                        newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
+                                    drewImage = true;
+                                }
+                            }
+                            else
+                            {
+                                if (this.image != null)
+                                {
+                                    g.DrawImage(image, newX + imageBorder + padding, newY + imageBorder + padding,
+                                        newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
+                                    drewImage = true;
+                                }
+                            }
+                        }
+                    }
+
+                    sizedX = newX;
+                    sizedY = newY;
+
+                    if (drewImage == true)
+                    {
+                        this.RepaintImage();
+                    }
+                    else
+                    {
+                        Trace.WriteLine("Image repaint from size skipped - no image");
                     }
                 }
-
-                sizedX = newX;
-                sizedY = newY;
-
-                this.RepaintImage();
             }
             finally
             {

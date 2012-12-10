@@ -39,7 +39,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>\\stan.sp.msn2.net\Software\msn2.net\PictureAdmin\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
@@ -51,15 +51,14 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>\\stan.sp.msn2.net\Software\msn2.net\PictureAdmin\</InstallUrl>
-    <SupportUrl>http://home.msn2.net/</SupportUrl>
     <ProductName>Picture Admin</ProductName>
     <PublisherName>msn2.net</PublisherName>
-    <MinimumRequiredVersion>2.3.122.16</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.4.122.16</MinimumRequiredVersion>
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>17</ApplicationRevision>
-    <ApplicationVersion>2.3.122.%2a</ApplicationVersion>
+    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationVersion>2.4.122.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -112,6 +111,9 @@
       <HintPath>..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <HintPath>..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll</HintPath>
@@ -183,15 +185,10 @@
     </BootstrapperFile>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Data.Access.Components.2.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft Data Access Components 2.8</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
       <Visible>False</Visible>
@@ -201,6 +198,11 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>

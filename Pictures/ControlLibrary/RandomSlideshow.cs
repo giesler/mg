@@ -16,7 +16,7 @@ namespace msn2.net.Pictures.Controls
             base.getPreviousId = new GetPreviousItemIdDelegate(GetPreviousPicture);
             base.getNextId = new GetNextItemIdDelegate(GetNextPicture);
 
-            this.timer.Interval = 8 * 1000;
+            this.timer.Interval = 6 * 1000;
         }
 
         protected override void OnLoad(EventArgs e)

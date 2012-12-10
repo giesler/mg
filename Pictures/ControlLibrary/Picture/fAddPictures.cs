@@ -818,15 +818,32 @@ namespace msn2.net.Pictures.Controls
 			stat.StatusText = "Saving to database...";
 			tr.Commit();
 			cn.Close();
-			
-			// Now create the thumbnails
-			ImageUtilities utils = new ImageUtilities();
-			stat.Current = 0;
-			stat.StatusText = "Creating thumbnail images...";
-			foreach (DataSetPicture.PictureRow pictureRow in dsPicture.Picture.Rows) 
-			{
+
+            this.autoRotateFlag = this.autoRotate.Checked;
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(CreateThumbs), ex);
+
+
+		//	stat.Dispose();
+			mblnCancel = false;
+
+            FinishImport();
+        }
+
+        private bool autoRotateFlag = false;
+
+        private void CreateThumbs(object o)
+        {
+            Utilities.ExifMetadata ex = (Utilities.ExifMetadata) o;
+
+            // Now create the thumbnails
+            ImageUtilities utils = new ImageUtilities();
+            stat.Current = 0;
+            stat.StatusText = "Creating thumbnail images...";
+            foreach (DataSetPicture.PictureRow pictureRow in dsPicture.Picture.Rows)
+            {
                 // Check rotate
-                if (autoRotate.Checked)
+                if (this.autoRotateFlag == true)
                 {
                     stat.StatusText = "Rotating image...";
                     string file = PicContext.Current.Config.PictureDirectory + pictureRow.Filename;
@@ -836,18 +853,16 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 utils.CreateUpdateCache(pictureRow.PictureID);
-				stat.Current = stat.Current + 1;				
-			}
+                stat.Current = stat.Current + 1;
+            }
 
-			// all done
-			stat.StatusText = "Done.";
+            // close dialog
+            this.stat.Invoke(new MethodInvoker(CloseStatus));
+        }
 
-			// close dialog
-			stat.HideStatus();
-		//	stat.Dispose();
-			mblnCancel = false;
-
-            FinishImport();
+        private void CloseStatus()
+        {
+            stat.Close();
         }
 
         private void MoveFile(string source, string dest)

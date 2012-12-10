@@ -226,11 +226,19 @@ namespace msn2.net.Pictures.Controls
 
             using (StreamReader stream = new StreamReader(fileName))
             {
-                BitmapSource source = BitmapFrame.Create(stream.BaseStream);
-                BitmapMetadata metaData = source.Metadata as BitmapMetadata;
-                if (metaData != null && metaData.DateTaken != null)
+                BitmapSource source = null;
+                try
                 {
-                    dateTaken = metaData.DateTaken;
+                    source = BitmapFrame.Create(stream.BaseStream);
+                    BitmapMetadata metaData = source.Metadata as BitmapMetadata;
+                    if (metaData != null && metaData.DateTaken != null)
+                    {
+                        dateTaken = metaData.DateTaken;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine("Date taken read error: " + ex.ToString());
                 }
             }
 

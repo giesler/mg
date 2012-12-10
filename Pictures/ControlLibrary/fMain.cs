@@ -152,6 +152,7 @@ namespace msn2.net.Pictures.Controls
             stat = null;
 
             this.maxPicCount.SelectedIndex = 1;
+            this.imageSizeCombo.SelectedIndex = 1;
             
             this.loading = false;
         }
@@ -1083,9 +1084,12 @@ namespace msn2.net.Pictures.Controls
 
         private void QueryPictures(object query)
         {
-            PictureCollection allPictures = PicContext.Current.PictureManager.GetPictures(query.ToString());
+            if (query != null)
+            {
+                PictureCollection allPictures = PicContext.Current.PictureManager.GetPictures(query.ToString());
 
-            this.BeginInvoke(new WaitCallback(DisplayPictures), allPictures);
+                this.BeginInvoke(new WaitCallback(DisplayPictures), allPictures);
+            }
         }
 
         private void DisplayPictures(object pics)

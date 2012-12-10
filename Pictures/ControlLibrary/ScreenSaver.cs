@@ -14,18 +14,35 @@ namespace msn2.net.Pictures.Controls
         // Keep track of the location of the mouse
         private Point mouseLocation;
 
+        private Timer hideLoadingImageTimer = new Timer();
+
         public PictureScreenSaver()
         {
             base.ToolStip.Visible = false;
 
             SetupFormProperties();
+
+            this.hideLoadingImageTimer.Tick += new EventHandler(hideLoadingImageTimer_Tick);
+            this.hideLoadingImageTimer.Interval = 4 * 1000;
+        }
+
+        void hideLoadingImageTimer_Tick(object sender, EventArgs e)
+        {
+            this.hideLoadingImageTimer.Enabled = false;
+            base.PictureItem.HideLoadingImage = true;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
+            this.SetHideImageTimer();            
+        }
 
+        void SetHideImageTimer()
+        {
+            this.hideLoadingImageTimer.Enabled = false;
+            this.hideLoadingImageTimer.Enabled = true;
         }
 
         protected override void OnMouseMove(System.Windows.Forms.MouseEventArgs e)
@@ -57,10 +74,12 @@ namespace msn2.net.Pictures.Controls
             {
                 case Keys.Down:
                 case Keys.Right:
+                    this.SetHideImageTimer();
                     base.Next();
                     break;
                 case Keys.Left:
                 case Keys.Up:
+                    this.SetHideImageTimer();
                     base.Previous();
                     break;
                 default:

@@ -200,6 +200,11 @@ namespace msn2.net.Pictures.Controls
 
         private void OnCategoryDelete(object sender, EventArgs e)
         {
+            CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
+            if (node != null)
+            {
+                CategoryTree.DeleteCategoryNode(node);
+            }
         }
 
         #endregion
@@ -215,12 +220,12 @@ namespace msn2.net.Pictures.Controls
             if (parentNode.Text.Contains("Taken") == true)
             {
                 dates = PicContext.Current.PictureManager.GetPictureDates();
-                fieldName = "PictureAddDate";
+                fieldName = "PictureDate";
             }
             else
             {
                 dates = PicContext.Current.PictureManager.GetPictureAddedDates();
-                fieldName = "PictureDate";
+                fieldName = "PictureAddDate";
             }
 
             this.Invoke(
