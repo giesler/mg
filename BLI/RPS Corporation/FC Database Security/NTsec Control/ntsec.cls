@@ -35,12 +35,13 @@ Next i
 GetUserCollection = True
 Exit Function
 GetUserCollection_Err:
-sError = Err.Description & " (" & Err.Number & ": GetUserCollection)"
+MsgBox Err.Description, vbCritical, "GetUserCollection Error #" + CStr(Err.Number)
 Exit Function
 
 End Function
 
 Public Sub UpdateUserList()
+On Error GoTo errHandler
 
   Dim sCompName As String, iSize As Long, uString As String
   Dim lpBuff As String * 100, sError As String, sName As String
@@ -63,7 +64,7 @@ Public Sub UpdateUserList()
 
   For i = 1 To UBound(lUsers.List)
     sName = lUsers.List(i).Name
-        
+    rs.MoveFirst
     rs.Find "UserID = '" + sName + "'"
     If rs.EOF Then
       rs.AddNew
@@ -75,7 +76,11 @@ Public Sub UpdateUserList()
   rs.Close
   cn.Close
   
-yEnd Sub
+Exit Sub
+errHandler:
+MsgBox Err.Description, vbCritical, "UpdateUserList Error #" + CStr(Err.Number)
+Exit Sub
+End Sub
 
 Public Function GetUserString(uString As String, sError As String) As Boolean
 On Error GoTo GetUserString_Err
