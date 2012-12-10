@@ -211,5 +211,10 @@ namespace giesler.org.lists
 
             this.MainPage_Loaded(null, null);
         }
+
+        private void aboutMenu_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
+        }
     }
 }

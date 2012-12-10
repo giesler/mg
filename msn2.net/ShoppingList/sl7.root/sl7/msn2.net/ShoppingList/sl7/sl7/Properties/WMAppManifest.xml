@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{a894241c-dcdc-4b49-b5f7-6ec26e628b9d}" Title="Shopping List" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Mike Giesler" Description="Customizable list application" Publisher="giesler.org">
+  <App xmlns="" ProductID="{a894241c-dcdc-4b49-b5f7-6ec26e628b9d}" Title="Lists" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Mike Giesler" Description="Customizable list application" Publisher="giesler.org">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_CAMERA" />
@@ -27,7 +27,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Shopping List</Title>
+          <Title>Lists</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

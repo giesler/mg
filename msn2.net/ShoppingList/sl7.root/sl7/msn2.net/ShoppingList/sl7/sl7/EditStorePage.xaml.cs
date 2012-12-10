@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Live;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -27,18 +28,20 @@ namespace giesler.org.lists
 
             if (App.LiveContacts == null)
             {
-                list.Items.Add("contact not loaded");
+                this.list.Items.Add("contacts not loaded");
             }
             else
             {
                 foreach (Contact c in App.LiveContacts.OrderBy(i => i.FormattedName))
                 {
-                    list.Items.Add(c.FormattedName);
+                    this.list.Items.Add(c.FormattedName);
                 }
             }
+            
+            Guid listUnqiueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
+            List list = App.Lists.First(i => i.UniqueId == listUnqiueId);
 
-            string store = NavigationContext.QueryString["s"];
-            this.header.Content = new TextBlock { Text = store };
+            this.pivot.Title = list.Name;
         }
     }
 }

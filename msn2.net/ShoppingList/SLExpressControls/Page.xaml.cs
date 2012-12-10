@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using SLExpressControls.msn2.net.ShoppingList.ShoppingListService;
+using System.ServiceModel.Description;
+using System.Net;
 
 namespace SLExpressControls
 {

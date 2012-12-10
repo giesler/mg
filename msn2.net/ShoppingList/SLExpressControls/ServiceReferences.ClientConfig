@@ -2,15 +2,15 @@
     <system.serviceModel>
         <bindings>
             <basicHttpBinding>
-                <binding name="Binding1_IShoppingListService" maxBufferSize="65536"
-                    maxReceivedMessageSize="65536">
+                <binding name="Binding1_IShoppingListService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
             </basicHttpBinding>
         </bindings>
         <client>
             <endpoint address="http://svc.msn2.net/sl/sls.svc" binding="basicHttpBinding"
-                bindingConfiguration="Binding1_IShoppingListService" contract="SLExpressControls.msn2.net.ShoppingList.ShoppingListService.IShoppingListService"
+                bindingConfiguration="Binding1_IShoppingListService" contract="msn2.net.ShoppingList.ShoppingListService.IShoppingListService"
                 name="Binding1_IShoppingListService" />
         </client>
     </system.serviceModel>

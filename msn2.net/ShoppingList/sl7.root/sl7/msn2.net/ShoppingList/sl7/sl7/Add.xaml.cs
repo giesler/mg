@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using giesler.org.lists.svc1;
 using giesler.org.lists.ListData;
 
 namespace giesler.org.lists

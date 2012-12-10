@@ -33,7 +33,7 @@
                         <td rowspan="2" width="8">
                             &nbsp;
                         </td>
-                        <td width="200" valign="top">
+                        <td width="250" valign="top">
                             <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
                             <small>
                                 <asp:Label runat="server" ID="todayDateLabel" /></small>

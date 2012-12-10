@@ -20,10 +20,10 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
-            this.LoadStores();
+            this.LoadLists();
         }
         
-        public void LoadStores()
+        public void LoadLists()
         {
             this.list.Items.Clear();
 
@@ -31,16 +31,20 @@ namespace giesler.org.lists
             {
                 this.list.Items.Add(list);
             }
-
-            this.list.Items.Add(new List { Name = "add..." });
         }
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (this.list.SelectedIndex > 0)
             {
-                NavigationService.Navigate(new Uri("/EditStorePage.xaml?s=" + this.list.SelectedItem.ToString(), UriKind.Relative));
+                List list = this.list.SelectedItem as List;
+                NavigationService.Navigate(new Uri("/EditStorePage.xaml?listUniqueId=" + list.UniqueId.ToString(), UriKind.Relative));
             }
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri(@"/AddList.xaml", UriKind.Relative));
         }
     }
 }

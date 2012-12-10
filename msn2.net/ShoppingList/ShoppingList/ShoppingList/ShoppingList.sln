@@ -30,9 +30,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ShoppingListWebsite", "..\S
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLExpress", "SLExpress\SLExpress.csproj", "{7451A1A1-67F6-4A79-8934-3338E8EAA870}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLExpressControls", "SLExpressControls\SLExpressControls.csproj", "{81C27DFF-4337-48CC-B874-6C629BA45C8F}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 6
 		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
 		SccLocalPath0 = ..
 		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
@@ -48,6 +52,12 @@ Global
 		SccLocalPath3 = ..
 		SccProjectFilePathRelativizedFromConnection3 = ShoppingListWebsite\\
 		SccProjectEnlistmentChoice3 = 2
+		SccProjectUniqueName4 = SLExpress\\SLExpress.csproj
+		SccProjectName4 = \u0022$/msn2.net/ShoppingList/SLExpress\u0022,\u0020WYQAAAAA
+		SccLocalPath4 = SLExpress
+		SccProjectUniqueName5 = SLExpressControls\\SLExpressControls.csproj
+		SccProjectName5 = \u0022$/msn2.net/ShoppingList/SLExpressControls\u0022,\u0020GARAAAAA
+		SccLocalPath5 = SLExpressControls
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -137,6 +147,56 @@ Global
 		{2B6FD70D-1994-486C-BEAB-8711E98B705E}.Release|Any CPU.ActiveCfg = Debug|.NET
 		{2B6FD70D-1994-486C-BEAB-8711E98B705E}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
 		{2B6FD70D-1994-486C-BEAB-8711E98B705E}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugMobileOnly|.NET.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugMobileOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugMobileOnly|Any CPU.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugMobileOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugMobileOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugSite|.NET.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugSite|Any CPU.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugSite|Any CPU.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugSite|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugSite|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugTrayOnly|.NET.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugTrayOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugTrayOnly|Any CPU.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugTrayOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.DebugTrayOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Release|.NET.ActiveCfg = Release|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7451A1A1-67F6-4A79-8934-3338E8EAA870}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|.NET.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Any CPU.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|.NET.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Any CPU.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Mixed Platforms.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|.NET.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Any CPU.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Mixed Platforms.Build.0 = Debug|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|.NET.ActiveCfg = Release|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

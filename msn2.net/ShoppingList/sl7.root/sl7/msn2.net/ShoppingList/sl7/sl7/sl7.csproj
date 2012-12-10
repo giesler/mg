@@ -64,8 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Add.xaml.cs">
       <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddList.xaml.cs">
+      <DependentUpon>AddList.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -94,11 +100,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\svc1\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -114,7 +115,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Add.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,6 +161,7 @@
     <None Include="Properties\WMAppManifest.xml" />
     <Content Include="Images\appbar.add.rest.png" />
     <Content Include="Images\appbar.cancel.rest.png" />
+    <Content Include="Images\appbar.delete.rest.png" />
     <Content Include="Images\appbar.feature.settings.rest.png" />
     <Content Include="Images\appbar.next.rest.png" />
     <None Include="Service References\ListAuth\giesler.org.lists.ListAuth.Person.datasource">
@@ -201,16 +211,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ListData\ListDataService.wsdl" />
-    <None Include="Service References\svc1\giesler.org.lists.svc1.ShoppingListItem.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\svc1\sls.disco" />
-    <None Include="Service References\svc1\configuration91.svcinfo" />
-    <None Include="Service References\svc1\configuration.svcinfo" />
-    <None Include="Service References\svc1\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Images\appbar.refresh.rest.png" />
     <None Include="Service References\ListAuth\la.disco" />
     <None Include="Service References\ListAuth\configuration91.svcinfo" />
@@ -227,19 +227,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\svc1\ShoppingListService.wsdl" />
-    <None Include="Service References\svc1\sls.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\svc1\sls1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\svc1\sls2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\svc1\sls3.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -256,7 +243,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ListAuth\" />
     <WCFMetadataStorage Include="Service References\ListData\" />
-    <WCFMetadataStorage Include="Service References\svc1\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Externals\Microsoft.Live\Microsoft.Live.csproj">
