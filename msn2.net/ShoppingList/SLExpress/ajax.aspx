@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height:100%;">
 <head id="Head1" runat="server">
     <title>Shopping List</title>
     <style type="text/css">
@@ -16,8 +16,8 @@
         }
     </style>
 </head>
-<body style="margin: 0px 0px 0px 0px; font-family: Tahoma">
-    <form id="form1" runat="server">
+<body style="margin: 0px 0px 0px 0px; font-family: Tahoma; height: 100%;">
+    <form id="form1" runat="server" style="height:100%;">
     <asp:ScriptManager ID="ScriptManager1" EnablePartialRendering="true" runat="server" />
     <div style="height:100%">
         <asp:UpdatePanel runat="server" UpdateMode="Always" RenderMode="Inline" ID="updatePanel">
@@ -45,7 +45,7 @@
                                 <div style="height: 139; width: 100%; overflow: scroll; border: solid 1px Gray">
                                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White"
                                         BorderStyle="None" BorderWidth="0px" CellPadding="4" ForeColor="Black" CellSpacing="0"
-                                        GridLines="Vertical" ShowHeader="false" Width="100%">
+                                        GridLines="Vertical" ShowHeader="false" Width="100%" Height="100%">
                                         <FooterStyle BackColor="#CCCC99" />
                                         <RowStyle BackColor="White" Font-Size="8pt" />
                                         <Columns>

@@ -17,6 +17,7 @@ namespace SLExpressControls
         ShoppingListServiceClient client = new ShoppingListServiceClient();
         List<string> stores = null;
         bool loadingItems = false;
+        int lastStoreIndex = 0;
 
         public Page()
         {
@@ -24,6 +25,9 @@ namespace SLExpressControls
 
             client.GetStoresCompleted += new EventHandler<GetStoresCompletedEventArgs>(client_GetStoresCompleted);
             client.GetStoresAsync();
+
+            this.debug.Visibility = Visibility.Collapsed;
+            this.debugRow.Height = GridLength.Auto;
         }
 
         void client_GetStoresCompleted(object sender, GetStoresCompletedEventArgs e)
@@ -34,23 +38,34 @@ namespace SLExpressControls
 
             this.stores = e.Result;
             this.storeList.ItemsSource = q;
-            this.storeList.SelectedItem = this.storeList.Items[0];
+            this.storeList.SelectedIndex = 0;
 
             this.LoadItems();
         }
 
         private void storeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.LoadItems();
+            this.Log("StoreSelectionChanged: " + this.storeList.SelectedIndex.ToString());
+
+            if (this.storeList.SelectedIndex >= 0)
+            {
+                this.lastStoreIndex = this.storeList.SelectedIndex;
+                this.LoadItems();
+            }
         }
 
         void LoadItems()
         {
-            if (this.storeList.SelectedIndex >= 0)
+            if (this.lastStoreIndex == 0)
+            {
+                this.Log("Defaulting to store 0");
+                this.storeList.SelectedIndex = 0;
+            }
+            if (this.lastStoreIndex >= 0)
             {
                 if (this.loadingItems == false)
                 {
-                    StoreListItem item = (StoreListItem)this.storeList.SelectedItem;
+                    StoreListItem item = (StoreListItem)this.storeList.Items[this.lastStoreIndex];
                     this.Log("Loading {0}", item.Store);
 
                     this.client.GetShoppingListItemsCompleted += new EventHandler<GetShoppingListItemsCompletedEventArgs>(client_GetShoppingListItemsCompleted);
@@ -60,24 +75,29 @@ namespace SLExpressControls
                     this.loading.Visibility = Visibility.Visible;
                 }
             }
+            else
+            {
+                this.Log("No store selected????");
+            }
         }
 
         void client_GetShoppingListItemsCompleted(object sender, GetShoppingListItemsCompletedEventArgs e)
         {
             this.client.GetShoppingListItemsCompleted -= new EventHandler<GetShoppingListItemsCompletedEventArgs>(client_GetShoppingListItemsCompleted);
 
-            StoreListItem selectedStore = (StoreListItem)this.storeList.SelectedItem;
+            StoreListItem item = (StoreListItem)this.storeList.Items[this.lastStoreIndex]; 
             string loadedStore = e.UserState.ToString();
 
             this.Log("Load complete for " + loadedStore);
 
-            if (loadedStore.Equals(selectedStore.Store, StringComparison.InvariantCultureIgnoreCase))
+            if (loadedStore.Equals(item.Store, StringComparison.InvariantCultureIgnoreCase))
             {
                 this.loadingItems = true;
 
-                this.items.ItemsSource = e.Result.Where(r => r.Store.Equals(selectedStore.Store, StringComparison.InvariantCultureIgnoreCase));
+                this.items.ItemsSource = e.Result.Where(r => r.Store.Equals(item.Store, StringComparison.InvariantCultureIgnoreCase));
 
                 int selectedIndex = this.storeList.SelectedIndex;
+                this.Log("Saved index: " + selectedIndex.ToString());
 
                 List<StoreListItem> itemList = new List<StoreListItem>();
                 foreach (string store in this.stores)
@@ -92,6 +112,8 @@ namespace SLExpressControls
                 this.storeList.ItemsSource = itemList;
                 this.storeList.SelectedIndex = selectedIndex;
 
+                this.Log("Restored index: " + this.storeList.SelectedIndex.ToString());
+
                 this.items.Visibility = Visibility.Visible;
                 this.loading.Visibility = Visibility.Collapsed;
 
@@ -101,20 +123,24 @@ namespace SLExpressControls
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            client.AddShoppingListItemAsync(this.storeList.SelectedItem.ToString(), this.addText.Text.Trim(), this.storeList.SelectedItem);
+            StoreListItem item = (StoreListItem)this.storeList.Items[this.lastStoreIndex]; 
+            
+            client.AddShoppingListItemAsync(item.Store, this.addText.Text.Trim(), item);
             client.AddShoppingListItemCompleted += new EventHandler<AddShoppingListItemCompletedEventArgs>(client_AddShoppingListItemCompleted);
+
+            this.Log("Adding " + this.addText.Text);
+
+            this.addText.Text = string.Empty;
         }
 
         void client_AddShoppingListItemCompleted(object sender, AddShoppingListItemCompletedEventArgs e)
         {
+            this.Log("Add completed for " + e.Result.ListItem);
             client.AddShoppingListItemCompleted -= new EventHandler<AddShoppingListItemCompletedEventArgs>(client_AddShoppingListItemCompleted);
 
             if (e.Cancelled == false)
             {
-                if (e.UserState.ToString() == this.storeList.SelectedItem.ToString())
-                {
-                    // ADD TO LIST
-                }
+                this.LoadItems();
             }
         }
 
@@ -125,7 +151,14 @@ namespace SLExpressControls
 
         private void bulkadd_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        void client_DeleteShoppingListItemCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            this.client.DeleteShoppingListItemCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_DeleteShoppingListItemCompleted);
+            ShoppingListItem item = (ShoppingListItem)e.UserState;
+
+            this.LoadItems();
         }
 
         public void Log(string format, params object[] args)
@@ -143,6 +176,45 @@ namespace SLExpressControls
             this.editor.DataContext = link.DataContext;
 
             this.editor.Visibility = Visibility.Visible;
+        }
+
+        private void addText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.add_Click(null, null);
+            }
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            HyperlinkButton checkBox = (HyperlinkButton)sender;
+            ShoppingListItem item = (ShoppingListItem)checkBox.DataContext;
+            checkBox.IsEnabled = false;
+
+            this.client.DeleteShoppingListItemCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_DeleteShoppingListItemCompleted);
+            this.client.DeleteShoppingListItemAsync(item, item);
+        }
+
+        bool alternate = false;
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Grid grid = (Grid)sender;
+
+            if (alternate)
+            {
+                //GradientStopCollection stops = new GradientStopCollection();
+                //stops.Add(new GradientStop() { Offset = 0, Color = Color.FromArgb(0, 232, 247, 247) });
+                //stops.Add(new GradientStop() { Offset = 100, Color = Color.FromArgb(0, 200, 200, 200) });
+                //LinearGradientBrush brush = new LinearGradientBrush(stops, 90);
+                grid.Background = new SolidColorBrush(Color.FromArgb(0, 232, 247, 247));
+            }
+            else
+            {
+            }
+
+            alternate = !alternate;
         }
     }
 
