@@ -38,7 +38,7 @@ namespace BarMonkey.Activities.Admin
             list.Add(new Activity { Name = "Users", IsEnabled = false });
             list.Add(new Activity { Name = "Ingredients", PageUrl="Activities/Admin/Ingredients.xaml"});
             list.Add(new Activity { Name = "Drinks", IsEnabled = false });
-            list.Add(new Activity { Name = "Settings", IsEnabled = false });
+            list.Add(new Activity { Name = "Settings", PageUrl="Activities/Settings.xaml" });
             return list;
         }
 

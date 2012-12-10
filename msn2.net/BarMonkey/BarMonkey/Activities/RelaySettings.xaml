@@ -41,7 +41,9 @@
         <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}" FontSize="14pt">Control:</Label>
         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
             <Label Style="{DynamicResource DefaultDescriptionTextStyle}">Open for</Label>
-            <ComboBox Name="seconds" FontSize="14pt" Style="{DynamicResource DefaultListBoxTextStyle}" Width="100px" />
+            <Button Name="minus" Style="{DynamicResource DefaultButtonStyle}" Content=" - " Click="minus_Click" />
+            <TextBox Name="seconds" HorizontalAlignment="Center" FontSize="14pt" Style="{DynamicResource DefaultTextBoxTextStyle}" Text="1.0" Width="100px" />
+            <Button Name="plus" Style="{DynamicResource DefaultButtonStyle}" Content=" + " Click="plus_Click" />
             <Label Style="{DynamicResource DefaultDescriptionTextStyle}">seconds</Label>
             <Button Name="openRelay" Click="openRelay_Click" Content="Open Relay" Style="{DynamicResource DefaultButtonStyle}" Padding="5" />
             <Button Name="allOff" Click="allOff_Click" Content="All Off!" Style="{DynamicResource DefaultButtonStyle}" />

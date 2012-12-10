@@ -28,6 +28,7 @@ namespace msn2.net.BarMonkey.Activities
         private bool changingIngredient = false;
         private bool changingFlowRate = false;
         private bool changingRemaining = false;
+        private bool isAdmin = true;
 
         public IngredientSettings()
         {
@@ -37,6 +38,10 @@ namespace msn2.net.BarMonkey.Activities
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
+            this.EnableControls();
+
+            //this.isAdmin = BarMonkeyContext.Current.CurrentUser.IsAdmin;
 
             this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
             this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
@@ -176,14 +181,7 @@ namespace msn2.net.BarMonkey.Activities
         {
             ThreadPool.QueueUserWorkItem(this.Connect, true);
 
-            this.relay.IsEnabled = false;
-            this.ingredient.IsEnabled = false;
-            this.seconds.IsEnabled = false;
-            this.minus.IsEnabled = false;
-            this.plus.IsEnabled = false;
-            this.openRelay.IsEnabled = false;
-            this.navBar.IsEnabled = false;
-            this.allOff.IsEnabled = false;
+            this.DisableControls();
 
             this.statusLabel.Text = "connecting...";
         }
@@ -232,9 +230,14 @@ namespace msn2.net.BarMonkey.Activities
         private void onPourCompleted(IAsyncResult ar)
         {
             this.statusLabel.Text = "done";
+        }
 
-            this.relay.IsEnabled = true;
+        private void EnableControls()
+        {
+            this.relay.IsEnabled = this.isAdmin;
             this.ingredient.IsEnabled = true;
+            this.ouncesPerSecond.IsEnabled = this.isAdmin;
+            this.ouncesRemaining.IsEnabled = this.isAdmin;
             this.seconds.IsEnabled = true;
             this.plus.IsEnabled = true;
             this.minus.IsEnabled = true;
@@ -249,14 +252,7 @@ namespace msn2.net.BarMonkey.Activities
             Exception exception = (Exception)o;
             this.statusLabel.Text = exception.ToString();
 
-            this.relay.IsEnabled = true;
-            this.ingredient.IsEnabled = true;
-            this.plus.IsEnabled = true;
-            this.minus.IsEnabled = true;
-            this.seconds.IsEnabled = true;
-            this.openRelay.IsEnabled = true;
-            this.navBar.IsEnabled = true;
-            this.allOff.IsEnabled = true;
+            this.EnableControls();
 
             this.relayClient = new RelayControllerClient();
         }
@@ -265,16 +261,23 @@ namespace msn2.net.BarMonkey.Activities
         {
             ThreadPool.QueueUserWorkItem(this.Connect, false);
 
+            this.DisableControls();
+
+            this.statusLabel.Text = "connecting...";
+        }
+
+        private void DisableControls()
+        {
             this.relay.IsEnabled = false;
             this.ingredient.IsEnabled = false;
+            this.ouncesPerSecond.IsEnabled = false;
+            this.ouncesRemaining.IsEnabled = false;
             this.seconds.IsEnabled = false;
             this.plus.IsEnabled = false;
             this.minus.IsEnabled = false;
             this.openRelay.IsEnabled = false;
             this.navBar.IsEnabled = false;
             this.allOff.IsEnabled = false;
-
-            this.statusLabel.Text = "connecting...";
         }
 
         private void connectForAllOff()

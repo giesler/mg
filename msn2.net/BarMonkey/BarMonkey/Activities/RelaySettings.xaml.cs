@@ -28,6 +28,7 @@ namespace msn2.net.BarMonkey.Activities
         private bool changingIngredient = false;
         private bool changingFlowRate = false;
         private bool changingRemaining = false;
+        private bool isAdmin = true;
 
         public RelaySettings()
         {
@@ -38,10 +39,12 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.OnInitialized(e);
 
+            //this.isAdmin = BarMonkeyContext.Current.CurrentUser.IsAdmin;
+            this.EnableControls();
+
             this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
             this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
-            this.seconds.ItemsSource = new int[] { 1, 2, 5, 10, 15, 20 };
-
+            
             List<decimal> ouncesItems = new List<decimal>();
             for (decimal i = 0.0M; i < 200.0M; i++)
             {
@@ -57,7 +60,6 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesRemaining.ItemsSource = ounces;
 
             this.relay.SelectedIndex = 0;
-            this.seconds.SelectedIndex = 0;
             
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
@@ -181,13 +183,23 @@ namespace msn2.net.BarMonkey.Activities
         {
             ThreadPool.QueueUserWorkItem(this.Connect, true);
 
+            this.DisableControls();
+
+            this.statusLabel.Text = "connecting...";
+        }
+
+        private void DisableControls()
+        {
             this.relay.IsEnabled = false;
             this.ingredient.IsEnabled = false;
+            this.ouncesPerSecond.IsEnabled = false;
+            this.ouncesRemaining.IsEnabled = false;
             this.seconds.IsEnabled = false;
             this.openRelay.IsEnabled = false;
             this.navBar.IsEnabled = false;
-
-            this.statusLabel.Text = "connecting...";
+            this.plus.IsEnabled = false;
+            this.minus.IsEnabled = false;
+            this.allOff.IsEnabled = false;
         }
 
         private void Connect(object openOnConnect)
@@ -215,7 +227,7 @@ namespace msn2.net.BarMonkey.Activities
         {
             this.statusLabel.Text = "sending...";
 
-            int seconds = int.Parse(this.seconds.SelectedItem.ToString());
+            double seconds = double.Parse(this.seconds.Text);
             Relay relay = (Relay)this.relay.SelectedItem;
 
             List<BatchItem> items = new List<BatchItem>();
@@ -235,11 +247,21 @@ namespace msn2.net.BarMonkey.Activities
         {
             this.statusLabel.Text = "done";
 
+            this.EnableControls();
+        }
+
+        private void EnableControls()
+        {
             this.relay.IsEnabled = true;
-            this.ingredient.IsEnabled = true;
+            this.ingredient.IsEnabled = this.isAdmin;
+            this.ouncesPerSecond.IsEnabled = this.isAdmin;
+            this.ouncesRemaining.IsEnabled = this.isAdmin;
             this.seconds.IsEnabled = true;
             this.openRelay.IsEnabled = true;
             this.navBar.IsEnabled = true;
+            this.plus.IsEnabled = true;
+            this.minus.IsEnabled = true;
+            this.allOff.IsEnabled = true;
         }
 
 
@@ -248,11 +270,7 @@ namespace msn2.net.BarMonkey.Activities
             Exception exception = (Exception)o;
             this.statusLabel.Text = exception.ToString();
 
-            this.relay.IsEnabled = true;
-            this.ingredient.IsEnabled = true;
-            this.seconds.IsEnabled = true;
-            this.openRelay.IsEnabled = true;
-            this.navBar.IsEnabled = true;
+            this.EnableControls();
 
             this.relayClient = new RelayControllerClient();
         }
@@ -261,11 +279,7 @@ namespace msn2.net.BarMonkey.Activities
         {
             ThreadPool.QueueUserWorkItem(this.Connect, false);
 
-            this.relay.IsEnabled = false;
-            this.ingredient.IsEnabled = false;
-            this.seconds.IsEnabled = false;
-            this.openRelay.IsEnabled = false;
-            this.navBar.IsEnabled = false;
+            this.DisableControls();
 
             this.statusLabel.Text = "connecting...";
         }
@@ -280,6 +294,23 @@ namespace msn2.net.BarMonkey.Activities
         private void OnConnectedForAllOff(IAsyncResult result)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(this.onPourCompleted), null); 
+        }
+
+        private void minus_Click(object sender, RoutedEventArgs e)
+        {
+            double secs = double.Parse(this.seconds.Text);
+            secs -= 0.5;
+            if (secs > 0)
+            {
+                this.seconds.Text = secs.ToString();
+            }
+        }
+
+        private void plus_Click(object sender, RoutedEventArgs e)
+        {
+            double secs = double.Parse(this.seconds.Text);
+            secs += 0.5;
+            this.seconds.Text = secs.ToString();
         }
     }
 }
