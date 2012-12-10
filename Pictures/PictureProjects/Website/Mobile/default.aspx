@@ -23,9 +23,9 @@
         <hr />
         <div class="title">
             Browse Pictures</div>
-        <table>
+        <table width="100%">
             <tr>
-                <td align="center">
+                <td align="center" style="width: 50px;">
                     <a href="Categories.aspx?c=1">
                         <img src="../Images/folder40.gif" height="40" width="40" border="0" /></a>
                 </td>

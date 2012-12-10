@@ -36,7 +36,6 @@ namespace pics.Controls.Mobile
 
                 if (Request.QueryString["c"] != null)
                 {
-                    this.categoryLink.NavigateUrl = "Pictures.aspx?c=" + Request.QueryString["c"];
                     this.nextRandom.Visible = false;
                 }
                 else

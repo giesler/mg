@@ -17,16 +17,17 @@
         </tr>
     </table>
     <form id="form1" runat="server">
-        <div class="title">
-            <asp:Label runat="server" ID="categoryHeading" />
-        </div>
-        <div class="description">
-            <asp:Label runat="server" ID="categoryDescription" />
-        </div>
-        <asp:Panel runat="server" ID="content" />
-        <div class="footer">
-            <a href="default.aspx">Home</a>
-        </div>
+    <div class="title">
+        <asp:Label runat="server" ID="categoryHeading" />
+    </div>
+    <div class="description">
+        <asp:Label runat="server" ID="categoryDescription" />
+    </div>
+    <asp:Panel runat="server" ID="content" />
+    <div class="footer">
+        <hr />
+        <a href="default.aspx">Home</a> | <a href="javascript:history.go(-1)">Back</a>
+    </div>
     </form>
 </body>
 </html>

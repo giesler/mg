@@ -79,6 +79,7 @@ namespace pics.Controls.Mobile
                 HyperLink lnk = new HyperLink();
                 lnk.NavigateUrl = navigateUrl;
                 lnk.Text = category.Name;
+                lnk.Style.Add("font-size", "larger");
                 tc.Controls.Add(lnk);
             }
             return t;

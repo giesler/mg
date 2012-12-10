@@ -17,17 +17,19 @@
         </tr>
     </table>
     <form id="form1" runat="server">
-        <div class="title">
-            <asp:Label runat="server" ID="categoryHeading"></asp:Label>
-        </div>
-        <br />
-        <div class="description">
-            <asp:Label runat="server" ID="categoryDescription" />
-        </div>
-        <asp:Panel runat="server" ID="content" Width="100%" />
-        <div class="footer">
-            <a href="default.aspx">Home</a>
-        </div>
+    <div class="title">
+        <asp:Label runat="server" ID="categoryHeading"></asp:Label>
+    </div>
+    <div class="description">
+        <asp:Label runat="server" ID="categoryDescription" />
+    </div>
+    <asp:Panel runat="server" ID="content" Width="100%" />
+    <div class="footer">
+        <hr />
+        <a href="default.aspx">Home</a> |
+        <asp:HyperLink runat="server" ID="categoryLink" NavigateUrl="javascript: history.go(-1);"
+            Text="Back" />
+    </div>
     </form>
 </body>
 </html>

@@ -28,7 +28,7 @@ namespace pics.Controls.Mobile
 
             PictureImageControl img = new PictureImageControl();
             img.SetPictureById(picture.Id, 125, 125);
-            img.SetMaxPicSize(50);
+            img.SetMaxPicSize(75);
             this.content.Controls.Add(img);
         }
     }

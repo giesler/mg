@@ -6,7 +6,7 @@
     <title>pics.msn2.net</title>
     <link rel="Stylesheet" href="mobile.css" />
 </head>
-<body>
+<body style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px">
     <form id="form1" runat="server">
     <div style="padding: 0px">
         <asp:Panel runat="server" ID="content" />
@@ -15,9 +15,11 @@
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td>
-                    <a href="default.aspx">Home</a> | 
-                    <asp:HyperLink runat=server ID="detailsLink" Text="Details" /> | 
-                    <asp:HyperLink runat="server" ID="categoryLink" Text="Back to list" />
+                    <a href="default.aspx">Home</a> |
+                    <asp:HyperLink runat="server" ID="detailsLink" Text="Details" />
+                    |
+                    <asp:HyperLink runat="server" ID="categoryLink" NavigateUrl="javascript: history.go(-1);"
+                        Text="Back" />
                     <asp:LinkButton runat="server" ID="nextRandom" Text="Next..." OnClick="nextRandom_Click" />
                 </td>
                 <td align="right">
