@@ -88,16 +88,11 @@
                                 </tr>
                             </table>
                         </td>
-                        <td align="center" rowspan="2" width="120" id="warningCell" runat="server" visible="false" valign="top">
+                        <td align="center" rowspan="2" width="125" id="warningCell" runat="server" visible="false" valign="top">
                             <table cellpadding="2" cellspacing="0">
                                 <tr>
-                                    <td style="font-size: 8pt; color: Red; font-weight: bold">
-                                        <asp:Label runat="server" ID="severeWeatherAlertLabel">Severe&nbsp;Weather&nbsp;Alert</asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>
-                                        <asp:Panel runat="server" ID="warnings" />
+                                        <asp:Panel runat="server" ID="warnings" style="font-size: 8pt; color: Red;" />
                                     </td>
                                 </tr>
                             </table>
@@ -147,7 +142,7 @@
                             <asp:LinkButton runat="server" ID="closeWarning" Text="Close" />
                         </td>
                         <td>
-                            <div style="overflow: scroll; height: 110px; width: 500px; border: solid 1px red;">
+                            <div style="overflow: scroll; height: 75px; width: 500px; border: solid 1px red;">
                                 <asp:Label runat="server" ID="warningText" />
                             </div>
                         </td>

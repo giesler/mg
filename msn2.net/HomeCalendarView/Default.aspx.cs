@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using System.Web.Caching;
+using System.Drawing;
 
 namespace HomeCalendarView
 {
@@ -75,11 +76,6 @@ namespace HomeCalendarView
             {
                 this.onCityClick(this.selectKirkland, EventArgs.Empty);
             }
-        }
-
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
 
             Trace.Write("Current weather");
             DisplayCurrent();
@@ -97,6 +93,11 @@ namespace HomeCalendarView
             DisplayWeatherAlerts();
 
             Trace.Write("Done");
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
             this.reenableTimer = this.dataLoadTimer.Enabled;
         }
@@ -603,7 +604,7 @@ namespace HomeCalendarView
             try
             {
                 string url = string.Format(
-                    "http://www.weather.gov/alerts/wwarssget.php?zone={0}",
+                    "http://www.weather.gov/alerts-beta/wwaatmget.php?x={0}",
                     this.currentLocation.NoaaCurrentAlertsLocation);
                 XElement alertFeed = XElement.Load(url);
                 cache.Add(this.CacheName("alerts"), alertFeed, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
@@ -636,7 +637,8 @@ namespace HomeCalendarView
 
             if (alertFeed != null)
             {
-                var items = from item in alertFeed.Elements("channel").Elements("item")
+                XNamespace ns = "http://www.w3.org/2005/Atom";
+                var items = from item in alertFeed.Elements(ns + "entry")
                             select item;
 
                 if (items.Count() != 0)
@@ -649,14 +651,15 @@ namespace HomeCalendarView
 
                     foreach (var o in items)
                     {
-                        string title = o.Element("title").Value.Replace(" - East Puget Sound Lowlands (Washington)", "").Trim();
-                        string description = o.Element("description").Value;
+                        string title = CleanupTitle(o.Element(ns + "title").Value);
+                        string description = o.Element(ns + "summary").Value;
                         string shortDescription = CleanupDescription(title, ref description);
 
                         LinkButton link = new LinkButton { Text = title + "<BR>", ToolTip = shortDescription };
 
                         link.Command += new CommandEventHandler(link_Command);
                         link.CommandArgument = index.ToString();
+                        link.ForeColor = Color.Red;
                         this.warnings.Controls.Add(link);
 
                         index++;
@@ -672,12 +675,37 @@ namespace HomeCalendarView
                     {
                         this.warningCell.Visible = false;
                     }
-                    else
-                    {
-                        this.severeWeatherAlertLabel.Text = index > 1 ? "Severe&nbsp;Weather&nbsp;Alerts" : "Severe&nbsp;Weather&nbsp;Alert";
-                    }
                 }
             }
+        }
+
+        private string CleanupTitle(string title)
+        {
+            int index = title.LastIndexOf("PST ");
+            if (index > 0)
+            {
+                title = title.Substring(0, index);
+            }
+
+            string today = DateTime.Today.ToString("MMMM d");
+            title = title.Replace(today, "Today");
+            string yesterday = DateTime.Today.AddDays(-1).ToString("MMMM d");
+            title = title.Replace(yesterday, "Yesterday");
+            string tomorrow = DateTime.Today.AddDays(1).ToString("MMMM d");
+            title = title.Replace(tomorrow, "Tomorrow");
+
+            title = title.Replace("January", "Jan");
+            title = title.Replace("February", "Feb");
+            title = title.Replace("March", "Mar");
+            title = title.Replace("April", "Apr");
+            title = title.Replace("August", "Aug");
+            title = title.Replace("September", "Sep");
+            title = title.Replace("October", "Oct");
+            title = title.Replace("November", "Nov");
+            title = title.Replace("December", "Dec");
+            title = title.Replace(" PST", "");
+
+            return title;
         }
 
         private static string CleanupDescription(string title, ref string description)
@@ -717,11 +745,12 @@ namespace HomeCalendarView
 
             int index = int.Parse(e.CommandArgument.ToString());
 
-            var alert = (from item in alertFeed.Elements("channel").Elements("item")
+            XNamespace ns = "http://www.w3.org/2005/Atom";
+            var alert = (from item in alertFeed.Elements(ns + "entry")
                          select item).ElementAt(index);
 
-            string title = alert.Element("title").Value;
-            string description = alert.Element("description").Value;
+            string title = CleanupTitle(alert.Element(ns + "title").Value);
+            string description = alert.Element(ns + "summary").Value;
             string shortDescription = CleanupDescription(title, ref description);
 
             this.warningTitle.Text = shortDescription;
