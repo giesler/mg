@@ -124,9 +124,16 @@ namespace giesler.org.lists
             TimeSpan refreshDuration = DateTime.Now - App.LastRefreshTime;
             if (refreshDuration.TotalSeconds > 90)
             {
-                this.updatingMessage.Text = "Last updated " + GetDurationString(refreshDuration);
-                this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
-                this.lastRefreshDisplayTimer = new Timer(new TimerCallback(OnLastRefreshHide), new object(), 1000 * 5, Timeout.Infinite);
+                if (App.IsJumpNavigation)
+                {
+                    App.IsJumpNavigation = false;
+                }
+                else
+                {
+                    this.updatingMessage.Text = "Last updated " + GetDurationString(refreshDuration);
+                    this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
+                    this.lastRefreshDisplayTimer = new Timer(new TimerCallback(OnLastRefreshHide), new object(), 1000 * 5, Timeout.Infinite);
+                }
             }
             else
             {
@@ -349,6 +356,8 @@ namespace giesler.org.lists
                         lists.FirstOrDefault(l => l.UniqueId == resultItem.UniqueId).Items.Add(item);
                     }
                 }
+
+                
 
                 App.Lists = lists;
 

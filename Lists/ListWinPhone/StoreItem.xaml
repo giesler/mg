@@ -19,7 +19,7 @@
             <ColumnDefinition Width="55" />
             <ColumnDefinition Width="100*" />
         </Grid.ColumnDefinitions>
-        <CheckBox Name="itemCheck" Checked="itemCheck_Checked" Tag="{Binding}" Unchecked="itemCheck_Unchecked" Grid.RowSpan="3" VerticalAlignment="Top" />
+        <CheckBox Name="itemCheck" Checked="itemCheck_Checked" Tag="{Binding}" Unchecked="itemCheck_Unchecked" Grid.RowSpan="3" VerticalAlignment="Top" Margin="0,-3,0,0" />
         <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" Text="{Binding Name}" Grid.Column="1" MouseLeftButtonDown="OnLeftMouseDown" MouseLeftButtonUp="OnLeftMouseUp" Margin="12,0" Grid.RowSpan="3" />
         <ProgressBar Name="progressBar1" Maximum="50" Visibility="Collapsed" Grid.Column="1" Grid.Row="1" />
     </Grid>

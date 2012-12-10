@@ -32,6 +32,7 @@ namespace giesler.org.lists
 
             App.SelectedList = this.SelectedList.UniqueId;
             App.Current.SaveSettings();
+            App.IsJumpNavigation = true;
 
             NavigationService.GoBack();
         }

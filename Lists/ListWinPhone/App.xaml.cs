@@ -173,6 +173,7 @@ namespace giesler.org.lists
                 selectedList = value;
             }
         }
+        public static bool IsJumpNavigation { get; set; }
 
         static Guid selectedList;
 
