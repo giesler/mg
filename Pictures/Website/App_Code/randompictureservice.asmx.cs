@@ -64,7 +64,7 @@ namespace pics
 
 		private byte[] RandomImage(int personId)
 		{
-			SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
+			SqlConnection cn  = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 

@@ -36,7 +36,7 @@ namespace pics.Admin
 
 				// set up objects to get info
 				int id			= int.Parse(Request.QueryString["id"]);
-				PersonInfo info	= PicContext.Current.UserManager.GetNewUserRequest(id);
+				PersonInfo info	= PicHttpContext.Current.UserManager.GetNewUserRequest(id);
 
 				// attempt to read record
 				if (info != null) 
@@ -73,7 +73,7 @@ namespace pics.Admin
         protected void btnOK_Click(object sender, System.EventArgs e)
 		{
 			int requestId	= int.Parse(Request.QueryString["id"]);
-			PicContext.Current.UserManager.AddNewPerson(requestId, txtFirstName.Text, txtLastName.Text, txtFullName.Text);
+			PicHttpContext.Current.UserManager.AddNewPerson(requestId, txtFirstName.Text, txtLastName.Text, txtFullName.Text);
 
 			// create message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -92,7 +92,7 @@ namespace pics.Admin
 			msg.BodyFormat = MailFormat.Html;
 
 			// send message
-			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
+			SmtpMail.SmtpServer = PicHttpContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// show info

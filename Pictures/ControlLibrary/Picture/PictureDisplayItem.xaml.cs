@@ -265,10 +265,13 @@ namespace msn2.net.Pictures.Controls
                 }
             }
         }
-        
+
         void OnImageDownloadFailed(object sender, ExceptionEventArgs e)
         {
-            Trace.WriteLine("Failed: " + this.Picture.Id.ToString() + " - " + e.ErrorException.Message);
+            if (this.Picture != null)
+            {
+                Trace.WriteLine("Failed: " + this.Picture.Id.ToString() + " - " + e.ErrorException.Message);
+            }
         }
 
         public void SetPicture(Picture item)

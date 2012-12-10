@@ -84,7 +84,7 @@ namespace pics.auth
             string pwd = UserManager.GetEncryptedPassword(password.Text);
 
             bool valid = false;
-            PersonInfo info = PicContext.Current.UserManager.Login(email.Text, pwd, ref valid);
+            PersonInfo info = PicHttpContext.Current.UserManager.Login(email.Text, pwd, ref valid);
 
             // Check if login is valid
 			if (info != null) 

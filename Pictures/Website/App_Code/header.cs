@@ -131,13 +131,13 @@ namespace pics.Controls
 				tr.Cells.Add(tc);
 
 
-                if (PicContext.Current == null)
+                if (PicHttpContext.Current == null)
                 {
-                    throw new NullReferenceException("PicContext.Current is null");
+                    throw new NullReferenceException("PicHttpContext.Current is null");
                 }
 				
 				// Now we want to create the login info in the right cell
-				if (_showUserInfo && PicContext.Current.CurrentUser != null) 
+				if (_showUserInfo && PicHttpContext.Current.CurrentUser != null) 
 				{
                     Table tLoginInfo = new Table();
 					tLoginInfo.Height	= Unit.Percentage(100);
@@ -176,7 +176,7 @@ namespace pics.Controls
 					// create user name
 					Label lblUserName	= new Label();
 					lblUserName.Font.Size = 8;
-					lblUserName.Text	= PicContext.Current.CurrentUser.Name + "<br>";
+					lblUserName.Text	= PicHttpContext.Current.CurrentUser.Name + "<br>";
 					lblUserName.ForeColor = Color.LightGray;
 					tc.Controls.Add(lblUserName);
 
@@ -189,7 +189,7 @@ namespace pics.Controls
 					tc.Controls.Add(lnkLogout);
 
                     bool showEditControls = Global.AdminMode;
-					if (PicContext.Current.CurrentUser.Id < 3 || PicContext.Current.CurrentUser.Id == 4)
+					if (PicHttpContext.Current.CurrentUser.Id < 3 || PicHttpContext.Current.CurrentUser.Id == 4)
 					{
 						tc.Controls.Add(new HtmlLiteral("&nbsp;|&nbsp;"));
 						LinkButton adminMode	= new LinkButton();

@@ -92,7 +92,7 @@ namespace pics
 				string sourceType = Request.QueryString["type"];
 
 				// init connection and command
-				SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
+				SqlConnection cn  = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
@@ -146,7 +146,7 @@ namespace pics
 				cmdPic.Parameters.AddWithValue("@ReturnCount", 1);
 				cmdPic.Parameters.AddWithValue("@MaxHeight", 700);
 				cmdPic.Parameters.AddWithValue("@MaxWidth", 750);
-				cmdPic.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
+				cmdPic.Parameters.AddWithValue("@PersonID", PicHttpContext.Current.CurrentUser.Id);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
@@ -221,17 +221,17 @@ namespace pics
 
 					leftPanel.Visible = true;
 
-					securityList.DataSource = PicContext.Current.PictureManager.GetPictureGroups(pictureId);
+					securityList.DataSource = PicHttpContext.Current.PictureManager.GetPictureGroups(pictureId);
 					securityList.DataBind();
 
-					categoryList.DataSource = PicContext.Current.PictureManager.GetPictureCategories(pictureId);
+					categoryList.DataSource = PicHttpContext.Current.PictureManager.GetPictureCategories(pictureId);
 					categoryList.DataBind();
 
 					LoadTasks();
 				}
 
 				// now read people
-				dlPerson.DataSource = PicContext.Current.PictureManager.GetPicturePeople(pictureId);
+				dlPerson.DataSource = PicHttpContext.Current.PictureManager.GetPicturePeople(pictureId);
 				dlPerson.DataBind();
 
 				// Now set page controls
@@ -297,7 +297,7 @@ namespace pics
                     {
                         //http://localhost/pics/picview.aspx?p=1615&type=random&RefUrl=default.aspx
                         lnkNext.Visible = true;
-                        int randomPictureId = PicContext.Current.PictureManager.GetRandomPicture().Id;
+                        int randomPictureId = PicHttpContext.Current.PictureManager.GetRandomPicture().Id;
                         lnkNext.NavigateUrl = picview.BuildRandomPageUrl(randomPictureId,
                             Request.QueryString["refUrl"]);
                     }
@@ -381,7 +381,7 @@ namespace pics
 
 			// Server side task javascript
 			sb		= new StringBuilder();
-			int personId		= PicContext.Current.CurrentUser.Id;
+			int personId		= PicHttpContext.Current.CurrentUser.Id;
 			sb.Append("<script language=\"javascript\">");
 			sb.Append("function SetAsCatPic() { ");
 			sb.Append(" if (document.all['pictureTasks'] != null) {");
@@ -431,7 +431,7 @@ namespace pics
 
 		private void SetCategory(int categoryId)
 		{
-			CategoryManager catMan		= PicContext.Current.CategoryManager;
+			CategoryManager catMan		= PicHttpContext.Current.CategoryManager;
 			Category cat				= catMan.GetCategory(categoryId);
 			lblCategory.Text			= cat.Name;
 
@@ -454,7 +454,7 @@ namespace pics
 
             int rating = Convert.ToInt32(eventArgument);
 
-            decimal average = PicContext.Current.PictureManager.RatePicture(pictureId, rating);
+            decimal average = PicHttpContext.Current.PictureManager.RatePicture(pictureId, rating);
             returnValue = this.GetAverageText(average);
 
             Trace.Write("RaiseCallbackEvent ended: " + returnValue);

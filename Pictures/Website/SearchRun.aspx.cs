@@ -36,11 +36,11 @@ namespace pics
 				Guid id = new Guid(Request.QueryString["id"]);
 
 				// set up connection and such to run search
-				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
+				SqlConnection cn = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 				SqlCommand cmd	 = new SqlCommand("sp_Search_RunSearch", cn);
 				cmd.CommandType	 = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue("@SearchID", id);
-				cmd.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
+				cmd.Parameters.AddWithValue("@PersonID", PicHttpContext.Current.CurrentUser.Id);
 				cmd.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmd.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 	

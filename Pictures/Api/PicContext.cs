@@ -5,61 +5,38 @@ using System.Configuration;
 namespace msn2.net.Pictures
 {
 
-	/// <summary>
-	/// Summary description for PicContext.
-	/// </summary>
-	public class PicContext
-	{
-		#region Declares
+    /// <summary>
+    /// Summary description for PicContext.
+    /// </summary>
+    public class PicContext
+    {
+        #region Declares
 
-		private PictureManager	pictureManager;
-		private CategoryManager	categoryManager;
-        private PictureCacheInfo    pictureCache;
-        private UserManager		userManager;
+        private PictureManager pictureManager;
+        private CategoryManager categoryManager;
+        private PictureCacheInfo pictureCache;
+        private UserManager userManager;
         private GroupManager groupManager;
-		private PictureConfig	config;
-		private PersonInfo		currentUser;
-		private static string CONTEXTKEY = "asdfasf";
-		private static PicContext context;
+        private PictureConfig config;
+        private PersonInfo currentUser;
+        private static string CONTEXTKEY = "asdfasf";
+        private static PicContext context;
         private PictureDataContext picData;
 
-		#endregion
+        #endregion
 
-		#region Static Methods
+        #region Static Methods
 
-		public static PicContext Load(PictureConfig config, int personId)
-		{
-            HttpContext httpContext = HttpContext.Current;
-            PicContext picContext = null;
-            string personContextKey = "PicContext.PersonId." + personId.ToString();
-
-            if (httpContext != null)
-            {
-                object cachedPicContextObject = httpContext.Cache[personContextKey];
-                if (cachedPicContextObject != null)
-                {
-                    picContext = cachedPicContextObject as PicContext;
-                }
-            }
-
+        public static PicContext Load(PictureConfig config, int personId)
+        {
             if (context == null)
             {
                 context = new PicContext(config);
                 context.SetCurrentUser(context.userManager.GetPerson(personId));
             }
 
-            if (httpContext != null)
-            {
-                httpContext.Cache.Add(
-                    personContextKey, 
-                    context, null, DateTime.MinValue, 
-                    TimeSpan.FromMinutes(1), 
-                    System.Web.Caching.CacheItemPriority.Normal, 
-                    null);
-            }
-
             return context;
-		}
+        }
 
         public static bool LoginWindowsUser(PictureConfig config)
         {
@@ -96,62 +73,59 @@ namespace msn2.net.Pictures
 
             return (PicContext.Current != null);
         }
-        
-		#endregion
 
-		#region Internal constructor
+        #endregion
 
-		internal PicContext(PictureConfig config)
-		{
-			this.config		= config;
+        #region Constructor
 
-			pictureManager	= new PictureManager(this);
-			categoryManager	= new CategoryManager(this);
+        public PicContext(PictureConfig config)
+        {
+            this.config = config;
+
+            pictureManager = new PictureManager(this);
+            categoryManager = new CategoryManager(this);
             pictureCache = new PictureCacheInfo(this);
-            userManager		= new UserManager(this);
+            userManager = new UserManager(this);
             groupManager = new GroupManager(this);
-			currentUser		= null;
+            currentUser = null;
             this.picData = new PictureDataContext(config.ConnectionString);
-		}
+        }
 
-		#endregion
-		
-		#region Static Properties
+        #endregion
 
-		public static PicContext Current
-		{
-			get
-			{
-				if (HttpContext.Current	!= null)
-				{
-					return (PicContext) HttpContext.Current.Items[CONTEXTKEY];
-				}
-				else
-				{
-					return context;
-				}
-			}
-		}
-		
-		#endregion
+        #region Static Properties
 
-		#region Properties
+        public static PicContext Current
+        {
+            get
+            {
+                return context;
+            }
+            set
+            {
+                context = value;
+            }
+        }
 
-		public PictureManager PictureManager
-		{
-			get
-			{
-				return pictureManager;
-			}
-		}
+        #endregion
 
-		public CategoryManager CategoryManager
-		{
-			get
-			{
-				return categoryManager;
-			}
-		}
+        #region Properties
+
+        public PictureManager PictureManager
+        {
+            get
+            {
+                return pictureManager;
+            }
+        }
+
+        public CategoryManager CategoryManager
+        {
+            get
+            {
+                return categoryManager;
+            }
+        }
 
         public PictureCacheInfo PictureCache
         {
@@ -162,12 +136,12 @@ namespace msn2.net.Pictures
         }
 
         public UserManager UserManager
-		{
-			get
-			{
-				return userManager;
-			}
-		}
+        {
+            get
+            {
+                return userManager;
+            }
+        }
 
         public GroupManager GroupManager
         {
@@ -177,21 +151,21 @@ namespace msn2.net.Pictures
             }
         }
 
-		public PictureConfig Config
-		{
-			get
-			{
-				return config;
-			}
-		}
+        public PictureConfig Config
+        {
+            get
+            {
+                return config;
+            }
+        }
 
-		public PersonInfo CurrentUser
-		{
-			get
-			{
-				return currentUser;
-			}
-		}
+        public PersonInfo CurrentUser
+        {
+            get
+            {
+                return currentUser;
+            }
+        }
 
         internal PictureDataContext DataContext
         {
@@ -201,16 +175,16 @@ namespace msn2.net.Pictures
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Internal Methods
+        #region Internal Methods
 
-		internal void SetCurrentUser(PersonInfo info)
-		{
-			this.currentUser = info;
-		}
+        public void SetCurrentUser(PersonInfo info)
+        {
+            this.currentUser = info;
+        }
 
-		#endregion
+        #endregion
 
         public void SubmitChanges()
         {
@@ -223,6 +197,6 @@ namespace msn2.net.Pictures
             pc.currentUser = this.currentUser;
             return pc;
         }
-	}
+    }
 
 }

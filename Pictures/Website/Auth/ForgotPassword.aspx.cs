@@ -62,7 +62,7 @@ namespace pics.Auth
 		{
 
 			// make sure email is valid, get guid
-			Guid userId		= PicContext.Current.UserManager.GetPasswordResetKey(txtEmail.Text);
+			Guid userId		= PicHttpContext.Current.UserManager.GetPasswordResetKey(txtEmail.Text);
 		
 			// build message
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
@@ -82,7 +82,7 @@ namespace pics.Auth
 			msg.BodyFormat = MailFormat.Html;
 
 			// Send the email message
-			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
+			SmtpMail.SmtpServer = PicHttpContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// display confirmation

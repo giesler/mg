@@ -67,11 +67,11 @@ namespace pics
 			// get the byte array from the guid passed
 
 			// create a connection and set up a command
-			SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
+			SqlConnection cn = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_Search_Load", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
 			cmd.Parameters.AddWithValue("@SearchID", id);
-			cmd.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
+			cmd.Parameters.AddWithValue("@PersonID", PicHttpContext.Current.CurrentUser.Id);
 
 			// run the command
 			cn.Open();
@@ -115,7 +115,7 @@ namespace pics
 			string searchText = "";
 			
 			// create a connection and set up a command
-			SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
+			SqlConnection cn = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_Search_NewSearch", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@SearchID", SqlDbType.UniqueIdentifier);
@@ -127,7 +127,7 @@ namespace pics
 			cmd.Parameters.Add("@PersonSearchOption", SqlDbType.SmallInt);
 
 			// set the params on the sp
-			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
+			cmd.Parameters["@PersonID"].Value = PicHttpContext.Current.CurrentUser.Id;
 			if (description.Text.Length > 0) 
 			{
 				cmd.Parameters["@Description"].Value = description.Text;

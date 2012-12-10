@@ -55,7 +55,7 @@ namespace pics
 				string sourceType = Request.QueryString["type"];
 
 				// init connection and command
-				SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
+				SqlConnection cn  = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
@@ -272,7 +272,7 @@ namespace pics
 		#region Private Methods
 		private void SetCategory(int categoryId)
 		{
-			CategoryManager catMan		= PicContext.Current.CategoryManager;
+			CategoryManager catMan		= PicHttpContext.Current.CategoryManager;
 			Category cat				= catMan.GetCategory(categoryId);
 			lblCategory.Text			= cat.Name;
 

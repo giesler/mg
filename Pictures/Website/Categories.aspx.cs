@@ -83,7 +83,7 @@ namespace pics
 			}
 
 			// Load the details of this category
-			CategoryManager catManager		= PicContext.Current.CategoryManager;
+			CategoryManager catManager		= PicHttpContext.Current.CategoryManager;
 			Category currentCategory 		= catManager.GetCategory(currentCategoryId);
 			if (currentCategory == null)
 			{
@@ -94,7 +94,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(currentCategoryId);
+            List<Category> categories = PicHttpContext.Current.CategoryManager.GetChildrenCategories(currentCategoryId);
 
 			int columns				= 2;
 
@@ -250,7 +250,7 @@ namespace pics
 
 			if (showEditControls)
 			{
-				int personId						= PicContext.Current.CurrentUser.Id;
+				int personId						= PicHttpContext.Current.CurrentUser.Id;
 				t2r2c3.Width						= Unit.Pixel(50);
 				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.Id, personId);
 				t2r2c3.Controls.Add(editCat);
@@ -272,7 +272,7 @@ namespace pics
 			if (showEditControls)
 			{
 				string groups = "";
-				List<CategoryGroup> groupList = PicContext.Current.CategoryManager.GetCategoryGroups(
+				List<CategoryGroup> groupList = PicHttpContext.Current.CategoryManager.GetCategoryGroups(
                     currentCategory.Id);
 				foreach (CategoryGroup group in groupList)
 				{
@@ -391,7 +391,7 @@ namespace pics
 			int categoryId		= Convert.ToInt32(currentCategoryId);
 			int count			= 0;
 			int pageSize		= 20;
-			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
+			DataSet dsPics		= PicHttpContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
                 pageSize, 125, 125, sortField, sortOrder, ref count); 
             
 			// create new control
@@ -503,7 +503,7 @@ namespace pics
 			PictureIdCollection mySelectedList	= Global.SelectedPictures;
 
 			// Get current category pic ids
-			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
+			DataSet dsPics		= PicHttpContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
                 10000, 125, 125, PictureSortField.DatePictureTaken, PictureSortOrder.SortAscending, ref count); 
 
 			foreach (DataRow dr in dsPics.Tables[0].Rows)

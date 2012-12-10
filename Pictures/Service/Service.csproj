@@ -132,10 +132,6 @@
     <Content Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\msn2.net\Common\Common.csproj">
-      <Project>{A267194C-A021-4267-A491-AD3919394F9A}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Api\Api.csproj">
       <Project>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</Project>
       <Name>Api</Name>

@@ -56,13 +56,13 @@ namespace pics
 			Literal br = new Literal();
 			br.Text = "<br>";
 
-			List<Category> recentCategories = PicContext.Current.CategoryManager.RecentCategorires();
+			List<Category> recentCategories = PicHttpContext.Current.CategoryManager.RecentCategorires();
 
             dlRecent.DataSource = recentCategories;
 			dlRecent.DataBind();
 
 			// run the SP, set datasource to the picture list
-			msn2.net.Pictures.Picture pic = PicContext.Current.PictureManager.GetRandomPicture();
+			msn2.net.Pictures.Picture pic = PicHttpContext.Current.PictureManager.GetRandomPicture();
             List<PictureRecord> pics = new List<PictureRecord>();
             pics.Add(new PictureRecord(pic, 1));
 

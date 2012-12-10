@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using msn2.net.Common;
 
 namespace msn2.net.Pictures
 {
-    public class PictureStorageManager: ServerMarshalByRefObject
+    public class PictureStorageManager: MarshalByRefObject
     {
         #region Static remoting defaults
 
@@ -37,5 +36,10 @@ namespace msn2.net.Pictures
         }
 
         #endregion
+
+        public override object InitializeLifetimeService()
+        {
+            return null;
+        }
     }
 }

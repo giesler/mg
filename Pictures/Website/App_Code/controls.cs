@@ -802,7 +802,7 @@ namespace pics.Controls
 			t.Rows.Add(tr);
 
 			// Load the category if we need to
-			CategoryManager catManager	= PicContext.Current.CategoryManager;
+			CategoryManager catManager	= PicHttpContext.Current.CategoryManager;
 			if (category == null)
 			{
 				category					= catManager.GetCategory(categoryId);
@@ -922,7 +922,7 @@ namespace pics.Controls
 			if (adminMode)
 			{
 				string groups = "";
-				List<CategoryGroup> groupList = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
+				List<CategoryGroup> groupList = PicHttpContext.Current.CategoryManager.GetCategoryGroups(categoryId);
 				foreach (CategoryGroup group in groupList)
 				{
 					if (groups.Length > 0) groups += ", ";
@@ -984,7 +984,7 @@ namespace pics.Controls
             int pictureCount = -1;
             HttpContext context = HttpContext.Current;
             string cacheKey = string.Format("PictureCount.PersonId.{0}.CategoryId.{1}.Pictures.Recursive.{2}", 
-                PicContext.Current.CurrentUser.Id,
+                PicHttpContext.Current.CurrentUser.Id,
                 categoryId,
                 recursive);
 
@@ -998,7 +998,7 @@ namespace pics.Controls
                 }
             }
 
-            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.Id, recursive);
+            pictureCount = PicHttpContext.Current.CategoryManager.PictureCount(category.Id, recursive);
 
             if (context != null)
             {
@@ -1014,7 +1014,7 @@ namespace pics.Controls
             int categoryCount = -1;
             HttpContext context = HttpContext.Current;
             string cacheKey = string.Format("PictureCount.PersonId.{0}.CategoryId.{1}.Categories.Recursive.{2}", 
-                PicContext.Current.CurrentUser.Id,
+                PicHttpContext.Current.CurrentUser.Id,
                 categoryId,
                 recursive);
 
@@ -1028,7 +1028,7 @@ namespace pics.Controls
                 }
             }
 
-            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.Id, recursive);
+            categoryCount = PicHttpContext.Current.CategoryManager.CategoryCount(category.Id, recursive);
 
             if (context != null)
             {
@@ -1219,7 +1219,7 @@ namespace pics.Controls
 		private void btnFind_Click (Object sender, EventArgs e) 
 		{
 			// set up connection and command
-			PersonInfoCollection col	= PicContext.Current.UserManager.Find(txtName.Text);
+			PersonInfoCollection col	= PicHttpContext.Current.UserManager.Find(txtName.Text);
 			dgPeople.DataSource			= col;
 			dgPeople.DataKeyField		= "Id";
 			dgPeople.DataBind();
@@ -1372,7 +1372,7 @@ namespace pics.Controls
 			availablePeople.Items.Clear();
 
 			// set up connection and command
-			PersonInfoCollection people		= PicContext.Current.UserManager.Find(searchEntry.Text);
+			PersonInfoCollection people		= PicHttpContext.Current.UserManager.Find(searchEntry.Text);
 			availablePeople.DataSource		= people;
 			availablePeople.DataTextField	= "Name";
 			availablePeople.DataValueField	= "Id";
@@ -2152,7 +2152,7 @@ namespace pics.Controls
 		protected override void OnPreRender(EventArgs e)
 		{
 			// if we logged off, bail
-			if (PicContext.Current.CurrentUser == null)
+			if (PicHttpContext.Current.CurrentUser == null)
 				return;
 
 			// Retreive the list of seleted items
@@ -2177,7 +2177,7 @@ namespace pics.Controls
 
 			// Set up JavaScript
 			StringBuilder sb2	= new StringBuilder();
-			int personId		= PicContext.Current.CurrentUser.Id;
+			int personId		= PicHttpContext.Current.CurrentUser.Id;
 			sb2.Append("<script language=\"javascript\">");
 			sb2.Append("function AddPicsToCat() { ");
 			sb2.Append(" if (document.all['categoryTasks'] != null) {");

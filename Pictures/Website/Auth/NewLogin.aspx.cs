@@ -96,7 +96,7 @@ namespace pics.Auth
 			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtPassword.Text));
 
 			// Add a new user request
-			int id = PicContext.Current.UserManager.AddNewUserRequest(txtName.Text, txtLookupEmail.Text, 
+			int id = PicHttpContext.Current.UserManager.AddNewUserRequest(txtName.Text, txtLookupEmail.Text, 
 				System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
             
 			// figure out who to send to
@@ -124,7 +124,7 @@ namespace pics.Auth
 			msg.BodyFormat = MailFormat.Html;
 
 			// Send the email message
-			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
+			SmtpMail.SmtpServer = PicHttpContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// show user a brief message
@@ -143,7 +143,7 @@ namespace pics.Auth
 			Trace.Write("page is valid.");
 
 
-            Guid resetKey = PicContext.Current.UserManager.GetPasswordResetKey(txtLookupEmail.Text);
+            Guid resetKey = PicHttpContext.Current.UserManager.GetPasswordResetKey(txtLookupEmail.Text);
 
 			// see if output was null, if so we don't know the email
 			if (resetKey != Guid.Empty) 
@@ -179,7 +179,7 @@ namespace pics.Auth
 				msg.BodyFormat = MailFormat.Html;
 
 				// Send message
-				SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
+				SmtpMail.SmtpServer = PicHttpContext.Current.Config.SmtpServer;
 				try
 				{
 					SmtpMail.Send(msg);

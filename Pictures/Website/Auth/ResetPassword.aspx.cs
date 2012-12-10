@@ -78,7 +78,7 @@ namespace pics.Auth
 			string password		= System.Text.ASCIIEncoding.ASCII.GetString(bPassword);
 
 			// check result to make sure password changed
-			if (PicContext.Current.UserManager.ResetPassword(lblEmail.Text, password, resetKey))
+			if (PicHttpContext.Current.UserManager.ResetPassword(lblEmail.Text, password, resetKey))
 			{
 				loginLink.NavigateUrl = "Login.aspx?email=" + Server.UrlEncode(lblEmail.Text);
 				pnlPassword.Visible = false;

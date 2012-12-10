@@ -135,8 +135,6 @@
     </Compile>
     <Compile Include="Group.cs" />
     <Compile Include="GroupManager.cs" />
-    <Compile Include="Http\GetImageHttpHandler.cs" />
-    <Compile Include="Http\PicHttpModule.cs" />
     <Compile Include="ImageUtilities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -180,12 +178,6 @@
     </None>
     <None Include="PictureAdmin.snk" />
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\msn2.net\Common\Common.csproj">
-      <Project>{A267194C-A021-4267-A491-AD3919394F9A}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

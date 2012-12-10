@@ -42,7 +42,7 @@ namespace pics
 				Guid g = new Guid(Request.QueryString["id"]);
 
 				// get the search description
-				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
+				SqlConnection cn = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 				SqlCommand cmd   = new SqlCommand("select SearchDescription from Search where SearchID = @SearchID", cn);
 				cmd.Parameters.AddWithValue("@SearchID", g);
 				cn.Open();
@@ -99,7 +99,7 @@ namespace pics
 			if (intStartRecord < 1) intStartRecord = 1;
 
 			// init connection and command to get pictures
-			SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
+			SqlConnection cn  = new SqlConnection(PicHttpContext.Current.Config.ConnectionString);
 
 			// Set up SP to retreive pictures
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Search_GetPictures", cn);
@@ -109,7 +109,7 @@ namespace pics
 			daPics.SelectCommand.Parameters.AddWithValue("@SearchID", g);
 			daPics.SelectCommand.Parameters.AddWithValue("@StartRecord", intStartRecord);
 			daPics.SelectCommand.Parameters.AddWithValue("@ReturnCount", pageSize);
-			daPics.SelectCommand.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
+			daPics.SelectCommand.Parameters.AddWithValue("@PersonID", PicHttpContext.Current.CurrentUser.Id);
 			daPics.SelectCommand.Parameters.AddWithValue("@MaxHeight", 125);
 			daPics.SelectCommand.Parameters.AddWithValue("@MaxWidth", 125);
 			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);

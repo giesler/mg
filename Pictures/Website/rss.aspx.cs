@@ -29,7 +29,7 @@ public partial class rss : System.Web.UI.Page
 
         for (int i = 0; i < 10; i++)
         {
-            Picture randomPic = PicContext.Current.PictureManager.GetRandomPicture();
+            Picture randomPic = PicHttpContext.Current.PictureManager.GetRandomPicture();
 
             string drillUrl = string.Format("picview.aspx?p={0}&type=random", randomPic.Id);
             string picUrl = ""; // BUGBUG: pic cache needed string.Format("GetImage.axd?p={0}&mw={1}&mh={2}", randomPic.Id, randomPic.Height, randomPic.Width);

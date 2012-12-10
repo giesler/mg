@@ -42,7 +42,7 @@ namespace pics.Admin
 					Response.Redirect("../");
 
 				int id = int.Parse(Request.QueryString["id"]);
-				PersonInfo info = PicContext.Current.UserManager.GetNewUserRequest(id);
+				PersonInfo info = PicHttpContext.Current.UserManager.GetNewUserRequest(id);
 				if (info != null)
 				{
 					lblName.Text	= info.Name;
@@ -98,7 +98,7 @@ namespace pics.Admin
 			}
 
 			int requestId = int.Parse(Request.QueryString["id"]);
-			PicContext.Current.UserManager.AssociateRequestWithPerson(requestId, PersonPicker.SelectedPerson);
+			PicHttpContext.Current.UserManager.AssociateRequestWithPerson(requestId, PersonPicker.SelectedPerson);
 
 			// create message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -117,7 +117,7 @@ namespace pics.Admin
 			msg.BodyFormat = MailFormat.Html;
 
 			// send message
-			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
+			SmtpMail.SmtpServer = PicHttpContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// show message
