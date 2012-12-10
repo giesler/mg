@@ -30,7 +30,7 @@ namespace msn2.net.Pictures.Controls.UserControls
                 minutePicker.Items.Add(i.ToString("00"));
             }
 
-            hourPicker.Value = (DateTime.Now.Hour > 12 ? DateTime.Now.Hour - 12 : DateTime.Now.Hour);
+            hourPicker.Value = (DateTime.Now.Hour > 12 ? DateTime.Now.Hour - 12 : (DateTime.Now.Hour == 0 ? 12 : DateTime.Now.Hour));
             minutePicker.SelectedItem = FindItem(minutePicker, DateTime.Now.Minute.ToString("00"));
             string ampm = (DateTime.Now.Hour > 12 ? "pm" : "am");
             ampmPicker.SelectedItem = FindItem(ampmPicker, ampm);
