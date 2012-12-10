@@ -87,8 +87,17 @@ namespace msn2.net.Pictures.Controls
             {
                 // get next picture
                 picture = GetNextPicture(base.CurrentPicture.Id);
-                base.SetPicture(picture);
-                this.errorLabel.Visible = false;
+                if (picture != null)
+                {
+                    base.SetPicture(picture);
+                    this.errorLabel.Visible = false;
+                }
+                else
+                {
+                    this.errorLabel.Visible = true;
+                    this.errorLabel.BringToFront();
+                    this.errorLabel.Text = "Unable to find another picture.";
+                }
             }
             catch (Exception ex)
             {
@@ -126,10 +135,10 @@ namespace msn2.net.Pictures.Controls
         private PictureData GetNextPicture(int currentPictureId)
         {
             int index = GetPictureIndex(currentPictureId);
-            PictureData addedPicture = null;
+            int retryCount = 100;
             if (index < 0 || index == pictures.Count - 1)
             {
-                int retryCount = 100;
+                PictureData addedPicture = null;
                 do
                 {
                     Picture randomPicture = this.GetRandomPicture();
@@ -151,7 +160,7 @@ namespace msn2.net.Pictures.Controls
             }
 
             PictureData pic = null;
-            if (addedPicture == null)
+            if (retryCount == 0)
             {
                 this.pictures.Clear();
             }

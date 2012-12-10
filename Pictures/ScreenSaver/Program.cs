@@ -62,7 +62,14 @@ namespace msn2.net.Pictures
             ss.Interval = Properties.Settings.Default.SlideshowInterval;
             ss.Path = Properties.Settings.Default.Path;
             ss.GroupId = Properties.Settings.Default.Group;
-            Application.Run(ss);
+            try
+            {
+                Application.Run(ss);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Unhandled Error: " + ex.GetType().Name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
