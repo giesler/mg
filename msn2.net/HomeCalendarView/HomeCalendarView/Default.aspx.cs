@@ -24,16 +24,121 @@ namespace HomeCalendarView
             this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
+            this.day4Label.Text = DateTime.Now.AddDays(4).ToString("dddd").ToLower();
 
+            DisplayCurrent();
+
+            DisplayCalendar();
+
+            DisplayForecast();
+        }
+
+        private void DisplayForecast()
+        {
+            GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
+
+            string latLongList = weatherService.LatLonListZipCode("98033");
+            XmlDocument latLongDoc = new XmlDocument();
+            latLongDoc.LoadXml(latLongList);
+            latLongList = latLongDoc.DocumentElement.InnerText; ;
+
+            string[] latLongs = latLongList.Split(',');
+            decimal lat = decimal.Parse(latLongs[0]);
+            decimal lng = decimal.Parse(latLongs[1]);
+
+            string xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", HomeCalendarView.GovWeatherService.formatType.Item12hourly);
+            XmlDocument weatherXml = new XmlDocument();
+            weatherXml.LoadXml(xml);
+
+            int offset = 0;
+            if (DateTime.Now.Hour > 15)
+            {
+                offset = -1;
+                this.todayHighTemp.Visible = false;
+                this.todayWeatherImage2.Visible = false;
+                this.precipToday2.Visible = false;
+                this.highPrefix.Visible = false;
+            }
+
+            foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
+            {
+                switch (tempNode.Attributes["type"].Value)
+                {
+                    case "maximum":
+                        if (offset == 0)
+                        {
+                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText;
+                        }
+                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText;
+                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText;
+                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText;
+                        day4High.Text = tempNode.ChildNodes[5 + offset].InnerText;
+                        break;
+
+                    case "minimum":
+                        todayLowTemp.Text = tempNode.ChildNodes[1].InnerText;
+                        day1Low.Text = tempNode.ChildNodes[2].InnerText;
+                        day2Low.Text = tempNode.ChildNodes[3].InnerText;
+                        day3Low.Text = tempNode.ChildNodes[4].InnerText;
+                        day4Low.Text = tempNode.ChildNodes[5].InnerText;
+                        break;
+                }
+            }
+
+            XmlNode precipNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/probability-of-precipitation");
+            precipToday1.Text = precipNode.ChildNodes[1].InnerText + "%";
+            if (offset == 0)
+            {
+                precipToday2.Text = precipNode.ChildNodes[2].InnerText + "%";
+            }
+            precipDay1am.Text = precipNode.ChildNodes[3 + offset].InnerText + "%";
+            precipDay1pm.Text = precipNode.ChildNodes[4 + offset].InnerText + "%";
+            precipDay2am.Text = precipNode.ChildNodes[5 + offset].InnerText + "%";
+            precipDay2pm.Text = precipNode.ChildNodes[6 + offset].InnerText + "%";
+            precipDay3am.Text = precipNode.ChildNodes[7 + offset].InnerText + "%";
+            precipDay3pm.Text = precipNode.ChildNodes[8 + offset].InnerText + "%";
+            precipDay4am.Text = precipNode.ChildNodes[9 + offset].InnerText + "%";
+            precipDay4pm.Text = precipNode.ChildNodes[10 + offset].InnerText + "%";
+
+            XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
+            XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
+            todayWeatherImage1.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
+            todayWeatherImage1.AlternateText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
+            if (offset == 0)
+            {
+                todayWeatherImage2.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
+                todayWeatherImage2.AlternateText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
+            }
+            day1Image1.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
+            day1Image1.AlternateText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
+            day1Image2.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
+            day1Image2.AlternateText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
+            day2Image1.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
+            day2Image1.AlternateText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
+            day2Image2.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
+            day2Image2.AlternateText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
+            day3Image1.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
+            day3Image1.AlternateText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
+            day3Image2.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
+            day3Image2.AlternateText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
+            day4Image1.ImageUrl = conditionsNode.ChildNodes[9 + offset].InnerText;
+            day4Image1.AlternateText = descriptionNode.ChildNodes[9 + offset].Attributes["weather-summary"].Value;
+            day4Image2.ImageUrl = conditionsNode.ChildNodes[10 + offset].InnerText;
+            day4Image2.AlternateText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
+        }
+
+        private void DisplayCalendar()
+        {
             List<CalendarItem> items = GetCalendarItems();
 
             todaysEvents.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.Date).ToList<CalendarItem>());
             day1Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(1).Date).ToList<CalendarItem>());
             day2Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(2).Date).ToList<CalendarItem>());
             day3Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(3).Date).ToList<CalendarItem>());
+            day4Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(4).Date).ToList<CalendarItem>());
 
             var q = from ci in items
-                    where ci.EventDate.Date >= DateTime.Now.AddDays(4).Date && ci.EventDate.Date <= DateTime.Now.AddDays(14)
+                    where ci.EventDate.Date >= DateTime.Now.AddDays(5).Date && ci.EventDate.Date <= DateTime.Now.AddDays(14)
                     orderby ci.EventDate
                     select ci;
             int count = 0;
@@ -58,89 +163,26 @@ namespace HomeCalendarView
 
                 count++;
             }
+        }
 
-            GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
+        private void DisplayCurrent()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
 
-            string latLongList = weatherService.LatLonListZipCode("98033");
-            XmlDocument latLongDoc = new XmlDocument();
-            latLongDoc.LoadXml(latLongList);
-            latLongList = latLongDoc.DocumentElement.InnerText; ;
+            this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText;
 
-            string[] latLongs = latLongList.Split(',');
-            decimal lat = decimal.Parse(latLongs[0]);
-            decimal lng = decimal.Parse(latLongs[1]);
+            string windDirection = doc.DocumentElement.SelectSingleNode("wind_dir").InnerText;
+            decimal windSpeed = decimal.Parse(doc.DocumentElement.SelectSingleNode("wind_mph").InnerText);
 
-            string xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", HomeCalendarView.GovWeatherService.formatType.Item12hourly);
-            XmlDocument weatherXml = new XmlDocument();
-            weatherXml.LoadXml(xml);
+            this.windLabel.Text = windDirection + " at " + ((int)windSpeed).ToString() + " mph";
+            this.windChill.Text = doc.DocumentElement.SelectSingleNode("windchill_f").InnerText;
+            this.visibility.Text = doc.DocumentElement.SelectSingleNode("visibility_mi").InnerText;
 
-            int offset = 0;
-            if (DateTime.Now.Hour > 14)
-            {
-                offset = -1;
-                this.todayHighTemp.Visible = false;
-                this.todayWeatherImage2.Visible = false;
-                this.precipToday2.Visible = false;
-                this.todayTempDivider.Text = "Low ";
-            }
-
-            foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
-            {
-                switch (tempNode.Attributes["type"].Value)
-                {
-                    case "maximum":
-                        if (offset == 0)
-                        {
-                            todayHighTemp.Text = tempNode.ChildNodes[1].InnerText;
-                        }
-                        day1High.Text = tempNode.ChildNodes[2 + offset].InnerText;
-                        day2High.Text = tempNode.ChildNodes[3 + offset].InnerText;
-                        day3High.Text = tempNode.ChildNodes[4 + offset].InnerText;
-                        break;
-
-                    case "minimum":
-                        todayLowTemp.Text = tempNode.ChildNodes[1].InnerText;
-                        day1Low.Text = tempNode.ChildNodes[2].InnerText;
-                        day2Low.Text = tempNode.ChildNodes[3].InnerText;
-                        day3Low.Text = tempNode.ChildNodes[4].InnerText;
-                        break;
-                }
-            }
-
-            XmlNode precipNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/probability-of-precipitation");
-            precipToday1.Text = precipNode.ChildNodes[1].InnerText + "%";
-            if (offset == 0)
-            {
-                precipToday2.Text = precipNode.ChildNodes[2].InnerText + "%";
-            }
-            precipDay1am.Text = precipNode.ChildNodes[3 + offset].InnerText + "%";
-            precipDay1pm.Text = precipNode.ChildNodes[4 + offset].InnerText + "%";
-            precipDay2am.Text = precipNode.ChildNodes[5 + offset].InnerText + "%";
-            precipDay2pm.Text = precipNode.ChildNodes[6 + offset].InnerText + "%";
-            precipDay3am.Text = precipNode.ChildNodes[7 + offset].InnerText + "%";
-            precipDay3pm.Text = precipNode.ChildNodes[8 + offset].InnerText + "%";
-
-            XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
-            XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
-            todayWeatherImage1.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
-            todayWeatherImage1.AlternateText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
-            if (offset == 0)
-            {
-                todayWeatherImage2.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
-                todayWeatherImage2.AlternateText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
-            }
-            day1Image1.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
-            day1Image1.AlternateText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
-            day1Image2.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
-            day1Image2.AlternateText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
-            day2Image1.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
-            day2Image1.AlternateText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
-            day2Image2.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
-            day2Image2.AlternateText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
-            day3Image1.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
-            day3Image1.AlternateText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
-            day3Image2.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
-            day3Image2.AlternateText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
+            string conditionImage = doc.DocumentElement.SelectSingleNode("icon_url_base").InnerText;
+            conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
+            this.currentCondition.ImageUrl = conditionImage;
+            this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
         }
 
         private List<CalendarItem> GetCalendarItems()
