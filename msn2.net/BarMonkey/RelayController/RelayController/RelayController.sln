@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerLibrary", "RelayControllerLibrary\RelayControllerLibrary.csproj", "{64AD3109-8D57-40EC-A48F-4D387F3CEE59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerConsole", "RelayControllerConsole\RelayControllerConsole.csproj", "{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerService", "RelayControllerService\RelayControllerService.csproj", "{1A03BBB8-D214-4591-A3AD-23EFC323C584}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerTest", "RelayControllerTest\RelayControllerTest.csproj", "{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 5
+		SccProjectUniqueName0 = RelayControllerLibrary\\RelayControllerLibrary.csproj
+		SccProjectName0 = \u0022$/msn2.net/BarMonkey/RelayControllerLibrary\u0022,\u0020RBQAAAAA
+		SccLocalPath0 = RelayControllerLibrary
+		SccProjectUniqueName1 = RelayControllerConsole\\RelayControllerConsole.csproj
+		SccProjectName1 = \u0022$/msn2.net/BarMonkey/RelayControllerConsole\u0022,\u0020YBQAAAAA
+		SccLocalPath1 = RelayControllerConsole
+		SccProjectUniqueName2 = RelayControllerService\\RelayControllerService.csproj
+		SccProjectName2 = \u0022$/msn2.net/BarMonkey/RelayControllerService\u0022,\u0020FCQAAAAA
+		SccLocalPath2 = RelayControllerService
+		SccProjectUniqueName3 = RelayControllerTest\\RelayControllerTest.csproj
+		SccProjectName3 = \u0022$/msn2.net/BarMonkey/RelayControllerTest\u0022,\u0020GAQAAAAA
+		SccLocalPath3 = RelayControllerTest
+		SccLocalPath4 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
