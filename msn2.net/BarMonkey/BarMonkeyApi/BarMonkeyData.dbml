@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Database Name="BarMonkey" Class="BarMonkeyDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=stan;Initial Catalog=BarMonkey;Integrated Security=True" SettingsObjectName="msn2.net.BarMonkey.Properties.Settings" SettingsPropertyName="BarMonkeyConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Drink" Member="Drinks">
+    <Type Name="Drink">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Drink_UserFavorite" Member="UserFavorites" OtherKey="DrinkId" Type="UserFavorite" />
+      <Association Name="Drink_DrinkIngredient" Member="DrinkIngredients" OtherKey="DrinkId" Type="DrinkIngredient" />
+      <Association Name="Drink_UserDrinkHistory" Member="UserDrinkHistories" OtherKey="DrinkId" Type="UserDrinkHistory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserFavorite" Member="UserFavorites">
+    <Type Name="UserFavorite">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DrinkId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Drink_UserFavorite" Member="Drink" ThisKey="DrinkId" Type="Drink" IsForeignKey="true" />
+      <Association Name="User_UserFavorite" Member="User" ThisKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DrinkIngredient" Member="DrinkIngredients">
+    <Type Name="DrinkIngredient">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DrinkId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IngredientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Group]" Member="Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AmountOunces" Type="System.Decimal" DbType="Decimal(4,3) NOT NULL" CanBeNull="false" />
+      <Association Name="Drink_DrinkIngredient" Member="Drink" ThisKey="DrinkId" Type="Drink" IsForeignKey="true" />
+      <Association Name="Ingredient_DrinkIngredient" Member="Ingredient" ThisKey="IngredientId" Type="Ingredient" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ingredient" Member="Ingredients">
+    <Type Name="Ingredient">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="RelayId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="RemainingOunces" Type="System.Decimal" DbType="Decimal(3,3) NOT NULL" CanBeNull="false" />
+      <Column Name="IsAlchohol" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="WarningThreshold" Type="System.Decimal" DbType="Decimal(3,3)" CanBeNull="true" />
+      <Column Name="IsPerishable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Ingredient_DrinkIngredient" Member="DrinkIngredients" OtherKey="IngredientId" Type="DrinkIngredient" />
+      <Association Name="Ingredient_IngredientSubstitute" Member="IngredientSubstitutes" OtherKey="IngredientId" Type="IngredientSubstitute" />
+      <Association Name="Ingredient_IngredientSubstitute1" Member="IngredientSubstitutes1" OtherKey="SubstitueIngredientId" Type="IngredientSubstitute" />
+      <Association Name="Ingredient_UserDrinkIngredientHistory" Member="UserDrinkIngredientHistories" OtherKey="IngredientId" Type="UserDrinkIngredientHistory" />
+      <Association Name="Relay_Ingredient" Member="Relay" ThisKey="RelayId" Type="Relay" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IngredientSubstitute" Member="IngredientSubstitutes">
+    <Type Name="IngredientSubstitute">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IngredientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubstitueIngredientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Ingredient_IngredientSubstitute" Member="Ingredient" ThisKey="IngredientId" Type="Ingredient" IsForeignKey="true" />
+      <Association Name="Ingredient_IngredientSubstitute1" Member="Ingredient1" ThisKey="SubstitueIngredientId" Type="Ingredient" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Relay" Member="Relays">
+    <Type Name="Relay">
+      <Column Name="Id" Type="System.Byte" DbType="TinyInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Relay_Ingredient" Member="Ingredients" OtherKey="RelayId" Type="Ingredient" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Pin" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TextMessageAddress" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="RemainingOunces" Type="System.Decimal" DbType="Decimal(3,3)" CanBeNull="true" />
+      <Association Name="User_UserFavorite" Member="UserFavorites" OtherKey="UserId" Type="UserFavorite" />
+      <Association Name="User_UserDrinkHistory" Member="UserDrinkHistories" OtherKey="UserId" Type="UserDrinkHistory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserDrinkHistory" Member="UserDrinkHistories">
+    <Type Name="UserDrinkHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DrinkId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Association Name="UserDrinkHistory_UserDrinkIngredientHistory" Member="UserDrinkIngredientHistories" OtherKey="UserDrinkHistoryId" Type="UserDrinkIngredientHistory" />
+      <Association Name="Drink_UserDrinkHistory" Member="Drink" ThisKey="DrinkId" Type="Drink" IsForeignKey="true" />
+      <Association Name="User_UserDrinkHistory" Member="User" ThisKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserDrinkIngredientHistory" Member="UserDrinkIngredientHistories">
+    <Type Name="UserDrinkIngredientHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserDrinkHistoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IngredientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AmountOunces" Type="System.Decimal" DbType="Decimal(3,3) NOT NULL" CanBeNull="false" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Ingredient_UserDrinkIngredientHistory" Member="Ingredient" ThisKey="IngredientId" Type="Ingredient" IsForeignKey="true" />
+      <Association Name="UserDrinkHistory_UserDrinkIngredientHistory" Member="UserDrinkHistory" ThisKey="UserDrinkHistoryId" Type="UserDrinkHistory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.GetUsersFavoriteDrinks" Method="GetUsersFavoriteDrinks">
+    <Parameter Name="userId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUsersFavoriteDrinksResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>
