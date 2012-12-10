@@ -117,6 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetDataItem.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ServerMarshalByRefObject.cs" />
     <Compile Include="ShellCategory.cs">
       <SubType>Component</SubType>
     </Compile>

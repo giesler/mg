@@ -130,6 +130,7 @@
     <Compile Include="PictureManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PictureStorageManager.cs" />
     <Compile Include="PictureSystem.cs" />
     <Compile Include="PictureWatcher.cs" />
     <Compile Include="PersonGroup.cs" />
@@ -179,6 +180,12 @@
       <DependentUpon>PictureDataSet.xsd</DependentUpon>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\msn2.net\Common\Common.csproj">
+      <Project>{A267194C-A021-4267-A491-AD3919394F9A}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

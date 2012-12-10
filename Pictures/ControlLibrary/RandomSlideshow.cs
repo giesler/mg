@@ -51,7 +51,7 @@ namespace msn2.net.Pictures.Controls
             int index = GetPictureIndex(currentPictureId);
             if (index > 0)
             {
-                return this.pictures[index];
+                return this.pictures[index-1];
             }
 
             return null;

@@ -85,6 +85,18 @@ namespace msn2.net.Pictures.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.PictureItem.PaintPicture(e);
+
+            //Point debugLocation = new Point(10, this.Height - 30);
+            //string debugMessage = string.Format(
+            //    "MouseCapture = {0}, Active = {1}",
+            //    this.Capture,
+            //    this.isActive);
+
+            //e.Graphics.DrawString(
+            //    debugMessage,
+            //    new Font("Arial", 14, FontStyle.Bold),
+            //    Brushes.OrangeRed,
+            //    debugLocation);
         }
 
         private void SetupFormProperties()
