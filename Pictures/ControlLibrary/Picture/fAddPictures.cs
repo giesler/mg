@@ -678,7 +678,10 @@ namespace msn2.net.Pictures.Controls
                         // Get 'date picture taken' if available
                         data = ex.GetExifMetadata(file);
 
-                        date = DateTime.Parse(data.DatePictureTaken.DisplayValue);
+                        if (data.DatePictureTaken.DisplayValue != null)
+                        {
+                            date = DateTime.Parse(data.DatePictureTaken.DisplayValue);
+                        }
                     }
                     catch (Exception exc)
                     {

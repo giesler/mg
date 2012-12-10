@@ -273,7 +273,7 @@ namespace msn2.net.Pictures.Controls
 
 						// Request image
 						string imgSource		= GetPictureFilename(picture.PictureID, 750, 700);
-						File.Copy(@"\\ike\" + imgSource, imageFilename);
+						File.Copy(@"\\ned\" + imgSource, imageFilename);
 					}
 					catch (Exception ex)
 					{
