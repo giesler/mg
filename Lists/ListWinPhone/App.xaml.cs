@@ -85,7 +85,14 @@ namespace giesler.org.lists
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            settings = IsolatedStorageSettings.ApplicationSettings;
+            if (!e.IsApplicationInstancePreserved)
+            {
+                settings = IsolatedStorageSettings.ApplicationSettings;
+            }
+            else
+            {
+                Debug.WriteLine("App instance preserved");
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)

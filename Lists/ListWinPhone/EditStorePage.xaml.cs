@@ -49,8 +49,8 @@ namespace giesler.org.lists
 
         void OnDelete(object sender, EventArgs e)
         {
-            string message = "Are you sure you want to delete this list?  You cannot undo a delete.";
-            if (MessageBox.Show(message, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            string message = "Are you sure you want to delete this list?  You cannot undo this delete.";
+            if (MessageBox.Show(message, "Confirm Delete", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
                 this.pbar.Visibility = System.Windows.Visibility.Visible;
                 this.status.Text = "deleting...";

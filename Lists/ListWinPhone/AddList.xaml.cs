@@ -22,6 +22,13 @@ namespace giesler.org.lists
             InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            this.name.Focus();
+        }
+
         private void OnAdd(object sender, EventArgs e)
         {
             this.ToggleControls(false);
