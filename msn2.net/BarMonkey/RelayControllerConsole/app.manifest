@@ -10,7 +10,7 @@
         <requestedExecutionLevel  level="requireAdministrator" />
         <requestedExecutionLevel  level="highestAvailable" />
         -->
-        <requestedExecutionLevel level="requireAdministrator" />
+<!--        <requestedExecutionLevel level="requireAdministrator" />-->
       </requestedPrivileges>
     </security>
   </trustInfo>

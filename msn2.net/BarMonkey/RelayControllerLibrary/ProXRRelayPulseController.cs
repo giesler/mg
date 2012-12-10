@@ -14,11 +14,9 @@ namespace msn2.net.BarMonkey.RelayController
         int onCommandOffset = 108;
         int offCommandOffset = 100;
 
-        protected override void ConfigureSerialPort()
+        protected override RelayControllerRefreshMode GetRefreshMode()
         {
-            this.SendCommandAndFlush("manual refresh", 26);
-
-            this.SendCommandAndFlush("disable reporting", 28);
+            return RelayControllerRefreshMode.ManualRefresh;
         }
 
         protected override void SendBatchGroup(List<BatchItem> batch)

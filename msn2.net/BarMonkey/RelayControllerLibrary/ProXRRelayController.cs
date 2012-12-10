@@ -11,9 +11,16 @@ namespace msn2.net.BarMonkey
 {
     public abstract class ProXRRelayController: IRelayController
     {
+        public enum RelayControllerRefreshMode
+        {
+            AutomaticRefresh = 0,
+            ManualRefresh
+        }
+
         private static object lockObject = new object();
 
         private SerialPort serialPort = null;
+        private RelayControllerRefreshMode refreshMode = RelayControllerRefreshMode.AutomaticRefresh;
 
         ~ProXRRelayController()
         {
@@ -108,28 +115,45 @@ namespace msn2.net.BarMonkey
                         // Connect test
                         this.SendCommandAndFlush("connect", 33);
 
-                        ConfigureSerialPort();
+                        this.refreshMode = GetRefreshMode();
+                        if (this.refreshMode == RelayControllerRefreshMode.AutomaticRefresh)
+                        {
+                            this.SendCommandAndFlush("auto refresh", 25);
+                        }
+                        else
+                        {
+                            this.SendCommandAndFlush("manual refresh", 26);
+                        }
+
+                        this.SendCommandAndFlush("disable reporting mode", 28);
                     }
                 }
             }
         }
 
-        protected virtual void ConfigureSerialPort()
+        protected virtual RelayControllerRefreshMode GetRefreshMode()
         {
-            this.SendCommandAndFlush("auto refresh", 25);
-
-            this.SendCommandAndFlush("disable reporting mode", 28);
+            return RelayControllerRefreshMode.AutomaticRefresh;
         }
 
         private void CloseSerialPort()
         {
             if (this.serialPort != null && this.serialPort.IsOpen == true)
             {
+                Console.WriteLine("Closing serial port..");
+
                 this.SendCommandAndFlush("turn off all ports", 29);
+
+                if (this.refreshMode == RelayControllerRefreshMode.ManualRefresh)
+                {
+                    this.SendCommandAndFlush("flush", 37);
+                }
 
                 // TODO: Manually turn off all timers too
 
                 this.serialPort.Close();
+
+                Console.WriteLine("Serial port closed.");
             }
 
             this.serialPort = null;

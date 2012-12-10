@@ -59,6 +59,7 @@ namespace BarMonkey.Activities
             try
             {
                 relayClient.ConnectTest();
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(onConnected), null);
             }
             catch (Exception ex)
             {
@@ -70,11 +71,6 @@ namespace BarMonkey.Activities
         {
             Exception exception = (Exception)o;
             this.statusLabel.Content = exception.ToString();
-        }
-
-        private void connectComplete(IAsyncResult ar)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(onConnected), ar);
         }
 
         private void onConnected(IAsyncResult ar)
@@ -99,10 +95,7 @@ namespace BarMonkey.Activities
                 items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds=duration});
             }
 
-            BatchItem[] batch = new BatchItem[2];
-            batch[0] = new BatchItem { Group = 1, RelayNumber = 2, Seconds = 2 };
-            batch[1] = new BatchItem { Group = 2, RelayNumber = 3, Seconds = 5 };
-            relayClient.BeginSendBatch(batch, pourComplete, new object());
+            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, new object());
 
             this.statusLabel.Content = "pouring...";
 
@@ -132,6 +125,9 @@ namespace BarMonkey.Activities
         private void repeat_Click(object sender, RoutedEventArgs e)
         {
             onConnected(null);
+
+            this.repeat.IsEnabled = true;
+            this.gohome.IsEnabled = true;
         }
 
         private void gohome_Click(object sender, RoutedEventArgs e)
