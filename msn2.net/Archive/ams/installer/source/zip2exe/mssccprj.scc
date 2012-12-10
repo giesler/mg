@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[zip2exe.dsp]
+SCC_Aux_Path = "\\Cartman\vss\"
+SCC_Project_Name = "$/AMS/Installer/Source/zip2exe", LEHAAAAA

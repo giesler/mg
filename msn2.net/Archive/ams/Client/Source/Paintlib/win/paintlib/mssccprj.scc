@@ -1,0 +1,17 @@
+SCC = This is a Source Code Control file
+
+[paintlib.dsp]
+SCC_Aux_Path = "\\kyle\vss\"
+SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/paintlib", EXFAAAAA
+
+[paintlib.mak]
+SCC_Aux_Path = "\\kyle\vss\"
+SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/paintlib", EXFAAAAA
+
+[paintlib.sln]
+SCC_Aux_Path = "\\kyle\vss\"
+SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/paintlib", EXFAAAAA
+
+[paintlib.vcproj]
+SCC_Aux_Path = "\\kyle\vss\"
+SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/paintlib", EXFAAAAA

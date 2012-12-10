@@ -1,0 +1,71 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: exehead - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Debug/resource.res" /d "_DEBUG" "C:\VSS\AMS\Installer\Source\exehead\resource.rc"" 
+Creating temporary file "C:\DOCUME~1\mike\LOCALS~1\Temp\RSP255.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/exehead.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\VSS\AMS\Installer\Source\zlib\Adler32.c"
+"C:\VSS\AMS\Installer\Source\zlib\INFBLOCK.C"
+"C:\VSS\AMS\Installer\Source\zlib\INFCODES.C"
+"C:\VSS\AMS\Installer\Source\zlib\INFLATE.C"
+"C:\VSS\AMS\Installer\Source\zlib\INFTREES.C"
+"C:\VSS\AMS\Installer\Source\zlib\INFUTIL.C"
+"C:\VSS\AMS\Installer\Source\exehead\bgbg.c"
+"C:\VSS\AMS\Installer\Source\exehead\exec.c"
+"C:\VSS\AMS\Installer\Source\exehead\fileform.c"
+"C:\VSS\AMS\Installer\Source\exehead\libc.c"
+"C:\VSS\AMS\Installer\Source\exehead\Main.c"
+"C:\VSS\AMS\Installer\Source\exehead\Ui.c"
+"C:\VSS\AMS\Installer\Source\exehead\util.c"
+]
+Creating command line "cl.exe @C:\DOCUME~1\mike\LOCALS~1\Temp\RSP255.tmp" 
+Creating temporary file "C:\DOCUME~1\mike\LOCALS~1\Temp\RSP256.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib version.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/exehead.pdb" /debug /machine:I386 /out:"Debug/exehead.exe" /pdbtype:sept 
+.\Debug\ADLER32.OBJ
+.\Debug\INFBLOCK.OBJ
+.\Debug\INFCODES.OBJ
+.\Debug\INFLATE.OBJ
+.\Debug\INFTREES.OBJ
+.\Debug\INFUTIL.OBJ
+.\Debug\bgbg.obj
+.\Debug\exec.obj
+.\Debug\fileform.obj
+.\Debug\libc.obj
+.\Debug\Main.obj
+.\Debug\Ui.obj
+.\Debug\util.obj
+.\Debug\resource.res
+]
+Creating command line "link.exe @C:\DOCUME~1\mike\LOCALS~1\Temp\RSP256.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+Adler32.c
+INFBLOCK.C
+INFCODES.C
+INFLATE.C
+INFTREES.C
+INFUTIL.C
+bgbg.c
+exec.c
+fileform.c
+libc.c
+Main.c
+Ui.c
+util.c
+Linking...
+
+
+
+<h3>Results</h3>
+exehead.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
