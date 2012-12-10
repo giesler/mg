@@ -186,20 +186,17 @@
     <Compile Include="Impersonate.aspx.designer.cs">
       <DependentUpon>Impersonate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Old_App_Code\controls.cs" />
-    <Compile Include="Old_App_Code\global.asax.cs" />
-    <Compile Include="Old_App_Code\header.cs" />
-    <Compile Include="Old_App_Code\mainform.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\pictureviewer.cs" />
-    <Compile Include="Old_App_Code\randompictureservice.asmx.cs">
+    <Compile Include="Controls\controls.cs" />
+    <Compile Include="Controls\global.asax.cs" />
+    <Compile Include="Controls\header.cs" />
+    <Compile Include="Controls\pictureviewer.cs" />
+    <Compile Include="Controls\randompictureservice.asmx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Old_App_Code\tasklistcontrol.cs">
+    <Compile Include="Controls\tasklistcontrol.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Old_App_Code\thumbnaillistpaging.cs" />
+    <Compile Include="Controls\thumbnaillistpaging.cs" />
     <Compile Include="Auth\ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -301,6 +298,9 @@
       <Project>{D64690E2-39E4-49EF-89C0-95A1B30B64AB}</Project>
       <Name>PictureHttpHelpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Old_App_Code\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
