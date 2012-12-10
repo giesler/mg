@@ -35,9 +35,9 @@
     <SupportUrl>http://barnone.msn2.net</SupportUrl>
     <ProductName>BarNone Relay Controller Console</ProductName>
     <PublisherName>msn2.net</PublisherName>
-    <MinimumRequiredVersion>1.0.0.5</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.6</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
