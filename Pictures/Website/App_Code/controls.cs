@@ -16,6 +16,7 @@ namespace pics.Controls
 	using System.Collections;
 	using System.Text;
 	using msn2.net.Pictures;
+    using System.Collections.Generic;
 
 	#region Picture Display control
 	/// <summary>
@@ -76,7 +77,6 @@ namespace pics.Controls
 
 		protected override void CreateChildControls() 
 		{
-
 			String strAppPath = HttpContext.Current.Request.ApplicationPath;
 			if (!strAppPath.Equals("/"))  
 				strAppPath = strAppPath + "/";
@@ -90,7 +90,7 @@ namespace pics.Controls
 			// see if file wasn't set
 			if (filename == null)
 			{
-				image.ImageUrl = strAppPath + "GetImage.axd?p=" + pictureId.ToString() + "&mw=" + maxWidth.ToString() + "&mh=" + maxHeight.ToString();
+				image.ImageUrl = strAppPath + "GetImage.axd?p=" + pictureId.ToString() + "&sb=0&mw=" + maxWidth.ToString() + "&mh=" + maxHeight.ToString();
 			}
 			else
 			{
@@ -277,7 +277,7 @@ namespace pics.Controls
 			}
 
 		}
-		
+
 		private void PictureItemDataBind(object sender, DataListItemEventArgs e) 
 		{
 			ListItemType itemType = e.Item.ItemType;
@@ -294,8 +294,7 @@ namespace pics.Controls
 
 				PictureViewer viewer = new PictureViewer(pictureId, zoomUrl, caption, recNumber, showCheckBox, showRecordNumber, false);
 				viewer.PictureCheckBoxClicked += new PictureCheckBoxClickedEventHandler(viewer_PictureCheckBoxClicked);
-
-				
+                				
 				// finally, add table to this dataitem
 				e.Item.Controls.Add(viewer);
 			}
@@ -810,10 +809,10 @@ namespace pics.Controls
 			}
 
 			// Get counts of sub items
-            int picCount = this.GetRecursivePictureCount(category.CategoryId, false);
-            int catCount = this.GetRecursiveCategoryCount(category.CategoryId, false);
-            int recursivePicCount = this.GetRecursivePictureCount(category.CategoryId, true);
-            int recursiveCatCount = this.GetRecursiveCategoryCount(category.CategoryId, true);
+            int picCount = this.GetRecursivePictureCount(category.Id, false);
+            int catCount = this.GetRecursiveCategoryCount(category.Id, false);
+            int recursivePicCount = this.GetRecursivePictureCount(category.Id, true);
+            int recursiveCatCount = this.GetRecursiveCategoryCount(category.Id, true);
 
 			TableCell catCell		= new TableCell();
 			catCell.Width			= Unit.Pixel(folderWidth);
@@ -827,9 +826,9 @@ namespace pics.Controls
 
 			// Background folder image
 			string imageUrl			= (recursivePicCount != 0 ? folderImage : "Images/folderEmpty.png");
-			if (folderWidth == 150 && category.PictureId != 0)
+			if (folderWidth == 150 && category.PictureId.HasValue && category.PictureId.Value != 0)
 			{
-				PictureViewer pic		= new PictureViewer(category.PictureId, navigateUrl, "", 0, false, false, false);
+				PictureViewer pic		= new PictureViewer(category.PictureId.Value, navigateUrl, "", 0, false, false, false);
 				pic.CssClass			= "categoryPicture";
 				catCell.Controls.Add(pic);
 			}
@@ -868,41 +867,44 @@ namespace pics.Controls
 			bool prevText = false;
 
 			// Date/time, if we have something
-			string dateFormatString	= "ddd, MMM d \"'\"yy";
-			if (category.FromDate == DateTime.MinValue)
+			//string dateFormatString	= "ddd, MMM d \"'\"yy";
+			if (true) //category.FromDate == DateTime.MinValue)
 			{
 			}
 			else 
 			{
-				catCell.Controls.Add(new HtmlLiteral("<br>"));
+                //catCell.Controls.Add(new HtmlLiteral("<br>"));
 
-				if (prevText)
-				{
-					catCell.Controls.Add(new HtmlLiteral(" from "));
-				}
+                //if (prevText)
+                //{
+                //    catCell.Controls.Add(new HtmlLiteral(" from "));
+                //}
+
+
 //				prevText = true;
-				if (category.FromDate.Date == category.ToDate.Date)
-				{
-					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
-				}
-				else
-				{
-					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
-					catCell.Controls.Add(new HtmlLiteral(" to "));
-					catCell.Controls.Add(new HtmlLiteral(category.ToDate.ToString(dateFormatString)));
-				}
-				catCell.Controls.Add(new HtmlLiteral("<br>"));
+                // BUGBUG: New Linq table doesn't have from/to dates
+                //if (category.FromDate.Date == category.ToDate.Date)
+                //{
+                //    catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
+                //}
+                //else
+                //{
+                //    catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
+                //    catCell.Controls.Add(new HtmlLiteral(" to "));
+                //    catCell.Controls.Add(new HtmlLiteral(category.ToDate.ToString(dateFormatString)));
+                //}
+				//catCell.Controls.Add(new HtmlLiteral("<br>"));
 			}
-	
+
 			// Description
 			if (category.Description != null && category.Description.Length > 0)
 			{
-				Label lbl			= new Label();
+                catCell.Controls.Add(new HtmlLiteral("<br>"));
+                Label lbl = new Label();
 				lbl.Text			= category.Description;
 				lbl.CssClass		= "categoryDescription";
 
 				catCell.Controls.Add(lbl);
-
 			}
 
 			// Contents
@@ -920,11 +922,11 @@ namespace pics.Controls
 			if (adminMode)
 			{
 				string groups = "";
-				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
-				foreach (string groupName in groupNames)
+				List<CategoryGroup> groupList = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
+				foreach (CategoryGroup group in groupList)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += groupName;
+					groups += group.Group.GroupName;
 				}
 				groups = "Groups: " + groups + "<br />";
 				catCell.Controls.Add(new HtmlLiteral(groups));
@@ -996,7 +998,7 @@ namespace pics.Controls
                 }
             }
 
-            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.CategoryId, recursive);
+            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.Id, recursive);
 
             if (context != null)
             {
@@ -1026,7 +1028,7 @@ namespace pics.Controls
                 }
             }
 
-            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.CategoryId, recursive);
+            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.Id, recursive);
 
             if (context != null)
             {
@@ -2155,7 +2157,7 @@ namespace pics.Controls
 
 			// Retreive the list of seleted items
 			selectedList = Global.SelectedPictures;
-			Page.RegisterHiddenField("selectedPicIds", selectedList.GetListAsString());
+            Page.ClientScript.RegisterHiddenField("selectedPicIds", selectedList.GetListAsString());
 
 			// Show certain content for no selected
 			if (selectedList.Count == 0)
@@ -2194,7 +2196,7 @@ namespace pics.Controls
 			sb2.Append(" }");
 			sb2.Append("}");
 			sb2.Append("// </script>");
-			Page.RegisterClientScriptBlock("selectedWindowScript", sb2.ToString());
+			Page.ClientScript.RegisterClientScriptBlock(typeof(SelectedWindow), "selectedWindowScript", sb2.ToString());
 
 			
 			base.OnPreRender (e);

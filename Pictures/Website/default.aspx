@@ -37,7 +37,7 @@
 											<FooterTemplate>
 											</FooterTemplate>
 											<ItemTemplate>
-												<picctls:CategoryListViewItem CategoryId='<%# DataBinder.Eval(Container.DataItem, "CategoryID")%>' NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "CategoryID", "Categories.aspx?r=1&c={0}") %>' runat="server" FolderWidth="150" FolderImage="Images/folder.png">
+												<picctls:CategoryListViewItem CategoryId='<%# DataBinder.Eval(Container.DataItem, "Id")%>' NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "Id", "Categories.aspx?r=1&c={0}") %>' runat="server" FolderWidth="150" FolderImage="Images/folder.png">
 												</picctls:CategoryListViewItem>
 											</ItemTemplate>
 										</asp:datalist>

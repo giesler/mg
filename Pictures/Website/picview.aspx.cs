@@ -131,22 +131,22 @@ namespace pics
 				// set up params on the SP
 				if (sourceType.Equals("category")) 
 				{
-					cmdPic.Parameters.Add("@CategoryID", Convert.ToInt32(Request.QueryString["c"]));
+					cmdPic.Parameters.AddWithValue("@CategoryID", Convert.ToInt32(Request.QueryString["c"]));
 				}
 				else if (sourceType.Equals("search")) 
 				{
 					Guid id = new Guid(Request.QueryString["id"]);
-					cmdPic.Parameters.Add("@SearchID", id);
+					cmdPic.Parameters.AddWithValue("@SearchID", id);
 				} 
 				else if (sourceType.Equals("random")) 
 				{
-					cmdPic.Parameters.Add("@PictureID", Convert.ToInt32(Request.QueryString["p"]));
+					cmdPic.Parameters.AddWithValue("@PictureID", Convert.ToInt32(Request.QueryString["p"]));
 				}
-				cmdPic.Parameters.Add("@StartRecord", Convert.ToInt32(Request.QueryString["r"]));
-				cmdPic.Parameters.Add("@ReturnCount", 1);
-				cmdPic.Parameters.Add("@MaxHeight", 700);
-				cmdPic.Parameters.Add("@MaxWidth", 750);
-				cmdPic.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
+				cmdPic.Parameters.AddWithValue("@StartRecord", Convert.ToInt32(Request.QueryString["r"]));
+				cmdPic.Parameters.AddWithValue("@ReturnCount", 1);
+				cmdPic.Parameters.AddWithValue("@MaxHeight", 700);
+				cmdPic.Parameters.AddWithValue("@MaxWidth", 750);
+				cmdPic.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
@@ -178,14 +178,14 @@ namespace pics
                 }
                 if (!dr.IsNull("Rating"))
                 {
-                    Page.RegisterHiddenField("ratingValue", dr["Rating"].ToString());
+                    Page.ClientScript.RegisterHiddenField("ratingValue", dr["Rating"].ToString());
                     decimal average = Decimal.Parse(dr["AverageRating"].ToString());
                     string averageText = this.GetAverageText(average);
                     averageRating.Controls.Add(new HtmlLiteral(averageText));
                 }
                 else
                 {
-                    Page.RegisterHiddenField("ratingValue", "0");
+                    Page.ClientScript.RegisterHiddenField("ratingValue", "0");
                 }
                 if (!dr.IsNull("PictureByFullName"))
                 {
@@ -197,7 +197,7 @@ namespace pics
                 }
 
 				// now create the picture
-				Picture curPic = new Picture();
+                pics.Controls.Picture curPic = new pics.Controls.Picture();
 				//curPic.Filename = dr["Filename"].ToString();
 				pictureId = (int) dr["PictureId"];
                 if (this.ViewState["pictureId"] == null)
@@ -408,7 +408,7 @@ namespace pics
 			sb.Append("}");
 			sb.Append("// </script>");
 
-			Page.RegisterClientScriptBlock("setCatPicScript", sb.ToString());
+			Page.ClientScript.RegisterClientScriptBlock(typeof(picview), "setCatPicScript", sb.ToString());
 
 		}
 

@@ -15,6 +15,23 @@ using msn2.net.Pictures;
 
 namespace pics
 {
+
+    public class PictureRecord 
+    {
+        public PictureRecord(msn2.net.Pictures.Picture picture, int record)
+        {
+            this.RecNumber = record;
+            this.Picture = picture;
+            this.PictureId = picture.Id;
+            this.Title = picture.Title;
+        }
+
+        public int RecNumber { get; private set; }
+        public msn2.net.Pictures.Picture Picture { get; private set; }
+        public string Title { get; private set; }
+        public int PictureId { get; private set; }
+    }
+
 	/// <summary>
 	/// Summary description for Cdefault.
 	/// </summary>
@@ -45,15 +62,16 @@ namespace pics
 			dlRecent.DataBind();
 
 			// run the SP, set datasource to the picture list
-			DataSetPicture dsPics	= PicContext.Current.PictureManager.RandomImageData();
+			msn2.net.Pictures.Picture pic = PicContext.Current.PictureManager.GetRandomPicture();
+            List<PictureRecord> pics = new List<PictureRecord>();
+            pics.Add(new PictureRecord(pic, 1));
 
 			// create new control
-            if (dsPics.Tables["Pictures"].Rows.Count > 0)
+            if (pic != null)
             {
-                int pictureId = Convert.ToInt32(dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString());
                 ThumbnailList thumbs = new ThumbnailList();
-                thumbs.PageReturnURL = BuildRandomPageUrl(pictureId, "default.aspx");
-                thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
+                thumbs.PageReturnURL = BuildRandomPageUrl(pic.Id, "default.aspx");
+                thumbs.ThumbsDataSource = pics;
                 //			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
                 randomPicture.Controls.Add(thumbs);
             }

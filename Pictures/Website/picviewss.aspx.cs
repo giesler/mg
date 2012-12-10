@@ -92,22 +92,22 @@ namespace pics
 				// set up params on the SP
 				if (sourceType.Equals("category")) 
 				{
-					cmdPic.Parameters.Add("@CategoryID", Convert.ToInt32(Request.QueryString["c"]));
+					cmdPic.Parameters.AddWithValue("@CategoryID", Convert.ToInt32(Request.QueryString["c"]));
 				}
 				else if (sourceType.Equals("search")) 
 				{
 					Guid id		= new Guid(Request.QueryString["id"]);
-					cmdPic.Parameters.Add("@SearchID", id);
+					cmdPic.Parameters.AddWithValue("@SearchID", id);
 				} 
 				else if (sourceType.Equals("random")) 
 				{
-					cmdPic.Parameters.Add("@PictureID", Convert.ToInt32(Request.QueryString["p"]));
+					cmdPic.Parameters.AddWithValue("@PictureID", Convert.ToInt32(Request.QueryString["p"]));
 				}
-				cmdPic.Parameters.Add("@StartRecord", Convert.ToInt32(Request.QueryString["r"]));
-				cmdPic.Parameters.Add("@ReturnCount", 1);
-				cmdPic.Parameters.Add("@MaxHeight", 700);
-				cmdPic.Parameters.Add("@MaxWidth", 750);
-				cmdPic.Parameters.Add("@PersonID", 1);
+				cmdPic.Parameters.AddWithValue("@StartRecord", Convert.ToInt32(Request.QueryString["r"]));
+				cmdPic.Parameters.AddWithValue("@ReturnCount", 1);
+				cmdPic.Parameters.AddWithValue("@MaxHeight", 700);
+				cmdPic.Parameters.AddWithValue("@MaxWidth", 750);
+				cmdPic.Parameters.AddWithValue("@PersonID", 1);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
@@ -132,7 +132,7 @@ namespace pics
 					lblPictureDesc.Text = "";
 
 				// now create the picture
-				Picture curPic = new Picture();
+                pics.Controls.Picture curPic = new pics.Controls.Picture();
 				//curPic.Filename = dr["Filename"].ToString();
 				curPic.SetPictureById((int) dr["PictureId"], 700, 750);
 				curPic.Height   = Convert.ToInt32(dr["Height"]);
@@ -147,7 +147,7 @@ namespace pics
 				cmdPerson.Connection  = cn;
 
 				// set up params to SP
-				cmdPerson.Parameters.Add("@PictureID", Convert.ToInt32(dr["PictureID"]));
+				cmdPerson.Parameters.AddWithValue("@PictureID", Convert.ToInt32(dr["PictureID"]));
 
 				// now read the data
                 SqlDataReader drPerson = cmdPerson.ExecuteReader();

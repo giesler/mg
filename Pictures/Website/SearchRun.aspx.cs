@@ -39,8 +39,8 @@ namespace pics
 				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 				SqlCommand cmd	 = new SqlCommand("sp_Search_RunSearch", cn);
 				cmd.CommandType	 = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@SearchID", id);
-				cmd.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
+				cmd.Parameters.AddWithValue("@SearchID", id);
+				cmd.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
 				cmd.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmd.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 	

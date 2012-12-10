@@ -70,8 +70,8 @@ namespace pics
 			SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_Search_Load", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@SearchID", id);
-			cmd.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
+			cmd.Parameters.AddWithValue("@SearchID", id);
+			cmd.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
 
 			// run the command
 			cn.Open();
@@ -167,8 +167,8 @@ namespace pics
 			// now we want to do the selected people
 			SqlCommand cmdPerson = new SqlCommand("sp_Search_AddPerson", cn);
 			cmdPerson.CommandType = CommandType.StoredProcedure;
-			cmdPerson.Parameters.Add("@SearchID", searchId);
-			cmdPerson.Parameters.Add("@PersonID", SqlDbType.Int);
+			cmdPerson.Parameters.AddWithValue("@SearchID", searchId);
+			cmdPerson.Parameters.AddWithValue("@PersonID", SqlDbType.Int);
             
 			// loop through selected people
 			foreach (ListItem li in peopleSelector.SelectedPeople) 
@@ -183,8 +183,8 @@ namespace pics
 			// save the search text
 			SqlCommand cmdUpdate = new SqlCommand("dbo.sp_Search_UpdateDescription", cn);
 			cmdUpdate.CommandType = CommandType.StoredProcedure;
-			cmdUpdate.Parameters.Add("@SearchID", searchId);
-			cmdUpdate.Parameters.Add("@SearchDescription", searchText);
+			cmdUpdate.Parameters.AddWithValue("@SearchID", searchId);
+			cmdUpdate.Parameters.AddWithValue("@SearchDescription", searchText);
 			cmdUpdate.ExecuteNonQuery();
 
 			cn.Close();

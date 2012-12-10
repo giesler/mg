@@ -130,7 +130,11 @@ namespace pics.Controls
 				tc.Text = "&nbsp;";
 				tr.Cells.Add(tc);
 
-                			
+
+                if (PicContext.Current == null)
+                {
+                    throw new NullReferenceException("PicContext.Current is null");
+                }
 				
 				// Now we want to create the login info in the right cell
 				if (_showUserInfo && PicContext.Current.CurrentUser != null) 

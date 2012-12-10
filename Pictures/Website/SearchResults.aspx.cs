@@ -44,7 +44,7 @@ namespace pics
 				// get the search description
 				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 				SqlCommand cmd   = new SqlCommand("select SearchDescription from Search where SearchID = @SearchID", cn);
-				cmd.Parameters.Add("@SearchID", g);
+				cmd.Parameters.AddWithValue("@SearchID", g);
 				cn.Open();
 				SqlDataReader dr = cmd.ExecuteReader();
 				
@@ -106,12 +106,12 @@ namespace pics
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@SearchID", g);
-			daPics.SelectCommand.Parameters.Add("@StartRecord", intStartRecord);
-			daPics.SelectCommand.Parameters.Add("@ReturnCount", pageSize);
-			daPics.SelectCommand.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
+			daPics.SelectCommand.Parameters.AddWithValue("@SearchID", g);
+			daPics.SelectCommand.Parameters.AddWithValue("@StartRecord", intStartRecord);
+			daPics.SelectCommand.Parameters.AddWithValue("@ReturnCount", pageSize);
+			daPics.SelectCommand.Parameters.AddWithValue("@PersonID", PicContext.Current.CurrentUser.Id);
+			daPics.SelectCommand.Parameters.AddWithValue("@MaxHeight", 125);
+			daPics.SelectCommand.Parameters.AddWithValue("@MaxWidth", 125);
 			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 			daPics.SelectCommand.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 

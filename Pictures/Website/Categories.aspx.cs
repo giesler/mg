@@ -94,7 +94,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
+            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(currentCategoryId);
 
 			int columns				= 2;
 
@@ -108,7 +108,7 @@ namespace pics
             
 			// fill the child control list with links
 			int i = 0;
-			foreach (Category category in new EricUtility.Iterators.IterReverse(categories))
+			foreach (Category category in categories)
 			{
 				//BreakGroup( t);
 
@@ -118,9 +118,9 @@ namespace pics
 					t.Rows.Add(catRow);
 				}
 
-				string catNavUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + category.CategoryId.ToString();
+				string catNavUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + category.Id.ToString();
 				
-				pics.Controls.CategoryListViewItem lvi = new pics.Controls.CategoryListViewItem(category.CategoryId, catNavUrl);
+				pics.Controls.CategoryListViewItem lvi = new pics.Controls.CategoryListViewItem(category.Id, catNavUrl);
 				lvi.FolderWidth		= 150;
 				TableCell tc = new TableCell();
 				tc.Controls.Add(lvi);
@@ -144,7 +144,7 @@ namespace pics
 			// Now load the 'you are here' control
             List<Category> cc = new List<Category>();
 			Category parentCategory = currentCategory;
-			while (parentCategory.CategoryId != rootCategoryId) 
+			while (parentCategory.Id != rootCategoryId) 
 			{
 				parentCategory	= catManager.GetCategory(parentCategory.ParentId);
 
@@ -191,7 +191,7 @@ namespace pics
 				HyperLink link			= new HyperLink();
 				link.Text				= category.Name;
 				link.CssClass			= "categorySmallLink";
-				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId.ToString() + "&c=" + category.CategoryId.ToString();
+				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId.ToString() + "&c=" + category.Id.ToString();
 				tc.Controls.Add(link);
 
 				// add a divider if not at end
@@ -252,7 +252,7 @@ namespace pics
 			{
 				int personId						= PicContext.Current.CurrentUser.Id;
 				t2r2c3.Width						= Unit.Pixel(50);
-				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.CategoryId, personId);
+				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.Id, personId);
 				t2r2c3.Controls.Add(editCat);
 			}
 
@@ -272,12 +272,12 @@ namespace pics
 			if (showEditControls)
 			{
 				string groups = "";
-				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(
-                    currentCategory.CategoryId);
-				foreach (string groupName in groupNames)
+				List<CategoryGroup> groupList = PicContext.Current.CategoryManager.GetCategoryGroups(
+                    currentCategory.Id);
+				foreach (CategoryGroup group in groupList)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += groupName;
+					groups += group.Group.GroupName;
 				}
 				groups = "Groups: " + groups + "<br />";
 				if (t2r1c3.Controls.Count > 0) 
@@ -455,7 +455,7 @@ namespace pics
 				Sidebar1.SelectedWindow.ContentPanel.AddContent(removed);
 			}
 
-			Picture pic = new Picture();
+			pics.Controls.Picture pic = new pics.Controls.Picture();
 			pic.Width = 80;
 			pic.SetPictureById(e.PicId, 125, 125);
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(pic);
