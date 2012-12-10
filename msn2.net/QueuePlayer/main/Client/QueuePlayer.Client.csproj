@@ -139,6 +139,21 @@
                     AssemblyName = "System.Web.Services"
                     HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
                 />
+                <Reference
+                    Name = "Common"
+                    Project = "{A267194C-A021-4267-A491-AD3919394F9A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Controls"
+                    Project = "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "DirectXPlayer"
+                    Project = "{FA24EC8D-1927-4D9C-8796-02D715D7047E}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -189,7 +204,7 @@
                 />
                 <File
                     RelPath = "ConnectionDialog.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
