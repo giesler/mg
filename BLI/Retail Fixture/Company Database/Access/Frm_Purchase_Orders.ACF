@@ -1,11 +1,10 @@
 Version =19
 VersionRequired =19
-Checksum =82247750
+Checksum =1315827512
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
     DividingLines = NotDefault
-    AllowAdditions = NotDefault
     DefaultView =0
     AllowUpdating =4
     ScrollBars =0
@@ -1783,6 +1782,12 @@ On Error GoTo errHandler
   Dim lngID As Long, rs As ADODB.Recordset
   lngID = Me.txtID
   
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
+  
   ' Verify we can create an invoice first
   If Me.cmbStatus = "Completed" Then
     If MsgBox("You have already completed this PO.  Would you like to delete the associated invoice and recreate it?", vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then Exit Sub
@@ -1859,6 +1864,12 @@ Private Sub cmdFinished_Click()
 On Error GoTo errHandler
 
   Dim varTmp As Variant, lngCurID As Long
+  
+    ' NN 10/1/02
+    If mbIsNewPO = True Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+        mbIsNewPO = False
+    End If
   
   ' Verify data
   If IsNull(Me.txtID) Then
