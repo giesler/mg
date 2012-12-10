@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50110</ProductVersion>
+    <ProductVersion>8.0.50215</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{051F201A-911A-441D-B249-5857DB882AA7}</ProjectGuid>
     <SccProjectName>SAK</SccProjectName>
@@ -108,6 +108,7 @@
       <DependentUpon>CategoryItem.cs</DependentUpon>
     </Compile>
     <Compile Include="CategoryFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CategoryFlowLayoutPanel.Designer.cs">
       <DependentUpon>CategoryFlowLayoutPanel.cs</DependentUpon>
@@ -124,25 +125,24 @@
     <Compile Include="CategoryTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DataSetCategory.Designer.cs">
+    <Compile Include="DataSet\DataSetCategory.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetGroup.Designer.cs">
+    <Compile Include="DataSet\DataSetGroup.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetGroup.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetPerson.Designer.cs">
+    <Compile Include="DataSet\DataSetPerson.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetPerson.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetPicture.Designer.cs">
+    <Compile Include="DataSet\DataSetPicture.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </Compile>
     <Compile Include="DateSelector.cs">
       <SubType>UserControl</SubType>
@@ -399,37 +399,35 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="DataSetCategory.xsc">
+    <None Include="DataSet\DataSetCategory.xsc">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
-    <None Include="DataSetCategory.xss">
+    <None Include="DataSet\DataSetCategory.xss">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
-    <None Include="DataSetCategory.xsx">
+    <None Include="DataSet\DataSetCategory.xsx">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
-    <None Include="DataSetGroup.xsc">
+    <None Include="DataSet\DataSetGroup.xsc">
       <DependentUpon>DataSetGroup.xsd</DependentUpon>
     </None>
-    <None Include="DataSetGroup.xsx">
+    <None Include="DataSet\DataSetGroup.xsx">
       <DependentUpon>DataSetGroup.xsd</DependentUpon>
     </None>
-    <None Include="DataSetPerson.xsc">
+    <None Include="DataSet\DataSetPerson.xsc">
       <DependentUpon>DataSetPerson.xsd</DependentUpon>
     </None>
-    <None Include="DataSetPerson.xss">
+    <None Include="DataSet\DataSetPerson.xss">
       <DependentUpon>DataSetPerson.xsd</DependentUpon>
     </None>
-    <None Include="DataSetPerson.xsx">
+    <None Include="DataSet\DataSetPerson.xsx">
       <DependentUpon>DataSetPerson.xsd</DependentUpon>
     </None>
-    <None Include="DataSetPicture.xsc">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    <None Include="DataSet\DataSetPicture.xsc">
     </None>
-    <None Include="DataSetPicture.xss">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    <None Include="DataSet\DataSetPicture.xss">
     </None>
-    <None Include="DataSetPicture.xsx">
+    <None Include="DataSet\DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
     <None Include="PictureAdmin.snk" />
@@ -444,19 +442,19 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="DataSetCategory.xsd">
+    <Content Include="DataSet\DataSetCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="DataSetGroup.xsd">
+    <Content Include="DataSet\DataSetGroup.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetGroup.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="DataSetPerson.xsd">
+    <Content Include="DataSet\DataSetPerson.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPerson.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="DataSetPicture.xsd">
+    <Content Include="DataSet\DataSetPicture.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>

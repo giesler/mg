@@ -56,45 +56,38 @@
 // closeToolStripButton
 // 
             this.closeToolStripButton.Name = "closeToolStripButton";
-            this.closeToolStripButton.SettingsKey = "Slideshow.closeToolStripButton";
             this.closeToolStripButton.Text = "&Close";
             this.closeToolStripButton.Click += new System.EventHandler(this.closeToolStripButton_Click_1);
 // 
 // sepToolStripSeparator
 // 
             this.sepToolStripSeparator.Name = "sepToolStripSeparator";
-            this.sepToolStripSeparator.SettingsKey = "Slideshow.sepToolStripSeparator";
 // 
 // previousPictureToolStripButton
 // 
             this.previousPictureToolStripButton.Name = "previousPictureToolStripButton";
-            this.previousPictureToolStripButton.SettingsKey = "Slideshow.previousPictureToolStripButton";
             this.previousPictureToolStripButton.Text = "&Previous Picture";
             this.previousPictureToolStripButton.Click += new System.EventHandler(this.previousPictureToolStripButton_Click);
 // 
 // nextPictureToolStripButton
 // 
             this.nextPictureToolStripButton.Name = "nextPictureToolStripButton";
-            this.nextPictureToolStripButton.SettingsKey = "Slideshow.nextPictureToolStripButton";
             this.nextPictureToolStripButton.Text = "&Next Picture";
             this.nextPictureToolStripButton.Click += new System.EventHandler(this.nextPictureToolStripButton_Click);
 // 
 // sepToolStripSeparator1
 // 
             this.sepToolStripSeparator1.Name = "sepToolStripSeparator1";
-            this.sepToolStripSeparator1.SettingsKey = "Slideshow.sepToolStripSeparator1";
 // 
 // propertiesToolStripButton
 // 
             this.propertiesToolStripButton.Name = "propertiesToolStripButton";
-            this.propertiesToolStripButton.SettingsKey = "Slideshow.propertiesToolStripButton";
             this.propertiesToolStripButton.Text = "Properties";
             this.propertiesToolStripButton.Click += new System.EventHandler(this.propertiesToolStripButton_Click);
 // 
 // addtocategoryToolStripButton
 // 
             this.addtocategoryToolStripButton.Name = "addtocategoryToolStripButton";
-            this.addtocategoryToolStripButton.SettingsKey = "Slideshow.addtocategoryToolStripButton";
             this.addtocategoryToolStripButton.Text = "&Add to category...";
             this.addtocategoryToolStripButton.Click += new System.EventHandler(this.addtocategoryToolStripButton_Click);
 // 

@@ -147,10 +147,6 @@ namespace msn2.net.Pictures.Controls
             this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureGroup)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureCategory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.daPicture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsPicture)).BeginInit();
             this.SuspendLayout();
 // 
 // btnCancel
@@ -610,10 +606,6 @@ namespace msn2.net.Pictures.Controls
             this.groupBox1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureGroup)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureCategory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.daPicture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsPicture)).EndInit();
             this.ResumeLayout(false);
 
         }

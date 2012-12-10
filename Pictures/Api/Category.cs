@@ -63,8 +63,7 @@ namespace msn2.net.Pictures
 		}
 
         private string path;
-		private bool dirty;
-
+		
         internal Category()
         {
         }
@@ -123,7 +122,6 @@ namespace msn2.net.Pictures
             set
             {
 				this.name = value;
-				this.dirty = true;
             }
         }
 

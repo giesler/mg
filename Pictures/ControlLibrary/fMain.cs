@@ -197,9 +197,6 @@ namespace msn2.net.Pictures.Controls
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -426,7 +423,6 @@ namespace msn2.net.Pictures.Controls
 // toolStripLabel2
 // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.SettingsKey = "fMain.toolStripLabel2";
             this.toolStripLabel2.Text = "View by:";
 // 
 // viewbyToolStripComboBox
@@ -438,7 +434,6 @@ namespace msn2.net.Pictures.Controls
             "date picture added",
             "person"});
             this.viewbyToolStripComboBox.Name = "viewbyToolStripComboBox";
-            this.viewbyToolStripComboBox.SettingsKey = "fMain.viewbyToolStripComboBox";
             this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
             this.viewbyToolStripComboBox.Text = "category";
             this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
@@ -446,7 +441,6 @@ namespace msn2.net.Pictures.Controls
 // toolStripLabel1
 // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.SettingsKey = "fMain.toolStripLabel1";
             this.toolStripLabel1.Text = "Image Size:";
 // 
 // imageSizeCombo
@@ -460,7 +454,6 @@ namespace msn2.net.Pictures.Controls
             "250",
             "300"});
             this.imageSizeCombo.Name = "imageSizeCombo";
-            this.imageSizeCombo.SettingsKey = "fMain.toolStripComboBox1";
             this.imageSizeCombo.Size = new System.Drawing.Size(75, 25);
             this.imageSizeCombo.Text = "100";
             this.imageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.imageSizeCombo_SelectedIndexChanged);
@@ -468,21 +461,18 @@ namespace msn2.net.Pictures.Controls
 // toolStripSelectAll
 // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
-            this.toolStripSelectAll.SettingsKey = "fMain.toolStripButton1";
             this.toolStripSelectAll.Text = "Select All";
             this.toolStripSelectAll.Click += new System.EventHandler(this.toolStripSelectAll_Click);
 // 
 // toolStripClearAll
 // 
             this.toolStripClearAll.Name = "toolStripClearAll";
-            this.toolStripClearAll.SettingsKey = "fMain.toolStripButton1";
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
 // 
 // copytofolderToolStripButton
 // 
             this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
-            this.copytofolderToolStripButton.SettingsKey = "fMain.copytofolderToolStripButton";
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
 // 
@@ -561,9 +551,6 @@ namespace msn2.net.Pictures.Controls
             this.Name = "fMain";
             this.Text = "Pic Admin";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.daPictureDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);

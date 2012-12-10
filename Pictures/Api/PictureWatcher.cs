@@ -11,7 +11,6 @@ namespace msn2.net.Pictures
 	{
 		private FileSystemWatcher fileSystemWatcher;
 		private string directoryName;
-		private PictureManager pictureManager = null;
 		private object lockObject = new object();
 		private Queue<string> fileQueue = new Queue<string>();
 		private bool exiting = false;
