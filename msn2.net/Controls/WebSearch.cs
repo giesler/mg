@@ -129,19 +129,23 @@ namespace msn2.net.Controls
 
 			if (comboBox1.SelectedIndex == 0)
 			{
-				url = "http://www.google.com/custom?q={0}";
+				// url = "http://www.google.com/custom?q={0}";
+				GoogleSearchSettings settings = new GoogleSearchSettings("YFpgsNEe9BfAzm5QcAp+82eYDgyGSWh0", textBox1.Text);
+				WebBrowser browser = new WebBrowser(settings);
+				browser.Show();
 			}
 			else
 			{
 				url = "http://groups.google.com/groups?hl=en&q=";
+
+				url = String.Format(url, System.Web.HttpUtility.UrlEncode(textBox1.Text));
+
+				Process p = new Process();
+				p.StartInfo = new ProcessStartInfo(url);
+				p.Start();
 			}
 
 			
-			url = String.Format(url, System.Web.HttpUtility.UrlEncode(textBox1.Text));
-
-            Process p = new Process();
-			p.StartInfo = new ProcessStartInfo(url);
-			p.Start();
 		}
 	}
 }

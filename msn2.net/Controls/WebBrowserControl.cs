@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using mshtml;
 using System.Runtime.InteropServices;
+using msn2.net.Configuration;
+using msn2.net.Controls;
 
 namespace msn2.net.Controls
 {
@@ -33,7 +35,10 @@ namespace msn2.net.Controls
 		private bool navigating = false;
 		private string newUrl = "about:blank";
 		private System.Windows.Forms.Timer timerShowContextMenu;
+		private System.Windows.Forms.MenuItem menuItemOpenNewTab;
 		private string newTitle = "New Window";
+		private System.Windows.Forms.MenuItem menuItemSaveTo;
+		private Crownwood.Magic.Controls.TabPage tabPage = null;
 
 		#endregion
 
@@ -96,10 +101,12 @@ namespace msn2.net.Controls
 			this.timerShowStatus = new System.Windows.Forms.Timer(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemOpen = new System.Windows.Forms.MenuItem();
+			this.menuItemOpenNewTab = new System.Windows.Forms.MenuItem();
 			this.menuItemOpenNewWindow = new System.Windows.Forms.MenuItem();
 			this.menuItemOpenInIE = new System.Windows.Forms.MenuItem();
 			this.menuItem4 = new System.Windows.Forms.MenuItem();
 			this.menuItemCopyUrl = new System.Windows.Forms.MenuItem();
+			this.menuItemSaveTo = new System.Windows.Forms.MenuItem();
 			this.timerShowContextMenu = new System.Windows.Forms.Timer(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.axWebBrowser1)).BeginInit();
 			this.panelStatus.SuspendLayout();
@@ -145,10 +152,12 @@ namespace msn2.net.Controls
 			// 
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																						 this.menuItemOpen,
+																						 this.menuItemOpenNewTab,
 																						 this.menuItemOpenNewWindow,
 																						 this.menuItemOpenInIE,
 																						 this.menuItem4,
-																						 this.menuItemCopyUrl});
+																						 this.menuItemCopyUrl,
+																						 this.menuItemSaveTo});
 			// 
 			// menuItemOpen
 			// 
@@ -157,28 +166,40 @@ namespace msn2.net.Controls
 			this.menuItemOpen.Text = "Open";
 			this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
 			// 
+			// menuItemOpenNewTab
+			// 
+			this.menuItemOpenNewTab.Index = 1;
+			this.menuItemOpenNewTab.Text = "&Open in new tab";
+			this.menuItemOpenNewTab.Click += new System.EventHandler(this.menuItemOpenNewTab_Click);
+			// 
 			// menuItemOpenNewWindow
 			// 
-			this.menuItemOpenNewWindow.Index = 1;
+			this.menuItemOpenNewWindow.Index = 2;
 			this.menuItemOpenNewWindow.Text = "Open in new window";
 			this.menuItemOpenNewWindow.Click += new System.EventHandler(this.menuItemOpenNewWindow_Click);
 			// 
 			// menuItemOpenInIE
 			// 
-			this.menuItemOpenInIE.Index = 2;
+			this.menuItemOpenInIE.Index = 3;
 			this.menuItemOpenInIE.Text = "Open in IE";
 			this.menuItemOpenInIE.Click += new System.EventHandler(this.menuItemOpenInIE_Click);
 			// 
 			// menuItem4
 			// 
-			this.menuItem4.Index = 3;
+			this.menuItem4.Index = 4;
 			this.menuItem4.Text = "-";
 			// 
 			// menuItemCopyUrl
 			// 
-			this.menuItemCopyUrl.Index = 4;
+			this.menuItemCopyUrl.Index = 5;
 			this.menuItemCopyUrl.Text = "&Copy Url";
 			this.menuItemCopyUrl.Click += new System.EventHandler(this.menuItemCopyUrl_Click);
+			// 
+			// menuItemSaveTo
+			// 
+			this.menuItemSaveTo.Index = 6;
+			this.menuItemSaveTo.Text = "&Save To...";
+			this.menuItemSaveTo.Click += new System.EventHandler(this.menuItemSaveTo_Click);
 			// 
 			// timerShowContextMenu
 			// 
@@ -210,6 +231,8 @@ namespace msn2.net.Controls
 			if (NavigateComplete != null)
 				NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
 		
+			// Save to history
+			
 		}
 
 		private void axWebBrowser1_TitleChange(object sender, AxSHDocVw.DWebBrowserEvents2_TitleChangeEvent e)
@@ -294,6 +317,18 @@ namespace msn2.net.Controls
 			}
 		}
 
+		public Crownwood.Magic.Controls.TabPage TabPage
+		{
+			get 
+			{ 
+				return tabPage;
+			}
+			set 
+			{ 
+				tabPage = value;
+			}
+		}
+
 		#endregion
 
 		#region Document handlers
@@ -324,8 +359,8 @@ namespace msn2.net.Controls
 					// bail - we aren't in the right place
 					return;
 				}
-				newUrl			= anchor.href;
-				newTitle		= anchor.outerText;
+				newUrl			= anchor.href.Trim();
+				newTitle		= anchor.outerText.Trim();
 				timerShowContextMenu.Enabled = true;
 				x = win.@event.x;
 				y = win.@event.y;
@@ -379,6 +414,17 @@ namespace msn2.net.Controls
 			p.Start();            		
 		}
 
+		private void menuItemSaveTo_Click(object sender, System.EventArgs e)
+		{
+			// Save to location
+			ShellSave shellSave	= new ShellSave();
+			
+			if (shellSave.ShowDialog(this.ParentForm) == DialogResult.OK)
+			{
+				shellSave.Data.Get(newTitle, newUrl, new FavoriteConfigData(), typeof(FavoriteConfigData));
+			}
+		}
+
 		private void menuItemCopyUrl_Click(object sender, System.EventArgs e)
 		{
 			System.Windows.Forms.Clipboard.SetDataObject(newUrl);
@@ -391,6 +437,14 @@ namespace msn2.net.Controls
 			contextMenu1.Show(this, new Point(x, y));
 		}
 
+		public OpenNewTabDelegate OpenNewTabEvent;
+
+		private void menuItemOpenNewTab_Click(object sender, System.EventArgs e)
+		{
+			if (OpenNewTabEvent != null)
+				OpenNewTabEvent(this, new NavigateEventArgs(newTitle, newUrl));
+		}
+
 		#endregion
 
 	}
@@ -399,6 +453,7 @@ namespace msn2.net.Controls
 
 	public delegate void NavigateCompleteDelegate(object sender, NavigateCompleteEventArgs e);
 	public delegate void TitleChangeDelegate(object sender, TitleChangeEventArgs e);
+	public delegate void OpenNewTabDelegate(object sender, NavigateEventArgs e);
 
 	#endregion
 
@@ -430,6 +485,30 @@ namespace msn2.net.Controls
 		}
 
 		public string Title 
+		{
+			get { return title; }
+			set { title = value; }
+		}
+	}
+
+	public class NavigateEventArgs: EventArgs
+	{
+		private string url;
+		private string title;
+
+		public NavigateEventArgs(string title, string url)
+		{
+			this.title	= title;
+			this.url	= url;
+		}
+
+		public string Url
+		{
+			get { return url; }
+			set { url = value; }
+		}
+
+		public string Title
 		{
 			get { return title; }
 			set { title = value; }

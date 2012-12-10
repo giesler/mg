@@ -20,7 +20,7 @@ namespace msn2.net.Controls
 			this.FixedSize   = new Size(300, 300);
 			this.Text        = "MSNBC Headlines";
 
-			this.BaseUrl = "http://dev/home/MSNBCHeadlines.aspx?page={0}";
+			this.BaseUrl = "http://dev.msn2.net/home/MSNBCHeadlines.aspx?page={0}";
 
 			// Add items
 			this.AddWebLink(new WebLinkPage("Cover", "1"));

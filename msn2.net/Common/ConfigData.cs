@@ -9,7 +9,8 @@ namespace msn2.net.Common
 	public class ConfigData
 	{
 		private Guid itemKey = Guid.Empty;
-
+		protected string typeName = "ConfigData";
+		
 		public virtual int IconIndex
 		{
 			get { return 0; }
@@ -20,6 +21,12 @@ namespace msn2.net.Common
 			get { return itemKey; }
 			set { itemKey = value; }
 		}
+
+		public string TypeName
+		{
+			get { return typeName; }
+		}
+
 	}
 
 

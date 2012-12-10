@@ -119,6 +119,10 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "app.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -166,8 +170,8 @@
                 />
                 <Folder
                     RelPath = "Web References\ProjectFServices\"
-                    WebReferenceUrl = "http://chef/ProjectFServices/DataService.asmx"
-                    UrlBehavior = "Static"
+                    WebReferenceUrl = "http://localhost/ProjectFServices/DataService.asmx"
+                    UrlBehavior = "Dynamic"
                 />
                 <Folder
                     RelPath = "Web References\"

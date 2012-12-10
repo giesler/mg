@@ -9,7 +9,6 @@ using System.Text;
 using msn2.net.Common;
 using msn2.net.Configuration.ProjectFServices;
 
-
 namespace msn2.net.Configuration
 {
 
@@ -45,6 +44,7 @@ namespace msn2.net.Configuration
 		private Guid			machineId;
 		private Guid			policyId;
 		private Type			dataType;
+		private string			storageUrl;
 
 		ProjectFServices.DataService dataService = null;
 
@@ -53,29 +53,34 @@ namespace msn2.net.Configuration
 		#region Constructors
 
 		// used for top level node
-		internal Data(Guid configId, Guid userId, Guid machineId, Guid policyId)
+		internal Data(Guid configId, Guid userId, Guid machineId, Guid policyId, string storageUrl)
 		{
 			this.configId		= configId;
 			this.userId			= userId;
 			this.groupId		= groupId;
 			this.machineId		= machineId;
 			this.policyId		= policyId;
+			this.storageUrl		= storageUrl;
 
 			dataService = new ProjectFServices.DataService();
+			dataService.Url = storageUrl;
+			dataService.Credentials = new System.Net.NetworkCredential("msn2guest", "rainier", "sp");
 		}
 
-		internal Data(msn2.net.Configuration.ProjectFServices.DataSetDataItem.DataItemRow row, Type type)
+		internal Data(DataSetDataItem.DataItemRow row, Type type, string storageUrl)
 		{
 			this.id				= row.Id;
 			this.name			= row.Name;
 			this.parentId		= row.ParentId;
 			this.userId			= row.UserId;
+			this.storageUrl		= storageUrl;
+
 			if (!row.IsItemUrlNull())
 				this.url		= row.ItemUrl;
 
 			this.Text			= this.name;
 
-			dataService = new ProjectFServices.DataService();
+			//dataService = new DataService();
 
 			if (type != null && !row.IsItemTypeNull() && row.ItemType.Length > 0)
 			{
@@ -87,6 +92,10 @@ namespace msn2.net.Configuration
 					this.configData = (msn2.net.Common.ConfigData) msn2.net.Common.Utilities.DeserializeObject(row.ItemData, this.dataType);
 				}
 			}
+
+			dataService = new ProjectFServices.DataService();
+			dataService.Url = this.storageUrl;
+			dataService.Credentials = new System.Net.NetworkCredential("msn2guest", "rainier", "sp");
 		}
 
 		#endregion
@@ -177,12 +186,12 @@ namespace msn2.net.Configuration
 				typeList[i] = types[i].ToString();
 			}
 			
-			msn2.net.Configuration.ProjectFServices.DataSetDataItem ds = 
+			DataSetDataItem ds = 
 				dataService.GetChildren(this.id, this.userId, typeList);
 			
 			DataCollection ar = new DataCollection();
 
-			foreach (msn2.net.Configuration.ProjectFServices.DataSetDataItem.DataItemRow row in ds.DataItem.Rows)
+			foreach (DataSetDataItem.DataItemRow row in ds.DataItem.Rows)
 			{
 				// Get the item type from the list of types passed in
 				Type itemType = null;
@@ -199,7 +208,7 @@ namespace msn2.net.Configuration
 				}
 
 				// Create the item with the right type
-				Data item = new Data(row, itemType);
+				Data item = new Data(row, itemType, storageUrl);
 
 				ar.Add(item);
 			}
@@ -229,12 +238,12 @@ namespace msn2.net.Configuration
 			da.SelectCommand.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
 			da.SelectCommand.Parameters["@itemName"].Value				= itemName;
 
-			msn2.net.Common.DataSetDataItem ds = new msn2.net.Common.DataSetDataItem();
+			DataSetDataItem ds = new DataSetDataItem();
 			da.Fill(ds, "DataItem");
 
 			if (ds.DataItem.Rows.Count > 0)
 			{
-				Data node = new Data((msn2.net.Common.DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], data.GetType());
+				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], data.GetType(), storageUrl);
 				return node;
 			}
 			else
@@ -257,12 +266,12 @@ namespace msn2.net.Configuration
 			// Set params to pass to SQL
 			da.SelectCommand.Parameters["@nodeId"].Value				= this.id;
 
-			msn2.net.Common.DataSetDataItem ds = new msn2.net.Common.DataSetDataItem();
+			DataSetDataItem ds = new DataSetDataItem();
 			da.Fill(ds, "DataItem");
 
 			if (ds.DataItem.Rows.Count > 0)
 			{
-				Data node = new Data((msn2.net.Common.DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], null);
+				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], null, storageUrl);
 				return node;
 			}
 			else
@@ -392,13 +401,26 @@ namespace msn2.net.Configuration
 		/// <returns>New cateogry Guid</returns>
 		public Data Get(string name, string url, msn2.net.Common.ConfigData data, Type type, ConfigTreeLocation configTreeLocation)
 		{
+			string itemType = null;
+			if (type != null)
+				itemType = type.ToString();
+
+			// Check if we have a data object
+			string serializedData = null;
+			Guid itemKey = Guid.Empty;
+			if (data != null)
+			{
+				serializedData = msn2.net.Common.Utilities.SerializeObject(data);
+				itemKey = data.ItemKey;
+			}
+
 			// Load from service
-			msn2.net.Common.DataSetDataItem ds = dataService.Get(this.id, this.userId, name, url, (msn2.net.Configuration.ProjectFServices.ConfigData) data, type.ToString());
+			DataSetDataItem ds = dataService.Get(this.id, this.userId, name, url, serializedData, itemType, itemKey);
 
 			// Check for results
 			if (ds.DataItem.Rows.Count > 0)
 			{
-				Data node = new Data((msn2.net.Common.DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type);
+				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type, storageUrl);
 				return node;
 			}
 			else
@@ -416,7 +438,13 @@ namespace msn2.net.Configuration
 		/// </summary>
 		public void Save()
 		{
-			dataService.Save(this.id, this.name, this.configData, this.configData.GetType().ToString());
+			string serializedData = null;
+			if (configData != null)
+			{
+				serializedData = msn2.net.Common.Utilities.SerializeObject(this.configData);
+			}
+
+			dataService.Save(this.id, this.name, serializedData, this.configData.GetType().ToString());
 		}
 
 		#endregion

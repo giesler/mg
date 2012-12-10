@@ -23,9 +23,9 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.MenuItem menuItemAdd;
 		private System.Windows.Forms.MenuItem menuItemProperties;
 		private System.Windows.Forms.MenuItem menuItemDelete;
-		private msn2.net.Configuration.Data menuNode = null;
-		private ShellForm parentShellForm = null;
-		private Data rootNode		= null;
+		private CategoryTreeNode menuNode		= null;
+		private ShellForm parentShellForm		= null;
+		private CategoryTreeNode rootNode		= null;
 		
 		#endregion
 
@@ -36,12 +36,12 @@ namespace msn2.net.Controls
 			InitializeComponent();
 		}
 
-		public CategoryTreeView(ShellForm parentShellForm, Data rootNode)
+		public CategoryTreeView(ShellForm parentShellForm, Data rootData)
 		{
 			InitializeComponent();
 
 			this.parentShellForm	= parentShellForm;
-			this.RootNode			= rootNode;
+			this.RootData			= rootData;
 
 			menuItemProperties.Visible = false;
 
@@ -129,52 +129,29 @@ namespace msn2.net.Controls
 	
 		#region Load tree sections
 
-//		private void LoadCategories()
-//		{
-//			foreach (Data cat in categories.GetRootNodes(typeof(CategoryConfigData)))
-//			{
-//				treeViewCategory.Nodes.Add(cat);
-//				LoadChildCategories(cat);
-//
-//				// call the function to expnad root cats and populate their children
-//				treeViewCategory_BeforeExpand(this, new TreeViewCancelEventArgs(cat, false, TreeViewAction.Expand));
-//			}
-//		}
-
-		public void LoadChildCategories(TreeNode node)
+		public void LoadChildCategories(CategoryTreeNode node)
 		{
-			if (node != null)
-			{
-				node.Nodes.Clear();
-			}
-			else
-			{
-				node = rootNode;
-			}
 
-			Data data = (Data) node;
+			Data data = (Data) node.Data;
 
-			Type[] types	= new Type[2];
+			Type[] types	= new Type[1];
 			types[0]		= typeof(CategoryConfigData);
-            types[1]		= typeof(msn2.net.Configuration.MessengerGroupData);
+//            types[1]		= typeof(msn2.net.Configuration.MessengerGroupData);
 
 			DataCollection cats = data.GetChildren(types);
 
-			foreach (Data cat in cats)
-			{
-				Data child = (Data) cat;
+			// Clear children
+			node.Nodes.Clear();
 
-				// If we aren't at the root node, add to current node, else add to treeView
-				if (node != rootNode)
-				{
-					node.Nodes.Add(child);
-				} 
-				else
-				{
-					treeViewCategory.Nodes.Add(child);
-				}
-				child.Nodes.Add(new TreeNode("<populateme>"));
-				//LoadChildCategories(child);
+			foreach (Data child in cats)
+			{
+				CategoryTreeNode childNode = new CategoryTreeNode(child);
+
+				// Add nodes we read to the parent node
+				node.Nodes.Add(childNode);
+
+				childNode.Nodes.Add(new TreeNode("<populateme>"));
+				//LoadChildCategories(childNode);
 			}
 		}
 
@@ -184,9 +161,9 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
 		{
-			Data data = (Data) e.Node;
-			data.Text	= e.Label;
-			data.Save();
+			CategoryTreeNode treeNode	= (CategoryTreeNode) e.Node;
+			treeNode.Data.Text			= e.Label;
+			treeNode.Data.Save();
 		}
 
 		private void treeViewCategory_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
@@ -195,7 +172,7 @@ namespace msn2.net.Controls
 			foreach (TreeNode child in e.Node.Nodes)
 			{
 				if (child.Nodes.Count > 0 && child.Nodes[0].Text == "<populateme>")
-					LoadChildCategories(child);
+					LoadChildCategories((CategoryTreeNode) child);
 			}
 		}
 
@@ -212,7 +189,7 @@ namespace msn2.net.Controls
 				
 				if (node != null)
 				{
-					menuNode = (Data) node;
+					menuNode = (CategoryTreeNode) node;
 				}
 				else
 				{
@@ -231,22 +208,25 @@ namespace msn2.net.Controls
 
 			Guid newCategoryId = Guid.Empty;
 
-			Data node = null;
+			Data data = null;
+			CategoryTreeNode treeNode;
 
 			// Add node to tree at current item - if null, add at root
 			if (menuNode == null)
 			{
-				node = rootNode.Get(prompt.Value, typeof(CategoryConfigData));
-				treeViewCategory.Nodes.Add(node);
+				data = rootNode.Data.Get(prompt.Value, typeof(CategoryConfigData));
+				treeNode = new CategoryTreeNode(data);
+				treeViewCategory.Nodes.Add(treeNode);
 			}
 			else
 			{
-				node = menuNode.Get(prompt.Value, typeof(CategoryConfigData));
-				menuNode.Nodes.Add(node);
+				data = menuNode.Data.Get(prompt.Value, typeof(CategoryConfigData));
+				treeNode = new CategoryTreeNode(data);
+				menuNode.Nodes.Add(treeNode);
 				menuNode.Expand();
 			}
 
-			treeViewCategory.SelectedNode = node;
+			treeViewCategory.SelectedNode = treeNode;
 		}
 
 		private void menuItemDelete_Click(object sender, System.EventArgs e)
@@ -257,7 +237,7 @@ namespace msn2.net.Controls
 			if (MessageBox.Show(this, "Are you sure you want to delete the selected category?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
 				return;
 
-			menuNode.Delete();
+			menuNode.Data.Delete();
 			
 			treeViewCategory.Nodes.Remove(menuNode);
 		}
@@ -273,8 +253,11 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
+			if (e.Node == null || e.Node.Text == "")
+				return;
+
             if (CategoryTreeView_AfterSelect != null)
-            	CategoryTreeView_AfterSelect(this, new CategoryTreeViewEventArgs((Data) e.Node));	
+            	CategoryTreeView_AfterSelect(this, new CategoryTreeViewEventArgs(((CategoryTreeNode) e.Node).Data));	
 		}
 
 		public event CategoryTreeView_AfterSelectDelegate CategoryTreeView_AfterSelect;
@@ -283,26 +266,35 @@ namespace msn2.net.Controls
 
 		#region Properties
 
-		public Data RootNode
+		public Data RootData
 		{
-			get { return rootNode; }
+			get { return rootNode.Data; }
 			set 
 			{
 				if (value == null)
 					return;
 
-				rootNode = value;
-				LoadChildCategories(value);
-				foreach (TreeNode node in treeViewCategory.Nodes)
+				rootNode = new CategoryTreeNode(value);
+				treeViewCategory.Nodes.Add(rootNode);
+				LoadChildCategories(rootNode);
+				rootNode.Expand();
+
+				foreach (CategoryTreeNode node in treeViewCategory.Nodes)
 				{
 					LoadChildCategories(node);
+					if (node.Nodes.Count > 0 && node.Nodes.Count < 4)
+						node.Expand();
 				}
 			}
 		}
 
 		public Data Data
 		{
-			get { return (Data) this.treeViewCategory.SelectedNode; }
+			get 
+			{ 
+				CategoryTreeNode treeNode = (CategoryTreeNode) this.treeViewCategory.SelectedNode;
+				return treeNode.Data; 
+			}
 		}
 
 		public ShellForm ParentShellForm
@@ -358,6 +350,27 @@ namespace msn2.net.Controls
 		{
 			get { return categoryType; }
 			set { categoryType = value; }
+		}
+	}
+
+	#endregion
+
+	#region CategoryTreeNode
+
+	public class CategoryTreeNode: TreeNode
+	{
+		private Data data;
+
+		public CategoryTreeNode(Data data)
+		{
+			this.data = data;
+			this.Text = data.Text;
+		}
+
+		public Data Data
+		{
+			get { return data; }
+			set { data = value; }
 		}
 	}
 

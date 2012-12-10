@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-
 using System.Windows.Forms;
-
+using msn2.net.Configuration;
 
 namespace msn2.net.Controls
 {
 	public class Recipe : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.Label label2;
@@ -20,16 +21,38 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox textBoxDirections;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.ListView listViewNotes;
 		private System.ComponentModel.IContainer components = null;
+		private bool dirty = false;
+		private bool loaded = false;
+
+		#endregion
+
+		#region Constructors
 
 		public Recipe()
 		{
-			// This call is required by the Windows Form Designer.
+			InitializeComponent();
+		}
+
+		public Recipe(msn2.net.Configuration.Data data): base(data)
+		{
 			InitializeComponent();
 
-			// TODO: Add any initialization after the InitializeComponent call
+			RecipeConfigData recipe = (RecipeConfigData) data.ConfigData;
+
+			this.textBoxName.Text			= data.Text;
+			this.textBoxDescription.Text	= recipe.Description;
+			this.textBoxDirections.Text		= recipe.Directions;
+			this.textBoxIngredients.Text	= recipe.Ingredients;
+			this.textBoxUrl.Text			= recipe.Url;
+
+			dirty = false;
+			loaded = true;
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -45,6 +68,8 @@ namespace msn2.net.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Designer generated code
 		/// <summary>
@@ -63,10 +88,17 @@ namespace msn2.net.Controls
 			this.label4 = new System.Windows.Forms.Label();
 			this.textBoxDirections = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.listViewNotes = new System.Windows.Forms.ListView();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// label1
 			// 
@@ -85,6 +117,7 @@ namespace msn2.net.Controls
 			this.textBoxName.Size = new System.Drawing.Size(336, 20);
 			this.textBoxName.TabIndex = 6;
 			this.textBoxName.Text = "";
+			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
 			// 
 			// textBoxUrl
 			// 
@@ -95,6 +128,7 @@ namespace msn2.net.Controls
 			this.textBoxUrl.Size = new System.Drawing.Size(336, 20);
 			this.textBoxUrl.TabIndex = 8;
 			this.textBoxUrl.Text = "";
+			this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
 			// 
 			// label2
 			// 
@@ -114,6 +148,7 @@ namespace msn2.net.Controls
 			this.textBoxDescription.Size = new System.Drawing.Size(336, 40);
 			this.textBoxDescription.TabIndex = 10;
 			this.textBoxDescription.Text = "";
+			this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
 			// 
 			// label3
 			// 
@@ -133,6 +168,7 @@ namespace msn2.net.Controls
 			this.textBoxIngredients.Size = new System.Drawing.Size(336, 56);
 			this.textBoxIngredients.TabIndex = 12;
 			this.textBoxIngredients.Text = "";
+			this.textBoxIngredients.TextChanged += new System.EventHandler(this.textBoxIngredients_TextChanged);
 			// 
 			// label4
 			// 
@@ -152,6 +188,7 @@ namespace msn2.net.Controls
 			this.textBoxDirections.Size = new System.Drawing.Size(336, 88);
 			this.textBoxDirections.TabIndex = 14;
 			this.textBoxDirections.Text = "";
+			this.textBoxDirections.TextChanged += new System.EventHandler(this.textBoxDirections_TextChanged);
 			// 
 			// label5
 			// 
@@ -161,19 +198,11 @@ namespace msn2.net.Controls
 			this.label5.TabIndex = 13;
 			this.label5.Text = "Directions:";
 			// 
-			// listViewNotes
-			// 
-			this.listViewNotes.Location = new System.Drawing.Point(8, 280);
-			this.listViewNotes.Name = "listViewNotes";
-			this.listViewNotes.Size = new System.Drawing.Size(408, 144);
-			this.listViewNotes.TabIndex = 15;
-			// 
 			// Recipe
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(424, 430);
+			this.ClientSize = new System.Drawing.Size(424, 278);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.listViewNotes,
 																		  this.textBoxDirections,
 																		  this.label5,
 																		  this.textBoxIngredients,
@@ -187,12 +216,145 @@ namespace msn2.net.Controls
 			this.Name = "Recipe";
 			this.Text = "Recipe";
 			this.TitleVisible = true;
+			this.Deactivate += new System.EventHandler(this.Recipe_Deactivate);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 		#endregion
+
+		#region Save
+
+		private void SaveRecipe()
+		{
+			if (loaded && Data != null)
+			{
+				RecipeConfigData recipe		= new RecipeConfigData();
+				Data.Text					= this.textBoxName.Text;
+				recipe.Description			= this.textBoxDirections.Text;
+				recipe.Directions			= this.textBoxDirections.Text;
+				recipe.Ingredients			= this.textBoxIngredients.Text;
+				recipe.Url					= this.textBoxUrl.Text;
+				Data.ConfigData				= recipe;
+
+                Data.Save();				
+			}
+		}
+
+		private void Recipe_Deactivate(object sender, System.EventArgs e)
+		{
+			if (dirty) 
+			{
+				SaveRecipe();
+				dirty = false;
+			}
+		}
+
+		#endregion
+
+		#region Textbox mods
+
+		private void textBoxName_TextChanged(object sender, System.EventArgs e)
+		{
+			dirty = true;
+		}
+
+		private void textBoxUrl_TextChanged(object sender, System.EventArgs e)
+		{
+			dirty = true;
+		}
+
+		private void textBoxDescription_TextChanged(object sender, System.EventArgs e)
+		{
+			dirty = true;
+		}
+
+		private void textBoxIngredients_TextChanged(object sender, System.EventArgs e)
+		{
+			dirty = true;
+		}
+
+		private void textBoxDirections_TextChanged(object sender, System.EventArgs e)
+		{
+			dirty = true;
+		}
+
+		#endregion
+
+		#region Add
+
+		public static Data Add(System.Windows.Forms.IWin32Window owner, Data parent)
+		{
+			InputPrompt p = new InputPrompt("Name the new recipe:");
+
+			if (p.ShowDialog(owner) == DialogResult.Cancel)
+				return null;
+
+			RecipeConfigData recipeConfigData = new RecipeConfigData();
+			return parent.Get(p.Value, recipeConfigData, typeof(RecipeConfigData));
+		}
+
+		#endregion
+
 	}
+
+	#region RecipeConfigData
+
+	public class RecipeConfigData: msn2.net.Common.ConfigData
+	{
+		private string note;
+		private string url;
+		private string description;
+		private string ingredients;
+		private string directions;
+
+		public RecipeConfigData()
+		{}
+
+		public RecipeConfigData(string note)
+		{
+			this.note = note;
+		}
+
+		public string Note
+		{
+			get { return note; }
+			set { note = value; }
+		}
+
+		public string Url
+		{
+			get { return url; }
+			set { url = value; }
+		}
+
+		public string Description
+		{
+			get { return description; }
+			set { description = value; }
+		}
+
+		public string Ingredients
+		{
+			get { return ingredients; }
+			set { ingredients = value; }
+		}
+
+		public string Directions
+		{
+			get { return directions; }
+			set { directions = value; }
+		}
+
+		public override int IconIndex
+		{
+			get { return 2; }
+		}
+
+	}
+
+	#endregion
+
 }
 

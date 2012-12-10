@@ -37,7 +37,8 @@ namespace msn2.net.ProjectF
 		private System.ComponentModel.Container components = null;
 		private MessengerAPI.MessengerClass messenger = null;
 		private Status status = null;
-		
+		private Crownwood.Magic.Docking.DockingManager dockManager = null;
+
 		#endregion
 
 		#region Constructor / Disposal
@@ -63,6 +64,8 @@ namespace msn2.net.ProjectF
 			messenger = new MessengerAPI.MessengerClass();
 			//messenger.OnSignin		+= new MessengerAPI.DMessengerEvents_OnSigninEventHandler(Messenger_SignIn);
 			//messenger.OnSignout		+= new MessengerAPI.DMessengerEvents_OnSignoutEventHandler(Messenger_SignOut);
+
+			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.ProjectF);
 
 			// Make sure we are signed in, if not, sign in
 			if (messenger.MyStatus == MessengerAPI.MISTATUS.MISTATUS_ONLINE)
@@ -245,6 +248,7 @@ namespace msn2.net.ProjectF
 			// Check if we are signed in
 			if (hr == Convert.ToInt32(MessengerAPI.MSGRConstants.MSGR_S_OK))
 			{
+				// get root storage location
 				SignIn(messenger.MySigninName);
 			}
 		}
@@ -282,7 +286,8 @@ namespace msn2.net.ProjectF
 			//				}
 			//			}
 			
-			ConfigurationSettings.Current.Login(messenger);
+			string storageUrl = System.Configuration.ConfigurationSettings.AppSettings["storageUrl"].ToString();
+			ConfigurationSettings.Current.Login(messenger, storageUrl);
 
 			//			login l = new login();
 			//			if (l.showdialog(this) == dialogresult.cancel)
@@ -296,14 +301,38 @@ namespace msn2.net.ProjectF
 			//			listView1.Items.Add(
 			//				new FormListViewItem(this, new msn2.net.QueuePlayer.Client.UMPlayer()));
 
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.MSNBCHeadlines()));
-			//
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
+			// MSNBC Headlines
+			string baseUrl = "http://www.msnbc.com/modules/story_stage/stages.asp?0st=S1&nstage=1&scss=e";
+			msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser("MSNBC Headlines", 300, 300);
+			browser.AddNewTab("Cover", String.Format(baseUrl, 1));
+			browser.AddNewTab("News", String.Format(baseUrl, 2));
+			browser.AddNewTab("Business", String.Format(baseUrl, 3));
+			browser.AddNewTab("Health", String.Format(baseUrl, 4));
+			browser.AddNewTab("Technology", String.Format(baseUrl, 5));
+			browser.AddNewTab("TV News", String.Format(baseUrl, 6));
+			browser.AddNewTab("Opinions", String.Format(baseUrl, 7));
+			listView1.Items.Add(new FormListViewItem(this, browser));
+				
+//			listView1.Items.Add(
+//				new FormListViewItem(this, new msn2.net.Controls.MSNBCHeadlines()));
+			
+			listView1.Items.Add(
+				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
+
+			Favorites favs = new msn2.net.Controls.Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
+			
+			//			Crownwood.Magic.Docking.Content content =
+			//				new Crownwood.Magic.Docking.Content(dockManager, favs, "Favorites");
+			//			dockManager.Contents.Add(content);
+			//	//dockManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockBottom);
+			//			dockManager.ShowContent(content);
 
 			listView1.Items.Add(
 				new FormListViewItem(this, new msn2.net.Controls.Favorites(ConfigurationSettings.Current.Data.Get("Favorites"))));
+
+			//			ComputerInfo cInfo = new msn2.net.Controls.ComputerInfo();
+			//			dockManager.Contents.Add(cInfo, cInfo.Text);
+			//			dockManager.ShowContent(content);
 
 			listView1.Items.Add(
 				new FormListViewItem(this, new msn2.net.Controls.ComputerInfo()));
@@ -311,11 +340,11 @@ namespace msn2.net.ProjectF
 			//			listView1.Items.Add(
 			//				new FormListViewItem(this, new msn2.net.Controls.Notes()));
 			//
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.WebSearch()));
-			//
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.ShellLaunch()));
+			listView1.Items.Add(
+				new FormListViewItem(this, new msn2.net.Controls.WebSearch()));
+			
+			listView1.Items.Add(
+				new FormListViewItem(this, new msn2.net.Controls.ShellLaunch()));
 
 			//			listView1.Items.Add(
 			//				new FormListViewItem(this, new msn2.net.Controls.RandomPicture()));
@@ -324,6 +353,7 @@ namespace msn2.net.ProjectF
 			this.Top  = 3;
 
 			status.Hide();
+		
 		}
 
 		private void Messenger_SignOut()

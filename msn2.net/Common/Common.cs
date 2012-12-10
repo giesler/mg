@@ -1,4 +1,6 @@
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 using System.Collections;
 using System.Xml.Serialization;
 using System.IO;
@@ -109,6 +111,50 @@ namespace msn2.net.Common
 
 		#endregion
 
+	}
+
+	public class Drawing
+	{
+		#region ShadeRegion
+
+		public static void ShadeRegion(PaintEventArgs e, Color startColor)
+		{
+			int red = 255 - ((255 - startColor.R) / 3);
+			int green = 255 - ((255 - startColor.G) / 3);
+			int blue = 255 - ((255 - startColor.B) / 3);
+
+			ShadeRegion(e, startColor, Color.FromArgb(red, green, blue));
+		}
+
+		public static void ShadeRegion(PaintEventArgs e, Color startColor, Color endColor)
+		{
+			if (e.ClipRectangle.Height == 0)
+				return;
+
+			// Figure out multipliers - amount to change each color for each line
+			float redDiff			= (startColor.R - endColor.R) / e.ClipRectangle.Height;
+			float greenDiff		= (startColor.G - endColor.G) / e.ClipRectangle.Height;
+			float blueDiff			= (startColor.B - endColor.B) / e.ClipRectangle.Height;
+
+			float currentRed		= startColor.R;
+			float currentGreen		= startColor.G;
+			float currentBlue		= startColor.B;
+
+			for (int i = 0; i < e.ClipRectangle.Height; i++)
+			{
+				currentRed		-= redDiff;
+				currentGreen	-= greenDiff;
+				currentBlue		-= blueDiff;
+
+				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
+				using (Pen pen = new Pen(new SolidBrush(color)))
+				{
+					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - i, e.ClipRectangle.Width, e.ClipRectangle.Height - i);
+				}                
+			}
+		}
+
+		#endregion
 	}
 
 	public class IterIsolate: IEnumerable

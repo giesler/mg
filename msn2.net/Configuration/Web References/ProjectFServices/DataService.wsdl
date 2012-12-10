@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://services.msn2.net/ProjectFServices/2002/04/13/DataService" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:i0="http://tempuri.org/DataSetDataItem.xsd" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService" xmlns="http://schemas.xmlsoap.org/wsdl/">
-  <import namespace="http://tempuri.org/DataSetDataItem.xsd" location="http://chef/ProjectFServices/DataService.asmx?schema=DataSetDataItem" />
+<definitions xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://services.msn2.net/ProjectFServices/2002/04/23/DataService" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:i0="http://tempuri.org/DataSetDataItem.xsd" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://tempuri.org/DataSetDataItem.xsd" location="http://localhost/ProjectFServices/DataService.asmx?schema=DataSetDataItem" />
   <types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService">
       <s:import namespace="http://microsoft.com/wsdl/types/" />
       <s:import namespace="http://tempuri.org/DataSetDataItem.xsd" />
       <s:element name="GetChildren">
@@ -39,16 +39,12 @@
             <s:element minOccurs="1" maxOccurs="1" name="userId" type="s1:guid" />
             <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="data" type="s0:ConfigData" />
+            <s:element minOccurs="0" maxOccurs="1" name="serializedData" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemKey" type="s1:guid" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ConfigData">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="ItemKey" type="s1:guid" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetResponse">
         <s:complexType>
           <s:sequence>
@@ -67,7 +63,7 @@
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id" type="s1:guid" />
             <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="configData" type="s0:ConfigData" />
+            <s:element minOccurs="0" maxOccurs="1" name="serializedData" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -141,7 +137,7 @@
   <binding name="DataServiceSoap" type="s0:DataServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
     <operation name="GetChildren">
-      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/13/DataService/GetChildren" style="document" />
+      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/23/DataService/GetChildren" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -150,7 +146,7 @@
       </output>
     </operation>
     <operation name="Get">
-      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Get" style="document" />
+      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Get" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -159,7 +155,7 @@
       </output>
     </operation>
     <operation name="Save">
-      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Save" style="document" />
+      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Save" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -168,7 +164,7 @@
       </output>
     </operation>
     <operation name="Delete">
-      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Delete" style="document" />
+      <soap:operation soapAction="http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Delete" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -185,13 +181,13 @@
   </binding>
   <service name="DataService">
     <port name="DataServiceSoap" binding="s0:DataServiceSoap">
-      <soap:address location="http://chef/ProjectFServices/DataService.asmx" />
+      <soap:address location="http://localhost/ProjectFServices/DataService.asmx" />
     </port>
     <port name="DataServiceHttpGet" binding="s0:DataServiceHttpGet">
-      <http:address location="http://chef/ProjectFServices/DataService.asmx" />
+      <http:address location="http://localhost/ProjectFServices/DataService.asmx" />
     </port>
     <port name="DataServiceHttpPost" binding="s0:DataServiceHttpPost">
-      <http:address location="http://chef/ProjectFServices/DataService.asmx" />
+      <http:address location="http://localhost/ProjectFServices/DataService.asmx" />
     </port>
   </service>
 </definitions>

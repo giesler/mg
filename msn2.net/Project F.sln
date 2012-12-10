@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicLibrary", "MagicLibrary\MagicLibrary.csproj", "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 6
 		SccLocalPath0 = .
 		CanCheckoutShared = false
 		SolutionUniqueID = {8B05E1D2-5B92-4D82-B515-DF9C3E84F263}
@@ -28,6 +30,10 @@ Global
 		SccProjectUniqueName4 = Configuration\\Configuration.csproj
 		SccProjectName4 = \u0022$/msn2.net/Configuration\u0022,\u0020NTNAAAAA
 		SccLocalPath4 = Configuration
+		CanCheckoutShared = false
+		SccProjectUniqueName5 = MagicLibrary\\MagicLibrary.csproj
+		SccProjectName5 = \u0022$/msn2.net/MagicLibrary\u0022,\u0020REOAAAAA
+		SccLocalPath5 = MagicLibrary
 		CanCheckoutShared = false
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
@@ -53,6 +59,10 @@ Global
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Debug.ActiveCfg = Debug|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Debug.Build.0 = Debug|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.ActiveCfg = Release|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

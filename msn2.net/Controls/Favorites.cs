@@ -18,33 +18,37 @@ namespace msn2.net.Controls
 	{
 		#region Declares
 
-		private System.Windows.Forms.Splitter splitter1;
-		private msn2.net.Controls.CategoryTreeView treeViewCategory;
-		private System.Windows.Forms.ListView listViewFavorites;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItemAdd;
 		private System.Windows.Forms.MenuItem menuItemEdit;
 		private System.Windows.Forms.MenuItem menuItemDelete;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.ComponentModel.IContainer components = null;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private msn2.net.Controls.ShellListView shellListView;
 		private Guid dataId = new Guid("{40DEBAB8-3701-43d5-8447-223F8CC5763A}");
+		private System.Windows.Forms.Splitter splitter1;
+		private msn2.net.Controls.CategoryTreeView treeViewCategory;
+	//	private Crownwood.Magic.Docking.DockingManager dockingManager = null;
 
 		#endregion
 
-		#region Constructor, Disposal
+		#region Constructor
 
 		public Favorites()
 		{
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
+			this.treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
+
 			treeViewCategory.ParentShellForm	= this;
 			Data rootNode = ConfigurationSettings.Current.Data.Get("Favorites.Category");
 
-			treeViewCategory.RootNode = rootNode;
+			treeViewCategory.RootData = rootNode;
 
+			shellListView.Data					= rootNode;
+
+			InternalConstructor();
 		}
 
 		public Favorites(Data data): base(data)
@@ -52,7 +56,9 @@ namespace msn2.net.Controls
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
-			Data rootNode = data.Get("Favorites.CategoryTree");
+			treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
+
+			Data rootNode = data.Get("My Data");
 
 			#region Messenger Groups
 
@@ -78,7 +84,7 @@ namespace msn2.net.Controls
 					{
 						MessengerContactData contactData = 
 							new MessengerContactData(
-								ConfigurationSettings.Current.GetSigninId(contact.SigninName));
+							ConfigurationSettings.Current.GetSigninId(contact.SigninName));
 						currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
 					}
 				}
@@ -86,11 +92,34 @@ namespace msn2.net.Controls
 
 			#endregion
 
-			treeViewCategory.ParentShellForm	= this;
-			treeViewCategory.RootNode			= rootNode;
+			treeViewCategory.RootData			= rootNode;
 
-			this.listViewFavorites.ContextMenu	= contextMenu1;
+			shellListView.Data					= rootNode;
+
+			InternalConstructor();
 		}
+
+		private void InternalConstructor()
+		{
+			
+			shellListView.Dock					= DockStyle.Fill;
+
+			treeViewCategory.ParentShellForm	= this;
+			shellListView.ParentShellForm		= this;
+
+			
+//			dockingManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
+
+//			Crownwood.Magic.Docking.Content content;
+			
+//			content = new Crownwood.Magic.Docking.Content(dockingManager, treeViewCategory, "Location");
+//			dockingManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockLeft);
+//			content.DisplaySize = new Size(200, 200);
+//			dockingManager.ShowContent(content);
+			
+		}
+
+		#endregion
 
 		public new Point DefaultLocation
 		{
@@ -102,6 +131,8 @@ namespace msn2.net.Controls
 				return p;
 			}
 		}
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -129,16 +160,14 @@ namespace msn2.net.Controls
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Favorites));
-			this.treeViewCategory = new msn2.net.Controls.CategoryTreeView();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.listViewFavorites = new System.Windows.Forms.ListView();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
+			this.shellListView = new msn2.net.Controls.ShellListView();
+			this.treeViewCategory = new msn2.net.Controls.CategoryTreeView();
+			this.splitter1 = new System.Windows.Forms.Splitter();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -150,52 +179,6 @@ namespace msn2.net.Controls
 			// timerFadeIn
 			// 
 			this.timerFadeIn.Enabled = false;
-			// 
-			// treeViewCategory
-			// 
-			this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeViewCategory.Name = "treeViewCategory";
-			this.treeViewCategory.ParentShellForm = null;
-			this.treeViewCategory.RootNode = null;
-			this.treeViewCategory.Size = new System.Drawing.Size(104, 192);
-			this.treeViewCategory.TabIndex = 5;
-			this.treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(104, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 192);
-			this.splitter1.TabIndex = 6;
-			this.splitter1.TabStop = false;
-			// 
-			// listViewFavorites
-			// 
-			this.listViewFavorites.AllowDrop = true;
-			this.listViewFavorites.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																								this.columnHeader1,
-																								this.columnHeader2});
-			this.listViewFavorites.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listViewFavorites.HideSelection = false;
-			this.listViewFavorites.Location = new System.Drawing.Point(107, 0);
-			this.listViewFavorites.Name = "listViewFavorites";
-			this.listViewFavorites.Size = new System.Drawing.Size(309, 192);
-			this.listViewFavorites.SmallImageList = this.imageList1;
-			this.listViewFavorites.TabIndex = 7;
-			this.listViewFavorites.View = System.Windows.Forms.View.Details;
-			this.listViewFavorites.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewFavorites_MouseUp);
-			this.listViewFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragDrop);
-			this.listViewFavorites.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragEnter);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Name";
-			this.columnHeader1.Width = 200;
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Type";
-			this.columnHeader2.Width = 200;
 			// 
 			// imageList1
 			// 
@@ -210,32 +193,54 @@ namespace msn2.net.Controls
 																						 this.menuItemAdd,
 																						 this.menuItemEdit,
 																						 this.menuItemDelete});
-			this.contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
 			// 
 			// menuItemAdd
 			// 
 			this.menuItemAdd.Index = 0;
 			this.menuItemAdd.Text = "&Add";
-			this.menuItemAdd.Click += new System.EventHandler(this.menuItemAdd_Click);
 			// 
 			// menuItemEdit
 			// 
 			this.menuItemEdit.Index = 1;
 			this.menuItemEdit.Text = "&Edit";
-			this.menuItemEdit.Click += new System.EventHandler(this.menuItemEdit_Click);
 			// 
 			// menuItemDelete
 			// 
 			this.menuItemDelete.Index = 2;
 			this.menuItemDelete.Text = "&Delete";
-			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
+			// 
+			// shellListView
+			// 
+			this.shellListView.Data = null;
+			this.shellListView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.shellListView.Location = new System.Drawing.Point(153, 16);
+			this.shellListView.Name = "shellListView";
+			this.shellListView.ParentShellForm = null;
+			this.shellListView.Size = new System.Drawing.Size(263, 176);
+			this.shellListView.TabIndex = 7;
+			// 
+			// treeViewCategory
+			// 
+			this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Left;
+			this.treeViewCategory.Name = "treeViewCategory";
+			this.treeViewCategory.ParentShellForm = null;
+			this.treeViewCategory.Size = new System.Drawing.Size(150, 192);
+			this.treeViewCategory.TabIndex = 8;
+			// 
+			// splitter1
+			// 
+			this.splitter1.Location = new System.Drawing.Point(150, 0);
+			this.splitter1.Name = "splitter1";
+			this.splitter1.Size = new System.Drawing.Size(3, 192);
+			this.splitter1.TabIndex = 9;
+			this.splitter1.TabStop = false;
 			// 
 			// Favorites
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(416, 192);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.listViewFavorites,
+																		  this.shellListView,
 																		  this.splitter1,
 																		  this.treeViewCategory});
 			this.Name = "Favorites";
@@ -253,154 +258,7 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_CategoryTreeView_AfterSelect(object sender, msn2.net.Controls.CategoryTreeViewEventArgs e)
 		{
-			Type[] types = new Type[4];
-			types[0]	= typeof(FavoriteConfigData);
-			types[1]	= typeof(NoteConfigData);
-			types[2]	= typeof(msn2.net.Configuration.MessengerContactData);
-			types[3]	= typeof(msn2.net.Configuration.MessengerGroupData);
-
-			DataCollection col = e.Data.GetChildren(types);
-
-			listViewFavorites.Items.Clear();
-
-			foreach (Data node in col)
-			{
-				DataListViewItem item = new DataListViewItem(node);
-				listViewFavorites.Items.Add(item);
-			}
-		}
-
-		#endregion
-
-		#region Context menu / mouse actions
-
-		private void menuItemAdd_Click(object sender, System.EventArgs e)
-		{
-			FavoriteEdit f = new FavoriteEdit(this);
-
-			if (f.ShowDialog(this) == DialogResult.Cancel)
-				return;
-
-			Data data = treeViewCategory.Data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
-			DataListViewItem item = new DataListViewItem(data);
-			listViewFavorites.Items.Add(item);
-		}
-
-		public void menuItemAdd_Note_Click(object sender, System.EventArgs e)
-		{
-			// Attempt to create new item
-			Data data = Notes.Add(this, treeViewCategory.Data);
-			if (data != null)
-			{
-				// Add to listview
-				DataListViewItem item = new DataListViewItem(data);
-				listViewFavorites.Items.Add(item);			
-			}
-		}
-
-		private void menuItemEdit_Click(object sender, System.EventArgs e)
-		{
-			if (listViewFavorites.SelectedItems.Count == 0)
-				return;
-
-			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
-
-			if (item.Data.DataType == typeof(FavoriteConfigData))
-			{
-				FavoriteEdit fv = new FavoriteEdit(this);
-				fv.Title	= item.Data.Text;
-				fv.Url		= item.Data.Url;
-
-				if (fv.ShowDialog(this) == DialogResult.Cancel)
-					return;
-
-				item.Data.Text	= fv.Title;
-				item.Data.Url		= fv.Url;
-
-				item.Data.Save();
-			}
-			else
-			{
-				Notes note = new Notes(item.Data);
-				note.Show();
-			}
-
-			            			
-		}
-
-		private void menuItemDelete_Click(object sender, System.EventArgs e)
-		{
-			if (listViewFavorites.SelectedItems.Count == 0)
-				return;
-
-			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
-
-			if (MessageBox.Show("Are you sure you want to delete '" + item.Text + "'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-				return;
-
-			item.Data.Delete();
-			listViewFavorites.Items.Remove(item);
-		}
-
-		private void listViewFavorites_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-		{
-			if (listViewFavorites.SelectedItems.Count == 0)
-				return;
-
-			if (e.Button == MouseButtons.Left)
-			{
-				DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
-
-				Type type = item.Data.DataType;
-				if (type != null)
-				{
-                    
-					if (type == typeof(FavoriteConfigData))
-					{
-						WebBrowser webBrowser = new WebBrowser(item.Data.Text, item.Data.Url);
-						webBrowser.Show();
-
-					}
-				}
-			}
-		}
-
-		private void contextMenu1_Popup(object sender, System.EventArgs e)
-		{
-			this.menuItemAdd.MenuItems.Clear();
-
-			// Add each item we want to display
-			this.menuItemAdd.MenuItems.Add("Favorite", new EventHandler(menuItemAdd_Click));
-			this.menuItemAdd.MenuItems.Add("Note", new EventHandler(menuItemAdd_Note_Click));
-
-		}
-
-		#endregion
-
-		#region Drag and Drop URLs
-
-		private void listViewFavorites_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.Text))
-			{
-				e.Effect = DragDropEffects.Copy;
-			}
-		}
-
-		private void listViewFavorites_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.Text))
-			{
-				FavoriteEdit f = new FavoriteEdit(this);
-				f.Url = e.Data.GetData(DataFormats.Text).ToString();
-
-				if (f.ShowDialog(this) == DialogResult.Cancel)
-					return;
-
-				Data data = treeViewCategory.Data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
-				DataListViewItem item = new DataListViewItem(data);
-				listViewFavorites.Items.Add(item);
-			}
+			shellListView.Data	= e.Data;
 		}
 
 		#endregion
@@ -418,7 +276,8 @@ namespace msn2.net.Controls
 			this.Text		= data.Name;
 			this.data		= data;
 
-			this.ImageIndex	= data.ConfigData.IconIndex;
+			if (data.ConfigData != null)
+				this.ImageIndex	= data.ConfigData.IconIndex;
 
 			this.SubItems.Add(data.DataType.ToString());
 		}

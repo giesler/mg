@@ -18,7 +18,6 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.TextBox textBox1;
 		
 		private bool			dirty				= false;
-		private Data			noteData			= null;
 
 		#endregion
 
@@ -122,7 +121,16 @@ namespace msn2.net.Controls
 
 		#endregion
 
-		#region Add new note
+		private void Notes_Deactivate(object sender, System.EventArgs e)
+		{
+			if (dirty)
+			{
+				Data.Save();
+				dirty = false;
+			}
+		}
+
+		#region Add
 
 		public static Data Add(System.Windows.Forms.IWin32Window owner, Data parent)
 		{
@@ -137,20 +145,11 @@ namespace msn2.net.Controls
 
 		#endregion
 
-		private void Notes_Deactivate(object sender, System.EventArgs e)
-		{
-			if (dirty)
-			{
-				Data.Save();
-				dirty = false;
-			}
-		}
-
 	}
 
 	#region NoteConfigData
 
-	public class NoteConfigData: ConfigData
+	public class NoteConfigData: msn2.net.Common.ConfigData
 	{
 		private string note;
 

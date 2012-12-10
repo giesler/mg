@@ -110,25 +110,6 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
-                <File
-                    RelPath = "DataSetDataItem.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetDataItem.cs"
-                />
-                <File
-                    RelPath = "DataSetDataItem.cs"
-                    DependentUpon = "DataSetDataItem.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetDataItem.xsx"
-                    DependentUpon = "DataSetDataItem.xsd"
-                    BuildAction = "None"
-                />
             </Include>
         </Files>
     </CSHARP>

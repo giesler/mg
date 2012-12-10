@@ -123,11 +123,6 @@
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
                 <Reference
-                    Name = "MagicLibrary"
-                    AssemblyName = "MagicLibrary"
-                    HintPath = "..\..\Crownwood.Magic\currentVersion\bin\Debug\MagicLibrary.dll"
-                />
-                <Reference
                     Name = "Microsoft.mshtml"
                     AssemblyName = "Microsoft.mshtml"
                     HintPath = "..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
@@ -140,6 +135,11 @@
                     Lcid = "0"
                     WrapperTool = "tlbimp"
                 />
+                <Reference
+                    Name = "MagicLibrary"
+                    Project = "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -148,6 +148,16 @@
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CategoryBrowser.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CategoryBrowser.resx"
+                    DependentUpon = "CategoryBrowser.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "CategoryTreeView.cs"
@@ -161,7 +171,7 @@
                 />
                 <File
                     RelPath = "CommonCode.cs"
-                    SubType = "Component"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -204,14 +214,19 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Form.cs"
-                    SubType = "Form"
+                    RelPath = "GoogleResult.cs"
+                    SubType = "UserControl"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Form.resx"
-                    DependentUpon = "Form.cs"
+                    RelPath = "GoogleResult.resx"
+                    DependentUpon = "GoogleResult.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "GoogleSearchService.cs"
+                    SubType = "code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Graph.cs"
@@ -314,6 +329,41 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "ResultsControl.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ResultsControl.af.resx"
+                    DependentUpon = "ResultsControl.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ResultsControl.resx"
+                    DependentUpon = "ResultsControl.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SaveLocation.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SaveLocation.resx"
+                    DependentUpon = "SaveLocation.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellButton.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellButton.resx"
+                    DependentUpon = "ShellButton.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "ShellForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -331,6 +381,26 @@
                 <File
                     RelPath = "ShellLaunch.resx"
                     DependentUpon = "ShellLaunch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellListView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellListView.resx"
+                    DependentUpon = "ShellListView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellSave.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellSave.resx"
+                    DependentUpon = "ShellSave.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

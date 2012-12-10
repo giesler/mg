@@ -26,16 +26,22 @@ namespace msn2.net.Configuration.ProjectFServices {
     /// <remarks/>
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="DataServiceSoap", Namespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="DataServiceSoap", Namespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService")]
     public class DataService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         /// <remarks/>
         public DataService() {
-            this.Url = "http://chef/ProjectFServices/DataService.asmx";
+            string urlSetting = System.Configuration.ConfigurationSettings.AppSettings["msn2.net.Configuration.ProjectFServices.DataService"];
+            if ((urlSetting != null)) {
+                this.Url = string.Concat(urlSetting, "");
+            }
+            else {
+                this.Url = "http://localhost/ProjectFServices/DataService.asmx";
+            }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/13/DataService/GetChildren", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/23/DataService/GetChildren", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public DataSetDataItem GetChildren(System.Guid id, System.Guid userId, string[] types) {
             object[] results = this.Invoke("GetChildren", new object[] {
                         id,
@@ -59,27 +65,29 @@ namespace msn2.net.Configuration.ProjectFServices {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Get", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public DataSetDataItem Get(System.Guid id, System.Guid userId, string name, string url, ConfigData data, string type) {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Get", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public DataSetDataItem Get(System.Guid id, System.Guid userId, string name, string url, string serializedData, string type, System.Guid itemKey) {
             object[] results = this.Invoke("Get", new object[] {
                         id,
                         userId,
                         name,
                         url,
-                        data,
-                        type});
+                        serializedData,
+                        type,
+                        itemKey});
             return ((DataSetDataItem)(results[0]));
         }
         
         /// <remarks/>
-        public System.IAsyncResult BeginGet(System.Guid id, System.Guid userId, string name, string url, ConfigData data, string type, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginGet(System.Guid id, System.Guid userId, string name, string url, string serializedData, string type, System.Guid itemKey, System.AsyncCallback callback, object asyncState) {
             return this.BeginInvoke("Get", new object[] {
                         id,
                         userId,
                         name,
                         url,
-                        data,
-                        type}, callback, asyncState);
+                        serializedData,
+                        type,
+                        itemKey}, callback, asyncState);
         }
         
         /// <remarks/>
@@ -89,21 +97,21 @@ namespace msn2.net.Configuration.ProjectFServices {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Save", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void Save(System.Guid id, string name, ConfigData configData, string type) {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Save", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void Save(System.Guid id, string name, string serializedData, string type) {
             this.Invoke("Save", new object[] {
                         id,
                         name,
-                        configData,
+                        serializedData,
                         type});
         }
         
         /// <remarks/>
-        public System.IAsyncResult BeginSave(System.Guid id, string name, ConfigData configData, string type, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginSave(System.Guid id, string name, string serializedData, string type, System.AsyncCallback callback, object asyncState) {
             return this.BeginInvoke("Save", new object[] {
                         id,
                         name,
-                        configData,
+                        serializedData,
                         type}, callback, asyncState);
         }
         
@@ -113,7 +121,7 @@ namespace msn2.net.Configuration.ProjectFServices {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/13/DataService/Delete", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Delete", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void Delete(System.Guid id) {
             this.Invoke("Delete", new object[] {
                         id});
@@ -129,14 +137,6 @@ namespace msn2.net.Configuration.ProjectFServices {
         public void EndDelete(System.IAsyncResult asyncResult) {
             this.EndInvoke(asyncResult);
         }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService")]
-    public class ConfigData {
-        
-        /// <remarks/>
-        public System.Guid ItemKey;
     }
     
     [Serializable()]

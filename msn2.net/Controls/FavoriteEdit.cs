@@ -11,6 +11,8 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class FavoriteEdit : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.TextBox textBoxURL;
@@ -18,10 +20,11 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Button buttonOK;
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.ErrorProvider errorProvider1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
+
+		#endregion
+
+		#region Constructors
 
 		public FavoriteEdit(ShellForm parent)
 		{
@@ -32,6 +35,10 @@ namespace msn2.net.Controls
 			InitializeComponent();
 
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -47,6 +54,8 @@ namespace msn2.net.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -137,6 +146,10 @@ namespace msn2.net.Controls
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
+			// errorProvider1
+			// 
+			this.errorProvider1.DataMember = null;
+			// 
 			// FavoriteEdit
 			// 
 			this.AcceptButton = this.buttonOK;
@@ -161,6 +174,8 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Buttons
+
 		private void buttonOK_Click(object sender, System.EventArgs e)
 		{
 			this.Visible = false;
@@ -170,6 +185,12 @@ namespace msn2.net.Controls
 		{
 			this.Visible = false;
 		}
+
+		#endregion
+
+		#region Fields
+
+		#region Name
 
 		private void textBoxName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -185,6 +206,10 @@ namespace msn2.net.Controls
 			errorProvider1.SetError(textBoxName, null);
 		}
 
+		#endregion
+
+		#region Url
+
 		private void textBoxURL_Validating(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			if (textBoxURL.Text.Length == 0)
@@ -199,6 +224,12 @@ namespace msn2.net.Controls
 			errorProvider1.SetError(textBoxURL, null);
 		}
 
+		#endregion
+
+		#endregion
+
+		#region Properties
+
 		public string Title
 		{
 			get { return textBoxName.Text; }
@@ -210,5 +241,8 @@ namespace msn2.net.Controls
 			get { return textBoxURL.Text; }
 			set {	 textBoxURL.Text = value; }
 		}
+
+		#endregion
+
 	}
 }

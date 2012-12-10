@@ -132,6 +132,7 @@ namespace msn2.net.Controls
 			// 
 			// labelMessage
 			// 
+			this.labelMessage.BackColor = System.Drawing.Color.Transparent;
 			this.labelMessage.Location = new System.Drawing.Point(5, 9);
 			this.labelMessage.Name = "labelMessage";
 			this.labelMessage.Size = new System.Drawing.Size(288, 32);
@@ -159,6 +160,7 @@ namespace msn2.net.Controls
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Please Wait...";
 			this.TitleVisible = true;
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Status_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -174,6 +176,11 @@ namespace msn2.net.Controls
 				thread.Abort();
 				this.Visible = false; 
 			}
+		}
+
+		private void Status_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 
 		public bool Cancel 

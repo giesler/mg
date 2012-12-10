@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://chef/ProjectFServices/DataService.asmx?wsdl" docRef="http://chef/ProjectFServices/DataService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="http://chef/ProjectFServices/DataService.asmx" xmlns:q1="http://services.msn2.net/ProjectFServices/2002/04/13/DataService" binding="q1:DataServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <contractRef ref="http://localhost/ProjectFServices/DataService.asmx?wsdl" docRef="http://localhost/ProjectFServices/DataService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://localhost/ProjectFServices/DataService.asmx" xmlns:q1="http://services.msn2.net/ProjectFServices/2002/04/23/DataService" binding="q1:DataServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
 </discovery>

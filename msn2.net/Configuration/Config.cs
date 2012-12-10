@@ -54,7 +54,7 @@ namespace msn2.net.Configuration
 
 		#region Login
 
-		public void Login(MessengerAPI.MessengerClass messenger)
+		public void Login(MessengerAPI.MessengerClass messenger, string storageUrl)
 		{
 			this.messenger				= messenger;
 
@@ -85,7 +85,7 @@ namespace msn2.net.Configuration
 			this.policyId	= policyId;
 
 			// load each tree
-			data = new Data(configId, signinId, machineId, policyId);
+			data = new Data(configId, signinId, machineId, policyId, storageUrl);
 
 		}
 

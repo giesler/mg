@@ -94,6 +94,7 @@ namespace msn2.net.Controls
 		protected ArrayList lockedForms				= new ArrayList();
 		private Data formNode						= null;
 		private Data layoutData						= null;
+		private bool	shadedBackground			= false;
 
 		// Form style properties
 		private int		titleHeight					= 18;
@@ -196,7 +197,6 @@ namespace msn2.net.Controls
 			this.panelTitle.Name = "panelTitle";
 			this.panelTitle.Size = new System.Drawing.Size(344, 16);
 			this.panelTitle.TabIndex = 0;
-			this.panelTitle.Layout += new System.Windows.Forms.LayoutEventHandler(this.panelTitle_Layout);
 			// 
 			// panelTitleText
 			// 
@@ -390,6 +390,7 @@ namespace msn2.net.Controls
 			this.Load += new System.EventHandler(this.ShellForm_Load);
 			this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ShellForm_Layout);
 			this.Activated += new System.EventHandler(this.ShellForm_Activated);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShellForm_Paint);
 			this.Deactivate += new System.EventHandler(this.ShellForm_Deactivate);
 			this.panelTitle.ResumeLayout(false);
 			this.panelTitleText.ResumeLayout(false);
@@ -508,6 +509,19 @@ namespace msn2.net.Controls
 			{
 				rolledUp = !value;
 				buttonRollup_Click(this, EventArgs.Empty);
+			}
+		}
+
+		[Category("Appearance")]
+		public bool ShadedBackground
+		{
+			get
+			{
+				return shadedBackground;
+			}
+			set
+			{
+				shadedBackground = value;
 			}
 		}
 
@@ -705,7 +719,7 @@ namespace msn2.net.Controls
 			}
 			else
 			{
-				if (formNode != null)
+				if (formNode != null && layoutData != null)
 				{
 					ShellFormConfigData data = new ShellFormConfigData(this);
                     layoutData.ConfigData = data;
@@ -868,18 +882,6 @@ namespace msn2.net.Controls
 		#endregion
 
 		#region Layout code
-
-		private void panelTitle_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
-		{
-			if (!DesignMode && e.AffectedControl == null)
-			{
-				//LayoutForProjectF();
-			}
-			else
-			{
-				//panelTitle.Height = 0;
-			}
-		}
 
 		private bool layedOut = false;
 
@@ -1402,44 +1404,21 @@ namespace msn2.net.Controls
 
 		#endregion
 
-		#region ShadeRegion
+		#region Paint
 
-		protected void ShadeRegion(PaintEventArgs e, Color startColor)
+		private void ShellForm_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			int red = 255 - ((255 - startColor.R) / 3);
-			int green = 255 - ((255 - startColor.G) / 3);
-			int blue = 255 - ((255 - startColor.B) / 3);
-
-			ShadeRegion(e, startColor, Color.FromArgb(red, green, blue));
-		}
-
-		protected void ShadeRegion(PaintEventArgs e, Color startColor, Color endColor)
-		{
-			if (e.ClipRectangle.Height == 0)
-				return;
-
-			// Figure out multipliers - amount to change each color for each line
-			double redDiff			= (startColor.R - endColor.R) / e.ClipRectangle.Height;
-			double greenDiff		= (startColor.G - endColor.G) / e.ClipRectangle.Height;
-			double blueDiff			= (startColor.B - endColor.B) / e.ClipRectangle.Height;
-
-			double currentRed		= startColor.R;
-			double currentGreen		= startColor.G;
-			double currentBlue		= startColor.B;
-
-			for (int i = 0; i < e.ClipRectangle.Height; i++)
+			if (shadedBackground)
 			{
-				currentRed		-= redDiff;
-				currentGreen	-= greenDiff;
-				currentBlue		-= blueDiff;
-
-				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
-				using (Pen pen = new Pen(new SolidBrush(color)))
-				{
-					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - i, e.ClipRectangle.Width, e.ClipRectangle.Height - i);
-				}                
+				//msn2.net.Common.Drawing.ShadeRegion(e, Color.DarkGray, Color.LightGray);
 			}
 		}
+
+		#endregion
+
+		#region ShadeRegion
+
+
 		#endregion
 
 	}
@@ -1497,9 +1476,9 @@ namespace msn2.net.Controls
 
 	#endregion
 
-	#region ShellFormConfigData
+	#region ShellFormmsn2.net.Common.ConfigData
 
-	public class ShellFormConfigData: msn2.net.Configuration.ConfigData
+	public class ShellFormConfigData: msn2.net.Common.ConfigData
 	{
 		private int left;
 		private int top;
@@ -1529,8 +1508,26 @@ namespace msn2.net.Controls
 		{
 			if (form != null)
 			{
-				form.Left					= this.left;
-				form.Top					= this.top;
+				// Make sure we are within bounds of the current screen
+				if (this.Left < Screen.PrimaryScreen.Bounds.Width)
+				{
+					form.Left = this.left;
+				}
+				else
+				{
+					form.Left = Screen.PrimaryScreen.Bounds.Width - form.Width;
+				}
+
+				// Make sure we are within bounds of the current screen
+				if (this.Top < Screen.PrimaryScreen.Bounds.Height)
+				{
+					form.Top = this.top;
+				}
+				else
+				{
+					form.Top = Screen.PrimaryScreen.Bounds.Height - form.Height;
+				}
+
 				form.TopMost				= this.topmost;
 				form.EnableOpacityChanges	= this.enableOpacityChanges;
 			}
