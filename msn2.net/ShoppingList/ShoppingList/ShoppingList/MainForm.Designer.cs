@@ -37,6 +37,8 @@
             this.newItem = new System.Windows.Forms.TextBox();
             this.add = new System.Windows.Forms.Button();
             this.store = new System.Windows.Forms.ComboBox();
+            this.menuTextSmallest = new System.Windows.Forms.MenuItem();
+            this.menuTextBiggest = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -81,9 +83,11 @@
             // 
             // menuItem2
             // 
+            this.menuItem2.MenuItems.Add(this.menuTextBiggest);
             this.menuItem2.MenuItems.Add(this.menuTextBigger);
             this.menuItem2.MenuItems.Add(this.menuTextNormal);
             this.menuItem2.MenuItems.Add(this.menuTextSmall);
+            this.menuItem2.MenuItems.Add(this.menuTextSmallest);
             this.menuItem2.Text = "Text Size";
             // 
             // menuTextBigger
@@ -155,12 +159,21 @@
             // 
             this.store.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.store.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.store.Location = new System.Drawing.Point(3, 3);
             this.store.Name = "store";
             this.store.Size = new System.Drawing.Size(234, 22);
             this.store.TabIndex = 3;
             this.store.SelectedIndexChanged += new System.EventHandler(this.store_SelectedIndexChanged);
+            // 
+            // menuTextSmallest
+            // 
+            this.menuTextSmallest.Text = "Smallest";
+            this.menuTextSmallest.Click += new System.EventHandler(this.menuTextSmallest_Click);
+            // 
+            // menuTextBiggest
+            // 
+            this.menuTextBiggest.Text = "&Biggest";
+            this.menuTextBiggest.Click += new System.EventHandler(this.menuTextBiggest_Click);
             // 
             // MainForm
             // 
@@ -201,6 +214,8 @@
         private System.Windows.Forms.MenuItem menuTextNormal;
         private System.Windows.Forms.MenuItem menuTextSmall;
         private System.Windows.Forms.MenuItem menuItem4;
+        private System.Windows.Forms.MenuItem menuTextBiggest;
+        private System.Windows.Forms.MenuItem menuTextSmallest;
     }
 }
 

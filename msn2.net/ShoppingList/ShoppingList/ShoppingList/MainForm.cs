@@ -21,6 +21,7 @@ namespace msn2.net.ShoppingList
         private LocalSettings settings = null;
         private ShoppingListItem undoItem = null;
         private float defaultFontSize = 10;
+        private float currentZoom = 1.0F;
         private ShoppingListService listService = null;
         private List<ShoppingListItem> loadedItems = null;
         private List<StoreItem> loadedStores = new List<StoreItem>();
@@ -49,7 +50,11 @@ namespace msn2.net.ShoppingList
             this.defaultFontSize = this.listView1.Font.Size;
 
             this.listService = new mn2.net.ShoppingList.sls.ShoppingListService();
-            //this.listService.Proxy = new WebProxy("http://192.168.1.1:8080");
+            this.listService.Credentials = new NetworkCredential("mc", "4362", "sp");
+
+#if DEBUG
+            this.listService.Proxy = new WebProxy("http://192.168.1.1:8080");
+#endif
         }
 
         /// <summary>
@@ -257,6 +262,8 @@ namespace msn2.net.ShoppingList
                 item.ListItem = this.newItem.Text;
                 selectedStore.Items.Add(item);
 
+                UpdateStoreCount(selectedStore);
+
                 ShoppingListViewItem sli = new ShoppingListViewItem(item);
                 this.listView1.Items.Add(sli);
 
@@ -265,6 +272,36 @@ namespace msn2.net.ShoppingList
                 this.newItem.Text = string.Empty;
                 this.newItem.Focus();
             }
+        }
+
+        private void UpdateStoreCount(StoreItem item)
+        {
+            bool selected = false;
+
+            this.storesLoaded = false;
+
+            for (int i = 0; i < this.store.Items.Count; i++)
+            {
+                StoreItem currentItem = this.store.Items[i] as StoreItem;
+                if (currentItem == item)
+                {
+                    if (this.store.SelectedItem == currentItem)
+                    {
+                        selected = true;
+                    }
+
+                    this.store.Items.RemoveAt(i);
+                    this.store.Items.Insert(i, currentItem);
+                    if (selected == true)
+                    {
+                        this.store.SelectedIndex = i;
+                    }
+
+                    break;
+                }
+            }
+
+            this.storesLoaded = true;
         }
 
         private void AddItem(object listViewItem)
@@ -285,8 +322,23 @@ namespace msn2.net.ShoppingList
 
         private void DisplayAddedItem(ShoppingListViewItem li, ShoppingListItem newItem)
         {
-            li.UpdateItem(newItem);
+            StoreItem store = this.GetStore(li.Item.Store);
+            if (store != null)
+            {
+                store.Items.Remove(li.Item);
+            }
+
+            this.loadedItems.Remove(li.Item);
+            if (store == this.store.SelectedItem)
+            {
+                li.UpdateItem(newItem);
+            }
             this.loadedItems.Add(newItem);
+            
+            if (store != null)
+            {
+                store.Items.Add(li.Item);
+            }
         }
 
         private void store_SelectedIndexChanged(object sender, EventArgs e)
@@ -310,20 +362,29 @@ namespace msn2.net.ShoppingList
             }
             else
             {
-                ShoppingListViewItem item = (ShoppingListViewItem) this.listView1.Items[e.Index];
+                ShoppingListViewItem item = (ShoppingListViewItem)this.listView1.Items[e.Index];
+                item.Deleted = true;
+                item.UpdateItem(item.Item);
 
-                ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeleteItem), item);
+                if (item.Item.Id == 0)
+                {
+                    e.NewValue = CheckState.Unchecked;
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeleteItem), item);
 
-                item.ForeColor = Color.Gray;
-                item.Selected = false;
+                    item.ForeColor = Color.Gray;
+                    item.Selected = false;
 
-                StoreItem selectedStore = this.store.SelectedItem as StoreItem;
+                    StoreItem selectedStore = this.store.SelectedItem as StoreItem;
 
-                undoItem = new ShoppingListItem();
-                undoItem.Store = selectedStore.Name;
-                undoItem.ListItem = item.Text;
+                    undoItem = new ShoppingListItem();
+                    undoItem.Store = selectedStore.Name;
+                    undoItem.ListItem = item.Item.ListItem;
 
-                this.menuUndo.Enabled = true;
+                    this.menuUndo.Enabled = true;
+                }
             }
         }
 
@@ -332,7 +393,7 @@ namespace msn2.net.ShoppingList
             ShoppingListViewItem item = (ShoppingListViewItem)listItem;
 
             this.listService.DeleteShoppingListItem(item.Item);
-
+            
             this.Invoke(new WaitCallback(this.DeleteCompleted), listItem);
         }
 
@@ -340,12 +401,51 @@ namespace msn2.net.ShoppingList
         {
             ShoppingListViewItem item = (ShoppingListViewItem)listItem;
             this.listView1.Items.Remove(item);
+
+            StoreItem store = GetStore(item.Item.Store);
+            if (store != null)
+            {
+                store.Items.Remove(item.Item);
+                this.UpdateStoreCount(store);
+            }
+        }
+
+        private StoreItem GetStore(string storeName)
+        {
+            StoreItem match = null;
+
+            foreach (StoreItem store in this.loadedStores)
+            {
+                if (string.Equals(store.Name, storeName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    match = store;
+                    break;
+                }
+            }
+
+            return match;
         }
 
         private void menuUndo_Click(object sender, EventArgs e)
         {
             ShoppingListViewItem sli = new ShoppingListViewItem(this.undoItem);
-            this.listView1.Items.Add(sli);
+            StoreItem store = this.GetStore(sli.Item.Store);
+
+            if (store == this.store.SelectedItem)
+            {
+                this.listView1.Items.Add(sli);
+            }
+            else
+            {
+                string text = string.Format("'{0}' has been restored to '{1}'.", sli.Item.ListItem, sli.Item.Store);
+                MessageBox.Show(text, "Undo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
+            }            
+
+            if (store != null)
+            {
+                store.Items.Add(this.undoItem);
+                this.UpdateStoreCount(store);
+            }
 
             AddItem(sli);
 
@@ -369,30 +469,49 @@ namespace msn2.net.ShoppingList
 
         private void menuTextNormal_Click(object sender, EventArgs e)
         {
-            this.menuTextBigger.Checked = false;
-            this.menuTextNormal.Checked = true;
-            this.menuTextSmall.Checked = false;
-
-            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize, this.listView1.Font.Style);
+            CheckMenuItem(menuTextNormal, 1.0F);
         }
 
         private void menuTextBigger_Click(object sender, EventArgs e)
         {
-            this.menuTextBigger.Checked = true;
-            this.menuTextNormal.Checked = false;
-            this.menuTextSmall.Checked = false;
-
-            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize + 2.0F, this.listView1.Font.Style);
+            CheckMenuItem(menuTextBigger, 1.2F);
         }
 
         private void menuTextSmall_Click(object sender, EventArgs e)
         {
+            CheckMenuItem(menuTextSmall, 0.8F);
+        }
+
+        private void menuTextBiggest_Click(object sender, EventArgs e)
+        {
+            CheckMenuItem(menuTextBiggest, 1.4F);
+        }
+
+        private void menuTextSmallest_Click(object sender, EventArgs e)
+        {
+            CheckMenuItem(menuTextBiggest, 0.6F);
+        }
+
+        private void CheckMenuItem(MenuItem menuItem, float newZoom)
+        {
+            this.menuTextBiggest.Checked = false;
             this.menuTextBigger.Checked = false;
             this.menuTextNormal.Checked = false;
-            this.menuTextSmall.Checked = true;
+            this.menuTextSmall.Checked = false;
+            this.menuTextSmallest.Checked = false;
 
-            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize - 2.0F, this.listView1.Font.Style);
+            menuItem.Checked = true;
+
+            this.currentZoom = newZoom;
+            this.SizeControls();
         }
+
+        private void SizeControls()
+        {
+            float newSize = this.defaultFontSize * this.currentZoom;
+            this.listView1.Font = new Font(this.listView1.Font.Name, newSize, this.listView1.Font.Style);
+        }
+
 
 
         private delegate void ExceptionEventHandler(Exception ex);
@@ -408,5 +527,6 @@ namespace msn2.net.ShoppingList
                 dialog.ShowDialog();
             }
         }
+
     }
 }
