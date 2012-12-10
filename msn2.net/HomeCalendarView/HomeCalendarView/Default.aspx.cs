@@ -942,7 +942,7 @@ namespace HomeCalendarView
 
             if (this.currentLocation.Name == "Kirkland")
             {
-                this.webcamUrl.NavigateUrl = "http://webcam.msn2.net/";
+                this.webcamUrl.NavigateUrl = "http://chicks.msn2.net/";
                 this.webcamPicture.ImageUrl = "webcam.aspx";
             }
             else
