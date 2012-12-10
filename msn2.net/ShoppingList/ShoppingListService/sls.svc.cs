@@ -70,6 +70,7 @@ namespace msn2.net.ShoppingList
                              where si.Id == listItem.Id
                              select si).First<StoreItem>();
 
+            item.Store = this.dataContext.Stores.First(s => s.Name == listItem.Store);
             item.Name = listItem.ListItem;
             this.dataContext.SubmitChanges();
         }

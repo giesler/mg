@@ -26,21 +26,36 @@ namespace msn2.net.ShoppingList
         }
 
         public bool Deleted { get; set; }
+        public bool DeleteRequested { get; set; }
+        public DateTime DeleteRequestedTime { get; set; }
 
         public void UpdateItem(ShoppingListItem item)
         {
             this.item = item;
             this.Text = item.ListItem;
 
-            if (this.item.Id == 0)
+            if (this.DeleteRequested == true)
             {
-                this.Text = this.Text + " (adding...)";
-            }
-
-            if (this.Deleted == true)
-            {
-                this.Text = this.Text + " (deleting...)";
                 this.ForeColor = Color.Gray;
+
+                TimeSpan elapsedTime = DateTime.Now - this.DeleteRequestedTime;
+                if (elapsedTime.TotalSeconds < 60)
+                {
+                    string newText = null;
+                    int seconds = 5 - (int)elapsedTime.TotalSeconds;
+                    if (seconds > 0)
+                    {
+                        newText = string.Format("{0} ({1}...)", this.item.ListItem, seconds);
+                    }
+                    if (this.Text != newText)
+                    {
+                        this.Text = newText;
+                    }
+                }
+            }
+            else
+            {
+                this.ForeColor = SystemColors.WindowText;
             }
         }
     }

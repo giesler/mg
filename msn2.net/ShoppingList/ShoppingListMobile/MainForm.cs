@@ -58,10 +58,13 @@ namespace msn2.net.ShoppingList
         WinForms.Timer timerRetryRefresh;
         WinForms.Timer timerResizeCheck;
         WinForms.Timer timerProgress;
+        WinForms.Timer timerDelete;
         InputPanel inputPanel1;
         PerfTimer perfTimer = new PerfTimer();
-        private bool settingsLoaded = false;
+        bool settingsLoaded = false;
         ProgressBar progressBar = null;
+        bool reloadListOnDeleteComplete = false;
+        List<ShoppingListItem> pendingDeletes = new List<ShoppingListItem>();
 
         public MainForm()
         {
@@ -148,6 +151,7 @@ namespace msn2.net.ShoppingList
             this.listView1.TabIndex = 0;
             this.listView1.View = View.Details;
             this.listView1.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
+            this.listView1.KeyDown += new KeyEventHandler(listView1_KeyDown);
             this.listView1.Parent = this;
             this.defaultFontSize = this.listView1.Font.Size;
 
@@ -191,21 +195,21 @@ namespace msn2.net.ShoppingList
             this.switchStore.Enabled = false;
 
             this.storeLabel = new Label();
-            this.storeLabel.Font = new Font("Tahoma", 12F, System.Drawing.FontStyle.Regular);
-            this.storeLabel.Bounds = new Rectangle(5, 2, 162, 24);
+            this.storeLabel.Font = new Font("Tahoma", 12F, FontStyle.Bold);
+            this.storeLabel.Bounds = new Rectangle(3, 2, 168, 24);
             this.storeLabel.Text = "Loading...";
             this.storeLabel.Parent = this;
 
-            this.inputPanel1 = new Microsoft.WindowsCE.Forms.InputPanel();
+            this.inputPanel1 = new InputPanel();
             this.inputPanel1.EnabledChanged += new EventHandler(this.inputPanel1_EnabledChanged);
 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new SizeF(96F, 96F);
+            this.AutoScaleMode = AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(240, 268);
+            this.ClientSize = new Size(240, 268);
 
             ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.Text = "Shopping List";
 
             this.progressBar = new ProgressBar();
@@ -277,7 +281,7 @@ namespace msn2.net.ShoppingList
             }
             if (this.settings.Settings.ContainsKey("TextSize") == false)
             {
-                this.settings.Settings.Add("TextSize", "1.2");
+                this.settings.Settings.Add("TextSize", "1.3");
             }
 
             float textSize = float.Parse(this.settings.Settings["TextSize"]);
@@ -471,7 +475,28 @@ namespace msn2.net.ShoppingList
 
             this.TriggerResizeCheck();
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.GetAllItems), new object());
+            bool pendingDeletes = this.ProcessDeleteRequests();
+            if (pendingDeletes == true)
+            {
+                this.reloadListOnDeleteComplete = true;
+                this.FlushDeleteRequests();
+            }
+            else
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.GetAllItems), new object());
+            }
+        }
+
+        void FlushDeleteRequests()
+        {
+            foreach (ShoppingListViewItem item in this.listView1.Items)
+            {
+                if (item.DeleteRequested == true)
+                {
+                    item.DeleteRequestedTime = DateTime.MinValue;
+                }
+            }
+            this.ProcessDeleteRequests();
         }
 
         void GetAllItems(object foo)
@@ -597,18 +622,26 @@ namespace msn2.net.ShoppingList
                 foreach (ShoppingListItem item in q)
                 {
                     ShoppingListViewItem listItem = new ShoppingListViewItem(item);
-                    listItem.BackColor = MainForm.ListColors[index];
-                    index++;
-                    if (index >= MainForm.ListColors.Length)
-                    {
-                        index = 0;
-                    }
+                    listItem.BackColor = index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
                     this.listView1.Items.Add(listItem);
+
+                    index++;
                 }
                 this.listView1.EndUpdate();
             }
 
             this.UpdateStatus();
+        }
+
+        void UpdateRowColors()
+        {
+            int index = 0;
+
+            foreach (ShoppingListViewItem item in this.listView1.Items)
+            {
+                item.BackColor = index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
+                index++;
+            }
         }
 
         void SaveSettings()
@@ -655,9 +688,12 @@ namespace msn2.net.ShoppingList
         void SetColumnWidth()
         {
             int width = this.listView1.ClientSize.Width - 9;
-            if (this.listView1.Columns[0].Width != width)
+            if (this.listView1.Columns.Count > 0)
             {
-                this.listView1.Columns[0].Width = width;
+                if (this.listView1.Columns[0].Width != width)
+                {
+                    this.listView1.Columns[0].Width = width;
+                }
             }
         }
 
@@ -671,14 +707,33 @@ namespace msn2.net.ShoppingList
                 selectedStore.Items.Add(item);
 
                 ShoppingListViewItem sli = new ShoppingListViewItem(item);
-                this.listView1.Items.Add(sli);
-                sli.BackColor = sli.Index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
+
+                int index = GetInsertIndex(item);
+
+                this.listView1.Items.Insert(index, sli);
+                this.UpdateRowColors();
                 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.AddItem), sli);
 
                 this.newItem.Text = string.Empty;
                 this.newItem.Focus();
+
+                this.TriggerResizeCheck();
             }
+        }
+
+        private int GetInsertIndex(ShoppingListItem item)
+        {
+            int index = 0;
+            foreach (ShoppingListViewItem tempItem in this.listView1.Items)
+            {
+                if (item.ListItem.CompareTo(tempItem.Text) < 0)
+                {
+                    break;
+                }
+                index++;
+            }
+            return index;
         }
 
         void AddItem(object listViewItem)
@@ -717,34 +772,92 @@ namespace msn2.net.ShoppingList
 
         void listView1_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.CurrentValue == CheckState.Checked)
+            ShoppingListViewItem item = (ShoppingListViewItem)this.listView1.Items[e.Index];
+
+            if (item.Item.Id == 0)
             {
-                e.NewValue = CheckState.Checked;
+                e.NewValue = CheckState.Unchecked;
             }
             else
             {
-                ShoppingListViewItem item = (ShoppingListViewItem)this.listView1.Items[e.Index];
-                item.Deleted = true;
-                item.UpdateItem(item.Item);
-
-                if (item.Item.Id == 0)
+                if (e.CurrentValue == CheckState.Checked)
                 {
-                    e.NewValue = CheckState.Unchecked;
+                    item.DeleteRequested = false;
+                    item.UpdateItem(item.Item);
+                    this.menuUndo.Enabled = false;
                 }
                 else
                 {
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeleteItem), item);
-
-                    item.ForeColor = Color.Gray;
+                    item.DeleteRequested = true;
+                    item.DeleteRequestedTime = DateTime.Now;
+                    item.UpdateItem(item.Item);
                     item.Selected = false;
 
-                    undoItem = new ShoppingListItem();
-                    undoItem.Store = this.selectedStore.Name;
-                    undoItem.ListItem = item.Item.ListItem;
+                    if (this.timerDelete == null)
+                    {
+                        this.timerDelete = new WinForms.Timer();
+                        this.timerDelete.Interval = 350;
+                        this.timerDelete.Tick += new EventHandler(timerDelete_Tick);
+                    }
 
-                    this.menuUndo.Enabled = true;
+                    this.timerDelete.Enabled = true;
                 }
             }
+        }
+
+        void timerDelete_Tick(object sender, EventArgs e)
+        {
+            this.ProcessDeleteRequests();
+        }
+
+        bool ProcessDeleteRequests()
+        {
+            bool pending = false;
+            List<ShoppingListViewItem> removeList = new List<ShoppingListViewItem>();
+            foreach (ShoppingListViewItem item in this.listView1.Items)
+            {
+                if (item.DeleteRequested)
+                {
+                    TimeSpan elapsedTime = DateTime.Now - item.DeleteRequestedTime;
+                    if (elapsedTime.TotalSeconds >= 5)
+                    {
+                        removeList.Add(item);
+                    }
+                    else
+                    {
+                        item.UpdateItem(item.Item);
+                        pending = true;
+                    }
+                }
+            }
+
+            foreach (ShoppingListViewItem item in removeList)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeleteItem), item);
+                this.pendingDeletes.Add(item.Item);
+
+                undoItem = new ShoppingListItem();
+                undoItem.Store = this.selectedStore.Name;
+                undoItem.ListItem = item.Item.ListItem;
+
+                this.menuUndo.Enabled = true;
+
+                this.listView1.Items.Remove(item);
+                this.UpdateRowColors();
+
+                StoreItem store = GetStore(item.Item.Store);
+                if (store != null)
+                {
+                    store.Items.Remove(item.Item);
+                }
+            }
+
+            if (pending == false && this.timerDelete != null)
+            {
+                this.timerDelete.Enabled = false;
+            }
+
+            return pending;
         }
 
         void DeleteItem(object listItem)
@@ -759,12 +872,16 @@ namespace msn2.net.ShoppingList
         void DeleteCompleted(object listItem)
         {
             ShoppingListViewItem item = (ShoppingListViewItem)listItem;
-            this.listView1.Items.Remove(item);
 
-            StoreItem store = GetStore(item.Item.Store);
-            if (store != null)
+            this.pendingDeletes.Remove(item.Item);
+
+            if (this.pendingDeletes.Count == 0)
             {
-                store.Items.Remove(item.Item);
+                if (this.reloadListOnDeleteComplete == true)
+                {
+                    this.reloadListOnDeleteComplete = false;
+                    this.LoadAllItems();
+                }
             }
         }
 
@@ -791,8 +908,9 @@ namespace msn2.net.ShoppingList
 
             if (store == this.selectedStore)
             {
-                this.listView1.Items.Add(sli);
-                sli.BackColor = sli.Index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
+                int index = this.GetInsertIndex(sli.Item);
+                this.listView1.Items.Insert(index, sli);
+                this.UpdateRowColors();
             }
             else
             {
@@ -814,7 +932,7 @@ namespace msn2.net.ShoppingList
         void menuUpdateApp_Click(object sender, EventArgs e)
         {
             Process p = new Process();
-            p.StartInfo = new ProcessStartInfo("http://home.msn2.net/cab/ShoppingListCab.cab", "");
+            p.StartInfo = new ProcessStartInfo("http://home.msn2.net/cab/ShoppingListMobile.cab", "");
             p.Start();
 
             this.Close();
@@ -836,7 +954,7 @@ namespace msn2.net.ShoppingList
 
         void menuTextBigger_Click(object sender, EventArgs e)
         {
-            CheckMenuItem(1.2F);
+            CheckMenuItem(1.25F);
         }
 
         void menuTextSmall_Click(object sender, EventArgs e)
@@ -846,7 +964,7 @@ namespace msn2.net.ShoppingList
 
         void menuTextBiggest_Click(object sender, EventArgs e)
         {
-            CheckMenuItem(1.4F);
+            CheckMenuItem(1.5F);
         }
 
         void menuTextSmallest_Click(object sender, EventArgs e)
@@ -868,11 +986,11 @@ namespace msn2.net.ShoppingList
                 {
                     this.menuTextNormal.Checked = true;
                 }
-                else if (newZoom == 1.2F)
+                else if (newZoom == 1.25F)
                 {
                     this.menuTextBigger.Checked = true;
                 }
-                else if (newZoom == 1.4F)
+                else if (newZoom == 1.5F)
                 {
                     this.menuTextBiggest.Checked = true;
                 }
@@ -1016,6 +1134,39 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                this.FlushDeleteRequests();
+
+                int index = 0;
+                for (index = 0; index < this.settings.LatestItems.Count; index++)
+                {
+                    if (this.selectedStore.Name == this.settings.LatestItems.Skip(index).First().Value.Name)
+                    {
+                        break;
+                    }
+                }
+
+                index = e.KeyCode == Keys.Left ? index - 1 : index + 1;
+                if (index < 0)
+                {
+                    index = this.settings.LatestItems.Count - 1;
+                }
+                else if (index > this.settings.LatestItems.Count - 1)
+                {
+                    index = 0;
+                }
+
+                this.selectedStore = this.settings.LatestItems.Skip(index).First().Value;
+                this.storeLabel.Text = this.selectedStore.Name; 
+                this.ReloadItemList();
+
+                e.Handled = true;
+            }
+        }
+
         void storeItem_Click(object sender, EventArgs e)
         {
             MenuItem storeMenuItem = (MenuItem)sender;
@@ -1033,6 +1184,7 @@ namespace msn2.net.ShoppingList
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.UpdateListItem), moveItem.Item);
 
                 this.listView1.Items.Remove(moveItem);
+                this.UpdateRowColors();
             }
         }
 
@@ -1043,7 +1195,7 @@ namespace msn2.net.ShoppingList
             this.GetShoppingListService().UpdateShoppingListItem(item);
         }
 
-        private void menuEdit_Click(object sender, EventArgs e)
+        void menuEdit_Click(object sender, EventArgs e)
         {
             if (this.listView1.SelectedIndices.Count > 0 && this.selectedStore != null)
             {
@@ -1065,8 +1217,10 @@ namespace msn2.net.ShoppingList
             }
         }
 
-        private void switchStore_Click(object sender, EventArgs e)
+        void switchStore_Click(object sender, EventArgs e)
         {
+            this.FlushDeleteRequests();
+
             SelectStore ss = new SelectStore();
             ss.ShowStores(this.settings.LatestItems);
             ss.SelectedStore = this.selectedStore;
@@ -1079,13 +1233,13 @@ namespace msn2.net.ShoppingList
             }
         }
 
-        private void timerRetryRefresh_Tick(object sender, EventArgs e)
+        void timerRetryRefresh_Tick(object sender, EventArgs e)
         {
             this.timerRetryRefresh.Enabled = false;
             this.LoadAllItems();
         }
 
-        private void inputPanel1_EnabledChanged(object sender, EventArgs e)
+        void inputPanel1_EnabledChanged(object sender, EventArgs e)
         {
             this.SizeControls();
         }
@@ -1111,7 +1265,7 @@ namespace msn2.net.ShoppingList
             this.statusLabel.Top = this.listView1.Top + this.listView1.Height + pbarOffset;
         }
 
-        private void newItem_GotFocus(object sender, EventArgs e)
+        void newItem_GotFocus(object sender, EventArgs e)
         {
             if (this.inputPanel1.Enabled == false)
             {
@@ -1122,7 +1276,7 @@ namespace msn2.net.ShoppingList
             }
         }
 
-        private void newItem_LostFocus(object sender, EventArgs e)
+        void newItem_LostFocus(object sender, EventArgs e)
         {
             if (this.inputPanel1.Enabled == true)
             {
