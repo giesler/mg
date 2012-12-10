@@ -23,6 +23,11 @@ namespace msn2.net.BarMonkey.RelayController
             }
         }
 
+        public void TurnAllOff()
+        {
+            Console.WriteLine("Turn all off");
+        }
+
         #endregion
     }
 }

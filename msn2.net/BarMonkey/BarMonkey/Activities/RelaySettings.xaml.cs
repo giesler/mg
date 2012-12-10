@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using msn2.net.BarMonkey.RelayControllerService;
 using System.Windows.Threading;
+using System.Windows.Forms;
 
 namespace msn2.net.BarMonkey.Activities
 {
@@ -91,7 +92,7 @@ namespace msn2.net.BarMonkey.Activities
                                 ingredient.RelayId,
                                 relay.Id,
                                 current.Name);
-                            MessageBoxResult result = MessageBox.Show(
+                            MessageBoxResult result = System.Windows.MessageBox.Show(
                                 message,
                                 "Confirm Relay Switch",
                                 MessageBoxButton.YesNo,
@@ -125,7 +126,7 @@ namespace msn2.net.BarMonkey.Activities
 
         private void openRelay_Click(object sender, RoutedEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(this.Connect, new object());
+            ThreadPool.QueueUserWorkItem(this.Connect, true);
 
             this.relay.IsEnabled = false;
             this.ingredient.IsEnabled = false;
@@ -136,12 +137,20 @@ namespace msn2.net.BarMonkey.Activities
             this.statusLabel.Text = "connecting...";
         }
 
-        private void Connect(object foo)
+        private void Connect(object openOnConnect)
         {
             try
             {
                 relayClient.ConnectTest();
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(onConnected), null);
+                
+                if ((bool)openOnConnect == true)
+                {
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new MethodInvoker(this.onConnected));
+                }
+                else
+                {
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new MethodInvoker(this.connectForAllOff));
+                }
             }
             catch (Exception ex)
             {
@@ -149,7 +158,7 @@ namespace msn2.net.BarMonkey.Activities
             }
         }
 
-        private void onConnected(IAsyncResult ar)
+        private void onConnected()
         {
             this.statusLabel.Text = "sending...";
 
@@ -193,6 +202,31 @@ namespace msn2.net.BarMonkey.Activities
             this.navBar.IsEnabled = true;
 
             this.relayClient = new RelayControllerClient();
+        }
+
+        private void allOff_Click(object sender, RoutedEventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(this.Connect, false);
+
+            this.relay.IsEnabled = false;
+            this.ingredient.IsEnabled = false;
+            this.seconds.IsEnabled = false;
+            this.openRelay.IsEnabled = false;
+            this.navBar.IsEnabled = false;
+
+            this.statusLabel.Text = "connecting...";
+        }
+
+        private void connectForAllOff()
+        {
+            this.statusLabel.Text = "sending all off...";
+
+            this.relayClient.BeginTurnAllOff(new AsyncCallback(this.OnConnectedForAllOff), new object());
+        }
+
+        private void OnConnectedForAllOff(IAsyncResult result)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new AsyncCallback(this.onPourCompleted), null); 
         }
     }
 }

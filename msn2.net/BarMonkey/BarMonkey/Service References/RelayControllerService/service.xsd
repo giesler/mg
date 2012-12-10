@@ -23,4 +23,14 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="TurnAllOff">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TurnAllOffResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -109,6 +109,14 @@ namespace msn2.net.BarMonkey.RelayControllerService {
         System.IAsyncResult BeginSendBatch(msn2.net.BarMonkey.RelayControllerService.BatchItem[] batch, System.AsyncCallback callback, object asyncState);
         
         void EndSendBatch(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRelayController/TurnAllOff", ReplyAction="http://tempuri.org/IRelayController/TurnAllOffResponse")]
+        void TurnAllOff();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IRelayController/TurnAllOff", ReplyAction="http://tempuri.org/IRelayController/TurnAllOffResponse")]
+        System.IAsyncResult BeginTurnAllOff(System.AsyncCallback callback, object asyncState);
+        
+        void EndTurnAllOff(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -130,6 +138,12 @@ namespace msn2.net.BarMonkey.RelayControllerService {
         private EndOperationDelegate onEndSendBatchDelegate;
         
         private System.Threading.SendOrPostCallback onSendBatchCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginTurnAllOffDelegate;
+        
+        private EndOperationDelegate onEndTurnAllOffDelegate;
+        
+        private System.Threading.SendOrPostCallback onTurnAllOffCompletedDelegate;
         
         public RelayControllerClient() {
         }
@@ -153,6 +167,8 @@ namespace msn2.net.BarMonkey.RelayControllerService {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> ConnectTestCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendBatchCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> TurnAllOffCompleted;
         
         public void ConnectTest() {
             base.Channel.ConnectTest();
@@ -248,6 +264,53 @@ namespace msn2.net.BarMonkey.RelayControllerService {
             }
             base.InvokeAsync(this.onBeginSendBatchDelegate, new object[] {
                         batch}, this.onEndSendBatchDelegate, this.onSendBatchCompletedDelegate, userState);
+        }
+        
+        public void TurnAllOff() {
+            base.Channel.TurnAllOff();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginTurnAllOff(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginTurnAllOff(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndTurnAllOff(System.IAsyncResult result) {
+            base.Channel.EndTurnAllOff(result);
+        }
+        
+        private System.IAsyncResult OnBeginTurnAllOff(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginTurnAllOff(callback, asyncState);
+        }
+        
+        private object[] OnEndTurnAllOff(System.IAsyncResult result) {
+            this.EndTurnAllOff(result);
+            return null;
+        }
+        
+        private void OnTurnAllOffCompleted(object state) {
+            if ((this.TurnAllOffCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.TurnAllOffCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void TurnAllOffAsync() {
+            this.TurnAllOffAsync(null);
+        }
+        
+        public void TurnAllOffAsync(object userState) {
+            if ((this.onBeginTurnAllOffDelegate == null)) {
+                this.onBeginTurnAllOffDelegate = new BeginOperationDelegate(this.OnBeginTurnAllOff);
+            }
+            if ((this.onEndTurnAllOffDelegate == null)) {
+                this.onEndTurnAllOffDelegate = new EndOperationDelegate(this.OnEndTurnAllOff);
+            }
+            if ((this.onTurnAllOffCompletedDelegate == null)) {
+                this.onTurnAllOffCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnTurnAllOffCompleted);
+            }
+            base.InvokeAsync(this.onBeginTurnAllOffDelegate, null, this.onEndTurnAllOffDelegate, this.onTurnAllOffCompletedDelegate, userState);
         }
     }
 }

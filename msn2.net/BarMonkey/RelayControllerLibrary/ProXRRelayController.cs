@@ -202,5 +202,7 @@ namespace msn2.net.BarMonkey
                 Console.WriteLine();
             }
         }
+
+        public abstract void TurnAllOff();
     }
 }

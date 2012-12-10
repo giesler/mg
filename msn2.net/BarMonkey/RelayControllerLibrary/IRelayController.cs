@@ -13,6 +13,9 @@ namespace msn2.net.BarMonkey.RelayController
 
         [OperationContract]
         void SendBatch(List<BatchItem> batch);
+
+        [OperationContract]
+        void TurnAllOff();
     }
 
     [DataContract]

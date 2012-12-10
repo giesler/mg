@@ -44,5 +44,9 @@ namespace msn2.net.BarMonkey.RelayController
             Thread.Sleep(1000 * (int)maxSeconds + 500);
         }
 
+        public override void TurnAllOff()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

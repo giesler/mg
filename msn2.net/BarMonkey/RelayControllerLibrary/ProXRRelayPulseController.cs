@@ -42,6 +42,8 @@ namespace msn2.net.BarMonkey.RelayController
 
             List<BatchItem> activeRelays = sortedList.ToList<BatchItem>();
 
+            Thread.Sleep(100);
+
             DateTime startTime = DateTime.Now;
             DateTime endTime = DateTime.Now.AddSeconds(maxSeconds);
 
@@ -77,9 +79,13 @@ namespace msn2.net.BarMonkey.RelayController
             }
             finally
             {
+                Thread.Sleep(100);
+
                 // Turn off all relays
                 WriteElapsedTime(startTime);
+                base.SendCommandAndFlush("flush", 37);
                 base.SendCommandAndFlush("all off", 29);
+                base.SendCommandAndFlush("flush", 37);
             }
 
         }
@@ -111,7 +117,7 @@ namespace msn2.net.BarMonkey.RelayController
                 }
 
                 WriteElapsedTime(startTime);
-                base.SendCommandAndFlush("refresh", 37);
+                base.SendCommandAndFlush("flush", 37);
             }
             else
             {
@@ -134,6 +140,13 @@ namespace msn2.net.BarMonkey.RelayController
         private int GetBankRelayIndex(int relay)
         {
             return relay % 8;
+        }
+
+        public override void TurnAllOff()
+        {
+            base.SendCommandAndFlush("flush", 37);
+            base.SendCommandAndFlush("all off", 29);
+            base.SendCommandAndFlush("flush", 37);
         }
     }
 }
