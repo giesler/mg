@@ -10,7 +10,7 @@ namespace msn2.net.Controls
 {
 	public class WebBrowser : msn2.net.Controls.ShellForm
 	{
-		private msn2.net.Controls.WebBrowserControl webBrowserControl1;
+		public msn2.net.Controls.WebBrowserControl webBrowserControl1;
 		private System.ComponentModel.IContainer components = null;
 
 		public WebBrowser(string title, string url)
@@ -20,6 +20,18 @@ namespace msn2.net.Controls
 
 			this.Text = title;
 			this.webBrowserControl1.Navigate(url);
+
+			this.Width = 600;
+			this.Height = 800;
+		}
+
+		public WebBrowser(string title, bool popup)
+		{
+			// This call is required by the Windows Form Designer.
+			InitializeComponent();
+
+			this.Text = title;
+			this.webBrowserControl1.IsPopup = popup;
 
 			this.Width = 600;
 			this.Height = 800;

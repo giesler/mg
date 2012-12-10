@@ -75,6 +75,14 @@ namespace msn2.net.Controls
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
+			// 
 			// textBoxInput
 			// 
 			this.textBoxInput.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -105,6 +113,7 @@ namespace msn2.net.Controls
 			// buttonCancel
 			// 
 			this.buttonCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.buttonCancel.CausesValidation = false;
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonCancel.Location = new System.Drawing.Point(200, 48);
@@ -123,7 +132,7 @@ namespace msn2.net.Controls
 			this.AcceptButton = this.buttonOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(272, 86);
+			this.ClientSize = new System.Drawing.Size(272, 78);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.buttonCancel,
 																		  this.buttonOK,

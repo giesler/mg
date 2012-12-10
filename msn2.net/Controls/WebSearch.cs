@@ -90,7 +90,6 @@ namespace msn2.net.Controls
 			// WebSearch
 			// 
 			this.AcceptButton = this.buttonGo;
-			this.AutoLayout = true;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(256, 64);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {

@@ -157,6 +157,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "ComputerInfo.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ComputerInfo.resx"
+                    DependentUpon = "ComputerInfo.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "ENTIRNET.ICO"
                     BuildAction = "Content"
                 />
@@ -188,6 +198,16 @@
                 <File
                     RelPath = "Form.resx"
                     DependentUpon = "Form.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Graph.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Graph.resx"
+                    DependentUpon = "Graph.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

@@ -32,17 +32,18 @@ namespace msn2.net.Configuration
 
 		#region Declares
 
-		private Guid	id;
-		private string	name;
-		private Guid	parentId;
-		private object	obj;
-		private string	url;
+		private Guid			id;
+		private string			name;
+		private Guid			parentId;
+		private ConfigData		configData;
+		private string			url;
 		
-		private Guid	configId;
-		private Guid	userId;
-		private Guid	groupId;
-		private Guid	machineId;
-		private Guid	policyId;
+		private Guid			configId;
+		private Guid			userId;
+		private Guid			groupId;
+		private Guid			machineId;
+		private Guid			policyId;
+		private Type			dataType;
 
 		private const int ITEMDATA_SIZE = 2048;
 
@@ -60,7 +61,7 @@ namespace msn2.net.Configuration
 			this.policyId		= policyId;
 		}
 
-		internal Data(DataSetCategory.FavoritesCategoryRow row)
+		internal Data(DataSetCategory.FavoritesCategoryRow row, Type type)
 		{
 			this.id				= row.CategoryId;
 			this.name			= row.CategoryName;
@@ -70,6 +71,17 @@ namespace msn2.net.Configuration
 				this.url		= row.ItemUrl;
 
 			this.Text			= this.name;
+
+			if (type != null && !row.IsItemTypeNull() && row.ItemType.Length > 0)
+			{
+				this.DataType	= type;
+
+				// Get the data too
+				if (!row.IsItemDataNull() && row.ItemData.Length > 0)
+				{
+					this.configData = (ConfigData) DeserializeObject(row.ItemData, this.dataType);
+				}
+			}
 		}
 
 		#endregion
@@ -100,61 +112,76 @@ namespace msn2.net.Configuration
 			set { userId = value; }
 		}
 
-		public object Object
+/*		public object Object
 		{
 			get { return obj; }
 			set { obj = value; }
 		}
-
+*/
 		public string Url
 		{
 			get { return url; }
 			set { url = value; }
 		}
 
+		public Type DataType
+		{
+			get { return dataType; }
+			set { dataType = value; }
+		}
+
+		public ConfigData ConfigData
+		{
+			get { return configData; }
+			set { configData = value; }
+		}
+
 		#endregion
 
-		#region Get calls
+		#region GetChildren calls
 
-		/// <summary>
-		/// Returns the children of the specified node
-		/// </summary>
-		/// <param name="nodeId">Parent node</param>
-		/// <returns>All children</returns>
+		#region Overloads
+
 		public DataCollection GetChildren()
 		{
-			return GetChildren(null);
+			Type type = null;
+			return GetChildren(type);
 		}
+
+		public DataCollection GetChildren(Type type)
+		{
+			Type[] types	= new Type[1];
+			types[0]		= type;
+			return GetChildren(types);
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Returns the children of the specified type at the specified node
 		/// </summary>
 		/// <param name="type">Type of children</param>
 		/// <returns>Filtered children</returns>
-		public DataCollection GetChildren(Type type)
+		public DataCollection GetChildren(Type[] types)
 		{
 			Trace.Write(String.Format("nodeId: {0}", this.id), "GetChildren");
 
 			// Select all root categories for this user
 			string sql = "select * from FavoritesCategory "
-				+ "where UserId = @userId and ParentId = @nodeId and ConfigTreeLocation = @configTreeLocation";
-			if (type != null)
-				sql	= sql + " and ItemType = @itemType";
+				+ "where UserId = @userId and ParentId = @nodeId"; //and ConfigTreeLocation = @configTreeLocation";
+			if (types != null && types[0] != null)
+				sql	= sql + " and ItemType in (" + TypeArrayToString(types) + ")";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
 			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
 			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
-			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
-			if (type != null)
-				da.SelectCommand.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
+//			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
 
 			// Set params to pass to SQL
-			da.SelectCommand.Parameters["@userId"].Value			= userId;
-			da.SelectCommand.Parameters["@nodeId"].Value			= this.id;
-			//da.SelectCommand.Parameters["@configTreeLocation"].Value	= this.configTreeLocation.ToString();
-			if (type != null)
-				da.SelectCommand.Parameters["@itemType"].Value		= type.ToString();
+			da.SelectCommand.Parameters["@userId"].Value				= userId;
+			da.SelectCommand.Parameters["@nodeId"].Value				= this.id;
+//			da.SelectCommand.Parameters["@configTreeLocation"].Value	= this.configTreeLocation.ToString();
 
 			DataSetCategory dsCategories = new DataSetCategory();
 			da.Fill(dsCategories, "FavoritesCategory");
@@ -163,16 +190,19 @@ namespace msn2.net.Configuration
 
 			foreach (DataSetCategory.FavoritesCategoryRow row in dsCategories.FavoritesCategory.Rows)
 			{
-				Data item = new Data(row);
-				
-				// Check if we should deserialize any objects
-				if (type != null)
+				// Get the item type from the list of types passed in
+				Type itemType = null;
+				foreach (Type currentType in types)
 				{
-					if (!row.IsItemDataNull() && row.ItemData.Length > 0)
+					if (currentType.ToString() == row.ItemType)
 					{
-						item.Object = DeserializeObject(row.ItemData, type);
+						itemType = currentType;
+						break;
 					}
 				}
+
+				// Create the item with the right type
+				Data item = new Data(row, itemType);
 
 				ar.Add(item);
 			}
@@ -180,6 +210,38 @@ namespace msn2.net.Configuration
 			return ar;                                    
 		}
 
+		#region Utility functions
+
+		private string TypeArrayToString(Type[] types)
+		{
+			if (types.Length == 0)
+				return "";
+
+			StringBuilder sb	= new StringBuilder();
+			bool firstItem		= true;
+
+			foreach (Type type in types)
+			{
+				if (type != null)
+				{
+					if (firstItem)
+					{
+						sb.Append("'" + type.ToString() + "'");
+						firstItem = false;
+					}
+					else
+					{
+						sb.Append(", '" + type.ToString() + "'");
+					}
+				}
+			}
+
+			return sb.ToString();
+		}
+
+		#endregion
+
+		#region GetItem
 
 		public Data GetItem(string itemName, object data, ConfigTreeLocation configTreeLocation)
 		{
@@ -206,7 +268,7 @@ namespace msn2.net.Configuration
 
 			if (ds.FavoritesCategory.Rows.Count > 0)
 			{
-				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0]);
+				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0], data.GetType());
 				return node;
 			}
 			else
@@ -234,7 +296,7 @@ namespace msn2.net.Configuration
 
 			if (ds.FavoritesCategory.Rows.Count > 0)
 			{
-				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0]);
+				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0], null);
 				return node;
 			}
 			else
@@ -243,6 +305,8 @@ namespace msn2.net.Configuration
 			}
             
 		}
+
+		#endregion
 
 		#endregion
 
@@ -341,6 +405,8 @@ namespace msn2.net.Configuration
 
 		#region Add Calls
 
+		#region Overloads
+
 		public Data Get(string name)
 		{
 			return Get(name, null, null);
@@ -412,6 +478,7 @@ namespace msn2.net.Configuration
 			return Get(name, url, data, type, ConfigTreeLocation.UserConfigTree);
 		}
 
+		#endregion
 		
 		/// <summary>
 		/// Adds a new child category
@@ -429,62 +496,65 @@ namespace msn2.net.Configuration
 			string sql = "dbo.sp_Config_Get";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlCommand cmd		= new SqlCommand(sql, cn);
-			cmd.CommandType		= CommandType.StoredProcedure;
+			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
+			da.SelectCommand.CommandType		= CommandType.StoredProcedure;
 
-			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
-			cmd.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
-			cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
-			cmd.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
-			cmd.Parameters.Add("@configTreeLocation", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
+			da.SelectCommand.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
+			da.SelectCommand.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
+			da.SelectCommand.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
+			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.UniqueIdentifier);
 
 			// Set command params
-			cmd.Parameters["@categoryId"].Value			= newCategoryId;
-			cmd.Parameters["@userId"].Value				= userId;
-			cmd.Parameters["@categoryName"].Value		= name;
-			cmd.Parameters["@parentId"].Value			= this.id;
-			cmd.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
+			da.SelectCommand.Parameters["@categoryId"].Value			= newCategoryId;
+			da.SelectCommand.Parameters["@userId"].Value				= userId;
+			da.SelectCommand.Parameters["@categoryName"].Value			= name;
+			da.SelectCommand.Parameters["@parentId"].Value				= this.id;
+			da.SelectCommand.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
 
 			// Set url only if it has a value
 			if (url != null)
 			{
-				cmd.Parameters["@itemUrl"].Value	= url;
+				da.SelectCommand.Parameters["@itemUrl"].Value	= url;
 			}
 			else
 			{
-				cmd.Parameters["@itemUrl"].Value	= "";
+				da.SelectCommand.Parameters["@itemUrl"].Value	= "";
 			}
 
 			// Lookup data only if it has a value - otherwise blank it
 			if (data != null)
 			{
-				cmd.Parameters["@itemData"].Value	= SerializeObject(data);
+				da.SelectCommand.Parameters["@itemData"].Value	= SerializeObject(data);
 			}
 			else
 			{
-				cmd.Parameters["@itemData"].Value	= "";
+				da.SelectCommand.Parameters["@itemData"].Value	= "";
 			}
 
 			// Save type only if it has a value - otherwise blank it
 			if (type != null)
 			{
-				cmd.Parameters["@itemType"].Value	= type.ToString();
+				da.SelectCommand.Parameters["@itemType"].Value	= type.ToString();
 			}
 			else
 			{
-				cmd.Parameters["@itemType"].Value	= "";
+				da.SelectCommand.Parameters["@itemType"].Value	= "";
 			}
 
+			DataSetCategory ds = new DataSetCategory();
+			da.Fill(ds, "FavoritesCategory");
 
-			// Run the command to add the db row
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+			if (ds.FavoritesCategory.Rows.Count > 0)
+			{
+				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0], type);
+				return node;
+			}
 
-			return GetItem(newCategoryId);
+			return null;
 		}
 
 		#endregion
@@ -498,7 +568,7 @@ namespace msn2.net.Configuration
 		{
 			// insert new child cat
 			string sql = "update FavoritesCategory set CategoryName = @categoryName ";
-			if (this.Object != null)
+			if (this.configData != null)
 			{
 				sql		= sql + ", ItemData = @itemData, ItemType = @itemType ";
 			}
@@ -509,7 +579,7 @@ namespace msn2.net.Configuration
 
 			cmd.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
 			cmd.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
-			if (this.Object != null)
+			if (this.configData != null)
 			{
 				cmd.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
 				cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
@@ -517,12 +587,11 @@ namespace msn2.net.Configuration
 
 			// Set command params
 			cmd.Parameters["@nodeId"].Value			= this.id;
-			cmd.Parameters["@userId"].Value			= userId;
 			cmd.Parameters["@categoryName"].Value	= this.Text;
-			if (this.Object != null)
+			if (this.configData != null)
 			{
-				cmd.Parameters["@itemData"].Value	= SerializeObject(this.Object);
-				cmd.Parameters["@itemType"].Value	= this.Object.GetType();
+				cmd.Parameters["@itemData"].Value	= SerializeObject(this.configData);
+				cmd.Parameters["@itemType"].Value	= this.configData.GetType().ToString();
 			}
 
 			// Run the command to update the db row
@@ -543,17 +612,15 @@ namespace msn2.net.Configuration
 		{
 			// update record
 			string sql = "delete from FavoritesItem "
-				+ "where CategoryId = @categoryId and UserId = @userId";
+				+ "where CategoryId = @id";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
-			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+			cmd.Parameters.Add("@id", SqlDbType.UniqueIdentifier);
 
 			// Set command params
-			cmd.Parameters["@itemId"].Value			= id;
-			cmd.Parameters["@userId"].Value			= userId;
+			cmd.Parameters["@id"].Value	= id;
 
 			// Run the command to update the rec
 			cn.Open();
@@ -586,6 +653,18 @@ namespace msn2.net.Configuration
 			get { return (Data) InnerList[index]; }
 		}
 
+	}
+
+	#endregion
+
+	#region ConfigData
+
+	public class ConfigData
+	{
+		public int IconIndex
+		{
+			get { return 0; }
+		}
 	}
 
 	#endregion

@@ -29,12 +29,17 @@ namespace msn2.net.ProjectF
 			//
 			InitializeComponent();
 
+//			ShellForm.ShellForm_Added		+= new ShellForm_AddedDelegate(ShellForm_ItemAdded);
+//			ShellForm.ShellForm_Removed		+= new ShellForm_RemovedDelegate(ShellForm_ItemRemoved);
+
 			// THE NEXT LINES OF CODE ARE FROM MAGIC LIBRARY 
 			// Calculate the IDE background colour as only half as dark as the control colour
 			int red = 255 - ((255 - SystemColors.Control.R) / 3);
 			int green = 255 - ((255 - SystemColors.Control.G) / 3);
 			int blue = 255 - ((255 - SystemColors.Control.B) / 3);
 			listView1.BackColor = Color.FromArgb(red, green, blue);
+
+			// Subscribe to new forms being added and removed
 
 //			Assembly a = Assembly.LoadFrom(@"d:\vss\msn2.net\QueuePlayer\main\client\bin\debug\msn2.net.queuePlayer.Client.dll");
 //
@@ -58,7 +63,8 @@ namespace msn2.net.ProjectF
 //				}
 //			}
 
-			Guid userId		= new Guid("80192EF9-784E-474D-88AA-96385915D485");
+//			Guid userId		= new Guid("80192EF9-784E-474D-88AA-96385915D485");
+			Guid userId		= new Guid("90192EF9-784E-474D-88AA-96385915D485");
 			Guid machineId	= new Guid("{B9E120C2-8B66-4f5e-A3E5-F389E80B3F03}");
 			Guid policyId	= Guid.Empty;
 			
@@ -83,7 +89,10 @@ namespace msn2.net.ProjectF
 //				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
 
 			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.Favorites()));
+				new FormListViewItem(this, new msn2.net.Controls.Favorites(ConfigurationSettings.Current.Data.Get("Favorites"))));
+
+			listView1.Items.Add(
+				new FormListViewItem(this, new msn2.net.Controls.ComputerInfo()));
 
 //			listView1.Items.Add(
 //				new FormListViewItem(this, new msn2.net.Controls.Notes()));
@@ -143,7 +152,7 @@ namespace msn2.net.ProjectF
 			this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
 			this.listView1.MultiSelect = false;
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(232, 142);
+			this.listView1.Size = new System.Drawing.Size(232, 102);
 			this.listView1.TabIndex = 1;
 			this.listView1.View = System.Windows.Forms.View.List;
 			this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView1_ItemCheck);
@@ -151,7 +160,7 @@ namespace msn2.net.ProjectF
 			// Form1
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(232, 142);
+			this.ClientSize = new System.Drawing.Size(232, 102);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.listView1});
 			this.Name = "Form1";
@@ -159,6 +168,7 @@ namespace msn2.net.ProjectF
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Project F";
 			this.TitleVisible = true;
+			this.TopMost = true;
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
@@ -166,6 +176,8 @@ namespace msn2.net.ProjectF
 
 		}
 		#endregion
+
+		#region Startup function
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -177,6 +189,8 @@ namespace msn2.net.ProjectF
 			if (f.DialogResult != DialogResult.Cancel)
 				Application.Run(f);
 		}
+
+		#endregion
 
 		private void listView1_ItemCheck(object sender, System.Windows.Forms.ItemCheckEventArgs e)
 		{
@@ -193,13 +207,37 @@ namespace msn2.net.ProjectF
 			}
 		}
 
+		#region Static shellform subscriptions
+
+		private void ShellForm_ItemAdded(object sender, msn2.net.Controls.ShellFormAddedEventArgs e)
+		{
+			listView1.Items.Add(new FormListViewItem(e.Parent, e.ShellForm));
+		}
+
+		private void ShellForm_ItemRemoved(object sender, msn2.net.Controls.ShellFormRemovedEventArgs e)
+		{
+			foreach (FormListViewItem item in listView1.Items)
+			{
+				if (item.ShellForm == e.ShellForm)
+				{
+					listView1.Items.Remove(item);
+					return;
+				}
+			}
+		}
+
+		#endregion
+
+		#region FormListViewItem class
+
 		private class FormListViewItem: ListViewItem
 		{
 			private msn2.net.Controls.ShellForm page;
 
 			public FormListViewItem(msn2.net.Controls.ShellForm parent, msn2.net.Controls.ShellForm page): base(page.Text)
 			{
-				parent.AddOwnedForm(page);
+				if (parent != null)
+					parent.AddOwnedForm(page);
 
 				this.page = page;
 				page.VisibleChanged += new EventHandler(Page_VisibleChanged);
@@ -230,6 +268,14 @@ namespace msn2.net.ProjectF
 			{
 				page.Close();
 			}
+
+			public ShellForm ShellForm
+			{
+				get { return page; }
+			}
 		}
+
+		#endregion
+	
 	}
 }

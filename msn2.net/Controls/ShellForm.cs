@@ -23,6 +23,8 @@ namespace msn2.net.Controls
 			lock (instances)
 			{
 				instances.Add(instance);
+				if (ShellForm_Added != null)
+					ShellForm_Added(null, new ShellFormAddedEventArgs(instance));
 			}
 		}
 
@@ -31,6 +33,8 @@ namespace msn2.net.Controls
 			lock (instances)
 			{
 				instances.Add(instance);
+				if (ShellForm_Added != null)
+					ShellForm_Added(null, new ShellFormAddedEventArgs(instance, parent));
 			}
 		}
 
@@ -39,9 +43,22 @@ namespace msn2.net.Controls
 			lock (instances)
 			{
 				if (instances.Contains(instance))
+				{
 					instances.Remove(instance);
+					if (ShellForm_Removed != null)
+						ShellForm_Removed(null, new ShellFormRemovedEventArgs(instance));
+				}
+				
 			}
 		}
+
+		
+		#region Static Events
+
+		public static event ShellForm_AddedDelegate ShellForm_Added;
+		public static event ShellForm_RemovedDelegate ShellForm_Removed;
+
+		#endregion
 
 		#endregion
 
@@ -73,10 +90,10 @@ namespace msn2.net.Controls
 		private bool	enableOpacityChanges		= true;
 		private Size	savedSize					= new Size(0, 0);
 		private bool	rolledUp					= false;
-		private bool	autoLayout					= false;
 		protected ShellForm lockedTo				= null;
 		protected ArrayList lockedForms				= new ArrayList();
-		private Data formNode				= null;
+		private Data formNode						= null;
+		private Data layoutData						= null;
 
 		#endregion
 
@@ -103,7 +120,8 @@ namespace msn2.net.Controls
 
 		public ShellForm(Data formNode): this()
 		{
-			this.formNode = formNode;
+			this.formNode	= formNode;
+			this.Text		= formNode.Name;
 		}
 
 		/// <summary>
@@ -361,20 +379,10 @@ namespace msn2.net.Controls
 		{
 			if (formNode != null)
 			{
-
-				ShellFormConfigData defaultData = new ShellFormConfigData(this);
-				ConfigurationSettings.Current.Data.Get(this.Name, defaultData, ConfigTreeLocation.CustomConfigTree);
-                defaultData.Apply();
-                
-				//TODO: Get node ConfigurationSettings.Current.Data.get
-				
-				// Now retreive any saved values			
-/*				this.Left		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Left", this.Left).Integer;
-				this.Top		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Top", this.Top).Integer;
-				this.TopMost	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "TopMost", this.TopMost).Boolean;
-				//				this.RolledUp	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "RolledUp", this.rolledUp).Boolean;
-				this.EnableOpacityChanges = ConfigurationSettings.Current.GetItemAttribute(this.Name, "EnableOpacityChanges", this.enableOpacityChanges).Boolean;
-*/			}
+				ShellFormConfigData layoutConfig = new ShellFormConfigData(this);
+				layoutData = formNode.Get("ShellFormConfigData", layoutConfig, ConfigTreeLocation.CustomConfigTree);
+				layoutConfig.Apply();
+			}                
 		}
 
 		#endregion
@@ -492,19 +500,6 @@ namespace msn2.net.Controls
 			}
 		}
 
-		[Category("Layout")]
-		public bool AutoLayout
-		{
-			get
-			{
-				return autoLayout;
-			}
-			set
-			{
-				autoLayout = value;
-			}
-		}
-
 		public bool TitleVisible
 		{
 			get
@@ -521,6 +516,11 @@ namespace msn2.net.Controls
 		{
 			get { return formNode; }
 			set { formNode = value; }
+		}
+
+		public Point DefaultLocation
+		{
+			get { return this.Location; }
 		}
 
 		#endregion
@@ -665,11 +665,11 @@ namespace msn2.net.Controls
 			}
 			else
 			{
-				if (autoLayout)
+				if (formNode != null)
 				{
-
 					ShellFormConfigData data = new ShellFormConfigData(this);
-					ConfigurationSettings.Current.Data.Get(this.Name, "", data);
+                    layoutData.ConfigData = data;
+					layoutData.Save();
 				}
 			}
 		}
@@ -1192,14 +1192,64 @@ namespace msn2.net.Controls
 
 		#endregion
 
-		public void AddPrompt(ShellForm parent)
+	}
+
+	#region Static delegates
+
+	public delegate void ShellForm_AddedDelegate(object sender, ShellFormAddedEventArgs e);
+	public delegate void ShellForm_RemovedDelegate(object sender, ShellFormRemovedEventArgs e);
+
+	#endregion
+
+	#region Static EventArgs classes
+
+	public class ShellFormAddedEventArgs: EventArgs
+	{
+		private ShellForm form = null;
+		private ShellForm parent = null;
+
+		public ShellFormAddedEventArgs(ShellForm form)
 		{
-			this.Left	= (parent.Left + parent.Width  / 2) - (this.Width  / 2);
-			this.Top	= (parent.Top  + parent.Height / 2) - (this.Height / 2);
+			this.form	= form;
+		}
+
+		public ShellFormAddedEventArgs(ShellForm form, ShellForm parent)
+		{
+			this.form	= form;
+			this.parent	= parent;
+		}
+
+		public ShellForm ShellForm
+		{
+			get { return form; }
+		}
+
+		public ShellForm Parent
+		{
+			get { return parent; }
 		}
 	}
 
-	public class ShellFormConfigData
+	public class ShellFormRemovedEventArgs: EventArgs
+	{
+		private ShellForm form = null;
+
+		public ShellFormRemovedEventArgs(ShellForm form)
+		{
+			this.form	= form;
+		}
+
+		public ShellForm ShellForm
+		{
+			get { return form; }
+		}
+	}
+
+	#endregion
+
+	#region ShellFormConfigData
+
+	public class ShellFormConfigData: msn2.net.Configuration.ConfigData
 	{
 		private int left;
 		private int top;
@@ -1217,6 +1267,12 @@ namespace msn2.net.Controls
 			this.topmost				= form.TopMost;
 			this.enableOpacityChanges	= form.EnableOpacityChanges;
 			this.form					= form;
+
+			Point p = form.DefaultLocation;
+			if (p.X != 0)
+				this.left = p.X;
+			if (p.Y != 0)
+				this.top  = p.Y;
 		}
 
 		public void Apply()
@@ -1255,4 +1311,7 @@ namespace msn2.net.Controls
 		}
 
 	}
+
+	#endregion
+
 }

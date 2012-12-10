@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace msn2.net.Controls
 {
@@ -12,23 +13,42 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class WebBrowserControl : System.Windows.Forms.UserControl
 	{
-		private AxSHDocVw.AxWebBrowser axWebBrowser1;
+		public AxSHDocVw.AxWebBrowser axWebBrowser1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
+		private string currentUrl = "";
+		private bool isPopup = false;
 
 		public WebBrowserControl()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-			// TODO: Add any initialization after the InitForm call
+			// workaround for BeforeNavigate2 event not firing
+			object o = null;
+			axWebBrowser1.Navigate("about:blank", ref o, ref o, ref o, ref o);
+			object oOcx = axWebBrowser1.GetOcx();
+
+			try
+			{
+				SHDocVw.WebBrowser_V1 axDocumentV1 = oOcx as SHDocVw.WebBrowser_V1;
+				axDocumentV1.BeforeNavigate +=
+					new SHDocVw.DWebBrowserEvents_BeforeNavigateEventHandler(this.axDocumentV1_BeforeNavigate);
+			}
+			catch (Exception ex)
+			{
+				Trace.WriteLine("BeforeNavigate2 event registration failed. " + ex.ToString());
+			}
+
 
 		}
 
 		public void Navigate(string url)
 		{
+			currentUrl = url;
+
 			object obj1 = 0; object obj2 = ""; object obj3 = ""; object obj4 = "";
 			axWebBrowser1.Navigate(url, ref obj1, ref obj2, ref obj3, ref obj4);
 		}
@@ -67,6 +87,7 @@ namespace msn2.net.Controls
 			this.axWebBrowser1.TabIndex = 0;
 			this.axWebBrowser1.TitleChange += new AxSHDocVw.DWebBrowserEvents2_TitleChangeEventHandler(this.axWebBrowser1_TitleChange);
 			this.axWebBrowser1.NavigateComplete2 += new AxSHDocVw.DWebBrowserEvents2_NavigateComplete2EventHandler(this.axWebBrowser1_NavigateComplete2);
+			this.axWebBrowser1.NewWindow2 += new AxSHDocVw.DWebBrowserEvents2_NewWindow2EventHandler(this.axWebBrowser1_NewWindow2);
 			this.axWebBrowser1.BeforeNavigate2 += new AxSHDocVw.DWebBrowserEvents2_BeforeNavigate2EventHandler(this.axWebBrowser1_BeforeNavigate2);
 			// 
 			// WebBrowserControl
@@ -80,6 +101,12 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
+
+		public bool IsPopup
+		{
+			get { return isPopup; }
+			set { isPopup = value; }
+		}
 
 		private void axWebBrowser1_NavigateComplete2(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateComplete2Event e)
 		{
@@ -96,17 +123,31 @@ namespace msn2.net.Controls
 
 		private void axWebBrowser1_BeforeNavigate2(object sender, AxSHDocVw.DWebBrowserEvents2_BeforeNavigate2Event e)
 		{
-			string url = e.uRL.ToString();
-			e.cancel = true;
 
-			if (MessageBox.Show(this, "Open popup to " + url + "?", "Popup Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+		}
+
+		private void axDocumentV1_BeforeNavigate(string url, int flags, string targetFrameName, 
+			ref object postData, string headers, ref bool processed)
+		{
+			if (!isPopup)
 			{
+				this.Visible = true;
 				return;
 			}
 
-			WebBrowser b = new WebBrowser("Popup", url);
-            b.Show();
+			if (MessageBox.Show(this, "Open popup to " + url + "?", "Popup Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+			{
+				processed = true;
+				return;
+			}
 
+			this.Parent.Show();
+		}
+
+		private void axWebBrowser1_NewWindow2(object sender, AxSHDocVw.DWebBrowserEvents2_NewWindow2Event e)
+		{
+			WebBrowser b = new WebBrowser("Popup", true);
+			e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
 		}
 
 		public event NavigateCompleteDelegate NavigateComplete;

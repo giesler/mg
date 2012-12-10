@@ -57,7 +57,6 @@ namespace msn2.net.Controls
 			// 
 			// MSNBCWeather
 			// 
-			this.AutoLayout = true;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(408, 176);
 			this.Name = "MSNBCWeather";

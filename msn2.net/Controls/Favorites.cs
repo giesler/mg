@@ -40,8 +40,29 @@ namespace msn2.net.Controls
 			treeViewCategory.ParentShellForm	= this;
 			treeViewCategory.RootNode			= ConfigurationSettings.Current.Data.Get("Favorites.Category");
 			
-			this.Left = Screen.PrimaryScreen.Bounds.Left + 150;
-			this.Top  = Screen.PrimaryScreen.Bounds.Bottom - this.Height - 100;
+		}
+
+		public Favorites(Data data): base(data)
+		{
+			// This call is required by the Windows Form Designer.
+			InitializeComponent();
+
+			treeViewCategory.ParentShellForm	= this;
+			treeViewCategory.RootNode		= data.Get("Favorites.CategoryTree");
+
+			this.listViewFavorites.ContextMenu	= contextMenu1;
+
+		}
+
+		public new Point DefaultLocation
+		{
+			get 
+			{
+				Point p	= new Point(this.Left, this.Top);
+				p.X		= Screen.PrimaryScreen.Bounds.Left + 150;
+				p.Y		= Screen.PrimaryScreen.Bounds.Bottom - this.Height - 100;
+				return p;
+			}
 		}
 
 		/// <summary>
@@ -73,11 +94,11 @@ namespace msn2.net.Controls
 			this.treeViewCategory = new msn2.net.Controls.CategoryTreeView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.listViewFavorites = new System.Windows.Forms.ListView();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -94,6 +115,8 @@ namespace msn2.net.Controls
 			// 
 			this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Left;
 			this.treeViewCategory.Name = "treeViewCategory";
+			this.treeViewCategory.ParentShellForm = null;
+			this.treeViewCategory.RootNode = null;
 			this.treeViewCategory.Size = new System.Drawing.Size(104, 192);
 			this.treeViewCategory.TabIndex = 5;
 			this.treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
@@ -108,7 +131,7 @@ namespace msn2.net.Controls
 			// 
 			// listViewFavorites
 			// 
-			this.listViewFavorites.ContextMenu = this.contextMenu1;
+			this.listViewFavorites.AllowDrop = true;
 			this.listViewFavorites.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewFavorites.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
 			this.listViewFavorites.HideSelection = false;
@@ -119,6 +142,15 @@ namespace msn2.net.Controls
 			this.listViewFavorites.TabIndex = 7;
 			this.listViewFavorites.View = System.Windows.Forms.View.List;
 			this.listViewFavorites.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewFavorites_MouseUp);
+			this.listViewFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragDrop);
+			this.listViewFavorites.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragEnter);
+			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// contextMenu1
 			// 
@@ -126,6 +158,7 @@ namespace msn2.net.Controls
 																						 this.menuItemAdd,
 																						 this.menuItemEdit,
 																						 this.menuItemDelete});
+			this.contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
 			// 
 			// menuItemAdd
 			// 
@@ -145,16 +178,8 @@ namespace msn2.net.Controls
 			this.menuItemDelete.Text = "&Delete";
 			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
 			// 
-			// imageList1
-			// 
-			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
 			// Favorites
 			// 
-			this.AutoLayout = true;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(416, 192);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
@@ -177,13 +202,17 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_CategoryTreeView_AfterSelect(object sender, msn2.net.Controls.CategoryTreeViewEventArgs e)
 		{
-			DataCollection col = e.Data.GetChildren(typeof(FavoriteConfigData));
+			Type[] types = new Type[2];
+			types[0]	= typeof(FavoriteConfigData);
+			types[1]	= typeof(NoteConfigData);
+
+			DataCollection col = e.Data.GetChildren(types);
 
 			listViewFavorites.Items.Clear();
 
 			foreach (Data node in col)
 			{
-				FavoriteListViewItem item = new FavoriteListViewItem(node);
+				DataListViewItem item = new DataListViewItem(node);
 				listViewFavorites.Items.Add(item);
 			}
 		}
@@ -199,10 +228,21 @@ namespace msn2.net.Controls
 			if (f.ShowDialog(this) == DialogResult.Cancel)
 				return;
 
-			Data data = treeViewCategory.Data.Get(f.Title, f.Url, typeof(FavoriteConfigData));
-			FavoriteListViewItem item = new FavoriteListViewItem(data);
+			Data data = treeViewCategory.Data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
+			DataListViewItem item = new DataListViewItem(data);
 			listViewFavorites.Items.Add(item);
+		}
 
+		public void menuItemAdd_Note_Click(object sender, System.EventArgs e)
+		{
+			// Attempt to create new item
+			Data data = Notes.Add(this, treeViewCategory.Data);
+			if (data != null)
+			{
+				// Add to listview
+				DataListViewItem item = new DataListViewItem(data);
+				listViewFavorites.Items.Add(item);			
+			}
 		}
 
 		private void menuItemEdit_Click(object sender, System.EventArgs e)
@@ -210,19 +250,28 @@ namespace msn2.net.Controls
 			if (listViewFavorites.SelectedItems.Count == 0)
 				return;
 
-			FavoriteListViewItem item = (FavoriteListViewItem) listViewFavorites.SelectedItems[0];
+			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
 
-			FavoriteEdit fv = new FavoriteEdit(this);
-			fv.Title	= item.Data.Text;
-			fv.Url		= item.Data.Url;
+			if (item.Data.DataType == typeof(FavoriteConfigData))
+			{
+				FavoriteEdit fv = new FavoriteEdit(this);
+				fv.Title	= item.Data.Text;
+				fv.Url		= item.Data.Url;
 
-			if (fv.ShowDialog(this) == DialogResult.Cancel)
-				return;
+				if (fv.ShowDialog(this) == DialogResult.Cancel)
+					return;
 
-			item.Data.Text	= fv.Title;
-			item.Data.Url		= fv.Url;
+				item.Data.Text	= fv.Title;
+				item.Data.Url		= fv.Url;
 
-            item.Data.Save();
+				item.Data.Save();
+			}
+			else
+			{
+				Notes note = new Notes(item.Data);
+				note.Show();
+			}
+
 			            			
 		}
 
@@ -231,7 +280,7 @@ namespace msn2.net.Controls
 			if (listViewFavorites.SelectedItems.Count == 0)
 				return;
 
-			FavoriteListViewItem item = (FavoriteListViewItem) listViewFavorites.SelectedItems[0];
+			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
 
 			if (MessageBox.Show("Are you sure you want to delete '" + item.Text + "'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
 				return;
@@ -247,32 +296,57 @@ namespace msn2.net.Controls
 
 			if (e.Button == MouseButtons.Left)
 			{
-				FavoriteListViewItem item = (FavoriteListViewItem) listViewFavorites.SelectedItems[0];
+				DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
 
-				WebBrowser webBrowser = new WebBrowser(item.Data.Text, item.Data.Url);
+				Type type = item.Data.DataType;
+				if (type != null)
+				{
+                    
+					if (type == typeof(FavoriteConfigData))
+					{
+						WebBrowser webBrowser = new WebBrowser(item.Data.Text, item.Data.Url);
+						webBrowser.Show();
 
-				webBrowser.Show();
+					}
+				}
 			}
+		}
+
+		private void contextMenu1_Popup(object sender, System.EventArgs e)
+		{
+			this.menuItemAdd.MenuItems.Clear();
+
+			// Add each item we want to display
+			this.menuItemAdd.MenuItems.Add("Favorite", new EventHandler(menuItemAdd_Click));
+			this.menuItemAdd.MenuItems.Add("Note", new EventHandler(menuItemAdd_Note_Click));
+
 		}
 
 		#endregion
 
-		#region FavoritesListViewItem class
+		#region Drag and Drop URLs
 
-		private class FavoriteListViewItem: ListViewItem
+		private void listViewFavorites_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
 		{
-			private Data node;
-
-			public FavoriteListViewItem(Data node)
+			if (e.Data.GetDataPresent(DataFormats.Text))
 			{
-				this.node	= node;
-				this.Text	= node.Text;
-				this.ImageIndex = 0;
+				e.Effect = DragDropEffects.Copy;
 			}
+		}
 
-			public Data Data
+		private void listViewFavorites_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.Text))
 			{
-				get { return node; }
+				FavoriteEdit f = new FavoriteEdit(this);
+				f.Url = e.Data.GetData(DataFormats.Text).ToString();
+
+				if (f.ShowDialog(this) == DialogResult.Cancel)
+					return;
+
+				Data data = treeViewCategory.Data.Get(f.Title, f.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
+				DataListViewItem item = new DataListViewItem(data);
+				listViewFavorites.Items.Add(item);
 			}
 		}
 
@@ -280,10 +354,36 @@ namespace msn2.net.Controls
 
 	}
 
+	#region DataListViewItem
+
+	public class DataListViewItem: ListViewItem
+	{
+		private Data data = null;
+
+		public DataListViewItem(Data data)
+		{
+			this.Text		= data.Name;
+			this.data		= data;
+
+			this.ImageIndex	= data.ConfigData.IconIndex;
+		}
+
+		public Data Data 
+		{ 
+			get { return data; }
+		}
+	}
+
+	#endregion
+
 	#region FavoriteConfigData
 
-	public class FavoriteConfigData
+	public class FavoriteConfigData: ConfigData
 	{
+		public static new int IconIndex
+		{
+			get { return 1; }
+		}
 	}
 
 	#endregion

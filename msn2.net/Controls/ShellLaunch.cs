@@ -83,7 +83,6 @@ namespace msn2.net.Controls
 			// ShellLaunch
 			// 
 			this.AcceptButton = this.buttonGo;
-			this.AutoLayout = true;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(272, 56);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {

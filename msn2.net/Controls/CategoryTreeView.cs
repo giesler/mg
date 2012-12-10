@@ -146,6 +146,10 @@ namespace msn2.net.Controls
 			{
 				node.Nodes.Clear();
 			}
+			else
+			{
+				node = rootNode;
+			}
 
 			Data data = (Data) node;
 
@@ -155,7 +159,8 @@ namespace msn2.net.Controls
 			{
 				Data child = (Data) cat;
 
-				if (node != null)
+				// If we aren't at the root node, add to current node, else add to treeView
+				if (node != rootNode)
 				{
 					node.Nodes.Add(child);
 				} 
@@ -278,6 +283,10 @@ namespace msn2.net.Controls
 			get { return rootNode; }
 			set 
 			{
+				if (value == null)
+					return;
+
+				rootNode = value;
 				LoadChildCategories(value);
 				foreach (TreeNode node in treeViewCategory.Nodes)
 				{
