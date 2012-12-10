@@ -15,7 +15,7 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class MultiPictureEdit : UserControl
     {
-        private List<int> pictures;
+        private Dictionary<int, PictureData> pictures;
         private Hashtable pictureCategories = new Hashtable();
         private Hashtable pictureGroups = new Hashtable();
         private Hashtable picturePeople = new Hashtable();
@@ -23,7 +23,7 @@ namespace msn2.net.Pictures.Controls
         public MultiPictureEdit()
         {
             InitializeComponent();
-            pictures = new List<int>();
+            pictures = new Dictionary<int, PictureData>();
 
             description.DisplayMultipleItems = false;
             description.MultiLine = true;
@@ -56,7 +56,7 @@ namespace msn2.net.Pictures.Controls
 
         public void AddPicture(PictureData picture)
         {
-            pictures.Add(picture.Id);
+            pictures.Add(picture.Id, picture);
 
             title.AddItem(picture.Id, picture.Title);
             description.AddItem(picture.Id, picture.Description);
@@ -443,25 +443,25 @@ namespace msn2.net.Pictures.Controls
         private void title_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)
         {
             // Update the picture title
-            PictureData data = PicContext.Current.PictureManager.GetPicture(e.Id);
-            data.Title = e.NewValue;
-            PicContext.Current.PictureManager.Save(data);
+            PictureData picture = this.pictures[e.Id];
+            picture.Title = e.NewValue;
+            PicContext.Current.PictureManager.Save(picture);
         }
 
         private void description_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)
         {
             // Update the description
-            PictureData data = PicContext.Current.PictureManager.GetPicture(e.Id);
-            data.Description = e.NewValue;
-            PicContext.Current.PictureManager.Save(data);
+            PictureData picture = this.pictures[e.Id];
+            picture.Description = e.NewValue;
+            PicContext.Current.PictureManager.Save(picture);
         }
 
         private void dateTaken_DateTimeItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.DateTimeItemChangedEventArgs e)
         {
             // Update the date taken
-            PictureData data = PicContext.Current.PictureManager.GetPicture(e.Id);
-            data.DateTaken = dateTaken.Value;
-            PicContext.Current.PictureManager.Save(data);
+            PictureData picture = this.pictures[e.Id];
+            picture.DateTaken = dateTaken.Value;
+            PicContext.Current.PictureManager.Save(picture);
         }
 
     }

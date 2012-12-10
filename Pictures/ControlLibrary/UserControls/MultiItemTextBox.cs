@@ -19,6 +19,7 @@ namespace msn2.net.Pictures.Controls.UserControls
         private List<StringItem> items;
         private string textBeforeEdit = string.Empty;
         private bool displayMultipleItems;
+        private bool hasFocus = false;
 
         public MultiItemTextBox()
         {
@@ -39,7 +40,7 @@ namespace msn2.net.Pictures.Controls.UserControls
             {
                 textBox1.BackColor = SystemColors.Control;
                 textBox1.BorderStyle = BorderStyle.None;
-
+                
                 if (0 != string.Compare(textBox1.Text, textBeforeEdit))
                 {
                     if (StringItemChanged != null)
@@ -64,16 +65,18 @@ namespace msn2.net.Pictures.Controls.UserControls
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            if (items.Count > 0)
-            {
-                textBox1.BackColor = SystemColors.Window;
-                textBox1.BorderStyle = BorderStyle.FixedSingle;
+                hasFocus = true;
 
-                textBox1.Text = items[items.Count - 1].Text;
-                textBeforeEdit = textBox1.Text;
+                if (items.Count > 0)
+                {
+                    textBox1.BackColor = SystemColors.Window;
+                    textBox1.BorderStyle = BorderStyle.FixedSingle;
 
-                textBox1.SelectAll();
-            }
+                    textBox1.Text = items[items.Count - 1].Text;
+                    textBeforeEdit = textBox1.Text;
+
+                    textBox1.SelectAll();
+                }
         }
 
         public void FinishEdit()
@@ -225,7 +228,7 @@ namespace msn2.net.Pictures.Controls.UserControls
 
         private void textBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            textBox1_Enter(sender, EventArgs.Empty);
+//            textBox1_Enter(sender, EventArgs.Empty);
         }
     }
 

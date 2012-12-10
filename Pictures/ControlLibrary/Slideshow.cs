@@ -197,12 +197,26 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            Trace.WriteLine("OnKeyPress: " + e.KeyChar.ToString());
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            Trace.WriteLine("OnKeyDown: " + e.KeyCode.ToString());
             if (e.KeyCode == Keys.Escape)
             {
                 e.Handled = true;
                 this.Close();
+            }
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Up)
+            {
+                this.Previous();
+            }
+            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Down)
+            {
+                this.Next();
             }
             else
             {
@@ -232,14 +246,12 @@ namespace msn2.net.Pictures.Controls
 
         private void toolPrevious_Click(object sender, EventArgs e)
         {
-            PictureData picture = getPreviousId(item.PictureId);
-            SetPicture(picture);
+            this.Previous();
         }
 
         private void toolNext_Click(object sender, EventArgs e)
         {
-            PictureData picture = getNextId(item.PictureId);
-            SetPicture(picture);
+            this.Next();
         }
 
         protected void Next()

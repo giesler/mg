@@ -183,6 +183,7 @@ namespace msn2.net.Pictures.Controls
                 item.Dispose();
 
                 flowLayoutPanel1.Controls.Remove(item);
+                flowLayoutPanel1.Refresh();
             }
         }
 

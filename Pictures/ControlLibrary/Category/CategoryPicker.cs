@@ -239,12 +239,16 @@ namespace msn2.net.Pictures.Controls
 
                 // add to arCategory if not there
                 if (!arCategory.Contains(category.CategoryId))
+                {
                     arCategory.Add(category.CategoryId);
+                    lvCategories.Items.Add(item);
+                }
             }
         }
 
 		public void ClearSelectedCategories() 
 		{
+            arCategory.Clear();
             lvCategories.Items.Clear();
 		}
 

@@ -17,6 +17,13 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
+
+            this.textBox1.Leave -= new System.EventHandler(this.textBox1_Leave);
+            this.textBox1.MouseClick -= new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseClick);
+            this.textBox1.KeyPress -= new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBox1.Enter -= new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.TextChanged -= new System.EventHandler(this.textBox1_TextChanged);
+
         }
 
         #region Component Designer generated code
