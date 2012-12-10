@@ -443,7 +443,7 @@ namespace HomeCalendarView
                     string gusts = doc.DocumentElement.SelectSingleNode("wind_gust_mph").InnerText;
                     if (gusts != "NA")
                     {
-                        this.windLabel.Text += ", gusts to " + gusts;
+                        this.windLabel.Text += ",<br />gusts&nbsp;to&nbsp;" + gusts;
                     }
                 }
 

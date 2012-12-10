@@ -73,6 +73,11 @@
         .headerRow
         {
             background-color: #ececec;
+            padding: 2px;
+            height: 75px;
+            border-bottom-color: Gray;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
         }
         .today
         {
@@ -92,11 +97,35 @@
         }
         .fPanel
         {
-        	width: 100%;
-        	height: 100%;
-        	overflow: hidden;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
-        </style>
+        .fItem
+        {
+            width: 45%;
+            float: left;
+            height: 100%;
+        }
+        .fItems
+        {
+            width: 100%;
+            height: 58px;
+        }
+        .dayPanel
+        {
+            width: 25%;
+            float: left;
+            height: 100%;
+        }
+        .dayPanelAlt
+        {
+            width: 25%;
+            float: left;
+            height: 100%;
+            background-color: #E8F7F7;
+        }
+    </style>
 </head>
 <body class="defaultText" style="border: solid 1px silver">
     <form id="form1" runat="server">
@@ -105,106 +134,104 @@
         <ContentTemplate>
             <asp:Timer ID="refreshTimer" runat="server" Interval="30000" Enabled="true" />
             <asp:Timer ID="dataLoadTimer" runat="server" Interval="5000" Enabled="false" />
-            <table width="100%" cellpadding="3" cellspacing="0" border="0" style="height: 82px">
-                <tr class="headerRow">
-                    <td style="border-bottom-color: Gray; border-bottom-width: 1px; border-bottom-style: solid;"
-                        colspan="8">
-                        <table width="100%" border="0">
-                            <tr>
-                                <td width="90" valign="top">
-                                    <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
-                                    <small>
-                                        <asp:Label runat="server" ID="todayDateLabel" /></small>
-                                </td>
-                                <td rowspan="2" width="8">
-                                    &nbsp;
-                                </td>
-                                <td rowspan="2" valign="top">
-                                    <br />
-                                    <uc1:CalendarItemDisplay ID="todaysEvents" runat="server" />
-                                </td>
-                                <td rowspan="2" width="250">
-                                    <div style="text-align: center; vertical-align: middle; height: 100%; width: 100%;"
-                                        class="dimText" runat="server" id="currentConditionsLoading">
-                                        loading current weather...
-                                    </div>
-                                    <table cellpadding="2" cellspacing="0" runat="server" id="currentConditionsTable"
-                                        visible="false">
-                                        <tr>
-                                            <td align="right" valign="top">
-                                                <asp:Label runat="server" ID="currentTemp" CssClass="nowTemp">32</asp:Label>
-                                                <br />
-                                                <asp:Label runat="server" ID="tempUpdateTime" CssClass="propText" ForeColor="Gray" />
-                                            </td>
-                                            <td>
-                                                <asp:Image runat="server" ID="currentCondition" />
-                                            </td>
-                                            <td>
-                                                <table cellpadding="1" cellspacing="0">
-                                                    <tr>
-                                                        <td class="propText">
-                                                            <asp:Label runat="server" ID="currentConditionText">Cloudy</asp:Label><br />
-                                                            Wind:
-                                                            <asp:Label runat="server" ID="windLabel" /><br />
-                                                            Wind chill:
-                                                            <asp:Label runat="server" ID="windChill" /><br />
-                                                            Visibility:
-                                                            <asp:Label runat="server" ID="visibility" /> m
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td align="center" rowspan="2" width="120" id="warningCell" runat="server" visible="false">
-                                    <table cellpadding="2" cellspacing="0">
-                                        <tr>
-                                            <td style="font-size: 8pt; color: Red; font-weight: bold">
-                                                <asp:Label runat="server" ID="severeWeatherAlertLabel">Severe&nbsp;Weather&nbsp;Alert</asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Panel runat="server" ID="warnings" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td align="center" rowspan="2" width="170px">
-                                    <table cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td>
-                                                <asp:Label runat="server" ID="todayForecastLabel" CssClass="vertLabel">forecast</asp:Label>
-                                            </td>
-                                            <td>
-                                                <div runat="server" id="todayForeastDiv" visible="false">
-                                                    <div style="width: 160px; border: solid 1px gray; padding: 2px;" runat="server" id="todayForecastInnerDiv">
-                                                        <div style="float: left; width: 50%" runat="server" id="todayHighDiv">
-                                                            <ucb:ForecastItem ID="todayHigh" runat="server" TemperatureExtreme="High" Visible="false" />
-                                                        </div>
-                                                        <div style="float: left; width: 50%" runat="server" id="todayLowDiv">
-                                                            <ucb:ForecastItem ID="todayLow" runat="server" TemperatureExtreme="Low" Visible="false" />
-                                                        </div>
-                                                    </div>
+            <div class="headerRow">
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="90" valign="top">
+                            <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
+                            <small>
+                                <asp:Label runat="server" ID="todayDateLabel" /></small>
+                        </td>
+                        <td rowspan="2" width="8">
+                            &nbsp;
+                        </td>
+                        <td rowspan="2" valign="top">
+                            <br />
+                            <uc1:CalendarItemDisplay ID="todaysEvents" runat="server" />
+                        </td>
+                        <td rowspan="2" width="250">
+                            <div style="text-align: center; vertical-align: middle; height: 100%; width: 100%;"
+                                class="dimText" runat="server" id="currentConditionsLoading">
+                                loading current weather...
+                            </div>
+                            <table cellpadding="2" cellspacing="0" runat="server" id="currentConditionsTable"
+                                visible="false">
+                                <tr>
+                                    <td align="right" valign="top">
+                                        <asp:Label runat="server" ID="currentTemp" CssClass="nowTemp">32</asp:Label>
+                                        <br />
+                                        <asp:Label runat="server" ID="tempUpdateTime" CssClass="propText" ForeColor="Gray" />
+                                    </td>
+                                    <td>
+                                        <asp:Image runat="server" ID="currentCondition" />
+                                    </td>
+                                    <td>
+                                        <table cellpadding="1" cellspacing="0">
+                                            <tr>
+                                                <td class="propText">
+                                                    <asp:Label runat="server" ID="currentConditionText">Cloudy</asp:Label><br />
+                                                    Wind:
+                                                    <div style="display: inline"><asp:Label runat="server" ID="windLabel" /></div><br />
+                                                    Wind chill:
+                                                    <asp:Label runat="server" ID="windChill" /><br />
+                                                    Visibility:
+                                                    <asp:Label runat="server" ID="visibility" />
+                                                    m
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="center" rowspan="2" width="120" id="warningCell" runat="server" visible="false">
+                            <table cellpadding="2" cellspacing="0">
+                                <tr>
+                                    <td style="font-size: 8pt; color: Red; font-weight: bold">
+                                        <asp:Label runat="server" ID="severeWeatherAlertLabel">Severe&nbsp;Weather&nbsp;Alert</asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Panel runat="server" ID="warnings" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="center" rowspan="2" width="170px">
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:Label runat="server" ID="todayForecastLabel" CssClass="vertLabel">forecast</asp:Label>
+                                    </td>
+                                    <td>
+                                        <div runat="server" id="todayForeastDiv" visible="false">
+                                            <div style="width: 160px; border: solid 1px gray; padding: 2px;" runat="server" id="todayForecastInnerDiv">
+                                                <div style="float: left; width: 50%" runat="server" id="todayHighDiv">
+                                                    <ucb:ForecastItem ID="todayHigh" runat="server" TemperatureExtreme="High" Visible="false" />
                                                 </div>
-                                                <div class="dimText" runat="server" id="todayForecastLoading" style="width: 160px; height: 60px; border: solid 1px gray; padding: 2px; vertical-align: middle; text-align: center">
-                                                    loading...
+                                                <div style="float: left; width: 50%" runat="server" id="todayLowDiv">
+                                                    <ucb:ForecastItem ID="todayLow" runat="server" TemperatureExtreme="Low" Visible="false" />
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="bottom">
-                                    <asp:Label Font-Size="X-Small" ForeColor="Gray" runat="server" ID="lastUpdateTime" Visible="false"></asp:Label>&nbsp;
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+                                            </div>
+                                        </div>
+                                        <div class="dimText" runat="server" id="todayForecastLoading" style="width: 160px;
+                                            height: 60px; border: solid 1px gray; padding: 2px; vertical-align: middle; text-align: center">
+                                            loading...
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom">
+                            <asp:Label Font-Size="X-Small" ForeColor="Gray" runat="server" ID="lastUpdateTime"
+                                Visible="false"></asp:Label>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <asp:Panel runat="server" ID="warningPanel" Width="100%" Visible="false">
                 <table cellpadding="3" cellspacing="0" border="0" width="100%" height="100%">
                     <tr>
@@ -223,16 +250,16 @@
                     </tr>
                 </table>
             </asp:Panel>
-            <asp:Panel runat="server" ID="forecastPanel" Height="100%" Width="100%" CssClass="fPanel">
-                <div style="width: 25%; float: left; height: 100%" class="altColor">
+            <asp:Panel runat="server" ID="forecastPanel" CssClass="fPanel">
+                <div class="dayPanel">
                     <div class="dayHeader">
                         <asp:Label runat="server" ID="day1Label" CssClass="dateLabel">tomorrow</asp:Label>
                     </div>
-                    <div style="width: 100%; height: 58px">
-                        <div style="width: 45%; float: left; height: 100%;">
+                    <div class="fItems">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day1High" TemperatureExtreme="High" Visible="false" />
                         </div>
-                        <div style="width: 45%; float: left; height: 100%">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day1Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
@@ -240,15 +267,15 @@
                         <uc1:CalendarItemDisplay ID="day1Events" runat="server" />
                     </div>
                 </div>
-                <div style="width: 25%; float: left; height: 100%;">
+                <div class="dayPanelAlt">
                     <div class="dayHeader">
                         <asp:Label runat="server" ID="day2Label" CssClass="dateLabel">Day 2</asp:Label>
                     </div>
-                    <div style="width: 100%; height: 58px">
-                        <div style="width: 45%; float: left; height: 100%;">
+                    <div class="fItems">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day2High" TemperatureExtreme="High" Visible="false" />
                         </div>
-                        <div style="width: 45%; float: left; height: 100%">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day2Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
@@ -256,15 +283,15 @@
                         <uc1:CalendarItemDisplay ID="day2Events" runat="server" />
                     </div>
                 </div>
-                <div style="width: 25%; float: left; height: 100%" class="altColor">
+                <div class="dayPanel">
                     <div class="dayHeader">
                         <asp:Label runat="server" ID="day3Label" CssClass="dateLabel">Day 3</asp:Label>
                     </div>
-                    <div style="width: 100%; height: 58px">
-                        <div style="width: 45%; float: left; height: 100%;">
+                    <div class="fItems">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day3High" TemperatureExtreme="High" Visible="false" />
                         </div>
-                        <div style="width: 45%; float: left; height: 100%">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day3Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
@@ -272,15 +299,15 @@
                         <uc1:CalendarItemDisplay ID="day3Events" runat="server" />
                     </div>
                 </div>
-                <div style="width: 25%; float: left; height: 100%;">
+                <div class="dayPanelAlt">
                     <div class="dayHeader">
                         <asp:Label runat="server" ID="day4Label" CssClass="dateLabel">Day 4</asp:Label>
                     </div>
-                    <div style="width: 100%; height: 58px">
-                        <div style="width: 45%; float: left; height: 100%;">
+                    <div class="fItems">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day4High" TemperatureExtreme="High" Visible="false" />
                         </div>
-                        <div style="width: 45%; float: left; height: 100%">
+                        <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day4Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
