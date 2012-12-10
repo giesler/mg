@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -76,7 +77,9 @@ namespace msn2.net.Pictures.Controls
 
         Picture GetRandomPicture()
         {
-            return PicContext.Current.PictureManager.GetRandomPicture(750, 700, this.Path, this.GroupId);
+            Picture pic = PicContext.Current.PictureManager.GetRandomPicture(750, 700, this.Path, this.GroupId);
+            Trace.WriteLine(pic.Id);
+            return pic;
         }
 
         void timer_Tick(object sender, EventArgs e)

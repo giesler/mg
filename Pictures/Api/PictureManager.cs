@@ -207,7 +207,7 @@ namespace msn2.net.Pictures
         public Picture GetPicture(int pictureId)
         {
             Picture picture = (from p in this.picContext.DataContext.Pictures
-                               where p.PictureGroups.Any(
+                               where p.PictureID == pictureId && p.PictureGroups.Any(
                                     pg => pg.Group.PersonGroups.Any(
                                         i => i.PersonID == this.picContext.CurrentUser.Id))
                                select p).FirstOrDefault();

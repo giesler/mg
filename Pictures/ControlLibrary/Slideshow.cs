@@ -83,6 +83,7 @@ namespace msn2.net.Pictures.Controls
         {
             this.picture = PicContext.Current.PictureManager.GetPicture(id);
 
+            Trace.WriteLine("Slideshow.SetPicture " + this.picture.Id.ToString());
             this.item.SetPicture(picture);
 
             if (null != editor)
