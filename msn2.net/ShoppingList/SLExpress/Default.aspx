@@ -7,11 +7,11 @@
 <head id="Head1" runat="server">
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
-    <title>My eLists</title>
+    <title>devlists</title>
     <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
     <script type="text/javascript">
         function startDelete(cbx) {
-            
+
         }
 
         function deleteTimer() {
@@ -21,50 +21,56 @@
     <style type="text/css">
         html, body
         {
-            height: 100%;
             overflow: auto;
         }
         body
         {
             padding: 0;
             margin: 0;
-        }
-        #silverlightControlHost
-        {
-            height: 100%;
-            text-align: center;
+            font-family: Segoe UI, Arial, Tahoma;
         }
         .main
         {
-            width: 80%;
-            margin: auto;
+            margin: 0px;
+            font-size: 12pt;
         }
         .left
         {
-            width: 20%;
-            float: left;
             text-align: left;
-            display: inline;
+            float: left;
+            bottom: 0px;
+            top: 0px;
+            width: 10%;
+            padding: 5px;
         }
         .right
         {
-            width: 80%;
-            float: right;
             text-align: left;
-            display: inline;
+            width: 90%;
+            padding: 5px;
+        }
+        .add
+        {
+            padding: 5px;
         }
         .signin
         {
             height: 26px;
         }
+        .list
+        {
+            font-family: Segoe UI, Arial, Tahoma;
+            font-size: 10pt;
+        }
     </style>
 </head>
-<body style="height: 100%; margin: 0px">
+<body style="margin: 0px">
     <script type="text/javascript" src="Silverlight.js"></script>
     <script type="text/javascript">
         //if (window.location.href.indexOf("nosl", 0) < 0 && (Silverlight.isInstalled("4.0") || Silverlight.isInstalled("3.0") || Silverlight.isInstalled("2.0"))) {
         //window.location.href = "sl.aspx";
         //}
+        
     </script>
     <wl:app channel-url="<%=WebConfigurationManager.AppSettings["wl_wrap_channel_url"]%>"
         callback-url="<%=WebConfigurationManager.AppSettings["wl_wrap_client_callback"]%>?wl_session_id=<%=SessionId%>"
@@ -73,26 +79,19 @@
     <div class="signin">
         <wl:signin signedouttext="Sign in" theme="white" />
     </div>
-    <form id="form1" runat="server" style="height: 100%">
-    <div class="main">
+    <form id="form1" runat="server">
+    <asp:Panel runat="server" ID="main" CssClass="main">
         <div class="left">
             <asp:Panel runat="server" ID="topPanel">
-                <asp:ListBox ID="list" runat="server" AutoPostBack="true" Rows="10" />
+                <asp:ListBox ID="list" runat="server" AutoPostBack="true" Rows="15" CssClass="list" />
             </asp:Panel>
         </div>
         <div class="right">
             <asp:Panel runat="server" ID="itemPanel">
-                <asp:Repeater runat="server" ID="items">
-                    <ItemTemplate>
-                        <input name="<%# DataBinder.Eval(Container.DataItem, "UniqueId") %>" value="on" type="checkbox" disabled="disabled">
-                            <%# DataBinder.Eval(Container.DataItem, "Name") %>
-                        </input><br />
-                    </ItemTemplate>
-                </asp:Repeater>
             </asp:Panel>
         </div>
-    </div>
-    <asp:Panel runat="server" ID="addPanel" Visible="false">
+    </asp:Panel>
+    <asp:Panel runat="server" ID="addPanel" Visible="false" CssClass="add">
         <asp:TextBox ID="add" runat="server" MaxLength="50" />
         <br />
         <asp:Button ID="addButton" runat="server" Text="Add" />
