@@ -22,6 +22,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,11 +51,11 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Windowsce.Forms" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -63,14 +65,31 @@
     <Compile Include="BlockDigit.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="BlockDigits.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BlockDigits.Designer.cs">
+      <DependentUpon>BlockDigits.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewTimer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewTimer.Designer.cs">
       <DependentUpon>NewTimer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Notfications\NotificationMessageWindow.cs" />
+    <Compile Include="Notfications\NotificationSoftKey.cs" />
+    <Compile Include="Notfications\NotificationWithSoftKeys.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Notfications\SHNOTIFICATIONDATA.cs" />
+    <Compile Include="Notfications\SpinnerClickEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BlockDigits.resx">
+      <DependentUpon>BlockDigits.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewTimer.resx">
       <DependentUpon>NewTimer.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -80,10 +99,34 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="RunningTimer.resx">
+      <DependentUpon>RunningTimer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunningTimers.resx">
+      <DependentUpon>RunningTimers.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="RunningTimer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RunningTimer.Designer.cs">
+      <DependentUpon>RunningTimer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunningTimers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RunningTimers.Designer.cs">
+      <DependentUpon>RunningTimers.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="timer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

@@ -13,7 +13,7 @@ namespace MobileTimer
         [MTAThread]
         static void Main()
         {
-            Application.Run(new NewTimer());
+            Application.Run(new RunningTimers());
         }
     }
 }

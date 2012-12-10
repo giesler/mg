@@ -26,8 +26,11 @@ namespace MobileTimer
             }
             set
             {
-                this.digit = value;
-                this.Invalidate();
+                if (this.digit != value)
+                {
+                    this.digit = value;
+                    this.Invalidate();
+                }
             }
         }
 

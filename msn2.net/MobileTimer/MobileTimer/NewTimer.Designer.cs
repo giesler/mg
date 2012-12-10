@@ -43,11 +43,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
             this.clear = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer();
-            this.digit3 = new MobileTimer.BlockDigit();
-            this.digit2 = new MobileTimer.BlockDigit();
-            this.digit1 = new MobileTimer.BlockDigit();
-            this.digit0 = new MobileTimer.BlockDigit();
+            this.blockDigits1 = new MobileTimer.BlockDigits();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -57,7 +53,7 @@
             // 
             // ok
             // 
-            this.ok.Text = "OK";
+            this.ok.Text = "Start";
             this.ok.Click += new System.EventHandler(this.ok_Click);
             // 
             // cancel
@@ -208,45 +204,13 @@
             this.clear.Text = "CLR";
             this.clear.Click += new System.EventHandler(this.clear_Click);
             // 
-            // timer1
+            // blockDigits1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // digit3
-            // 
-            this.digit3.BackColor = System.Drawing.Color.White;
-            this.digit3.Digit = null;
-            this.digit3.Location = new System.Drawing.Point(40, 4);
-            this.digit3.Name = "digit3";
-            this.digit3.Size = new System.Drawing.Size(35, 35);
-            this.digit3.TabIndex = 12;
-            // 
-            // digit2
-            // 
-            this.digit2.BackColor = System.Drawing.Color.White;
-            this.digit2.Digit = null;
-            this.digit2.Location = new System.Drawing.Point(86, 4);
-            this.digit2.Name = "digit2";
-            this.digit2.Size = new System.Drawing.Size(35, 35);
-            this.digit2.TabIndex = 13;
-            // 
-            // digit1
-            // 
-            this.digit1.BackColor = System.Drawing.Color.White;
-            this.digit1.Digit = null;
-            this.digit1.Location = new System.Drawing.Point(138, 4);
-            this.digit1.Name = "digit1";
-            this.digit1.Size = new System.Drawing.Size(35, 35);
-            this.digit1.TabIndex = 14;
-            // 
-            // digit0
-            // 
-            this.digit0.BackColor = System.Drawing.Color.White;
-            this.digit0.Digit = null;
-            this.digit0.Location = new System.Drawing.Point(179, 4);
-            this.digit0.Name = "digit0";
-            this.digit0.Size = new System.Drawing.Size(35, 35);
-            this.digit0.TabIndex = 15;
+            this.blockDigits1.BackColor = System.Drawing.SystemColors.Window;
+            this.blockDigits1.Location = new System.Drawing.Point(29, 1);
+            this.blockDigits1.Name = "blockDigits1";
+            this.blockDigits1.Size = new System.Drawing.Size(187, 42);
+            this.blockDigits1.TabIndex = 12;
             // 
             // NewTimer
             // 
@@ -254,10 +218,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
-            this.Controls.Add(this.digit0);
-            this.Controls.Add(this.digit1);
-            this.Controls.Add(this.digit2);
-            this.Controls.Add(this.digit3);
+            this.Controls.Add(this.blockDigits1);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.clear);
             this.Controls.Add(this.button9);
@@ -273,7 +234,6 @@
             this.Menu = this.mainMenu1;
             this.Name = "NewTimer";
             this.Text = "New Timer";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewTimer_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -293,11 +253,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button0;
         private System.Windows.Forms.Button clear;
-        private System.Windows.Forms.Timer timer1;
-        private BlockDigit digit3;
-        private BlockDigit digit2;
-        private BlockDigit digit1;
-        private BlockDigit digit0;
+        private BlockDigits blockDigits1;
     }
 }
 

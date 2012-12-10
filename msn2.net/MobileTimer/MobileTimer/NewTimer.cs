@@ -12,55 +12,24 @@ namespace MobileTimer
     public partial class NewTimer : Form
     {
         int current = 0;
+        public TimeSpan Duration { get; private set; }
 
         public NewTimer()
         {
             InitializeComponent();
-        }
-
-        private void NewTimer_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.KeyCode == System.Windows.Forms.Keys.Up))
-            {
-                // Up
-            }
-            if ((e.KeyCode == System.Windows.Forms.Keys.Down))
-            {
-                // Down
-            }
-            if ((e.KeyCode == System.Windows.Forms.Keys.Left))
-            {
-                // Left
-            }
-            if ((e.KeyCode == System.Windows.Forms.Keys.Right))
-            {
-                // Right
-            }
-            if ((e.KeyCode == System.Windows.Forms.Keys.Enter))
-            {
-                // Enter
-            }
-
+            this.Icon = Properties.Resources.timer;
         }
 
         private void menuItem2_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
         private void ok_Click(object sender, EventArgs e)
         {
-            int minutes = this.digit3.Digit.HasValue ? this.digit3.Digit.Value * 10 : 0;
-            minutes += this.digit2.Digit.HasValue ? this.digit2.Digit.Value : 0;
-            int seconds = this.digit1.Digit.HasValue ? this.digit1.Digit.Value * 10 : 0;
-            seconds += this.digit0.Digit.HasValue ? this.digit0.Digit.Value : 0;
-
-            TimeSpan duration = new TimeSpan(0, minutes, seconds);
-
-            this.timer1.Interval = (int)duration.TotalMilliseconds;
-            this.timer1.Enabled = true;
-
-            this.Hide();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -115,55 +84,48 @@ namespace MobileTimer
 
         private void clear_Click(object sender, EventArgs e)
         {
-            this.digit0.Digit = null;
-            this.digit1.Digit = null;
-            this.digit2.Digit = null;
-            this.digit3.Digit = null;
+            this.blockDigits1.DisplayTime(null, null, null);
 
             this.current = 0;
             this.ok.Enabled = false;
+
+            this.hours = 0;
+            this.minutes = 0;
+            this.seconds = 0;
+            this.Duration = TimeSpan.Zero;
         }
+
+        private int hours = 0;
+        private int minutes = 0;
+        private int seconds = 0;
 
         private void AddKey(int key)
         {
             if (current == 0)
             {
-                this.digit0.Digit = key;
+                this.seconds = key;
             }
-            else if (current == 1)
+            else if (current >= 1 && current < 6)
             {
-                this.digit1.Digit = this.digit0.Digit;
-                this.digit0.Digit = key;
+                if (current >= 2)
+                {
+                    if (current >= 4)
+                    {
+                        this.hours = (this.hours * 10) + (this.minutes / 10);
+                    }
+                    
+                    this.minutes = ((this.minutes % 10) * 10) + (this.seconds / 10);
+                }
+
+                this.seconds = ((this.seconds % 10) * 10) + key;
             }
-            else if (current == 2)
-            {
-                this.digit2.Digit = this.digit1.Digit;
-                this.digit1.Digit = this.digit0.Digit;
-                this.digit0.Digit = key;
-            }
-            else if (current == 3)
-            {
-                this.digit3.Digit = this.digit2.Digit;
-                this.digit2.Digit = this.digit1.Digit;
-                this.digit1.Digit = this.digit0.Digit;
-                this.digit0.Digit = key;
-            }
+
+            this.blockDigits1.DisplayTime(this.hours, this.minutes, this.seconds);
+
+            this.Duration = new TimeSpan(this.hours, this.minutes, this.seconds);
 
             current++;
             this.ok.Enabled = true;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            TimeSpan interval = new TimeSpan(0, 0, 0, 0, this.timer1.Interval);
-            string message = string.Format(
-                "{0}:{1} timer elapsed.",
-                interval.Minutes.ToString(),
-                interval.Seconds.ToString("00"));
-
-            this.timer1.Enabled = true;
-            MessageBox.Show(message, "Timer", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
-            this.Close();
         }
     }
 }
