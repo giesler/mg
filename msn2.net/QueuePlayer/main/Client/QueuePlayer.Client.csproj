@@ -170,7 +170,7 @@
             <Include>
                 <File
                     RelPath = "AddSongs.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -180,7 +180,7 @@
                 />
                 <File
                     RelPath = "Advanced.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -199,7 +199,7 @@
                 />
                 <File
                     RelPath = "BrowseCollection.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -214,7 +214,7 @@
                 />
                 <File
                     RelPath = "ConnectionDialog.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -224,7 +224,7 @@
                 />
                 <File
                     RelPath = "History.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -234,7 +234,7 @@
                 />
                 <File
                     RelPath = "Log.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -300,7 +300,7 @@
                 />
                 <File
                     RelPath = "NewMedia.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -310,7 +310,7 @@
                 />
                 <File
                     RelPath = "PlayerQueue.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -330,7 +330,7 @@
                 />
                 <File
                     RelPath = "Playlists.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -350,7 +350,7 @@
                 />
                 <File
                     RelPath = "Search.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -364,7 +364,7 @@
                 />
                 <File
                     RelPath = "TabForm.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

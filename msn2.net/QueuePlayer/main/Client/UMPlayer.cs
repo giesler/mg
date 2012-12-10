@@ -60,7 +60,6 @@ namespace msn2.net.QueuePlayer.Client
 		private TitleBarButtons titleBarButtons = null;
 
 		#endregion
-
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -274,7 +273,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		}
 		#endregion
-
 		#region Constructor / Disposal
 
 		/// <summary>
@@ -309,7 +307,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region InitialState
 
 		/// <summary>
@@ -337,7 +334,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Load
 
 		private void UMPlayer_Load(object sender, System.EventArgs e)
@@ -398,7 +394,7 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			connection.Dispose();
 
-			status.Hide();
+			status.Dispose();
 
 			this.Visible = true;
 
@@ -421,10 +417,11 @@ namespace msn2.net.QueuePlayer.Client
 //			tab1.BringToFront();
 //			tabForm.Show();
 
-			WebBrowser browser	= new WebBrowser("QueuePlayer Media", false);
-			browser.Width		= this.Width;
-			browser.Height		= 500;
-			
+			WebBrowser browser		= new WebBrowser("QueuePlayer Media", false);
+			browser.Width			= this.Width;
+			browser.Height			= 500;
+			browser.TabAppearance	= Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
+            			
 			playerQueue = new PlayerQueue();
 			browser.AddNewTab(playerQueue);
 
@@ -457,7 +454,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Playing
 
 		public delegate void PlayingDelegate(int mediaId);
@@ -520,7 +516,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Stopped
 
 		public delegate void StoppedDelegate();
@@ -540,7 +535,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Paused
 
 		public delegate void PausedDelegate();
@@ -559,7 +553,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Progress
 
 		public delegate void ProgressDelegate(double progress);
@@ -578,7 +571,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Volume
 
 		public delegate void VolumeDelegate(double volume);
@@ -594,7 +586,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region ShowError
 
         public delegate void ShowErrorDelegate(string errorDescription, int mediaId);
@@ -616,7 +607,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region NewSearch
 
 		public void NewSearch()
@@ -655,7 +645,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Pause
 
 		public delegate void PauseDelegate();
@@ -666,7 +655,6 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		#endregion
-
 		#region Stop
 
 		public delegate void StopDelegate();
@@ -1699,12 +1687,12 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void UMPlayer_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 
 		private void panel1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 
 			if (currentMediaEntry == null)
 				return;
@@ -1738,7 +1726,7 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void panel2_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 
 			// Volume label
 			e.Graphics.DrawString("Volume:", new Font("Arial", 8), new SolidBrush(Color.Black), 2, 4);

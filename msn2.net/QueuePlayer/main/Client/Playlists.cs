@@ -85,13 +85,15 @@ namespace msn2.net.QueuePlayer.Client
 			this.columnHeader30 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader31 = new System.Windows.Forms.ColumnHeader();
 			this.mediaList = new msn2.net.QueuePlayer.Client.MediaListView();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonPlaylistMediaRemove
 			// 
 			this.buttonPlaylistMediaRemove.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonPlaylistMediaRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonPlaylistMediaRemove.Location = new System.Drawing.Point(376, 88);
+			this.buttonPlaylistMediaRemove.Location = new System.Drawing.Point(336, 88);
 			this.buttonPlaylistMediaRemove.Name = "buttonPlaylistMediaRemove";
 			this.buttonPlaylistMediaRemove.Size = new System.Drawing.Size(24, 23);
 			this.buttonPlaylistMediaRemove.TabIndex = 18;
@@ -102,7 +104,7 @@ namespace msn2.net.QueuePlayer.Client
 			// 
 			this.buttonPlaylistDelete.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonPlaylistDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonPlaylistDelete.Location = new System.Drawing.Point(376, 40);
+			this.buttonPlaylistDelete.Location = new System.Drawing.Point(336, 40);
 			this.buttonPlaylistDelete.Name = "buttonPlaylistDelete";
 			this.buttonPlaylistDelete.Size = new System.Drawing.Size(24, 23);
 			this.buttonPlaylistDelete.TabIndex = 16;
@@ -113,35 +115,12 @@ namespace msn2.net.QueuePlayer.Client
 			// 
 			this.buttonPlaylistAdd.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonPlaylistAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonPlaylistAdd.Location = new System.Drawing.Point(376, 8);
+			this.buttonPlaylistAdd.Location = new System.Drawing.Point(336, 8);
 			this.buttonPlaylistAdd.Name = "buttonPlaylistAdd";
 			this.buttonPlaylistAdd.Size = new System.Drawing.Size(24, 23);
 			this.buttonPlaylistAdd.TabIndex = 15;
 			this.buttonPlaylistAdd.Text = "+";
 			this.buttonPlaylistAdd.Click += new System.EventHandler(this.buttonPlaylistAdd_Click);
-			// 
-			// listViewPlaylists
-			// 
-			this.listViewPlaylists.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.listViewPlaylists.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																								this.columnHeader27,
-																								this.columnHeader28,
-																								this.columnHeader29,
-																								this.columnHeader30,
-																								this.columnHeader31});
-			this.listViewPlaylists.FullRowSelect = true;
-			this.listViewPlaylists.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-			this.listViewPlaylists.HideSelection = false;
-			this.listViewPlaylists.Location = new System.Drawing.Point(8, 8);
-			this.listViewPlaylists.MultiSelect = false;
-			this.listViewPlaylists.Name = "listViewPlaylists";
-			this.listViewPlaylists.Size = new System.Drawing.Size(360, 72);
-			this.listViewPlaylists.TabIndex = 14;
-			this.listViewPlaylists.View = System.Windows.Forms.View.Details;
-			this.listViewPlaylists.Resize += new System.EventHandler(this.listViewPlaylists_Resize);
-			this.listViewPlaylists.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewPlaylists_MouseUp);
-			this.listViewPlaylists.SelectedIndexChanged += new System.EventHandler(this.listViewPlaylists_SelectedIndexChanged);
 			// 
 			// columnHeader27
 			// 
@@ -167,20 +146,10 @@ namespace msn2.net.QueuePlayer.Client
 			this.columnHeader31.Text = "Length";
 			this.columnHeader31.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// mediaList
-			// 
-			this.mediaList.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.mediaList.Location = new System.Drawing.Point(8, 88);
-			this.mediaList.Name = "mediaList";
-			this.mediaList.Size = new System.Drawing.Size(360, 144);
-			this.mediaList.TabIndex = 19;
-			// 
 			// Playlists
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(408, 238);
+			this.ClientSize = new System.Drawing.Size(368, 270);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.mediaList,
 																		  this.buttonPlaylistMediaRemove,
@@ -189,6 +158,7 @@ namespace msn2.net.QueuePlayer.Client
 																		  this.listViewPlaylists});
 			this.Name = "Playlists";
 			this.Text = "Playlists";
+			this.TitleVisible = true;
 			this.ResumeLayout(false);
 
 		}
