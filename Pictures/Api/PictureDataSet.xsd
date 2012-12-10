@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PictureDataSet" targetNamespace="http://tempuri.org/PictureDataSet.xsd" xmlns:mstns="http://tempuri.org/PictureDataSet.xsd" xmlns="http://tempuri.org/PictureDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" GeneratorTypeConverterClassName="Converter" Modifier="AutoLayout, AnsiClass, NotPublic, Public" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PictureDataSet" msdata:IsDataSet="true" msprop:User_DataSetName="PictureDataSet" msprop:DSGenerator_DataSetName="PictureDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Picture" msprop:Generator_SuspendValidationVarName="m_suspendValidation" msprop:Generator_SuspendValidationPropName="SuspendValidation" msprop:Generator_TableClassName="PictureDataTable" msprop:User_TableName="Picture" msprop:Generator_RowClassName="PictureRow" msprop:Generator_RowEvArgName="PictureRowChangeEvent" msprop:Generator_RowEvHandlerName="PictureRowChangeEventHandler" msprop:Generator_TablePropName="Picture" msprop:Generator_TableVarName="tablePicture">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PictureID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_DelegateName="PictureIDChangeEventHandler" msprop:Generator_ChangingEventName="PictureIDChanging" msprop:Generator_ColumnVarNameInTable="columnPictureID" msprop:Generator_EventArgName="PictureIDChangeEventArg" msprop:User_ColumnName="PictureID" msprop:Generator_ColumnPropNameInRow="PictureID" msprop:Generator_ChangedEventName="PictureIDChanged" msprop:Generator_ColumnPropNameInTable="PictureIDColumn" type="xs:int" />
+              <xs:element name="Filename" msprop:Generator_DelegateName="FilenameChangeEventHandler" msprop:Generator_ChangingEventName="FilenameChanging" msprop:Generator_ColumnVarNameInTable="columnFilename" msprop:Generator_EventArgName="FilenameChangeEventArg" msprop:User_ColumnName="Filename" msprop:Generator_ColumnPropNameInRow="Filename" msprop:Generator_ChangedEventName="FilenameChanged" msprop:Generator_ColumnPropNameInTable="FilenameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PictureDate" msprop:Generator_DelegateName="PictureDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureDate" msprop:Generator_EventArgName="PictureDateChangeEventArg" msprop:User_ColumnName="PictureDate" msprop:Generator_ColumnPropNameInRow="PictureDate" msprop:Generator_ChangedEventName="PictureDateChanged" msprop:Generator_ColumnPropNameInTable="PictureDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Title" msprop:Generator_DelegateName="TitleChangeEventHandler" msprop:Generator_ChangingEventName="TitleChanging" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_EventArgName="TitleChangeEventArg" msprop:User_ColumnName="Title" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ChangedEventName="TitleChanged" msprop:Generator_ColumnPropNameInTable="TitleColumn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_DelegateName="DescriptionChangeEventHandler" msprop:Generator_ChangingEventName="DescriptionChanging" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_EventArgName="DescriptionChangeEventArg" msprop:User_ColumnName="Description" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ChangedEventName="DescriptionChanged" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="PictureBy" msprop:Generator_DelegateName="PictureByChangeEventHandler" msprop:Generator_ChangingEventName="PictureByChanging" msprop:Generator_ColumnVarNameInTable="columnPictureBy" msprop:Generator_EventArgName="PictureByChangeEventArg" msprop:User_ColumnName="PictureBy" msprop:Generator_ColumnPropNameInRow="PictureBy" msprop:Generator_ChangedEventName="PictureByChanged" msprop:Generator_ColumnPropNameInTable="PictureByColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="PictureSort" msprop:Generator_DelegateName="PictureSortChangeEventHandler" msprop:Generator_ChangingEventName="PictureSortChanging" msprop:Generator_ColumnVarNameInTable="columnPictureSort" msprop:Generator_EventArgName="PictureSortChangeEventArg" msprop:User_ColumnName="PictureSort" msprop:Generator_ColumnPropNameInRow="PictureSort" msprop:Generator_ChangedEventName="PictureSortChanged" msprop:Generator_ColumnPropNameInTable="PictureSortColumn" type="xs:int" default="1" />
+              <xs:element name="PictureAddDate" msprop:Generator_DelegateName="PictureAddDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureAddDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureAddDate" msprop:Generator_EventArgName="PictureAddDateChangeEventArg" msprop:User_ColumnName="PictureAddDate" msprop:Generator_ColumnPropNameInRow="PictureAddDate" msprop:Generator_ChangedEventName="PictureAddDateChanged" msprop:Generator_ColumnPropNameInTable="PictureAddDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PictureUpdateDate" msprop:Generator_DelegateName="PictureUpdateDateChangeEventHandler" msprop:Generator_ChangingEventName="PictureUpdateDateChanging" msprop:Generator_ColumnVarNameInTable="columnPictureUpdateDate" msprop:Generator_EventArgName="PictureUpdateDateChangeEventArg" msprop:User_ColumnName="PictureUpdateDate" msprop:Generator_ColumnPropNameInRow="PictureUpdateDate" msprop:Generator_ChangedEventName="PictureUpdateDateChanged" msprop:Generator_ColumnPropNameInTable="PictureUpdateDateColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" MajorVersion="1" MinorVersion="1" xmlns="http://www.microsoft.com/VisualStudio/EnterpriseTools/ClassDesigner/V1.1/DiagramSchema.xsd">
+  <View FilterFieldProperty="false" LastOpened="true" Name="Main">
+    <AbsoluteBounds X="0" Y="0" Height="8.5" Width="11" />
+    <Font Name="Tahoma" Size="0.1145833358168602" />
+    <Class Collapsed="false">
+      <AbsoluteBounds X="6.5" Y="0.5" Height="2.9842401149868962" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>msn2.net.Pictures.CategoryManager</FullName>
+        <FileName>CategoryManager.cs</FileName>
+        <HashCode>AAAgAAAIAAAAAAggAAgAAAAAAQAAggAAAAQACAgAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="false">
+      <AbsoluteBounds X="2.75" Y="2.5" Height="3.3683652777473121" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>msn2.net.Pictures.Category</FullName>
+        <FileName>CategoryManager.cs</FileName>
+        <HashCode>QAAAAAAAAAAgAgAEIAAAAAQAACAAApAAAAAABAABAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="false">
+      <AbsoluteBounds X="5" Y="3.75" Height="1.3175734483202284" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>msn2.net.Pictures.CategoryCollection</FullName>
+        <FileName>CategoryManager.cs</FileName>
+        <HashCode>AAIAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="false">
+      <AbsoluteBounds X="4" Y="0.5" Height="1.8175734483202297" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>msn2.net.Pictures.PicModule</FullName>
+        <FileName>PicContext.cs</FileName>
+        <HashCode>AAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAIACAAAgAAA=</HashCode>
+      </TypeIdentifier>
+      <LollipopPosition Position="0.20000000000000018" />
+    </Class>
+    <Class Collapsed="false">
+      <AbsoluteBounds X="0.5" Y="0.5" Height="3.8683652777473121" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>msn2.net.Pictures.PicContext</FullName>
+        <FileName>PicContext.cs</FileName>
+        <HashCode>AIACgADQAoAAQACAAAKAAAAAAAAAABAAAAAAAAAgAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+  </View>
+</Diagram>
