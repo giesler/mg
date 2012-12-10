@@ -21,6 +21,15 @@ namespace msn2.net.BarMonkey
             return q.ToList<Ingredient>();
         }
 
+        public Ingredient GetIngredient(string name)
+        {
+            var q = from i in base.Context.Data.Ingredients
+                    where i.Name == name
+                    select i;
+
+            return q.First<Ingredient>();
+        }
+
         public Ingredient GetIngredientOnRelay(Relay relay)
         {
             var q = from i in base.Context.Data.Ingredients
@@ -62,6 +71,11 @@ namespace msn2.net.BarMonkey
                     select i;
 
             return q.ToList<Ingredient>();
+        }
+
+        public void UpdateIngredient(Ingredient ingredient)
+        {
+            base.Context.Data.SubmitChanges();
         }
     }
 }

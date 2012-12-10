@@ -92,24 +92,44 @@ namespace BarMonkey.Activities
             foreach (DrinkIngredient di in q)
             {
                 decimal outputAmount = di.AmountOunces * offset;
-                double duration = (double)outputAmount * BarMonkeyContext.Current.OuncesDispensedPerSecond;
+                decimal duration = outputAmount * di.Ingredient.OuncesPerSecond;
 
                 int relayNumber = (int)di.Ingredient.RelayId;
-
-                items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds=duration});
+                
+                items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds=(double)duration});
             }
 
-            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
-
-            this.statusLabel.Content = "pouring...";
-
-            if (BarMonkeyContext.Current.ImpersonateUser != null)
+            if (this.container.WaterFlushOunces > 0)
             {
-                BarMonkeyContext.Current.Drinks.LogDrink(drink, offset, BarMonkeyContext.Current.ImpersonateUser.Id);
+                Ingredient waterIngredient = BarMonkeyContext.Current.Ingredients.GetIngredient("Water");
+                decimal duration = this.container.WaterFlushOunces * waterIngredient.OuncesPerSecond;
+
+                items.Add(new BatchItem { Group = 999, RelayNumber = (int)waterIngredient.RelayId, Seconds = (double)duration });
             }
-            else
+
+            bool pouring = false;
+            try
             {
-                BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
+                relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
+                pouring = true;
+            }
+            catch (Exception ex)
+            {
+                this.displayException(ex);
+            }
+
+            if (pouring == true)
+            {
+                this.statusLabel.Content = "pouring...";
+
+                if (BarMonkeyContext.Current.ImpersonateUser != null)
+                {
+                    BarMonkeyContext.Current.Drinks.LogDrink(drink, offset, BarMonkeyContext.Current.ImpersonateUser.Id);
+                }
+                else
+                {
+                    BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
+                }
             }
         }
 

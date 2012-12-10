@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40px" />
             <RowDefinition Height="40px" />
+            <RowDefinition Height="40px" />
             <RowDefinition Height="10px" />
             <RowDefinition Height="40px" />
             <RowDefinition Height="40px" />
@@ -33,15 +34,17 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}" FontSize="14pt">Control:</Label>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+        <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}" FontSize="14pt">Ounces/Second:</Label>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="ouncesPerSecond" FontSize="14pt" Style="{DynamicResource DefaultListBoxTextStyle}" SelectionChanged="ouncesPerSecond_SelectionChanged" />
+        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource DefaultDescriptionTextStyle}" FontSize="14pt">Control:</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
             <Label Style="{DynamicResource DefaultDescriptionTextStyle}">Open for</Label>
-            <ComboBox Name="seconds" Style="{DynamicResource DefaultListBoxTextStyle}" Width="100px" />
+            <ComboBox Name="seconds" FontSize="14pt" Style="{DynamicResource DefaultListBoxTextStyle}" Width="100px" />
             <Label Style="{DynamicResource DefaultDescriptionTextStyle}">seconds</Label>
             <Button Name="openRelay" Click="openRelay_Click" Content="Open Relay" Style="{DynamicResource DefaultButtonStyle}" Padding="5" />
         </StackPanel>
-        <Button Grid.Row="4" Grid.Column="1" Name="allOff" Click="allOff_Click" Content="All Off!" Style="{DynamicResource DefaultButtonStyle}" />
-        <TextBlock Grid.Row="5" Grid.Column="1" Name="statusLabel" Style="{DynamicResource DefaultTextBlockStyle}" />
-        <bnc:NavigationBar Grid.Row="8" Grid.ColumnSpan="2" x:Name="navBar" />
+        <Button Grid.Row="5" Grid.Column="1" Name="allOff" Click="allOff_Click" Content="All Off!" Style="{DynamicResource DefaultButtonStyle}" />
+        <TextBlock Grid.Row="6" Grid.Column="1" Name="statusLabel" Style="{DynamicResource DefaultTextBlockStyle}" />
+        <bnc:NavigationBar Grid.Row="9" Grid.ColumnSpan="2" x:Name="navBar" />
     </Grid>
 </Page>

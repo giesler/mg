@@ -51,12 +51,15 @@ namespace msn2.net.BarMonkey
     partial void InsertUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void UpdateUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void DeleteUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
-    partial void InsertContainer(Container instance);
-    partial void UpdateContainer(Container instance);
-    partial void DeleteContainer(Container instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertSetting(Setting instance);
+    partial void UpdateSetting(Setting instance);
+    partial void DeleteSetting(Setting instance);
+    partial void InsertContainer(Container instance);
+    partial void UpdateContainer(Container instance);
+    partial void DeleteContainer(Container instance);
     partial void InsertIngredient(Ingredient instance);
     partial void UpdateIngredient(Ingredient instance);
     partial void DeleteIngredient(Ingredient instance);
@@ -148,19 +151,27 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		public System.Data.Linq.Table<Container> Containers
-		{
-			get
-			{
-				return this.GetTable<Container>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Setting> Settings
+		{
+			get
+			{
+				return this.GetTable<Setting>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Container> Containers
+		{
+			get
+			{
+				return this.GetTable<Container>();
 			}
 		}
 		
@@ -1716,116 +1727,6 @@ namespace msn2.net.BarMonkey
 		}
 	}
 	
-	[Table(Name="dbo.Container")]
-	public partial class Container : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private decimal _Size;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnSizeChanging(decimal value);
-    partial void OnSizeChanged();
-    #endregion
-		
-		public Container()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Size", DbType="Decimal(9,2) NOT NULL")]
-		public decimal Size
-		{
-			get
-			{
-				return this._Size;
-			}
-			set
-			{
-				if ((this._Size != value))
-				{
-					this.OnSizeChanging(value);
-					this.SendPropertyChanging();
-					this._Size = value;
-					this.SendPropertyChanged("Size");
-					this.OnSizeChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[Table(Name="dbo.[User]")]
 	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2136,6 +2037,250 @@ namespace msn2.net.BarMonkey
 		}
 	}
 	
+	[Table(Name="dbo.Setting")]
+	public partial class Setting : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Value;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    #endregion
+		
+		public Setting()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Value", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Container")]
+	public partial class Container : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private decimal _Size;
+		
+		private decimal _WaterFlushOunces;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSizeChanging(decimal value);
+    partial void OnSizeChanged();
+    partial void OnWaterFlushOuncesChanging(decimal value);
+    partial void OnWaterFlushOuncesChanged();
+    #endregion
+		
+		public Container()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Size", DbType="Decimal(9,2) NOT NULL")]
+		public decimal Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_WaterFlushOunces", DbType="Decimal(9,1) NOT NULL")]
+		public decimal WaterFlushOunces
+		{
+			get
+			{
+				return this._WaterFlushOunces;
+			}
+			set
+			{
+				if ((this._WaterFlushOunces != value))
+				{
+					this.OnWaterFlushOuncesChanging(value);
+					this.SendPropertyChanging();
+					this._WaterFlushOunces = value;
+					this.SendPropertyChanged("WaterFlushOunces");
+					this.OnWaterFlushOuncesChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[Table(Name="dbo.Ingredient")]
 	public partial class Ingredient : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2161,6 +2306,8 @@ namespace msn2.net.BarMonkey
 		private int _ContainerOunces;
 		
 		private System.Nullable<System.DateTime> _LastFilled;
+		
+		private decimal _OuncesPerSecond;
 		
 		private EntitySet<DrinkIngredient> _DrinkIngredients;
 		
@@ -2196,6 +2343,8 @@ namespace msn2.net.BarMonkey
     partial void OnContainerOuncesChanged();
     partial void OnLastFilledChanging(System.Nullable<System.DateTime> value);
     partial void OnLastFilledChanged();
+    partial void OnOuncesPerSecondChanging(decimal value);
+    partial void OnOuncesPerSecondChanged();
     #endregion
 		
 		public Ingredient()
@@ -2268,7 +2417,7 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[Column(Storage="_RelayId", DbType="TinyInt NOT NULL")]
+		[Column(Storage="_RelayId", DbType="TinyInt")]
 		public System.Nullable<byte> RelayId
 		{
 			get
@@ -2408,6 +2557,26 @@ namespace msn2.net.BarMonkey
 					this._LastFilled = value;
 					this.SendPropertyChanged("LastFilled");
 					this.OnLastFilledChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_OuncesPerSecond", DbType="Decimal(10,2) NOT NULL")]
+		public decimal OuncesPerSecond
+		{
+			get
+			{
+				return this._OuncesPerSecond;
+			}
+			set
+			{
+				if ((this._OuncesPerSecond != value))
+				{
+					this.OnOuncesPerSecondChanging(value);
+					this.SendPropertyChanging();
+					this._OuncesPerSecond = value;
+					this.SendPropertyChanged("OuncesPerSecond");
+					this.OnOuncesPerSecondChanged();
 				}
 			}
 		}

@@ -67,15 +67,18 @@ namespace msn2.net.BarMonkey
         public ContainerManager Containers { get; private set; }
         public IngredientManager Ingredients { get; private set; }
         public RelayManager Relays { get; private set; }
+        public User ImpersonateUser { get; set; }
 
-        public double OuncesDispensedPerSecond
+        public List<Setting> Settings
         {
             get
             {
-                return 1.2;
+                var q = from s in this.Data.Settings
+                        orderby s.Name
+                        select s;
+
+                return q.ToList<Setting>();
             }
         }
-
-        public User ImpersonateUser { get; set; }
     }
 }

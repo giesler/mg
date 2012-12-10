@@ -74,13 +74,6 @@
       <Association Name="Ingredient_UserDrinkIngredientHistory" Member="Ingredient" ThisKey="IngredientId" Type="Ingredient" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Container" Member="Containers">
-    <Type Name="Container">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.Decimal" DbType="Decimal(9,2) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.[User]" Member="Users">
     <Type Name="User">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -96,18 +89,34 @@
       <Association Name="User_UserDrinkHistory" Member="UserDrinkHistories" OtherKey="UserId" Type="UserDrinkHistory" />
     </Type>
   </Table>
+  <Table Name="dbo.Setting" Member="Settings">
+    <Type Name="Setting">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Container" Member="Containers">
+    <Type Name="Container">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Decimal" DbType="Decimal(9,2) NOT NULL" CanBeNull="false" />
+      <Column Name="WaterFlushOunces" Type="System.Decimal" DbType="Decimal(9,1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.Ingredient" Member="Ingredients">
     <Type Name="Ingredient">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(512) NOT NULL" CanBeNull="false" />
-      <Column Name="RelayId" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="true" />
+      <Column Name="RelayId" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="RemainingOunces" Type="System.Decimal" DbType="Decimal(3,3) NOT NULL" CanBeNull="false" />
       <Column Name="IsAlchohol" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="WarningThreshold" Type="System.Decimal" DbType="Decimal(3,3)" CanBeNull="true" />
       <Column Name="IsPerishable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="ContainerOunces" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LastFilled" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="OuncesPerSecond" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Association Name="Ingredient_DrinkIngredient" Member="DrinkIngredients" OtherKey="IngredientId" Type="DrinkIngredient" />
       <Association Name="Ingredient_IngredientSubstitute" Member="IngredientSubstitutes" OtherKey="IngredientId" Type="IngredientSubstitute" />
       <Association Name="Ingredient_IngredientSubstitute1" Member="IngredientSubstitutes1" OtherKey="SubstitueIngredientId" Type="IngredientSubstitute" />

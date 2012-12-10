@@ -37,7 +37,7 @@ namespace msn2.net.BarMonkey
         {
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "New Drink", PageUrl = "Activities/NewDrink.xaml" });
-            list.Add(new Activity { Name = "Statistics", PageUrl = "Activities/Statistics.xaml" });
+            //list.Add(new Activity { Name = "Statistics", PageUrl = "Activities/Statistics.xaml" });
             list.Add(new Activity { Name = "Settings", PageUrl = "Activities/Settings.xaml" });
             return list;
         }

@@ -26,6 +26,7 @@ namespace msn2.net.BarMonkey.Activities
         private RelayControllerClient relayClient = new RelayControllerClient();
         private bool changingRelay = false;
         private bool changingIngredient = false;
+        private bool changingFlowRate = false;
 
         public RelaySettings()
         {
@@ -40,13 +41,20 @@ namespace msn2.net.BarMonkey.Activities
             this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
             this.seconds.ItemsSource = new int[] { 1, 2, 5, 10, 15, 20 };
 
+            List<decimal> ouncesItems = new List<decimal>();
+            for (decimal i = 0.0M; i < 40.0M; i++)
+            {
+                ouncesItems.Add(i * 0.1M);
+            }
+            this.ouncesPerSecond.ItemsSource = ouncesItems;
+
             this.relay.SelectedIndex = 0;
             this.seconds.SelectedIndex = 0;
             
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
-
+        
         private void relay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Relay relay = this.relay.SelectedItem as Relay;
@@ -57,10 +65,15 @@ namespace msn2.net.BarMonkey.Activities
             if (ingredient != null)
             {
                 this.ingredient.SelectedItem = ingredient;
+
+                this.changingFlowRate = true;
+                this.ouncesPerSecond.SelectedItem = ingredient.OuncesPerSecond;
+                this.changingFlowRate = false;
             }
             else
             {
                 this.ingredient.SelectedIndex = -1;
+                this.ouncesPerSecond.SelectedItem = -1;
             }
 
             this.changingRelay = false;
@@ -74,7 +87,7 @@ namespace msn2.net.BarMonkey.Activities
 
                 Relay relay = this.relay.SelectedItem as Relay;
                 Ingredient ingredient = this.ingredient.SelectedItem as Ingredient;
-
+                
                 if (ingredient != null)
                 {
                     if (ingredient.Relay != null)
@@ -121,6 +134,20 @@ namespace msn2.net.BarMonkey.Activities
                 }
 
                 this.changingIngredient = false;
+            }
+        }
+
+        private void ouncesPerSecond_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.changingFlowRate == false)
+            {
+                this.changingFlowRate = true;
+
+                Ingredient ingredient = this.ingredient.SelectedItem as Ingredient;
+                ingredient.OuncesPerSecond = (decimal)this.ouncesPerSecond.SelectedItem;
+                BarMonkeyContext.Current.Ingredients.UpdateIngredient(ingredient);
+                
+                this.changingFlowRate = false;
             }
         }
 

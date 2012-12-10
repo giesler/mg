@@ -40,7 +40,7 @@ namespace msn2.net.BarMonkey.Activities
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "Search", PageUrl = "Activities/SearchDrinks.xaml" });
             list.Add(new Activity { Name = "Browse A-Z", PageUrl = "Activities/BrowseByAlpha.xaml" });
-            list.Add(new Activity { Name = "Categories", PageUrl = "Activities/DrinkByCategory.xaml" });
+            //list.Add(new Activity { Name = "Categories", PageUrl = "Activities/DrinkByCategory.xaml" });
             return list;
         }
     }

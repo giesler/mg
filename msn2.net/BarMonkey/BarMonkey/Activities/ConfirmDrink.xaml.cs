@@ -35,12 +35,12 @@ namespace BarMonkey.Activities
             foreach (Container c in BarMonkeyContext.Current.Containers.GetContainers())
             {
                 this.containers.Items.Add(c);
+            }
 
-                if (this.container == null)
-                {
-                    this.container = c;
-                    this.containers.SelectedItem = c;
-                }
+            if (this.container == null)
+            {
+                this.containers.SelectedIndex = this.containers.Items.Count > 2 ? 2 : 0;
+                this.container = (Container)this.containers.SelectedItem;
             }
 
             if (BarMonkeyContext.Current.ImpersonateUser != null
