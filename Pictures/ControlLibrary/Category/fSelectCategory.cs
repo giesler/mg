@@ -120,13 +120,13 @@ namespace msn2.net.Pictures.Controls
 		private void cancel_Click(object sender, System.EventArgs e)
 		{
 			DialogResult	= DialogResult.Cancel;
-			Visible			= false;
+            this.Close();
 		}
 
 		private void ok_Click(object sender, System.EventArgs e)
 		{
 			DialogResult	= DialogResult.OK;
-			Visible			= false;
+            this.Close();
 
             lastSelected = this.SelectedCategory;
         }

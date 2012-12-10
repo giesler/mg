@@ -17,8 +17,6 @@ namespace msn2.net.Pictures.Controls
 	public class fAddPictures : System.Windows.Forms.Form
 	{
 
-		private bool mblnCancel;
-
 		private System.Windows.Forms.Label lblFiles;
 		private System.Windows.Forms.ListBox lstFiles;
 		private System.Windows.Forms.Button btnAddPictures;
@@ -593,7 +591,6 @@ namespace msn2.net.Pictures.Controls
             this.Name = "fAddPictures";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Pictures";
-            this.Load += new System.EventHandler(this.fAddPictures_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -608,7 +605,7 @@ namespace msn2.net.Pictures.Controls
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
-			mblnCancel = true;
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
 		}
 
@@ -823,10 +820,6 @@ namespace msn2.net.Pictures.Controls
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(CreateThumbs), ex);
 
-
-		//	stat.Dispose();
-			mblnCancel = false;
-
             FinishImport();
         }
 
@@ -899,6 +892,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
@@ -973,22 +967,18 @@ namespace msn2.net.Pictures.Controls
 				lstFiles.Items.Add(file);
 		}
 
-		private void fAddPictures_Load(object sender, System.EventArgs e)
-		{
-		
-		}
-
-		public bool Cancel
-		{
-			get
-			{
-				return mblnCancel;
-			}
-			set
-			{
-				mblnCancel = value;
-			}
-		}
+        public CategoryInfo ImportCategory
+        {
+            get
+            {
+                CategoryInfo category = null;
+                if (this.categoryPicker1.selectedCategories.Count > 0)
+                {
+                    category = PicContext.Current.CategoryManager.GetCategory(this.categoryPicker1.SelectedCategoryIds[0]);
+                }
+                return category;
+            }
+        }
 	
 	}
 }

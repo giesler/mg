@@ -347,6 +347,70 @@ namespace msn2.net.Pictures
             }
 
         }
+
+        public void MoveCategory(int categoryId, int newParentId)
+        {
+            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlCommand cmd = new SqlCommand("up_CategoryManager_MoveCategory", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@categoryId", SqlDbType.Int);
+            cmd.Parameters["@categoryId"].Value = categoryId;
+            cmd.Parameters.Add("@newParentCategoryId", SqlDbType.Int);
+            cmd.Parameters["@newParentCategoryId"].Value = newParentId;
+
+            try
+            {
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.IndexOf("cannot move") >= 0)
+                {
+                    throw new ApplicationException(ex.Message);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+            }
+        }
+
+        public void ReloadCategoryCache()
+        {
+            this.ReloadCategoryCache(this.GetRootCategory().CategoryId);
+        }
+
+        void ReloadCategoryCache(int categoryId)
+        {
+            List<CategoryInfo> subCats = this.GetCategories(categoryId);
+            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlCommand cmd = new SqlCommand("sp_CategorySubCategoryUpdate", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@categoryId", SqlDbType.Int);
+
+            cn.Open();
+            foreach (CategoryInfo info in subCats)
+            {
+                cmd.Parameters["@categoryId"].Value = info.CategoryId;
+                cmd.ExecuteNonQuery();
+            }
+            cn.Close();
+
+            foreach (CategoryInfo info in subCats)
+            {
+                this.ReloadCategoryCache(info.CategoryId);
+            }
+        }
 	}
 
 

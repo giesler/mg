@@ -15,6 +15,7 @@ namespace msn2.net.Pictures.Controls
         private ContextMenu categoryContextMenu;
 
         public event FilterChangedHandler FilterChanged;
+        private string selectPath = null;
 
         public PictureFilterTreeView()
         {
@@ -38,8 +39,12 @@ namespace msn2.net.Pictures.Controls
                 this.categoryContextMenu = new ContextMenu();
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Edit", new EventHandler(OnCategoryEdit)));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("&Move", new EventHandler(OnCategoryMove)));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Delete", new EventHandler(OnCategoryDelete)));
 
+                this.categoryNode.ContextMenu = new ContextMenu();
+                this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
+                this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Refresh", new EventHandler(OnCategoryRefresh)));
             }
         }
 
@@ -47,14 +52,20 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.DesignMode == false)
             {
-                this.categoryNode.Nodes.Clear();
+                this.ReloadCategories();
+
                 this.dateTakenNode.Nodes.Clear();
                 this.dateAddedNode.Nodes.Clear();
 
-                ThreadPool.QueueUserWorkItem(new WaitCallback(LoadCategories), null);
                 ThreadPool.QueueUserWorkItem(new WaitCallback(LoadDates), this.dateTakenNode);
                 ThreadPool.QueueUserWorkItem(new WaitCallback(LoadDates), this.dateAddedNode);
             }
+        }
+
+        private void ReloadCategories()
+        {
+            this.categoryNode.Nodes.Clear();
+            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadCategories), null);
         }
 
         private delegate void SetImageIndexDelegate(TreeNode node, int index);
@@ -63,7 +74,7 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.InvokeRequired == true)
             {
-                this.BeginInvoke(new SetImageIndexDelegate(SetImageIndex), new object[] { node, index });
+                this.Invoke(new SetImageIndexDelegate(SetImageIndex), new object[] { node, index });
             }
             else
             {
@@ -81,6 +92,7 @@ namespace msn2.net.Pictures.Controls
                 // clear tree
                 if (PicContext.Current != null)
                 {
+                    bool noSelectPath = this.selectPath == null;
                     // load first node
                     CategoryInfo rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
@@ -88,13 +100,16 @@ namespace msn2.net.Pictures.Controls
                     FillChildren(rootCategory, this.categoryNode, 2);
 
                     // Expand root node
-                    this.BeginInvoke(new TreeNodeHandler(
-                        delegate(TreeNode expandNode)
-                        {
-                            expandNode.Expand();
-                            this.SelectedNode = expandNode;
-                        }), 
-                        new object[] { this.categoryNode });
+                    if (noSelectPath == true)
+                    {
+                        this.BeginInvoke(new TreeNodeHandler(
+                            delegate(TreeNode expandNode)
+                            {
+                                expandNode.Expand();
+                                this.SelectedNode = expandNode;
+                            }),
+                            new object[] { this.categoryNode });
+                    }
 
                     this.SetImageIndex(this.categoryNode, 0);
                 }
@@ -104,7 +119,7 @@ namespace msn2.net.Pictures.Controls
                 MessageBox.Show("Error loading category tree: " + ex.Message);
             }
         }
-        
+
         private void FillChildren(CategoryInfo parentCategory, TreeNode n, int intLevelsToGo)
         {
             // clear out all child nodes
@@ -125,15 +140,47 @@ namespace msn2.net.Pictures.Controls
                 childNode.ContextMenu = this.categoryContextMenu;
                 this.AddTreeNode(n, childNode);
 
-                if (intLevelsToGo > 0)
+                bool inSelectPath = this.selectPath != null && this.selectPath.StartsWith(category.Path);
+
+                if (intLevelsToGo > 0 || inSelectPath)
                 {
                     this.FillChildren(category, childNode, intLevelsToGo - 1);
                 }
                 else
-                {   
+                {
                     // add a fake node to be filled in
                     this.AddTreeNode(childNode, new LoadingTreeNode());
                 }
+
+                if (this.selectPath != null && category.Path == this.selectPath)
+                {
+                    this.selectPath = null;
+                    this.SelectAndExpandToNode(childNode);
+                }
+            }
+        }
+
+        private void SelectAndExpandToNode(TreeNode node)
+        {
+            if (this.InvokeRequired == true)
+            {
+                this.Invoke(new TreeNodeHandler(this.SelectAndExpandToNode), node);
+            }
+            else
+            {
+                this.SelectedNode = node;
+
+                TreeNode temp = node;
+                while (temp != null)
+                {
+                    if (temp.IsExpanded == false)
+                    {
+                        temp.Expand();
+                    }
+                    temp = temp.Parent;
+                }
+
+                node.EnsureVisible();
             }
         }
 
@@ -141,12 +188,14 @@ namespace msn2.net.Pictures.Controls
 
         private void AddTreeNode(TreeNode parentNode, TreeNode childNode)
         {
-            this.Invoke(new AddTreeNodeDelegate(
-                delegate(TreeNode parent, TreeNode child)
-                {
-                    parent.Nodes.Add(child);
-                }),
-                new object[] { parentNode, childNode });
+            if (this.InvokeRequired == true)
+            {
+                this.Invoke(new AddTreeNodeDelegate(this.AddTreeNode), parentNode, childNode);
+            }
+            else
+            {
+                parentNode.Nodes.Add(childNode);
+            }
         }
 
         private void ValidateChildrenLoaded(CategoryTreeNode node)
@@ -159,12 +208,20 @@ namespace msn2.net.Pictures.Controls
 
         private void OnCategoryAdd(object sender, EventArgs e)
         {
-            CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
-            if (parentNode != null)
+            TreeNode selectedNode = this.SelectedNode;
+            if (selectedNode != null)
             {
                 fEditCategory ec = new fEditCategory();
 
-                ec.NewCategory(parentNode.Category.CategoryId);
+                CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
+                if (parentNode != null)
+                {
+                    ec.NewCategory(parentNode.Category.CategoryId);
+                }
+                else
+                {
+                    ec.NewCategory(PicContext.Current.CategoryManager.GetRootCategory().CategoryId);
+                }
 
                 ec.ShowDialog();
 
@@ -173,10 +230,10 @@ namespace msn2.net.Pictures.Controls
                     // add new tree node
                     CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.SelectedCategory);
                     newCategoryNode.ContextMenu = this.categoryContextMenu;
-                    parentNode.Nodes.Add(newCategoryNode);
+                    selectedNode.Nodes.Add(newCategoryNode);
 
                     // expand parent node and select new node
-                    parentNode.Expand();
+                    selectedNode.Expand();
                     this.SelectedNode = newCategoryNode;
                 }
             }
@@ -198,6 +255,34 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        private void OnCategoryMove(object sender, EventArgs e)
+        {
+            CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
+            if (node != null)
+            {
+                fSelectCategory dialog = new fSelectCategory();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        PicContext.Current.CategoryManager.MoveCategory(node.Category.CategoryId, dialog.SelectedCategory.CategoryId);
+                        CategoryInfo movedCategory = PicContext.Current.CategoryManager.GetCategory(node.Category.CategoryId);
+
+                        this.SelectCategory(movedCategory);
+                    }
+                    catch (ApplicationException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Move Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        void OnCategoryRefresh(object sender, EventArgs e)
+        {
+            this.ReloadCategories();
+        }
+
         private void OnCategoryDelete(object sender, EventArgs e)
         {
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
@@ -205,6 +290,15 @@ namespace msn2.net.Pictures.Controls
             {
                 CategoryTree.DeleteCategoryNode(node);
             }
+        }
+
+        public void SelectCategory(CategoryInfo category)
+        {
+            if (category != null)
+            {
+                this.selectPath = category.Path;
+            }
+            this.ReloadCategories();
         }
 
         #endregion
@@ -229,7 +323,7 @@ namespace msn2.net.Pictures.Controls
             }
 
             this.Invoke(
-                new DateLoadDelegate(DateSelector.LoadTreeView), 
+                new DateLoadDelegate(DateSelector.LoadTreeView),
                 new object[] { dates, fieldName, parentNode.Nodes, 1 });
 
             this.SetImageIndex(parentNode, 1);
@@ -278,9 +372,9 @@ namespace msn2.net.Pictures.Controls
 
             if (e.Node is CategoryTreeNode)
             {
-                CategoryTreeNode categoryNode = (CategoryTreeNode) e.Node;
+                CategoryTreeNode categoryNode = (CategoryTreeNode)e.Node;
                 whereClause = string.Format(
-                    "p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))", 
+                    "p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))",
                     categoryNode.Category.CategoryId);
             }
             else if (e.Node is DateFilterTreeNode && e.Node.Tag != null)
@@ -305,8 +399,6 @@ namespace msn2.net.Pictures.Controls
                 return IsNodeAParent(currentNode.Parent, possibleParent);
             }
         }
-
-
 
         protected override void OnClick(EventArgs e)
         {

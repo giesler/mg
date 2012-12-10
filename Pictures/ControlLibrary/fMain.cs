@@ -93,6 +93,7 @@ namespace msn2.net.Pictures.Controls
         private ToolStripLabel toolStripLabel2;
         private ToolStripComboBox maxPicCount;
         private PictureControlSettings settings = new PictureControlSettings();
+        private MenuItem menuItem4;
         private bool loading = true;
 		#endregion
 
@@ -219,6 +220,9 @@ namespace msn2.net.Pictures.Controls
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
@@ -254,6 +258,8 @@ namespace msn2.net.Pictures.Controls
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.maxPicCount = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -265,8 +271,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
-            this.maxPicCount = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -415,7 +420,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuItem3
             // 
-            this.menuItem3.Index = 4;
+            this.menuItem3.Index = 5;
             this.menuItem3.Text = "-";
             // 
             // mainMenu1
@@ -430,6 +435,7 @@ namespace msn2.net.Pictures.Controls
             this.menuAddPictures,
             this.menuRandomSlideshow,
             this.menuUpdateCachedPictures,
+            this.menuItem4,
             this.menuItem5,
             this.menuItem3,
             this.menuFileExit});
@@ -455,13 +461,13 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuItem5
             // 
-            this.menuItem5.Index = 3;
+            this.menuItem5.Index = 4;
             this.menuItem5.Text = "&Validate cached pictures";
             this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
             // 
             // menuFileExit
             // 
-            this.menuFileExit.Index = 5;
+            this.menuFileExit.Index = 6;
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
             // 
@@ -534,6 +540,26 @@ namespace msn2.net.Pictures.Controls
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel2.Text = "Max Pictures:";
+            // 
+            // maxPicCount
+            // 
+            this.maxPicCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.maxPicCount.Items.AddRange(new object[] {
+            "100",
+            "250",
+            "500",
+            "1000",
+            "2500",
+            "5000"});
+            this.maxPicCount.Name = "maxPicCount";
+            this.maxPicCount.Size = new System.Drawing.Size(75, 25);
+            this.maxPicCount.SelectedIndexChanged += new System.EventHandler(this.maxPicCount_SelectedIndexChanged);
+            // 
             // toolStripSelectAll
             // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
@@ -595,6 +621,22 @@ namespace msn2.net.Pictures.Controls
             this.filter.ImageIndex = 0;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
+            treeNode1.ImageIndex = 2;
+            treeNode1.Name = "";
+            treeNode1.SelectedImageIndex = 2;
+            treeNode1.Text = "Categories";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "Date Taken";
+            treeNode3.ImageIndex = 2;
+            treeNode3.Name = "";
+            treeNode3.SelectedImageIndex = 2;
+            treeNode3.Text = "Date Added";
+            this.filter.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3});
             this.filter.SelectedImageIndex = 0;
             this.filter.Size = new System.Drawing.Size(167, 364);
             this.filter.TabIndex = 0;
@@ -653,25 +695,11 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
             // 
-            // maxPicCount
+            // menuItem4
             // 
-            this.maxPicCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.maxPicCount.Items.AddRange(new object[] {
-            "100",
-            "250",
-            "500",
-            "1000",
-            "2500",
-            "5000"});
-            this.maxPicCount.Name = "maxPicCount";
-            this.maxPicCount.Size = new System.Drawing.Size(75, 25);
-            this.maxPicCount.SelectedIndexChanged += new System.EventHandler(this.maxPicCount_SelectedIndexChanged);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
-            this.toolStripLabel2.Text = "Max Pictures:";
+            this.menuItem4.Index = 3;
+            this.menuItem4.Text = "Update category cache";
+            this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
             // 
             // fMain
             // 
@@ -741,14 +769,15 @@ namespace msn2.net.Pictures.Controls
 			fAddPictures f = new fAddPictures();
             try
             {
-                f.ShowDialog(this);
+                if (f.ShowDialog(this) == DialogResult.OK)
+                {
+                    this.filter.SelectCategory(f.ImportCategory);
+                }
             }
             catch (ArgumentException)
             {
                 // BUGBUG: accesibility exception
             }
-
-            this.filter.Load();
 		}
 
 		private void mnuPictureListEdit_Click(object sender, System.EventArgs e)
@@ -1454,6 +1483,11 @@ namespace msn2.net.Pictures.Controls
             {
                 this.filter_FilterChanged(this.filter.WhereClause);
             }            
+        }
+
+        private void menuItem4_Click(object sender, EventArgs e)
+        {
+            PicContext.Current.CategoryManager.ReloadCategoryCache();
         }
 
     }

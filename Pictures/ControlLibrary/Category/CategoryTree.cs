@@ -414,8 +414,11 @@ namespace msn2.net.Pictures.Controls
         public void SetSelectedCategory(CategoryInfo category)
         {
             string path = category.Path;
-            CategoryTreeNode current = tvCategory.Nodes[0] as CategoryTreeNode;
-            this.SetSelectedCategory(current, category);
+            if (tvCategory.Nodes.Count > 0)
+            {
+                CategoryTreeNode current = tvCategory.Nodes[0] as CategoryTreeNode;
+                this.SetSelectedCategory(current, category);
+            }
         }
 
         private void SetSelectedCategory(CategoryTreeNode node, CategoryInfo selectCategory)
@@ -562,6 +565,8 @@ namespace msn2.net.Pictures.Controls
             this.category = category;
             this.Text = category.Name;
         }
+
+        internal bool IsLoadingChildren = false;
     }
 
     public class LoadingTreeNode : TreeNode
