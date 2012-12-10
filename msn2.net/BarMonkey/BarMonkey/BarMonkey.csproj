@@ -40,6 +40,8 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -62,11 +64,35 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Activities\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\CustomDrink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\MakeDrinkForUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\MySettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\PourDrink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\SearchDrinks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="KeyboardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserDrinkSearch.xaml">
+    <Page Include="NumericKeypad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,8 +120,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\CustomDrink.xaml.cs">
+      <DependentUpon>CustomDrink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\MakeDrinkForUser.xaml.cs">
+      <DependentUpon>MakeDrinkForUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\MySettings.xaml.cs">
+      <DependentUpon>MySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\PourDrink.xaml.cs">
+      <DependentUpon>PourDrink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\SearchDrinks.xaml.cs">
+      <DependentUpon>SearchDrinks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KeyboardControl.xaml.cs">
       <DependentUpon>KeyboardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumericKeypad.xaml.cs">
+      <DependentUpon>NumericKeypad.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -109,9 +156,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="UserDrinkSearch.xaml.cs">
-      <DependentUpon>UserDrinkSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserHome.xaml.cs">
       <DependentUpon>UserHome.xaml</DependentUpon>

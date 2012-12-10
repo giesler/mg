@@ -12,6 +12,8 @@ namespace msn2.net.BarMonkey
         public BarMonkeyContext()
         {
             this.dataContext = new BarMonkeyDataContext();
+            this.Drinks = new DrinkManager(this);
+            this.Users = new UserManager(this);
         }
 
         public BarMonkeyDataContext Data
@@ -52,5 +54,8 @@ namespace msn2.net.BarMonkey
         {
             this.userName = userName;
         }
+
+        public UserManager Users { get; private set; }
+        public DrinkManager Drinks { get; private set; }
     }
 }

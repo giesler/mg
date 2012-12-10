@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="BarMonkey.NumericKeypad"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="267" Width="277">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>		
+		<Button Grid.Column="0" Grid.Row="0" Content="1" Click="buttonPressed" />
+		<Button Grid.Column="1" Grid.Row="0" Content="2" Click="buttonPressed" />
+		<Label Grid.Column="1" Grid.Row="1" Content="A B C" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="2" Grid.Row="0" Content="3" Click="buttonPressed" />
+		<Label Grid.Column="2" Grid.Row="1" Content="D E F" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="0" Grid.Row="2" Content="4" Click="buttonPressed" />
+		<Label Grid.Column="0" Grid.Row="3" Content="G H I" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="1" Grid.Row="2" Content="5" Click="buttonPressed" />
+		<Label Grid.Column="1" Grid.Row="3" Content="J K L" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="2" Grid.Row="2" Content="6" Click="buttonPressed" />
+		<Label Grid.Column="2" Grid.Row="3" Content="M N O" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="0" Grid.Row="4" Content="7" Click="buttonPressed" />
+		<Label Grid.Column="0" Grid.Row="5" Content="P Q R S" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="1" Grid.Row="4" Content="8" Click="buttonPressed" />
+		<Label Grid.Column="1" Grid.Row="5" Content="T U V" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="2" Grid.Row="4" Content="9" Click="buttonPressed" />
+		<Label Grid.Column="2" Grid.Row="5" Content="W X Y Z" HorizontalAlignment="Center" VerticalAlignment="Top" />
+		<Button Grid.Column="0" Grid.Row="6" Content="DEL" Click="buttonPressed" />
+		<Button Grid.Column="1" Grid.Row="6" Content="0" Click="buttonPressed" />
+		<Label Grid.Column="1" Grid.Row="7" Content="|__|" HorizontalAlignment="Center" VerticalAlignment="Top" />
+	</Grid>
+</UserControl>

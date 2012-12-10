@@ -26,10 +26,8 @@ namespace BarMonkey
             InitializeComponent();
 
             this.userName.Content = BarMonkeyContext.Current.UserName;
-
-            var q = BarMonkeyContext.Current.Data.GetUsersFavoriteDrinks(1);
-            //List<GetUsersFavoriteDrink> drinkList = q.ToList<GetUsersFavoriteDrink>();
-            //this.favoriteList.DataContext = drinkList;            
+            this.Title = string.Format("{0}'s home", BarMonkeyContext.Current.UserName.ToLower());
+            this.pageTitle.Content = this.Title;
 
             this.contentFrame.Navigated += new NavigatedEventHandler(contentFrame_Navigated);
         }
@@ -39,7 +37,7 @@ namespace BarMonkey
             Page page = e.Content as Page;
             if (page != null)
             {
-                this.pageTitle.Content = page.Title;
+                this.pageTitle.Content = page.Title.ToLower();
             }
         }
 
@@ -47,16 +45,10 @@ namespace BarMonkey
         {
             this.NavigationService.Navigate(new Welcome());
         }
-    }
 
-    public class Activity
-    {
-        private string name;
-
-        public string Name
+        protected void home_click(object sender, EventArgs e)
         {
-            get { return name; }
-            set { name = value; }
+            this.contentFrame.Navigate(new UserHome());
         }
     }
 }

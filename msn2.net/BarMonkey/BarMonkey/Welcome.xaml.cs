@@ -30,6 +30,7 @@ namespace BarMonkeyControls
         {
             base.OnInitialized(e);
 
+            //userList.DataContext = BarMonkeyContext.Current.Data.Users.ToList<User>();
             foreach (User user in BarMonkeyContext.Current.Data.Users.ToList<User>())
             {
                 this.userList.Items.Add(user);
