@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1652630487
+Checksum =-2002909515
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -13,7 +13,7 @@ Begin Form
     GridX =24
     GridY =24
     Width =11985
-    ItemSuffix =275
+    ItemSuffix =279
     Left =405
     Top =405
     Right =12645
@@ -160,7 +160,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =6300
+            Height =6840
             BackColor =-2147483633
             Name ="Detail0"
             Begin
@@ -1436,7 +1436,7 @@ Begin Form
                 Begin Subform
                     OverlapFlags =85
                     Left =60
-                    Top =3960
+                    Top =4440
                     Width =11460
                     Height =2280
                     TabIndex =22
@@ -1445,6 +1445,71 @@ Begin Form
                     SourceObject ="Form.Frm_Purchase_Orders_Items"
                     GUID = Begin
                         0x07a3f554b66dda4698dbd627d9c75089
+                    End
+                End
+                Begin ComboBox
+                    RowSourceTypeInt =1
+                    OverlapFlags =87
+                    Left =9180
+                    Top =3840
+                    Width =2100
+                    TabIndex =23
+                    GUID = Begin
+                        0xf50073327de43942b17228e216a87cda
+                    End
+                    Name ="Combo275"
+                    ControlSource ="TruckSpace"
+                    RowSourceType ="Value List"
+                    RowSource ="1/4;1/2;3/4;Full"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
+                    Begin
+                        Begin Label
+                            OverlapFlags =93
+                            TextAlign =3
+                            Left =8040
+                            Top =3840
+                            Width =1140
+                            Height =240
+                            Name ="Label276"
+                            Caption ="Truck Space:"
+                            GUID = Begin
+                                0x8e8bd172b874cc42a669e5bf56aaaca8
+                            End
+                        End
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1080
+                    Top =3900
+                    Width =6720
+                    Height =420
+                    TabIndex =24
+                    Name ="Text277"
+                    ControlSource ="TrafficComments"
+                    FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
+                    ControlTipText ="Comments About PO"
+                    GUID = Begin
+                        0xd6ddd946b901784189b1b5a3bd920d81
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =3
+                    Top =3960
+                    Width =1020
+                    Height =435
+                    Name ="Label278"
+                    Caption ="Traffic Comments"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x7bbb5fd80302b844a5c25fd39412f8a1
                     End
                 End
             End
@@ -2138,7 +2203,7 @@ On Error GoTo errHandler
       Me.txtShipZip = !Ship_Zip
       Me.txtShipAttn = !Ship_Attn
       Me.txtShipPhone = !Ship_Phone
-      Me.cmbShipVia = !Ship_Via
+      Me.cmbShipVia = !Ship_via
     End If
     .Close
   End With

@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1455167997
+Checksum =-1700548890
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -11,9 +11,9 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =10920
+    Width =13980
     DatasheetFontHeight =10
-    ItemSuffix =50
+    ItemSuffix =69
     Left =345
     Top =135
     Right =8595
@@ -22,23 +22,21 @@ Begin Report
     OnNoData ="[Event Procedure]"
     Toolbar ="RFReportToolBar"
     RecSrcDt = Begin
-        0x7a9c2de98c4ee240
+        0x56d7dc2bda4fe240
     End
-    InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\"), Ge"
-        "tSPVar(\"Medite\"), GetSPVar(\"StoreSelName\"), GetSPVar(\"ShipVia\"), GetSPVar("
-        "\"RefNum\")"
-    RecordSource ="dbo.sp_Report_ShipmentSchedule"
+    InputParameters ="GetSPVar(\"PO\")"
+    RecordSource ="dbo.sp_Report_ShipmentConfirmation"
     Caption ="Shipment Schedule Ship Via"
     OnOpen ="[Event Procedure]"
     MenuBar ="RFReportMenuBar"
     DatasheetFontName ="Arial"
     PrtMip = Begin
-        0xd0020000d0020000400200001a03000000000000372a00005406000001000000 ,
+        0x18030000d0020000d00200004002000000000000a82a0000dc05000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
         0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
-        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x010400059c00340243ef800502000100ea0a6f08640001000f00580201000100 ,
         0x5802030001004c65747465720000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000010000000000000001000000 ,
         0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
@@ -91,156 +89,142 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =1500
-                    Top =2880
-                    Width =2880
-                    Height =360
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label19"
-                    Caption ="SHIP ADDRESS"
-                End
-                Begin Label
-                    TextFontFamily =34
-                    Left =4380
-                    Top =2880
-                    Width =1440
-                    Height =360
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label20"
-                    Caption ="PO #"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =5820
-                    Top =2640
-                    Width =1395
-                    Height =240
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label22"
-                    Caption ="ARRIVE DATE"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =5820
-                    Top =2940
-                    Width =1380
+                    Left =120
+                    Top =3000
+                    Width =870
                     Height =285
                     FontSize =10
                     FontWeight =700
-                    Name ="Label23"
-                    Caption ="SHIP DATE"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =7260
-                    Top =2640
-                    Width =1140
-                    Height =240
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label24"
-                    Caption ="WEIGHT"
-                End
-                Begin Label
-                    TextFontFamily =34
-                    Left =8460
-                    Top =2880
-                    Width =2340
-                    Height =360
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label25"
-                    Caption ="COMMENTS"
-                End
-                Begin Line
-                    Left =60
-                    Top =3360
-                    Width =10800
-                    Name ="Line26"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =60
-                    Top =2880
-                    Width =1440
-                    Height =360
-                    FontSize =10
-                    FontWeight =700
                     Name ="Label36"
-                    Caption ="SHIP TO"
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =7260
-                    Top =2940
-                    Width =1140
-                    Height =300
-                    FontSize =10
-                    FontWeight =700
-                    Name ="Label38"
-                    Caption ="FT of Truck"
-                End
-                Begin Line
-                    BorderWidth =1
-                    Top =691
-                    Width =10800
-                    Name ="Line0"
-                End
-                Begin Subform
-                    OldBorderStyle =0
-                    Width =7140
-                    Height =1047
-                    Name ="subLogo"
-                    SourceObject ="Report.rsubLogo"
+                    Caption ="Adderss"
                 End
                 Begin TextBox
                     FontUnderline = NotDefault
                     TextAlign =2
                     TextFontFamily =34
-                    Left =7
+                    Left =120
                     Top =1080
-                    Width =10800
+                    Width =11460
                     Height =705
                     FontSize =26
-                    TabIndex =1
                     Name ="Label5"
-                    ControlSource ="=\"Shipment Schedule for \" & [Ship_Via]"
+                    ControlSource ="=[Ship_Via]+\"(LIMITED STORE PLANNING)\""
                 End
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =60
-                    Top =2520
-                    Width =1440
-                    Height =360
+                    Left =2955
+                    Top =3060
+                    Width =825
+                    Height =285
                     FontSize =10
                     FontWeight =700
-                    Name ="Label40"
-                    Caption ="STORE #"
+                    Name ="Label56"
+                    Caption ="Contact"
                     GUID = Begin
-                        0x3ab7a49030f1da478f104621c316d742
+                        0xa1dca1d9f19d814c9b64794f6a92ac52
                     End
                 End
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =120
-                    Top =1860
-                    Width =10800
-                    Height =360
-                    FontSize =12
+                    Left =4875
+                    Top =3060
+                    Width =915
+                    Height =285
+                    FontSize =10
                     FontWeight =700
-                    Name ="lblCriteria"
+                    Name ="Label58"
+                    Caption ="LSP PO#"
                     GUID = Begin
-                        0xc712c55c42ba5b42875064269726a7b5
+                        0x0612e7da52110b40abe0a2006ecf90a0
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =6645
+                    Top =3060
+                    Width =945
+                    Height =285
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label60"
+                    Caption ="Due Date"
+                    GUID = Begin
+                        0xb66cfe342e060d4b8a87a4e75b7e5c6c
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =8160
+                    Top =2640
+                    Width =1260
+                    Height =720
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label61"
+                    Caption ="Please Let Us Know PU Date"
+                    GUID = Begin
+                        0x3d2257ecd5d1934dba0fca3864cdbd18
+                    End
+                End
+                Begin Label
+                    TextAlign =1
+                    TextFontFamily =34
+                    Left =10260
+                    Top =2640
+                    Width =1080
+                    Height =720
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label63"
+                    Caption ="Appr. Truck Space"
+                    GUID = Begin
+                        0xfaa542ef91131b4e8e6fb287ddd7b9a6
+                    End
+                End
+                Begin Label
+                    TextAlign =2
+                    TextFontFamily =34
+                    Left =11467
+                    Top =3060
+                    Width =1110
+                    Height =285
+                    FontSize =10
+                    FontWeight =700
+                    Name ="Label65"
+                    Caption ="Comments"
+                    GUID = Begin
+                        0xad8df77883681948ab4fa12015ded02f
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =120
+                    Top =120
+                    Width =11400
+                    Height =480
+                    FontSize =16
+                    Name ="Label67"
+                    Caption ="Please confirm shippnig and delivery with jobsite 24 hours prior to delivery."
+                    GUID = Begin
+                        0x1ed6cc878134f447a619aa2467b776d4
+                    End
+                End
+                Begin Label
+                    TextFontFamily =34
+                    Left =120
+                    Top =660
+                    Width =11400
+                    Height =360
+                    FontSize =10
+                    Name ="Label68"
+                    Caption ="PU at Retail Fixture, LLC 3000 Wolff Street Racine, WI 53404 (Darlene 262-619-30"
+                        "40) - Please let us know PU dates."
+                    GUID = Begin
+                        0xbe42343863d334408ea7f915cd39ac0f
                     End
                 End
             End
@@ -248,188 +232,117 @@ Begin Report
         Begin Section
             KeepTogether = NotDefault
             CanGrow = NotDefault
-            Height =1500
+            Height =1140
             Name ="Detail"
             Begin
                 Begin TextBox
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =5760
-                    Top =360
-                    Width =1380
-                    Height =360
-                    FontSize =10
-                    Name ="Ship_Date"
-                    ControlSource ="Ship_Date"
-                    Format ="m/d/yy"
+                    Left =120
+                    Top =60
+                    Width =2760
+                    Name ="Address0"
+                    ControlSource ="Address0"
+                    GUID = Begin
+                        0x841465767f9bc8428682548b0ee565d5
+                    End
                 End
                 Begin TextBox
-                    TextFontFamily =34
-                    Left =1440
-                    Top =960
-                    Width =2880
-                    FontSize =10
+                    Left =120
+                    Top =300
+                    Width =2760
                     TabIndex =1
-                    Name ="CITY_STATE"
-                    ControlSource ="CITY_STATE"
-                End
-                Begin TextBox
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =5760
-                    Width =1380
-                    Height =360
-                    FontSize =10
-                    TabIndex =2
-                    Name ="Arrive_Date"
-                    ControlSource ="Arrive_Date"
-                    Format ="m/d/yy"
-                End
-                Begin TextBox
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =7200
-                    Width =1140
-                    Height =360
-                    FontSize =10
-                    TabIndex =3
-                    Name ="txtExtendedWeight"
-                    ControlSource ="ExtWeight"
-                End
-                Begin TextBox
-                    EnterKeyBehavior = NotDefault
-                    ScrollBars =2
-                    TextFontFamily =34
-                    Left =8400
-                    Width =2400
-                    Height =723
-                    FontSize =10
-                    TabIndex =4
-                    Name ="FirstOfComments"
-                    ControlSource ="Comments"
-                End
-                Begin TextBox
-                    TextFontFamily =34
-                    Left =4320
-                    Height =720
-                    FontSize =11
-                    TabIndex =5
-                    Name ="txtPO"
-                    ControlSource ="=SplitPO([PONumber])"
-                End
-                Begin TextBox
-                    EnterKeyBehavior = NotDefault
-                    ScrollBars =2
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =60
-                    Top =420
-                    Width =1380
-                    Height =783
-                    FontSize =10
-                    TabIndex =6
-                    Name ="Priority"
-                    ControlSource ="Ship_Name"
-                End
-                Begin TextBox
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =7200
-                    Top =360
-                    Width =1140
-                    Height =360
-                    FontSize =10
-                    TabIndex =7
-                    Name ="Text39"
-                    ControlSource ="FTofTruckAmount"
-                End
-                Begin TextBox
-                    EnterKeyBehavior = NotDefault
-                    ScrollBars =2
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =60
-                    Width =1380
-                    Height =363
-                    FontSize =10
-                    TabIndex =8
-                    Name ="Text41"
-                    ControlSource ="Ship_StoreNo"
-                    GUID = Begin
-                        0x9ab8b990efc2de48915bbabf63661820
-                    End
-                End
-                Begin TextBox
-                    Left =1440
-                    Width =2880
-                    TabIndex =9
-                    Name ="Attn"
-                    ControlSource ="Attn"
-                    GUID = Begin
-                        0x2882474187ba0249a96e9bff1b068dd7
-                    End
-                End
-                Begin TextBox
-                    Left =1440
-                    Top =240
-                    Width =2880
-                    TabIndex =10
-                    Name ="Phone"
-                    ControlSource ="Phone"
-                    GUID = Begin
-                        0x6a320697d7ad394ab6803eb4efcb25d8
-                    End
-                End
-                Begin TextBox
-                    Left =1440
-                    Top =480
-                    Width =2880
-                    TabIndex =11
                     Name ="Address1"
                     ControlSource ="Address1"
                     GUID = Begin
-                        0x777c24a934e6b34e95148b1930855ecb
+                        0xdebf5146b52c204dac866a78cf25f058
                     End
                 End
                 Begin TextBox
-                    Left =1440
-                    Top =720
-                    Width =2880
-                    TabIndex =12
+                    Left =120
+                    Top =540
+                    Width =2760
+                    TabIndex =2
                     Name ="Address2"
                     ControlSource ="Address2"
                     GUID = Begin
-                        0x7c5748db01fee9438cedf5a665ebfc95
+                        0x1370f230bcc4f74f95dd86ce0f78a6fa
                     End
                 End
-                Begin Label
-                    Left =4380
-                    Top =840
-                    Width =1320
-                    Height =225
-                    Name ="Label47"
-                    Caption ="More Comments:"
+                Begin TextBox
+                    Left =120
+                    Top =780
+                    Width =2760
+                    TabIndex =3
+                    Name ="City_State_Zip"
+                    ControlSource ="City_State_Zip"
                     GUID = Begin
-                        0x0b0bda7a2fd7cd4584957953b2773ef9
+                        0x2c22dbb82a8f92458b9f4ebe123ef91d
+                    End
+                End
+                Begin TextBox
+                    Left =2940
+                    Top =60
+                    Width =1860
+                    TabIndex =4
+                    Name ="Ship_Name"
+                    ControlSource ="Ship_Name"
+                    GUID = Begin
+                        0x39165844294f12409ad839568ba5ac4f
+                    End
+                End
+                Begin TextBox
+                    Left =4860
+                    Top =60
+                    Width =1740
+                    TabIndex =5
+                    Name ="PO"
+                    ControlSource ="PO"
+                    GUID = Begin
+                        0xa247ed107f61f24ca4a950fda0e33bc3
+                    End
+                End
+                Begin TextBox
+                    Left =6660
+                    Top =60
+                    TabIndex =6
+                    Name ="Arrive_Date"
+                    ControlSource ="Arrive_Date"
+                    GUID = Begin
+                        0x058dfd7b067b3f448d914f22c364bae3
                     End
                 End
                 Begin Rectangle
-                    Left =5760
-                    Top =840
-                    Width =4980
-                    Height =480
-                    Name ="Box48"
+                    Left =8160
+                    Top =60
+                    Width =1980
+                    Height =960
+                    Name ="Box62"
                     GUID = Begin
-                        0x2b2bb68798eb2540bf7e3842680392f8
+                        0xf655767fb7b49c4b8e63780eaa64b4a1
                     End
                 End
-                Begin Line
-                    Left =60
-                    Top =1440
-                    Width =10680
-                    Name ="Line49"
+                Begin TextBox
+                    Left =10260
+                    Top =60
+                    Width =1080
+                    TabIndex =7
+                    Name ="TruckSpace"
+                    ControlSource ="TruckSpace"
                     GUID = Begin
-                        0x80ee5407350e3d4999ea20856c99e27a
+                        0xdc5b2e2fbe3fe242aad5eaaca3279ae1
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    Left =11460
+                    Top =60
+                    Width =2460
+                    Height =963
+                    TabIndex =8
+                    Name ="TrafficComments"
+                    ControlSource ="TrafficComments"
+                    GUID = Begin
+                        0x45a0c79f6b7b4846bcb5ce96eafffa63
                     End
                 End
             End
@@ -459,7 +372,7 @@ Begin Report
                     FontItalic = NotDefault
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3240
+                    Left =5100
                     Top =60
                     Width =4200
                     Name ="Text54"
@@ -486,7 +399,7 @@ Begin Report
                     FontItalic = NotDefault
                     TextAlign =3
                     TextFontFamily =34
-                    Left =7500
+                    Left =10800
                     Top =60
                     Width =3120
                     TabIndex =1
@@ -509,7 +422,7 @@ Option Compare Database
 Option Explicit
 
 Private Sub Report_NoData(Cancel As Integer)
-MsgBox "There were no POs for the criteria entered: " & vbCrLf & Me.lblCriteria.Caption, vbExclamation
+MsgBox "There were no POs.", vbExclamation
 Cancel = True
 End Sub
 
@@ -517,65 +430,16 @@ End Sub
 Private Sub Report_Open(Cancel As Integer)
 On Error GoTo errHandler
 
-  Dim fC As Form_frptShipmentSchedule, strCrit As String
-  Set fC = New Form_frptShipmentSchedule
+  Dim fC As Form_frptShipmentConfirmation, strCrit As String
+  Set fC = New Form_frptShipmentConfirmation
   fC.Caption = Me.Caption
-  fC.lblDate.Caption = "Ship Date:"
   
   Pause fC
 
   If fC.mblnCancel Then
     Cancel = True
   Else
-    SetSPVar "ShipFromDate", fC.datFrom
-    SetSPVar "ShipToDate", fC.datTo
-    SetSPVar "SoldName", fC.cmbSoldName
-    If fC.lstWheatboard = 1 Then
-      SetSPVar "Medite", 1
-    ElseIf fC.lstWheatboard = 2 Then
-      SetSPVar "Medite", 0
-    Else
-      SetSPVar "Medite", Null
-    End If
-    SetSPVar "StoreSelName", Null
-    SetSPVar "ShipVia", fC.cmbShipVia
-    SetSPVar "RefNum", fC.txtRefNum
-    strCrit = FormatFromTo(fC.datFrom, fC.datTo)
-    If strCrit <> "" Then strCrit = "Ship Date " + strCrit
-    If fC.cmbSoldName <> "" Then
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      strCrit = strCrit + "Customer: " + fC.cmbSoldName
-    End If
-    If fC.lstWheatboard = 1 Then        ' only medite
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      strCrit = strCrit & "Wheatboard Shipments"
-    ElseIf fC.lstWheatboard = 2 Then    ' only non medite
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      strCrit = strCrit & "Non-Wheatboard Shipments"
-    End If
-    If fC.txtRefNum <> "" Then
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      strCrit = strCrit & "Ref #: " & fC.txtRefNum
-    End If
-    
-    'Store
-    gConn.Execute "DELETE FROM ztmpStoreSel WHERE StoreSelName = '" + GetNTUserName() + "'"
-    If fC.lstStore.ItemsSelected.Count > 0 Then
-      SetSPVar "StoreSelName", GetNTUserName()
-      Dim crit As String, msg As String, varItm As Variant
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      For Each varItm In fC.lstStore.ItemsSelected
-        gConn.Execute "insert ztmpStoreSel (Store, StoreSelName) values ('" + DQ(fC.lstStore.ItemData(varItm)) + "', '" + GetNTUserName() + "')"
-        If msg <> "" Then msg = msg & ", " Else msg = "Store: "
-        msg = msg & fC.lstStore.ItemData(varItm)
-      Next varItm
-      strCrit = strCrit & msg
-    End If
-    If fC.cmbShipVia <> "" Then
-      If strCrit <> "" Then strCrit = strCrit + ", "
-      strCrit = strCrit + "Ship Via: " + fC.cmbShipVia
-    End If
-    'Me.lblCriteria.Caption = strCrit
+    SetSPVar "PO", fC.txtPO
   End If
   
   Set fC = Nothing

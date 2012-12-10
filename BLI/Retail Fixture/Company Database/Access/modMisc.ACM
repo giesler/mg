@@ -90,6 +90,7 @@ If fR.chkShipmentScheduleVia Then RunPrint "rptShipmentScheduleShipVia", rptView
 If fR.chkShipmentScheduleWheat Then RunPrint "rptShipmentScheduleWheat", rptView
 If fR.chkCustShipmentSchedule Then RunPrint "rptCustShipmentSchedule", rptView
 If fR.chkShipmentSummary Then RunPrint "rptShipmentSummary", rptView
+If fR.chkShipmentConfirmation Then RunPrint "rptShipmentConfirmation", rptView
 
 ' TAB - SALES REPORTS
 If fR.chkTotalSalesByClass Then RunPrint "rptTotalSalesByClass", rptView

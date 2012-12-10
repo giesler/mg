@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1440834827
+Checksum =1483465997
 Begin Form
     PopUp = NotDefault
     Modal = NotDefault
@@ -23,7 +23,7 @@ Begin Form
     GridY =24
     Width =7860
     DatasheetFontHeight =10
-    ItemSuffix =158
+    ItemSuffix =160
     Left =3705
     Top =1980
     Right =13605
@@ -87,7 +87,7 @@ Begin Form
             LabelY =-30
         End
         Begin Section
-            Height =4380
+            Height =4860
             BackColor =-2147483633
             Name ="Detail"
             Begin
@@ -96,7 +96,7 @@ Begin Form
                     Left =105
                     Top =120
                     Width =7665
-                    Height =3840
+                    Height =4275
                     Name ="TabCtl34"
                     Begin
                         Begin Page
@@ -104,7 +104,7 @@ Begin Form
                             Left =240
                             Top =525
                             Width =7395
-                            Height =3300
+                            Height =3735
                             Name ="pagInventory"
                             Caption ="Inventory Reports"
                             Begin
@@ -278,7 +278,7 @@ Begin Form
                             Left =240
                             Top =525
                             Width =7395
-                            Height =3300
+                            Height =3735
                             Name ="pagShipment"
                             Caption ="Shipment Reports"
                             Begin
@@ -527,6 +527,35 @@ Begin Form
                                     Name ="Label79"
                                     Caption ="Enter dates."
                                 End
+                                Begin CheckBox
+                                    OverlapFlags =247
+                                    Left =300
+                                    Top =3900
+                                    Width =5640
+                                    Height =360
+                                    TabIndex =6
+                                    Name ="chkShipmentConfirmation"
+                                    DefaultValue ="False"
+                                    GUID = Begin
+                                        0xd7597e563fa0a8459c323d6815208b27
+                                    End
+                                    Begin
+                                        Begin Label
+                                            OverlapFlags =247
+                                            Left =600
+                                            Top =3900
+                                            Width =2505
+                                            Height =240
+                                            FontWeight =700
+                                            ForeColor =8388608
+                                            Name ="Label159"
+                                            Caption ="Shipment Confirmation"
+                                            GUID = Begin
+                                                0x6c830d28990515439fd4df5f6f9be378
+                                            End
+                                        End
+                                    End
+                                End
                             End
                         End
                         Begin Page
@@ -534,7 +563,7 @@ Begin Form
                             Left =240
                             Top =525
                             Width =7395
-                            Height =3300
+                            Height =3735
                             Name ="pagSales"
                             Caption ="Sales Reports"
                             Begin
@@ -796,7 +825,7 @@ Begin Form
                             Left =240
                             Top =525
                             Width =7395
-                            Height =3300
+                            Height =3735
                             Name ="pagOrders"
                             Caption ="Orders Reports"
                             Begin
@@ -1052,7 +1081,7 @@ Begin Form
                             Left =240
                             Top =525
                             Width =7395
-                            Height =3300
+                            Height =3735
                             Name ="pagOtherReports"
                             Caption ="Other Reports"
                             GUID = Begin
@@ -1385,7 +1414,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =67
                     Left =6540
-                    Top =4020
+                    Top =4500
                     Width =1140
                     Height =300
                     TabIndex =1
@@ -1398,7 +1427,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =80
                     Left =2940
-                    Top =4020
+                    Top =4500
                     Width =1140
                     Height =300
                     TabIndex =2
@@ -1410,7 +1439,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =82
                     Left =4140
-                    Top =4020
+                    Top =4500
                     Width =1140
                     Height =300
                     TabIndex =3
@@ -1422,7 +1451,7 @@ Begin Form
                     OverlapFlags =85
                     AccessKey =69
                     Left =5340
-                    Top =4020
+                    Top =4500
                     Width =1140
                     Height =300
                     TabIndex =4
