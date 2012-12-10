@@ -373,15 +373,6 @@ namespace HomeCalendarView {
         protected global::HomeCalendarView.ForecastItem day1Low;
         
         /// <summary>
-        /// day1Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day1Events;
-        
-        /// <summary>
         /// day2Label control.
         /// </summary>
         /// <remarks>
@@ -407,15 +398,6 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::HomeCalendarView.ForecastItem day2Low;
-        
-        /// <summary>
-        /// day2Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day2Events;
         
         /// <summary>
         /// day3Label control.
@@ -445,15 +427,6 @@ namespace HomeCalendarView {
         protected global::HomeCalendarView.ForecastItem day3Low;
         
         /// <summary>
-        /// day3Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day3Events;
-        
-        /// <summary>
         /// day4Label control.
         /// </summary>
         /// <remarks>
@@ -479,23 +452,5 @@ namespace HomeCalendarView {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::HomeCalendarView.ForecastItem day4Low;
-        
-        /// <summary>
-        /// day4Events control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::HomeCalendarView.CalendarItemDisplay day4Events;
-        
-        /// <summary>
-        /// upcomingEvents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel upcomingEvents;
     }
 }

@@ -65,12 +65,12 @@ namespace HomeCalendarView
             this.refreshTimer.Tick += new EventHandler<EventArgs>(refreshTimer_Tick);
             this.refreshTimer.Interval = 60 * 1000 * new Random().Next(18, 23);
 
-            this.todayLabel.Text = DateTime.Now.ToString("dddd MMMM d").ToLower(); 
+            this.todayLabel.Text = DateTime.Now.ToString("dddd MMMM d").ToUpper(); 
             this.todayDateLabel.Text = "Last update " + DateTime.Now.ToShortTimeString();
             //this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
-            this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
-            this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
-            this.day4Label.Text = DateTime.Now.AddDays(4).ToString("dddd").ToLower();
+            this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToUpper();
+            this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToUpper();
+            this.day4Label.Text = DateTime.Now.AddDays(4).ToString("dddd").ToUpper();
 
             if (this.IsPostBack == false)
             {
@@ -79,9 +79,6 @@ namespace HomeCalendarView
 
             Trace.Write("Current weather");
             DisplayCurrent();
-
-            Trace.Write("Cal");
-            DisplayCalendar();
 
             Trace.Write("Forecast");
             DisplayForecast();
@@ -145,7 +142,7 @@ namespace HomeCalendarView
             {
                 GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
                 string xml = weatherService.NDFDgenByDay(this.currentLocation.Lattitude,
-                    this.currentLocation.Longitude, DateTime.Now.Date, "7", GovWeatherService.formatType.Item12hourly);
+                    this.currentLocation.Longitude, DateTime.Now.Date, "7", "e", "12 hourly");
                 cache.Add(this.CacheName("forecastCache"), xml, null, DateTime.Now.AddMinutes(20),
                     TimeSpan.Zero, CacheItemPriority.Normal, null);
             }
@@ -203,7 +200,7 @@ namespace HomeCalendarView
                 this.todayHigh.Visible = !night;
                 this.todayHighDiv.Visible = !night;
                 this.todayForecastInnerDiv.Style[HtmlTextWriterStyle.Width] = night ? "80px" : "160px";
-                this.todayForecastLabel.Text = night ? "tonight" : "forecast";
+                this.todayForecastLabel.Text = night ? "TONIGHT" : "FORECAST";
 
                 foreach (XmlNode tempNode in weatherXml.DocumentElement.SelectNodes("data/parameters/temperature"))
                 {
@@ -395,56 +392,6 @@ namespace HomeCalendarView
         //    lng = decimal.Parse(latLongs[1]);
         //}
 
-        private void DisplayCalendar()
-        {
-            List<CalendarItem> items = null;
-
-            try
-            {
-                //items = GetCalendarItems();
-            }
-            catch (Exception ex)
-            {
-                //this.upcomingEvents.Controls.Add(new Label { Text = "Error loading: " + ex.Message });
-            }
-
-            if (items != null)
-            {
-                todaysEvents.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.Date).ToList<CalendarItem>());
-                day1Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(1).Date).ToList<CalendarItem>());
-                day2Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(2).Date).ToList<CalendarItem>());
-                day3Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(3).Date).ToList<CalendarItem>());
-                day4Events.BindToEventList(items.Where(ci => ci.EventDate.Date == DateTime.Now.AddDays(4).Date).ToList<CalendarItem>());
-
-                var q = from ci in items
-                        where ci.EventDate.Date >= DateTime.Now.AddDays(5).Date && ci.EventDate.Date <= DateTime.Now.AddDays(14)
-                        orderby ci.EventDate
-                        select ci;
-                int count = 0;
-                foreach (CalendarItem item in q.Take(3))
-                {
-                    if (count > 0)
-                    {
-                        Label comma = new Label();
-                        comma.Text = ", ";
-                        this.upcomingEvents.Controls.Add(comma);
-                    }
-
-                    Label label = new Label();
-                    label.Text = this.GetDateString(item.EventDate) + ": ";
-                    this.upcomingEvents.Controls.Add(label);
-
-                    HyperLink eventLink = new HyperLink();
-                    eventLink.Text = item.Title;
-                    eventLink.NavigateUrl = item.Url;
-                    eventLink.Target = "_top";
-                    this.upcomingEvents.Controls.Add(eventLink);
-
-                    count++;
-                }
-            }
-        }
-
         void LoadCurrent(object sender)
         {
             System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
@@ -556,9 +503,17 @@ namespace HomeCalendarView
                     if (q != null)
                     {
                         string gusts = q.InnerText;
-                        if (gusts != "NA")
+                        if (gusts != "NA")                        
                         {
-                            this.windLabel.Text += ",<br />gusts&nbsp;to&nbsp;" + gusts;
+                            int val = 0;
+                            if (int.TryParse(gusts, out val) && val == 0)
+                            {
+                                this.windLabel.Text += ",<br />calm";
+                            }
+                            else
+                            {
+                                this.windLabel.Text += ",<br />gusts&nbsp;to&nbsp;" + gusts;
+                            }
                         }
                     }
                 }
@@ -585,8 +540,7 @@ namespace HomeCalendarView
                     string conditionImage = conditionNode.InnerText;
                     conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
                     this.currentCondition.ImageUrl = conditionImage;
-                    this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
-                    this.currentConditionText.Text = this.currentCondition.AlternateText;
+                    this.currentConditionText.Text = doc.DocumentElement.SelectSingleNode("weather").InnerText;
                     this.currentCondition.Visible = true;
                 }
                 else
@@ -982,7 +936,7 @@ namespace HomeCalendarView
 
             if (this.currentLocation.Name == "Kirkland")
             {
-                this.webcamUrl.NavigateUrl = "http://chicks.msn2.net/";
+                this.webcamUrl.NavigateUrl = "http://cc.msn2.net/long";
                 this.webcamPicture.ImageUrl = "webcam.aspx";
             }
             else

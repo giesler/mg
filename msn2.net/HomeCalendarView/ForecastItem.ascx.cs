@@ -42,11 +42,11 @@ namespace HomeCalendarView
         {
             get
             {
-                return this.image.AlternateText;
+                return this.image.ToolTip;
             }
             set
             {
-                this.image.AlternateText = value;
+                this.image.ToolTip = value;
             }
         }
 

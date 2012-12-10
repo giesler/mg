@@ -8,7 +8,7 @@
     <title>home.msn2.net Calendar</title>
     <link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
-<body class="defaultText" style="border: solid 1px silver; padding: 0px 0px 0px 0px;
+<body class="defaultText" style="border: solid 1px black; padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px">
     <form id="form1" runat="server">
     <asp:ScriptManager runat="server" />
@@ -23,8 +23,8 @@
                             <table border="1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="http://chicks.msn2.net/long" Target=_blank>
-                                            <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="40" ImageUrl="http://chicks.msn2.net/long" BorderWidth="0" />
+                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="http://cc.msn2.net/long" Target=_blank>
+                                            <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="40" ImageUrl="http://cc.msn2.net/long" BorderWidth="0" />
                                         </asp:HyperLink>
                                     </td>
                                 </tr>
@@ -101,7 +101,7 @@
                             <table cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:Label runat="server" ID="todayForecastLabel" CssClass="vertLabel">forecast</asp:Label>
+                                        <asp:Label runat="server" ID="todayForecastLabel" CssClass="vertLabel">FORECAST</asp:Label>
                                     </td>
                                     <td>
                                         <div runat="server" id="todayForeastDiv" visible="false">
@@ -152,7 +152,7 @@
             <asp:Panel runat="server" ID="forecastPanel" CssClass="fPanel">
                 <div class="dayPanel">
                     <div class="dayHeader">
-                        <asp:Label runat="server" ID="day1Label" CssClass="dateLabel">tomorrow</asp:Label>
+                        <asp:Label runat="server" ID="day1Label" CssClass="dateLabel">TOMORROW</asp:Label>
                     </div>
                     <div class="fItems">
                         <div class="fItem">
@@ -161,9 +161,6 @@
                         <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day1Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
-                    </div>
-                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
-                        <uc1:CalendarItemDisplay ID="day1Events" runat="server" />
                     </div>
                 </div>
                 <div class="dayPanelAlt">
@@ -178,9 +175,6 @@
                             <ucb:ForecastItem runat="server" ID="day2Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
-                        <uc1:CalendarItemDisplay ID="day2Events" runat="server" />
-                    </div>
                 </div>
                 <div class="dayPanel">
                     <div class="dayHeader">
@@ -194,9 +188,6 @@
                             <ucb:ForecastItem runat="server" ID="day3Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
-                        <uc1:CalendarItemDisplay ID="day3Events" runat="server" />
-                    </div>
                 </div>
                 <div class="dayPanelAlt">
                     <div class="dayHeader">
@@ -209,21 +200,6 @@
                         <div class="fItem">
                             <ucb:ForecastItem runat="server" ID="day4Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
-                    </div>
-                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
-                        <uc1:CalendarItemDisplay ID="day4Events" runat="server" />
-                    </div>
-                </div>
-                <div style="height: 15px; padding: 2px 2px 2px 2px; width: 100%; background-color: #B6BCC4; visibility: hidden; position: fixed">
-                    <div style="float: left">
-                        <!--Next&nbsp;2&nbsp;weeks:&nbsp;&nbsp;-->
-                    </div>
-                    <div style="float: left">
-                        <asp:Panel runat="server" ID="upcomingEvents" />
-                    </div>
-                    <div style="float: right; padding: 2px 4px 2px 2px">
-                        Calendar: <a href="http://home.msn2.net/Lists/Events/NewForm.aspx?RootFolder=%2FLists%2FEvents&Source=http%3A%2F%2Fhome%2Emsn2%2Enet%2FLists%2FEvents%2Fcalendar%2Easpx"
-                            target="_top">Add</a> | <a href="http://home.msn2.net/Lists/Events/" target="_top">View</a>
                     </div>
                 </div>
             </asp:Panel>
