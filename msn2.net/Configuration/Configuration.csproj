@@ -124,6 +124,7 @@
     <Compile Include="Config.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConfigTree.cs" />
     <Compile Include="Data.cs">
       <SubType>Code</SubType>
     </Compile>

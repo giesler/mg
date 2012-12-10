@@ -86,6 +86,7 @@
     <Reference Include="System.Runtime.Serialization.Formatters.Soap">
       <Name>System.Runtime.Serialization.Formatters.Soap</Name>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
@@ -103,9 +104,55 @@
     <Compile Include="ConfigData.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataSetCategory.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetDataItem.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ShellCategory.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataSetCategory.xsc">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategory.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSetCategory.xss">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategory.xsx">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetDataItem.xsc">
+      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetDataItem.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetDataItem.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSetDataItem.xss">
+      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetDataItem.xsx">
+      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
+    </None>
     <None Include="PictureAdmin.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ShellCategory.resx">
+      <DependentUpon>ShellCategory.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
