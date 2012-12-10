@@ -15,6 +15,16 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (this.email.Text.Length > 0)
+            {
+                this.password.Focus();
+            }
+        }
+
         private void login_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;

@@ -11,6 +11,7 @@
     <meta http-equiv="refresh" content="<%= HttpRefreshURL %>">
     <link href="msn2.css" type="text/css" rel="stylesheet">
     <title>MSN2 Picture Viewer</title>
+    <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.2)" /> 
 </head>
 <body class="pictureMode" leftmargin="0" topmargin="0">
     <form method="post" runat="server">
@@ -48,7 +49,7 @@
                         <asp:DataList ID="dlPerson" Width="100%" runat="server" CssClass="infoPanelText"
                             RepeatDirection="Horizontal" RepeatLayout="Flow">
                             <ItemTemplate>
-                                <asp:Label ID="lblPersonFullName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'>
+                                <asp:Label ID="lblPersonFullName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Name") %>'>
                                 </asp:Label>
                             </ItemTemplate>
                             <SeparatorTemplate>
@@ -148,7 +149,7 @@
                             <asp:DataList ID="securityList" runat="server" Width="100%" CssClass="infoPanelText"
                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
                                 <ItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupName") %>'>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Name") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <SeparatorTemplate>

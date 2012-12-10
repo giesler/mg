@@ -10,8 +10,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
-using System.Security.Cryptography;
-using System.Text;
 using msn2.net.Pictures;
 #endregion
 
@@ -83,14 +81,10 @@ namespace pics.auth
 			}
             Page.GetPostBackEventReference(this);
 
-			// encrypt the password
-            MD5 md5 = MD5.Create();
-            byte[] bPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(password.Text));
+            string pwd = UserManager.GetEncryptedPassword(password.Text);
 
-			bool valid	= false;
-			string pwd	= Encoding.ASCII.GetString(bPassword);
-
-			PersonInfo info = PicContext.Current.UserManager.Login(email.Text, pwd, ref valid);
+            bool valid = false;
+            PersonInfo info = PicContext.Current.UserManager.Login(email.Text, pwd, ref valid);
 
             // Check if login is valid
 			if (info != null) 
@@ -117,6 +111,7 @@ namespace pics.auth
                 lnkNewLogin.NavigateUrl = "NewLogin.aspx?email=" + Server.UrlEncode(email.Text);
             }
 		}
+
 		#endregion
 	}
 
