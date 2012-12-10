@@ -8,13 +8,14 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>msn2.net.BarMonkey.RelayController</RootNamespace>
-    <AssemblyName>ConsoleRelayController</AssemblyName>
+    <AssemblyName>RelayControllerConsole</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,11 +57,12 @@
     <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RelayController\RelayController\RelayController.csproj">
+    <ProjectReference Include="..\RelayControllerLibrary\RelayControllerLibrary.csproj">
       <Project>{64AD3109-8D57-40EC-A48F-4D387F3CEE59}</Project>
-      <Name>RelayController</Name>
+      <Name>RelayControllerLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
