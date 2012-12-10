@@ -18,9 +18,9 @@ namespace pics
 	/// </summary>
 	public class picview : System.Web.UI.Page
 	{
+		#region Declares
 		protected System.Web.UI.WebControls.Label lblTitle;
 		protected System.Web.UI.WebControls.Label lblPictureDate;
-		protected System.Web.UI.WebControls.Panel pnlPageControls;
 		protected System.Web.UI.WebControls.HyperLink lnkReturn;
 		protected System.Web.UI.HtmlControls.HtmlTableCell tdPicture;
 		protected System.Web.UI.WebControls.Panel pnlDescription;
@@ -34,8 +34,11 @@ namespace pics
 		protected System.Web.UI.WebControls.HyperLink lnkNext;
 		protected System.Web.UI.WebControls.Label lblCategory;
 		protected System.Web.UI.HtmlControls.HtmlTableRow titleRow;
-	
+		protected System.Web.UI.WebControls.Panel panelNext;
+		protected System.Web.UI.WebControls.Panel pictureLocation;
+		protected System.Web.UI.WebControls.Label nextBarNote;
 		protected String m_HttpRefreshURL;
+		#endregion
 
 		public picview()
 		{
@@ -76,12 +79,29 @@ namespace pics
 					SetCategory(Convert.ToInt32(Request.QueryString["c"]));
 				}
 				else if (sourceType.Equals("search"))
+				{
 					cmdPic.CommandText = "p_Search_GetPictures";	/// switch based on type
+				}
 				else if (sourceType.Equals("random"))
+				{
 					cmdPic.CommandText = "p_GetPicture";
+				}
 				cmdPic.CommandType   = CommandType.StoredProcedure;
 				cmdPic.Connection    = cn;
 				SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
+
+				if (sourceType.Equals("category"))
+				{
+					//lblCategory.Text	= "toget: category";
+				}
+				else if (sourceType.Equals("search"))
+				{
+					lblCategory.Text	= "Search Results";
+				}
+				else if (sourceType.Equals("random"))
+				{
+					lblCategory.Text	= "Random Picture";
+				}
 
 				// set up params on the SP
 				if (sourceType.Equals("category")) 
@@ -129,9 +149,11 @@ namespace pics
 
 				// now create the picture
 				Picture curPic = new Picture();
-				curPic.Filename = dr["Filename"].ToString();
+				//curPic.Filename = dr["Filename"].ToString();
+				curPic.SetPictureById((int) dr["PictureId"], 700, 750);
 				curPic.Height   = Convert.ToInt32(dr["Height"]);
 				curPic.Width	= Convert.ToInt32(dr["Width"]);
+				curPic.ID		= "currentPicture";
 				tdPicture.Controls.Add(curPic);
 				
 
@@ -175,13 +197,31 @@ namespace pics
 
 					if (intCurRec == intTotalCount) 
 					{
-						m_HttpRefreshURL = "10;URL=" + lnkReturn.NavigateUrl;
+						Control c = LoadControl("Controls//AutoTimer.ascx");
+						AutoTimer at			= (AutoTimer) c;
+						at.NavigateUrl			= lnkReturn.NavigateUrl;
+						at.Seconds				= 15;
+						at.Visible				= true;
+//						m_HttpRefreshURL = "10;URL=" + lnkReturn.NavigateUrl;
+						panelNext.Controls.Add(at);
+
+						lnkNext.Visible			= true;
+						lnkNext.NavigateUrl		= lnkReturn.NavigateUrl;
 					} 
 					else 
 					{
-						m_HttpRefreshURL = "10;URL=" 
-							+ strURL.Replace("{0}", Convert.ToString(intCurRec+1)) + "#title";
+						Control c = LoadControl("Controls//AutoTimer.ascx");
+						AutoTimer at			= (AutoTimer) c;
+						at.NavigateUrl			= strURL.Replace("{0}", Convert.ToString(intCurRec+1)) + "#title";
+						at.Seconds				= 15;
+						at.Visible				= true;
+						panelNext.Controls.Add(at);
+
+						lnkNext.Visible			= true;
+						lnkNext.NavigateUrl		= lnkReturn.NavigateUrl;
 					}
+
+					nextBarNote.Visible			= true;
 
 				} 
 				else 
@@ -202,12 +242,19 @@ namespace pics
 					}
 				}
 
-				lblPicture.Text  = intCurRec.ToString();
-				lblPictures.Text = intTotalCount.ToString();
+				if (sourceType.Equals("random"))
+				{
+					pictureLocation.Visible = false;
+				}
+				else
+				{
+					lblPicture.Text  = intCurRec.ToString();
+					lblPictures.Text = intTotalCount.ToString();
+				}
 
 				// if in random mode, hide page controls
-				if (sourceType.Equals("random"))
-					pnlPageControls.Visible = false;
+//				if (sourceType.Equals("random"))
+//					pnlPageControls.Visible = false;
 
 			}
 
@@ -243,9 +290,10 @@ namespace pics
 		#region Private Methods
 		private void SetCategory(int categoryId)
 		{
-			PicServices svc = new PicServices();
-			DataSetCategory ds = svc.GetCategory(categoryId);
-			lblCategory.Text = ds.Tables[0].Rows[0]["CategoryName"].ToString();
+			CategoryManager catMan		= new CategoryManager();
+			Category cat				= catMan.GetCategory(categoryId);
+			lblCategory.Text			= cat.Name;
+
 		}
 		#endregion
 	}

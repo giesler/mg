@@ -11,56 +11,36 @@
 		<meta content="JavaScript (ECMAScript)" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
-		<style>
-			.areaPanel
-			{
-				filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#DAD8D8', EndColorStr='#ffffff');
-				border-bottom: black 1px solid;		
-				padding-right: 2px;
-				padding-left: 2px;
-				padding-bottom: 2px;
-				padding-top: 2px;
-			}
+		<style>.areaPanel { PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#DAD8D8'); PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: black 1px solid }
 		</style>
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<form id="Form1" method="post" runat="server">
-			<pics:header id="ctlHeader" runat="server" size="small" header="Pictures"></pics:header>
+			<pics:header id="ctlHeader" runat="server" header="Pictures" size="small"></pics:header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
 					<td class="msn2headerfade" colSpan="4" height="3"><IMG height="3" src="images/blank.gif"></td>
 				</tr>
 				<tr>
-					<td class="msn2sidebar" width="125" valign="top" rowspan="3">
-						<picctls:Sidebar id="Sidebar1" runat="server">
-							<asp:panel id="childCategoryList" CssClass="note" Runat="server">
-								<I>
-									<asp:Label id="categoriesInLabel" Runat="server">Categories in<br></asp:Label>
-									<asp:Label id="currentCategory" Runat="server">[current category]</asp:Label>: </I><br>
-							</asp:panel>
-						</picctls:Sidebar>
-					</td>
-					<td class="fadeExtension" colspan="3" height="10">
-						<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">You are here: </asp:panel>
+					<td class="msn2sidebar" vAlign="top" width="125" rowSpan="3">
+						<picctls:sidebar id="Sidebar1" runat="server">
+						</picctls:sidebar>
 					</td>
 				</tr>
 				<tr height="25">
 					<td>
-						<table cellSpacing="0" cellPadding="0" width="100%" border="0" class="areaPanel">
+						<table class="areaPanel" cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td><asp:label id="lblCurrentCategory" Runat="server" Font-Size="12" Font-Bold="true">Current Category Title</asp:label></td>
-								<td align="right"><asp:hyperlink id="lnkSlideshow" Runat="server" Visible="False">Slideshow</asp:hyperlink></td>
-							</tr>
-							<tr>
-								<td colSpan="2">
-									<asp:label id="lblCategoryDesc" Runat="server"></asp:label>
+								<td>
+									<asp:panel id="youAreHerePanel" Runat="server" CssClass="note" Width="100%"></asp:panel>
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td class="msn2contentwindow" valign="top">
+					<td class="msn2contentwindow" vAlign="top">
+						<asp:panel id="childCategoryList" Runat="server" CssClass="note"></asp:panel>
 						<asp:panel id="pnlthumbs" Runat="server"></asp:panel>
 					</td>
 				</tr>

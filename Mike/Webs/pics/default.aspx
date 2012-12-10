@@ -1,6 +1,6 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="pics.Cdefault" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="pics.Cdefault" %>
+<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -19,10 +19,10 @@
 				<tr>
 					<td class="msn2sidebar" width="125" valign="top">
 						<picctls:Sidebar id="Sidebar1" runat="server">
-							<picctls:contentpanel id="searchPanel" title="Search" runat="server" align="center" width="100%">
-<asp:TextBox id="searchQuery" Runat="server" Width="100px"></asp:TextBox>&nbsp; 
+							<picctls:contentpanel id="searchPanel" title="Search" runat="server" width="100%" align="center">
+<asp:TextBox id="searchQuery" Width="100px" Runat="server"></asp:TextBox>&nbsp; 
       <BR>
-<asp:Button id="search" Runat="server" Text=" Search " CssClass="smallButton"></asp:Button></picctls:contentpanel>
+<asp:Button id="search" Runat="server" CssClass="smallButton" Text=" Search "></asp:Button></picctls:contentpanel>
 						</picctls:Sidebar>
 					</td>
 					<td class="msn2sidebarfade" width="4"></td>
@@ -36,6 +36,9 @@
 											name or description to search for on the left.
 										</P>
 									</picctls:contentpanel>
+									<p>
+										<picctls:CategoryListViewItem id="rootCategory" runat="server" CategoryId="1" NavigateUrl="Categories.aspx"></picctls:CategoryListViewItem>
+									</p>
 									<HR color="gainsboro" SIZE="1">
 									<table cellPadding="8" width="95%" align="center">
 										<tr>

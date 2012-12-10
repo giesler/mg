@@ -24,6 +24,7 @@ namespace pics
 		protected pics.Controls.ContentPanel searchPanel;
 		protected pics.Controls.Sidebar Sidebar1;
 		protected pics.Controls.ContentPanel welcomeMessage;
+		protected pics.Controls.CategoryListViewItem rootCategory;
 		protected System.Web.UI.WebControls.DataList dlRecent;
 	
 		public Cdefault()
@@ -73,7 +74,7 @@ namespace pics
 			// create new control
 			ThumbnailList thumbs = new ThumbnailList();
 			thumbs.PageReturnURL	= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString()
-				+ "&type=random"; //"default.aspx";
+				+ "&type=random&RefUrl=default.aspx"; //"default.aspx";
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
 //			thumbs.PageNavURL		= "picview.aspx?p=" + dsPics.Tables["Pictures"].Rows[0]["PictureID"].ToString();
 			randomPicture.Controls.Add(thumbs);

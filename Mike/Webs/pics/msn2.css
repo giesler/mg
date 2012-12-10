@@ -17,6 +17,81 @@ A:hover
 	text-decoration: underline;
 }
 
+.progressBox
+{
+	border-right: silver 1px solid;
+	border-top: #dcdcdc 1px solid;
+	left: 0px;
+	border-left: #dcdcdc 1px solid;
+	width: 40px;
+	border-bottom: silver 1px solid;
+	position: static;
+	top: 0px;
+	height: 5px;
+}
+.progressBar
+{
+	width: 0px;
+	height: 3px;
+	background: navy;
+	z-index: 2;
+	position: static;
+	top: 0px;
+	left: 0px;
+}
+
+.categoryDesc
+{
+	font-size: 10pt;
+}
+
+A.categoryLink
+{
+	font-weight: bold;
+	font-size: 12pt;
+	text-decoration: none;
+}
+
+.picTopBack
+{
+   filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#000000', EndColorStr='#707070')
+}
+
+.picNoteCell
+{
+	color: white;
+	font-family: Arial;
+	background-color: #f0f0f0;
+}
+
+.folderImageCell
+{
+	background-image: url(Images/folder.gif);
+}
+
+.categorySmallLink
+{
+	font-size: 8pt;
+	text-decoration: none;
+}
+
+A:visited.categorySmallLink
+{
+	font-size: 8pt;
+	text-decoration: none;
+}
+
+A.categorySmallLink
+{
+	font-size: 8pt;
+	text-decoration: none;
+}
+
+.categoryTextCell
+{
+	font-size: 8pt;
+}
+
 .msn2headerTable
 {
    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#007300', EndColorStr='#000000')
@@ -43,6 +118,7 @@ A:hover
 .msn2sidebar
 {
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#C0C0C0', EndColorStr='#DAD8D8');
+    margin-right: 5px;
 }
 
 .msn2sidebarfade
@@ -275,6 +351,23 @@ A.headerLink
 	font-size: 12px;
 }
 
+.sidebarTaskLink
+{
+	font-size: 12px;
+	text-decoration: none;
+}
+
+A:visited.sidebarTaskLink
+{
+	font-size: 12px;
+	text-decoration: none;
+}
+
+A.sidebarTaskLink
+{
+	font-size: 12px;
+	text-decoration: none;
+}
 
 .sidebar
 {

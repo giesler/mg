@@ -86,6 +86,11 @@
                     AssemblyName = "System.Web.Services"
                     HintPath = "D:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
                 />
+                <Reference
+                    Name = "Iterators"
+                    AssemblyName = "Iterators"
+                    HintPath = "..\..\..\vss\Iter\bin\Debug\Iterators.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -108,6 +113,22 @@
                 <File
                     RelPath = "Categories.aspx.resx"
                     DependentUpon = "Categories.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "CategoryManager.asmx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "CategoryManager.asmx.cs"
+                    DependentUpon = "CategoryManager.asmx"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CategoryManager.asmx.resx"
+                    DependentUpon = "CategoryManager.asmx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -180,6 +201,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "GetItem.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "GetItem.aspx.cs"
+                    DependentUpon = "GetItem.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "GetItem.aspx.resx"
+                    DependentUpon = "GetItem.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "GetRanndomPictureConfigData.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -233,6 +270,22 @@
                 <File
                     RelPath = "PicServices.asmx.resx"
                     DependentUpon = "PicServices.asmx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "PictureManager.asmx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "PictureManager.asmx.cs"
+                    DependentUpon = "PictureManager.asmx"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PictureManager.asmx.resx"
+                    DependentUpon = "PictureManager.asmx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -319,6 +372,22 @@
                 <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "WebForm1.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "WebForm1.aspx.cs"
+                    DependentUpon = "WebForm1.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebForm1.aspx.resx"
+                    DependentUpon = "WebForm1.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Admin\AuthNewLogin.aspx"
@@ -462,6 +531,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\AutoTimer.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\AutoTimer.ascx.cs"
+                    DependentUpon = "AutoTimer.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\AutoTimer.ascx.resx"
+                    DependentUpon = "AutoTimer.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\controls.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -479,11 +564,27 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Images\folder.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\Folder12x12.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\folderEmpty.png"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Images\ie.jpg"
                     BuildAction = "Content"
                 />
                 <File
                     RelPath = "Images\info.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\info_icon.png"
                     BuildAction = "Content"
                 />
                 <File
@@ -520,6 +621,14 @@
                 />
                 <File
                     RelPath = "Images\sideVerticalLine.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\slideshow.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\slideshow12x9.png"
                     BuildAction = "Content"
                 />
                 <File

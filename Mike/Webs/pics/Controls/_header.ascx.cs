@@ -28,6 +28,13 @@ namespace pics.Controls
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+
+			// If in 'cd' mode, do not show user info
+			if (Session["mode"] == "cd")
+			{
+				_showUserInfo = false;
+			}
+
 			String strAppPath = Request.ApplicationPath;
 			if (!strAppPath.Equals("/"))  
 				strAppPath = strAppPath + "/";
@@ -42,9 +49,7 @@ namespace pics.Controls
 
 				// Add first row
 				TableRow tr = new TableRow();
-#if DEBUG
-				tr.BorderWidth = 1;
-#endif
+				tr.BorderWidth = 0;
 				tr.Height = 30;
 				headerTable.Rows.Add(tr);
                 
@@ -110,18 +115,12 @@ namespace pics.Controls
 					PersonInfo pi = (PersonInfo) Session["PersonInfo"];
 
                     Table tLoginInfo = new Table();
-#if DEBUG
-					tLoginInfo.BorderWidth = 1;
-#endif
 					tLoginInfo.Height	= Unit.Percentage(100);
 					tLoginInfo.Width	= Unit.Percentage(100);
 					tc.Controls.Add(tLoginInfo);
 
 					// top row will have nav links
 					tr = new TableRow();
-#if DEBUG
-					tr.BorderWidth = 1;
-#endif
 					tr.Height = 30;
 					tLoginInfo.Rows.Add(tr);
 					tc = new TableCell();

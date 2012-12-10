@@ -18,7 +18,7 @@ namespace pics
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-
+			
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)
@@ -29,7 +29,10 @@ namespace pics
 				// load the user info into the session
 				PersonInfo pi = new PersonInfo(Convert.ToInt32(User.Identity.Name));
 				Session["PersonInfo"] = pi;
+
 			}
+
+			Session["MySelectedList"] = new pics.Controls.PictureIdCollection();
 
 		}
 

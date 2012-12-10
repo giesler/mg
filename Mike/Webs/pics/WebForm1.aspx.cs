@@ -16,6 +16,8 @@ namespace pics
 	/// </summary>
 	public class WebForm1 : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.Button setCDMode;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -37,8 +39,15 @@ namespace pics
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.setCDMode.Click += new System.EventHandler(this.setCDMode_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
+
+		private void setCDMode_Click(object sender, System.EventArgs e)
+		{
+			Session["mode"] = "cd";
+		}
 	}
 }

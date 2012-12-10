@@ -25,12 +25,53 @@ namespace pics.Controls
 		private int width;
 		private int height;
 		private string filename;
+		private string cssClass;
+		private int pictureId;
+		private int maxHeight;
+		private int maxWidth;
 
 		/// <summary>
 		/// Creates a new Picture object
 		/// </summary>
 		public Picture()
 		{}
+
+		public void SetPictureById(int id, int maxHeight, int maxWidth)
+		{
+			this.pictureId		= id;
+			this.maxHeight		= maxHeight;
+			this.maxWidth		= maxWidth;
+
+//			// load the person's info
+//			PersonInfo pi = (PersonInfo) HttpContext.Current.Session["PersonInfo"];
+//
+//			SqlConnection cn = new SqlConnection(Config.ConnectionString);
+//
+//			// Set up SP to retreive picture
+//			SqlCommand cmdPic    = new SqlCommand();
+//			cmdPic.CommandText = "p_GetPicture";
+//			cmdPic.CommandType   = CommandType.StoredProcedure;
+//			cmdPic.Connection    = cn;
+//			SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
+//
+//			// set up params on the SP
+//			cmdPic.Parameters.Add("@PictureID", id);
+//			cmdPic.Parameters.Add("@StartRecord", 0);
+//			cmdPic.Parameters.Add("@ReturnCount", 1);
+//			cmdPic.Parameters.Add("@MaxHeight", 125);
+//			cmdPic.Parameters.Add("@MaxWidth", 125);
+//			cmdPic.Parameters.Add("@PersonID", pi.PersonID);
+//			cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
+//			cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
+//
+//			// run the SP, set datasource to the picture list
+//			cn.Open();
+//			DataSet ds		= new DataSet();
+//			daPic.Fill(ds, "Picture");
+//			DataRow dr		= ds.Tables[0].Rows[0];
+//			filename		= dr["Filename"].ToString();
+
+		}
 
 		protected override void CreateChildControls() 
 		{
@@ -47,18 +88,35 @@ namespace pics.Controls
 
 			// see if file wasn't set
 			if (filename == null)
-				throw new Exception("Filename is blank");
-
-			image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
+			{
+				image.ImageUrl = strAppPath + "GetItem.aspx?p=" + pictureId.ToString() + "&mw=" + maxWidth.ToString() + "&mh=" + maxHeight.ToString();
+			}
+			else
+			{
+				image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
+			}
 
 			// If we have height / width, set them
 			if (height > 0)
 				image.Height = height;
 			if (width > 0)
 				image.Width = width;
-
 			this.Controls.Add(image);
 
+		}
+
+		protected override void Render(HtmlTextWriter writer)
+		{
+			writer.Write("<div id=\"" + this.ID + "\"");
+			if (cssClass != null)
+			{
+				writer.Write(" class=\"" + cssClass + "\"");
+			}
+			writer.Write(">");
+
+			base.Render(writer);
+
+			writer.Write("</div>");
 		}
 	
 		/// <summary>
@@ -73,6 +131,18 @@ namespace pics.Controls
 			set 
 			{
 				filename = value;
+			}
+		}
+
+		public string CssClass
+		{
+			get 
+			{
+				return cssClass;
+			}
+			set
+			{
+				cssClass = value;
 			}
 		}
 
@@ -257,6 +327,7 @@ namespace pics.Controls
 				tctPic.VerticalAlign	= VerticalAlign.Middle;
 				tctPic.Height			= 145;
 				tctPic.Width			= 145;
+				tctPic.CssClass			= "picTopBack";
 				tctPic.Style.Add("POSITION", "relative");
 				trtPic.Controls.Add(tctPic);
 
@@ -266,9 +337,20 @@ namespace pics.Controls
 					panel.CssClass	= "checkboxPanel";
 					tctPic.Controls.Add(panel);
 
-					PictureCheckBox checkBox		= new PictureCheckBox(0);
+					int pictureId	= (int) System.Web.UI.DataBinder.Eval(e.Item.DataItem, "PictureId");
+
+					PictureCheckBox checkBox		= new PictureCheckBox(pictureId);
 					checkBox.AutoPostBack			= true;
+					checkBox.CheckedChanged			+= new EventHandler(checkBox_Clicked);
 					panel.Controls.Add(checkBox);
+
+					// See if we need to set the checkbox state
+					PictureIdCollection mySelectedList	= (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+					if (mySelectedList.Contains(pictureId))
+					{
+						checkBox.Checked			= true;
+					}
+			
 				}
 
 				// Add link to cell for clicking on picture
@@ -278,6 +360,359 @@ namespace pics.Controls
 				tctPic.Controls.Add(lnkPicZoomPic);
 
 				// Add picture to cell
+				Picture curPic = new Picture();
+				curPic.SetPictureById(Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "PictureId")), 125, 125);
+//				curPic.Filename = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "FileName").ToString();
+//				curPic.Height	= Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Height"));
+//				curPic.Width	= Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Width"));
+				lnkPicZoomPic.Controls.Add(curPic);
+
+				TableRow noteRow = new TableRow();
+				tPic.Rows.Add(noteRow);
+
+				TableCell noteCell = new TableCell();
+				noteCell.CssClass		= "picNoteCell";
+				noteRow.Cells.Add(noteCell);
+
+				HyperLink lnkPicZoom	= new HyperLink();
+				lnkPicZoom.NavigateUrl	= System.Web.UI.DataBinder.Eval(e.Item.DataItem, 
+					"RecNumber", pageReturnURL);
+				lnkPicZoom.CssClass		= "whitenote";
+				lnkPicZoom.Text			= System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Title").ToString();
+				if (lnkPicZoom.Text.Length > 15)
+					lnkPicZoom.Text = lnkPicZoom.Text.Substring(0, 13) + "...";
+				noteCell.Controls.Add(lnkPicZoom);
+
+				if (lnkPicZoom.Text.Length == 0) 
+				{
+					Literal lit = new Literal();
+					lit.Text = "&nbsp;";
+					noteCell.Controls.Add(lit);
+				}
+
+				TableCell tcCounter = new TableCell();
+				tcCounter.CssClass		= "picNoteCell";
+				tcCounter.VerticalAlign = VerticalAlign.Bottom;
+				tcCounter.HorizontalAlign = HorizontalAlign.Right;
+				noteRow.Cells.Add(tcCounter);
+
+				if (showRecordNumber) 
+				{
+					HyperLink countLink = new HyperLink();
+					countLink.Text = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "RecNumber").ToString();
+					countLink.CssClass = "recnum";
+					countLink.NavigateUrl = System.Web.UI.DataBinder.Eval(e.Item.DataItem, 
+						"RecNumber", pageReturnURL);
+					tcCounter.Controls.Add(countLink);
+				}
+
+				// finally, add table to this dataitem
+				e.Item.Controls.Add(t);
+			}
+
+		}
+
+		#region Properties
+		/// <summary>
+		/// Sets the datasource to display pictures
+		/// </summary>
+		public Object ThumbsDataSource
+		{
+			set 
+			{
+				thumbList.DataSource = value;
+				thumbList.DataBind();
+			}
+
+		}
+
+		/// <summary>
+		/// Sets the page to return to after clicking a picture to zoom in
+		/// </summary>
+		public String PageReturnURL 
+		{
+			set 
+			{
+				pageReturnURL = value;
+			}
+		}
+
+		/// <summary>
+		/// Message to display when there are no pictures in the data source
+		/// </summary>
+		public String NoPictureMessage 
+		{
+			set 
+			{
+				noPicturesMessage = value;
+			}
+		}
+
+		/// <summary>
+		/// Returns true if the current control has pictures - note it will only return 
+		/// a valid value after the control has been added to a page.
+		/// </summary>
+		public bool HasPictures 
+		{
+			get 
+			{
+				return (thumbList.Items.Count != 0);
+			}
+		}
+
+		/// <summary>
+		/// Shows the record number in the corner of each thumbnail
+		/// </summary>
+		public bool ShowRecordNumber 
+		{
+			set 
+			{
+				showRecordNumber = value;
+			}
+		}
+
+		public bool ShowCheckBox
+		{
+			get
+			{
+				return showCheckBox;
+			}
+			set
+			{
+				showCheckBox = value;
+			}
+		}
+		#endregion
+		#region Event Handlers
+		private void checkBox_Clicked(object sender, EventArgs e)
+		{
+			if (PictureCheckBoxClicked != null)
+			{
+				PictureCheckBox p = (PictureCheckBox) sender;
+				PictureCheckBoxClicked(sender, new PictureCheckBoxEventArgs(p.PicId, p.Checked));
+				HttpContext.Current.Trace.Write("pics.Controls.ThumbnailList", "Clicked picture ID " + p.PicId);
+			}
+		}
+		#endregion
+		#region Events
+		public event PictureCheckBoxClickedEventHandler PictureCheckBoxClicked;
+		#endregion
+	}
+
+	public delegate void PictureCheckBoxClickedEventHandler(object sender, PictureCheckBoxEventArgs e);
+
+	public class PictureCheckBoxEventArgs: EventArgs
+	{
+		private int picId;
+		private bool isChecked;
+
+		public PictureCheckBoxEventArgs(int picId, bool isChecked)
+		{
+			this.PicId = picId;
+			this.isChecked = isChecked;
+		}
+
+		public int PicId
+		{
+			get 
+			{
+				return picId;
+			}
+			set
+			{
+				picId = value;
+			}
+		}
+
+		public bool Checked
+		{
+			get
+			{
+				return isChecked;
+			}
+		}
+	}
+
+	#endregion
+
+	#region CategoryList Control
+	/// <summary>
+	///		Creates a DataList view of the passed Picture list
+	/// </summary>
+	public class CategoryList: System.Web.UI.Control, System.Web.UI.INamingContainer
+	{
+		#region Declares
+		protected System.Web.UI.WebControls.DataList thumbList;
+		protected String pageReturnURL;
+		protected String noPicturesMessage;
+		protected bool showRecordNumber;
+		protected bool showCheckBox;
+		#endregion
+
+		/// <summary>
+		/// Basic constructor
+		/// </summary>
+		public CategoryList()
+		{
+
+			// set up dlPicture
+			thumbList = new DataList();
+			thumbList.ItemDataBound += new DataListItemEventHandler(PictureItemDataBind);
+			thumbList.Visible = true;
+
+			// Set basic props of DataList
+			thumbList.RepeatDirection	= RepeatDirection.Horizontal;
+			thumbList.HorizontalAlign	= HorizontalAlign.Center;
+			thumbList.Width				= Unit.Percentage(100);
+			thumbList.RepeatColumns		= 3;
+			thumbList.BorderColor		= Color.FromArgb(204, 204, 204);
+			thumbList.BorderStyle		= BorderStyle.None;
+			thumbList.CellPadding		= 3;
+			thumbList.GridLines			= GridLines.Both;
+			thumbList.BorderWidth		= Unit.Pixel(0);
+
+		}
+
+
+		protected override void CreateChildControls() 
+		{
+			// Add this list to this objects controls
+			this.Controls.Add(thumbList);
+
+			// see if there are any records in the data source
+			if (!HasPictures) 
+			{
+				Table t = new Table();
+				t.HorizontalAlign = HorizontalAlign.Center;
+				this.Controls.Add(t);
+
+				// add a blank row for spacing
+				TableRow tr = new TableRow();
+				tr.Height   = Unit.Pixel(50);
+				t.Rows.Add(tr);
+
+				// fill blank row with a blank space
+				TableCell tc  = new TableCell();
+				tc.ColumnSpan = 3;
+				tc.Text		  = "&nbsp;";
+				tr.Cells.Add(tc);
+
+				// second row with everything in it
+				tr = new TableRow();
+				t.Rows.Add(tr);
+
+				// blank cell
+				tc = new TableCell();
+				tc.Width	= Unit.Pixel(50);
+				tc.Text		= "&nbsp;";
+				tr.Cells.Add(tc);
+
+				// cell with 'i' image
+				tc = new TableCell();
+				tc.VerticalAlign	= VerticalAlign.Middle;
+				tc.HorizontalAlign	= HorizontalAlign.Center;
+				tr.Cells.Add(tc);
+
+				// 'i' image
+				HtmlImage img = new HtmlImage();
+				img.Src	= "Images/info.jpg";
+				tc.Controls.Add(img);
+
+				// text cell
+				tc = new TableCell();
+				tr.Cells.Add(tc);
+
+				// text contents
+				Literal lt = new Literal();
+				if (noPicturesMessage == null)
+					noPicturesMessage = "<b>There are no pictures in the current area.</b><br>Please select another area.";
+				lt.Text	= noPicturesMessage;
+				tc.Controls.Add(lt);
+
+			}
+
+		}
+		
+		private void PictureItemDataBind(object sender, DataListItemEventArgs e) 
+		{
+			ListItemType itemType = e.Item.ItemType;
+
+			if ((itemType != ListItemType.Header) &&
+				(itemType != ListItemType.Footer) &&
+				(itemType != ListItemType.Separator))
+			{
+
+				// Create table to contain thumb
+				Table t = new Table();
+				t.CellPadding = 3;
+				t.CellSpacing = 0;
+
+				// Only row in the table
+				TableRow tr = new TableRow();
+				t.Rows.Add(tr);
+
+				// Add cell with picture
+				TableCell tcPic = new TableCell();
+				tr.Cells.Add(tcPic);
+
+				// Add a container table for the picture
+				Table tPic = new Table();
+				tPic.Height			= 145;
+				tPic.Width			= 145;
+				tPic.CellPadding	= 5;
+				tPic.CellSpacing	= 0;
+				tPic.CssClass		= "pictureFrame";
+				//				tPic.BorderColor	= Color.Black;
+				//				tPic.BorderStyle	= BorderStyle.Solid;
+				//				tPic.BorderWidth	= 1;
+				//				tPic.BackColor		= Color.Black;
+				tPic.HorizontalAlign	= HorizontalAlign.Center;
+				tcPic.Controls.Add(tPic);
+
+				tcPic.Style.Add("filter", "progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=8)");
+
+				// container table row
+				TableRow trtPic = new TableRow();
+				tPic.Controls.Add(trtPic);
+
+				// container table cell
+				TableCell tctPic = new TableCell();
+				tctPic.ColumnSpan		= 2;
+				tctPic.HorizontalAlign	= HorizontalAlign.Center;
+				tctPic.VerticalAlign	= VerticalAlign.Middle;
+				tctPic.Height			= 145;
+				tctPic.Width			= 145;
+				tctPic.CssClass			= "folderImageCell";
+				tctPic.Style.Add("POSITION", "relative");
+				trtPic.Controls.Add(tctPic);
+
+				if (showCheckBox)
+				{
+					Panel panel = new Panel();
+					panel.CssClass	= "checkboxPanel";
+					tctPic.Controls.Add(panel);
+
+					int pictureId	= (int) System.Web.UI.DataBinder.Eval(e.Item.DataItem, "PictureId");
+
+					PictureCheckBox checkBox		= new PictureCheckBox(pictureId);
+					checkBox.AutoPostBack			= true;
+					panel.Controls.Add(checkBox);
+
+					// See if we need to set the checkbox state
+					PictureIdCollection mySelectedList	= (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+					if (mySelectedList.Contains(pictureId))
+					{
+						checkBox.Checked			= true;
+					}
+			
+				}
+
+				// Add link to cell for clicking on picture
+				HyperLink lnkPicZoomPic	= new HyperLink();
+				lnkPicZoomPic.NavigateUrl	= System.Web.UI.DataBinder.Eval(e.Item.DataItem, 
+					"RecNumber", pageReturnURL);
+				tctPic.Controls.Add(lnkPicZoomPic);
+
 				Picture curPic = new Picture();
 				curPic.Filename = System.Web.UI.DataBinder.Eval(e.Item.DataItem, "FileName").ToString();
 				curPic.Height	= Convert.ToInt32(System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Height"));
@@ -403,44 +838,172 @@ namespace pics.Controls
 			}
 		}
 		#endregion
-		#region Event Handlers
-		private void checkBox_Clicked(object sender, EventArgs e)
-		{
-			if (PictureCheckBoxClicked != null)
-			{
-				PictureCheckBox p = (PictureCheckBox) sender;
-				PictureCheckBoxClicked(sender, new PictureCheckBoxEventArgs(p.PicId));
-				HttpContext.Current.Trace.Write("clicked " + p.PicId);
-			}
-		}
-		#endregion
-		#region Events
-		public event PictureCheckBoxClickedEventHandler PictureCheckBoxClicked;
-		#endregion
 	}
 
-	public delegate void PictureCheckBoxClickedEventHandler(object sender, PictureCheckBoxEventArgs e);
+	#endregion
 
-	public class PictureCheckBoxEventArgs: EventArgs
+	#region CategoryListViewItem control
+
+	public class CategoryListViewItem: Control, INamingContainer
 	{
-		private int picId;
-
-		public PictureCheckBoxEventArgs(int picId)
+		#region Declares
+		private int categoryId;
+		private string navigateUrl;
+		private Category category;
+		#endregion
+		#region Constructors
+		public CategoryListViewItem()
 		{
-			this.PicId = picId;
 		}
 
-		public int PicId
+		public CategoryListViewItem(int categoryId, string navigateUrl)
 		{
-			get 
+			this.categoryId			= categoryId;
+			this.navigateUrl		= navigateUrl;
+		}
+
+		public CategoryListViewItem(Category category)
+		{
+			this.category			= category;
+		}
+		#endregion
+		#region Properties
+		public int CategoryId
+		{
+			get
 			{
-				return picId;
+				return categoryId;
 			}
 			set
 			{
-				picId = value;
+				categoryId = value;
 			}
 		}
+		public string NavigateUrl
+		{
+			get
+			{
+				return navigateUrl;
+			}
+			set
+			{
+				navigateUrl = value;
+			}
+		}
+		#endregion
+		#region Private Methods
+		protected override void CreateChildControls()
+		{
+			Table t					= new Table();
+			this.Controls.Add(t);
+
+			TableRow tr				= new TableRow();
+			t.Rows.Add(tr);
+
+			// Load the category if we need to
+			CategoryManager catManager	= new CategoryManager();
+			if (category == null)
+			{
+				category					= catManager.GetCategory(categoryId);
+			}
+
+			// Get counts of sub items
+			int picCount = catManager.PictureCount(category.CategoryId);
+			int catCount = catManager.CategoryCount(category.CategoryId);
+			int recursivePicCount = catManager.PictureCount(category.CategoryId, true);
+			int recursiveCatCount = catManager.CategoryCount(category.CategoryId, true);
+
+			TableCell catCell		= new TableCell();
+			catCell.Width			= Unit.Pixel(68);
+			catCell.VerticalAlign	= VerticalAlign.Top;
+			tr.Cells.Add(catCell);
+
+			HyperLink folderClick	= new HyperLink();
+			folderClick.NavigateUrl	= "";
+			catCell.Controls.Add(folderClick);
+
+			// Background folder image
+			string image			= (recursivePicCount != 0 ? "Images/folder.png" : "Images/folderEmpty.png");
+			PngImage pngImage		= new PngImage(image, 64, 64);
+			if (navigateUrl != null)
+			{
+				pngImage.OnClickScript	= "location.href='" + navigateUrl + "';";
+			}
+			folderClick.Controls.Add(pngImage);
+
+			// Text cell
+			catCell					= new TableCell();
+			catCell.CssClass		= "categoryTextCell";
+			tr.Cells.Add(catCell);
+					
+			// Link to category
+			HyperLink lnk			= new HyperLink();
+			lnk.Text				= category.Name;
+			lnk.CssClass			= "categoryLink";
+			if (navigateUrl != null)
+			{
+				lnk.NavigateUrl		= navigateUrl; 
+			}
+			catCell.Controls.Add(lnk);
+				
+			catCell.Controls.Add(new HtmlLiteral("<br>"));
+
+			// Description
+			if (category.Description != null)
+			{
+				catCell.Controls.Add(new HtmlLiteral(category.Description.ToString()));
+				catCell.Controls.Add(new HtmlLiteral("<br>"));
+			}
+
+
+			// Contents
+			catCell.Controls.Add(new HtmlLiteral("<i>Contains:</i><br>"));
+
+			if (catCount == 0)
+			{
+			}
+			else if (catCount == 1)
+			{
+				catCell.Controls.Add(new HtmlLiteral("<li>" + catCount + " folder<br>"));
+			}
+			else
+			{
+				catCell.Controls.Add(new HtmlLiteral("<li>" + catCount + " folders<br>"));
+			}
+					
+			if (picCount == 0)
+			{
+			}
+			else if (picCount == 1)
+			{
+				catCell.Controls.Add(new HtmlLiteral("<li>" + picCount.ToString() + " picture<br>"));
+			}
+			else
+			{
+				catCell.Controls.Add(new HtmlLiteral("<li>" + picCount.ToString() + " pictures<br>"));
+			}
+
+			// Recursive picture count
+			if (picCount == 0)
+			{
+				if (recursivePicCount == 0)
+				{
+					catCell.Controls.Add(new HtmlLiteral("<li>0 pictures in this folder and subfolders.<br>"));
+				}
+				else if (recursivePicCount == 1)
+				{
+					catCell.Controls.Add(new HtmlLiteral("<li>" + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders<br>"));
+				}
+				else
+				{
+					catCell.Controls.Add(new HtmlLiteral("<li>" + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders<br>"));
+				}
+			}
+
+			catCell.Controls.Add(new HtmlLiteral("Latest Updates<br>"));
+
+		}
+		#endregion
 	}
 
 	#endregion
@@ -1021,13 +1584,7 @@ namespace pics.Controls
 			imageCell.VerticalAlign		= VerticalAlign.Top;
 			contentRow.Cells.Add(imageCell);
 
-			StringBuilder sbImage		= new StringBuilder();
-			sbImage.Append("<div style=\"");
-			sbImage.Append("FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../Images/stop_icon.png'); ");
-			sbImage.Append("WIDTH: 24px;");
-			sbImage.Append("HEIGHT: 24px");
-			sbImage.Append("\"></div>");
-			imageCell.Controls.Add(new HtmlLiteral(sbImage.ToString()));
+			imageCell.Controls.Add(new PngImage(@"../Images/stop_icon.png", 24, 24));
 
 			TableCell messageCell		= new TableCell();
 			messageCell.CssClass		= "pnlBadLoginTextCell";
@@ -1044,7 +1601,9 @@ namespace pics.Controls
 
 		protected override void Render(HtmlTextWriter output)
 		{
-            output.Write("<div id=\"" + this.ID + "\" style=\"position: absolute\">");
+            output.Write("<div id=\"" + this.ID + "\" style=\"position: absolute\"");
+
+			output.Write(">");
 
 			base.Render(output);
 
@@ -1070,12 +1629,110 @@ namespace pics.Controls
 
 	#endregion
 
+	#region PngImage
+
+	public class PngImage: Control, INamingContainer
+	{
+		private string imageSrc;
+		private int width;
+		private int height;
+		private string		onClickScript;
+
+		public PngImage()
+		{
+		}
+
+		#region Properties
+		public PngImage(string imageSrc, int width, int height)
+		{
+			this.ImageSrc		= imageSrc;
+			this.width			= width;
+			this.height			= height;
+		}			
+
+		public string ImageSrc
+		{
+			get
+			{
+				return imageSrc;
+			}
+			set
+			{
+				imageSrc = value;
+			}
+		}
+
+		public int Height
+		{
+			get
+			{
+				return height;
+			}
+			set
+			{
+				height = value;
+			}
+		}
+
+		public int Width
+		{
+			get
+			{
+				return width;
+			}
+			set
+			{
+				width = value;
+			}
+		}
+
+				public string OnClickScript
+		{
+			get
+			{
+				return onClickScript;
+			}
+			set
+			{
+				onClickScript = value;
+			}
+		}
+
+		#endregion
+
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<table><tr><td>");
+			output.Write("<div style=\"");
+			output.Write("FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + imageSrc + "'); ");
+			output.Write("WIDTH: " + width.ToString() + "px;");
+			output.Write("HEIGHT: " + height.ToString() + "px;");
+			if (onClickScript != null)
+			{
+				output.Write("CURSOR: hand;");
+			}
+			output.Write("\"");
+
+			// Check if we have an onClick= script
+			if (onClickScript != null)
+			{
+				output.Write(" onClick=\"" + onClickScript + "\"");
+			}
+			
+			output.Write("></div>");
+			output.Write("</td></tr></table>");
+		}
+
+	}
+
+	#endregion
+
 	#region Content Panel
 
 	public class ContentPanel: Control, INamingContainer
 	{
 		#region Declares
-		private ArrayList	childControls;
+		private ControlCollection	childControls;
 		private string		title;
 		private string		width;
 		private string		align;
@@ -1084,18 +1741,22 @@ namespace pics.Controls
 		#region Constructors
 		public ContentPanel()
 		{
-			childControls			= new ArrayList();
+			childControls			= new ControlCollection(this);
 		}
 		#endregion
 
 		#region Private Methods
 		protected override void AddParsedSubObject(object obj)
 		{
-			childControls.Add(obj);
+			Control c = (Control) obj;
+
+			childControls.Add(c);
 		}
 
 		protected override void CreateChildControls()
 		{
+			HttpContext.Current.Trace.Write("ContentPanel", "CreateChildControls: " + this.ID);
+
 			Table t					= new Table();
 			t.CssClass				= "contentPanel";
 			t.CellPadding			= 0;
@@ -1106,6 +1767,7 @@ namespace pics.Controls
 			}
 			this.Controls.Add(t);
             
+			
 			#region Title Row
 
 			if (title != null)
@@ -1142,12 +1804,24 @@ namespace pics.Controls
 				contentCell.Controls.Add(c);
 			}
 
+			foreach (Control c in this.Controls)
+			{
+				if (!contentCell.Controls.Contains(c))
+				{
+					HttpContext.Current.Trace.Write("Adding", c.ID + c.GetType().ToString());
+//					contentCell.Controls.Add(c);
+					HttpContext.Current.Trace.Write("Parent", c.Parent.ToString());
+					HttpContext.Current.Trace.Write("Done adding.");
+				}
+			}
+
 			#endregion
 
 		}
 
 		protected override void Render(HtmlTextWriter output)
 		{
+			// Move all child controls
 			output.Write("<div id=\"" + this.ID + "\"");
 			output.Write(">");
 			
@@ -1158,6 +1832,15 @@ namespace pics.Controls
 
 		#endregion
 
+		public void AddContent(Control c)
+		{
+			childControls.Add(c);
+		}
+
+		public void AddContent(Control c, int position)
+		{
+			childControls.AddAt(position, c);
+		}
 		#region Properties
 		public string Title
 		{
@@ -1204,13 +1887,38 @@ namespace pics.Controls
 	{
 		#region Declares
 		private ArrayList	childControls;
+		private SelectedWindow selectedWindow;
 		#endregion
 
 		#region Constructors
 		public Sidebar()
 		{
 			childControls			= new ArrayList();
+
+			// If logged in
+			if (HttpContext.Current.Request.IsAuthenticated) 
+			{
+				// get current task
+				string currentTask	= (string) ViewState["task"];
+				if (currentTask == null)
+				{
+					currentTask = "";
+				}
+
+				// show correct windows
+				switch (currentTask)
+				{
+					case "addToFolder":
+						selectedWindow = new SelectedWindow();
+						childControls.Add(selectedWindow);
+						break;
+					default:
+						
+						break;
+				}
+			}
 		}
+		
 		#endregion
 
 		#region Private Methods
@@ -1221,10 +1929,19 @@ namespace pics.Controls
 
 		protected override void CreateChildControls()
 		{
+			HttpContext.Current.Trace.Write("Sidebar", "CreatingChildControls");
+
 			// Just copy the child controls into output collection
 			foreach (Control c in childControls)
 			{
 				this.Controls.Add(c);
+			}
+
+			// Add selected window
+			if (selectedWindow != null)
+			{
+				HttpContext.Current.Trace.Write("Sidebar", "Adding selected window");
+				this.Controls.Add(selectedWindow);
 			}
 		}
 
@@ -1234,7 +1951,7 @@ namespace pics.Controls
 
 			// Image div
 			StringBuilder sb = new StringBuilder();
-			sb.Append("<div style=\"Z-INDEX: 1; LEFT: 18px; POSITION: absolute; TOP: 350px\">");
+			sb.Append("<div style=\"Z-INDEX: 1; LEFT: 18px; POSITION: absolute; TOP: 350px;\">");
 			sb.Append("  <img src=\"" + HttpContext.Current.Request.ApplicationPath + "/Images/msn2needlewash.gif\">");
 			sb.Append("</div>");
 			output.Write(sb.ToString());
@@ -1249,6 +1966,16 @@ namespace pics.Controls
 			output.Write("</div>");
 		}
 
+		#endregion
+
+		#region Properties
+		public SelectedWindow SelectedWindow
+		{
+			get 
+			{
+				return selectedWindow;
+			}
+		}
 		#endregion
 
 	}
@@ -1287,6 +2014,153 @@ namespace pics.Controls
 	}
 	#endregion
 
+	#region SelectedWindow
+
+	public class SelectedWindow: TaskPanel
+	{
+		#region Declares
+		private PictureIdCollection selectedList;
+		private int categoryId;
+		#endregion
+		#region Constructors
+		public SelectedWindow(): base("Select Pics")
+		{
+			categoryId		= 158;
+		}
+		#endregion
+		#region Public Methods
+		public void AddToSession()
+		{
+		}
+		public void RemoveFromSession()
+		{
+		}		
+		#endregion
+		protected override void CreateChildControls()
+		{
+			// if we logged off, bail
+			if (HttpContext.Current.Session["PersonInfo"] == null)
+				return;
+
+			// Retreive the list of seleted items
+			selectedList = (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+
+			HttpContext.Current.Trace.Write("SelectedWindow", "Constructor");
+
+			CategoryManager mgr			= new CategoryManager();
+			Category category			= mgr.GetCategory(categoryId);
+
+			contentPanel.Title			= category.CategoryName;
+			
+
+			int picCount = mgr.PictureCount(categoryId);
+
+			// Show certain content for no selected
+			if (picCount == 0)
+			{
+				HtmlLiteral lit = new HtmlLiteral("Check any picture to add to this category.");
+				lit.ID = "nopicsselected";
+				contentPanel.AddContent(lit, 0);
+			}
+			else
+			{
+				StringBuilder sb = new StringBuilder();
+				///sb.Append(selectedList.Count.ToString());
+			
+				sb.Append(picCount.ToString());
+
+				if (picCount == 1)
+				{
+					sb.Append(" pic");
+				}
+				else
+				{
+					sb.Append(" pics");
+				}
+				sb.Append("<br>");
+				contentPanel.AddContent(new HtmlLiteral(sb.ToString()), 0);
+			}
+			
+			this.Controls.Add(contentPanel);
+
+		}
+
+		public int CategoryId
+		{
+			get
+			{
+				return categoryId;
+			}
+			set
+			{
+				categoryId = value;
+			}
+		}
+	}
+
+	#endregion
+
+	#region PictureIdCollection
+
+	public class PictureIdCollection: CollectionBase
+	{
+		public void Add(int pictureId)
+		{
+			if (!InnerList.Contains(pictureId))
+			{
+				InnerList.Add(pictureId);
+
+				if (ItemAddedEvent != null)
+				{
+					ItemAddedEvent(this, new PictureIdEventArgs(pictureId));
+				}
+			}
+		}
+
+		public void Remove(int pictureId)
+		{
+			InnerList.Remove(pictureId);
+		}
+
+		public bool Contains(int pictureId)
+		{
+			foreach (int i in InnerList)
+			{
+				if (i == pictureId)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public event ItemAddedEventHandler ItemAddedEvent;
+	}
+	
+	public delegate void ItemAddedEventHandler(object sender, PictureIdEventArgs e);
+
+	public class PictureIdEventArgs: EventArgs
+	{
+		private int pictureId;
+
+		public PictureIdEventArgs(int pictureId)
+		{
+            this.pictureId = pictureId;			
+		}
+
+		public int PictureId
+		{
+			get
+			{
+				return pictureId;
+			}
+		}
+	}
+
+	#endregion
+
+	#region HtmlLiteral
+
 	public class HtmlLiteral: Literal
 	{
 		#region Constructors
@@ -1296,4 +2170,92 @@ namespace pics.Controls
 		}
 		#endregion
 	}
+
+	#endregion
+
+	#region TaskPanel
+	public class TaskPanel: Control, INamingContainer
+	{
+		#region Declares
+		protected ContentPanel contentPanel;
+		#endregion
+
+		#region Constructor
+		public TaskPanel(string title)
+		{
+			contentPanel			= new ContentPanel();
+			contentPanel.Width		= "100%";
+			contentPanel.Title		= title;
+		}
+		#endregion
+
+		#region Private Methods
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<div style=\"width: 100%\">");
+
+			base.Render(output);
+
+			output.Write("</div>");
+		}
+		#endregion
+		#region Properties
+		public ContentPanel ContentPanel
+		{
+			get 
+			{
+				return contentPanel;
+			}
+		}
+		#endregion
+		public void AddToSession()
+		{
+
+		}
+		public void RemoveFromSession()
+		{
+
+		}
+	}
+	#endregion
+	#region TaskList
+	public class TaskList: TaskPanel
+	{
+		#region Constructor
+		public TaskList(string title): base(title)
+		{
+		}
+		#endregion
+		#region Private Methods
+		protected override void CreateChildControls()
+		{
+			DataList dl		= new DataList();
+			
+		}
+		#endregion
+	}
+	#endregion
+/*
+<picctls:contentpanel id="pictureTaskPanel" title="Folder Tasks" runat="server" Visible="False" align="left" width="100%">
+	<TABLE cellSpacing="0" cellPadding="0">
+		<TR>
+			<TD width="9">
+				<picctls:PngImage id="slideshowImage" runat="server" width="9" height="12" ImageSrc="Images/slideshow12x9.png"></picctls:PngImage></TD>
+			<TD class="sidebarTaskLink">
+				<asp:hyperlink id="lnkSlideshow" Runat="server" Visible="True" CssClass="sidebarTaskLink">View Slideshow</asp:hyperlink></TD>
+		</TR>
+		<TR>
+			<TD width="9"></TD>
+			<TD class="sidebarTaskLink">
+				<asp:HyperLink id="addToFolder" Runat="server" CssClass="sidebarTaskLink">Add to folder</asp:HyperLink></TD>
+		</TR>
+		<TR>
+			<TD width="9"></TD>
+			<TD class="sidebarTaskLink">
+				<asp:HyperLink id="setCategoryPic" Runat="server" CssClass="sidebarTaskLink">Set folder pic</asp:HyperLink></TD>
+		</TR>
+	</TABLE>
+</picctls:contentpanel>
+*/
+
 }
