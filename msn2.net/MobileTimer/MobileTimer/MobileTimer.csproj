@@ -13,7 +13,7 @@
     <PlatformFamilyName>PocketPC</PlatformFamilyName>
     <PlatformID>4118C335-430C-497f-BE48-11C3316B135E</PlatformID>
     <OSVersion>5.1</OSVersion>
-    <DeployDirSuffix>MobileTimer</DeployDirSuffix>
+    <DeployDirSuffix>Mobile Timer</DeployDirSuffix>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <NativePlatformName>Windows Mobile 5.0 Pocket PC SDK</NativePlatformName>
     <FormFactorID>
@@ -22,8 +22,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>timer.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,10 +81,16 @@
     <Compile Include="Notfications\NotificationWithSoftKeys.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Notfications\PowerManager.cs" />
     <Compile Include="Notfications\SHNOTIFICATIONDATA.cs" />
+    <Compile Include="Notfications\SoundHelper.cs" />
     <Compile Include="Notfications\SpinnerClickEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BlockDigit.resx">
+      <DependentUpon>BlockDigit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="BlockDigits.resx">
       <DependentUpon>BlockDigits.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -126,6 +131,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="beep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="timer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

@@ -30,8 +30,6 @@
         private void InitializeComponent()
         {
             this.mainMenu1 = new System.Windows.Forms.MainMenu();
-            this.ok = new System.Windows.Forms.MenuItem();
-            this.cancel = new System.Windows.Forms.MenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -43,31 +41,22 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
             this.clear = new System.Windows.Forms.Button();
+            this.go = new System.Windows.Forms.Button();
+            this.menuCancel = new System.Windows.Forms.MenuItem();
             this.blockDigits1 = new MobileTimer.BlockDigits();
             this.SuspendLayout();
             // 
             // mainMenu1
             // 
-            this.mainMenu1.MenuItems.Add(this.ok);
-            this.mainMenu1.MenuItems.Add(this.cancel);
-            // 
-            // ok
-            // 
-            this.ok.Text = "Start";
-            this.ok.Click += new System.EventHandler(this.ok_Click);
-            // 
-            // cancel
-            // 
-            this.cancel.Text = "&Cancel";
-            this.cancel.Click += new System.EventHandler(this.menuItem2_Click);
+            this.mainMenu1.MenuItems.Add(this.menuCancel);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(5, 45);
+            this.button1.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(4, 54);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(70, 48);
             this.button1.TabIndex = 1;
@@ -79,8 +68,8 @@
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(86, 45);
+            this.button2.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button2.Location = new System.Drawing.Point(85, 54);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 48);
             this.button2.TabIndex = 2;
@@ -92,8 +81,8 @@
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button3.Location = new System.Drawing.Point(168, 45);
+            this.button3.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button3.Location = new System.Drawing.Point(167, 54);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(70, 48);
             this.button3.TabIndex = 3;
@@ -105,8 +94,8 @@
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button6.Location = new System.Drawing.Point(168, 99);
+            this.button6.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button6.Location = new System.Drawing.Point(167, 108);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(70, 48);
             this.button6.TabIndex = 6;
@@ -118,8 +107,8 @@
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(86, 99);
+            this.button5.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button5.Location = new System.Drawing.Point(85, 108);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(70, 48);
             this.button5.TabIndex = 5;
@@ -131,8 +120,8 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button4.Location = new System.Drawing.Point(5, 99);
+            this.button4.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button4.Location = new System.Drawing.Point(4, 108);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(70, 48);
             this.button4.TabIndex = 4;
@@ -144,8 +133,8 @@
             this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button9.Location = new System.Drawing.Point(168, 153);
+            this.button9.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button9.Location = new System.Drawing.Point(167, 162);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(70, 48);
             this.button9.TabIndex = 9;
@@ -157,8 +146,8 @@
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button8.Location = new System.Drawing.Point(86, 153);
+            this.button8.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button8.Location = new System.Drawing.Point(85, 162);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(70, 48);
             this.button8.TabIndex = 8;
@@ -170,8 +159,8 @@
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button7.Location = new System.Drawing.Point(5, 153);
+            this.button7.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button7.Location = new System.Drawing.Point(4, 162);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(70, 48);
             this.button7.TabIndex = 7;
@@ -183,8 +172,8 @@
             this.button0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button0.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.button0.Location = new System.Drawing.Point(86, 207);
+            this.button0.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.button0.Location = new System.Drawing.Point(85, 216);
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(70, 48);
             this.button0.TabIndex = 11;
@@ -196,20 +185,40 @@
             this.clear.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.clear.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.clear.Location = new System.Drawing.Point(5, 207);
+            this.clear.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.clear.Location = new System.Drawing.Point(4, 216);
             this.clear.Name = "clear";
             this.clear.Size = new System.Drawing.Size(70, 48);
             this.clear.TabIndex = 10;
             this.clear.Text = "CLR";
             this.clear.Click += new System.EventHandler(this.clear_Click);
             // 
+            // go
+            // 
+            this.go.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.go.BackColor = System.Drawing.Color.Green;
+            this.go.Font = new System.Drawing.Font("Tahoma", 16F, System.Drawing.FontStyle.Bold);
+            this.go.ForeColor = System.Drawing.Color.White;
+            this.go.Location = new System.Drawing.Point(166, 216);
+            this.go.Name = "go";
+            this.go.Size = new System.Drawing.Size(70, 48);
+            this.go.TabIndex = 13;
+            this.go.Text = "GO";
+            this.go.Click += new System.EventHandler(this.go_Click);
+            // 
+            // menuCancel
+            // 
+            this.menuCancel.Text = "&Cancel";
+            this.menuCancel.Click += new System.EventHandler(this.menuCancel_Click);
+            // 
             // blockDigits1
             // 
             this.blockDigits1.BackColor = System.Drawing.SystemColors.Window;
-            this.blockDigits1.Location = new System.Drawing.Point(29, 1);
+            this.blockDigits1.Location = new System.Drawing.Point(28, 0);
             this.blockDigits1.Name = "blockDigits1";
-            this.blockDigits1.Size = new System.Drawing.Size(187, 42);
+            this.blockDigits1.Size = new System.Drawing.Size(187, 48);
             this.blockDigits1.TabIndex = 12;
             // 
             // NewTimer
@@ -218,6 +227,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.go);
             this.Controls.Add(this.blockDigits1);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.clear);
@@ -240,8 +250,6 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuItem ok;
-        private System.Windows.Forms.MenuItem cancel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -254,6 +262,8 @@
         private System.Windows.Forms.Button button0;
         private System.Windows.Forms.Button clear;
         private BlockDigits blockDigits1;
+        private System.Windows.Forms.Button go;
+        private System.Windows.Forms.MenuItem menuCancel;
     }
 }
 

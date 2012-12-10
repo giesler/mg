@@ -12,6 +12,9 @@ namespace MobileTimer
 {
     public partial class RunningTimers : Form
     {
+        private PowerManager powerManager = null;
+        private Timer addItemTimer = null;
+
         public RunningTimers()
         {
             InitializeComponent();
@@ -22,14 +25,30 @@ namespace MobileTimer
         {
             base.OnLoad(e);
 
-            NewTimer newTimer = new NewTimer();
-            if (newTimer.ShowDialog() == DialogResult.OK && newTimer.Duration.TotalSeconds > 0)
+            this.addItemTimer = new Timer();
+            this.addItemTimer.Interval = 500;
+            this.addItemTimer.Tick += new EventHandler(addItemTimer_Tick);
+            this.addItemTimer.Enabled = true;
+        }
+
+        void addItemTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.addItemTimer.Enabled == true)
             {
-                AddTimer(newTimer.Duration);
-            }
-            else
-            {
-                this.Close();
+                this.addItemTimer.Enabled = false;
+
+                NewTimer newTimer = new NewTimer();
+                if (newTimer.ShowDialog() == DialogResult.OK && newTimer.Duration.TotalSeconds > 0)
+                {
+                    AddTimer(newTimer.Duration);
+
+                    this.powerManager = new PowerManager();
+                    this.powerManager.PowerStateChanged += new PowerStateChangedEventHandler(powerManager_PowerStateChanged);
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -60,6 +79,15 @@ namespace MobileTimer
                     e.Cancel = true;
                 }
             }
+
+            if (e.Cancel == false)
+            {
+                if (this.powerManager != null)
+                {
+                    this.powerManager.Close();
+                    this.powerManager = null;
+                }
+            }
         }
 
         private void AddTimer(TimeSpan duration)
@@ -74,6 +102,25 @@ namespace MobileTimer
             this.ResumeLayout();
         }
 
+        void powerManager_PowerStateChanged(object sender, PowerStateEventArgs e)
+        {
+            if (this.InvokeRequired == true)
+            {
+                this.BeginInvoke(new PowerStateChangedEventHandler(this.powerManager_PowerStateChanged), sender, e);
+            }
+            else
+            {
+                this.debugText.Text = string.Format(
+                    "{0}{1}: PowerEventType: {2}, PowerState: {3}{4}",
+                    this.debugText.Text,
+                    DateTime.Now.ToLongTimeString(),
+                    e.PowerEventType,
+                    e.PowerState,
+                    Environment.NewLine);
+                this.debugText.SelectionStart = this.debugText.Text.Length;
+            }
+        }
+
         private void menuUpdateApp_Click(object sender, EventArgs e)
         {
             Process p = new Process();
@@ -81,8 +128,6 @@ namespace MobileTimer
             p.Start();
 
             this.Close();
-
-            Application.Exit();
         }
 
         private void menuExit_Click(object sender, EventArgs e)
@@ -97,6 +142,12 @@ namespace MobileTimer
             {
                 this.AddTimer(newTimer.Duration);
             }
+        }
+
+        private void menuDebug_Click(object sender, EventArgs e)
+        {
+            this.menuDebug.Checked = !this.menuDebug.Checked;
+            this.debugText.Visible = this.menuDebug.Checked;
         }
 
     }

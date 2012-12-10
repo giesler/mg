@@ -18,18 +18,7 @@ namespace MobileTimer
         {
             InitializeComponent();
             this.Icon = Properties.Resources.timer;
-        }
-
-        private void menuItem2_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-
-        private void ok_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            this.go.BackColor = SystemColors.Control;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -87,7 +76,8 @@ namespace MobileTimer
             this.blockDigits1.DisplayTime(null, null, null);
 
             this.current = 0;
-            this.ok.Enabled = false;
+            this.go.Enabled = false;
+            this.go.BackColor = SystemColors.Control;
 
             this.hours = 0;
             this.minutes = 0;
@@ -101,31 +91,51 @@ namespace MobileTimer
 
         private void AddKey(int key)
         {
-            if (current == 0)
+            if (current == 0 && key == 0)
             {
-                this.seconds = key;
+                // ignore
             }
-            else if (current >= 1 && current < 6)
+            else
             {
-                if (current >= 2)
+                if (current == 0)
                 {
-                    if (current >= 4)
+                    this.seconds = key;
+                }
+                else if (current >= 1 && current < 6)
+                {
+                    if (current >= 2)
                     {
-                        this.hours = (this.hours * 10) + (this.minutes / 10);
+                        if (current >= 4)
+                        {
+                            this.hours = (this.hours * 10) + (this.minutes / 10);
+                        }
+
+                        this.minutes = ((this.minutes % 10) * 10) + (this.seconds / 10);
                     }
-                    
-                    this.minutes = ((this.minutes % 10) * 10) + (this.seconds / 10);
+
+                    this.seconds = ((this.seconds % 10) * 10) + key;
                 }
 
-                this.seconds = ((this.seconds % 10) * 10) + key;
+                this.blockDigits1.DisplayTime(this.hours, this.minutes, this.seconds);
+
+                this.Duration = new TimeSpan(this.hours, this.minutes, this.seconds);
+
+                current++;
+                this.go.Enabled = true;
+                this.go.BackColor = Color.Green;
             }
+        }
 
-            this.blockDigits1.DisplayTime(this.hours, this.minutes, this.seconds);
+        private void go_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
 
-            this.Duration = new TimeSpan(this.hours, this.minutes, this.seconds);
-
-            current++;
-            this.ok.Enabled = true;
+        private void menuCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }
