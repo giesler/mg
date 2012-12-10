@@ -87,11 +87,6 @@
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
                 />
                 <Reference
-                    Name = "Configuration"
-                    Project = "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
                     Name = "System.Runtime.Serialization.Formatters.Soap"
                     AssemblyName = "System.Runtime.Serialization.Formatters.Soap"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Runtime.Serialization.Formatters.Soap.dll"
@@ -111,22 +106,27 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "DataSetItem.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetItem.cs"
+                    RelPath = "ConfigData.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "DataSetItem.cs"
-                    DependentUpon = "DataSetItem.xsd"
+                    RelPath = "DataSetDataItem.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DataSetDataItem.cs"
+                />
+                <File
+                    RelPath = "DataSetDataItem.cs"
+                    DependentUpon = "DataSetDataItem.xsd"
                     SubType = "code"
                     BuildAction = "Compile"
                     DesignTime = "True"
                     AutoGen = "True"
                 />
                 <File
-                    RelPath = "DataSetItem.xsx"
-                    DependentUpon = "DataSetItem.xsd"
+                    RelPath = "DataSetDataItem.xsx"
+                    DependentUpon = "DataSetDataItem.xsd"
                     BuildAction = "None"
                 />
             </Include>

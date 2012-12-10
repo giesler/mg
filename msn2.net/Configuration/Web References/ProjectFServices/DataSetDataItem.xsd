@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:mstns="http://tempuri.org/DataSetDataItem.xsd" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns="http://tempuri.org/DataSetDataItem.xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://tempuri.org/DataSetDataItem.xsd" id="DataSetDataItem" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element msdata:IsDataSet="true" name="DataSetDataItem">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="DataItem">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" name="Id" type="xs:string" />
+              <xs:element minOccurs="0" name="Name" type="xs:string" />
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="ParentId" type="xs:string" />
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="UserId" type="xs:string" />
+              <xs:element minOccurs="0" name="ItemType" type="xs:string" />
+              <xs:element minOccurs="0" name="ItemUrl" type="xs:string" />
+              <xs:element minOccurs="0" name="ItemData" type="xs:string" />
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="ConfigTreeLocation" type="xs:string" />
+              <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="ItemKey" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique msdata:PrimaryKey="true" name="DataSetDataItemKey1">
+      <xs:selector xpath=".//mstns:DataItem" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

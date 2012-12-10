@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.Xml.Serialization;
+using System.IO;
+using System.Text;
 
 namespace msn2.net.Common
 {
@@ -8,6 +11,7 @@ namespace msn2.net.Common
 	/// </summary>
 	public class Utilities
 	{
+		#region DurationToString
 
 		public static string DurationToString(decimal duration)
 		{
@@ -40,10 +44,77 @@ namespace msn2.net.Common
 			}
 		}
 
+		#endregion
+
+		#region Serialize / Deserialize
+
+		public static string SerializeObject(object obj)
+		{
+			if (obj == null)
+				return "";
+
+			// Declares
+			StringBuilder sb			= new StringBuilder();
+			MemoryStream memStream		= new MemoryStream();
+			XmlSerializer ser			= new XmlSerializer(obj.GetType());
+
+			//System.Runtime.Serialization.Formatters.Soap.SoapFormatter ser =
+			//	new System.Runtime.Serialization.Formatters.Soap.SoapFormatter();
+
+			// Serialize into memory stream
+			ser.Serialize(memStream, obj);
+
+			// Copy into a string
+			int position = 0;
+			byte[] buffer = new byte[1024];
+			memStream.Seek(0, SeekOrigin.Begin);
+			while (position < memStream.Length)
+			{
+				// read a block
+				int read = memStream.Read(buffer, position, 1024);
+                
+				// write to string
+				for (int i = 0; i < read; i++)
+					sb.Append( (char) buffer[i] );
+
+				// update pointer
+				position += read;
+			}
+
+			memStream.Close();
+            
+			return sb.ToString();
+		}
+
+		public static object DeserializeObject(string xml, Type type)
+		{
+
+			// Declares
+			XmlSerializer ser			= new XmlSerializer(type);
+			byte[] buffer				= new byte[xml.Length];
+
+			// Copy xml into byte array
+			for (int i = 0; i < xml.Length; i++)
+			{
+				buffer[i] = (byte) xml[i];
+			}
+
+			// Deserialize the object
+			MemoryStream memStream		= new MemoryStream(buffer);
+			object obj					= ser.Deserialize(memStream);
+			memStream.Close();
+
+			return obj;
+		}
+
+		#endregion
+
 	}
 
 	public class IterIsolate: IEnumerable
 	{
+		#region IterIsolate
+
 		internal class IterIsolateEnumerator: IEnumerator
 		{
 			internal ArrayList items = new ArrayList();
@@ -97,7 +168,11 @@ namespace msn2.net.Common
 		}
 
 		internal IEnumerable enumerable;
+
+		#endregion
 	}
+
+	#region IterReverse
 
 	/// <summary>
 	/// Iterate a collection in the reverse order
@@ -139,4 +214,6 @@ namespace msn2.net.Common
 			return new IterReverseEnumerator(enumerable.GetEnumerator());
 		}
 	}
+
+	#endregion
 }

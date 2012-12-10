@@ -83,13 +83,13 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
                 />
                 <Reference
-                    Name = "msn2.net.Configuration"
-                    AssemblyName = "msn2.net.Configuration"
-                    HintPath = "..\..\..\vss\msn2.net\Configuration\bin\Debug\msn2.net.Configuration.dll"
+                    Name = "Common"
+                    Project = "{A267194C-A021-4267-A491-AD3919394F9A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>
@@ -97,6 +97,7 @@
             <Include>
                 <File
                     RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

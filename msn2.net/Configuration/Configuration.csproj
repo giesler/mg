@@ -104,6 +104,16 @@
                     Lcid = "0"
                     WrapperTool = "tlbimp"
                 />
+                <Reference
+                    Name = "System.Web.Services"
+                    AssemblyName = "System.Web.Services"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
+                />
+                <Reference
+                    Name = "Common"
+                    Project = "{A267194C-A021-4267-A491-AD3919394F9A}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -114,86 +124,54 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ConfigTree.cs"
+                    RelPath = "Config.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ConfigTree.resx"
-                    DependentUpon = "ConfigTree.cs"
+                    RelPath = "Data.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Data.resx"
+                    DependentUpon = "Data.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "DataSetCategory.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetCategory.cs"
+                    RelPath = "Web References\ProjectFServices\DataService.disco"
+                    BuildAction = "None"
                 />
                 <File
-                    RelPath = "DataSetCategory.cs"
-                    DependentUpon = "DataSetCategory.xsd"
+                    RelPath = "Web References\ProjectFServices\DataService.wsdl"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\ProjectFServices\DataSetDataItem.xsd"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\ProjectFServices\Reference.map"
+                    BuildAction = "None"
+                    Generator = "MSDiscoCodeGenerator"
+                    LastGenOutput = "Reference.cs"
+                />
+                <File
+                    RelPath = "Web References\ProjectFServices\Reference.cs"
+                    DependentUpon = "Reference.map"
                     SubType = "code"
                     BuildAction = "Compile"
                     DesignTime = "True"
                     AutoGen = "True"
                 />
-                <File
-                    RelPath = "DataSetCategory.xsx"
-                    DependentUpon = "DataSetCategory.xsd"
-                    BuildAction = "None"
+                <Folder
+                    RelPath = "Web References\ProjectFServices\"
+                    WebReferenceUrl = "http://chef/ProjectFServices/DataService.asmx"
+                    UrlBehavior = "Static"
                 />
-                <File
-                    RelPath = "DataSetLogin.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetLogin.cs"
-                />
-                <File
-                    RelPath = "DataSetLogin.cs"
-                    DependentUpon = "DataSetLogin.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetLogin.xsx"
-                    DependentUpon = "DataSetLogin.xsd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "DefaultConfig.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "IConfigEntry.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IMachineConfig.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IServerConfig.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "IUserConfig.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MachineConfig.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "msn2.net.Config.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
+                <Folder
+                    RelPath = "Web References\"
+                    WebReferences = "TRUE"
                 />
             </Include>
         </Files>

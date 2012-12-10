@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Web;
 using System.Web.Services;
 using System.Data.SqlClient;
-using msn2.net.Configuration;
+using msn2.net.Common;
 using System.Text;
 
 namespace msn2.net.ProjectF.Services
@@ -14,14 +14,18 @@ namespace msn2.net.ProjectF.Services
 	/// <summary>
 	/// Summary description for Service1.
 	/// </summary>
+	[WebService(Namespace="http://services.msn2.net/ProjectFServices/2002/04/13/DataService")]
 	public class DataService : System.Web.Services.WebService
 	{
 		private const int ITEMDATA_SIZE = 2048;
+		private string connectionString = "";
 
 		public DataService()
 		{
 			//CODEGEN: This call is required by the ASP.NET Web Services Designer
 			InitializeComponent();
+
+			connectionString = System.Configuration.ConfigurationSettings.AppSettings["connectionString"].ToString();
 		}
 
 		#region Component Designer generated code
@@ -54,30 +58,30 @@ namespace msn2.net.ProjectF.Services
 		#region GetChildren
 
 		[WebMethod]
-		public DataSetCategory GetChildren(Guid nodeId, Guid userId, Type [] types)
+		public msn2.net.Common.DataSetDataItem GetChildren(Guid id, Guid userId, string [] types)
 		{
 			// Select all items with this as the parent
-			string sql = "select fc.* from FavoritesCategory fc inner join ItemParent ip on fc.CategoryId = ip.ItemId "
-				+ "where ip.ParentId = @nodeId";
+			string sql = "select di.* from DataItem di inner join ItemParent ip on di.Id = ip.ItemId "
+				+ "where ip.ParentId = @id";
 			
 			if (types != null && types[0] != null)
 				sql	= sql + " and ItemType in (" + TypeArrayToString(types) + ")";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
 			//			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@id", SqlDbType.UniqueIdentifier);
 			//			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
 
 			// Set params to pass to SQL
 			//			da.SelectCommand.Parameters["@userId"].Value				= userId;
-			da.SelectCommand.Parameters["@nodeId"].Value				= nodeId;
+			da.SelectCommand.Parameters["@id"].Value				= id;
 			//			da.SelectCommand.Parameters["@configTreeLocation"].Value	= this.configTreeLocation.ToString();
 
-			DataSetCategory dsCategories = new DataSetCategory();
-			da.Fill(dsCategories, "FavoritesCategory");
+			msn2.net.Common.DataSetDataItem ds = new msn2.net.Common.DataSetDataItem();
+			da.Fill(ds, "DataItem");
 
-			return dsCategories;
+			return ds;
 		}
 
 		#endregion
@@ -85,22 +89,22 @@ namespace msn2.net.ProjectF.Services
 		#region Get
 
 		[WebMethod]
-		public DataSetCategory Get(Guid nodeId, Guid userId, string name, string url, ConfigData data, Type type)
+		public msn2.net.Common.DataSetDataItem Get(Guid id, Guid userId, string name, string url, msn2.net.Common.ConfigData data, string type)
 		{
 			// Get a new cat id and guids for params
-			Guid newCategoryId	= Guid.NewGuid();
+			Guid newId	= Guid.NewGuid();
 
 			// insert new child cat
 			string sql = "dbo.sp_Config_Get";
 
-			SqlConnection cn				= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn				= new SqlConnection(connectionString);
 			SqlDataAdapter da				= new SqlDataAdapter(sql, cn);
 			da.SelectCommand.CommandType	= CommandType.StoredProcedure;
 
 			// Set up sp params
-			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@id", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-			da.SelectCommand.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
+			da.SelectCommand.Parameters.Add("@name", SqlDbType.NVarChar, 250);
 			da.SelectCommand.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
 			da.SelectCommand.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
@@ -111,10 +115,10 @@ namespace msn2.net.ProjectF.Services
 			da.SelectCommand.Parameters["@itemAdded"].Direction			= ParameterDirection.Output;
 
 			// Set command params values
-			da.SelectCommand.Parameters["@categoryId"].Value			= newCategoryId;
+			da.SelectCommand.Parameters["@id"].Value					= newId;
 			da.SelectCommand.Parameters["@userId"].Value				= userId;
-			da.SelectCommand.Parameters["@categoryName"].Value			= name;
-			da.SelectCommand.Parameters["@parentId"].Value				= nodeId;
+			da.SelectCommand.Parameters["@name"].Value					= name;
+			da.SelectCommand.Parameters["@parentId"].Value				= id;
 			//da.SelectCommand.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
 			da.SelectCommand.Parameters["@itemKey"].Value				= Guid.Empty;
 
@@ -131,7 +135,7 @@ namespace msn2.net.ProjectF.Services
 			// Lookup data only if it has a value - otherwise blank it
 			if (data != null)
 			{
-				da.SelectCommand.Parameters["@itemData"].Value	= msn2.net.Configuration.Data.SerializeObject(data);
+				da.SelectCommand.Parameters["@itemData"].Value	= msn2.net.Common.Utilities.SerializeObject(data);
 				if (data != null)
 					da.SelectCommand.Parameters["@itemKey"].Value	= data.ItemKey;
 			}
@@ -150,19 +154,19 @@ namespace msn2.net.ProjectF.Services
 				da.SelectCommand.Parameters["@itemType"].Value	= "";
 			}
 
-			DataSetCategory ds = new DataSetCategory();
-			da.Fill(ds, "FavoritesCategory");
+			msn2.net.Common.DataSetDataItem ds = new msn2.net.Common.DataSetDataItem();
+			da.Fill(ds, "DataItem");
 
-//			if (ds.FavoritesCategory.Rows.Count > 0)
-//			{
-//				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0], type);
+			if (ds.DataItem.Rows.Count > 0)
+			{
+//				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type);
 //				
 //				// Check if we need to update parents of other nodes
 //				if (Convert.ToBoolean(da.SelectCommand.Parameters["@itemAdded"].Value))
 //				{
-//					Type[] types	= new Type[1];
-//					types[0]		= typeof(msn2.net.Configuration.MessengerContactData);
-//					DataCollection col = GetChildren(nodeId, userId, types);
+//					string[] types	= new string[1];
+//					types[0]		= typeof(msn2.net.Configuration.MessengerContactData).ToString();
+//					DataCollection col = GetChildren(id, userId, types);
 //					foreach (Data item in col)
 //					{
 //						// We need to add a link for this contact
@@ -176,7 +180,7 @@ namespace msn2.net.ProjectF.Services
 //						SqlCommand cmd = new SqlCommand(sql, cn);
 //						cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
 //						cmd.Parameters.Add("@parentId", SqlDbType.UniqueIdentifier);
-//						cmd.Parameters["@itemId"].Value = nodeId;
+//						cmd.Parameters["@itemId"].Value = id;
 //						cmd.Parameters["@parentId"].Value	= theirGroupId;
 //
 //						cn.Open();
@@ -185,8 +189,8 @@ namespace msn2.net.ProjectF.Services
 //					}
 //				}
 				
-//				return ds;
-//			}
+				return ds;
+			}
 
 			return null;
 
@@ -197,21 +201,21 @@ namespace msn2.net.ProjectF.Services
 		#region Save
 
 		[WebMethod]
-		public void Save(Guid id, string name, ConfigData configData, Type type)
+		public void Save(Guid id, string name, msn2.net.Common.ConfigData configData, string type)
 		{
 			// insert new child cat
-			string sql = "update FavoritesCategory set CategoryName = @categoryName ";
+			string sql = "update DataItem set Name = @name";
 			if (configData != null)
 			{
 				sql		= sql + ", ItemData = @itemData, ItemType = @itemType ";
 			}
-			sql			= sql + "where CategoryId = @nodeId";
+			sql			= sql + "where id = @id";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
-			cmd.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@id", SqlDbType.UniqueIdentifier);
+			cmd.Parameters.Add("@name", SqlDbType.NVarChar, 250);
 			if (configData != null)
 			{
 				cmd.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
@@ -219,11 +223,11 @@ namespace msn2.net.ProjectF.Services
 			}
 
 			// Set command params
-			cmd.Parameters["@nodeId"].Value			= id;
-			cmd.Parameters["@categoryName"].Value	= name;
+			cmd.Parameters["@id"].Value			= id;
+			cmd.Parameters["@name"].Value	= name;
 			if (configData != null)
 			{
-				cmd.Parameters["@itemData"].Value	= msn2.net.Configuration.SerializeObject(configData);
+				cmd.Parameters["@itemData"].Value	= msn2.net.Common.Utilities.SerializeObject(configData);
 				cmd.Parameters["@itemType"].Value	= type.ToString();
 			}
 
@@ -241,10 +245,10 @@ namespace msn2.net.ProjectF.Services
 		public void Delete(Guid id)
 		{
 			// update record
-			string sql = "delete from FavoritesItem "
-				+ "where CategoryId = @id";
+			string sql = "delete from DataItem "
+				+ "where Id = @id";
 
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
 
 			cmd.Parameters.Add("@id", SqlDbType.UniqueIdentifier);
@@ -262,7 +266,7 @@ namespace msn2.net.ProjectF.Services
 
 		#region Utility functions
 
-		private string TypeArrayToString(Type[] types)
+		private string TypeArrayToString(string [] types)
 		{
 			if (types.Length == 0)
 				return "";
@@ -270,7 +274,7 @@ namespace msn2.net.ProjectF.Services
 			StringBuilder sb	= new StringBuilder();
 			bool firstItem		= true;
 
-			foreach (Type type in types)
+			foreach (string type in types)
 			{
 				if (type != null)
 				{
