@@ -9,7 +9,7 @@
     <table style="height: 12px; width: 100%" cellpadding="0" cellspacing="0">
         <tr style="background-color: #008000">
             <td>
-                <a href="default.aspx">
+                <a href="../default.aspx">
                     <img src="../images/mobileheadtitle.gif" border="0" />
                 </a>
             </td>

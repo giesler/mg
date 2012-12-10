@@ -117,8 +117,9 @@
     <Content Include="Mobile\Auth\Login.aspx" />
     <Content Include="Mobile\Categories.aspx" />
     <Content Include="Mobile\default.aspx" />
+    <Content Include="Mobile\Images\mobileheadtitle.gif" />
     <Content Include="Mobile\mobile.css" />
-    <Content Include="Mobile\mobileheadwash.gif" />
+    <Content Include="Mobile\Images\mobileheadwash.gif" />
     <Content Include="Mobile\Picture.aspx" />
     <Content Include="Mobile\PictureDetails.aspx" />
     <Content Include="Mobile\Pictures.aspx" />
