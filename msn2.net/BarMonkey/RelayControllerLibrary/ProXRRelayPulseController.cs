@@ -7,15 +7,15 @@ using System.Threading;
 
 namespace msn2.net.BarMonkey.RelayController
 {
-    public class ProXRRelayTimerController : ProXRRelayController
+    public class ProXRRelayPulseController : ProXRRelayController
     {
         protected override void SendBatchGroup(List<BatchItem> batch)
         {
             int maxSeconds = 0;
             int index = 0;
-            int lsb = 0;
-            int usb = 0;
-
+            int sendMilliseconds = 100;
+            
+            
             foreach (BatchItem item in batch)
             {
                 if (item.Seconds > maxSeconds)
@@ -27,22 +27,12 @@ namespace msn2.net.BarMonkey.RelayController
 
                 this.SendCommandAndFlush(50, selectedTimerIndex, 0, 0, item.Seconds, item.RelayNumber);
 
-                if (index < 8)
-                {
-                    lsb = lsb + (int)Math.Pow(2, index);
-                }
-                else
-                {
-                    usb = usb + (int)Math.Pow(2, index);
-                }
-
                 index++;
             }
 
-            this.SendCommandAndFlush(50, 131, lsb, usb);
+//            this.SendCommandAndFlush(50, 131, lsb, usb);
 
             Thread.Sleep(1000 * maxSeconds + 500);
         }
-
     }
 }

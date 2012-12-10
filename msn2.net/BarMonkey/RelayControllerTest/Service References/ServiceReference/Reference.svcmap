@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="832ead35-8046-44e6-ba66-f799b6d64ce6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8282/RelayController/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="807497e4-ae9c-4f9b-879b-2756077d4687" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="035b010b-0495-4670-9385-8cf013216038" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="61f8c2f5-0d8f-4ba3-b3fe-36bd0acf5856" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="msn2.net.BarMonkey.RelayController.xsd" MetadataType="Schema" ID="efd24f71-4f84-4d4d-8a53-487c60e7354e" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

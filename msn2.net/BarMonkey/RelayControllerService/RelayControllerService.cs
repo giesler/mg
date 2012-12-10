@@ -21,7 +21,7 @@ namespace msn2.net.BarMonkey.RelayController
 
         protected override void OnStart(string[] args)
         {
-            this.host = new ServiceHost(typeof(a));
+            this.host = new ServiceHost(typeof(ProXRRelayController));
             this.host.Open();
         }
 

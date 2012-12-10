@@ -12,38 +12,72 @@ namespace RelayControllerTest
         {
             RelayControllerClient client = new RelayControllerClient();
 
-            BatchItem[] batch = new BatchItem[] {  
-                                new BatchItem { Group = 1, RelayNumber = 3, Seconds = 2},
-                                new BatchItem { Group = 1, RelayNumber = 4, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 5, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 8, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 10, Seconds = 4},
-                                new BatchItem { Group = 2, RelayNumber = 12, Seconds = 5},
-                                new BatchItem { Group = 2, RelayNumber = 14, Seconds = 8},
-                                new BatchItem { Group = 2, RelayNumber = 16, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 18, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 20, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 22, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 24, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 26, Seconds = 5},
-                                new BatchItem { Group = 2, RelayNumber = 28, Seconds = 4},
-                                new BatchItem { Group = 2, RelayNumber = 30, Seconds = 8},
-                                new BatchItem { Group = 2, RelayNumber = 17, Seconds = 2},
-                                new BatchItem { Group = 2, RelayNumber = 15, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 13, Seconds = 4},
-                                new BatchItem { Group = 2, RelayNumber = 25, Seconds = 8},
-                                new BatchItem { Group = 2, RelayNumber = 27, Seconds = 4},
-                                new BatchItem { Group = 2, RelayNumber = 29, Seconds = 3},
-                                new BatchItem { Group = 2, RelayNumber = 9, Seconds = 6},
-                                new BatchItem { Group = 2, RelayNumber = 11, Seconds = 4},
-                                new BatchItem { Group = 2, RelayNumber = 31, Seconds = 7}
-                                };
+            Console.WriteLine("Type a relay to send per line in the format:");
+            Console.WriteLine("   <SendGroup> <RelayNumber> <Seconds>");
+            Console.WriteLine("");
+            Console.WriteLine("Type 'go' to send the command, 'exit' when done.");
+            Console.WriteLine("");
 
-            client.SendBatch(batch);
+            List<BatchItem> currentList = new List<BatchItem>();
 
-            Console.Read();
+            while (true)
+            {
+                Console.Write("> ");
+                string currentBuffer = Console.ReadLine();
+
+                if (string.Equals(currentBuffer, "exit") == true)
+                {
+                    break;
+                }
+                else if (string.Equals(currentBuffer, "clear") == true)
+                {
+                    currentList.Clear();
+                }
+                else if (string.Equals(currentBuffer, "go") == true || string.Equals(currentBuffer, "") == true)
+                {
+                    if (currentList.Count > 0)
+                    {
+                        Console.WriteLine("sending...");
+                        try
+                        {
+                            client.SendBatch(currentList.ToArray());
+                            Console.WriteLine("sent.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error sending: " + ex.ToString());
+                        }
+                        Console.WriteLine("Type 'clear' to clear this drink or enter to repeat.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("no items to send!");
+                    }
+                }
+                else
+                {
+                    string[] commands = currentBuffer.Split(' ');
+                    if (commands.Length != 3)
+                    {
+                        Console.WriteLine("invalid format");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            BatchItem item = new BatchItem();
+                            item.Group = int.Parse(commands[0]);
+                            item.RelayNumber = int.Parse(commands[1]);
+                            item.Seconds = int.Parse(commands[2]);
+                            currentList.Add(item);
+                        }
+                        catch (FormatException ex)
+                        {
+                            Console.WriteLine("Unexpected format: " + ex.Message);
+                        }
+                    }
+                }
+            }
         }
-
-
     }
 }

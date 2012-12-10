@@ -1,6 +1,7 @@
-﻿namespace RelayControllerService
+﻿using System.ServiceProcess;
+namespace msn2.net.BarMonkey.RelayController
 {
-    partial class RelayControllerService
+    partial class RelayControllerService: ServiceBase
     {
         /// <summary> 
         /// Required designer variable.

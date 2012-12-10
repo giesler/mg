@@ -64,17 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\ServiceReference\ProXRRelayController.wsdl" />
+    <None Include="Service References\ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference\msn2.net.BarMonkey.RelayController.xsd" />
+    <None Include="Service References\ServiceReference\service.wsdl" />
+    <None Include="Service References\ServiceReference\service.xsd" />
+    <None Include="Service References\ServiceReference\service1.xsd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\configuration.svcinfo" />
-    <None Include="Service References\ServiceReference\RelayController.disco" />
-    <None Include="Service References\ServiceReference\RelayController.xsd" />
-    <None Include="Service References\ServiceReference\RelayController1.xsd" />
-    <None Include="Service References\ServiceReference\RelayController2.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ServiceReference\Reference.svcmap">
