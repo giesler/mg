@@ -67,6 +67,7 @@ Private mstrNetFrameworkVersion As String
 
 Private mstrURL As String 'local copy
 Private mstrDependencies As String 'local copy
+Private mstrIncludes As String
 Private mintSortOrder As Integer 'local copy
 Private mstrNotes As String 'local copy
 
@@ -122,6 +123,14 @@ End Property
 
 Public Property Get Dependencies() As String
   Dependencies = " " & mstrDependencies & " "
+End Property
+
+Public Property Let Includes(ByVal vData As String)
+  mstrIncludes = Trim(vData)
+End Property
+
+Public Property Get Includes() As String
+  Includes = " " & mstrIncludes & " "
 End Property
 
 Public Property Let URL(ByVal vData As String)
@@ -349,6 +358,9 @@ Public Function Load(ByRef pobjCIni As CIni)
   ' Dependencies
   pobjCIni.ReadValue mstrID, "Dependencies", mstrDependencies
 
+  ' Includes
+  pobjCIni.ReadValue mstrID, "Includes", mstrIncludes
+
 End Function
 
 Public Function Save(ByRef pobjCIni As CIni)
@@ -407,5 +419,8 @@ Public Function Save(ByRef pobjCIni As CIni)
   
   ' Dependencies
   pobjCIni.WriteValue mstrID, "Dependencies", mstrDependencies
+
+  ' Includes
+  pobjCIni.WriteValue mstrID, "Includes", mstrIncludes
 
 End Function

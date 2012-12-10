@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "modMisc"
 Public Const NOERROR = 0
 
 ' Retrieves the IShellFolder interface for the desktop folder.

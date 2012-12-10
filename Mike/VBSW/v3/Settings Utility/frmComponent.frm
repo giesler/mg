@@ -43,10 +43,10 @@ Begin VB.Form frmComponent
       _ExtentY        =   6800
       _Version        =   393216
       Style           =   1
-      Tabs            =   10
-      TabsPerRow      =   10
+      Tabs            =   11
+      TabsPerRow      =   11
       TabHeight       =   520
-      TabCaption(0)   =   "General Settings"
+      TabCaption(0)   =   "General"
       TabPicture(0)   =   "frmComponent.frx":0000
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label1"
@@ -65,96 +65,110 @@ Begin VB.Form frmComponent
       TabCaption(1)   =   "OS Reqs"
       TabPicture(1)   =   "frmComponent.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label10"
+      Tab(1).Control(0)=   "ucOS1"
       Tab(1).Control(1)=   "Label9"
-      Tab(1).Control(2)=   "ucOS1"
+      Tab(1).Control(2)=   "Label10"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Installation"
       TabPicture(2)   =   "frmComponent.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label13"
-      Tab(2).Control(1)=   "Label6"
-      Tab(2).Control(2)=   "Label5"
-      Tab(2).Control(3)=   "Label4"
-      Tab(2).Control(4)=   "Label3"
-      Tab(2).Control(5)=   "Label2"
+      Tab(2).Control(0)=   "cmdSetupBrowse"
+      Tab(2).Control(1)=   "txtSetupMessage"
+      Tab(2).Control(2)=   "txtSetupCommand"
+      Tab(2).Control(3)=   "txtSetupCommandLine"
+      Tab(2).Control(4)=   "txtSetupTime"
+      Tab(2).Control(5)=   "cmbReboot"
       Tab(2).Control(6)=   "Label37"
-      Tab(2).Control(7)=   "cmbReboot"
-      Tab(2).Control(8)=   "txtSetupTime"
-      Tab(2).Control(9)=   "txtSetupCommandLine"
-      Tab(2).Control(10)=   "txtSetupCommand"
-      Tab(2).Control(11)=   "txtSetupMessage"
-      Tab(2).Control(12)=   "cmdSetupBrowse"
+      Tab(2).Control(7)=   "Label2"
+      Tab(2).Control(8)=   "Label3"
+      Tab(2).Control(9)=   "Label4"
+      Tab(2).Control(10)=   "Label5"
+      Tab(2).Control(11)=   "Label6"
+      Tab(2).Control(12)=   "Label13"
       Tab(2).ControlCount=   13
       TabCaption(3)   =   "Dependencies"
       TabPicture(3)   =   "frmComponent.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label11"
-      Tab(3).Control(1)=   "lvDependencies"
+      Tab(3).Control(0)=   "lvDependencies"
+      Tab(3).Control(1)=   "Label11"
       Tab(3).ControlCount=   2
-      TabCaption(4)   =   "Notes"
+      TabCaption(4)   =   "Includes"
       TabPicture(4)   =   "frmComponent.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "txtNotes"
-      Tab(4).ControlCount=   1
+      Tab(4).Control(0)=   "lvIncludes"
+      Tab(4).Control(1)=   "Label7"
+      Tab(4).ControlCount=   2
       TabCaption(5)   =   "Reg Ver Check"
       TabPicture(5)   =   "frmComponent.frx":008C
       Tab(5).ControlEnabled=   0   'False
-      Tab(5).Control(0)=   "Label21"
-      Tab(5).Control(1)=   "Label22"
-      Tab(5).Control(2)=   "Label23"
+      Tab(5).Control(0)=   "txtRegVersionCheckVersion"
+      Tab(5).Control(1)=   "txtRegVersionCheckKey"
+      Tab(5).Control(2)=   "Label25"
       Tab(5).Control(3)=   "Label24"
-      Tab(5).Control(4)=   "Label25"
-      Tab(5).Control(5)=   "txtRegVersionCheckKey"
-      Tab(5).Control(6)=   "txtRegVersionCheckVersion"
+      Tab(5).Control(4)=   "Label23"
+      Tab(5).Control(5)=   "Label22"
+      Tab(5).Control(6)=   "Label21"
       Tab(5).ControlCount=   7
       TabCaption(6)   =   "Reg Key Check"
       TabPicture(6)   =   "frmComponent.frx":00A8
       Tab(6).ControlEnabled=   0   'False
-      Tab(6).Control(0)=   "Label27"
-      Tab(6).Control(1)=   "Label28"
-      Tab(6).Control(2)=   "Label29"
-      Tab(6).Control(3)=   "Label30"
-      Tab(6).Control(4)=   "txtRegKeyCheckKey"
-      Tab(6).Control(5)=   "txtRegKeyCheckValue"
+      Tab(6).Control(0)=   "txtRegKeyCheckValue"
+      Tab(6).Control(1)=   "txtRegKeyCheckKey"
+      Tab(6).Control(2)=   "Label30"
+      Tab(6).Control(3)=   "Label29"
+      Tab(6).Control(4)=   "Label28"
+      Tab(6).Control(5)=   "Label27"
       Tab(6).ControlCount=   6
       TabCaption(7)   =   "NT Serv Pack Check"
       TabPicture(7)   =   "frmComponent.frx":00C4
       Tab(7).ControlEnabled=   0   'False
-      Tab(7).Control(0)=   "Label31"
-      Tab(7).Control(1)=   "Label32"
+      Tab(7).Control(0)=   "txtNTServicePackCheckNumber"
+      Tab(7).Control(1)=   "Label36"
       Tab(7).Control(2)=   "Label33"
-      Tab(7).Control(3)=   "Label36"
-      Tab(7).Control(4)=   "txtNTServicePackCheckNumber"
+      Tab(7).Control(3)=   "Label32"
+      Tab(7).Control(4)=   "Label31"
       Tab(7).ControlCount=   5
       TabCaption(8)   =   "File Ver Check"
       TabPicture(8)   =   "frmComponent.frx":00E0
       Tab(8).ControlEnabled=   0   'False
-      Tab(8).Control(0)=   "Label26"
-      Tab(8).Control(1)=   "Label17"
-      Tab(8).Control(2)=   "Label14"
-      Tab(8).Control(3)=   "Label15"
-      Tab(8).Control(4)=   "Label16"
-      Tab(8).Control(5)=   "Label18"
-      Tab(8).Control(6)=   "Label19"
-      Tab(8).Control(7)=   "Label20"
-      Tab(8).Control(8)=   "txtFileVersionCheckDLL"
-      Tab(8).Control(9)=   "txtFileVersionCheckVersion"
+      Tab(8).Control(0)=   "txtFileVersionCheckVersion"
+      Tab(8).Control(1)=   "txtFileVersionCheckDLL"
+      Tab(8).Control(2)=   "Label20"
+      Tab(8).Control(3)=   "Label19"
+      Tab(8).Control(4)=   "Label18"
+      Tab(8).Control(5)=   "Label16"
+      Tab(8).Control(6)=   "Label15"
+      Tab(8).Control(7)=   "Label14"
+      Tab(8).Control(8)=   "Label17"
+      Tab(8).Control(9)=   "Label26"
       Tab(8).ControlCount=   10
       TabCaption(9)   =   ".Net Framework"
       TabPicture(9)   =   "frmComponent.frx":00FC
       Tab(9).ControlEnabled=   0   'False
-      Tab(9).Control(0)=   "Label39"
-      Tab(9).Control(1)=   "Label40"
-      Tab(9).Control(2)=   "Label41"
-      Tab(9).Control(3)=   "Label38"
-      Tab(9).Control(4)=   "Label42"
-      Tab(9).Control(5)=   "txtNetFrameworkVersion"
+      Tab(9).Control(0)=   "txtNetFrameworkVersion"
+      Tab(9).Control(1)=   "Label42"
+      Tab(9).Control(2)=   "Label38"
+      Tab(9).Control(3)=   "Label41"
+      Tab(9).Control(4)=   "Label40"
+      Tab(9).Control(5)=   "Label39"
       Tab(9).ControlCount=   6
+      TabCaption(10)  =   "Notes"
+      TabPicture(10)  =   "frmComponent.frx":0118
+      Tab(10).ControlEnabled=   0   'False
+      Tab(10).Control(0)=   "txtNotes"
+      Tab(10).ControlCount=   1
+      Begin VB.TextBox txtNotes 
+         Height          =   3135
+         Left            =   -74880
+         MultiLine       =   -1  'True
+         TabIndex        =   67
+         Top             =   480
+         Width           =   6855
+      End
       Begin IASettings.ucOS ucOS1 
          Height          =   3135
          Left            =   -74880
-         TabIndex        =   67
+         TabIndex        =   66
          Top             =   600
          Width           =   4935
          _ExtentX        =   9340
@@ -164,17 +178,9 @@ Begin VB.Form frmComponent
          CausesValidation=   0   'False
          Height          =   285
          Left            =   -72480
-         TabIndex        =   60
+         TabIndex        =   59
          Top             =   840
          Width           =   2295
-      End
-      Begin VB.TextBox txtNotes 
-         Height          =   3135
-         Left            =   -74880
-         MultiLine       =   -1  'True
-         TabIndex        =   57
-         Top             =   480
-         Width           =   6855
       End
       Begin VB.TextBox txtFileVersionCheckVersion 
          CausesValidation=   0   'False
@@ -300,14 +306,14 @@ Begin VB.Form frmComponent
          Height          =   1815
          Left            =   240
          TabIndex        =   26
-         Top             =   1920
+         Top             =   1800
          Width           =   6735
          Begin VB.OptionButton optComponentType 
             Caption         =   ".Net Framework version Check"
             Height          =   255
             Index           =   5
             Left            =   240
-            TabIndex        =   66
+            TabIndex        =   65
             ToolTipText     =   "Checks if specified service pack is installed"
             Top             =   1080
             Width           =   2775
@@ -317,7 +323,7 @@ Begin VB.Form frmComponent
             Height          =   255
             Index           =   4
             Left            =   240
-            TabIndex        =   59
+            TabIndex        =   58
             ToolTipText     =   "Checks if specified service pack is installed"
             Top             =   1440
             Width           =   6255
@@ -402,6 +408,46 @@ Begin VB.Form frmComponent
          Top             =   840
          Width           =   6135
       End
+      Begin MSComctlLib.ListView lvIncludes 
+         Height          =   2655
+         Left            =   -74880
+         TabIndex        =   68
+         Top             =   960
+         Width           =   6855
+         _ExtentX        =   12091
+         _ExtentY        =   4683
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         Checkboxes      =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   2
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Name"
+            Object.Width           =   9701
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "ID"
+            Object.Width           =   0
+         EndProperty
+      End
+      Begin VB.Label Label7 
+         BackColor       =   &H80000018&
+         Caption         =   "If this component includes other items, select them here to prevent them from showing up on the list of components to install."
+         ForeColor       =   &H80000017&
+         Height          =   495
+         Left            =   -74880
+         TabIndex        =   69
+         Top             =   360
+         Width           =   6975
+      End
       Begin VB.Label Label9 
          BackColor       =   &H80000018&
          Caption         =   "WinNT = 4.00, Win2000 = 5.00, WinXP = 5.01, Ignore = 0.00"
@@ -417,7 +463,7 @@ Begin VB.Form frmComponent
          Caption         =   "1.0.3705"
          Height          =   255
          Left            =   -73440
-         TabIndex        =   65
+         TabIndex        =   64
          Top             =   3240
          Width           =   3135
       End
@@ -426,7 +472,7 @@ Begin VB.Form frmComponent
          Caption         =   "For the .Net framework version 1, enter:"
          Height          =   255
          Left            =   -74040
-         TabIndex        =   64
+         TabIndex        =   63
          Top             =   2880
          Width           =   4335
       End
@@ -434,7 +480,7 @@ Begin VB.Form frmComponent
          Caption         =   "Version:"
          Height          =   255
          Left            =   -73680
-         TabIndex        =   63
+         TabIndex        =   62
          ToolTipText     =   "Complete version number, ie x.x.x.x"
          Top             =   840
          Width           =   1095
@@ -445,7 +491,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   62
+         TabIndex        =   61
          Top             =   360
          Width           =   6975
       End
@@ -455,7 +501,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   1215
          Left            =   -74880
-         TabIndex        =   61
+         TabIndex        =   60
          Top             =   2520
          Width           =   6975
       End
@@ -463,7 +509,7 @@ Begin VB.Form frmComponent
          Caption         =   "Estimated seconds to install"
          Height          =   255
          Left            =   -72480
-         TabIndex        =   58
+         TabIndex        =   57
          Top             =   1920
          Width           =   2535
       End
@@ -526,7 +572,7 @@ Begin VB.Form frmComponent
       End
       Begin VB.Label Label17 
          BackColor       =   &H80000018&
-         Caption         =   $"frmComponent.frx":0118
+         Caption         =   $"frmComponent.frx":0134
          ForeColor       =   &H80000017&
          Height          =   1335
          Left            =   -74880
@@ -572,7 +618,7 @@ Begin VB.Form frmComponent
       End
       Begin VB.Label Label33 
          BackColor       =   &H80000018&
-         Caption         =   $"frmComponent.frx":019F
+         Caption         =   $"frmComponent.frx":01BB
          ForeColor       =   &H80000017&
          Height          =   1215
          Left            =   -74880
@@ -888,9 +934,16 @@ Public Sub Load()
   Dim objCompList As CComponents, objComp As CComponent, li As ListItem
   For Each objComp In mobjComponent.Settings.Components
     If objComp.ID <> mobjComponent.ID And Not objComp.Delete Then
+      ' add to depends list
       Set li = Me.lvDependencies.ListItems.Add(, , objComp.Name)
       li.SubItems(1) = objComp.ID
       If InStr(mobjComponent.Dependencies, " " & li.SubItems(1) & " ") > 0 Then
+        li.Checked = True
+      End If
+      ' add to include list
+      Set li = Me.lvIncludes.ListItems.Add(, , objComp.Name)
+      li.SubItems(1) = objComp.ID
+      If InStr(mobjComponent.Includes, " " & li.SubItems(1) & " ") > 0 Then
         li.Checked = True
       End If
     End If
@@ -1019,6 +1072,16 @@ Private Sub Save()
     End If
   Next li
   mobjComponent.Dependencies = strTemp
+
+  ' Includes
+  strTemp = ""
+  For Each li In Me.lvIncludes.ListItems
+    If li.Checked Then
+      If strTemp <> "" Then strTemp = strTemp & " "
+      strTemp = strTemp & li.SubItems(1)
+    End If
+  Next li
+  mobjComponent.Includes = strTemp
 
 End Sub
 

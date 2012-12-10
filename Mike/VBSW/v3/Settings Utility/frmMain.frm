@@ -4,24 +4,24 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "IA Settings Utility"
-   ClientHeight    =   5355
+   ClientHeight    =   5880
    ClientLeft      =   150
    ClientTop       =   840
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   5355
+   ScaleHeight     =   5880
    ScaleWidth      =   6675
    StartUpPosition =   3  'Windows Default
    Begin TabDlg.SSTab tabs 
-      Height          =   5055
+      Height          =   5655
       Left            =   120
       TabIndex        =   0
       Top             =   120
       Visible         =   0   'False
       Width           =   6495
       _ExtentX        =   11456
-      _ExtentY        =   8916
+      _ExtentY        =   9975
       _Version        =   393216
       Style           =   1
       Tabs            =   6
@@ -54,14 +54,24 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label10"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdAdd"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "lvComponents"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "cmdEdit"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdDelete"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "cmdDownload"
+      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "cmdMoveUp"
+      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).Control(7)=   "cmdMoveDown"
-      Tab(1).ControlCount=   8
+      Tab(1).Control(7).Enabled=   0   'False
+      Tab(1).Control(8)=   "Frame4"
+      Tab(1).Control(8).Enabled=   0   'False
+      Tab(1).ControlCount=   9
       TabCaption(2)   =   "Buttons"
       TabPicture(2)   =   "frmMain.frx":0038
       Tab(2).ControlEnabled=   0   'False
@@ -76,42 +86,77 @@ Begin VB.Form frmMain
       TabCaption(3)   =   "Global Options"
       TabPicture(3)   =   "frmMain.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "txtSingleInstanceError"
-      Tab(3).Control(1)=   "chkEnableLogging"
-      Tab(3).Control(2)=   "txtAbortMutex"
-      Tab(3).Control(3)=   "chkAbortMutex"
+      Tab(3).Control(0)=   "Label4(0)"
+      Tab(3).Control(1)=   "Label9"
+      Tab(3).Control(2)=   "Label16"
+      Tab(3).Control(3)=   "fraRebootOption"
       Tab(3).Control(4)=   "chkSingleInstance"
-      Tab(3).Control(5)=   "fraRebootOption"
-      Tab(3).Control(6)=   "Label16"
-      Tab(3).Control(7)=   "Label9"
-      Tab(3).Control(8)=   "Label4(0)"
+      Tab(3).Control(5)=   "chkAbortMutex"
+      Tab(3).Control(6)=   "txtAbortMutex"
+      Tab(3).Control(7)=   "chkEnableLogging"
+      Tab(3).Control(8)=   "txtSingleInstanceError"
       Tab(3).ControlCount=   9
       TabCaption(4)   =   "Splash"
       TabPicture(4)   =   "frmMain.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Label4(1)"
-      Tab(4).Control(1)=   "Label8"
-      Tab(4).Control(2)=   "Label3"
-      Tab(4).Control(3)=   "chkHideTitleBar"
-      Tab(4).Control(4)=   "Frame2"
-      Tab(4).Control(5)=   "txtSplash"
-      Tab(4).Control(6)=   "cmdSplashBrowse"
-      Tab(4).Control(7)=   "Frame3"
+      Tab(4).Control(0)=   "Frame3"
+      Tab(4).Control(1)=   "cmdSplashBrowse"
+      Tab(4).Control(2)=   "txtSplash"
+      Tab(4).Control(3)=   "Frame2"
+      Tab(4).Control(4)=   "chkHideTitleBar"
+      Tab(4).Control(5)=   "Label3"
+      Tab(4).Control(6)=   "Label8"
+      Tab(4).Control(7)=   "Label4(1)"
       Tab(4).ControlCount=   8
       TabCaption(5)   =   "OS"
       TabPicture(5)   =   "frmMain.frx":008C
       Tab(5).ControlEnabled=   0   'False
-      Tab(5).Control(0)=   "txtInvalidOSMessage"
-      Tab(5).Control(1)=   "ucOS1"
+      Tab(5).Control(0)=   "Label4(2)"
+      Tab(5).Control(0).Enabled=   0   'False
+      Tab(5).Control(1)=   "Label13"
+      Tab(5).Control(1).Enabled=   0   'False
       Tab(5).Control(2)=   "Label14"
-      Tab(5).Control(3)=   "Label13"
-      Tab(5).Control(4)=   "Label4(2)"
+      Tab(5).Control(2).Enabled=   0   'False
+      Tab(5).Control(3)=   "txtInvalidOSMessage"
+      Tab(5).Control(3).Enabled=   0   'False
+      Tab(5).Control(4)=   "ucOS1"
+      Tab(5).Control(4).Enabled=   0   'False
       Tab(5).ControlCount=   5
+      Begin VB.Frame Frame4 
+         Caption         =   " Notes "
+         Height          =   1575
+         Left            =   -74880
+         TabIndex        =   63
+         Top             =   3960
+         Width           =   6255
+         Begin VB.TextBox txtNotes 
+            BackColor       =   &H8000000F&
+            BorderStyle     =   0  'None
+            Height          =   1215
+            HideSelection   =   0   'False
+            Left            =   120
+            Locked          =   -1  'True
+            MultiLine       =   -1  'True
+            ScrollBars      =   2  'Vertical
+            TabIndex        =   64
+            Top             =   240
+            Width           =   6015
+         End
+      End
+      Begin IASettings.ucOS ucOS1 
+         Height          =   3375
+         Left            =   -74880
+         TabIndex        =   62
+         Top             =   600
+         Width           =   4815
+         _ExtentX        =   8493
+         _ExtentY        =   5953
+      End
       Begin VB.CommandButton cmdBrowseRoot 
          Caption         =   "Explore..."
          Height          =   375
          Left            =   5040
-         TabIndex        =   62
+         TabIndex        =   61
          Top             =   1440
          Width           =   1215
       End
@@ -119,7 +164,7 @@ Begin VB.Form frmMain
          Height          =   495
          Left            =   -73800
          MultiLine       =   -1  'True
-         TabIndex        =   61
+         TabIndex        =   60
          ToolTipText     =   "Error displayed if more then one instance started.  Leave blank for no error."
          Top             =   2160
          Width           =   4935
@@ -128,18 +173,9 @@ Begin VB.Form frmMain
          Height          =   735
          Left            =   -73200
          MultiLine       =   -1  'True
-         TabIndex        =   57
-         Top             =   3960
+         TabIndex        =   56
+         Top             =   4080
          Width           =   4455
-      End
-      Begin IASettings.ucOS ucOS1 
-         Height          =   3255
-         Left            =   -74880
-         TabIndex        =   54
-         Top             =   600
-         Width           =   4935
-         _ExtentX        =   8916
-         _ExtentY        =   5741
       End
       Begin VB.Frame Frame3 
          Caption         =   " Sound Effects "
@@ -229,7 +265,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtSetupOnlyConfText 
             Height          =   495
             Left            =   1080
-            TabIndex        =   58
+            TabIndex        =   57
             Top             =   1320
             Width           =   4815
          End
@@ -271,7 +307,7 @@ Begin VB.Form frmMain
             Caption         =   "Confirm setup run:"
             Height          =   375
             Left            =   120
-            TabIndex        =   59
+            TabIndex        =   58
             Top             =   1320
             Width           =   855
          End
@@ -345,7 +381,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   23
-         Top             =   4140
+         Top             =   5100
          Width           =   1215
       End
       Begin VB.CommandButton cmdSetAsDefault 
@@ -353,7 +389,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   22
-         Top             =   3660
+         Top             =   4620
          Width           =   1215
       End
       Begin VB.CommandButton cmdAddButton 
@@ -385,7 +421,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   13
-         Top             =   4320
+         Top             =   3480
          Width           =   1215
       End
       Begin VB.CommandButton cmdMoveUp 
@@ -393,7 +429,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   12
-         Top             =   3840
+         Top             =   3000
          Width           =   1215
       End
       Begin VB.CommandButton cmdDownload 
@@ -401,7 +437,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   11
-         Top             =   2760
+         Top             =   2400
          Width           =   1215
       End
       Begin VB.TextBox txtRootPath 
@@ -427,7 +463,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   4
-         Top             =   1860
+         Top             =   1800
          Width           =   1215
       End
       Begin VB.CommandButton cmdEdit 
@@ -435,17 +471,17 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   3
-         Top             =   1380
+         Top             =   1320
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvComponents 
-         Height          =   3975
+         Height          =   3135
          Left            =   -74880
          TabIndex        =   1
          Top             =   780
          Width           =   4815
          _ExtentX        =   8493
-         _ExtentY        =   7011
+         _ExtentY        =   5530
          View            =   3
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -473,17 +509,17 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   2
-         Top             =   900
+         Top             =   840
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvButtons 
-         Height          =   3975
+         Height          =   4695
          Left            =   -74880
          TabIndex        =   19
          Top             =   780
          Width           =   4815
          _ExtentX        =   8493
-         _ExtentY        =   7011
+         _ExtentY        =   8281
          View            =   3
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -522,7 +558,7 @@ Begin VB.Form frmMain
          Caption         =   "Error:"
          Height          =   255
          Left            =   -74400
-         TabIndex        =   60
+         TabIndex        =   59
          Top             =   2160
          Width           =   495
       End
@@ -530,8 +566,8 @@ Begin VB.Form frmMain
          Caption         =   "Invalid OS Message:"
          Height          =   495
          Left            =   -74760
-         TabIndex        =   56
-         Top             =   3960
+         TabIndex        =   55
+         Top             =   4080
          Width           =   1575
       End
       Begin VB.Label Label13 
@@ -540,7 +576,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000017&
          Height          =   855
          Left            =   -69960
-         TabIndex        =   55
+         TabIndex        =   54
          Top             =   2760
          Width           =   1335
       End
@@ -596,7 +632,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   2400
          TabIndex        =   29
-         Top             =   4680
+         Top             =   5280
          Width           =   2415
       End
       Begin VB.Label Label4 
@@ -624,15 +660,15 @@ Begin VB.Form frmMain
          BorderColor     =   &H00808080&
          X1              =   120
          X2              =   6240
-         Y1              =   4620
-         Y2              =   4620
+         Y1              =   5220
+         Y2              =   5220
       End
       Begin VB.Label Label38 
          Caption         =   "For more information/help, go to"
          Height          =   255
          Left            =   120
          TabIndex        =   16
-         Top             =   4680
+         Top             =   5280
          Width           =   2295
       End
       Begin VB.Label Label5 
@@ -791,6 +827,7 @@ Private Sub cmdAdd_Click()
   mobjSettings.Components.Add objComponent
   li.Selected = True
   mblnDirty = True
+  Me.txtNotes.Text = ""
   
 End Sub
 
@@ -846,6 +883,7 @@ Private Sub cmdDelete_Click()
   If MsgBox("Are you sure you want to remove the component '" + li.Text + "'?", vbQuestion + vbYesNo) = vbYes Then
     mobjSettings.Components(li.SubItems(1)).Delete = True
     Me.lvComponents.ListItems.Remove li.Index
+    Me.txtNotes.Text = ""
   End If
 
 End Sub
@@ -921,6 +959,7 @@ Private Sub cmdEdit_Click()
   
   If fC.Dirty Then
     li.Text = objComponent.Name
+    txtNotes.Text = objComponent.Notes
     mblnDirty = True
   End If
   Set fC = Nothing
@@ -1103,14 +1142,7 @@ Private Sub Form_Load()
   
   Me.tabs.Tab = 0
   
-'  If GetSetting("VBSWSettings", "Main", "RecentFile", "") = "" Then
-    Me.mnuRecent(0).Visible = False
-'  Else
-'    Me.mnuRecent(0).Visible = True
-'    Load Me.mnuRecent(1)
-'    Me.mnuRecent(1).Visible = True
-'    Me.mnuRecent(1).Caption = GetSetting("VBSWSettings", "Main", "RecentFile", "")
-'  End If
+  UpdateMRU
   
   Me.Left = GetSetting("IASettings", "Main", "FormLeft", Me.Left)
   Me.Top = GetSetting("IASettings", "Main", "FormTop", Me.Top)
@@ -1133,7 +1165,6 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
   End If
   If Not (mobjSettings Is Nothing) Then
     SaveSetting "IASettings", "Main", "RecentFile", mobjSettings.RootPath
-    SaveSetting "IASettings", "Main", "RecentFileIDList", mobjSettings.RootPathIDList
   End If
   
 End Sub
@@ -1174,12 +1205,92 @@ Private Sub lvComponents_ItemCheck(ByVal Item As MSComctlLib.ListItem)
 
 End Sub
 
+Private Sub lvComponents_ItemClick(ByVal Item As MSComctlLib.ListItem)
+
+  txtNotes.Text = mobjSettings.Components(Item.SubItems(1)).Notes
+
+End Sub
+
 Private Sub mnuFileExit_Click()
 
   Unload Me
 
   If Me Is Nothing Then End
   
+End Sub
+
+Private Sub AddMRU(sFolder As String)
+
+  Dim i As Integer, col As Collection, strTemp As String
+  Set col = New Collection
+  
+  ' Read in all currently in list
+  For i = 0 To 10
+      
+      strTemp = GetSetting("IASettings", "MRU", "MRU" + CStr(i), "")
+      If strTemp <> "" Then
+        col.Add strTemp
+      End If
+  Next i
+  
+  ' Now check for the current one, removing if present
+  For i = 1 To col.Count
+    ' we may have removed some
+    If col.Count < i Then Exit For
+    If CStr(col.Item(i)) = sFolder Then
+      col.Remove i
+    End If
+  Next i
+  
+  ' Now add current folder
+  If col.Count > 0 Then
+    col.Add CStr(sFolder), , 1
+  Else
+    col.Add CStr(sFolder)
+  End If
+  
+  ' Now save to reg
+  For i = 0 To 10
+    
+    If col.Count > i Then
+      SaveSetting "IASettings", "MRU", "MRU" + CStr(i), col.Item(i + 1)
+    End If
+    
+  Next i
+  
+  ' Update MRU list
+  UpdateMRU
+  
+End Sub
+
+Private Sub UpdateMRU()
+
+  Dim i As Integer, strTemp As String, iLoaded As Integer
+  iLoaded = 1
+  
+  For i = mnuRecent.Count To 2 Step -1
+    Unload mnuRecent(i - 1)
+  Next i
+  
+  For i = 0 To 10
+    
+    strTemp = GetSetting("IASettings", "MRU", "MRU" + CStr(i), "")
+    If strTemp <> "" Then
+      
+      ' Load a new menuitem
+      Load mnuRecent(iLoaded)
+      mnuRecent(iLoaded).Visible = True
+      mnuRecent(iLoaded).Caption = strTemp
+      
+      iLoaded = iLoaded + 1
+    End If
+    
+  Next i
+  
+  ' check if we loaded anything
+  mnuRecent(0).Visible = IIf(iLoaded > 1, True, False)
+  
+
 End Sub
 
 Private Sub mnuFileOpen_Click()
@@ -1193,6 +1304,8 @@ Private Sub mnuFileOpen_Click()
     MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
     Exit Sub
   End If
+  
+  AddMRU sFoldername
   
   strFileName = "\ia\settings.ini"
   
@@ -1351,19 +1464,18 @@ End Sub
 Private Sub mnuRecent_Click(Index As Integer)
 
   Dim sFoldername As String, sIDList As String
-  If Index = 1 Then
-    sFoldername = mnuRecent(Index).Caption
-    If Not FileExists(sFoldername & "\ia\settings.ini") Then
-      MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
-      Exit Sub
-    End If
-  
-    sIDList = GetSetting("IASettings", "Main", "RecentFileIDList", "")
     
-    Set mobjSettings = New CSettingsFile
-    If mobjSettings.Load(CLng(sIDList), sFoldername, "\ia\settings.ini") Then
-      LoadSettings
-    End If
+  sFoldername = mnuRecent(Index).Caption
+  If Not FileExists(sFoldername & "\ia\settings.ini") Then
+    MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
+    Exit Sub
+  End If
+  
+  sIDList = GetPIDLFromPath(Me.hwnd, sFoldername)
+    
+  Set mobjSettings = New CSettingsFile
+  If mobjSettings.Load(CLng(sIDList), sFoldername, "\ia\settings.ini") Then
+    LoadSettings
   End If
   
 End Sub
