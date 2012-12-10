@@ -36,131 +36,144 @@ namespace msn2.net.Configuration
 	/// </summary>
 	public class Config
 	{
-		private Guid userId;
-		private Guid configId;
+		private Guid userId			= Guid.NewGuid();
+		private Guid machineId		= Guid.NewGuid();
+		private Guid policyId		= Guid.NewGuid();
+		private Guid configId		= Guid.NewGuid();
 		private ItemIdDictionary itemIdDictionary;
+		private Data data;
 		
-		public void Login(Guid userId, Guid configId)
+		public void Login(Guid userId, Guid machineId, Guid policyId)
 		{
-			this.userId   = userId;
-			this.configId = configId;
+			this.configId	= configId;
+			this.userId		= userId;
+            this.machineId	= machineId;			
+			this.policyId	= policyId;
 
 			itemIdDictionary = new ItemIdDictionary();
+
+			// load each tree
+			data = new Data(configId, userId, machineId, policyId);
 		}
 
-		public Guid GetItemId(string itemName)
+		public Data Data
 		{
-            // Check for cache entry
-			Guid itemId = itemIdDictionary.ItemId(itemName);
-
-			// If we didn't get anything, look up in db
-			if (itemId == Guid.Empty)
-			{
-				SqlConnection cn = new SqlConnection(ConnectionString);
-				SqlCommand cmd   = new SqlCommand("s_Configuration_Item_Get", cn);
-				cmd.CommandType  = CommandType.StoredProcedure;
-
-				// Params for sp
-				cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-				cmd.Parameters.Add("@itemName", SqlDbType.NVarChar, 50);
-				cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-				cmd.Parameters["@itemId"].Direction = ParameterDirection.Output;
-
-				// Set sp values
-				cmd.Parameters["@userId"].Value			 = userId;
-				cmd.Parameters["@itemName"].Value		 = itemName;
-
-				// Run the sp
-				cn.Open();
-				cmd.ExecuteNonQuery();
-				cn.Close();
-
-				itemId = (Guid) cmd.Parameters["@itemId"].Value;
-				itemIdDictionary.Add(itemName, itemId);
-			}
-			
-			return itemId;
-
+			get { return data; }
 		}
 
-		public ItemAttribute GetItemAttribute(string itemName, string attributeName)
-		{
-			return GetItemAttribute(itemName, attributeName, 0);
-		}
-
-		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue)
-		{
-			return GetItemAttribute(itemName, attributeName, defaultValue, false);
-		}
-
-		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue, bool globalSetting)
-		{
-			SqlConnection cn = new SqlConnection(ConnectionString);
-			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Get", cn);
-			cmd.CommandType  = CommandType.StoredProcedure;
-
-			Guid itemId = GetItemId(itemName);
-
-			// Params for sp
-			cmd.Parameters.Add("@configurationId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@attributeName", SqlDbType.NVarChar, 50);
-			cmd.Parameters.Add("@defaultValue", SqlDbType.NVarChar, 50);
-			cmd.Parameters.Add("@attributeValue", SqlDbType.NVarChar, 50);
-			cmd.Parameters["@attributeValue"].Direction = ParameterDirection.Output;
-
-			// Set sp values
-			if (globalSetting)
-				cmd.Parameters["@configurationId"].Value = System.DBNull.Value;
-			else
-				cmd.Parameters["@configurationId"].Value = configId;
-			cmd.Parameters["@itemId"].Value			 = itemId;
-			cmd.Parameters["@attributeName"].Value	 = attributeName;
-			cmd.Parameters["@defaultValue"].Value	 = defaultValue;
-
-			// Run the sp
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
-
-			ItemAttribute item = new ItemAttribute(cmd.Parameters["@AttributeValue"].Value);
-			return item;
-		}
-
-		public void SetItemAttribute(string itemName, string attributeName, object attributeValue)
-		{
-			SetItemAttribute(itemName, attributeName, attributeValue, false);
-		}
-
-		public void SetItemAttribute(string itemName, string attributeName, object attributeValue, bool globalSetting)
-		{
-			SqlConnection cn = new SqlConnection(ConnectionString);
-			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Set", cn);
-			cmd.CommandType  = CommandType.StoredProcedure;
-
-			Guid itemId = GetItemId(itemName);
-
-			// Params for sp
-			cmd.Parameters.Add("@ConfigurationId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@ItemId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@AttributeName", SqlDbType.NVarChar, 50);
-			cmd.Parameters.Add("@AttributeValue", SqlDbType.NVarChar, 50);
-
-			// Set sp values
-			if (globalSetting)
-				cmd.Parameters["@ConfigurationId"].Value = System.DBNull.Value;
-			else
-				cmd.Parameters["@ConfigurationId"].Value = configId;
-			cmd.Parameters["@ItemId"].Value			 = itemId;
-			cmd.Parameters["@AttributeName"].Value	 = attributeName;
-			cmd.Parameters["@AttributeValue"].Value	 = attributeValue.ToString();
-
-			// Run the sp
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
-			
-		}
+//		public Guid GetItemId(string itemName)
+//		{
+//            // Check for cache entry
+//			Guid itemId = itemIdDictionary.ItemId(itemName);
+//
+//			// If we didn't get anything, look up in db
+//			if (itemId == Guid.Empty)
+//			{
+//				SqlConnection cn = new SqlConnection(ConnectionString);
+//				SqlCommand cmd   = new SqlCommand("s_Configuration_Item_Get", cn);
+//				cmd.CommandType  = CommandType.StoredProcedure;
+//
+//				// Params for sp
+//				cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
+//				cmd.Parameters.Add("@itemName", SqlDbType.NVarChar, 50);
+//				cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
+//				cmd.Parameters["@itemId"].Direction = ParameterDirection.Output;
+//
+//				// Set sp values
+//				cmd.Parameters["@userId"].Value			 = userId;
+//				cmd.Parameters["@itemName"].Value		 = itemName;
+//
+//				// Run the sp
+//				cn.Open();
+//				cmd.ExecuteNonQuery();
+//				cn.Close();
+//
+//				itemId = (Guid) cmd.Parameters["@itemId"].Value;
+//				itemIdDictionary.Add(itemName, itemId);
+//			}
+//			
+//			return itemId;
+//
+//		}
+//
+//		public ItemAttribute GetItemAttribute(string itemName, string attributeName)
+//		{
+//			return GetItemAttribute(itemName, attributeName, 0);
+//		}
+//
+//		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue)
+//		{
+//			return GetItemAttribute(itemName, attributeName, defaultValue, false);
+//		}
+//
+//		public ItemAttribute GetItemAttribute(string itemName, string attributeName, object defaultValue, bool globalSetting)
+//		{
+//			SqlConnection cn = new SqlConnection(ConnectionString);
+//			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Get", cn);
+//			cmd.CommandType  = CommandType.StoredProcedure;
+//
+//			Guid itemId = GetItemId(itemName);
+//
+//			// Params for sp
+//			cmd.Parameters.Add("@configurationId", SqlDbType.UniqueIdentifier);
+//			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
+//			cmd.Parameters.Add("@attributeName", SqlDbType.NVarChar, 50);
+//			cmd.Parameters.Add("@defaultValue", SqlDbType.NVarChar, 50);
+//			cmd.Parameters.Add("@attributeValue", SqlDbType.NVarChar, 50);
+//			cmd.Parameters["@attributeValue"].Direction = ParameterDirection.Output;
+//
+//			// Set sp values
+//			if (globalSetting)
+//				cmd.Parameters["@configurationId"].Value = System.DBNull.Value;
+//			else
+//				cmd.Parameters["@configurationId"].Value = configId;
+//			cmd.Parameters["@itemId"].Value			 = itemId;
+//			cmd.Parameters["@attributeName"].Value	 = attributeName;
+//			cmd.Parameters["@defaultValue"].Value	 = defaultValue;
+//
+//			// Run the sp
+//			cn.Open();
+//			cmd.ExecuteNonQuery();
+//			cn.Close();
+//
+//			ItemAttribute item = new ItemAttribute(cmd.Parameters["@AttributeValue"].Value);
+//			return item;
+//		}
+//
+//		public void SetItemAttribute(string itemName, string attributeName, object attributeValue)
+//		{
+//			SetItemAttribute(itemName, attributeName, attributeValue, false);
+//		}
+//
+//		public void SetItemAttribute(string itemName, string attributeName, object attributeValue, bool globalSetting)
+//		{
+//			SqlConnection cn = new SqlConnection(ConnectionString);
+//			SqlCommand cmd   = new SqlCommand("s_Configuration_ItemAttribute_Set", cn);
+//			cmd.CommandType  = CommandType.StoredProcedure;
+//
+//			Guid itemId = GetItemId(itemName);
+//
+//			// Params for sp
+//			cmd.Parameters.Add("@ConfigurationId", SqlDbType.UniqueIdentifier);
+//			cmd.Parameters.Add("@ItemId", SqlDbType.UniqueIdentifier);
+//			cmd.Parameters.Add("@AttributeName", SqlDbType.NVarChar, 50);
+//			cmd.Parameters.Add("@AttributeValue", SqlDbType.NVarChar, 50);
+//
+//			// Set sp values
+//			if (globalSetting)
+//				cmd.Parameters["@ConfigurationId"].Value = System.DBNull.Value;
+//			else
+//				cmd.Parameters["@ConfigurationId"].Value = configId;
+//			cmd.Parameters["@ItemId"].Value			 = itemId;
+//			cmd.Parameters["@AttributeName"].Value	 = attributeName;
+//			cmd.Parameters["@AttributeValue"].Value	 = attributeValue.ToString();
+//
+//			// Run the sp
+//			cn.Open();
+//			cmd.ExecuteNonQuery();
+//			cn.Close();
+//			
+//		}
 
 		#region ConnectionString
 
@@ -226,18 +239,6 @@ namespace msn2.net.Configuration
 		}
 
         
-		#endregion
-
-		#region Forms
-
-//		public static FormSettings FormS[string formName]
-//		{
-//			get 
-//			{
-//				
-//			}
-//		}
-
 		#endregion
 
 	}

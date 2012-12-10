@@ -13,11 +13,20 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class ShellForm : System.Windows.Forms.Form
 	{
+
 		#region Static instance functionality
 
 		private static ArrayList instances	= new ArrayList();
 
 		private static void AddInstance(ShellForm instance)
+		{
+			lock (instances)
+			{
+				instances.Add(instance);
+			}
+		}
+
+		private static void AddInstance(ShellForm instance, ShellForm parent)
 		{
 			lock (instances)
 			{
@@ -67,6 +76,7 @@ namespace msn2.net.Controls
 		private bool	autoLayout					= false;
 		protected ShellForm lockedTo				= null;
 		protected ArrayList lockedForms				= new ArrayList();
+		private Data formNode				= null;
 
 		#endregion
 
@@ -89,6 +99,11 @@ namespace msn2.net.Controls
 			panelMoreButtons.Width = 0;
 
 			AddInstance(this);
+		}
+
+		public ShellForm(Data formNode): this()
+		{
+			this.formNode = formNode;
 		}
 
 		/// <summary>
@@ -344,15 +359,22 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Load(object sender, System.EventArgs e)
 		{
-			if (autoLayout)
+			if (formNode != null)
 			{
+
+				ShellFormConfigData defaultData = new ShellFormConfigData(this);
+				ConfigurationSettings.Current.Data.Get(this.Name, defaultData, ConfigTreeLocation.CustomConfigTree);
+                defaultData.Apply();
+                
+				//TODO: Get node ConfigurationSettings.Current.Data.get
+				
 				// Now retreive any saved values			
-				this.Left		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Left", this.Left).Integer;
+/*				this.Left		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Left", this.Left).Integer;
 				this.Top		= ConfigurationSettings.Current.GetItemAttribute(this.Name, "Top", this.Top).Integer;
 				this.TopMost	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "TopMost", this.TopMost).Boolean;
-//				this.RolledUp	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "RolledUp", this.rolledUp).Boolean;
+				//				this.RolledUp	= ConfigurationSettings.Current.GetItemAttribute(this.Name, "RolledUp", this.rolledUp).Boolean;
 				this.EnableOpacityChanges = ConfigurationSettings.Current.GetItemAttribute(this.Name, "EnableOpacityChanges", this.enableOpacityChanges).Boolean;
-			}
+*/			}
 		}
 
 		#endregion
@@ -493,6 +515,12 @@ namespace msn2.net.Controls
 			{
 				this.labelTitle.Visible = value;
 			}
+		}
+
+		public Data Data
+		{
+			get { return formNode; }
+			set { formNode = value; }
 		}
 
 		#endregion
@@ -639,12 +667,9 @@ namespace msn2.net.Controls
 			{
 				if (autoLayout)
 				{
-					// save the positions
-					ConfigurationSettings.Current.SetItemAttribute(this.Name, "Left", this.Left);
-					ConfigurationSettings.Current.SetItemAttribute(this.Name, "Top", this.Top);
-					ConfigurationSettings.Current.SetItemAttribute(this.Name, "TopMost", this.TopMost);
-					ConfigurationSettings.Current.SetItemAttribute(this.Name, "RolledUp", this.RolledUp);
-					ConfigurationSettings.Current.SetItemAttribute(this.Name, "EnableOpacityChanges", this.EnableOpacityChanges);
+
+					ShellFormConfigData data = new ShellFormConfigData(this);
+					ConfigurationSettings.Current.Data.Get(this.Name, "", data);
 				}
 			}
 		}
@@ -804,53 +829,53 @@ namespace msn2.net.Controls
 				layedOut = true;
 
 				// If we are in ProjectF style, move all controls down
+			{
+
+				panelTitle.Height = 16;
+				panelTitle.SendToBack();
+
+				panelLeft.Width   = 3;
+				panelLeft.SendToBack();
+
+				panelRight.Width  = 3;
+				panelRight.SendToBack();
+				panelBottom.Height = 3;
+				panelBottom.Top   = this.Height - panelBottom.Height - panelTitle.Height;
+				panelBottom.SendToBack();
+
+				this.Width = this.Width + panelLeft.Width + panelRight.Width;
+				if (rolledUp)
 				{
+					this.Height = panelTitle.Height;
+					this.savedSize = new Size(this.Width, this.savedSize.Height + panelTitle.Height + panelBottom.Height);
+				}
+				else
+				{
+					this.Height = this.Height + panelTitle.Height + panelBottom.Height;
+				}
 
-					panelTitle.Height = 16;
-					panelTitle.SendToBack();
-
-					panelLeft.Width   = 3;
-					panelLeft.SendToBack();
-
-					panelRight.Width  = 3;
-					panelRight.SendToBack();
-					panelBottom.Height = 3;
-					panelBottom.Top   = this.Height - panelBottom.Height - panelTitle.Height;
-					panelBottom.SendToBack();
-
-					this.Width = this.Width + panelLeft.Width + panelRight.Width;
-					if (rolledUp)
+				foreach (Control c in this.Controls)
+				{
+					if (c != panelTitle && c.Parent != panelTitle && c != panelBottom && c != panelLeft && c != panelRight
+						&& c.Dock == DockStyle.None)
 					{
-						this.Height = panelTitle.Height;
-						this.savedSize = new Size(this.Width, this.savedSize.Height + panelTitle.Height + panelBottom.Height);
-					}
-					else
-					{
-						this.Height = this.Height + panelTitle.Height + panelBottom.Height;
-					}
+						c.Top    = c.Top + panelTitle.Height;
+						c.Left   = c.Left + panelLeft.Width;
 
-					foreach (Control c in this.Controls)
-					{
-						if (c != panelTitle && c.Parent != panelTitle && c != panelBottom && c != panelLeft && c != panelRight
-							&& c.Dock == DockStyle.None)
+						if (c.Dock != DockStyle.None)
 						{
-							c.Top    = c.Top + panelTitle.Height;
-							c.Left   = c.Left + panelLeft.Width;
-
-							if (c.Dock != DockStyle.None)
-							{
-//								c.Width  = c.Width - panelLeft.Width - panelRight.Width;
-//								c.Height = c.Height - panelTitle.Height - panelBottom.Height;
-							}
+							//								c.Width  = c.Width - panelLeft.Width - panelRight.Width;
+							//								c.Height = c.Height - panelTitle.Height - panelBottom.Height;
 						}
 					}
-                    
-					if (this.FixedSize.Width > 0)
-						this.FixedSize = new Size(this.Width, this.FixedSize.Height);
-					if (this.FixedSize.Height > 0)
-						this.FixedSize = new Size(this.FixedSize.Width, this.Height);
-					
 				}
+                    
+				if (this.FixedSize.Width > 0)
+					this.FixedSize = new Size(this.Width, this.FixedSize.Height);
+				if (this.FixedSize.Height > 0)
+					this.FixedSize = new Size(this.FixedSize.Width, this.Height);
+					
+			}
 			}
 			else
 			{
@@ -1019,7 +1044,7 @@ namespace msn2.net.Controls
 		{
 			if (rolledUp || rollupHover)
 			{
-                this.Height		= savedSize.Height;
+				this.Height		= savedSize.Height;
 				rolledUp		= false;
 				rollupHover		= false;
 				buttonRollup.Refresh();
@@ -1123,7 +1148,7 @@ namespace msn2.net.Controls
 
 		public void AddButtons(Control c, int width, bool visible)
 		{
-            panelMoreButtons.Controls.Add(c);
+			panelMoreButtons.Controls.Add(c);
 			panelMoreButtons.Width = width;
 			c.Visible = visible;
 			panelTitleText_Resize(this, EventArgs.Empty);
@@ -1147,8 +1172,8 @@ namespace msn2.net.Controls
 
 		private void labelTitle_MouseHover(object sender, System.EventArgs e)
 		{
-            if (TitleHover != null)
-            	TitleHover(this, EventArgs.Empty);	
+			if (TitleHover != null)
+				TitleHover(this, EventArgs.Empty);	
 		}
 
 		private void panelTitleText_Resize(object sender, System.EventArgs e)
@@ -1166,6 +1191,68 @@ namespace msn2.net.Controls
 		public event System.EventHandler TitleMouseLeave;
 
 		#endregion
+
+		public void AddPrompt(ShellForm parent)
+		{
+			this.Left	= (parent.Left + parent.Width  / 2) - (this.Width  / 2);
+			this.Top	= (parent.Top  + parent.Height / 2) - (this.Height / 2);
+		}
+	}
+
+	public class ShellFormConfigData
+	{
+		private int left;
+		private int top;
+		private bool topmost;
+		private bool enableOpacityChanges;
+		private ShellForm form;
+
+		public ShellFormConfigData()
+		{}
+
+		public ShellFormConfigData(ShellForm form)
+		{
+			this.left					= form.Left;
+			this.top					= form.Top;
+			this.topmost				= form.TopMost;
+			this.enableOpacityChanges	= form.EnableOpacityChanges;
+			this.form					= form;
+		}
+
+		public void Apply()
+		{
+			if (form != null)
+			{
+				form.Left					= this.left;
+				form.Top					= this.top;
+				form.TopMost				= this.topmost;
+				form.EnableOpacityChanges	= this.enableOpacityChanges;
+			}
+		}
+
+		public int Left
+		{
+			get { return left; }
+			set { left = value; }
+		}
+
+		public int Top
+		{
+			get { return top; }
+			set { top = value; }
+		}
+
+		public bool TopMost 
+		{
+			get { return topmost; }
+			set { topmost = value; }
+		}
+
+		public bool EnableOpacityChanges
+		{
+			get { return enableOpacityChanges; }
+			set { enableOpacityChanges = value; }
+		}
 
 	}
 }

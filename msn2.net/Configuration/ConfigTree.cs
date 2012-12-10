@@ -12,53 +12,55 @@ using System.Xml.Serialization;
 namespace msn2.net.Configuration
 {
 
-	/// <summary>
-	/// Summary description for TreeNode.
-	/// </summary>
-	public class ConfigTree ///: System.Windows.Forms.TreeView
+	#region ConfigTreeLocation enum
+
+	public enum ConfigTreeLocation
 	{
-		private Guid userId = Guid.Empty;
-		private ConfigTreeNode treeRoot = null;
-
-		private const int ITEMDATA_SIZE = 2048;
-
-		#region Constructor
-
-		internal ConfigTree(Guid configId, Guid userId)
-		{
-			this.userId		= userId;
-			this.treeRoot	= new ConfigTreeNode(configId, true);
-		}
-
-		#endregion
-
+		UserConfigTree,
+		GroupConfigTree,
+		MachineConfigTree,
+		PolicyConfigTree,
+		CustomConfigTree
 	}
+		
+	#endregion
 
-	#region TreeNode class
+	#region Data class
 
-	public class ConfigTreeNode: System.Windows.Forms.TreeNode
+	public class Data: System.Windows.Forms.TreeNode
 	{
+
 		#region Declares
 
 		private Guid	id;
 		private string	name;
 		private Guid	parentId;
-		private Guid	userId;
 		private object	obj;
 		private string	url;
+		
+		private Guid	configId;
+		private Guid	userId;
+		private Guid	groupId;
+		private Guid	machineId;
+		private Guid	policyId;
+
+		private const int ITEMDATA_SIZE = 2048;
 
 		#endregion
 
 		#region Constructors
 
 		// used for top level node
-		internal ConfigTreeNode(Guid categoryId, bool skipme)
+		internal Data(Guid configId, Guid userId, Guid machineId, Guid policyId)
 		{
-			this.id		= categoryId;
-			skipme		= !skipme;
+			this.configId		= configId;
+			this.userId			= userId;
+			this.groupId		= groupId;
+			this.machineId		= machineId;
+			this.policyId		= policyId;
 		}
 
-		public ConfigTreeNode(DataSetCategory.FavoritesCategoryRow row)
+		internal Data(DataSetCategory.FavoritesCategoryRow row)
 		{
 			this.id				= row.CategoryId;
 			this.name			= row.CategoryName;
@@ -67,28 +69,8 @@ namespace msn2.net.Configuration
 			if (!row.IsItemUrlNull())
 				this.url		= row.ItemUrl;
 
-			this.Text			= this.categoryName;
+			this.Text			= this.name;
 		}
-
-//		public ConfigTreeNode(Guid categoryId, string categoryName, Guid parentId, Guid userId)
-//		{
-//			this.categoryId		= categoryId;
-//			this.categoryName	= categoryName;
-//			this.parentId		= parentId;
-//			this.userId			= userId;
-//
-//			this.Text			= this.categoryName;
-//		}
-//
-//		public ConfigTreeNode(ConfigTreeNode parentNode, Guid categoryId, string categoryName, Guid userId)
-//		{
-//            this.categoryId		= categoryId;
-//			this.categoryName	= categoryName;
-//			this.parentId		= parentNode.parentId;
-//			this.userId			= userId;
-//		
-//			this.Text			= this.categoryName;
-//		}
 
 		#endregion
 
@@ -139,35 +121,23 @@ namespace msn2.net.Configuration
 		/// </summary>
 		/// <param name="nodeId">Parent node</param>
 		/// <returns>All children</returns>
-		public ConfigTreeNodeCollection GetChildren(ConfigTreeNode node)
+		public DataCollection GetChildren()
 		{
-			return GetChildren(node, null);
+			return GetChildren(null);
 		}
 
 		/// <summary>
 		/// Returns the children of the specified type at the specified node
 		/// </summary>
-		/// <param name="nodeId">Parent node</param>
 		/// <param name="type">Type of children</param>
 		/// <returns>Filtered children</returns>
-		public ConfigTreeNodeCollection GetChildren(ConfigTreeNode node, Type type)
+		public DataCollection GetChildren(Type type)
 		{
-			if (node != null)
-			{
-				Trace.Write(String.Format("nodeId: {0}", node.CategoryId), "GetChildren");
-			}
-			else 
-			{
-				Trace.Write(treeRoot.CategoryId, "GetChildren - Root level");
-			}
-
-			// Use the root if we were passed null
-			if (node == null)
-				node = treeRoot;
+			Trace.Write(String.Format("nodeId: {0}", this.id), "GetChildren");
 
 			// Select all root categories for this user
 			string sql = "select * from FavoritesCategory "
-				+ "where UserId = @userId and ParentId = @nodeId";
+				+ "where UserId = @userId and ParentId = @nodeId and ConfigTreeLocation = @configTreeLocation";
 			if (type != null)
 				sql	= sql + " and ItemType = @itemType";
 
@@ -175,23 +145,25 @@ namespace msn2.net.Configuration
 			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
 			da.SelectCommand.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
 			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
 			if (type != null)
 				da.SelectCommand.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
 
 			// Set params to pass to SQL
-			da.SelectCommand.Parameters["@userId"].Value	= userId;
-			da.SelectCommand.Parameters["@nodeId"].Value	= node.CategoryId;
+			da.SelectCommand.Parameters["@userId"].Value			= userId;
+			da.SelectCommand.Parameters["@nodeId"].Value			= this.id;
+			//da.SelectCommand.Parameters["@configTreeLocation"].Value	= this.configTreeLocation.ToString();
 			if (type != null)
-				da.SelectCommand.Parameters["@itemType"].Value	= type.ToString();
+				da.SelectCommand.Parameters["@itemType"].Value		= type.ToString();
 
 			DataSetCategory dsCategories = new DataSetCategory();
 			da.Fill(dsCategories, "FavoritesCategory");
 
-			ConfigTreeNodeCollection ar = new ConfigTreeNodeCollection();
+			DataCollection ar = new DataCollection();
 
 			foreach (DataSetCategory.FavoritesCategoryRow row in dsCategories.FavoritesCategory.Rows)
 			{
-				ConfigTreeNode item = new ConfigTreeNode(row);
+				Data item = new Data(row);
 				
 				// Check if we should deserialize any objects
 				if (type != null)
@@ -208,9 +180,44 @@ namespace msn2.net.Configuration
 			return ar;                                    
 		}
 
-		internal ConfigTreeNode GetNode(Guid nodeId)
+
+		public Data GetItem(string itemName, object data, ConfigTreeLocation configTreeLocation)
 		{
-			Trace.Write(String.Format("nodeId: {0}", nodeId), "GetNode");
+
+			Trace.Write(String.Format("nodeId: {0}", this.id), "GetNode");
+
+			// Select this node
+			string sql = "select * from FavoritesCategory where ParentCategoryId = @parentId "
+				+ " and ItemName = @itemName and ConfigTreeLocation = @configTreeLocation";
+
+			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
+			SqlDataAdapter da	= new SqlDataAdapter(sql, cn);
+			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
+			da.SelectCommand.Parameters.Add("@configTreeLocation", SqlDbType.NVarChar, 50);
+			da.SelectCommand.Parameters.Add("@itemName", SqlDbType.NVarChar, 255);
+
+			// Set params to pass to SQL
+			da.SelectCommand.Parameters["@parentId"].Value				= this.id;
+			da.SelectCommand.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
+			da.SelectCommand.Parameters["@itemName"].Value				= itemName;
+
+			DataSetCategory ds = new DataSetCategory();
+			da.Fill(ds, "FavoritesCategory");
+
+			if (ds.FavoritesCategory.Rows.Count > 0)
+			{
+				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0]);
+				return node;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		internal Data GetItem(Guid itemId)
+		{
+			Trace.Write(String.Format("nodeId: {0}", this.id), "GetItem");
 
 			// Select this node
 			string sql = "select * from FavoritesCategory where CategoryId = @nodeId";
@@ -220,49 +227,21 @@ namespace msn2.net.Configuration
 			da.SelectCommand.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
 
 			// Set params to pass to SQL
-			da.SelectCommand.Parameters["@nodeId"].Value	= nodeId;
+			da.SelectCommand.Parameters["@nodeId"].Value				= this.id;
 
 			DataSetCategory ds = new DataSetCategory();
 			da.Fill(ds, "FavoritesCategory");
 
 			if (ds.FavoritesCategory.Rows.Count > 0)
 			{
-				ConfigTreeNode node = new ConfigTreeNode((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0]);
+				Data node = new Data((DataSetCategory.FavoritesCategoryRow) ds.FavoritesCategory.Rows[0]);
 				return node;
 			}
 			else
 			{
 				return null;
 			}
-		}
-
-		public object GetObjectAtNode(Guid nodeId, Type type)
-		{
-			Trace.Write(String.Format("nodeId: {0}", nodeId), "GetObjectAtNode");
-
-			// Select all root categories for this user
-			string sql = "select itemData, itemType from FavoritesCategory where CategoryId = @nodeId";
-			object obj = null;
-
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlCommand cmd		= new SqlCommand(sql, cn);
-			cmd.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
-
-			// Set params to pass to SQL
-			cmd.Parameters["@nodeId"].Value	= nodeId;
-
-			cn.Open();
-			SqlDataReader dr = cmd.ExecuteReader();
-			if (dr.Read())
-			{
-				if (!dr.IsDBNull(0))
-				{
-					obj = DeserializeObject(dr[0].ToString(), type);
-				}
-			}
-			cn.Close();
-
-			return obj;
+            
 		}
 
 		#endregion
@@ -330,54 +309,110 @@ namespace msn2.net.Configuration
 
 		#endregion
 
+		#region GetConfigTreeLocation
+
+		private Guid GetConfigTreeLocation(ConfigTreeLocation requested)
+		{
+
+			if (requested == ConfigTreeLocation.UserConfigTree)
+			{
+				return userId;
+			}
+
+			if (requested == ConfigTreeLocation.GroupConfigTree)
+			{
+				return groupId;
+			}
+
+			if (requested == ConfigTreeLocation.MachineConfigTree)
+			{
+				return machineId;
+			}
+
+			if (requested == ConfigTreeLocation.PolicyConfigTree)
+			{
+				return policyId;
+			}
+
+			return userId;
+		}
+
+		#endregion
+
 		#region Add Calls
 
-		/// <summary>
-		/// Adds a new root category
-		/// </summary>
-		/// <param name="categoryName">New category name</param>
-		/// <param name="userId">Guid for current user</param>
-		/// <returns>New category Guid</returns>
-		//		public ConfigTreeNode AddRootNode(string name)
-		//		{
-		//			return AddChild(treeRoot, name, null, null);
-		//		}
-		//
-		//		public ConfigTreeNode AddRootNode(string name, Type type)
-		//		{
-		//			return AddChild(treeRoot, name, null, null, type);
-		//		}
-		//
-		//		public ConfigTreeNode AddRootNode(string name, object data)
-		//		{
-		//			return AddChild(treeRoot, name, null, data, data.GetType());
-		//		}
-
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name)
+		public Data Get(string name)
 		{
-			return AddChild(parent, name, null, null);
+			return Get(name, null, null);
 		}
 
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name, Type type)
+		public Data Get(string name, ConfigTreeLocation configTreeLocation)
 		{
-			return AddChild(parent, name, null, null, type);
+			return Get(name, null, null, configTreeLocation);
 		}
 
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name, string url)
+		public Data Get(string name, Type type)
 		{
-			return AddChild(parent, name, url, null, null);
+			return Get(name, null, null, type);
 		}
 
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name, string url, Type type)
+		public Data Get(string name, Type type, ConfigTreeLocation configTreeLocation)
 		{
-			return AddChild(parent, name, url, null, type);
+			return Get(name, null, null, type, configTreeLocation);
 		}
 
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name, string url, object data)
+		public Data Get(string name, object data, ConfigTreeLocation configTreeLocation)
 		{
-			return AddChild(parent, name, url, data, data.GetType());
+			return Get(name, null, data, null, configTreeLocation);
 		}
-			
+
+		public Data Get(string name, object data, Type type)
+		{
+			return Get(name, null, data, type);
+		}
+
+		public Data Get(string name, object data, Type type, ConfigTreeLocation configTreeLocation)
+		{
+			return Get(name, null, data, type, configTreeLocation);
+		}
+
+		public Data Get(string name, string url)
+		{
+			return Get(name, url, null, null);
+		}
+
+		public Data Get(string name, string url, ConfigTreeLocation configTreeLocation)
+		{
+			return Get(name, url, null, null, configTreeLocation);
+		}
+
+		public Data Get(string name, string url, Type type)
+		{
+			return Get(name, url, null, type);
+		}
+
+		public Data Get(string name, string url, Type type, ConfigTreeLocation configTreeLocation)
+		{
+			return Get(name, url, null, type, configTreeLocation);
+		}
+
+		public Data Get(string name, string url, object data)
+		{
+			return Get(name, url, data, data.GetType());
+		}
+
+		public Data Get(string name, string url, object data, ConfigTreeLocation configTreeLocation)
+		{
+			return Get(name, url, data, data.GetType(), configTreeLocation);
+		}
+	
+
+		public Data Get(string name, string url, object data, Type type)
+		{
+			return Get(name, url, data, type, ConfigTreeLocation.UserConfigTree);
+		}
+
+		
 		/// <summary>
 		/// Adds a new child category
 		/// </summary>
@@ -385,17 +420,17 @@ namespace msn2.net.Configuration
 		/// <param name="parentId">Guid of the parent category</param>
 		/// <param name="userId">Guid for current user</param>
 		/// <returns>New cateogry Guid</returns>
-		public ConfigTreeNode AddChild(ConfigTreeNode parent, string name, string url, object data, Type type)
+		public Data Get(string name, string url, object data, Type type, ConfigTreeLocation configTreeLocation)
 		{
 			// Get a new cat id and guids for params
 			Guid newCategoryId	= Guid.NewGuid();
 
 			// insert new child cat
-			string sql = "insert into FavoritesCategory (CategoryId, UserId, CategoryName, ParentId, ItemUrl, ItemType, ItemData) "
-				+ "values (@categoryId, @userId, @categoryName, @parentId, @itemUrl, @itemType, @itemData)";
+			string sql = "dbo.sp_Config_Get";
 
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
 			SqlCommand cmd		= new SqlCommand(sql, cn);
+			cmd.CommandType		= CommandType.StoredProcedure;
 
 			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
 			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
@@ -404,21 +439,14 @@ namespace msn2.net.Configuration
 			cmd.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
 			cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
 			cmd.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
+			cmd.Parameters.Add("@configTreeLocation", SqlDbType.UniqueIdentifier);
 
 			// Set command params
-			cmd.Parameters["@categoryId"].Value		= newCategoryId;
-			cmd.Parameters["@userId"].Value			= userId;
-			cmd.Parameters["@categoryName"].Value	= name;
-
-			// if we have a parent id, use it, otherwise use the root
-			if (parent != null)
-			{
-				cmd.Parameters["@parentId"].Value	= parent.CategoryId;
-			}
-			else
-			{
-				cmd.Parameters["@parentId"].Value	= treeRoot.CategoryId;
-			}
+			cmd.Parameters["@categoryId"].Value			= newCategoryId;
+			cmd.Parameters["@userId"].Value				= userId;
+			cmd.Parameters["@categoryName"].Value		= name;
+			cmd.Parameters["@parentId"].Value			= this.id;
+			cmd.Parameters["@configTreeLocation"].Value	= GetConfigTreeLocation(configTreeLocation);
 
 			// Set url only if it has a value
 			if (url != null)
@@ -456,24 +484,21 @@ namespace msn2.net.Configuration
 			cmd.ExecuteNonQuery();
 			cn.Close();
 
-			return GetNode(newCategoryId);			
+			return GetItem(newCategoryId);
 		}
 
 		#endregion
 
-		#region Update
+		#region Save
 
 		/// <summary>
-		/// Updates a category
+		/// Saves a node
 		/// </summary>
-		/// <param name="categoryId">Guid of the category</param>
-		/// <param name="categoryName">New name</param>
-		/// <param name="userId">Guid for current user</param>
-		public void UpdateNode(ConfigTreeNode node)
+		public void Save()
 		{
 			// insert new child cat
 			string sql = "update FavoritesCategory set CategoryName = @categoryName ";
-			if (node.Object != null)
+			if (this.Object != null)
 			{
 				sql		= sql + ", ItemData = @itemData, ItemType = @itemType ";
 			}
@@ -484,20 +509,20 @@ namespace msn2.net.Configuration
 
 			cmd.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
 			cmd.Parameters.Add("@categoryName", SqlDbType.NVarChar, 250);
-			if (node.Object != null)
+			if (this.Object != null)
 			{
 				cmd.Parameters.Add("@itemData", SqlDbType.NText, ITEMDATA_SIZE);
 				cmd.Parameters.Add("@itemType", SqlDbType.NVarChar, 255);
 			}
 
 			// Set command params
-			cmd.Parameters["@nodeId"].Value			= node.CategoryId;
+			cmd.Parameters["@nodeId"].Value			= this.id;
 			cmd.Parameters["@userId"].Value			= userId;
-			cmd.Parameters["@categoryName"].Value	= node.Text;
-			if (node.Object != null)
+			cmd.Parameters["@categoryName"].Value	= this.Text;
+			if (this.Object != null)
 			{
-				cmd.Parameters["@itemData"].Value	= SerializeObject(node.Object);
-				cmd.Parameters["@itemType"].Value	= node.Object.GetType();
+				cmd.Parameters["@itemData"].Value	= SerializeObject(this.Object);
+				cmd.Parameters["@itemType"].Value	= this.Object.GetType();
 			}
 
 			// Run the command to update the db row
@@ -509,133 +534,6 @@ namespace msn2.net.Configuration
 		#endregion
 
 		#region Delete
-
-		/// <summary>
-		/// Deletes a category
-		/// </summary>
-		/// <param name="categoryId">Guid of the category</param>
-		/// <param name="categoryName">New name</param>
-		/// <param name="userId">Guid for current user</param>
-		public void DeleteNode(ConfigTreeNode node)
-		{
-			// insert new child cat
-			string sql = "delete from FavoritesCategory "
-				+ "where CategoryId = @categoryId";
-
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlCommand cmd		= new SqlCommand(sql, cn);
-
-			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
-
-			// Set command params
-			cmd.Parameters["@categoryId"].Value		= node.CategoryId;
-
-			// Run the command to add the db row
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
-		}
-
-		#endregion
-
-		#region AddItem
-
-		/// <summary>
-		/// Adds a new item
-		/// </summary>
-		/// <param name="userId">Guid for current user</param>
-		/// <param name="categoryId">Guid of the category</param>
-		/// <param name="itemName">Name of new item</param>
-		/// <param name="itemUrl">Url for new item</param>
-		/// <returns>New cateogry Guid</returns>
-		public string AddItem(Guid categoryId, string itemName, string itemUrl)
-		{
-			// Get new guid
-			Guid newItemId		= Guid.NewGuid();
-
-			// insert new child cat
-			string sql = "insert into FavoritesItem (CategoryId, UserId, ItemName, ItemUrl, ItemId) "
-				+ "values (@categoryId, @userId, @itemName, @itemUrl, @itemId)";
-
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlCommand cmd		= new SqlCommand(sql, cn);
-
-			cmd.Parameters.Add("@categoryId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@userId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@itemName", SqlDbType.NVarChar, 250);
-			cmd.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
-			cmd.Parameters.Add("@itemId", SqlDbType.UniqueIdentifier);
-
-			// Set command params
-			cmd.Parameters["@categoryId"].Value		= categoryId;
-			cmd.Parameters["@userId"].Value			= userId;
-			cmd.Parameters["@itemName"].Value		= itemName;
-			cmd.Parameters["@itemUrl"].Value		= itemUrl;
-			cmd.Parameters["@itemId"].Value			= newItemId;
-
-			// Run the command to add the db row
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
-
-			return newItemId.ToString();			
-		}
-
-		#endregion
-
-		#region UpdateItem
-
-		/// <summary>
-		/// Updates an item
-		/// </summary>
-		/// <param name="userId">Guid for current user</param>
-		/// <param name="categoryName">New name</param>
-		/// <param name="userId">Guid for current user</param>
-		public void UpdateItem(ConfigTreeNode node)
-		{
-			// update record
-			string sql = "update FavoritesCategory set CategoryName = @itemName, ItemUrl = @itemUrl, ItemData = @itemData "
-				+ "where CategoryId = @nodeId";
-
-			SqlConnection cn	= new SqlConnection(ConfigurationSettings.Current.ConnectionString);
-			SqlCommand cmd		= new SqlCommand(sql, cn);
-
-			cmd.Parameters.Add("@nodeId", SqlDbType.UniqueIdentifier);
-			cmd.Parameters.Add("@itemName", SqlDbType.NVarChar, 250);
-			cmd.Parameters.Add("@itemUrl", SqlDbType.NVarChar, 500);
-			cmd.Parameters.Add("@itemDAta", SqlDbType.NText, ITEMDATA_SIZE);
-
-			// Set command params
-			cmd.Parameters["@nodeId"].Value			= node.CategoryId;
-			cmd.Parameters["@itemName"].Value		= node.Text;
-			if (node.Url != null)
-			{
-				cmd.Parameters["@itemUrl"].Value	= node.Url;
-			}
-			else
-			{
-				cmd.Parameters["@itemUrl"].Value	= "";
-			}
-
-			if (node.Object != null)
-			{
-				cmd.Parameters["@itemData"].Value	= SerializeObject(node.Object);
-			}
-			else
-			{
-				cmd.Parameters["@itemData"].Value	= "";
-			}
-
-			// Run the command to update the rec
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
-		}
-
-
-		#endregion
-
-		#region DeleteItem
 
 		/// <summary>
 		/// Delete an item
@@ -665,34 +563,31 @@ namespace msn2.net.Configuration
 
 		#endregion
 
-
-	
 	}
 
 	#endregion
 
-	#region ConfigTreeNodeCollection class
+	#region DataCollection class
 
 	[Serializable()]
-	public class ConfigTreeNodeCollection: System.Collections.ReadOnlyCollectionBase
+	public class DataCollection: System.Collections.ReadOnlyCollectionBase
 	{
-		public ConfigTreeNodeCollection()
+		public DataCollection()
 		{
 		}
 
-		public void Add(ConfigTreeNode item)
+		public void Add(Data item)
 		{
 			InnerList.Add(item);
 		}
 
-		public ConfigTreeNode this[int index]
+		public Data this[int index]
 		{
-			get { return (ConfigTreeNode) InnerList[index]; }
+			get { return (Data) InnerList[index]; }
 		}
 
 	}
 
 	#endregion
 
-	
 }

@@ -65,6 +65,9 @@ namespace msn2.net.Controls
 			this.axWebBrowser1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWebBrowser1.OcxState")));
 			this.axWebBrowser1.Size = new System.Drawing.Size(304, 288);
 			this.axWebBrowser1.TabIndex = 0;
+			this.axWebBrowser1.TitleChange += new AxSHDocVw.DWebBrowserEvents2_TitleChangeEventHandler(this.axWebBrowser1_TitleChange);
+			this.axWebBrowser1.NavigateComplete2 += new AxSHDocVw.DWebBrowserEvents2_NavigateComplete2EventHandler(this.axWebBrowser1_NavigateComplete2);
+			this.axWebBrowser1.BeforeNavigate2 += new AxSHDocVw.DWebBrowserEvents2_BeforeNavigate2EventHandler(this.axWebBrowser1_BeforeNavigate2);
 			// 
 			// WebBrowserControl
 			// 
@@ -77,5 +80,73 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
+
+		private void axWebBrowser1_NavigateComplete2(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateComplete2Event e)
+		{
+            if (NavigateComplete != null)
+				NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
+		
+		}
+
+		private void axWebBrowser1_TitleChange(object sender, AxSHDocVw.DWebBrowserEvents2_TitleChangeEvent e)
+		{
+			if (TitleChange != null)
+				TitleChange(this, new TitleChangeEventArgs(e.text));
+		}
+
+		private void axWebBrowser1_BeforeNavigate2(object sender, AxSHDocVw.DWebBrowserEvents2_BeforeNavigate2Event e)
+		{
+			string url = e.uRL.ToString();
+			e.cancel = true;
+
+			if (MessageBox.Show(this, "Open popup to " + url + "?", "Popup Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+			{
+				return;
+			}
+
+			WebBrowser b = new WebBrowser("Popup", url);
+            b.Show();
+
+		}
+
+		public event NavigateCompleteDelegate NavigateComplete;
+		public event TitleChangeDelegate TitleChange;
+
 	}
+
+	public delegate void NavigateCompleteDelegate(object sender, NavigateCompleteEventArgs e);
+	public delegate void TitleChangeDelegate(object sender, TitleChangeEventArgs e);
+
+	public class NavigateCompleteEventArgs: EventArgs
+	{
+		private string url;
+
+		public NavigateCompleteEventArgs(string url)
+		{
+			this.url = url;
+		}
+
+		public string Url
+		{
+			get { return url; }
+			set { url = value; }
+		}
+	}
+
+	public class TitleChangeEventArgs: EventArgs
+	{
+		private string title;
+
+		public TitleChangeEventArgs(string title)
+		{
+			this.title = title;
+		}
+
+		public string Title 
+		{
+			get { return title; }
+			set { title = value; }
+		}
+	}
+
 }

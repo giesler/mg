@@ -48,14 +48,25 @@ namespace msn2.net.Controls
 		private void InitializeComponent()
 		{
 			this.webBrowserControl1 = new msn2.net.Controls.WebBrowserControl();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// webBrowserControl1
 			// 
 			this.webBrowserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.webBrowserControl1.Name = "webBrowserControl1";
 			this.webBrowserControl1.Size = new System.Drawing.Size(440, 264);
-			this.webBrowserControl1.TabIndex = 5;
+			this.webBrowserControl1.TabIndex = 7;
+			this.webBrowserControl1.TitleChange += new msn2.net.Controls.TitleChangeDelegate(this.webBrowserControl1_TitleChange);
 			// 
 			// WebBrowser
 			// 
@@ -64,10 +75,19 @@ namespace msn2.net.Controls
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.webBrowserControl1});
 			this.Name = "WebBrowser";
+			this.Text = "Web Browser";
+			this.TitleVisible = true;
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 		#endregion
+
+		private void webBrowserControl1_TitleChange(object sender, msn2.net.Controls.TitleChangeEventArgs e)
+		{
+			this.Text = e.Title;
+		}
 	}
 }
 

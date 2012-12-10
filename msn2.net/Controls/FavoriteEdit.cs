@@ -23,16 +23,14 @@ namespace msn2.net.Controls
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public FavoriteEdit()
+		public FavoriteEdit(ShellForm parent)
 		{
+
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
 		/// <summary>
@@ -64,7 +62,17 @@ namespace msn2.net.Controls
 			this.buttonOK = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// label1
 			// 
@@ -93,7 +101,7 @@ namespace msn2.net.Controls
 			this.textBoxURL.Location = new System.Drawing.Point(64, 32);
 			this.textBoxURL.Name = "textBoxURL";
 			this.textBoxURL.Size = new System.Drawing.Size(256, 20);
-			this.textBoxURL.TabIndex = 3;
+			this.textBoxURL.TabIndex = 4;
 			this.textBoxURL.Text = "";
 			this.textBoxURL.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxURL_Validating);
 			this.textBoxURL.Validated += new System.EventHandler(this.textBoxURL_Validated);
@@ -103,7 +111,7 @@ namespace msn2.net.Controls
 			this.label2.Location = new System.Drawing.Point(8, 32);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(56, 23);
-			this.label2.TabIndex = 2;
+			this.label2.TabIndex = 3;
 			this.label2.Text = "URL:";
 			// 
 			// buttonOK
@@ -113,7 +121,7 @@ namespace msn2.net.Controls
 			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonOK.Location = new System.Drawing.Point(168, 64);
 			this.buttonOK.Name = "buttonOK";
-			this.buttonOK.TabIndex = 4;
+			this.buttonOK.TabIndex = 5;
 			this.buttonOK.Text = "&OK";
 			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
 			// 
@@ -125,13 +133,9 @@ namespace msn2.net.Controls
 			this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonCancel.Location = new System.Drawing.Point(248, 64);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.TabIndex = 5;
+			this.buttonCancel.TabIndex = 6;
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-			// 
-			// errorProvider1
-			// 
-			this.errorProvider1.DataMember = null;
 			// 
 			// FavoriteEdit
 			// 
@@ -147,7 +151,11 @@ namespace msn2.net.Controls
 																		  this.textBoxName,
 																		  this.label1});
 			this.Name = "FavoriteEdit";
-			this.Text = "FavoriteEdit";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Favorite";
+			this.TitleVisible = true;
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -189,6 +197,18 @@ namespace msn2.net.Controls
 		private void textBoxURL_Validated(object sender, System.EventArgs e)
 		{
 			errorProvider1.SetError(textBoxURL, null);
+		}
+
+		public string Title
+		{
+			get { return textBoxName.Text; }
+			set { textBoxName.Text = value; }
+		}
+
+		public string Url
+		{
+			get { return textBoxURL.Text; }
+			set {	 textBoxURL.Text = value; }
 		}
 	}
 }

@@ -91,6 +91,11 @@
                     Project = "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "System.Runtime.Serialization.Formatters.Soap"
+                    AssemblyName = "System.Runtime.Serialization.Formatters.Soap"
+                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Runtime.Serialization.Formatters.Soap.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -104,25 +109,6 @@
                     RelPath = "Common.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "DataSetCategory.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetCategory.cs"
-                />
-                <File
-                    RelPath = "DataSetCategory.cs"
-                    DependentUpon = "DataSetCategory.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetCategory.xsx"
-                    DependentUpon = "DataSetCategory.xsd"
-                    BuildAction = "None"
                 />
                 <File
                     RelPath = "DataSetItem.xsd"
@@ -142,16 +128,6 @@
                     RelPath = "DataSetItem.xsx"
                     DependentUpon = "DataSetItem.xsd"
                     BuildAction = "None"
-                />
-                <File
-                    RelPath = "ShellCategory.cs"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellCategory.resx"
-                    DependentUpon = "ShellCategory.cs"
-                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

@@ -263,7 +263,7 @@ namespace msn2.net.ProjectF
 
 			ConfigurationListViewItem configItem = (ConfigurationListViewItem) listViewConfig.SelectedItems[0];
             
-			ConfigurationSettings.Current.Login(userItem.UserId, configItem.ConfigId);
+			//ConfigurationSettings.Current.Login(userItem.UserId, configItem.ConfigId);
 
 			this.Visible = false;
 		}
@@ -281,12 +281,12 @@ namespace msn2.net.ProjectF
 			{
 				bool inUse = false;
 
-				// check if user already in listview
-				foreach (ConfigurationListViewItem configItem in listViewConfig.Items)
-				{
-					if (userItem.Text == prompt.Value)
-						inUse = true;
-				}
+//				// check if user already in listview
+//				foreach (ConfigurationListViewItem configItem in listViewConfig.Items)
+//				{
+//					if (userItem.Text == prompt.Value)
+//						inUse = true;
+//				}
 
 				if (!inUse)
 					break;

@@ -9,7 +9,6 @@ using System.Diagnostics;
 using msn2.net.Controls;
 using msn2.net.Configuration;
 
-
 namespace msn2.net.ProjectF
 {
 	/// <summary>
@@ -60,9 +59,10 @@ namespace msn2.net.ProjectF
 //			}
 
 			Guid userId		= new Guid("80192EF9-784E-474D-88AA-96385915D485");
-			Guid configId	= new Guid("87B16D45-50C8-46B0-8658-281A2D2ABE04");
+			Guid machineId	= new Guid("{B9E120C2-8B66-4f5e-A3E5-F389E80B3F03}");
+			Guid policyId	= Guid.Empty;
 			
-			ConfigurationSettings.Current.Login(userId, configId);
+			ConfigurationSettings.Current.Login(userId, machineId, policyId);
 
 //			login l = new login();
 //			if (l.showdialog(this) == dialogresult.cancel)

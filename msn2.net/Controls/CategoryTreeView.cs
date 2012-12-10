@@ -18,14 +18,14 @@ namespace msn2.net.Controls
 		#region Declares
 
 		private System.ComponentModel.Container components = null;
-		private msn2.net.Common.Tree categories = null;
 		private System.Windows.Forms.TreeView treeViewCategory;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItemAdd;
 		private System.Windows.Forms.MenuItem menuItemProperties;
 		private System.Windows.Forms.MenuItem menuItemDelete;
-		private msn2.net.Common.CategoryTreeNode menuNode = null;
-		private Guid treeId	= Guid.NewGuid();
+		private msn2.net.Configuration.Data menuNode = null;
+		private ShellForm parentShellForm = null;
+		private Data rootNode		= null;
 		
 		#endregion
 
@@ -36,11 +36,13 @@ namespace msn2.net.Controls
 			InitializeComponent();
 		}
 
-		public CategoryTreeView(Guid treeId)
+		public CategoryTreeView(ShellForm parentShellForm, Data rootNode)
 		{
 			InitializeComponent();
 
-			this.TreeId = treeId;
+			this.parentShellForm	= parentShellForm;
+			this.RootNode			= rootNode;
+
 			menuItemProperties.Visible = false;
 		}
 
@@ -126,30 +128,41 @@ namespace msn2.net.Controls
 	
 		#region Load tree sections
 
-		private void LoadCategories()
-		{
-			foreach (TreeNode cat in categories.GetRootCategories())
-			{
-				CategoryTreeNode node = (CategoryTreeNode) cat;
-				treeViewCategory.Nodes.Add(node);
-				LoadChildCategories(node);
-
-				// call the function to expnad root cats and populate their children
-				treeViewCategory_BeforeExpand(this, new TreeViewCancelEventArgs(node, false, TreeViewAction.Expand));
-			}
-		}
+//		private void LoadCategories()
+//		{
+//			foreach (Data cat in categories.GetRootNodes(typeof(CategoryConfigData)))
+//			{
+//				treeViewCategory.Nodes.Add(cat);
+//				LoadChildCategories(cat);
+//
+//				// call the function to expnad root cats and populate their children
+//				treeViewCategory_BeforeExpand(this, new TreeViewCancelEventArgs(cat, false, TreeViewAction.Expand));
+//			}
+//		}
 
 		public void LoadChildCategories(TreeNode node)
 		{
-			node.Nodes.Clear();
-			CategoryTreeNode catNode = (CategoryTreeNode) node;
-
-			CategoryTreeNodeCollection cats = categories.GetChildCategories(catNode.CategoryId);
-
-			foreach (CategoryTreeNode cat in cats)
+			if (node != null)
 			{
-				CategoryTreeNode child = (CategoryTreeNode) cat;
-				node.Nodes.Add(child);
+				node.Nodes.Clear();
+			}
+
+			Data data = (Data) node;
+
+			DataCollection cats = data.GetChildren(typeof(CategoryConfigData));
+
+			foreach (Data cat in cats)
+			{
+				Data child = (Data) cat;
+
+				if (node != null)
+				{
+					node.Nodes.Add(child);
+				} 
+				else
+				{
+					treeViewCategory.Nodes.Add(child);
+				}
 				child.Nodes.Add(new TreeNode("<populateme>"));
 				//LoadChildCategories(child);
 			}
@@ -161,14 +174,15 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
 		{
-			CategoryTreeNode node = (CategoryTreeNode) e.Node;
-			categories.UpdateCategory(node.CategoryId, e.Label);
+			Data data = (Data) e.Node;
+			data.Text	= e.Label;
+			data.Save();
 		}
 
 		private void treeViewCategory_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
 			// get children children
-			foreach (CategoryTreeNode child in e.Node.Nodes)
+			foreach (TreeNode child in e.Node.Nodes)
 			{
 				if (child.Nodes.Count > 0 && child.Nodes[0].Text == "<populateme>")
 					LoadChildCategories(child);
@@ -188,7 +202,7 @@ namespace msn2.net.Controls
 				
 				if (node != null)
 				{
-					menuNode = (CategoryTreeNode) node;
+					menuNode = (Data) node;
 				}
 				else
 				{
@@ -202,22 +216,27 @@ namespace msn2.net.Controls
 		{
 			// First get a new name
 			InputPrompt prompt = new InputPrompt("Enter the new category name:");
-			if (prompt.ShowDialog(this) == DialogResult.Cancel)
+			if (prompt.ShowDialog(this.parentShellForm) == DialogResult.Cancel)
 				return;
 
 			Guid newCategoryId = Guid.Empty;
 
-			// Add category
+			Data node = null;
+
+			// Add node to tree at current item - if null, add at root
 			if (menuNode == null)
 			{
-				newCategoryId = categories.AddRootCategory(prompt.Value);
-				treeViewCategory.Nodes.Add(new CategoryTreeNode(newCategoryId, prompt.Value, Guid.Empty, ConfigurationSettings.Current.UserId));
+				node = rootNode.Get(prompt.Value, typeof(CategoryConfigData));
+				treeViewCategory.Nodes.Add(node);
 			}
 			else
 			{
-				newCategoryId = categories.AddChildCategory(prompt.Value, menuNode.CategoryId);
-				menuNode.Nodes.Add(new CategoryTreeNode(newCategoryId, prompt.Value, menuNode.CategoryId, menuNode.UserId));
+				node = menuNode.Get(prompt.Value, typeof(CategoryConfigData));
+				menuNode.Nodes.Add(node);
+				menuNode.Expand();
 			}
+
+			treeViewCategory.SelectedNode = node;
 		}
 
 		private void menuItemDelete_Click(object sender, System.EventArgs e)
@@ -225,10 +244,10 @@ namespace msn2.net.Controls
 			if (menuNode == null)
 				return;
 
-			if (MessageBox.Show("Are you sure you want to delete the selected category?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+			if (MessageBox.Show(this, "Are you sure you want to delete the selected category?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
 				return;
 
-			categories.DeleteCategory(menuNode.CategoryId);
+			menuNode.Delete();
 			
 			treeViewCategory.Nodes.Remove(menuNode);
 		}
@@ -245,7 +264,7 @@ namespace msn2.net.Controls
 		private void treeViewCategory_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
             if (CategoryTreeView_AfterSelect != null)
-            	CategoryTreeView_AfterSelect(this, new CategoryTreeViewEventArgs((CategoryTreeNode) e.Node));	
+            	CategoryTreeView_AfterSelect(this, new CategoryTreeViewEventArgs((Data) e.Node));	
 		}
 
 		public event CategoryTreeView_AfterSelectDelegate CategoryTreeView_AfterSelect;
@@ -254,14 +273,28 @@ namespace msn2.net.Controls
 
 		#region Properties
 
-		public Guid TreeId
+		public Data RootNode
 		{
-			get { return treeId; }
+			get { return rootNode; }
 			set 
 			{
-				categories = new msn2.net.Common.Tree(value, ConfigurationSettings.Current.UserId);
-				LoadCategories();
+				LoadChildCategories(value);
+				foreach (TreeNode node in treeViewCategory.Nodes)
+				{
+					LoadChildCategories(node);
+				}
 			}
+		}
+
+		public Data Data
+		{
+			get { return (Data) this.treeViewCategory.SelectedNode; }
+		}
+
+		public ShellForm ParentShellForm
+		{
+			get { return parentShellForm; }
+			set { this.parentShellForm = value; }
 		}
 
 		#endregion
@@ -269,19 +302,35 @@ namespace msn2.net.Controls
 
 	public delegate void CategoryTreeView_AfterSelectDelegate(object sender, CategoryTreeViewEventArgs e);
 
+	#region Related EventArgs Classes
+
 	[Serializable]
 	public class CategoryTreeViewEventArgs: EventArgs
 	{
-		private CategoryTreeNode node = null;
+		private Data node = null;
 
-		public CategoryTreeViewEventArgs(CategoryTreeNode node)
+		public CategoryTreeViewEventArgs(Data node)
 		{
 			this.node	= node;
 		}
 
-		public CategoryTreeNode CategoryTreeNode
+		public Data Data
 		{
 			get { return node; }
 		}
 	}
+
+	#endregion
+
+	#region CategoryConfigData
+
+	/// <summary>
+	/// Type specifier for category items in Config
+	/// </summary>
+	public class CategoryConfigData
+	{
+	}
+
+	#endregion
+
 }
