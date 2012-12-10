@@ -19,27 +19,38 @@ namespace QSS
             base.OnStartup(e);
 
             MainWindow owner = null;
+            int index = 0;
 
             foreach (Screen screen in Screen.AllScreens)
             {
-                MainWindow window = new MainWindow();
-                window.Top = screen.Bounds.Top;
-                window.Left = screen.Bounds.Left;
-                window.Topmost = true;
-                window.Height = screen.Bounds.Height;
-                window.Width = screen.Bounds.Width;
+                if (index != 0 || !e.Args.Contains("/secondary"))
+                {
+                    MainWindow window = new MainWindow();
+                    window.Top = screen.Bounds.Top;
+                    window.Left = screen.Bounds.Left;
+                    window.Topmost = true;
+                    window.Height = screen.Bounds.Height;
+                    window.Width = screen.Bounds.Width;
 
-                if (owner == null)
-                {
-                    owner = window;
+                    if (owner == null)
+                    {
+                        owner = window;
+                    }
+                    else
+                    {
+                        window.Owner = owner;
+                        window.Closed += new EventHandler(OnChildWindowClosed);
+                    }
+
+                    window.Show();
+
+                    if (e.Args.Contains("/primary"))
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    window.Owner = owner;
-                    window.Closed += new EventHandler(OnChildWindowClosed);
-                }
-                                
-                window.Show();
+
+                index++;
             }
         }
 

@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
 using System.Diagnostics;
+using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
 
 namespace QSS
 {
@@ -21,15 +25,17 @@ namespace QSS
         public int CurrentIndex { get; private set; }
         public List<string> SortedFiles { get; private set; }
         public int CurrentSortedIndex { get; private set; }
-        
+
         Timer timer = null;
         bool showInfo = false;
         int interval = 6;
-        bool loaded = false;
         Point? lastMousePoint = null;
         bool randomMode = true;
         bool paused = false;
-
+        DispatcherTimer videoTimer = null;
+        bool videoPlaying = false;
+        MediaElement activeMedia = null;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +45,10 @@ namespace QSS
 
             this.Cursor = Cursors.None;
             this.ForceCursor = true;
+
+            this.videoTimer = new DispatcherTimer();
+            this.videoTimer.Interval = TimeSpan.FromMilliseconds(500);
+            this.videoTimer.Tick += new EventHandler(this.OnVideoTimerTick);
         }
 
         protected override void OnActivated(EventArgs e)
@@ -47,14 +57,40 @@ namespace QSS
             this.WindowState = System.Windows.WindowState.Maximized;
         }
 
+        void OnVideoTimerTick(object sender, EventArgs e)
+        {
+            if (this.activeMedia != null && this.activeMedia.NaturalDuration.HasTimeSpan && this.videoTimer.IsEnabled)
+            {
+                this.pbar.Maximum = this.activeMedia.NaturalDuration.TimeSpan.TotalSeconds;
+
+                if (this.activeMedia.Position.TotalSeconds >= this.activeMedia.NaturalDuration.TimeSpan.TotalSeconds)
+                {
+                    this.videoTimer.IsEnabled = false;
+                    this.videoPlaying = false;
+                    this.DisplayNextPicture(null);
+                }
+                else
+                {
+                    this.pbar.Value = this.activeMedia.Position.TotalSeconds;
+                }
+            }
+        }
+
         void LoadPics(object sender)
         {
-            string[] files =  Directory.GetFiles(this.Path, "*.jpg", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(this.Path, "*.jpg", SearchOption.AllDirectories);
+            string[] avis = Directory.GetFiles(this.Path, "*.avi", SearchOption.AllDirectories);
+            string[] mpgs = Directory.GetFiles(this.Path, "*.mpg", SearchOption.AllDirectories);
+            List<string> all = new List<string>();
+            files.ToList().ForEach(i => all.Add(i));
+            avis.ToList().ForEach(i => all.Add(i));
+            mpgs.ToList().ForEach(i => all.Add(i));
+
             this.Files = new List<string>();
             this.SortedFiles = new List<string>();
 
             List<string> random = new List<string>();
-            foreach (string file in files.OrderBy(s => s))
+            foreach (string file in all.OrderBy(s => s))
             {
                 random.Add(file);
                 this.SortedFiles.Add(file);
@@ -84,13 +120,14 @@ namespace QSS
             {
                 this.OnTimer(null);
             }
-
-            this.loaded = true;
         }
 
         void OnTimer(object state)
         {
-            this.Dispatcher.Invoke(new TimerCallback(this.DisplayNextPicture), new object());
+            if (!this.videoPlaying)
+            {
+                this.Dispatcher.Invoke(new TimerCallback(this.DisplayNextPicture), new object());
+            }
         }
 
         void DisplayNextPicture(object sender)
@@ -101,33 +138,88 @@ namespace QSS
 
                 if (this.randomMode)
                 {
-                    this.CurrentIndex++;
-                    this.SetImage(this.Files[this.CurrentIndex]);
+                    if (this.CurrentIndex + 1 >= this.Files.Count)
+                    {
+                        this.CurrentIndex = 0;
+                    }
+                    else
+                    {
+                        this.CurrentIndex++;
+                    }
+
+                    Uri uri = new Uri(this.Files[this.CurrentIndex]);
+                    this.SetItem(uri);
                 }
                 else
                 {
-                    this.CurrentSortedIndex++;
-                    this.SetImage(this.SortedFiles[this.CurrentSortedIndex]);
+                    if (this.CurrentSortedIndex + 1 >= this.SortedFiles.Count)
+                    {
+                        this.CurrentSortedIndex = 0;
+                    }
+                    else
+                    {
+                        this.CurrentSortedIndex++;
+                    }
+
+                    Uri uri = new Uri(this.SortedFiles[this.CurrentSortedIndex]);
+                    this.SetItem(uri);
                 }
             }
         }
 
-        void SetImage(string fileName)
+        void SetItem(Uri uri)
         {
-            Uri uri = new Uri(fileName);
-            this.img.Source = new BitmapImage(uri);
-            this.info.Content = fileName;
+            if (uri.ToString().ToLower().EndsWith("jpg"))
+            {
+                this.videoPlaying = false;
+                this.videoTimer.IsEnabled = false;
+                this.pbar.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                this.videoPlaying = true;
+                this.videoTimer.IsEnabled = true;
+                this.pbar.Visibility = System.Windows.Visibility.Visible;
+                this.pbar.Value = 0;
+            }
+
+            this.info.Content = uri.ToString();
 
             try
             {
-                Trace.WriteLine("Setting image: " + uri.ToString());
-                this.img.Source = new BitmapImage(uri);
-                Trace.WriteLine("Image set");
+                Trace.WriteLine("Setting item: " + uri.ToString());
+                Storyboard sb = null;
+                Storyboard cur = null;
+
+                if (this.activeMedia == this.item2)
+                {
+                    this.item2.Source = this.activeMedia.Source;
+                    
+                    this.activeMedia = this.item1;
+
+                    sb = (Storyboard)this.grid.FindResource("itemFadeTo1");
+                    cur = (Storyboard) this.grid.FindResource("itemFadeTo2");
+                }
+                else
+                {
+                    if (this.activeMedia != null)
+                    {
+                        this.item1.Source = this.activeMedia.Source;
+                    }
+                    
+                    this.activeMedia = this.item2;
+
+                    sb = (Storyboard)this.grid.FindResource("itemFadeTo2");
+                    cur = (Storyboard)this.grid.FindResource("itemFadeTo1");
+                }
+
+                this.activeMedia.Source = uri;                                
+                
+                sb.Begin(this.activeMedia, true);
             }
-            catch (NotSupportedException)
+            catch (Exception ex)
             {
-                Trace.WriteLine("Not supported: " + uri.ToString());
-                this.info.Content = "Error loading " + uri.ToString();
+                this.info.Content = "Error loading " + uri.ToString() + ": " + ex.Message;
             }
         }
 
@@ -141,10 +233,12 @@ namespace QSS
             }
             else if (e.Key == System.Windows.Input.Key.Right)
             {
+                this.videoPlaying = false;
                 this.CreateTimer(true);
             }
             else if (e.Key == System.Windows.Input.Key.Left)
             {
+                this.videoPlaying = false;
                 if (this.randomMode)
                 {
                     if (this.CurrentIndex > 0)
@@ -177,20 +271,25 @@ namespace QSS
             {
                 if (this.randomMode)
                 {
-                    this.DeletePic(this.Files[this.CurrentIndex]);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeletePic), this.Files[this.CurrentIndex]);
                 }
                 else
                 {
-                    this.DeletePic(this.SortedFiles[this.CurrentSortedIndex]);
+                   ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeletePic), this.SortedFiles[this.CurrentSortedIndex]);
                 }
-                this.CreateTimer(true);
+                this.DisplayNextPicture(null);
             }
             else if (e.Key == Key.S || e.Key == Key.R)
             {
                 if (this.randomMode)
                 {
-                    string currentFile = this.Files[this.CurrentSortedIndex];
+                    string currentFile = this.Files[this.CurrentIndex];
                     this.CurrentSortedIndex = this.SortedFiles.IndexOf(currentFile);
+                }
+                else
+                {
+                    string currentFile = this.SortedFiles[this.CurrentIndex];
+                    this.CurrentIndex = this.Files.IndexOf(currentFile);
                 }
                 this.randomMode = !this.randomMode;
             }
@@ -200,7 +299,7 @@ namespace QSS
 
                 if (!this.paused)
                 {
-                    this.CreateTimer(true);
+                    this.DisplayNextPicture(null);
                 }
             }
             else if (e.Key == Key.I)
@@ -208,18 +307,26 @@ namespace QSS
                 this.showInfo = !this.showInfo;
                 this.info.Visibility = this.showInfo ? Visibility.Visible : Visibility.Collapsed;
             }
+            else if (e.Key == Key.E)
+            {
+                string args = string.Format("/select,{0}", this.info.Content.ToString());
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo("explorer.exe", args);
+                p.Start();
+                this.Close();
+            }
         }
 
         protected override void OnMouseMove(System.Windows.Input.MouseEventArgs e)
         {
             base.OnMouseMove(e);
-           
-           if (!this.lastMousePoint.HasValue)
-           {
-               this.lastMousePoint = e.GetPosition(this);
+
+            if (!this.lastMousePoint.HasValue)
+            {
+                this.lastMousePoint = e.GetPosition(this);
             }
 
-           Point cur = e.GetPosition(this);
+            Point cur = e.GetPosition(this);
 
             if (Math.Abs(cur.X - this.lastMousePoint.Value.X) > 0
                 || Math.Abs(cur.Y - this.lastMousePoint.Value.Y) > 0)
@@ -230,13 +337,16 @@ namespace QSS
 
         void DeletePic(object sender)
         {
-            try
+            for (int i = 0; i < 10; i++)
             {
-                Thread.Sleep(5000);
-                File.Delete(sender.ToString());
-            }
-            catch (Exception)
-            {
+                try
+                {
+                    Thread.Sleep(5000);
+                    File.Delete(sender.ToString());
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }
