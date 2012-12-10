@@ -9,14 +9,14 @@ namespace msn2.net.Pictures.Controls
 {
     public class PictureFilterTreeView : TreeView
     {
-        private TreeNode categoryNode;
-        private TreeNode dateTakenNode;
-        private TreeNode dateAddedNode;
+        TreeNode categoryNode;
+        TreeNode dateTakenNode;
+        TreeNode dateAddedNode;
 
-        private ContextMenu categoryContextMenu;
+        ContextMenu categoryContextMenu;
 
         public event FilterChangedHandler FilterChanged;
-        private string selectPath = null;
+        string selectPath = null;
 
         public PictureFilterTreeView()
         {
@@ -42,6 +42,8 @@ namespace msn2.net.Pictures.Controls
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Edit", new EventHandler(OnCategoryEdit)));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Move", new EventHandler(OnCategoryMove)));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Delete", new EventHandler(OnCategoryDelete)));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("-"));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("&Refresh", OnCategoryRefresh));
 
                 this.categoryNode.ContextMenu = new ContextMenu();
                 this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
@@ -63,15 +65,15 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void ReloadCategories()
+        void ReloadCategories()
         {
             this.categoryNode.Nodes.Clear();
             ThreadPool.QueueUserWorkItem(new WaitCallback(LoadCategories), null);
         }
 
-        private delegate void SetImageIndexDelegate(TreeNode node, int index);
+        delegate void SetImageIndexDelegate(TreeNode node, int index);
 
-        private void SetImageIndex(TreeNode node, int index)
+        void SetImageIndex(TreeNode node, int index)
         {
             if (this.InvokeRequired == true)
             {
@@ -86,7 +88,7 @@ namespace msn2.net.Pictures.Controls
 
         #region Category nodes
 
-        private void LoadCategories(object state)
+        void LoadCategories(object state)
         {
             try
             {
@@ -121,7 +123,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void FillChildren(Category parentCategory, TreeNode n, int intLevelsToGo)
+        void FillChildren(Category parentCategory, TreeNode n, int intLevelsToGo)
         {
             // clear out all child nodes
             this.Invoke(new TreeNodeHandler(
@@ -161,7 +163,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void SelectAndExpandToNode(TreeNode node)
+        void SelectAndExpandToNode(TreeNode node)
         {
             if (this.InvokeRequired == true)
             {
@@ -185,9 +187,9 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private delegate void AddTreeNodeDelegate(TreeNode a, TreeNode b);
+        delegate void AddTreeNodeDelegate(TreeNode a, TreeNode b);
 
-        private void AddTreeNode(TreeNode parentNode, TreeNode childNode)
+        void AddTreeNode(TreeNode parentNode, TreeNode childNode)
         {
             if (this.InvokeRequired == true)
             {
@@ -199,7 +201,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void ValidateChildrenLoaded(CategoryTreeNode node)
+        void ValidateChildrenLoaded(CategoryTreeNode node)
         {
             if (node.Nodes.Count == 1 && node.Nodes[0].Text == "<to load>")
             {
@@ -207,13 +209,14 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void OnCategoryAdd(object sender, EventArgs e)
+        void OnCategoryAdd(object sender, EventArgs e)
         {
             TreeNode selectedNode = this.SelectedNode;
             if (selectedNode != null)
             {
                 CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
                 Category category = new Category();
+                category.CategoryGroups.Add(new CategoryGroup { Category = category, GroupID = 1 });
                 category.ParentId = parentNode == null ? PicContext.Current.CategoryManager.GetRootCategory().Id : parentNode.Category.Id;
 
                 CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, category);
@@ -231,7 +234,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void OnCategoryEdit(object sender, EventArgs e)
+        void OnCategoryEdit(object sender, EventArgs e)
         {
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
             if (node != null)
@@ -244,7 +247,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void OnCategoryMove(object sender, EventArgs e)
+        void OnCategoryMove(object sender, EventArgs e)
         {
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
             if (node != null)
@@ -272,7 +275,7 @@ namespace msn2.net.Pictures.Controls
             this.ReloadCategories();
         }
 
-        private void OnCategoryDelete(object sender, EventArgs e)
+        void OnCategoryDelete(object sender, EventArgs e)
         {
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
             if (node != null)
@@ -294,7 +297,7 @@ namespace msn2.net.Pictures.Controls
 
         #region Date nodes
 
-        private void LoadDates(object parentNodeObject)
+        void LoadDates(object parentNodeObject)
         {
             TreeNode parentNode = (TreeNode)parentNodeObject;
 
@@ -318,7 +321,7 @@ namespace msn2.net.Pictures.Controls
             this.SetImageIndex(parentNode, 1);
         }
 
-        private delegate void DateLoadDelegate(DateCollection dates, string fieldName, TreeNodeCollection nodes, int imageIndex);
+        delegate void DateLoadDelegate(DateCollection dates, string fieldName, TreeNodeCollection nodes, int imageIndex);
 
         #endregion
 
@@ -398,7 +401,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private bool IsNodeAParent(TreeNode currentNode, TreeNode possibleParent)
+        bool IsNodeAParent(TreeNode currentNode, TreeNode possibleParent)
         {
             if (currentNode == possibleParent || currentNode.Parent == possibleParent)
             {
@@ -410,10 +413,6 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        protected override void OnClick(EventArgs e)
-        {
-            base.OnClick(e);
-        }
     }
 
     public delegate void TreeNodeHandler(TreeNode node);

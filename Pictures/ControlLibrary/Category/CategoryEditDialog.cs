@@ -14,27 +14,36 @@ namespace msn2.net.Pictures.Controls
 	/// </summary>
 	public class CategoryEditDialog : System.Windows.Forms.Form
 	{
-		private Label label1;
-		private TextBox txtCategoryName;
-		private Label label2;
-		private Button btnOK;
-		private Button btnCancel;
-        private TextBox txtDescription;
-        private msn2.net.Pictures.Controls.GroupPicker groupPicker1;
-		private ErrorProvider errorProvider1;
-		private CheckBox checkBoxPublish;
-        private Label label3;
-        private DateTimePicker categoryDatePicker;
-        private IContainer components;
-        private PicContext context;
-        private Category category;
+		Label label1;
+		TextBox txtCategoryName;
+		Label label2;
+		Button btnOK;
+		Button btnCancel;
+        TextBox txtDescription;
+        msn2.net.Pictures.Controls.GroupPicker groupPicker1;
+		ErrorProvider errorProvider1;
+		CheckBox checkBoxPublish;
+        Label label3;
+        DateTimePicker categoryDatePicker;
+        IContainer components;
+        PicContext context;
+        Category category;
+        List<int> removeList = new List<int>();
 
 		public CategoryEditDialog(PicContext context, Category category)
 		{
 			InitializeComponent();
 
-            this.context = context;
+            this.context = context.Clone();
             this.category = category;
+
+            if (this.category.Id > 0)
+            {
+                this.category = this.context.CategoryManager.GetCategory(this.category.Id);
+            }
+    
+            this.txtCategoryName.Text = category.Name;
+            this.txtDescription.Text = category.Description;
 
             foreach (CategoryGroup group in this.category.CategoryGroups)
             {
@@ -143,7 +152,6 @@ namespace msn2.net.Pictures.Controls
             this.txtCategoryName.Size = new System.Drawing.Size(320, 20);
             this.txtCategoryName.TabIndex = 1;
             this.txtCategoryName.Validated += new System.EventHandler(this.txtCategoryName_Validated);
-            this.txtCategoryName.Validating += new System.ComponentModel.CancelEventHandler(this.txtCategoryName_Validating);
             // 
             // groupPicker1
             // 
@@ -155,6 +163,7 @@ namespace msn2.net.Pictures.Controls
             this.groupPicker1.RightListColumnHeaderText = "Shared With";
             this.groupPicker1.Size = new System.Drawing.Size(392, 147);
             this.groupPicker1.TabIndex = 7;
+            this.groupPicker1.RemovedGroup += new msn2.net.Pictures.Controls.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
             // 
             // checkBoxPublish
             // 
@@ -209,65 +218,76 @@ namespace msn2.net.Pictures.Controls
 		}
 		#endregion
 
+        private void btnOK_Click(object sender, System.EventArgs e)
+        {
+            bool cancel = false;
 
-		private void btnOK_Click(object sender, System.EventArgs e)
-		{
-			if (categoryDatePicker.Checked) 
-			{
-                this.category.Date = categoryDatePicker.Value;
-			} 
-			else 
-			{
-                this.category.Date = null;
-			}
-
-            this.category.Name = this.txtCategoryName.Text;
-            this.category.Description = this.txtDescription.Text;
-
-            List<CategoryGroup> addList = new List<CategoryGroup>();
-            foreach (int groupId in this.groupPicker1.SelectedGroupIds)
+            try
             {
-                if (this.category.CategoryGroups.Any(cg => cg.GroupID == groupId) == false)
+                if (txtCategoryName.Text.Length == 0)
                 {
-                    CategoryGroup catGroup = new CategoryGroup { Category = this.category, GroupID = groupId };
-                    this.category.CategoryGroups.Add(catGroup);
+                    throw new Exception("Category name is required!");
                 }
             }
-
-            // TODO: track and save list of deleted groups
-
-            if (this.category.Id == 0)
+            catch (Exception ex)
             {
-                this.context.CategoryManager.Add(this.category);
-            }
-            else
-            {
-                this.context.SubmitChanges();
+                errorProvider1.SetError(txtCategoryName, ex.Message);
+                cancel = true;
             }
 
-            this.Close();
-		}
+            if (cancel == false)
+            {
+                if (categoryDatePicker.Checked)
+                {
+                    this.category.Date = categoryDatePicker.Value;
+                }
+                else
+                {
+                    this.category.Date = null;
+                }
+
+                this.category.Name = this.txtCategoryName.Text;
+                this.category.Description = this.txtDescription.Text;
+
+                List<CategoryGroup> addList = new List<CategoryGroup>();
+                foreach (int groupId in this.groupPicker1.SelectedGroupIds)
+                {
+                    if (this.category.CategoryGroups.Any(cg => cg.GroupID == groupId) == false)
+                    {
+                        CategoryGroup catGroup = new CategoryGroup { Category = this.category, GroupID = groupId };
+                        this.category.CategoryGroups.Add(catGroup);
+                    }
+                }
+
+                List<CategoryGroup> removeGroups = new List<CategoryGroup>();
+                foreach (int groupId in this.removeList)
+                {
+                    CategoryGroup group = this.category.CategoryGroups.FirstOrDefault(cg => cg.GroupID == groupId);
+                    if (group != null)
+                    {
+                        removeGroups.Add(group);
+                    }
+                }
+
+                if (this.category.Id == 0)
+                {
+                    this.context.CategoryManager.Add(this.category);
+                }
+                else
+                {
+                    removeGroups.ForEach(g => this.context.CategoryManager.RemoveGroup(this.category, g));
+                    this.context.SubmitChanges();
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-		}
-
-		private void txtCategoryName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			try 
-			{
-				if (txtCategoryName.Text.Length == 0) 
-				{
-					throw new Exception("Category name is required!");
-				}
-			} 
-			catch (Exception ex) 
-			{
-                errorProvider1.SetError(txtCategoryName, ex.Message);
-				e.Cancel = true;
-			}
 		}
 
 		private void txtCategoryName_Validated(object sender, System.EventArgs e)
@@ -282,5 +302,10 @@ namespace msn2.net.Pictures.Controls
 				return category;
 			}
 		}
+
+        private void groupPicker1_RemovedGroup(object sender, GroupPickerEventArgs e)
+        {
+            this.removeList.Add(e.GroupID);
+        }
 	}
 }

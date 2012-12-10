@@ -277,7 +277,8 @@ namespace msn2.net.Pictures.Controls
 			}
 
             Category category = new Category { ParentId = n.Category.Id };
-
+            category.CategoryGroups.Add(new CategoryGroup { Category = category, GroupID = 1 });
+            
 			CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, category);
 
 			if (ec.ShowDialog() == DialogResult.OK)
@@ -306,7 +307,7 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, n.Category);
+            CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, n.Category);
             if (ec.ShowDialog() == DialogResult.OK)
             {
                 n.Update(ec.Category);

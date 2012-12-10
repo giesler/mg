@@ -214,6 +214,11 @@ namespace msn2.net.Pictures
         {
             this.DataContext.SubmitChanges();
         }
+
+        public PicContext Clone()
+        {
+            return new PicContext(this.Config);
+        }
 	}
 
 }

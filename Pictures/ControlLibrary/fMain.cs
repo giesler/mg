@@ -15,99 +15,100 @@ using System.Windows.Media.Imaging;
 
 namespace msn2.net.Pictures.Controls
 {
-    
-	/// <summary>
-	/// Summary description for fMain.
-	/// </summary>
-	public class fMain : System.Windows.Forms.Form
-	{
-		#region Sorter
-		public class PicListViewSorter : IComparer 
-		{
-			public int Compare(Object obj1, Object obj2) 
-			{
-				if (!(obj1 is ListViewItem) || !(obj2 is ListViewItem))
-					throw new ArgumentException("Objects passed to PicListViewSorter must be ListViewItems");
-				
-				int intVal1 = Convert.ToInt32(((ListViewItem)obj1).SubItems[5].Text);
-				int intVal2 = Convert.ToInt32(((ListViewItem)obj2).SubItems[5].Text);
-				return (intVal1.CompareTo(intVal2));
-			}
-		}
-            
-		#endregion
 
-		#region Declares
-		private System.Windows.Forms.MainMenu mainMenu1;
-		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.MenuItem menuFileExit;
-		private System.Data.SqlClient.SqlDataAdapter daPictureDate;
-		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
-        private System.Data.SqlClient.SqlConnection cn;
-        private System.Windows.Forms.MenuItem menuAddPictures;
-        private System.Windows.Forms.MenuItem menuItem3;
-        private System.Windows.Forms.ContextMenu mnuPictureList;
-		private System.Windows.Forms.MenuItem mnuPictureListEdit;
-		private System.Windows.Forms.MenuItem mnuPictureListDelete;
-		protected Image imgCurImage = null;
-		private System.Windows.Forms.MenuItem menuItem2;
-		private System.Windows.Forms.MenuItem mnuPictureListMoveUp;
-        private System.Windows.Forms.MenuItem mnuPictureListMoveDown;
-        private System.Windows.Forms.MenuItem menuUpdateCachedPictures;
-        private System.Windows.Forms.StatusBar statusBar1;
-        private System.Windows.Forms.StatusBarPanel statusBarPanel1;
-        private System.Windows.Forms.StatusBarPanel statusBarPanel2;
-        private System.ComponentModel.IContainer components;
-		private string currentListViewQuery;
-		private System.Windows.Forms.MenuItem menuItem5;
-        private System.Windows.Forms.MenuItem menuItem6;
-        private MenuItem menuItem7;
-        private MenuItem menuAddToCategory;
-        private MenuItem menuRemoveFromCategory;
-        private MenuItem menuItem8;
-        private MenuItem menuAddSecurityGroup;
-        private MenuItem menuRemoveSecurityGroup;
+    /// <summary>
+    /// Summary description for fMain.
+    /// </summary>
+    public class fMain : System.Windows.Forms.Form
+    {
+        #region Sorter
+        public class PicListViewSorter : IComparer
+        {
+            public int Compare(Object obj1, Object obj2)
+            {
+                if (!(obj1 is ListViewItem) || !(obj2 is ListViewItem))
+                    throw new ArgumentException("Objects passed to PicListViewSorter must be ListViewItems");
 
-        private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripComboBox imageSizeCombo;
-        private ToolStripButton toolStripSelectAll;
-        private ToolStripButton toolStripClearAll;
-        private SplitContainer mainSplitContainer;
-        private SplitContainer rightListContainer;
-        private Panel panel1;
-        private PictureList pictureList1;
-        private SelectedPicturePanel selectedPictures;
-        private MenuItem menuRandomSlideshow;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton copytofolderToolStripButton;
-        private MenuItem menuRotate;
-        private MenuItem menuRotateRight90;
-        private MenuItem menuRotateLeft90;
-        private MenuItem menuRotate180;
-        private ToolStripButton toolFileInfo;
-        private PictureFilterTreeView filter;
-        private ToolStripLabel toolStripLabel2;
-        private ToolStripComboBox maxPicCount;
-        private PictureControlSettings settings = new PictureControlSettings();
-        private MenuItem menuItem4;
-        private bool loading = true;
-		#endregion
+                int intVal1 = Convert.ToInt32(((ListViewItem)obj1).SubItems[5].Text);
+                int intVal2 = Convert.ToInt32(((ListViewItem)obj2).SubItems[5].Text);
+                return (intVal1.CompareTo(intVal2));
+            }
+        }
 
-		#region Constructor
-		public fMain()
-		{
-			// Show status window
-			//stat.StatusText			= "Loading...";
-			//stat.Max				= 0;
+        #endregion
+
+        #region Declares
+
+        MainMenu mainMenu1;
+        MenuItem menuItem1;
+        MenuItem menuFileExit;
+        System.Data.SqlClient.SqlDataAdapter daPictureDate;
+        System.Data.SqlClient.SqlCommand sqlSelectCommand1;
+        System.Data.SqlClient.SqlConnection cn;
+        MenuItem menuAddPictures;
+        MenuItem menuItem3;
+        ContextMenu mnuPictureList;
+        MenuItem mnuPictureListEdit;
+        MenuItem mnuPictureListDelete;
+        Image imgCurImage = null;
+        MenuItem menuItem2;
+        MenuItem mnuPictureListMoveUp;
+        MenuItem mnuPictureListMoveDown;
+        MenuItem menuUpdateCachedPictures;
+        StatusBar statusBar1;
+        StatusBarPanel statusBarPanel1;
+        StatusBarPanel statusBarPanel2;
+        System.ComponentModel.IContainer components;
+        string currentListViewQuery;
+        MenuItem menuItem5;
+        MenuItem menuItem6;
+        MenuItem menuItem7;
+        MenuItem menuAddToCategory;
+        MenuItem menuRemoveFromCategory;
+        MenuItem menuItem8;
+        MenuItem menuAddSecurityGroup;
+        MenuItem menuRemoveSecurityGroup;
+
+        ToolStrip toolStrip1;
+        ToolStripLabel toolStripLabel1;
+        ToolStripComboBox imageSizeCombo;
+        ToolStripButton toolStripSelectAll;
+        ToolStripButton toolStripClearAll;
+        SplitContainer mainSplitContainer;
+        SplitContainer rightListContainer;
+        Panel panel1;
+        PictureList pictureList1;
+        SelectedPicturePanel selectedPictures;
+        MenuItem menuRandomSlideshow;
+        ToolStripSeparator toolStripSeparator1;
+        ToolStripSeparator toolStripSeparator2;
+        ToolStripButton copytofolderToolStripButton;
+        MenuItem menuRotate;
+        MenuItem menuRotateRight90;
+        MenuItem menuRotateLeft90;
+        MenuItem menuRotate180;
+        ToolStripButton toolFileInfo;
+        PictureFilterTreeView filter;
+        ToolStripLabel toolStripLabel2;
+        ToolStripComboBox maxPicCount;
+        PictureControlSettings settings = new PictureControlSettings();
+        MenuItem menuItem4;
+        bool loading = true;
+        #endregion
+
+        #region Constructor
+        public fMain()
+        {
+            // Show status window
+            //stat.StatusText			= "Loading...";
+            //stat.Max				= 0;
 
             settings.Reload();
 
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
             // Login
             PictureConfig config = PictureConfig.Load();
@@ -119,7 +120,7 @@ namespace msn2.net.Pictures.Controls
                 if (LoginUser(config, stat) == false)
                 {
                     return;
-                }                
+                }
             }
 
             stat.StatusText = "Loading pictures...";
@@ -136,23 +137,23 @@ namespace msn2.net.Pictures.Controls
             pictureList1.ItemUnselected += new PictureItemEventHandler(pictureList1_ItemUnselected);
             pictureList1.PictureDoubleClick += new PictureItemEventHandler(pictureList1_DoubleClick);
 
-//            Mapping.TopoMap map = new Mapping.TopoMap();
-//            map.Dock = DockStyle.Fill;
-//
-//            Form form = new Form();
-//            form.WindowState = FormWindowState.Maximized;
-//            form.Controls.Add(map);
-//
-//            form.Show();
-//            
-//            map.LoadMap();
+            //            Mapping.TopoMap map = new Mapping.TopoMap();
+            //            map.Dock = DockStyle.Fill;
+            //
+            //            Form form = new Form();
+            //            form.WindowState = FormWindowState.Maximized;
+            //            form.Controls.Add(map);
+            //
+            //            form.Show();
+            //            
+            //            map.LoadMap();
 
             stat.Close();
             stat = null;
 
             this.maxPicCount.SelectedIndex = 1;
             this.imageSizeCombo.SelectedIndex = 1;
-            
+
             this.loading = false;
         }
 
@@ -192,30 +193,32 @@ namespace msn2.net.Pictures.Controls
             return (PicContext.Current != null);
         }
 
-		#endregion
-		#region Disposal
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-		#endregion
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #endregion
+
+        #region Disposal
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
@@ -706,17 +709,18 @@ namespace msn2.net.Pictures.Controls
             this.PerformLayout();
 
         }
-		#endregion
-		#region STAThread - Main
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main() 
-		{
-			Application.Run(new fMain());
-		}
-		#endregion
+        #endregion
+
+        #region STAThread - Main
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.Run(new fMain());
+        }
+        #endregion
 
         protected override void OnLoad(EventArgs e)
         {
@@ -737,15 +741,15 @@ namespace msn2.net.Pictures.Controls
             settings.Save();
         }
 
-		private void menuItem2_Click(object sender, System.EventArgs e)
-		{
+        void menuItem2_Click(object sender, System.EventArgs e)
+        {
             this.Close();
-		}
+        }
 
-		private void menuAddPictures_Click(object sender, System.EventArgs e)
-		{
-			
-			fAddPictures f = new fAddPictures();
+        void menuAddPictures_Click(object sender, System.EventArgs e)
+        {
+
+            AddPictureDialog f = new AddPictureDialog(PicContext.Current);
             try
             {
                 if (f.ShowDialog(this) == DialogResult.OK)
@@ -757,175 +761,175 @@ namespace msn2.net.Pictures.Controls
             {
                 // BUGBUG: accesibility exception
             }
-		}
+        }
 
-		private void mnuPictureListEdit_Click(object sender, System.EventArgs e)
-		{
+        void mnuPictureListEdit_Click(object sender, System.EventArgs e)
+        {
             PictureItemEventArgs args = new PictureItemEventArgs(
                 pictureList1.GetSelectedPictureData());
 
             pictureList1_DoubleClick(null, args);
-		}
+        }
 
-		private void mnuPictureListDelete_Click(object sender, System.EventArgs e)
-		{
-			if (MessageBox.Show("Are you sure you want to permenantly remove the selected picture(s)?  The picture file will also be deleted!", "Confirm Delete", 
-				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) 
-			{
-				if (imgCurImage != null) 
-				{
-					imgCurImage.Dispose();
-					imgCurImage = null;
-				}
+        void mnuPictureListDelete_Click(object sender, System.EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to permenantly remove the selected picture(s)?  The picture file will also be deleted!", "Confirm Delete",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                if (imgCurImage != null)
+                {
+                    imgCurImage.Dispose();
+                    imgCurImage = null;
+                }
 
-				if (cn.State == ConnectionState.Closed)
-					cn.Open();
+                if (cn.State == ConnectionState.Closed)
+                    cn.Open();
 
-				foreach (int pictureId in pictureList1.SelectedItems)
-				{
-					try 
-					{
+                foreach (int pictureId in pictureList1.SelectedItems)
+                {
+                    try
+                    {
                         // remove the deleted item
                         pictureList1.Remove(pictureId);
 
                         // Load the list of cached images
-						SqlCommand cmdCached = new SqlCommand("select * from PictureCache where PictureID = @PictureID", cn);
-						cmdCached.Parameters.Add("@PictureID", SqlDbType.Int);
+                        SqlCommand cmdCached = new SqlCommand("select * from PictureCache where PictureID = @PictureID", cn);
+                        cmdCached.Parameters.Add("@PictureID", SqlDbType.Int);
                         cmdCached.Parameters["@PictureID"].Value = pictureId;
                         SqlDataReader dr = cmdCached.ExecuteReader();
-						while (dr.Read()) 
-						{
-							try 
-							{
-								string cachedFile = PicContext.Current.Config.CacheDirectory + @"\" + dr["Filename"].ToString();
-								if (File.Exists(cachedFile))
-									File.Delete(cachedFile);
-							} 
-							catch (IOException ioe) 
-							{
-								MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-							}
+                        while (dr.Read())
+                        {
+                            try
+                            {
+                                string cachedFile = PicContext.Current.Config.CacheDirectory + @"\" + dr["Filename"].ToString();
+                                if (File.Exists(cachedFile))
+                                    File.Delete(cachedFile);
+                            }
+                            catch (IOException ioe)
+                            {
+                                MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
 
-						}
-						dr.Close();
+                        }
+                        dr.Close();
 
-						// we want to delete from db, but only if file delete worked
-						SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + pictureId.ToString(), cn);
+                        // we want to delete from db, but only if file delete worked
+                        SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + pictureId.ToString(), cn);
                         cmd.ExecuteNonQuery();
 
                     }
-					catch (IOException ioe) 
-					{
-						MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					}
-					
+                    catch (IOException ioe)
+                    {
+                        MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
-				}
-				
-				cn.Close();
-			}
-				
-		}
 
-		private void mnuPictureList_Popup(object sender, System.EventArgs e)
-		{
+                }
 
-/*			// disable all controls, and only enable depending on number of items selected
-			foreach (MenuItem mni in mnuPictureList.MenuItems) 
-				mni.Enabled = false;
+                cn.Close();
+            }
 
-			if (pictureList1.SelectedItems.Count > 0) 
-			{
-				mnuPictureListDelete.Enabled = true;
-				mnuPictureListEdit.Enabled   = true;
-                menuAddToCategory.Enabled = true;
-                menuRemoveFromCategory.Enabled = true;
-                menuAddSecurityGroup.Enabled = true;
-                menuRemoveSecurityGroup.Enabled = true;
+        }
 
-//                // only enable up and down with one item selected, and not when at top or bottom
-//                if (pictureList1.SelectedItems.Count == 1)
-//                {
-//					if (lvPics.SelectedItems[0].Index != 0)
-//						mnuPictureListMoveUp.Enabled = true;
-//					if (lvPics.SelectedItems[0].Index != lvPics.Items.Count-1)
-//						mnuPictureListMoveDown.Enabled = true;
-//
-//				}
-			}
-*/
-		}
+        void mnuPictureList_Popup(object sender, System.EventArgs e)
+        {
 
-		public void ClearCurrentImage() 
-		{
-			// clear current images
-			if (imgCurImage != null) 
-			{
-				imgCurImage.Dispose();
-				imgCurImage = null;
-			}
-		}
+            /*			// disable all controls, and only enable depending on number of items selected
+                        foreach (MenuItem mni in mnuPictureList.MenuItems) 
+                            mni.Enabled = false;
 
-		private void menuUpdateCachedPictures_Click(object sender, System.EventArgs e)
-		{
+                        if (pictureList1.SelectedItems.Count > 0) 
+                        {
+                            mnuPictureListDelete.Enabled = true;
+                            mnuPictureListEdit.Enabled   = true;
+                            menuAddToCategory.Enabled = true;
+                            menuRemoveFromCategory.Enabled = true;
+                            menuAddSecurityGroup.Enabled = true;
+                            menuRemoveSecurityGroup.Enabled = true;
 
-			if (cacheStatus == null)
-			{
-				if (MessageBox.Show("This will check ALL images to see if the date/time stamp has changed, and will recreate any cached images that are out of date.", 
-					"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
-					MessageBoxDefaultButton.Button2) == DialogResult.OK) 
-				{
-					cacheStatus = new fStatus(this, "Starting process...", 0);
+            //                // only enable up and down with one item selected, and not when at top or bottom
+            //                if (pictureList1.SelectedItems.Count == 1)
+            //                {
+            //					if (lvPics.SelectedItems[0].Index != 0)
+            //						mnuPictureListMoveUp.Enabled = true;
+            //					if (lvPics.SelectedItems[0].Index != lvPics.Items.Count-1)
+            //						mnuPictureListMoveDown.Enabled = true;
+            //
+            //				}
+                        }
+            */
+        }
 
-					Thread t = new Thread(new ThreadStart(ProcessCache));
-					t.Start();
-				}
-			}
-			else
-			{
-				MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
-			}
+        public void ClearCurrentImage()
+        {
+            // clear current images
+            if (imgCurImage != null)
+            {
+                imgCurImage.Dispose();
+                imgCurImage = null;
+            }
+        }
 
-		}
+        void menuUpdateCachedPictures_Click(object sender, System.EventArgs e)
+        {
 
-		private fStatus cacheStatus;
+            if (cacheStatus == null)
+            {
+                if (MessageBox.Show("This will check ALL images to see if the date/time stamp has changed, and will recreate any cached images that are out of date.",
+                    "Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    cacheStatus = new fStatus(this, "Starting process...", 0);
 
-		private void CheckForCacheFiles()
-		{
-			SqlDataAdapter da		= new SqlDataAdapter("select * from PictureCache", cn);
-			SqlCommandBuilder bld	= new SqlCommandBuilder(da);
-			DataSet ds				= new DataSet();
+                    Thread t = new Thread(new ThreadStart(ProcessCache));
+                    t.Start();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
+            }
 
-			// Get the current cache list
-			da.Fill(ds, "PictureCache");
+        }
 
-			cacheStatus.StatusText	= "Verifying images...";
-			cacheStatus.Max			= ds.Tables["PictureCache"].Rows.Count;
+        private fStatus cacheStatus;
 
-			foreach (DataRow dr in ds.Tables["PictureCache"].Rows)
-			{
-				// Check if file exists
-				string filename		= PicContext.Current.Config.CacheDirectory + @"\" 
-										+ dr["Filename"].ToString();
+        void CheckForCacheFiles()
+        {
+            SqlDataAdapter da = new SqlDataAdapter("select * from PictureCache", cn);
+            SqlCommandBuilder bld = new SqlCommandBuilder(da);
+            DataSet ds = new DataSet();
 
-				if (!File.Exists(filename))
-				{
-					dr.Delete();
-				}
+            // Get the current cache list
+            da.Fill(ds, "PictureCache");
 
-				cacheStatus.Current++;
-			}
+            cacheStatus.StatusText = "Verifying images...";
+            cacheStatus.Max = ds.Tables["PictureCache"].Rows.Count;
 
-			ds.WriteXml(@"c:\deletes.xml");
-			da.Update(ds, "PictureCache");
+            foreach (DataRow dr in ds.Tables["PictureCache"].Rows)
+            {
+                // Check if file exists
+                string filename = PicContext.Current.Config.CacheDirectory + @"\"
+                                        + dr["Filename"].ToString();
 
-//			cacheStatus.Dispose();
-			cacheStatus				= null;
-		}
+                if (!File.Exists(filename))
+                {
+                    dr.Delete();
+                }
 
-		private void ProcessCache()
-		{
-			ImageUtilities util = new ImageUtilities();
+                cacheStatus.Current++;
+            }
+
+            ds.WriteXml(@"c:\deletes.xml");
+            da.Update(ds, "PictureCache");
+
+            //			cacheStatus.Dispose();
+            cacheStatus = null;
+        }
+
+        void ProcessCache()
+        {
+            ImageUtilities util = new ImageUtilities();
 
             var q = from p in PicContext.Current.PictureManager.GetPictures()
                     where (from pc in p.PictureCaches
@@ -933,16 +937,16 @@ namespace msn2.net.Pictures.Controls
                            select pc).Any() == false
                     select p;
 
-			cacheStatus.StatusText	= "Creating cached images...";
-			int count				= q.Count();
+            cacheStatus.StatusText = "Creating cached images...";
+            int count = q.Count();
 
-			foreach (Picture picture in q)
-			{
-				util.CreateUpdateCache(picture.Id);
+            foreach (Picture picture in q)
+            {
+                util.CreateUpdateCache(picture.Id);
 
-				count++;
-				cacheStatus.Current = count;
-			}
+                count++;
+                cacheStatus.Current = count;
+            }
 
             if (cacheStatus.InvokeRequired)
             {
@@ -953,36 +957,36 @@ namespace msn2.net.Pictures.Controls
                 cacheStatus.Close();
             }
 
-		}
+        }
 
-		private void menuItem5_Click(object sender, System.EventArgs e)
-		{
+        void menuItem5_Click(object sender, System.EventArgs e)
+        {
 
-			if (cacheStatus == null)
-			{
-				if (MessageBox.Show("This will verify ALL cached image rows.", 
-					"Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, 
-					MessageBoxDefaultButton.Button2) == DialogResult.OK) 
-				{
-					cacheStatus = new fStatus(this, "Starting process...", 0);
+            if (cacheStatus == null)
+            {
+                if (MessageBox.Show("This will verify ALL cached image rows.",
+                    "Cache Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    cacheStatus = new fStatus(this, "Starting process...", 0);
 
-					Thread t = new Thread(new ThreadStart(CheckForCacheFiles));
-					t.Start();
-				}
-			}
-			else
-			{
-				MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
-			}
+                    Thread t = new Thread(new ThreadStart(CheckForCacheFiles));
+                    t.Start();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
+            }
 
-		}
+        }
 
-		private void menuItem6_Click(object sender, System.EventArgs e)
-		{
-		
-		}
+        void menuItem6_Click(object sender, System.EventArgs e)
+        {
 
-        private void menuAddToCategory_Click(object sender, EventArgs e)
+        }
+
+        void menuAddToCategory_Click(object sender, EventArgs e)
         {
             fSelectCategory cat = fSelectCategory.GetSelectCategoryDialog();
             if (cat.ShowDialog(this) == DialogResult.OK)
@@ -991,11 +995,11 @@ namespace msn2.net.Pictures.Controls
                 {
                     PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.Id);
                 }
-                
+
             }
         }
 
-        private void menuRemoveFromCategory_Click(object sender, EventArgs e)
+        void menuRemoveFromCategory_Click(object sender, EventArgs e)
         {
             fSelectCategory cat = new fSelectCategory();
             if (cat.ShowDialog(this) == DialogResult.OK)
@@ -1007,7 +1011,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void menuAddSecurityGroup_Click(object sender, EventArgs e)
+        void menuAddSecurityGroup_Click(object sender, EventArgs e)
         {
             fGroupSelect sel = new fGroupSelect();
             if (sel.ShowDialog(this) == DialogResult.OK)
@@ -1020,7 +1024,7 @@ namespace msn2.net.Pictures.Controls
 
         }
 
-        private void menuRemoveSecurityGroup_Click(object sender, EventArgs e)
+        void menuRemoveSecurityGroup_Click(object sender, EventArgs e)
         {
             fGroupSelect sel = new fGroupSelect();
             if (sel.ShowDialog(this) == DialogResult.OK)
@@ -1033,7 +1037,7 @@ namespace msn2.net.Pictures.Controls
 
         }
 
-        private void filter_FilterChanged(string whereClause)
+        void filter_FilterChanged(string whereClause)
         {
             this.currentListViewQuery = whereClause;
 
@@ -1044,7 +1048,7 @@ namespace msn2.net.Pictures.Controls
             ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), this.filter.GetPictureQuery());
         }
 
-        private void QueryPictures(object oQuery)
+        void QueryPictures(object oQuery)
         {
             if (oQuery != null)
             {
@@ -1055,7 +1059,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void DisplayPictures(object pics)
+        void DisplayPictures(object pics)
         {
             List<Picture> allPictures = (List<Picture>)pics;
             int maxCount = int.Parse(this.maxPicCount.SelectedItem.ToString());
@@ -1078,7 +1082,7 @@ namespace msn2.net.Pictures.Controls
                 pictureList1.LoadPictures(displayPictures);
                 statusBar1.Panels[0].Text = string.Format("{0}/{1} pictures", displayPictures.Count, allPictures.Count);
             }
-        } 
+        }
 
 
         void pictureList1_DoubleClick(object sender, PictureItemEventArgs e)
@@ -1096,14 +1100,14 @@ namespace msn2.net.Pictures.Controls
             ss.SetSourceForm(this);
             ss.Show();
 
-//            fPicture f = new fPicture();
-//            f.NavigationControlsDataQuery = currentListViewQuery;
-//
-//            f.MainForm = this;
-//
-//            // Load the selected picture
-//            f.LoadPicture(pictureId);
-//            f.Show();
+            //            fPicture f = new fPicture();
+            //            f.NavigationControlsDataQuery = currentListViewQuery;
+            //
+            //            f.MainForm = this;
+            //
+            //            // Load the selected picture
+            //            f.LoadPicture(pictureId);
+            //            f.Show();
         }
 
         void pictureList1_SelectedChanged(object sender, PictureItemEventArgs e)
@@ -1115,17 +1119,17 @@ namespace msn2.net.Pictures.Controls
             copytofolderToolStripButton.Enabled = itemSelected;
         }
 
-        private void imageSizeCombo_SelectedIndexChanged(object sender, EventArgs e)
+        void imageSizeCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             pictureList1.SetImageSize(int.Parse(imageSizeCombo.SelectedItem.ToString()));
         }
 
-        private void toolStripSelectAll_Click(object sender, EventArgs e)
+        void toolStripSelectAll_Click(object sender, EventArgs e)
         {
             pictureList1.SelectAll();
         }
 
-        private void toolStripClearAll_Click(object sender, EventArgs e)
+        void toolStripClearAll_Click(object sender, EventArgs e)
         {
             pictureList1.ClearAll();
         }
@@ -1140,17 +1144,17 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.RemovePicture(e.Picture.Id);
         }
 
-        private void pictureList1_MultiSelectStart(object sender, EventArgs e)
+        void pictureList1_MultiSelectStart(object sender, EventArgs e)
         {
             this.selectedPictures.MultiSelectStart();
         }
 
-        private void pictureList1_MultiSelectEnd(object sender, EventArgs e)
+        void pictureList1_MultiSelectEnd(object sender, EventArgs e)
         {
             this.selectedPictures.MultiSelectEnd();
         }
 
-        private void copytofolderToolStripButton_Click(object sender, EventArgs e)
+        void copytofolderToolStripButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = true;
@@ -1223,22 +1227,22 @@ namespace msn2.net.Pictures.Controls
             return output;
         }
 
-        private void menuRandomSlideshow_Click(object sender, EventArgs e)
+        void menuRandomSlideshow_Click(object sender, EventArgs e)
         {
             RandomSlideshow random = new RandomSlideshow();
             random.SetSourceForm(this);
             random.Show();
         }
 
-        private void menuRotateRight90_Click(object sender, EventArgs e)
+        void menuRotateRight90_Click(object sender, EventArgs e)
         {
             RotateSelectedPictures(RotateFlipType.Rotate90FlipNone);
         }
-        
-        private void RotateSelectedPictures(RotateFlipType rft)
+
+        void RotateSelectedPictures(RotateFlipType rft)
         {
             PictureManager pm = PicContext.Current.PictureManager;
-            
+
             foreach (int pictureId in pictureList1.SelectedItems)
             {
                 pm.RotateImage(pictureId, rft);
@@ -1250,17 +1254,17 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void menuRotateLeft90_Click(object sender, EventArgs e)
+        void menuRotateLeft90_Click(object sender, EventArgs e)
         {
             RotateSelectedPictures(RotateFlipType.Rotate270FlipNone);
         }
 
-        private void menuRotate180_Click(object sender, EventArgs e)
+        void menuRotate180_Click(object sender, EventArgs e)
         {
             RotateSelectedPictures(RotateFlipType.Rotate180FlipNone);
         }
 
-        private void toolFileInfo_Click(object sender, EventArgs e)
+        void toolFileInfo_Click(object sender, EventArgs e)
         {
             if (pictureList1.SelectedItems.Count > 0)
             {
@@ -1272,11 +1276,11 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void UpdateDateTimes()
-        {                
+        void UpdateDateTimes()
+        {
             DialogResult result = MessageBox.Show(
-                "Click 'Yes' to update date/time values or 'No' to only count the pictures with incorrect values.", 
-                "Change Picture Dates?", 
+                "Click 'Yes' to update date/time values or 'No' to only count the pictures with incorrect values.",
+                "Change Picture Dates?",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
             int diffCount = 0;
@@ -1285,7 +1289,7 @@ namespace msn2.net.Pictures.Controls
             {
                 Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
                 string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
-                
+
                 string metaDataDate = GetDatePictureTaken(fileName);
                 if (metaDataDate != null)
                 {
@@ -1411,19 +1415,19 @@ namespace msn2.net.Pictures.Controls
             return doc;
         }
 
-        private void maxPicCount_SelectedIndexChanged(object sender, EventArgs e)
+        void maxPicCount_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loading == false)
             {
                 this.filter_FilterChanged(this.filter.WhereClause);
-            }            
+            }
         }
 
-        private void menuItem4_Click(object sender, EventArgs e)
+        void menuItem4_Click(object sender, EventArgs e)
         {
             PicContext.Current.CategoryManager.ReloadCategoryCache();
         }
-        
+
         public static string GetDatePictureTaken(string fileName)
         {
             string dateTaken = null;

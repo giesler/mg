@@ -14,5 +14,12 @@ namespace msn2.net.Pictures
                 return this.PictureID;
             }
         }
+
+        partial void OnCreated()
+        {
+            this.Description = string.Empty;
+            this.AverageRating = 50;
+            this.Publish = true;
+        }
     }
 }

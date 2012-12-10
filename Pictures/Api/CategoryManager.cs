@@ -126,6 +126,13 @@ namespace msn2.net.Pictures
             this.context.SubmitChanges();
         }
 
+        public void RemoveGroup(Category category, CategoryGroup group)
+        {
+            this.context.DataContext.CategoryGroups.DeleteOnSubmit(group);
+            this.context.DataContext.SubmitChanges();
+            category.CategoryGroups.Remove(group);                        
+        }
+
         public void PublishCategory(int categoryId)
         {
             RecentCategory recent = new RecentCategory();

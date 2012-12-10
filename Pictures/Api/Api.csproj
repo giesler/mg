@@ -107,11 +107,6 @@
     <Compile Include="CategoryManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataSetPicture.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Group.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="Http\GetImageHttpHandler.cs" />
@@ -134,7 +129,6 @@
       <DependentUpon>Picture.dbml</DependentUpon>
     </Compile>
     <Compile Include="PictureCache.cs" />
-    <Compile Include="PictureItem.cs" />
     <Compile Include="PictureManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -153,21 +147,7 @@
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="DataSetPicture.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="API_Diagram.cd" />
-    <None Include="DataSetPicture.xsc">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetPicture.xss">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetPicture.xsx">
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-    </None>
     <None Include="Picture.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Picture.designer.cs</LastGenOutput>

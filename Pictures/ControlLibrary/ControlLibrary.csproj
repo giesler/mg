@@ -172,11 +172,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetPerson.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetPicture.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetPicture.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DateSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -231,13 +226,7 @@
     <Compile Include="ScreenSaver.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WebControls\EditCategoryLink.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WebControls\EditPictureLink.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Picture\fAddPictures.cs">
+    <Compile Include="Picture\AddPictureDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Category\CategoryEditDialog.cs">
@@ -253,9 +242,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Person\fPersonSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Picture\fPicture.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Picture\fPictureViewer.cs">
@@ -407,12 +393,8 @@
       <DependentUpon>PeopleSelect.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Picture\fAddPictures.resx">
-      <DependentUpon>fAddPictures.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Picture\fPicture.resx">
-      <DependentUpon>fPicture.cs</DependentUpon>
+    <EmbeddedResource Include="Picture\AddPictureDialog.resx">
+      <DependentUpon>AddPictureDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\MultiPictureEdit.resx">
@@ -421,14 +403,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Slideshow.resx">
       <DependentUpon>Slideshow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WebControls\EditCategoryLink.resx">
-      <DependentUpon>EditCategoryLink.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WebControls\EditPictureLink.resx">
-      <DependentUpon>EditPictureLink.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Category\CategoryEditDialog.resx">
@@ -477,11 +451,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Content Include="DataSetPicture.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="DataSetPerson.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPerson.Designer.cs</LastGenOutput>

@@ -229,6 +229,12 @@ namespace msn2.net.Pictures
             return picture;
         }
 
+        public void AddPicture(Picture picture)
+        {
+            this.picContext.DataContext.Pictures.InsertOnSubmit(picture);
+            this.picContext.DataContext.SubmitChanges();
+        }
+
         public void AddPictureCache(Picture picture, PictureCache cache)
         {
             this.picContext.DataContext.PictureCaches.InsertOnSubmit(cache);

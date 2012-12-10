@@ -82,6 +82,7 @@ namespace msn2.net.Pictures.Controls
         void timer_Tick(object sender, EventArgs e)
         {
             Picture picture = null;
+            this.timer.Enabled = false;
 
             try
             {
@@ -112,6 +113,10 @@ namespace msn2.net.Pictures.Controls
                     this.errorLabel.Text = "Error setting pic " + picture.Id.ToString() + ": " + ex.Message;
                 }
                 this.errorLabel.Refresh();
+            }
+            finally
+            {
+                this.timer.Enabled = true;
             }
         }
 
