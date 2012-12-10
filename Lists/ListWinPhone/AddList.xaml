@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,25 +21,20 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="add">
                 <Grid Height="463" Width="450">
-                    <TextBox Height="72" HorizontalAlignment="Left" Margin="5,-42,0,0" Name="name" Text="&lt;name&gt;" VerticalAlignment="Top" Width="460" GotFocus="name_GotFocus" MaxLength="50" TextChanged="name_TextChanged"  />
                     <TextBlock Height="30" HorizontalAlignment="Left" Margin="87,102,0,0" Name="adding" Text="adding..." VerticalAlignment="Top" Visibility="Collapsed" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
-        <Button Content="add" Height="72" HorizontalAlignment="Left" Margin="60,696,0,0" Name="add" VerticalAlignment="Top" Width="160" Click="add_Click" />
-        <Button Content="cancel" Height="72" HorizontalAlignment="Left" Margin="243,696,0,0" Name="cancel" VerticalAlignment="Top" Width="160" Click="cancel_Click" />
+        <TextBox Height="72" HorizontalAlignment="Right" Margin="0,155,12,0" Name="name" Text="&lt;name&gt;" VerticalAlignment="Top" Width="456" GotFocus="name_GotFocus" MaxLength="50" TextChanged="name_TextChanged" InputScope="Text" />
+        <ProgressBar Height="16" HorizontalAlignment="Left" Margin="6,-5,0,0" Name="pbar" VerticalAlignment="Top" Width="470" IsIndeterminate="True" Visibility="Collapsed" />
+        <TextBlock Height="36" HorizontalAlignment="Right" Margin="237,15,0,0" Name="status" Text="adding..." VerticalAlignment="Top" Width="241" FontSize="20" Visibility="Collapsed" />
     </Grid>
 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton x:Name="addButton" IconUri="/Images/appbar.add.rest.png" Text="add" Click="OnAdd" IsEnabled="False" />
+            <shell:ApplicationBarIconButton x:Name="cancelButton" IconUri="/Images/appbar.cancel.rest.png" Text="cancel" Click="OnCancel" />
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-    
+    </phone:PhoneApplicationPage.ApplicationBar>
+
 </phone:PhoneApplicationPage>

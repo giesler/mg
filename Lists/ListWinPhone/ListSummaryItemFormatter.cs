@@ -24,11 +24,11 @@ namespace giesler.org.lists
                 ListEx list = (ListEx)value;
                 if (list.Items != null && list.Items.Count > 0)
                 {
-                    return string.Format("{0} ({1})", list.Name, list.Items.Count);
+                    return string.Format("{0} ({1})", list.Name.ToLower(), list.Items.Count);
                 }
                 else
                 {
-                    return list.Name;
+                    return list.Name.ToLower();
                 }
             }
             else

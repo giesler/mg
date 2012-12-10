@@ -32,7 +32,6 @@ namespace giesler.org.lists
         public MainPage()
         {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
         public bool AttemptedStorageLoad { get; set; }
@@ -242,7 +241,7 @@ namespace giesler.org.lists
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = this.main.Items.Count > 1;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
-                //((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+                ((IApplicationBarMenuItem)this.ApplicationBar.MenuItems[0]).IsEnabled = !loading;
             }
 
             foreach (PivotItem item in this.main.Items)
@@ -267,30 +266,30 @@ namespace giesler.org.lists
             MessageBox.Show(sb.ToString());
         }
 
-        void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {            
             App.Current.LoadAll();
 
             //string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
             //MessageBox.Show(msg);
 
-            bool isLoaded = false;
-            if (this.main.Items.Count > 0)
-            {
-                PivotItemEx item = this.main.SelectedItem as PivotItemEx;
-                if (item != null)
-                {
-                    ListEx list = item.Tag as ListEx;
-                    if (list.UniqueId == App.SelectedList)
-                    {
-                        isLoaded = true;
+            //bool isLoaded = false;
+            //if (this.main.Items.Count > 0)
+            //{
+            //    PivotItemEx item = this.main.SelectedItem as PivotItemEx;
+            //    if (item != null)
+            //    {
+            //        ListEx list = item.Tag as ListEx;
+            //        if (list.UniqueId == App.SelectedList)
+            //        {
+            //            isLoaded = true;
 
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(DelayControlUpdateThread), item);
-                    }
-                }
-            }
+            //            ThreadPool.QueueUserWorkItem(new WaitCallback(DelayControlUpdateThread), item);
+            //        }
+            //    }
+            //}
 
-            if (!isLoaded)
+            //if (!isLoaded)
             {
                 if (App.Lists != null && App.Lists.Count > 0)
                 {
@@ -420,9 +419,7 @@ namespace giesler.org.lists
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            //            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
-
-            this.LoadFromStorage(null);
+            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
         }
 
         private void refreshButton_Click(object sender, EventArgs e)

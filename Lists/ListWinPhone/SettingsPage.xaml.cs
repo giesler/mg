@@ -21,15 +21,22 @@ namespace giesler.org.lists
             InitializeComponent();
 
             App.Current.LoadAll();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
 
             this.LoadLists();
+
+            this.list.Focus();
         }
-        
+
         public void LoadLists()
         {
             this.list.Items.Clear();
 
-            foreach (List list in App.Lists)
+            foreach (List list in App.Lists.OrderBy(i => i.Name))
             {
                 this.list.Items.Add(list);
             }
@@ -37,11 +44,10 @@ namespace giesler.org.lists
 
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.list.SelectedIndex > 0)
-            {
-                List list = this.list.SelectedItem as List;
-                NavigationService.Navigate(new Uri("/EditStorePage.xaml?listUniqueId=" + list.UniqueId.ToString(), UriKind.Relative));
-            }
+            TextBlock tb = (TextBlock)sender;
+
+            ListEx list = tb.Tag as ListEx;
+            NavigationService.Navigate(new Uri("/EditStorePage.xaml?listUniqueId=" + list.UniqueId.ToString(), UriKind.Relative));
         }
 
         private void addButton_Click(object sender, EventArgs e)

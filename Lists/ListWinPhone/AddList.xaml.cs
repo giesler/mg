@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using giesler.org.lists.ListData;
+using Microsoft.Phone.Shell;
 
 namespace giesler.org.lists
 {
@@ -21,10 +22,9 @@ namespace giesler.org.lists
             InitializeComponent();
         }
 
-        private void add_Click(object sender, RoutedEventArgs e)
+        private void OnAdd(object sender, EventArgs e)
         {
-            this.add.IsEnabled = false;
-            this.adding.Visibility = System.Windows.Visibility.Visible;
+            this.ToggleControls(false);
 
             ListDataServiceClient svc = App.DataProvider;
             svc.AddListCompleted += new EventHandler<AddListCompletedEventArgs>(svc_AddListCompleted);
@@ -33,13 +33,42 @@ namespace giesler.org.lists
 
         void svc_AddListCompleted(object sender, AddListCompletedEventArgs e)
         {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+                this.ToggleControls(true);
+            }
+            else if (e.Result.IsDuplicate)
+            {
+                string message = string.Format("The list '{0}' already exists.", this.name.Text);
+                MessageBox.Show(message, "Duplicate", MessageBoxButton.OK);
+                this.ToggleControls(true);
+            }
+            else
+            {
+                ListEx newList = new ListEx();
+                newList.UniqueId = e.Result.List.UniqueId;
+                newList.Name = e.Result.List.Name;                
+                newList.ListItems = new List<ListItem>();
+                App.Lists.Add(newList);
+                App.Current.SaveAll();
+
+                NavigationService.GoBack();
+            }
+
             ListDataServiceClient svc = (ListDataServiceClient)sender;
             svc.CloseAsync();
-
-            NavigationService.GoBack();
         }
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
+        void ToggleControls(bool enableControls)
+        {
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = enableControls;
+            this.pbar.Visibility = enableControls ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.status.Visibility = enableControls ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.name.IsEnabled = enableControls;
+        }
+
+        private void OnCancel(object sender, EventArgs e)
         {
             NavigationService.GoBack();
         }
@@ -54,7 +83,7 @@ namespace giesler.org.lists
 
         private void name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.add.IsEnabled = this.name.Text.Trim().Length > 1;
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = this.name.Text.Trim().Length > 1;
         }
     }
 }

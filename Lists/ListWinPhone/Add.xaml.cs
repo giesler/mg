@@ -27,7 +27,7 @@ namespace giesler.org.lists
             Guid listId = App.SelectedList;
             List list = App.Lists.FirstOrDefault(l => l.UniqueId == listId);
 
-            this.PageTitle.Text = list.Name.ToLower();
+            //this.PageTitle.Text = list.Name.ToLower();
 
             this.Loaded += new RoutedEventHandler(OnPageLoaded);
         }
@@ -49,6 +49,7 @@ namespace giesler.org.lists
             ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
             this.text.IsEnabled = false;
             this.pbar.Visibility = System.Windows.Visibility.Visible;
+            this.status.Visibility = System.Windows.Visibility.Visible;
 
             ListDataServiceClient svc = App.DataProvider;
             svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
@@ -57,16 +58,25 @@ namespace giesler.org.lists
             ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
             list.Items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
             list.Items = list.Items.OrderBy(i => i.Name).ToList();
-
-            NavigationService.GoBack();
         }
 
         void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
         {
+            if (e.Error != null)
+            {
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
+                this.text.IsEnabled = false;
+                this.pbar.Visibility = System.Windows.Visibility.Visible;
+                this.status.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
+                NavigationService.GoBack();
+            }
+
             ListDataServiceClient svc = (ListDataServiceClient)sender;
             svc.CloseAsync();
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
         }
 
         void SaveLists(object sender)

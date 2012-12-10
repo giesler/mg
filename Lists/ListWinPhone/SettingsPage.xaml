@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:giesler.org.lists"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -16,6 +17,9 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.Resources>
+            <local:ListSummaryItemFormatter x:Key="ListConverter" />
+        </Grid.Resources>
         <!--Pivot Control-->
         <controls:Pivot Title="{StaticResource AppNameSettingsPage}">
             <!--Pivot item one-->
@@ -24,7 +28,7 @@
                     <ListBox Height="607" HorizontalAlignment="Left" Name="list" VerticalAlignment="Top" Width="453">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp" Style="{StaticResource PhoneTextExtraLargeStyle}" Tag="{Binding}" />
+                                <TextBlock Text="{Binding Converter={StaticResource ListConverter}}" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp" Style="{StaticResource PhoneTextExtraLargeStyle}" Tag="{Binding}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

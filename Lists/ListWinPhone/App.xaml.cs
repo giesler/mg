@@ -280,28 +280,28 @@ namespace giesler.org.lists
             XElement listsElement = new XElement("lists");
             root.Add(listsElement);
 
-            foreach (var list in App.Lists)
-            {
-                XElement listElement = new XElement("list");
-                listElement.Add(new XElement("name", list.Name));
-                listElement.Add(new XAttribute("id", list.Id));
-                listElement.Add(new XAttribute("uniqueId", list.UniqueId));
-                listsElement.Add(listElement);
-
-                XElement itemsElement = new XElement("items");
-                listElement.Add(itemsElement);
-
-                foreach (ListItemEx item in list.Items)
-                {
-                    XElement itemElement = new XElement("item");
-                    itemElement.Add(new XElement("name", item.Name));
-                    itemElement.Add(new XAttribute("uniqueId", item.UniqueId));
-                    itemsElement.Add(itemElement);
-                }
-            }
-
             lock (this.dataLockObject)
             {
+                foreach (var list in App.Lists)
+                {
+                    XElement listElement = new XElement("list");
+                    listElement.Add(new XElement("name", list.Name));
+                    listElement.Add(new XAttribute("id", list.Id));
+                    listElement.Add(new XAttribute("uniqueId", list.UniqueId));
+                    listsElement.Add(listElement);
+
+                    XElement itemsElement = new XElement("items");
+                    listElement.Add(itemsElement);
+
+                    foreach (ListItemEx item in list.Items)
+                    {
+                        XElement itemElement = new XElement("item");
+                        itemElement.Add(new XElement("name", item.Name));
+                        itemElement.Add(new XAttribute("uniqueId", item.UniqueId));
+                        itemsElement.Add(itemElement);
+                    }
+                }
+
                 using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     if (store.FileExists(settingFileName))

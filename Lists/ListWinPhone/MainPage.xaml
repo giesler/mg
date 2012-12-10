@@ -12,7 +12,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" Height="696" Width="480">
+    shell:SystemTray.IsVisible="True" d:DesignHeight="696" d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -32,10 +32,9 @@
             <shell:ApplicationBarIconButton x:Name="addButton" IconUri="/Images/appbar.add.rest.png" Text="add" Click="addButton_Click" IsEnabled="False" />
             <shell:ApplicationBarIconButton x:Name="jumpButton" IconUri="/Images/appbar.next.rest.png" Text="jump" Click="jumpButton_Click" IsEnabled="False" />
             <shell:ApplicationBarIconButton x:Name="refreshButton" IconUri="/Images/appbar.refresh.rest.png" Text="refresh" Click="refreshButton_Click" IsEnabled="False" />
-            <!--<shell:ApplicationBarIconButton x:Name="settingsButton" IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" Click="settingsButton_Click" IsEnabled="False" />-->
             <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="settingsButton" Text="settings" Click="settingsButton_Click" IsEnabled="False" />
                 <shell:ApplicationBarMenuItem x:Name="aboutMenu" Text="About..." Click="aboutMenu_Click" />
-                <shell:ApplicationBarMenuItem x:Name="debug" Text="Debug" Click="debug_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

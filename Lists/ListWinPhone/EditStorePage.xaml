@@ -28,11 +28,13 @@
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
+        <ProgressBar Height="14" HorizontalAlignment="Left" Margin="6,-2,0,0" Name="pbar" VerticalAlignment="Top" Width="474" IsIndeterminate="True" Visibility="Collapsed" />
+        <TextBlock Height="32" Margin="0,17,12,0" Name="status" Text="loading..." VerticalAlignment="Top" Width="205" FontSize="20" HorizontalAlignment="Right" Visibility="Collapsed" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="deleteButton" IconUri="/Images/appbar.delete.rest.png" Text="Delete"/>
+            <shell:ApplicationBarIconButton x:Name="deleteButton" IconUri="/Images/appbar.delete.rest.png" Text="Delete" Click="OnDelete"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     
