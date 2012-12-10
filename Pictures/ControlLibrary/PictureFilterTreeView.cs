@@ -22,6 +22,16 @@ namespace msn2.net.Pictures.Controls
         public PictureFilterTreeView()
         {
             base.HideSelection = false;
+        }
+
+        public void Load(PicContext ctx, Category selectCategory)
+        {
+            this.picContext = PicContext.Load(ctx.Config, ctx.CurrentUser.Id);
+
+            if (selectCategory != null)
+            {
+                this.selectPath = selectCategory.Path;
+            }
 
             if (this.DesignMode == false)
             {
@@ -49,15 +59,7 @@ namespace msn2.net.Pictures.Controls
                 this.categoryNode.ContextMenu = new ContextMenu();
                 this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
                 this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Refresh", new EventHandler(OnCategoryRefresh)));
-            }
-        }
 
-        public void Load(PicContext ctx)
-        {
-            this.picContext = PicContext.Load(ctx.Config, ctx.CurrentUser.Id);
-
-            if (this.DesignMode == false)
-            {
                 this.ReloadCategories();
 
                 this.dateTakenNode.Nodes.Clear();
@@ -139,7 +141,7 @@ namespace msn2.net.Pictures.Controls
 
             // load child nodes from dvCategory
             List<Category> categories = null;
-            categories = this.picContext.CategoryManager.GetChildrenCategories(
+            categories = this.picContext.Clone().CategoryManager.GetChildrenCategories(
                 parentCategory.Id);
 
             foreach (Category category in categories)

@@ -77,10 +77,11 @@ namespace RandomThumbSite
 
             PicContext context = PicContext.Current;
             Picture random = context.PictureManager.GetRandomPicture(maxWidth, maxHeight, path, 0);
-            PictureCache pc = context.PictureManager.GetPictureCache(random.Id, maxWidth, maxHeight);
 
             if (random != null)
             {
+                PictureCache pc = context.PictureManager.GetPictureCache(random.Id, maxWidth, maxHeight);
+
                 string categories = string.Empty;
                 foreach (Category cat in context.PictureManager.GetPictureCategories(random.Id))
                 {

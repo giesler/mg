@@ -229,11 +229,6 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        protected override void OnKeyPress(KeyPressEventArgs e)
-        {
-            Trace.WriteLine("OnKeyPress: " + e.KeyChar.ToString());
-        }
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Left || keyData == Keys.Up)

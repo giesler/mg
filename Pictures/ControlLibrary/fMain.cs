@@ -12,6 +12,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Windows.Media.Imaging;
+using System.Drawing.Imaging;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -133,7 +134,13 @@ namespace msn2.net.Pictures.Controls
             // Set the connection string
             cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-            this.filter.Load(PicContext.Current);
+            Category category = null;
+            int categoryId = this.settings.Filter_Category;
+            if (categoryId > 0)
+            {
+                category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+            }
+            this.filter.Load(PicContext.Current, category);
 
             pictureList1.ContextMenu = mnuPictureList;
 
@@ -227,12 +234,6 @@ namespace msn2.net.Pictures.Controls
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
@@ -676,37 +677,6 @@ namespace msn2.net.Pictures.Controls
             this.filter.ImageIndex = 0;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
-            treeNode1.ImageIndex = 2;
-            treeNode1.Name = "";
-            treeNode1.SelectedImageIndex = 2;
-            treeNode1.Text = "Categories";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "Date Taken";
-            treeNode3.ImageIndex = 2;
-            treeNode3.Name = "";
-            treeNode3.SelectedImageIndex = 2;
-            treeNode3.Text = "Date Added";
-            treeNode4.ImageIndex = 2;
-            treeNode4.Name = "";
-            treeNode4.SelectedImageIndex = 2;
-            treeNode4.Text = "Categories";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "Date Taken";
-            treeNode6.ImageIndex = 2;
-            treeNode6.Name = "";
-            treeNode6.SelectedImageIndex = 2;
-            treeNode6.Text = "Date Added";
-            this.filter.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
             this.filter.SelectedImageIndex = 0;
             this.filter.Size = new System.Drawing.Size(167, 301);
             this.filter.TabIndex = 0;
@@ -783,6 +753,7 @@ namespace msn2.net.Pictures.Controls
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
             this.Name = "fMain";
@@ -822,15 +793,23 @@ namespace msn2.net.Pictures.Controls
             {
                 this.Close();
             }
-            else
-            {
-                base.OnLoad(e);
-            }
+
+            base.OnLoad(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
+
+            CategoryTreeNode category = this.filter.SelectedNode as CategoryTreeNode;
+            if (category != null)
+            {
+                settings.Filter_Category = category.Category.Id;
+            }
+            else
+            {
+                settings.Filter_Category = 0;
+            }
 
             settings.Save();
         }
@@ -1341,6 +1320,8 @@ namespace msn2.net.Pictures.Controls
 
                 try
                 {
+                    int current = 0;
+
                     foreach (int pictureId in pictureList1.SelectedItems)
                     {
                         Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
@@ -1350,7 +1331,17 @@ namespace msn2.net.Pictures.Controls
 
                         string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
 
-                        string destFilename = destFolder + @"\" + SafeFilename(picture.Title) + "." + fileExtenstion;
+                        string destFilename = string.Format(@"{0}\{1}.{2}", destFolder,  SafeFilename(picture.Title), fileExtenstion);
+
+                        int instance = 1;
+                        while (File.Exists(destFilename))
+                        {
+                            destFilename = string.Format(@"{0}\{1} ({2}).{3}", destFolder, SafeFilename(picture.Title), instance, fileExtenstion);
+                            instance++;
+                        }
+
+                        Trace.WriteLine(string.Format("Copying #{0}: {1} -> {2}", current, sourceFilename, destFilename));
+                        current++;
 
                         bool loop = true;
                         bool abort = false;
@@ -1359,7 +1350,13 @@ namespace msn2.net.Pictures.Controls
                         {
                             if (File.Exists(sourceFilename))
                             {
-                                File.Copy(sourceFilename, destFilename, true);
+                                using (Image source = Image.FromFile(sourceFilename))
+                                {
+                                    using (Image dest = PictureItem.SizeImage(source, 1600, 1200, false, false, false))
+                                    {
+                                        dest.Save(destFilename, ImageFormat.Jpeg);
+                                    }
+                                }
                                 loop = false;
                             }
                             else

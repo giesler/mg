@@ -48,7 +48,11 @@ namespace msn2.net.Pictures.Controls
                 }
                 if (changed)
                 {
-                    this.context.SubmitChanges();
+                    PicContext c = this.context.Clone();
+                    Picture p = c.PictureManager.GetPicture(this.picture.Id);
+                    p.Title = this.picture.Title;
+                    p.Description = this.picture.Description;
+                    c.SubmitChanges();
                 }
             }
         }

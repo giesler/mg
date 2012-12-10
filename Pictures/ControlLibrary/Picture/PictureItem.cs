@@ -25,7 +25,8 @@ namespace msn2.net.Pictures.Controls
         private object lockObject = new object();
         private bool displayPicInfo = false;
         int loadingPictureId;
-        
+        DateTime lastInvalidate = DateTime.Now;
+
         enum ImageLoadSize
         {
             Small,
@@ -105,6 +106,7 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 pictureOpacity = value;
+                this.lastInvalidate = DateTime.Now;
                 this.Invalidate();
             }
         }
@@ -195,7 +197,7 @@ namespace msn2.net.Pictures.Controls
 
                     if (this.loadingPictureId == picture.Id)
                     {
-                        Image sizedImage = SizeImage(loadedImage, this.Width, this.Height);
+                        Image sizedImage = SizeImage(loadedImage, this.Width, this.Height, this.drawShadow, this.drawBorder, this.selected);
 
                         if (this.loadingPictureId == picture.Id)
                         {
@@ -275,6 +277,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
+                this.lastInvalidate = DateTime.Now;
                 this.Invalidate(true);
             }
         }
@@ -287,6 +290,7 @@ namespace msn2.net.Pictures.Controls
 
             this.QueueReloads();
 
+            this.lastInvalidate = DateTime.Now;
             this.Invalidate();
         }
 
@@ -546,25 +550,42 @@ namespace msn2.net.Pictures.Controls
             {
                 Point infoLocation = new Point(10, this.Height - 40);
 
-                Rectangle rect = new Rectangle(infoLocation, new Size(200, 30));
-                e.Graphics.FillRectangle(Brushes.Black, rect);
-
                 StringFormat format = new StringFormat();
                 format.Alignment = StringAlignment.Near;
                 format.LineAlignment = StringAlignment.Center;
                 format.Trimming = StringTrimming.EllipsisCharacter;
 
+                int width = 300;
                 string topText = string.Format("{0}", this.Picture.Title);
-                Rectangle topTextRect = new Rectangle(10, this.Height - 40, rect.Width, 12);
-                e.Graphics.DrawString(topText, new Font("Arial", 10, FontStyle.Bold), Brushes.White, topTextRect, format);
+                Rectangle topTextRect = new Rectangle(10, this.Height - 38, width, 12);
+                SizeF topFontSize = e.Graphics.MeasureString(topText, new Font("Segoe UI", 10, FontStyle.Bold), topTextRect.Size, format);
+                string bottomText = string.Format("{0}: #{1}", this.Picture.PictureDate.ToString("M/d/yy"), this.Picture.Id);
+                Rectangle bottomTextRect = new Rectangle(10, this.Height - 23, width, 10);
+                SizeF bottomFontSize = e.Graphics.MeasureString(bottomText, new Font("Segoe UI", 10, FontStyle.Regular), bottomTextRect.Size, format);
+                if (topFontSize.Width > bottomFontSize.Width)
+                {
+                    width = (int)topFontSize.Width + 2;
+                }
+                else
+                {
+                    width = (int)bottomFontSize.Width + 2;
+                }
+                topTextRect = new Rectangle(10, this.Height - 38, width, 12);
+                bottomTextRect = new Rectangle(10, this.Height - 23, width, 10);
 
-                string bottomText = string.Format("{0}: #{1}", this.Picture.PictureDate.ToShortDateString(), this.Picture.Id);
-                Rectangle bottomTextRect = new Rectangle(10, this.Height - 25, rect.Width, 10);
-                e.Graphics.DrawString(bottomText, new Font("Arial", 10, FontStyle.Regular), Brushes.White, bottomTextRect, format);
+                Rectangle rect = new Rectangle(infoLocation, new Size(width, 30));
+                Color c = Color.FromArgb(100, Color.Black);
+                using (Brush b = new SolidBrush(c))
+                {
+                    e.Graphics.FillRectangle(b, rect);
+                }
+
+                e.Graphics.DrawString(topText, new Font("Segoe UI", 10, FontStyle.Bold), Brushes.White, topTextRect, format);
+                e.Graphics.DrawString(bottomText, new Font("Segoe UI", 10, FontStyle.Regular), Brushes.White, bottomTextRect, format);
             }
         }
 
-        Image SizeImage(Image image, int maxWidth, int maxHeight)
+        public static Image SizeImage(Image image, int maxWidth, int maxHeight, bool drawShadow, bool drawBorder, bool isSelected)
         {
             Image newSizedImage = null;
 
@@ -581,7 +602,7 @@ namespace msn2.net.Pictures.Controls
                 int offset = (drawShadow ? (maxHeight > 150 ? 2 : 1) : 0);
 
                 // Add image border
-                int imageBorder = (drawBorder | selected ? (maxHeight < 75 ? 1 : 2) : 0);
+                int imageBorder = (drawBorder | isSelected ? (maxHeight < 75 ? 1 : 2) : 0);
 
                 // Check if we need to fit the picture horizontally or vertically
                 if (imageWidth / maxWidth > imageHeight / maxHeight)
@@ -605,7 +626,7 @@ namespace msn2.net.Pictures.Controls
                 {
                     int padding = (maxWidth > 75 ? 3 : 2);
 
-                    if (this.drawBorder == false)
+                    if (drawBorder == false)
                     {
                         padding = 0;
                     }
@@ -724,6 +745,7 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 selected = value;
+                this.lastInvalidate = DateTime.Now;
                 this.Invalidate(true);
             }
         }

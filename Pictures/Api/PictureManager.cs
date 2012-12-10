@@ -218,7 +218,7 @@ namespace msn2.net.Pictures
         {
             return this.GetRandomPicture(125, 125, @"\", 0);
         }
-        
+
         public Picture GetRandomPicture(int maxWidth, int maxHeight, string path, int overrideGroupId)
         {
             var q = this.picContext.DataContext.GetRandomPicture(
@@ -266,12 +266,12 @@ namespace msn2.net.Pictures
                     join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
                     join csc in this.picContext.DataContext.CategorySubCategories on pc.CategoryID equals csc.SubCategoryID
                     where csc.CategoryID == categoryId && per.PersonID == this.picContext.CurrentUser.Id
-                        && per.PersonID == this.picContext.CurrentUser.Id 
+                        && per.PersonID == this.picContext.CurrentUser.Id
                         && p.PictureDate > startTime && p.PictureDate < endTime
                     orderby p.PictureDate
                     select p;
 
-            return q.Distinct().ToList();
+            return q.Distinct().OrderBy(d => d.PictureDate).ToList();
         }
 
         public List<Picture> GetPicturesByCategory(int categoryId)
@@ -284,7 +284,7 @@ namespace msn2.net.Pictures
                     orderby p.PictureDate
                     select p;
 
-            return q.Distinct().ToList();
+            return q.Distinct().OrderBy(d => d.PictureDate).ToList();
         }
 
         public List<Picture> GetPicturesByDate(DateTime fromTime, DateTime toTime)
@@ -293,12 +293,12 @@ namespace msn2.net.Pictures
                     join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.PictureID
                     join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
                     join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
-                    where per.PersonID == this.picContext.CurrentUser.Id 
+                    where per.PersonID == this.picContext.CurrentUser.Id
                         && p.PictureDate > fromTime && p.PictureDate < toTime
                     orderby p.PictureDate
                     select p;
 
-            return q.Distinct().ToList();
+            return q.Distinct().OrderBy(d => d.PictureDate).ToList();
         }
 
         public static string GetSqlSortFieldName(PictureSortField sortField)
@@ -321,6 +321,7 @@ namespace msn2.net.Pictures
             return sortFieldSqlName;
         }
 
+        [Obsolete]
         public DataSet GetPictures(int categoryId, int startRecord, int returnCount,
             int maxWidth, int maxHeight, PictureSortField sortField, PictureSortOrder sortOrder, ref int totalCount)
         {

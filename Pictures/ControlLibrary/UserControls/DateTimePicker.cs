@@ -144,6 +144,7 @@ namespace msn2.net.Pictures.Controls.UserControls
             set
             {
                 this.SetDateTime(value);
+                this.SwitchEditMode(true);
             }
         }
 

@@ -309,6 +309,19 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("")]
+        public int Filter_Category
+        {
+            get
+            {
+                return (int)this["Filter_Category"];
+            }
+            set
+            {
+                this["Filter_Category"] = value;
+            }
+        }
 
         public static int GetSafeLeft(Form form, int suggestedLeft)
         {
