@@ -17,23 +17,30 @@
 		<StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3">
 			<Label Name="description" Content="[description]" />
 			<StackPanel>
+				<Label Content="Ingredients" FontStyle="Italic" />
 				<ItemsControl Name="ingredients">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Label Content="{Binding Path=Name}" />
+							<StackPanel Orientation="Horizontal">
+								<Label Content="- "/>
+								<Label Content="{Binding Path=Name}" />
+								<Label Content=" (" />
+								<Label Content="{Binding Path=Amount}" />
+								<Label Content=")" />
+							</StackPanel>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
-				</ItemsControl>			
+				</ItemsControl>
 			</StackPanel>
 		</StackPanel>
-		<Button Name="go" Content="GO >" Grid.Row="3" Grid.Column="1" />
-		<StackPanel Grid.Column="1" Grid.Row="2" >
-			<RadioButton FontSize="14pt" Content="8 oz" />
-			<RadioButton FontSize="14pt" Content="10 oz" />
-			<RadioButton FontSize="14pt" Content="12 oz" />
-			<RadioButton FontSize="14pt" Content="14 oz" />
-			<RadioButton FontSize="14pt" Content="16 oz" />			
-		</StackPanel>
+		<Button Name="go" Content="POUR" Grid.Row="3" Grid.Column="1" FontSize="20" FontWeight="Bold" />
+		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" SelectionChanged="containers_SelectionChanged">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
 		<Label Content="Select your glass size" FontSize="14pt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 	</Grid>
 </Page>

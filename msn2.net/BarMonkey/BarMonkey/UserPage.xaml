@@ -20,7 +20,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="50px" />
 			<RowDefinition />
-			<RowDefinition Height="40px" />
+			<RowDefinition Height="10px" />
 		</Grid.RowDefinitions>
 		<Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" >
 			<Rectangle.Fill>

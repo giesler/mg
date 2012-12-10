@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BarMonkeyData.dbml</DependentUpon>
     </Compile>
+    <Compile Include="ContainerManager.cs" />
     <Compile Include="DrinkManager.cs" />
     <Compile Include="ManagerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

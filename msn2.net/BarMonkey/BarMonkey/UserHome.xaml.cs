@@ -39,15 +39,12 @@ namespace BarMonkey
         {
             base.OnInitialized(e);
 
-            foreach (Activity activity in this.GetActivities())
-            {
-                this.activityList.Items.Add(activity);
-            }
-            
+            this.activityList.ItemsSource = this.GetActivities();
+
             var q = BarMonkeyContext.Current.Data.GetUsersFavoriteDrinks(1);
 
             List<GetUsersFavoriteDrinksResult> drinkList = q.ToList<GetUsersFavoriteDrinksResult>();
-            this.favoriteList.DataContext = drinkList;            
+            this.favoriteList.DataContext = drinkList;
 
         }
 

@@ -21,23 +21,74 @@ namespace BarMonkey.Activities
     public partial class PourDrink : Page
     {
         private Drink drink = null;
+        private Container container = null;
 
         public PourDrink()
         {
             InitializeComponent();
         }
 
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            foreach (Container c in BarMonkeyContext.Current.Containers.GetContainers())
+            {
+                this.containers.Items.Add(c);
+
+                if (this.container == null)
+                {
+                    this.container = c;
+                    this.containers.SelectedItem = c;
+                }
+            }
+        }
+
         public void SetDrink(int id)
         {
             this.drink = BarMonkeyContext.Current.Drinks.GetDrink(id);
 
-            this.drinkName.Content = this.drink.Name;
-            this.description.Content = this.drink.Description;
+            this.UpdateDrinkDetails();
+        }
 
-            foreach (DrinkIngredient ingredient in this.drink.DrinkIngredients)
+        private void UpdateDrinkDetails()
+        {
+            if (this.drink != null)
             {
-                this.ingredients.Items.Add(ingredient.Ingredient);
+                this.drinkName.Content = this.drink.Name;
+                this.description.Content = this.drink.Description;
+
+                decimal totalSize = 0.0M;
+
+                foreach (DrinkIngredient ingredient in this.drink.DrinkIngredients)
+                {
+                    totalSize += ingredient.AmountOunces;
+                }
+
+                decimal offset = this.container.Size / totalSize;
+
+                this.ingredients.Items.Clear();
+                foreach (DrinkIngredient di in this.drink.DrinkIngredients)
+                {
+                    string amount = (di.AmountOunces * offset).ToString("0.0") + " oz";
+                    DrinkIngredientAmount a = new DrinkIngredientAmount { Name = di.Ingredient.Name, Amount = amount };
+                    this.ingredients.Items.Add(a);
+                }
             }
         }
+
+        protected class DrinkIngredientAmount
+        {
+            public string Name { get; set; }
+            public string Amount { get; set; }
+        }
+
+        private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.container = this.containers.SelectedItem as Container;
+            this.UpdateDrinkDetails();
+        }
     }
+
+    
 }

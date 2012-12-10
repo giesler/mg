@@ -56,6 +56,9 @@ namespace msn2.net.BarMonkey
     partial void InsertUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void UpdateUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void DeleteUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
+    partial void InsertContainer(Container instance);
+    partial void UpdateContainer(Container instance);
+    partial void DeleteContainer(Container instance);
     #endregion
 		
 		static BarMonkeyDataContext()
@@ -161,6 +164,14 @@ namespace msn2.net.BarMonkey
 			get
 			{
 				return this.GetTable<UserDrinkIngredientHistory>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Container> Containers
+		{
+			get
+			{
+				return this.GetTable<Container>();
 			}
 		}
 		
@@ -2374,6 +2385,116 @@ namespace msn2.net.BarMonkey
 						this._UserDrinkHistoryId = default(int);
 					}
 					this.SendPropertyChanged("UserDrinkHistory");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Container")]
+	public partial class Container : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private decimal _Size;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate();
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSizeChanging(decimal value);
+    partial void OnSizeChanged();
+    #endregion
+		
+		public Container()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Size", DbType="Decimal(9,2) NOT NULL")]
+		public decimal Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
 				}
 			}
 		}

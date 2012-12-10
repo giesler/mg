@@ -105,6 +105,13 @@
       <Association Name="UserDrinkHistory_UserDrinkIngredientHistory" Member="UserDrinkHistory" ThisKey="UserDrinkHistoryId" Type="UserDrinkHistory" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Container" Member="Containers">
+    <Type Name="Container">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Decimal" DbType="Decimal(9,2) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.GetUsersFavoriteDrinks" Method="GetUsersFavoriteDrinks">
     <Parameter Name="userId" Type="System.Int32" DbType="Int" />
     <ElementType Name="GetUsersFavoriteDrinksResult">
