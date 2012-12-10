@@ -120,6 +120,7 @@ namespace msn2.net.Controls
 			this.listViewFavorites.SmallImageList = this.imageList1;
 			this.listViewFavorites.TabIndex = 8;
 			this.listViewFavorites.View = System.Windows.Forms.View.List;
+			this.listViewFavorites.Resize += new System.EventHandler(this.listViewFavorites_Resize);
 			this.listViewFavorites.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewFavorites_MouseUp);
 			this.listViewFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragDrop);
 			this.listViewFavorites.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listViewFavorites_AfterLabelEdit);
@@ -292,10 +293,10 @@ namespace msn2.net.Controls
 			{
 				item = (DataListViewItem) listViewFavorites.SelectedItems[0];
 
-				foreach (ShellAction action in item.Data.ConfigData.ShellActionList)
-				{
-                    					
-				}
+//				foreach (ShellAction action in item.Data.ConfigData.ShellActionList)
+//				{
+//                    					
+//				}
 			}
 
 			// Build add list
@@ -453,6 +454,11 @@ namespace msn2.net.Controls
 			item.Data.Save();
 		}
 
+		private void listViewFavorites_Resize(object sender, System.EventArgs e)
+		{
+			
+		}
+
 		#region AddMenuItem class
 
 		private class AddMenuItem: MenuItem
@@ -475,5 +481,33 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		public event ItemClickedHandler ItemClicked;
+
 	}
+
+	public delegate void ItemClickedHandler(object sender, ItemClickedEventArgs e);
+
+	#region ItemClickedEventArgs
+	public class ItemClickedEventArgs: System.EventArgs
+	{
+		#region Declares
+		private Data data;
+		#endregion
+		#region Constructors
+		public ItemClickedEventArgs(Data data)
+		{
+			this.data = data;
+		}
+		#endregion
+		#region Properties
+		public Data Data
+		{
+			get
+			{
+				return data;
+			}
+		}
+		#endregion
+	}
+	#endregion
 }

@@ -105,6 +105,7 @@ namespace msn2.net.ProjectF
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ProjectFConsole));
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.panelFormList = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
@@ -137,21 +138,26 @@ namespace msn2.net.ProjectF
 			this.panelFormList.AutoScroll = true;
 			this.panelFormList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelFormList.Name = "panelFormList";
-			this.panelFormList.Size = new System.Drawing.Size(192, 158);
+			this.panelFormList.Size = new System.Drawing.Size(192, 126);
 			this.panelFormList.TabIndex = 5;
 			// 
 			// ProjectFConsole
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(192, 158);
+			this.ClientSize = new System.Drawing.Size(192, 126);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.panelFormList,
 																		  this.listView1});
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ProjectFConsole";
 			this.RolledUp = true;
+			this.ShowOpacityButton = false;
+			this.ShowTopMostButton = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Project F";
 			this.TopMost = true;
+			this.Resize += new System.EventHandler(this.ProjectFConsole_Resize);
+			this.Leave += new System.EventHandler(this.ProjectFConsole_Leave);
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
 			this.Load += new System.EventHandler(this.ProjectFConsole_Load);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
@@ -411,6 +417,19 @@ namespace msn2.net.ProjectF
 			this.Height = 200;
 			this.Left = Screen.PrimaryScreen.WorkingArea.Left + Screen.PrimaryScreen.WorkingArea.Width	- this.Width  - 12;
 			this.Top  = Screen.PrimaryScreen.WorkingArea.Top  + Screen.PrimaryScreen.WorkingArea.Height - this.Height - 12;
+		}
+
+		private void ProjectFConsole_Resize(object sender, System.EventArgs e)
+		{
+			foreach (ShellFormListItem item in panelFormList.Controls)
+			{
+				item.Refresh();
+			}
+		}
+
+		private void ProjectFConsole_Leave(object sender, System.EventArgs e)
+		{
+			//this.RolledUp = true;
 		}
 	}
 }

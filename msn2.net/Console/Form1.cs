@@ -50,9 +50,16 @@ namespace msn2.net.ProjectF
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this.Size = new System.Drawing.Size(300,300);
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Form1));
+			// 
+			// Form1
+			// 
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(292, 266);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Name = "Form1";
 			this.Text = "Form1";
+
 		}
 		#endregion
 	}

@@ -119,7 +119,11 @@ namespace msn2.net.Controls
 			//			dockingManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockLeft);
 			//			content.DisplaySize = new Size(200, 200);
 			//			dockingManager.ShowContent(content);
-			
+
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.Favorites.ico"));
+			this.Icon = new System.Drawing.Icon(icon, 16, 16);
+
 		}
 
 		#endregion
@@ -305,17 +309,26 @@ namespace msn2.net.Controls
 
 	public class FavoriteConfigData: msn2.net.Configuration.ConfigData
 	{
-		public static string TypeName = "Favorite";
+		#region Declares
 
-		public override int IconIndex
-		{
-			get { return 1; }
-		}
+		public static string TypeName = "Favorite";
+		private string openLinkRegEx = "";
+		private string newTabRegEx = "";
+		private string iconLocation = "";
+		private WebBrowserControl.DefaultClickBehavior defaultClickBehavior = WebBrowserControl.DefaultClickBehavior.OpenLink;
+
+		#endregion
+
+		#region Constructor
 
 		public FavoriteConfigData()
 		{
 //			base.AddShellAction(new ShellAction("Open", "Opens link in new browser window", "", new EventHandler(OnOpen)));
 		}
+
+		#endregion
+
+		#region Methods
 
 		public void OnOpen(object sender, ConfigDataAddEventArgs e)
 		{
@@ -353,6 +366,55 @@ namespace msn2.net.Controls
 
 		}
 
+		#endregion
+
+		#endregion
+
+		#region Properties
+		public string OpenLinkRegEx
+		{
+			get
+			{
+				return openLinkRegEx;
+			}
+			set
+			{
+				openLinkRegEx = value;
+			}
+		}
+		public string NewTabRegEx
+		{
+			get
+			{
+				return newTabRegEx;
+			}
+			set
+			{
+				newTabRegEx = value;
+			}
+		}
+		public string IconLocation
+		{
+			get
+			{
+				return iconLocation;
+			}
+			set
+			{
+				iconLocation = value;
+			}
+		}
+		public WebBrowserControl.DefaultClickBehavior DefaultClickBehavior
+		{
+			get 
+			{
+				return defaultClickBehavior;
+			}
+			set
+			{
+				defaultClickBehavior = value;
+			}
+		}
 		#endregion
 	}
 

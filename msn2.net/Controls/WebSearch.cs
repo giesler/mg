@@ -15,13 +15,14 @@ namespace msn2.net.Controls
 	{
 		#region Declares
 
-		private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.TextBox textBox1;
-		private msn2.net.Controls.ShellButton buttonGo;
+		private System.Windows.Forms.Label labelSearchLocation;
+		private System.Windows.Forms.Label labelSearchFor;
+		private System.Windows.Forms.ListView listViewSearch;
+		private System.Windows.Forms.ImageList imageListSearch;
 		private System.ComponentModel.IContainer components = null;
 
 		#endregion
-
 		#region Constructors
 
 		public WebSearch()
@@ -39,16 +40,32 @@ namespace msn2.net.Controls
 		{
 			InitializeComponent();
 
-			comboBox1.SelectedIndex = 0;
+//			this.Left = Screen.PrimaryScreen.Bounds.Right - this.Width - 50;
+//			this.Top  = Screen.PrimaryScreen.Bounds.Bottom  - this.Height - 800;
 
-			this.Left = Screen.PrimaryScreen.Bounds.Right - this.Width - 50;
-			this.Top  = Screen.PrimaryScreen.Bounds.Bottom  - this.Height - 800;
+//			this.Left = 0;
 
-			this.Left = 0;
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.WebSearch.ico"));
+			this.Icon = new System.Drawing.Icon(icon, 16, 16);
+
+			// Add items to listview
+			SearchListViewItem item = new SearchListViewItem(new WebSearchConfigData(), listViewSearch.SmallImageList);
+			listViewSearch.Items.Add(item);
+			item.Selected = true;
+
+			listViewSearch.Items.Add(new SearchListViewItem(new GoogleGroupsSearchConfigData(), listViewSearch.SmallImageList));
+			listViewSearch.Items.Add(new SearchListViewItem(new AllRecipesSearchConfigData(), listViewSearch.SmallImageList));
+			listViewSearch.Items.Add(new SearchListViewItem(new EpicuriosSearchConfigData(), listViewSearch.SmallImageList));
+			listViewSearch.Items.Add(new SearchListViewItem(new YahooSearchConfigData(), listViewSearch.SmallImageList));
+			listViewSearch.Items.Add(new SearchListViewItem(new MSDNSearchConfigData(), listViewSearch.SmallImageList));
+			listViewSearch.Items.Add(new SearchListViewItem(new MicrosoftKbSearchConfigData(), listViewSearch.SmallImageList));
+
+			listViewSearch.BackColor = msn2.net.Common.Drawing.LightenColor(this.BackColor);
+			//			listViewSearch.Items.Add(new SearchListViewItem(new CommunitySearchConfigData(), listViewSearch.SmallImageList));
 		}
 
 		#endregion
-
 		#region Disposal
 
 		/// <summary>
@@ -67,7 +84,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -75,9 +91,12 @@ namespace msn2.net.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.components = new System.ComponentModel.Container();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.buttonGo = new msn2.net.Controls.ShellButton();
+			this.labelSearchFor = new System.Windows.Forms.Label();
+			this.labelSearchLocation = new System.Windows.Forms.Label();
+			this.listViewSearch = new System.Windows.Forms.ListView();
+			this.imageListSearch = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -90,61 +109,80 @@ namespace msn2.net.Controls
 			// 
 			this.timerFadeIn.Enabled = false;
 			// 
-			// comboBox1
-			// 
-			this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox1.Items.AddRange(new object[] {
-														   "Google",
-														   "Google Groups",
-														   "allreceipes.com",
-														   "Epicurius",
-														   "Yahoo",
-														   "MSDN",
-														   "Microsoft Knowledge Base"});
-			this.comboBox1.Location = new System.Drawing.Point(8, 8);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(288, 21);
-			this.comboBox1.TabIndex = 1;
-			// 
 			// textBox1
 			// 
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBox1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.textBox1.Location = new System.Drawing.Point(8, 32);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(240, 20);
+			this.textBox1.Size = new System.Drawing.Size(400, 23);
 			this.textBox1.TabIndex = 2;
-			this.textBox1.Text = "<search>";
+			this.textBox1.Text = "<type search string>";
+			this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
 			// 
-			// buttonGo
+			// labelSearchFor
 			// 
-			this.buttonGo.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-			this.buttonGo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonGo.Location = new System.Drawing.Point(256, 32);
-			this.buttonGo.Name = "buttonGo";
-			this.buttonGo.Size = new System.Drawing.Size(40, 24);
-			this.buttonGo.StartColor = System.Drawing.Color.LightGray;
-			this.buttonGo.TabIndex = 3;
-			this.buttonGo.Text = "go";
-			this.buttonGo.Click += new System.EventHandler(this.buttonGo_Click);
+			this.labelSearchFor.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.labelSearchFor.Location = new System.Drawing.Point(8, 8);
+			this.labelSearchFor.Name = "labelSearchFor";
+			this.labelSearchFor.Size = new System.Drawing.Size(376, 24);
+			this.labelSearchFor.TabIndex = 5;
+			this.labelSearchFor.Text = "What do you want to search for?";
+			this.labelSearchFor.Visible = false;
+			// 
+			// labelSearchLocation
+			// 
+			this.labelSearchLocation.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.labelSearchLocation.Location = new System.Drawing.Point(8, 64);
+			this.labelSearchLocation.Name = "labelSearchLocation";
+			this.labelSearchLocation.Size = new System.Drawing.Size(376, 24);
+			this.labelSearchLocation.TabIndex = 7;
+			this.labelSearchLocation.Text = "Where do you want to search?";
+			this.labelSearchLocation.Visible = false;
+			// 
+			// listViewSearch
+			// 
+			this.listViewSearch.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.listViewSearch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.listViewSearch.FullRowSelect = true;
+			this.listViewSearch.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.listViewSearch.HoverSelection = true;
+			this.listViewSearch.Location = new System.Drawing.Point(8, 88);
+			this.listViewSearch.MultiSelect = false;
+			this.listViewSearch.Name = "listViewSearch";
+			this.listViewSearch.Size = new System.Drawing.Size(400, 97);
+			this.listViewSearch.SmallImageList = this.imageListSearch;
+			this.listViewSearch.TabIndex = 8;
+			this.listViewSearch.View = System.Windows.Forms.View.List;
+			this.listViewSearch.Click += new System.EventHandler(this.shellListView1_Click);
+			this.listViewSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listViewSearch_KeyPress);
+			// 
+			// imageListSearch
+			// 
+			this.imageListSearch.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.imageListSearch.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageListSearch.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// WebSearch
 			// 
-			this.AcceptButton = this.buttonGo;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(304, 62);
+			this.ClientSize = new System.Drawing.Size(416, 190);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.buttonGo,
-																		  this.textBox1,
-																		  this.comboBox1});
+																		  this.listViewSearch,
+																		  this.labelSearchLocation,
+																		  this.labelSearchFor,
+																		  this.textBox1});
 			this.KeyPreview = true;
 			this.Name = "WebSearch";
 			this.ShowInTaskbar = true;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+			this.ShowOpacityButton = false;
+			this.ShowRollupButton = false;
+			this.ShowTopMostButton = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Search";
-			this.TitleVisible = true;
 			this.Load += new System.EventHandler(this.WebSearch_Load);
 			this.Activated += new System.EventHandler(this.WebSearch_Activated);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebSearch_Paint);
@@ -155,7 +193,6 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
-
 		#region Methods
 
 		private void WebSearch_Activated(object sender, System.EventArgs e)
@@ -168,79 +205,130 @@ namespace msn2.net.Controls
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
-				textBox1.Text = "";
-				textBox1.Focus();
+				this.Visible = false;
 				e.Handled = true;
 			}
-		}
-
-		private void buttonGo_Click(object sender, System.EventArgs e)
-		{
-			WebBrowser browser = null;
-
-			SearchConfigData searchConfigData = null;
-
-			switch (comboBox1.SelectedIndex)
-			{
-				case 0:
-					searchConfigData = new WebSearchConfigData(textBox1.Text);
-					break;
-				case 1:
-					searchConfigData = new GoogleGroupsSearchConfigData(textBox1.Text);
-					break;
-				case 2:
-					searchConfigData = new AllRecipesSearchConfigData(textBox1.Text);
-					break;
-				case 3:
-					searchConfigData = new EpicuriosSearchConfigData(textBox1.Text);
-					break;
-				case 4:
-					searchConfigData = new YahooSearchConfigData(textBox1.Text);
-					break;
-				case 5:
-					searchConfigData = new MSDNSearchConfigData(textBox1.Text);
-					break;
-				case 6:
-					searchConfigData = new MicrosoftKbSearchConfigData(textBox1.Text);
-					break;
-			}
-            
-			Data searchData = this.Data.Get(String.Format(searchConfigData.Title, textBox1.Text), searchConfigData, searchConfigData.GetType());
-
-			browser = new WebBrowser(searchData);
-			browser.Show();
-
 		}
 
 		private void WebSearch_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+
+			e.Graphics.DrawString(labelSearchFor.Text, labelSearchFor.Font, new SolidBrush(labelSearchFor.ForeColor), new RectangleF(labelSearchFor.Location, labelSearchFor.Size));
+			e.Graphics.DrawString(labelSearchLocation.Text, labelSearchLocation.Font, new SolidBrush(labelSearchLocation.ForeColor), new RectangleF(labelSearchLocation.Location, labelSearchLocation.Size));
 		}
 
 		private void WebSearch_Load(object sender, System.EventArgs e)
 		{
-			this.Left = 100;
-			this.Top = 100;
+//			this.Left = 100;
+//			this.Top = 100;
 		}
 
 		#endregion
+
+		private void shellListView1_Click(object sender, System.EventArgs e)
+		{
+			if (listViewSearch.SelectedItems.Count == 0)
+				return;
+			
+			textBox1.SelectAll();
+
+			WebBrowser browser = null;
+			Status status = new Status("Searching...");
+			this.Hide();
+			status.Show();
+
+			SearchListViewItem item = (SearchListViewItem)listViewSearch.SelectedItems[0];
+			SearchConfigData searchConfigData = item.SearchConfigData;
+			
+			searchConfigData.SearchString = textBox1.Text;
+
+			Data searchData = this.Data.Get(String.Format(searchConfigData.Name + " Results: {0}", textBox1.Text), searchConfigData, searchConfigData.GetType());
+
+			browser = new WebBrowser(searchData);
+
+			// Set the browser icon if we have one
+			if (searchConfigData.icon != null)
+			{
+				browser.Icon = searchConfigData.icon;
+			}
+
+			browser.Show();
+
+			status.Hide();
+			status.Dispose();
+		}
+
+		private void listViewSearch_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char) 13)
+			{
+				shellListView1_Click(sender, e);
+			}
+		}
+
+		private void textBox1_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char) 13)
+			{
+				shellListView1_Click(sender, e);
+			}
+		}
 	}
 
+	#region SearchListViewItem
+	public class SearchListViewItem: ListViewItem
+	{
+		#region Constructor
+		public SearchListViewItem(SearchConfigData searchConfigData, ImageList imageList)
+		{
+            this.Text				= searchConfigData.Name;
+			this.searchConfigData	= searchConfigData;
+
+			if (searchConfigData.icon != null)
+			{
+				imageList.Images.Add(searchConfigData.icon);
+				this.ImageIndex = imageList.Images.Count - 1;
+			}
+		}
+		#endregion
+
+		#region Declares
+		private SearchConfigData searchConfigData;
+		#endregion
+
+		#region Properties
+		public SearchConfigData SearchConfigData
+		{
+			get 
+			{
+				return searchConfigData;
+			}
+		}
+		#endregion
+	}						
+	#endregion		 
 	#region SearchConfigData
 
+	[Serializable]
 	public class SearchConfigData: msn2.net.Configuration.ConfigData
 	{
 		#region Declares
 
 		private string searchString;
 		protected string title;
+		protected string name;
+		[NonSerialized()]
+		[System.Xml.Serialization.XmlIgnore()]
+		public System.Drawing.Icon icon;
 
 		#endregion
-
 		#region Constructors
-
-		public SearchConfigData()
-		{}
+		public SearchConfigData(): this("")
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.WebSearch.ico"));		
+		}
 
 		public SearchConfigData(string searchString)
 		{
@@ -250,7 +338,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Methods
 
 		public virtual void Run(Crownwood.Magic.Controls.TabPage page)
@@ -258,7 +345,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Properties
 
 		public string SearchString
@@ -281,7 +367,10 @@ namespace msn2.net.Controls
 			}
 		}
 
-		public string Title
+		/// <summary>
+		/// Don't need this method, remove it and var
+		/// </summary>
+		private string Title
 		{
 			get 
 			{
@@ -293,11 +382,32 @@ namespace msn2.net.Controls
 			}
 		}
 
+		public string Name
+		{
+			get 
+			{
+				return name;
+			}
+			set
+			{
+				name = value;
+			}
+		}
+//		public System.Drawing.Icon Icon
+//		{
+//			get
+//			{
+//				return icon;
+//			}
+//			set
+//			{
+//				this.icon = value;
+//			}
+//		}
 		#endregion
 	}
 
 	#endregion
-
 	#region WebSearchConfigData
 
 	public class WebSearchConfigData: SearchConfigData
@@ -305,22 +415,23 @@ namespace msn2.net.Controls
 		#region Declares
 
 		private GoogleSearchService googleSearch;
+		private bool initialSearchComplete = false;
 
 		#endregion
-
 		#region Constructors
-
-		public WebSearchConfigData()
+		public WebSearchConfigData(): this("")
 		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.Google.ico"));
 		}
 
 		public WebSearchConfigData(string t): base(t)
 		{
 			title = String.Format("Google Search Results: '{0}'", t);
+			name	= "Google";
 		}
 
 		#endregion
-
 		#region Methods
 
 		public override void Run(Crownwood.Magic.Controls.TabPage page)
@@ -357,10 +468,23 @@ namespace msn2.net.Controls
 
 			e.Url = BuildResultPage(result, this.SearchString + ": " + (startItem+1) + " - " + endItem);
 			e.ClickBehavior = WebBrowserControl.DefaultClickBehavior.OpenLink;
+
+			// If initial search, we may want to open first result
+			if (!initialSearchComplete)
+			{
+				initialSearchComplete = true;
+                
+				if (result.resultElements.Length > 0)
+				{
+					ResultElement first = result.resultElements[0];
+					
+				}
+
+			}
+			
 		}
 
 		#endregion
-
 		#region Private Methods
 
 		/// <summary>
@@ -421,7 +545,6 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region CustomSearchConfigData
 
 	public class CustomWebSearchConfigData: SearchConfigData
@@ -437,12 +560,13 @@ namespace msn2.net.Controls
 
 		#region Constructor
 
-		public CustomWebSearchConfigData()
+		public CustomWebSearchConfigData(): this("")
 		{
 		}
 
 		public CustomWebSearchConfigData(string searchString): base(searchString)
 		{
+			name = "Custom Search";
 		}
 
 		#endregion
@@ -528,17 +652,20 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region GoogleGroupsSearchConfigData
 
 	public class GoogleGroupsSearchConfigData: CustomWebSearchConfigData
 	{
-		public GoogleGroupsSearchConfigData()
-		{}
+		public GoogleGroupsSearchConfigData(): this("")
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.Google.ico"));
+		}
 
 		public GoogleGroupsSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("Google Groups Results: '{0}'", searchString);
+			title					= String.Format("Google Groups Results: '{0}'", searchString);
+			name					= "Google Groups";
 			
 			this.searchUrl			= "http://groups.google.com/groups?hl=en&q={0}";
 			this.resultUrlRegEx		= @"(http://groups.google.com/groups\?(.)*((selm=(.)*)|(threadm=(.)*))(.)*)";
@@ -547,35 +674,37 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region AllRecipesSearchConfigData
 	
 	public class AllRecipesSearchConfigData: CustomWebSearchConfigData
 	{
-		public AllRecipesSearchConfigData()
-		{}
+		public AllRecipesSearchConfigData(): this("")
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.allrecipes.ico"));
+		}
 
 		public AllRecipesSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("allrecipes.com Search Results: '{0}'", searchString);
-			
+			title					= String.Format("allrecipes.com Search Results: '{0}'", searchString);
+			name					= "allrecipes.com recipes";
 			this.searchUrl			= "http://search.allrecipes.com/SearchResults.asp?site=allrecipes&allrecipes=allrecipes&q1={0}&Search+Allrecipes%21.x=2&Search+Allrecipes%21.y=8";
-			this.moreDataUrlRegEx		= @"(http://search.allrecipes.com/searchresults.asp)";
+			this.moreDataUrlRegEx	= @"(http://search.allrecipes.com/searchresults.asp)";
 		}
 	}
 
 	#endregion
-
 	#region EpicuriosSearchConfigData
 	
 	public class EpicuriosSearchConfigData: CustomWebSearchConfigData
 	{
-		public EpicuriosSearchConfigData()
+		public EpicuriosSearchConfigData(): this("")
 		{}
 
 		public EpicuriosSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("Epicurious Search Results: '{0}'", searchString);
+			title					= String.Format("Epicurious Search Results: '{0}'", searchString);
+			name					= "Epicurious";
 			
 			this.searchUrl			= "http://www.epicurious.com/s97is.vts?action=filtersearch&filter=recipe-filter.hts&collection=Recipes&ResultTemplate=recipe-results.hts&queryType=and&keyword={0}";
 			this.moreDataUrlRegEx	= @"(http://www.epicurious.com/s97is.vts\?)(.)*(ResultStart=)(.)*";
@@ -583,17 +712,19 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region YahooSearchConfigData
 	
 	public class YahooSearchConfigData: CustomWebSearchConfigData
 	{
-		public YahooSearchConfigData()
-		{}
+		public YahooSearchConfigData(): this("")
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.Yahoo.ico"));            		
+		}
 
 		public YahooSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("Yahoo Search Results: '{0}'", searchString);
+			name					= "Yahoo";
 			
 			this.searchUrl			= "http://search.yahoo.com/bin/search?p={0}";
 			this.moreDataUrlRegEx	= @"(http://google.yahoo.com/bin/query\?p=)(.)*(hs=)(.)*";
@@ -601,17 +732,19 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region MSDNSearchConfigData
 	
 	public class MSDNSearchConfigData: CustomWebSearchConfigData
 	{
-		public MSDNSearchConfigData()
-		{}
+		public MSDNSearchConfigData(): this("")
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			this.icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.MSDN.ico"));            		
+		}
 
 		public MSDNSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("MSDN Search Results: '{0}'", searchString);
+			name					= "MSDN Online";
 			
 			this.searchUrl			= "http://search.microsoft.com/default.asp?qu={0}&boolean=ALL&nq=NEW&so=RECCNT&p=1&ig=01&ig=02&ig=03&ig=04&ig=05&ig=06&i=00&i=01&i=02&i=03&i=04&i=05&i=06&i=07&i=08&i=09&i=10&i=11&i=12&i=13&i=14&i=15&i=16&i=17&i=18&i=19&i=20&i=21&i=22&i=23&i=24&i=25&i=26&i=27&i=28&i=29&i=30&i=31&i=32&i=33&i=34&i=35&i=36&i=37&i=38&i=39&i=40&i=41&i=42&i=43&i=44&i=45&i=46&i=47&i=48&i=49&i=50&i=51&siteid=us/dev";
 			this.moreDataUrlRegEx	= @"(http://search.microsoft.com/gomsuri.asp\?)(.)*(c=rp_NextResults)(.)*";
@@ -619,17 +752,16 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region MicrosoftKbSearchConfigData
 	
 	public class MicrosoftKbSearchConfigData: CustomWebSearchConfigData
 	{
-		public MicrosoftKbSearchConfigData()
+		public MicrosoftKbSearchConfigData(): this("")
 		{}
 
 		public MicrosoftKbSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("Microsoft KB Search Results: '{0}'", searchString);
+			name					= "Microsoft Knowledge Base";
 			
 			this.searchUrl			= "http://search.support.microsoft.com/search/default.aspx?Catalog=LCID%3D1033%26CDID%3DEN-US-KB%26PRODLISTSRC%3DON&Product=msall&Query={0}&Queryc={0}&REF=false&srchstep=0&KeywordType=ALL&Titles=false&numDays=&maxResults=50";
 			this.resultUrlRegEx		= @"(http://support.microsoft.com/default.aspx\?)(.)*(scid=kb;en-us;Q([0-9])*)";
@@ -639,16 +771,17 @@ namespace msn2.net.Controls
 	}
 
 	#endregion
-
 	#region CommunitySearchConfigData
 
 	public class CommunitySearchConfigData: SearchConfigData
 	{
-		public CommunitySearchConfigData()
+		public CommunitySearchConfigData(): this("")
 		{}
 
 		public CommunitySearchConfigData(string t): base(t)
-		{}
+		{
+			name	= "Community";
+		}
 		
 		public override void Run(Crownwood.Magic.Controls.TabPage page)
 		{

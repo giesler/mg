@@ -25,6 +25,10 @@ namespace MSNBC
 			base.AddStaticTab("Technology", String.Format(baseUrl, 5, new TimeSpan(1, 0, 8)));
 			base.AddStaticTab("TV News", String.Format(baseUrl, 6, new TimeSpan(1, 0, 10)));
 			base.AddStaticTab("Opinions", String.Format(baseUrl, 7, new TimeSpan(3, 0, 0)));
+
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("MSNBC.msnbc.ico"));
+			this.Icon = new System.Drawing.Icon(icon, 16, 16);
 		}
 		#endregion
 	}

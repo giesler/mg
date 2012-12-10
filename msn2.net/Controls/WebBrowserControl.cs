@@ -54,6 +54,7 @@ namespace msn2.net.Controls
 		private string url = "";
 		private System.Timers.Timer refreshTimer = null;
 		private bool clickHandled = false;
+		private bool enableOpenInNewWindow = false;
 
 		#endregion
 
@@ -285,6 +286,11 @@ namespace msn2.net.Controls
 			{
 				refreshTimer.Enabled = true;
 			}
+			
+			// Now tie in to click event
+			Document.onclick		= this;
+			Document.oncontextmenu	= this;
+
 			// TODO: Save to history
 		}
 
@@ -332,14 +338,21 @@ namespace msn2.net.Controls
 				}
 				else
 				{
-					WebBrowser b = new WebBrowser("Popup", true);
-					e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
-					b.Show();
+					e.cancel = true;
+					Debug.WriteLine("Cancelled dialog pop.");
+//					WebBrowser b = new WebBrowser("Popup", true);
+//					e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
+//					b.Show();
 				}
 			}
 			else
 			{
 				e.cancel = true;
+			}
+
+			if (enableOpenInNewWindow)
+			{
+				e.cancel = false;
 			}
 		}
 
@@ -394,7 +407,6 @@ namespace msn2.net.Controls
 		#endregion
 
 		#region Properties
-
 		public bool IsPopup
 		{
 			get { return isPopup; }
@@ -672,6 +684,11 @@ namespace msn2.net.Controls
 		private void panelStatus_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			int middle = e.ClipRectangle.Height / 2;
+			if (middle == 0)
+			{
+				Debug.WriteLine("Middle 0 on panelStatus_Paint");
+				return;
+			}
 
 			Rectangle bottom		= new Rectangle(e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width, middle);
 			Rectangle top	= new Rectangle(e.ClipRectangle.Left, e.ClipRectangle.Top + middle, e.ClipRectangle.Width, middle);

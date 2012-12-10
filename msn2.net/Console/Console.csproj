@@ -11,7 +11,7 @@
     >
         <Build>
             <Settings
-                ApplicationIcon = "App.ico"
+                ApplicationIcon = "fractal.ico"
                 AssemblyKeyContainerName = ""
                 AssemblyName = "msn2.net.ProjectF"
                 AssemblyOriginatorKeyFile = ""
@@ -145,18 +145,14 @@
                     HintPath = "..\Controls\bin\Release\Interop.SHDocVw.dll"
                 />
                 <Reference
-                    Name = "QueuePlayer.Client"
-                    Project = "{C65B9943-58E6-4489-A48D-A77092CD4C95}"
+                    Name = "MSNBC"
+                    Project = "{37358FDE-0356-4DB1-A374-3BFF3D034C00}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>
         <Files>
             <Include>
-                <File
-                    RelPath = "App.ico"
-                    BuildAction = "Content"
-                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
@@ -173,8 +169,12 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "fractal.ico"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Login.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
@@ -189,7 +189,7 @@
                 />
                 <File
                     RelPath = "ProjectFConsole.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -211,6 +211,10 @@
                     RelPath = "ShellLoadModulesConfigHandler.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "space_needle.ico"
+                    BuildAction = "EmbeddedResource"
                 />
             </Include>
         </Files>

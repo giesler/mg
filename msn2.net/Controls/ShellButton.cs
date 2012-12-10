@@ -19,6 +19,7 @@ namespace msn2.net.Controls
 		private Color startColor							= Color.LightGray;
 		private Color endColor								= Color.Empty;
 		private Data data									= null;
+		private StringAlignment alignment					= StringAlignment.Center;
 
 		#endregion
 
@@ -28,6 +29,8 @@ namespace msn2.net.Controls
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
+
+			this.Font = new Font("Tahoma", 8);
 		}
 
 		public ShellButton(Data data)
@@ -86,9 +89,8 @@ namespace msn2.net.Controls
 
 			if (this.Text.Length > 0)
 			{
-				StringFormat format		= new StringFormat();
-				format.Alignment		= StringAlignment.Center;
-				format.LineAlignment	= StringAlignment.Center;
+				StringFormat format		= new StringFormat(StringFormatFlags.NoWrap);
+				format.Alignment		= alignment;
 
 				int y = this.Height - (this.Height - (this.Font.Height / 2));
 				string text = this.Text.Replace("&", "");
@@ -153,6 +155,18 @@ namespace msn2.net.Controls
 			get 
 			{
 				return data;
+			}
+		}
+
+		public StringAlignment Alignment
+		{
+			get 
+			{
+				return alignment;
+			}
+			set
+			{
+				alignment = value;
 			}
 		}
 		#endregion

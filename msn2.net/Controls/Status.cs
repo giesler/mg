@@ -22,7 +22,6 @@ namespace msn2.net.Controls
 		private Thread thread = null;
 
 		#endregion
-
 		#region Constructors
 
 		public Status(string message)
@@ -59,7 +58,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Disposal
 
 		/// <summary>
@@ -78,7 +76,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Properties
 
 		public bool Cancel 
@@ -107,7 +104,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Methods
 
 		public void Increment(int amount) 
@@ -116,7 +112,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -193,7 +188,6 @@ namespace msn2.net.Controls
 
 		}
 		#endregion
-
 		#region Button Handlers
 
 		private void buttonCancel_Click(object sender, System.EventArgs e)
@@ -207,7 +201,6 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 		#region Paint
 
 		private void Status_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -218,6 +211,5 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 	}
 }

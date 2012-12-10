@@ -294,9 +294,9 @@ namespace msn2.net.Controls
 			this.labelTitle.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.labelTitle.BackColor = System.Drawing.Color.Transparent;
-			this.labelTitle.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.labelTitle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.labelTitle.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.labelTitle.Location = new System.Drawing.Point(16, 0);
+			this.labelTitle.Location = new System.Drawing.Point(16, 1);
 			this.labelTitle.Name = "labelTitle";
 			this.labelTitle.Size = new System.Drawing.Size(184, 23);
 			this.labelTitle.TabIndex = 1;
@@ -428,6 +428,7 @@ namespace msn2.net.Controls
 			this.Activated += new System.EventHandler(this.ShellForm_Activated);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShellForm_Paint);
 			this.MouseEnter += new System.EventHandler(this.ShellForm_MouseEnter);
+			this.Leave += new System.EventHandler(this.ShellForm_Leave);
 			this.MouseLeave += new System.EventHandler(this.ShellForm_MouseLeave);
 			this.Deactivate += new System.EventHandler(this.ShellForm_Deactivate);
 			this.panelBottom.ResumeLayout(false);
@@ -829,6 +830,8 @@ namespace msn2.net.Controls
 
 				activating = false;
 			}
+// TODO: Why is this here?			if (Screen.PrimaryScreen.WorkingArea.Height < 1000)
+//				this.RolledUp = false;
 		}
 
 		protected static bool activating = false;
@@ -862,6 +865,9 @@ namespace msn2.net.Controls
 				// Recursively fade out all locked forms
 				FadeOut(this);
 			}
+
+//			if (Screen.PrimaryScreen.WorkingArea.Height < 1000)
+//				this.RolledUp = true;
 		}
 
 		protected void FadeOut(ShellForm source)
@@ -1550,10 +1556,10 @@ namespace msn2.net.Controls
 		#region Mouse events
 		private void ShellForm_MouseHover(object sender, System.EventArgs e)
 		{
-// TODO:			if (this.Opacity != 1.0)
-//			{
-//				this.Activate();
-//			}
+			if (this.rolledUp)
+			{
+				//buttonRollup_Click(sender, e);
+			}
 		}
 
 		private void ShellForm_MouseEnter(object sender, System.EventArgs e)
@@ -1565,6 +1571,16 @@ namespace msn2.net.Controls
 		{
 			Trace.WriteLine(this.Name + ": MouseLeave");
 		}
+
+		private void ShellForm_Leave(object sender, System.EventArgs e)
+		{
+			// Roll me up now if mouse isn't here
+			if (!this.rolledUp && !this.TopMost)
+			{
+				//buttonRollup_Click(sender, e);
+			}
+		}
+
 		#endregion
 
 		private void panelTitle_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -1573,7 +1589,8 @@ namespace msn2.net.Controls
 
 			if (titleVisible)
 			{
-				e.Graphics.DrawString(labelTitle.Text, labelTitle.Font, new SolidBrush(panelTitle.ForeColor), labelTitle.Location);
+				StringFormat sf = new StringFormat(StringFormatFlags.NoWrap);
+				e.Graphics.DrawString(labelTitle.Text, labelTitle.Font, new SolidBrush(panelTitle.ForeColor), labelTitle.Location, sf);
 			}
 		}
 
@@ -1702,6 +1719,7 @@ namespace msn2.net.Controls
 		{
 			panelTitle_MouseUp(sender, e);
 		}
+
 
 	}
 

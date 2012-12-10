@@ -171,7 +171,7 @@
                 />
                 <File
                     RelPath = "CommonCode.cs"
-                    SubType = "Code"
+                    SubType = "Component"
                     BuildAction = "Compile"
                 />
                 <File
@@ -188,6 +188,10 @@
                     RelPath = "ComputerInfo.resx"
                     DependentUpon = "ComputerInfo.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "favicon.ico"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "FavoriteEdit.cs"
@@ -429,16 +433,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "WebBrowserTitleBarButtons.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebBrowserTitleBarButtons.resx"
-                    DependentUpon = "WebBrowserTitleBarButtons.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "WebSearch.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -446,6 +440,16 @@
                 <File
                     RelPath = "WebSearch.resx"
                     DependentUpon = "WebSearch.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "XmlEditor.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "XmlEditor.resx"
+                    DependentUpon = "XmlEditor.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -459,11 +463,31 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Icons\allrecipes.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Icons\Favorite.ico"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Icons\Icon1.ico"
+                    RelPath = "Icons\Favorites.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\go.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\Google.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\MSDN.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\ShellLaunch.ico"
                     BuildAction = "Content"
                 />
                 <File
@@ -473,6 +497,14 @@
                 <File
                     RelPath = "Icons\TopMost-true.ico"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Icons\WebSearch.ico"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Icons\Yahoo.ico"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Shell\UserControl.cs"

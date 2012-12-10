@@ -102,7 +102,7 @@ namespace msn2.net.Controls
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(8, 24);
+			this.label1.Location = new System.Drawing.Point(8, 8);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(64, 23);
 			this.label1.TabIndex = 5;
@@ -112,7 +112,7 @@ namespace msn2.net.Controls
 			// 
 			this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxName.Location = new System.Drawing.Point(80, 24);
+			this.textBoxName.Location = new System.Drawing.Point(80, 8);
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(336, 20);
 			this.textBoxName.TabIndex = 6;
@@ -123,7 +123,7 @@ namespace msn2.net.Controls
 			// 
 			this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxUrl.Location = new System.Drawing.Point(80, 48);
+			this.textBoxUrl.Location = new System.Drawing.Point(80, 32);
 			this.textBoxUrl.Name = "textBoxUrl";
 			this.textBoxUrl.Size = new System.Drawing.Size(336, 20);
 			this.textBoxUrl.TabIndex = 8;
@@ -132,7 +132,7 @@ namespace msn2.net.Controls
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(8, 48);
+			this.label2.Location = new System.Drawing.Point(8, 32);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(64, 23);
 			this.label2.TabIndex = 7;
@@ -142,7 +142,7 @@ namespace msn2.net.Controls
 			// 
 			this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxDescription.Location = new System.Drawing.Point(80, 72);
+			this.textBoxDescription.Location = new System.Drawing.Point(80, 56);
 			this.textBoxDescription.Multiline = true;
 			this.textBoxDescription.Name = "textBoxDescription";
 			this.textBoxDescription.Size = new System.Drawing.Size(336, 40);
@@ -152,7 +152,7 @@ namespace msn2.net.Controls
 			// 
 			// label3
 			// 
-			this.label3.Location = new System.Drawing.Point(8, 72);
+			this.label3.Location = new System.Drawing.Point(8, 56);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(64, 23);
 			this.label3.TabIndex = 9;
@@ -162,7 +162,7 @@ namespace msn2.net.Controls
 			// 
 			this.textBoxIngredients.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxIngredients.Location = new System.Drawing.Point(80, 120);
+			this.textBoxIngredients.Location = new System.Drawing.Point(80, 104);
 			this.textBoxIngredients.Multiline = true;
 			this.textBoxIngredients.Name = "textBoxIngredients";
 			this.textBoxIngredients.Size = new System.Drawing.Size(336, 56);
@@ -172,7 +172,7 @@ namespace msn2.net.Controls
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(8, 120);
+			this.label4.Location = new System.Drawing.Point(8, 104);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(64, 23);
 			this.label4.TabIndex = 11;
@@ -182,7 +182,7 @@ namespace msn2.net.Controls
 			// 
 			this.textBoxDirections.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxDirections.Location = new System.Drawing.Point(80, 184);
+			this.textBoxDirections.Location = new System.Drawing.Point(80, 168);
 			this.textBoxDirections.Multiline = true;
 			this.textBoxDirections.Name = "textBoxDirections";
 			this.textBoxDirections.Size = new System.Drawing.Size(336, 88);
@@ -192,7 +192,7 @@ namespace msn2.net.Controls
 			// 
 			// label5
 			// 
-			this.label5.Location = new System.Drawing.Point(8, 184);
+			this.label5.Location = new System.Drawing.Point(8, 168);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(64, 23);
 			this.label5.TabIndex = 13;
@@ -201,7 +201,7 @@ namespace msn2.net.Controls
 			// Recipe
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(424, 278);
+			this.ClientSize = new System.Drawing.Size(424, 262);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.textBoxDirections,
 																		  this.label5,
@@ -215,7 +215,6 @@ namespace msn2.net.Controls
 																		  this.label1});
 			this.Name = "Recipe";
 			this.Text = "Recipe";
-			this.TitleVisible = true;
 			this.Deactivate += new System.EventHandler(this.Recipe_Deactivate);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();

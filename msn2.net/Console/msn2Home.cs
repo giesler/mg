@@ -35,6 +35,10 @@ namespace msn2.net.ProjectF
 //			Crownwood.Magic.Docking.Content headlinesContent = dockManager.Contents.Add(headlines, "MSNBC Headlines");
 //			dockManager.AddContentToZone(headlinesContent, bottomWc.ParentZone, 0);	
 
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.ProjectF.space_needle.ico"));
+			this.Icon = new System.Drawing.Icon(icon, 16, 16);
+
 		}
 		#endregion
 
