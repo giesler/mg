@@ -134,6 +134,7 @@
       <DependentUpon>Picture.dbml</DependentUpon>
     </Compile>
     <Compile Include="PictureCache.cs" />
+    <Compile Include="PictureItem.cs" />
     <Compile Include="PictureManager.cs">
       <SubType>Code</SubType>
     </Compile>

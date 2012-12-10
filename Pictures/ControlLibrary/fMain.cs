@@ -1,20 +1,17 @@
 using System;
-using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Threading;
-using System.Web;
-using System.Net;
-using System.Text;
-using System.Xml;
 using System.Diagnostics;
-using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using System.Xml;
+using System.Windows.Media.Imaging;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -930,17 +927,18 @@ namespace msn2.net.Pictures.Controls
 		{
 			ImageUtilities util = new ImageUtilities();
 
-			SqlDataAdapter da = new SqlDataAdapter("select * from Picture where PictureId not in (select PictureId from PictureCache where width = 750)", cn);
-			DataSetPicture dsPicture = new DataSetPicture();
-			da.Fill(dsPicture, "Picture");
+            var q = from p in PicContext.Current.PictureManager.GetPictures()
+                    where (from pc in p.PictureCaches
+                           where pc.Width == 750
+                           select pc).Any() == false
+                    select p;
 
 			cacheStatus.StatusText	= "Creating cached images...";
-			cacheStatus.Max			= dsPicture.Picture.Rows.Count;
-			int count				= 0;
+			int count				= q.Count();
 
-			foreach (DataSetPicture.PictureRow row in dsPicture.Picture.Rows) 
+			foreach (Picture picture in q)
 			{
-				util.CreateUpdateCache(row.PictureID);
+				util.CreateUpdateCache(picture.Id);
 
 				count++;
 				cacheStatus.Current = count;
@@ -1288,7 +1286,7 @@ namespace msn2.net.Pictures.Controls
                 Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
                 string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
                 
-                string metaDataDate = ImageUtilities.GetDatePictureTaken(fileName);
+                string metaDataDate = GetDatePictureTaken(fileName);
                 if (metaDataDate != null)
                 {
                     DateTime dt = DateTime.Parse(metaDataDate);
@@ -1425,6 +1423,30 @@ namespace msn2.net.Pictures.Controls
         {
             PicContext.Current.CategoryManager.ReloadCategoryCache();
         }
+        
+        public static string GetDatePictureTaken(string fileName)
+        {
+            string dateTaken = null;
 
+            using (StreamReader stream = new StreamReader(fileName))
+            {
+                BitmapSource source = null;
+                try
+                {
+                    source = BitmapFrame.Create(stream.BaseStream);
+                    BitmapMetadata metaData = source.Metadata as BitmapMetadata;
+                    if (metaData != null && metaData.DateTaken != null)
+                    {
+                        dateTaken = metaData.DateTaken;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Trace.WriteLine("Date taken read error: " + ex.ToString());
+                }
+            }
+
+            return dateTaken;
+        }
     }
 }

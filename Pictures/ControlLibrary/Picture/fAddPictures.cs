@@ -665,7 +665,7 @@ namespace msn2.net.Pictures.Controls
                 else 
                 {
                     // Try to read from metadata
-                    string dateTakenString = ImageUtilities.GetDatePictureTaken(file);
+                    string dateTakenString = fMain.GetDatePictureTaken(file);
                     if (dateTakenString != null)
                     {
                         date = DateTime.Parse(dateTakenString);

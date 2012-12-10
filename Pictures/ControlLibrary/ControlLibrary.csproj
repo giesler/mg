@@ -276,9 +276,6 @@
     <Compile Include="Group\GroupPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ImageUtilities.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ImageUtils.cs">
       <SubType>Code</SubType>
     </Compile>

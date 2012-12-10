@@ -218,7 +218,7 @@ namespace msn2.net.Pictures
         {
             return this.GetRandomPicture(125, 125, @"\", 0);
         }
-
+        
         public Picture GetRandomPicture(int maxWidth, int maxHeight, string path, int overrideGroupId)
         {
             var q = this.picContext.DataContext.GetRandomPicture(
@@ -227,6 +227,12 @@ namespace msn2.net.Pictures
             Picture picture = q.FirstOrDefault<Picture>();
 
             return picture;
+        }
+
+        public void AddPictureCache(Picture picture, PictureCache cache)
+        {
+            this.picContext.DataContext.PictureCaches.InsertOnSubmit(cache);
+            this.picContext.DataContext.SubmitChanges();
         }
 
         public PictureCache GetPictureCache(int pictureId, int maxWidth, int maxHeight)
