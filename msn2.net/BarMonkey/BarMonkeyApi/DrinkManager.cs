@@ -43,7 +43,7 @@ namespace msn2.net.BarMonkey
             udh.DrinkId = drink.Id;
             udh.UserId = userId;
             udh.Timestamp = DateTime.Now;
-            base.Context.Data.UserDrinkHistories.Add(udh);
+            base.Context.Data.UserDrinkHistories.InsertOnSubmit(udh);
 
             //foreach (DrinkIngredient ingredient in drink.DrinkIngredients)
             //{
@@ -88,7 +88,7 @@ namespace msn2.net.BarMonkey
                 if (count == 0)
                 {
                     UserFavorite favorite = new UserFavorite { DrinkId = drinkId, UserId = userId };
-                    base.Context.Data.UserFavorites.Add(favorite);
+                    base.Context.Data.UserFavorites.InsertOnSubmit(favorite);
                     base.Context.Data.SubmitChanges();
                 }
             }
@@ -98,7 +98,7 @@ namespace msn2.net.BarMonkey
                 {
                     foreach (UserFavorite fav in q)
                     {
-                        base.Context.Data.UserFavorites.Remove(fav);
+                        base.Context.Data.UserFavorites.DeleteOnSubmit(fav);
                         base.Context.Data.SubmitChanges();
                     }
                 }
