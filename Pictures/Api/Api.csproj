@@ -139,7 +139,6 @@
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="DataSetCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetCategory.cs</LastGenOutput>
