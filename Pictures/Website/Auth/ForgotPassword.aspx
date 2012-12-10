@@ -1,5 +1,5 @@
 <%@ Page language="c#" Inherits="pics.Auth.ForgotPassword" CodeFile="ForgotPassword.aspx.cs" %>
-<%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

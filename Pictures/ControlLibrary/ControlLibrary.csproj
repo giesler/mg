@@ -10,7 +10,7 @@
     <SccProvider>SAK</SccProvider>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>FOLDER02.ICO</ApplicationIcon>
+    <ApplicationIcon>Resources\FOLDER02.ICO</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>msn2.net.Pictures.Controls</AssemblyName>
@@ -101,28 +101,28 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CategoryItem.cs">
+    <Compile Include="Category\CategoryItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CategoryItem.Designer.cs">
+    <Compile Include="Category\CategoryItem.Designer.cs">
       <DependentUpon>CategoryItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="CategoryFlowLayoutPanel.cs">
+    <Compile Include="Category\CategoryFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CategoryFlowLayoutPanel.Designer.cs">
+    <Compile Include="Category\CategoryFlowLayoutPanel.Designer.cs">
       <DependentUpon>CategoryFlowLayoutPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="CategoryListDialog.cs">
+    <Compile Include="Category\CategoryListDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CategoryListDialog.Designer.cs">
+    <Compile Include="Category\CategoryListDialog.Designer.cs">
       <DependentUpon>CategoryListDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="CategoryPicker.cs">
+    <Compile Include="Category\CategoryPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CategoryTree.cs">
+    <Compile Include="Category\CategoryTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DataSet\DataSetCategory.Designer.cs">
@@ -156,43 +156,43 @@
     <Compile Include="WebControls\EditPictureLink.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="fAddPictures.cs">
+    <Compile Include="Picture\fAddPictures.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fEditCategory.cs">
+    <Compile Include="Category\fEditCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fEditPerson.cs">
+    <Compile Include="Person\fEditPerson.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fGroupSelect.cs">
+    <Compile Include="Group\fGroupSelect.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fPersonSelect.cs">
+    <Compile Include="Person\fPersonSelect.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fPicture.cs">
+    <Compile Include="Picture\fPicture.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fPictureViewer.cs">
+    <Compile Include="Picture\fPictureViewer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fPromptText.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fSelectCategory.cs">
+    <Compile Include="Category\fSelectCategory.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fStatus.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GroupControl.cs">
+    <Compile Include="Group\GroupControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GroupPicker.cs">
+    <Compile Include="Group\GroupPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ImageUtilities.cs">
@@ -201,43 +201,40 @@
     <Compile Include="ImageUtils.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MultiPictureEdit.cs">
+    <Compile Include="Picture\MultiPictureEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MultiPictureEdit.Designer.cs">
+    <Compile Include="Picture\MultiPictureEdit.Designer.cs">
       <DependentUpon>MultiPictureEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="OpenMainFormLink.cs">
+    <Compile Include="Person\PeopleCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PeopleCtl.cs">
+    <Compile Include="Person\PeoplePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PeoplePicker.cs">
+    <Compile Include="Person\PersonSelect.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PersonSelect.cs">
+    <Compile Include="Picture\PictureDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PictureDisplay.cs">
+    <Compile Include="Picture\PictureList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PictureList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PictureList.Designer.cs">
+    <Compile Include="Picture\PictureList.Designer.cs">
       <DependentUpon>PictureList.cs</DependentUpon>
     </Compile>
-    <Compile Include="PictureProperties.cs">
+    <Compile Include="Picture\PictureProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PictureProperties.Designer.cs">
+    <Compile Include="Picture\PictureProperties.Designer.cs">
       <DependentUpon>PictureProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="PictureStack.cs">
+    <Compile Include="Picture\PictureStack.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PictureStack.Designer.cs">
+    <Compile Include="Picture\PictureStack.Designer.cs">
       <DependentUpon>PictureStack.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.cs">
@@ -255,16 +252,16 @@
     <Compile Include="SaveSlideshow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PictureItem.cs">
+    <Compile Include="Picture\PictureItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PictureItem.Designer.cs">
+    <Compile Include="Picture\PictureItem.Designer.cs">
       <DependentUpon>PictureItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectedPicturePanel.cs">
+    <Compile Include="Picture\SelectedPicturePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SelectedPicturePanel.Designer.cs">
+    <Compile Include="Picture\SelectedPicturePanel.Designer.cs">
       <DependentUpon>SelectedPicturePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Slideshow.cs">
@@ -301,11 +298,11 @@
       <DependentUpon>AddPicturesToCategory.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoryPicker.resx">
+    <EmbeddedResource Include="Category\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CategoryTree.resx">
+    <EmbeddedResource Include="Category\CategoryTree.resx">
       <DependentUpon>CategoryTree.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -317,85 +314,49 @@
       <DependentUpon>EditPictureLink.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fAddPictures.resx">
-      <DependentUpon>fAddPictures.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fEditCategory.resx">
+    <EmbeddedResource Include="Category\fEditCategory.resx">
       <DependentUpon>fEditCategory.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fEditPerson.resx">
+    <EmbeddedResource Include="Person\fEditPerson.resx">
       <DependentUpon>fEditPerson.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fGroupSelect.resx">
+    <EmbeddedResource Include="Group\fGroupSelect.resx">
       <DependentUpon>fGroupSelect.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fMain.resx">
-      <DependentUpon>fMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fPersonSelect.resx">
+    <EmbeddedResource Include="Person\fPersonSelect.resx">
       <DependentUpon>fPersonSelect.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fPicture.resx">
-      <DependentUpon>fPicture.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fPictureViewer.resx">
-      <DependentUpon>fPictureViewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fPromptText.resx">
-      <DependentUpon>fPromptText.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fSelectCategory.resx">
+    <EmbeddedResource Include="Category\fSelectCategory.resx">
       <DependentUpon>fSelectCategory.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fStatus.resx">
-      <DependentUpon>fStatus.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GroupControl.resx">
+    <EmbeddedResource Include="Group\GroupControl.resx">
       <DependentUpon>GroupControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GroupPicker.resx">
+    <EmbeddedResource Include="Group\GroupPicker.resx">
       <DependentUpon>GroupPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OpenMainFormLink.resx">
-      <DependentUpon>OpenMainFormLink.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PeopleCtl.resx">
+    <EmbeddedResource Include="Person\PeopleCtl.resx">
       <DependentUpon>PeopleCtl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PeoplePicker.resx">
+    <EmbeddedResource Include="Person\PeoplePicker.resx">
       <DependentUpon>PeoplePicker.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PersonSelect.resx">
+    <EmbeddedResource Include="Person\PersonSelect.resx">
       <DependentUpon>PersonSelect.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PictureDisplay.resx">
-      <DependentUpon>PictureDisplay.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SaveSlideshow.resx">
-      <DependentUpon>SaveSlideshow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -458,12 +419,8 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="FOLDER02.ICO" />
+    <Content Include="Resources\FOLDER02.ICO" />
     <EmbeddedResource Include="Resources\folder.ico" />
-    <EmbeddedResource Include="Slideshow.resx">
-      <DependentUpon>Slideshow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">
       <RelPath>Web References\picsvc\</RelPath>
       <UrlBehavior>Static</UrlBehavior>
