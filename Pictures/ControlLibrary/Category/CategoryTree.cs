@@ -331,7 +331,7 @@ namespace msn2.net.Pictures.Controls
 
 			if (n.Nodes.Count > 0) 
 			{
-				MessageBox.Show("You cannot currently delete a category that contains categories.  Please delete the categories below first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				MessageBox.Show("You cannot delete a category that contains categories.  Please delete the categories below it first.", "Delete Category", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 				return;
 			}
 
@@ -342,11 +342,11 @@ namespace msn2.net.Pictures.Controls
 			}
 
 			// make sure we want to delete
-			if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  All categories below it will also be deleted.  No pictures will be deleted, but picture-category associations may be.", 
+			if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  No pictures will be deleted.", 
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 			{
-                throw new NotImplementedException();
-                //tvCategory.Nodes.Remove(n);
+                PicContext.Current.CategoryManager.DeleteCategory(n.Category.CategoryId);
+                tvCategory.Nodes.Remove(n);
 			}
 		}
 

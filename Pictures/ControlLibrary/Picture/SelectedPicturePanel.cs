@@ -14,6 +14,8 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class SelectedPicturePanel : UserControl
     {
+        private bool multiSelectMode = false;
+
         public SelectedPicturePanel()
         {
             InitializeComponent();
@@ -25,7 +27,10 @@ namespace msn2.net.Pictures.Controls
             this.pictureStack1.AddPicture(picture);
             this.pictureDetailEditor.AddPicture(picture);
 
-            UpdateControls();
+            if (this.multiSelectMode = false)
+            {
+                UpdateControls();
+            }
         }
 
         public void RemovePicture(int pictureId)
@@ -33,7 +38,10 @@ namespace msn2.net.Pictures.Controls
             this.pictureStack1.RemovePicture(pictureId);
             this.pictureDetailEditor.RemovePicture(pictureId);
 
-            UpdateControls();
+            if (this.multiSelectMode = false)
+            {
+                UpdateControls();
+            }
         }
 
         public void ClearPictures()
@@ -44,21 +52,29 @@ namespace msn2.net.Pictures.Controls
                 pictures.Add(item.PictureId);
             }
 
-            this.MultiSelectStart();
-            foreach (int pictureId in pictures)
+            try
             {
-                this.RemovePicture(pictureId);
+                this.MultiSelectStart();
+                foreach (int pictureId in pictures)
+                {
+                    this.RemovePicture(pictureId);
+                }
             }
-            this.MultiSelectEnd();
+            finally
+            {
+                this.MultiSelectEnd();
+            }
         }
 
         public void MultiSelectStart()
         {
             this.pictureStack1.SuspendPaint = true;
+            this.multiSelectMode = true;
         }
 
         public void MultiSelectEnd()
         {
+            this.multiSelectMode = false;
             this.pictureStack1.SuspendPaint = false;
             this.pictureStack1.Refresh();
         }

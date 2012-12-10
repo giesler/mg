@@ -324,7 +324,29 @@ namespace msn2.net.Pictures
 			return groups;
 		}
 
+        public void DeleteCategory(int categoryId)
+        {
+            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlCommand cmd = new SqlCommand("up_Category_Delete", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
+            cmd.Parameters.Add("@categoryId", SqlDbType.Int);
+            cmd.Parameters["@categoryId"].Value = categoryId;
+
+            try
+            {
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+            }
+
+        }
 	}
 
 
