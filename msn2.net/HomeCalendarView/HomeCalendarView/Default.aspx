@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="HomeCalendarView._Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="HomeCalendarView._Default" EnableSessionState="True" %>
 
 <%@ Register Src="CalendarItemDisplay.ascx" TagName="CalendarItemDisplay" TagPrefix="uc1" %>
 <%@ Register Src="ForecastItem.ascx" TagName="ForecastItem" TagPrefix="ucb" %>
@@ -6,126 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>home.msn2.net Calendar</title>
-    <style>
-        .precipText
-        {
-            font-size: smaller;
-            color: Gray;
-            font-weight: bold;
-        }
-        .propText
-        {
-            font-size: smaller;
-        }
-        .dimText
-        {
-            font-size: smaller;
-            color: Gray;
-        }
-        .hiText
-        {
-            color: Red;
-            font-size: 10pt;
-            font-weight: bold;
-        }
-        .loText
-        {
-            color: Blue;
-            font-size: 10pt;
-            font-weight: bold;
-        }
-        .altColor
-        {
-            background-color: #E8F7F7;
-        }
-        .dayHeader
-        {
-            border-bottom-color: Gray;
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-            padding: 2px 2px 2px 2px;
-        }
-        .defaultText
-        {
-            font-size: 8pt;
-            font-family: Tahoma;
-            margin: 0px;
-        }
-        .noEventsText
-        {
-            color: Gray;
-        }
-        .dateLabel
-        {
-            font-size: 10pt;
-            font-weight: bold;
-        }
-        .nowTemp
-        {
-            font-size: 16pt;
-            font-weight: bold;
-            color: Navy;
-        }
-        .headerRow
-        {
-            background-color: #ececec;
-            padding: 2px;
-            height: 69px;
-            border-bottom-color: Gray;
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-        }
-        .today
-        {
-            font-size: 14pt;
-            font-weight: bold;
-        }
-        .cityName
-        {
-            font-size: 8pt;
-        }
-        .eventList
-        {
-            padding: 2px;
-        }
-        .vertLabel
-        {
-            writing-mode: tb-rl;
-            filter: flipv fliph;
-            font-size: smaller;
-            color: Gray;
-        }
-        .fPanel
-        {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .fItem
-        {
-            width: 45%;
-            float: left;
-            height: 100%;
-        }
-        .fItems
-        {
-            width: 100%;
-            height: 58px;
-        }
-        .dayPanel
-        {
-            width: 25%;
-            float: left;
-            height: 100%;
-        }
-        .dayPanelAlt
-        {
-            width: 25%;
-            float: left;
-            height: 100%;
-            background-color: #E8F7F7;
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="defaultText" style="border: solid 1px silver; padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px">
@@ -142,7 +23,7 @@
                             <table border="1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="~/Webcam.aspx" Target=_blank>
+                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="http://webcam.msn2.net/" Target=_blank>
                                             <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="80" ImageUrl="~/Webcam.aspx" BorderWidth="0" />
                                         </asp:HyperLink>
                                     </td>
@@ -152,7 +33,7 @@
                         <td rowspan="2" width="8">
                             &nbsp;
                         </td>
-                        <td width="150" valign="top">
+                        <td width="200" valign="top">
                             <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
                             <small>
                                 <asp:Label runat="server" ID="todayDateLabel" /></small>
@@ -196,7 +77,7 @@
                                                     <div style="display: inline">
                                                         <asp:Label runat="server" ID="windLabel" /></div>
                                                     <br />
-                                                    <asp:Label runat="server" ID="windChill" /><br />
+                                                    <asp:Label runat="server" ID="windChill" />
                                                     Visibility:
                                                     <asp:Label runat="server" ID="visibility" />
                                                     m

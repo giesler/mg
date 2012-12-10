@@ -26,6 +26,7 @@ namespace HomeCalendarView
         public decimal Lattitude { get; set; }
         public decimal Longitude { get; set; }
         public string NoaaCurrentConditionsLocation { get; set; }
+        public string CurrentConditionsUrl { get; set; }
         public string NoaaCurrentAlertsLocation { get; set; }
     }
 
@@ -43,6 +44,7 @@ namespace HomeCalendarView
             kirkland.Longitude = -122.20724M;
             kirkland.NoaaCurrentConditionsLocation = "KSEA";
             kirkland.NoaaCurrentAlertsLocation = "WAZ505";
+            kirkland.CurrentConditionsUrl = "http://www.nws.noaa.gov/data/current_obs/KSEA.xml";
             this.locations.Add(kirkland);
 
             LocationData packwood = new LocationData { Name = "Packwood" };
@@ -50,7 +52,10 @@ namespace HomeCalendarView
             packwood.Longitude = -121.822M;
             packwood.NoaaCurrentConditionsLocation = "WAZ519";
             packwood.NoaaCurrentAlertsLocation = "WAZ519";
+            packwood.CurrentConditionsUrl = "http://api.wunderground.com/weatherstation/WXCurrentObXML.asp?ID=MOHAW1";
             this.locations.Add(packwood);
+
+            this.currentLocation = kirkland;
             
             this.lastUpdateTime.Text = "Last update: " + DateTime.Now.ToShortTimeString();
             this.dataLoadTimer.Enabled = false;
@@ -59,7 +64,8 @@ namespace HomeCalendarView
             this.refreshTimer.Tick += new EventHandler<EventArgs>(refreshTimer_Tick);
             this.refreshTimer.Interval = 60 * 1000 * new Random().Next(18, 23);
 
-            this.todayDateLabel.Text = DateTime.Now.ToString("ddd MMM d").ToLower();
+            this.todayLabel.Text = DateTime.Now.ToString("dddd MMMM d").ToLower(); 
+            this.todayDateLabel.Text = "Last update " + DateTime.Now.ToShortTimeString();
             //this.day1Label.Text = DateTime.Now.AddDays(1).ToString("dddd").ToLower();
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
@@ -68,17 +74,6 @@ namespace HomeCalendarView
             if (this.IsPostBack == false)
             {
                 this.onCityClick(this.selectKirkland, EventArgs.Empty);
-            }
-            else
-            {
-                if (this.selectKirkland.Font.Bold)
-                {
-                    this.currentLocation = this.locations[0];
-                }
-                else
-                {
-                    this.currentLocation = this.locations[1];
-                }
             }
         }
 
@@ -110,10 +105,10 @@ namespace HomeCalendarView
         {
             base.OnLoad(e);
 
-            //if (Session["c"] != null)
-            //{
-            //    this.currentLocation = this.locations[int.Parse(Session["c"].ToString())];
-            //}
+            if (Session["c"] != null)
+            {
+                this.currentLocation = this.locations[int.Parse(Session["c"].ToString())];
+            }
         }
 
         bool reenableTimer = false;
@@ -448,15 +443,9 @@ namespace HomeCalendarView
 
             try
             {
-                if (this.currentLocation.Name != "Packwood")
-                {
-                    string url = string.Format(
-                        "http://www.nws.noaa.gov/data/current_obs/{0}.xml",
-                        this.currentLocation.NoaaCurrentConditionsLocation);
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(url);
-                    cache.Add(this.CacheName("current"), doc, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
-                }
+                XmlDocument doc = new XmlDocument();
+                doc.Load(this.currentLocation.CurrentConditionsUrl);
+                cache.Add(this.CacheName("current"), doc, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
             catch (Exception)
             { }
@@ -472,15 +461,12 @@ namespace HomeCalendarView
             object cacheItem = HttpContext.Current.Cache[this.CacheName("current")];
             if (cacheItem == null)
             {
-                if (this.currentLocation.Name != "Packwood")
-                {
-                    this.dataLoadTimer.Enabled = true;
+                this.dataLoadTimer.Enabled = true;
 
-                    if (base.Cache[this.CacheName("LoadCurrent")] == null)
-                    {
-                        base.Cache.Add(this.CacheName("LoadCurrent"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadCurrent), HttpContext.Current.Cache);
-                    }
+                if (base.Cache[this.CacheName("LoadCurrent")] == null)
+                {
+                    base.Cache.Add(this.CacheName("LoadCurrent"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadCurrent), HttpContext.Current.Cache);
                 }
             }
             else
@@ -488,13 +474,7 @@ namespace HomeCalendarView
                 doc = (XmlDocument)cacheItem;
             }
 
-            if (this.currentLocation.Name == "Packwood")
-            {
-                this.currentLoadingMessage.Text = "Current conditions N/A";
-                this.currentConditionsTable.Visible = false;
-                this.currentConditionsLoading.Visible = true;
-            }
-            else if (doc == null)
+            if (doc == null)
             {
                 this.currentLoadingMessage.Text = "loading current conditions...";
                 this.currentConditionsTable.Visible = false;
@@ -505,10 +485,19 @@ namespace HomeCalendarView
                 this.currentConditionsTable.Visible = true;
                 this.currentConditionsLoading.Visible = false;
 
-                this.currentTemp.Text = doc.DocumentElement.SelectSingleNode("temp_f").InnerText + "&deg;";
+                decimal d = decimal.Parse(doc.DocumentElement.SelectSingleNode("temp_f").InnerText);
+                this.currentTemp.Text = d.ToString("0") + "&deg;";
 
                 string timeString = doc.DocumentElement.SelectSingleNode("observation_time_rfc822").InnerText;
-                timeString = timeString.Substring(0, timeString.IndexOf("-") - 1);
+                DateTime dt = DateTime.MinValue;
+                if (DateTime.TryParse(timeString, out dt))
+                {
+                    timeString = dt.ToString();
+                }
+                else
+                {
+                    timeString = timeString.Substring(0, timeString.IndexOf("-") - 1);
+                }
                 DateTime updateTime = DateTime.Parse(timeString);
                 this.tempUpdateTime.Text = "@" + updateTime.ToString("h:mm");
 
@@ -567,9 +556,9 @@ namespace HomeCalendarView
                 }
 
                 XmlNode windChillNode = doc.DocumentElement.SelectSingleNode("windchill_f");
-                if (windChillNode != null)
+                if (windChillNode != null && windChillNode.InnerText.Length > 0)
                 {
-                    this.windChill.Text = "Wind chill: " + windChillNode.InnerText + "&deg;";
+                    this.windChill.Text = "Wind chill: " + windChillNode.InnerText + "&deg;<br />";
                 }
                 XmlNode visNode = doc.DocumentElement.SelectSingleNode("visibility_mi");
                 if (visNode != null)
@@ -582,11 +571,21 @@ namespace HomeCalendarView
                     this.visibility.Text = this.visibility.Text.Replace(".00", "");
                 }
 
-                string conditionImage = doc.DocumentElement.SelectSingleNode("icon_url_base").InnerText;
-                conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
-                this.currentCondition.ImageUrl = conditionImage;
-                this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
-                this.currentConditionText.Text = this.currentCondition.AlternateText;
+                XmlNode conditionNode = doc.DocumentElement.SelectSingleNode("icon_url_base");
+                if (conditionNode != null)
+                {
+                    string conditionImage = conditionNode.InnerText;
+                    conditionImage += doc.DocumentElement.SelectSingleNode("icon_url_name").InnerText;
+                    this.currentCondition.ImageUrl = conditionImage;
+                    this.currentCondition.AlternateText = doc.DocumentElement.SelectSingleNode("weather").InnerText;
+                    this.currentConditionText.Text = this.currentCondition.AlternateText;
+                    this.currentCondition.Visible = true;
+                }
+                else
+                {
+                    this.currentCondition.Visible = false;
+                    this.currentConditionText.Text = "";
+                }
             }
         }
 
@@ -924,19 +923,19 @@ namespace HomeCalendarView
                 this.currentLocation = this.locations[0];
                 this.selectPackwood.Font.Bold = false;
                 this.selectKirkland.Font.Bold = true;
-//                Session["c"] = 0;
+                Session["c"] = 0;
             }
             else
             {
                 this.currentLocation = this.locations[1];
                 this.selectPackwood.Font.Bold = true;
                 this.selectKirkland.Font.Bold = false;
-//                Session["c"] = 1;
+                Session["c"] = 1;
             }
 
             if (this.currentLocation.Name == "Kirkland")
             {
-                this.webcamUrl.NavigateUrl = "webcam.aspx";
+                this.webcamUrl.NavigateUrl = "http://webcam.msn2.net/";
                 this.webcamPicture.ImageUrl = "webcam.aspx";
             }
             else

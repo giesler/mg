@@ -76,6 +76,7 @@
     </None>
     <None Include="XMLSchema1.xsd" />
     <Content Include="ForecastItem.ascx" />
+    <Content Include="styles.css" />
     <Content Include="WeatherForecastSample.xml" />
     <Content Include="Web.config" />
     <Content Include="Webcam.aspx" />

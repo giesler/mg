@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
 using System.IO;
+using System.Drawing;
 
 namespace HomeCalendarView
 {
@@ -26,9 +27,21 @@ namespace HomeCalendarView
                     System.Drawing.Image i = System.Drawing.Image.FromStream(s);
                     s.Close();
 
+                    System.Drawing.Image thumb = new System.Drawing.Bitmap(80, 60, i.PixelFormat);
+                    Graphics g = Graphics.FromImage(thumb);
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+
+                    Rectangle rect = new Rectangle(0, 0, 80, 60);
+                    g.DrawImage(i, rect);
+
                     Response.ContentType = "image/jpeg";
-                    i.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    thumb.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                     Response.End();
+
+                    i.Dispose();
+                    thumb.Dispose();
                 }
 
                 response.Close();
