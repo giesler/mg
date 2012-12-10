@@ -170,7 +170,6 @@ namespace msn2.net.Pictures.Controls
             while (loginDialog.ShowDialog(this) == DialogResult.OK)
             {
                 stat.StatusText = "Logging on...";
-                stat.Show(this);
 
                 if (PicContext.Login(config, loginDialog.Email, loginDialog.Password) == true)
                 {
@@ -835,6 +834,9 @@ namespace msn2.net.Pictures.Controls
                             dr.Close();
 
                             // we want to delete from db, but only if file delete worked
+                            SqlCommand cmdRating = new SqlCommand("delete from PictureRating where PictureId = " + pictureId.ToString(), cn);
+                            cmdRating.ExecuteNonQuery();
+
                             SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + pictureId.ToString(), cn);
                             cmd.ExecuteNonQuery();
                         }

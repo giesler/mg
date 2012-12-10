@@ -21,10 +21,20 @@ namespace msn2.net.Pictures.Controls
     public partial class PictureItem : UserControl
     {
         private Picture picture;
-        private bool loading = false;
         private bool sizing = false;
         private object lockObject = new object();
         private bool displayPicInfo = false;
+        int loadingPictureId;
+        
+        enum ImageLoadSize
+        {
+            Small,
+            Medium,
+            Full
+        }
+
+        Dictionary<ImageLoadSize, Image> images = new Dictionary<ImageLoadSize, Image>();
+        Dictionary<ImageLoadSize, Image> sizedImages = new Dictionary<ImageLoadSize, Image>();
 
         public PictureItem(): this(null)
         {
@@ -121,12 +131,11 @@ namespace msn2.net.Pictures.Controls
         }
 
         private bool resized;
-        private Image image;
+/*        private Image image;
         private Image smallImage;
         private Image sizedImage;
-        private bool selected;
+  */      private bool selected;
         private bool drawShadow = true;
-        private Rectangle sizedImageRectangle;
         private bool drawBorder = true;
 
         public bool DrawBorder
@@ -147,19 +156,51 @@ namespace msn2.net.Pictures.Controls
         {
             try
             {
+                Picture picture = this.picture;
+                this.loadingPictureId = picture.Id;
+
+                ImageLoadSize loadSize = (ImageLoadSize) o;
+
                 this.imageReadError = false;
+                Image loadedImage = null;
 
-                // See if there is a resized image
-                if (this.Width < 125 && null == smallImage)
+                if (loadSize == ImageLoadSize.Small)
                 {
-                    smallImage = PicContext.Current.PictureManager.GetPictureImage(this.picture, 125, 125);
+                        loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 125, 125);
+                        Trace.WriteLine("Loaded 125x125 for " + picture.Id.ToString());
                 }
-                else if (null == image)
+                else if (loadSize == ImageLoadSize.Medium)
                 {
-                    image = PicContext.Current.PictureManager.GetPictureImage(this.picture, 750, 700);
+                    Thread.Sleep(100);
+                    loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 750, 700);
+                    Trace.WriteLine("Loaded 750x700 for " + picture.Id.ToString());
+                }
+                else if (loadSize == ImageLoadSize.Full)
+                {
+                    Thread.Sleep(250);
+                    string file = Path.Combine(PicContext.Current.Config.PictureDirectory, this.picture.Filename);
+                    loadedImage = Image.FromFile(file);
+                    Trace.WriteLine("Loaded " + file + " for " + this.picture.Id.ToString());
                 }
 
-                RepaintImage();
+                if (this.loadingPictureId == picture.Id)
+                {
+                    Image sizedImage = SizeImage(loadedImage, this.Width, this.Height);
+
+                    if (this.loadingPictureId == picture.Id)
+                    {
+                        lock (this.lockObject)
+                        {
+                            if (this.loadingPictureId == picture.Id)
+                            {
+                                this.images[loadSize] = loadedImage;
+                                this.sizedImages.Add(loadSize, sizedImage);
+                            }
+                        }
+
+                        this.RepaintImage();
+                    }
+                }
             }
             catch (FileNotFoundException fnfe)
             {
@@ -173,18 +214,14 @@ namespace msn2.net.Pictures.Controls
                 Trace.WriteLine(dnf.ToString());
                 RepaintImage();
             }
-            finally
-            {
-                loading = false;
-            }
         }
 
         public void SetPicture(Picture item)
         {
+            ReleaseImage();
+
             lock (this.lockObject)
             {
-                ReleaseImage();
-
                 this.picture = item;
             }
 
@@ -193,20 +230,25 @@ namespace msn2.net.Pictures.Controls
 
         public void ReleaseImage()
         {
-            if (image != null)
+            lock (this.lockObject)
             {
-                image.Dispose();
-                image = null;
-            }
-            if (smallImage != null)
-            {
-                smallImage.Dispose();
-                smallImage = null;
-            }
-            if (sizedImage != null)
-            {
-                sizedImage.Dispose();
-                sizedImage = null;
+                foreach (Image image in this.images.Values)
+                {
+                    if (image != null)
+                    {
+                        image.Dispose();
+                    }
+                }
+                this.images.Clear();
+
+                foreach (Image image in this.sizedImages.Values)
+                {
+                    if (image != null)
+                    {
+                        image.Dispose();
+                    }
+                }
+                this.sizedImages.Clear();
             }
         }
 
@@ -336,61 +378,65 @@ namespace msn2.net.Pictures.Controls
                 }
             }
 
-            bool useSmallImage = this.Width < 125;
+            bool smallImageOnly = this.Width < 125;
 
             // Load image
-            if (null == smallImage && useSmallImage
-                || null == image && !useSmallImage)
+            if (this.loadingPictureId != this.picture.Id)
             {
-                if (loading == false)
+                lock (this.lockObject)
                 {
-                    lock (this.lockObject)
+                    if (this.loadingPictureId != this.picture.Id)
                     {
-                        if (loading == false)
+                        this.loadingPictureId = this.picture.Id;
+
+                        this.ReleaseImage();
+
+                        this.images.Add(ImageLoadSize.Small, null);
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Small);
+                        
+                        if (this.Width > 125)
                         {
-                            loading = true;
-                            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage));
+                            this.images.Add(ImageLoadSize.Medium, null);
+                            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Medium);
+
+                            if (this.Width > 700)
+                            {
+                                this.images.Add(ImageLoadSize.Full, null);
+                                ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Full);
+                            }
                         }
                     }
                 }
 
-                Trace.WriteLine("Printing loading...");
                 PrintLoading(e);
+            }
 
-                if (null == smallImage)
+            Image sizedImage = null;
+            if (this.sizedImages.ContainsKey(ImageLoadSize.Small))
+            {
+                sizedImage = this.sizedImages[ImageLoadSize.Small];
+            }
+            if (this.sizedImages.ContainsKey(ImageLoadSize.Medium))
+            {
+                if (this.sizedImages[ImageLoadSize.Medium] != null)
                 {
-                    return;
+                    sizedImage = this.sizedImages[ImageLoadSize.Medium];
                 }
             }
-
-            // Use the small image if loaded and large one not avail
-            if (!useSmallImage && null != smallImage && null == image)
+            if (this.sizedImages.ContainsKey(ImageLoadSize.Full))
             {
-                useSmallImage = true;
-            }
-
-            // Resize image to fit bounds
-            if ((null != image || null != smallImage) && 
-                (resized || null == sizedImage))
-            {
-                Trace.WriteLine("Printing loading 2...");
-                PrintLoading(e);
-
-                if (sizing == false)
+                if (this.sizedImages[ImageLoadSize.Full] != null)
                 {
-                    sizing = true;
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(SizeImage), useSmallImage);
+                    sizedImage = this.sizedImages[ImageLoadSize.Full];
                 }
-
-                return;
             }
-
+            
             if (this.imageReadError == true)
             {
                 this.DrawCenteredImage(e, 32, CommonImages.Error);
             }
             else if (null != sizedImage)
-            {
+            {                
                 // Initialize the color matrix.
                 // Note the value 0.8 in row 4, column 4.
                 float[][] matrixItems ={ 
@@ -439,12 +485,19 @@ namespace msn2.net.Pictures.Controls
                     }
                 }
 
-                e.Graphics.DrawImage(sizedImage,
-                    new Rectangle(xOffset, yOffset, sizedImage.Width, sizedImage.Height),
-                    0, 0, sizedImage.Width, sizedImage.Height, GraphicsUnit.Pixel, imageAtt);
-
+                lock (this.lockObject)
+                {
+                    e.Graphics.DrawImage(sizedImage,
+                        new Rectangle(xOffset, yOffset, sizedImage.Width, sizedImage.Height),
+                        0, 0, sizedImage.Width, sizedImage.Height, GraphicsUnit.Pixel, imageAtt);
+                }
 
                 AddPictureInfo(e);
+
+                if (this.images.ContainsValue(null))
+                {
+                    PrintLoading(e);
+                }
             }
             else
             {
@@ -476,141 +529,87 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private int sizedX;
-        private int sizedY;
-
-        private void SizeImage(object oUseSmallImage)
+        Image SizeImage(Image image, int maxWidth, int maxHeight)
         {
-            try
-            {
-                bool useSmallImage = bool.Parse(oUseSmallImage.ToString());
-                float imageHeight = 0F;
-                float imageWidth = 0F;
+            Image newSizedImage = null;
 
-                lock (this.lockObject)
+            if (image != null && image.Height > 0 && image.Width > 0)
+            {
+                float imageHeight = image.Height;
+                float imageWidth = image.Width;
+
+                int newX = 0;
+                int newY = 0;
+                int newHeight = 0;
+                int newWidth = 0;
+
+                int offset = (drawShadow ? (maxHeight > 150 ? 2 : 1) : 0);
+
+                // Add image border
+                int imageBorder = (drawBorder | selected ? (maxHeight < 75 ? 1 : 2) : 0);
+
+                // Check if we need to fit the picture horizontally or vertically
+                if (imageWidth / maxWidth > imageHeight / maxHeight)
                 {
-                    if ((this.smallImage != null && useSmallImage) || this.image != null)
-                    {
-                        imageHeight = (useSmallImage ? smallImage.Height : image.Height);
-                        imageWidth = (useSmallImage ? smallImage.Width : image.Width);
-                    }
+                    // Image is wider then tall
+                    newWidth = maxWidth - offset - imageBorder;
+                    newHeight = Convert.ToInt32(newWidth * imageHeight / imageWidth);
+                    newY = (maxHeight - newHeight) / 2;
+                }
+                else
+                {
+                    newHeight = maxHeight - offset - imageBorder;
+                    newWidth = Convert.ToInt32(newHeight * imageWidth / imageHeight);
+                    newX = (maxWidth - newWidth) / 2;
                 }
 
-                if (imageHeight > 0 && imageWidth > 0)
+                Trace.WriteLine(string.Format("Sizing {0}x{1} to {2}x{3}", imageWidth, imageHeight, newWidth, newHeight));
+
+                newSizedImage = new Bitmap(maxWidth, maxHeight);
+                using (Graphics g = Graphics.FromImage(newSizedImage))
                 {
-                    int newX = 0;
-                    int newY = 0;
-                    int newHeight = 0;
-                    int newWidth = 0;
+                    int padding = (maxWidth > 75 ? 3 : 2);
 
-                    int offset = (drawShadow ? (this.Height > 150 ? 2 : 1) : 0);
-
-                    // Add image border
-                    int imageBorder = (drawBorder | selected ? (this.Height < 75 ? 1 : 2) : 0);
-
-                    // Check if we need to fit the picture horizontally or vertically
-                    if (imageWidth / this.Width > imageHeight / this.Height)
+                    if (this.drawBorder == false)
                     {
-                        // Image is wider then tall
-                        newWidth = this.Width - offset - imageBorder;
-                        newHeight = Convert.ToInt32(newWidth * imageHeight / imageWidth);
-                        newY = (this.Height - newHeight) / 2;
-                    }
-                    else
-                    {
-                        newHeight = this.Height - offset - imageBorder;
-                        newWidth = Convert.ToInt32(newHeight * imageWidth / imageHeight);
-                        newX = (this.Width - newWidth) / 2;
+                        padding = 0;
                     }
 
-                    bool drewImage = false;
-                    sizedImage = new Bitmap(this.Width, this.Height);
-                    using (Graphics g = Graphics.FromImage(sizedImage))
+                    // Draw drop shadow
+                    Rectangle sizedImageRectangle = new Rectangle(newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
+
+                    if (drawShadow)
                     {
-                        int padding = (this.Width > 75 ? 3 : 2);
+                        Rectangle dropRectangle = new Rectangle(
+                            newX + padding,
+                            newY + padding,
+                            newWidth + offset + imageBorder - (padding * 2),
+                            newHeight + offset + imageBorder - (padding * 2));
+                        RectangleDropShadow(g, dropRectangle, Color.DarkGray, 4, 200);
+                    }
 
-                        if (this.drawBorder == false)
+                    if (imageBorder > 0)
+                    {
+                        using (Brush b = new SolidBrush(Color.White))
                         {
-                            padding = 0;
-                        }
-
-                        // Draw drop shadow
-                        sizedImageRectangle = new Rectangle(newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
-
-                        if (drawShadow)
-                        {
-                            Rectangle dropRectangle = new Rectangle(
-                                newX + padding, 
-                                newY + padding, 
-                                newWidth + offset + imageBorder - (padding * 2), 
-                                newHeight + offset + imageBorder - (padding * 2));
-                            RectangleDropShadow(g, dropRectangle, Color.DarkGray, 4, 200);
-                        }
-
-                        if (imageBorder > 0)
-                        {
-                            using (Brush b = new SolidBrush(Color.White))
-                            {
-                                g.FillRectangle(b, newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
-                            }
-                        }
-
-                        // Draw actual image
-                        lock (this.lockObject)
-                        {
-                            if (useSmallImage)
-                            {
-                                if (this.smallImage != null)
-                                {
-                                    g.DrawImage(smallImage, newX + imageBorder + padding, newY + imageBorder + padding,
-                                        newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
-                                    drewImage = true;
-                                }
-                            }
-                            else
-                            {
-                                if (this.image != null)
-                                {
-                                    g.DrawImage(image, newX + imageBorder + padding, newY + imageBorder + padding,
-                                        newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
-                                    drewImage = true;
-                                }
-                            }
+                            g.FillRectangle(b, newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
                         }
                     }
 
-                    sizedX = newX;
-                    sizedY = newY;
-
-                    if (drewImage == true)
-                    {
-                        this.RepaintImage();
-                    }
-                    else
-                    {
-                        Trace.WriteLine("Image repaint from size skipped - no image");
-                    }
+                    // Draw actual image
+                    g.DrawImage(image, newX + imageBorder + padding, newY + imageBorder + padding,
+                        newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
                 }
             }
-            finally
-            {
-                sizing = false;
-            }
+
+            return newSizedImage;
         }
 
         void PictureItem_Disposed(object sender, EventArgs e)
         {
-            if (null != image)
+            lock (this.lockObject)
             {
-                image.Dispose();
-            }
-            if (null != smallImage)
-            {
-                smallImage.Dispose();
-            }
-            if (null != sizedImage)
-            {
-                sizedImage.Dispose();
+                this.ReleaseImage();
             }
         }
 

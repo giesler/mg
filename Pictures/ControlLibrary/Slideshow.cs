@@ -53,7 +53,7 @@ namespace msn2.net.Pictures.Controls
             item.DrawShadow = false;
             item.DrawBorder = false;
             item.PaintBackground = false;
-            item.PaintFullControlArea = true;
+            item.PaintFullControlArea = false;
             item.Dock = DockStyle.Fill;
             item.Padding = new Padding(0);
             this.Controls.Add(item);
@@ -107,6 +107,10 @@ namespace msn2.net.Pictures.Controls
             if (rating != null)
             {
                 this.DisplayStarRating((int)rating.Value);
+            }
+            else
+            {
+                this.DisplayStarRating(0);
             }
             this.DisplayAverageRating();
 

@@ -340,6 +340,7 @@ namespace msn2.net.Pictures.Controls
 
                 query = from p in PicContext.Current.PictureManager.GetPictures()
                         where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
+//                            && p.PictureRatings.Any(pr => pr.Rating == 2)
                         select p;
             }
             else if (this.SelectedNode is DateFilterTreeNode)
