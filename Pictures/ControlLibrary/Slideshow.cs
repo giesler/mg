@@ -52,6 +52,7 @@ namespace msn2.net.Pictures.Controls
             item.Dock = DockStyle.Fill;
             this.Controls.Add(item);
 
+            this.toolStip.ImageScalingSize = new Size(32, 32);
         }
 
         protected PictureData CurrentPicture
@@ -281,17 +282,48 @@ namespace msn2.net.Pictures.Controls
         {
             toolPrevious.Enabled = false;
             toolNext.Enabled = false;
+            toolPrevious.Image = global::msn2.net.Pictures.Controls.Properties.Resources.up;
+            toolNext.Image = global::msn2.net.Pictures.Controls.Properties.Resources.down;
+            
+            if (null != getPreviousId)
+            {
+                PictureData previousItem = getPreviousId(item.PictureId);
 
-            if (null != getPreviousId && getPreviousId(item.PictureId) != null)
-            {
-                toolPrevious.Enabled = true;
+                 if (previousItem != null)
+                {
+                    toolPrevious.Enabled = true;
+
+                    using (Image previousImage = PicContext.Current.PictureCache.GetImage(
+                            previousItem,
+                            32,
+                            32))
+                    {
+                        Bitmap bmp = new Bitmap(previousImage, new Size(32, 32));
+                        toolPrevious.Image = bmp;
+                    }
+                }
             }
-            if (null != getNextId && getNextId(item.PictureId) != null)
+
+            if (null != getNextId)
             {
-                toolNext.Enabled = true;
+                PictureData nextItem = getNextId(this.picture.Id);
+
+                if (nextItem != null)
+                {
+                    toolNext.Enabled = true;
+
+                    using (Image nextImage = PicContext.Current.PictureCache.GetImage(
+                            nextItem,
+                            32,
+                            32))
+                    {
+                        Bitmap bmp = new Bitmap(nextImage, new Size(32, 32));
+                        toolNext.Image = bmp;
+                    }
+                }
             }
         }
-
+    
         private void toolClose_Click(object sender, EventArgs e)
         {
             this.Close();
