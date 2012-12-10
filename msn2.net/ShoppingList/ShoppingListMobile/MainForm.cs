@@ -198,7 +198,7 @@ namespace msn2.net.ShoppingList
 
             this.storeLabel = new Label();
             this.storeLabel.Font = new Font("Tahoma", 12F, FontStyle.Bold);
-            this.storeLabel.Bounds = new Rectangle(3, 3, 168, 24);
+            this.storeLabel.Bounds = new Rectangle(3, 4, 168, 24);
             this.storeLabel.Text = "Loading...";
             this.storeLabel.Parent = this;
 
