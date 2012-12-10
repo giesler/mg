@@ -1,0 +1,442 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.40607</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{051F201A-911A-441D-B249-5857DB882AA7}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>FOLDER02.ICO</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>msn2.net.Pictures.Controls</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>msn2.net.Pictures.Controls</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>msn2.net.Pictures.Controls.fMain</StartupObject>
+    <WebReference_EnableProperties>true</WebReference_EnableProperties>
+    <WebReference_EnableSQLTypes>false</WebReference_EnableSQLTypes>
+    <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+      <HintPath>..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddPicturesToCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CategoryPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataSetCategory.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetCategoryGroup.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetGroup.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetGroup.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetPerson.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetPicture.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DateSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DateSelector.Designer.cs">
+      <DependentUpon>DateSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditCategoryLink.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditPictureLink.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="fAddPictures.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fEditCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fEditPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fGroupSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPersonSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPictureViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPromptText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSelectCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageUtilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ImageUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MultiPictureEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MultiPictureEdit.Designer.cs">
+      <DependentUpon>MultiPictureEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenMainFormLink.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PeopleCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PeoplePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PersonSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureList.Designer.cs">
+      <DependentUpon>PictureList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PictureProperties.Designer.cs">
+      <DependentUpon>PictureProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureStack.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureStack.Designer.cs">
+      <DependentUpon>PictureStack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SaveSlideshow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PictureItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PictureItem.Designer.cs">
+      <DependentUpon>PictureItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectedPicturePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SelectedPicturePanel.Designer.cs">
+      <DependentUpon>SelectedPicturePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Slideshow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Slideshow.Designer.cs">
+      <DependentUpon>Slideshow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DateTimePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DateTimePicker.Designer.cs">
+      <DependentUpon>DateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MultiItemTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MultiItemTextBox.Designer.cs">
+      <DependentUpon>MultiItemTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewPanel.Designer.cs">
+      <DependentUpon>ViewPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\picsvc\Reference.cs">
+      <DependentUpon>Reference.map</DependentUpon>
+      <SubType>code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <EmbeddedResource Include="AddPicturesToCategory.resx">
+      <DependentUpon>AddPicturesToCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryPicker.resx">
+      <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryTree.resx">
+      <DependentUpon>CategoryTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditCategoryLink.resx">
+      <DependentUpon>EditCategoryLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPictureLink.resx">
+      <DependentUpon>EditPictureLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddPictures.resx">
+      <DependentUpon>fAddPictures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fEditCategory.resx">
+      <DependentUpon>fEditCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fEditPerson.resx">
+      <DependentUpon>fEditPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fGroupSelect.resx">
+      <DependentUpon>fGroupSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMain.resx">
+      <DependentUpon>fMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPersonSelect.resx">
+      <DependentUpon>fPersonSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPicture.resx">
+      <DependentUpon>fPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPictureViewer.resx">
+      <DependentUpon>fPictureViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPromptText.resx">
+      <DependentUpon>fPromptText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSelectCategory.resx">
+      <DependentUpon>fSelectCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fStatus.resx">
+      <DependentUpon>fStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupControl.resx">
+      <DependentUpon>GroupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupPicker.resx">
+      <DependentUpon>GroupPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenMainFormLink.resx">
+      <DependentUpon>OpenMainFormLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeopleCtl.resx">
+      <DependentUpon>PeopleCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PeoplePicker.resx">
+      <DependentUpon>PeoplePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonSelect.resx">
+      <DependentUpon>PersonSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PictureDisplay.resx">
+      <DependentUpon>PictureDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveSlideshow.resx">
+      <DependentUpon>SaveSlideshow.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="DataSetCategory.xsc">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategory.xss">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategory.xsx">
+      <DependentUpon>DataSetCategory.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategoryGroup.xsc">
+      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCategoryGroup.xsx">
+      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetGroup.xsc">
+      <DependentUpon>DataSetGroup.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetGroup.xsx">
+      <DependentUpon>DataSetGroup.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPerson.xsc">
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPerson.xss">
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPerson.xsx">
+      <DependentUpon>DataSetPerson.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPicture.xsc">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPicture.xss">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetPicture.xsx">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
+    <None Include="Web References\picsvc\PictureDataSet.xsd" />
+    <None Include="Web References\picsvc\PictureManager.disco" />
+    <None Include="Web References\picsvc\PictureManager.wsdl" />
+    <None Include="Web References\picsvc\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="DataSetCategory.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSetCategoryGroup.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCategoryGroup.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSetGroup.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetGroup.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSetPerson.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetPerson.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSetPicture.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
+    </Content>
+    <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">
+      <RelPath>Web References\picsvc\</RelPath>
+      <UrlBehavior>Static</UrlBehavior>
+    </WebReferenceUrl>
+    <WebReferences Include="Web References\" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
