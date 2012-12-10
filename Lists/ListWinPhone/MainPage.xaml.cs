@@ -20,6 +20,8 @@ namespace giesler.org.lists
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private bool backgroundOperationActive = false;
+
         // Constructor
         public MainPage()
         {
@@ -74,6 +76,7 @@ namespace giesler.org.lists
                 IListDataProvider svc2 = App.DataProvider;
                 svc2.GetAllListItemsCompleted += new EventHandler<GetAllListItemsCompletedEventArgs>(svc2_GetAllListItemsCompleted);
                 svc2.GetAllListItemsAsync(App.AuthDataList);
+                this.ToggleBackgroundOperationStatus(true);
             }
             else
             {
@@ -98,6 +101,8 @@ namespace giesler.org.lists
             {
                 MessageBox.Show(e.Error.Message);
             }
+
+            this.ToggleBackgroundOperationStatus(false);
 
             IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();
@@ -125,6 +130,8 @@ namespace giesler.org.lists
             IListDataProvider svc = App.DataProvider;
             svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
             svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
+
+            this.ToggleBackgroundOperationStatus(true);
         }
 
         void svc_DeleteListItemCompleted(object sender, DeleteListItemCompletedEventArgs e)
@@ -134,13 +141,21 @@ namespace giesler.org.lists
                 MessageBox.Show(e.Error.Message, "Delete Error", MessageBoxButton.OK);
             }
 
+            this.ToggleBackgroundOperationStatus(false);
+
             IListDataProvider client = (IListDataProvider)sender;
             client.CloseAsync();
         }
 
+        void ToggleBackgroundOperationStatus(bool isActive)
+        {
+            this.backgroundOperationActive = isActive;
+            this.UpdateControls();
+        }
+
         void UpdateControls()
         {
-            bool loading = App.Items == null || App.Lists == null;
+            bool loading = App.Items == null || App.Lists == null || this.backgroundOperationActive == true;
 
             if (this.ApplicationBar != null && this.ApplicationBar.Buttons.Count > 0)
             {
@@ -162,6 +177,8 @@ namespace giesler.org.lists
                 IListDataProvider svc = App.DataProvider;
                 svc.GetListsCompleted += new EventHandler<GetListsCompletedEventArgs>(svc_GetListsCompleted);
                 svc.GetListsAsync(App.AuthDataList);
+
+                this.ToggleBackgroundOperationStatus(true);
             }
             else
             {
@@ -186,6 +203,8 @@ namespace giesler.org.lists
             {
                 MessageBox.Show(e.Error.Message);
             }
+
+            this.ToggleBackgroundOperationStatus(false);
 
             IListDataProvider svc = (IListDataProvider)sender;
             svc.CloseAsync();

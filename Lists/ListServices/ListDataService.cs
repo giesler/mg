@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
+using System.Threading;
 
 namespace msn2.net.ShoppingList
 {
@@ -15,16 +17,27 @@ namespace msn2.net.ShoppingList
             this.context = new SLSDataDataContext();
         }
 
+        void WaitForServerCallSleepTime()
+        {
+            string sleepTime = ConfigurationManager.AppSettings["serverCallSleepTime"];
+            if (!string.IsNullOrEmpty(sleepTime))
+            {
+                TimeSpan ts = TimeSpan.Parse(sleepTime);
+                Thread.Sleep(ts);
+            }
+        }
 
         #region IListDataService Members
 
         public AddListReturnValue AddList(ClientAuthenticationData auth, string name)
         {
+            this.WaitForServerCallSleepTime();
+            
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("name");
             }
-
+                        
             AddListReturnValue returnVal = new AddListReturnValue();
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -48,6 +61,8 @@ namespace msn2.net.ShoppingList
 
         public UpdateListReturnValue UpdateList(ClientAuthenticationData auth, List list)
         {
+            this.WaitForServerCallSleepTime();
+
             UpdateListReturnValue returnVal = new UpdateListReturnValue();
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -70,12 +85,16 @@ namespace msn2.net.ShoppingList
 
         public void DeleteList(ClientAuthenticationData auth, Guid uniqueId)
         {
+            this.WaitForServerCallSleepTime();
+
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
             this.context.DeleteList(person.Id, uniqueId);
         }
 
         public List<GetListsResult> GetLists(ClientAuthenticationData auth)
         {
+            this.WaitForServerCallSleepTime();
+
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
             var q = this.context.GetLists(person.Id);
             return q.ToList();
@@ -83,6 +102,8 @@ namespace msn2.net.ShoppingList
 
         public List<GetAllListItemsResult> GetListItems(ClientAuthenticationData auth, Guid listUniqueId)
         {
+            this.WaitForServerCallSleepTime();
+
             List<GetAllListItemsResult> items = null;
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -95,6 +116,8 @@ namespace msn2.net.ShoppingList
 
         public List<GetAllListItemsResult> GetAllListItems(ClientAuthenticationData auth)
         {
+            this.WaitForServerCallSleepTime();
+
             List<GetAllListItemsResult> items = null;
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -106,6 +129,8 @@ namespace msn2.net.ShoppingList
 
         public AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name)
         {
+            this.WaitForServerCallSleepTime();
+
             AddListItemReturnValue returnVal = new AddListItemReturnValue();
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -129,6 +154,8 @@ namespace msn2.net.ShoppingList
 
         public UpdateListItemReturnData UpdateListItem(ClientAuthenticationData auth, ListItem item)
         {
+            this.WaitForServerCallSleepTime();
+
             UpdateListItemReturnData data = new UpdateListItemReturnData();
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
@@ -139,6 +166,8 @@ namespace msn2.net.ShoppingList
 
         public DeleteListItemReturnData DeleteListItem(ClientAuthenticationData auth, Guid listItemUniqueId)
         {
+            this.WaitForServerCallSleepTime();
+
             DeleteListItemReturnData data = new DeleteListItemReturnData();
 
             Person person = ListAuthentication.ValidateAuth(this.context, auth, true);
