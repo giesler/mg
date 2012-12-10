@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>msn2.net.ShoppingList</RootNamespace>
-    <AssemblyName>ShoppingListService</AssemblyName>
+    <AssemblyName>ListServiceSite</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -93,21 +93,9 @@
   <ItemGroup>
     <Content Include="la.svc" />
     <Content Include="lds.svc" />
-    <Content Include="sls.svc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="SLSData.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SLSData.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\homenet\Lists.disco" />
-    <None Include="Web References\homenet\Lists.wsdl" />
-    <None Include="Web References\homenet\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -123,46 +111,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="sls.svc.cs">
-      <DependentUpon>sls.svc</DependentUpon>
-    </Compile>
-    <Compile Include="IShoppingListService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShoppingListItem.cs" />
-    <Compile Include="SLSData.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SLSData.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\homenet\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://home.msn2.net/_vti_bin/Lists.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\homenet\</RelPath>
-      <UpdateFromURL>http://home.msn2.net/_vti_bin/Lists.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>ShoppingListService_homenet_Lists</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SLSData.dbml.layout">
-      <DependentUpon>SLSData.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ListServices\ListServices.csproj">

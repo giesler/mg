@@ -9,15 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListWeb", "ListWeb\ListWeb.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListWinPhone", "ListWinPhone\ListWinPhone.csproj", "{4AC053EE-389A-4133-9182-964175002B35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListWebSilverlight", "ListWebSilverlight\ListWebSilverlight.csproj", "{81C27DFF-4337-48CC-B874-6C629BA45C8F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Live", "..\Externals\Microsoft.Live\Microsoft.Live.csproj", "{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Data.Services.Client", "..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj", "{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://kenny:8080/tfs/main
 		SccLocalPath0 = .
@@ -33,15 +31,12 @@ Global
 		SccProjectUniqueName4 = ListWeb\\ListWeb.csproj
 		SccProjectName4 = ListWeb
 		SccLocalPath4 = ListWeb
-		SccProjectUniqueName5 = ListWebSilverlight\\ListWebSilverlight.csproj
-		SccProjectName5 = ListWebSilverlight
-		SccLocalPath5 = ListWebSilverlight
-		SccProjectUniqueName6 = ..\\Externals\\Microsoft.Live\\Microsoft.Live.csproj
-		SccProjectName6 = ../Externals/Microsoft.Live
-		SccLocalPath6 = ..\\Externals\\Microsoft.Live
-		SccProjectUniqueName7 = ..\\Externals\\System.Data.Services.Client\\System.Data.Services.Client.csproj
-		SccProjectName7 = ../Externals/System.Data.Services.Client
-		SccLocalPath7 = ..\\Externals\\System.Data.Services.Client
+		SccProjectUniqueName5 = ..\\Externals\\Microsoft.Live\\Microsoft.Live.csproj
+		SccProjectName5 = ../Externals/Microsoft.Live
+		SccLocalPath5 = ..\\Externals\\Microsoft.Live
+		SccProjectUniqueName6 = ..\\Externals\\System.Data.Services.Client\\System.Data.Services.Client.csproj
+		SccProjectName6 = ../Externals/System.Data.Services.Client
+		SccLocalPath6 = ..\\Externals\\System.Data.Services.Client
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,16 +91,6 @@ Global
 		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Any CPU.ActiveCfg = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugMobileOnly|Any CPU.Build.0 = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Any CPU.ActiveCfg = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugSite|Any CPU.Build.0 = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Any CPU.ActiveCfg = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.DebugTrayOnly|Any CPU.Build.0 = Debug|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81C27DFF-4337-48CC-B874-6C629BA45C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.DebugMobileOnly|Any CPU.ActiveCfg = Debug|Any CPU

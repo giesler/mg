@@ -10,7 +10,6 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using SLExpress.ShoppingListService;
 using WindowsLive;
 using msn2.net.ShoppingList;
 using System.Text;

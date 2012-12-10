@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <meta content="user-scalable=no, width=device-width" name="viewport" />
-    <title>Lists</title>
+    <title>ListGo</title>
     <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
     <script type="text/javascript">
         function startDelete(cbx) {
@@ -70,7 +70,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    Lists
+    ListGo
     <a href="#" onclick="onSignInOut();" disabled="true" id="signInOut" class="rightTop">Sign In</a>
     <hr width="50%" noshade align="left" />
     <asp:Panel runat="server" ID="main" CssClass="main">

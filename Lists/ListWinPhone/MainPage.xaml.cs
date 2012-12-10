@@ -128,8 +128,8 @@ namespace giesler.org.lists
         void listControl_DeleteListItem(ListItem item)
         {
             IListDataProvider svc = App.DataProvider;
-            svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
             svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
+            svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
 
             this.ToggleBackgroundOperationStatus(true);
         }
@@ -162,7 +162,7 @@ namespace giesler.org.lists
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = !loading;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
-                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+                //((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
             }
         }
 

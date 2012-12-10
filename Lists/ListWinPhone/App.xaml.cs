@@ -219,7 +219,7 @@ namespace giesler.org.lists
             LiveIdRefreshToken = GetSetting("LiveId.RefreshToken");
 
 #if DEBUG
-/*            if (AuthData.PersonUniqueId == Guid.Empty)
+            if (AuthData.PersonUniqueId == Guid.Empty)
             {
                 AuthData.PersonUniqueId = new Guid("{feea96d5-3919-42af-8db2-eada650a7dec}"); // giesler@live.com
             }
@@ -227,7 +227,7 @@ namespace giesler.org.lists
             {
                 AuthData.DeviceUniqueId = new Guid("{0a0e9d2d-125c-4eef-b4e4-540ddedcf99e}");  // emulator
             }
- */
+ 
 #endif
 
             Debug.WriteLine(LiveIdUserId);
