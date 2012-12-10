@@ -253,7 +253,7 @@ namespace pics
 						Control c = LoadControl("Controls//AutoTimer.ascx");
 						AutoTimer at			= (AutoTimer) c;
 						at.NavigateUrl			= lnkReturn.NavigateUrl;
-						at.Seconds				= 15;
+						at.Seconds				= 6;
 						at.Visible				= true;
 //						m_HttpRefreshURL = "10;URL=" + lnkReturn.NavigateUrl;
 						panelNext.Controls.Add(at);
@@ -266,7 +266,7 @@ namespace pics
 						Control c = LoadControl("Controls//AutoTimer.ascx");
 						AutoTimer at			= (AutoTimer) c;
 						at.NavigateUrl			= strURL.Replace("{0}", Convert.ToString(intCurRec+1)) + "#title";
-						at.Seconds				= 15;
+						at.Seconds				= 6;
 						at.Visible				= true;
 						panelNext.Controls.Add(at);
 
