@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =778253585
+Checksum =854610360
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -273,7 +273,7 @@ Begin Form
                     Left =1080
                     Top =3120
                     Width =6720
-                    Height =720
+                    Height =660
                     TabIndex =10
                     Name ="txtComments"
                     ControlSource ="Comments"
@@ -712,7 +712,7 @@ Begin Form
                             Width =1020
                             Height =240
                             Name ="lblFTofTruck"
-                            Caption ="FT of Truck"
+                            Caption ="Truck Space"
                             FontName ="Arial"
                             GUID = Begin
                                 0x494507dec9fb4e4784943bc8fbb99c1f
@@ -969,7 +969,7 @@ Begin Form
                                     Height =240
                                     ForeColor =8388608
                                     Name ="lblShipAddress1"
-                                    Caption ="Address 1: "
+                                    Caption ="Mall: "
                                     FontName ="Arial"
                                     OnDblClick ="=OpenFind(\"Address Line 1\",\"Start\",\"txtShipAddress1\")"
                                     GUID = Begin
@@ -1437,16 +1437,16 @@ Begin Form
                     SpecialEffect =0
                     OverlapFlags =85
                     Left =60
-                    Top =3900
+                    Top =4320
                     Width =10980
-                    Height =2100
+                    Height =1680
                     AutoActivate =1
                     TabIndex =25
                     Name ="lvPOItems"
                     OleData = Begin
-                        0x00160000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
-                        0xfeff090006000000000000000000000001000000000000000000000000100000 ,
-                        0x0700000001000000feffffff0000000001000000ffffffffffffffffffffffff ,
+                        0x00100000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
+                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
+                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
                         0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
                         0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
                         0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
@@ -1495,7 +1495,7 @@ Begin Form
                         0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x0000000016000500ffffffffffffffff010000004bf0d1bd8b85d111b16a00c0 ,
-                        0xf02836280000000000000000000000004031d4890a40c10105000000c0020000 ,
+                        0xf0283628000000000000000000000000e0d11e70aa69c20105000000c0020000 ,
                         0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
                         0x0000000000000000000000000000000000000000000000000000000000000000 ,
                         0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
@@ -1544,58 +1544,10 @@ Begin Form
                         0x2400000038000000000000000000000000000000000000000000000039333638 ,
                         0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
                         0xffff000041439ebc37f0cd11870100aa003f0f07fffffffff09a1a00ec170000 ,
-                        0x3d06ffff4bf0d1bd8b85d111b16a00c0f028362821433412080000003e4b0000 ,
-                        0x780e00004e087deb010006001c0000000000000000000000238200003e4b0000 ,
-                        0x01efcdab00000500000000000700000008000080050000800001038000000000 ,
-                        0x00000000000000001fdeecbd0100050010981f000b0020000000000000000000 ,
-                        0x0000030000000000000000000000000000000300000049440020000100000000 ,
-                        0x003c0700000c0000000000000000000000000000000c0000005246204d617465 ,
-                        0x7269616c002000020000000000940700000e0000000000000000000000000000 ,
-                        0x000e00000043757374204d6174657269616c002000030000000000fb1300000c ,
-                        0x0000000000000000000000000000000c0000004465736372697074696f6e0020 ,
-                        0x000400020000007b040000060000000000000000000000000000000600000050 ,
-                        0x6861736500200005000200000022040000050000000000000000000000000000 ,
-                        0x000500000042726b640020000600010000002b05000006000000000000000000 ,
-                        0x0000000000000600000050726963650020000700020000002204000005000000 ,
-                        0x00000000000000000000000005000000556e6974002000080001000000d30400 ,
-                        0x0004000000000000000000000000000000040000005174790020000900010000 ,
-                        0x00d3040000070000000000000000000000000000000700000057656967687400 ,
-                        0x20000a0001000000e40600000b0000000000000000000000000000000b000000 ,
-                        0x4c696e6520546f74616c00000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000001000000feffffff0300000004000000050000000600000007000000 ,
-                        0x08000000090000000a000000feffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff5c000000000000000100000000000000000000000000000000000000 ,
-                        0x2400000038000000000000000000000000000000000000000000000039333638 ,
-                        0x323635452d383546452d313164312d384245332d303030304638373534444131 ,
-                        0xffff000041439ebc37f0cd11870100aa003f0f07fffffffff09a1a00ec170000 ,
                         0x3d06ffff4bf0d1bd8b85d111b16a00c0f02836282143341208000000a84b0000 ,
-                        0x780e00004e087deb010006001c000000000000000000000023820000a84b0000 ,
-                        0x01efcdab00000500000000000700000008000080050000800001038000000000 ,
-                        0x00000000000000001fdeecbd01000500f0db9d070b0020000000000000000000 ,
+                        0x930b00004e087deb010006001c000000000000000000000023820000a84b0000 ,
+                        0x01efcdab00000500805ca6770700000008000080050000800001038000000000 ,
+                        0x00000000000000001fdeecbd0100050050e519000b0020000000000000000000 ,
                         0x0000030000000000000000000000000000000300000049440020000100000000 ,
                         0x00940700000c0000000000000000000000000000000c0000005246204d617465 ,
                         0x7269616c002000020000000000940700000e0000000000000000000000000000 ,
@@ -1633,7 +1585,7 @@ Begin Form
                     AccessKey =65
                     TextFontFamily =34
                     Left =11100
-                    Top =3960
+                    Top =4320
                     Width =720
                     Height =300
                     FontSize =8
@@ -1652,7 +1604,7 @@ Begin Form
                     AccessKey =84
                     TextFontFamily =34
                     Left =11100
-                    Top =4320
+                    Top =4680
                     Width =720
                     Height =300
                     FontSize =8
@@ -1671,7 +1623,7 @@ Begin Form
                     AccessKey =68
                     TextFontFamily =34
                     Left =11100
-                    Top =4680
+                    Top =5040
                     Width =720
                     Height =300
                     FontSize =8
@@ -1722,6 +1674,40 @@ Begin Form
                     Caption ="[Price]"
                     GUID = Begin
                         0x3b615aa082fcfc4f840cb4e9f75808a2
+                    End
+                End
+                Begin TextBox
+                    EnterKeyBehavior = NotDefault
+                    ScrollBars =2
+                    OldBorderStyle =1
+                    OverlapFlags =85
+                    Left =1080
+                    Top =3840
+                    Width =6720
+                    Height =420
+                    TabIndex =26
+                    Name ="Text277"
+                    ControlSource ="TrafficComments"
+                    FontName ="Arial"
+                    OnGotFocus ="=ControlGotFocus()"
+                    OnLostFocus ="=ControlLostFocus()"
+                    ControlTipText ="Comments About PO"
+                    GUID = Begin
+                        0x35d0326a8f0baf4ca00e2d4780ca3acd
+                    End
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =3
+                    Left =60
+                    Top =3840
+                    Width =960
+                    Height =435
+                    Name ="Label278"
+                    Caption ="Traffic Comments"
+                    FontName ="Arial"
+                    GUID = Begin
+                        0x79330f0e6f0837439b8cdec765705fa2
                     End
                 End
             End
@@ -2305,6 +2291,11 @@ End Sub
 Private Sub Form_Close()
 On Error GoTo errHandler
 
+    ' NN 10/1/02
+    If Me.txtID <> 0 Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+    End If
+
   DoCmd.Close acForm, "fdlgFind"
   Call CSStopDDE
 
@@ -2346,6 +2337,11 @@ On Error GoTo errHandler
   
   chkFTofTruck_Click
   
+    ' NN 10/1/02
+    If Me.txtID <> 0 Then
+        gConn.Execute "sp_Form_POMarkDone " & Me.txtID
+    End If
+    
 Exit Sub
 errHandler:
 ErrHand Me.Name, "Form_Current"
