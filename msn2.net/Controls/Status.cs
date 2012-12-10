@@ -33,6 +33,7 @@ namespace msn2.net.Controls
 			InitializeComponent();
 			labelMessage.Text = message;
 			this.Visible = true;
+			this.buttonCancel.Visible = false;
 			this.Refresh();
 		}
 
@@ -51,6 +52,7 @@ namespace msn2.net.Controls
 			InitializeComponent();
 			labelMessage.Text = message;
 			this.Visible = true;
+			this.buttonCancel.Visible = false;
 			this.Refresh();
 
 			this.thread = thread;

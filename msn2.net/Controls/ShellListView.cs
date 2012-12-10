@@ -112,13 +112,15 @@ namespace msn2.net.Controls
 																								this.columnHeader2});
 			this.listViewFavorites.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewFavorites.HideSelection = false;
+			this.listViewFavorites.LabelEdit = true;
 			this.listViewFavorites.Name = "listViewFavorites";
 			this.listViewFavorites.Size = new System.Drawing.Size(150, 130);
 			this.listViewFavorites.SmallImageList = this.imageList1;
 			this.listViewFavorites.TabIndex = 8;
-			this.listViewFavorites.View = System.Windows.Forms.View.Details;
+			this.listViewFavorites.View = System.Windows.Forms.View.List;
 			this.listViewFavorites.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listViewFavorites_MouseUp);
 			this.listViewFavorites.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragDrop);
+			this.listViewFavorites.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listViewFavorites_AfterLabelEdit);
 			this.listViewFavorites.DragEnter += new System.Windows.Forms.DragEventHandler(this.listViewFavorites_DragEnter);
 			// 
 			// columnHeader1
@@ -237,6 +239,7 @@ namespace msn2.net.Controls
 			// Populate the context menu with this type's menu
 			if (listViewFavorites.SelectedItems.Count == 0)
 			{
+				
 			}
 
 			contextMenu.MenuItems.Clear();
@@ -245,6 +248,11 @@ namespace msn2.net.Controls
 			if (listViewFavorites.SelectedItems.Count != 0)
 			{
 				item = (DataListViewItem) listViewFavorites.SelectedItems[0];
+
+				foreach (ShellAction action in item.Data.ConfigData.ShellActionList)
+				{
+                    					
+				}
 			}
 
 			// Build add list
@@ -356,7 +364,6 @@ namespace msn2.net.Controls
 					{
 						WebBrowser webBrowser = new WebBrowser(item.Data.Text, item.Data.Url);
 						webBrowser.Show();
-
 					}
 				}
 			}
@@ -406,6 +413,13 @@ namespace msn2.net.Controls
 		private void ShellListView_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+		}
+
+		private void listViewFavorites_AfterLabelEdit(object sender, System.Windows.Forms.LabelEditEventArgs e)
+		{
+			DataListViewItem item = (DataListViewItem) listViewFavorites.Items[e.Item];
+			item.Data.Text = e.Label;
+			item.Data.Save();
 		}
 
 		#region AddMenuItem class

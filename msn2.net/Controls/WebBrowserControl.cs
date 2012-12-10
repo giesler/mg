@@ -290,6 +290,8 @@ namespace msn2.net.Controls
 				TitleChange(this, new TitleChangeEventArgs(e.text));
 		}
 
+		public event BeforeNavigateDelegate BeforeNavigateEvent;
+
 		private void axDocumentV1_BeforeNavigate(string url, int flags, string targetFrameName, 
 			ref object postData, string headers, ref bool processed)
 		{
@@ -317,6 +319,7 @@ namespace msn2.net.Controls
 		{
 			WebBrowser b = new WebBrowser("Popup", true);
 			e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
+			b.Visible = false;
 		}
 
 		private void axWebBrowser1_LocationChanged(object sender, System.EventArgs e)
@@ -336,10 +339,21 @@ namespace msn2.net.Controls
 
 		public void Navigate(string url)
 		{
-			currentUrl = url;
+			DefaultClickBehavior clickBehavior = defaultClickBehavior;
 
+			// call anyone to let them change click behavior
+			BeforeNavigateEventArgs args = new BeforeNavigateEventArgs(url, this.defaultClickBehavior);
+			if (BeforeNavigateEvent != null)
+				BeforeNavigateEvent(this, args);
+			clickBehavior = args.ClickBehavior;
+
+			if (args.Cancel)
+			{
+				throw new ApplicationException("Navigate canceled before first navigate");
+			}
+						
 			object obj1 = 0; object obj2 = ""; object obj3 = ""; object obj4 = "";
-			axWebBrowser1.Navigate(url, ref obj1, ref obj2, ref obj3, ref obj4);
+			axWebBrowser1.Navigate(args.Url, ref obj1, ref obj2, ref obj3, ref obj4);
 		}
 
 		public void RefreshPage()
@@ -462,20 +476,31 @@ namespace msn2.net.Controls
 							y = win.@event.y;
 							break;
 						case "click":
-							// See what the default 'click' action is
-							switch (defaultClickBehavior)
+							DefaultClickBehavior clickBehavior = defaultClickBehavior;
+							
+							// call anyone to let them change click behavior
+							BeforeNavigateEventArgs args = new BeforeNavigateEventArgs(newUrl, this.defaultClickBehavior);
+							if (BeforeNavigateEvent != null)
+								BeforeNavigateEvent(this, args);
+							clickBehavior = args.ClickBehavior;
+
+							if (!args.Cancel)
 							{
-								case DefaultClickBehavior.OpenLink:
-									Navigate(newUrl);
-									break;
-								case DefaultClickBehavior.OpenInNewTab:
-									if (OpenNewTabEvent != null)
-										OpenNewTabEvent(this, new NavigateEventArgs(newTitle, newUrl));
-									break;
-								case DefaultClickBehavior.OpenInNewWindow:
-									WebBrowser b = new WebBrowser(newTitle, newUrl);
-									b.Show();		
-									break;
+								// See what the default 'click' action is
+								switch (clickBehavior)
+								{
+									case DefaultClickBehavior.OpenLink:
+										Navigate(args.Url);
+										break;
+									case DefaultClickBehavior.OpenInNewTab:
+										if (OpenNewTabEvent != null)
+											OpenNewTabEvent(this, new NavigateEventArgs(newTitle, args.Url));
+										break;
+									case DefaultClickBehavior.OpenInNewWindow:
+										WebBrowser b = new WebBrowser(newTitle, args.Url);
+										b.Show();		
+										break;
+								}
 							}
 							break;
 					}
@@ -508,6 +533,8 @@ namespace msn2.net.Controls
 			panelStatus.Left	= this.Width / 2 - panelStatus.Width / 2;
 			panelStatus.Top		= this.Height / 2 - panelStatus.Height / 2;
 			panelStatus.Visible = true;
+
+			panelStatus.Refresh();
 		}
 
 		private void timerShowStatus_Tick(object sender, System.EventArgs e)
@@ -587,6 +614,8 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		#region Paint
+
 		private void panelStatus_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.DimGray);
@@ -594,6 +623,7 @@ namespace msn2.net.Controls
 			e.Graphics.DrawString(this.labelStatus.Text, this.labelStatus.Font, new SolidBrush(SystemColors.ControlText), new RectangleF(labelStatus.Location, labelStatus.Size));
 		}
 
+		#endregion
 	}
 
 	#region Delegates
@@ -601,10 +631,42 @@ namespace msn2.net.Controls
 	public delegate void NavigateCompleteDelegate(object sender, NavigateCompleteEventArgs e);
 	public delegate void TitleChangeDelegate(object sender, TitleChangeEventArgs e);
 	public delegate void OpenNewTabDelegate(object sender, NavigateEventArgs e);
+	public delegate void BeforeNavigateDelegate(object sender, BeforeNavigateEventArgs e);
 
 	#endregion
 
 	#region EventArgs classes
+
+	public class BeforeNavigateEventArgs: EventArgs
+	{
+		private string url;
+		private WebBrowserControl.DefaultClickBehavior clickBehavior;
+		private bool cancel;
+
+		public BeforeNavigateEventArgs(string url, WebBrowserControl.DefaultClickBehavior clickBehavior)
+		{
+			this.url				= url;
+			this.clickBehavior		= clickBehavior;
+		}
+
+		public string Url
+		{
+			get { return url; }
+			set { url = value; }
+		}
+
+		public WebBrowserControl.DefaultClickBehavior ClickBehavior
+		{
+			get { return clickBehavior; }
+			set { clickBehavior = value; }
+		}
+
+		public bool Cancel
+		{
+			get { return cancel; }
+			set { cancel = value; }
+		}
+	}
 
 	public class NavigateCompleteEventArgs: EventArgs
 	{

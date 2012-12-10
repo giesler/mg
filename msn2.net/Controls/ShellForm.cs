@@ -107,6 +107,7 @@ namespace msn2.net.Controls
 
 		private int		fadeInTimerInterval			= 50;
 		private int		fadeOutTimerInterval		= 70;
+		protected bool	fadeInEnabled				= true;
 
 		#endregion
 
@@ -547,6 +548,18 @@ namespace msn2.net.Controls
 			}
 		}
 
+		public bool FadeInEnabled
+		{
+			get
+			{
+				return fadeInEnabled;
+			}
+			set
+			{
+				fadeInEnabled = value;
+			}
+		}
+
 		public new Size MaximumSize
 		{
 			get
@@ -809,6 +822,7 @@ namespace msn2.net.Controls
 				if (instance != source && (instance.lockedTo == this || this.lockedTo == instance))
 				{
 					Debug.WriteLine("Fade in " + instance.Name);
+					
 					instance.FadeIn(this);
 					instance.Show();
 				}
@@ -845,12 +859,13 @@ namespace msn2.net.Controls
 
 		private void FadeIn_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{	
-			if (this.Opacity < 1.0)
+			if (this.Opacity < 1.0 && fadeInEnabled)
 			{
 				this.Opacity += 0.1;
 			}
 			else
 			{
+				this.Opacity		= 1.0;
 				timerFadeIn.Enabled = false;
 			}
 		}

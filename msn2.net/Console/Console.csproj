@@ -129,6 +129,11 @@
                     AssemblyName = "Microsoft.mshtml"
                     HintPath = "..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
                 />
+                <Reference
+                    Name = "msn2.net.QueuePlayer.Client"
+                    AssemblyName = "msn2.net.QueuePlayer.Client"
+                    HintPath = "..\QueuePlayer\main\Client\bin\Release\msn2.net.QueuePlayer.Client.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -154,7 +159,7 @@
                 />
                 <File
                     RelPath = "Login.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -164,7 +169,7 @@
                 />
                 <File
                     RelPath = "ProjectFConsole.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using msn2.net.Configuration;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace msn2.net.Controls
 {
@@ -42,6 +43,8 @@ namespace msn2.net.Controls
 
 			this.Left = Screen.PrimaryScreen.Bounds.Right - this.Width - 50;
 			this.Top  = Screen.PrimaryScreen.Bounds.Bottom  - this.Height - 800;
+
+			this.Left = 0;
 		}
 
 		#endregion
@@ -94,7 +97,9 @@ namespace msn2.net.Controls
 			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox1.Items.AddRange(new object[] {
 														   "Google",
-														   "Google Groups"});
+														   "Google Groups",
+														   "allreceipes.com",
+														   "Epicurius"});
 			this.comboBox1.Location = new System.Drawing.Point(8, 8);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(288, 21);
@@ -137,6 +142,7 @@ namespace msn2.net.Controls
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Search";
 			this.TitleVisible = true;
+			this.Load += new System.EventHandler(this.WebSearch_Load);
 			this.Activated += new System.EventHandler(this.WebSearch_Activated);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebSearch_Paint);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.WebSearch_KeyUp);
@@ -165,24 +171,24 @@ namespace msn2.net.Controls
 
 		private void buttonGo_Click(object sender, System.EventArgs e)
 		{
-			string title = "";
-
 			WebBrowser browser = null;
 
 			SearchConfigData searchConfigData = null;
 
-			if (comboBox1.SelectedIndex == 0)
+			switch (comboBox1.SelectedIndex)
 			{
-				title = "Google Search Results: '{0}'";
-				searchConfigData = new WebSearchConfigData(textBox1.Text);
-			}
-			else
-			{
-				title = "Google Newsgroup Search Results: '{0}'";
-				searchConfigData = new CommunitySearchConfigData(textBox1.Text);
+				case 0:
+					searchConfigData = new WebSearchConfigData(textBox1.Text);
+					break;
+				case 1:
+					searchConfigData = new GoogleGroupsSearchConfigData(textBox1.Text);
+					break;
+				case 2:
+					searchConfigData = new AllRecipesSearchConfigData(textBox1.Text);
+					break;
 			}
             
-			Data searchData = this.Data.Get(String.Format(title, textBox1.Text), searchConfigData, searchConfigData.GetType());
+			Data searchData = this.Data.Get(String.Format(searchConfigData.Title, textBox1.Text), searchConfigData, searchConfigData.GetType());
 
 			browser = new WebBrowser(searchData);
 			browser.Show();
@@ -193,13 +199,26 @@ namespace msn2.net.Controls
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
+
+		private void WebSearch_Load(object sender, System.EventArgs e)
+		{
+			this.Left = 100;
+			this.Top = 100;
+		}
 	}
 
 	#region SearchConfigData
 
 	public class SearchConfigData: msn2.net.Configuration.ConfigData
 	{
+		#region Declares
+
 		private string searchString;
+		protected string title;
+
+		#endregion
+
+		#region Constructors
 
 		public SearchConfigData()
 		{}
@@ -207,7 +226,21 @@ namespace msn2.net.Controls
 		public SearchConfigData(string searchString)
 		{
 			this.searchString = searchString;
+
+			title = String.Format("Search Results: '{0}'", searchString);
 		}
+
+		#endregion
+
+		#region Methods
+
+		public virtual void Run(Crownwood.Magic.Controls.TabPage page)
+		{
+		}
+
+		#endregion
+
+		#region Properties
 
 		public string SearchString
 		{
@@ -229,32 +262,85 @@ namespace msn2.net.Controls
 			}
 		}
 
-		public virtual void Run(Crownwood.Magic.Controls.TabPage page)
+		public string Title
 		{
+			get 
+			{
+				return title;
+			}
+			set
+			{
+				title = value;
+			}
 		}
+
+		#endregion
 	}
+
+	#endregion
+
+	#region WebSearchConfigData
 
 	public class WebSearchConfigData: SearchConfigData
 	{
+		#region Declares
+
+		private GoogleSearchService googleSearch;
+
+		#endregion
+
+		#region Constructors
+
 		public WebSearchConfigData()
-		{}
+		{
+		}
 
 		public WebSearchConfigData(string t): base(t)
-		{}
+		{
+			title = String.Format("Google Search Results: '{0}'", t);
+		}
+
+		#endregion
+
+		#region Methods
 
 		public override void Run(Crownwood.Magic.Controls.TabPage page)
 		{
+			googleSearch = new GoogleSearchService();
 
-			GoogleSearchService googleSearch = new GoogleSearchService();
-
-			GoogleSearchResult result = googleSearch.doGoogleSearch(
-				"YFpgsNEe9BfAzm5QcAp+82eYDgyGSWh0", this.SearchString, 50, 10, false, "", false, "", "", "");
-
-			// load results page
 			WebBrowserControl browser = (WebBrowserControl) page.Control;
-			browser.Navigate(BuildResultPage(result, this.SearchString));
-			
+			browser.BeforeNavigateEvent += new BeforeNavigateDelegate(OnBeforeNavigate);
+			browser.ShowStatus("searching...");
+			browser.Navigate("next:1");
 		}
+
+		public void OnBeforeNavigate(object sender, BeforeNavigateEventArgs e)
+		{
+			WebBrowserControl browser = (WebBrowserControl) sender;
+
+			int startItem	= 0; 
+			int endItem		= 0;
+
+			if (e.Url.Length > 5 && (e.Url.Substring(0, 5).Equals("next:") || e.Url.Substring(0, 5).Equals("prev:")))
+			{
+				startItem	= Convert.ToInt32(e.Url.Substring(5)) - 1;
+				endItem		= startItem + 10;
+			}
+			else
+			{
+				// We don't care about this navigation
+				return;
+			}
+
+			browser.ShowStatus("searching...");
+			GoogleSearchResult result = googleSearch.doGoogleSearch(
+				"YFpgsNEe9BfAzm5QcAp+82eYDgyGSWh0", this.SearchString, startItem, 10, false, "", false, "", "", "");
+
+			e.Url = BuildResultPage(result, this.SearchString + ": " + (startItem+1) + " - " + endItem);
+			e.ClickBehavior = WebBrowserControl.DefaultClickBehavior.OpenLink;
+		}
+
+		#endregion
 
 		#region Private Methods
 
@@ -265,8 +351,8 @@ namespace msn2.net.Controls
 		/// <returns>Temp file name</returns>
 		private string BuildResultPage(GoogleSearchResult result, string searchString)
 		{
-			StringBuilder sb = new StringBuilder();
-			int count = 0;
+			StringBuilder sb	= new StringBuilder();
+			int currentIndex	= result.startIndex;
 
 			sb.Append("<html><head><title>'" + searchString + "'</title></head>");
 			sb.Append("<body>");
@@ -274,14 +360,30 @@ namespace msn2.net.Controls
 			// Append results
 			foreach (ResultElement resultElement in result.resultElements)
 			{
-				sb.Append("<table width=\"100%\"><tr><td valign=\"top\">" + count.ToString() + ".</td>");
+				sb.Append("<table width=\"100%\"><tr><td valign=\"top\">" + currentIndex.ToString() + ".</td>");
 				sb.Append("<td><b>" + resultElement.title + "</b><br>");
 				sb.Append("<a href=\"" + resultElement.URL + "\">" + resultElement.URL + "</a><br>");
 				sb.Append("<font size=\"-1\">" + resultElement.snippet + "</font>");
 				sb.Append("</td></tr></table>");
 
-				count++;
+				currentIndex++;
 			}
+
+			sb.Append("<table width=\"100%\"><tr><td align=\"right\">");
+            
+			// Add prev/next links
+			if (result.startIndex > 1)
+			{
+				int previousStart = result.startIndex - 11;
+                sb.Append("<a href=\"prev:" + previousStart + "\">&lt; &lt; - - previous</a> | ");
+			}
+
+			if (result.endIndex < result.estimatedTotalResultsCount)
+			{
+                int nextStart		= result.startIndex + 10;
+				sb.Append("<a href=\"next:" + nextStart.ToString() + "\"> next - - &gt; &gt;</a> | ");
+			}
+			sb.Append("</td></tr></table>");
 
 			sb.Append("</body>");
 			sb.Append("</html>");
@@ -297,9 +399,157 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
-
 	}
+
+	#endregion
+
+	#region CustomSearchConfigData
+
+	public class CustomWebSearchConfigData: SearchConfigData
+	{
+		#region Declares
+
+		protected string siteName			= "";
+		protected string searchUrl			= "";
+		protected string resultUrlRegEx		= "";
+		protected string moreDataUrlRegEx	= "";
+
+		#endregion
+
+		#region Constructor
+
+		public CustomWebSearchConfigData()
+		{
+		}
+
+		public CustomWebSearchConfigData(string searchString): base(searchString)
+		{
+		}
+
+		#endregion
+
+		#region Methods
+
+		public override void Run(Crownwood.Magic.Controls.TabPage page)
+		{
+            string url	= searchUrl;
+			url			= String.Format(url, System.Web.HttpUtility.UrlEncode(this.SearchString));
+
+			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			browser.BeforeNavigateEvent	 += new BeforeNavigateDelegate(OnBeforeNavigate);
+			browser.Navigate(url);
+		}
+
+		public void OnBeforeNavigate(object sender, BeforeNavigateEventArgs e)
+		{
+			WebBrowserControl browser = (WebBrowserControl) sender;
+			
+			Regex moreRegEx = new Regex(moreDataUrlRegEx);
+			Regex rsltRegEx = new Regex(resultUrlRegEx);
+
+			// Check if 'more' page is in Url string
+			if (moreDataUrlRegEx.Length > 0 && moreRegEx.Match(e.Url).Success)
+			{
+				e.ClickBehavior = WebBrowserControl.DefaultClickBehavior.OpenLink;
+			}
+			// Check if clicking a result item
+			else if (resultUrlRegEx.Length > 0 && rsltRegEx.Match(e.Url).Success)
+			{
+				e.ClickBehavior	= WebBrowserControl.DefaultClickBehavior.OpenInNewTab;
+			}
+			// We're not sure, so default to a new tab
+			else
+			{
+				e.ClickBehavior = WebBrowserControl.DefaultClickBehavior.OpenInNewTab;
+			}
+			
+		}
+		
+		#endregion
+
+		#region Properties
+
+		public string SearchUrl
+		{
+			get 
+			{
+				return searchUrl;
+			}
+			set
+			{
+				searchUrl = value;
+			}
+		}
+
+		public string ResultUrlRegEx
+		{
+			get
+			{
+				return resultUrlRegEx;
+			}
+			set
+			{
+				resultUrlRegEx = value;
+			}
+		}
+
+		public string MoreDataUrlRegEx
+		{
+			get
+			{
+				return moreDataUrlRegEx;
+			}
+			set
+			{
+				moreDataUrlRegEx = value;
+			}
+		}
+
+		#endregion
+	}
+
+	#endregion
+
+	#region GoogleGroupsSearchConfigData
+
+	public class GoogleGroupsSearchConfigData: CustomWebSearchConfigData
+	{
+		public GoogleGroupsSearchConfigData()
+		{}
+
+		public GoogleGroupsSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("Google Groups Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://groups.google.com/groups?hl=en&q={0}";
+			this.resultUrlRegEx		= @"(http://groups.google.com/groups\?(.)*((selm=(.)*)|(threadm=(.)*))(.)*)";
+			this.moreDataUrlRegEx	= @"(http://groups.google.com/groups\?(.)*((start=(.)*)|(sa=(.)*)|(group=(.)*))(.)*)";
+		}
+	}
+
+	#endregion
+
+	#region AllRecipesSearchConfigData
 	
+	public class AllRecipesSearchConfigData: CustomWebSearchConfigData
+	{
+		public AllRecipesSearchConfigData()
+		{}
+
+		public AllRecipesSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("allrecipes.com Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://search.allrecipes.com/SearchResults.asp?site=allrecipes&allrecipes=allrecipes&q1={0}&Search+Allrecipes%21.x=2&Search+Allrecipes%21.y=8";
+			this.moreDataUrlRegEx		= @"(http://search.allrecipes.com/searchresults.asp)";
+			//this.moreDataUrlRegEx	= @"(http://groups.google.com/groups\?(.)*((start=(.)*)|(sa=(.)*)|(group=(.)*))(.)*)";
+		}
+	}
+
+	#endregion
+
+	#region CommunitySearchConfigData
+
 	public class CommunitySearchConfigData: SearchConfigData
 	{
 		public CommunitySearchConfigData()

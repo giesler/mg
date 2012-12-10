@@ -421,6 +421,8 @@ namespace msn2.net.Configuration
 			if (ds.DataItem.Rows.Count > 0)
 			{
 				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type, storageUrl);
+				node.configData	= data;
+				node.dataType	= type;
 				return node;
 			}
 			else

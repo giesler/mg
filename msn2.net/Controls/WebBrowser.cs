@@ -35,7 +35,13 @@ namespace msn2.net.Controls
 			if (Data.ConfigData != null)
 			{
 				// Check if a search config object
-				if (Data.ConfigData.GetType().IsSubclassOf(typeof(SearchConfigData)))
+				if (Data.ConfigData.GetType().IsSubclassOf(typeof(CustomWebSearchConfigData)))
+				{
+					CustomWebSearchConfigData searchData = (CustomWebSearchConfigData) data.ConfigData;
+					Crownwood.Magic.Controls.TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
+					searchData.Run(page);					
+				}
+				else if (Data.ConfigData.GetType().IsSubclassOf(typeof(SearchConfigData)))
 				{
 					SearchConfigData searchData = (SearchConfigData) data.ConfigData;
                     
@@ -45,6 +51,15 @@ namespace msn2.net.Controls
 				}
 			}
 
+			if (Screen.PrimaryScreen.WorkingArea.Width < 800)
+			{
+				this.Width	= Screen.PrimaryScreen.WorkingArea.Width;
+				this.Left	= Screen.PrimaryScreen.WorkingArea.Left;
+				this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+				this.Top	= Screen.PrimaryScreen.WorkingArea.Top;
+			}
+
+			this.FadeInEnabled = false;
 		}
 
 		public WebBrowser(Data data, string title, int width, int height): base(data)

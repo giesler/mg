@@ -15,6 +15,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.TextBox textBox1;
 		private msn2.net.Controls.ShellButton buttonGo;
 		private System.Windows.Forms.CheckBox checkBoxCommandPrompt;
+		private System.Windows.Forms.CheckBox checkBoxWebsite;
 		private System.ComponentModel.IContainer components = null;
 
 		#endregion
@@ -63,6 +64,7 @@ namespace msn2.net.Controls
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.buttonGo = new msn2.net.Controls.ShellButton();
 			this.checkBoxCommandPrompt = new System.Windows.Forms.CheckBox();
+			this.checkBoxWebsite = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -84,6 +86,7 @@ namespace msn2.net.Controls
 			this.textBox1.Size = new System.Drawing.Size(208, 20);
 			this.textBox1.TabIndex = 5;
 			this.textBox1.Text = "<command>";
+			this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
 			// 
 			// buttonGo
 			// 
@@ -102,21 +105,32 @@ namespace msn2.net.Controls
 			this.checkBoxCommandPrompt.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.checkBoxCommandPrompt.BackColor = System.Drawing.Color.Transparent;
-			this.checkBoxCommandPrompt.Checked = true;
-			this.checkBoxCommandPrompt.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxCommandPrompt.Location = new System.Drawing.Point(8, 32);
+			this.checkBoxCommandPrompt.Location = new System.Drawing.Point(96, 32);
 			this.checkBoxCommandPrompt.Name = "checkBoxCommandPrompt";
-			this.checkBoxCommandPrompt.Size = new System.Drawing.Size(208, 16);
+			this.checkBoxCommandPrompt.Size = new System.Drawing.Size(120, 16);
 			this.checkBoxCommandPrompt.TabIndex = 7;
 			this.checkBoxCommandPrompt.Text = "&Command Prompt";
+			this.checkBoxCommandPrompt.CheckedChanged += new System.EventHandler(this.checkBoxCommandPrompt_CheckedChanged);
+			// 
+			// checkBoxWebsite
+			// 
+			this.checkBoxWebsite.BackColor = System.Drawing.Color.Transparent;
+			this.checkBoxWebsite.Checked = true;
+			this.checkBoxWebsite.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxWebsite.Location = new System.Drawing.Point(8, 32);
+			this.checkBoxWebsite.Name = "checkBoxWebsite";
+			this.checkBoxWebsite.Size = new System.Drawing.Size(80, 16);
+			this.checkBoxWebsite.TabIndex = 8;
+			this.checkBoxWebsite.Text = "&Website";
 			// 
 			// ShellLaunch
 			// 
 			this.AcceptButton = this.buttonGo;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(272, 56);
+			this.ClientSize = new System.Drawing.Size(272, 54);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.checkBoxCommandPrompt,
+																		  this.checkBoxWebsite,
 																		  this.buttonGo,
 																		  this.textBox1});
 			this.Name = "ShellLaunch";
@@ -135,26 +149,54 @@ namespace msn2.net.Controls
 
 		private void buttonGo_Click(object sender, System.EventArgs e)
 		{
-			Process p = new Process();
 
-			try
-			{
-				if (checkBoxCommandPrompt.Checked)
+				try
 				{
-					p.StartInfo = new ProcessStartInfo("cmd.exe", @"/k " + textBox1.Text);
-				}
-				else
-				{
-					p.StartInfo = new ProcessStartInfo(textBox1.Text);				
-				}
-				p.Start();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message, "Error starting program", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+					if (checkBoxCommandPrompt.Checked)
+					{
+					
+						Process p = new Process();
 
-			this.textBox1.SelectAll();
+						if (textBox1.Text.Length == 0)
+						{
+							p.StartInfo = new ProcessStartInfo("cmd.exe", @"");
+						}
+						else if (checkBoxCommandPrompt.Checked)
+						{
+							p.StartInfo = new ProcessStartInfo("cmd.exe", @"/k " + textBox1.Text);
+						}
+						else
+						{
+							p.StartInfo = new ProcessStartInfo(textBox1.Text);				
+						}
+
+						p.Start();
+					
+					}
+					// start browser
+					else
+					{
+						
+						if (!textBox1.Text.Substring(0, 4).Equals("http"))
+						{
+							textBox1.Text = "http://" + textBox1.Text;
+						}
+
+						Data newData = Data.Get(textBox1.Text, textBox1.Text, new FavoriteConfigData(), typeof(FavoriteConfigData));
+
+						WebBrowser browser = new WebBrowser(newData);
+						browser.AddNewTab(newData.Text, newData.Url);
+						browser.Show();
+
+					}
+
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message, "Error starting program", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+
+		this.textBox1.SelectAll();
 		}
 
 		#endregion
@@ -177,6 +219,22 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
+
+		private void textBox1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+		{
+			if (e.Control && e.KeyCode == Keys.Enter)
+			{
+				textBox1.Text = "www." + textBox1.Text + ".com";
+				e.Handled = true;
+				buttonGo_Click(sender, EventArgs.Empty);
+			}
+		}
+
+		private void checkBoxCommandPrompt_CheckedChanged(object sender, System.EventArgs e)
+		{
+			checkBoxWebsite.Checked = !checkBoxCommandPrompt.Checked;
+		}
+
 	}
 }
 

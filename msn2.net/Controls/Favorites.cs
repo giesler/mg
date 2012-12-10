@@ -311,6 +311,13 @@ namespace msn2.net.Controls
 
 		public FavoriteConfigData()
 		{
+//			base.AddShellAction(new ShellAction("Open", "Opens link in new browser window", "", new EventHandler(OnOpen)));
+		}
+
+		public void OnOpen(object sender, ConfigDataAddEventArgs e)
+		{
+			WebBrowser webBrowser = new WebBrowser(e.Parent.Text, e.Parent.Url);
+			webBrowser.Show();
 		}
 
 		#region Add

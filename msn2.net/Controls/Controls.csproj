@@ -374,6 +374,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "ShellQuestion.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellQuestion.resx"
+                    DependentUpon = "ShellQuestion.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "ShellSave.cs"
                     SubType = "Form"
                     BuildAction = "Compile"

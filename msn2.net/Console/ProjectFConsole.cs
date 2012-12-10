@@ -135,15 +135,16 @@ namespace msn2.net.ProjectF
 			// 
 			// panelFormList
 			// 
+			this.panelFormList.AutoScroll = true;
 			this.panelFormList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelFormList.Name = "panelFormList";
-			this.panelFormList.Size = new System.Drawing.Size(192, 158);
+			this.panelFormList.Size = new System.Drawing.Size(192, 182);
 			this.panelFormList.TabIndex = 5;
 			// 
 			// ProjectFConsole
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(192, 158);
+			this.ClientSize = new System.Drawing.Size(192, 182);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.panelFormList,
 																		  this.listView1});
@@ -373,7 +374,7 @@ namespace msn2.net.ProjectF
 			browser.AddStaticTab("Technology", String.Format(baseUrl, 5, new TimeSpan(1, 0, 8)));
 			browser.AddStaticTab("TV News", String.Format(baseUrl, 6, new TimeSpan(1, 0, 10)));
 			browser.AddStaticTab("Opinions", String.Format(baseUrl, 7, new TimeSpan(3, 0, 0)));
-			browser.Show();
+//			browser.Show();
 				
 			baseUrl = "http://home.msn2.net/weather.aspx?aid={0}";
             browser = new WebBrowser(ConfigurationSettings.Current.Data.Get("MSNBCWeather"), "MSNBC Weather", 397, 200);
@@ -382,7 +383,10 @@ namespace msn2.net.ProjectF
 			browser.AddStaticTab("Kirkland", String.Format(baseUrl, "WAKI", new TimeSpan(0, 30, 1)));
 			browser.AddStaticTab("Seattle", String.Format(baseUrl, "SEA"), new TimeSpan(2, 0, 0));
 			browser.AddStaticTab("Madison", String.Format(baseUrl, "MSN"), new TimeSpan(2, 0, 2));
-			browser.Show();
+//			browser.Show();
+
+//			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
+//			player.Show();
 
 			Favorites favs = new Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
 			favs.Show();
@@ -401,6 +405,8 @@ namespace msn2.net.ProjectF
 			{
 				item.ShellForm.ForceLayout();
 			}
+
+			this.RolledUp = false;
 
 			status.Dispose();	
 		

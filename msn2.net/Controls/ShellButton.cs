@@ -80,17 +80,24 @@ namespace msn2.net.Controls
 				string text = this.Text.Replace("&", "");
 
 				bool cutOff = false;
-				while (e.Graphics.MeasureString(text, this.Font).Width > e.ClipRectangle.Width)
+				try
 				{
-					if (!cutOff)
+					while (e.Graphics.MeasureString(text, this.Font).Width > e.ClipRectangle.Width)
 					{
-						cutOff = true;
-						text = text + text.Substring(0, text.Length - 3) +  "...";
+						if (!cutOff)
+						{
+							cutOff = true;
+							text = text + text.Substring(0, text.Length - 3) +  "...";
+						}
+						else
+						{
+							text = text.Substring(0, text.Length - 5) + "...";
+						}
 					}
-					else
-					{
-						text = text.Substring(0, text.Length - 5) + "...";
-					}
+				}
+				catch (Exception)
+				{
+					// BUGBUG - in above code, text.substring is probably cutting off more then 'text'
 				}
 
 				e.Graphics.DrawString(text, this.Font, new SolidBrush(Color.Black), e.ClipRectangle, format);
