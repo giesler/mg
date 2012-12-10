@@ -95,6 +95,24 @@ namespace HomeCalendarView {
         protected global::System.Web.UI.HtmlControls.HtmlTable currentConditionsTable;
         
         /// <summary>
+        /// selectKirkland control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton selectKirkland;
+        
+        /// <summary>
+        /// selectRandle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton selectRandle;
+        
+        /// <summary>
         /// currentTemp control.
         /// </summary>
         /// <remarks>

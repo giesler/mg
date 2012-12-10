@@ -20,12 +20,38 @@ using System.Web.Caching;
 
 namespace HomeCalendarView
 {
+    public class LocationData
+    {
+        public string Name { get; set; }
+        public decimal Lattitude { get; set; }
+        public decimal Longitude { get; set; }
+        public string NoaaCurrentConditionsLocation { get; set; }
+        public string NoaaCurrentAlertsLocation { get; set; }
+    }
+
     public partial class _Default : System.Web.UI.Page
     {
+        private LocationData currentLocation = null;
+        private List<LocationData> locations = new List<LocationData>();
+
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
+            LocationData kirkland = new LocationData { Name = "Kirland" };
+            kirkland.Lattitude = 47.6727M;
+            kirkland.Longitude = -122.187M;
+            kirkland.NoaaCurrentConditionsLocation = "KSEA";
+            kirkland.NoaaCurrentAlertsLocation = "WAZ505";
+            this.locations.Add(kirkland);
+
+            //LocationData randle = new LocationData { Name = "Randle" };
+            //randle.Lattitude = 46.4797M;
+            //randle.Longitude = -121.822M;
+            //randle.NoaaCurrentConditionsLocation = "WAZ519";
+            //randle.NoaaCurrentAlertsLocation = "WAZ519";
+            //this.locations.Add(randle);
+            
             this.lastUpdateTime.Text = "Last update: " + DateTime.Now.ToShortTimeString();
             this.dataLoadTimer.Enabled = false;
             this.dataLoadTimer.Tick += new EventHandler<EventArgs>(dataLoadTimer_Tick);
@@ -38,6 +64,27 @@ namespace HomeCalendarView
             this.day2Label.Text = DateTime.Now.AddDays(2).ToString("dddd").ToLower();
             this.day3Label.Text = DateTime.Now.AddDays(3).ToString("dddd").ToLower();
             this.day4Label.Text = DateTime.Now.AddDays(4).ToString("dddd").ToLower();
+
+            if (this.IsPostBack == false)
+            {
+                this.onCityClick(this.selectKirkland, EventArgs.Empty);
+            }
+            else
+            {
+                //if (this.selectKirkland.Font.Bold)
+                {
+                    this.currentLocation = this.locations[0];
+                }
+                //else
+                //{
+                //    this.currentLocation = this.locations[1];
+                //}
+            }
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
             Trace.Write("Current weather");
             DisplayCurrent();
@@ -79,35 +126,40 @@ namespace HomeCalendarView
             this.forecastPanel.Visible = true;
         }
 
+        string CacheName(string key)
+        {
+            return this.currentLocation.Name + "." + key;
+        }
+
         private void LoadForecast(object sender)
         {
             System.Web.Caching.Cache cache = (System.Web.Caching.Cache)sender;
 
             try
             {
-                decimal lat = 47.6727M;
-                decimal lng = -122.187M;
                 GovWeatherService.ndfdXML weatherService = new GovWeatherService.ndfdXML();
-                string xml = weatherService.NDFDgenByDay(lat, lng, DateTime.Now.Date, "7", GovWeatherService.formatType.Item12hourly);
-                cache.Add("forecastCache", xml, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                string xml = weatherService.NDFDgenByDay(this.currentLocation.Lattitude, 
+                    this.currentLocation.Longitude, DateTime.Now.Date, "7", GovWeatherService.formatType.Item12hourly);
+                cache.Add(this.CacheName("forecastCache"), xml, null, DateTime.Now.AddMinutes(20), 
+                    TimeSpan.Zero, CacheItemPriority.Normal, null);
             }
             finally
             {
-                cache.Remove("LoadForecast");
+                cache.Remove(this.CacheName("LoadForecast"));
             }
         }
 
         private void DisplayForecast()
         {
             string xml = null;
-            object cacheItem = HttpContext.Current.Cache["forecastCache"];
+            object cacheItem = HttpContext.Current.Cache[this.CacheName("forecastCache")];
             if (cacheItem == null)
             {
                 this.dataLoadTimer.Enabled = true;
 
-                if (base.Cache["LoadForecast"] == null)
+                if (base.Cache[this.CacheName("LoadForecast")] == null)
                 {
-                    base.Cache.Add("LoadForecast", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    base.Cache.Add(this.CacheName("LoadForecast"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
                     ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadForecast), HttpContext.Current.Cache);
                 }
             }
@@ -213,19 +265,23 @@ namespace HomeCalendarView
 
             try
             {
-                WebRequest req = WebRequest.Create("http://www.wrh.noaa.gov/forecast/MapClick.php?site=sew&smap=1&textField1=47.67273&textField2=-122.18730&TextType=1");
+                string url = string.Format(
+                    "http://www.wrh.noaa.gov/forecast/MapClick.php?site=sew&smap=1&textField1={0}&textField2=-{1}&TextType=1",
+                    this.currentLocation.Lattitude,
+                    this.currentLocation.Longitude);
+                WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();
                 Stream st = response.GetResponseStream();
                 StreamReader sr = new StreamReader(st);
                 string fileContents = sr.ReadToEnd();
-                cache.Add("fcast2", fileContents, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+                cache.Add(this.CacheName("fcast2"), fileContents, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
                 sr.Close();
                 st.Close();
                 response.Close();
             }
             finally
             {
-                cache.Remove("LoadForecastDetails");
+                cache.Remove(this.CacheName("LoadForecastDetails"));
             }
         }
 
@@ -234,14 +290,14 @@ namespace HomeCalendarView
             Regex forecastDescriptionRegex = new Regex(@"((<b>(?<period>(\w| )+)\: </b>)(?<fcast>.+?))<br>");
 
             string fileContents = null;
-            object cacheItem = HttpContext.Current.Cache["fcast2"];
+            object cacheItem = HttpContext.Current.Cache[this.CacheName("fcast2")];
             if (cacheItem == null)
             {
                 this.dataLoadTimer.Enabled = true;
 
-                if (base.Cache["LoadForecastDetails"] == null)
+                if (base.Cache[this.CacheName("LoadForecastDetails")] == null)
                 {
-                    base.Cache.Add("LoadForecastDetails", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    base.Cache.Add(this.CacheName("LoadForecastDetails"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
                     ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadForecastDetails), HttpContext.Current.Cache);
                 }
             }
@@ -299,18 +355,18 @@ namespace HomeCalendarView
             public string Forecast;
         }
 
-        private static void GetLatLong(GovWeatherService.ndfdXML weatherService, out decimal lat, out decimal lng)
-        {
-            string latLongList = weatherService.LatLonListZipCode("98033");
+        //private static void GetLatLong(GovWeatherService.ndfdXML weatherService, string zip, out decimal lat, out decimal lng)
+        //{
+        //    string latLongList = weatherService.LatLonListZipCode(zip);
 
-            XmlDocument latLongDoc = new XmlDocument();
-            latLongDoc.LoadXml(latLongList);
-            latLongList = latLongDoc.DocumentElement.InnerText; ;
+        //    XmlDocument latLongDoc = new XmlDocument();
+        //    latLongDoc.LoadXml(latLongList);
+        //    latLongList = latLongDoc.DocumentElement.InnerText; ;
 
-            string[] latLongs = latLongList.Split(',');
-            lat = decimal.Parse(latLongs[0]);
-            lng = decimal.Parse(latLongs[1]);
-        }
+        //    string[] latLongs = latLongList.Split(',');
+        //    lat = decimal.Parse(latLongs[0]);
+        //    lng = decimal.Parse(latLongs[1]);
+        //}
 
         private void DisplayCalendar()
         {
@@ -356,27 +412,30 @@ namespace HomeCalendarView
 
             try
             {
+                string url = string.Format(
+                    "http://www.nws.noaa.gov/data/current_obs/{0}.xml",
+                    this.currentLocation.NoaaCurrentConditionsLocation);
                 XmlDocument doc = new XmlDocument();
-                doc.Load("http://www.nws.noaa.gov/data/current_obs/KSEA.xml");
-                cache.Add("current", doc, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+                doc.Load(url);
+                cache.Add(this.CacheName("current"), doc, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
             finally
             {
-                cache.Remove("LoadCurrent");
+                cache.Remove(this.CacheName("LoadCurrent"));
             }
         }
 
         private void DisplayCurrent()
         {
             XmlDocument doc = null;
-            object cacheItem = HttpContext.Current.Cache["current"];
+            object cacheItem = HttpContext.Current.Cache[this.CacheName("current")];
             if (cacheItem == null)
             {
                 this.dataLoadTimer.Enabled = true;
 
-                if (base.Cache["LoadCurrent"] == null)
+                if (base.Cache[this.CacheName("LoadCurrent")] == null)
                 {
-                    base.Cache.Add("LoadCurrent", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    base.Cache.Add(this.CacheName("LoadCurrent"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
                     ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadCurrent), HttpContext.Current.Cache);
                 }
             }
@@ -469,12 +528,15 @@ namespace HomeCalendarView
 
             try
             {
-                XElement alertFeed = XElement.Load("http://www.weather.gov/alerts/wwarssget.php?zone=WAZ505");
-                cache.Add("alerts", alertFeed, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+                string url = string.Format(
+                    "http://www.weather.gov/alerts/wwarssget.php?zone={0}",
+                    this.currentLocation.NoaaCurrentAlertsLocation);
+                XElement alertFeed = XElement.Load(url);
+                cache.Add(this.CacheName("alerts"), alertFeed, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
             finally
             {
-                cache.Remove("LoadAlerts");
+                cache.Remove(this.CacheName("LoadAlerts"));
             }
         }
 
@@ -482,14 +544,14 @@ namespace HomeCalendarView
 
         private void DisplayWeatherAlerts()
         {
-            object cacheItem = HttpContext.Current.Cache["alerts"];
+            object cacheItem = HttpContext.Current.Cache[this.CacheName("alerts")];
             if (cacheItem == null)
             {
                 this.dataLoadTimer.Enabled = true;
 
-                if (base.Cache["LoadAlerts"] == null)
+                if (base.Cache[this.CacheName("LoadAlerts")] == null)
                 {
-                    base.Cache.Add("LoadAlerts", DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                    base.Cache.Add(this.CacheName("LoadAlerts"), DateTime.Now, null, DateTime.Now.AddMinutes(1), TimeSpan.Zero, CacheItemPriority.Normal, null);
                     ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadAlerts), HttpContext.Current.Cache);
                 }
             }
@@ -650,28 +712,37 @@ namespace HomeCalendarView
                             else
                             {
                                 string recurrenceData = rowNode.Attributes["ows_RecurrenceData"].Value;
-                                XmlDocument recurDoc = new XmlDocument();
-                                recurDoc.LoadXml(recurrenceData);
-
-                                XmlNode repeatNode = recurDoc.SelectSingleNode("recurrence/rule/repeat");
-                                if (repeatNode != null)
+                                if (recurrenceData.IndexOf("recurrence") > 0)
                                 {
-                                    XmlNode weeklyNode = repeatNode.SelectSingleNode("weekly");
-                                    if (weeklyNode != null)
+                                    XmlDocument recurDoc = new XmlDocument();
+                                    recurDoc.LoadXml(recurrenceData);
+
+                                    XmlNode repeatNode = recurDoc.SelectSingleNode("recurrence/rule/repeat");
+                                    if (repeatNode != null)
                                     {
-                                        ProcessWeeklyRecurrence(items, title, id, location, eventDate, endDate, weeklyNode);
+                                        XmlNode weeklyNode = repeatNode.SelectSingleNode("weekly");
+                                        if (weeklyNode != null)
+                                        {
+                                            ProcessWeeklyRecurrence(items, title, id, location, eventDate, endDate, weeklyNode);
+                                        }
+                                        else
+                                        {
+                                            // TODO: Other patterns
+                                        }
                                     }
                                     else
                                     {
-                                        // TODO: Other patterns
+                                        //title = title + " (can't figure out actual date)";
+                                        //items.Add(new CalendarItem { Title = title, EventDate = DateTime.Now, EndDate = DateTime.Now });
                                     }
                                 }
                                 else
                                 {
-                                    //title = title + " (can't figure out actual date)";
-                                    //items.Add(new CalendarItem { Title = title, EventDate = DateTime.Now, EndDate = DateTime.Now });
+                                    if (recurrenceData.Contains("Every 2 week(s) on: Friday"))
+                                    {
+                                        ProcessWeeklyRecurrence(items, title, id, location, eventDate, endDate, null);
+                                    }
                                 }
-
                                 //="<recurrence><rule><firstDayOfWeek>su</firstDayOfWeek><repeat><weekly fr='TRUE' weekFrequency='2' /></repeat><repeatForever>FALSE</repeatForever></rule></recurrence>"
                             }
 
@@ -691,15 +762,27 @@ namespace HomeCalendarView
             string location, DateTime eventDate, DateTime endDate, XmlNode weeklyNode)
         {
             List<int> sundayOffsets = new List<int>();
-            CheckForWeekday(weeklyNode, sundayOffsets, 0, "su");
-            CheckForWeekday(weeklyNode, sundayOffsets, 1, "mo");
-            CheckForWeekday(weeklyNode, sundayOffsets, 2, "tu");
-            CheckForWeekday(weeklyNode, sundayOffsets, 3, "we");
-            CheckForWeekday(weeklyNode, sundayOffsets, 4, "th");
-            CheckForWeekday(weeklyNode, sundayOffsets, 5, "fr");
-            CheckForWeekday(weeklyNode, sundayOffsets, 6, "sa");
+            if (weeklyNode != null)
+            {
+                CheckForWeekday(weeklyNode, sundayOffsets, 0, "su");
+                CheckForWeekday(weeklyNode, sundayOffsets, 1, "mo");
+                CheckForWeekday(weeklyNode, sundayOffsets, 2, "tu");
+                CheckForWeekday(weeklyNode, sundayOffsets, 3, "we");
+                CheckForWeekday(weeklyNode, sundayOffsets, 4, "th");
+                CheckForWeekday(weeklyNode, sundayOffsets, 5, "fr");
+                CheckForWeekday(weeklyNode, sundayOffsets, 6, "sa");
+            }
+            else
+            {
+                // HACK: only works for Friday
+                sundayOffsets.Add(5);
+            }
 
-            int frequency = int.Parse(weeklyNode.Attributes["weekFrequency"].Value);
+            int frequency = 2;
+            if (weeklyNode != null)
+            {
+                frequency = int.Parse(weeklyNode.Attributes["weekFrequency"].Value);
+            }
 
             DateTime currentTime = eventDate;
             int dayOfWeek = (int)eventDate.DayOfWeek;
@@ -763,6 +846,22 @@ namespace HomeCalendarView
             XmlAttribute att = doc.CreateAttribute(name);
             att.Value = val;
             node.Attributes.Append(att);
+        }
+
+        protected void onCityClick(object sender, EventArgs e)
+        {
+            if (this.selectKirkland == sender)
+            {
+                this.currentLocation = this.locations[0];
+                this.selectRandle.Font.Bold = false;
+                this.selectKirkland.Font.Bold = true;
+            }
+            else
+            {
+                this.currentLocation = this.locations[1];
+                this.selectRandle.Font.Bold = true;
+                this.selectKirkland.Font.Bold = false;
+            }
         }
     }
 

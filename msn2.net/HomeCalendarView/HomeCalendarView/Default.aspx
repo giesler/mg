@@ -80,6 +80,10 @@
             font-size: 14pt;
             font-weight: bold;
         }
+        .cityName
+        {
+        	font-size: 8pt;
+        }
         .eventList
         {
             padding: 2px;
@@ -123,7 +127,8 @@
         }
     </style>
 </head>
-<body class="defaultText" style="border: solid 1px silver; padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
+<body class="defaultText" style="border: solid 1px silver; padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px">
     <form id="form1" runat="server">
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel runat="server" ID="updatePanel" RenderMode="Inline">
@@ -154,6 +159,11 @@
                                 visible="false">
                                 <tr>
                                     <td align="right" valign="top">
+                                        <asp:Panel runat=server Visible=false>
+                                        <asp:LinkButton runat="server" ID="selectKirkland" CssClass="cityName" Text="Kirkland" OnClick="onCityClick" />
+                                        &nbsp;|&nbsp;<asp:LinkButton runat="server" ID="selectRandle" CssClass="cityName" OnClick="onCityClick"
+                                            Text="Randle" />
+                                        </asp:Panel>
                                         <asp:Label runat="server" ID="currentTemp" CssClass="nowTemp">32</asp:Label>
                                         <br />
                                         <asp:Label runat="server" ID="tempUpdateTime" CssClass="propText" ForeColor="Gray" />
@@ -167,7 +177,9 @@
                                                 <td class="propText">
                                                     <asp:Label runat="server" ID="currentConditionText">Cloudy</asp:Label><br />
                                                     Wind:
-                                                    <div style="display: inline"><asp:Label runat="server" ID="windLabel" /></div><br />
+                                                    <div style="display: inline">
+                                                        <asp:Label runat="server" ID="windLabel" /></div>
+                                                    <br />
                                                     Wind chill:
                                                     <asp:Label runat="server" ID="windChill" /><br />
                                                     Visibility:
