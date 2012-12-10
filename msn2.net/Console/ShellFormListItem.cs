@@ -48,11 +48,15 @@ namespace msn2.net.ProjectF
 		{
 			if (shellForm.Visible)
 			{
-				this.shellButton1.StartColor = Color.Moccasin;
+				this.shellButton1.StartColor	= Color.DarkGray;
+				this.shellButton1.EndColor		= Color.Gray;
+				this.shellButton1.ForeColor		= Color.White;
 			}
 			else
 			{
-				this.shellButton1.StartColor = Color.LightGray;
+				this.shellButton1.StartColor	= Color.LightGray;
+				this.shellButton1.EndColor		= Color.Empty;
+				this.shellButton1.ForeColor		= Color.Black;
 			}
 		}
 

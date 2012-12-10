@@ -169,7 +169,7 @@
                 />
                 <File
                     RelPath = "ProjectFConsole.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File

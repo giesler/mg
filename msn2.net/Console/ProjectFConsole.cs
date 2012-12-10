@@ -389,13 +389,13 @@ namespace msn2.net.ProjectF
 //			player.Show();
 
 			Favorites favs = new Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
-			favs.Show();
+//			favs.Show();
 			ComputerInfo cInfo = new ComputerInfo(ConfigurationSettings.Current.Data.Get(Environment.MachineName));
-			cInfo.Show();
+//			cInfo.Show();
 			WebSearch webSearch = new WebSearch(ConfigurationSettings.Current.Data.Get("Search"));
 			webSearch.Show();
 			ShellLaunch shellLaunch = new ShellLaunch(ConfigurationSettings.Current.Data.Get("ShellLaunch"));
-			shellLaunch.Show();
+//			shellLaunch.Show();
 			
 			this.Left = Screen.PrimaryScreen.Bounds.Width / 2 - 50;
 			this.Top  = 3;
