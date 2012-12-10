@@ -33,6 +33,12 @@ namespace BarMonkey
             }
 
             BarMonkeyContext.Current.Login(9);
+
+            if (Environment.MachineName.ToLowerInvariant() == "chef")
+            {
+                this.frame.Height = 768;
+                this.frame.Width = 1024;
+            }
         }
     }
 }

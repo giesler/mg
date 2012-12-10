@@ -80,11 +80,11 @@
                             <EasingPointKeyFrame KeyTime="0:0:4" Value="0.5,1"/>
                             <EasingPointKeyFrame KeyTime="0:0:6" Value="0.5,0.5"/>
                         </PointAnimationUsingKeyFrames>-->
-                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[0].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
-                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[1].Color" Storyboard.TargetName="pourDrink" From="LightGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
-                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[2].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
-                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[3].Color" Storyboard.TargetName="pourDrink" From="LightGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
-                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[4].Color" Storyboard.TargetName="pourDrink" From="White" To="LightGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[0].Color" Storyboard.TargetName="pourDrink" From="White" To="ForestGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[1].Color" Storyboard.TargetName="pourDrink" From="ForestGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[2].Color" Storyboard.TargetName="pourDrink" From="White" To="ForestGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[3].Color" Storyboard.TargetName="pourDrink" From="ForestGreen" To="White" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
+                        <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[4].Color" Storyboard.TargetName="pourDrink" From="White" To="ForestGreen" Duration="0:0:2" RepeatBehavior="Forever" AutoReverse="True" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger.Actions>
@@ -113,7 +113,7 @@
         <ListBox Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="0,2,0,0" Background="Transparent" BorderBrush="Transparent" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,0,0,6" Name="item" Height="62" HorizontalAlignment="Stretch">
+                    <StackPanel Margin="0,0,0,1" Name="item" Height="62" HorizontalAlignment="Stretch">
                         <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Foreground="White" Name="drinkName" Background="Transparent" />
                         <TextBlock Text="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="6,-3,0,-3" Foreground="Silver" TextWrapping="WrapWithOverflow" Name="drinkDescription" Background="Transparent" />
                     </StackPanel>

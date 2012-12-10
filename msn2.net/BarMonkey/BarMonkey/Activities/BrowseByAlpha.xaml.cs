@@ -113,10 +113,10 @@ namespace msn2.net.BarMonkey.Activities
             this.lastInput = DateTime.Now;
 
             GradientStopCollection stops = new GradientStopCollection();
-            stops.Add(new GradientStop(Colors.LightGreen, 0.25));
+            stops.Add(new GradientStop(Colors.ForestGreen, 0.25));
             stops.Add(new GradientStop(Colors.White, 0));
             stops.Add(new GradientStop(Colors.White, 0.5));
-            stops.Add(new GradientStop(Colors.LightGreen, 0.75));
+            stops.Add(new GradientStop(Colors.ForestGreen, 0.75));
             stops.Add(new GradientStop(Colors.White, 1));
 
             if (this.IsItemSelected)

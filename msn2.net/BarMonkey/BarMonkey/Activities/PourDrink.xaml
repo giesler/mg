@@ -6,9 +6,9 @@
      >
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="305" />
             <ColumnDefinition />
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="305" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="64px" />

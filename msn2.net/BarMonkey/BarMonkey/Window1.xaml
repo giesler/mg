@@ -9,6 +9,6 @@
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<Frame Source="PartyModeMainPage.xaml" NavigationUIVisibility="Hidden" />
+		<Frame Source="PartyModeMainPage.xaml" NavigationUIVisibility="Hidden" Name="frame" />
 	</Grid>
 </Window>
