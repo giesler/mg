@@ -44,6 +44,10 @@ namespace msn2.net.ShoppingList
             if (this.settings == null)
             {
                 this.settings = new LocalSettings();
+            }
+
+            if (this.settings.Settings.ContainsKey("LastUpdate") == false)
+            {
                 this.settings.Settings.Add("LastUpdate", DateTime.MinValue.ToString());
             }
 
@@ -155,14 +159,14 @@ namespace msn2.net.ShoppingList
                 lastUpdate = DateTime.Parse(this.settings.Settings["LastUpdate"]);
             }
 
-            if (lastUpdate == DateTime.MinValue)
+            TimeSpan duration = DateTime.Now - lastUpdate;
+
+            if (lastUpdate == DateTime.MinValue || duration.TotalDays > 90)
             {
                 this.statusLabel.Text = "Last update: never";
             }
             else
             {
-                TimeSpan duration = DateTime.Now - lastUpdate;
-
                 string durationText = GetDurationString(duration);
 
                 this.statusLabel.Text = "Last update: " + durationText;
