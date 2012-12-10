@@ -240,27 +240,16 @@ namespace HomeCalendarView
                 XmlNode descriptionNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/weather");
                 XmlNode conditionsNode = weatherXml.DocumentElement.SelectSingleNode("data/parameters/conditions-icon");
 
-                this.todayHigh.ImageUrl = conditionsNode.ChildNodes[1].InnerText;
-                this.todayHigh.ImageAltText = descriptionNode.ChildNodes[1].Attributes["weather-summary"].Value;
-                this.todayLow.ImageUrl = conditionsNode.ChildNodes[2].InnerText;
-                this.todayLow.ImageAltText = descriptionNode.ChildNodes[2].Attributes["weather-summary"].Value;
-
-                this.day1High.ImageUrl = conditionsNode.ChildNodes[3 + offset].InnerText;
-                this.day1High.ImageAltText = descriptionNode.ChildNodes[3 + offset].Attributes["weather-summary"].Value;
-                this.day1Low.ImageUrl = conditionsNode.ChildNodes[4 + offset].InnerText;
-                this.day1Low.ImageAltText = descriptionNode.ChildNodes[4 + offset].Attributes["weather-summary"].Value;
-                this.day2High.ImageUrl = conditionsNode.ChildNodes[5 + offset].InnerText;
-                this.day2High.ImageAltText = descriptionNode.ChildNodes[5 + offset].Attributes["weather-summary"].Value;
-                this.day2Low.ImageUrl = conditionsNode.ChildNodes[6 + offset].InnerText;
-                this.day2Low.ImageAltText = descriptionNode.ChildNodes[6 + offset].Attributes["weather-summary"].Value;
-                this.day3High.ImageUrl = conditionsNode.ChildNodes[7 + offset].InnerText;
-                this.day3High.ImageAltText = descriptionNode.ChildNodes[7 + offset].Attributes["weather-summary"].Value;
-                this.day3Low.ImageUrl = conditionsNode.ChildNodes[8 + offset].InnerText;
-                this.day3Low.ImageAltText = descriptionNode.ChildNodes[8 + offset].Attributes["weather-summary"].Value;
-                this.day4High.ImageUrl = conditionsNode.ChildNodes[9 + offset].InnerText;
-                this.day4High.ImageAltText = descriptionNode.ChildNodes[9 + offset].Attributes["weather-summary"].Value;
-                this.day4Low.ImageUrl = conditionsNode.ChildNodes[10 + offset].InnerText;
-                this.day4Low.ImageAltText = descriptionNode.ChildNodes[10 + offset].Attributes["weather-summary"].Value;
+                SetImageProperties(this.todayHigh, conditionsNode.ChildNodes[1]);
+                SetImageProperties(this.todayLow, conditionsNode.ChildNodes[2]);
+                SetImageProperties(this.day1High, conditionsNode.ChildNodes[3]);
+                SetImageProperties(this.day1Low, conditionsNode.ChildNodes[4]);
+                SetImageProperties(this.day2High, conditionsNode.ChildNodes[5]);
+                SetImageProperties(this.day2Low, conditionsNode.ChildNodes[6]);
+                SetImageProperties(this.day3High, conditionsNode.ChildNodes[7]);
+                SetImageProperties(this.day3High, conditionsNode.ChildNodes[8]);
+                SetImageProperties(this.day4High, conditionsNode.ChildNodes[9]);
+                SetImageProperties(this.day4Low, conditionsNode.ChildNodes[10]);
             }
             else
             {
@@ -276,6 +265,20 @@ namespace HomeCalendarView
                 this.day3Low.Visible = false;
                 this.day4High.Visible = false;
                 this.day4Low.Visible = false;
+            }
+        }
+
+        void SetImageProperties(ForecastItem item, XmlNode node)
+        {
+            if (node != null)
+            {
+                item.ImageUrl = node.InnerText;
+
+                XmlAttribute att = node.Attributes["weather-sumary"];
+                if (att != null)
+                {
+                    item.ImageAltText = att.Value;
+                }
             }
         }
 
