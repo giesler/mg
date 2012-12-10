@@ -78,13 +78,22 @@ namespace msn2.net.BarMonkey.Activities
 
         private void SelectBlock(TextBlock block)
         {
-            if (selectedBlock != null)
+            foreach (TextBlock temp in this.blocks)
             {
-                selectedBlock.FontSize = 16;
+                temp.Foreground = new SolidColorBrush(Colors.Gray);
+                temp.FontSize = 16;
+                temp.Padding = new Thickness(10.0);
+                temp.FontWeight = FontWeights.Normal;
+                temp.VerticalAlignment = VerticalAlignment.Center;
             }
 
             this.selectedBlock = block;
-            this.selectedBlock.FontSize = 20;
+            if (selectedBlock != null)
+            {
+                this.selectedBlock.FontSize = 22;
+                this.selectedBlock.Foreground = new SolidColorBrush(Colors.White);
+                this.selectedBlock.FontWeight = FontWeights.Bold;
+            }
 
             string[] searchStrings = this.selectedBlock.Tag.ToString().Split(',');
             char[] searchChars = new char[searchStrings.Length];
@@ -108,12 +117,12 @@ namespace msn2.net.BarMonkey.Activities
             Drink drink = this.drinkList.SelectedItem as Drink;
             if (drink == null)
             {
-                this.description.Content = string.Empty;
+                this.description.Text = string.Empty;
                 this.navBar.NextEnabled = false;
             }
             else
             {
-                this.description.Content = drink.Description;
+                this.description.Text = drink.Description;
                 this.navBar.NextEnabled = true;
             }
         }

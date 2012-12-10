@@ -22,7 +22,7 @@
             <RowDefinition Height="196*" />
             <RowDefinition Height="42*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="&lt;" Name="previousLetters" Click="previousLetters_Click" />
             <TextBlock Name="blockA" Text="A B C" Style="{DynamicResource alphaButtonUnselected}" Tag="a,b,c" />
             <TextBlock Name="blockD" Text="D - G" Style="{DynamicResource alphaButtonUnselected}" Tag="d,e,f,g" />
@@ -32,14 +32,14 @@
             <TextBlock Name="blockU" Text="U - 9" Style="{DynamicResource alphaButtonUnselected}" Tag="u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9" />
             <Button Content="&gt;" Name="nextLetters" Click="nextLetters_Click" />
         </StackPanel>
-        <ListBox Grid.Row="1" Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Background="Transparent" Style="{DynamicResource DefaultTextStyle}">
+        <ListBox Grid.Row="1" Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Grid.Row="1" Grid.Column="1" Name="description" Margin="5" Style="{DynamicResource DefaultTextStyle}">Description of the drink goes here!</Label>
+        <TextBlock Grid.Row="1" Grid.Column="1" Name="description" Margin="5" Style="{DynamicResource DefaultTextBlockStyle}">Description of the drink goes here!</TextBlock>
         <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="2" x:Name="navBar" />
     </Grid>
 </Page>

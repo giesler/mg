@@ -33,6 +33,9 @@ namespace msn2.net.BarMonkey.Activities
 
             this.top5.ItemsSource = drinks.Take<Drink>(5);
             this.next5.ItemsSource = drinks.Skip<Drink>(5);
+
+            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
+            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

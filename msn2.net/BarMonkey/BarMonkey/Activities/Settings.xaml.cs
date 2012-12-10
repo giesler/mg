@@ -37,5 +37,10 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.NavigationService.Navigate(new SearchDrinks());
         }
+
+        private void relay_Click(object sender, RoutedEventArgs e)
+        {
+            base.NavigationService.Navigate(new RelaySettings());
+        }
     }
 }

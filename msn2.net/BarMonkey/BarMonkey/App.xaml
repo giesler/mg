@@ -7,8 +7,18 @@
         <Style x:Key="DefaultTextStyle" TargetType="Control">
             <Setter Property="Foreground" Value="White" />
         </Style>
+        <Style x:Key="DefaultLabelListBoxStyle" TargetType="ListBox">
+            <Setter Property="Opacity" Value="0.90" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="12pt" />
+        </Style>
         <Style x:Key="DefaultDescriptionTextStyle" TargetType="Control" BasedOn="{StaticResource DefaultTextStyle}">
             <Setter Property="FontSize" Value="14pt" />
+        </Style>
+        <Style x:Key="DefaultTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14pt" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
         <Style x:Key="DefaultColumnHeaderStyle" TargetType="Label">
             <Setter Property="Foreground" Value="White" />
@@ -29,6 +39,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="FontStretch" Value="Normal"/>
+            <Setter Property="FontSize" Value="14pt" />
             <Setter Property="MinHeight" Value="60" />
             <Setter Property="MinWidth" Value="40" />
         </Style>
@@ -39,6 +50,7 @@
             <Setter Property="RenderTransformOrigin" Value="0,0" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14pt" />
             <Setter Property="OpacityMask">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">

@@ -39,15 +39,11 @@ namespace BarMonkey.Activities
         {
             if (this.selectView.SelectedIndex == 0)
             {
-                this.ingredientList.ItemsSource = from i in BarMonkeyContext.Current.Data.Ingredients
-                                                  orderby i.Name ascending
-                                                  select i;
+                this.ingredientList.ItemsSource = BarMonkeyContext.Current.Ingredients.GetByName();
             }
             else
             {
-                this.ingredientList.ItemsSource = from i in BarMonkeyContext.Current.Data.Ingredients
-                                                  orderby i.RemainingOunces ascending
-                                                  select i;
+                this.ingredientList.ItemsSource = BarMonkeyContext.Current.Ingredients.GetByAmount();
             }
         }
 

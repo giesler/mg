@@ -39,9 +39,6 @@ namespace msn2.net.BarMonkey
     partial void InsertDrinkIngredient(DrinkIngredient instance);
     partial void UpdateDrinkIngredient(DrinkIngredient instance);
     partial void DeleteDrinkIngredient(DrinkIngredient instance);
-    partial void InsertIngredient(Ingredient instance);
-    partial void UpdateIngredient(Ingredient instance);
-    partial void DeleteIngredient(Ingredient instance);
     partial void InsertIngredientSubstitute(IngredientSubstitute instance);
     partial void UpdateIngredientSubstitute(IngredientSubstitute instance);
     partial void DeleteIngredientSubstitute(IngredientSubstitute instance);
@@ -60,6 +57,9 @@ namespace msn2.net.BarMonkey
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertIngredient(Ingredient instance);
+    partial void UpdateIngredient(Ingredient instance);
+    partial void DeleteIngredient(Ingredient instance);
     #endregion
 		
 		public BarMonkeyDataContext() : 
@@ -116,14 +116,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		public System.Data.Linq.Table<Ingredient> Ingredients
-		{
-			get
-			{
-				return this.GetTable<Ingredient>();
-			}
-		}
-		
 		public System.Data.Linq.Table<IngredientSubstitute> IngredientSubstitutes
 		{
 			get
@@ -169,6 +161,14 @@ namespace msn2.net.BarMonkey
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Ingredient> Ingredients
+		{
+			get
+			{
+				return this.GetTable<Ingredient>();
 			}
 		}
 		
@@ -926,389 +926,6 @@ namespace msn2.net.BarMonkey
 		}
 	}
 	
-	[Table(Name="dbo.Ingredient")]
-	public partial class Ingredient : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Description;
-		
-		private System.Nullable<byte> _RelayId;
-		
-		private decimal _RemainingOunces;
-		
-		private bool _IsAlchohol;
-		
-		private System.Nullable<decimal> _WarningThreshold;
-		
-		private bool _IsPerishable;
-		
-		private EntitySet<DrinkIngredient> _DrinkIngredients;
-		
-		private EntitySet<IngredientSubstitute> _IngredientSubstitutes;
-		
-		private EntitySet<IngredientSubstitute> _IngredientSubstitutes1;
-		
-		private EntitySet<UserDrinkIngredientHistory> _UserDrinkIngredientHistories;
-		
-		private EntityRef<Relay> _Relay;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnRelayIdChanging(System.Nullable<byte> value);
-    partial void OnRelayIdChanged();
-    partial void OnRemainingOuncesChanging(decimal value);
-    partial void OnRemainingOuncesChanged();
-    partial void OnIsAlchoholChanging(bool value);
-    partial void OnIsAlchoholChanged();
-    partial void OnWarningThresholdChanging(System.Nullable<decimal> value);
-    partial void OnWarningThresholdChanged();
-    partial void OnIsPerishableChanging(bool value);
-    partial void OnIsPerishableChanged();
-    #endregion
-		
-		public Ingredient()
-		{
-			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
-			this._IngredientSubstitutes = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes));
-			this._IngredientSubstitutes1 = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes1), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes1));
-			this._UserDrinkIngredientHistories = new EntitySet<UserDrinkIngredientHistory>(new Action<UserDrinkIngredientHistory>(this.attach_UserDrinkIngredientHistories), new Action<UserDrinkIngredientHistory>(this.detach_UserDrinkIngredientHistories));
-			this._Relay = default(EntityRef<Relay>);
-			OnCreated();
-		}
-		
-		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Description", DbType="NVarChar(512) NOT NULL", CanBeNull=false)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RelayId", DbType="TinyInt")]
-		public System.Nullable<byte> RelayId
-		{
-			get
-			{
-				return this._RelayId;
-			}
-			set
-			{
-				if ((this._RelayId != value))
-				{
-					if (this._Relay.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRelayIdChanging(value);
-					this.SendPropertyChanging();
-					this._RelayId = value;
-					this.SendPropertyChanged("RelayId");
-					this.OnRelayIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RemainingOunces", DbType="Decimal(3,3) NOT NULL")]
-		public decimal RemainingOunces
-		{
-			get
-			{
-				return this._RemainingOunces;
-			}
-			set
-			{
-				if ((this._RemainingOunces != value))
-				{
-					this.OnRemainingOuncesChanging(value);
-					this.SendPropertyChanging();
-					this._RemainingOunces = value;
-					this.SendPropertyChanged("RemainingOunces");
-					this.OnRemainingOuncesChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsAlchohol", DbType="Bit NOT NULL")]
-		public bool IsAlchohol
-		{
-			get
-			{
-				return this._IsAlchohol;
-			}
-			set
-			{
-				if ((this._IsAlchohol != value))
-				{
-					this.OnIsAlchoholChanging(value);
-					this.SendPropertyChanging();
-					this._IsAlchohol = value;
-					this.SendPropertyChanged("IsAlchohol");
-					this.OnIsAlchoholChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_WarningThreshold", DbType="Decimal(3,3)")]
-		public System.Nullable<decimal> WarningThreshold
-		{
-			get
-			{
-				return this._WarningThreshold;
-			}
-			set
-			{
-				if ((this._WarningThreshold != value))
-				{
-					this.OnWarningThresholdChanging(value);
-					this.SendPropertyChanging();
-					this._WarningThreshold = value;
-					this.SendPropertyChanged("WarningThreshold");
-					this.OnWarningThresholdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsPerishable", DbType="Bit NOT NULL")]
-		public bool IsPerishable
-		{
-			get
-			{
-				return this._IsPerishable;
-			}
-			set
-			{
-				if ((this._IsPerishable != value))
-				{
-					this.OnIsPerishableChanging(value);
-					this.SendPropertyChanging();
-					this._IsPerishable = value;
-					this.SendPropertyChanged("IsPerishable");
-					this.OnIsPerishableChanged();
-				}
-			}
-		}
-		
-		[Association(Name="Ingredient_DrinkIngredient", Storage="_DrinkIngredients", OtherKey="IngredientId")]
-		public EntitySet<DrinkIngredient> DrinkIngredients
-		{
-			get
-			{
-				return this._DrinkIngredients;
-			}
-			set
-			{
-				this._DrinkIngredients.Assign(value);
-			}
-		}
-		
-		[Association(Name="Ingredient_IngredientSubstitute", Storage="_IngredientSubstitutes", OtherKey="IngredientId")]
-		public EntitySet<IngredientSubstitute> IngredientSubstitutes
-		{
-			get
-			{
-				return this._IngredientSubstitutes;
-			}
-			set
-			{
-				this._IngredientSubstitutes.Assign(value);
-			}
-		}
-		
-		[Association(Name="Ingredient_IngredientSubstitute1", Storage="_IngredientSubstitutes1", OtherKey="SubstitueIngredientId")]
-		public EntitySet<IngredientSubstitute> IngredientSubstitutes1
-		{
-			get
-			{
-				return this._IngredientSubstitutes1;
-			}
-			set
-			{
-				this._IngredientSubstitutes1.Assign(value);
-			}
-		}
-		
-		[Association(Name="Ingredient_UserDrinkIngredientHistory", Storage="_UserDrinkIngredientHistories", OtherKey="IngredientId")]
-		public EntitySet<UserDrinkIngredientHistory> UserDrinkIngredientHistories
-		{
-			get
-			{
-				return this._UserDrinkIngredientHistories;
-			}
-			set
-			{
-				this._UserDrinkIngredientHistories.Assign(value);
-			}
-		}
-		
-		[Association(Name="Relay_Ingredient", Storage="_Relay", ThisKey="RelayId", IsForeignKey=true)]
-		public Relay Relay
-		{
-			get
-			{
-				return this._Relay.Entity;
-			}
-			set
-			{
-				Relay previousValue = this._Relay.Entity;
-				if (((previousValue != value) 
-							|| (this._Relay.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Relay.Entity = null;
-						previousValue.Ingredients.Remove(this);
-					}
-					this._Relay.Entity = value;
-					if ((value != null))
-					{
-						value.Ingredients.Add(this);
-						this._RelayId = value.Id;
-					}
-					else
-					{
-						this._RelayId = default(Nullable<byte>);
-					}
-					this.SendPropertyChanged("Relay");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DrinkIngredients(DrinkIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = this;
-		}
-		
-		private void detach_DrinkIngredients(DrinkIngredient entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = null;
-		}
-		
-		private void attach_IngredientSubstitutes(IngredientSubstitute entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = this;
-		}
-		
-		private void detach_IngredientSubstitutes(IngredientSubstitute entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = null;
-		}
-		
-		private void attach_IngredientSubstitutes1(IngredientSubstitute entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient1 = this;
-		}
-		
-		private void detach_IngredientSubstitutes1(IngredientSubstitute entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient1 = null;
-		}
-		
-		private void attach_UserDrinkIngredientHistories(UserDrinkIngredientHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = this;
-		}
-		
-		private void detach_UserDrinkIngredientHistories(UserDrinkIngredientHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Ingredient = null;
-		}
-	}
-	
 	[Table(Name="dbo.IngredientSubstitute")]
 	public partial class IngredientSubstitute : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1875,9 +1492,9 @@ namespace msn2.net.BarMonkey
 		
 		private int _Sequence;
 		
-		private EntityRef<Ingredient> _Ingredient;
-		
 		private EntityRef<UserDrinkHistory> _UserDrinkHistory;
+		
+		private EntityRef<Ingredient> _Ingredient;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1897,8 +1514,8 @@ namespace msn2.net.BarMonkey
 		
 		public UserDrinkIngredientHistory()
 		{
-			this._Ingredient = default(EntityRef<Ingredient>);
 			this._UserDrinkHistory = default(EntityRef<UserDrinkHistory>);
+			this._Ingredient = default(EntityRef<Ingredient>);
 			OnCreated();
 		}
 		
@@ -2010,40 +1627,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		[Association(Name="Ingredient_UserDrinkIngredientHistory", Storage="_Ingredient", ThisKey="IngredientId", IsForeignKey=true)]
-		public Ingredient Ingredient
-		{
-			get
-			{
-				return this._Ingredient.Entity;
-			}
-			set
-			{
-				Ingredient previousValue = this._Ingredient.Entity;
-				if (((previousValue != value) 
-							|| (this._Ingredient.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Ingredient.Entity = null;
-						previousValue.UserDrinkIngredientHistories.Remove(this);
-					}
-					this._Ingredient.Entity = value;
-					if ((value != null))
-					{
-						value.UserDrinkIngredientHistories.Add(this);
-						this._IngredientId = value.Id;
-					}
-					else
-					{
-						this._IngredientId = default(int);
-					}
-					this.SendPropertyChanged("Ingredient");
-				}
-			}
-		}
-		
 		[Association(Name="UserDrinkHistory_UserDrinkIngredientHistory", Storage="_UserDrinkHistory", ThisKey="UserDrinkHistoryId", IsForeignKey=true)]
 		public UserDrinkHistory UserDrinkHistory
 		{
@@ -2074,6 +1657,40 @@ namespace msn2.net.BarMonkey
 						this._UserDrinkHistoryId = default(int);
 					}
 					this.SendPropertyChanged("UserDrinkHistory");
+				}
+			}
+		}
+		
+		[Association(Name="Ingredient_UserDrinkIngredientHistory", Storage="_Ingredient", ThisKey="IngredientId", IsForeignKey=true)]
+		public Ingredient Ingredient
+		{
+			get
+			{
+				return this._Ingredient.Entity;
+			}
+			set
+			{
+				Ingredient previousValue = this._Ingredient.Entity;
+				if (((previousValue != value) 
+							|| (this._Ingredient.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ingredient.Entity = null;
+						previousValue.UserDrinkIngredientHistories.Remove(this);
+					}
+					this._Ingredient.Entity = value;
+					if ((value != null))
+					{
+						value.UserDrinkIngredientHistories.Add(this);
+						this._IngredientId = value.Id;
+					}
+					else
+					{
+						this._IngredientId = default(int);
+					}
+					this.SendPropertyChanged("Ingredient");
 				}
 			}
 		}
@@ -2516,6 +2133,437 @@ namespace msn2.net.BarMonkey
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[Table(Name="dbo.Ingredient")]
+	public partial class Ingredient : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private System.Nullable<byte> _RelayId;
+		
+		private decimal _RemainingOunces;
+		
+		private bool _IsAlchohol;
+		
+		private System.Nullable<decimal> _WarningThreshold;
+		
+		private bool _IsPerishable;
+		
+		private int _ContainerOunces;
+		
+		private System.Nullable<System.DateTime> _LastFilled;
+		
+		private EntitySet<DrinkIngredient> _DrinkIngredients;
+		
+		private EntitySet<IngredientSubstitute> _IngredientSubstitutes;
+		
+		private EntitySet<IngredientSubstitute> _IngredientSubstitutes1;
+		
+		private EntitySet<UserDrinkIngredientHistory> _UserDrinkIngredientHistories;
+		
+		private EntityRef<Relay> _Relay;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnRelayIdChanging(System.Nullable<byte> value);
+    partial void OnRelayIdChanged();
+    partial void OnRemainingOuncesChanging(decimal value);
+    partial void OnRemainingOuncesChanged();
+    partial void OnIsAlchoholChanging(bool value);
+    partial void OnIsAlchoholChanged();
+    partial void OnWarningThresholdChanging(System.Nullable<decimal> value);
+    partial void OnWarningThresholdChanged();
+    partial void OnIsPerishableChanging(bool value);
+    partial void OnIsPerishableChanged();
+    partial void OnContainerOuncesChanging(int value);
+    partial void OnContainerOuncesChanged();
+    partial void OnLastFilledChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastFilledChanged();
+    #endregion
+		
+		public Ingredient()
+		{
+			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
+			this._IngredientSubstitutes = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes));
+			this._IngredientSubstitutes1 = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes1), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes1));
+			this._UserDrinkIngredientHistories = new EntitySet<UserDrinkIngredientHistory>(new Action<UserDrinkIngredientHistory>(this.attach_UserDrinkIngredientHistories), new Action<UserDrinkIngredientHistory>(this.detach_UserDrinkIngredientHistories));
+			this._Relay = default(EntityRef<Relay>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Description", DbType="NVarChar(512) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RelayId", DbType="TinyInt NOT NULL")]
+		public System.Nullable<byte> RelayId
+		{
+			get
+			{
+				return this._RelayId;
+			}
+			set
+			{
+				if ((this._RelayId != value))
+				{
+					if (this._Relay.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRelayIdChanging(value);
+					this.SendPropertyChanging();
+					this._RelayId = value;
+					this.SendPropertyChanged("RelayId");
+					this.OnRelayIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RemainingOunces", DbType="Decimal(3,3) NOT NULL")]
+		public decimal RemainingOunces
+		{
+			get
+			{
+				return this._RemainingOunces;
+			}
+			set
+			{
+				if ((this._RemainingOunces != value))
+				{
+					this.OnRemainingOuncesChanging(value);
+					this.SendPropertyChanging();
+					this._RemainingOunces = value;
+					this.SendPropertyChanged("RemainingOunces");
+					this.OnRemainingOuncesChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsAlchohol", DbType="Bit NOT NULL")]
+		public bool IsAlchohol
+		{
+			get
+			{
+				return this._IsAlchohol;
+			}
+			set
+			{
+				if ((this._IsAlchohol != value))
+				{
+					this.OnIsAlchoholChanging(value);
+					this.SendPropertyChanging();
+					this._IsAlchohol = value;
+					this.SendPropertyChanged("IsAlchohol");
+					this.OnIsAlchoholChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_WarningThreshold", DbType="Decimal(3,3)")]
+		public System.Nullable<decimal> WarningThreshold
+		{
+			get
+			{
+				return this._WarningThreshold;
+			}
+			set
+			{
+				if ((this._WarningThreshold != value))
+				{
+					this.OnWarningThresholdChanging(value);
+					this.SendPropertyChanging();
+					this._WarningThreshold = value;
+					this.SendPropertyChanged("WarningThreshold");
+					this.OnWarningThresholdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsPerishable", DbType="Bit NOT NULL")]
+		public bool IsPerishable
+		{
+			get
+			{
+				return this._IsPerishable;
+			}
+			set
+			{
+				if ((this._IsPerishable != value))
+				{
+					this.OnIsPerishableChanging(value);
+					this.SendPropertyChanging();
+					this._IsPerishable = value;
+					this.SendPropertyChanged("IsPerishable");
+					this.OnIsPerishableChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ContainerOunces", DbType="Int NOT NULL")]
+		public int ContainerOunces
+		{
+			get
+			{
+				return this._ContainerOunces;
+			}
+			set
+			{
+				if ((this._ContainerOunces != value))
+				{
+					this.OnContainerOuncesChanging(value);
+					this.SendPropertyChanging();
+					this._ContainerOunces = value;
+					this.SendPropertyChanged("ContainerOunces");
+					this.OnContainerOuncesChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LastFilled", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> LastFilled
+		{
+			get
+			{
+				return this._LastFilled;
+			}
+			set
+			{
+				if ((this._LastFilled != value))
+				{
+					this.OnLastFilledChanging(value);
+					this.SendPropertyChanging();
+					this._LastFilled = value;
+					this.SendPropertyChanged("LastFilled");
+					this.OnLastFilledChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Ingredient_DrinkIngredient", Storage="_DrinkIngredients", OtherKey="IngredientId")]
+		public EntitySet<DrinkIngredient> DrinkIngredients
+		{
+			get
+			{
+				return this._DrinkIngredients;
+			}
+			set
+			{
+				this._DrinkIngredients.Assign(value);
+			}
+		}
+		
+		[Association(Name="Ingredient_IngredientSubstitute", Storage="_IngredientSubstitutes", OtherKey="IngredientId")]
+		public EntitySet<IngredientSubstitute> IngredientSubstitutes
+		{
+			get
+			{
+				return this._IngredientSubstitutes;
+			}
+			set
+			{
+				this._IngredientSubstitutes.Assign(value);
+			}
+		}
+		
+		[Association(Name="Ingredient_IngredientSubstitute1", Storage="_IngredientSubstitutes1", OtherKey="SubstitueIngredientId")]
+		public EntitySet<IngredientSubstitute> IngredientSubstitutes1
+		{
+			get
+			{
+				return this._IngredientSubstitutes1;
+			}
+			set
+			{
+				this._IngredientSubstitutes1.Assign(value);
+			}
+		}
+		
+		[Association(Name="Ingredient_UserDrinkIngredientHistory", Storage="_UserDrinkIngredientHistories", OtherKey="IngredientId")]
+		public EntitySet<UserDrinkIngredientHistory> UserDrinkIngredientHistories
+		{
+			get
+			{
+				return this._UserDrinkIngredientHistories;
+			}
+			set
+			{
+				this._UserDrinkIngredientHistories.Assign(value);
+			}
+		}
+		
+		[Association(Name="Relay_Ingredient", Storage="_Relay", ThisKey="RelayId", IsForeignKey=true)]
+		public Relay Relay
+		{
+			get
+			{
+				return this._Relay.Entity;
+			}
+			set
+			{
+				Relay previousValue = this._Relay.Entity;
+				if (((previousValue != value) 
+							|| (this._Relay.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Relay.Entity = null;
+						previousValue.Ingredients.Remove(this);
+					}
+					this._Relay.Entity = value;
+					if ((value != null))
+					{
+						value.Ingredients.Add(this);
+						this._RelayId = value.Id;
+					}
+					else
+					{
+						this._RelayId = default(Nullable<byte>);
+					}
+					this.SendPropertyChanged("Relay");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DrinkIngredients(DrinkIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = this;
+		}
+		
+		private void detach_DrinkIngredients(DrinkIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = null;
+		}
+		
+		private void attach_IngredientSubstitutes(IngredientSubstitute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = this;
+		}
+		
+		private void detach_IngredientSubstitutes(IngredientSubstitute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = null;
+		}
+		
+		private void attach_IngredientSubstitutes1(IngredientSubstitute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient1 = this;
+		}
+		
+		private void detach_IngredientSubstitutes1(IngredientSubstitute entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient1 = null;
+		}
+		
+		private void attach_UserDrinkIngredientHistories(UserDrinkIngredientHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = this;
+		}
+		
+		private void detach_UserDrinkIngredientHistories(UserDrinkIngredientHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = null;
 		}
 	}
 	

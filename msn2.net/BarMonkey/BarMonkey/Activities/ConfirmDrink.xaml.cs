@@ -77,7 +77,7 @@ namespace BarMonkey.Activities
             if (this.drink != null)
             {
                 this.drinkName.Content = this.drink.Name;
-                this.description.Content = this.drink.Description;
+                this.description.Text = this.drink.Description;
 
                 decimal totalSize = (from di in this.drink.DrinkIngredients select di.AmountOunces).Sum();
                 decimal offset = this.container.Size / totalSize;

@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" Style="{DynamicResource DefaultTextStyle}" />
 		<StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3">
-			<Label Name="description" Content="[description]" Style="{DynamicResource DefaultDescriptionTextStyle}" />
+			<TextBlock Name="description" Text="[description]" Style="{DynamicResource DefaultTextBlockStyle}" />
 			<StackPanel>
 				<CheckBox Name="favorite" Content="Include in my favorites" Click="addToFavorites_Click" Style="{DynamicResource DefaultDescriptionTextStyle}" Padding="2" />
 				<Label Content="Ingredients" FontStyle="Italic" Style="{DynamicResource DefaultDescriptionTextStyle}" />
@@ -36,10 +36,10 @@
 				</ItemsControl>
 			</StackPanel>
 		</StackPanel>
-		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" Background="Transparent" BorderThickness="0" Style="{DynamicResource DefaultTextStyle}" SelectionChanged="containers_SelectionChanged">
+		<ListBox Name="containers" Grid.Column="1" Grid.Row="2" Style="{DynamicResource DefaultLabelListBoxStyle}" SelectionChanged="containers_SelectionChanged">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultTextStyle}" />
+					<Label FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

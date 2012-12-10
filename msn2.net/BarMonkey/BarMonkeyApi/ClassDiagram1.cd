@@ -1,10 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="msn2.net.BarMonkey.User">
-    <Position X="4.25" Y="2" Width="1.5" />
+  <Class Name="msn2.net.BarMonkey.User" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
-      <FileName>User.cs</FileName>
+      <HashCode>BAAjQgABAiAgAJAIZIFCJITFjCECQBAAAEgQBABVASA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.DrinkManager">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAAgAgAAAAAAAIAAAAACAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DrinkManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.ManagerBase" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgA=</HashCode>
+      <FileName>ManagerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.UserManager">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>UserManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.ContainerManager">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>ContainerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.BarMonkeyDataContext" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACMACQACAgkIAAECQAARKUAQSIRCQQABsgQAAASAQQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.Drink" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjQABDFgEgAIAAQEEAIITFjCICQFQEAg0AARAVAgE=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.UserFavorite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAjQAIBAAgAAIAIQEEAAAwBjCAAAAAAAAAAAAAUgAg=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.DrinkIngredient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAiRFIhQAgAAAABRGGAAEkhjCQAAAAAAAAAAAEUoCA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.Ingredient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RIAiIIABlgEgKAgIQAEAMoUFjSIAwQCEAERAHBAUEgA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.IngredientSubstitute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiBAAhAAACAAAkZQGBCAEBjCQAAAAAAAAACAQUAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.Relay" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAABAAAAAAAAQAEAACABjCQAAAAAIAAAAAAUIAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.UserDrinkHistory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAjQAIBAAgAAIAIUEECIAwBjSCAAAAAAAQBAAAUgAg=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.UserDrinkIngredientHistory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAiBBAhQAAAAAEARAGAAEkhjCQABAAAAACAAAE0KIA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.Container" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAgBAAABgAAAQAEAIAYBjCAAQAAAAAAAAAAUAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2.net.BarMonkey.GetUsersFavoriteDrinksResult" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQABCAAAgAAAAAAAAIAQAAAAAAAQEAggAABAEAAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.BarMonkeyContext" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAAAIgQAACQAACAACAAgAAAABAAAAgQAIAAAAA=</HashCode>
+      <FileName>BarMonkeyContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.BarMonkey.IngredientManager">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAgAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>IngredientManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

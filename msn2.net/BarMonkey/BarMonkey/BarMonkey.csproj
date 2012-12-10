@@ -34,9 +34,9 @@
     <SupportUrl>http://barnone.msn2.net</SupportUrl>
     <ProductName>BarNone</ProductName>
     <PublisherName>msn2.net</PublisherName>
-    <MinimumRequiredVersion>1.0.100.20</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.100.38</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>1.0.100.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -114,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Activities\DrinkByCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\RelaySettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,6 +242,9 @@
     </Compile>
     <Compile Include="Activities\DrinkByCategory.xaml.cs">
       <DependentUpon>DrinkByCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\RelaySettings.xaml.cs">
+      <DependentUpon>RelaySettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activities\SelectDrink.xaml.cs">
       <DependentUpon>SelectDrink.xaml</DependentUpon>

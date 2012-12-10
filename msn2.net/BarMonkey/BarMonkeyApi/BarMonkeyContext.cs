@@ -16,9 +16,10 @@ namespace msn2.net.BarMonkey
             this.Users = new UserManager(this);
             this.Containers = new ContainerManager(this);
             this.Ingredients = new IngredientManager(this);
+            this.Relays = new RelayManager(this);
         }
 
-        public BarMonkeyDataContext Data
+        internal BarMonkeyDataContext Data
         {
             get { return dataContext; }
             set { dataContext = value; }
@@ -65,6 +66,7 @@ namespace msn2.net.BarMonkey
         public DrinkManager Drinks { get; private set; }
         public ContainerManager Containers { get; private set; }
         public IngredientManager Ingredients { get; private set; }
+        public RelayManager Relays { get; private set; }
 
         public double OuncesDispensedPerSecond
         {
