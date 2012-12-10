@@ -1,16 +1,17 @@
+#region Usings...
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using msn2.net.QueuePlayer.Shared;
+using msn2.net.QueuePlayer.Server;
+using msn2.net.QueuePlayer;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Messaging;
-using System.IO;
-using msn2.net.QueuePlayer.Shared;
-using msn2.net.QueuePlayer.Server;
-using msn2.net.QueuePlayer;
-
+#endregion
 namespace msn2.net.QueuePlayer.Client
 {
 	#region QueuePlayerClient
@@ -80,11 +81,6 @@ namespace msn2.net.QueuePlayer.Client
 		public Client(UMPlayer umPlayer)
 		{
 			this.umPlayer = umPlayer;
-
-			if (System.IO.File.Exists("msn2.net.QueuePlayer.Client.exe.config"))
-			{
-				RemotingConfiguration.Configure("msn2.net.QueuePlayer.Client.exe.config");
-			}
 
 			// Create a server
 			mediaServer = new MediaServer();

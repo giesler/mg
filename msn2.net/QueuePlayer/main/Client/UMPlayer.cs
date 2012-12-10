@@ -12,8 +12,6 @@ using System.IO;
 using System.Threading;
 using System.Text;
 using System.Diagnostics;
-using Crownwood.Magic;
-using Crownwood.Magic.Docking;
 using msn2.net.QueuePlayer.Shared;
 using msn2.net.QueuePlayer.Server;
 using msn2.net.Common;
@@ -53,7 +51,6 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.Panel panelTabs;
 		private System.Windows.Forms.Button buttonStop;
 		private System.Windows.Forms.Button buttonPlayPause;
-		protected Crownwood.Magic.Docking.DockingManager dockManager = null;
 		private msn2.net.Controls.ProgressBar progressBarCurrent;
 		private DataSetMedia.MediaRow currentMediaEntry = null;
 		private msn2.net.Controls.ProgressBar titleProgressBar = null;
@@ -295,8 +292,6 @@ namespace msn2.net.QueuePlayer.Client
 			InitializeComponent();
 			log = new Log(this);
 
-			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
-
 			QueuePlayerClient.SetPlayer(this);
 
 			ConnectionDialog connection = new ConnectionDialog();
@@ -356,17 +351,15 @@ namespace msn2.net.QueuePlayer.Client
 			this.Location		= new Point(Screen.PrimaryScreen.WorkingArea.Width - 50 - this.Width, 50);
 			this.TopMost		= true;
 
-			WebBrowser browser		= new WebBrowser("QueuePlayer Media", false);
+            msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser("QueuePlayer Media", false);
 			browser.Icon			= this.Icon;
-			browser.HideTitlebarButtons();
 			browser.Visible			= true;
 			browser.Visible			= false;
 			browser.Width			= this.Width * 2;
 			browser.Height			= 500;
 			browser.Left			= 200;
 			browser.Top				= 200;
-			browser.TabAppearance	= Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
-            			
+						
 			playerQueue = new PlayerQueue();
 			browser.AddNewTab(playerQueue);
 
@@ -610,8 +603,8 @@ namespace msn2.net.QueuePlayer.Client
 		public void NewSearch()
 		{
 			Search search = new Search();
-			Crownwood.Magic.Docking.Content content = new Crownwood.Magic.Docking.Content(dockManager, search, "Search");
-			dockManager.AddContentWithState(content, State.DockRight);
+
+            throw new NotImplementedException();
 
 			search.Height = 225;
 			search.Width  = 350;
@@ -1902,7 +1895,7 @@ namespace msn2.net.QueuePlayer.Client
     
 	#region Additional classes
 
-	internal class MediaListItemMenuItem: MenuItem //Crownwood.Magic.Menus.MenuItemIDE
+	internal class MediaListItemMenuItem: MenuItem 
 	{
 		private ListView lv = null;
 		private DataSetMedia.MediaRow mediaRow = null;
