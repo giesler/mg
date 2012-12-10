@@ -97,9 +97,8 @@ namespace msn2.net.Pictures.Controls
 		public fMain()
 		{
 			// Show status window
-			fStatus stat			= new fStatus();
-			stat.StatusText			= "Loading...";
-			stat.Max				= 0;
+			//stat.StatusText			= "Loading...";
+			//stat.Max				= 0;
 
             settings.Reload();
 
@@ -110,7 +109,9 @@ namespace msn2.net.Pictures.Controls
 
             // Login
             PictureConfig config = PictureConfig.Load();
-            if (PicContext.LoginWindowsUser(config) == false)
+            bool loginResult = PicContext.LoginWindowsUser(config);
+            fStatus stat = new fStatus();
+            if (loginResult == false)
             {
                 // Prompt for email/pwd
                 if (LoginUser(config, stat) == false)

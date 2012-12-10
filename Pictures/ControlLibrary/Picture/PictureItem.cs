@@ -188,23 +188,31 @@ namespace msn2.net.Pictures.Controls
 
         void PrintLoading(Graphics g)
         {
-//            using (Brush brush = Brushes.Black)
-//            {
-//                StringFormat format = new StringFormat();
-//                format.Alignment = StringAlignment.Center;
-//                format.LineAlignment = StringAlignment.Center;
-//                Font font = new Font("Arial", 6);
-//                RectangleF rect = new RectangleF(0, 0, this.Width, this.Height);
-//                try
-//                {
-//                    
-//                    g.DrawString("Loading...", font, brush, this.Top, this.Left, format);
-//                }
-//                catch (Exception ex)
-//                {
-//                    Trace.WriteLine("Exception writing Loading... for pic " + pictureId.ToString() + ": " + ex.Message);
-//                }
-//            }
+            using (Brush brush = Brushes.Black)
+            {
+                int imageHeight = 16;
+
+                StringFormat format = new StringFormat();
+                format.Alignment = StringAlignment.Center;
+                format.LineAlignment = StringAlignment.Center;
+                Font font = new Font("Arial", 6);
+                RectangleF rect = new RectangleF(0, 0, this.Width, this.Height);
+                if (this.Width > imageHeight && this.Height > imageHeight)
+                {
+                    rect.X = this.Height / 2 - (imageHeight / 2);
+                    rect.Y = this.Width / 2 - (imageHeight / 2);
+                    rect.Width = imageHeight;
+                    rect.Height = imageHeight;
+                }
+                try
+                {
+                    g.DrawImage(CommonImages.Refresh, rect);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Exception writing Loading: " + ex.Message);
+                }
+            }
         }
 
         bool InsideParentDisplay()
@@ -338,6 +346,13 @@ namespace msn2.net.Pictures.Controls
                     new Rectangle(xOffset, yOffset, sizedImage.Width, sizedImage.Height),
                     0, 0, sizedImage.Width, sizedImage.Height, GraphicsUnit.Pixel, imageAtt);
 
+                using (SolidBrush brush = new SolidBrush(Color.White))
+                {
+                    using (Pen pen = new Pen(brush))
+                    {
+                        e.Graphics.DrawRectangle(pen, xOffset, yOffset, sizedImage.Width, sizedImage.Height);
+                    }
+                }
             }
             else
             {
