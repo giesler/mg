@@ -6,7 +6,7 @@ EndProject
 Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "MobileTimerCab", "..\MobileTimerCab\MobileTimerCab.vddproj", "{C64D3040-E4C2-4F85-B359-726E505B637D}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
+	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = MobileTimer.csproj

@@ -6,7 +6,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkeyApi", "BarMonkeyApi\BarMonkeyApi.csproj", "{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
+	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccProjectUniqueName0 = BarMonkey\\BarMonkey.csproj
 		SccProjectName0 = \u0022$/msn2.net/BarMonkey/BarMonkey\u0022,\u0020EDQAAAAA

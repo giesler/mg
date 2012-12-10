@@ -18,7 +18,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebControlLibrary", "WebControlLibrary\WebControlLibrary.csproj", "{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
+	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 9
 		SccProjectUniqueName0 = Admin\\Admin.csproj
 		SccProjectName0 = \u0022$/Pictures/Admin\u0022,\u0020OBPAAAAA

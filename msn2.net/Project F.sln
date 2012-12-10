@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
+﻿Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{45988AEB-8FB0-4964-93FE-43CCC7713511}"
 EndProject
@@ -25,7 +25,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectXPlayer", "QueuePlayer\DirectXPlayer\DirectXPlayer.csproj", "{FA24EC8D-1927-4D9C-8796-02D715D7047E}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
+	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 12
 		SccProviderRegKey = Software\Microsoft\SourceSafe
 		SccProjectUniqueName0 = Console\\Console.csproj

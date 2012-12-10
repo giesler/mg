@@ -10,7 +10,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerTest", "RelayControllerTest\RelayControllerTest.csproj", "{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
+	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 5
 		SccProjectUniqueName0 = RelayControllerLibrary\\RelayControllerLibrary.csproj
 		SccProjectName0 = \u0022$/msn2.net/BarMonkey/RelayControllerLibrary\u0022,\u0020RBQAAAAA
