@@ -157,7 +157,7 @@ namespace msn2.net.Pictures.Controls
 
         void removeFromCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            List<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
+            List<Category> categories = this.pictureDetailEditor.GetAllCurrentCategories();
 
             CategoryListDialog dialog = new CategoryListDialog(categories);
             if (dialog.ShowDialog(this) == DialogResult.OK)

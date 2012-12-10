@@ -176,6 +176,26 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        public List<Category> GetAllCurrentCategories()
+        {
+            List<Category> categories = new List<Category>();
+
+            foreach (PictureData picture in this.pictures.Values)
+            {
+                List<Category> picCategories = PicContext.Current.PictureManager.GetPictureCategories(
+                    picture.Id);
+                foreach (Category category in picCategories)
+                {
+                    if (categories.Contains(category) == false)
+                    {
+                        categories.Add(category);
+                    }
+                }
+            }
+
+            return categories;
+        }
+
         public List<Category> GetCurrentCategories()
         {
             List<Category> categories = new List<Category>();

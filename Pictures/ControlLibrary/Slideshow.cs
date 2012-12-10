@@ -310,13 +310,21 @@ namespace msn2.net.Pictures.Controls
         protected void Next()
         {
             PictureData picture = getNextId(item.PictureId);
-            SetPicture(picture);
+            if (picture != null)
+            {
+                SetPicture(picture);
+            }
+            UpdateControls();
         }
 
         protected void Previous()
         {
             PictureData picture = getPreviousId(item.PictureId);
-            SetPicture(picture);
+            if (picture != null)
+            {
+                SetPicture(picture);
+            }
+            UpdateControls();
         }
 
         private void toolProperties_Click(object sender, EventArgs e)

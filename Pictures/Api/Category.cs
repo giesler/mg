@@ -129,6 +129,19 @@ namespace msn2.net.Pictures
         {
             return this.name;
         }
+
+        public override bool Equals(object obj)
+        {
+            bool returnValue = false;
+
+            Category cat = obj as Category;
+            if (cat != null)
+            {
+                returnValue = cat.CategoryId == this.CategoryId;
+            }
+
+            return returnValue;
+        }
     }
 
 }
