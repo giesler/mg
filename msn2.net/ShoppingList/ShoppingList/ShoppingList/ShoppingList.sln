@@ -13,11 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListService", "..\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListTray", "..\ShoppingListTray\ShoppingListTray.csproj", "{42445F23-4C3A-44A3-82A5-C60E78116F04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListCommon", "..\ShoppingListCommon\ShoppingListCommon.csproj", "{ABF2D897-6B53-45D4-89ED-F43918E6F82D}"
-EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 7
 		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
 		SccLocalPath0 = ..
 		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
@@ -37,12 +35,9 @@ Global
 		SccProjectUniqueName5 = ..\\ShoppingListService\\ShoppingListService.csproj
 		SccLocalPath5 = ..
 		SccProjectFilePathRelativizedFromConnection5 = ShoppingListService\\
-		SccProjectUniqueName6 = ..\\ShoppingListCommon\\ShoppingListCommon.csproj
+		SccProjectUniqueName6 = ..\\ShoppingListTray\\ShoppingListTray.csproj
 		SccLocalPath6 = ..
-		SccProjectFilePathRelativizedFromConnection6 = ShoppingListCommon\\
-		SccProjectUniqueName7 = ..\\ShoppingListTray\\ShoppingListTray.csproj
-		SccLocalPath7 = ..
-		SccProjectFilePathRelativizedFromConnection7 = ShoppingListTray\\
+		SccProjectFilePathRelativizedFromConnection6 = ShoppingListTray\\
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,11 +76,6 @@ Global
 		{42445F23-4C3A-44A3-82A5-C60E78116F04}.DebugTrayOnly|Any CPU.Build.0 = DebugTrayOnly|Any CPU
 		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
-		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
