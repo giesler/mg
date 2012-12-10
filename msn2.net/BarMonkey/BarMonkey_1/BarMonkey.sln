@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkey", "BarMonkey\BarMonkey.csproj", "{6AB540D6-CD83-465C-8D12-B1061B63C82C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarMonkeyApi", "BarMonkeyApi\BarMonkeyApi.csproj", "{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccProjectUniqueName0 = BarMonkey\\BarMonkey.csproj
+		SccProjectName0 = \u0022$/msn2.net/BarMonkey/BarMonkey\u0022,\u0020EDQAAAAA
+		SccLocalPath0 = BarMonkey
+		SccProjectUniqueName1 = BarMonkeyApi\\BarMonkeyApi.csproj
+		SccProjectName1 = \u0022$/msn2.net/BarMonkey/BarMonkeyApi\u0022,\u0020BEQAAAAA
+		SccLocalPath1 = BarMonkeyApi
+		SccLocalPath2 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB540D6-CD83-465C-8D12-B1061B63C82C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
