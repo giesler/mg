@@ -13,8 +13,10 @@ namespace msn2.net.QueuePlayer.Client
 	/// <summary>
 	/// Summary description for Playlists.
 	/// </summary>
-	public class Playlists : System.Windows.Forms.Form
+	public class Playlists : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.Button buttonPlaylistMediaRemove;
 		private System.Windows.Forms.Button buttonPlaylistDelete;
 		private System.Windows.Forms.Button buttonPlaylistAdd;
@@ -24,27 +26,30 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.ColumnHeader columnHeader29;
 		private System.Windows.Forms.ColumnHeader columnHeader30;
 		private System.Windows.Forms.ColumnHeader columnHeader31;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 		public msn2.net.QueuePlayer.Client.MediaListView mediaList;
 
-		private UMPlayer player;
+		#endregion
 
-		public Playlists(UMPlayer player)
+		#region Constructors
+
+		public Playlists()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			this.player = player;
-			this.mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			this.mediaList.lv.ContextMenu = 
+				QueuePlayerClient.Player.contextMenuMediaList;
 
 			LoadPlaylists();
 
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -60,6 +65,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -187,6 +194,8 @@ namespace msn2.net.QueuePlayer.Client
 		}
 		#endregion
 
+		#region Buttons
+
 		public void buttonPlaylistMediaRemove_Click(object sender, System.EventArgs e)
 		{
 			if (mediaList.SelectedItems.Count == 0)
@@ -198,7 +207,7 @@ namespace msn2.net.QueuePlayer.Client
 			// Get the current playlist id
 			PlaylistListViewItem playlistItem = (PlaylistListViewItem) listViewPlaylists.SelectedItems[0];
 
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 			SqlCommand cmd   = new SqlCommand("s_PlaylistMedia_Remove", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@PlaylistMediaId", SqlDbType.Int);
@@ -214,32 +223,12 @@ namespace msn2.net.QueuePlayer.Client
 
 		}
 
-		public void LoadPlaylists()
-		{
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
-			SqlDataAdapter da = new SqlDataAdapter("s_Playlist_List", cn);
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-			listViewPlaylists.Items.Clear();
-
-			DataSetPlaylist dsPlaylist = new DataSetPlaylist();
-			da.Fill(dsPlaylist, "Playlist");
-			
-			foreach (DataSetPlaylist.PlaylistRow row in dsPlaylist.Playlist)
-			{
-				PlaylistListViewItem item = new PlaylistListViewItem(player, row);
-				listViewPlaylists.Items.Add(item);
-			}
-            
-			mediaList.Clear();
-		}
-
 		private void buttonPlaylistAdd_Click(object sender, System.EventArgs e)
 		{
 			PlaylistEditor ed = new PlaylistEditor();
 			if (ed.ShowDialog(this) == DialogResult.OK)
 			{
-				SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+				SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 				SqlCommand cmd	 = new SqlCommand("s_Playlist_Add", cn);
 				cmd.CommandType  = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@PlaylistName", SqlDbType.NVarChar, 100);
@@ -270,7 +259,7 @@ namespace msn2.net.QueuePlayer.Client
 
 			if (MessageBox.Show(msg, "Delete Playlist", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 			{
-				SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+				SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 				SqlCommand cmd   = new SqlCommand("s_Playlist_Delete", cn);
 				cmd.CommandType  = CommandType.StoredProcedure;
 
@@ -294,12 +283,36 @@ namespace msn2.net.QueuePlayer.Client
 			LoadPlaylistMedia(item.Entry.PlaylistId);
 		}
 
+		#endregion
+
+		#region Methods
+
+		public void LoadPlaylists()
+		{
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
+			SqlDataAdapter da = new SqlDataAdapter("s_Playlist_List", cn);
+			da.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+			listViewPlaylists.Items.Clear();
+
+			DataSetPlaylist dsPlaylist = new DataSetPlaylist();
+			da.Fill(dsPlaylist, "Playlist");
+			
+			foreach (DataSetPlaylist.PlaylistRow row in dsPlaylist.Playlist)
+			{
+				PlaylistListViewItem item = new PlaylistListViewItem(QueuePlayerClient.Player, row);
+				listViewPlaylists.Items.Add(item);
+			}
+            
+			mediaList.Clear();
+		}
+
 		public void LoadPlaylistMedia(int playlistId)
 		{
 			// clear the curren tlist
 			mediaList.Clear();
             
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 			SqlCommand cmd   = new SqlCommand("s_PlaylistMedia_List", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@PlaylistId", playlistId);
@@ -308,14 +321,18 @@ namespace msn2.net.QueuePlayer.Client
 			SqlDataReader dr = cmd.ExecuteReader();
 			while (dr.Read())
 			{
-				DataSetMedia.MediaRow row = player.client.FindMediaRow(Convert.ToInt32(dr["MediaId"]));
-				PlaylistMediaListViewItem item = new PlaylistMediaListViewItem(player, row, Convert.ToInt32(dr["PlaylistMediaId"]));
+				DataSetMedia.MediaRow row = QueuePlayerClient.Player.client.FindMediaRow(Convert.ToInt32(dr["MediaId"]));
+				PlaylistMediaListViewItem item = new PlaylistMediaListViewItem(QueuePlayerClient.Player, row, Convert.ToInt32(dr["PlaylistMediaId"]));
 				mediaList.AddItem(item);
 			}
 			dr.Close();
 			cn.Close();
 
 		}
+
+		#endregion
+
+		#region Resize
 
 		private void listViewPlaylists_Resize(object sender, System.EventArgs e)
 		{
@@ -325,6 +342,10 @@ namespace msn2.net.QueuePlayer.Client
 			listViewPlaylists.Columns[3].Width = (int)((listViewPlaylists.Width-22) * 0.10);
 			listViewPlaylists.Columns[4].Width = (int)((listViewPlaylists.Width-22) * 0.10);
 		}
+
+		#endregion
+
+		#region Mouse events
 
 		private void listViewPlaylists_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
@@ -345,10 +366,10 @@ namespace msn2.net.QueuePlayer.Client
 
 			foreach (PlaylistMediaListViewItem item in mediaList.Items)
 			{
-				player.client.mediaServer.AddToQueue(item.Entry.MediaId, offset);
+				QueuePlayerClient.Player.client.mediaServer.AddToQueue(item.Entry.MediaId, offset);
 				offset++;
 			}
-			player.client.mediaServer.Next();
+			QueuePlayerClient.Player.client.mediaServer.Next();
 		}
 
 		private void listViewPlaylistMedia_DoubleClick(object sender, System.EventArgs e)
@@ -356,9 +377,11 @@ namespace msn2.net.QueuePlayer.Client
 			if (mediaList.SelectedItems.Count > 0)
 			{
                 MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
 			}
 
 		}
+
+		#endregion
 	}
 }

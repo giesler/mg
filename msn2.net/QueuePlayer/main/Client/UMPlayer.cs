@@ -1,5 +1,6 @@
 
 #region using...
+
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,6 +17,8 @@ using Crownwood.Magic.Docking;
 using msn2.net.QueuePlayer.Shared;
 using msn2.net.QueuePlayer.Server;
 using msn2.net.Common;
+using msn2.net.Controls;
+
 #endregion
 
 namespace msn2.net.QueuePlayer.Client
@@ -50,7 +53,7 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.Panel panelTabs;
 		private System.Windows.Forms.Button buttonStop;
 		private System.Windows.Forms.Button buttonPlayPause;
-		protected Crownwood.Magic.Docking.IDockingManager dockManager = null;
+		protected Crownwood.Magic.Docking.DockingManager dockManager = null;
 		private msn2.net.Controls.ProgressBar progressBarCurrent;
 		private DataSetMedia.MediaRow currentMediaEntry = null;
 		private msn2.net.Controls.ProgressBar titleProgressBar = null;
@@ -284,7 +287,7 @@ namespace msn2.net.QueuePlayer.Client
 			InitializeComponent();
 			log = new Log(this);
 
-			dockManager = new Crownwood.Magic.Docking.DockingManagerIDE(this);
+			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 			
 		}
 
@@ -340,6 +343,8 @@ namespace msn2.net.QueuePlayer.Client
 		private void UMPlayer_Load(object sender, System.EventArgs e)
 		{
 
+			QueuePlayerClient.SetPlayer(this);
+
 			ConnectionDialog connection = new ConnectionDialog();
 
 			//			if (connection.ShowDialog() == DialogResult.Cancel) 
@@ -349,7 +354,7 @@ namespace msn2.net.QueuePlayer.Client
 			//				return;
 			//			}
 
-			Status status = new Status("Connecting to server...");
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Connecting to server...");
 
 			// Create the client
 			client = new Client(this);
@@ -399,50 +404,55 @@ namespace msn2.net.QueuePlayer.Client
 
 			this.Location		= new Point(Screen.PrimaryScreen.WorkingArea.Width - 50 - this.Width, 50);
 			this.TopMost		= true;
-			TabForm tabForm		= new TabForm(this);
-			tabForm.Location	= new Point(this.Left, this.Top + this.Height);
-			tabForm.Size		= new Size(this.Width, this.Height * 3);
-			tabForm.TopMost		= true;
-            
-			Crownwood.Magic.Controls.TabControl tab1 = new Crownwood.Magic.Controls.TabControl();
-			tab1.Appearance = Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
-			tab1.ShowClose  = false;
-			tab1.Dock		= DockStyle.Fill;
-			tab1.PositionTop = true;
-			tab1.Font		 = new Font("Arial", 8);
-			tabForm.panelTabs.Controls.Add(tab1);
-			tab1.BringToFront();
-			tabForm.Show();
+//			TabForm tabForm		= new TabForm(this);
+//			tabForm.Location	= new Point(this.Left, this.Top + this.Height);
+//			tabForm.Size		= new Size(this.Width, this.Height * 3);
+//			tabForm.TopMost		= true;
+//            
+//			Crownwood.Magic.Controls.TabControl tab1 = new Crownwood.Magic.Controls.TabControl();
+//			tab1.Appearance = Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
+//			tab1.Style		= Crownwood.Magic.Common.VisualStyle.ProjectF;
+//			//tab1.appAppearance = Crownwood.Magic.Common.VisualStyle.ProjectF; // Crownwood.Magic.Controls.TabControl.VisualAppearance.MultiDocument;
+//			tab1.ShowClose  = false;
+//			tab1.Dock		= DockStyle.Fill;
+//			tab1.PositionTop = true;
+//			tab1.Font		 = new Font("Arial", 8);
+//			tabForm.panelTabs.Controls.Add(tab1);
+//			tab1.BringToFront();
+//			tabForm.Show();
 
-			playerQueue = new PlayerQueue(this);
-			playerQueue.Opacity = 0.7;
-			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage("Queue", playerQueue);
-			tab1.TabPages.Add(page);
+			WebBrowser browser	= new WebBrowser("QueuePlayer Media", false);
+			browser.Width		= this.Width;
+			browser.Height		= 500;
+			
+			playerQueue = new PlayerQueue();
+			browser.AddNewTab(playerQueue);
 
-			history = new History(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("History", history));
+			history = new History();
+			browser.AddNewTab(history);
 
-			playlists = new Playlists(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Playlists", playlists));
+			playlists = new Playlists();
+			browser.AddNewTab(playlists);
 
-			Search search = new Search(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Search", search));
+			Search search = new Search();
+			browser.AddNewTab(search);
 
-			BrowseCollection browser = new BrowseCollection(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Browse Collection", browser));
+			BrowseCollection browser1 = new BrowseCollection();
+			browser.AddNewTab(browser1);
 
-			newMedia = new NewMedia(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("New Media", newMedia));
+			newMedia = new NewMedia();
+			browser.AddNewTab(newMedia);
 
-			AddSongs addSongs = new AddSongs(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Add Songs", addSongs));
+			AddSongs addSongs = new AddSongs();
+			browser.AddNewTab(addSongs);
 
-			advanced = new Advanced(this);
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Advanced", advanced));
+			advanced = new Advanced();
+			browser.AddNewTab(advanced);
 
-			tab1.TabPages.Add(new Crownwood.Magic.Controls.TabPage("Log", log));
+			browser.AddNewTab(log);
+//			browser.Show();
 
-			history.Visible = true;
+			browser.Visible = true;
 
 		}
 
@@ -611,18 +621,17 @@ namespace msn2.net.QueuePlayer.Client
 
 		public void NewSearch()
 		{
-			Search search = new Search(this);
-			Crownwood.Magic.Docking.Content content = dockManager.CreateContent(search, "Search");
-			search.Visible = true;
-			dockManager.AddSingleContent(content, State.DockRight);
-			content.SetState(State.Floating);
+			Search search = new Search();
+			Crownwood.Magic.Docking.Content content = new Crownwood.Magic.Docking.Content(dockManager, search, "Search");
+			dockManager.AddContentWithState(content, State.DockRight);
+
 			search.Height = 225;
 			search.Width  = 350;
 		}
 
 		public void NewSearch(string searchString)
 		{
-			Search search = new Search(this);
+			Search search = new Search(searchString);
 			search.Visible = true;
 			search.Height = 225;
 			search.Width  = 350;
@@ -1534,8 +1543,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonPlayPause_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray);
-
 			int width	= 8;
 			int height  = 8;
 			int x		= buttonPlayPause.Width / 2 - (width / 2);
@@ -1573,8 +1580,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonStop_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray);
-
 			int width	= 8;
 			int x		= buttonStop.Width / 2 - (width / 2);
 			int y		= buttonStop.Height / 2 - (width / 2);
@@ -1584,8 +1589,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonNext_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray);
-
 			int width	= 8;
 			int height  = 8;
 			int x		= buttonPlayPause.Width / 2 - (width / 2);
@@ -1615,8 +1618,6 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonPrevious_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-            ShadeRegion(e, Color.LightGray);
-			
 			int width	= 8;
 			int height  = 8;
 			int x		= buttonPlayPause.Width / 2 - (width / 2);
@@ -1698,12 +1699,12 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void UMPlayer_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
 		}
 
 		private void panel1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
 
 			if (currentMediaEntry == null)
 				return;
@@ -1737,7 +1738,7 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void panel2_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			ShadeRegion(e, Color.LightGray, Color.Gray);
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray, Color.Gray);
 
 			// Volume label
 			e.Graphics.DrawString("Volume:", new Font("Arial", 8), new SolidBrush(Color.Black), 2, 4);

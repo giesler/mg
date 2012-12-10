@@ -13,6 +13,38 @@ using msn2.net.QueuePlayer;
 
 namespace msn2.net.QueuePlayer.Client
 {
+	#region QueuePlayerClient
+
+	/// <summary>
+	/// Retreive runtime client information
+	/// </summary>
+	public class QueuePlayerClient
+	{
+		private static UMPlayer player = null;
+
+		/// <summary>
+		/// Currently running player instance
+		/// </summary>
+		public static msn2.net.QueuePlayer.Client.UMPlayer Player
+		{
+			get
+			{
+				return player;
+			}
+		}
+
+		/// <summary>
+		/// Sets the current running player to param
+		/// </summary>
+		/// <param name="currentPlayer">Currently running player</param>
+		internal static void SetPlayer(UMPlayer currentPlayer)
+		{
+			player = currentPlayer;
+		}
+	}
+
+	#endregion
+
 	/// <summary>
 	/// Summary description for Client.
 	/// </summary>

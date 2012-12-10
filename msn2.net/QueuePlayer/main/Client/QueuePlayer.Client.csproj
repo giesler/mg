@@ -19,7 +19,7 @@
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "WinExe"
+                OutputType = "Library"
                 RootNamespace = "msn2.net.QueuePlayer.Client"
                 StartupObject = ""
             >
@@ -130,11 +130,6 @@
                     HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
                 />
                 <Reference
-                    Name = "MagicLibrary"
-                    AssemblyName = "MagicLibrary"
-                    HintPath = "..\..\..\..\Crownwood.Magic\currentVersion\bin\Debug\MagicLibrary.dll"
-                />
-                <Reference
                     Name = "System.Web.Services"
                     AssemblyName = "System.Web.Services"
                     HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
@@ -163,6 +158,11 @@
                     Name = "Microsoft.mshtml"
                     AssemblyName = "Microsoft.mshtml"
                     HintPath = "..\..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
+                />
+                <Reference
+                    Name = "MagicLibrary"
+                    Project = "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>
@@ -214,7 +214,7 @@
                 />
                 <File
                     RelPath = "ConnectionDialog.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
@@ -252,7 +252,7 @@
                 />
                 <File
                     RelPath = "MediaEditor.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -262,7 +262,7 @@
                 />
                 <File
                     RelPath = "MediaError.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -350,7 +350,7 @@
                 />
                 <File
                     RelPath = "Search.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
@@ -359,22 +359,12 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Status.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Status.resx"
-                    DependentUpon = "Status.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Stop.ico"
                     BuildAction = "Content"
                 />
                 <File
                     RelPath = "TabForm.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File

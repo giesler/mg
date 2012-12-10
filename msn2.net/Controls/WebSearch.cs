@@ -99,7 +99,10 @@ namespace msn2.net.Controls
 														   "Google",
 														   "Google Groups",
 														   "allreceipes.com",
-														   "Epicurius"});
+														   "Epicurius",
+														   "Yahoo",
+														   "MSDN",
+														   "Microsoft Knowledge Base"});
 			this.comboBox1.Location = new System.Drawing.Point(8, 8);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(288, 21);
@@ -185,6 +188,18 @@ namespace msn2.net.Controls
 					break;
 				case 2:
 					searchConfigData = new AllRecipesSearchConfigData(textBox1.Text);
+					break;
+				case 3:
+					searchConfigData = new EpicuriosSearchConfigData(textBox1.Text);
+					break;
+				case 4:
+					searchConfigData = new YahooSearchConfigData(textBox1.Text);
+					break;
+				case 5:
+					searchConfigData = new MSDNSearchConfigData(textBox1.Text);
+					break;
+				case 6:
+					searchConfigData = new MicrosoftKbSearchConfigData(textBox1.Text);
 					break;
 			}
             
@@ -538,11 +553,84 @@ namespace msn2.net.Controls
 
 		public AllRecipesSearchConfigData(string searchString): base(searchString)
 		{
-			title = String.Format("allrecipes.com Results: '{0}'", searchString);
+			title = String.Format("allrecipes.com Search Results: '{0}'", searchString);
 			
 			this.searchUrl			= "http://search.allrecipes.com/SearchResults.asp?site=allrecipes&allrecipes=allrecipes&q1={0}&Search+Allrecipes%21.x=2&Search+Allrecipes%21.y=8";
 			this.moreDataUrlRegEx		= @"(http://search.allrecipes.com/searchresults.asp)";
-			//this.moreDataUrlRegEx	= @"(http://groups.google.com/groups\?(.)*((start=(.)*)|(sa=(.)*)|(group=(.)*))(.)*)";
+		}
+	}
+
+	#endregion
+
+	#region EpicuriosSearchConfigData
+	
+	public class EpicuriosSearchConfigData: CustomWebSearchConfigData
+	{
+		public EpicuriosSearchConfigData()
+		{}
+
+		public EpicuriosSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("Epicurious Search Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://www.epicurious.com/s97is.vts?action=filtersearch&filter=recipe-filter.hts&collection=Recipes&ResultTemplate=recipe-results.hts&queryType=and&keyword={0}";
+			this.moreDataUrlRegEx	= @"(http://www.epicurious.com/s97is.vts\?)(.)*(ResultStart=)(.)*";
+		}
+	}
+
+	#endregion
+
+	#region YahooSearchConfigData
+	
+	public class YahooSearchConfigData: CustomWebSearchConfigData
+	{
+		public YahooSearchConfigData()
+		{}
+
+		public YahooSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("Yahoo Search Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://search.yahoo.com/bin/search?p={0}";
+			this.moreDataUrlRegEx	= @"(http://google.yahoo.com/bin/query\?p=)(.)*(hs=)(.)*";
+		}
+	}
+
+	#endregion
+
+	#region MSDNSearchConfigData
+	
+	public class MSDNSearchConfigData: CustomWebSearchConfigData
+	{
+		public MSDNSearchConfigData()
+		{}
+
+		public MSDNSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("MSDN Search Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://search.microsoft.com/default.asp?qu={0}&boolean=ALL&nq=NEW&so=RECCNT&p=1&ig=01&ig=02&ig=03&ig=04&ig=05&ig=06&i=00&i=01&i=02&i=03&i=04&i=05&i=06&i=07&i=08&i=09&i=10&i=11&i=12&i=13&i=14&i=15&i=16&i=17&i=18&i=19&i=20&i=21&i=22&i=23&i=24&i=25&i=26&i=27&i=28&i=29&i=30&i=31&i=32&i=33&i=34&i=35&i=36&i=37&i=38&i=39&i=40&i=41&i=42&i=43&i=44&i=45&i=46&i=47&i=48&i=49&i=50&i=51&siteid=us/dev";
+			this.moreDataUrlRegEx	= @"(http://search.microsoft.com/gomsuri.asp\?)(.)*(c=rp_NextResults)(.)*";
+		}
+	}
+
+	#endregion
+
+	#region MicrosoftKbSearchConfigData
+	
+	public class MicrosoftKbSearchConfigData: CustomWebSearchConfigData
+	{
+		public MicrosoftKbSearchConfigData()
+		{}
+
+		public MicrosoftKbSearchConfigData(string searchString): base(searchString)
+		{
+			title = String.Format("Microsoft KB Search Results: '{0}'", searchString);
+			
+			this.searchUrl			= "http://search.support.microsoft.com/search/default.aspx?Catalog=LCID%3D1033%26CDID%3DEN-US-KB%26PRODLISTSRC%3DON&Product=msall&Query={0}&Queryc={0}&REF=false&srchstep=0&KeywordType=ALL&Titles=false&numDays=&maxResults=50";
+			this.resultUrlRegEx		= @"(http://support.microsoft.com/default.aspx\?)(.)*(scid=kb;en-us;Q([0-9])*)";
+
+			//this.moreDataUrlRegEx	= @"(http://search.microsoft.com/gomsuri.asp\?)(.)*(c=rp_NextResults)(.)*";
 		}
 	}
 

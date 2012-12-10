@@ -95,6 +95,7 @@ namespace msn2.net.QueuePlayer.Server
 			LogDiagnosticEvent("PlayerThreadStart", "Starting player thread.");
 
 			dxPlayer = new DirectXPlayer();
+//			dxPlayer.EnableOutput = false;
 
 			// subscribe to events of mediaPlayerHost
 			dxPlayer.EndOfStreamEvent	+= new Server_EndOfStreamEventHandler(Server_EndOfStreamEvent);

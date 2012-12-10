@@ -26,6 +26,8 @@ namespace msn2.net.Controls
 		private CategoryTreeNode menuNode		= null;
 		private ShellForm parentShellForm		= null;
 		private System.Windows.Forms.ImageList imageList1;
+		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.MenuItem menuItemRefresh;
 		private CategoryTreeNode rootNode		= null;
 		
 		#endregion
@@ -75,11 +77,13 @@ namespace msn2.net.Controls
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(CategoryTreeView));
 			this.treeViewCategory = new System.Windows.Forms.TreeView();
+			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemProperties = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.menuItemRefresh = new System.Windows.Forms.MenuItem();
 			this.SuspendLayout();
 			// 
 			// treeViewCategory
@@ -88,7 +92,7 @@ namespace msn2.net.Controls
 			this.treeViewCategory.HideSelection = false;
 			this.treeViewCategory.ImageList = this.imageList1;
 			this.treeViewCategory.Name = "treeViewCategory";
-			this.treeViewCategory.Size = new System.Drawing.Size(150, 150);
+			this.treeViewCategory.Size = new System.Drawing.Size(150, 130);
 			this.treeViewCategory.TabIndex = 0;
 			this.treeViewCategory.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCategory_AfterExpand);
 			this.treeViewCategory.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCategory_AfterCollapse);
@@ -97,12 +101,21 @@ namespace msn2.net.Controls
 			this.treeViewCategory.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeViewCategory_AfterLabelEdit);
 			this.treeViewCategory.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewCategory_BeforeExpand);
 			// 
+			// imageList1
+			// 
+			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// contextMenu1
 			// 
 			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																						 this.menuItemAdd,
 																						 this.menuItemProperties,
-																						 this.menuItemDelete});
+																						 this.menuItemDelete,
+																						 this.menuItem1,
+																						 this.menuItemRefresh});
 			// 
 			// menuItemAdd
 			// 
@@ -122,18 +135,24 @@ namespace msn2.net.Controls
 			this.menuItemDelete.Text = "&Delete";
 			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
 			// 
-			// imageList1
+			// menuItem1
 			// 
-			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+			this.menuItem1.Index = 3;
+			this.menuItem1.Text = "-";
+			// 
+			// menuItemRefresh
+			// 
+			this.menuItemRefresh.Index = 4;
+			this.menuItemRefresh.Text = "&Refresh";
+			this.menuItemRefresh.Click += new System.EventHandler(this.menuItemRefresh_Click);
 			// 
 			// CategoryTreeView
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.treeViewCategory});
 			this.Name = "CategoryTreeView";
+			this.Size = new System.Drawing.Size(150, 130);
+			this.Load += new System.EventHandler(this.CategoryTreeView_Load);
 			this.ResumeLayout(false);
 
 		}
@@ -284,6 +303,16 @@ namespace msn2.net.Controls
 			e.Node.ImageIndex = 0;
 		}
 
+		private void CategoryTreeView_Load(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void menuItemRefresh_Click(object sender, System.EventArgs e)
+		{
+			this.RootData = this.rootNode.Data;
+		}
+
 		public event CategoryTreeView_AfterSelectDelegate CategoryTreeView_AfterSelect;
 
 		#endregion
@@ -297,6 +326,8 @@ namespace msn2.net.Controls
 			{
 				if (value == null)
 					return;
+
+				treeViewCategory.Nodes.Clear();
 
 				rootNode = new CategoryTreeNode(value);
 				treeViewCategory.Nodes.Add(rootNode);

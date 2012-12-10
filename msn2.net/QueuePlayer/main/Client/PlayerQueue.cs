@@ -15,7 +15,7 @@ namespace msn2.net.QueuePlayer.Client
 	/// <summary>
 	/// Summary description for PlayerQueue.
 	/// </summary>
-	public class PlayerQueue : System.Windows.Forms.Form
+	public class PlayerQueue : msn2.net.Controls.ShellForm
 	{
 		public System.Windows.Forms.Button buttonClearQueue;
 		public System.Windows.Forms.Button buttonQueueDown;
@@ -26,9 +26,8 @@ namespace msn2.net.QueuePlayer.Client
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 		public msn2.net.QueuePlayer.Client.MediaListView mediaList;
-		private UMPlayer player;
 
-		public PlayerQueue(UMPlayer player)
+		public PlayerQueue()
 		{
 			//
 			// Required for Windows Form Designer support
@@ -36,8 +35,8 @@ namespace msn2.net.QueuePlayer.Client
 			InitializeComponent();
 
 
-			this.player = player;
-			mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			mediaList.lv.ContextMenu = 
+				QueuePlayerClient.Player.contextMenuMediaList;
 
 			ReloadQueue(this, EventArgs.Empty);
 		}
@@ -150,26 +149,26 @@ namespace msn2.net.QueuePlayer.Client
 
 		public void buttonQueueRemove_Click(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
+			QueuePlayerClient.Player.SetWaitForMessage();
 
 			foreach (MediaListViewItem item in new IterIsolate(mediaList.SelectedItems))
 			{
-				player.client.mediaServer.RemoveFromQueue(item.Entry.MediaId, item.Guid);
+				QueuePlayerClient.Player.client.mediaServer.RemoveFromQueue(item.Entry.MediaId, item.Guid);
 			}
 		}
 
 		public void buttonQueueUp_Click(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
+			QueuePlayerClient.Player.SetWaitForMessage();
 			MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-			player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, item.Index -1);
+			QueuePlayerClient.Player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, item.Index -1);
 		}
 
 		public void buttonQueueDown_Click(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
+			QueuePlayerClient.Player.SetWaitForMessage();
 			MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-			player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, item.Index +1);
+			QueuePlayerClient.Player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, item.Index +1);
 		}
 
 		private void mediaList_MediaKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -186,8 +185,8 @@ namespace msn2.net.QueuePlayer.Client
 
 		public void InvokeAddToQueue(QueueEventArgs e) 
 		{
-			DataSetMedia.MediaRow row = player.client.FindMediaRow(e.MediaId);
-			MediaListViewItem item = new MediaListViewItem(player, row, e.Guid);
+			DataSetMedia.MediaRow row = QueuePlayerClient.Player.client.FindMediaRow(e.MediaId);
+			MediaListViewItem item = new MediaListViewItem(QueuePlayerClient.Player, row, e.Guid);
 
 			// see if we should add at end or insert in queue
 			if (e.Position >= mediaList.Items.Count || e.Position < 0) 
@@ -199,7 +198,7 @@ namespace msn2.net.QueuePlayer.Client
 				mediaList.InsertItem(item, e.Position);
 			}
 
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		#endregion
@@ -211,7 +210,7 @@ namespace msn2.net.QueuePlayer.Client
 		public void InvokeRemoveFromQueue(QueueEventArgs e)
 		{
 			mediaList.RemoveItem(e.Guid);
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		#endregion
@@ -230,7 +229,7 @@ namespace msn2.net.QueuePlayer.Client
 
 			mediaList.Items[e.Position].Selected = true;
 
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		#endregion
@@ -240,7 +239,7 @@ namespace msn2.net.QueuePlayer.Client
 		/// </summary>
 		public void ReloadQueue(object sender, EventArgs e) 
 		{
-			MediaCollection queue = player.client.mediaServer.CurrentQueue();
+			MediaCollection queue = QueuePlayerClient.Player.client.mediaServer.CurrentQueue();
 
 			// Clear the current queue
 			mediaList.Clear();
@@ -250,19 +249,19 @@ namespace msn2.net.QueuePlayer.Client
 			{
 				mediaList.AddItem(
 					new MediaListViewItem(
-					player, player.client.FindMediaRow(entry.MediaId), entry.Guid));
+					QueuePlayerClient.Player, QueuePlayerClient.Player.client.FindMediaRow(entry.MediaId), entry.Guid));
 			}
 
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		public void buttonClearQueue_Click(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
+			QueuePlayerClient.Player.SetWaitForMessage();
 
 			foreach (MediaListViewItem item in new IterIsolate(mediaList.Items))
 			{
-				player.client.mediaServer.RemoveFromQueue(item.Entry.MediaId, item.Guid);
+				QueuePlayerClient.Player.client.mediaServer.RemoveFromQueue(item.Entry.MediaId, item.Guid);
 			}
 		}
 
@@ -271,13 +270,13 @@ namespace msn2.net.QueuePlayer.Client
 			if (mediaList.SelectedItems.Count > 0)
 			{
                 MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
 			}
 		}
 
 		private void mediaList_MediaItemDroppedEvent(object sender, msn2.net.QueuePlayer.Client.MediaItemDropEventArgs e)
 		{
-			player.SetWaitForMessage();
+			QueuePlayerClient.Player.SetWaitForMessage();
 			int position = e.TargetItem.Index;
 
 			foreach (MediaListViewItem item in e.SourceItems)
@@ -285,12 +284,12 @@ namespace msn2.net.QueuePlayer.Client
 				// check if we want to add to queue
 				if (item.Guid == Guid.Empty)
 				{
-					player.client.mediaServer.AddToQueue(item.Entry.MediaId, position);
+					QueuePlayerClient.Player.client.mediaServer.AddToQueue(item.Entry.MediaId, position);
 				}
 					// otherwise we are in the queue and want to move
 				else
 				{
-					player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, position);
+					QueuePlayerClient.Player.client.mediaServer.MoveInQueue(item.Entry.MediaId, item.Guid, position);
 				}
 				position++;
 			}
@@ -298,8 +297,8 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void mediaList_MediaItemDeleteEvent(object sender, msn2.net.QueuePlayer.Client.MediaItemDeleteEventArgs e)
 		{
-			player.SetWaitForMessage();
-			player.client.mediaServer.RemoveFromQueue(e.Item.Entry.MediaId, e.Item.Guid);		
+			QueuePlayerClient.Player.SetWaitForMessage();
+			QueuePlayerClient.Player.client.mediaServer.RemoveFromQueue(e.Item.Entry.MediaId, e.Item.Guid);		
 		}
 	}
 }

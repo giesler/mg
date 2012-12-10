@@ -12,34 +12,36 @@ namespace msn2.net.QueuePlayer.Client
 	/// <summary>
 	/// Summary description for NewMedia.
 	/// </summary>
-	public class NewMedia : System.Windows.Forms.Form
+	public class NewMedia : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.DateTimePicker dateTimeEnd;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.DateTimePicker dateTimeStart;
 		private System.Windows.Forms.Label label5;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private msn2.net.QueuePlayer.Client.MediaListView mediaList;
-		private UMPlayer player;
 
-		public NewMedia(UMPlayer player)
+		#endregion
+
+		#region Constructor
+
+		public NewMedia()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 
-			this.player = player;
-			this.mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			this.mediaList.lv.ContextMenu = QueuePlayerClient.Player.contextMenuMediaList;
 
 			dateTimeStart.Value	= DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0, 0));
 			dateTimeEnd.Value	= DateTime.Now;
 
 			this.TopLevel = false;
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -55,6 +57,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -140,13 +144,14 @@ namespace msn2.net.QueuePlayer.Client
 		{
 			if (e.Type == MediaItemUpdateType.Add)
 			{
-				DataSetMedia.MediaRow row = player.client.dsMedia.Media.FindByMediaId(e.MediaId);
-				mediaList.AddItem(new MediaListViewItem(player, row));
+				DataSetMedia.MediaRow row = QueuePlayerClient.Player.client.dsMedia.Media.FindByMediaId(e.MediaId);
+				mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, row));
 			}
 		}
 
 		#endregion
 
+		#region Other Events
 		private void dateTimeStart_ValueChanged(object sender, System.EventArgs e)
 		{
             UpdateNewList();		
@@ -157,9 +162,22 @@ namespace msn2.net.QueuePlayer.Client
 			UpdateNewList();
 		}
 	
+		private void mediaList_MediaDoubleClick(object sender, System.EventArgs e)
+		{
+			if (mediaList.SelectedItems.Count > 0)
+			{
+				MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+			}
+		}
+
+		#endregion
+
+		#region Private Methods
+
 		private void UpdateNewList()
 		{
-			DataView dv = new DataView(player.client.dsMedia.Media);
+			DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media);
 
 			mediaList.Clear();
 
@@ -169,19 +187,12 @@ namespace msn2.net.QueuePlayer.Client
 			foreach (DataRowView rowView in dv)
 			{
 				DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
-				mediaList.AddItem(new MediaListViewItem(player, row));
+				mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, row));
 			}
 
 		}
 
-		private void mediaList_MediaDoubleClick(object sender, System.EventArgs e)
-		{
-			if (mediaList.SelectedItems.Count > 0)
-			{
-                MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
-			}
-		}
+		#endregion
 
 	}
 }

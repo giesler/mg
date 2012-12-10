@@ -1,3 +1,5 @@
+#region Usings
+
 using System;
 using System.Drawing;
 using System.Collections;
@@ -9,13 +11,17 @@ using System.Data.SqlClient;
 using System.IO;
 using msn2.net.QueuePlayer.Shared;
 
+#endregion
+
 namespace msn2.net.QueuePlayer.Client
 {
 	/// <summary>
 	/// Summary description for Advanced.
 	/// </summary>
-	public class Advanced : System.Windows.Forms.Form
+	public class Advanced : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.Label labelOpacity;
 		private System.Windows.Forms.TrackBar trackBarOpacity;
 		private System.Windows.Forms.Label labelRate;
@@ -33,26 +39,29 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.Button buttonNames;
 		private System.Windows.Forms.CheckBox checkBoxLocalPlayer;
 
-		private UMPlayer player;
+		#endregion
+		#region Constructor
 
-		public Advanced(UMPlayer player)
+		public Advanced()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			this.player = player;
-
 			// Set initial values
-			trackBarRate.Value = (int) (player.client.mediaServer.Rate * 100);
-			trackBarBalance.Value = player.client.mediaServer.Balance;
+			trackBarRate.Value = (int) (QueuePlayerClient.Player.client.mediaServer.Rate * 100);
+			trackBarBalance.Value = QueuePlayerClient.Player.client.mediaServer.Balance;
 
-			if (player.client.player != null)
+			if (QueuePlayerClient.Player.client.player != null)
 			{
 				checkBoxLocalPlayer.Checked = true;
 			}
 		}
+
+
+		#endregion
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -69,6 +78,8 @@ namespace msn2.net.QueuePlayer.Client
 			base.Dispose( disposing );
 		}
 
+
+		#endregion
 		#region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -252,40 +263,43 @@ namespace msn2.net.QueuePlayer.Client
 
 		}
 		#endregion
-
+		#region Link Events
 		private void linkResetBalance_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
-			player.client.mediaServer.Balance = 0;
+			QueuePlayerClient.Player.client.mediaServer.Balance = 0;
 		}
 
 		private void linkResetRate_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
-			player.client.mediaServer.Rate = 1.0;
+			QueuePlayerClient.Player.client.mediaServer.Rate = 1.0;
 		}
 
 		private void linkResetOpacity_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
-            player.Opacity = 1;			
+            QueuePlayerClient.Player.Opacity = 1;			
 			trackBarOpacity.Value = 100;
 		}
 
+		#endregion
+		#region Trackbar Events
 		private void trackBarBalance_Scroll(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
-			player.client.mediaServer.Balance = trackBarBalance.Value;
+			QueuePlayerClient.Player.SetWaitForMessage();
+			QueuePlayerClient.Player.client.mediaServer.Balance = trackBarBalance.Value;
 		}
 
 		private void trackBarRate_Scroll(object sender, System.EventArgs e)
 		{
-			player.SetWaitForMessage();
-			player.client.mediaServer.Rate = ((double)trackBarRate.Value / 100.0);
+			QueuePlayerClient.Player.SetWaitForMessage();
+			QueuePlayerClient.Player.client.mediaServer.Rate = ((double)trackBarRate.Value / 100.0);
 		}
 
 		private void trackBarOpacity_Scroll(object sender, System.EventArgs e)
 		{
-			player.Opacity = trackBarOpacity.Value/100.0;
+			QueuePlayerClient.Player.Opacity = trackBarOpacity.Value/100.0;
 		}
 
+		#endregion
 		#region RateEvent
 
 		public delegate void RateChangedDelegate(MediaRateEventArgs e);
@@ -293,11 +307,10 @@ namespace msn2.net.QueuePlayer.Client
 		public void InvokeRateChanged(MediaRateEventArgs e) 
 		{
 			trackBarRate.Value = (int) (e.Rate * 100);
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		#endregion
-
 		#region BalanceEvent
 
 		public delegate void BalanceChangedDelegate(MediaBalanceEventArgs e);
@@ -305,25 +318,25 @@ namespace msn2.net.QueuePlayer.Client
 		public void InvokeBalanceChanged(MediaBalanceEventArgs e) 
 		{
 			trackBarBalance.Value = e.Balance;
-			player.ClearWaitForMessage();
+			QueuePlayerClient.Player.ClearWaitForMessage();
 		}
 
 		#endregion
-
+		#region Button Events
 		private void buttonMD5_Click(object sender, System.EventArgs e)
 		{
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 			SqlCommand cmd = new SqlCommand("update media set md5=@md5 where mediaid=@mediaid", cn);
 			cmd.Parameters.Add("@MD5", SqlDbType.NVarChar, 50);
 			cmd.Parameters.Add("@MediaId", SqlDbType.Int);
             
-			string fileShare = player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
+			string fileShare = QueuePlayerClient.Player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
 
-			DataView dv = new DataView(player.client.dsMedia.Media);
+			DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media);
 			dv.RowFilter = "MD5 IS NULL";
 			int count = dv.Count;
 			int i = 0;
-			Status status = new Status("MD5'ing files...", count);
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("MD5'ing files...", count);
 
 			cn.Open();
 			foreach (DataRowView rowView in dv)
@@ -354,19 +367,19 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonNames_Click(object sender, System.EventArgs e)
 		{
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 			SqlCommand cmd = new SqlCommand("update media set MediaFile=@MediaFile where mediaid=@mediaid", cn);
 			cmd.Parameters.Add("@MediaFile", SqlDbType.NVarChar, 500);
 			cmd.Parameters.Add("@MediaId", SqlDbType.Int);
             
-			string fileShare = player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
+			string fileShare = QueuePlayerClient.Player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
 
-			int count = player.client.dsMedia.Media.Count;
+			int count = QueuePlayerClient.Player.client.dsMedia.Media.Count;
 			int i = 0;
-			Status status = new Status("Naming files...", count);
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Naming files...", count);
 
 			cn.Open();
-			foreach (DataSetMedia.MediaRow row in player.client.dsMedia.Media)
+			foreach (DataSetMedia.MediaRow row in QueuePlayerClient.Player.client.dsMedia.Media)
 			{
 				i++;
 
@@ -409,17 +422,20 @@ namespace msn2.net.QueuePlayer.Client
 			status.Dispose();		
 		}
 
+		#endregion
+		#region Other events
 		private void checkBoxLocalPlayer_CheckedChanged(object sender, System.EventArgs e)
 		{
 			if (checkBoxLocalPlayer.Checked)
 			{
-				player.client.StartLocalPlayer();
+				QueuePlayerClient.Player.client.StartLocalPlayer();
 			} 
 			else
 			{
-				player.client.StopLocalPlayer();
+				QueuePlayerClient.Player.client.StopLocalPlayer();
 			}
 		}
 
+		#endregion
 	}
 }

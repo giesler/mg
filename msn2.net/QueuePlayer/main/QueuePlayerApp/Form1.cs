@@ -24,9 +24,6 @@ namespace QueuePlayerApp
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
 		/// <summary>
@@ -68,9 +65,9 @@ namespace QueuePlayerApp
 		[STAThread]
 		static void Main() 
 		{
-//			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
-//			player.AllowUnload = true;
-//			Application.Run(player);
+			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
+			player.AllowUnload = true;
+			Application.Run(player);
 		}
 	}
 }

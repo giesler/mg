@@ -96,10 +96,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="timerFadeOut.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </data>
+  <data name="timerFadeIn.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>136, 17</value>
+  </data>
   <data name="panelTabs.Modifiers" type="System.CodeDom.MemberAttributes, System, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>Public</value>
   </data>
   <data name="$this.Name">
     <value>TabForm</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAIAICAQAAAAAADoAgAAJgAAABAQEAAAAAAAKAEAAA4DAAAoAAAAIAAAAEAAAAABAAQAAAAAAAAC
+        AAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAICAgADAwMAAAAD/AAD/
+        AAAA//8A/wAAAP8A/wD//wAA////AAAHd3d3d3d3d3d3d3d3d3AAAAAAAAAAAAAAAAAAAABwAH//////
+        ///////////wcAB/////////////////8HAAf///////+Ij///////BwAH//////9wAAB//////wcAB/
+        /////3AAAAB/////8HAAf/////gIAAAACP////BwAH/////4cIcAAAj////wcAB/////+HAIcAAI////
+        8HAAf/////93gAAAD/////BwAH//////9wAAAH/////wcAB////////4iACP////8HAAf/////////gH
+        //////BwAH/////////wCPgI///wcAB/////////gH/4B///8HAAf////////3CP/wf///BwAH//////
+        //8A//8H///wcAB////////3B///AP//8HAAf///////9w///wCP//BwAH///////4AP//8Aj//wcAB/
+        //////9wj//3AH//8HAAf//////4AI//cAD///BwAH//////9wAHdwAH///wcAB//////4AAAAAAf///
+        8HAAf/////9wAAAACP////BwAH//////AAAAB//////wcAB/////9wAAB3//////8HAAf///////////
+        //////BwAH/////////////////wcAB/////////////////8HAAd3d3d3d3d3d3d3d3d3cAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAoAAAAEAAAACAAAAABAAQAAAAAAIAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAA
+        AACAAIAAgIAAAMDAwACAgIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAiIiIiIiIiAD///////
+        /wAP///3f///AA///wAA//8AD//3CAB//wAP//+AAP//AA////dw//8AD////wf//wAP////D/j/AA//
+        //iP8P8AD///8P/w/wAP//9w/wD/AA///wAAD/8AD///AAj//wAP////////AA////////8AAAAAAAAA
+        AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+</value>
   </data>
 </root>

@@ -59,7 +59,17 @@ namespace msn2.net.QueuePlayer.Client
 			if (server != null)
 			{
 				textBoxHost.Text = server;
+
+//				ChannelServices.RegisterChannel(new TcpChannel(0));
+//				RemotingConfiguration.RegisterWellKnownClientType(
+//					typeof(MediaServer),
+//					"tcp://" + textBoxHost.Text + ":777/RemotingMedia/MyMedia");
 			}
+			else
+			{
+//				textBoxHost.Text = "localhost";
+			}
+
 
 		}
 
@@ -212,7 +222,7 @@ namespace msn2.net.QueuePlayer.Client
 
 		private void buttonConnect_Click(object sender, System.EventArgs e)
 		{
-			Status status = new Status("Loading...");
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Loading...");
 
 			// if we need to start the server locally, do so
 			if (radioButtonLocal.Checked) 

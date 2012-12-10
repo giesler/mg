@@ -12,15 +12,18 @@ namespace msn2.net.QueuePlayer.Client
 	/// </summary>
 	public class TitleBarButtons : System.Windows.Forms.UserControl
 	{
+		#region Declares
+
 		public System.Windows.Forms.Button buttonPrevious;
 		public System.Windows.Forms.Button buttonNext;
 		public System.Windows.Forms.Button buttonStop;
 		public System.Windows.Forms.Button buttonPlayPause;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private UMPlayer umPlayer = null;
+
+		#endregion
+
+		#region Constructors
 
 		public TitleBarButtons(UMPlayer umPlayer)
 		{
@@ -29,6 +32,10 @@ namespace msn2.net.QueuePlayer.Client
 
 			this.umPlayer = umPlayer;
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -44,6 +51,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Component Designer generated code
 		/// <summary> 
@@ -229,6 +238,8 @@ namespace msn2.net.QueuePlayer.Client
 
 		#endregion
 
+		#region Events
+
 		private void buttonPrevious_Click(object sender, System.EventArgs e)
 		{
 			umPlayer.Previous();
@@ -274,6 +285,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 
 		}
+
+		#endregion
 
 	}
 }

@@ -154,7 +154,7 @@ namespace msn2.net.QueuePlayer.Client
 		{
 			if (searchForm == null)
 			{
-				searchForm = new Search(player, this.textBoxSearch.Text);
+				searchForm = new Search(this.textBoxSearch.Text);
 				searchForm.Location	= new Point(this.Left, this.Top + this.Height);
 				searchForm.Width	= this.Width;
 				searchForm.Height	= Math.Min(300, Screen.GetBounds(this).Height - this.Top - this.Height);

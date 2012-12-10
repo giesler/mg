@@ -14,8 +14,9 @@ namespace msn2.net.Controls
 	{
 		#region Declares
 
-		private System.ComponentModel.Container components = null;
-		private Color startColor = Color.LightGray;
+		private System.ComponentModel.Container components	= null;
+		private Color startColor							= Color.LightGray;
+		private Color endColor								= Color.Empty;
 
 		#endregion
 
@@ -68,7 +69,14 @@ namespace msn2.net.Controls
 
 		private void ShellButton_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, startColor);
+			if (endColor != Color.Empty)
+			{
+				msn2.net.Common.Drawing.ShadeRegion(e, startColor, endColor);
+			}
+			else
+			{
+				msn2.net.Common.Drawing.ShadeRegion(e, startColor);
+			}
 
 			if (this.Text.Length > 0)
 			{
@@ -100,7 +108,7 @@ namespace msn2.net.Controls
 					// BUGBUG - in above code, text.substring is probably cutting off more then 'text'
 				}
 
-				e.Graphics.DrawString(text, this.Font, new SolidBrush(Color.Black), e.ClipRectangle, format);
+				e.Graphics.DrawString(text, this.Font, new SolidBrush(this.ForeColor), e.ClipRectangle, format);
 			}
 		}
 
@@ -117,6 +125,19 @@ namespace msn2.net.Controls
 			set
 			{
 				startColor = value;
+				this.Refresh();
+			}
+		}
+
+		public Color EndColor
+		{
+			get
+			{
+				return endColor;
+			}
+			set
+			{
+				endColor = value;
 				this.Refresh();
 			}
 		}

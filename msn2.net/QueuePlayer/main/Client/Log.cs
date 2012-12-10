@@ -9,7 +9,7 @@ namespace msn2.net.QueuePlayer.Client
 	/// <summary>
 	/// Summary description for Log.
 	/// </summary>
-	public class Log : System.Windows.Forms.Form
+	public class Log : msn2.net.Controls.ShellForm
 	{
 		private System.Windows.Forms.CheckBox checkBoxShowLog;
 		private System.Windows.Forms.TextBox textBoxLog;

@@ -1,3 +1,5 @@
+#region Usings
+
 using System;
 using System.Drawing;
 using System.Collections;
@@ -9,13 +11,17 @@ using System.Data.SqlClient;
 using System.IO;
 using msn2.net.QueuePlayer.Shared;
 
+#endregion
+
 namespace msn2.net.QueuePlayer.Client
 {
 	/// <summary>
 	/// Summary description for AddSongs.
 	/// </summary>
-	public class AddSongs : System.Windows.Forms.Form
+	public class AddSongs : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.ListView listViewFiles;
 		private System.Windows.Forms.ColumnHeader columnHeader10;
 		private System.Windows.Forms.Button buttonRemoveFile;
@@ -28,27 +34,25 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.MenuItem menuItemAddFile;
 		private System.Windows.Forms.MenuItem menuItemAddDirectory;
 		private System.Windows.Forms.MenuItem menuItemAddTree;
-		private UMPlayer player;
 
 		// declares for searching
 		private string walkDirectory;
 		private bool directoryRecursive;
-		private Status directoryAddStatus = null;
-
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
+		private msn2.net.Controls.Status directoryAddStatus = null;
 		private System.ComponentModel.Container components = null;
 
-		public AddSongs(UMPlayer player)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+		#endregion
 
-			this.player = player;
+		#region Constructor
+
+		public AddSongs()
+		{
+			InitializeComponent();
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -64,6 +68,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -208,6 +214,8 @@ namespace msn2.net.QueuePlayer.Client
 		}
 		#endregion
 
+		#region Button Events
+
 		private void buttonRemoveFile_Click(object sender, System.EventArgs e)
 		{
 			ArrayList removeList = new ArrayList();
@@ -234,6 +242,132 @@ namespace msn2.net.QueuePlayer.Client
 			contextMenuAddFile.Show(buttonAddFile, new Point(buttonAddFile.Width/2, buttonAddFile.Height/2 ));
 		}
 
+		private void buttonAdd_Click(object sender, System.EventArgs e)
+		{
+
+			msn2.net.Controls.Status statusTemp = new msn2.net.Controls.Status("Validating files...", listViewFiles.Items.Count);
+			ArrayList addFiles = new ArrayList();
+
+			// Get the final list of files we can add
+			foreach (ListViewItem item in listViewFiles.Items) 
+			{
+				
+				string file		  = item.Tag.ToString();
+
+				// make sure file isn't already in music collection
+				if (!file.StartsWith(QueuePlayerClient.Player.client.mediaServer.ShareDirectory)) 
+				{
+					// Check if the same file already exists in the music share
+					DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media);
+					dv.RowFilter = "MediaFile = '" + file.Replace("'", "''") + "'";
+					if (dv.Count > 0)
+					{
+						string message = String.Format("The file '{0}' is already in the music collection.  This file will be skipped.  Click 'Cancel' to abort adding files.",
+							file);
+						if (MessageBox.Show(message, "File already exists", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+							return;
+					} 
+					else 
+					{
+						addFiles.Add(file);
+					}
+				} 
+				else 
+				{
+					addFiles.Add(file);
+				}
+
+				statusTemp.Increment(1);
+			}
+			statusTemp.Hide();
+
+			// Now start actually adding the files
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Adding files...", addFiles.Count);
+			DataSetMedia dsMedia = new DataSetMedia();
+
+			// Copy files if needed and get basic info on the files
+			foreach (string fullpath in addFiles) 
+			{
+				string destPath = QueuePlayerClient.Player.client.mediaServer.DropDirectory;
+				if (!Directory.Exists(destPath))
+					Directory.CreateDirectory(destPath);
+
+				string destFile = "";
+				destFile = fullpath.Substring(fullpath.LastIndexOf(Path.DirectorySeparatorChar)+1);
+
+				// copy/move file only if not already in share path
+				if (!fullpath.ToLower().StartsWith(QueuePlayerClient.Player.client.mediaServer.ShareDirectory.ToLower()))
+				{
+					int i = 0;
+
+					string baseFile = destFile.Substring(0, destFile.LastIndexOf("."));
+					string baseExtension = destFile.Substring(destFile.LastIndexOf("."));
+                    
+					// loop to find a filename we can use
+					while (File.Exists(destPath + destFile))
+					{
+						i++;
+						destFile = baseFile + String.Format(" ({0})", i) + baseExtension;
+					}
+
+					// Now set the destFile to the whole thing
+					destFile = destPath + Path.DirectorySeparatorChar + destFile;
+					
+					// check if we should move (and therefore delete) the source file or simply copy
+					if (checkBoxDeleteOnAdd.Checked)
+					{
+						File.Move(fullpath, destFile);
+					}
+					else
+					{
+						if (fullpath.ToLower().StartsWith(QueuePlayerClient.Player.client.mediaServer.ShareDirectory))
+						{
+							File.Move(fullpath, destFile);
+						}
+						else 
+						{
+							File.Copy(fullpath, destFile);
+						}
+					}
+
+					// now tell the server
+					QueuePlayerClient.Player.client.mediaServer.AddMediaFile(destFile);
+
+				}
+					// otherwise we need to tell the server there is a new file
+				else
+				{
+					QueuePlayerClient.Player.client.mediaServer.AddMediaFile(fullpath);
+				}
+
+				status.Increment(1);
+				status.Refresh();
+				this.Refresh();
+			}
+
+			// Remove entries that were added from the list
+			foreach (string file in addFiles) 
+			{
+				foreach (ListViewItem item in listViewFiles.Items) 
+				{
+					if (item.Tag.ToString().Equals(file))
+					{
+						listViewFiles.Items.Remove(item);
+						break;
+					}
+				}
+			}
+
+			status.Hide();
+
+			MessageBox.Show(addFiles.Count.ToString() + " files have been added.", "Add Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+		}
+
+		#endregion
+
+		#region Menus
+
 		private void menuItemAddFile_Click(object sender, System.EventArgs e)
 		{
 			if (addFileDialog.ShowDialog() != DialogResult.Cancel) 
@@ -255,6 +389,10 @@ namespace msn2.net.QueuePlayer.Client
 			AddDirectory(true);
 		}
 
+		#endregion
+
+		#region Private Methods
+
 		private void AddDirectory(bool recursive) 
 		{
 			Shell32.ShellClass sh = new Shell32.ShellClass();
@@ -268,7 +406,7 @@ namespace msn2.net.QueuePlayer.Client
 
 				Thread thread = new Thread(new ThreadStart(WalkSubDirsThread));
                 
-				directoryAddStatus = new Status("Searching for files...", thread);
+				directoryAddStatus = new msn2.net.Controls.Status("Searching for files...", thread);
 				thread.Start();
 				
 			}
@@ -291,7 +429,7 @@ namespace msn2.net.QueuePlayer.Client
 			}
 
 			// check if already in music collection
-			DataView dv = new DataView(player.client.dsMedia.Media);
+			DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media);
 			dv.RowFilter = String.Format("MD5 = '{0}'", md5);
 			if (dv.Count > 0) 
 				found = true;
@@ -342,132 +480,16 @@ namespace msn2.net.QueuePlayer.Client
 		}
 
 		
-		private void buttonAdd_Click(object sender, System.EventArgs e)
-		{
+		#endregion
 
-			Status statusTemp = new Status("Validating files...", listViewFiles.Items.Count);
-			ArrayList addFiles = new ArrayList();
-
-			// Get the final list of files we can add
-			foreach (ListViewItem item in listViewFiles.Items) 
-			{
-				
-				string file		  = item.Tag.ToString();
-
-				// make sure file isn't already in music collection
-				if (!file.StartsWith(player.client.mediaServer.ShareDirectory)) 
-				{
-					// Check if the same file already exists in the music share
-					DataView dv = new DataView(player.client.dsMedia.Media);
-					dv.RowFilter = "MediaFile = '" + file.Replace("'", "''") + "'";
-					if (dv.Count > 0)
-					{
-						string message = String.Format("The file '{0}' is already in the music collection.  This file will be skipped.  Click 'Cancel' to abort adding files.",
-							file);
-						if (MessageBox.Show(message, "File already exists", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
-							return;
-					} 
-					else 
-					{
-						addFiles.Add(file);
-					}
-				} 
-				else 
-				{
-					addFiles.Add(file);
-				}
-
-				statusTemp.Increment(1);
-			}
-			statusTemp.Hide();
-
-			// Now start actually adding the files
-			Status status = new Status("Adding files...", addFiles.Count);
-			DataSetMedia dsMedia = new DataSetMedia();
-
-			// Copy files if needed and get basic info on the files
-			foreach (string fullpath in addFiles) 
-			{
-				string destPath = player.client.mediaServer.DropDirectory;
-				if (!Directory.Exists(destPath))
-					Directory.CreateDirectory(destPath);
-
-				string destFile = "";
-				destFile = fullpath.Substring(fullpath.LastIndexOf(Path.DirectorySeparatorChar)+1);
-
-				// copy/move file only if not already in share path
-				if (!fullpath.ToLower().StartsWith(player.client.mediaServer.ShareDirectory.ToLower()))
-				{
-					int i = 0;
-
-					string baseFile = destFile.Substring(0, destFile.LastIndexOf("."));
-					string baseExtension = destFile.Substring(destFile.LastIndexOf("."));
-                    
-					// loop to find a filename we can use
-					while (File.Exists(destPath + destFile))
-					{
-						i++;
-						destFile = baseFile + String.Format(" ({0})", i) + baseExtension;
-					}
-
-					// Now set the destFile to the whole thing
-					destFile = destPath + Path.DirectorySeparatorChar + destFile;
-					
-					// check if we should move (and therefore delete) the source file or simply copy
-					if (checkBoxDeleteOnAdd.Checked)
-					{
-						File.Move(fullpath, destFile);
-					}
-					else
-					{
-						if (fullpath.ToLower().StartsWith(player.client.mediaServer.ShareDirectory))
-						{
-							File.Move(fullpath, destFile);
-						}
-						else 
-						{
-							File.Copy(fullpath, destFile);
-						}
-					}
-
-					// now tell the server
-					player.client.mediaServer.AddMediaFile(destFile);
-
-				}
-					// otherwise we need to tell the server there is a new file
-				else
-				{
-					player.client.mediaServer.AddMediaFile(fullpath);
-				}
-
-				status.Increment(1);
-				status.Refresh();
-				this.Refresh();
-			}
-
-			// Remove entries that were added from the list
-			foreach (string file in addFiles) 
-			{
-				foreach (ListViewItem item in listViewFiles.Items) 
-				{
-					if (item.Tag.ToString().Equals(file))
-					{
-						listViewFiles.Items.Remove(item);
-						break;
-					}
-				}
-			}
-
-			status.Hide();
-
-			MessageBox.Show(addFiles.Count.ToString() + " files have been added.", "Add Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
-		}
+		#region Resize
 
 		private void AddSongs_Resize(object sender, System.EventArgs e)
 		{
 			// Resize the file listview columns
 			listViewFiles.Columns[0].Width = listViewFiles.Width - 22;
 		}
+
+		#endregion
 	}
 }

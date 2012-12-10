@@ -19,11 +19,13 @@ namespace msn2.net.QueuePlayer
 		private MediaSourceDictionary mediaCache = new MediaSourceDictionary();
 		private Queue preloadQueue = new Queue();
 		private Thread preloadThread;
+		private bool enableOutput = true;
 
 		// defaults
 		private int	   mediaVolume  = 0;
 		private int    mediaBalance = 0;
 		private double mediaRate	= 1;
+		private int	   MUTE_VOLUME  = -4000;
 
 		public DirectXPlayer()
 		{
@@ -217,8 +219,11 @@ namespace msn2.net.QueuePlayer
 					{
 						filegraphManager = new FilgraphManagerClass();
 						filegraphManager.RenderFile(value);
-					}
-					filegraphManager.Volume  = mediaVolume;
+					} 
+					if (enableOutput)
+                        filegraphManager.Volume  = mediaVolume;
+					else
+						filegraphManager.Volume = MUTE_VOLUME;
 					filegraphManager.Rate	 = mediaRate;
 					filegraphManager.Balance = mediaBalance;
 					initialized = true;
@@ -267,15 +272,17 @@ namespace msn2.net.QueuePlayer
 				if (!initialized)
 					return 1;
 				else
-					return ( ((double)filegraphManager.Volume + 2000.0) / 2000.0);
+					return ( ((double)mediaVolume + 2000.0) / 2000.0);
 			}
 			set 
 			{
 				if (value > 1.0)
 					value = 1.0;
 				mediaVolume = (int) (0 - ((1.0 - value) * 2000.0));
-				if (initialized)
+				if (initialized && enableOutput)
 					filegraphManager.Volume = mediaVolume;
+				else if (initialized && !enableOutput)
+					filegraphManager.Volume = MUTE_VOLUME;
 				if (VolumeChanged != null) 
 					VolumeChanged(this, new Server_VolumeEventArgs(value));
 			}
@@ -371,6 +378,16 @@ namespace msn2.net.QueuePlayer
 						filegraphManager.CurrentPosition = value;
 					}
 				}
+			}
+		}
+
+		public bool EnableOutput
+		{
+			get { return enableOutput; }
+			set 
+			{ 
+				enableOutput = value; 
+				this.Volume = this.Volume;
 			}
 		}
 

@@ -8,21 +8,23 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using msn2.net.QueuePlayer.Server;
+using msn2.net.QueuePlayer.Shared;
 
 namespace msn2.net.QueuePlayer.ServerHost
 {
 	/// <summary>
 	/// Summary description for Form1.
 	/// </summary>
-	public class ServerHostDialog : System.Windows.Forms.Form
+	public class ServerHostDialog : msn2.net.Controls.ShellForm
 	{
-		private System.Windows.Forms.Label label1;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.TextBox textBox1;
 	//		private HttpChannel channel = null;
 		private TcpChannel channel = null;
+		private MediaServer server = null;
 
 		/// <summary>
 		/// Default constructor
@@ -41,6 +43,15 @@ namespace msn2.net.QueuePlayer.ServerHost
 			RemotingConfiguration.RegisterWellKnownServiceType(typeof(MediaServer), 
 				"MyMedia", WellKnownObjectMode.Singleton);
 						
+			MediaServer server = new MediaServer();
+			server.LogEvent += new LogEventHandler(Server_LogEvent);
+
+#if DEBUG
+			this.Visible = true;
+			this.TopMost = true;
+			this.Left = Screen.PrimaryScreen.WorkingArea.Right  - this.Width;
+			this.Top  = Screen.PrimaryScreen.WorkingArea.Bottom - this.Height;
+#endif
 //			RemotingConfiguration.Configure("UMServerHost.exe.config");
 		}
 
@@ -68,19 +79,11 @@ namespace msn2.net.QueuePlayer.ServerHost
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ServerHostDialog));
-			this.label1 = new System.Windows.Forms.Label();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(16, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(224, 23);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Running server...";
 			// 
 			// notifyIcon1
 			// 
@@ -100,21 +103,29 @@ namespace msn2.net.QueuePlayer.ServerHost
 			this.menuItem1.Text = "E&xit Server Host";
 			this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
 			// 
+			// textBox1
+			// 
+			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox1.Size = new System.Drawing.Size(242, 88);
+			this.textBox1.TabIndex = 1;
+			this.textBox1.Text = "";
+			// 
 			// ServerHostDialog
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(258, 48);
+			this.ClientSize = new System.Drawing.Size(242, 88);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.label1});
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+																		  this.textBox1});
 			this.Location = new System.Drawing.Point(10, 10);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "ServerHostDialog";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "Server Host Dialog";
-			this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+			this.Text = "QueuePlayer Server";
 			this.Load += new System.EventHandler(this.ServerHostDialog_Load);
 			this.ResumeLayout(false);
 
@@ -139,6 +150,23 @@ namespace msn2.net.QueuePlayer.ServerHost
 		private void ServerHostDialog_Load(object sender, System.EventArgs e)
 		{
 			this.Visible = false;
+		}
+
+		private void Server_LogEvent(object sender, LogEventArgs e)
+		{
+			object[] eventArgs = new object[1];
+			eventArgs[0] = (object) e;
+			this.Invoke(
+				new LogEventDelegate(this.LogEvent), eventArgs);
+		}
+
+		public delegate void LogEventDelegate(LogEventArgs e);
+
+		private void LogEvent(LogEventArgs e)
+		{
+			textBox1.Text += e.Function + ": " + e.Message + "\n";
+			textBox1.SelectionStart = textBox1.Text.Length-1;
+			textBox1.ScrollToCaret();
 		}
 
 

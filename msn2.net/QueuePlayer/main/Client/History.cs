@@ -5,30 +5,30 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Runtime.Remoting.Messaging;
 using msn2.net.QueuePlayer.Shared;
+using msn2.net.Common;
 
 namespace msn2.net.QueuePlayer.Client
 {
 	/// <summary>
 	/// Summary description for History.
 	/// </summary>
-	public class History : System.Windows.Forms.Form
-	{
+	public class History : msn2.net.Controls.ShellForm
+	{ 
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private msn2.net.QueuePlayer.Client.MediaListView mediaList;
-		private UMPlayer player;
 
-		public History(UMPlayer player)
+		public History()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			this.player = player;
-			this.mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			this.mediaList.lv.ContextMenu = 
+				QueuePlayerClient.Player.contextMenuMediaList;
 
 			this.TopLevel = false;
 
@@ -86,7 +86,7 @@ namespace msn2.net.QueuePlayer.Client
 
 		public void InvokeAddToHistory(HistoryEventArgs e)
 		{
-			MediaListViewItem item = new MediaListViewItem(player, player.client.FindMediaRow(e.MediaId), e.Guid);
+			MediaListViewItem item = new MediaListViewItem(QueuePlayerClient.Player, QueuePlayerClient.Player.client.FindMediaRow(e.MediaId), e.Guid);
 			mediaList.InsertItem(item, 0);
 		}
 
@@ -108,7 +108,7 @@ namespace msn2.net.QueuePlayer.Client
 			if (mediaList.SelectedItems.Count > 0)
 			{
                 MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
 			}
 
 		}

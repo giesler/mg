@@ -12,27 +12,28 @@ namespace msn2.net.QueuePlayer.Client
 	/// <summary>
 	/// Summary description for BrowseCollection.
 	/// </summary>
-	public class BrowseCollection : System.Windows.Forms.Form
+	public class BrowseCollection : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.TreeView treeViewCollection;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		private System.ComponentModel.Container components = null;
 		private msn2.net.QueuePlayer.Client.MediaListView mediaList;
 
-		private UMPlayer player;
+		#endregion
 
-		public BrowseCollection(UMPlayer player)
+		#region Constructor
+
+		public BrowseCollection()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 
-			this.player = player;
-			mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			mediaList.lv.ContextMenu = QueuePlayerClient.Player.contextMenuMediaList;
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -48,6 +49,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -104,9 +107,11 @@ namespace msn2.net.QueuePlayer.Client
 		}
 		#endregion
 
+		#region Other Events
+
 		private void treeViewCollection_BeforeExpand(object sender, System.Windows.Forms.TreeViewCancelEventArgs e)
 		{
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 
 			// Check if we have to load children
 			if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Text.Equals("Loading")) 
@@ -164,6 +169,7 @@ namespace msn2.net.QueuePlayer.Client
 			} 
 		}
 
+		
 		private void treeViewCollection_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
 			mediaList.Clear();
@@ -172,12 +178,12 @@ namespace msn2.net.QueuePlayer.Client
 			{
 				ArtistTreeNode artistNode = e.Node as ArtistTreeNode;
 
-				DataView dv = new DataView(player.client.dsMedia.Media, "Artist = '" + artistNode.Artist.Replace("'", "''") + "'", "Name", DataViewRowState.CurrentRows);
+				DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media, "Artist = '" + artistNode.Artist.Replace("'", "''") + "'", "Name", DataViewRowState.CurrentRows);
 				foreach (DataRowView rowView in dv) 
 				{
 					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
-					DataSetMedia.MediaRow currentRow = player.client.FindMediaRow(row.MediaId);
-					mediaList.AddItem(new MediaListViewItem(player, currentRow));
+					DataSetMedia.MediaRow currentRow = QueuePlayerClient.Player.client.FindMediaRow(row.MediaId);
+					mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, currentRow));
 				}
 
 			} 
@@ -185,14 +191,14 @@ namespace msn2.net.QueuePlayer.Client
 			{
 				AlbumTreeNode albumNode = e.Node as AlbumTreeNode;
 
-				DataView dv = new DataView(player.client.dsMedia.Media, "Album = '" + albumNode.Album.Replace("'", "''") + "'", "Album", DataViewRowState.CurrentRows);
+				DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media, "Album = '" + albumNode.Album.Replace("'", "''") + "'", "Album", DataViewRowState.CurrentRows);
 				dv.Sort = "Track";
 
 				foreach (DataRowView rowView in dv) 
 				{
 					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
-					DataSetMedia.MediaRow currentRow = player.client.FindMediaRow(row.MediaId);
-					mediaList.AddItem(new MediaListViewItem(player, currentRow));
+					DataSetMedia.MediaRow currentRow = QueuePlayerClient.Player.client.FindMediaRow(row.MediaId);
+					mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, currentRow));
 				}
 
 			}
@@ -200,26 +206,30 @@ namespace msn2.net.QueuePlayer.Client
 			{
 				GenreTreeNode genreNode = e.Node as GenreTreeNode;
 
-				DataView dv = new DataView(player.client.dsMedia.Media, "Genre = '" + genreNode.Genre + "'", "Genre", DataViewRowState.CurrentRows);
+				DataView dv = new DataView(QueuePlayerClient.Player.client.dsMedia.Media, "Genre = '" + genreNode.Genre + "'", "Genre", DataViewRowState.CurrentRows);
 				dv.Sort = "Track";
 
 				foreach (DataRowView rowView in dv) 
 				{
 					DataSetMedia.MediaRow row = (DataSetMedia.MediaRow) rowView.Row;
-					mediaList.AddItem(new MediaListViewItem(player, row));
+					mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, row));
 				}
 			}
 
 		}
 
+		
 		private void mediaList_MediaDoubleClick(object sender, System.EventArgs e)
 		{
 			if (mediaList.SelectedItems.Count > 0)
 			{
 				MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
 			}
 
 		}
+
+		#endregion
+
 	}
 }

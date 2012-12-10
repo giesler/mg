@@ -68,13 +68,13 @@ namespace msn2.net.Common
 			ser.Serialize(memStream, obj);
 
 			// Copy into a string
-			int position = 0;
+			int position = 0; int read = 0;
 			byte[] buffer = new byte[1024];
 			memStream.Seek(0, SeekOrigin.Begin);
 			while (position < memStream.Length)
 			{
 				// read a block
-				int read = memStream.Read(buffer, position, 1024);
+				read = memStream.Read(buffer, 0, 1024);
                 
 				// write to string
 				for (int i = 0; i < read; i++)

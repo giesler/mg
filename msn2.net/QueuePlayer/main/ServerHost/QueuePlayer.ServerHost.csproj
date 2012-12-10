@@ -90,6 +90,16 @@
                     Project = "{7103E5AD-756D-4D71-A557-74C615B75475}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
+                <Reference
+                    Name = "QueuePlayer.Shared"
+                    Project = "{991038DB-5672-4709-88B9-A7453312CCF6}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "Controls"
+                    Project = "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -105,7 +115,7 @@
                 />
                 <File
                     RelPath = "ServerHostDialog.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File

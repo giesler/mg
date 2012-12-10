@@ -17,9 +17,8 @@ namespace msn2.net.QueuePlayer.Client
 	/// </summary>
 	public class Search : msn2.net.Controls.ShellForm
 	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
+		#region Declares
+
 		private System.ComponentModel.Container components = null;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ComboBox comboBoxSearch;
@@ -30,17 +29,18 @@ namespace msn2.net.QueuePlayer.Client
 		private System.Windows.Forms.Button buttonNewSearch;
 		private msn2.net.QueuePlayer.Client.MediaListView mediaList;
 
-		private UMPlayer player;
+		#endregion
 
-		public Search(UMPlayer player)
+		#region Constructor
+
+		public Search()
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			this.player = player;
-			this.mediaList.lv.ContextMenu = player.contextMenuMediaList;
+			this.mediaList.lv.ContextMenu = QueuePlayerClient.Player.contextMenuMediaList;
 
 			// Add search types
 			comboBoxSearch.Items.Add("any field");
@@ -55,7 +55,7 @@ namespace msn2.net.QueuePlayer.Client
 			comboBoxSearch.SelectedIndex = 0;
 		}
 
-		public Search(UMPlayer player, string search): this(player)
+		public Search(string search): this()
 		{
 			this.textBoxSearch.Text		= search;
 			this.panel1.Visible			= false;
@@ -63,12 +63,58 @@ namespace msn2.net.QueuePlayer.Client
 			buttonSearch_Click(this, EventArgs.Empty);
 		}
 
+		#endregion
+
+		#region Load
+
+		private void Search_Load(object sender, System.EventArgs e)
+		{
+			textBoxSearch.Focus();
+		}
+
+		#endregion
+
+		#region Methods
+
 		public void SearchNow(string search)
 		{
 			this.textBoxSearch.Text		= search;
 			this.Text					= "Search results for '" + search + "'";
 			buttonSearch_Click(this, EventArgs.Empty);
 		}
+
+
+		public void MissingFilesSearch()
+		{
+			msn2.net.Controls.Status status = new msn2.net.Controls.Status("Checking files...", QueuePlayerClient.Player.client.dsMedia.Media.Rows.Count);
+			string fileShare = QueuePlayerClient.Player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
+            
+			mediaList.Clear();
+
+			foreach (DataSetMedia.MediaRow row in new IterIsolate(QueuePlayerClient.Player.client.dsMedia.Media))
+			{
+				if (row.RowState != DataRowState.Deleted)
+				{
+					if (!File.Exists(fileShare + row.MediaFile))
+					{
+						mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, row));
+					}
+				}
+				status.Increment(1);
+				status.Refresh();
+
+				if (status.Cancel)
+					break;
+			}
+
+			status.Hide();
+			status.Dispose();
+		}
+
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -84,6 +130,8 @@ namespace msn2.net.QueuePlayer.Client
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -227,6 +275,8 @@ namespace msn2.net.QueuePlayer.Client
 		}
 		#endregion
 
+		#region Buttons handlers
+
 		private void buttonSearch_Click(object sender, System.EventArgs e)
 		{
             mediaList.Clear();
@@ -237,6 +287,16 @@ namespace msn2.net.QueuePlayer.Client
 				MissingFilesSearch();
 		}
 
+
+		private void buttonNewSearch_Click(object sender, System.EventArgs e)
+		{
+			QueuePlayerClient.Player.NewSearch();
+		}
+
+		#endregion
+
+		#region Private Methods
+		
 		private void SQLSearch()
 		{
 			if (textBoxSearch.Text.Length == 0)
@@ -277,7 +337,7 @@ namespace msn2.net.QueuePlayer.Client
 			if (comboBoxSearch.SelectedIndex < 5)
 				sb.Append(") order by Album, Track, Artist, Name");
 
-			SqlConnection cn = new SqlConnection(player.client.ConnectionString);
+			SqlConnection cn = new SqlConnection(QueuePlayerClient.Player.client.ConnectionString);
 			SqlCommand cmd = new SqlCommand(sb.ToString(), cn);
 
 			if (comboBoxSearch.SelectedIndex < 5)
@@ -289,9 +349,9 @@ namespace msn2.net.QueuePlayer.Client
 			SqlDataReader dr = cmd.ExecuteReader();
 			while (dr.Read()) 
 			{
-				DataSetMedia.MediaRow row = player.client.FindMediaRow(Convert.ToInt32(dr[0]));
+				DataSetMedia.MediaRow row = QueuePlayerClient.Player.client.FindMediaRow(Convert.ToInt32(dr[0]));
 				if (row != null)
-					mediaList.AddItem(new MediaListViewItem(player, row));
+					mediaList.AddItem(new MediaListViewItem(QueuePlayerClient.Player, row));
 			}
 			dr.Close();
 			cn.Close();
@@ -300,42 +360,25 @@ namespace msn2.net.QueuePlayer.Client
 			textBoxSearch.Focus();
 		}
 
-		public void MissingFilesSearch()
-		{
-			Status status = new Status("Checking files...", player.client.dsMedia.Media.Rows.Count);
-			string fileShare = player.client.mediaServer.ShareDirectory + Path.DirectorySeparatorChar;
-            
-			mediaList.Clear();
 
-			foreach (DataSetMedia.MediaRow row in new IterIsolate(player.client.dsMedia.Media))
-			{
-				if (row.RowState != DataRowState.Deleted)
-				{
-					if (!File.Exists(fileShare + row.MediaFile))
-					{
-						mediaList.AddItem(new MediaListViewItem(player, row));
-					}
-				}
-				status.Increment(1);
-				status.Refresh();
+		#endregion
 
-				if (status.Cancel)
-					break;
-			}
-
-			status.Hide();
-			status.Dispose();
-		}
+		#region Keyboard Events
 
 		private void textBoxSearch_Enter(object sender, System.EventArgs e)
 		{
 			this.AcceptButton = buttonSearch;
 		}
 
+
 		private void textBoxSearch_Leave(object sender, System.EventArgs e)
 		{
 			this.AcceptButton = null;		
 		}
+
+		#endregion
+
+		#region Other Events
 
 		private void comboBoxSearch_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
@@ -348,25 +391,19 @@ namespace msn2.net.QueuePlayer.Client
 				textBoxSearch.Text = "select mediaid from media where deleted=0 and name in (select name from media where deleted=0 group by name having count(*) > 1) order by name";
 		}
 
-		private void buttonNewSearch_Click(object sender, System.EventArgs e)
-		{
-			player.NewSearch();
-		}
-
-		private void Search_Load(object sender, System.EventArgs e)
-		{
-			textBoxSearch.Focus();
-		}
 
 		private void mediaList_MediaDoubleClick(object sender, System.EventArgs e)
 		{
 			if (mediaList.SelectedItems.Count > 0)
 			{
-                MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
-				player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
+				MediaListViewItem item = (MediaListViewItem) mediaList.SelectedItems[0];
+				QueuePlayerClient.Player.client.mediaServer.PlayMediaId(item.Entry.MediaId);
 			}
 
 		}
+
+
+		#endregion
 
 	}
 }

@@ -32,7 +32,6 @@ namespace msn2.net.Controls
 
 		public AxSHDocVw.AxWebBrowser axWebBrowser1;
 		private System.ComponentModel.IContainer components;
-		private string currentUrl = "";
 		private bool isPopup = false;
 		private System.Windows.Forms.Timer timerShowStatus;
 		private System.Windows.Forms.Panel panelStatus;
@@ -53,6 +52,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Label labelStatus;
 		private string url = "";
 		private System.Timers.Timer refreshTimer = null;
+		private bool clickHandled = false;
 
 		#endregion
 
@@ -156,7 +156,6 @@ namespace msn2.net.Controls
 			this.axWebBrowser1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWebBrowser1.OcxState")));
 			this.axWebBrowser1.Size = new System.Drawing.Size(304, 288);
 			this.axWebBrowser1.TabIndex = 0;
-			this.axWebBrowser1.LocationChanged += new System.EventHandler(this.axWebBrowser1_LocationChanged);
 			this.axWebBrowser1.TitleChange += new AxSHDocVw.DWebBrowserEvents2_TitleChangeEventHandler(this.axWebBrowser1_TitleChange);
 			this.axWebBrowser1.NavigateComplete2 += new AxSHDocVw.DWebBrowserEvents2_NavigateComplete2EventHandler(this.axWebBrowser1_NavigateComplete2);
 			this.axWebBrowser1.NewWindow2 += new AxSHDocVw.DWebBrowserEvents2_NewWindow2EventHandler(this.axWebBrowser1_NewWindow2);
@@ -267,7 +266,8 @@ namespace msn2.net.Controls
 			navigating					= false;
 			timerShowStatus.Enabled		= false;
 			panelStatus.Visible			= false;
-			
+			clickHandled				= false;
+
 			this.url = axWebBrowser1.LocationURL.ToString();
 
 			if (NavigateComplete != null)
@@ -317,13 +317,23 @@ namespace msn2.net.Controls
 
 		private void axWebBrowser1_NewWindow2(object sender, AxSHDocVw.DWebBrowserEvents2_NewWindow2Event e)
 		{
-			WebBrowser b = new WebBrowser("Popup", true);
-			e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
-			b.Visible = false;
-		}
-
-		private void axWebBrowser1_LocationChanged(object sender, System.EventArgs e)
-		{
+			if (!clickHandled)
+			{
+				if (this.defaultClickBehavior == DefaultClickBehavior.OpenInNewTab)
+				{
+					e.cancel = true;
+				}
+				else
+				{
+					WebBrowser b = new WebBrowser("Popup", true);
+					e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
+					b.Show();
+				}
+			}
+			else
+			{
+				e.cancel = true;
+			}
 		}
 
 		#endregion
@@ -421,6 +431,8 @@ namespace msn2.net.Controls
 		{
 			try
 			{
+				clickHandled = false;
+
 				HTMLWindow2Class win = (HTMLWindow2Class) Document.parentWindow;
 				Debug.WriteLine("Object: " + win.@event.srcElement + ", Type: " + win.@event.type);
 
@@ -458,7 +470,14 @@ namespace msn2.net.Controls
 					{
                         HTMLAreaElementClass area = (HTMLAreaElementClass) win.@event.srcElement;
 						newUrl = area.href.Trim();
-						newTitle = area.alt.ToString();
+						if (area.alt != null)
+						{
+							newTitle = area.alt.ToString();
+						}
+						else
+						{
+							newTitle = "New Window";
+						}
 					}
 					else
 					{
@@ -486,6 +505,9 @@ namespace msn2.net.Controls
 
 							if (!args.Cancel)
 							{
+								// We will, by default, handle this click
+								clickHandled = true;
+
 								// See what the default 'click' action is
 								switch (clickBehavior)
 								{
@@ -499,6 +521,9 @@ namespace msn2.net.Controls
 									case DefaultClickBehavior.OpenInNewWindow:
 										WebBrowser b = new WebBrowser(newTitle, args.Url);
 										b.Show();		
+										break;
+									default:
+										clickHandled = false;
 										break;
 								}
 							}

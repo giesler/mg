@@ -104,7 +104,10 @@ namespace msn2.net.Controls
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
 
-			this.webBrowserControl1.IsPopup = popup;
+			if (webBrowserControl1 != null)
+			{
+				this.webBrowserControl1.IsPopup = popup;
+			}
 
 			InternalConstructor(title);
 
@@ -151,6 +154,14 @@ namespace msn2.net.Controls
 			// Add new tab
 			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
 			browser.TabPage = page;
+			tabControl.TabPages.Add(page);
+
+			return page;
+		}
+
+		public Crownwood.Magic.Controls.TabPage AddNewTab(ShellForm form)
+		{
+			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(form.Text, form);
 			tabControl.TabPages.Add(page);
 
 			return page;
