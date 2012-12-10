@@ -647,12 +647,12 @@ End If
 
 If Me.lstWheatboard = 1 Then        ' only medite
     If strFilter <> "" Then strFilter = strFilter + " AND "
-    strFilter = strFilter + "[Medite] = True"
+    strFilter = strFilter + "(Tbl_Catalog.Medite = 1)"
     If strMsg <> "" Then strMsg = strMsg + ", "
     strMsg = strMsg & "Wheatboard Shipments"
 ElseIf Me.lstWheatboard = 2 Then    ' only non medite
     If strFilter <> "" Then strFilter = strFilter + " AND "
-    strFilter = strFilter + "[Medite] = False"
+    strFilter = strFilter + "(Tbl_Catalog.Medite = 0)"
     If strMsg <> "" Then strMsg = strMsg + ", "
     strMsg = strMsg & "Non-Wheatboard Shipments"
 End If
