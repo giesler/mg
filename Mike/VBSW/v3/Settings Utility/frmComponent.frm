@@ -20,7 +20,7 @@ Begin VB.Form frmComponent
       Caption         =   "&Cancel"
       Height          =   375
       Left            =   5760
-      TabIndex        =   25
+      TabIndex        =   21
       Top             =   4080
       Width           =   1335
    End
@@ -29,7 +29,7 @@ Begin VB.Form frmComponent
       Default         =   -1  'True
       Height          =   375
       Left            =   4320
-      TabIndex        =   24
+      TabIndex        =   20
       Top             =   4080
       Width           =   1335
    End
@@ -43,57 +43,54 @@ Begin VB.Form frmComponent
       _ExtentY        =   6800
       _Version        =   393216
       Style           =   1
-      Tabs            =   9
-      Tab             =   3
-      TabsPerRow      =   9
+      Tabs            =   10
+      TabsPerRow      =   10
       TabHeight       =   520
       TabCaption(0)   =   "General Settings"
       TabPicture(0)   =   "frmComponent.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtURL"
-      Tab(0).Control(1)=   "fraCheckType"
-      Tab(0).Control(2)=   "txtName"
-      Tab(0).Control(3)=   "Label35"
-      Tab(0).Control(4)=   "Label12"
-      Tab(0).Control(5)=   "Label1"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label12"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label35"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "txtName"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "fraCheckType"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "txtURL"
+      Tab(0).Control(5).Enabled=   0   'False
       Tab(0).ControlCount=   6
       TabCaption(1)   =   "OS Reqs"
       TabPicture(1)   =   "frmComponent.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label7"
-      Tab(1).Control(1)=   "Label8"
-      Tab(1).Control(2)=   "Label9"
-      Tab(1).Control(3)=   "Label10"
-      Tab(1).Control(4)=   "Label34"
-      Tab(1).Control(5)=   "txtOSVersionMin"
-      Tab(1).Control(6)=   "txtOSVersionMax"
-      Tab(1).Control(7)=   "chkOSVersionNT"
-      Tab(1).Control(8)=   "chkOSVersion9x"
-      Tab(1).ControlCount=   9
+      Tab(1).Control(0)=   "ucOS1"
+      Tab(1).Control(1)=   "Label9"
+      Tab(1).Control(2)=   "Label10"
+      Tab(1).ControlCount=   3
       TabCaption(2)   =   "Installation"
       TabPicture(2)   =   "frmComponent.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label13"
-      Tab(2).Control(1)=   "Label6"
-      Tab(2).Control(2)=   "Label5"
-      Tab(2).Control(3)=   "Label4"
-      Tab(2).Control(4)=   "Label3"
-      Tab(2).Control(5)=   "Label2"
+      Tab(2).Control(0)=   "cmdSetupBrowse"
+      Tab(2).Control(1)=   "txtSetupMessage"
+      Tab(2).Control(2)=   "txtSetupCommand"
+      Tab(2).Control(3)=   "txtSetupCommandLine"
+      Tab(2).Control(4)=   "txtSetupTime"
+      Tab(2).Control(5)=   "cmbReboot"
       Tab(2).Control(6)=   "Label37"
-      Tab(2).Control(7)=   "cmbReboot"
-      Tab(2).Control(8)=   "txtSetupTime"
-      Tab(2).Control(9)=   "txtSetupCommandLine"
-      Tab(2).Control(10)=   "txtSetupCommand"
-      Tab(2).Control(11)=   "txtSetupMessage"
-      Tab(2).Control(12)=   "cmdSetupBrowse"
+      Tab(2).Control(7)=   "Label2"
+      Tab(2).Control(8)=   "Label3"
+      Tab(2).Control(9)=   "Label4"
+      Tab(2).Control(10)=   "Label5"
+      Tab(2).Control(11)=   "Label6"
+      Tab(2).Control(12)=   "Label13"
       Tab(2).ControlCount=   13
       TabCaption(3)   =   "Dependencies"
       TabPicture(3)   =   "frmComponent.frx":0054
-      Tab(3).ControlEnabled=   -1  'True
-      Tab(3).Control(0)=   "Label11"
-      Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "lvDependencies"
-      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlEnabled=   0   'False
+      Tab(3).Control(0)=   "lvDependencies"
+      Tab(3).Control(1)=   "Label11"
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Notes"
       TabPicture(4)   =   "frmComponent.frx":0070
@@ -103,52 +100,79 @@ Begin VB.Form frmComponent
       TabCaption(5)   =   "Reg Ver Check"
       TabPicture(5)   =   "frmComponent.frx":008C
       Tab(5).ControlEnabled=   0   'False
-      Tab(5).Control(0)=   "Label21"
-      Tab(5).Control(1)=   "Label22"
-      Tab(5).Control(2)=   "Label23"
+      Tab(5).Control(0)=   "txtRegVersionCheckVersion"
+      Tab(5).Control(1)=   "txtRegVersionCheckKey"
+      Tab(5).Control(2)=   "Label25"
       Tab(5).Control(3)=   "Label24"
-      Tab(5).Control(4)=   "Label25"
-      Tab(5).Control(5)=   "txtRegVersionCheckKey"
-      Tab(5).Control(6)=   "txtRegVersionCheckVersion"
+      Tab(5).Control(4)=   "Label23"
+      Tab(5).Control(5)=   "Label22"
+      Tab(5).Control(6)=   "Label21"
       Tab(5).ControlCount=   7
       TabCaption(6)   =   "Reg Key Check"
       TabPicture(6)   =   "frmComponent.frx":00A8
       Tab(6).ControlEnabled=   0   'False
-      Tab(6).Control(0)=   "Label27"
-      Tab(6).Control(1)=   "Label28"
-      Tab(6).Control(2)=   "Label29"
-      Tab(6).Control(3)=   "Label30"
-      Tab(6).Control(4)=   "txtRegKeyCheckKey"
-      Tab(6).Control(5)=   "txtRegKeyCheckValue"
+      Tab(6).Control(0)=   "txtRegKeyCheckValue"
+      Tab(6).Control(1)=   "txtRegKeyCheckKey"
+      Tab(6).Control(2)=   "Label30"
+      Tab(6).Control(3)=   "Label29"
+      Tab(6).Control(4)=   "Label28"
+      Tab(6).Control(5)=   "Label27"
       Tab(6).ControlCount=   6
       TabCaption(7)   =   "NT Serv Pack Check"
       TabPicture(7)   =   "frmComponent.frx":00C4
       Tab(7).ControlEnabled=   0   'False
-      Tab(7).Control(0)=   "Label31"
-      Tab(7).Control(1)=   "Label32"
+      Tab(7).Control(0)=   "txtNTServicePackCheckNumber"
+      Tab(7).Control(1)=   "Label36"
       Tab(7).Control(2)=   "Label33"
-      Tab(7).Control(3)=   "Label36"
-      Tab(7).Control(4)=   "txtNTServicePackCheckNumber"
+      Tab(7).Control(3)=   "Label32"
+      Tab(7).Control(4)=   "Label31"
       Tab(7).ControlCount=   5
       TabCaption(8)   =   "File Ver Check"
       TabPicture(8)   =   "frmComponent.frx":00E0
       Tab(8).ControlEnabled=   0   'False
-      Tab(8).Control(0)=   "Label26"
-      Tab(8).Control(1)=   "Label17"
-      Tab(8).Control(2)=   "Label14"
-      Tab(8).Control(3)=   "Label15"
-      Tab(8).Control(4)=   "Label16"
-      Tab(8).Control(5)=   "Label18"
-      Tab(8).Control(6)=   "Label19"
-      Tab(8).Control(7)=   "Label20"
-      Tab(8).Control(8)=   "txtFileVersionCheckDLL"
-      Tab(8).Control(9)=   "txtFileVersionCheckVersion"
+      Tab(8).Control(0)=   "txtFileVersionCheckVersion"
+      Tab(8).Control(1)=   "txtFileVersionCheckDLL"
+      Tab(8).Control(2)=   "Label20"
+      Tab(8).Control(3)=   "Label19"
+      Tab(8).Control(4)=   "Label18"
+      Tab(8).Control(5)=   "Label16"
+      Tab(8).Control(6)=   "Label15"
+      Tab(8).Control(7)=   "Label14"
+      Tab(8).Control(8)=   "Label17"
+      Tab(8).Control(9)=   "Label26"
       Tab(8).ControlCount=   10
+      TabCaption(9)   =   ".Net Framework"
+      TabPicture(9)   =   "frmComponent.frx":00FC
+      Tab(9).ControlEnabled=   0   'False
+      Tab(9).Control(0)=   "txtNetFrameworkVersion"
+      Tab(9).Control(1)=   "Label42"
+      Tab(9).Control(2)=   "Label38"
+      Tab(9).Control(3)=   "Label41"
+      Tab(9).Control(4)=   "Label40"
+      Tab(9).Control(5)=   "Label39"
+      Tab(9).ControlCount=   6
+      Begin IASettings.ucOS ucOS1 
+         Height          =   3135
+         Left            =   -74880
+         TabIndex        =   67
+         Top             =   600
+         Width           =   4935
+         _ExtentX        =   9340
+         _ExtentY        =   5530
+      End
+      Begin VB.TextBox txtNetFrameworkVersion 
+         CausesValidation=   0   'False
+         Height          =   285
+         Left            =   -72480
+         TabIndex        =   60
+         Top             =   840
+         Width           =   2295
+      End
       Begin VB.TextBox txtNotes 
          Height          =   3135
          Left            =   -74880
          MultiLine       =   -1  'True
-         TabIndex        =   64
+         TabIndex        =   57
          Top             =   480
          Width           =   6855
       End
@@ -156,7 +180,7 @@ Begin VB.Form frmComponent
          CausesValidation=   0   'False
          Height          =   285
          Left            =   -73440
-         TabIndex        =   55
+         TabIndex        =   48
          ToolTipText     =   "Friendly name for prompts and such"
          Top             =   1200
          Width           =   1815
@@ -165,25 +189,25 @@ Begin VB.Form frmComponent
          CausesValidation=   0   'False
          Height          =   285
          Left            =   -73440
-         TabIndex        =   54
+         TabIndex        =   47
          ToolTipText     =   "DLL name using variables below for path names."
          Top             =   840
-         Width           =   4095
+         Width           =   4935
       End
       Begin VB.TextBox txtURL 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   -73560
+         Left            =   840
          TabIndex        =   2
          ToolTipText     =   "URL to download this file"
          Top             =   1200
-         Width           =   4575
+         Width           =   6135
       End
       Begin VB.CommandButton cmdSetupBrowse 
          Caption         =   "Browse"
          Height          =   285
-         Left            =   -69840
-         TabIndex        =   13
+         Left            =   -68880
+         TabIndex        =   9
          Top             =   1200
          Width           =   855
       End
@@ -191,74 +215,74 @@ Begin VB.Form frmComponent
          CausesValidation=   0   'False
          Height          =   285
          Left            =   -72480
-         TabIndex        =   22
+         TabIndex        =   18
          Top             =   840
-         Width           =   2295
+         Width           =   3015
       End
       Begin VB.TextBox txtRegKeyCheckValue 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   -73560
-         TabIndex        =   21
+         Left            =   -73800
+         TabIndex        =   17
          Top             =   1800
-         Width           =   4935
+         Width           =   5655
       End
       Begin VB.TextBox txtRegKeyCheckKey 
          CausesValidation=   0   'False
          Height          =   765
-         Left            =   -73560
+         Left            =   -73800
          MultiLine       =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   16
          ToolTipText     =   "Key to check"
          Top             =   960
-         Width           =   4935
+         Width           =   5655
       End
       Begin VB.TextBox txtRegVersionCheckVersion 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   -73320
-         TabIndex        =   19
+         Left            =   -73560
+         TabIndex        =   15
          Top             =   1560
          Width           =   1815
       End
       Begin VB.TextBox txtRegVersionCheckKey 
          CausesValidation=   0   'False
          Height          =   525
-         Left            =   -73320
+         Left            =   -73560
          MultiLine       =   -1  'True
-         TabIndex        =   18
+         TabIndex        =   14
          ToolTipText     =   "Key to check"
          Top             =   960
-         Width           =   4335
+         Width           =   5055
       End
       Begin VB.TextBox txtSetupMessage 
          Height          =   285
          Left            =   -73680
-         TabIndex        =   11
+         TabIndex        =   7
          ToolTipText     =   "Message to display while installing"
          Top             =   840
-         Width           =   4695
+         Width           =   5655
       End
       Begin VB.TextBox txtSetupCommand 
          Height          =   285
          Left            =   -73680
-         TabIndex        =   12
+         TabIndex        =   8
          ToolTipText     =   "Relative command line from VBSW program"
          Top             =   1200
-         Width           =   3735
+         Width           =   4695
       End
       Begin VB.TextBox txtSetupCommandLine 
          Height          =   285
          Left            =   -73680
-         TabIndex        =   14
+         TabIndex        =   10
          ToolTipText     =   "Command line for program (options, also specify EXE name)"
          Top             =   1560
-         Width           =   4695
+         Width           =   5655
       End
       Begin VB.TextBox txtSetupTime 
          Height          =   285
          Left            =   -73680
-         TabIndex        =   15
+         TabIndex        =   11
          ToolTipText     =   "Estimated time in secs to install"
          Top             =   1920
          Width           =   1095
@@ -267,25 +291,35 @@ Begin VB.Form frmComponent
          Height          =   315
          Left            =   -73680
          Style           =   2  'Dropdown List
-         TabIndex        =   16
+         TabIndex        =   12
          Top             =   2520
-         Width           =   3135
+         Width           =   5655
       End
       Begin VB.Frame fraCheckType 
          Caption         =   "Component Check Type"
-         Height          =   1455
-         Left            =   -74760
-         TabIndex        =   32
+         Height          =   1815
+         Left            =   240
+         TabIndex        =   26
          Top             =   1920
          Width           =   6735
+         Begin VB.OptionButton optComponentType 
+            Caption         =   ".Net Framework version Check"
+            Height          =   255
+            Index           =   5
+            Left            =   240
+            TabIndex        =   66
+            ToolTipText     =   "Checks if specified service pack is installed"
+            Top             =   1080
+            Width           =   2775
+         End
          Begin VB.OptionButton optComponentType 
             Caption         =   "No Check (Always install, depending on OS reqs only)"
             Height          =   255
             Index           =   4
             Left            =   240
-            TabIndex        =   66
+            TabIndex        =   59
             ToolTipText     =   "Checks if specified service pack is installed"
-            Top             =   1080
+            Top             =   1440
             Width           =   6255
          End
          Begin VB.OptionButton optComponentType 
@@ -329,64 +363,10 @@ Begin VB.Form frmComponent
             Width           =   2895
          End
       End
-      Begin VB.CheckBox chkOSVersion9x 
-         Caption         =   "Windows 9x (95, 98, Me)"
-         Height          =   255
-         Left            =   -73920
-         TabIndex        =   10
-         ToolTipText     =   "Check for component on Win9x"
-         Top             =   2400
-         Width           =   4455
-      End
-      Begin VB.CheckBox chkOSVersionNT 
-         Caption         =   "Windows NT (NT4, 2000)"
-         Height          =   255
-         Left            =   -73920
-         TabIndex        =   9
-         ToolTipText     =   "Check for component on WinNT"
-         Top             =   2040
-         Width           =   4455
-      End
-      Begin VB.TextBox txtOSVersionMax 
-         CausesValidation=   0   'False
-         BeginProperty DataFormat 
-            Type            =   0
-            Format          =   "0"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   0
-         EndProperty
-         Height          =   285
-         Left            =   -72480
-         TabIndex        =   8
-         ToolTipText     =   "Maximum OS version required to include component"
-         Top             =   1320
-         Width           =   975
-      End
-      Begin VB.TextBox txtOSVersionMin 
-         CausesValidation=   0   'False
-         BeginProperty DataFormat 
-            Type            =   0
-            Format          =   "0"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   0
-         EndProperty
-         Height          =   285
-         Left            =   -72480
-         TabIndex        =   7
-         ToolTipText     =   "Minimum OS version required to include component"
-         Top             =   960
-         Width           =   975
-      End
       Begin MSComctlLib.ListView lvDependencies 
          Height          =   2655
-         Left            =   120
-         TabIndex        =   17
+         Left            =   -74880
+         TabIndex        =   13
          Top             =   960
          Width           =   6855
          _ExtentX        =   12091
@@ -405,7 +385,7 @@ Begin VB.Form frmComponent
          NumItems        =   2
          BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Text            =   "Name"
-            Object.Width           =   8819
+            Object.Width           =   9701
          EndProperty
          BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   1
@@ -416,17 +396,74 @@ Begin VB.Form frmComponent
       Begin VB.TextBox txtName 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   -73560
+         Left            =   840
          TabIndex        =   1
          ToolTipText     =   "Friendly name for prompts and such"
          Top             =   840
-         Width           =   4575
+         Width           =   6135
+      End
+      Begin VB.Label Label9 
+         BackColor       =   &H80000018&
+         Caption         =   "WinNT = 4.00, Win2000 = 5.00, WinXP = 5.01, Ignore = 0.00"
+         ForeColor       =   &H80000017&
+         Height          =   855
+         Left            =   -69840
+         TabIndex        =   22
+         Top             =   2880
+         Width           =   1335
+      End
+      Begin VB.Label Label42 
+         BackStyle       =   0  'Transparent
+         Caption         =   "1.0.3705"
+         Height          =   255
+         Left            =   -73440
+         TabIndex        =   65
+         Top             =   3240
+         Width           =   3135
+      End
+      Begin VB.Label Label38 
+         BackStyle       =   0  'Transparent
+         Caption         =   "For the .Net framework version 1, enter:"
+         Height          =   255
+         Left            =   -74040
+         TabIndex        =   64
+         Top             =   2880
+         Width           =   4335
+      End
+      Begin VB.Label Label41 
+         Caption         =   "Version:"
+         Height          =   255
+         Left            =   -73680
+         TabIndex        =   63
+         ToolTipText     =   "Complete version number, ie x.x.x.x"
+         Top             =   840
+         Width           =   1095
+      End
+      Begin VB.Label Label40 
+         BackColor       =   &H80000018&
+         Caption         =   "Specify the .Net Framework version you would like to check for."
+         ForeColor       =   &H80000017&
+         Height          =   255
+         Left            =   -74880
+         TabIndex        =   62
+         Top             =   360
+         Width           =   6975
+      End
+      Begin VB.Label Label39 
+         BackColor       =   &H80000018&
+         Caption         =   "Enter the version of the .Net framework you would like to check for."
+         ForeColor       =   &H80000017&
+         Height          =   1215
+         Left            =   -74880
+         TabIndex        =   61
+         Top             =   2520
+         Width           =   6975
       End
       Begin VB.Label Label37 
          Caption         =   "Estimated seconds to install"
          Height          =   255
          Left            =   -72480
-         TabIndex        =   65
+         TabIndex        =   58
          Top             =   1920
          Width           =   2535
       End
@@ -436,7 +473,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74640
-         TabIndex        =   63
+         TabIndex        =   56
          Top             =   3360
          Width           =   4455
       End
@@ -446,7 +483,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74640
-         TabIndex        =   62
+         TabIndex        =   55
          Top             =   3120
          Width           =   4815
       End
@@ -456,7 +493,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74640
-         TabIndex        =   61
+         TabIndex        =   54
          Top             =   2880
          Width           =   5055
       End
@@ -466,7 +503,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   60
+         TabIndex        =   53
          Top             =   360
          Width           =   6975
       End
@@ -474,7 +511,7 @@ Begin VB.Form frmComponent
          Caption         =   "DLL:"
          Height          =   255
          Left            =   -74280
-         TabIndex        =   59
+         TabIndex        =   52
          Top             =   840
          Width           =   615
       End
@@ -482,18 +519,18 @@ Begin VB.Form frmComponent
          Caption         =   "Version:"
          Height          =   255
          Left            =   -74280
-         TabIndex        =   58
+         TabIndex        =   51
          ToolTipText     =   "Complete version number, ie x.x.x.x"
          Top             =   1200
          Width           =   615
       End
       Begin VB.Label Label17 
          BackColor       =   &H80000018&
-         Caption         =   $"frmComponent.frx":00FC
+         Caption         =   $"frmComponent.frx":0118
          ForeColor       =   &H80000017&
          Height          =   1335
          Left            =   -74880
-         TabIndex        =   57
+         TabIndex        =   50
          Top             =   2400
          Width           =   6975
       End
@@ -510,7 +547,7 @@ Begin VB.Form frmComponent
          EndProperty
          Height          =   255
          Left            =   -71520
-         TabIndex        =   56
+         TabIndex        =   49
          Top             =   1200
          Width           =   2415
       End
@@ -521,35 +558,25 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74160
-         TabIndex        =   53
+         TabIndex        =   46
          Top             =   3360
          Width           =   4335
       End
       Begin VB.Label Label35 
          Caption         =   "URL:"
          Height          =   255
-         Left            =   -74400
-         TabIndex        =   52
+         Left            =   240
+         TabIndex        =   45
          Top             =   1200
          Width           =   615
       End
-      Begin VB.Label Label34 
-         BackColor       =   &H80000018&
-         Caption         =   "A value of 0 for both min and max will include this component."
-         ForeColor       =   &H80000017&
-         Height          =   495
-         Left            =   -74880
-         TabIndex        =   51
-         Top             =   3240
-         Width           =   6975
-      End
       Begin VB.Label Label33 
          BackColor       =   &H80000018&
-         Caption         =   $"frmComponent.frx":0183
+         Caption         =   $"frmComponent.frx":019F
          ForeColor       =   &H80000017&
          Height          =   1215
          Left            =   -74880
-         TabIndex        =   50
+         TabIndex        =   44
          Top             =   2520
          Width           =   6975
       End
@@ -559,7 +586,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   49
+         TabIndex        =   43
          Top             =   360
          Width           =   6975
       End
@@ -567,7 +594,7 @@ Begin VB.Form frmComponent
          Caption         =   "Service Pack:"
          Height          =   255
          Left            =   -73680
-         TabIndex        =   48
+         TabIndex        =   42
          ToolTipText     =   "Complete version number, ie x.x.x.x"
          Top             =   840
          Width           =   1095
@@ -578,7 +605,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   495
          Left            =   -74880
-         TabIndex        =   47
+         TabIndex        =   41
          Top             =   3240
          Width           =   6975
       End
@@ -588,23 +615,23 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   46
+         TabIndex        =   40
          Top             =   360
          Width           =   6975
       End
       Begin VB.Label Label28 
          Caption         =   "Key:"
          Height          =   255
-         Left            =   -74400
-         TabIndex        =   45
+         Left            =   -74640
+         TabIndex        =   39
          Top             =   960
          Width           =   615
       End
       Begin VB.Label Label27 
          Caption         =   "Value:"
          Height          =   255
-         Left            =   -74400
-         TabIndex        =   44
+         Left            =   -74640
+         TabIndex        =   38
          ToolTipText     =   "Complete version number, ie x.x.x.x"
          Top             =   1800
          Width           =   615
@@ -621,8 +648,8 @@ Begin VB.Form frmComponent
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -71400
-         TabIndex        =   43
+         Left            =   -71640
+         TabIndex        =   37
          Top             =   1560
          Width           =   2415
       End
@@ -632,7 +659,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   495
          Left            =   -74880
-         TabIndex        =   42
+         TabIndex        =   36
          Top             =   3240
          Width           =   6975
       End
@@ -642,23 +669,23 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   41
+         TabIndex        =   35
          Top             =   360
          Width           =   6975
       End
       Begin VB.Label Label22 
          Caption         =   "Key:"
          Height          =   255
-         Left            =   -74160
-         TabIndex        =   40
+         Left            =   -74400
+         TabIndex        =   34
          Top             =   960
          Width           =   615
       End
       Begin VB.Label Label21 
          Caption         =   "Version:"
          Height          =   255
-         Left            =   -74160
-         TabIndex        =   39
+         Left            =   -74400
+         TabIndex        =   33
          ToolTipText     =   "Complete version number, ie x.x.x.x"
          Top             =   1560
          Width           =   615
@@ -667,7 +694,7 @@ Begin VB.Form frmComponent
          Caption         =   "Message:"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   38
+         TabIndex        =   32
          Top             =   840
          Width           =   855
       End
@@ -675,7 +702,7 @@ Begin VB.Form frmComponent
          Caption         =   "Command:"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   37
+         TabIndex        =   31
          Top             =   1200
          Width           =   855
       End
@@ -683,7 +710,7 @@ Begin VB.Form frmComponent
          Caption         =   "CmdLine:"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   36
+         TabIndex        =   30
          Top             =   1560
          Width           =   855
       End
@@ -691,7 +718,7 @@ Begin VB.Form frmComponent
          Caption         =   "Time:"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   35
+         TabIndex        =   29
          Top             =   1920
          Width           =   855
       End
@@ -699,7 +726,7 @@ Begin VB.Form frmComponent
          Caption         =   "Reboot:"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   34
+         TabIndex        =   28
          Top             =   2520
          Width           =   855
       End
@@ -709,7 +736,7 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   33
+         TabIndex        =   27
          Top             =   360
          Width           =   6975
       End
@@ -718,8 +745,8 @@ Begin VB.Form frmComponent
          Caption         =   "General information about this component"
          ForeColor       =   &H80000017&
          Height          =   255
-         Left            =   -74880
-         TabIndex        =   31
+         Left            =   120
+         TabIndex        =   25
          Top             =   360
          Width           =   6975
       End
@@ -728,8 +755,8 @@ Begin VB.Form frmComponent
          Caption         =   "Before installing this component, the following components must be installed/not be required based on OS"
          ForeColor       =   &H80000017&
          Height          =   495
-         Left            =   120
-         TabIndex        =   30
+         Left            =   -74880
+         TabIndex        =   24
          Top             =   360
          Width           =   6975
       End
@@ -739,41 +766,15 @@ Begin VB.Form frmComponent
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   29
+         TabIndex        =   23
          Top             =   360
          Width           =   6975
-      End
-      Begin VB.Label Label9 
-         BackColor       =   &H80000018&
-         Caption         =   "Win95 = 4.00, WinNT = 4.00, Win98 = 4.10, WinMe = 4.90, Win2000 = 5.00"
-         ForeColor       =   &H80000017&
-         Height          =   735
-         Left            =   -71040
-         TabIndex        =   28
-         Top             =   960
-         Width           =   2535
-      End
-      Begin VB.Label Label8 
-         Caption         =   "Min OS Version:"
-         Height          =   255
-         Left            =   -74040
-         TabIndex        =   27
-         Top             =   1320
-         Width           =   1215
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Min OS Version:"
-         Height          =   255
-         Left            =   -74040
-         TabIndex        =   26
-         Top             =   960
-         Width           =   1215
       End
       Begin VB.Label Label1 
          Caption         =   "Name:"
          Height          =   255
-         Left            =   -74400
-         TabIndex        =   23
+         Left            =   240
+         TabIndex        =   19
          Top             =   840
          Width           =   615
       End
@@ -845,10 +846,9 @@ Private Sub optComponentType_Click(Index As Integer)
   Me.tb.TabVisible(6) = False
   Me.tb.TabVisible(7) = False
   Me.tb.TabVisible(8) = False
-  Me.chkOSVersion9x.Enabled = True
-  Me.chkOSVersionNT.Enabled = True
-  Me.chkOSVersion9x.Value = IIf(mobjComponent.OSVersion9x, 1, 0)
-  Me.chkOSVersionNT.Value = IIf(mobjComponent.OSVersionNT, 1, 0)
+  Me.tb.TabVisible(9) = False
+  ucOS1.Win9xEnable True
+  ucOS1.WinNTEnable True
   
   Select Case Index
     Case 0        ' File version check
@@ -859,12 +859,15 @@ Private Sub optComponentType_Click(Index As Integer)
       Me.tb.TabVisible(6) = True
     Case 3        ' NT service pack check
       Me.tb.TabVisible(7) = True
-      Me.chkOSVersion9x.Value = 0
-      Me.chkOSVersion9x.Enabled = False
-      Me.chkOSVersionNT.Value = 1
-      Me.chkOSVersionNT.Enabled = False
+      ucOS1.Win9xEnable False
+      ucOS1.WinNT = True
       If Me.txtNTServicePackCheckNumber = "" Then
         Me.txtNTServicePackCheckNumber = "Service Pack x"
+      End If
+    Case 5          ' .Net framework version
+      Me.tb.TabVisible(9) = True
+      If txtNetFrameworkVersion = "" Then
+        txtNetFrameworkVersion = "1.0.3705"
       End If
   End Select
     
@@ -895,6 +898,22 @@ Public Sub Load()
   
   Me.txtNotes = mobjComponent.Notes
   
+  ' OS Tab
+  ucOS1.Win9x = mobjComponent.mblnWin9x
+  If ucOS1.Win9x Then
+    ucOS1.Windows95 = mobjComponent.mblnWindows95
+    ucOS1.Windows98 = mobjComponent.mblnWindows98
+    ucOS1.WindowsMe = mobjComponent.mblnWindowsMe
+  End If
+  
+  ucOS1.WinNT = mobjComponent.mblnWinNT
+  If ucOS1.WinNT Then
+    ucOS1.NTMinVersion = mobjComponent.mstrNTMinVersion
+    ucOS1.NTMinServicePack = mobjComponent.mstrNTMinServicePack
+    ucOS1.NTMaxVersion = mobjComponent.mstrNTMaxVersion
+    ucOS1.NTMaxServicePack = mobjComponent.mstrNTMaxServicePack
+  End If
+  
   ' Installation tab
   Me.txtSetupMessage = mobjComponent.SetupMessage
   Me.txtSetupCommand = mobjComponent.SetupCommand
@@ -904,12 +923,6 @@ Public Sub Load()
   optComponentType_Click mobjComponent.ComponentType
   Me.cmbReboot.ListIndex = mobjComponent.RebootType
   Me.txtURL = mobjComponent.URL
-  
-  ' OS Tab
-  Me.txtOSVersionMin = mobjComponent.OSVersionMin
-  Me.txtOSVersionMax = mobjComponent.OSVersionMax
-  Me.chkOSVersion9x = IIf(mobjComponent.OSVersion9x, 1, 0)
-  Me.chkOSVersionNT = IIf(mobjComponent.OSVersionNT, 1, 0)
   
   ' File version check tab
   Me.txtFileVersionCheckDLL = mobjComponent.FileVersionCheckDLL
@@ -926,6 +939,10 @@ Public Sub Load()
   ' NT service pack tab
   Me.txtNTServicePackCheckNumber = mobjComponent.NTServicePackCheckNumber
 
+  ' Net framework tab
+  Me.txtNetFrameworkVersion.Text = mobjComponent.NetFrameworkVersion
+  
+  
 End Sub
 
 Private Sub Save()
@@ -953,15 +970,27 @@ Private Sub Save()
     mobjComponent.ComponentType = NTServicePackCheck
   ElseIf Me.optComponentType(4) Then
     mobjComponent.ComponentType = NoCheck
+  ElseIf Me.optComponentType(5) Then
+    mobjComponent.ComponentType = NetFrameworkCheck
   Else
     Err.Raise vbObjectError, "frmComponent.Save", "Invalid component type specified."
   End If
   
   ' OS Tab
-  mobjComponent.OSVersionMin = Me.txtOSVersionMin
-  mobjComponent.OSVersionMax = Me.txtOSVersionMax
-  mobjComponent.OSVersion9x = IIf(Me.chkOSVersion9x = 1, True, False)
-  mobjComponent.OSVersionNT = IIf(Me.chkOSVersionNT = 1, True, False)
+  mobjComponent.mblnWin9x = ucOS1.Win9x
+  If ucOS1.Win9x Then
+    mobjComponent.mblnWindows95 = ucOS1.Windows95
+    mobjComponent.mblnWindows98 = ucOS1.Windows98
+    mobjComponent.mblnWindowsMe = ucOS1.WindowsMe
+  End If
+  
+  mobjComponent.mblnWinNT = ucOS1.WinNT
+  If ucOS1.WinNT Then
+    mobjComponent.mstrNTMinVersion = ucOS1.NTMinVersion
+    mobjComponent.mstrNTMinServicePack = ucOS1.NTMinServicePack
+    mobjComponent.mstrNTMaxVersion = ucOS1.NTMaxVersion
+    mobjComponent.mstrNTMaxServicePack = ucOS1.NTMaxServicePack
+  End If
   
   ' File Version check tab
   mobjComponent.FileVersionCheckDLL = Me.txtFileVersionCheckDLL
@@ -977,6 +1006,9 @@ Private Sub Save()
   
   ' NT SP check tab
   mobjComponent.NTServicePackCheckNumber = Me.txtNTServicePackCheckNumber
+  
+  ' Net framework tab
+  mobjComponent.NetFrameworkVersion = txtNetFrameworkVersion.Text
   
   ' Dependencies
   Dim li As ListItem, strTemp As String
@@ -995,22 +1027,25 @@ Private Function ValidateSettings() As Boolean
   ' check tab 0, basic stuff
   
   ' check tab 1, os stuff
-  If Not IsNumeric(Me.txtOSVersionMax) Then
-    MsgBox "Invalid OS max version specified.", vbExclamation
-    Me.tb.Tab = 1
-    Me.txtOSVersionMax.SetFocus
-    Exit Function
+  If ucOS1.WinNT Then
+    If Not IsNumeric(ucOS1.NTMaxVersion) Then
+      MsgBox "Invalid OS max version specified.", vbExclamation
+      Me.tb.Tab = 1
+      ucOS1.SetFocus
+      Exit Function
+    End If
+    If Not IsNumeric(ucOS1.NTMinVersion) Then
+      MsgBox "Invalid OS min version specified.", vbExclamation
+      Me.tb.Tab = 1
+      ucOS1.SetFocus
+      Exit Function
+    End If
   End If
-  If Not IsNumeric(Me.txtOSVersionMin) Then
-    MsgBox "Invalid OS min version specified.", vbExclamation
-    Me.tb.Tab = 1
-    Me.txtOSVersionMin.SetFocus
-    Exit Function
-  End If
-  If Me.optComponentType(3) And IsNumeric(Me.txtOSVersionMax) And IsNumeric(Me.txtOSVersionMin) And (Me.txtOSVersionMax = 0 Or Me.txtOSVersionMin = 0) Then
+  
+  If Me.optComponentType(3) And IsNumeric(ucOS1.NTMaxVersion) And IsNumeric(ucOS1.NTMinVersion) And (ucOS1.NTMaxVersion = 0 Or ucOS1.NTMinVersion = 0) Then
     MsgBox "When checking an NT service pack, the OS version min and max must be set to a valid Windows NT version number.", vbExclamation
     Me.tb.Tab = 1
-    Me.txtOSVersionMin.SetFocus
+    ucOS1.SetFocus
     Exit Function
   End If
   If Me.optComponentType(3) And InStr(Me.txtNTServicePackCheckNumber, "Service Pack") = 0 Then
@@ -1030,3 +1065,10 @@ Private Sub txtName_Change()
 
 End Sub
 
+Private Sub txtNotes_GotFocus()
+  cmdSave.Default = False
+End Sub
+
+Private Sub txtNotes_LostFocus()
+  cmdSave.Default = True
+End Sub

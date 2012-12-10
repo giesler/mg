@@ -2,45 +2,17 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
-   BackColor       =   &H80000004&
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "IA Settings Utility"
-   ClientHeight    =   5730
+   ClientHeight    =   5370
    ClientLeft      =   150
    ClientTop       =   840
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   MinButton       =   0   'False
-   ScaleHeight     =   5730
+   ScaleHeight     =   5370
    ScaleWidth      =   6675
    StartUpPosition =   3  'Windows Default
-   Begin MSComctlLib.StatusBar StatusBar1 
-      Align           =   2  'Align Bottom
-      Height          =   255
-      Left            =   0
-      TabIndex        =   9
-      Top             =   5475
-      Width           =   6675
-      _ExtentX        =   11774
-      _ExtentY        =   450
-      _Version        =   393216
-      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
-         NumPanels       =   3
-         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Object.Width           =   7056
-            MinWidth        =   7056
-         EndProperty
-         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Object.Width           =   2205
-            MinWidth        =   2205
-         EndProperty
-         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Object.Width           =   2205
-            MinWidth        =   2205
-         EndProperty
-      EndProperty
-   End
    Begin TabDlg.SSTab tabs 
       Height          =   5055
       Left            =   120
@@ -52,9 +24,10 @@ Begin VB.Form frmMain
       _ExtentY        =   8916
       _Version        =   393216
       Style           =   1
+      Tabs            =   6
+      TabsPerRow      =   6
       TabHeight       =   520
       Enabled         =   0   'False
-      BackColor       =   -2147483644
       TabCaption(0)   =   "Program Settings"
       TabPicture(0)   =   "frmMain.frx":0000
       Tab(0).ControlEnabled=   -1  'True
@@ -64,27 +37,17 @@ Begin VB.Form frmMain
       Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "Label5"
       Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label3"
+      Tab(0).Control(3)=   "Label38"
       Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label8"
+      Tab(0).Control(4)=   "Line1"
       Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label38"
+      Tab(0).Control(5)=   "Label7"
       Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "Line1"
+      Tab(0).Control(6)=   "txtProgramName"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "txtProgramName"
+      Tab(0).Control(7)=   "txtRootPath"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "txtRootPath"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "cmdSplashBrowse"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "txtSplash"
-      Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "Frame2"
-      Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "fraRebootOption"
-      Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).ControlCount=   13
+      Tab(0).ControlCount=   8
       TabCaption(1)   =   "Components"
       TabPicture(1)   =   "frmMain.frx":001C
       Tab(1).ControlEnabled=   0   'False
@@ -108,50 +71,144 @@ Begin VB.Form frmMain
       Tab(2).Control(5)=   "lvButtons"
       Tab(2).Control(6)=   "Label6"
       Tab(2).ControlCount=   7
-      Begin VB.Frame fraRebootOption 
-         Caption         =   " Reboot Option "
-         Height          =   975
-         Left            =   240
-         TabIndex        =   34
-         Top             =   2160
+      TabCaption(3)   =   "Global Options"
+      TabPicture(3)   =   "frmMain.frx":0054
+      Tab(3).ControlEnabled=   0   'False
+      Tab(3).Control(0)=   "chkEnableLogging"
+      Tab(3).Control(1)=   "txtAbortMutex"
+      Tab(3).Control(2)=   "chkAbortMutex"
+      Tab(3).Control(3)=   "chkSingleInstance"
+      Tab(3).Control(4)=   "fraRebootOption"
+      Tab(3).Control(5)=   "Label9"
+      Tab(3).Control(6)=   "Label4(0)"
+      Tab(3).ControlCount=   7
+      TabCaption(4)   =   "Splash"
+      TabPicture(4)   =   "frmMain.frx":0070
+      Tab(4).ControlEnabled=   0   'False
+      Tab(4).Control(0)=   "Frame3"
+      Tab(4).Control(1)=   "cmdSplashBrowse"
+      Tab(4).Control(2)=   "txtSplash"
+      Tab(4).Control(3)=   "Frame2"
+      Tab(4).Control(4)=   "chkHideTitleBar"
+      Tab(4).Control(5)=   "Label3"
+      Tab(4).Control(6)=   "Label8"
+      Tab(4).Control(7)=   "Label4(1)"
+      Tab(4).ControlCount=   8
+      TabCaption(5)   =   "OS"
+      TabPicture(5)   =   "frmMain.frx":008C
+      Tab(5).ControlEnabled=   0   'False
+      Tab(5).Control(0)=   "txtInvalidOSMessage"
+      Tab(5).Control(1)=   "ucOS1"
+      Tab(5).Control(2)=   "Label14"
+      Tab(5).Control(3)=   "Label13"
+      Tab(5).Control(4)=   "Label4(2)"
+      Tab(5).ControlCount=   5
+      Begin VB.TextBox txtInvalidOSMessage 
+         Height          =   735
+         Left            =   -73200
+         MultiLine       =   -1  'True
+         TabIndex        =   57
+         Top             =   3960
+         Width           =   4455
+      End
+      Begin IASettings.ucOS ucOS1 
+         Height          =   3255
+         Left            =   -74880
+         TabIndex        =   54
+         Top             =   600
+         Width           =   4935
+         _ExtentX        =   8916
+         _ExtentY        =   5741
+      End
+      Begin VB.Frame Frame3 
+         Caption         =   " Sound Effects "
+         Height          =   1335
+         Left            =   -74760
+         TabIndex        =   46
+         Top             =   3120
          Width           =   6015
-         Begin VB.TextBox txtRebootPromptSeconds 
+         Begin VB.TextBox txtOnCloseSound 
             Height          =   285
-            Left            =   2400
-            TabIndex        =   35
-            Top             =   240
-            Width           =   375
+            Left            =   1200
+            TabIndex        =   51
+            Top             =   720
+            Width           =   3615
          End
-         Begin VB.OptionButton optRebootPromptType 
-            Caption         =   "&Reboot automatically after              seconds"
+         Begin VB.CommandButton cmdOnCloseSound 
+            Caption         =   "Browse"
+            Height          =   285
+            Left            =   4920
+            TabIndex        =   50
+            Top             =   720
+            Width           =   855
+         End
+         Begin VB.TextBox txtOnOpenSound 
+            Height          =   285
+            Left            =   1200
+            TabIndex        =   48
+            Top             =   360
+            Width           =   3615
+         End
+         Begin VB.CommandButton cmdOnOpenSound 
+            Caption         =   "Browse"
+            Height          =   285
+            Left            =   4920
+            TabIndex        =   47
+            Top             =   360
+            Width           =   855
+         End
+         Begin VB.Label Label12 
+            Caption         =   "OnClose:"
             Height          =   255
-            Index           =   0
             Left            =   120
-            TabIndex        =   37
-            Top             =   240
-            Width           =   5655
+            TabIndex        =   52
+            Top             =   720
+            Width           =   1095
          End
-         Begin VB.OptionButton optRebootPromptType 
-            Caption         =   "Display message box and wait for user to click 'Restart' or 'Don't Restart'"
+         Begin VB.Label Label11 
+            Caption         =   "OnOpen:"
             Height          =   255
-            Index           =   1
             Left            =   120
-            TabIndex        =   36
-            Top             =   600
-            Width           =   5655
+            TabIndex        =   49
+            Top             =   360
+            Width           =   1095
          End
+      End
+      Begin VB.CheckBox chkEnableLogging 
+         Caption         =   "&Enable logging to user's temp directory"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   44
+         Top             =   2520
+         Width           =   5295
+      End
+      Begin VB.CommandButton cmdSplashBrowse 
+         Caption         =   "Browse"
+         Height          =   285
+         Left            =   -69600
+         TabIndex        =   41
+         Top             =   2160
+         Width           =   855
+      End
+      Begin VB.TextBox txtSplash 
+         Height          =   285
+         Left            =   -73680
+         TabIndex        =   40
+         ToolTipText     =   "Bitmap that will be loaded by autorun.exe"
+         Top             =   2160
+         Width           =   3975
       End
       Begin VB.Frame Frame2 
          Caption         =   " Dialog Options "
          Height          =   1335
-         Left            =   240
-         TabIndex        =   29
-         Top             =   3240
+         Left            =   -74760
+         TabIndex        =   35
+         Top             =   720
          Width           =   6015
          Begin VB.TextBox txtSkipProgramName 
             Height          =   285
             Left            =   3720
-            TabIndex        =   30
+            TabIndex        =   36
             Top             =   960
             Width           =   2175
          End
@@ -160,7 +217,7 @@ Begin VB.Form frmMain
             Height          =   255
             Index           =   0
             Left            =   120
-            TabIndex        =   33
+            TabIndex        =   39
             Top             =   240
             Width           =   5655
          End
@@ -169,7 +226,7 @@ Begin VB.Form frmMain
             Height          =   255
             Index           =   1
             Left            =   120
-            TabIndex        =   32
+            TabIndex        =   38
             Top             =   600
             Width           =   5655
          End
@@ -178,8 +235,72 @@ Begin VB.Form frmMain
             Height          =   255
             Index           =   2
             Left            =   120
-            TabIndex        =   31
+            TabIndex        =   37
             Top             =   960
+            Width           =   5655
+         End
+      End
+      Begin VB.CheckBox chkHideTitleBar 
+         Caption         =   "&Hide titlebar on splash dialog"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   34
+         Top             =   2760
+         Width           =   6015
+      End
+      Begin VB.TextBox txtAbortMutex 
+         Height          =   285
+         Left            =   -70320
+         TabIndex        =   32
+         Top             =   2160
+         Width           =   1455
+      End
+      Begin VB.CheckBox chkAbortMutex 
+         Caption         =   "Exit program if the following user defined mutex is present:"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   31
+         Top             =   2160
+         Width           =   5775
+      End
+      Begin VB.CheckBox chkSingleInstance 
+         Caption         =   "&Single Instance"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   30
+         Top             =   1800
+         Width           =   6015
+      End
+      Begin VB.Frame fraRebootOption 
+         Caption         =   " Reboot Option "
+         Height          =   975
+         Left            =   -74760
+         TabIndex        =   25
+         Top             =   720
+         Width           =   6015
+         Begin VB.TextBox txtRebootPromptSeconds 
+            Height          =   285
+            Left            =   2400
+            TabIndex        =   26
+            Top             =   240
+            Width           =   375
+         End
+         Begin VB.OptionButton optRebootPromptType 
+            Caption         =   "Display message box and wait for user to click 'Restart' or 'Don't Restart'"
+            Height          =   255
+            Index           =   1
+            Left            =   120
+            TabIndex        =   28
+            Top             =   600
+            Width           =   5655
+         End
+         Begin VB.OptionButton optRebootPromptType 
+            Caption         =   "&Reboot automatically after              seconds"
+            Height          =   255
+            Index           =   0
+            Left            =   120
+            TabIndex        =   27
+            Top             =   240
             Width           =   5655
          End
       End
@@ -187,7 +308,7 @@ Begin VB.Form frmMain
          Caption         =   "Set As Cancel"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   28
+         TabIndex        =   23
          Top             =   4140
          Width           =   1215
       End
@@ -195,7 +316,7 @@ Begin VB.Form frmMain
          Caption         =   "Set As Default"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   27
+         TabIndex        =   22
          Top             =   3660
          Width           =   1215
       End
@@ -203,7 +324,7 @@ Begin VB.Form frmMain
          Caption         =   "&Add"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   25
+         TabIndex        =   20
          Top             =   900
          Width           =   1215
       End
@@ -211,7 +332,7 @@ Begin VB.Form frmMain
          Caption         =   "&Edit"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   23
+         TabIndex        =   18
          Top             =   1380
          Width           =   1215
       End
@@ -219,31 +340,15 @@ Begin VB.Form frmMain
          Caption         =   "D&elete"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   22
+         TabIndex        =   17
          Top             =   1860
          Width           =   1215
-      End
-      Begin VB.TextBox txtSplash 
-         Height          =   285
-         Left            =   1320
-         TabIndex        =   18
-         ToolTipText     =   "Bitmap that will be loaded by autorun.exe"
-         Top             =   1620
-         Width           =   3975
-      End
-      Begin VB.CommandButton cmdSplashBrowse 
-         Caption         =   "Browse"
-         Height          =   285
-         Left            =   5400
-         TabIndex        =   17
-         Top             =   1620
-         Width           =   855
       End
       Begin VB.CommandButton cmdMoveDown 
          Caption         =   "Move &Down"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   4320
          Width           =   1215
       End
@@ -251,7 +356,7 @@ Begin VB.Form frmMain
          Caption         =   "Move &Up"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   3840
          Width           =   1215
       End
@@ -259,7 +364,7 @@ Begin VB.Form frmMain
          Caption         =   "Download"
          Height          =   375
          Left            =   -69960
-         TabIndex        =   12
+         TabIndex        =   11
          Top             =   2760
          Width           =   1215
       End
@@ -338,7 +443,7 @@ Begin VB.Form frmMain
       Begin MSComctlLib.ListView lvButtons 
          Height          =   3975
          Left            =   -74880
-         TabIndex        =   24
+         TabIndex        =   19
          Top             =   780
          Width           =   4815
          _ExtentX        =   8493
@@ -377,14 +482,98 @@ Begin VB.Form frmMain
             Object.Width           =   0
          EndProperty
       End
+      Begin VB.Label Label14 
+         Caption         =   "Invalid OS Message:"
+         Height          =   495
+         Left            =   -74760
+         TabIndex        =   56
+         Top             =   3960
+         Width           =   1575
+      End
+      Begin VB.Label Label13 
+         BackColor       =   &H80000018&
+         Caption         =   "WinNT = 4.00, Win2000 = 5.00, WinXP = 5.01, Ignore = 0.00"
+         ForeColor       =   &H80000017&
+         Height          =   855
+         Left            =   -69960
+         TabIndex        =   55
+         Top             =   2760
+         Width           =   1335
+      End
+      Begin VB.Label Label4 
+         BackColor       =   &H80000018&
+         Caption         =   "OS requirements for splash and setup to run"
+         ForeColor       =   &H80000017&
+         Height          =   255
+         Index           =   2
+         Left            =   -74880
+         TabIndex        =   53
+         Top             =   360
+         Width           =   6255
+      End
+      Begin VB.Label Label9 
+         Caption         =   "You can also use '/log' on the command line to override this setting."
+         Height          =   255
+         Left            =   -74520
+         TabIndex        =   45
+         Top             =   2760
+         Width           =   5535
+      End
+      Begin VB.Label Label3 
+         Caption         =   "Background:"
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   43
+         Top             =   2160
+         Width           =   1095
+      End
+      Begin VB.Label Label8 
+         Caption         =   "The dialog will be resized to the size of the BMP specified."
+         Height          =   255
+         Left            =   -73560
+         TabIndex        =   42
+         Top             =   2460
+         Width           =   4335
+      End
+      Begin VB.Label Label4 
+         BackColor       =   &H80000018&
+         Caption         =   "Splash dialog options"
+         ForeColor       =   &H80000017&
+         Height          =   255
+         Index           =   1
+         Left            =   -74880
+         TabIndex        =   33
+         Top             =   360
+         Width           =   6255
+      End
+      Begin VB.Label Label7 
+         Caption         =   "http://installassistant.com"
+         ForeColor       =   &H00C00000&
+         Height          =   255
+         Left            =   2400
+         TabIndex        =   29
+         Top             =   4680
+         Width           =   2415
+      End
+      Begin VB.Label Label4 
+         BackColor       =   &H80000018&
+         Caption         =   "Additional program options you can customize."
+         ForeColor       =   &H80000017&
+         Height          =   255
+         Index           =   0
+         Left            =   -74880
+         TabIndex        =   24
+         Top             =   360
+         Width           =   6255
+      End
       Begin VB.Label Label6 
          BackColor       =   &H80000018&
          Caption         =   "The checked buttons below will be displayed on the autorun dialog."
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   26
-         Top             =   420
+         TabIndex        =   21
+         Top             =   360
          Width           =   6255
       End
       Begin VB.Line Line1 
@@ -395,47 +584,31 @@ Begin VB.Form frmMain
          Y2              =   4620
       End
       Begin VB.Label Label38 
-         Caption         =   "For more information/help, go to http://vbsw.giesler.org"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   21
-         Top             =   4740
-         Width           =   6135
-      End
-      Begin VB.Label Label8 
-         Caption         =   "The dialog will be resized to the size of the BMP specified."
-         Height          =   255
-         Left            =   1440
-         TabIndex        =   20
-         Top             =   1920
-         Width           =   4335
-      End
-      Begin VB.Label Label3 
-         Caption         =   "Background:"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   19
-         Top             =   1620
-         Width           =   1095
-      End
-      Begin VB.Label Label5 
-         BackColor       =   &H80000018&
-         Caption         =   "Basic program settings appear on this tab."
-         ForeColor       =   &H80000017&
+         Caption         =   "For more information/help, go to"
          Height          =   255
          Left            =   120
          TabIndex        =   16
+         Top             =   4680
+         Width           =   2295
+      End
+      Begin VB.Label Label5 
+         BackColor       =   &H80000018&
+         Caption         =   "Basic program information appears on this tab."
+         ForeColor       =   &H80000017&
+         Height          =   255
+         Left            =   120
+         TabIndex        =   15
          Top             =   360
          Width           =   6255
       End
       Begin VB.Label Label10 
          BackColor       =   &H80000018&
-         Caption         =   "The checked components below will be checked in the order listed."
+         Caption         =   "The checked components below will be evaluated in the order listed."
          ForeColor       =   &H80000017&
          Height          =   255
          Left            =   -74880
-         TabIndex        =   15
-         Top             =   420
+         TabIndex        =   14
+         Top             =   360
          Width           =   6255
       End
       Begin VB.Label Label1 
@@ -458,7 +631,7 @@ Begin VB.Form frmMain
    Begin VB.Frame Frame1 
       Height          =   1095
       Left            =   360
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   1440
       Width           =   5895
       Begin VB.Label lblTip 
@@ -475,7 +648,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   480
          Width           =   5655
       End
@@ -524,6 +697,18 @@ Option Explicit
 
 Private mobjSettings As CSettingsFile
 Private mblnDirty As Boolean
+
+Private Sub chkAbortMutex_Click()
+  
+  If chkAbortMutex.Value = 1 Then
+    txtAbortMutex.Enabled = True
+    txtAbortMutex.BackColor = vbWindowBackground
+  Else
+    txtAbortMutex.Enabled = False
+    txtAbortMutex.BackColor = vbButtonFace
+  End If
+  
+End Sub
 
 Private Sub cmdAdd_Click()
   
@@ -737,11 +922,11 @@ Private Sub cmdMoveDown_Click()
     Exit Sub
   End If
   
-  iTemp = mobjSettings.Components(li.Text).SortOrder
+  iTemp = mobjSettings.Components(li.SubItems(1)).SortOrder
   Set li2 = Me.lvComponents.ListItems(li.Index + 1)
-  mobjSettings.Components(li.Text).SortOrder = _
-    mobjSettings.Components(li2.Text).SortOrder
-  mobjSettings.Components(li2.Text).SortOrder = iTemp
+  mobjSettings.Components(li.SubItems(1)).SortOrder = _
+    mobjSettings.Components(li2.SubItems(1)).SortOrder
+  mobjSettings.Components(li2.SubItems(1)).SortOrder = iTemp
   mobjSettings.Components.Sort
   iTemp = li.Index + 1
   LoadComponentList
@@ -764,16 +949,38 @@ Private Sub cmdMoveUp_Click()
     Exit Sub
   End If
   
-  iTemp = mobjSettings.Components(li.Text).SortOrder
+  iTemp = mobjSettings.Components(li.SubItems(1)).SortOrder
   Set li2 = Me.lvComponents.ListItems(li.Index - 1)
-  mobjSettings.Components(li.Text).SortOrder = _
-    mobjSettings.Components(li2.Text).SortOrder
-  mobjSettings.Components(li2.Text).SortOrder = iTemp
+  mobjSettings.Components(li.SubItems(1)).SortOrder = _
+    mobjSettings.Components(li2.SubItems(1)).SortOrder
+  mobjSettings.Components(li2.SubItems(1)).SortOrder = iTemp
   mobjSettings.Components.Sort
   iTemp = li.Index - 1
   LoadComponentList
   Me.lvComponents.ListItems(iTemp).Selected = True
   
+End Sub
+
+Private Sub cmdOnCloseSound_Click()
+
+  Dim strFileName As String
+  strFileName = GetFileName(mobjSettings.RootPathIDList, "Select the sound file to use for OnClose", Me)
+  If strFileName <> "" Then
+    txtOnCloseSound.Text = Mid(strFileName, Len(Me.txtRootPath) + 2)
+    mblnDirty = True
+  End If
+
+End Sub
+
+Private Sub cmdOnOpenSound_Click()
+
+  Dim strFileName As String
+  strFileName = GetFileName(mobjSettings.RootPathIDList, "Select the sound file to use for OnOpen", Me)
+  If strFileName <> "" Then
+    txtOnOpenSound.Text = Mid(strFileName, Len(Me.txtRootPath) + 2)
+    mblnDirty = True
+  End If
+
 End Sub
 
 Private Sub cmdSetAsCancel_Click()
@@ -874,10 +1081,20 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 
 
+Private Sub Label7_Click()
+  ExecuteLink "http://installassistant.com"
+End Sub
+
 Private Sub lvButtons_DblClick()
 
   cmdEditButton_Click
   
+End Sub
+
+Private Sub lvButtons_ItemCheck(ByVal Item As MSComctlLib.ListItem)
+  
+  mobjSettings.Buttons(Item.SubItems(3)).Enabled = Not mobjSettings.Buttons(Item.SubItems(3)).Enabled
+
 End Sub
 
 Private Sub lvComponents_DblClick()
@@ -887,8 +1104,8 @@ Private Sub lvComponents_DblClick()
 End Sub
 
 Private Sub lvComponents_ItemCheck(ByVal Item As MSComctlLib.ListItem)
-
-  mobjSettings.Components(Item.Text).Enabled = Not mobjSettings.Components(Item.Text).Enabled
+  
+  mobjSettings.Components(Item.SubItems(1)).Enabled = Not mobjSettings.Components(Item.SubItems(1)).Enabled
 
 End Sub
 
@@ -928,9 +1145,40 @@ Private Sub LoadSettings()
   optDisplayType_Click mobjSettings.DisplayType
   Me.txtSkipProgramName.Text = mobjSettings.SkipProgramName
   
-  Me.optRebootPromptType(mobjSettings.RebootPromptType).Value = True
+  chkSingleInstance.Value = IIf(mobjSettings.SingleInstance, 1, 0)
+  If mobjSettings.AbortMutex <> "" Then
+    chkAbortMutex.Value = 1
+    txtAbortMutex.Text = mobjSettings.AbortMutex
+  Else
+    chkAbortMutex.Value = 0
+  End If
+  chkAbortMutex_Click
+  
+  optRebootPromptType(mobjSettings.RebootPromptType).Value = True
   optRebootPromptType_Click mobjSettings.RebootPromptType
-  Me.txtRebootPromptSeconds.Text = mobjSettings.RebootPromptSeconds
+  txtRebootPromptSeconds.Text = mobjSettings.RebootPromptSeconds
+  chkHideTitleBar.Value = IIf(mobjSettings.HideTitleBar, 1, 0)
+  chkEnableLogging.Value = IIf(mobjSettings.EnableLogging, 1, 0)
+  txtOnOpenSound.Text = mobjSettings.mstrOnOpenSound
+  txtOnCloseSound.Text = mobjSettings.mstrOnCloseSound
+  
+  ' OS Tab
+  ucOS1.Win9x = mobjSettings.mblnWin9x
+  If ucOS1.Win9x Then
+    ucOS1.Windows95 = mobjSettings.mblnWindows95
+    ucOS1.Windows98 = mobjSettings.mblnWindows98
+    ucOS1.WindowsMe = mobjSettings.mblnWindowsMe
+  End If
+  
+  ucOS1.WinNT = mobjSettings.mblnWinNT
+  If ucOS1.WinNT Then
+    ucOS1.NTMinVersion = mobjSettings.mstrNTMinVersion
+    ucOS1.NTMinServicePack = mobjSettings.mstrNTMinServicePack
+    ucOS1.NTMaxVersion = mobjSettings.mstrNTMaxVersion
+    ucOS1.NTMaxServicePack = mobjSettings.mstrNTMaxServicePack
+  End If
+  
+  txtInvalidOSMessage.Text = mobjSettings.mstrInvalidOSMessage
   
   LoadComponentList
   LoadButtons
@@ -1068,6 +1316,30 @@ Private Sub SaveSettings()
   End If
   mobjSettings.RebootPromptSeconds = Val(Me.txtRebootPromptSeconds.Text)
   
+  mobjSettings.SingleInstance = (chkSingleInstance.Value = 1)
+  mobjSettings.AbortMutex = IIf(chkAbortMutex.Value = 1, txtAbortMutex.Text, "")
+  mobjSettings.EnableLogging = (chkEnableLogging.Value = 1)
+  mobjSettings.mstrOnOpenSound = txtOnOpenSound.Text
+  mobjSettings.mstrOnCloseSound = txtOnCloseSound.Text
+  
+  ' OS Tab
+  mobjSettings.mblnWin9x = ucOS1.Win9x
+  If ucOS1.Win9x Then
+    mobjSettings.mblnWindows95 = ucOS1.Windows95
+    mobjSettings.mblnWindows98 = ucOS1.Windows98
+    mobjSettings.mblnWindowsMe = ucOS1.WindowsMe
+  End If
+  
+  mobjSettings.mblnWinNT = ucOS1.WinNT
+  If ucOS1.WinNT Then
+    mobjSettings.mstrNTMinVersion = ucOS1.NTMinVersion
+    mobjSettings.mstrNTMinServicePack = ucOS1.NTMinServicePack
+    mobjSettings.mstrNTMaxVersion = ucOS1.NTMaxVersion
+    mobjSettings.mstrNTMaxServicePack = ucOS1.NTMaxServicePack
+  End If
+  
+  mobjSettings.mstrInvalidOSMessage = txtInvalidOSMessage.Text
+  
   ' Display type options
   If Me.optDisplayType(0).Value Then
     mobjSettings.DisplayType = NormalDisplay
@@ -1077,8 +1349,7 @@ Private Sub SaveSettings()
     mobjSettings.DisplayType = ProgramNameDisplay
   End If
   mobjSettings.SkipProgramName = Me.txtSkipProgramName.Text
-
-
-
+  mobjSettings.HideTitleBar = IIf(chkHideTitleBar.Value = 1, True, False)
+  
 End Sub
 

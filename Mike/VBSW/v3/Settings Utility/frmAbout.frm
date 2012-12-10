@@ -24,6 +24,15 @@ Begin VB.Form frmAbout
       Top             =   1560
       Width           =   1095
    End
+   Begin VB.Label Label7 
+      Caption         =   "http://installassistant.com"
+      ForeColor       =   &H00C00000&
+      Height          =   255
+      Left            =   240
+      TabIndex        =   3
+      Top             =   600
+      Width           =   2415
+   End
    Begin VB.Label lblVersion 
       Caption         =   "Version x.x.x"
       Height          =   255
@@ -33,7 +42,7 @@ Begin VB.Form frmAbout
       Width           =   2415
    End
    Begin VB.Label lblAbout 
-      Caption         =   "This program creates settings files for VBSW.  For more information on this program or VBSW, visit http://vbsw.giesler.org."
+      Caption         =   "This program creates settings files for VBSW.  For more information on this program or VBSW, visit "
       Height          =   735
       Left            =   240
       TabIndex        =   0
@@ -56,4 +65,8 @@ Private Sub Form_Load()
 
   Me.lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
   
+End Sub
+
+Private Sub Label7_Click()
+  ExecuteLink "http://installassistant.com"
 End Sub

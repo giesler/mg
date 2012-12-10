@@ -86,7 +86,7 @@ End Property
 Public Function ReadValue(psSection As String, psKey As String, psValue As String, Optional psDefault As String) As Boolean
     ' get out if we don't have a filename ....
     If Not HaveFileName Then ReadValue = False: Exit Function
-    Dim lRet As Long, sRetValue As String * 255
+    Dim lRet As Long, sRetValue As String * 1024
     lRet = GetPrivateProfileString(psSection, psKey, psDefault, sRetValue, Len(sRetValue), m_FileName)
     If lRet = 0 Then
         GetTheLastError
@@ -95,6 +95,35 @@ Public Function ReadValue(psSection As String, psKey As String, psValue As Strin
     End If
     ReadValue = CBool(lRet)
 End Function
+
+'-----------------------------------------------------------------------------------
+' ReadBool: reads the specified value from the inifile
+' In:
+'   Section name, Key name, and a string which will contain the Value on return
+' Returns:
+'   true if success, false if fails (get LastErrorDescription for more info.....)
+'   NOTE that psValue will contain the stringvalue read from the ini on return!
+'-----------------------------------------------------------------------------------
+Public Function ReadBool(psSection As String, psKey As String, psValue As Boolean, Optional psDefault As Boolean = True) As Boolean
+    ' get out if we don't have a filename ....
+    If Not HaveFileName Then ReadBool = psDefault: Exit Function
+    Dim lRet As Long, sRetValue As String * 1024, strTemp As String
+    lRet = GetPrivateProfileString(psSection, psKey, psDefault, sRetValue, Len(sRetValue), m_FileName)
+    If lRet = 0 Then
+        GetTheLastError
+    Else
+        strTemp = Left(sRetValue, InStr(1, sRetValue, vbNullChar) - 1)
+        If strTemp = "0" Then
+          psValue = False
+        ElseIf strTemp = "1" Then
+          psValue = True
+        Else
+          psValue = psDefault
+        End If
+    End If
+    ReadBool = CBool(lRet)
+End Function
+
 
 '-----------------------------------------------------------------------------------
 ' ReadIntValue: reads the specified value from the inifile
@@ -115,6 +144,28 @@ Public Function ReadIntValue(psSection As String, psKey As String, psValue As In
         psValue = Val(Left(sRetValue, InStr(1, sRetValue, vbNullChar) - 1))
     End If
     ReadIntValue = CBool(lRet)
+End Function
+
+
+'-----------------------------------------------------------------------------------
+' ReadIntValue: reads the specified value from the inifile
+' In:
+'   Section name, Key name, and a string which will contain the Value on return
+' Returns:
+'   true if success, false if fails (get LastErrorDescription for more info.....)
+'   NOTE that psValue will contain the stringvalue read from the ini on return!
+'-----------------------------------------------------------------------------------
+Public Function ReadSngValue(psSection As String, psKey As String, psValue As Single, Optional psDefault As Single) As Boolean
+    ' get out if we don't have a filename ....
+    If Not HaveFileName Then ReadSngValue = False: Exit Function
+    Dim lRet As Long, sRetValue As String * 255
+    lRet = GetPrivateProfileString(psSection, psKey, psDefault, sRetValue, Len(sRetValue), m_FileName)
+    If lRet = 0 Then
+        GetTheLastError
+    Else
+        psValue = Val(Left(sRetValue, InStr(1, sRetValue, vbNullChar) - 1))
+    End If
+    ReadSngValue = CBool(lRet)
 End Function
 
 '-----------------------------------------------------------------------------------
@@ -190,6 +241,12 @@ Public Function WriteValue(psSection As String, psKey As String, psValue As Stri
     ' if lRet = 0 an error has occured
     If lRet = 0 Then GetTheLastError
     WriteValue = CBool(lRet)
+End Function
+
+Public Function WriteBool(psSection As String, psKey As String, psValue As Boolean) As Boolean
+  Dim strTemp As String
+  strTemp = IIf(psValue, "1", "0")
+  WriteBool = WriteValue(psSection, psKey, strTemp)
 End Function
 
 '-----------------------------------------------------------------------------------

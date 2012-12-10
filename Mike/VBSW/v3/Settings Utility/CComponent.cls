@@ -23,6 +23,7 @@ Public Enum ComponentTypeEnum
   RegKeyCheck
   NTServicePackCheck
   NoCheck
+  NetFrameworkCheck
 End Enum
 
 Public Enum RebootTypeEnum
@@ -42,10 +43,17 @@ Private mstrSetupMessage As String 'local copy
 Private mstrSetupCommand As String 'local copy
 Private mstrSetupCommandLine As String 'local copy
 Private mlngSetupTime As Long 'local copy
-Private mstrOSVersionMin As Single 'local copy
-Private mstrOSVersionMax As Single 'local copy
-Private mblnOSVersionNT As Boolean 'local copy
-Private mblnOSVersion9x As Boolean 'local copy
+
+Public mblnWinNT As Boolean 'local copy
+Public mblnWin9x As Boolean 'local copy
+Public mblnWindows95 As Boolean
+Public mblnWindows98 As Boolean
+Public mblnWindowsMe As Boolean
+Public mstrNTMinVersion As Single 'local copy
+Public mstrNTMaxVersion As Single 'local copy
+Public mstrNTMinServicePack As String
+Public mstrNTMaxServicePack As String
+
 Private mstrFileVersionCheckDLL As String 'local copy
 Private mstrFileVersionCheckVersion As String 'local copy
 Private mstrRegVersionCheckKey As String 'local copy
@@ -55,6 +63,8 @@ Private mstrRegKeyCheckValue As String 'local copy
 Private mstrNTServicePackCheckNumber As String 'local copy
 Private mvarSettings As CSettingsFile 'local copy
 
+Private mstrNetFrameworkVersion As String
+
 Private mstrURL As String 'local copy
 Private mstrDependencies As String 'local copy
 Private mintSortOrder As Integer 'local copy
@@ -63,17 +73,24 @@ Private mstrNotes As String 'local copy
 Public Property Let Notes(ByVal vData As String)
 'used when assigning a value to the property, on the left side of an assignment.
 'Syntax: X.Notes = 5
-    mstrNotes = vData
+    mstrNotes = Replace(vData, vbCrLf, "|||")
 End Property
 
 
 Public Property Get Notes() As String
 'used when retrieving value of a property, on the right side of an assignment.
 'Syntax: Debug.Print X.Notes
-    Notes = mstrNotes
+    Notes = Replace(mstrNotes, "|||", vbCrLf)
 End Property
 
 
+Public Property Let NetFrameworkVersion(ByVal vData As String)
+  mstrNetFrameworkVersion = vData
+End Property
+
+Public Property Get NetFrameworkVersion() As String
+  NetFrameworkVersion = mstrNetFrameworkVersion
+End Property
 
 
 Public Function SetAtMaxSortOrder()
@@ -177,38 +194,6 @@ End Property
 
 Public Property Get FileVersionCheckDLL() As String
   FileVersionCheckDLL = mstrFileVersionCheckDLL
-End Property
-
-Public Property Let OSVersion9x(ByVal vData As Boolean)
-  mblnOSVersion9x = vData
-End Property
-
-Public Property Get OSVersion9x() As Boolean
-  OSVersion9x = mblnOSVersion9x
-End Property
-
-Public Property Let OSVersionNT(ByVal vData As Boolean)
-  mblnOSVersionNT = vData
-End Property
-
-Public Property Get OSVersionNT() As Boolean
-  OSVersionNT = mblnOSVersionNT
-End Property
-
-Public Property Let OSVersionMax(ByVal vData As String)
-  mstrOSVersionMax = Format(vData, "0.00")
-End Property
-
-Public Property Get OSVersionMax() As String
-  OSVersionMax = Format(mstrOSVersionMax, "0.00")
-End Property
-
-Public Property Let OSVersionMin(ByVal vData As String)
-  mstrOSVersionMin = Format(vData, "0.00")
-End Property
-
-Public Property Get OSVersionMin() As String
-  OSVersionMin = Format(mstrOSVersionMin, "0.00")
 End Property
 
 Public Property Let SetupTime(ByVal vData As Long)
@@ -328,15 +313,20 @@ Public Function Load(ByRef pobjCIni As CIni)
   pobjCIni.ReadValue mstrID, "URL", mstrURL
   pobjCIni.ReadValue mstrID, "Notes", mstrNotes
   
-  ' OS Version info
-  pobjCIni.ReadValue mstrID, "OSVersionMin", strTemp, "0"
-  mstrOSVersionMin = Val(strTemp)
-  pobjCIni.ReadValue mstrID, "OSVersionMax", strTemp, "0"
-  mstrOSVersionMax = Val(strTemp)
-  pobjCIni.ReadValue mstrID, "OSVersionNT", strTemp, "1"
-  If strTemp = "1" Then mblnOSVersionNT = True Else mblnOSVersionNT = False
-  pobjCIni.ReadValue mstrID, "OSVersion9x", strTemp, "1"
-  If strTemp = "1" Then mblnOSVersion9x = True Else mblnOSVersion9x = False
+  pobjCIni.ReadBool mstrID, "Win9x", mblnWin9x, True
+  If mblnWin9x Then
+    pobjCIni.ReadBool mstrID, "Windows95", mblnWindows95, True
+    pobjCIni.ReadBool mstrID, "Windows98", mblnWindows98, True
+    pobjCIni.ReadBool mstrID, "WindowsMe", mblnWindowsMe, True
+  End If
+ 
+  pobjCIni.ReadBool mstrID, "WinNT", mblnWinNT, True
+  If mblnWinNT Then
+    pobjCIni.ReadSngValue mstrID, "NTMinVersion", mstrNTMinVersion, 0
+    pobjCIni.ReadSngValue mstrID, "NTMaxVersion", mstrNTMaxVersion, 0
+    pobjCIni.ReadValue mstrID, "NTMinServicePack", mstrNTMinServicePack, ""
+    pobjCIni.ReadValue mstrID, "NTMaxServicePack", mstrNTMaxServicePack, ""
+  End If
   
   ' File Version check info
   pobjCIni.ReadValue mstrID, "FileVersionCheckDLL", mstrFileVersionCheckDLL
@@ -352,6 +342,9 @@ Public Function Load(ByRef pobjCIni As CIni)
   
   ' NT Service Pack check
   pobjCIni.ReadValue mstrID, "NTServicePackCheckNumber", mstrNTServicePackCheckNumber
+  
+  ' Net Framework check
+  pobjCIni.ReadValue mstrID, "NetFrameworkCheckVersion", mstrNetFrameworkVersion
   
   ' Dependencies
   pobjCIni.ReadValue mstrID, "Dependencies", mstrDependencies
@@ -379,12 +372,21 @@ Public Function Save(ByRef pobjCIni As CIni)
   pobjCIni.WriteValue mstrID, "URL", mstrURL
   pobjCIni.WriteValue mstrID, "Notes", mstrNotes
   
-  ' OS Version info
-  pobjCIni.WriteValue mstrID, "OSVersionMin", Format(mstrOSVersionMin, "0.00")
-  pobjCIni.WriteValue mstrID, "OSVersionMax", Format(mstrOSVersionMax, "0.00")
-  pobjCIni.WriteValue mstrID, "OSVersionNT", IIf(mblnOSVersionNT, "1", "0")
-  pobjCIni.WriteValue mstrID, "OSVersion9x", IIf(mblnOSVersion9x, "1", "0")
-  
+  pobjCIni.WriteBool mstrID, "Win9x", mblnWin9x
+  If mblnWin9x Then
+    pobjCIni.WriteBool mstrID, "Windows95", mblnWindows95
+    pobjCIni.WriteBool mstrID, "Windows98", mblnWindows98
+    pobjCIni.WriteBool mstrID, "WindowsMe", mblnWindowsMe
+  End If
+ 
+  pobjCIni.WriteBool mstrID, "WinNT", mblnWinNT
+  If mblnWinNT Then
+    pobjCIni.WriteValue mstrID, "NTMinVersion", Format(mstrNTMinVersion, "0.00")
+    pobjCIni.WriteValue mstrID, "NTMaxVersion", Format(mstrNTMaxVersion, "0.00")
+    pobjCIni.WriteValue mstrID, "NTMinServicePack", mstrNTMinServicePack
+    pobjCIni.WriteValue mstrID, "NTMaxServicePack", mstrNTMaxServicePack
+  End If
+ 
   ' File Version check info
   pobjCIni.WriteValue mstrID, "FileVersionCheckDLL", mstrFileVersionCheckDLL
   pobjCIni.WriteValue mstrID, "FileVersionCheckVersion", mstrFileVersionCheckVersion
@@ -399,6 +401,9 @@ Public Function Save(ByRef pobjCIni As CIni)
   
   ' NT Service Pack check
   pobjCIni.WriteValue mstrID, "NTServicePackCheckNumber", mstrNTServicePackCheckNumber
+  
+  ' Net framework check
+  pobjCIni.WriteValue mstrID, "NetFrameworkCheckVersion", mstrNetFrameworkVersion
   
   ' Dependencies
   pobjCIni.WriteValue mstrID, "Dependencies", mstrDependencies

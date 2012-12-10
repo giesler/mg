@@ -31,8 +31,8 @@ Begin VB.UserControl ucOS
       Begin VB.ComboBox cmbNTMaxServicePack 
          Height          =   315
          Left            =   2760
+         Style           =   2  'Dropdown List
          TabIndex        =   10
-         Text            =   "Combo1"
          Top             =   840
          Width           =   1695
       End
@@ -43,11 +43,11 @@ Begin VB.UserControl ucOS
          Top             =   840
          Width           =   975
       End
-      Begin VB.ComboBox cmbNTMinSerivcePack 
+      Begin VB.ComboBox cmbNTMinServicePack 
          Height          =   315
          Left            =   2760
+         Style           =   2  'Dropdown List
          TabIndex        =   7
-         Text            =   "Combo1"
          Top             =   360
          Width           =   1695
       End
@@ -158,46 +158,73 @@ Public Property Get WinNT() As Boolean
   WinNT = IIf(chkWinNT.Value = 1, True, False)
 End Property
 
-Public Property Let NTMinVersion(vData As String)
-  txtNTMinVersion.Text = vData
+Public Property Let NTMinVersion(vData As Single)
+  txtNTMinVersion.Text = CStr(Format(vData, "0.00"))
 End Property
 
-Public Property Get NTMinVersion() As String
-  NTMinVersion = txtNTMinVersion.Text
+Public Property Get NTMinVersion() As Single
+  NTMinVersion = Val(txtNTMinVersion.Text)
 End Property
 
 Public Property Let NTMinServicePack(vData As String)
-  cmbNTMinSerivcePack.SelText = vData
+  If vData <> "" Then
+    SetComboValue cmbNTMinServicePack, vData
+  End If
 End Property
 
 Public Property Get NTMinServicePack() As String
-  NTMinServicePack = cmbNTMinSerivcePack.SelText
+  If cmbNTMinServicePack.ListIndex <> -1 Then
+    NTMinServicePack = cmbNTMinServicePack.List(cmbNTMinServicePack.ListIndex)
+  Else
+    NTMinServicePack = ""
+  End If
 End Property
 
-Public Property Let NTMaxVersion(vData As String)
-  txtNTMaxVersion.Text = vData
+Public Property Let NTMaxVersion(vData As Single)
+  txtNTMaxVersion.Text = CStr(Format(vData, "0.00"))
 End Property
 
-Public Property Get NTMaxVersion() As String
-  NTMaxVersion = txtNTMaxVersion.Text
+Public Property Get NTMaxVersion() As Single
+  NTMaxVersion = Val(txtNTMaxVersion.Text)
 End Property
 
 Public Property Let NTMaxServicePack(vData As String)
-  cmbNTMaxSerivcePack.SelText = vData
+  If vData <> "" Then
+    SetComboValue cmbNTMaxServicePack, vData
+  End If
 End Property
 
 Public Property Get NTMaxServicePack() As String
-  NTMaxServicePack = cmbNTMaxSerivcePack.SelText
+  If cmbNTMaxServicePack.ListIndex <> -1 Then
+    NTMaxServicePack = cmbNTMaxServicePack.List(cmbNTMaxServicePack.ListIndex)
+  Else
+    NTMaxServicePack = ""
+  End If
 End Property
 
+Public Function SetComboValue(cmb As ComboBox, str As String)
 
+  Dim i As Integer
+  For i = 0 To cmb.ListCount - 1
+    If cmb.List(i) = str Then
+      cmb.ListIndex = i
+      Exit Function
+    End If
+  Next i
+  
+End Function
 
 Private Sub chkWin9x_Click()
 
-  If chkWin9x.Value Then
+  If chkWin9x.Value And chkWin9x.Enabled Then
     chkWindows95.Enabled = True
     chkWindows98.Enabled = True
     chkWindowsMe.Enabled = True
+    If chkWindows95.Value = 0 And chkWindows98.Value = 0 And chkWindowsMe.Value = 0 Then
+      chkWindows95.Value = 1
+      chkWindows98.Value = 1
+      chkWindowsMe.Value = 1
+    End If
   Else
     chkWindows95.Enabled = False
     chkWindows98.Enabled = False
@@ -208,36 +235,64 @@ End Sub
 
 Private Sub chkWinNT_Click()
   
-  If chkWinNT.Value Then
+  If chkWinNT.Value And chkWinNT.Enabled Then
     txtNTMinVersion.Enabled = True
     txtNTMaxVersion.Enabled = True
-    cmbNTMinSerivcePack.Enabled = True
+    cmbNTMinServicePack.Enabled = True
     cmbNTMaxServicePack.Enabled = True
+    txtNTMinVersion.BackColor = vbWindowBackground
+    txtNTMaxVersion.BackColor = vbWindowBackground
+    cmbNTMinServicePack.BackColor = vbWindowBackground
+    cmbNTMaxServicePack.BackColor = vbWindowBackground
   Else
     txtNTMinVersion.Enabled = False
     txtNTMaxVersion.Enabled = False
-    cmbNTMinSerivcePack.Enabled = False
+    cmbNTMinServicePack.Enabled = False
     cmbNTMaxServicePack.Enabled = False
+    txtNTMinVersion.BackColor = vbButtonFace
+    txtNTMaxVersion.BackColor = vbButtonFace
+    cmbNTMinServicePack.BackColor = vbButtonFace
+    cmbNTMaxServicePack.BackColor = vbButtonFace
   End If
   
 End Sub
 
 Private Sub UserControl_Initialize()
   
-  cmbNTMinSerivcePack.AddItem ""
-  cmbNTMinSerivcePack.AddItem "Service Pack 1"
-  cmbNTMinSerivcePack.AddItem "Service Pack 2"
-  cmbNTMinSerivcePack.AddItem "Service Pack 3"
-  cmbNTMinSerivcePack.AddItem "Service Pack 4"
-  cmbNTMinSerivcePack.AddItem "Service Pack 5"
-  cmbNTMinSerivcePack.AddItem "Service Pack 6"
+  cmbNTMinServicePack.AddItem ""
+  cmbNTMinServicePack.AddItem "Service Pack 1"
+  cmbNTMinServicePack.AddItem "Service Pack 2"
+  cmbNTMinServicePack.AddItem "Service Pack 3"
+  cmbNTMinServicePack.AddItem "Service Pack 4"
+  cmbNTMinServicePack.AddItem "Service Pack 5"
+  cmbNTMinServicePack.AddItem "Service Pack 6"
   
-  cmbNTMaxSerivcePack.AddItem ""
-  cmbNTMaxSerivcePack.AddItem "Service Pack 1"
-  cmbNTMaxSerivcePack.AddItem "Service Pack 2"
-  cmbNTMaxSerivcePack.AddItem "Service Pack 3"
-  cmbNTMaxSerivcePack.AddItem "Service Pack 4"
-  cmbNTMaxSerivcePack.AddItem "Service Pack 5"
-  cmbNTMaxSerivcePack.AddItem "Service Pack 6"
+  cmbNTMaxServicePack.AddItem ""
+  cmbNTMaxServicePack.AddItem "Service Pack 1"
+  cmbNTMaxServicePack.AddItem "Service Pack 2"
+  cmbNTMaxServicePack.AddItem "Service Pack 3"
+  cmbNTMaxServicePack.AddItem "Service Pack 4"
+  cmbNTMaxServicePack.AddItem "Service Pack 5"
+  cmbNTMaxServicePack.AddItem "Service Pack 6"
+  
+  chkWin9x_Click
+  chkWinNT_Click
   
 End Sub
+
+Public Sub Win9xEnable(enable As Boolean)
+  chkWin9x.Enabled = enable
+  If Not chkWin9x.Enabled Then
+    chkWin9x.Value = 0
+    chkWindows95.Value = 0
+    chkWindows98.Value = 0
+    chkWindowsMe.Value = 0
+  End If
+  chkWin9x_Click
+End Sub
+
+Public Sub WinNTEnable(enable As Boolean)
+  chkWinNT.Enabled = enable
+  chkWinNT_Click
+End Sub
+

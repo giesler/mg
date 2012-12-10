@@ -62,6 +62,17 @@ Private mstrMouseExit As String
 Private mstrMouseDown As String
 Private mstrMouseUp As String
 
+' Cursor
+Private mstrMouseCursor As String
+
+Public Property Let MouseCursor(ByVal vData As String)
+    mstrMouseCursor = vData
+End Property
+
+Public Property Get MouseCursor() As String
+    MouseCursor = mstrMouseCursor
+End Property
+
 Public Property Let MouseEnter(ByVal vData As String)
     mstrMouseEnter = vData
 End Property
@@ -326,6 +337,8 @@ Public Function Load(ByRef pobjCIni As CIni)
   pobjCIni.ReadValue mstrID, "MouseDown", mstrMouseDown
   pobjCIni.ReadValue mstrID, "MouseUp", mstrMouseUp
   
+  pobjCIni.ReadValue mstrID, "MouseCursor", mstrMouseCursor
+  
 End Function
 
 Public Function Save(ByRef pobjCIni As CIni)
@@ -363,6 +376,8 @@ Public Function Save(ByRef pobjCIni As CIni)
   pobjCIni.WriteValue mstrID, "MouseExit", mstrMouseExit
   pobjCIni.WriteValue mstrID, "MouseDown", mstrMouseDown
   pobjCIni.WriteValue mstrID, "MouseUp", mstrMouseUp
+  
+  pobjCIni.WriteValue mstrID, "MouseCursor", mstrMouseCursor
   
 End Function
 

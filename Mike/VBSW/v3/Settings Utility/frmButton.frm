@@ -43,12 +43,11 @@ Begin VB.Form frmButton
       _Version        =   393216
       Style           =   1
       Tabs            =   4
-      Tab             =   1
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "General Settings"
       TabPicture(0)   =   "frmButton.frx":0000
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label1"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label12"
@@ -62,59 +61,47 @@ Begin VB.Form frmButton
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "Button Action"
       TabPicture(1)   =   "frmButton.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "Label3"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "Label9"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "Label4"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "Label16"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "optButtonAction(0)"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "optButtonAction(1)"
-      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "txtFile"
+      Tab(1).Control(1)=   "optButtonAction(3)"
+      Tab(1).Control(2)=   "chkRestartPrompt"
+      Tab(1).Control(3)=   "txtSetup"
+      Tab(1).Control(4)=   "cmdSetupBrowse"
+      Tab(1).Control(5)=   "txtCmdLine"
+      Tab(1).Control(6)=   "txtURL"
       Tab(1).Control(7)=   "optButtonAction(2)"
-      Tab(1).Control(7).Enabled=   0   'False
-      Tab(1).Control(8)=   "txtURL"
-      Tab(1).Control(8).Enabled=   0   'False
-      Tab(1).Control(9)=   "txtCmdLine"
-      Tab(1).Control(9).Enabled=   0   'False
-      Tab(1).Control(10)=   "cmdSetupBrowse"
-      Tab(1).Control(10).Enabled=   0   'False
-      Tab(1).Control(11)=   "txtSetup"
-      Tab(1).Control(11).Enabled=   0   'False
-      Tab(1).Control(12)=   "chkRestartPrompt"
-      Tab(1).Control(12).Enabled=   0   'False
-      Tab(1).Control(13)=   "optButtonAction(3)"
-      Tab(1).Control(13).Enabled=   0   'False
-      Tab(1).Control(14)=   "txtFile"
-      Tab(1).Control(14).Enabled=   0   'False
+      Tab(1).Control(8)=   "optButtonAction(1)"
+      Tab(1).Control(9)=   "optButtonAction(0)"
+      Tab(1).Control(10)=   "Label16"
+      Tab(1).Control(11)=   "Label4"
+      Tab(1).Control(12)=   "Label9"
+      Tab(1).Control(13)=   "Label3"
+      Tab(1).Control(14)=   "Label2"
       Tab(1).ControlCount=   15
       TabCaption(2)   =   "Images"
       TabPicture(2)   =   "frmButton.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtTop"
-      Tab(2).Control(1)=   "txtLeft"
-      Tab(2).Control(2)=   "txtMouseClick"
-      Tab(2).Control(3)=   "cmdMouseClickBrowse"
-      Tab(2).Control(4)=   "txtMouseOver"
-      Tab(2).Control(5)=   "cmdMouseOverBrowse"
-      Tab(2).Control(6)=   "txtStandard"
-      Tab(2).Control(7)=   "cmdStandardBrowse"
-      Tab(2).Control(8)=   "Label6"
-      Tab(2).Control(9)=   "Label31"
-      Tab(2).Control(10)=   "Label29"
-      Tab(2).Control(11)=   "Label19"
-      Tab(2).Control(12)=   "Label18"
-      Tab(2).Control(13)=   "Label17"
-      Tab(2).Control(14)=   "Label13"
-      Tab(2).Control(15)=   "Label5"
-      Tab(2).Control(16)=   "Label7"
-      Tab(2).ControlCount=   17
+      Tab(2).Control(0)=   "cmdMouseCursor"
+      Tab(2).Control(1)=   "txtMouseCursor"
+      Tab(2).Control(2)=   "txtTop"
+      Tab(2).Control(3)=   "txtLeft"
+      Tab(2).Control(4)=   "txtMouseClick"
+      Tab(2).Control(5)=   "cmdMouseClickBrowse"
+      Tab(2).Control(6)=   "txtMouseOver"
+      Tab(2).Control(7)=   "cmdMouseOverBrowse"
+      Tab(2).Control(8)=   "txtStandard"
+      Tab(2).Control(9)=   "cmdStandardBrowse"
+      Tab(2).Control(10)=   "Label20"
+      Tab(2).Control(11)=   "Label6"
+      Tab(2).Control(12)=   "Label31"
+      Tab(2).Control(13)=   "Label29"
+      Tab(2).Control(14)=   "Label19"
+      Tab(2).Control(15)=   "Label18"
+      Tab(2).Control(16)=   "Label17"
+      Tab(2).Control(17)=   "Label13"
+      Tab(2).Control(18)=   "Label5"
+      Tab(2).Control(19)=   "Label7"
+      Tab(2).ControlCount=   20
       TabCaption(3)   =   "Sounds"
       TabPicture(3)   =   "frmButton.frx":0054
       Tab(3).ControlEnabled=   0   'False
@@ -132,10 +119,26 @@ Begin VB.Form frmButton
       Tab(3).Control(11)=   "Label10"
       Tab(3).Control(12)=   "Label8"
       Tab(3).ControlCount=   13
+      Begin VB.CommandButton cmdMouseCursor 
+         Caption         =   "Browse"
+         Height          =   285
+         Left            =   -70200
+         TabIndex        =   57
+         Top             =   2640
+         Width           =   855
+      End
+      Begin VB.TextBox txtMouseCursor 
+         Height          =   285
+         Left            =   -72960
+         TabIndex        =   56
+         ToolTipText     =   "Mouse cursor image when mouse is over this button"
+         Top             =   2640
+         Width           =   2655
+      End
       Begin VB.Frame fraDialogAction 
          Caption         =   " Splash Dialog "
          Height          =   1095
-         Left            =   -74400
+         Left            =   600
          TabIndex        =   52
          Top             =   1800
          Width           =   4695
@@ -170,9 +173,9 @@ Begin VB.Form frmButton
       Begin VB.TextBox txtFile 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   1320
+         Left            =   -73680
          TabIndex        =   50
-         ToolTipText     =   "Friendly name for prompts and such"
+         ToolTipText     =   "File to open"
          Top             =   3120
          Width           =   3735
       End
@@ -180,18 +183,17 @@ Begin VB.Form frmButton
          Caption         =   "Open a file (using ShellExecute)"
          Height          =   255
          Index           =   3
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   49
          Top             =   2760
          Width           =   5655
       End
       Begin VB.TextBox txtMouseUp 
          Height          =   285
-         Left            =   -72840
+         Left            =   -73560
          TabIndex        =   47
-         ToolTipText     =   "Install button image"
          Top             =   1920
-         Width           =   2655
+         Width           =   3375
       End
       Begin VB.CommandButton cmdMouseUp 
          Caption         =   "Browse"
@@ -203,11 +205,10 @@ Begin VB.Form frmButton
       End
       Begin VB.TextBox txtMouseDown 
          Height          =   285
-         Left            =   -72840
+         Left            =   -73560
          TabIndex        =   44
-         ToolTipText     =   "Install button image"
          Top             =   1560
-         Width           =   2655
+         Width           =   3375
       End
       Begin VB.CommandButton cmdMouseDown 
          Caption         =   "Browse"
@@ -219,11 +220,10 @@ Begin VB.Form frmButton
       End
       Begin VB.TextBox txtMouseExit 
          Height          =   285
-         Left            =   -72840
+         Left            =   -73560
          TabIndex        =   41
-         ToolTipText     =   "Install button image"
          Top             =   1200
-         Width           =   2655
+         Width           =   3375
       End
       Begin VB.CommandButton cmdMouseExit 
          Caption         =   "Browse"
@@ -235,11 +235,10 @@ Begin VB.Form frmButton
       End
       Begin VB.TextBox txtMouseEnter 
          Height          =   285
-         Left            =   -72840
+         Left            =   -73560
          TabIndex        =   38
-         ToolTipText     =   "Install button image"
          Top             =   840
-         Width           =   2655
+         Width           =   3375
       End
       Begin VB.CommandButton cmdMouseEnter 
          Caption         =   "Browse"
@@ -269,7 +268,7 @@ Begin VB.Form frmButton
          Height          =   285
          Left            =   -72960
          TabIndex        =   24
-         ToolTipText     =   "Mouse Click image for Install button"
+         ToolTipText     =   "Mouse click image for this button"
          Top             =   1560
          Width           =   2655
       End
@@ -285,7 +284,7 @@ Begin VB.Form frmButton
          Height          =   285
          Left            =   -72960
          TabIndex        =   22
-         ToolTipText     =   "Mouse Over image for Install button"
+         ToolTipText     =   "Mouse over image for this button"
          Top             =   1200
          Width           =   2655
       End
@@ -301,7 +300,7 @@ Begin VB.Form frmButton
          Height          =   285
          Left            =   -72960
          TabIndex        =   20
-         ToolTipText     =   "Install button image"
+         ToolTipText     =   "Standard button image"
          Top             =   840
          Width           =   2655
       End
@@ -316,7 +315,7 @@ Begin VB.Form frmButton
       Begin VB.CheckBox chkRestartPrompt 
          Caption         =   "&Prompt to restart computer after installation completes"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   4
          Top             =   1680
          Width           =   5295
@@ -324,14 +323,15 @@ Begin VB.Form frmButton
       Begin VB.CheckBox chkComponentCheck 
          Caption         =   "&Run component check before doing button action"
          Height          =   255
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   9
+         ToolTipText     =   "Whether or not to check the component list before performing button action"
          Top             =   1320
          Width           =   5295
       End
       Begin VB.TextBox txtSetup 
          Height          =   285
-         Left            =   1320
+         Left            =   -73680
          TabIndex        =   1
          ToolTipText     =   "Relative path to setup.exe or xxx.msi which will be run when VBSW completes"
          Top             =   1080
@@ -340,14 +340,14 @@ Begin VB.Form frmButton
       Begin VB.CommandButton cmdSetupBrowse 
          Caption         =   "Browse"
          Height          =   285
-         Left            =   5160
+         Left            =   -69840
          TabIndex        =   2
          Top             =   1080
          Width           =   855
       End
       Begin VB.TextBox txtCmdLine 
          Height          =   285
-         Left            =   1320
+         Left            =   -73680
          TabIndex        =   3
          ToolTipText     =   "Command line for setup.  Include setup.exe filename."
          Top             =   1380
@@ -356,9 +356,9 @@ Begin VB.Form frmButton
       Begin VB.TextBox txtURL 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   1320
+         Left            =   -73680
          TabIndex        =   6
-         ToolTipText     =   "Friendly name for prompts and such"
+         ToolTipText     =   "URL to launch"
          Top             =   2400
          Width           =   3735
       End
@@ -366,7 +366,7 @@ Begin VB.Form frmButton
          Caption         =   "&Cancel button - close program"
          Height          =   255
          Index           =   2
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   7
          Top             =   3480
          Width           =   5655
@@ -375,7 +375,7 @@ Begin VB.Form frmButton
          Caption         =   "&Launch a URL (if a web browser can be found)"
          Height          =   255
          Index           =   1
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   5
          Top             =   2040
          Width           =   5655
@@ -384,7 +384,7 @@ Begin VB.Form frmButton
          Caption         =   "&Run a program"
          Height          =   255
          Index           =   0
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   0
          Top             =   720
          Width           =   5655
@@ -392,16 +392,24 @@ Begin VB.Form frmButton
       Begin VB.TextBox txtName 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   -73800
+         Left            =   1200
          TabIndex        =   8
-         ToolTipText     =   "Friendly name for prompts and such"
+         ToolTipText     =   "Internal name - for reference and logging"
          Top             =   900
          Width           =   4575
+      End
+      Begin VB.Label Label20 
+         Caption         =   "Mouse Cursor:"
+         Height          =   255
+         Left            =   -74880
+         TabIndex        =   58
+         Top             =   2640
+         Width           =   1815
       End
       Begin VB.Label Label16 
          Caption         =   "File:"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   51
          Top             =   3120
          Width           =   615
@@ -525,7 +533,7 @@ Begin VB.Form frmButton
       Begin VB.Label Label4 
          Caption         =   "Setup / MSI:"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   18
          Top             =   1080
          Width           =   1095
@@ -533,7 +541,7 @@ Begin VB.Form frmButton
       Begin VB.Label Label9 
          Caption         =   "Cmd Line:"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   17
          Top             =   1380
          Width           =   1095
@@ -541,7 +549,7 @@ Begin VB.Form frmButton
       Begin VB.Label Label3 
          Caption         =   "URL:"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   16
          Top             =   2400
          Width           =   615
@@ -551,7 +559,7 @@ Begin VB.Form frmButton
          Caption         =   "Settings for what action will be performed when the button is clicked"
          ForeColor       =   &H80000017&
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   15
          Top             =   360
          Width           =   5895
@@ -561,7 +569,7 @@ Begin VB.Form frmButton
          Caption         =   "General information about this button"
          ForeColor       =   &H80000017&
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   14
          Top             =   360
          Width           =   5895
@@ -569,7 +577,7 @@ Begin VB.Form frmButton
       Begin VB.Label Label1 
          Caption         =   "Name:"
          Height          =   255
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   13
          Top             =   900
          Width           =   615
@@ -616,6 +624,17 @@ Private Sub cmdMouseClickBrowse_Click()
   strFileName = GetFileName(mobjButton.Settings.RootPathIDList, "Select the bitmap file to use in autorun.exe", Me)
   If strFileName <> "" Then
     Me.txtMouseClick = Mid(strFileName, Len(mobjButton.Settings.RootPath) + 2)
+    mblnDirty = True
+  End If
+
+End Sub
+
+Private Sub cmdMouseCursor_Click()
+
+  Dim strFileName As String
+  strFileName = GetFileName(mobjButton.Settings.RootPathIDList, "Select the mouse cursor file", Me)
+  If strFileName <> "" Then
+    txtMouseCursor.Text = Mid(strFileName, Len(mobjButton.Settings.RootPath) + 2)
     mblnDirty = True
   End If
 
@@ -811,7 +830,9 @@ Public Sub Load()
     txtMouseExit.Text = mobjButton.MouseExit
     txtMouseUp.Text = mobjButton.MouseUp
     txtMouseDown.Text = mobjButton.MouseDown
-
+    
+    txtMouseCursor.Text = mobjButton.MouseCursor
+    
 End Sub
 
 Public Sub Save()
@@ -865,6 +886,8 @@ Public Sub Save()
     mobjButton.MouseExit = txtMouseExit.Text
     mobjButton.MouseUp = txtMouseUp.Text
     mobjButton.MouseDown = txtMouseDown.Text
+    
+    mobjButton.MouseCursor = txtMouseCursor.Text
     
 End Sub
 
