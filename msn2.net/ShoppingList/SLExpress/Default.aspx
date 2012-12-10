@@ -1,7 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SLExpress._Default" %>
+
+<%@ Register TagPrefix="wl" Namespace="Microsoft.Live" Assembly="Microsoft.Live.AuthHandler, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
 <head runat="server">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
     <title>Shopping List</title>
     <style type="text/css">
         html, body
@@ -20,61 +24,41 @@
             text-align: center;
         }
     </style>
-    <script type="text/javascript" src="Silverlight.js"></script>
-    <script type="text/javascript">
-        function onSilverlightError(sender, args) {
-            var appSource = "";
-            if (sender != null && sender != 0) {
-                appSource = sender.getHost().Source;
-            }
-
-            var errorType = args.ErrorType;
-            var iErrorCode = args.ErrorCode;
-
-            if (errorType == "ImageError" || errorType == "MediaError") {
-                return;
-            }
-
-            var errMsg = "Unhandled Error in Silverlight Application " + appSource + "\n";
-
-            errMsg += "Code: " + iErrorCode + "    \n";
-            errMsg += "Category: " + errorType + "       \n";
-            errMsg += "Message: " + args.ErrorMessage + "     \n";
-
-            if (errorType == "ParserError") {
-                errMsg += "File: " + args.xamlFile + "     \n";
-                errMsg += "Line: " + args.lineNumber + "     \n";
-                errMsg += "Position: " + args.charPosition + "     \n";
-            }
-            else if (errorType == "RuntimeError") {
-                if (args.lineNumber != 0) {
-                    errMsg += "Line: " + args.lineNumber + "     \n";
-                    errMsg += "Position: " + args.charPosition + "     \n";
-                }
-                errMsg += "MethodName: " + args.methodName + "     \n";
-            }
-
-            throw new Error(errMsg);
-        }
-    </script>
 </head>
 <body style="height: 100%; margin: 0px">
+    <script type="text/javascript" src="Silverlight.js"></script>
+    <script type="text/javascript">
+        //if (window.location.href.indexOf("nosl", 0) < 0 && (Silverlight.isInstalled("4.0") || Silverlight.isInstalled("3.0") || Silverlight.isInstalled("2.0"))) {
+        //window.location.href = "sl.aspx";
+        //}
+    </script>
+    <!--
+    <iframe id="WebAuthControl" name="WebAuthControl" src="http://login.live.com/controls/WebAuth.htm?appid=<%=AppId%>&style=font-size%3A+10pt%3B+font-family%3A+verdana%3B+background%3A+white%3B"
+        width="80px" height="20px" marginwidth="0" marginheight="0" align="middle" frameborder="0"
+        scrolling="no"></iframe> -->
+    <p>
+        <% if (UserId == null)
+           { %>
+        This application does not know who you are! Click the <b>Sign in</b> link above.
+        <% }
+           else
+           { %>
+        Now this application knows that you are the user with ID = "<b><%=UserId%></b>".
+        <% } %>
+    </p>
     <form id="form1" runat="server" style="height: 100%">
-    <div id="silverlightControlHost">
-        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2"
-            width="100%" height="100%">
-            <param name="source" value="ClientBin/SLExpressControls.xap" />
-            <param name="onError" value="onSilverlightError" />
-            <param name="background" value="white" />
-            <param name="minRuntimeVersion" value="4.0.50807.0" />
-            <param name="autoUpgrade" value="true" />
-            <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=4.0.50807.0" style="text-decoration: none">
-                <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight"
-                    style="border-style: none" />
-            </a>
-        </object>
-        <iframe id="_sl_historyFrame" style="visibility: hidden; height: 0px; width: 0px; border: 0px"></iframe>
-    </div>
+    <asp:Panel runat="server" ID="topPanel">
+        <asp:DropDownList ID="list" runat="server" AutoPostBack="true" />
+    </asp:Panel>
+    <asp:Panel runat="server" ID="itemPanel">
+        <asp:ListBox ID="items" runat="server" AutoPostBack="true" />
+    </asp:Panel>
+    <asp:Panel runat="server" ID="addPanel">
+        <asp:TextBox ID="add" runat="server" MaxLength="50" />
+        <br />
+        <asp:Button ID="addButton" runat="server" Text="Add" />
+        <asp:Button ID="cancelButton" runat="server" Text="Cancel" />
+    </asp:Panel>
     </form>
 </body>
 </html>
