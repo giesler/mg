@@ -15,7 +15,6 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Button btnOK;
 		private System.Windows.Forms.Button btnCancel;
 
-		private bool mblnCancel = false;
 		private msn2.net.Pictures.Controls.GroupControl groupControl1;
 
 		/// <summary>
@@ -105,7 +104,6 @@ namespace msn2.net.Pictures.Controls
 			// fGroupSelect
 			// 
 			this.AcceptButton = this.btnOK;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(272, 294);
 			this.Controls.Add(this.groupControl1);

@@ -118,6 +118,14 @@ namespace msn2.net.Pictures
             }
         }
 
+		public bool Dirty
+		{
+			get
+			{
+				return this.dirty;
+			}
+		}
+
         #region Declares
 
         private bool dirty;

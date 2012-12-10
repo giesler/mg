@@ -106,7 +106,6 @@ namespace msn2.net.Pictures.Controls
 			// fPersonSelect
 			// 
 			this.AcceptButton = this.btnOK;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(272, 294);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {

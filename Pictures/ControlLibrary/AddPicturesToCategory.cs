@@ -112,7 +112,6 @@ namespace msn2.net.Pictures.Controls
 			// AddPicturesToCategory
 			// 
 			this.AcceptButton = this.ok;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.cancel;
 			this.ClientSize = new System.Drawing.Size(368, 190);
 			this.Controls.Add(this.label3);

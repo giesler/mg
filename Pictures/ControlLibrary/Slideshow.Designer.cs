@@ -27,10 +27,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.leftRaftingContainer = new System.Windows.Forms.RaftingContainer();
-            this.leftRaftingContainer1 = new System.Windows.Forms.RaftingContainer();
-            this.topRaftingContainer = new System.Windows.Forms.RaftingContainer();
-            this.bottomRaftingContainer = new System.Windows.Forms.RaftingContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.sepToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -38,42 +34,9 @@
             this.nextPictureToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.sepToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.leftRaftingContainer2 = new System.Windows.Forms.RaftingContainer();
-            this.leftRaftingContainer3 = new System.Windows.Forms.RaftingContainer();
-            this.topRaftingContainer1 = new System.Windows.Forms.RaftingContainer();
-            this.bottomRaftingContainer1 = new System.Windows.Forms.RaftingContainer();
             this.addtocategoryToolStripButton = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topRaftingContainer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomRaftingContainer)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topRaftingContainer1)).BeginInit();
-            this.topRaftingContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomRaftingContainer1)).BeginInit();
             this.SuspendLayout();
-// 
-// leftRaftingContainer
-// 
-            this.leftRaftingContainer.Dock = System.Windows.Forms.DockStyle.Left;
-            this.leftRaftingContainer.Name = "leftRaftingContainer";
-// 
-// leftRaftingContainer1
-// 
-            this.leftRaftingContainer1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.leftRaftingContainer1.Name = "leftRaftingContainer1";
-// 
-// topRaftingContainer
-// 
-            this.topRaftingContainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topRaftingContainer.Name = "topRaftingContainer";
-// 
-// bottomRaftingContainer
-// 
-            this.bottomRaftingContainer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomRaftingContainer.Name = "bottomRaftingContainer";
 // 
 // toolStrip1
 // 
@@ -87,7 +50,6 @@
             this.addtocategoryToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Raft = System.Windows.Forms.RaftingSides.Top;
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
 // 
@@ -129,27 +91,6 @@
             this.propertiesToolStripButton.Text = "Properties";
             this.propertiesToolStripButton.Click += new System.EventHandler(this.propertiesToolStripButton_Click);
 // 
-// leftRaftingContainer2
-// 
-            this.leftRaftingContainer2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.leftRaftingContainer2.Name = "leftRaftingContainer2";
-// 
-// leftRaftingContainer3
-// 
-            this.leftRaftingContainer3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.leftRaftingContainer3.Name = "leftRaftingContainer3";
-// 
-// topRaftingContainer1
-// 
-            this.topRaftingContainer1.Controls.Add(this.toolStrip1);
-            this.topRaftingContainer1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topRaftingContainer1.Name = "topRaftingContainer1";
-// 
-// bottomRaftingContainer1
-// 
-            this.bottomRaftingContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomRaftingContainer1.Name = "bottomRaftingContainer1";
-// 
 // addtocategoryToolStripButton
 // 
             this.addtocategoryToolStripButton.Name = "addtocategoryToolStripButton";
@@ -159,30 +100,15 @@
 // 
 // Slideshow
 // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(703, 606);
-            this.Controls.Add(this.leftRaftingContainer2);
-            this.Controls.Add(this.leftRaftingContainer3);
-            this.Controls.Add(this.topRaftingContainer1);
-            this.Controls.Add(this.bottomRaftingContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Slideshow";
             this.Text = "Slideshow";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Slideshow_KeyPress);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Slideshow_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topRaftingContainer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomRaftingContainer)).EndInit();
             this.toolStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftRaftingContainer3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topRaftingContainer1)).EndInit();
-            this.topRaftingContainer1.ResumeLayout(false);
-            this.topRaftingContainer1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bottomRaftingContainer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,15 +116,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RaftingContainer leftRaftingContainer;
-        private System.Windows.Forms.RaftingContainer leftRaftingContainer1;
-        private System.Windows.Forms.RaftingContainer topRaftingContainer;
-        private System.Windows.Forms.RaftingContainer bottomRaftingContainer;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.RaftingContainer leftRaftingContainer2;
-        private System.Windows.Forms.RaftingContainer leftRaftingContainer3;
-        private System.Windows.Forms.RaftingContainer topRaftingContainer1;
-        private System.Windows.Forms.RaftingContainer bottomRaftingContainer1;
         private System.Windows.Forms.ToolStripButton closeToolStripButton;
         private System.Windows.Forms.ToolStripSeparator sepToolStripSeparator;
         private System.Windows.Forms.ToolStripButton previousPictureToolStripButton;

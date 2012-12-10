@@ -259,7 +259,8 @@ namespace msn2.net.Pictures
 			SqlConnection cn  = new SqlConnection(connectionString);
 			SqlCommand cmd    = new SqlCommand("dbo.sp_RecentCategories", cn);
 			cmd.CommandType   = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
+			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
+			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
             
             DataSet ds	= new DataSet();
 

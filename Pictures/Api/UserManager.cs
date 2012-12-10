@@ -32,11 +32,15 @@ namespace msn2.net.Pictures
 			cmd.CommandType	 = CommandType.StoredProcedure;
 
 			// add params
-			cmd.Parameters.Add("@name", name);
-			cmd.Parameters.Add("@email", email);
-			cmd.Parameters.Add("@password", password);
+			cmd.Parameters.Add("@name", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@password", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@id", SqlDbType.Int);
 			cmd.Parameters["@id"].Direction = ParameterDirection.Output;
+
+			cmd.Parameters["@name"].Value = name;
+			cmd.Parameters["@email"].Value = email;
+			cmd.Parameters["@password"].Value = password;
 
 			// open connection and execute
 			cn.Open();
@@ -58,9 +62,11 @@ namespace msn2.net.Pictures
 			SqlConnection cn = new SqlConnection(connectionString);
 			SqlCommand cmd   = new SqlCommand("sp_ForgotPassword", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@Email", email);
+			cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@guid", SqlDbType.UniqueIdentifier);
 			cmd.Parameters["@guid"].Direction = ParameterDirection.Output;
+
+			cmd.Parameters["@Email"].Value = email;
 
 			// run command
 			cn.Open();
@@ -285,7 +291,8 @@ namespace msn2.net.Pictures
 			SqlDataReader dr = null;
 			PersonInfo info	 = null;
 			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@id", id.ToString());
+			cmd.Parameters.Add("@id", SqlDbType.Int);
+			cmd.Parameters["@id"].Value = id;
 
 			try
 			{
@@ -325,8 +332,11 @@ namespace msn2.net.Pictures
 			SqlConnection cn = new SqlConnection(connectionString);
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_LoginRequest_Associate", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@RequestID", requestId);
-			cmd.Parameters.Add("@PersonID", personId);
+			cmd.Parameters.Add("@RequestID", SqlDbType.Int);
+			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
+
+			cmd.Parameters["@RequestID"].Value = requestId;
+			cmd.Parameters["@PersonID"].Value = personId;
 
 			// run command
 			try
@@ -355,11 +365,16 @@ namespace msn2.net.Pictures
 			cmd.CommandType	 = CommandType.StoredProcedure;
 
 			// Add params to send to SP
-			cmd.Parameters.Add("@RequestID", requestId);
-			cmd.Parameters.Add("@FirstName", firstName);
-			cmd.Parameters.Add("@LastName", lastName);
-			cmd.Parameters.Add("@FullName", fullName);
-			
+			cmd.Parameters.Add("@RequestID", SqlDbType.Int);
+			cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50);
+			cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50);
+			cmd.Parameters.Add("@FullName", SqlDbType.NVarChar, 50);
+
+			cmd.Parameters["@requestId"].Value = requestId;
+			cmd.Parameters["@FirstName"].Value = firstName;
+			cmd.Parameters["@LastName"].Value = lastName;
+			cmd.Parameters["@FullName"].Value = fullName;
+
 			// run sp
 			cn.Open();
 			cmd.ExecuteNonQuery();
@@ -373,11 +388,15 @@ namespace msn2.net.Pictures
 			SqlConnection cn = new SqlConnection(connectionString);
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_ResetPassword", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@email", email);
-			cmd.Parameters.Add("@guid", resetKey);
-			cmd.Parameters.Add("@password", password);
+			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@guid", SqlDbType.Binary);
+			cmd.Parameters.Add("@password", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@success", SqlDbType.Bit);
 			cmd.Parameters["@success"].Direction = ParameterDirection.Output;
+
+			cmd.Parameters["@email"].Value = email;
+			cmd.Parameters["@guid"].Value = resetKey;
+			cmd.Parameters["@password"].Value = password;
 
 			// execute the command
 			cn.Open();
@@ -396,7 +415,8 @@ namespace msn2.net.Pictures
 			SqlDataReader dr			= null;
 			cmd.CommandType				= CommandType.StoredProcedure;
 
-			cmd.Parameters.Add("@name", name);
+			cmd.Parameters.Add("@name", SqlDbType.NVarChar, 150);
+			cmd.Parameters["@name"].Value = name;
 
 			try
 			{

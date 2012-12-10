@@ -354,7 +354,6 @@ namespace msn2.net.Pictures.Controls
 			// fEditCategory
 			// 
 			this.AcceptButton = this.btnOK;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(424, 342);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {

@@ -168,7 +168,6 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// fPictureViewer
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(560, 414);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.panelPic});

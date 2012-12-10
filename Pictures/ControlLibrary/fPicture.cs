@@ -42,8 +42,7 @@ namespace msn2.net.Pictures.Controls
 		private msn2.net.Pictures.Controls.PersonPicker personPicker1;
 		private System.Data.SqlClient.SqlDataAdapter daPicture;
 		private msn2.net.Pictures.Controls.DataSetPicture dsPicture;
-		private fPictureViewer fPV;
-
+		
 		private bool m_blnMoveNext;
 		private bool m_blnMovePrevious;
 		private System.Windows.Forms.Button btnMoveNext;
@@ -853,7 +852,6 @@ namespace msn2.net.Pictures.Controls
 			// fPicture
 			// 
 			this.AcceptButton = this.btnOK;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(368, 254);
 			this.Controls.Add(this.rating);
@@ -895,9 +893,6 @@ namespace msn2.net.Pictures.Controls
 
 			mblnCancel = true;
 			this.Visible = false;
-
-			if (fPV != null)
-				fPV.Dispose();
 		}
 
 		private void btnOK_Click(object sender, System.EventArgs e)
@@ -909,9 +904,6 @@ namespace msn2.net.Pictures.Controls
 			m_blnMovePrevious		= false;
 
 			SavePicture();
-
-			if (fPV != null)
-				fPV.Dispose();
 		}
 
 		private void SavePicture() 

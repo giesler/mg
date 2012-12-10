@@ -157,15 +157,22 @@ namespace msn2.net.Pictures
 			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
 
 			// set up params on the SP
-			cmdPic.Parameters.Add("@PictureID", pictureId);
-			cmdPic.Parameters.Add("@StartRecord", 0);
-			cmdPic.Parameters.Add("@ReturnCount", 1);
-			cmdPic.Parameters.Add("@MaxHeight", maxHeight);
-			cmdPic.Parameters.Add("@MaxWidth", maxWidth);
-			cmdPic.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
+			cmdPic.Parameters.Add("@PictureID", SqlDbType.Int);
+			cmdPic.Parameters.Add("@StartRecord", SqlDbType.Int);
+			cmdPic.Parameters.Add("@ReturnCount", SqlDbType.Int);
+			cmdPic.Parameters.Add("@MaxHeight", SqlDbType.Int);
+			cmdPic.Parameters.Add("@MaxWidth", SqlDbType.Int);
+			cmdPic.Parameters.Add("@PersonID", SqlDbType.Int);
 			cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 			cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
+			cmdPic.Parameters["@StartRecord"].Value = 0;
+			cmdPic.Parameters["@ReturnCount"].Value = 1;
+			cmdPic.Parameters["@PictureId"].Value = pictureId;
+			cmdPic.Parameters["@MaxHeight"].Value = maxHeight;
+			cmdPic.Parameters["@MaxWidth"].Value = maxWidth;
+			cmdPic.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
+			
 			// run the SP, set datasource to the picture list
 			cn.Open();
             PictureDataSet ds = new PictureDataSet();
@@ -213,8 +220,11 @@ namespace msn2.net.Pictures
 			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
 
 			// Set up params for SP
-			cmdPic.Parameters.Add("@pictureId", pictureId);
-			cmdPic.Parameters.Add("@personId", PicContext.Current.CurrentUser.Id);
+			cmdPic.Parameters.Add("@pictureId", SqlDbType.Int);
+			cmdPic.Parameters.Add("@personId", SqlDbType.Int);
+
+			cmdPic.Parameters["@pictureId"].Value = pictureId;
+			cmdPic.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
 
 			// run the SP, set datasource to the picture list
             cn.Open();
@@ -241,7 +251,8 @@ namespace msn2.net.Pictures
             SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
 
             // Set up params for SP
-            cmdPic.Parameters.Add("@personId", PicContext.Current.CurrentUser.Id);
+            cmdPic.Parameters.Add("@personId", SqlDbType.Int);
+			cmdPic.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
 
             // run the SP, set datasource to the picture list
             cn.Open();
@@ -268,8 +279,11 @@ namespace msn2.net.Pictures
 			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
 
 			// Set up params for SP
-			cmdPic.Parameters.Add("@categoryId", categoryId);
-			cmdPic.Parameters.Add("@personId", PicContext.Current.CurrentUser.Id);	
+			cmdPic.Parameters.Add("@categoryId", SqlDbType.Int);
+			cmdPic.Parameters.Add("@personId", SqlDbType.Int);
+
+			cmdPic.Parameters["@categoryId"].Value = categoryId;
+			cmdPic.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
 
 			// run the SP, set datasource to the picture list
 			PictureDataSet ds		= new PictureDataSet();
@@ -359,15 +373,23 @@ namespace msn2.net.Pictures
 
             // set up params on the SP
 			int personId = PicContext.Current.CurrentUser.Id;
-			daPics.SelectCommand.Parameters.Add("@CategoryID", categoryId);
-			daPics.SelectCommand.Parameters.Add("@StartRecord", startRecord);
-			daPics.SelectCommand.Parameters.Add("@ReturnCount", returnCount);
-			daPics.SelectCommand.Parameters.Add("@PersonID", personId);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", maxWidth);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", maxHeight);
-            daPics.SelectCommand.Parameters.Add("@SortFieldName", sortFieldSqlName);
+			daPics.SelectCommand.Parameters.Add("@CategoryID", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@StartRecord", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@ReturnCount", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@PersonID", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@MaxWidth", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@MaxHeight", SqlDbType.Int);
+            daPics.SelectCommand.Parameters.Add("@SortFieldName", SqlDbType.NVarChar, 50);
             daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 			daPics.SelectCommand.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
+
+			daPics.SelectCommand.Parameters["@CategoryID"].Value = categoryId;
+			daPics.SelectCommand.Parameters["@StartRecord"].Value = startRecord;
+			daPics.SelectCommand.Parameters["@ReturnCount"].Value = returnCount;
+			daPics.SelectCommand.Parameters["@PersonID"].Value = personId;
+			daPics.SelectCommand.Parameters["@MaxWidth"].Value = maxWidth;
+			daPics.SelectCommand.Parameters["@MaxHeight"].Value = maxHeight;
+			daPics.SelectCommand.Parameters["@SortFieldName"].Value = sortFieldSqlName;
 
 			// run the SP, set datasource to the picture list
 			cn.Open();
@@ -490,9 +512,13 @@ namespace msn2.net.Pictures
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@PersonID", personId);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
+			daPics.SelectCommand.Parameters.Add("@PersonID", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@MaxWidth", SqlDbType.Int);
+			daPics.SelectCommand.Parameters.Add("@MaxHeight", SqlDbType.Int);
+
+			daPics.SelectCommand.Parameters["@PersonID"].Value = personId;
+			daPics.SelectCommand.Parameters["@MaxWidth"].Value = 125;
+			daPics.SelectCommand.Parameters["@MaxHeight"].Value = 125;
 
 			// run the SP, set datasource to the picture list
 			cn.Open();

@@ -1,0 +1,11 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="msn2.net.Pictures.Controls.Properties" GeneratedClassName="Settings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings>
+    <Setting Name="msn2_net_Pictures_Controls_TerraServer_TerraService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://terraserver-usa.com/terraservice.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

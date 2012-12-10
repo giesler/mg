@@ -118,7 +118,6 @@ namespace msn2.net.Pictures.Controls
 			// SaveSlideshow
 			// 
 			this.AcceptButton = this.save;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.cancel;
 			this.ClientSize = new System.Drawing.Size(376, 110);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {

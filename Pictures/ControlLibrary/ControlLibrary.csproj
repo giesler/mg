@@ -206,9 +206,6 @@
     <Compile Include="ImageUtils.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Mapping\TopoMap.cs">
-    </Compile>
-    <Compile Include="Mapping\TopoMapReader.cs" />
     <Compile Include="MultiPictureEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -252,6 +249,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Resources\CommonImages.cs" />
     <Compile Include="Resources\ResourceLocator.cs" />
@@ -299,11 +301,6 @@
       <SubType>code</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Web References\TerraServer\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddPicturesToCategory.resx">
       <DependentUpon>AddPicturesToCategory.cs</DependentUpon>
@@ -446,6 +443,10 @@
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web References\picsvc\PictureDataSet.xsd" />
     <None Include="Web References\picsvc\PictureManager.disco" />
     <None Include="Web References\picsvc\PictureManager.wsdl" />
@@ -476,37 +477,9 @@
     </Content>
     <Content Include="FOLDER02.ICO" />
     <EmbeddedResource Include="Resources\folder.ico" />
-    <None Include="Web References\TerraServer\AreaBoundingBox.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\LonLatPt.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\PlaceFacts.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\terraservice.disco" />
-    <None Include="Web References\TerraServer\terraservice.wsdl" />
-    <None Include="Web References\TerraServer\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\TerraServer\ThemeBoundingBox.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\ThemeInfo.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\TileMeta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\TerraServer\UtmPt.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <WebReferenceUrl Include="http://terraserver-usa.com/terraservice.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\TerraServer\</RelPath>
-    </WebReferenceUrl>
+    <EmbeddedResource Include="Slideshow.resx">
+      <DependentUpon>Slideshow.cs</DependentUpon>
+    </EmbeddedResource>
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">
       <RelPath>Web References\picsvc\</RelPath>
       <UrlBehavior>Static</UrlBehavior>

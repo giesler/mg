@@ -419,7 +419,6 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Raft = System.Windows.Forms.RaftingSides.None;
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.Click += new System.EventHandler(this.toolStrip1_Click);
@@ -554,7 +553,6 @@ namespace msn2.net.Pictures.Controls
 // 
 // fMain
 // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(566, 375);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusBar1);

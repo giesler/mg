@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Web.Mail;
+using System.Net;
 
 #endregion
 
@@ -41,6 +42,7 @@ namespace msn2.net.Pictures
             mail.Subject = "Picture Admin Exception: " + exceptionName;
             mail.Body = message;
             mail.From = Environment.UserName + "@msn2.net";
+
             SmtpMail.SmtpServer = Msn2Config.Load().SmtpServer;
             SmtpMail.Send(mail);
 

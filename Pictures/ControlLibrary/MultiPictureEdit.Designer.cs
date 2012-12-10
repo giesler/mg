@@ -154,7 +154,6 @@
         #endregion
 
         private System.Windows.Forms.Label titleLabel;
-        private msn2.net.Pictures.Controls.UserControls.MultiItemTextBox multiItemTextBox1;
         private System.Windows.Forms.Label descriptionLabel;
         private System.Windows.Forms.Label labelDateTaken;
         private msn2.net.Pictures.Controls.UserControls.MultiItemTextBox description;

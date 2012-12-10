@@ -40,7 +40,6 @@
 // 
 // PictureProperties
 // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(326, 129);
             this.Controls.Add(this.multiPictureEdit1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

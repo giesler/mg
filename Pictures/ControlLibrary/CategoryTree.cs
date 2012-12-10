@@ -282,7 +282,7 @@ namespace msn2.net.Pictures.Controls
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 			{
                 throw new NotImplementedException();
-                tvCategory.Nodes.Remove(n);
+                //tvCategory.Nodes.Remove(n);
 			}
 		}
 
