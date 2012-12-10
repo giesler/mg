@@ -23,7 +23,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>msn2.net.Pictures.Controls</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>msn2.net.Pictures.Controls.fMain</StartupObject>
     <WebReference_EnableProperties>true</WebReference_EnableProperties>
     <WebReference_EnableSQLTypes>false</WebReference_EnableSQLTypes>
     <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
@@ -104,6 +103,7 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -120,6 +120,7 @@
       <Name>System.Drawing</Name>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services">
       <Name>System.Web.Services</Name>
       <HintPath>..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll</HintPath>

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicWeb", "PicWeb\PicWeb.csproj", "{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
@@ -15,46 +15,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccLocalPath0 = .
+		SccLocalPath1 = PicWeb
+		SccLocalPath2 = Api
+		SccLocalPath3 = PictureHttpHelpers
+		SccLocalPath4 = ControlLibrary
+		SccLocalPath5 = Admin
+		SccLocalPath6 = Service
+		SccNumberOfProjects = 7
+		SccProjectName1 = PicWeb
+		SccProjectName2 = Api
+		SccProjectName3 = PictureHttpHelpers
+		SccProjectName4 = ControlLibrary
+		SccProjectName5 = Admin
+		SccProjectName6 = Service
+		SccProjectUniqueName1 = PicWeb\\PicWeb.csproj
+		SccProjectUniqueName2 = Api\\Api.csproj
+		SccProjectUniqueName3 = PictureHttpHelpers\\PictureHttpHelpers.csproj
+		SccProjectUniqueName4 = ControlLibrary\\ControlLibrary.csproj
+		SccProjectUniqueName5 = Admin\\Admin.csproj
+		SccProjectUniqueName6 = Service\\Service.csproj
 		SccTeamFoundationServer = http://kenny:8080/tfs/main
-		SccProjectUniqueName0 = PicWeb\\PicWeb.csproj
-		SccProjectName0 = PicWeb
-		SccLocalPath0 = PicWeb
-		SccProjectUniqueName1 = Api\\Api.csproj
-		SccProjectName1 = Api
-		SccLocalPath1 = Api
-		SccProjectUniqueName2 = PictureHttpHelpers\\PictureHttpHelpers.csproj
-		SccProjectName2 = PictureHttpHelpers
-		SccLocalPath2 = PictureHttpHelpers
-		SccProjectUniqueName3 = ControlLibrary\\ControlLibrary.csproj
-		SccProjectName3 = ControlLibrary
-		SccLocalPath3 = ControlLibrary
-		SccProjectUniqueName4 = Admin\\Admin.csproj
-		SccProjectName4 = Admin
-		SccLocalPath4 = Admin
-		SccProjectUniqueName5 = Service\\Service.csproj
-		SccProjectName5 = Service
-		SccLocalPath5 = Service
-		SccLocalPath6 = .
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,10 +51,22 @@ Global
 		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
