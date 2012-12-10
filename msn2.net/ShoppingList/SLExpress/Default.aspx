@@ -8,7 +8,8 @@
 <head id="Head1" runat="server">
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
-    <title>devlists</title>
+    <meta content="user-scalable=no, width=device-width" name="viewport" />
+    <title>Lists</title>
     <script type="text/javascript" src="http://js.live.net/4.1/loader.js"></script>
     <script type="text/javascript">
         function startDelete(cbx) {
@@ -26,14 +27,17 @@
         }
         body
         {
-            padding: 0;
-            margin: 0;
             font-family: Segoe UI, Arial, Tahoma;
         }
         .main
         {
-            margin: 0px;
             font-size: 12pt;
+        }
+        .rightTop
+        {
+            text-align: right;
+            float: right;
+            margin: 3px;
         }
         .left
         {
@@ -64,16 +68,11 @@
         }
     </style>
 </head>
-<body style="margin: 0px">
-    <script type="text/javascript" src="Silverlight.js"></script>
-    <script type="text/javascript">
-        //if (window.location.href.indexOf("nosl", 0) < 0 && (Silverlight.isInstalled("4.0") || Silverlight.isInstalled("3.0") || Silverlight.isInstalled("2.0"))) {
-        //window.location.href = "sl.aspx";
-        //}
-        
-    </script>
+<body>
     <form id="form1" runat="server">
-    <a href="#" onclick="onSignInOut();" disabled="true" id="signInOut">Sign In</a><br />
+    Lists
+    <a href="#" onclick="onSignInOut();" disabled="true" id="signInOut" class="rightTop">Sign In</a>
+    <hr width="50%" noshade align="left" />
     <asp:Panel runat="server" ID="main" CssClass="main">
         <div class="left">
             <asp:Panel runat="server" ID="topPanel">
