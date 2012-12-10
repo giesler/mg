@@ -42,7 +42,7 @@ namespace msn2.net.ShoppingList
         string addMenuSelectedStore = null;
 
         IContainer components = null;
-        ListView listView;
+        ShoppingListView listView;
         TextBox newItem;
         Button add;
         Label statusLabel;
@@ -156,7 +156,7 @@ namespace msn2.net.ShoppingList
 
             #endregion
 
-            this.listView = new ListView();
+            this.listView = new ShoppingListView();
             this.listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.listView.FullRowSelect = true;
             this.listView.HeaderStyle = ColumnHeaderStyle.None;
@@ -166,6 +166,8 @@ namespace msn2.net.ShoppingList
             this.listView.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
             this.listView.KeyDown += new KeyEventHandler(listView1_KeyDown);
             this.listView.Parent = this;
+            this.listView.OnMouseDown += new MouseEventHandler(listView_OnMouseDown);
+            this.listView.OnMouseUp += new MouseEventHandler(listView_OnMouseUp);
             this.defaultFontSize = this.listView.Font.Size;
 
             this.newItem = new TextBox();
@@ -597,7 +599,7 @@ namespace msn2.net.ShoppingList
             if (ex != null)
             {
                 HttpWebResponse httpResponse = ex.Response as HttpWebResponse;
-                if (httpResponse.StatusCode == HttpStatusCode.Unauthorized)
+                if (httpResponse != null && httpResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     string msg = "The house PIN is incorrect.  Would you like to try another PIN?";
                     DialogResult result = MessageBox.Show(msg, "Access Denied", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
@@ -1487,5 +1489,103 @@ namespace msn2.net.ShoppingList
                 this.SwitchStore(e.X > this.mouseDownStart.X);
             }
         }
+
+        void listView_OnMouseUp(object sender, MouseEventArgs e)
+        {
+            this.HandleMouseUp(e);
+        }
+
+        void listView_OnMouseDown(object sender, MouseEventArgs e)
+        {
+            this.HandleMouseDown(e);
+        }
+    }
+
+    public class ShoppingListView : ListView
+    {
+        private ListViewHook hook;
+
+        public event MouseEventHandler OnMouseUp;
+        public event MouseEventHandler OnMouseDown;
+
+        public ShoppingListView()
+        {
+            hook = new ListViewHook(this);
+            hook.MouseDown += new MouseEventHandler(hook_MouseDown);
+            hook.MouseUp += new MouseEventHandler(hook_MouseUp);
+        }
+
+        void hook_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.OnMouseUp != null)
+            {
+                this.OnMouseUp(this, e);
+            }            
+        }
+
+        void hook_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.OnMouseDown != null)
+            {
+                this.OnMouseDown(this, e);
+            }
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            this.hook = new ListViewHook(this);
+            base.OnHandleCreated(e);
+        }
+    }
+
+    class ListViewHook : Hook
+    {
+        ListView lv;
+
+        public event MouseEventHandler MouseDown;
+        public event MouseEventHandler MouseUp;
+
+        public ListViewHook(ListView lv)
+        {
+            this.lv = lv;
+            base.Attach(lv);
+        }
+
+        short SignedLoWord(int val)
+        {
+            return (short)(val & 0xffff);
+        }
+
+        short SignedHiWord(int val)
+        {
+            return (short)((val >> 0x10) & 0xffff);
+        }
+
+        protected override int WndProc(IntPtr hWnd, uint msg, IntPtr wparam, IntPtr lparam)
+        {
+            if (msg == WM_LBUTTONDOWN)
+            {
+                if (this.MouseDown != null)
+                {
+                    MouseEventArgs e = new MouseEventArgs(MouseButtons.Left, 1,
+                        (int)SignedLoWord(lparam.ToInt32()), (int)SignedHiWord(lparam.ToInt32()), 0);
+                    this.MouseDown(this, e);
+                }
+            }
+            else if (msg == WM_LBUTTONUP)
+            {
+                if (this.MouseUp != null)
+                {
+                    MouseEventArgs e = new MouseEventArgs(MouseButtons.Left, 1,
+                        (int)SignedLoWord(lparam.ToInt32()), (int)SignedHiWord(lparam.ToInt32()), 0);
+                    this.MouseUp(this, e);
+                }
+            }
+
+            return base.WndProc(hWnd, msg, wparam, lparam);
+        }
+
+        const int WM_LBUTTONDOWN = 0x201;
+        const int WM_LBUTTONUP = 0x202;
     }
 }
