@@ -21,7 +21,7 @@ namespace msn2.net.ShoppingList
 {
     public partial class MainForm : Form
     {
-        public static Color[] ListColors = new Color[] { Color.White, Color.FromArgb(211, 255, 227) };
+        public static Color[] ListColors = new Color[] { Color.White, SystemColors.InactiveCaption };// Color.FromArgb(211, 255, 227) };
 
         #region Declares
 
@@ -313,10 +313,11 @@ namespace msn2.net.ShoppingList
                     {
                         this.listService = new mn2.net.ShoppingList.sls.ShoppingListService();
                         this.listService.Credentials = new NetworkCredential("mc", "4362", "sp");
-#if DEBUG
+/*
+ * #if DEBUG
                         this.listService.Proxy = new WebProxy("http://192.168.1.1:8080");
 #endif
-                    }
+   */                 }
                 }
             }
 
@@ -1141,6 +1142,16 @@ namespace msn2.net.ShoppingList
             {
                 this.FlushDeleteRequests();
 
+                SwitchStore(e.KeyCode == Keys.Left);
+
+                e.Handled = true;
+            }
+        }
+
+        private void SwitchStore(bool left)
+        {
+            if (this.settings.LatestItems.Count > 0)
+            {
                 int index = 0;
                 for (index = 0; index < this.settings.LatestItems.Count; index++)
                 {
@@ -1149,8 +1160,7 @@ namespace msn2.net.ShoppingList
                         break;
                     }
                 }
-
-                index = e.KeyCode == Keys.Left ? index - 1 : index + 1;
+                index = left ? index - 1 : index + 1;
                 if (index < 0)
                 {
                     index = this.settings.LatestItems.Count - 1;
@@ -1161,11 +1171,9 @@ namespace msn2.net.ShoppingList
                 }
 
                 this.selectedStore = this.settings.LatestItems.Skip(index).First().Value;
-                this.storeLabel.Text = this.selectedStore.Name; 
+                this.storeLabel.Text = this.selectedStore.Name;
                 this.ReloadItemList();
                 this.SetColumnWidth();
-
-                e.Handled = true;
             }
         }
 
@@ -1285,6 +1293,36 @@ namespace msn2.net.ShoppingList
             if (this.inputPanel1.Enabled == true)
             {
                 this.inputPanel1.Enabled = false;
+            }
+        }
+
+        Point mouseDownStart = new Point();
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            this.HandleMouseDown(e);
+        }
+
+        void HandleMouseDown(MouseEventArgs e)
+        {
+            this.mouseDownStart = new Point(e.X, e.Y);
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            this.HandleMouseUp(e);
+        }
+
+        void HandleMouseUp(MouseEventArgs e)
+        {
+            int xDiff = Math.Abs(e.X - this.mouseDownStart.X);
+            int yDiff = Math.Abs(e.Y - this.mouseDownStart.Y);
+
+            if (xDiff > 30 && yDiff < 20)
+            {
+                this.SwitchStore(e.X > this.mouseDownStart.X);
             }
         }
     }
