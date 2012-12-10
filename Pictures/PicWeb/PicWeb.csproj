@@ -17,6 +17,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,11 +82,14 @@
     <Content Include="Images\ie.jpg" />
     <Content Include="Images\info.jpg" />
     <Content Include="Images\info_icon.png" />
+    <Content Include="Images\msn2mobile.jpg" />
     <Content Include="Images\msn2needlewash.gif" />
     <Content Include="Images\msn2summer.gif" />
     <Content Include="Images\msn2summer.png" />
     <Content Include="Images\msn2summer2.png" />
     <Content Include="Images\msn2summer3.png" />
+    <Content Include="Images\msn2summer4.gif" />
+    <Content Include="Images\msn2summer4.png" />
     <Content Include="Images\msn2_home.gif" />
     <Content Include="Images\msn2_small.jpg" />
     <Content Include="Images\msn2_small_panel.jpg" />
@@ -106,6 +110,16 @@
     <Content Include="Images\top_panel.gif" />
     <Content Include="Images\trans.gif" />
     <Content Include="Impersonate.aspx" />
+    <Content Include="Mobile\Auth\Login.aspx" />
+    <Content Include="Mobile\Categories.aspx" />
+    <Content Include="Mobile\default.aspx" />
+    <Content Include="Mobile\Images\mobileheadtitle.gif" />
+    <Content Include="Mobile\Images\mobileheadwash.gif" />
+    <Content Include="Mobile\mobile.css" />
+    <Content Include="Mobile\Picture.aspx" />
+    <Content Include="Mobile\PictureDetails.aspx" />
+    <Content Include="Mobile\Pictures.aspx" />
+    <Content Include="Mobile\Search.aspx" />
     <Content Include="msn2.css" />
     <Content Include="picview.aspx" />
     <Content Include="picviewss.aspx" />
@@ -240,6 +254,56 @@
     <Compile Include="Impersonate.aspx.cs">
       <DependentUpon>Impersonate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Auth\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Auth\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Picture.aspx.cs">
+      <DependentUpon>Picture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Picture.aspx.designer.cs">
+      <DependentUpon>Picture.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\PictureDetails.aspx.cs">
+      <DependentUpon>PictureDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\PictureDetails.aspx.designer.cs">
+      <DependentUpon>PictureDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\PictureImageControl.cs" />
+    <Compile Include="Mobile\Pictures.aspx.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Pictures.aspx.designer.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="picview.aspx.cs">
       <DependentUpon>picview.aspx</DependentUpon>

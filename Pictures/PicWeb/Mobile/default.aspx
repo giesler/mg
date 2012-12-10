@@ -11,7 +11,7 @@
         <tr style="background-color: #008000">
             <td>
                 <a href="default.aspx">
-                    <img src="../images/mobileheadtitle.gif" border="0" />
+                    <img src="../images/msn2summer4.gif" border="0" height="20" />
                 </a>
             </td>
         </tr>
@@ -27,7 +27,7 @@
             <tr>
                 <td align="center" style="width: 50px;">
                     <a href="Categories.aspx?c=1">
-                        <img src="../Images/folder40.gif" height="40" width="40" border="0" /></a>
+                        <img src="../Images/folder.gif" height="40" width="40" border="0" /></a>
                 </td>
                 <td>
                     <a href="Categories.aspx?c=1">All Categories</a>

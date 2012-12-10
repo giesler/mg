@@ -20,7 +20,7 @@ namespace pics.Controls.Mobile
         {
             int pictureId = int.Parse(Request.QueryString["p"]);
 
-            Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+            var picture = PicHttpContext.Current.PictureManager.GetPicture(pictureId);
 
             this.title.Text = picture.Title;
             this.description.Text = picture.Description;

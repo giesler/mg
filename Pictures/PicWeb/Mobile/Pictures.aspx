@@ -11,7 +11,7 @@
         <tr style="background-color: #008000">
             <td>
                 <a href="default.aspx">
-                    <img src="../images/mobileheadtitle.gif" border="0" />
+                    <img src="../images/msn2summer4.gif" border="0" height=20 />
                 </a>
             </td>
         </tr>

@@ -49,7 +49,7 @@ namespace pics.Controls.Mobile
 
         private void LoadPicture(int pictureId)
         {
-            Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+            var picture = PicHttpContext.Current.PictureManager.GetPicture(pictureId);
             this.Header.Title = picture.Title;
 
             int maxSize = 200;
@@ -64,14 +64,14 @@ namespace pics.Controls.Mobile
             }
 
             PictureImageControl image = new PictureImageControl();
-            image.SetPictureById(picture.Id, 700, 750);
+            image.SetPictureById(picture.Id, 750, 700);
             image.SetMaxPicSize(maxSize);
             this.content.Controls.Add(image);
         }
 
         protected void nextRandom_Click(object sender, EventArgs e)
         {
-            Picture picture = PicContext.Current.PictureManager.GetRandomPicture();
+            var picture = PicHttpContext.Current.PictureManager.GetRandomPicture();
             Response.Redirect("Picture.aspx?p=" + picture.Id.ToString());
         }
 

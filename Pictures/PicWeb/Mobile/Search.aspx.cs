@@ -22,7 +22,7 @@ namespace pics.Controls.Mobile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            dates = PicContext.Current.PictureManager.GetPictureDates();
+            dates = PicHttpContext.Current.PictureManager.GetPictureDates();
 
             if (Page.IsPostBack == false)
             {
@@ -36,8 +36,8 @@ namespace pics.Controls.Mobile
                 this.toYear.SelectedIndex = this.toYear.Items.Count - 1;
                 this.OnToYearChanged(this, EventArgs.Empty);
 
-                Category root = PicContext.Current.CategoryManager.GetRootCategory();
-                List<Category> topLevel = PicContext.Current.CategoryManager.GetChildrenCategories(root.Id);
+                Category root = PicHttpContext.Current.CategoryManager.GetRootCategory();
+                List<Category> topLevel = PicHttpContext.Current.CategoryManager.GetChildrenCategories(root.Id);
                 AddCategories(this.category0, topLevel);
             }
         }
@@ -177,7 +177,7 @@ namespace pics.Controls.Mobile
         void LoadCategoryDropdown(DropDownList current, DropDownList next)
         {
             int categoryId = int.Parse(current.SelectedValue);
-            var q = PicContext.Current.CategoryManager.GetChildrenCategories(categoryId);
+            var q = PicHttpContext.Current.CategoryManager.GetChildrenCategories(categoryId);
 
             if (q.Count > 0)
             {

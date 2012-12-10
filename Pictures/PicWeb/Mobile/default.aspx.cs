@@ -19,10 +19,10 @@ namespace pics.Controls.Mobile
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<Category> recentCategories = PicContext.Current.CategoryManager.RecentCategorires();
+            List<Category> recentCategories = PicHttpContext.Current.CategoryManager.RecentCategorires();
             this.recent.Controls.Add(Categories.CreateCategoryTable(recentCategories));
 
-            Picture random = PicContext.Current.PictureManager.GetRandomPicture();
+            var random = PicHttpContext.Current.PictureManager.GetRandomPicture();
             this.randomTitle.Text = random.Title;
 
             string navigateUrl = string.Format("Picture.aspx?p={0}", random.Id);

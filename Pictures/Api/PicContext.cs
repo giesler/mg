@@ -101,10 +101,6 @@ namespace msn2.net.Pictures
             {
                 return context;
             }
-            set
-            {
-                context = value;
-            }
         }
 
         #endregion

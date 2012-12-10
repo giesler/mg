@@ -369,12 +369,12 @@ namespace msn2.net.Pictures.Controls
                 Category category = ((CategoryTreeNode)this.SelectedNode).Category;
 
                 query = from p in PicContext.Current.Clone().PictureManager.GetPictures()
-                        where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
+                        where p.PictureCategories.Any(pc => pc.Category.Path == (category.Path))
                             && ((ratingType == RatingEquality.All)
                                 || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
                                 || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
                                 || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
-                                )
+                            )
                         select p;
             }
             else if (this.SelectedNode is DateFilterTreeNode)
@@ -395,6 +395,7 @@ namespace msn2.net.Pictures.Controls
                                     || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
                                     || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
                                     )
+                                    
                             select p;
                 }
                 else if (filter.Level == 2)

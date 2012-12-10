@@ -36,7 +36,7 @@ namespace pics.Controls.Mobile
             {
                 this.categoryId = int.Parse(Request.QueryString["c"]);
 
-                Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+                Category category = PicHttpContext.Current.CategoryManager.GetCategory(categoryId);
                 this.Page.Title = category.Name;
                 this.categoryHeading.Text = category.Name;
                 this.categoryDescription.Text = category.Description;
@@ -58,7 +58,7 @@ namespace pics.Controls.Mobile
 
                 if (categoryId > 0)
                 {
-                    Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+                    Category category = PicHttpContext.Current.CategoryManager.GetCategory(categoryId);
                     this.categoryDescription.Text += ", " + category.Name;
                 }
             }
@@ -71,15 +71,15 @@ namespace pics.Controls.Mobile
 
         void LoadPictures(int page)
         {
-            List<Picture> pictures = null;
+            List<msn2.net.Pictures.Picture> pictures = null;
 
             if (this.categoryId > 0)
             {
-                pictures = PicContext.Current.PictureManager.GetPictures(categoryId, this.startTime, this.endTime);
+                pictures = PicHttpContext.Current.PictureManager.GetPictures(categoryId, this.startTime, this.endTime);
             }
             else
             {
-                pictures = PicContext.Current.PictureManager.GetPicturesByDate(this.startTime, this.endTime);
+                pictures = PicHttpContext.Current.PictureManager.GetPicturesByDate(this.startTime, this.endTime);
             }
 
             this.pictureCount.Text = pictures.Count.ToString();
@@ -125,7 +125,7 @@ namespace pics.Controls.Mobile
             int index = 0;
             TableRow tr = null;
 
-            foreach (Picture picture in pictures)
+            foreach (var picture in pictures)
             {
                 if (index % 2 == 0)
                 {
@@ -142,7 +142,7 @@ namespace pics.Controls.Mobile
                 HyperLink lnk = new HyperLink { NavigateUrl = zoomUrl };
                 tc.Controls.Add(lnk);
 
-                PictureCache pc = PicContext.Current.PictureManager.GetPictureCache(picture.Id, 125, 125);
+                PictureCache pc = PicHttpContext.Current.PictureManager.GetPictureCache(picture.Id, 125, 125);
                 
                 PictureImageControl curPic = new PictureImageControl { BackgroundColor = "White" };
                 curPic.SetPictureById(picture.Id, 125, 125);

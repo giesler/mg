@@ -142,7 +142,7 @@
 							</P>
 							<P>You can expect an email within a day or two.</P>
 							<P>&nbsp;</P>
-							<P>In the meantime - go <A href="http://www.google.com">surf the web</A>.</P>
+							<P>In the meantime - go <A href="http://www.bing.com">surf the web</A>.</P>
 						</asp:panel>
 					</td>
 				</tr>

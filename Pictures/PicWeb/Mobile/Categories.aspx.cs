@@ -20,12 +20,12 @@ namespace pics.Controls.Mobile
         protected void Page_Load(object sender, EventArgs e)
         {
             int categoryId = int.Parse(Request.QueryString["c"]);
-            Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+            Category category = PicHttpContext.Current.CategoryManager.GetCategory(categoryId);
 
             this.categoryHeading.Text = category.Name;
             this.categoryDescription.Text = category.Description;
 
-            List<Category> subCategories = PicContext.Current.CategoryManager.GetCategoriesWithPictures(categoryId);
+            List<Category> subCategories = PicHttpContext.Current.CategoryManager.GetCategoriesWithPictures(categoryId);
 
             this.content.Controls.Add(CreateCategoryTable(subCategories));
         }
@@ -45,7 +45,7 @@ namespace pics.Controls.Mobile
 
                 string navigateUrl = "Pictures.aspx?c=" + category.Id.ToString();
 
-                int subCategories = PicContext.Current.CategoryManager.GetCategoriesWithPictures(category.Id).Count;
+                int subCategories = PicHttpContext.Current.CategoryManager.GetCategoriesWithPictures(category.Id).Count;
                 if (subCategories > 0)
                 {
                     navigateUrl = "Categories.aspx?c=" + category.Id.ToString();
@@ -69,7 +69,7 @@ namespace pics.Controls.Mobile
                     tc.Controls.Add(imglnk);
 
                     Image image = new Image { Height = 40, Width = 40 };
-                    image.ImageUrl = "../Images/folder40.gif";
+                    image.ImageUrl = "../Images/folder.gif";
                     imglnk.Controls.Add(image);
                 }
 

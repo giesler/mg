@@ -43,36 +43,6 @@ namespace pics.Controls
 			this.pictureId		= id;
 			this.maxHeight		= maxHeight;
 			this.maxWidth		= maxWidth;
-
-//			// load the person's info
-//			PersonInfo pi = (PersonInfo) HttpContext.Current.Session["PersonInfo"];
-//
-//			SqlConnection cn = new SqlConnection(Config.ConnectionString);
-//
-//			// Set up SP to retreive picture
-//			SqlCommand cmdPic    = new SqlCommand();
-//			cmdPic.CommandText = "p_GetPicture";
-//			cmdPic.CommandType   = CommandType.StoredProcedure;
-//			cmdPic.Connection    = cn;
-//			SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
-//
-//			// set up params on the SP
-//			cmdPic.Parameters.Add("@PictureID", id);
-//			cmdPic.Parameters.Add("@StartRecord", 0);
-//			cmdPic.Parameters.Add("@ReturnCount", 1);
-//			cmdPic.Parameters.Add("@MaxHeight", 125);
-//			cmdPic.Parameters.Add("@MaxWidth", 125);
-//			cmdPic.Parameters.Add("@PersonID", pi.PersonID);
-//			cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
-//			cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
-//
-//			// run the SP, set datasource to the picture list
-//			cn.Open();
-//			DataSet ds		= new DataSet();
-//			daPic.Fill(ds, "Picture");
-//			DataRow dr		= ds.Tables[0].Rows[0];
-//			filename		= dr["Filename"].ToString();
-
 		}
 
 		protected override void CreateChildControls() 

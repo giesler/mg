@@ -29,7 +29,7 @@ namespace pics.Controls.Mobile.Auth
             string pwd = UserManager.GetEncryptedPassword(this.password.Text);
 
             bool valid = false;
-            PersonInfo info = PicContext.Current.UserManager.Login(this.email.Text, pwd, ref valid);
+            PersonInfo info = PicHttpContext.Current.UserManager.Login(this.email.Text, pwd, ref valid);
 
             if (info != null)
             {

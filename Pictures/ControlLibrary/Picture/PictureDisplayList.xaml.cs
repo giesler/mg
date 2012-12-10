@@ -159,6 +159,12 @@ namespace msn2.net.Pictures.Controls
                 item.MouseDoubleClick += new MouseButtonEventHandler(item_MouseDoubleClick);
                 this.wrapPanel.Children.Add(item);
             }
+
+            if (this.wrapPanel.Children.Count > 0)
+            {
+                PictureDisplayItem item = (PictureDisplayItem)this.wrapPanel.Children[0];
+                item.BringIntoView();
+            }
         }
 
         void item_ClearSelection(object sender, EventArgs e)

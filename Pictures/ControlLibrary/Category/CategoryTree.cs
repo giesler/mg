@@ -405,7 +405,7 @@ namespace msn2.net.Pictures.Controls
         {
             LoadNodeArgs args = (LoadNodeArgs)sender;
             
-            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(
+            List<Category> categories = PicContext.Current.Clone().CategoryManager.GetChildrenCategories(
                 args.Node.Category.Id);
 
             foreach (Category category in categories)
