@@ -189,7 +189,7 @@ namespace pics
                 }
                 if (!dr.IsNull("PictureByFullName"))
                 {
-                    pictureBy.Text = "<<br /> />Taken by: " + dr["PictureByFullName"].ToString();
+                    pictureBy.Text = "<br />Taken by: " + dr["PictureByFullName"].ToString();
                 }
                 else
                 {
@@ -373,9 +373,9 @@ namespace pics
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<B>Tasks</B><br />");
-            sb.Append("<a href=\"javascript:EditPic()\" class=\"infoPanelText\">Edit picture details</a><<br /> />");
-            sb.Append("<a href=\"javascript:AddToCat()\" class=\"infoPanelText\">Add to category...</a><<br /> />");
-            sb.Append("<a href=\"javascript:SetAsCatPic()\" class=\"infoPanelText\">Set as category index pic</a><<br /> />");
+            sb.Append("<a href=\"javascript:EditPic()\" class=\"infoPanelText\">Edit picture details</a><br />");
+            sb.Append("<a href=\"javascript:AddToCat()\" class=\"infoPanelText\">Add to category...</a><br />");
+            sb.Append("<a href=\"javascript:SetAsCatPic()\" class=\"infoPanelText\">Set as category index pic</a><br />");
 
             taskList.Controls.AddAt(1, new HtmlLiteral(sb.ToString()));
 

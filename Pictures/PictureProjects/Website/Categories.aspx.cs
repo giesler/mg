@@ -272,16 +272,16 @@ namespace pics
 			if (showEditControls)
 			{
 				string groups = "";
-				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(currentCategory.Id);
-				foreach (string groupName in groupNames)
+				List<CategoryGroup> groupList = PicContext.Current.CategoryManager.GetCategoryGroups(currentCategory.Id);
+				foreach (CategoryGroup group in groupList)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += groupName;
+					groups += group.Group.GroupName;
 				}
-				groups = "Groups: " + groups + "<<br /> />";
+				groups = "Groups: " + groups + "<br />";
 				if (t2r1c3.Controls.Count > 0) 
 				{
-					groups = "<<br /> />" + groups;
+					groups = "<br />" + groups;
 				}
 				t2r1c3.Controls.Add(new HtmlLiteral(groups));
 			}

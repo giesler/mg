@@ -16,6 +16,7 @@ namespace pics.Controls
 	using System.Collections;
 	using System.Text;
 	using msn2.net.Pictures;
+    using System.Collections.Generic;
 
 	#region Picture Display control
 	/// <summary>
@@ -902,11 +903,11 @@ namespace pics.Controls
 			if (adminMode)
 			{
 				string groups = "";
-				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
-				foreach (string groupName in groupNames)
+				List<CategoryGroup> groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(categoryId);
+				foreach (CategoryGroup group in groupNames)
 				{
 					if (groups.Length > 0) groups += ", ";
-					groups += groupName;
+					groups += group.Group.GroupName;
 				}
 				groups = "Groups: " + groups + "<br />";
 				catCell.Controls.Add(new HtmlLiteral(groups));

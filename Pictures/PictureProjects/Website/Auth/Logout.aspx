@@ -33,14 +33,14 @@
                         <p>
                             <asp:Panel runat="server" ID="confirmSignout">
                                 Are you sure you want to sign out?
-                                <<br /> />
-                                <<br /> />
+                                <br />
+                                <br />
                                 <asp:LinkButton ID="signoutLink" runat="server" OnClick="signoutLink_Click">Sign out now.</asp:LinkButton>
                             </asp:Panel>
                             <asp:Panel runat="server" ID="signedOutPanel" Visible="false">
                                 You have been signed out.
-                                <<br /> />
-                                <<br /> />
+                                <br />
+                                <br />
                                 To sign in again, click <a href="../">here</a>.
                             </asp:Panel>
                         </p>

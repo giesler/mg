@@ -157,39 +157,14 @@ namespace msn2.net.Pictures
             return q.Take(10).ToList();
         }
 
-        public string[] GetCategoryGroups(int categoryId)
+        public List<CategoryGroup> GetCategoryGroups(int categoryId)
         {
-            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
-            SqlDataAdapter da = new SqlDataAdapter("sp_CategoryManager_GetGruops", cn);
-            DataSet ds = new DataSet();
-            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.Int);
-            da.SelectCommand.Parameters["@categoryId"].Value = categoryId;
+            var q = from cg in this.context.DataContext.CategoryGroups
+                    where cg.CategoryID == categoryId
+                    orderby cg.Group.GroupName
+                    select cg;
 
-            try
-            {
-                cn.Open();
-                da.Fill(ds);
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (cn.State != ConnectionState.Closed)
-                {
-                    cn.Close();
-                }
-            }
-
-            string[] groups = new string[ds.Tables[0].Rows.Count];
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                groups[i] = ds.Tables[0].Rows[i][0].ToString();
-            }
-
-            return groups;
+            return q.ToList();
         }
 
         public void DeleteCategory(int categoryId)

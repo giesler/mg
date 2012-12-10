@@ -180,20 +180,20 @@ namespace pics.Auth
 				{
 					Label errLabel = new Label();
 					errLabel.Text = "There was an error sending your email.  Please try again later.  If the problem continues please contact Mike.";
-					errLabel.Text += errLabel.Text + "<<br /> /><<br /> />Technical error details:<<br /> />";
-					errLabel.Text += ex.Message + "<<br /> />";
+					errLabel.Text += errLabel.Text + "<br /><br />Technical error details:<br />";
+					errLabel.Text += ex.Message + "<br />";
 					Exception ex1 = ex.InnerException;
 					if (ex1 != null)
 					{
-						errLabel.Text += "(InnerException: " + ex1.Message + ")<<br /> />";
+						errLabel.Text += "(InnerException: " + ex1.Message + ")<br />";
 
 						Exception ex2 = ex1.InnerException;
 						if (ex2 != null)
 						{
-							errLabel.Text += "(InnerException2: " + ex2.Message + ")<<br /> />";
+							errLabel.Text += "(InnerException2: " + ex2.Message + ")<br />";
 						}
 					}
-					errLabel.Text += "<<br /> />Server: " + client.Host;
+					errLabel.Text += "<br />Server: " + client.Host;
 					pnlEmailFound.Controls.Add(errLabel);
 				}
 
