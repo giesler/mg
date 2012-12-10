@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.41115</ProductVersion>
+    <ProductVersion>8.0.50110</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,8 +11,7 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>msn2.net.Pictures</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>PictureAdmin.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -28,6 +27,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -130,6 +130,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PictureSystem.cs" />
+    <Compile Include="PictureWatcher.cs" />
     <Compile Include="UserManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,9 +159,13 @@
     <None Include="DataSetCategory.xsx">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
+    <None Include="DataSetPicture.xsc">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
+    <None Include="PictureAdmin.snk" />
     <None Include="PictureDataSet.xsc">
       <DependentUpon>PictureDataSet.xsd</DependentUpon>
     </None>

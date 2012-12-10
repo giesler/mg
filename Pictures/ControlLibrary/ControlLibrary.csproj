@@ -14,8 +14,7 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>msn2.net.Pictures.Controls</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>PictureAdmin.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -29,6 +28,7 @@
     <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -432,6 +432,7 @@
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
+    <None Include="PictureAdmin.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -463,6 +464,7 @@
     <EmbeddedResource Include="Resources\folder.ico" />
     <EmbeddedResource Include="Slideshow.resx">
       <DependentUpon>Slideshow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">
       <RelPath>Web References\picsvc\</RelPath>
