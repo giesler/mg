@@ -63,12 +63,15 @@ namespace pics.Controls
 					HyperLink lnk = new HyperLink();
 					lnk.Font.Bold = true;
 					lnk.NavigateUrl = String.Format(pageNavURL, (startRecord - recordsPerPage));
-					tc.Controls.Add(lnk);
+                    lnk.BorderWidth = 0;
+                    lnk.BorderStyle = BorderStyle.None;
+                    tc.Controls.Add(lnk);
 
 					Image img			= new Image();
 					img.ImageUrl		= "Images/button_left.gif";
 					img.ImageAlign		= ImageAlign.Right;
-					lnk.Controls.Add(img);
+                    img.BorderStyle = BorderStyle.None;
+                    lnk.Controls.Add(img);
 				}
 
 				// Now show the page and page count in the middle
@@ -120,10 +123,11 @@ namespace pics.Controls
 					HyperLink lnk = new HyperLink();
 					lnk.Font.Bold = true;
 					lnk.NavigateUrl = String.Format(pageNavURL, (startRecord + recordsPerPage));
-					tc.Controls.Add(lnk);
+                    tc.Controls.Add(lnk);
 
 					Image img			= new Image();
 					img.ImageUrl		= "Images/button_right.gif";
+                    img.BorderStyle = BorderStyle.None;
 					lnk.Controls.Add(img);
 
 				}

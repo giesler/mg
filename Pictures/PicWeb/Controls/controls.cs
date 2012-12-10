@@ -211,10 +211,9 @@ namespace pics.Controls
 			thumbList.HorizontalAlign	= HorizontalAlign.Center;
 			thumbList.Width				= Unit.Percentage(100);
 			thumbList.RepeatColumns		= 4;
-			thumbList.BorderColor		= Color.FromArgb(204, 204, 204);
 			thumbList.BorderStyle		= BorderStyle.None;
 			thumbList.CellPadding		= 3;
-			thumbList.GridLines			= GridLines.Both;
+            thumbList.GridLines = GridLines.None;
 			thumbList.BorderWidth		= Unit.Pixel(0);
 
 		}
@@ -230,6 +229,7 @@ namespace pics.Controls
 			{
                 Table t = new Table();
 				t.HorizontalAlign = HorizontalAlign.Center;
+                t.BorderStyle = BorderStyle.None;
 				this.Controls.Add(t);
 
 				// add a blank row for spacing
