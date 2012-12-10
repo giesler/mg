@@ -203,7 +203,7 @@ namespace msn2.net.Pictures
             UserManager userManager = new UserManager(config.ConnectionString);
 
             bool isValidEmail = false;
-            PersonInfo loginInfo = userManager.Login(userName, password, ref isValidEmail);
+            PersonInfo loginInfo = userManager.Login(userName, dbPassword, ref isValidEmail);
             if (loginInfo != null)
             {
                 Load(config, loginInfo.Id);
