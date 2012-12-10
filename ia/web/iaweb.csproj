@@ -1,0 +1,814 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Web"
+        ProductVersion = "7.0.9466"
+        SchemaVersion = "1.0"
+        ProjectGuid = "{BD860BEA-DD14-43C2-BE81-9056C77BDDCB}"
+        SccProjectName = "SAK"
+        SccLocalPath = "SAK"
+        SccAuxPath = "SAK"
+        SccProvider = "SAK"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "vbsw"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Flow"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                RootNamespace = "vbsw"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    Optimize = "true"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "about.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "about.aspx.cs"
+                    DependentUpon = "about.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "about.aspx.resx"
+                    DependentUpon = "about.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "cookieclear.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "cookieclear.aspx.cs"
+                    DependentUpon = "cookieclear.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "cookieclear.aspx.resx"
+                    DependentUpon = "cookieclear.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "default.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "default.aspx.cs"
+                    DependentUpon = "default.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "default.aspx.resx"
+                    DependentUpon = "default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docs.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docs.aspx.cs"
+                    DependentUpon = "docs.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docs.aspx.resx"
+                    DependentUpon = "docs.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docsv1.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docsv1.aspx.cs"
+                    DependentUpon = "docsv1.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docsv1.aspx.resx"
+                    DependentUpon = "docsv1.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docsv2.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docsv2.aspx.cs"
+                    DependentUpon = "docsv2.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docsv2.aspx.resx"
+                    DependentUpon = "docsv2.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docsv2adv.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docsv2adv.aspx.cs"
+                    DependentUpon = "docsv2adv.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docsv2adv.aspx.resx"
+                    DependentUpon = "docsv2adv.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docsv3button.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docsv3button.aspx.cs"
+                    DependentUpon = "docsv3button.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docsv3button.aspx.resx"
+                    DependentUpon = "docsv3button.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "docsv3component.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "docsv3component.aspx.cs"
+                    DependentUpon = "docsv3component.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "docsv3component.aspx.resx"
+                    DependentUpon = "docsv3component.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "download.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "download.aspx.cs"
+                    DependentUpon = "download.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "download.aspx.resx"
+                    DependentUpon = "download.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "error.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "error.aspx.cs"
+                    DependentUpon = "error.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "error.aspx.resx"
+                    DependentUpon = "error.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "error404.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "error404.aspx.cs"
+                    DependentUpon = "error404.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "error404.aspx.resx"
+                    DependentUpon = "error404.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "feedback.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "feedback.aspx.cs"
+                    DependentUpon = "feedback.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "feedback.aspx.resx"
+                    DependentUpon = "feedback.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Global.asax"
+                    SubType = "Component"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Global.asax.cs"
+                    DependentUpon = "Global.asax"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Global.asax.resx"
+                    DependentUpon = "Global.asax.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ia.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "image.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "image.aspx.cs"
+                    DependentUpon = "image.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "image.aspx.resx"
+                    DependentUpon = "image.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "maillist.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "maillist.aspx.cs"
+                    DependentUpon = "maillist.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "maillist.aspx.resx"
+                    DependentUpon = "maillist.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "news.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "news.aspx.cs"
+                    DependentUpon = "news.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "news.aspx.resx"
+                    DependentUpon = "news.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Utilities.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "vbsw.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "vbsw.aspx.cs"
+                    DependentUpon = "vbsw.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "vbsw.aspx.resx"
+                    DependentUpon = "vbsw.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "vbsw.vsdisco"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Footer.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Footer.ascx.cs"
+                    DependentUpon = "Footer.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Footer.ascx.resx"
+                    DependentUpon = "Footer.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\Header.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Header.ascx.cs"
+                    DependentUpon = "Header.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Header.ascx.resx"
+                    DependentUpon = "Header.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "download\IA_3-00.zip"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "download\vbsw_1-00.zip"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "download\vbsw_1-01.zip"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "download\vbsw_2-00.zip"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Images\corner.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\devdex.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\fill.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\ia_head.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\leftborder.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\msdn-logo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\trans.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\vbwire.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\wininsticon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\folderlist.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-buttons-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-buttons-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-components-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-components-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-progset-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\su-progset-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\vbsw-autorun.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\vbsw-autorun-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\vbsw-setup.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\vbsw-setup-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-depends-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-depends-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-filever-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-filever-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-general-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-general-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-install-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-install-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-notes-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-notes-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-ntservpack-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-ntservpack-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-osreq-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-osreq-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-progset-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-progset-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-regkey-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-regkey-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-regver-full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v200\comp\su-regver-sm.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\autorun_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\autorun_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\buttons_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\buttons_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\cd_root.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\components_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\components_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\global_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\global_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\os_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\os_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\program_settings_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\program_settings_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\setup_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\setup_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\splash_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\splash_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\button_action_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\button_action_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\general_settings_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\general_settings_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\images_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\images_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\sounds_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\button\sounds_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\dependencies_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\dependencies_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\file_ver_check_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\file_ver_check_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\general_settings_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\general_settings_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\installation_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\installation_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\net_framework_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\net_framework_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\notes_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\notes_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\nt_serv_pack_check_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\nt_serv_pack_check_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\os_req_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\os_req_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\reg_key_check_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\reg_key_check_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\reg_ver_check_full.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\v300\component\reg_ver_check_thumb.jpg"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "maillist\2001-01-09-14-00.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "maillist\2001-01-14-22-00.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "maillist\2002-01-24.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "maillist\2002-01-24.aspx.cs"
+                    DependentUpon = "2002-01-24.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "maillist\2002-01-24.aspx.resx"
+                    DependentUpon = "2002-01-24.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+
