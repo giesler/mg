@@ -154,7 +154,7 @@ namespace msn2.net.ShoppingList
         {
             XmlDocument doc = new XmlDocument();
             XmlNode batchNode = doc.CreateElement("Batch");
-            
+
             XmlNode methodNode = doc.CreateElement("Method");
             AddAttribute(doc, methodNode, "Cmd", "Update");
             AddAttribute(doc, methodNode, "ID", "1");

@@ -163,40 +163,49 @@ namespace msn2.net.ShoppingList
             {
                 TimeSpan duration = DateTime.Now - lastUpdate;
 
-                if (duration.TotalMinutes < 1)
-                {
-                    this.statusLabel.Text = "Last update: < 1 minute ago";
-                }
-                else if (duration.TotalMinutes == 1)
-                {
-                    this.statusLabel.Text = string.Format("Last update: 1 minute ago");
-                }
-                else if (duration.TotalMinutes < 60)
-                {
-                    this.statusLabel.Text = string.Format("Last update: {0:0} minutes ago", duration.TotalMinutes);
-                }
-                else if (duration.TotalHours == 1)
-                {
-                    this.statusLabel.Text = string.Format("Last update: 1 hour ago");
-                }
-                else if (duration.TotalHours < 24)
-                {
-                    this.statusLabel.Text = string.Format("Last update: {0:0} hours ago", duration.TotalHours);
-                }
-                else if (duration.TotalDays == 1)
-                {
-                    this.statusLabel.Text = string.Format("Last update: 1 day ago");
-                }
-                else
-                {
-                    this.statusLabel.Text = string.Format("Last update: {0:0} days ago", duration.TotalDays);
-                }
+                string durationText = GetDurationString(duration);
+
+                this.statusLabel.Text = "Last update: " + durationText;
             }
 
             if (this.menuRefresh.Enabled == false)
             {
                 this.statusLabel.Text += ".  Refreshing...";
             }
+        }
+        
+        static string GetDurationString(TimeSpan duration)
+        {
+            string durationText = string.Empty;
+            if (duration.TotalMinutes < 1)
+            {
+                durationText = "< 1 minute ago";
+            }
+            else if (duration.TotalMinutes == 1)
+            {
+                durationText = string.Format("1 minute ago");
+            }
+            else if (duration.TotalMinutes < 60)
+            {
+                durationText = string.Format("{0:0} minutes ago", duration.TotalMinutes);
+            }
+            else if (duration.TotalHours == 1)
+            {
+                durationText = string.Format("1 hour ago");
+            }
+            else if (duration.TotalHours < 24)
+            {
+                durationText = string.Format("{0:0} hours ago", duration.TotalHours);
+            }
+            else if (duration.TotalDays == 1)
+            {
+                durationText = string.Format("1 day ago");
+            }
+            else
+            {
+                durationText = string.Format("{0:0} days ago", duration.TotalDays);
+            }
+            return durationText;
         }
 
         private void AddAttribute(XmlDocument doc, XmlNode node, string name, string val)

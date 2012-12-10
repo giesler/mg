@@ -128,7 +128,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_304B72FED62CB9DD8D687BFAE322BE47"
+        "OwnerKey" = "8:_AE85DD0CEC2D467DB4A5A5E181796F1C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_304B72FED62CB9DD8D687BFAE322BE47"
+        "OwnerKey" = "8:_64645032C5647E2AEDA68EF907B475C7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_508B5650561AF69A7AB07759BDB91EA3"
+        "OwnerKey" = "8:_AE85DD0CEC2D467DB4A5A5E181796F1C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_64645032C5647E2AEDA68EF907B475C7"
         "OwnerKey" = "8:_AE85DD0CEC2D467DB4A5A5E181796F1C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -207,6 +225,18 @@
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
         "OutputFilename" = "8:Debug\\ShoppingListCab.cab"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "SignOutput" = "11:FALSE"
+        "CertificateHash" = "8:"
+        "TimeStampServer" = "8:"
+        }
+        "DebugTrayOnly"
+        {
+        "DisplayName" = "8:DebugTrayOnly"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:DebugTrayOnly\\ShoppingListCab.cab"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
         "SignOutput" = "11:FALSE"
@@ -342,6 +372,34 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{E4F2F62A-3940-4BF5-A031-F7FA98CAAFFA}:_304B72FED62CB9DD8D687BFAE322BE47"
+            {
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+                "ScatterAssemblies"
+                {
+                    "_304B72FED62CB9DD8D687BFAE322BE47"
+                    {
+                    "Name" = "8:Microsoft.WindowsMobile.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsMobile.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_181C0E496A7E4088A64697FF0A54D41D"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{E4F2F62A-3940-4BF5-A031-F7FA98CAAFFA}:_508B5650561AF69A7AB07759BDB91EA3"
             {
             "AssemblyIsInGAC" = "11:FALSE"
@@ -367,6 +425,34 @@
             "SharedLegacy" = "11:FALSE"
             "Register" = "3:0"
             "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{E4F2F62A-3940-4BF5-A031-F7FA98CAAFFA}:_64645032C5647E2AEDA68EF907B475C7"
+            {
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsMobile.PocketOutlook, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+                "ScatterAssemblies"
+                {
+                    "_64645032C5647E2AEDA68EF907B475C7"
+                    {
+                    "Name" = "8:Microsoft.WindowsMobile.PocketOutlook.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsMobile.PocketOutlook.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_181C0E496A7E4088A64697FF0A54D41D"
+            "Condition" = "8:"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "Register" = "3:0"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -566,7 +652,7 @@
         {
             "{605BE39E-5046-48BD-AEC0-63C3A46626D5}:_AE85DD0CEC2D467DB4A5A5E181796F1C"
             {
-            "SourcePath" = "8:..\\ShoppingList\\obj\\Release\\ShoppingList.exe"
+            "SourcePath" = "8:..\\ShoppingList\\obj\\DebugTrayOnly\\ShoppingList.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_181C0E496A7E4088A64697FF0A54D41D"

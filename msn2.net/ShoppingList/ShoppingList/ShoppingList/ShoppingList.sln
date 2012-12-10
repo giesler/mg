@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListApp", "..\Shopp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListService", "..\ShoppingListService\ShoppingListService.csproj", "{ED347463-382E-4C20-A33F-741D851D9327}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListTray", "..\ShoppingListTray\ShoppingListTray.csproj", "{42445F23-4C3A-44A3-82A5-C60E78116F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListCommon", "..\ShoppingListCommon\ShoppingListCommon.csproj", "{ABF2D897-6B53-45D4-89ED-F43918E6F82D}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 8
 		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
 		SccLocalPath0 = ..
 		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
@@ -33,32 +37,55 @@ Global
 		SccProjectUniqueName5 = ..\\ShoppingListService\\ShoppingListService.csproj
 		SccLocalPath5 = ..
 		SccProjectFilePathRelativizedFromConnection5 = ShoppingListService\\
+		SccProjectUniqueName6 = ..\\ShoppingListCommon\\ShoppingListCommon.csproj
+		SccLocalPath6 = ..
+		SccProjectFilePathRelativizedFromConnection6 = ShoppingListCommon\\
+		SccProjectUniqueName7 = ..\\ShoppingListTray\\ShoppingListTray.csproj
+		SccLocalPath7 = ..
+		SccProjectFilePathRelativizedFromConnection7 = ShoppingListTray\\
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugTrayOnly|Any CPU = DebugTrayOnly|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
 		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Debug|Any CPU.ActiveCfg = Debug
+		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly
 		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Release|Any CPU.ActiveCfg = Release
 		{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
 		{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED347463-382E-4C20-A33F-741D851D9327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED347463-382E-4C20-A33F-741D851D9327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED347463-382E-4C20-A33F-741D851D9327}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
 		{ED347463-382E-4C20-A33F-741D851D9327}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED347463-382E-4C20-A33F-741D851D9327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.DebugTrayOnly|Any CPU.Build.0 = DebugTrayOnly|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42445F23-4C3A-44A3-82A5-C60E78116F04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
+		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF2D897-6B53-45D4-89ED-F43918E6F82D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
