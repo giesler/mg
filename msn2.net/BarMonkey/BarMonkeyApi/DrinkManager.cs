@@ -34,9 +34,14 @@ namespace msn2.net.BarMonkey
 
         public void LogDrink(Drink drink, decimal offset)
         {
+            this.LogDrink(drink, offset, base.Context.CurrentUser.Id);
+        }
+
+        public void LogDrink(Drink drink, decimal offset, int userId)
+        {
             UserDrinkHistory udh = new UserDrinkHistory();
             udh.DrinkId = drink.Id;
-            udh.UserId = base.Context.CurrentUser.Id;
+            udh.UserId = userId;
             udh.Timestamp = DateTime.Now;
             base.Context.Data.UserDrinkHistories.Add(udh);
 
@@ -100,6 +105,11 @@ namespace msn2.net.BarMonkey
         {
             int userId = base.Context.CurrentUser.Id;
 
+            return GetFavorites(userId);
+        }
+
+        public List<Drink> GetFavorites(int userId)
+        {
             var q = from f in base.Context.Data.UserFavorites
                     where f.UserId == userId
                     orderby f.Drink.Name
@@ -112,6 +122,11 @@ namespace msn2.net.BarMonkey
         {
             int userId = base.Context.CurrentUser.Id;
 
+            return GetLatest(count, userId);
+        }
+
+        public List<Drink> GetLatest(int count, int userId)
+        {
             var q = (from d in base.Context.Data.UserDrinkHistories
                      where d.UserId == userId
                      orderby d.Timestamp descending

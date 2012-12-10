@@ -71,5 +71,7 @@ namespace msn2.net.BarMonkey
                 return 1.2;
             }
         }
+
+        public User ImpersonateUser { get; set; }
     }
 }
