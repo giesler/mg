@@ -50,11 +50,7 @@ namespace SLExpress
                 }
             }
 
-            if (HttpContext.Current.Session["l_authData"] == null)
-            {
-                Response.Redirect("signin.aspx");
-            }
-            else
+            if (HttpContext.Current.Session["l_authData"] != null)
             {
                 if (!Page.IsPostBack)
                 {
@@ -63,26 +59,31 @@ namespace SLExpress
 
                 this.OnListSelectedIndexChanged(this, null);
             }
+            else
+            {
+                this.list.Visible = false;
+            }
 
             /* If the user token has been cached in a site cookie, attempt
                to process it and extract the user ID. */
 
             HttpRequest req = HttpContext.Current.Request;
-            HttpCookie loginCookie = req.Cookies[LoginCookie];
+            HttpCookie loginCookie = req.Cookies["liveid"];
 
             if (loginCookie != null)
             {
-                string token = loginCookie.Value;
+                UserId = loginCookie.Value;
+                //string token = loginCookie.Value;
 
-                if (!string.IsNullOrEmpty(token))
-                {
-                    WindowsLiveLogin.User user = wll.ProcessToken(token);
+                //if (!string.IsNullOrEmpty(token))
+                //{
+                //    WindowsLiveLogin.User user = wll.ProcessToken(token);
 
-                    if (user != null)
-                    {
-                        UserId = user.Id;
-                    }
-                }
+                //    if (user != null)
+                //    {
+                //        UserId = user.Id;
+                //    }
+                //}
             }
         }
 
@@ -199,5 +200,6 @@ namespace SLExpress
                 return oauth.GetSessionId(HttpContext.Current);
             }
         }
+
     }
 }

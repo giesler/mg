@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SLExpress._Default" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Import Namespace="System.Web.Configuration" %>
 <%@ Import Namespace="Microsoft.Live" %>
@@ -71,14 +72,8 @@
         //}
         
     </script>
-    <wl:app channel-url="<%=WebConfigurationManager.AppSettings["wl_wrap_channel_url"]%>"
-        callback-url="<%=WebConfigurationManager.AppSettings["wl_wrap_client_callback"]%>?wl_session_id=<%=SessionId%>"
-        client-id="<%=WebConfigurationManager.AppSettings["wl_wrap_client_id"]%>" scope="WL_Profiles.View, WL_Contacts.View">
-    </wl:app>
-    <div class="signin">
-        <wl:signin signedouttext="Sign in" theme="white" />
-    </div>
     <form id="form1" runat="server">
+    <a href="#" onclick="onSignInOut();" disabled="true" id="signInOut">Sign In</a><br />
     <asp:Panel runat="server" ID="main" CssClass="main">
         <div class="left">
             <asp:Panel runat="server" ID="topPanel">
@@ -97,5 +92,50 @@
         <asp:Button ID="cancelButton" runat="server" Text="Cancel" />
     </asp:Panel>
     </form>
+    <script type="text/javascript">// <!--
+        function onWLSignedIn(e) {
+        }
+        function onWLSignedOut(e) {
+        }
+        function onWLLoad() {
+            signInOut.disabled = false;
+        }
+
+        function onAsyncSignInComplete() {
+            window.location.href = '/';
+        }
+
+        function onSignInOut() {
+            signInOut.disabled = true;
+
+            if ("<%=UserId %>" != "") {
+                Microsoft.Live.App.signOut();
+                window.location.href = 'liveauth.aspx?action=logout';
+            } else {
+                Microsoft.Live.App.signIn(onAsyncSignInComplete)
+            }
+
+            return false;
+        }
+
+        Microsoft.Live.Core.Loader.load(["microsoft.live"], function () {
+            Microsoft.Live.App.initialize(
+                {
+                    channelurl: "<%=WebConfigurationManager.AppSettings["wl_wrap_channel_url"]%>",
+                    callbackurl: "<%=WebConfigurationManager.AppSettings["wl_wrap_client_callback"]%>?wl_session_id=<%=SessionId%>",
+                    clientid: "<%=WebConfigurationManager.AppSettings["wl_wrap_client_id"]%>",
+                    scope: "WL_Profiles.View, WL_Contacts.View",
+                    onload: "onWLLoad"
+                }
+            );
+        });
+
+        if ("<%=UserId %>" != "") {
+            signInOut.innerHTML = "Sign Out";
+        } else {
+            signInOut.innerHTML = "Sign In";
+        }
+                
+    // --></script>
 </body>
 </html>

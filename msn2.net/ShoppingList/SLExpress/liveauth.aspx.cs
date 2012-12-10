@@ -45,6 +45,21 @@ namespace SLExpress
                 HttpCookie loginCookie = new HttpCookie(LoginCookie);
                 loginCookie.Expires = ExpireCookie;
                 res.Cookies.Add(loginCookie);
+
+                HttpCookie pCookie = new HttpCookie("l_authCookie_p");
+                pCookie.Expires = ExpireCookie;
+                res.Cookies.Add(pCookie);
+
+                HttpCookie dCookie = new HttpCookie("l_authCookie_d");
+                dCookie.Expires = ExpireCookie;
+                res.Cookies.Add(dCookie);
+
+                HttpCookie idCookie = new HttpCookie("liveid");
+                idCookie.Expires = ExpireCookie;
+                res.Cookies.Add(idCookie);
+
+                req.RequestContext.HttpContext.Session.Abandon();
+
                 res.Redirect(LogoutPage);
                 res.End();
             }
@@ -64,7 +79,7 @@ namespace SLExpress
             }
             else
             {
-                WindowsLiveLogin.User user = wll.ProcessLogin(req.Form);
+                WindowsLiveLogin.User user = wll.ProcessLogin(req.QueryString);
 
                 HttpCookie loginCookie = new HttpCookie(LoginCookie);
                 if (user != null)

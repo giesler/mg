@@ -82,6 +82,7 @@
     <Content Include="Global.asax" />
     <Content Include="liveauth.aspx" />
     <Content Include="signin.aspx" />
+    <Content Include="signout.aspx" />
     <Content Include="Silverlight.js" />
     <Content Include="sl.aspx" />
     <Content Include="Web.config" />
@@ -111,6 +112,7 @@
     <Compile Include="liveauth.aspx.designer.cs">
       <DependentUpon>liveauth.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LiveAuthHttpModule.cs" />
     <Compile Include="LiveAuthStoreProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\ShoppingListService\Reference.cs">
@@ -125,6 +127,13 @@
     </Compile>
     <Compile Include="signin.aspx.designer.cs">
       <DependentUpon>signin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="signout.aspx.cs">
+      <DependentUpon>signout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="signout.aspx.designer.cs">
+      <DependentUpon>signout.aspx</DependentUpon>
     </Compile>
     <Compile Include="sl.aspx.cs">
       <DependentUpon>sl.aspx</DependentUpon>
@@ -177,12 +186,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61795</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/SLExpress</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://devlists.giesler.org/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
