@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.20706</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -118,6 +118,8 @@
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </Compile>
     <Compile Include="GroupManager.cs" />
+    <Compile Include="Http\GetImageHttpHandler.cs" />
+    <Compile Include="Http\PicHttpModule.cs" />
     <Compile Include="ImageUtilities.cs">
       <SubType>Code</SubType>
     </Compile>
