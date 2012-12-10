@@ -120,6 +120,9 @@ namespace msn2.net.Common
 
 		public static void ShadeRegion(PaintEventArgs e, Color startColor)
 		{
+			if (e.ClipRectangle.Width == 0 || e.ClipRectangle.Height == 0)
+				return;
+
 			int red = 255 - ((255 - startColor.R) / 3);
 			int green = 255 - ((255 - startColor.G) / 3);
 			int blue = 255 - ((255 - startColor.B) / 3);
@@ -138,7 +141,7 @@ namespace msn2.net.Common
 
 		public static void ShadeRegion(PaintEventArgs e, Color startColor, Color endColor)
 		{
-			if (e.ClipRectangle.Height == 0)
+			if (e.ClipRectangle.Width == 0 || e.ClipRectangle.Height == 0)
 				return;
 
 			using (LinearGradientBrush brush = 
@@ -147,31 +150,6 @@ namespace msn2.net.Common
 				e.Graphics.FillRectangle(brush, e.ClipRectangle);
 			}
 
-//
-//			// Figure out multipliers - amount to change each color for each line
-//			float redDiff			= ((float)startColor.R - (float)endColor.R) / (float)e.ClipRectangle.Height;
-//			float greenDiff			= ((float)startColor.G - (float)endColor.G) / (float)e.ClipRectangle.Height;
-//			float blueDiff			= ((float)startColor.B - (float)endColor.B) / (float)e.ClipRectangle.Height;
-//
-//			float currentRed		= startColor.R;
-//			float currentGreen		= startColor.G;
-//			float currentBlue		= startColor.B;
-//
-//			for (int i = 0; i < e.ClipRectangle.Height; i++)
-//			{
-//				// Offset for top distance, if any
-//				int topOffset = i - e.ClipRectangle.Top;
-//
-//				currentRed		-= redDiff;
-//				currentGreen	-= greenDiff;
-//				currentBlue		-= blueDiff;
-//
-//				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
-//				using (Pen pen = new Pen(new SolidBrush(color)))
-//				{
-//					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - topOffset, e.ClipRectangle.Width, e.ClipRectangle.Height - topOffset);
-//				}                
-//			}
 		}
 
 		#endregion

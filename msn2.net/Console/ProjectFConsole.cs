@@ -137,13 +137,13 @@ namespace msn2.net.ProjectF
 			this.panelFormList.AutoScroll = true;
 			this.panelFormList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelFormList.Name = "panelFormList";
-			this.panelFormList.Size = new System.Drawing.Size(192, 182);
+			this.panelFormList.Size = new System.Drawing.Size(192, 158);
 			this.panelFormList.TabIndex = 5;
 			// 
 			// ProjectFConsole
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(192, 182);
+			this.ClientSize = new System.Drawing.Size(192, 158);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.panelFormList,
 																		  this.listView1});
@@ -151,9 +151,9 @@ namespace msn2.net.ProjectF
 			this.RolledUp = true;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Project F";
-			this.TitleVisible = true;
 			this.TopMost = true;
 			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form1_Closing);
+			this.Load += new System.EventHandler(this.ProjectFConsole_Load);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -213,6 +213,10 @@ namespace msn2.net.ProjectF
 				{
 					panelFormList.Controls.Remove(item);
 					panelFormList.Refresh();
+					foreach (Control c in panelFormList.Controls)
+					{
+						c.Refresh();
+					}
 					return;
 				}
 			}
@@ -370,6 +374,7 @@ namespace msn2.net.ProjectF
 				parameters[0] = ConfigurationSettings.Current.Data.Get(type.Name);
 				object newItem = info.Invoke(parameters);
 				ShellForm form = (ShellForm) newItem;
+				form.Show();
 				form.Hide();
 			}
 
@@ -400,5 +405,12 @@ namespace msn2.net.ProjectF
 		}
 
 		#endregion
+
+		private void ProjectFConsole_Load(object sender, System.EventArgs e)
+		{
+			this.Height = 200;
+			this.Left = Screen.PrimaryScreen.WorkingArea.Left + Screen.PrimaryScreen.WorkingArea.Width	- this.Width  - 12;
+			this.Top  = Screen.PrimaryScreen.WorkingArea.Top  + Screen.PrimaryScreen.WorkingArea.Height - this.Height - 12;
+		}
 	}
 }

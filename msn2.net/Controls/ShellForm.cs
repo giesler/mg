@@ -270,11 +270,12 @@ namespace msn2.net.Controls
 																						 this.labelTitle});
 			this.panelTitleText.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelTitleText.Name = "panelTitleText";
-			this.panelTitleText.Size = new System.Drawing.Size(248, 16);
+			this.panelTitleText.Size = new System.Drawing.Size(200, 16);
 			this.panelTitleText.TabIndex = 5;
 			this.panelTitleText.Resize += new System.EventHandler(this.panelTitleText_Resize);
 			this.panelTitleText.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelTitleText_MouseUp);
 			this.panelTitleText.MouseHover += new System.EventHandler(this.panelTitleText_MouseHover);
+			this.panelTitleText.DoubleClick += new System.EventHandler(this.panelTitleText_DoubleClick);
 			this.panelTitleText.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTitleText_MouseMove);
 			this.panelTitleText.MouseLeave += new System.EventHandler(this.panelTitleText_MouseLeave);
 			this.panelTitleText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleText_MouseDown);
@@ -297,19 +298,18 @@ namespace msn2.net.Controls
 			this.labelTitle.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.labelTitle.Location = new System.Drawing.Point(16, 0);
 			this.labelTitle.Name = "labelTitle";
-			this.labelTitle.Size = new System.Drawing.Size(232, 23);
+			this.labelTitle.Size = new System.Drawing.Size(184, 23);
 			this.labelTitle.TabIndex = 1;
 			this.labelTitle.Text = "[title]";
 			this.labelTitle.Visible = false;
 			this.labelTitle.TextChanged += new System.EventHandler(this.labelTitle_TextChanged);
-			this.labelTitle.DoubleClick += new System.EventHandler(this.labelTitle_DoubleClick);
 			// 
 			// panelMoreButtons
 			// 
 			this.panelMoreButtons.BackColor = System.Drawing.Color.Transparent;
 			this.panelMoreButtons.Dock = System.Windows.Forms.DockStyle.Right;
 			this.panelMoreButtons.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.panelMoreButtons.Location = new System.Drawing.Point(248, 0);
+			this.panelMoreButtons.Location = new System.Drawing.Point(200, 0);
 			this.panelMoreButtons.Name = "panelMoreButtons";
 			this.panelMoreButtons.Size = new System.Drawing.Size(24, 16);
 			this.panelMoreButtons.TabIndex = 7;
@@ -323,11 +323,14 @@ namespace msn2.net.Controls
 																					   this.buttonOnTop,
 																					   this.buttonHide});
 			this.panelButtons.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panelButtons.Location = new System.Drawing.Point(272, 0);
+			this.panelButtons.Location = new System.Drawing.Point(224, 0);
 			this.panelButtons.Name = "panelButtons";
-			this.panelButtons.Size = new System.Drawing.Size(72, 16);
+			this.panelButtons.Size = new System.Drawing.Size(120, 16);
 			this.panelButtons.TabIndex = 6;
+			this.panelButtons.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelButtons_MouseUp);
 			this.panelButtons.Paint += new System.Windows.Forms.PaintEventHandler(this.panelButtons_Paint);
+			this.panelButtons.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelButtons_MouseMove);
+			this.panelButtons.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelButtons_MouseDown);
 			// 
 			// buttonOpacity
 			// 
@@ -336,7 +339,7 @@ namespace msn2.net.Controls
 			this.buttonOpacity.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonOpacity.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonOpacity.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.buttonOpacity.Location = new System.Drawing.Point(6, 1);
+			this.buttonOpacity.Location = new System.Drawing.Point(54, 2);
 			this.buttonOpacity.Name = "buttonOpacity";
 			this.buttonOpacity.Size = new System.Drawing.Size(14, 14);
 			this.buttonOpacity.TabIndex = 8;
@@ -350,7 +353,7 @@ namespace msn2.net.Controls
 			this.buttonRollup.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonRollup.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonRollup.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.buttonRollup.Location = new System.Drawing.Point(38, 1);
+			this.buttonRollup.Location = new System.Drawing.Point(86, 2);
 			this.buttonRollup.Name = "buttonRollup";
 			this.buttonRollup.Size = new System.Drawing.Size(14, 14);
 			this.buttonRollup.TabIndex = 7;
@@ -364,7 +367,7 @@ namespace msn2.net.Controls
 			this.buttonOnTop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonOnTop.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonOnTop.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.buttonOnTop.Location = new System.Drawing.Point(22, 1);
+			this.buttonOnTop.Location = new System.Drawing.Point(70, 2);
 			this.buttonOnTop.Name = "buttonOnTop";
 			this.buttonOnTop.Size = new System.Drawing.Size(14, 14);
 			this.buttonOnTop.TabIndex = 6;
@@ -378,7 +381,7 @@ namespace msn2.net.Controls
 			this.buttonHide.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonHide.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonHide.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.buttonHide.Location = new System.Drawing.Point(54, 1);
+			this.buttonHide.Location = new System.Drawing.Point(102, 2);
 			this.buttonHide.Name = "buttonHide";
 			this.buttonHide.Size = new System.Drawing.Size(18, 14);
 			this.buttonHide.TabIndex = 5;
@@ -400,6 +403,7 @@ namespace msn2.net.Controls
 			this.panelTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseUp);
 			this.panelTitle.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTitle_Paint);
 			this.panelTitle.MouseHover += new System.EventHandler(this.panelTitle_MouseHover);
+			this.panelTitle.DoubleClick += new System.EventHandler(this.panelTitle_DoubleClick);
 			this.panelTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseMove);
 			this.panelTitle.MouseLeave += new System.EventHandler(this.panelTitle_MouseLeave);
 			this.panelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitle_MouseDown);
@@ -1316,12 +1320,45 @@ namespace msn2.net.Controls
 			panelTitleText_Resize(this, EventArgs.Empty);
 		}
 
-		public void AddButtons(Control c, int width, bool visible)
+		public void AddButtons(TitleBarControl[] controls, bool visible)
 		{
-			panelMoreButtons.Controls.Add(c);
-			panelMoreButtons.Width = width;
-			c.Visible = visible;
-			panelTitleText_Resize(this, EventArgs.Empty);
+			// get initial position
+			int left	= buttonOpacity.Left;
+			int top		= buttonOpacity.Top;	
+			int change	= 0;
+
+			// Add each title bar control to bar
+			foreach (TitleBarControl control in controls)
+			{
+				// See if we have room
+				if (left - control.Width - 2 < 0)
+				{
+					change += 0 - (left - control.Width - 2);
+					panelButtons.Width += change;
+				}
+
+				// adjust left for this item's size
+				left			= left - control.Width - 2;
+				control.Left	= left;
+				control.Top		= top;
+
+				control.Visible	= visible;
+
+				panelButtons.Controls.Add(control);
+                
+				panelTitleText_Resize(this, EventArgs.Empty);
+				
+			}
+
+			// Now adjust the added buttons
+			foreach (Control c in panelButtons.Controls)
+			{
+				if (c is TitleBarControl)
+				{
+					c.Left += change;
+				}
+			}
+
 		}
 
 		public int MoreButtonsWidth
@@ -1358,18 +1395,6 @@ namespace msn2.net.Controls
 			// Draw the form icon.
 			e.Graphics.DrawIcon(this.Icon, e.ClipRectangle);
 
-		}
-
-		private void labelTitle_DoubleClick(object sender, System.EventArgs e)
-		{
-			if (this.WindowState != System.Windows.Forms.FormWindowState.Maximized)
-			{
-				this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			}
-			else
-			{
-				this.WindowState = System.Windows.Forms.FormWindowState.Normal;
-			}
 		}
 
 		public event System.EventHandler TitleHover;
@@ -1642,6 +1667,38 @@ namespace msn2.net.Controls
 		}
 
 		private void panelTitleText_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			panelTitle_MouseUp(sender, e);
+		}
+
+		private void panelTitle_DoubleClick(object sender, System.EventArgs e)
+		{
+			if (this.WindowState != System.Windows.Forms.FormWindowState.Maximized)
+			{
+				this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			}
+			else
+			{
+				this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+			}
+		}
+
+		private void panelTitleText_DoubleClick(object sender, System.EventArgs e)
+		{
+			panelTitle_DoubleClick(sender, e);
+		}
+
+		private void panelButtons_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			panelTitle_MouseDown(sender, e);
+		}
+
+		private void panelButtons_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			panelTitle_MouseMove(sender, e);
+		}
+
+		private void panelButtons_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			panelTitle_MouseUp(sender, e);
 		}

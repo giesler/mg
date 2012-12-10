@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using msn2.net.Configuration;
 
 namespace msn2.net.Controls
 {
@@ -17,6 +18,7 @@ namespace msn2.net.Controls
 		private System.ComponentModel.Container components	= null;
 		private Color startColor							= Color.LightGray;
 		private Color endColor								= Color.Empty;
+		private Data data									= null;
 
 		#endregion
 
@@ -26,7 +28,11 @@ namespace msn2.net.Controls
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
+		}
 
+		public ShellButton(Data data)
+		{
+			this.data = data;
 		}
 
 		#endregion
@@ -142,6 +148,13 @@ namespace msn2.net.Controls
 			}
 		}
 
+		public Data Data
+		{
+			get 
+			{
+				return data;
+			}
+		}
 		#endregion
 
 	}

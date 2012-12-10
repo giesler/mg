@@ -24,9 +24,9 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.MenuItem menuItemDelete;
 		private System.Windows.Forms.ImageList imageList1;
 		private System.ComponentModel.IContainer components = null;
-		private msn2.net.Controls.ShellListView shellListView;
 		private Guid dataId = new Guid("{40DEBAB8-3701-43d5-8447-223F8CC5763A}");
 		private System.Windows.Forms.Splitter splitter1;
+		private msn2.net.Controls.ShellListView shellListView1;
 		private msn2.net.Controls.CategoryTreeView treeViewCategory;
 		//	private Crownwood.Magic.Docking.DockingManager dockingManager = null;
 
@@ -46,7 +46,7 @@ namespace msn2.net.Controls
 
 			treeViewCategory.RootData = rootNode;
 
-			shellListView.Data					= rootNode;
+			shellListView1.Data					= rootNode;
 
 			InternalConstructor();
 		}
@@ -97,7 +97,7 @@ namespace msn2.net.Controls
 
 			treeViewCategory.RootData			= rootNode;
 
-			shellListView.Data					= rootNode;
+			shellListView1.Data					= rootNode;
 
 			InternalConstructor();
 		}
@@ -105,10 +105,10 @@ namespace msn2.net.Controls
 		private void InternalConstructor()
 		{
 			
-			shellListView.Dock					= DockStyle.Fill;
+//			shellListView1.Dock					= DockStyle.Fill;
 
 			treeViewCategory.ParentShellForm	= this;
-			shellListView.ParentShellForm		= this;
+			shellListView1.ParentShellForm		= this;
 
 			
 			//			dockingManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
@@ -172,9 +172,9 @@ namespace msn2.net.Controls
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
-			this.shellListView = new msn2.net.Controls.ShellListView();
 			this.treeViewCategory = new msn2.net.Controls.CategoryTreeView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
+			this.shellListView1 = new msn2.net.Controls.ShellListView();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -216,16 +216,6 @@ namespace msn2.net.Controls
 			this.menuItemDelete.Index = 2;
 			this.menuItemDelete.Text = "&Delete";
 			// 
-			// shellListView
-			// 
-			this.shellListView.Data = null;
-			this.shellListView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.shellListView.Location = new System.Drawing.Point(153, 16);
-			this.shellListView.Name = "shellListView";
-			this.shellListView.ParentShellForm = null;
-			this.shellListView.Size = new System.Drawing.Size(263, 176);
-			this.shellListView.TabIndex = 7;
-			// 
 			// treeViewCategory
 			// 
 			this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Left;
@@ -233,6 +223,7 @@ namespace msn2.net.Controls
 			this.treeViewCategory.ParentShellForm = null;
 			this.treeViewCategory.Size = new System.Drawing.Size(150, 192);
 			this.treeViewCategory.TabIndex = 8;
+			this.treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
 			// 
 			// splitter1
 			// 
@@ -242,18 +233,30 @@ namespace msn2.net.Controls
 			this.splitter1.TabIndex = 9;
 			this.splitter1.TabStop = false;
 			// 
+			// shellListView1
+			// 
+			this.shellListView1.Data = null;
+			this.shellListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.shellListView1.Location = new System.Drawing.Point(153, 0);
+			this.shellListView1.Name = "shellListView1";
+			this.shellListView1.ParentShellForm = null;
+			this.shellListView1.Size = new System.Drawing.Size(263, 192);
+			this.shellListView1.TabIndex = 10;
+			this.shellListView1.Types = new System.Type[] {
+															  typeof(msn2.net.Controls.FavoriteConfigData),
+															  typeof(msn2.net.Controls.NoteConfigData)};
+			// 
 			// Favorites
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(416, 192);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.shellListView,
+																		  this.shellListView1,
 																		  this.splitter1,
 																		  this.treeViewCategory});
 			this.Name = "Favorites";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Favorites";
-			this.TitleVisible = true;
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
@@ -265,7 +268,7 @@ namespace msn2.net.Controls
 
 		private void treeViewCategory_CategoryTreeView_AfterSelect(object sender, msn2.net.Controls.CategoryTreeViewEventArgs e)
 		{
-			shellListView.Data	= e.Data;
+			shellListView1.Data	= e.Data;
 			//new MenuItem(
 		}
 

@@ -181,6 +181,7 @@ namespace msn2.net.Controls
 			// 
 			// ShellListView
 			// 
+			this.AutoScroll = true;
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.webBrowserControl1,
 																		  this.listViewFavorites});
@@ -221,13 +222,25 @@ namespace msn2.net.Controls
 					DataCollection col = data.GetChildren(types);
 
 					listViewFavorites.Items.Clear();
+					this.Controls.Clear();
+					this.Refresh();
 
 					foreach (Data node in col)
 					{
 						DataListViewItem item = new DataListViewItem(node);
 						listViewFavorites.Items.Add(item);
+
+						ShellButton button = new ShellButton(node);
+						button.Text			= item.Text;
+						button.Dock			= DockStyle.Top;
+						button.Height		= 20;
+						button.ContextMenu	= listViewFavorites.ContextMenu;
+						button.Click		+= new EventHandler(Item_Click);
+
+						this.Controls.Add(button);
 					}
 				}
+				
 			}
 		}
 
@@ -246,6 +259,22 @@ namespace msn2.net.Controls
 		#endregion
 
 		#region Context menu / mouse actions
+
+		private void Item_Click(object sender, System.EventArgs e)
+		{
+			ShellButton button = (ShellButton) sender;
+
+			Type type = button.Data.DataType;
+			if (type != null)
+			{
+                    
+				if (type == typeof(FavoriteConfigData))
+				{
+					WebBrowser webBrowser = new WebBrowser(button.Data.Text, button.Data.Url);
+					webBrowser.Show();
+				}
+			}
+		}
 
 		private void ContextMenu_Popup(object sender, System.EventArgs e)
 		{
@@ -368,18 +397,6 @@ namespace msn2.net.Controls
 
 			if (e.Button == MouseButtons.Left)
 			{
-				DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
-
-				Type type = item.Data.DataType;
-				if (type != null)
-				{
-                    
-					if (type == typeof(FavoriteConfigData))
-					{
-						WebBrowser webBrowser = new WebBrowser(item.Data.Text, item.Data.Url);
-						webBrowser.Show();
-					}
-				}
 			}
 		}
 

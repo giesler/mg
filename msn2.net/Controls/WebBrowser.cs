@@ -20,8 +20,8 @@ namespace msn2.net.Controls
 		private Crownwood.Magic.Controls.TabControl tabControl;
 		private int defaultWidth = 800;
 		private int defaultHeight = 700;
-		private WebBrowserTitleBarButtons titleBarButtons = null;
 		protected Crownwood.Magic.Docking.DockingManager dockManager = null;
+		protected TitleBarControl [] buttons = null;
 
 		#endregion
 		#region Constructors
@@ -134,15 +134,26 @@ namespace msn2.net.Controls
 			this.Width = defaultWidth;
 			this.Height = defaultHeight;
 
-			titleBarButtons = new WebBrowserTitleBarButtons();
-			titleBarButtons.Refresh_Clicked += new EventHandler(Refresh_Clicked);
-			titleBarButtons.SaveTo_Clicked	+= new EventHandler(SaveTo_Clicked);
-			this.AddButtons(titleBarButtons, titleBarButtons.Width, true);
+			// Create and add title bar controls
+			buttons = new TitleBarControl[3];
+			buttons[0]		= new TitleBarControl("buttonRefresh", "r", new EventHandler(Refresh_Clicked));
+			buttons[1]		= new TitleBarControl("buttonSaveTo", "+", new EventHandler(SaveTo_Clicked));
+			buttons[2]		= new TitleBarControl("buttonBack", "<", new EventHandler(Back_Clicked));
+
+			this.AddButtons(buttons, true);
 
 		}
 
 		#endregion
 		#region Methods
+
+		public void HideTitlebarButtons()
+		{
+			foreach (TitleBarControl c in buttons)
+			{
+				c.Visible = false;
+			}
+		}
 
 		#region AddNewTab methods
 		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
@@ -329,6 +340,22 @@ namespace msn2.net.Controls
 				}
 				shellSave.Dispose();
 			}
+		}
+
+		private void Back_Clicked(object sender, EventArgs e)
+		{
+			if (tabControl.TabPages.Count == 0)
+				return;
+
+			// Get the current page
+			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Control;
+
+			if (browser != null)
+			{
+				browser.Back();
+			}
+			
 		}
 
 		#endregion

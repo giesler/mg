@@ -25,14 +25,15 @@ namespace msn2.net.ProjectF
 			WebBrowserControl browser = (WebBrowserControl) page.Control;
 			browser.BeforeNavigateEvent += new BeforeNavigateDelegate(OnBeforeNavigate);
 
-			WebSearch webSearch = new WebSearch(this.Data);
-			webSearch.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			Crownwood.Magic.Docking.Content searchContent = dockManager.Contents.Add(webSearch, "Search");
-			Crownwood.Magic.Docking.WindowContent bottomWc = dockManager.AddContentWithState(searchContent, Crownwood.Magic.Docking.State.DockBottom);
-            
-			MSNBC.Headlines headlines = new MSNBC.Headlines(this.Data);
-			Crownwood.Magic.Docking.Content headlinesContent = dockManager.Contents.Add(headlines, "MSNBC Headlines");
-			dockManager.AddContentToZone(headlinesContent, bottomWc.ParentZone, 0);	
+			// Bottom border controls
+//			WebSearch webSearch = new WebSearch(this.Data);
+//			webSearch.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+//			Crownwood.Magic.Docking.Content searchContent = dockManager.Contents.Add(webSearch, "Search");
+//			Crownwood.Magic.Docking.WindowContent bottomWc = dockManager.AddContentWithState(searchContent, Crownwood.Magic.Docking.State.DockBottom);
+//            
+//			MSNBC.Headlines headlines = new MSNBC.Headlines(this.Data);
+//			Crownwood.Magic.Docking.Content headlinesContent = dockManager.Contents.Add(headlines, "MSNBC Headlines");
+//			dockManager.AddContentToZone(headlinesContent, bottomWc.ParentZone, 0);	
 
 		}
 		#endregion

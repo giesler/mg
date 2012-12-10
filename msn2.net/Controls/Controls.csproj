@@ -404,6 +404,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "TitleBarControl.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "WebBrowser.cs"
                     SubType = "Form"
                     BuildAction = "Compile"

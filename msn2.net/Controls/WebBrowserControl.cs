@@ -379,6 +379,18 @@ namespace msn2.net.Controls
 			axWebBrowser1.Refresh2(ref level);
 		}
 
+		public void Back()
+		{
+			try
+			{
+				axWebBrowser1.GoBack();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+				Debug.WriteLine(ex.StackTrace);
+			}
+		}
 		#endregion
 
 		#region Properties

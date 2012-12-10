@@ -167,6 +167,7 @@ namespace msn2.net.Controls
 
 			Type[] types	= new Type[1];
 			types[0]		= typeof(CategoryConfigData);
+//			types[1]		= typeof(ShellFormConfigData);
 //            types[1]		= typeof(msn2.net.Configuration.MessengerGroupData);
 
 			DataCollection cats = data.GetChildren(types);

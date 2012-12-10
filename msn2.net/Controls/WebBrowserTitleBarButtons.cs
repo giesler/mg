@@ -17,6 +17,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Button buttonRefresh;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.Button buttonSaveTo;
+		private System.Windows.Forms.Button buttonBack;
 		private System.ComponentModel.IContainer components;
 
 		#endregion
@@ -62,6 +63,7 @@ namespace msn2.net.Controls
 			this.buttonRefresh = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.buttonSaveTo = new System.Windows.Forms.Button();
+			this.buttonBack = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// buttonRefresh
@@ -70,20 +72,19 @@ namespace msn2.net.Controls
 			this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonRefresh.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.buttonRefresh.Location = new System.Drawing.Point(32, 0);
 			this.buttonRefresh.Name = "buttonRefresh";
 			this.buttonRefresh.Size = new System.Drawing.Size(14, 14);
 			this.buttonRefresh.TabIndex = 0;
 			this.buttonRefresh.Text = "r";
 			this.toolTip1.SetToolTip(this.buttonRefresh, "Refresh web page");
 			this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-			// 
-			// buttonSaveTo
-			// 
+
 			this.buttonSaveTo.BackColor = System.Drawing.Color.Transparent;
 			this.buttonSaveTo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonSaveTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonSaveTo.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.buttonSaveTo.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.buttonSaveTo.Location = new System.Drawing.Point(16, 0);
+			this.buttonSaveTo.Location = new System.Drawing.Point(48, 0);
 			this.buttonSaveTo.Name = "buttonSaveTo";
 			this.buttonSaveTo.Size = new System.Drawing.Size(14, 14);
 			this.buttonSaveTo.TabIndex = 1;
@@ -91,13 +92,28 @@ namespace msn2.net.Controls
 			this.toolTip1.SetToolTip(this.buttonSaveTo, "Save to...");
 			this.buttonSaveTo.Click += new System.EventHandler(this.buttonSaveTo_Click);
 			// 
+			// buttonBack
+			// 
+			this.buttonBack.BackColor = System.Drawing.Color.Transparent;
+			this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.buttonBack.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonBack.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.buttonBack.Location = new System.Drawing.Point(16, 0);
+			this.buttonBack.Name = "buttonBack";
+			this.buttonBack.Size = new System.Drawing.Size(14, 14);
+			this.buttonBack.TabIndex = 2;
+			this.buttonBack.Text = "<";
+			this.toolTip1.SetToolTip(this.buttonBack, "Go Back");
+			this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+			// 
 			// WebBrowserTitleBarButtons
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.buttonBack,
 																		  this.buttonSaveTo,
 																		  this.buttonRefresh});
 			this.Name = "WebBrowserTitleBarButtons";
-			this.Size = new System.Drawing.Size(32, 16);
+			this.Size = new System.Drawing.Size(64, 16);
 			this.ResumeLayout(false);
 
 		}
@@ -117,8 +133,15 @@ namespace msn2.net.Controls
 				SaveTo_Clicked(this, e);
 		}
 
+		private void buttonBack_Click(object sender, System.EventArgs e)
+		{
+			if (Back_Clicked != null)
+				Back_Clicked(this, e);
+		}
+
 		public event EventHandler Refresh_Clicked;
 		public event EventHandler SaveTo_Clicked;
+		public event EventHandler Back_Clicked;
 
 		#endregion
 
