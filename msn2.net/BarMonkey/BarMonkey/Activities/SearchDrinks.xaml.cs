@@ -89,9 +89,10 @@ namespace BarMonkey.Activities
 
             int drinkId = (int)b.Tag;
 
-            PourDrink pourDrink = new PourDrink();
-            pourDrink.SetDrink(drinkId);
-            base.NavigationService.Navigate(pourDrink);
+            ConfirmDrink confirm = new ConfirmDrink();
+            Drink drink = BarMonkeyContext.Current.Drinks.GetDrink(drinkId);
+            confirm.SetDrink(drink);
+            base.NavigationService.Navigate(confirm);
         }
 
         void UpdateResultList()

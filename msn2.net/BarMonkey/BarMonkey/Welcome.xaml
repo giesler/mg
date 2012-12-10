@@ -28,7 +28,7 @@
 		<ItemsControl Grid.Row="1" Grid.Column="1" Name="userList" FontSize="22" Background="Transparent" HorizontalContentAlignment="Stretch">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Button FontSize="14pt" Content="{Binding Path=Name}" Click="user_click" />
+					<Button FontSize="14pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Click="user_click" />
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>

@@ -1,7 +1,7 @@
 ﻿<Page x:Class="BarMonkey.UserPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="UserPage">
+    Title="home">
 	<Page.Background>
 		<LinearGradientBrush StartPoint="0,0" EndPoint="0.25,1">
 			<LinearGradientBrush.GradientStops>

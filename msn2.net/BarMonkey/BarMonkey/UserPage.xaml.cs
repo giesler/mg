@@ -25,8 +25,7 @@ namespace BarMonkey
         {
             InitializeComponent();
 
-            this.userName.Content = BarMonkeyContext.Current.UserName;
-            this.Title = string.Format("{0}'s home", BarMonkeyContext.Current.UserName.ToLower());
+            this.userName.Content = BarMonkeyContext.Current.CurrentUser.Name;
             this.pageTitle.Content = this.Title;
 
             this.contentFrame.Navigated += new NavigatedEventHandler(contentFrame_Navigated);

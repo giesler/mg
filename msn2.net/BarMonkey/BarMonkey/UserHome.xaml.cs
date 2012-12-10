@@ -29,8 +29,9 @@ namespace BarMonkey
         {
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "Search Drinks", PageUrl = "Activities/SearchDrinks.xaml" });
-            list.Add(new Activity { Name = "Make a drink for..." });
-            list.Add(new Activity { Name = "Custom Drink" });
+            list.Add(new Activity { Name = "Make a drink for...", IsEnabled = false });
+            list.Add(new Activity { Name = "Custom Drink", IsEnabled = false });
+            list.Add(new Activity { Name = "Admin", IsEnabled = false });
             return list;
         }
 
@@ -41,11 +42,7 @@ namespace BarMonkey
 
             this.activityList.ItemsSource = this.GetActivities();
 
-            var q = BarMonkeyContext.Current.Data.GetUsersFavoriteDrinks(1);
-
-            List<GetUsersFavoriteDrinksResult> drinkList = q.ToList<GetUsersFavoriteDrinksResult>();
-            this.favoriteList.DataContext = drinkList;
-
+            this.favoriteList.ItemsSource = BarMonkeyContext.Current.Drinks.GetFavorites();
         }
 
         private void selectActivity_Click(object sender, RoutedEventArgs e)
@@ -63,7 +60,7 @@ namespace BarMonkey
                 }
             }
 
-            if (match != null)
+            if (match != null && match.PageUrl != null)
             {
                 Uri uri = new Uri(string.Format(
                     "pack://application:,,,/{0}",
@@ -72,6 +69,17 @@ namespace BarMonkey
             }
 
         }
+
+        private void favorite_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int drinkId = (int)button.Tag;
+
+            Drink drink = BarMonkeyContext.Current.Drinks.GetDrink(drinkId);
+            Activities.ConfirmDrink cd = new BarMonkey.Activities.ConfirmDrink();
+            cd.SetDrink(drink);
+            base.NavigationService.Navigate(cd);
+        }
     }
 
     public class Activity
@@ -79,6 +87,8 @@ namespace BarMonkey
         public string Name { get; set; }
 
         public string PageUrl { get; set; }
+
+        public bool IsEnabled { get; set; }
 
         public override string ToString()
         {

@@ -36,8 +36,9 @@ namespace BarMonkeyControls
         private void user_click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
+            int userId = (int) button.Tag;
 
-            BarMonkeyContext.Current.Login(button.Content.ToString());
+            BarMonkeyContext.Current.Login(userId);
             UserPage userPage = new UserPage();
             this.NavigationService.Navigate(userPage);
         }

@@ -18,12 +18,12 @@ namespace BarMonkey.Activities
     /// <summary>
     /// Interaction logic for PourDrink.xaml
     /// </summary>
-    public partial class PourDrink : Page
+    public partial class ConfirmDrink : Page
     {
         private Drink drink = null;
         private Container container = null;
 
-        public PourDrink()
+        public ConfirmDrink()
         {
             InitializeComponent();
         }
@@ -44,11 +44,13 @@ namespace BarMonkey.Activities
             }
         }
 
-        public void SetDrink(int id)
+        public void SetDrink(Drink drink)
         {
-            this.drink = BarMonkeyContext.Current.Drinks.GetDrink(id);
+            this.drink = drink;
 
             this.UpdateDrinkDetails();
+
+            this.favorite.IsChecked = BarMonkeyContext.Current.Drinks.IsFavorite(drink.Id);
         }
 
         private void UpdateDrinkDetails()
@@ -58,13 +60,7 @@ namespace BarMonkey.Activities
                 this.drinkName.Content = this.drink.Name;
                 this.description.Content = this.drink.Description;
 
-                decimal totalSize = 0.0M;
-
-                foreach (DrinkIngredient ingredient in this.drink.DrinkIngredients)
-                {
-                    totalSize += ingredient.AmountOunces;
-                }
-
+                decimal totalSize = (from di in this.drink.DrinkIngredients select di.AmountOunces).Sum();
                 decimal offset = this.container.Size / totalSize;
 
                 this.ingredients.Items.Clear();
@@ -87,6 +83,18 @@ namespace BarMonkey.Activities
         {
             this.container = this.containers.SelectedItem as Container;
             this.UpdateDrinkDetails();
+        }
+
+        private void go_Click(object sender, RoutedEventArgs e)
+        {
+            PourDrink pour = new PourDrink();
+            pour.SetDrink(this.drink, this.container);
+            this.NavigationService.Navigate(pour);
+        }
+
+        private void addToFavorites_Click(object sender, RoutedEventArgs e)
+        {
+            BarMonkeyContext.Current.Drinks.SetFavorite(this.drink.Id, this.favorite.IsChecked);
         }
     }
 
