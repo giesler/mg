@@ -25,6 +25,7 @@
             </controls:PivotItem>
             <controls:PivotItem Header="owners" Name="ownerItem">
                 <Grid>
+                    <ListBox Height="597" HorizontalAlignment="Left" Margin="6,4,0,0" Name="owners" VerticalAlignment="Top" Width="444" />
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

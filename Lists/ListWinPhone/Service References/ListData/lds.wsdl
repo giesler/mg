@@ -55,6 +55,12 @@
   <wsdl:message name="IListDataService_AddListItem_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddListItemResponse" />
   </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItemWithId_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItemWithId" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItemWithId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItemWithIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IListDataService_UpdateListItem_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateListItem" />
   </wsdl:message>
@@ -129,6 +135,10 @@
     <wsdl:operation name="AddListItem">
       <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItem" message="tns:IListDataService_AddListItem_InputMessage" />
       <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemResponse" message="tns:IListDataService_AddListItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListItemWithId">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemWithId" message="tns:IListDataService_AddListItemWithId_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemWithIdResponse" message="tns:IListDataService_AddListItemWithId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateListItem">
       <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdateListItem" message="tns:IListDataService_UpdateListItem_InputMessage" />

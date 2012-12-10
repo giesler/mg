@@ -54,5 +54,11 @@ namespace giesler.org.lists
         {
             NavigationService.Navigate(new Uri(@"/AddList.xaml", UriKind.Relative));
         }
+
+        private void aboutMenu_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
+        }
+
     }
 }

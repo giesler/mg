@@ -166,8 +166,6 @@
     <Content Include="Images\appbar.feature.settings.rest.png" />
     <Content Include="Images\appbar.next.rest.png" />
     <Content Include="Images\appbar.refresh.rest.png" />
-    <None Include="Service References\ListData\configuration91.svcinfo" />
-    <None Include="Service References\ListData\configuration.svcinfo" />
     <None Include="Service References\ListData\giesler.org.lists.ListData.AddListItemReturnValue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -198,12 +196,15 @@
     <None Include="Service References\ListData\giesler.org.lists.ListData.UpdateListReturnValue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ListData\lds.wsdl" />
+    <None Include="Service References\ListData\lds.disco" />
+    <None Include="Service References\ListData\configuration91.svcinfo" />
+    <None Include="Service References\ListData\configuration.svcinfo" />
     <None Include="Service References\ListData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\ListData\lds.wsdl" />
     <None Include="Service References\ListData\lds.xsd">
       <SubType>Designer</SubType>
     </None>

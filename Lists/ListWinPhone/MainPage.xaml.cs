@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Net;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
-using System.Collections.ObjectModel;
-using Microsoft.Phone.Shell;
 using giesler.org.lists.ListData;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
-using System.Diagnostics;
-using System.Threading;
-using System.Reflection;
-using System.Text;
+using Microsoft.Phone.Shell;
 
 namespace giesler.org.lists
 {
@@ -36,6 +28,7 @@ namespace giesler.org.lists
 
         public bool AttemptedStorageLoad { get; set; }
         private bool isLoading = false;
+        private StoreItemList listControl;
 
         void main_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -73,9 +66,9 @@ namespace giesler.org.lists
         {
             PivotItemEx item = (PivotItemEx)sender;
             ListEx list = (ListEx)item.Tag;
-            StoreItemList listControl = new StoreItemList();
-            item.Content = listControl;
-            listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
+            this.listControl = new StoreItemList();
+            item.Content = this.listControl;
+            this.listControl.DeleteListItem += new DeleteListItemEventHandler(listControl_DeleteListItem);
 
             var q = list.Items.OrderBy(i => i.Name);
             listControl.Load(q);
@@ -192,31 +185,34 @@ namespace giesler.org.lists
 
         void listControl_DeleteListItem(ListItem item)
         {
-            ListDataServiceClient svc = App.DataProvider;
-            svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
-            svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
+            if (!App.PendingDeletes.Contains(item.UniqueId))
+            {
+                App.PendingDeletes.Add(item.UniqueId);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.QueueDeletes), new object());
+            }
+        }
 
-            this.updatingMessage.Text = "Deleting...";
-            this.updatingMessage.Visibility = Visibility.Visible;
-
-            this.ToggleBackgroundOperationStatus(true);
+        void QueueDeletes(object sender)
+        {
+            foreach (Guid guid in App.PendingDeletes)
+            {
+                ListDataServiceClient svc = App.DataProvider;
+                svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
+                svc.DeleteListItemAsync(App.AuthDataList, guid, guid);
+            }
         }
 
         void svc_DeleteListItemCompleted(object sender, DeleteListItemCompletedEventArgs e)
         {
-            if (e.Error != null)
+            if (e.Error == null)
             {
-                MessageBox.Show(e.Error.Message, "Delete Error", MessageBoxButton.OK);
+                ListDataServiceClient client = (ListDataServiceClient)sender;
+                client.CloseAsync();
+
+                App.PendingDeletes.Remove((Guid)e.UserState);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
             }
-
-            this.updatingMessage.Visibility = Visibility.Collapsed;
-
-            this.ToggleBackgroundOperationStatus(false);
-
-            ListDataServiceClient client = (ListDataServiceClient)sender;
-            client.CloseAsync();
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
         }
 
         void ToggleBackgroundOperationStatus(bool isActive)
@@ -241,7 +237,7 @@ namespace giesler.org.lists
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = this.main.Items.Count > 1;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
-                ((IApplicationBarMenuItem)this.ApplicationBar.MenuItems[0]).IsEnabled = !loading;
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
             }
 
             foreach (PivotItem item in this.main.Items)
@@ -315,6 +311,8 @@ namespace giesler.org.lists
             {
                 this.ReloadAll();
             }
+
+            this.QueueDeletes(null);
         }
 
         void ReloadAll()
@@ -349,7 +347,7 @@ namespace giesler.org.lists
                         lists.Add(list);
                     }
 
-                    if (resultItem.ItemUniqueId.HasValue)
+                    if (resultItem.ItemUniqueId.HasValue && !App.PendingDeletes.Contains(resultItem.ItemUniqueId.Value))
                     {
                         ListItemEx item = new ListItemEx { Name = resultItem.ItemName, UniqueId = resultItem.ItemUniqueId.Value, ListUniqueId = resultItem.UniqueId };
                         lists.FirstOrDefault(l => l.UniqueId == resultItem.UniqueId).Items.Add(item);
@@ -426,12 +424,7 @@ namespace giesler.org.lists
         {
             this.ReloadAll();
         }
-
-        private void aboutMenu_Click(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
-        }
-
+                
         private void debug_Click(object sender, EventArgs e)
         {
             long deviceTotalMemory = (long)DeviceExtendedProperties.GetValue("DeviceTotalMemory");

@@ -118,40 +118,57 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateListItem">
+  <xs:element name="AddListItemWithId">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q20:ClientAuthenticationData" />
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="item" nillable="true" type="q21:ListItem" />
+        <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="listUniqueId" type="q21:guid" />
+        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="itemUniqueId" type="q22:guid" />
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddListItemWithIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="AddListItemWithIdResult" nillable="true" type="q23:AddListItemReturnValue" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateListItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q24:ClientAuthenticationData" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="item" nillable="true" type="q25:ListItem" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateListItemResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="UpdateListItemResult" nillable="true" type="q22:UpdateListItemReturnData" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="UpdateListItemResult" nillable="true" type="q26:UpdateListItemReturnData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteListItem">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q23:ClientAuthenticationData" />
-        <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="listItemUniqueId" type="q24:guid" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q27:ClientAuthenticationData" />
+        <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="listItemUniqueId" type="q28:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteListItemResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="DeleteListItemResult" nillable="true" type="q25:DeleteListItemReturnData" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="DeleteListItemResult" nillable="true" type="q29:DeleteListItemReturnData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLastChangeTime">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q26:ClientAuthenticationData" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q30:ClientAuthenticationData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -173,15 +190,15 @@
   <xs:element name="GetPersonResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="GetPersonResult" nillable="true" type="q27:Person" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="GetPersonResult" nillable="true" type="q31:Person" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdatePerson">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q28:ClientAuthenticationData" />
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="person" nillable="true" type="q29:Person" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q32:ClientAuthenticationData" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="person" nillable="true" type="q33:Person" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -193,7 +210,7 @@
   <xs:element name="AddDevice">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q30:ClientAuthenticationData" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q34:ClientAuthenticationData" />
         <xs:element minOccurs="0" name="deviceName" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -201,15 +218,15 @@
   <xs:element name="AddDeviceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="AddDeviceResult" nillable="true" type="q31:PersonDevice" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="AddDeviceResult" nillable="true" type="q35:PersonDevice" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="RemoveDevice">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q32:ClientAuthenticationData" />
-        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="deviceId" type="q33:guid" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" minOccurs="0" name="auth" nillable="true" type="q36:ClientAuthenticationData" />
+        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="deviceId" type="q37:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

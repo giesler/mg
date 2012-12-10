@@ -28,10 +28,9 @@ namespace giesler.org.lists
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+/*
             if (App.LiveContacts == null)
             {
-                this.list.Items.Add("not yet implemented");
             }
             else
             {
@@ -40,7 +39,10 @@ namespace giesler.org.lists
                     this.list.Items.Add(c.FormattedName);
                 }
             }
-            
+  */
+            this.list.Items.Add("not yet implemented");
+            this.owners.Items.Add("not yet implemented");
+
             Guid listUnquieId = new Guid(NavigationContext.QueryString["listUniqueId"]);
             List list = App.Lists.First(i => i.UniqueId == listUnquieId);
 

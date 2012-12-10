@@ -76,6 +76,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddListItemWithId">
+      <soap:operation soapAction="http://svc.listgo.mobi/IListDataService/AddListItemWithId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateListItem">
       <soap:operation soapAction="http://svc.listgo.mobi/IListDataService/UpdateListItem" style="document" />
       <wsdl:input>

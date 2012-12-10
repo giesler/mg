@@ -51,16 +51,17 @@ namespace giesler.org.lists
             this.pbar.Visibility = System.Windows.Visibility.Visible;
             this.status.Visibility = System.Windows.Visibility.Visible;
 
-            ListDataServiceClient svc = App.DataProvider;
-            svc.AddListItemCompleted += new EventHandler<AddListItemCompletedEventArgs>(svc_AddListItemCompleted);
-            svc.AddListItemAsync(App.AuthDataList, listUniqueId, this.text.Text.Trim());
-
             ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
-            list.Items.Add(new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId });
+            ListItemEx newItem = new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId, UniqueId = Guid.NewGuid() };
+            list.Items.Add(newItem);
             list.Items = list.Items.OrderBy(i => i.Name).ToList();
+
+            ListDataServiceClient svc = App.DataProvider;
+            svc.AddListItemWithIdCompleted += new EventHandler<AddListItemWithIdCompletedEventArgs>(svc_AddListItemCompleted);
+            svc.AddListItemWithIdAsync(App.AuthDataList, listUniqueId, newItem.UniqueId, this.text.Text.Trim(), newItem.UniqueId);
         }
 
-        void svc_AddListItemCompleted(object sender, AddListItemCompletedEventArgs e)
+        void svc_AddListItemCompleted(object sender, AddListItemWithIdCompletedEventArgs e)
         {
             if (e.Error != null)
             {

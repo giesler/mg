@@ -164,6 +164,7 @@ namespace giesler.org.lists
         #endregion
 
         public static List<ListEx> Lists { get; set; }
+        public static List<Guid> PendingDeletes { get; set; }
         public static ClientAuthenticationData AuthData { get; set; }
         public static string LiveIdUserId { get; set; }
         public static string LiveIdAccessToken { get; set; }
@@ -287,6 +288,9 @@ namespace giesler.org.lists
             XElement listsElement = new XElement("lists");
             root.Add(listsElement);
 
+            XElement pendingDeletes = new XElement("deletes");
+            root.Add(pendingDeletes);
+
             lock (this.dataLockObject)
             {
                 foreach (var list in App.Lists)
@@ -307,6 +311,13 @@ namespace giesler.org.lists
                         itemElement.Add(new XAttribute("uniqueId", item.UniqueId));
                         itemsElement.Add(itemElement);
                     }
+                }
+
+                foreach (Guid guid in App.PendingDeletes)
+                {
+                    XElement deleteElement = new XElement("delete");
+                    deleteElement.Add(new XAttribute("itemUniqueId", guid));
+                    pendingDeletes.Add(deleteElement);
                 }
 
                 using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
@@ -376,6 +387,7 @@ namespace giesler.org.lists
                 Debug.WriteLine(LiveIdRefreshToken);
 
                 App.Lists = new List<ListEx>();
+                App.PendingDeletes = new List<Guid>();
                 lock (this.dataLockObject)
                 {
                     using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
@@ -405,6 +417,16 @@ namespace giesler.org.lists
 
                                         ListItemEx item = new ListItemEx { Name = itemName, UniqueId = itemUniqueId, ListUniqueId = list.UniqueId };
                                         list.Items.Add(item);
+                                    }
+                                }
+
+                                XElement deletesElement = dataElement.Element("deletes");
+                                foreach (XElement delete in deletesElement.Elements("delete"))
+                                {
+                                    XAttribute att = delete.Attribute("itemUniqueId");
+                                    if (att != null)
+                                    {
+                                        App.PendingDeletes.Add(new Guid(att.Value));
                                     }
                                 }
                             }
