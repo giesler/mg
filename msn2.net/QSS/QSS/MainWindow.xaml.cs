@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Documents;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace QSS
 {
@@ -82,9 +83,24 @@ namespace QSS
         {
             this.status.Visibility = Visibility.Collapsed;
 
-            this.CurrentIndex++;
+            while (true)
+            {
+                this.CurrentIndex++;
 
-            this.img.Source = new BitmapImage(new Uri(this.Files[this.CurrentIndex]));
+                Uri uri = new Uri(this.Files[this.CurrentIndex]);
+
+                try
+                {
+                    Trace.WriteLine("Setting image: " + uri.ToString());
+                    this.img.Source = new BitmapImage(uri);
+                    Trace.WriteLine("Image set");
+                    break;
+                }
+                catch (NotSupportedException ex)
+                {
+                    Trace.WriteLine("Not supported: " + uri.ToString());
+                }
+            }
         }
 
         protected override void OnKeyUp(System.Windows.Input.KeyEventArgs e)
