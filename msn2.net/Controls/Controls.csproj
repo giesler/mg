@@ -234,6 +234,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Label.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Label.resx"
+                    DependentUpon = "Label.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "MiniBrowser.cs"
                     SubType = "Form"
                     BuildAction = "Compile"

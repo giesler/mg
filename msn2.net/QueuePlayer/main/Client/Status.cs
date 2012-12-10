@@ -101,7 +101,17 @@ namespace msn2.net.QueuePlayer.Client
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.labelMessage = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// progressBar1
 			// 
@@ -142,8 +152,15 @@ namespace msn2.net.QueuePlayer.Client
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "Status";
+			this.ShowCloseButton = false;
+			this.ShowOpacityButton = false;
+			this.ShowRollupButton = false;
+			this.ShowTopMostButton = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Please Wait...";
+			this.TitleVisible = true;
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}

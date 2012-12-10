@@ -49,6 +49,11 @@ namespace msn2.net.QueuePlayer.Client
 		{
 			this.umPlayer = umPlayer;
 
+			if (System.IO.File.Exists("msn2.net.QueuePlayer.Client.exe.config"))
+			{
+				RemotingConfiguration.Configure("msn2.net.QueuePlayer.Client.exe.config");
+			}
+
 			// Create a server
 			mediaServer = new MediaServer();
 

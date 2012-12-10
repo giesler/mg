@@ -2,6 +2,9 @@ using System;
 using QuartzTypeLib;
 using System.Timers;
 using msn2.net.QueuePlayer.Shared;
+using System.Collections;
+using System.Threading;
+using System.Diagnostics;
 
 namespace msn2.net.QueuePlayer
 {
@@ -11,8 +14,11 @@ namespace msn2.net.QueuePlayer
 	public class DirectXPlayer: IServerPlayer, IDisposable
 	{
 		private FilgraphManagerClass filegraphManager;
-		private Timer timer;
+		private System.Timers.Timer timer;
 		private bool initialized = false;
+		private MediaSourceDictionary mediaCache = new MediaSourceDictionary();
+		private Queue preloadQueue = new Queue();
+		private Thread preloadThread;
 
 		// defaults
 		private int	   mediaVolume  = 0;
@@ -21,8 +27,11 @@ namespace msn2.net.QueuePlayer
 
 		public DirectXPlayer()
 		{
-			timer = new Timer(1000);
+			timer = new System.Timers.Timer(1000);
 			timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
+
+			preloadThread = new Thread(new ThreadStart(PreloadMediaThread));
+			preloadThread.Start();
 		}
 
 		#region Disposal
@@ -199,8 +208,16 @@ namespace msn2.net.QueuePlayer
 				}
 				try
 				{
-					filegraphManager = new FilgraphManagerClass();
-					filegraphManager.RenderFile(value);
+					// first check for media already in cache
+					if (mediaCache.Contains(value))
+					{
+						filegraphManager = mediaCache[value];
+					}
+					else
+					{
+						filegraphManager = new FilgraphManagerClass();
+						filegraphManager.RenderFile(value);
+					}
 					filegraphManager.Volume  = mediaVolume;
 					filegraphManager.Rate	 = mediaRate;
 					filegraphManager.Balance = mediaBalance;
@@ -359,7 +376,51 @@ namespace msn2.net.QueuePlayer
 
 		#endregion
 
+		#region Preloading
+
+		public void PreloadMedia(string filename)
+		{
+			preloadQueue.Enqueue(filename);
+
+			// if a thread isn't already loading media, kick one off
+			if (preloadThread.ThreadState == System.Threading.ThreadState.Suspended)
+			{
+				preloadThread.Resume();
+			}
+		}
+
+		// Loads all media in the queue
+		private void PreloadMediaThread()
+		{
+			Thread.CurrentThread.Name = "DirectX Media Preload Thread";
+
+			while (true)
+			{
+				while (preloadQueue.Count > 0)
+				{
+					string filename = preloadQueue.Dequeue().ToString();
+					FilgraphManagerClass f = new FilgraphManagerClass();
+					Debug.WriteLine("Preloading '" + filename + "'", "DirextXPlayer");
+					f.RenderFile(filename);
+					mediaCache.Add(filename, f);            
+				}
+
+				preloadThread.Suspend();
+			}
+		}
+
+		public void UnloadMedia(string filename)
+		{
+			FilgraphManagerClass f = mediaCache[filename];
+			System.Runtime.InteropServices.Marshal.ReleaseComObject(f);
+			mediaCache.Remove(filename);
+		}
+
+		#endregion
+
 	}
+
+	#region MediaErrorException
 
 	public class MediaErrorException: System.Exception
 	{
@@ -381,5 +442,58 @@ namespace msn2.net.QueuePlayer
 		{
 			get { return text; }
 		}
+	}
+
+	#endregion
+
+	internal class MediaSourceDictionary: DictionaryBase
+	{
+		private Queue filenameQueue = new Queue();
+
+		public void Add(string filename, FilgraphManagerClass filegraph)
+		{
+			// Check if already in queue - if so, ignore
+			if (InnerHashtable.Contains(filename))
+			{
+				InnerHashtable.Add(filename, filegraph);
+			}
+
+			filenameQueue.Enqueue(filename);
+
+			// Also remove any entries over the limit, as long as they aren't still in queue
+			while (filenameQueue.Count > 30)
+			{
+				string f = filenameQueue.Dequeue().ToString();
+				if (!filenameQueue.Contains(f))
+				{
+					Debug.WriteLine("Removing file from media cache: " + f, "DirextXPlayer");
+					Remove(f);
+				}
+			}
+		}
+
+		public void Remove(string filename)
+		{
+			FilgraphManagerClass f = (FilgraphManagerClass) InnerHashtable[filename];
+			if (f != null)
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(f);
+				InnerHashtable.Remove(filename);
+			}
+		}
+
+		public bool Contains(string filename)
+		{
+			return InnerHashtable.ContainsKey(filename);
+		}
+
+		public FilgraphManagerClass this[string filename]
+		{
+			get 
+			{
+				return (FilgraphManagerClass) InnerHashtable[filename];
+			}
+		}
+
 	}
 }

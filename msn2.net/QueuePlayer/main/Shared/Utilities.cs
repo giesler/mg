@@ -32,6 +32,7 @@ namespace msn2.net.QueuePlayer.Shared
 	public delegate void AddedToQueueEventHandler(object sender, QueueEventArgs e);
 	public delegate void RemovedFromQueueEventHandler(object sender, QueueEventArgs e);
 	public delegate void MoveInQueueEventHandler(object sender, QueueEventArgs e);
+	public delegate void PreloadMediaEventHandler(object sender, PreloadMediaEventArgs e);
 
 	/* History related events */
 	public delegate void AddToHistoryEventHandler(object sender, HistoryEventArgs e);
@@ -119,6 +120,26 @@ namespace msn2.net.QueuePlayer.Shared
 			get { return message; }
 		}
 	}
+
+	/// <summary>
+	/// Generic media event arguments
+	/// </summary>
+	[Serializable]
+	public class PreloadMediaEventArgs: EventArgs 
+	{
+		private string filename;
+
+		public PreloadMediaEventArgs(string filename) 
+		{
+			this.filename = filename;
+		}
+
+		public string Filename
+		{
+			get { return filename; }
+		}
+	}
+
 
 	[Serializable]
 	public class MediaFileChangedEventArgs: EventArgs

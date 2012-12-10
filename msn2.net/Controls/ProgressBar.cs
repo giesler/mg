@@ -127,6 +127,39 @@ namespace msn2.net.Controls
 
 		private void pictureBoxRemaining_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
+			if (pictureBoxRemaining.Height < 5)
+				return;
+
+			Color baseColor = RemainingBackColor;
+
+			// THE NEXT LINES OF CODE ARE FROM MAGIC LIBRARY 
+			// Calculate the IDE background colour as only half as dark as the control colour
+			double red = 255 - ((255 - baseColor.R) / 3);
+			double green = 255 - ((255 - baseColor.G) / 3);
+			double blue = 255 - ((255 - baseColor.B) / 3);
+
+			// Figure out multipliers - amount to change each color for each line
+			double redDiff			= Math.Abs(red - baseColor.R) / pictureBoxRemaining.Height;
+			double greenDiff		= Math.Abs(green - baseColor.G) / pictureBoxRemaining.Height;
+			double blueDiff			= Math.Abs(blue - baseColor.B) / pictureBoxRemaining.Height;
+
+			double currentRed		= baseColor.R;
+			double currentGreen		= baseColor.G;
+			double currentBlue		= baseColor.B;
+
+			for (int i = 0; i < pictureBoxRemaining.Height; i++)
+			{
+				currentRed		-= redDiff;
+				currentGreen	-= greenDiff;
+				currentBlue		-= blueDiff;
+
+				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
+				using (Pen pen = new Pen(new SolidBrush(color)))
+				{
+					e.Graphics.DrawLine(pen, 0, i, this.Width, i);
+				}                
+			}
+
 			if (showRemainingValue)
 			{
 				string elapsedTime = Utilities.DurationToString(Convert.ToDouble((maximum - minimum) - _value));
@@ -141,6 +174,48 @@ namespace msn2.net.Controls
 
 		private void pictureBoxProgress_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
+			if (pictureBoxProgress.Height < 5)
+				return;
+
+			Color baseColor = progressBackColor;
+
+			// THE NEXT LINES OF CODE ARE FROM MAGIC LIBRARY 
+			// Calculate the IDE background colour as only half as dark as the control colour
+			double red = 255 - ((255 - baseColor.R) / 3);
+			double green = 255 - ((255 - baseColor.G) / 3);
+			double blue = 255 - ((255 - baseColor.B) / 3);
+
+			// Figure out multipliers - amount to change each color for each line
+			double redDiff			= Math.Abs(red - baseColor.R) / (pictureBoxProgress.Height / 2);
+			double greenDiff		= Math.Abs(green - baseColor.G) / (pictureBoxProgress.Height / 2);
+			double blueDiff			= Math.Abs(blue - baseColor.B) / (pictureBoxProgress.Height / 2);
+
+			double currentRed		= baseColor.R;
+			double currentGreen		= baseColor.G;
+			double currentBlue		= baseColor.B;
+
+			for (int i = 0; i < pictureBoxProgress.Height; i++)
+			{
+				if (i < (pictureBoxProgress.Height / 2) )
+				{
+					currentRed		+= redDiff;
+					currentGreen	+= greenDiff;
+					currentBlue		+= blueDiff;
+				}
+				else
+				{
+					currentRed		-= redDiff;
+					currentGreen	-= greenDiff;
+					currentBlue		-= blueDiff;
+				}
+
+				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
+				using (Pen pen = new Pen(new SolidBrush(color)))
+				{
+					e.Graphics.DrawLine(pen, 0, i, this.Width, i);
+				}                
+			}
+
 			if (showProgressValue)
 			{
 				string elapsedTime = Utilities.DurationToString(Convert.ToDouble(_value - minimum));

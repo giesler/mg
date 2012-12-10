@@ -55,6 +55,21 @@ namespace msn2.net.QueuePlayer.Client
 			comboBoxSearch.SelectedIndex = 0;
 		}
 
+		public Search(UMPlayer player, string search): this(player)
+		{
+			this.textBoxSearch.Text		= search;
+			this.panel1.Visible			= false;
+			this.Text					= "Search results for '" + search + "'";
+			buttonSearch_Click(this, EventArgs.Empty);
+		}
+
+		public void SearchNow(string search)
+		{
+			this.textBoxSearch.Text		= search;
+			this.Text					= "Search results for '" + search + "'";
+			buttonSearch_Click(this, EventArgs.Empty);
+		}
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -77,6 +92,7 @@ namespace msn2.net.QueuePlayer.Client
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Search));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.buttonNewSearch = new System.Windows.Forms.Button();
 			this.comboBoxSearch = new System.Windows.Forms.ComboBox();
@@ -85,8 +101,18 @@ namespace msn2.net.QueuePlayer.Client
 			this.label1 = new System.Windows.Forms.Label();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.mediaList = new msn2.net.QueuePlayer.Client.MediaListView();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// panel1
 			// 
@@ -98,6 +124,7 @@ namespace msn2.net.QueuePlayer.Client
 																				 this.textBoxSearch,
 																				 this.label1});
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Location = new System.Drawing.Point(0, 3);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(424, 80);
 			this.panel1.TabIndex = 12;
@@ -162,7 +189,6 @@ namespace msn2.net.QueuePlayer.Client
 			// splitter1
 			// 
 			this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.splitter1.Location = new System.Drawing.Point(0, 80);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(424, 3);
 			this.splitter1.TabIndex = 13;
@@ -173,6 +199,7 @@ namespace msn2.net.QueuePlayer.Client
 			this.mediaList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mediaList.Location = new System.Drawing.Point(0, 83);
 			this.mediaList.Name = "mediaList";
+			this.mediaList.ShowDeleteColumn = false;
 			this.mediaList.Size = new System.Drawing.Size(424, 219);
 			this.mediaList.TabIndex = 14;
 			this.mediaList.MediaDoubleClick += new System.EventHandler(this.mediaList_MediaDoubleClick);
@@ -184,11 +211,16 @@ namespace msn2.net.QueuePlayer.Client
 			this.ClientSize = new System.Drawing.Size(424, 302);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.mediaList,
-																		  this.splitter1,
-																		  this.panel1});
+																		  this.panel1,
+																		  this.splitter1});
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Search";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Search";
+			this.TitleVisible = true;
 			this.Load += new System.EventHandler(this.Search_Load);
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Configuration;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.Remoting;
@@ -22,6 +23,9 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 	/// </summary>
 	public class PlayerHostDialog : System.Windows.Forms.Form
 	{
+
+		#region Declares
+
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ContextMenu contextMenu1;
@@ -29,6 +33,10 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 		private System.ComponentModel.IContainer components;
 		private string serverName = null;
 		private PlayerClient playerClient = null;
+
+		#endregion
+
+		#region Constructor / Disposal
 
 		public PlayerHostDialog()
 		{
@@ -65,6 +73,8 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -139,8 +149,15 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 
 	public class PlayerClient: MarshalByRefObject, IDisposable
 	{
+		#region Declares
+
 		private MediaServer server = null;
 		private DirectXPlayer player = null;
+		private string shareDirectory = "";
+
+		#endregion
+
+		#region Prevent idle disposal
 
 		// This override ensures that if the object is idle for an extended 
 		// period, waiting for messages, it won't lose its lease. Without this 
@@ -156,34 +173,69 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 			return null;
 		}
 
+		#endregion
+
+		#region Constructor / Disposal
+
 		public PlayerClient()
 		{
 			// Connect to server
-			server = new MediaServer();
+			try
+			{
+				server						= new MediaServer();
+				shareDirectory				= server.ShareDirectory;
+			}
+			catch (System.Net.Sockets.SocketException)
+			{
+				MessageBox.Show("Unable to connect to media server.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Application.Exit();
+				return;
+			}
 
-			player = new DirectXPlayer();
-			player.Volume  = server.Volume;
-			player.Rate    = server.Rate;
-			player.Balance = server.Balance;
+			// Create local DXPlayer
+			player						= new DirectXPlayer();
+			player.Volume				= server.Volume;
+			player.Rate					= server.Rate;
+			player.Balance				= server.Balance;
 
 			// subscribe to events we care about
-			server.MediaFileChanged += new MediaFileChangedEventHandler(MediaFileChangedEvent);
-			server.PlayingSongEvent += new PlayingSongEventHandler(PlayingEvent);
-			server.PausedSongEvent += new PausedSongEventHandler(PausedEvent);
-			server.StoppedSongEvent += new StoppedSongEventHandler(StoppedEvent);
-			server.VolumeEvent += new VolumeEventHandler(VolumeEvent);
-			server.ShutdownEvent += new ShutdownEventHandler(ShutdownEvent);
+			server.MediaFileChanged		+= new MediaFileChangedEventHandler(MediaFileChangedEvent);
+			server.PlayingSongEvent		+= new PlayingSongEventHandler(PlayingEvent);
+			server.PausedSongEvent		+= new PausedSongEventHandler(PausedEvent);
+			server.StoppedSongEvent		+= new StoppedSongEventHandler(StoppedEvent);
+			server.VolumeEvent			+= new VolumeEventHandler(VolumeEvent);
+			server.ShutdownEvent		+= new ShutdownEventHandler(ShutdownEvent);
+			server.PreloadMediaEvent	+= new PreloadMediaEventHandler(PreloadMediaEvent);
 
+			// Preload current queue
+			foreach (MediaCollectionEntry entry in server.CurrentQueue())
+			{
+				player.PreloadMedia(shareDirectory + Path.DirectorySeparatorChar + entry.MediaFile);
+			}
+
+			// Start playing song if anything is loaded
+			if (server.CurrentPlayState == MediaServer.PlayState.Playing)
+			{
+				player.MediaFile			= server.CurrentMediaFile;
+				player.CurrentPosition		= server.CurrentPosition;
+				player.Play();
+			}
 		}
 
 		public void Dispose() 
 		{
-			server.MediaFileChanged -= new MediaFileChangedEventHandler(MediaFileChangedEvent);
-			server.PlayingSongEvent -= new PlayingSongEventHandler(PlayingEvent);
-			server.PausedSongEvent -= new PausedSongEventHandler(PausedEvent);
-			server.StoppedSongEvent -= new StoppedSongEventHandler(StoppedEvent);
-			server.ShutdownEvent -= new ShutdownEventHandler(ShutdownEvent);
+			server.MediaFileChanged		-= new MediaFileChangedEventHandler(MediaFileChangedEvent);
+			server.PlayingSongEvent		-= new PlayingSongEventHandler(PlayingEvent);
+			server.PausedSongEvent		-= new PausedSongEventHandler(PausedEvent);
+			server.StoppedSongEvent		-= new StoppedSongEventHandler(StoppedEvent);
+			server.VolumeEvent			-= new VolumeEventHandler(VolumeEvent);
+			server.ShutdownEvent		-= new ShutdownEventHandler(ShutdownEvent);
+			server.PreloadMediaEvent	-= new PreloadMediaEventHandler(PreloadMediaEvent);
 		}
+
+		#endregion
+
+		#region Events
 
 		[OneWay]
 		public void MediaFileChangedEvent(object sender, MediaFileChangedEventArgs e)
@@ -220,5 +272,14 @@ namespace msn2.net.QueuePlayer.SpeakerHost
 		{
 			Application.Exit();
 		}
+
+		[OneWay]
+		public void PreloadMediaEvent(object sender, PreloadMediaEventArgs e)
+		{
+			player.PreloadMedia(e.Filename);
+		}
+
+		#endregion
+
 	}
 }

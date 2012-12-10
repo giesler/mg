@@ -9,6 +9,7 @@ using System.Configuration;
 using msn2.net.QueuePlayer.Shared;
 using msn2.net.QueuePlayer;
 using System.Timers;
+using System.Diagnostics;
 
 namespace msn2.net.QueuePlayer.Server
 {
@@ -79,9 +80,10 @@ namespace msn2.net.QueuePlayer.Server
 			
 			while (playerThread.IsAlive) 
 				Thread.Sleep(100);
-//#if !DEBUG
+
+#if !DEBUG
 			Next();
-//#endif
+#endif
 		}
 
 		#endregion
@@ -103,6 +105,9 @@ namespace msn2.net.QueuePlayer.Server
 			dxPlayer.VolumeChanged		+= new Server_VolumeChangedEventHandler(Server_VolumeEvent);
 			dxPlayer.RateChanged		+= new Server_RateChangedEventHandler(Server_RateChanged);
 			dxPlayer.BalanceChanged		+= new Server_BalanceChangedEventHandler(Server_BalanceChanged);
+			
+			// subscribe player to preload event
+			this.PreloadMediaEvent		+= new PreloadMediaEventHandler(Server_PreloadMedia);
 		}
 
 		private void LoadMediaCollection() 
@@ -169,11 +174,18 @@ namespace msn2.net.QueuePlayer.Server
 		/// <param name="ex">Exception</param>
 		public void MediaError(int error, string message, Exception ex) 
 		{
+			mediaErrorCount++;
+
+			if (mediaErrorCount > 15)
+				return;
+
 			if (MediaErrorEvent != null) 
 			{
 				MediaErrorEvent(this, new MediaErrorEventArgs(currentMediaId, error, message, ex));
 			}
 		}
+
+		private int mediaErrorCount = 0;
 
 		public event ShutdownEventHandler ShutdownEvent;
 
@@ -212,6 +224,14 @@ namespace msn2.net.QueuePlayer.Server
 			get 
 			{ 
 				return currentMediaId; 
+			}
+		}
+
+		public string CurrentMediaFile
+		{
+			get 
+			{
+				return shareDirectory + Path.DirectorySeparatorChar + currentEntry.MediaFile;
 			}
 		}
 
@@ -489,6 +509,7 @@ namespace msn2.net.QueuePlayer.Server
 			}
 
 			Play();
+			mediaErrorCount = 0;
 		}
 
 		/// <summary>
@@ -780,8 +801,22 @@ namespace msn2.net.QueuePlayer.Server
 			// fill the queue
 			while (mediaQueue.Count < 25) 
 			{
-				AddToQueue(mediaCollection.RandomEntry());
+				MediaCollectionEntry entry = mediaCollection.RandomEntry();
+				Trace.WriteLine("FillQueue: new entry = " + entry.MediaId);
+				AddToQueue(entry);
+
+				if (PreloadMediaEvent != null)
+				{
+					PreloadMediaEvent(this, new PreloadMediaEventArgs(shareDirectory + Path.DirectorySeparatorChar + entry.MediaFile));
+				}
 			}
+		}
+
+		public event PreloadMediaEventHandler PreloadMediaEvent;
+
+		private void Server_PreloadMedia(object sender, PreloadMediaEventArgs e)
+		{
+			dxPlayer.PreloadMedia(e.Filename);
 		}
 
 		#endregion

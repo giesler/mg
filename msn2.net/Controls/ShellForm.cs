@@ -103,6 +103,8 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.PictureBox pictureBoxFormIcon;
 		private int		rollupHeight				= 18;
 
+		private int		fadeInTimerInterval			= 50;
+		private int		fadeOutTimerInterval		= 70;
 
 		#endregion
 
@@ -116,10 +118,10 @@ namespace msn2.net.Controls
 			if (!DesignMode)
 				InitializeComponent();
 
-			timerFadeOut = new System.Timers.Timer(75);
+			timerFadeOut = new System.Timers.Timer(fadeOutTimerInterval);
 			timerFadeOut.Elapsed += new System.Timers.ElapsedEventHandler(FadeOut_Elapsed);
 
-			timerFadeIn = new System.Timers.Timer(65);
+			timerFadeIn = new System.Timers.Timer(fadeInTimerInterval);
 			timerFadeIn.Elapsed += new System.Timers.ElapsedEventHandler(FadeIn_Elapsed);
 
 			panelMoreButtons.Width = 0;
@@ -185,6 +187,7 @@ namespace msn2.net.Controls
 			// panelTitle
 			// 
 			this.panelTitle.BackColor = System.Drawing.Color.DimGray;
+			this.panelTitle.BackgroundImage = ((System.Drawing.Bitmap)(resources.GetObject("panelTitle.BackgroundImage")));
 			this.panelTitle.Controls.AddRange(new System.Windows.Forms.Control[] {
 																					 this.panelTitleText,
 																					 this.panelMoreButtons,
@@ -209,7 +212,7 @@ namespace msn2.net.Controls
 			// 
 			// pictureBoxFormIcon
 			// 
-			this.pictureBoxFormIcon.BackColor = System.Drawing.Color.DimGray;
+			this.pictureBoxFormIcon.BackColor = System.Drawing.Color.Transparent;
 			this.pictureBoxFormIcon.Name = "pictureBoxFormIcon";
 			this.pictureBoxFormIcon.Size = new System.Drawing.Size(16, 16);
 			this.pictureBoxFormIcon.TabIndex = 2;
@@ -246,6 +249,7 @@ namespace msn2.net.Controls
 			// 
 			// panelButtons
 			// 
+			this.panelButtons.BackColor = System.Drawing.Color.Transparent;
 			this.panelButtons.Controls.AddRange(new System.Windows.Forms.Control[] {
 																					   this.buttonOpacity,
 																					   this.buttonRollup,
@@ -407,6 +411,9 @@ namespace msn2.net.Controls
 				ShellFormConfigData layoutConfig = (ShellFormConfigData) layoutData.ConfigData;
 				layoutConfig.Apply(this);
 			}                
+
+			// Check if we should lock to another form based on position
+//			PerformLockingCheck();
 		}
 
 		#endregion
@@ -417,7 +424,7 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
 		{
-			System.Diagnostics.Debug.WriteLine(this.Name + ": " + this.GetHashCode().ToString());
+			System.Diagnostics.Debug.WriteLine(this.Name + ": layout");
 
 			// Add mouseover cursors if not in a fixed style
 			if (!DesignMode && this.Parent == null)
@@ -574,17 +581,25 @@ namespace msn2.net.Controls
 				int newLeft		= this.Left + e.X - startX;
 				int newTop		= this.Top + e.Y - startY;
 
-				PerformLockingCheck(newLeft, newTop, true);
+				PerformLockingCheck(newLeft, newTop, false);
 
-				// Move any forms locked to this
-				foreach (ShellForm instance in instances)
+				// Only move form if it didn't just get locked
+				if (this.lockedTo == null)
+					MoveForm(e.X - startX, e.Y - startY);
+			}
+		}
+
+		protected void MoveForm(int xdiff, int ydiff)
+		{
+			this.Left = this.Left + xdiff;
+			this.Top  = this.Top  + ydiff;
+
+			// Move any forms locked to this form
+			foreach (ShellForm instance in instances)
+			{
+				if (instance.lockedTo == this)
 				{
-					// Reposition any forms locked to this form
-					if (instance.lockedTo == this)
-					{
-						instance.Left = instance.Left + e.X - startX;
-						instance.Top  = instance.Top  + e.Y - startY;
-					}
+					instance.MoveForm(xdiff, ydiff);
 				}
 			}
 		}
@@ -617,15 +632,16 @@ namespace msn2.net.Controls
 					if (lockedTo == null)
 					{
 						lockedTo = instance;
-						instance.timerFadeIn.Enabled = true;
-						instance.timerFadeOut.Enabled = false;
+						instance.FadeIn(this);
 						
 						// We want to hide buttons that we want controlled by both instances
+						this.TopMost					= instance.TopMost;
+						this.EnableOpacityChanges		= instance.EnableOpacityChanges;
 						this.buttonOnTop.Visible		= false;
 						this.buttonOpacity.Visible		= false;
 
-						this.Left = instance.Left;
-						this.Top  = instance.Top + instance.Height;
+						// Move form to be in correct position
+						MoveForm( instance.Left - this.Left, (instance.Top + instance.Height) - this.Top);
 
 						// Snap widths if close
 						if (Math.Abs(this.Width - instance.Width) < 20)
@@ -702,8 +718,6 @@ namespace msn2.net.Controls
 
 		#region Form fade in/out
 
-		private bool activating = false;
-
 		private void ShellForm_Activated(object sender, System.EventArgs e)
 		{
 			Debug.WriteLine("ShellForm_Activated", this.Name);
@@ -712,22 +726,29 @@ namespace msn2.net.Controls
 			{
 				activating = true;
 
-				timerFadeOut.Enabled = false;
-				timerFadeIn.Enabled  = true;
-
-				// Fade in any forms locked to me
-				foreach (ShellForm instance in instances)
-				{
-					if (instance.lockedTo == this || this.lockedTo == instance)
-					{
-						Debug.WriteLine("Fade in " + instance.Name);
-						instance.timerFadeIn.Enabled  = true;
-						instance.timerFadeOut.Enabled = false;
-						instance.Show();
-					}
-				}
+				// recursively fade in all locked forms
+				FadeIn(this);
 
 				activating = false;
+			}
+		}
+
+		protected static bool activating = false;
+
+		protected void FadeIn(ShellForm source)
+		{
+			timerFadeOut.Enabled = false;
+			timerFadeIn.Enabled  = true;
+
+			// Fade in any forms locked to me
+			foreach (ShellForm instance in instances)
+			{
+				if (instance != source && (instance.lockedTo == this || this.lockedTo == instance))
+				{
+					Debug.WriteLine("Fade in " + instance.Name);
+					instance.FadeIn(this);
+					instance.Show();
+				}
 			}
 		}
 
@@ -737,25 +758,31 @@ namespace msn2.net.Controls
 
 			if (enableOpacityChanges && !activating && !suspendOpacityChanges)
 			{
-				timerFadeIn.Enabled  = false;
-				timerFadeOut.Enabled = true;
+				// Recursively fade out all locked forms
+				FadeOut(this);
+			}
+		}
 
-				// Fade out any instance locked to me
-				foreach (ShellForm instance in instances)
+		protected void FadeOut(ShellForm source)
+		{
+			timerFadeOut.Enabled = true;
+			timerFadeIn.Enabled  = false;
+
+			// Fade in any forms locked to me
+			foreach (ShellForm instance in instances)
+			{
+				if (instance != source && (instance.lockedTo == this || this.lockedTo == instance))
 				{
-					if (instance.lockedTo == this || this.lockedTo == instance)
-					{
-						Debug.WriteLine("Fade out " + instance.Name);
-						instance.timerFadeIn.Enabled  = false;
-						instance.timerFadeOut.Enabled = true;
-					}
+					Debug.WriteLine("Fade out " + instance.Name);
+					instance.FadeOut(this);
+					instance.Show();
 				}
 			}
 		}
 
 		private void FadeIn_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{	
-			if (this.Opacity < 0.97)
+			if (this.Opacity < 1.0)
 			{
 				this.Opacity += 0.1;
 			}
@@ -1373,6 +1400,46 @@ namespace msn2.net.Controls
 			this.ResumeLayout(true);
 		}
 
+		#endregion
+
+		#region ShadeRegion
+
+		protected void ShadeRegion(PaintEventArgs e, Color startColor)
+		{
+			int red = 255 - ((255 - startColor.R) / 3);
+			int green = 255 - ((255 - startColor.G) / 3);
+			int blue = 255 - ((255 - startColor.B) / 3);
+
+			ShadeRegion(e, startColor, Color.FromArgb(red, green, blue));
+		}
+
+		protected void ShadeRegion(PaintEventArgs e, Color startColor, Color endColor)
+		{
+			if (e.ClipRectangle.Height == 0)
+				return;
+
+			// Figure out multipliers - amount to change each color for each line
+			double redDiff			= (startColor.R - endColor.R) / e.ClipRectangle.Height;
+			double greenDiff		= (startColor.G - endColor.G) / e.ClipRectangle.Height;
+			double blueDiff			= (startColor.B - endColor.B) / e.ClipRectangle.Height;
+
+			double currentRed		= startColor.R;
+			double currentGreen		= startColor.G;
+			double currentBlue		= startColor.B;
+
+			for (int i = 0; i < e.ClipRectangle.Height; i++)
+			{
+				currentRed		-= redDiff;
+				currentGreen	-= greenDiff;
+				currentBlue		-= blueDiff;
+
+				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
+				using (Pen pen = new Pen(new SolidBrush(color)))
+				{
+					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - i, e.ClipRectangle.Width, e.ClipRectangle.Height - i);
+				}                
+			}
+		}
 		#endregion
 
 	}

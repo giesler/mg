@@ -338,11 +338,27 @@ namespace msn2.net.Controls
 
 	#region CategoryConfigData
 
+	public enum CategoryType
+	{
+		PersonalCategory,
+		SharedCategory
+	}
+
 	/// <summary>
 	/// Type specifier for category items in Config
 	/// </summary>
 	public class CategoryConfigData: ConfigData
 	{
+		private CategoryType categoryType = CategoryType.PersonalCategory;
+
+		public CategoryConfigData()
+		{}
+
+		public CategoryType CategoryType
+		{
+			get { return categoryType; }
+			set { categoryType = value; }
+		}
 	}
 
 	#endregion

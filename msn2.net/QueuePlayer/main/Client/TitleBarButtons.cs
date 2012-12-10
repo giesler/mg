@@ -52,6 +52,7 @@ namespace msn2.net.QueuePlayer.Client
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(TitleBarButtons));
 			this.buttonPrevious = new System.Windows.Forms.Button();
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.buttonStop = new System.Windows.Forms.Button();
@@ -111,7 +112,8 @@ namespace msn2.net.QueuePlayer.Client
 			// 
 			// TitleBarButtons
 			// 
-			this.BackColor = System.Drawing.Color.DimGray;
+			this.BackColor = System.Drawing.Color.Gray;
+			this.BackgroundImage = ((System.Drawing.Bitmap)(resources.GetObject("$this.BackgroundImage")));
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.buttonPrevious,
 																		  this.buttonNext,
