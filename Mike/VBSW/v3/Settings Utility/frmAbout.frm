@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "About VBSW Settings Program"
+   Caption         =   "About IA Settings Program"
    ClientHeight    =   2010
    ClientLeft      =   45
    ClientTop       =   330
@@ -33,7 +33,7 @@ Begin VB.Form frmAbout
       Width           =   2415
    End
    Begin VB.Label lblAbout 
-      Caption         =   "This program creates settings files for VBSW.  For more information on this program or VBSW, visit http://giesler.org/vbsw."
+      Caption         =   "This program creates settings files for VBSW.  For more information on this program or VBSW, visit http://vbsw.giesler.org."
       Height          =   735
       Left            =   240
       TabIndex        =   0

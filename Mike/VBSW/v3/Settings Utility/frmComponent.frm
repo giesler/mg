@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmComponent 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Component"
@@ -44,23 +44,18 @@ Begin VB.Form frmComponent
       _Version        =   393216
       Style           =   1
       Tabs            =   9
+      Tab             =   3
       TabsPerRow      =   9
       TabHeight       =   520
       TabCaption(0)   =   "General Settings"
       TabPicture(0)   =   "frmComponent.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
-      Tab(0).Control(0)=   "Label1"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label12"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label35"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "txtName"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "fraCheckType"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "txtURL"
-      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "txtURL"
+      Tab(0).Control(1)=   "fraCheckType"
+      Tab(0).Control(2)=   "txtName"
+      Tab(0).Control(3)=   "Label35"
+      Tab(0).Control(4)=   "Label12"
+      Tab(0).Control(5)=   "Label1"
       Tab(0).ControlCount=   6
       TabCaption(1)   =   "OS Reqs"
       TabPicture(1)   =   "frmComponent.frx":001C
@@ -94,9 +89,11 @@ Begin VB.Form frmComponent
       Tab(2).ControlCount=   13
       TabCaption(3)   =   "Dependencies"
       TabPicture(3)   =   "frmComponent.frx":0054
-      Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "lvDependencies"
-      Tab(3).Control(1)=   "Label11"
+      Tab(3).ControlEnabled=   -1  'True
+      Tab(3).Control(0)=   "Label11"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "lvDependencies"
+      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       TabCaption(4)   =   "Notes"
       TabPicture(4)   =   "frmComponent.frx":0070
@@ -176,7 +173,7 @@ Begin VB.Form frmComponent
       Begin VB.TextBox txtURL 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   2
          ToolTipText     =   "URL to download this file"
          Top             =   1200
@@ -277,7 +274,7 @@ Begin VB.Form frmComponent
       Begin VB.Frame fraCheckType 
          Caption         =   "Component Check Type"
          Height          =   1455
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   32
          Top             =   1920
          Width           =   6735
@@ -388,13 +385,14 @@ Begin VB.Form frmComponent
       End
       Begin MSComctlLib.ListView lvDependencies 
          Height          =   2655
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   17
          Top             =   960
          Width           =   6855
          _ExtentX        =   12091
          _ExtentY        =   4683
          View            =   3
+         LabelEdit       =   1
          LabelWrap       =   -1  'True
          HideSelection   =   -1  'True
          Checkboxes      =   -1  'True
@@ -418,7 +416,7 @@ Begin VB.Form frmComponent
       Begin VB.TextBox txtName 
          CausesValidation=   0   'False
          Height          =   285
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   1
          ToolTipText     =   "Friendly name for prompts and such"
          Top             =   840
@@ -530,7 +528,7 @@ Begin VB.Form frmComponent
       Begin VB.Label Label35 
          Caption         =   "URL:"
          Height          =   255
-         Left            =   600
+         Left            =   -74400
          TabIndex        =   52
          Top             =   1200
          Width           =   615
@@ -720,7 +718,7 @@ Begin VB.Form frmComponent
          Caption         =   "General information about this component"
          ForeColor       =   &H80000017&
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   31
          Top             =   360
          Width           =   6975
@@ -730,7 +728,7 @@ Begin VB.Form frmComponent
          Caption         =   "Before installing this component, the following components must be installed/not be required based on OS"
          ForeColor       =   &H80000017&
          Height          =   495
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   30
          Top             =   360
          Width           =   6975
@@ -774,7 +772,7 @@ Begin VB.Form frmComponent
       Begin VB.Label Label1 
          Caption         =   "Name:"
          Height          =   255
-         Left            =   600
+         Left            =   -74400
          TabIndex        =   23
          Top             =   840
          Width           =   615

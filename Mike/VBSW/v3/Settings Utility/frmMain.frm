@@ -1,13 +1,13 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H80000004&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "VBSW Settings Utility"
+   Caption         =   "IA Settings Utility"
    ClientHeight    =   5490
    ClientLeft      =   150
-   ClientTop       =   720
+   ClientTop       =   840
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
@@ -52,8 +52,6 @@ Begin VB.Form frmMain
       _ExtentY        =   8916
       _Version        =   393216
       Style           =   1
-      Tabs            =   4
-      TabsPerRow      =   4
       TabHeight       =   520
       Enabled         =   0   'False
       BackColor       =   -2147483644
@@ -82,88 +80,88 @@ Begin VB.Form frmMain
       Tab(0).Control(9).Enabled=   0   'False
       Tab(0).Control(10)=   "txtSplash"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).ControlCount=   11
+      Tab(0).Control(11)=   "Frame2"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "fraRebootOption"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).ControlCount=   13
       TabCaption(1)   =   "Components"
       TabPicture(1)   =   "frmMain.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label10"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "cmdAdd"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "lvComponents"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "cmdEdit"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "cmdDelete"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "cmdDownload"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "cmdMoveUp"
-      Tab(1).Control(6).Enabled=   0   'False
-      Tab(1).Control(7)=   "cmdMoveDown"
-      Tab(1).Control(7).Enabled=   0   'False
+      Tab(1).Control(0)=   "cmdMoveDown"
+      Tab(1).Control(1)=   "cmdMoveUp"
+      Tab(1).Control(2)=   "cmdDownload"
+      Tab(1).Control(3)=   "cmdDelete"
+      Tab(1).Control(4)=   "cmdEdit"
+      Tab(1).Control(5)=   "lvComponents"
+      Tab(1).Control(6)=   "cmdAdd"
+      Tab(1).Control(7)=   "Label10"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "Buttons"
       TabPicture(2)   =   "frmMain.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label6"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "lvButtons"
-      Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "cmdDeleteButton"
-      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(0)=   "cmdSetAsCancel"
+      Tab(2).Control(1)=   "cmdSetAsDefault"
+      Tab(2).Control(2)=   "cmdAddButton"
       Tab(2).Control(3)=   "cmdEditButton"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "cmdAddButton"
-      Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "cmdSetAsDefault"
-      Tab(2).Control(5).Enabled=   0   'False
-      Tab(2).Control(6)=   "cmdSetAsCancel"
-      Tab(2).Control(6).Enabled=   0   'False
+      Tab(2).Control(4)=   "cmdDeleteButton"
+      Tab(2).Control(5)=   "lvButtons"
+      Tab(2).Control(6)=   "Label6"
       Tab(2).ControlCount=   7
-      TabCaption(3)   =   "Program Options"
-      TabPicture(3)   =   "frmMain.frx":0054
-      Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "fraRebootOption"
-      Tab(3).Control(1)=   "Frame2"
-      Tab(3).ControlCount=   2
-      Begin VB.CommandButton cmdSetAsCancel 
-         Caption         =   "Set As Cancel"
-         Height          =   375
-         Left            =   -69960
+      Begin VB.Frame fraRebootOption 
+         Caption         =   " Reboot Option "
+         Height          =   975
+         Left            =   240
          TabIndex        =   34
-         Top             =   4080
-         Width           =   1215
-      End
-      Begin VB.CommandButton cmdSetAsDefault 
-         Caption         =   "Set As Default"
-         Height          =   375
-         Left            =   -69960
-         TabIndex        =   33
-         Top             =   3600
-         Width           =   1215
+         Top             =   2160
+         Width           =   6015
+         Begin VB.TextBox txtRebootPromptSeconds 
+            Height          =   285
+            Left            =   2400
+            TabIndex        =   35
+            Top             =   240
+            Width           =   375
+         End
+         Begin VB.OptionButton optRebootPromptType 
+            Caption         =   "&Reboot automatically after              seconds"
+            Height          =   255
+            Index           =   0
+            Left            =   120
+            TabIndex        =   37
+            Top             =   240
+            Width           =   5655
+         End
+         Begin VB.OptionButton optRebootPromptType 
+            Caption         =   "Display message box and wait for user to click 'Restart' or 'Don't Restart'"
+            Height          =   255
+            Index           =   1
+            Left            =   120
+            TabIndex        =   36
+            Top             =   600
+            Width           =   5655
+         End
       End
       Begin VB.Frame Frame2 
          Caption         =   " Dialog Options "
          Height          =   1335
-         Left            =   -74760
-         TabIndex        =   31
-         Top             =   1560
+         Left            =   240
+         TabIndex        =   29
+         Top             =   3240
          Width           =   6015
          Begin VB.TextBox txtSkipProgramName 
             Height          =   285
             Left            =   3720
-            TabIndex        =   37
+            TabIndex        =   30
             Top             =   960
             Width           =   2175
          End
          Begin VB.OptionButton optDisplayType 
-            Caption         =   "Skip splash bitmap only if program is named:"
+            Caption         =   "&Display splash bitmap with buttons"
             Height          =   255
-            Index           =   2
+            Index           =   0
             Left            =   120
-            TabIndex        =   36
-            Top             =   960
+            TabIndex        =   33
+            Top             =   240
             Width           =   5655
          End
          Begin VB.OptionButton optDisplayType 
@@ -171,59 +169,42 @@ Begin VB.Form frmMain
             Height          =   255
             Index           =   1
             Left            =   120
-            TabIndex        =   35
+            TabIndex        =   32
             Top             =   600
             Width           =   5655
          End
          Begin VB.OptionButton optDisplayType 
-            Caption         =   "&Display splash bitmap with buttons"
+            Caption         =   "Skip splash bitmap only if program is named:"
             Height          =   255
-            Index           =   0
+            Index           =   2
             Left            =   120
-            TabIndex        =   32
-            Top             =   240
+            TabIndex        =   31
+            Top             =   960
             Width           =   5655
          End
       End
-      Begin VB.Frame fraRebootOption 
-         Caption         =   " Reboot Option "
-         Height          =   975
-         Left            =   -74760
+      Begin VB.CommandButton cmdSetAsCancel 
+         Caption         =   "Set As Cancel"
+         Height          =   375
+         Left            =   -69960
+         TabIndex        =   28
+         Top             =   4140
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdSetAsDefault 
+         Caption         =   "Set As Default"
+         Height          =   375
+         Left            =   -69960
          TabIndex        =   27
-         Top             =   480
-         Width           =   6015
-         Begin VB.TextBox txtRebootPromptSeconds 
-            Height          =   285
-            Left            =   2400
-            TabIndex        =   30
-            Top             =   240
-            Width           =   375
-         End
-         Begin VB.OptionButton optRebootPromptType 
-            Caption         =   "Display message box and wait for user to click 'Restart' or 'Don't Restart'"
-            Height          =   255
-            Index           =   1
-            Left            =   120
-            TabIndex        =   29
-            Top             =   600
-            Width           =   5655
-         End
-         Begin VB.OptionButton optRebootPromptType 
-            Caption         =   "&Reboot automatically after              seconds"
-            Height          =   255
-            Index           =   0
-            Left            =   120
-            TabIndex        =   28
-            Top             =   240
-            Width           =   5655
-         End
+         Top             =   3660
+         Width           =   1215
       End
       Begin VB.CommandButton cmdAddButton 
          Caption         =   "&Add"
          Height          =   375
          Left            =   -69960
          TabIndex        =   25
-         Top             =   840
+         Top             =   900
          Width           =   1215
       End
       Begin VB.CommandButton cmdEditButton 
@@ -231,7 +212,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   23
-         Top             =   1320
+         Top             =   1380
          Width           =   1215
       End
       Begin VB.CommandButton cmdDeleteButton 
@@ -239,7 +220,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   22
-         Top             =   1800
+         Top             =   1860
          Width           =   1215
       End
       Begin VB.TextBox txtSplash 
@@ -247,7 +228,7 @@ Begin VB.Form frmMain
          Left            =   1320
          TabIndex        =   18
          ToolTipText     =   "Bitmap that will be loaded by autorun.exe"
-         Top             =   1740
+         Top             =   1620
          Width           =   3975
       End
       Begin VB.CommandButton cmdSplashBrowse 
@@ -255,7 +236,7 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   5400
          TabIndex        =   17
-         Top             =   1740
+         Top             =   1620
          Width           =   855
       End
       Begin VB.CommandButton cmdMoveDown 
@@ -263,7 +244,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   14
-         Top             =   4260
+         Top             =   4320
          Width           =   1215
       End
       Begin VB.CommandButton cmdMoveUp 
@@ -271,7 +252,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   13
-         Top             =   3780
+         Top             =   3840
          Width           =   1215
       End
       Begin VB.CommandButton cmdDownload 
@@ -279,17 +260,17 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   12
-         Top             =   2700
+         Top             =   2760
          Width           =   1215
       End
       Begin VB.TextBox txtRootPath 
-         BackColor       =   &H80000004&
+         BackColor       =   &H8000000F&
          Height          =   285
          Left            =   1320
          Locked          =   -1  'True
          TabIndex        =   7
          TabStop         =   0   'False
-         Top             =   1260
+         Top             =   1140
          Width           =   4935
       End
       Begin VB.TextBox txtProgramName 
@@ -297,7 +278,7 @@ Begin VB.Form frmMain
          Left            =   1320
          TabIndex        =   5
          ToolTipText     =   "Program name that will appear in the title bar and message boxes"
-         Top             =   900
+         Top             =   780
          Width           =   4935
       End
       Begin VB.CommandButton cmdDelete 
@@ -305,7 +286,7 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   4
-         Top             =   1800
+         Top             =   1860
          Width           =   1215
       End
       Begin VB.CommandButton cmdEdit 
@@ -313,14 +294,14 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   3
-         Top             =   1320
+         Top             =   1380
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvComponents 
          Height          =   3975
          Left            =   -74880
          TabIndex        =   1
-         Top             =   720
+         Top             =   780
          Width           =   4815
          _ExtentX        =   8493
          _ExtentY        =   7011
@@ -351,14 +332,14 @@ Begin VB.Form frmMain
          Height          =   375
          Left            =   -69960
          TabIndex        =   2
-         Top             =   840
+         Top             =   900
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvButtons 
          Height          =   3975
          Left            =   -74880
          TabIndex        =   24
-         Top             =   720
+         Top             =   780
          Width           =   4815
          _ExtentX        =   8493
          _ExtentY        =   7011
@@ -403,7 +384,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74880
          TabIndex        =   26
-         Top             =   360
+         Top             =   420
          Width           =   6255
       End
       Begin VB.Line Line1 
@@ -414,7 +395,7 @@ Begin VB.Form frmMain
          Y2              =   4620
       End
       Begin VB.Label Label38 
-         Caption         =   "For more information/help, on the web go to http://giesler.org/vbsw."
+         Caption         =   "For more information/help, go to http://vbsw.giesler.org"
          Height          =   255
          Left            =   240
          TabIndex        =   21
@@ -426,7 +407,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   1440
          TabIndex        =   20
-         Top             =   2040
+         Top             =   1920
          Width           =   4335
       End
       Begin VB.Label Label3 
@@ -434,7 +415,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   240
          TabIndex        =   19
-         Top             =   1740
+         Top             =   1620
          Width           =   1095
       End
       Begin VB.Label Label5 
@@ -454,7 +435,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74880
          TabIndex        =   15
-         Top             =   360
+         Top             =   420
          Width           =   6255
       End
       Begin VB.Label Label1 
@@ -462,7 +443,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   240
          TabIndex        =   8
-         Top             =   1260
+         Top             =   1140
          Width           =   1095
       End
       Begin VB.Label Label2 
@@ -470,7 +451,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   240
          TabIndex        =   6
-         Top             =   900
+         Top             =   780
          Width           =   855
       End
    End
@@ -664,7 +645,7 @@ Private Sub cmdDownload_Click()
     MsgBox "You must select a component to download!", vbExclamation
     Exit Sub
   End If
-  Set objComponent = mobjSettings.Components(li.Text)
+  Set objComponent = mobjSettings.Components(li.SubItems(1))
   If objComponent.URL = "" Then
     MsgBox "The component '" + li.Text + "' does not have a download URL set.", vbExclamation
     Exit Sub
@@ -866,10 +847,16 @@ End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
   
+  Dim iResponse  As Integer
+  
   If mblnDirty Then
-    If MsgBox("Do you want to save changes before exiting?", vbQuestion + vbYesNo) = vbYes Then
+    iResponse = MsgBox("Do you want to save changes before exiting?", vbQuestion + vbYesNoCancel)
+    If iResponse = vbYes Then
       SaveSettings
       mobjSettings.Save
+    ElseIf iResponse = vbCancel Then
+      Cancel = True
+      Exit Sub
     End If
   End If
   If Not (mobjSettings Is Nothing) Then
@@ -908,8 +895,9 @@ End Sub
 Private Sub mnuFileExit_Click()
 
   Unload Me
-  End
 
+  If Me Is Nothing Then End
+  
 End Sub
 
 Private Sub mnuFileOpen_Click()
@@ -1033,7 +1021,7 @@ End Sub
 Private Sub optDisplayType_Click(Index As Integer)
 
   Me.txtSkipProgramName.Enabled = False
-  Me.txtSkipProgramName.BackColor = vbMenuBar
+  Me.txtSkipProgramName.BackColor = vbButtonFace
   Select Case Index
     Case 2
       Me.txtSkipProgramName.Enabled = True
@@ -1045,7 +1033,7 @@ End Sub
 Private Sub optRebootPromptType_Click(Index As Integer)
 
   Me.txtRebootPromptSeconds.Enabled = False
-  Me.txtRebootPromptSeconds.BackColor = vbMenuBar
+  Me.txtRebootPromptSeconds.BackColor = vbButtonFace
   
   Select Case Index
     Case 0

@@ -21,6 +21,13 @@ Public Enum ButtonTypeEnum
   RunProgram = 0
   LaunchURL
   CancelDialog
+  ShellExecuteItem
+End Enum
+
+Public Enum DialogActionEnum
+    DialogActionDoNotShow = 0
+    DialogActionShowImmediately
+    DialogActionShowWhenActionComplete
 End Enum
 
 Private mstrID As String
@@ -28,6 +35,7 @@ Private mstrName As String
 Private mblnEnabled As Boolean
 Private mblnDelete As Boolean
 Private mblnComponentCheck As Boolean
+Private mtypeDialogAction As DialogActionEnum
 
 Private mvarSettings As CSettingsFile
 
@@ -36,6 +44,7 @@ Private mstrSetupCommand As String
 Private mstrSetupCommandLine As String
 Private mblnRestartPrompt As Boolean
 Private mstrURL As String
+Private mstrFile As String
 
 Private mblnDefault As Boolean
 Private mblnCancel As Boolean
@@ -122,6 +131,15 @@ Public Property Get ComponentCheck() As Boolean
 End Property
 
 
+Public Property Let DialogAction(ByVal vData As DialogActionEnum)
+    mtypeDialogAction = vData
+End Property
+
+Public Property Get DialogAction() As DialogActionEnum
+    DialogAction = mtypeDialogAction
+End Property
+
+
 Public Property Let Standard(ByVal vData As String)
   mstrStandard = vData
 End Property
@@ -170,6 +188,14 @@ End Property
 
 Public Property Get URL() As String
     URL = mstrURL
+End Property
+
+Public Property Let File(ByVal vData As String)
+    mstrFile = vData
+End Property
+
+Public Property Get File() As String
+    File = mstrFile
 End Property
 
 
@@ -268,6 +294,8 @@ Public Function Load(ByRef pobjCIni As CIni)
   pobjCIni.ReadValue mstrID, "Name", mstrName
   pobjCIni.ReadValue mstrID, "ComponentCheck", strTemp, "0"
   mblnComponentCheck = IIf(strTemp = "1", True, False)
+  pobjCIni.ReadValue mstrID, "DialogAction", strTemp, "0"
+  mtypeDialogAction = Val(strTemp)
   pobjCIni.ReadValue mstrID, "Default", strTemp, "0"
   mblnDefault = IIf(strTemp = "1", True, False)
   pobjCIni.ReadValue mstrID, "Cancel", strTemp, "0"
@@ -279,6 +307,7 @@ Public Function Load(ByRef pobjCIni As CIni)
   pobjCIni.ReadValue mstrID, "SetupCommand", mstrSetupCommand, ""
   pobjCIni.ReadValue mstrID, "SetupCommandLine", mstrSetupCommandLine, ""
   pobjCIni.ReadValue mstrID, "URL", mstrURL
+  pobjCIni.ReadValue mstrID, "File", mstrFile
   
   ' Button image information
   pobjCIni.ReadValue mstrID, "Standard", mstrStandard
@@ -310,6 +339,7 @@ Public Function Save(ByRef pobjCIni As CIni)
   
   pobjCIni.WriteValue mstrID, "Name", mstrName
   pobjCIni.WriteValue mstrID, "ComponentCheck", IIf(mblnComponentCheck, "1", "0")
+  pobjCIni.WriteValue mstrID, "DialogAction", CStr(mtypeDialogAction)
   pobjCIni.WriteValue mstrID, "Default", IIf(mblnDefault, "1", "0")
   pobjCIni.WriteValue mstrID, "Cancel", IIf(mblnCancel, "1", "0")
   
@@ -325,6 +355,7 @@ Public Function Save(ByRef pobjCIni As CIni)
   pobjCIni.WriteValue mstrID, "SetupCommand", mstrSetupCommand
   pobjCIni.WriteValue mstrID, "SetupCommandLine", mstrSetupCommandLine
   pobjCIni.WriteValue mstrID, "URL", mstrURL
+  pobjCIni.WriteValue mstrID, "File", mstrFile
   pobjCIni.WriteValue mstrID, "RestartPrompt", IIf(mblnRestartPrompt, "1", "0")
   
   ' Button sound information
