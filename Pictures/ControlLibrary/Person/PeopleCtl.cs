@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -76,13 +77,28 @@ namespace msn2.net.Pictures.Controls
 
         private void ReloadPeople()
         {
-            dsPerson = new DataSetPerson();
-            daPerson.Fill(dsPerson, "Person");
+            this.recentList.Controls.Clear();
+            this.matchList.Controls.Clear();
+
+            this.dsPerson = null;
+            this.cachedPersonList = null;
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(ReloadThread), null);
+        }
+
+        private void ReloadThread(object state)
+        {
+            DataSetPerson ds = new DataSetPerson();
+            daPerson.Fill(ds, "Person");
 
             this.cachedPersonList = (from p in PicContext.Current.DataContext.Persons
                                      select p).ToList<Person>();
-
-            this.AddPersonList(PicContext.Current.UserManager.GetRecentUsers(), this.recentList);
+            this.dsPerson = ds;
+        
+            this.Invoke(new MethodInvoker(delegate (){
+                this.AddPersonList(PicContext.Current.UserManager.GetRecentUsers(), this.recentList);
+                this.searchText.Focus();
+            }));
         }
 
 		/// <summary> 
@@ -503,22 +519,24 @@ namespace msn2.net.Pictures.Controls
 		}
 
 		// events
-		public event ClickPersonEventHandler ClickPerson;
 		public event DoubleClickPersonEventHandler DoubleClickPerson;
 
         private void searchText_TextChanged(object sender, EventArgs e)
         {
             string text = searchText.Text.ToLower();
 
-            List<Person> list = (from p in this.cachedPersonList
-                    where p.FirstName.ToLower().Contains(text) 
-                        || p.LastName.ToLower().Contains(text) 
-                        || p.FullName.ToLower().Contains(text)
-                    select p).ToList<Person>();
+            if (this.cachedPersonList != null)
+            {
+                List<Person> list = (from p in this.cachedPersonList
+                                     where p.FirstName.ToLower().Contains(text)
+                                         || p.LastName.ToLower().Contains(text)
+                                         || p.FullName.ToLower().Contains(text)
+                                     select p).ToList<Person>();
 
-            AddPersonList(list, this.matchList);
+                AddPersonList(list, this.matchList);
 
-            this.matchCount.Text = "Found " + list.Count.ToString() + " matches";
+                this.matchCount.Text = "Found " + list.Count.ToString() + " matches";
+            }
         }
 
         private void AddPersonList(List<Person> list, Control parentControl)
