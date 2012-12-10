@@ -11,7 +11,7 @@ namespace msn2.net.BarMonkey.RelayController
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ProXRRelayTimerController)))
+            using (ServiceHost host = new ServiceHost(typeof(ProXRRelayPulseController)))
             {
                 host.Open();
 

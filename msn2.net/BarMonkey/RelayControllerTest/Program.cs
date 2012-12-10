@@ -68,7 +68,7 @@ namespace RelayControllerTest
                             BatchItem item = new BatchItem();
                             item.Group = int.Parse(commands[0]);
                             item.RelayNumber = int.Parse(commands[1]);
-                            item.Seconds = int.Parse(commands[2]);
+                            item.Seconds = double.Parse(commands[2]);
                             currentList.Add(item);
                         }
                         catch (FormatException ex)

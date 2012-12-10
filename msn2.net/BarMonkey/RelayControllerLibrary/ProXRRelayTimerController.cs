@@ -11,7 +11,7 @@ namespace msn2.net.BarMonkey.RelayController
     {
         protected override void SendBatchGroup(List<BatchItem> batch)
         {
-            int maxSeconds = 0;
+            double maxSeconds = 0.0;
             int index = 0;
             int lsb = 0;
             int usb = 0;
@@ -25,7 +25,7 @@ namespace msn2.net.BarMonkey.RelayController
 
                 int selectedTimerIndex = 90 + index;
 
-                this.SendCommandAndFlush(50, selectedTimerIndex, 0, 0, item.Seconds, item.RelayNumber);
+                this.SendCommandAndFlush("schedule", 50, selectedTimerIndex, 0, 0, (int)item.Seconds, item.RelayNumber);
 
                 if (index < 8)
                 {
@@ -39,9 +39,9 @@ namespace msn2.net.BarMonkey.RelayController
                 index++;
             }
 
-            this.SendCommandAndFlush(50, 131, lsb, usb);
+            this.SendCommandAndFlush("flush", 50, 131, lsb, usb);
 
-            Thread.Sleep(1000 * maxSeconds + 500);
+            Thread.Sleep(1000 * (int)maxSeconds + 500);
         }
 
     }

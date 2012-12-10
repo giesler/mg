@@ -20,7 +20,7 @@ namespace msn2.net.BarMonkey.RelayController
     {
         int relayNumber;
         int group;
-        int seconds;
+        double seconds;
 
         [DataMember]
         public int RelayNumber
@@ -37,7 +37,7 @@ namespace msn2.net.BarMonkey.RelayController
         }
 
         [DataMember]
-        public int Seconds
+        public double Seconds
         {
             get { return seconds; }
             set { seconds = value; }

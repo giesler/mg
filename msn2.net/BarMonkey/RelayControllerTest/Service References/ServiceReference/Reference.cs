@@ -22,7 +22,7 @@ namespace RelayControllerTest.ServiceReference {
         
         private int RelayNumberField;
         
-        private int SecondsField;
+        private double SecondsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -55,7 +55,7 @@ namespace RelayControllerTest.ServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Seconds {
+        public double Seconds {
             get {
                 return this.SecondsField;
             }

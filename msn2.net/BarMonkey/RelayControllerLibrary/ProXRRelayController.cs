@@ -106,24 +106,26 @@ namespace msn2.net.BarMonkey
                         this.serialPort.Open();
 
                         // Connect test
-                        this.SendCommandAndFlush(33);
+                        this.SendCommandAndFlush("connect", 33);
 
-                        // Set auto refresh
-                        this.SendCommandAndFlush(25);
-
-                        // Disable reporting mode
-                        this.SendCommandAndFlush(28);
+                        ConfigureSerialPort();
                     }
                 }
             }
         }
 
+        protected virtual void ConfigureSerialPort()
+        {
+            this.SendCommandAndFlush("auto refresh", 25);
+
+            this.SendCommandAndFlush("disable reporting mode", 28);
+        }
+
         private void CloseSerialPort()
         {
-            if (this.serialPort.IsOpen == true)
+            if (this.serialPort != null && this.serialPort.IsOpen == true)
             {
-                // Turn off all ports
-                this.SendCommandAndFlush(29);
+                this.SendCommandAndFlush("turn off all ports", 29);
 
                 // TODO: Manually turn off all timers too
 
@@ -133,17 +135,19 @@ namespace msn2.net.BarMonkey
             this.serialPort = null;
         }
 
-        protected void SendCommandAndFlush(params int[] charCodes)
+        protected void SendCommandAndFlush(string commandName, params int[] charCodes)
         {
             this.OpenAndConfigureSerialPort();
 
-            this.SendCommand(charCodes);
+            this.SendCommand(commandName, charCodes);
             this.FlushBuffer();
         }
 
-        protected void SendCommand(params int[] charCodes)
+        protected void SendCommand(string commandName, params int[] charCodes)
         {
             this.OpenAndConfigureSerialPort();
+
+            Console.Write("Sending '{0}': ", commandName);
 
             char[] chars = new char[charCodes.Length + 1];
             chars[0] = (char)254;
@@ -162,7 +166,7 @@ namespace msn2.net.BarMonkey
         {
             this.OpenAndConfigureSerialPort();
 
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             int charsRead = 0;
             while (this.serialPort.BytesToRead > 0)
             {

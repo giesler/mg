@@ -10,7 +10,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Group" type="xs:int" />
       <xs:element minOccurs="0" name="RelayNumber" type="xs:int" />
-      <xs:element minOccurs="0" name="Seconds" type="xs:int" />
+      <xs:element minOccurs="0" name="Seconds" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BatchItem" nillable="true" type="tns:BatchItem" />
