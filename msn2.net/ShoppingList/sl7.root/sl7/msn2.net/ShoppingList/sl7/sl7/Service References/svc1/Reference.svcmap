@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fd69feb7-cb41-4b55-bbd1-5b896f821404" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://svc.msn2.net/sl/sls.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="sls.xsd" MetadataType="Schema" ID="958a2077-fec7-418c-aa8d-bd3ae1048498" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?xsd=xsd0" />
+    <MetadataFile FileName="ShoppingListService.wsdl" MetadataType="Wsdl" ID="d90cad6c-202b-48fb-bfe1-1deb135d90aa" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?wsdl" />
+    <MetadataFile FileName="sls.disco" MetadataType="Disco" ID="c73600c4-9f64-45ec-b29c-a1bdf48243e1" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?disco" />
+    <MetadataFile FileName="sls1.xsd" MetadataType="Schema" ID="616db5af-b7bc-4315-af20-796d1a8622f4" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?xsd=xsd2" />
+    <MetadataFile FileName="sls2.xsd" MetadataType="Schema" ID="680874f0-4ab5-431d-84ec-f39a4489f1dd" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?xsd=xsd1" />
+    <MetadataFile FileName="sls3.xsd" MetadataType="Schema" ID="f8326d0a-45c9-4880-8029-3e32c4e84544" SourceId="1" SourceUrl="http://svc.msn2.net/sl/sls.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

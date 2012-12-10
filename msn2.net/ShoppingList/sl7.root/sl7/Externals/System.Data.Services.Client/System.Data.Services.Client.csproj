@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>System.Data.Services.Client</RootNamespace>
+    <AssemblyName>System.Data.Services.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;ASTORIA_LIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Servicemodel" />
+    <Reference Include="System.Servicemodel.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="IQToolkit\ExpressionEvaluator.cs" />
+    <Compile Include="IQToolkit\ReadOnlyExtensions.cs" />
+    <Compile Include="IQToolkit\StrongDelegate.cs" />
+    <Compile Include="System\Data\Services\Client\ALinqExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ArraySet!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomContentProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomDataKind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomFeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomMaterializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomMaterializerInvoker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomMaterializerLog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\AtomParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BaseAsyncResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BatchStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BatchStreamState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BindingEntityInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BindingGraph.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BindingObserver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BindingPropertyKind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\BindingUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ChangeOperationResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ClientConvert.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ClientType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\CommonUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\CountOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceALinqExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceClientException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQuery!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQueryContinuation!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQueryContinuation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQueryException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceQueryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceRequest!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceRequestArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceRequestException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\DataServiceStreamResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Descriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\EntityChangedParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\EntityCollectionChangedParams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\EntityDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\EntityStates.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\EpmSyndicationContentSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Error.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Evaluator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ExpressionHelpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ExpressionNormalizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ExpressionWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\FilterQueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\GetReadStreamResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\HashSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\HttpProcessUtility.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\HttpStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\InputBinder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\InputReferenceExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\InternalError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\LinkDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\LoadCompletedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\MaterializeAtom.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\MediaEntryAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\MemberAssignmentAnalysis.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\MergeOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\MimeTypePropertyAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\NavigationPropertySingletonExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\OperationResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\OrderByQueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ParameterReplacerVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\PathBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionAnalyzer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionPath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionPathBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionPathSegment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionPlan.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionPlanCompiler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionQueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ProjectionRewriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\QueryComponents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\QueryOperationResponse!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\QueryOperationResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\QueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\QueryResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ReadingWritingEntityEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ReferenceEqualityComparer!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ReferenceEqualityComparer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ReflectionUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\RelationshipInformation.cs" />
+    <Compile Include="System\Data\Services\Client\ResourceBinder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ResourceExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ResourceExpressionType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\ResourceSetExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\SaveChangesEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\SaveChangesOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\SendingRequestEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\SequenceMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\SkipQueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\StreamStates.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Strings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TakeQueryOptionExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TextRes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TextResCategoryAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TextResDescriptionAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TrackingMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\TypeSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\UriHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\UriUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\UriWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Util.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\VertexColor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\WebUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\XmlConstants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\XmlUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Xml\XmlAtomErrorReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Client\Xml\XmlWrappingReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\DataServiceEntityAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\DataServiceKeyAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\DataServiceProtocolVersion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EntityPropertyMappingAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EntityPropertyMappingInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EntitySetAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmContentSerializerBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmCustomContentSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmCustomContentWriterNodeData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmSerializationKind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmSourcePathSegment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmSourceTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmTargetPathSegment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\EpmTargetTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\HasStreamAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\SyndicationItemProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Common\SyndicationTextContentKind.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\CaseInsensitiveAscii.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\ClientHttpWebRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\ClientHttpWebResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\ClientWebHeaderCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\DataParseStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HeaderInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HeaderInfoTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpHeaderToName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpRequestHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpRequestHeaderEnumToName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpStatusCode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpStatusCodeRange.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpWebRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\HttpWebResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\NameValueFromDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\ValidationHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebExceptionStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebHeaderCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebHeaderCollectionType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebParseError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebParseErrorCode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebParseErrorSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Http\WebResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Data\Services\Parsing\WebConvert.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\EnumerableExecutor!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\EnumerableExecutor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\EnumerableQuery!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\EnumerableQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\EnumerableRewriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\Error.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\LinqStrings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\OldExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\ReadOnlyCollectionExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\SR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\SRCategoryAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Expressions\SRDescriptionAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\IOrderedQueryable!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\IOrderedQueryable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\IQueryable!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\IQueryable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\IQueryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\LinqError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\LinqStrings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\Queryable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\SR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\SRCategoryAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\SRDescriptionAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Linq\TypeHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="System.Data.Services.Client.resources" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sl7", "sl7\sl7.csproj", "{4AC053EE-389A-4133-9182-964175002B35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Live", "..\..\..\Externals\Microsoft.Live\Microsoft.Live.csproj", "{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Data.Services.Client", "..\..\..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj", "{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccProjectName0 = \u0022$/msn2.net/ShoppingList/sl7.root/sl7\u0022,\u0020UHRAAAAA
+		SccLocalPath0 = ..\\..\\..
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectFilePathRelativizedFromConnection0 = msn2.net\\ShoppingList\\sl7\\
+		SccProjectUniqueName1 = ..\\..\\..\\Externals\\Microsoft.Live\\Microsoft.Live.csproj
+		SccLocalPath1 = ..\\..\\..
+		SccProjectFilePathRelativizedFromConnection1 = Externals\\Microsoft.Live\\
+		SccProjectUniqueName2 = ..\\..\\..\\Externals\\System.Data.Services.Client\\System.Data.Services.Client.csproj
+		SccLocalPath2 = ..\\..\\..
+		SccProjectFilePathRelativizedFromConnection2 = Externals\\System.Data.Services.Client\\
+		SccProjectUniqueName3 = sl7\\sl7.csproj
+		SccLocalPath3 = ..\\..\\..
+		SccProjectFilePathRelativizedFromConnection3 = msn2.net\\ShoppingList\\sl7\\sl7\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AC053EE-389A-4133-9182-964175002B35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC053EE-389A-4133-9182-964175002B35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AC053EE-389A-4133-9182-964175002B35}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AC053EE-389A-4133-9182-964175002B35}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
