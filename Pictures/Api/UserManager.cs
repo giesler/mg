@@ -154,13 +154,14 @@ namespace msn2.net.Pictures
 			Trace.WriteLine("PersonInfo", "Starting");
 
 			// set up a connection and command to retreive info
-			SqlConnection cn	= new SqlConnection(connectionString);
+			
+            SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_Login", cn);
 			SqlDataReader dr	= null;
 			PersonInfo info		= null;
 			cmd.CommandType		= CommandType.StoredProcedure;
 			cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 150);
-			cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 100);
 			cmd.Parameters.Add("@ValidEmail", SqlDbType.Bit);
 			cmd.Parameters["@ValidEmail"].Direction	= ParameterDirection.Output;
 			cmd.Parameters["@Email"].Value	  = email;
@@ -169,7 +170,7 @@ namespace msn2.net.Pictures
 			try 
 			{
 				cn.Open();
-				dr		= cmd.ExecuteReader(CommandBehavior.SingleRow);
+				dr		= cmd.ExecuteReader();
 				info	= LoadPersonInfo(dr);
 
 				// Find out if we had a valid email

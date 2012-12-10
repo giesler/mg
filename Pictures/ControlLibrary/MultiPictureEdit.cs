@@ -53,7 +53,7 @@ namespace msn2.net.Pictures.Controls
             description.AddItem(picture.Id, picture.Description);
             dateTaken.AddItem(picture.Id, picture.DateTaken);
 
-            Collection<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
+            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
             this.pictureCategories.Add(picture.Id, categories);
 
             this.UpdateCategories();
@@ -68,8 +68,8 @@ namespace msn2.net.Pictures.Controls
                 this.categoryList.Visible = true;
                 this.differentCategoriesLabel.Visible = false;
                 categoryList.Clear();
-                Collection<Category> categories = null;
-                foreach (Collection<Category> tempCategories in this.pictureCategories.Values)
+                List<Category> categories = null;
+                foreach (List<Category> tempCategories in this.pictureCategories.Values)
                 {
                     categories = tempCategories;
                     break;
@@ -93,7 +93,7 @@ namespace msn2.net.Pictures.Controls
         {
             int count = 0;
 
-            foreach (Collection<Category> categories in this.pictureCategories.Values)
+            foreach (List<Category> categories in this.pictureCategories.Values)
             {
                 if (count == 0)
                 {
@@ -109,7 +109,7 @@ namespace msn2.net.Pictures.Controls
                 foreach (Category category in categories)
                 {
                     // Make sure in all other picture category hash tables
-                    foreach (Collection<Category> tempCategories in this.pictureCategories.Values)
+                    foreach (List<Category> tempCategories in this.pictureCategories.Values)
                     {
                         bool found = false;
                         foreach (Category tempCategory in tempCategories)
@@ -138,7 +138,7 @@ namespace msn2.net.Pictures.Controls
             {
                 categoryList.AddCategory(category);
 
-                foreach (Collection<Category> categories in this.pictureCategories.Values)
+                foreach (List<Category> categories in this.pictureCategories.Values)
                 {
                     categories.Add(category);
                 }
@@ -149,15 +149,15 @@ namespace msn2.net.Pictures.Controls
         {
             categoryList.RemoveCategory(category);
 
-            foreach (Collection<Category> categories in this.pictureCategories.Values)
+            foreach (List<Category> categories in this.pictureCategories.Values)
             {
                 categories.Remove(category);
             }
         }
 
-        public Collection<Category> GetCurrentCategories()
+        public List<Category> GetCurrentCategories()
         {
-            Collection<Category> categories = new Collection<Category>();
+            List<Category> categories = new List<Category>();
 
             foreach (CategoryItem item in this.categoryList.Controls)
             {

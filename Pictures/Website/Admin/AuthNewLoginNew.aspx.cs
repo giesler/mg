@@ -70,7 +70,7 @@ namespace pics.Admin
 		}
 		#endregion
 
-		private void btnOK_Click(object sender, System.EventArgs e)
+        protected void btnOK_Click(object sender, System.EventArgs e)
 		{
 			int requestId	= int.Parse(Request.QueryString["id"]);
 			PicContext.Current.UserManager.AddNewPerson(requestId, txtFirstName.Text, txtLastName.Text, txtFullName.Text);

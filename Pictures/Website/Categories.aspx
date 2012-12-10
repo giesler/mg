@@ -1,4 +1,4 @@
-<%@ Page language="c#" smartNavigation="False" Classname="pics.Categories" CompileWith="Categories.aspx.cs" %>
+<%@ Page language="c#" smartNavigation="False" Classname="pics.Categories" CodeFile="Categories.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -30,6 +30,12 @@
 						<table class="areaPanel" cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
 								<td><asp:panel id="youAreHerePanel" Width="100%" CssClass="note" Runat="server"></asp:panel></td>
+							</tr>
+							<tr>
+							    <td>
+							        <asp:Panel ID="toolbarPanel" Width="100%" CssClass="toolbar" Runat="server">
+							        </asp:Panel>
+							    </td>
 							</tr>
 						</table>
 					</td>

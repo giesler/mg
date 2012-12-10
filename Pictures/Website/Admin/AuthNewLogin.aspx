@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.Admin.AuthNewLogin" CompileWith="AuthNewLogin.aspx.cs" %>
+<%@ Page Language="c#" ClassName="pics.Admin.AuthNewLogin" CodeFile="AuthNewLogin.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -13,7 +13,7 @@
 			<picctls:header id="header" runat="server" Text="Pictures - New Login" size="small"></picctls:header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
-					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="images/blank.gif"></td>
+					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="../images/blank.gif"></td>
 				</tr>
 				<tr>
 					<td class="msn2sidebar" vAlign="top" width="125"><picctls:sidebar id="Sidebar1" runat="server"></picctls:sidebar></td>

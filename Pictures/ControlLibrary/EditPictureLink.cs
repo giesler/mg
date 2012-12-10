@@ -65,7 +65,7 @@ namespace msn2.net.Pictures.Controls
 			// First log in
 			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
 
-			Collection<Category> categories = context.PictureManager.GetPictureCategories(pictureId);
+            List<Category> categories = context.PictureManager.GetPictureCategories(pictureId);
 			if (categories.Count == 0)
 			{
 				MessageBox.Show("Please add this picture to a category before setting it as a category picture.", "No category", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

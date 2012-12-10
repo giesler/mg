@@ -192,7 +192,7 @@ namespace pics
 			return searchId;
 		}
 
-		private void search_Click(object sender, System.EventArgs e)
+		protected void search_Click(object sender, System.EventArgs e)
 		{
 			// check for valid dates
 			try 
@@ -218,7 +218,7 @@ namespace pics
 			Response.Redirect("SearchRun.aspx?id=" + searchId.ToString());
 		}
 
-		private void reset_Click(object sender, System.EventArgs e)
+		protected void reset_Click(object sender, System.EventArgs e)
 		{
 			Response.Redirect("SearchCriteria.aspx");
 		}

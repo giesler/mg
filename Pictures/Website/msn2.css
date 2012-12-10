@@ -186,6 +186,17 @@ A.categorySmallLink
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#ff0000', EndColorStr='#000000');
 }
 
+.toolbar
+{
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#eeeeee', EndColorStr='#bbbbbb');
+	font-size: 8pt;
+}
+
+.toolbarItem
+{
+    font-size: 8pt;
+}
+
 .msn2contentwindow
 {
 	padding-right: 5px;

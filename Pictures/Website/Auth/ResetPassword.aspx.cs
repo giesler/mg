@@ -60,7 +60,7 @@ namespace pics.Auth
 		}
 		#endregion
 
-		private void btnOK_Click(object sender, System.EventArgs e)
+        protected void btnOK_Click(object sender, System.EventArgs e)
 		{
 			// make sure fields match
 			if (!txtNewPassword.Text.Equals(txtConfirmNewPassword.Text)) 

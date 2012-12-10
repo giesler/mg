@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.picview" CompileWith="picview.aspx.cs" %>
+<%@ Page language="c#" Classname="pics.picview" CodeFile="picview.aspx.cs" %>
 <%@ Register TagPrefix="uc1" TagName="AutoTimer" Src="Controls/AutoTimer.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -10,6 +10,7 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<meta http-equiv=refresh content="<%= HttpRefreshURL %>">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
+		<title>MSN2 Picture Viewer</title>
 	</HEAD>
 	<body class="pictureMode" leftMargin="0" topMargin="0">
 		<form method="post" runat="server">

@@ -9,7 +9,21 @@ using System.IO;
 
 namespace msn2.net.Pictures
 {
-	/// <summary>
+
+    public enum PictureSortField
+    {
+        DatePictureTaken = 0,
+        DatePictureAdded = 1,
+        DatePictureUpdated = 2
+    }
+
+    public enum PictureSortOrder
+    {
+        SortAscending = 0,
+        SortDescending = 1
+    }
+
+    /// <summary>
 	/// Summary description for Class1.
 	/// </summary>
 	public class PictureManager
@@ -213,9 +227,9 @@ namespace msn2.net.Pictures
 			return ds;
 		}
 
-        public Collection<PictureData> GetPictures(string sqlWhereClause)
+        public PictureCollection GetPictures(string sqlWhereClause)
         {
-            Collection<PictureData> pictures = new Collection<PictureData>();
+            PictureCollection pictures = new PictureCollection();
 
             string sql = "select 1 as RecNumber, p.PictureID, p.PictureDate, p.Title, p.Description, p.Filename, ";
             sql         += "p.PictureAddDate, p.PictureUpdateDate ";
@@ -255,7 +269,28 @@ namespace msn2.net.Pictures
             return pictures;
         }
 
-        public DataSet GetPictures(int categoryId, int startRecord, int returnCount, int maxWidth, int maxHeight, ref int totalCount)
+        public static string GetSqlSortFieldName(PictureSortField sortField)
+        {
+            string sortFieldSqlName = "PictureSort";
+
+            if (sortField == PictureSortField.DatePictureAdded)
+            {
+                sortFieldSqlName = "PictureDate";
+            }
+            else if (sortField == PictureSortField.DatePictureTaken)
+            {
+                sortFieldSqlName = "PictureAddDate";
+            }
+            else if (sortField == PictureSortField.DatePictureUpdated)
+            {
+                sortFieldSqlName = "PictureUpdateDate";
+            }
+
+            return sortFieldSqlName;
+        }
+
+        public DataSet GetPictures(int categoryId, int startRecord, int returnCount, 
+            int maxWidth, int maxHeight, PictureSortField sortField, PictureSortOrder sortOrder, ref int totalCount)
 		{
 			// init connection and command to get pictures
 			SqlConnection cn  = new SqlConnection(connectionString);
@@ -264,7 +299,14 @@ namespace msn2.net.Pictures
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Category_GetPictures", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
-			// set up params on the SP
+            string sortFieldSqlName = GetSqlSortFieldName(sortField);
+
+            if (sortOrder == PictureSortOrder.SortDescending)
+            {
+                sortFieldSqlName += " DESC";
+            }
+
+            // set up params on the SP
 			int personId = PicContext.Current.CurrentUser.Id;
 			daPics.SelectCommand.Parameters.Add("@CategoryID", categoryId);
 			daPics.SelectCommand.Parameters.Add("@StartRecord", startRecord);
@@ -272,7 +314,8 @@ namespace msn2.net.Pictures
 			daPics.SelectCommand.Parameters.Add("@PersonID", personId);
 			daPics.SelectCommand.Parameters.Add("@MaxWidth", maxWidth);
 			daPics.SelectCommand.Parameters.Add("@MaxHeight", maxHeight);
-			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
+            daPics.SelectCommand.Parameters.Add("@SortFieldName", sortFieldSqlName);
+            daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 			daPics.SelectCommand.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
 			// run the SP, set datasource to the picture list
@@ -316,9 +359,9 @@ namespace msn2.net.Pictures
 			return ds;
 		}
 
-		public Collection<Category> GetPictureCategories(int pictureId)
+		public List<Category> GetPictureCategories(int pictureId)
 		{
-            Collection<Category> categories = new Collection<Category>();
+            List<Category> categories = new List<Category>();
 
             SqlConnection cn	= new SqlConnection(connectionString);
 			SqlCommand cmd      = new SqlCommand("sp_Picture_GetCategories", cn);
@@ -441,6 +484,21 @@ namespace msn2.net.Pictures
 
     }
 
+    public class PictureCollection : ReadOnlyCollectionBase
+    {
+        public void Add(PictureData picture)
+        {
+            base.InnerList.Add(picture);
+        }
+
+        public PictureData this[int index]
+        {
+            get
+            {
+                return base.InnerList[index] as PictureData;
+            }
+        }
+    }
     
     public class DateCollection : ReadOnlyCollectionBase
     {

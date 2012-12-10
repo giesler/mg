@@ -58,7 +58,7 @@ namespace pics.Auth
 		}
 		#endregion
 
-		private void btnConfirm_Click(object sender, System.EventArgs e)
+        protected void btnConfirm_Click(object sender, System.EventArgs e)
 		{
 
 			// make sure email is valid, get guid

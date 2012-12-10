@@ -69,6 +69,8 @@ namespace pics
 				{
 					cmdPic.CommandText = "p_Category_GetPictures";	/// switch based on type
 					SetCategory(Convert.ToInt32(Request.QueryString["c"]));
+
+                    SetSortFields(cmdPic);
 				}
 				else if (sourceType.Equals("search"))
 				{
@@ -245,6 +247,28 @@ namespace pics
 			}
 
 		}
+
+        private void SetSortFields(SqlCommand cmd)
+        {
+            string sqlSortField = "PictureDate";
+
+            if (Request.QueryString["sf"] != null)
+            {
+                int sortFieldId = Convert.ToInt32(Request.QueryString["sf"]);
+                PictureSortField sortField = Categories.GetSortFieldById(sortFieldId);
+                sqlSortField = PictureManager.GetSqlSortFieldName(sortField);
+            }
+            
+            if (Request.QueryString["so"] != null)
+            {
+                if (Request.QueryString["so"] == "1")
+                {
+                    sqlSortField += " DESC";
+                }
+            }
+
+            cmd.Parameters.AddWithValue("@SortFieldName", sqlSortField);
+        }
 
 		private void LoadTasks()
 		{

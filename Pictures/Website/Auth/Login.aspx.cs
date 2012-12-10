@@ -68,7 +68,7 @@ namespace pics.auth
 		}
 		#endregion
 		#region Private Methods
-		private void btnLogin_Click(object sender, System.EventArgs e)
+        protected void btnLogin_Click(object sender, System.EventArgs e)
 		{
 			// Check if a new user - if so redirect to NewLogin.aspx
 			if (radioNewLogin.Checked)
@@ -83,7 +83,7 @@ namespace pics.auth
 			}
 
 			// encrypt the password
-			MD5 md5 = MD5.Create();
+			MD5 md5 = new MD5CryptoServiceProvider();
 			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(password.Text));
 
 			bool valid	= false;
@@ -91,7 +91,7 @@ namespace pics.auth
 
 			PersonInfo info = PicContext.Current.UserManager.Login(email.Text, pwd, ref valid);
 
-			// Check if login is valid
+            // Check if login is valid
 			if (info != null) 
 			{
 //				Session["PersonInfo"] = pi;

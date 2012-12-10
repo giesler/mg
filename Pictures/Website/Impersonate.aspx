@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.Impersonate" CompileWith="Impersonate.aspx.cs" %>
+<%@ Page language="c#" Classname="pics.Impersonate" CodeFile="Impersonate.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

@@ -14,7 +14,7 @@ namespace msn2.net.Pictures.Controls
 {
     partial class CategoryListDialog : Form
     {
-        public CategoryListDialog(Collection<Category> categories)
+        public CategoryListDialog(List<Category> categories)
         {
             InitializeComponent();
 
@@ -25,9 +25,9 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public Collection<Category> GetSelectedCategories()
+        public List<Category> GetSelectedCategories()
         {
-            Collection<Category> categories = new Collection<Category>();
+            List<Category> categories = new List<Category>();
 
             foreach (CategoryListItem item in this.listBox1.SelectedItems)
             {

@@ -1,4 +1,4 @@
-<%@ Page language="c#" Classname="pics.auth.Login" CompileWith="Login.aspx.cs" %>
+<%@ Page language="c#" Classname="pics.auth.Login" CodeFile="Login.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -24,7 +24,7 @@
 			<picctls:Header id="header" runat="server" size="small" Text="Pictures - Sign In"></picctls:Header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
-					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="images/blank.gif"></td>
+					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="../images/blank.gif"></td>
 				</tr>
 				<tr>
 					<td class="msn2sidebar" width="125" valign="top">

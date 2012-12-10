@@ -125,12 +125,12 @@ namespace msn2.net.Pictures.Controls
 
         void removeFromCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Collection<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
+            List<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
 
             CategoryListDialog dialog = new CategoryListDialog(categories);
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                Collection<Category> removeList = dialog.GetSelectedCategories();
+                List<Category> removeList = dialog.GetSelectedCategories();
                 foreach (Category category in removeList)
                 {
                     foreach (PictureItem item in this.pictureStack1.Pictures)

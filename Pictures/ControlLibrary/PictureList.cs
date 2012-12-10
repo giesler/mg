@@ -25,7 +25,7 @@ namespace msn2.net.Pictures.Controls
             this.DoubleBuffered = true;
         }
 
-        public void LoadPictures(Collection<PictureData> pictures)
+        public void LoadPictures(PictureCollection pictures)
         {
             selectedItems.Clear();
             flowLayoutPanel1.Controls.Clear();

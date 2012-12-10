@@ -35,16 +35,34 @@ namespace pics
 		protected System.Web.UI.WebControls.HyperLink addToFolder;
 		protected System.Web.UI.WebControls.HyperLink setCategoryPic;
 		protected bool editMode;
+        private DropDownList sortByField;
+        private DropDownList sortOrder;
+
 		#endregion
 
-// 		public Categories()
-// 		{
-// 			Page.Init += new System.EventHandler(Page_Init);
-// 		}
+        private int GetCurrentSortFieldId()
+        {
+            return this.sortByField.SelectedIndex;
+        }
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			showEditControls	= (bool) Session["editMode"];
+            if (!Page.IsPostBack)
+            {
+                if (Request.QueryString["sf"] != null)
+                {
+                    int sortFieldIndex = int.Parse(Request.QueryString["sf"]);
+                    this.sortByField.SelectedIndex = sortFieldIndex;
+                }
+
+                if (Request.QueryString["so"] != null)
+                {
+                    int sortOrderIndex = int.Parse(Request.QueryString["so"]);
+                    this.sortOrder.SelectedIndex = sortOrderIndex;
+                }
+            }
+            
+            showEditControls	= (bool) Session["editMode"];
 
 			// Figure out what to use as the root ID
 			if (Request.QueryString["r"] == null)
@@ -76,7 +94,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-			Collection<Category> categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
+            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
 
 			int columns				= 2;
 
@@ -112,15 +130,19 @@ namespace pics
 			}
 
 			// if no children, hide this control
-			if (categories.Count == 0)
-			{
-				childCategoryList.Visible	= false;
-				LoadPictures();
-				picTasks.Visible			= true;
-			}
+            if (categories.Count == 0)
+            {
+                childCategoryList.Visible = false;
+                LoadPictures();
+                picTasks.Visible = true;
+            }
+            else
+            {
+                toolbarPanel.Visible = false;
+            }
 
 			// Now load the 'you are here' control
-			Collection<Category> cc	= new Collection<Category>();
+            List<Category> cc = new List<Category>();
 			Category parentCategory = currentCategory;
 			while (parentCategory.CategoryId != rootCategoryId) 
 			{
@@ -268,15 +290,51 @@ namespace pics
 //			TaskListControl tl	= (TaskListControl) LoadControl(@"Controls/TaskListControl.ascx");
 //			Sidebar1.Controls.Add(tl);
 				
-		}
+
+        }
+
+        private void AddToolbarControls()
+        {
+            this.toolbarPanel.Controls.Add(new HtmlLiteral("Sort by: "));
+
+            this.sortByField = new DropDownList();
+            this.sortByField.ID = "sortByField";
+            this.sortByField.CssClass = "toolbarItem";
+            this.sortByField.AutoPostBack = true;
+            this.toolbarPanel.Controls.Add(this.sortByField);
+
+            this.sortByField.Items.Add(new ListItem("Picture Date", "0"));
+            this.sortByField.Items.Add(new ListItem("Date Picture Added", "1"));
+
+            this.sortByField.Items[0].Selected = true;
+
+            this.sortByField.SelectedIndexChanged += new EventHandler(this.OnSortByFieldChanged);
+
+            this.sortOrder = new DropDownList();
+            this.sortOrder.CssClass = "toolbarItem";
+            this.sortOrder.ID = "sortOrder";
+            this.sortOrder.AutoPostBack = true;
+            this.toolbarPanel.Controls.Add(this.sortOrder);
+
+            this.sortOrder.Items.Add(new ListItem("Ascending", "0"));
+            this.sortOrder.Items.Add(new ListItem("Descending", "1"));
+
+            this.sortOrder.Items[0].Selected = true;
+
+            this.sortOrder.SelectedIndexChanged += new EventHandler(this.OnSortOrderChanged);
+        }
 
 
-		private void Page_Init(object sender, EventArgs e)
+        private void Page_Init(object sender, EventArgs e)
 		{
 			InitializeComponent();
 
-			//Sidebar1.SelectedWindow.OnSelectAll += new EventHandler(SelectedWindow_OnSelectAll);
-		}
+            // Add toolbar controls
+            this.AddToolbarControls();
+
+            //Sidebar1.SelectedWindow.OnSelectAll += new EventHandler(SelectedWindow_OnSelectAll);
+
+        }
 
 		#region Web Form Designer generated code
 		/// <summary>
@@ -288,19 +346,49 @@ namespace pics
 		}
 		#endregion
 
+        public static PictureSortField GetSortFieldById(int id)
+        {
+            PictureSortField sortField = PictureSortField.DatePictureTaken;
+            switch (id)
+            {
+                case 0:
+                    sortField = PictureSortField.DatePictureTaken;
+                    break;
+                case 1:
+                    sortField = PictureSortField.DatePictureAdded;
+                    break;
+                case 2:
+                    sortField = PictureSortField.DatePictureUpdated;
+                    break;
+                default:
+                    throw new ApplicationException("The sort order querystring variable value for 'sf' was not recognized");
+            }
+
+            return sortField;
+        }
+
 		private void LoadPictures()
 		{
 			// see if a start record is set in QS - this would override anything passed
 			if (Request.QueryString["sr"] != null)
 				startRecord = Convert.ToInt32(Request.QueryString["sr"]);
 
-			// make sure intStartRecord is at least 1
+            PictureSortField sortField = GetSortFieldById(this.GetCurrentSortFieldId());
+
+            PictureSortOrder sortOrder = PictureSortOrder.SortAscending;
+            if (this.sortOrder.SelectedIndex != 0)
+            {
+                sortOrder = PictureSortOrder.SortDescending;
+            }
+
+            // make sure intStartRecord is at least 1
 			if (startRecord < 1) startRecord = 1;
 
 			int categoryId		= Convert.ToInt32(currentCategoryId);
 			int count			= 0;
 			int pageSize		= 20;
-			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, pageSize, 125, 125, ref count); 
+			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
+                pageSize, 125, 125, sortField, sortOrder, ref count); 
             
 			// create new control
 			PagedThumbnailList thumbs		= new PagedThumbnailList();
@@ -314,13 +402,20 @@ namespace pics
 			thumbs.RecordsPerPage			= pageSize;
 
 			// if there are children categories, point to that if no pics here
-			if (childCategoryList.Visible)
-				thumbs.Visible				= false; //.NoPictureMessage	= "<b>Please select a category from the left.</b>";
-			else
-				thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><br>"
-					+ "We may have added the category and not published pictures yet, so please check back later.";
-			thumbs.PageNavUrl		= Request.Path + "?r=" + rootCategoryId	+ "&c=" + currentCategoryId + "&sr={0}";
-			pnlthumbs.Controls.Add(thumbs);
+            if (childCategoryList.Visible)
+            {
+                thumbs.Visible = false; //.NoPictureMessage	= "<b>Please select a category from the left.</b>";
+            }
+            else
+            {
+                thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><br>"
+                    + "We may have added the category and not published pictures yet, so please check back later.";
+            }                
+             
+            thumbs.PageNavUrl = Request.Path + "?r=" + rootCategoryId + "&c=" + currentCategoryId + "&sr={0}"
+                                                        + "&sf=" + this.sortByField.SelectedIndex.ToString()
+                                                        + "&so=" + this.sortOrder.SelectedIndex.ToString();
+            pnlthumbs.Controls.Add(thumbs);
 
 			// Show the slideshow link if there are pictures
 			if (thumbs.HasPictures) 
@@ -386,8 +481,12 @@ namespace pics
 			{
 
 				String strURL = "picview.aspx?r={0}&c=" + currentCategoryId + "&type=category"
-					+ "&RefURL=" + Server.UrlEncode(Request.FilePath + "?r=" + rootCategoryId 
-														+ "&c=" + currentCategoryId + "&sr=" + startRecord.ToString());
+                                                        + "&sf=" + this.sortByField.SelectedIndex.ToString()
+                                                        + "&so=" + this.sortOrder.SelectedIndex.ToString()
+                 + "&RefURL=" + Server.UrlEncode(Request.FilePath + "?r=" + rootCategoryId 
+														+ "&c=" + currentCategoryId + "&sr=" + startRecord.ToString()
+                                                        + "&sf=" + this.sortByField.SelectedIndex.ToString()
+                                                        + "&so=" + this.sortOrder.SelectedIndex.ToString());
 				return strURL;
 			}
 
@@ -400,7 +499,8 @@ namespace pics
 			PictureIdCollection mySelectedList	= (PictureIdCollection) Session["MySelectedList"];
 
 			// Get current category pic ids
-			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 10000, 125, 125, ref count); 
+			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, 
+                10000, 125, 125, PictureSortField.DatePictureTaken, PictureSortOrder.SortAscending, ref count); 
 
 			foreach (DataRow dr in dsPics.Tables[0].Rows)
 			{
@@ -414,5 +514,13 @@ namespace pics
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(added);
 
 		}
-	}
+
+        void OnSortByFieldChanged(object sender, EventArgs e)
+        {
+        }
+
+        void OnSortOrderChanged(object sender, EventArgs e)
+        {
+        }
+    }
 }

@@ -42,7 +42,7 @@ namespace pics
 		}
 		#endregion
 
-		private void search_Click(object sender, System.EventArgs e)
+		protected void search_Click(object sender, System.EventArgs e)
 		{
 			
 		}

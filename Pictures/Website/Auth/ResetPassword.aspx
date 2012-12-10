@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
-<%@ Page language="c#" Classname="pics.Auth.ResetPassword" CompileWith="ResetPassword.aspx.cs" %>
+<%@ Page language="c#" Classname="pics.Auth.ResetPassword" CodeFile="ResetPassword.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -14,7 +14,7 @@
 			<picctls:Header id="header" runat="server" size="small" Text="Pictures - New Login"></picctls:Header>
 			<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 				<tr>
-					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
+					<td height="3" class="msn2headerfade" colspan="3"><img src="../images/blank.gif" height="3"></td>
 				</tr>
 				<tr>
 					<td class="msn2sidebar" width="125" valign="top">

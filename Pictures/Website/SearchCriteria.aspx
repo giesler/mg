@@ -1,4 +1,4 @@
-<%@ Page language="c#" smartNavigation="False" Classname="pics.SearchCriteria" CompileWith="SearchCriteria.aspx.cs" %>
+<%@ Page language="c#" smartNavigation="False" Classname="pics.SearchCriteria" CodeFile="SearchCriteria.aspx.cs" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

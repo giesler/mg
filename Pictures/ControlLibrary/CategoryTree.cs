@@ -292,7 +292,7 @@ namespace msn2.net.Pictures.Controls
             
 			// load child nodes from dvCategory
 
-            Collection<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
                 n.Category.CategoryId);
 
 			foreach (Category category in categories) 

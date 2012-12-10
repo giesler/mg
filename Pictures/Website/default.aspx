@@ -26,6 +26,7 @@
 						</picctls:sidebar></TD>
 					<TD class="msn2sidebarfade" width="4"></TD>
 					<TD class="msn2contentwindow" vAlign="top"><!-- Main content -->
+					<b>WARNING: Password ignore enabled!<br /></b>
 						<TABLE cellPadding="4" border="0" width="100%" align="center">
 							<TR>
 								<TD vAlign="top" width="50%">

@@ -600,7 +600,7 @@ namespace msn2.net.Pictures.Controls
 
             statusBar1.Panels[0].Text = "Loading pictures";
 
-            Collection<PictureData> pictures = PicContext.Current.PictureManager.GetPictures(strWhereClause);
+            PictureCollection pictures = PicContext.Current.PictureManager.GetPictures(strWhereClause);
 
             this.selectedPictures.ClearPictures();
 

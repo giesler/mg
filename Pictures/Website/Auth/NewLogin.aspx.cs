@@ -89,7 +89,7 @@ namespace pics.Auth
 		}
 		#endregion
 
-		private void btnSend_Click(object sender, System.EventArgs e)
+        protected void btnSend_Click(object sender, System.EventArgs e)
 		{
 			// encrypt the password
 			MD5 md5 = MD5.Create();
@@ -132,7 +132,7 @@ namespace pics.Auth
 			pnlNewLogin.Visible = false;
 		}
 
-		private void btnEmailLookup_Click(object sender, System.EventArgs e)
+        protected void btnEmailLookup_Click(object sender, System.EventArgs e)
 		{
 			Trace.Write("email lookup button start.");
 
@@ -223,7 +223,7 @@ namespace pics.Auth
 			
 		}
 
-		private void btnEmailFoundContinue_Click(object sender, System.EventArgs e)
+        protected void btnEmailFoundContinue_Click(object sender, System.EventArgs e)
 		{
 			Response.Redirect("ResetPassword.aspx?email=" + txtLookupEmail.Text + ViewState["emailfound"].ToString());
 		}

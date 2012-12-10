@@ -49,12 +49,12 @@ namespace msn2.net.Pictures
             return this.GetCategory(1);
         }
 
-        public Collection<Category> GetCategories(int categoryId)
+        public List<Category> GetCategories(int categoryId)
         {
             return this.GetCategories(categoryId, 0);
         }
 
-        public Collection<Category> GetCategories(int categoryId, int minPictures)
+        public List<Category> GetCategories(int categoryId, int minPictures)
 		{
 			// get a dataset with categories
 			SqlConnection cn		= new SqlConnection(connectionString);
@@ -72,7 +72,7 @@ namespace msn2.net.Pictures
 			// Read data
 			cn.Open();
 			SqlDataReader dr		= cmd.ExecuteReader();
-			Collection<Category> cc	= new Collection<Category>();
+			List<Category> cc	= new List<Category>();
 			while (dr.Read())
 			{
 				cc.Add(new Category(dr, false));

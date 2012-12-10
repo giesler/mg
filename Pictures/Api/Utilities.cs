@@ -26,11 +26,11 @@ namespace msn2.net.Pictures
 		public static PictureConfig Load()
 		{
 			PictureConfig config;
-			config.ConnectionString = "data source=localhost;initial catalog=picdb;Integrated Security=SSPI;persist security info=False";
-			config.PictureDirectory	= @"C:\pics.msn2.net\";
-			config.SmtpServer		= "192.168.1.5";
-			config.CacheDirectory	= @"c:\picCache\";
-			return config;
+			config.ConnectionString = "data source=barbrady;initial catalog=picdb;Integrated Security=SSPI;persist security info=False";
+            config.PictureDirectory = @"\\sp\Data\Pictures\pics.msn2.net";
+            config.SmtpServer		= "192.168.1.5";
+            config.CacheDirectory = @"\\ike\picCache\";
+            return config;
 		}
 	}
 

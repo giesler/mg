@@ -88,7 +88,7 @@ namespace pics.Admin
 
 		}
 
-		private void btnContinue_Click(object sender, System.EventArgs e)
+        protected void btnContinue_Click(object sender, System.EventArgs e)
 		{
 			// make sure someone was selected
 			if (PersonPicker.SelectedPerson == -1)
@@ -125,7 +125,7 @@ namespace pics.Admin
 			pnlDone.Visible = true;
 		}
 
-		private void PersonPicker_PersonSelected(object sender, System.EventArgs e)
+		protected void PersonPicker_PersonSelected(object sender, System.EventArgs e)
 		{
 			afterPersonSelectContent.Visible	= true;
 			
