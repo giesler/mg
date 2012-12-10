@@ -371,6 +371,7 @@ namespace msn2.net.Pictures
         {
             var q = from c in this.picContext.DataContext.Categories
                     join pc in this.picContext.DataContext.PictureCategories on c.Id equals pc.CategoryID
+                    where pc.PictureID == pictureId
                     select c;
             return q.ToList();
         }

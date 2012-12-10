@@ -100,7 +100,7 @@ namespace msn2.net.Pictures.Controls
                     Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
                     // load first level
-                    FillChildren(rootCategory, this.categoryNode, 2);
+                    FillChildren(rootCategory, this.categoryNode, 1);
 
                     // Expand root node
                     if (noSelectPath == true)
@@ -368,12 +368,22 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
+        protected override void OnAfterExpand(TreeViewEventArgs e)
         {
+            base.OnAfterExpand(e);
+
             CategoryTreeNode node = e.Node as CategoryTreeNode;
             if (node != null)
             {
                 ValidateChildrenLoaded(node);
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    CategoryTreeNode catNode = childNode as CategoryTreeNode;
+                    if (childNode != null)
+                    {
+                        ValidateChildrenLoaded(catNode);
+                    }
+                }
             }
         }
 

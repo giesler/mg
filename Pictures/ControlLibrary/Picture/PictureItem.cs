@@ -33,7 +33,8 @@ namespace msn2.net.Pictures.Controls
         public PictureItem(Picture picture): base()
         {
             this.picture = picture;
-
+            this.DoubleBuffered = true;
+            this.PaintBackground = true;
             InitializeComponent();
             InternalConstructor();
         }
@@ -214,7 +215,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
-                this.Invalidate();
+                this.Invalidate(true);
             }
         }
 
@@ -608,7 +609,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public void RectangleDropShadow(Graphics tg, Rectangle rc, Color 
+        public static void RectangleDropShadow(Graphics tg, Rectangle rc, Color 
             shadowColor, int depth, int maxOpacity)
         {
             //calculate the opacities
@@ -684,7 +685,7 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 selected = value;
-                Refresh();
+                this.Invalidate(true);
             }
         }
 

@@ -41,7 +41,7 @@ namespace msn2.net.Pictures.Controls
         public void AddPicture(Picture picture)
         {
             PictureItem item = new PictureItem(picture);
-            item.CustomPaint = true;
+            //item.CustomPaint = true;
             //item.RequestPaint += new EventHandler(item_RequestPaint);
             pictures.Add(item);
             this.Controls.Add(item);

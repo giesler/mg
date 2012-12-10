@@ -27,55 +27,56 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectedPicturePanel));
             this.taskLabel = new System.Windows.Forms.Label();
             this.taskList = new System.Windows.Forms.Panel();
             this.pictureDetailEditor = new msn2.net.Pictures.Controls.MultiPictureEdit();
             this.pictureStack1 = new msn2.net.Pictures.Controls.PictureStack();
             this.SuspendLayout();
-// 
-// taskLabel
-// 
+            // 
+            // taskLabel
+            // 
             this.taskLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.taskLabel.AutoSize = true;
             this.taskLabel.Location = new System.Drawing.Point(541, 4);
             this.taskLabel.Name = "taskLabel";
-            this.taskLabel.Size = new System.Drawing.Size(34, 14);
+            this.taskLabel.Size = new System.Drawing.Size(36, 13);
             this.taskLabel.TabIndex = 2;
             this.taskLabel.Text = "Tasks";
-// 
-// taskList
-// 
+            // 
+            // taskList
+            // 
             this.taskList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.taskList.Location = new System.Drawing.Point(541, 24);
             this.taskList.Name = "taskList";
             this.taskList.Size = new System.Drawing.Size(152, 73);
             this.taskList.TabIndex = 3;
-// 
-// pictureDetailEditor
-// 
+            // 
+            // pictureDetailEditor
+            // 
             this.pictureDetailEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureDetailEditor.Location = new System.Drawing.Point(170, 4);
+            this.pictureDetailEditor.Location = new System.Drawing.Point(262, 4);
             this.pictureDetailEditor.Name = "pictureDetailEditor";
-            this.pictureDetailEditor.Size = new System.Drawing.Size(364, 75);
+            this.pictureDetailEditor.Size = new System.Drawing.Size(273, 75);
             this.pictureDetailEditor.TabIndex = 4;
-// 
-// pictureStack1
-// 
+            // 
+            // pictureStack1
+            // 
             this.pictureStack1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureStack1.Location = new System.Drawing.Point(4, 4);
             this.pictureStack1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.pictureStack1.Name = "pictureStack1";
-            this.pictureStack1.Size = new System.Drawing.Size(159, 93);
+            this.pictureStack1.Size = new System.Drawing.Size(250, 93);
             this.pictureStack1.SuspendPaint = false;
             this.pictureStack1.TabIndex = 0;
-// 
-// SelectedPicturePanel
-// 
+            // 
+            // SelectedPicturePanel
+            // 
             this.Controls.Add(this.pictureDetailEditor);
             this.Controls.Add(this.taskList);
             this.Controls.Add(this.taskLabel);
