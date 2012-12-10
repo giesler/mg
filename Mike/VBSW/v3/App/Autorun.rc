@@ -74,7 +74,7 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\17.ico"
 //
 
 IDD_AUTORUN_DIALOG DIALOGEX 0, 0, 270, 118
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -134,8 +134,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,70,0
- PRODUCTVERSION 3,0,70,0
+ FILEVERSION 3,0,80,0
+ PRODUCTVERSION 3,0,80,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -153,14 +153,14 @@ BEGIN
             VALUE "Comments", "Contact help@installassistant.com regarding distribution\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Install Assistant 3.00\0"
-            VALUE "FileVersion", "3, 0, 70, 0\0"
+            VALUE "FileVersion", "3, 0, 80, 0\0"
             VALUE "InternalName", "Install Assitant\0"
             VALUE "LegalCopyright", "Copyright (C) 2002, Mike Giesler, http://installassistant.com\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "Autorun.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Install Assistant\0"
-            VALUE "ProductVersion", "3, 0, 70, 0\0"
+            VALUE "ProductVersion", "3, 0, 80, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

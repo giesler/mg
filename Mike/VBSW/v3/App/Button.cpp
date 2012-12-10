@@ -15,10 +15,12 @@ CDlgButton::CDlgButton()
 
 }
 
+
 CDlgButton::~CDlgButton()
 {
 
 }
+
 
 bool CDlgButton::Load(CString sButtonId)
 {
@@ -27,6 +29,7 @@ bool CDlgButton::Load(CString sButtonId)
 	mstrId = sButtonId;
 
 	// Get basic settings from INI file
+	mstrName			= gUtils.GetINIString(sButtonId, "Name", mstrId);
 	mblnComponentCheck	= gUtils.GetINIBool(sButtonId, "ComponentCheck", 0);
 	mblnDefault			= gUtils.GetINIBool(sButtonId, "Default", 0);
 	mblnCancel			= gUtils.GetINIBool(sButtonId, "Cancel", 0);
@@ -51,7 +54,8 @@ bool CDlgButton::Load(CString sButtonId)
 	mtypDlgButtonType	= (DlgButtonType) gUtils.GetINIInt(sButtonId, "ButtonType", 0);
 
 	// Load settings for the type of button
-	switch (mtypDlgButtonType) {
+	switch (mtypDlgButtonType) 
+	{
 		case DlgButtonTypeRunProgram:
 			mstrSetupCommand		= gUtils.GetINIString(sButtonId, "SetupCommand", "");
 			mstrSetupCommandLine	= gUtils.GetINIString(sButtonId, "SetupCommandLine", "");
@@ -78,7 +82,8 @@ bool CDlgButton::Load(CString sButtonId)
 	// Load the cursor if we can
 	mhMouseCursor = NULL;
 	mstrMouseCursor = gUtils.GetINIString(sButtonId, "MouseCursor", "");
-	if (mstrMouseCursor != "") {
+	if (mstrMouseCursor != "") 
+	{
 		HANDLE hCursor = LoadImage(NULL, mstrMouseCursor, IMAGE_CURSOR, 0, 0, LR_LOADFROMFILE);
 		if (hCursor != NULL)
 			mhMouseCursor = (HCURSOR) hCursor;

@@ -16,8 +16,6 @@ class CRestartDlg : public CDialog
 public:
 	CRestartDlg(CWnd* pParent = NULL);   // standard constructor
 	CString m_strAppName;
-	bool mblnTimerReboot;
-	int mintTimerSeconds;
 
 // Dialog Data
 	//{{AFX_DATA(CRestartDlg)
@@ -48,6 +46,8 @@ private:
 	int m_intMaxProgress;
 	int m_intCurProgress;
 	int m_nTimer;
+	bool mblnTimerReboot;
+	int mintTimerSeconds;
 
 };
 

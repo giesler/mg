@@ -21,10 +21,12 @@ CFileVersion::CFileVersion()
     m_dwLangCharset = 0;
 }
 
+
 CFileVersion::~CFileVersion() 
 { 
     Close();
 } 
+
 
 void CFileVersion::Close()
 {
@@ -32,6 +34,7 @@ void CFileVersion::Close()
     m_lpVersionData = NULL;
     m_dwLangCharset = 0;
 }
+
 
 BOOL CFileVersion::Open(LPCTSTR lpszModuleName)
 {
@@ -69,6 +72,7 @@ BOOL CFileVersion::Open(LPCTSTR lpszModuleName)
     return TRUE;
 }
 
+
 BOOL CFileVersion::GetFixedInfo(VS_FIXEDFILEINFO& vsffi)
 {
     // Must call Open() first
@@ -88,6 +92,7 @@ BOOL CFileVersion::GetFixedInfo(VS_FIXEDFILEINFO& vsffi)
     return FALSE;
 }
 
+
 CString CFileVersion::GetFixedFileVersion()
 {
     CString strVersion;
@@ -102,6 +107,7 @@ CString CFileVersion::GetFixedFileVersion()
     }
     return strVersion;
 }
+
 
 VERSION_INFO CFileVersion::GetFixedFileVersionInfo() 
 {

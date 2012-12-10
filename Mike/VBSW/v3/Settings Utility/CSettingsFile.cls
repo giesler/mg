@@ -14,7 +14,7 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Attribute VB_Ext_KEY = "Member0" ,"CComponents"
-  Option Explicit
+Option Explicit
 
 Private mstrRootPath As String
 Private mlngRootPathIDList As Long
@@ -25,9 +25,14 @@ Private mobjIni As CIni
 Private mvarComponents As CComponents
 Private mvarButtons As CButtons
 Private mblnSingleInstance As Boolean
+Public mstrSingleInstanceError As String
 Private mstrAbortMutex As String
 Private mblnHideTitleBar As Boolean
 Private mblnEnableLogging As Boolean
+
+Private mstrFilename As String
+
+Public mstrConfirmSetupText As String
 
 Public mblnWinNT As Boolean 'local copy
 Public mblnWin9x As Boolean 'local copy
@@ -57,6 +62,14 @@ Public Enum RebootPromptTypeEnum
 End Enum
 Private mintRebootPromptType As RebootPromptTypeEnum
 Private mintRebootPromptSeconds As Integer
+
+Public Property Get Filename() As String
+  Filename = mstrFilename
+End Property
+
+Public Property Let Filename(vData As String)
+  mstrFilename = vData
+End Property
 
 Public Property Get RebootPromptType() As RebootPromptTypeEnum
   RebootPromptType = mintRebootPromptType
@@ -188,8 +201,10 @@ Public Property Get IsDirty() As Boolean
   mblnIsDirty = True
 End Property
 
-Public Function Load(plngRootPathIDList As Long, pstrRootPath As String) As Boolean
+Public Function Load(plngRootPathIDList As Long, pstrRootPath As String, pstrFilename As String) As Boolean
 
+  mstrFilename = pstrFilename
+  
   Dim strTemp As String
   
   If Not (mvarComponents Is Nothing) Then Set mvarComponents = Nothing
@@ -200,7 +215,7 @@ Public Function Load(plngRootPathIDList As Long, pstrRootPath As String) As Bool
   ' Set INI file stuff up
   mlngRootPathIDList = plngRootPathIDList
   mstrRootPath = pstrRootPath
-  mobjIni.FileName = mstrRootPath & "\ia\settings.ini"
+  mobjIni.Filename = mstrRootPath & mstrFilename
   
   ' Get basic settings
   mobjIni.ReadValue "Settings", "ProgramName", mstrProgramName, "Install Assistant"
@@ -213,6 +228,7 @@ Public Function Load(plngRootPathIDList As Long, pstrRootPath As String) As Bool
   mobjIni.ReadValue "Settings", "RebootPromptSeconds", strTemp, "15"
   mintRebootPromptSeconds = Val(strTemp)
   mobjIni.ReadValue "Settings", "SingleInstance", strTemp, "0"
+  mobjIni.ReadValue "Settings", "SingleInstanceError", mstrSingleInstanceError, "You can only run one copy of this program at a time."
   mblnSingleInstance = IIf(strTemp = "1", True, False)
   mobjIni.ReadValue "Settings", "AbortMutex", mstrAbortMutex, ""
   mobjIni.ReadValue "Settings", "HideTitleBar", strTemp, "0"
@@ -221,6 +237,7 @@ Public Function Load(plngRootPathIDList As Long, pstrRootPath As String) As Bool
   mblnEnableLogging = IIf(strTemp = "1", True, False)
   mobjIni.ReadValue "Settings", "OnOpenSound", mstrOnOpenSound, ""
   mobjIni.ReadValue "Settings", "OnCloseSound", mstrOnCloseSound, ""
+  mobjIni.ReadValue "Settings", "ConfirmSetupText", mstrConfirmSetupText, "Would you like to run setup?"
  
   mobjIni.ReadBool "RequiredOS", "Win9x", mblnWin9x, True
   If mblnWin9x Then
@@ -282,16 +299,18 @@ Public Function Save() As Boolean
   mobjIni.WriteValue "Settings", "ProgramName", mstrProgramName
   mobjIni.WriteValue "Settings", "Splash", mstrSplash
   mobjIni.WriteValue "Settings", "IASettingsUtility", App.Major & "." & App.Minor & "." & App.Revision & ".0"
-  mobjIni.WriteValue "Settings", "DisplayType", Val(mintDisplayType)
+  mobjIni.WriteValue "Settings", "DisplayType", CStr(mintDisplayType)
   mobjIni.WriteValue "Settings", "SkipProgramName", mstrSkipProgramName
   mobjIni.WriteValue "Settings", "RebootPromptType", CStr(mintRebootPromptType)
   mobjIni.WriteValue "Settings", "RebootPromptSeconds", CStr(mintRebootPromptSeconds)
   mobjIni.WriteValue "Settings", "AbortMutex", mstrAbortMutex
   mobjIni.WriteValue "Settings", "SingleInstance", IIf(mblnSingleInstance, "1", "0")
+  mobjIni.WriteValue "Settings", "SingleInstanceError", mstrSingleInstanceError
   mobjIni.WriteValue "Settings", "HideTitleBar", IIf(mblnHideTitleBar, "1", "0")
   mobjIni.WriteValue "Settings", "EnableLogging", IIf(mblnEnableLogging, "1", "0")
   mobjIni.WriteValue "Settings", "OnOpenSound", mstrOnOpenSound
   mobjIni.WriteValue "Settings", "OnCloseSound", mstrOnCloseSound
+  mobjIni.WriteValue "Settings", "ConfirmSetupText", mstrConfirmSetupText
   
   mobjIni.WriteBool "RequiredOS", "Win9x", mblnWin9x
   If mblnWin9x Then

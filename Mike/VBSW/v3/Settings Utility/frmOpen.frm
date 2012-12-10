@@ -12,7 +12,7 @@ Begin VB.Form frmOpen
    ScaleHeight     =   2280
    ScaleWidth      =   3990
    ShowInTaskbar   =   0   'False
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   1  'CenterOwner
    Begin VB.CommandButton cmdOK 
       Caption         =   "&OK"
       Default         =   -1  'True
@@ -30,12 +30,14 @@ Begin VB.Form frmOpen
       Width           =   3735
    End
    Begin VB.Label Label1 
+      BackColor       =   &H80000018&
       Caption         =   "Select the INI file you would like to open:"
+      ForeColor       =   &H80000017&
       Height          =   255
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Width           =   3855
+      Width           =   3735
    End
 End
 Attribute VB_Name = "frmOpen"
@@ -43,3 +45,23 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub cmdOK_Click()
+  Visible = False
+End Sub
+
+Public Function SelectedFile() As String
+  
+  Dim i As Integer
+  
+  For i = 0 To lstFile.ListCount - 1
+    If lstFile.Selected(i) Then
+      SelectedFile = lstFile.List(i)
+      Exit Function
+    End If
+  Next i
+
+End Function
+
+Private Sub lstFile_DblClick()
+  cmdOK_Click
+End Sub

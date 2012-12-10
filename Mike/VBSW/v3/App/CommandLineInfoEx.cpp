@@ -25,12 +25,15 @@ static char THIS_FILE[]=__FILE__;
 void CCommandLineInfoEx::ParseParam(const TCHAR* pszParam, BOOL bFlag, 
                                     BOOL bLast)
 {
-   if (bFlag) {
+   if (bFlag) 
+   {
       // this is a "flag" (begins with / or -)
       m_options[pszParam] = "TRUE";    // default value is "TRUE"
       m_sLastOption = pszParam;        // save in case other value specified
 
-   } else if (!m_sLastOption.IsEmpty()) {
+   } 
+   else if (!m_sLastOption.IsEmpty()) 
+   {
       // last token was option: set value
       m_options[m_sLastOption] = pszParam;
       m_sLastOption.Empty(); // clear
@@ -39,6 +42,7 @@ void CCommandLineInfoEx::ParseParam(const TCHAR* pszParam, BOOL bFlag,
    // Call base class so MFC can see this param/token.
    CCommandLineInfo::ParseParam(pszParam, bFlag, bLast);
 }
+
 
 bool CCommandLineInfoEx::GetOption(LPCTSTR option, CString& val)
 {

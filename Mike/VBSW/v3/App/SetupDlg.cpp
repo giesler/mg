@@ -51,30 +51,36 @@ BOOL CSetupDlg::Create(CWnd* pParentWnd)
 {
 	// Add your specialized code here and/or call the base class
 
-	return CDialog::Create(IDD, pParentWnd);
+	// the getdesktopwindow will make the dialog have a taskbar icon
+	return CDialog::Create(IDD, CWnd::GetDesktopWindow());
 }
+
 
 void CSetupDlg::SetMaxProgress(int iMax) {
 	m_PBar.SetRange(0, iMax);
 	m_PBar.SetStep(1);
 }
 
+
 void CSetupDlg::Progress() {
 	m_PBar.StepIt();
 }
+
 
 void CSetupDlg::OnCancel() 
 {
 	CString strMessage;
 	strMessage.LoadString(IDS_SETUPDLG_CANCEL);
 
-	if (MessageBox(strMessage, m_strAppName, MB_YESNO | MB_ICONQUESTION) == IDYES) {
+	if (MessageBox(strMessage, m_strAppName, MB_YESNO | MB_ICONQUESTION) == IDYES) 
+	{
 		m_btnCancel.EnableWindow(false);
 		m_blnCancel = true;
 		m_CurStatus.LoadString(IDS_SETUPDLG_CANCELMSG);
 		UpdateData(false);
 	}
 }
+
 
 BOOL CSetupDlg::OnInitDialog() 
 {
@@ -89,13 +95,17 @@ BOOL CSetupDlg::OnInitDialog()
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
 
+
 void CSetupDlg::OnTimer(UINT nIDEvent) 
 {
 	// advance progress bar if less than max for this item
-	if (m_intMaxProgress > m_intCurProgress) {
+	if (m_intMaxProgress > m_intCurProgress) 
+	{
 		m_PBar.StepIt();
 		m_intCurProgress++;
-	} else {
+	} 
+	else 
+	{
 		StopTimer();
 	}
 	
@@ -113,13 +123,15 @@ void CSetupDlg::StartTimer(int intMaxProgress)
 void CSetupDlg::StopTimer()
 {
 	// kill timer if not already killed
-	if (m_nTimer != 0) {
+	if (m_nTimer != 0) 
+	{
 		KillTimer(m_nTimer);
 		m_nTimer = 0;
 	}
 
 	// finish advancing progress bar if needed
-	if (m_intMaxProgress > m_intCurProgress) {
+	if (m_intMaxProgress > m_intCurProgress) 
+	{
 		m_PBar.StepIt();
 		m_PBar.UpdateWindow();
 		m_intCurProgress++;

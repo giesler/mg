@@ -4,13 +4,13 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "IA Settings Utility"
-   ClientHeight    =   5370
+   ClientHeight    =   5355
    ClientLeft      =   150
    ClientTop       =   840
    ClientWidth     =   6675
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   5370
+   ScaleHeight     =   5355
    ScaleWidth      =   6675
    StartUpPosition =   3  'Windows Default
    Begin TabDlg.SSTab tabs 
@@ -47,52 +47,56 @@ Begin VB.Form frmMain
       Tab(0).Control(6).Enabled=   0   'False
       Tab(0).Control(7)=   "txtRootPath"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).ControlCount=   8
+      Tab(0).Control(8)=   "cmdBrowseRoot"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).ControlCount=   9
       TabCaption(1)   =   "Components"
       TabPicture(1)   =   "frmMain.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "cmdMoveDown"
-      Tab(1).Control(1)=   "cmdMoveUp"
-      Tab(1).Control(2)=   "cmdDownload"
-      Tab(1).Control(3)=   "cmdDelete"
-      Tab(1).Control(4)=   "cmdEdit"
-      Tab(1).Control(5)=   "lvComponents"
-      Tab(1).Control(6)=   "cmdAdd"
-      Tab(1).Control(7)=   "Label10"
+      Tab(1).Control(0)=   "Label10"
+      Tab(1).Control(1)=   "cmdAdd"
+      Tab(1).Control(2)=   "lvComponents"
+      Tab(1).Control(3)=   "cmdEdit"
+      Tab(1).Control(4)=   "cmdDelete"
+      Tab(1).Control(5)=   "cmdDownload"
+      Tab(1).Control(6)=   "cmdMoveUp"
+      Tab(1).Control(7)=   "cmdMoveDown"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "Buttons"
       TabPicture(2)   =   "frmMain.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdSetAsCancel"
-      Tab(2).Control(1)=   "cmdSetAsDefault"
-      Tab(2).Control(2)=   "cmdAddButton"
+      Tab(2).Control(0)=   "Label6"
+      Tab(2).Control(1)=   "lvButtons"
+      Tab(2).Control(2)=   "cmdDeleteButton"
       Tab(2).Control(3)=   "cmdEditButton"
-      Tab(2).Control(4)=   "cmdDeleteButton"
-      Tab(2).Control(5)=   "lvButtons"
-      Tab(2).Control(6)=   "Label6"
+      Tab(2).Control(4)=   "cmdAddButton"
+      Tab(2).Control(5)=   "cmdSetAsDefault"
+      Tab(2).Control(6)=   "cmdSetAsCancel"
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Global Options"
       TabPicture(3)   =   "frmMain.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkEnableLogging"
-      Tab(3).Control(1)=   "txtAbortMutex"
-      Tab(3).Control(2)=   "chkAbortMutex"
-      Tab(3).Control(3)=   "chkSingleInstance"
-      Tab(3).Control(4)=   "fraRebootOption"
-      Tab(3).Control(5)=   "Label9"
-      Tab(3).Control(6)=   "Label4(0)"
-      Tab(3).ControlCount=   7
+      Tab(3).Control(0)=   "txtSingleInstanceError"
+      Tab(3).Control(1)=   "chkEnableLogging"
+      Tab(3).Control(2)=   "txtAbortMutex"
+      Tab(3).Control(3)=   "chkAbortMutex"
+      Tab(3).Control(4)=   "chkSingleInstance"
+      Tab(3).Control(5)=   "fraRebootOption"
+      Tab(3).Control(6)=   "Label16"
+      Tab(3).Control(7)=   "Label9"
+      Tab(3).Control(8)=   "Label4(0)"
+      Tab(3).ControlCount=   9
       TabCaption(4)   =   "Splash"
       TabPicture(4)   =   "frmMain.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame3"
-      Tab(4).Control(1)=   "cmdSplashBrowse"
-      Tab(4).Control(2)=   "txtSplash"
-      Tab(4).Control(3)=   "Frame2"
-      Tab(4).Control(4)=   "chkHideTitleBar"
-      Tab(4).Control(5)=   "Label3"
-      Tab(4).Control(6)=   "Label8"
-      Tab(4).Control(7)=   "Label4(1)"
+      Tab(4).Control(0)=   "Label4(1)"
+      Tab(4).Control(1)=   "Label8"
+      Tab(4).Control(2)=   "Label3"
+      Tab(4).Control(3)=   "chkHideTitleBar"
+      Tab(4).Control(4)=   "Frame2"
+      Tab(4).Control(5)=   "txtSplash"
+      Tab(4).Control(6)=   "cmdSplashBrowse"
+      Tab(4).Control(7)=   "Frame3"
       Tab(4).ControlCount=   8
       TabCaption(5)   =   "OS"
       TabPicture(5)   =   "frmMain.frx":008C
@@ -103,6 +107,23 @@ Begin VB.Form frmMain
       Tab(5).Control(3)=   "Label13"
       Tab(5).Control(4)=   "Label4(2)"
       Tab(5).ControlCount=   5
+      Begin VB.CommandButton cmdBrowseRoot 
+         Caption         =   "Explore..."
+         Height          =   375
+         Left            =   5040
+         TabIndex        =   62
+         Top             =   1440
+         Width           =   1215
+      End
+      Begin VB.TextBox txtSingleInstanceError 
+         Height          =   495
+         Left            =   -73800
+         MultiLine       =   -1  'True
+         TabIndex        =   61
+         ToolTipText     =   "Error displayed if more then one instance started.  Leave blank for no error."
+         Top             =   2160
+         Width           =   4935
+      End
       Begin VB.TextBox txtInvalidOSMessage 
          Height          =   735
          Left            =   -73200
@@ -122,10 +143,10 @@ Begin VB.Form frmMain
       End
       Begin VB.Frame Frame3 
          Caption         =   " Sound Effects "
-         Height          =   1335
+         Height          =   1215
          Left            =   -74760
          TabIndex        =   46
-         Top             =   3120
+         Top             =   3720
          Width           =   6015
          Begin VB.TextBox txtOnCloseSound 
             Height          =   285
@@ -179,7 +200,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74760
          TabIndex        =   44
-         Top             =   2520
+         Top             =   3120
          Width           =   5295
       End
       Begin VB.CommandButton cmdSplashBrowse 
@@ -187,7 +208,7 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   -69600
          TabIndex        =   41
-         Top             =   2160
+         Top             =   2760
          Width           =   855
       End
       Begin VB.TextBox txtSplash 
@@ -195,16 +216,23 @@ Begin VB.Form frmMain
          Left            =   -73680
          TabIndex        =   40
          ToolTipText     =   "Bitmap that will be loaded by autorun.exe"
-         Top             =   2160
+         Top             =   2760
          Width           =   3975
       End
       Begin VB.Frame Frame2 
          Caption         =   " Dialog Options "
-         Height          =   1335
+         Height          =   1935
          Left            =   -74760
          TabIndex        =   35
          Top             =   720
          Width           =   6015
+         Begin VB.TextBox txtSetupOnlyConfText 
+            Height          =   495
+            Left            =   1080
+            TabIndex        =   58
+            Top             =   1320
+            Width           =   4815
+         End
          Begin VB.TextBox txtSkipProgramName 
             Height          =   285
             Left            =   3720
@@ -239,20 +267,28 @@ Begin VB.Form frmMain
             Top             =   960
             Width           =   5655
          End
+         Begin VB.Label Label15 
+            Caption         =   "Confirm setup run:"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   59
+            Top             =   1320
+            Width           =   855
+         End
       End
       Begin VB.CheckBox chkHideTitleBar 
          Caption         =   "&Hide titlebar on splash dialog"
          Height          =   255
          Left            =   -74760
          TabIndex        =   34
-         Top             =   2760
+         Top             =   3360
          Width           =   6015
       End
       Begin VB.TextBox txtAbortMutex 
          Height          =   285
          Left            =   -70320
          TabIndex        =   32
-         Top             =   2160
+         Top             =   2760
          Width           =   1455
       End
       Begin VB.CheckBox chkAbortMutex 
@@ -260,7 +296,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74760
          TabIndex        =   31
-         Top             =   2160
+         Top             =   2760
          Width           =   5775
       End
       Begin VB.CheckBox chkSingleInstance 
@@ -482,6 +518,14 @@ Begin VB.Form frmMain
             Object.Width           =   0
          EndProperty
       End
+      Begin VB.Label Label16 
+         Caption         =   "Error:"
+         Height          =   255
+         Left            =   -74400
+         TabIndex        =   60
+         Top             =   2160
+         Width           =   495
+      End
       Begin VB.Label Label14 
          Caption         =   "Invalid OS Message:"
          Height          =   495
@@ -516,7 +560,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74520
          TabIndex        =   45
-         Top             =   2760
+         Top             =   3360
          Width           =   5535
       End
       Begin VB.Label Label3 
@@ -524,7 +568,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -74760
          TabIndex        =   43
-         Top             =   2160
+         Top             =   2760
          Width           =   1095
       End
       Begin VB.Label Label8 
@@ -532,7 +576,7 @@ Begin VB.Form frmMain
          Height          =   255
          Left            =   -73560
          TabIndex        =   42
-         Top             =   2460
+         Top             =   3060
          Width           =   4335
       End
       Begin VB.Label Label4 
@@ -710,6 +754,18 @@ Private Sub chkAbortMutex_Click()
   
 End Sub
 
+Private Sub chkSingleInstance_Click()
+
+  If chkSingleInstance.Value = 1 Then
+    txtSingleInstanceError.Enabled = True
+    txtSingleInstanceError.BackColor = vbWindowBackground
+  Else
+    txtSingleInstanceError.Enabled = False
+    txtSingleInstanceError.BackColor = vbButtonFace
+  End If
+  
+End Sub
+
 Private Sub cmdAdd_Click()
   
   Dim li As ListItem, iTemp As Integer, objComponent As CComponent
@@ -768,6 +824,13 @@ Private Sub cmdAddButton_Click()
   mobjSettings.Buttons.Add objButton
   li.Selected = True
   mblnDirty = True
+  
+End Sub
+
+Private Sub cmdBrowseRoot_Click()
+
+  Shell "explorer.exe " + Chr(34) + txtRootPath.Text + Chr(34), vbNormalFocus
+  
   
 End Sub
 
@@ -889,7 +952,7 @@ End Sub
 
 Private Sub cmdFileNew_Click()
 
-  Dim sFoldername As String, lpIDList As Long
+  Dim sFoldername As String, lpIDList As Long, strFileName As String
 
   Set mobjSettings = New CSettingsFile
   sFoldername = GetFolderName(lpIDList, "Select the folder where you would like to create a new Install Assistant project", Me)
@@ -899,7 +962,9 @@ Private Sub cmdFileNew_Click()
     MkDir sFoldername & "\ia"
   End If
   
-  If mobjSettings.Load(lpIDList, sFoldername) Then
+  strFileName = "\ia\settings.ini"
+  
+  If mobjSettings.Load(lpIDList, sFoldername, strFileName) Then
     LoadSettings
   End If
   mblnDirty = True
@@ -1119,7 +1184,7 @@ End Sub
 
 Private Sub mnuFileOpen_Click()
 
-  Dim sFoldername As String, lpIDList As Long
+  Dim sFoldername As String, lpIDList As Long, strFileName As String
 
   Set mobjSettings = New CSettingsFile
   sFoldername = GetFolderName(lpIDList, "Select the folder containing the existing Install Assistant project (root folder; containing 'ia' folder)", Me)
@@ -1128,8 +1193,30 @@ Private Sub mnuFileOpen_Click()
     MsgBox "The file '" & sFoldername & "\ia\settings.ini' does not exist.", vbExclamation
     Exit Sub
   End If
+  
+  strFileName = "\ia\settings.ini"
+  
+  Dim fso As FileSystemObject, fld As Folder, f As File, fOpen As frmOpen
+  Set fOpen = New frmOpen
+  Set fso = New FileSystemObject
+  Set fld = fso.GetFolder(sFoldername & "\ia")
+  For Each f In fld.Files
+    If Right(f.Name, 3) = "ini" Then
+      fOpen.lstFile.AddItem f.Name
+    End If
+  Next f
+  
+  If fOpen.lstFile.ListCount > 1 Then
+    fOpen.lstFile.Selected(0) = True
+    fOpen.Show vbModal, Me
+    strFileName = "\ia\" + fOpen.SelectedFile
+  End If
+  Unload fOpen
+  Set fld = Nothing
+  Set fso = Nothing
+  Set fOpen = Nothing
 
-  If mobjSettings.Load(lpIDList, sFoldername) Then
+  If mobjSettings.Load(lpIDList, sFoldername, strFileName) Then
     LoadSettings
   End If
 
@@ -1146,6 +1233,8 @@ Private Sub LoadSettings()
   Me.txtSkipProgramName.Text = mobjSettings.SkipProgramName
   
   chkSingleInstance.Value = IIf(mobjSettings.SingleInstance, 1, 0)
+  txtSingleInstanceError.Text = mobjSettings.mstrSingleInstanceError
+  chkSingleInstance_Click
   If mobjSettings.AbortMutex <> "" Then
     chkAbortMutex.Value = 1
     txtAbortMutex.Text = mobjSettings.AbortMutex
@@ -1161,6 +1250,7 @@ Private Sub LoadSettings()
   chkEnableLogging.Value = IIf(mobjSettings.EnableLogging, 1, 0)
   txtOnOpenSound.Text = mobjSettings.mstrOnOpenSound
   txtOnCloseSound.Text = mobjSettings.mstrOnCloseSound
+  txtSetupOnlyConfText.Text = mobjSettings.mstrConfirmSetupText
   
   ' OS Tab
   ucOS1.Win9x = mobjSettings.mblnWin9x
@@ -1221,10 +1311,22 @@ End Sub
 
 Private Sub mnuFileSave_Click()
 
+  Dim fso As FileSystemObject, f As File, strFile As String
+  Set fso = New FileSystemObject
+  
+  strFile = mobjSettings.RootPath + "\ia\settings.ini"
+  If fso.FileExists(strFile) Then
+    Set f = fso.GetFile(strFile)
+    If f.Attributes And ReadOnly Then
+      MsgBox "The settings.ini file is marked as read only.  Please make it writable.  Save cancelled.", vbExclamation
+      Exit Sub
+    End If
+  End If
+  
   SaveSettings
   mobjSettings.Save
 
-  If mobjSettings.Load(mobjSettings.RootPathIDList, mobjSettings.RootPath) Then
+  If mobjSettings.Load(mobjSettings.RootPathIDList, mobjSettings.RootPath, mobjSettings.Filename) Then
     LoadSettings
   End If
   mblnDirty = False
@@ -1259,7 +1361,7 @@ Private Sub mnuRecent_Click(Index As Integer)
     sIDList = GetSetting("IASettings", "Main", "RecentFileIDList", "")
     
     Set mobjSettings = New CSettingsFile
-    If mobjSettings.Load(CLng(sIDList), sFoldername) Then
+    If mobjSettings.Load(CLng(sIDList), sFoldername, "\ia\settings.ini") Then
       LoadSettings
     End If
   End If
@@ -1270,8 +1372,16 @@ Private Sub optDisplayType_Click(Index As Integer)
 
   Me.txtSkipProgramName.Enabled = False
   Me.txtSkipProgramName.BackColor = vbButtonFace
+  Me.txtSetupOnlyConfText.Enabled = False
+  Me.txtSetupOnlyConfText.BackColor = vbButtonFace
+  
   Select Case Index
+    Case 1
+      Me.txtSetupOnlyConfText.Enabled = True
+      Me.txtSetupOnlyConfText.BackColor = vbWindowBackground
     Case 2
+      Me.txtSetupOnlyConfText.Enabled = True
+      Me.txtSetupOnlyConfText.BackColor = vbWindowBackground
       Me.txtSkipProgramName.Enabled = True
       Me.txtSkipProgramName.BackColor = vbWindowBackground
   End Select
@@ -1317,10 +1427,12 @@ Private Sub SaveSettings()
   mobjSettings.RebootPromptSeconds = Val(Me.txtRebootPromptSeconds.Text)
   
   mobjSettings.SingleInstance = (chkSingleInstance.Value = 1)
+  mobjSettings.mstrSingleInstanceError = txtSingleInstanceError.Text
   mobjSettings.AbortMutex = IIf(chkAbortMutex.Value = 1, txtAbortMutex.Text, "")
   mobjSettings.EnableLogging = (chkEnableLogging.Value = 1)
   mobjSettings.mstrOnOpenSound = txtOnOpenSound.Text
   mobjSettings.mstrOnCloseSound = txtOnCloseSound.Text
+  mobjSettings.mstrConfirmSetupText = txtSetupOnlyConfText.Text
   
   ' OS Tab
   mobjSettings.mblnWin9x = ucOS1.Win9x

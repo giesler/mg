@@ -51,29 +51,18 @@ public:
 // Implementation
 
 	public:
-		bool InstallComponents();
 		void LoadSettings();
-		bool SysUpdates();
 		CString mstrAppName;
-		bool RebootComputer(CString strCmdLine);
 		CString CurrentOS();
 		CCommandLineInfoEx cmdInfo;
 
 	private:
-		bool mblnTimerReboot;
-		int  mintTimerSeconds;
 		CString mstrSkipProgramName;
 		DisplayType mtypDisplayType;
-		bool DependsInstalled(CComponent * pcComp);
-		CList<CComponent*, CComponent*> mlstComps;
-		CList<CDlgButton*, CDlgButton*> mlstButtons;
 		bool mblnSingleInstance;
 		CString mstrAbortMutex;
 		bool m_blnEnableLogging;
 
-		// returns from component install
-		bool m_blnComponentCancel;
-		bool m_blnComponentRebootComputer;
 
 	//{{AFX_MSG(CAutorunApp)
 		// NOTE - the ClassWizard will add and remove member functions here.

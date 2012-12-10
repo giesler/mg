@@ -20,6 +20,7 @@ CLog::CLog() {
 
 }
 
+
 CLog::~CLog()
 {
 	if (!m_blnLogEvents) return;
@@ -56,7 +57,6 @@ void CLog::LogEvent(CString p_strEvent)
 
 	m_File.Write(strOutput, strOutput.GetLength());
 
-//	AfxMessageBox(strOutput, MB_OK);
 	m_File.Close();
 
 	free(ptchTemp);
@@ -90,6 +90,14 @@ void CLog::Init(bool p_blnLogEvents)
 	{
 		if (!m_File.Open(strFileName, CFile::modeCreate | CFile::modeWrite, &ex))
 			ex.ReportError();
+		m_File.Close();
+	} 
+	else 
+	{
+		m_File.Open(strFileName, CFile::modeWrite, &ex);
+		m_File.SeekToEnd();
+		m_File.Write("\r\n", 2);
+		m_File.Write("\r\n", 2);
 		m_File.Close();
 	}
 

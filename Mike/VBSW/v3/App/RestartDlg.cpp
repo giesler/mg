@@ -48,27 +48,39 @@ END_MESSAGE_MAP()
 void CRestartDlg::OnTimer(UINT nIDEvent) 
 {
 	
-	if (m_intCurProgress < m_intMaxProgress) {
+	// Check if we are done or not
+	if (m_intCurProgress < m_intMaxProgress) 
+	{
 		m_PBar.StepIt();
 		m_intCurProgress++;
-	} else {
+	} 
+	else 
+	{
 		OnOK();
 		KillTimer(m_nTimer);
 	}
 	CDialog::OnTimer(nIDEvent);
 }
 
+
 BOOL CRestartDlg::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
 	
-	if (mblnTimerReboot) {
+	mblnTimerReboot		= !gUtils.GetINIBool("Settings", "RebootPromptType", true);
+	mintTimerSeconds	=  gUtils.GetINIInt("Settings", "RebootPromptSeconds", 20);
+	
+	// Set up the timer if we want it
+	if (mblnTimerReboot) 
+	{
 		m_intMaxProgress = mintTimerSeconds * 10;
 		m_intCurProgress = 0;
 		m_PBar.SetRange(0, m_intMaxProgress);
 		m_PBar.SetStep(1);
 		m_nTimer = SetTimer(0, 100, 0);
-	} else {
+	} 
+	else 
+	{
 		m_PBar.MoveWindow(500, 500, 0, 0, false);
 	}
 

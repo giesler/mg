@@ -30,6 +30,7 @@ public:
 	virtual ~CDlgButton();
 
 	CString mstrId;
+	CString mstrName;
 	bool mblnComponentCheck;
 	bool mblnDefault;
 	bool mblnCancel;

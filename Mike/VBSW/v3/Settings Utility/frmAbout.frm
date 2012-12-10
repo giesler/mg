@@ -28,9 +28,9 @@ Begin VB.Form frmAbout
       Caption         =   "http://installassistant.com"
       ForeColor       =   &H00C00000&
       Height          =   255
-      Left            =   240
+      Left            =   480
       TabIndex        =   3
-      Top             =   600
+      Top             =   840
       Width           =   2415
    End
    Begin VB.Label lblVersion 
@@ -42,8 +42,8 @@ Begin VB.Form frmAbout
       Width           =   2415
    End
    Begin VB.Label lblAbout 
-      Caption         =   "This program creates settings files for VBSW.  For more information on this program or VBSW, visit "
-      Height          =   735
+      Caption         =   "This program creates settings files for Install Assistant.  For more information on this program or Install Assistant, visit "
+      Height          =   975
       Left            =   240
       TabIndex        =   0
       Top             =   120

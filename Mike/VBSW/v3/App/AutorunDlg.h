@@ -18,13 +18,16 @@ public:
 	CAutorunDlg(CWnd* pParent = NULL);	// standard constructor
 	~CAutorunDlg();
 
-	void LoadButtons(CList<CDlgButton*, CDlgButton*> * mlstButtons);	// loads buttons for dialog
 	CDlgButton* FindButtonById(CString id);
 	CDlgButton* FindDefaultButton();
 
-	CDlgButton* selectedButton;
-	CList<CDlgButton*, CDlgButton*> * mlstButtons;
 	CList<CStatic*, CStatic*> mlstStatics;  // used to keep track of statics
+
+	void PerformButtonAction(CDlgButton* button);
+	void DoModalButtonAction(CDlgButton* button);
+
+	bool setupOnlyMode;
+	bool running;
 
 // Dialog Data
 	//{{AFX_DATA(CAutorunDlg)
@@ -37,7 +40,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CAutorunDlg)
 	public:
-//	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
+	virtual BOOL Create(CWnd* pParentWnd);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	//}}AFX_VIRTUAL
@@ -53,6 +56,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	virtual void OnOK();
+	virtual void OnCancel();
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
@@ -60,9 +64,26 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
+	void ResetButtons();
+
+	bool InstallComponents();
+	bool SysUpdates();
+	bool RebootComputer(CString strCmdLine);
+	bool DependsInstalled(CComponent * pcComp);
+
+	CList<CComponent*, CComponent*> mlstComps;
+	CList<CDlgButton*, CDlgButton*> mlstButtons;
+
+	// returns from component install
+	bool m_blnComponentCancel;
+	bool m_blnComponentRebootComputer;
+
 	CString mstrAppName;
 	bool hideTitlebar;
 	bool onOpenSoundPlayed;
+
+	void CloseDialog();
+
 };
 
 //{{AFX_INSERT_LOCATION}}
