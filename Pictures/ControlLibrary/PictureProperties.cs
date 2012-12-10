@@ -19,10 +19,10 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
         }
 
-        public void SetPicture(int pictureId)
+        public void SetPicture(PictureData picture)
         {
             this.multiPictureEdit1.ClearPictures();
-            this.multiPictureEdit1.AddPicture(pictureId);
+            this.multiPictureEdit1.AddPicture(picture);
         }
     }
 }

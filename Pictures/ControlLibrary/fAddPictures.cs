@@ -72,12 +72,14 @@ namespace msn2.net.Pictures.Controls
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = Config.ConnectionString;
+            cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-			// add everyone group by default
+            // add everyone group by default
 			groupPicker1.AddSelectedGroup(1);
 
-		}
+            this.AcceptButton = this.btnAdd;
+            this.CancelButton = this.btnCancel;
+        }
 
 		/// <summary>
 		/// Clean up any resources being used.

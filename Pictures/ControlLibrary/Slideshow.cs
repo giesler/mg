@@ -18,7 +18,7 @@ namespace msn2.net.Pictures.Controls
         private PictureItem item;
         private GetPreviousItemIdDelegate getPreviousId;
         private GetNextItemIdDelegate getNextId;
-        private int pictureId;
+        private PictureData picture;
         private PictureProperties editor;
         private Form sourceForm = null;
 
@@ -43,23 +43,23 @@ namespace msn2.net.Pictures.Controls
             this.Visible = false;
         }
 
-        public void SetPicture(int pictureId)
+        public void SetPicture(PictureData picture)
         {
             if (null != item)
             {
                 this.Controls.Remove(item);
                 item.Dispose();
             }
-            this.pictureId = pictureId;
+            this.picture = picture;
 
-            item = new PictureItem(pictureId);
+            item = new PictureItem(picture);
             item.DrawShadow = false;
             item.Dock = DockStyle.Fill;
             this.Controls.Add(item);
 
             if (null != editor)
             {
-                editor.SetPicture(this.pictureId);
+                editor.SetPicture(this.picture);
             }
 
             UpdateControls();
@@ -90,14 +90,14 @@ namespace msn2.net.Pictures.Controls
 
         private void previousPictureToolStripButton_Click(object sender, EventArgs e)
         {
-            int id = getPreviousId(item.PictureId);
-            SetPicture(id);
+            PictureData picture = getPreviousId(item.PictureId);
+            SetPicture(picture);
         }
 
         private void nextPictureToolStripButton_Click(object sender, EventArgs e)
         {
-            int id = getNextId(item.PictureId);
-            SetPicture(id);
+            PictureData picture = getNextId(item.PictureId);
+            SetPicture(picture);
         }
 
         private void UpdateControls()
@@ -105,11 +105,11 @@ namespace msn2.net.Pictures.Controls
             previousPictureToolStripButton.Enabled = false;
             nextPictureToolStripButton.Enabled = false;
 
-            if (null != getPreviousId && getPreviousId(item.PictureId) > 0)
+            if (null != getPreviousId && getPreviousId(item.PictureId) != null)
             {
                 previousPictureToolStripButton.Enabled = true;
             }
-            if (null != getNextId && getNextId(item.PictureId) > 0)
+            if (null != getNextId && getNextId(item.PictureId) != null)
             {
                 nextPictureToolStripButton.Enabled = true;
             }
@@ -120,7 +120,7 @@ namespace msn2.net.Pictures.Controls
             if (null == this.editor)
             {
                 this.editor = new PictureProperties();
-                this.editor.SetPicture(this.pictureId);
+                this.editor.SetPicture(this.picture);
                 this.editor.Opacity = 0.75f;
                 this.editor.Left = this.Left + this.Width - 100 - this.editor.Width;
                 this.editor.Top = this.Top + this.Height - 100 - this.editor.Height;
@@ -142,12 +142,12 @@ namespace msn2.net.Pictures.Controls
             fSelectCategory selCat = fSelectCategory.GetSelectCategoryDialog();
             if (selCat.ShowDialog(this) == DialogResult.OK)
             {
-                PicContext.Current.PictureManager.AddToCategory(this.pictureId, selCat.SelectedCategory.CategoryId);
+                PicContext.Current.PictureManager.AddToCategory(this.picture.Id, selCat.SelectedCategory.CategoryId);
             }
         }
 
     }
 
-    public delegate int GetNextItemIdDelegate(int currentItem);
-    public delegate int GetPreviousItemIdDelegate(int currentItem);
+    public delegate PictureData GetNextItemIdDelegate(int currentItem);
+    public delegate PictureData GetPreviousItemIdDelegate(int currentItem);
 }

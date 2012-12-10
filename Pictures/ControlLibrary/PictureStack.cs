@@ -38,9 +38,9 @@ namespace msn2.net.Pictures.Controls
             UpdateControls();
         }
 
-        public void AddPicture(int pictureId)
+        public void AddPicture(PictureData picture)
         {
-            PictureItem item = new PictureItem(pictureId);
+            PictureItem item = new PictureItem(picture);
             item.CustomPaint = true;
             item.RequestPaint += new EventHandler(item_RequestPaint);
             pictures.Add(item);

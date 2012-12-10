@@ -12,8 +12,18 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
+    public enum ViewMode
+    {
+        Category = 0,
+        DatePictureTaken,
+        DatePictureAdded,
+        Person
+    }
+
     public partial class ViewPanel : UserControl
     {
+        private ViewMode viewMode = ViewMode.Category;
+
         private CategoryTree categoryTree;
         private PeopleCtl peoplePicker;
         private DateSelector addedDateSelector;
@@ -23,13 +33,16 @@ namespace msn2.net.Pictures.Controls
         {
             InitializeComponent();
 
-            viewSelection.SelectedIndex = 0;
-            LoadView();
+            if (!this.DesignMode)
+            {
+                LoadView();
+            }
         }
 
-        private void viewSelection_SelectedIndexChanged(object sender, EventArgs e)
+        public void SetView(ViewMode viewMode)
         {
-            LoadView();
+            this.viewMode = viewMode;
+            this.LoadView();
         }
 
         public void RefreshData()
@@ -39,7 +52,7 @@ namespace msn2.net.Pictures.Controls
                 return;
             }
 
-            currentFilterView.Controls.Clear();
+            this.Controls.Clear();
 
             categoryTree = null;
             peoplePicker = null;
@@ -56,19 +69,18 @@ namespace msn2.net.Pictures.Controls
                 return;
             }
 
-            int selectedId = viewSelection.SelectedIndex;
-            switch (selectedId)
+            switch (this.viewMode)
             {
-                case 0:
+                case ViewMode.Category:
                     ShowCategory();
                     break;
-                case 1:
+                case ViewMode.DatePictureTaken:
                     ShowDatePictureTaken();
                     break;
-                case 2:
+                case ViewMode.DatePictureAdded:
                     ShowDatePictureAdded();
                     break;
-                case 3:
+                case ViewMode.Person:
                     ShowPerson();
                     break;
             }
@@ -83,8 +95,8 @@ namespace msn2.net.Pictures.Controls
                 takenDateSelector.Dock = DockStyle.Fill;
             }
 
-            currentFilterView.Controls.Clear();
-            currentFilterView.Controls.Add(takenDateSelector);
+            this.Controls.Clear();
+            this.Controls.Add(takenDateSelector);
         }
 
         private void ShowDatePictureAdded()
@@ -96,8 +108,8 @@ namespace msn2.net.Pictures.Controls
                 addedDateSelector.Dock = DockStyle.Fill;
             }
 
-            currentFilterView.Controls.Clear();
-            currentFilterView.Controls.Add(addedDateSelector);
+            this.Controls.Clear();
+            this.Controls.Add(addedDateSelector);
         }
 
         private void ShowCategory()
@@ -109,8 +121,8 @@ namespace msn2.net.Pictures.Controls
                 categoryTree.ClickCategory += new ClickCategoryEventHandler(categoryTree_ClickCategory);
             }
 
-            currentFilterView.Controls.Clear();
-            currentFilterView.Controls.Add(categoryTree);
+            this.Controls.Clear();
+            this.Controls.Add(categoryTree);
         }
 
         private void ShowPerson()
@@ -122,8 +134,8 @@ namespace msn2.net.Pictures.Controls
                 peoplePicker.ClickPerson += new ClickPersonEventHandler(peoplePicker_ClickPerson);
             }
 
-            currentFilterView.Controls.Clear();
-            currentFilterView.Controls.Add(peoplePicker);
+            this.Controls.Clear();
+            this.Controls.Add(peoplePicker);
         }
 
 

@@ -19,15 +19,26 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class PictureItem : UserControl
     {
-        public PictureItem(int pictureId)
+        private PictureData picture;
+
+        public PictureItem(PictureData picture)
         {
+            this.picture = picture;
+
             InitializeComponent();
             this.Resize += new EventHandler(PictureItem_Resize);
             this.Paint  += new PaintEventHandler(PictureItem_Paint);
             this.Disposed += new EventHandler(PictureItem_Disposed);
 
-            this.DoubleBuffered = true;
-            this.pictureId = pictureId;
+            this.pictureId = picture.Id;
+        }
+
+        public PictureData Picture
+        {
+            get
+            {
+                return this.picture;
+            }
         }
 
         private int pictureId;
@@ -97,11 +108,11 @@ namespace msn2.net.Pictures.Controls
                 // See if there is a resized image
                 if (this.Width < 125 && null == smallImage)
                 {
-                    smallImage = PicContext.Current.PictureManager.GetPictureImage(pictureId, 125, 125);
+                    smallImage = PicContext.Current.PictureManager.GetPictureImage(this.picture, 125, 125);
                 }
                 else if (null == image)
                 {
-                    image = PicContext.Current.PictureManager.GetPictureImage(pictureId, 750, 700);
+                    image = PicContext.Current.PictureManager.GetPictureImage(this.picture, 750, 700);
                 }
 
                 RepaintImage();

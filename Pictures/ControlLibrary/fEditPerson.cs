@@ -173,7 +173,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = Config.ConnectionString;
+			this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 			// 
 			// sqlInsertCommand1
 			// 

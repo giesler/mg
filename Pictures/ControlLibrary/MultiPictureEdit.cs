@@ -45,17 +45,16 @@ namespace msn2.net.Pictures.Controls
             this.pictureCategories.Clear();
         }
 
-        public void AddPicture(int pictureId)
+        public void AddPicture(PictureData picture)
         {
-            pictures.Add(pictureId);
+            pictures.Add(picture.Id);
 
-            PictureData data = PicContext.Current.PictureManager.GetPicture(pictureId);
-            title.AddItem(pictureId, data.Title);
-            description.AddItem(pictureId, data.Description);
-            dateTaken.AddItem(pictureId, data.DateTaken);
+            title.AddItem(picture.Id, picture.Title);
+            description.AddItem(picture.Id, picture.Description);
+            dateTaken.AddItem(picture.Id, picture.DateTaken);
 
-            Collection<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(pictureId);
-            this.pictureCategories.Add(pictureId, categories);
+            Collection<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
+            this.pictureCategories.Add(picture.Id, categories);
 
             this.UpdateCategories();
         

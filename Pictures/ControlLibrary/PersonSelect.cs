@@ -36,9 +36,9 @@ namespace msn2.net.Pictures.Controls
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString = Config.ConnectionString;
+            cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-		}
+        }
 
 		/// <summary> 
 		/// Clean up any resources being used.

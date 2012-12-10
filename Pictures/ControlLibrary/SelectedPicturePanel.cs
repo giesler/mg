@@ -20,10 +20,10 @@ namespace msn2.net.Pictures.Controls
             UpdateControls();
         }
 
-        public void AddPicture(int pictureId)
+        public void AddPicture(PictureData picture)
         {
-            this.pictureStack1.AddPicture(pictureId);
-            this.pictureDetailEditor.AddPicture(pictureId);
+            this.pictureStack1.AddPicture(picture);
+            this.pictureDetailEditor.AddPicture(picture);
 
             UpdateControls();
         }

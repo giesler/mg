@@ -40,7 +40,9 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-			// load the list of people
+            this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+
+            // load the list of people
 			daGroup.Fill(dsGroup, "Group");
 
 			// fill the listview
@@ -160,8 +162,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = Config.ConnectionString;
-			// 
+            this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+            // 
 			// sqlInsertCommand1
 			// 
 			this.sqlInsertCommand1.CommandText = "INSERT INTO [Group] (GroupName) VALUES (@GroupName); SELECT GroupID, GroupName FR" +

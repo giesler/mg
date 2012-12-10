@@ -255,6 +255,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\CommonImages.cs" />
+    <Compile Include="Resources\ResourceLocator.cs" />
     <Compile Include="SaveSlideshow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -450,6 +452,7 @@
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="FOLDER02.ICO" />
+    <EmbeddedResource Include="Resources\folder.ico" />
     <None Include="Web References\TerraServer\AreaBoundingBox.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

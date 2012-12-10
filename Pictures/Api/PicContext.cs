@@ -24,11 +24,7 @@ namespace msn2.net.Pictures
 
 		private void context_BeginRequest(object sender, EventArgs e)
 		{
-			PictureConfig config	= new PictureConfig();
-			config.ConnectionString	= ConfigurationSettings.AppSettings["ConnectionString"];
-			config.SmtpServer		= ConfigurationSettings.AppSettings["SMTPServer"];
-			config.PictureDirectory	= ConfigurationSettings.AppSettings["PictureDirectory"];
-			config.CacheDirectory	= ConfigurationSettings.AppSettings["PictureCacheLocation"];
+			PictureConfig config	= Msn2Config.Load();
 
 			PicContext context		= new PicContext(config);
             
@@ -67,7 +63,8 @@ namespace msn2.net.Pictures
 
 		private PictureManager	pictureManager;
 		private CategoryManager	categoryManager;
-		private UserManager		userManager;
+        private PictureCache    pictureCache;
+        private UserManager		userManager;
 		private PictureConfig	config;
 		private PersonInfo		currentUser;
 		private static string CONTEXTKEY = "asdfasf";
@@ -94,7 +91,8 @@ namespace msn2.net.Pictures
 
 			pictureManager	= new PictureManager(config.ConnectionString);
 			categoryManager	= new CategoryManager(config.ConnectionString);
-			userManager		= new UserManager(config.ConnectionString);
+            pictureCache = new PictureCache();
+            userManager		= new UserManager(config.ConnectionString);
 			currentUser		= null;
 		}
 
@@ -137,7 +135,15 @@ namespace msn2.net.Pictures
 			}
 		}
 
-		public UserManager UserManager
+        public PictureCache PictureCache
+        {
+            get
+            {
+                return this.pictureCache;
+            }
+        }
+
+        public UserManager UserManager
 		{
 			get
 			{

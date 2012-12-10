@@ -119,6 +119,8 @@
     <Compile Include="PicContext.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PictureCache.cs" />
+    <Compile Include="PictureData.cs" />
     <Compile Include="PictureDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

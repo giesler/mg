@@ -66,18 +66,21 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuItem8;
         private MenuItem menuAddSecurityGroup;
         private MenuItem menuRemoveSecurityGroup;
-        private SplitContainer splitContainer1;
-        private Panel panel1;
-        private ToolStrip toolStrip1;
 
         private ViewPanel viewPanel;
+        private ToolStrip toolStrip1;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripComboBox viewbyToolStripComboBox;
         private ToolStripLabel toolStripLabel1;
+        private ToolStripComboBox imageSizeCombo;
         private ToolStripButton toolStripSelectAll;
         private ToolStripButton toolStripClearAll;
-        private ToolStripButton copytofolderToolStripButton;
+        private SplitContainer splitContainer2;
+        private SplitContainer splitContainer1;
+        private Panel panel1;
         private PictureList pictureList1;
         private SelectedPicturePanel selectedPictures;
-        private ToolStripComboBox imageSizeCombo;
+        private ToolStripButton copytofolderToolStripButton;
 		#endregion
 
 		#region Constructor
@@ -98,15 +101,15 @@ namespace msn2.net.Pictures.Controls
             stat.StatusText = "Yep, it still takes a while to start...";
             stat.Refresh();
 
-            // Set the connection string
-			cn.ConnectionString		= Config.ConnectionString;
-
             PicContext.Load(Msn2Config.Load(), 1);
+
+            // Set the connection string
+            cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
             viewPanel = new ViewPanel();
             viewPanel.RefreshView += new EventHandler(viewPanel_RefreshView);
-            viewPanel.Dock = DockStyle.Left;
-            this.Controls.Add(viewPanel);
+            viewPanel.Dock = DockStyle.Fill;
+            this.splitContainer2.Panel1.Controls.Add(viewPanel);
 
             stat.Hide();
 			stat = null;
@@ -181,23 +184,28 @@ namespace msn2.net.Pictures.Controls
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.viewbyToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
             this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
             ((System.ComponentModel.ISupportInitialize)(this.daPictureDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
 // 
@@ -376,14 +384,14 @@ namespace msn2.net.Pictures.Controls
 // 
 // statusBar1
 // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 285);
+            this.statusBar1.Location = new System.Drawing.Point(0, 359);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.statusBarPanel1,
             this.statusBarPanel2});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(693, 16);
+            this.statusBar1.Size = new System.Drawing.Size(566, 16);
             this.statusBar1.TabIndex = 10;
             this.statusBar1.Text = "statusBar1";
 // 
@@ -397,33 +405,13 @@ namespace msn2.net.Pictures.Controls
 // 
             this.statusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.statusBarPanel2.Name = "statusBarPanel2";
-            this.statusBarPanel2.Width = 666;
-// 
-// splitContainer1
-// 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-// 
-// Panel1
-// 
-            this.splitContainer1.Panel1.Controls.Add(this.pictureList1);
-            this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
-// 
-// Panel2
-// 
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2MinSize = 150;
-            this.splitContainer1.Size = new System.Drawing.Size(693, 285);
-            this.splitContainer1.SplitterDistance = 131;
-            this.splitContainer1.TabIndex = 15;
-            this.splitContainer1.Text = "splitContainer1";
+            this.statusBarPanel2.Width = 539;
 // 
 // toolStrip1
 // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel2,
+            this.viewbyToolStripComboBox,
             this.toolStripLabel1,
             this.imageSizeCombo,
             this.toolStripSelectAll,
@@ -432,8 +420,29 @@ namespace msn2.net.Pictures.Controls
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Raft = System.Windows.Forms.RaftingSides.None;
-            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Click += new System.EventHandler(this.toolStrip1_Click);
+// 
+// toolStripLabel2
+// 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.SettingsKey = "fMain.toolStripLabel2";
+            this.toolStripLabel2.Text = "View by:";
+// 
+// viewbyToolStripComboBox
+// 
+            this.viewbyToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewbyToolStripComboBox.Items.AddRange(new object[] {
+            "category",
+            "date picture taken",
+            "date picture added",
+            "person"});
+            this.viewbyToolStripComboBox.Name = "viewbyToolStripComboBox";
+            this.viewbyToolStripComboBox.SettingsKey = "fMain.viewbyToolStripComboBox";
+            this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
+            this.viewbyToolStripComboBox.Text = "category";
+            this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
 // 
 // toolStripLabel1
 // 
@@ -478,6 +487,41 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
 // 
+// splitContainer2
+// 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer2.Name = "splitContainer2";
+// 
+// Panel2
+// 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer2.Size = new System.Drawing.Size(566, 334);
+            this.splitContainer2.SplitterDistance = 189;
+            this.splitContainer2.TabIndex = 17;
+            this.splitContainer2.Text = "splitContainer2";
+// 
+// splitContainer1
+// 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+// 
+// Panel1
+// 
+            this.splitContainer1.Panel1.Controls.Add(this.pictureList1);
+// 
+// Panel2
+// 
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
+            this.splitContainer1.Panel2MinSize = 150;
+            this.splitContainer1.Size = new System.Drawing.Size(373, 334);
+            this.splitContainer1.SplitterDistance = 180;
+            this.splitContainer1.TabIndex = 16;
+            this.splitContainer1.Text = "splitContainer1";
+// 
 // panel1
 // 
             this.panel1.Controls.Add(this.selectedPictures);
@@ -485,16 +529,16 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(693, 150);
+            this.panel1.Size = new System.Drawing.Size(373, 150);
             this.panel1.TabIndex = 6;
 // 
 // pictureList1
 // 
             this.pictureList1.BackColor = System.Drawing.Color.White;
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureList1.Location = new System.Drawing.Point(0, 25);
+            this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
-            this.pictureList1.Size = new System.Drawing.Size(693, 106);
+            this.pictureList1.Size = new System.Drawing.Size(373, 180);
             this.pictureList1.TabIndex = 0;
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
@@ -505,15 +549,16 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedPictures.Location = new System.Drawing.Point(0, 0);
             this.selectedPictures.Name = "selectedPictures";
-            this.selectedPictures.Size = new System.Drawing.Size(693, 150);
+            this.selectedPictures.Size = new System.Drawing.Size(373, 150);
             this.selectedPictures.TabIndex = 0;
 // 
 // fMain
 // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(693, 301);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(566, 375);
+            this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusBar1);
+            this.Controls.Add(this.toolStrip1);
             this.Menu = this.mainMenu1;
             this.Name = "fMain";
             this.Text = "Pic Admin";
@@ -521,13 +566,15 @@ namespace msn2.net.Pictures.Controls
             ((System.ComponentModel.ISupportInitialize)(this.daPictureDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 		#endregion
@@ -553,37 +600,29 @@ namespace msn2.net.Pictures.Controls
 
             statusBar1.Panels[0].Text = "Loading pictures";
 
-            // figure out SQL statement
-			String strSQL = "select p.PictureID, PictureDate, Title, "
-				+ "pc.Filename, Publish, PictureSort "
-				+ "from Picture p inner join PictureCache pc on pc.PictureID = p.PictureID "
-				+ "where pc.MaxWidth = 125 and pc.MaxHeight = 125";
-			if (strWhereClause.Length > 0)
-				strSQL += " and " + strWhereClause;
-			strSQL = strSQL + " ORDER BY PictureDate, PictureSort";
-
-			// create dataadapter and ds
-			DataSetPicture dsPicTemp = new DataSetPicture();
-			SqlDataAdapter da = new SqlDataAdapter(strSQL, cn);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
+            Collection<PictureData> pictures = PicContext.Current.PictureManager.GetPictures(strWhereClause);
 
             this.selectedPictures.ClearPictures();
 
-            statusBar1.Panels[0].Text = "Loading " + ds.Tables[0].Rows.Count.ToString() + " pictures";
+            statusBar1.Panels[0].Text = "Loading " + pictures.Count.ToString() + " pictures";
 
-            pictureList1.LoadPictures(ds);
+            pictureList1.LoadPictures(pictures);
 
-			statusBar1.Panels[0].Text = ds.Tables[0].Rows.Count + " pictures";
-			this.Refresh();
-
+			statusBar1.Panels[0].Text = pictures.Count + " pictures";
 		}
 
 		private void menuAddPictures_Click(object sender, System.EventArgs e)
 		{
 			
 			fAddPictures f = new fAddPictures();
-			f.ShowDialog();
+            try
+            {
+                f.ShowDialog();
+            }
+            catch (ArgumentException)
+            {
+                // BUGBUG: accesibility exception
+            }
             viewPanel.RefreshData();
 
 		}
@@ -912,16 +951,16 @@ namespace msn2.net.Pictures.Controls
 
         void pictureList1_DoubleClick(object sender, PictureItemEventArgs e)
         {
-            if (e.PictureId == 0)
+            if (e.Picture == null)
             {
                 return;
             }
 
-            int pictureId = e.PictureId;
+            int pictureId = e.Picture.Id;
 
             Slideshow ss = new Slideshow(new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
                 new GetNextItemIdDelegate(pictureList1.GetNextPicture));
-            ss.SetPicture(e.PictureId);
+            ss.SetPicture(e.Picture);
             ss.SetSourceForm(this);
             ss.Show();
 
@@ -956,12 +995,12 @@ namespace msn2.net.Pictures.Controls
 
         void pictureList1_ItemSelected(object sender, PictureItemEventArgs e)
         {
-            this.selectedPictures.AddPicture(e.PictureId);
+            this.selectedPictures.AddPicture(e.Picture);
         }
 
         void pictureList1_ItemUnselected(object sender, PictureItemEventArgs e)
         {
-            this.selectedPictures.RemovePicture(e.PictureId);
+            this.selectedPictures.RemovePicture(e.Picture.Id);
         }
 
         private void pictureList1_MultiSelectStart(object sender, EventArgs e)
@@ -1026,6 +1065,32 @@ namespace msn2.net.Pictures.Controls
                     }
                 }
             }
+        }
+
+        private void toolStrip1_Click(object sender, EventArgs e)
+        {
+        
+        }
+
+        private void viewbyToolStripComboBox_Click(object sender, EventArgs e)
+        {
+            ViewMode viewMode = ViewMode.Category;
+            switch (viewbyToolStripComboBox.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    viewMode = ViewMode.DatePictureTaken;
+                    break;
+                case 2:
+                    viewMode = ViewMode.DatePictureAdded;
+                    break;
+                case 3:
+                    viewMode = ViewMode.Person;
+                    break;
+            }
+
+            this.viewPanel.SetView(viewMode);
         }
     }
 }

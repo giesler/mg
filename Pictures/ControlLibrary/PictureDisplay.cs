@@ -93,7 +93,7 @@ namespace msn2.net.Pictures.Controls
 
 				// See if there is a resized image
 				string strFile = "";
-				SqlConnection cn = new SqlConnection(Config.ConnectionString);
+                SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
                 cn.Open();
 				SqlCommand cmd = new SqlCommand("select * from PictureCache where PictureID = @PictureID and MaxWidth = @maxWidth and MaxHeight = @maxHeight", cn);
 				

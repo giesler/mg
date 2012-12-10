@@ -25,15 +25,14 @@ namespace msn2.net.Pictures.Controls
             this.DoubleBuffered = true;
         }
 
-        public void LoadPictures(DataSet ds)
+        public void LoadPictures(Collection<PictureData> pictures)
         {
             selectedItems.Clear();
             flowLayoutPanel1.Controls.Clear();
 
-            foreach (DataRow row in ds.Tables[0].Rows)
+            foreach (PictureData picture in pictures)
             {
-                int pictureId = (int)row["PictureId"];
-                PictureItem pi = new PictureItem(pictureId);
+                PictureItem pi = new PictureItem(picture);
                 pi.DoubleClick += new EventHandler(pi_DoubleClick);
                 pi.Click    += new EventHandler(pi_Click);
                 pi.DrawBorder = false;
@@ -104,7 +103,7 @@ namespace msn2.net.Pictures.Controls
         public event PictureItemEventHandler ItemSelected;
         public event PictureItemEventHandler ItemUnselected;
 
-        public int GetNextPicture(int pictureId)
+        public PictureData GetNextPicture(int pictureId)
         {
             bool found = false;
 
@@ -112,7 +111,7 @@ namespace msn2.net.Pictures.Controls
             {
                 if (found)
                 {
-                    return item.PictureId;
+                    return item.Picture;
                 }
 
                 if (item.PictureId == pictureId)
@@ -121,23 +120,23 @@ namespace msn2.net.Pictures.Controls
                 }
             }
 
-            return 0;
+            return null;
         }
 
-        public int GetPreviousPicture(int pictureId)
+        public PictureData GetPreviousPicture(int pictureId)
         {
-            int lastId = 0;
+            PictureData lastPicture = null;
 
             foreach (PictureItem item in flowLayoutPanel1.Controls)
             {
                 if (item.PictureId == pictureId)
                 {
-                    return lastId;
+                    return lastPicture;
                 }
-                lastId = item.PictureId;
+                lastPicture = item.Picture;
             }
 
-            return 0;
+            return null;
         }
 
         void pi_DoubleClick(object sender, EventArgs e)
@@ -145,7 +144,7 @@ namespace msn2.net.Pictures.Controls
             if (null != PictureDoubleClick)
             {
                 PictureItem item = sender as PictureItem;
-                PictureDoubleClick(this, new PictureItemEventArgs(item.PictureId));
+                PictureDoubleClick(this, new PictureItemEventArgs(item.Picture));
             }
         }
 
@@ -158,7 +157,7 @@ namespace msn2.net.Pictures.Controls
                 {
                     if (null != ItemUnselected)
                     {
-                        ItemUnselected(this, new PictureItemEventArgs(item.PictureId));
+                        ItemUnselected(this, new PictureItemEventArgs(item.Picture));
                     }
                 }
                 item.Dispose();
@@ -183,7 +182,7 @@ namespace msn2.net.Pictures.Controls
 
                     if (null != ItemSelected)
                     {
-                        ItemSelected(this, new PictureItemEventArgs(item.PictureId));
+                        ItemSelected(this, new PictureItemEventArgs(item.Picture));
                     }
                 }
             }
@@ -215,14 +214,17 @@ namespace msn2.net.Pictures.Controls
                 {
                     continue;
                 }
-                item.Selected = false;
-                if (selectedItems.Contains(item.PictureId))
+                if (item.Selected)
                 {
-                    selectedItems.Remove(item.PictureId);
-
-                    if (null != ItemUnselected)
+                    item.Selected = false;
+                    if (selectedItems.Contains(item.PictureId))
                     {
-                        ItemUnselected(this, new PictureItemEventArgs(item.PictureId));
+                        selectedItems.Remove(item.PictureId);
+
+                        if (null != ItemUnselected)
+                        {
+                            ItemUnselected(this, new PictureItemEventArgs(item.Picture));
+                        }
                     }
                 }
             }
@@ -263,12 +265,11 @@ namespace msn2.net.Pictures.Controls
                 selectedItems.Add(item.PictureId);
                 if (null != ItemSelected)
                 {
-                    ItemSelected(this, new PictureItemEventArgs(item.PictureId));
-
+                    ItemSelected(this, new PictureItemEventArgs(item.Picture));
                 }
                 if (null != SelectedChanged)
                 {
-                    SelectedChanged(this, new PictureItemEventArgs(item.PictureId));
+                    SelectedChanged(this, new PictureItemEventArgs(item.Picture));
                 }
             }
             else if (item.Selected)
@@ -281,11 +282,11 @@ namespace msn2.net.Pictures.Controls
 
                     if (null != ItemUnselected)
                     {
-                        ItemUnselected(this, new PictureItemEventArgs(item.PictureId));
+                        ItemUnselected(this, new PictureItemEventArgs(item.Picture));
                     }
                     if (null != SelectedChanged)
                     {
-                        SelectedChanged(this, new PictureItemEventArgs(item.PictureId));
+                        SelectedChanged(this, new PictureItemEventArgs(item.Picture));
                     }
 
                 }
@@ -299,18 +300,18 @@ namespace msn2.net.Pictures.Controls
 
     public class PictureItemEventArgs : EventArgs
     {
-        internal PictureItemEventArgs(int pictureId)
+        private PictureData picture;
+
+        internal PictureItemEventArgs(PictureData picture)
         {
-            this.pictureId = pictureId;
+            this.picture = picture;
         }
 
-        private int pictureId;
-
-        public int PictureId
+        public PictureData Picture
         {
             get
             {
-                return pictureId;
+                return picture;
             }
         }
 

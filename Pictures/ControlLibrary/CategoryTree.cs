@@ -20,19 +20,11 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.MenuItem menuAddChildCat;
 		private System.Windows.Forms.MenuItem menuEditCatName;
 		private System.Windows.Forms.MenuItem menuDeleteCat;
-		private System.Data.DataView dvCategory;
-		private System.Data.SqlClient.SqlConnection cn;
-		private System.Data.SqlClient.SqlDataAdapter daCategory;
 		private System.Windows.Forms.MenuItem menuAddChild;
 		private System.Windows.Forms.MenuItem menuEdit;
 		private System.Windows.Forms.MenuItem menuDelete;
-		private msn2.net.Pictures.Controls.DataSetCategory dsCategory;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuRefresh;
-		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
-		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
-		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
-		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		private System.Windows.Forms.MenuItem menuSaveSlideshow;
 		/// <summary> 
 		/// Required designer variable.
@@ -44,17 +36,14 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-			// Set the connection string
-			cn.ConnectionString = Config.ConnectionString;
-
 			RefreshTree();
 
-		}
+            this.tvCategory.ImageList = new ImageList();
+            this.tvCategory.ImageList.Images.Add(CommonImages.Folder);
+        }
 
 		public void RefreshTree () 
 		{
-			daCategory.Fill(dsCategory,"Category");
-
 			// clear tree
 			tvCategory.Nodes.Clear();
 
@@ -102,12 +91,7 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.daCategory = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.cn = new System.Data.SqlClient.SqlConnection();
-			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+
 			this.tvCategory = new System.Windows.Forms.TreeView();
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuAddChild = new System.Windows.Forms.MenuItem();
@@ -117,83 +101,10 @@ namespace msn2.net.Pictures.Controls
 			this.menuRefresh = new System.Windows.Forms.MenuItem();
 			this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
 			this.menuDeleteCat = new System.Windows.Forms.MenuItem();
-			this.dvCategory = new System.Data.DataView();
-			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
+
 			this.menuEditCatName = new System.Windows.Forms.MenuItem();
 			this.menuAddChildCat = new System.Windows.Forms.MenuItem();
-			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).BeginInit();
-			this.SuspendLayout();
-			// 
-			// daCategory
-			// 
-			this.daCategory.DeleteCommand = this.sqlDeleteCommand1;
-			this.daCategory.InsertCommand = this.sqlInsertCommand1;
-			this.daCategory.SelectCommand = this.sqlSelectCommand1;
-			this.daCategory.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
-																								 new System.Data.Common.DataTableMapping("Table", "Category", new System.Data.Common.DataColumnMapping[] {
-																																																			 new System.Data.Common.DataColumnMapping("CategoryID", "CategoryID"),
-																																																			 new System.Data.Common.DataColumnMapping("CategoryParentID", "CategoryParentID"),
-																																																			 new System.Data.Common.DataColumnMapping("CategoryName", "CategoryName"),
-																																																			 new System.Data.Common.DataColumnMapping("CategoryPath", "CategoryPath"),
-																																																			 new System.Data.Common.DataColumnMapping("CategoryDescription", "CategoryDescription"),
-																																																			 new System.Data.Common.DataColumnMapping("CategoryDate", "CategoryDate"),
-																																																			 new System.Data.Common.DataColumnMapping("Publish", "Publish")})});
-			this.daCategory.UpdateCommand = this.sqlUpdateCommand1;
-			// 
-			// sqlDeleteCommand1
-			// 
-			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Category WHERE (CategoryID = @Original_CategoryID) AND (CategoryDate = @Original_CategoryDate OR @Original_CategoryDate IS NULL AND CategoryDate IS NULL) AND (CategoryDescription = @Original_CategoryDescription OR @Original_CategoryDescription IS NULL AND CategoryDescription IS NULL) AND (CategoryName = @Original_CategoryName) AND (CategoryParentID = @Original_CategoryParentID) AND (CategoryPath = @Original_CategoryPath OR @Original_CategoryPath IS NULL AND CategoryPath IS NULL) AND (Publish = @Original_Publish)";
-			this.sqlDeleteCommand1.Connection = this.cn;
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryDate", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryDescription", System.Data.SqlDbType.NVarChar, 2500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryDescription", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryName", System.Data.SqlDbType.NVarChar, 500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryParentID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryParentID", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryPath", System.Data.SqlDbType.NVarChar, 2500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryPath", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			// 
-			// cn
-			// 
-			this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist security " +
-				"info=False;workstation id=CHEF;packet size=4096";
-			// 
-			// sqlInsertCommand1
-			// 
-			this.sqlInsertCommand1.CommandText = @"INSERT INTO Category(CategoryParentID, CategoryName, CategoryPath, CategoryDescription, CategoryDate, Publish) VALUES (@CategoryParentID, @CategoryName, @CategoryPath, @CategoryDescription, @CategoryDate, @Publish); SELECT CategoryID, CategoryParentID, CategoryName, CategoryPath, CategoryDescription, CategoryDate, Publish FROM Category WHERE (CategoryID = @@IDENTITY)";
-			this.sqlInsertCommand1.Connection = this.cn;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryParentID", System.Data.SqlDbType.Int, 4, "CategoryParentID"));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryName", System.Data.SqlDbType.NVarChar, 500, "CategoryName"));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryPath", System.Data.SqlDbType.NVarChar, 2500, "CategoryPath"));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryDescription", System.Data.SqlDbType.NVarChar, 2500, "CategoryDescription"));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryDate", System.Data.SqlDbType.DateTime, 4, "CategoryDate"));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, "Publish"));
-			// 
-			// sqlSelectCommand1
-			// 
-			this.sqlSelectCommand1.CommandText = "SELECT CategoryID, CategoryParentID, CategoryName, CategoryPath, CategoryDescript" +
-				"ion, CategoryDate, Publish FROM Category";
-			this.sqlSelectCommand1.Connection = this.cn;
-			// 
-			// sqlUpdateCommand1
-			// 
-			this.sqlUpdateCommand1.CommandText = @"UPDATE Category SET CategoryParentID = @CategoryParentID, CategoryName = @CategoryName, CategoryPath = @CategoryPath, CategoryDescription = @CategoryDescription, CategoryDate = @CategoryDate, Publish = @Publish WHERE (CategoryID = @Original_CategoryID) AND (CategoryDate = @Original_CategoryDate OR @Original_CategoryDate IS NULL AND CategoryDate IS NULL) AND (CategoryDescription = @Original_CategoryDescription OR @Original_CategoryDescription IS NULL AND CategoryDescription IS NULL) AND (CategoryName = @Original_CategoryName) AND (CategoryParentID = @Original_CategoryParentID) AND (CategoryPath = @Original_CategoryPath OR @Original_CategoryPath IS NULL AND CategoryPath IS NULL) AND (Publish = @Original_Publish); SELECT CategoryID, CategoryParentID, CategoryName, CategoryPath, CategoryDescription, CategoryDate, Publish FROM Category WHERE (CategoryID = @CategoryID)";
-			this.sqlUpdateCommand1.Connection = this.cn;
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryParentID", System.Data.SqlDbType.Int, 4, "CategoryParentID"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryName", System.Data.SqlDbType.NVarChar, 500, "CategoryName"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryPath", System.Data.SqlDbType.NVarChar, 2500, "CategoryPath"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryDescription", System.Data.SqlDbType.NVarChar, 2500, "CategoryDescription"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryDate", System.Data.SqlDbType.DateTime, 4, "CategoryDate"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Publish", System.Data.SqlDbType.Bit, 1, "Publish"));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryDate", System.Data.SqlDbType.DateTime, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryDate", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryDescription", System.Data.SqlDbType.NVarChar, 2500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryDescription", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryName", System.Data.SqlDbType.NVarChar, 500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryParentID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryParentID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_CategoryPath", System.Data.SqlDbType.NVarChar, 2500, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "CategoryPath", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Publish", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Publish", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CategoryID", System.Data.SqlDbType.Int, 4, "CategoryID"));
-			// 
+            this.SuspendLayout();			// 
 			// tvCategory
 			// 
 			this.tvCategory.ContextMenu = this.contextMenu1;
@@ -260,15 +171,7 @@ namespace msn2.net.Pictures.Controls
 			this.menuDeleteCat.Index = -1;
 			this.menuDeleteCat.Text = "";
 			this.menuDeleteCat.Click += new System.EventHandler(this.menuDeleteCat_Click);
-			// 
-			// dvCategory
-			// 
-			this.dvCategory.Table = this.dsCategory.Category;
-			// 
-			// dsCategory
-			// 
-			this.dsCategory.DataSetName = "DataSetCategory";
-			this.dsCategory.Locale = new System.Globalization.CultureInfo("en-US");
+
 			// 
 			// menuEditCatName
 			// 
@@ -287,8 +190,6 @@ namespace msn2.net.Pictures.Controls
 			this.Controls.Add(this.tvCategory);
 			this.Name = "CategoryTree";
 			this.Size = new System.Drawing.Size(120, 112);
-			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -366,10 +267,8 @@ namespace msn2.net.Pictures.Controls
 			if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  All categories below it will also be deleted.  No pictures will be deleted, but picture-category associations may be.", 
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 			{
-				DataSetCategory.CategoryRow cr = dsCategory.Category.FindByCategoryID( 
-                    n.Category.CategoryId);
-				cr.Delete();
-				tvCategory.Nodes.Remove(n);
+                throw new NotImplementedException();
+                tvCategory.Nodes.Remove(n);
 			}
 		}
 

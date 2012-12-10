@@ -8,25 +8,6 @@ using System.IO;
 
 namespace msn2.net.Pictures.Controls
 {
-	public class Config
-	{
-		public static string ConnectionString
-		{
-			get
-			{
-				return "data source=picdbserver;integrated security=sspi;initial catalog=picdb;persist security info=False";
-			}
-		}
-
-		public static double Opacity
-		{
-			get
-			{
-				return 1;
-			}
-		}
-	}
-
 	/// <summary>
 	/// Summary description for ImageUtilities.
 	/// </summary>
@@ -39,9 +20,9 @@ namespace msn2.net.Pictures.Controls
 		public ImageUtilities()
 		{
 			// Set up connection
-			sqlConnection = new SqlConnection(Config.ConnectionString);
+            sqlConnection = new SqlConnection(PicContext.Current.Config.ConnectionString);
 
-			// Data adapter for picture details
+            // Data adapter for picture details
 			daPicture = new SqlDataAdapter("select * from Picture where PictureID = @PictureID", sqlConnection);
 			daPicture.SelectCommand.Parameters.Add("@PictureID", SqlDbType.Int);
 

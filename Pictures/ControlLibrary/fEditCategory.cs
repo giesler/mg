@@ -58,9 +58,8 @@ namespace msn2.net.Pictures.Controls
 			InitializeComponent();
 
 			// Set the connection string
-			cn.ConnectionString =  Config.ConnectionString;
-			sqlConnection1.ConnectionString = Config.ConnectionString;
-			this.Opacity		= Config.Opacity;
+            cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+            sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
 
 		}
 
@@ -115,8 +114,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// cn
 			// 
-			this.cn.ConnectionString = Config.ConnectionString;
-			// 
+            this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+            // 
 			// dsCategory
 			// 
 			this.dsCategory.DataSetName = "DataSetCategory";
@@ -148,8 +147,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// sqlConnection1
 			// 
-			this.sqlConnection1.ConnectionString = Config.ConnectionString;
-			// 
+            this.sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
+            // 
 			// daCategory
 			// 
 			this.daCategory.DeleteCommand = this.sqlDeleteCommand1;

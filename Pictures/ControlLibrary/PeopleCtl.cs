@@ -58,10 +58,10 @@ namespace msn2.net.Pictures.Controls
 			try
 			{
 				// Set the connection string
-				this.sqlConnection1.ConnectionString	= Config.ConnectionString;
-				this.cn.ConnectionString				= Config.ConnectionString;
+                this.sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
+                this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-				// Load all people
+                // Load all people
 				daPerson.Fill(dsPerson, "Person");
 			}
 			catch (SqlException ex)
