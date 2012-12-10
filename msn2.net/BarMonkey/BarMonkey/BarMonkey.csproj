@@ -548,6 +548,9 @@
   <ItemGroup>
     <Resource Include="Resources\appbar.next.rest.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\drink.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem copy /y $(TargetDir)\* \\stan\software\msn2.net\BarNone\Client</PostBuildEvent>

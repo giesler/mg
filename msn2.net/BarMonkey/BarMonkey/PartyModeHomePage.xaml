@@ -16,9 +16,13 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal">                
-                <Button Style="{DynamicResource DefaultMetroButtonStyle}" IsEnabled="{Binding Path=IsEnabled}" Name="newDrink" Click="newDrink_Click" Tag="{Binding Path=PageUrl}" Content="new drink" />
-                <Button Style="{DynamicResource DefaultMetroButtonStyle}" IsEnabled="{Binding Path=IsEnabled}" Name="settings" Click="settings_Click" Tag="{Binding Path=PageUrl}" Content="settings" />
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{DynamicResource DefaultMetroButtonStyle}" IsEnabled="{Binding Path=IsEnabled}" Name="newDrink" Click="newDrink_Click" Tag="{Binding Path=PageUrl}">
+                    <Image Source="/Resources/drink.png" />
+                </Button>
+                <Button Style="{DynamicResource DefaultMetroButtonStyle}" IsEnabled="{Binding Path=IsEnabled}" Name="settings" Click="settings_Click" Tag="{Binding Path=PageUrl}">
+                    <Image Source="/Resources/appbar.feature.settings.rest.png" />
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>
