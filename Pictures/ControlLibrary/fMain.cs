@@ -158,6 +158,7 @@ namespace msn2.net.Pictures.Controls
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
@@ -194,9 +195,11 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -205,36 +208,35 @@ namespace msn2.net.Pictures.Controls
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-// 
-// sqlSelectCommand1
-// 
-            this.sqlSelectCommand1.CommandText = @"SELECT DATEPART(yyyy, PictureDate) AS PicYear, DATEPART(mm, PictureDate) AS PicMonth, DATEPART(dd, PictureDate) AS PicDay FROM Picture GROUP BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate) ORDER BY DATEPART(yyyy, PictureDate), DATEPART(mm, PictureDate), DATEPART(dd, PictureDate)";
+            // 
+            // sqlSelectCommand1
+            // 
+            this.sqlSelectCommand1.CommandText = resources.GetString("sqlSelectCommand1.CommandText");
             this.sqlSelectCommand1.Connection = this.cn;
-// 
-// cn
-// 
+            // 
+            // cn
+            // 
             this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist se" +
                 "curity info=False;workstation id=CHEF;packet size=4096";
             this.cn.FireInfoMessageEventOnUserErrors = false;
-// 
-// mnuPictureListMoveDown
-// 
+            // 
+            // mnuPictureListMoveDown
+            // 
             this.mnuPictureListMoveDown.Index = 4;
-            this.mnuPictureListMoveDown.Name = "mnuPictureListMoveDown";
             this.mnuPictureListMoveDown.Shortcut = System.Windows.Forms.Shortcut.CtrlD;
             this.mnuPictureListMoveDown.Text = "Move D&own";
-// 
-// daPictureDate
-// 
+            // 
+            // daPictureDate
+            // 
             this.daPictureDate.SelectCommand = this.sqlSelectCommand1;
             this.daPictureDate.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
             new System.Data.Common.DataTableMapping("Table", "Table", new System.Data.Common.DataColumnMapping[] {
                         new System.Data.Common.DataColumnMapping("PicYear", "PicYear"),
                         new System.Data.Common.DataColumnMapping("PicMonth", "PicMonth"),
                         new System.Data.Common.DataColumnMapping("PicDay", "PicDay")})});
-// 
-// mnuPictureList
-// 
+            // 
+            // mnuPictureList
+            // 
             this.mnuPictureList.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuPictureListEdit,
             this.mnuPictureListDelete,
@@ -248,99 +250,84 @@ namespace msn2.net.Pictures.Controls
             this.menuItem8,
             this.menuAddSecurityGroup,
             this.menuRemoveSecurityGroup});
-            this.mnuPictureList.Name = "mnuPictureList";
             this.mnuPictureList.Popup += new System.EventHandler(this.mnuPictureList_Popup);
-// 
-// mnuPictureListEdit
-// 
+            // 
+            // mnuPictureListEdit
+            // 
             this.mnuPictureListEdit.Index = 0;
-            this.mnuPictureListEdit.Name = "mnuPictureListEdit";
             this.mnuPictureListEdit.Text = "&Edit";
             this.mnuPictureListEdit.Click += new System.EventHandler(this.mnuPictureListEdit_Click);
-// 
-// mnuPictureListDelete
-// 
+            // 
+            // mnuPictureListDelete
+            // 
             this.mnuPictureListDelete.Index = 1;
-            this.mnuPictureListDelete.Name = "mnuPictureListDelete";
             this.mnuPictureListDelete.Shortcut = System.Windows.Forms.Shortcut.Del;
             this.mnuPictureListDelete.Text = "&Delete";
             this.mnuPictureListDelete.Click += new System.EventHandler(this.mnuPictureListDelete_Click);
-// 
-// menuItem2
-// 
+            // 
+            // menuItem2
+            // 
             this.menuItem2.Index = 2;
-            this.menuItem2.Name = "menuItem2";
             this.menuItem2.Text = "-";
-// 
-// mnuPictureListMoveUp
-// 
+            // 
+            // mnuPictureListMoveUp
+            // 
             this.mnuPictureListMoveUp.Index = 3;
-            this.mnuPictureListMoveUp.Name = "mnuPictureListMoveUp";
             this.mnuPictureListMoveUp.Shortcut = System.Windows.Forms.Shortcut.CtrlU;
             this.mnuPictureListMoveUp.Text = "Move &Up";
-// 
-// menuItem6
-// 
+            // 
+            // menuItem6
+            // 
             this.menuItem6.Index = 5;
-            this.menuItem6.Name = "menuItem6";
             this.menuItem6.Text = "&Picture Info";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
-// 
-// menuItem7
-// 
+            // 
+            // menuItem7
+            // 
             this.menuItem7.Index = 6;
-            this.menuItem7.Name = "menuItem7";
             this.menuItem7.Text = "-";
-// 
-// menuAddToCategory
-// 
+            // 
+            // menuAddToCategory
+            // 
             this.menuAddToCategory.Index = 7;
-            this.menuAddToCategory.Name = "menuAddToCategory";
             this.menuAddToCategory.Text = "&Add to category...";
             this.menuAddToCategory.Click += new System.EventHandler(this.menuAddToCategory_Click);
-// 
-// menuRemoveFromCategory
-// 
+            // 
+            // menuRemoveFromCategory
+            // 
             this.menuRemoveFromCategory.Index = 8;
-            this.menuRemoveFromCategory.Name = "menuRemoveFromCategory";
             this.menuRemoveFromCategory.Text = "&Remove from category...";
             this.menuRemoveFromCategory.Click += new System.EventHandler(this.menuRemoveFromCategory_Click);
-// 
-// menuItem8
-// 
+            // 
+            // menuItem8
+            // 
             this.menuItem8.Index = 9;
-            this.menuItem8.Name = "menuItem8";
             this.menuItem8.Text = "-";
-// 
-// menuAddSecurityGroup
-// 
+            // 
+            // menuAddSecurityGroup
+            // 
             this.menuAddSecurityGroup.Index = 10;
-            this.menuAddSecurityGroup.Name = "menuAddSecurityGroup";
             this.menuAddSecurityGroup.Text = "Add security gruop...";
             this.menuAddSecurityGroup.Click += new System.EventHandler(this.menuAddSecurityGroup_Click);
-// 
-// menuRemoveSecurityGroup
-// 
+            // 
+            // menuRemoveSecurityGroup
+            // 
             this.menuRemoveSecurityGroup.Index = 11;
-            this.menuRemoveSecurityGroup.Name = "menuRemoveSecurityGroup";
             this.menuRemoveSecurityGroup.Text = "Remove security group...";
             this.menuRemoveSecurityGroup.Click += new System.EventHandler(this.menuRemoveSecurityGroup_Click);
-// 
-// menuItem3
-// 
+            // 
+            // menuItem3
+            // 
             this.menuItem3.Index = 3;
-            this.menuItem3.Name = "menuItem3";
             this.menuItem3.Text = "-";
-// 
-// mainMenu1
-// 
+            // 
+            // mainMenu1
+            // 
             this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-                this.menuItem1
-            });
-            this.mainMenu1.Name = "mainMenu1";
-// 
-// menuItem1
-// 
+            this.menuItem1});
+            // 
+            // menuItem1
+            // 
             this.menuItem1.Index = 0;
             this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuAddPictures,
@@ -348,39 +335,34 @@ namespace msn2.net.Pictures.Controls
             this.menuItem5,
             this.menuItem3,
             this.menuFileExit});
-            this.menuItem1.Name = "menuItem1";
             this.menuItem1.Text = "&File";
-// 
-// menuAddPictures
-// 
+            // 
+            // menuAddPictures
+            // 
             this.menuAddPictures.Index = 0;
-            this.menuAddPictures.Name = "menuAddPictures";
             this.menuAddPictures.Text = "&Add Pictures";
             this.menuAddPictures.Click += new System.EventHandler(this.menuAddPictures_Click);
-// 
-// menuUpdateCachedPictures
-// 
+            // 
+            // menuUpdateCachedPictures
+            // 
             this.menuUpdateCachedPictures.Index = 1;
-            this.menuUpdateCachedPictures.Name = "menuUpdateCachedPictures";
             this.menuUpdateCachedPictures.Text = "Update Cached Pictures";
             this.menuUpdateCachedPictures.Click += new System.EventHandler(this.menuUpdateCachedPictures_Click);
-// 
-// menuItem5
-// 
+            // 
+            // menuItem5
+            // 
             this.menuItem5.Index = 2;
-            this.menuItem5.Name = "menuItem5";
             this.menuItem5.Text = "&Validate cached pictures";
             this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
-// 
-// menuFileExit
-// 
+            // 
+            // menuFileExit
+            // 
             this.menuFileExit.Index = 4;
-            this.menuFileExit.Name = "menuFileExit";
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
-// 
-// statusBar1
-// 
+            // 
+            // statusBar1
+            // 
             this.statusBar1.Location = new System.Drawing.Point(0, 359);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
@@ -391,21 +373,21 @@ namespace msn2.net.Pictures.Controls
             this.statusBar1.Size = new System.Drawing.Size(566, 16);
             this.statusBar1.TabIndex = 10;
             this.statusBar1.Text = "statusBar1";
-// 
-// statusBarPanel1
-// 
+            // 
+            // statusBarPanel1
+            // 
             this.statusBarPanel1.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Contents;
             this.statusBarPanel1.Name = "statusBarPanel1";
             this.statusBarPanel1.Width = 10;
-// 
-// statusBarPanel2
-// 
+            // 
+            // statusBarPanel2
+            // 
             this.statusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.statusBarPanel2.Name = "statusBarPanel2";
             this.statusBarPanel2.Width = 539;
-// 
-// toolStrip1
-// 
+            // 
+            // toolStrip1
+            // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel2,
             this.viewbyToolStripComboBox,
@@ -416,17 +398,19 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(566, 25);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.Click += new System.EventHandler(this.toolStrip1_Click);
-// 
-// toolStripLabel2
-// 
+            // 
+            // toolStripLabel2
+            // 
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Text = "View by:";
-// 
-// viewbyToolStripComboBox
-// 
+            // 
+            // viewbyToolStripComboBox
+            // 
+            this.viewbyToolStripComboBox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
             this.viewbyToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.viewbyToolStripComboBox.Items.AddRange(new object[] {
             "category",
@@ -437,14 +421,15 @@ namespace msn2.net.Pictures.Controls
             this.viewbyToolStripComboBox.Size = new System.Drawing.Size(100, 25);
             this.viewbyToolStripComboBox.Text = "category";
             this.viewbyToolStripComboBox.Click += new System.EventHandler(this.viewbyToolStripComboBox_Click);
-// 
-// toolStripLabel1
-// 
+            // 
+            // toolStripLabel1
+            // 
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Text = "Image Size:";
-// 
-// imageSizeCombo
-// 
+            // 
+            // imageSizeCombo
+            // 
+            this.imageSizeCombo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
             this.imageSizeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.imageSizeCombo.Items.AddRange(new object[] {
             "50",
@@ -457,72 +442,61 @@ namespace msn2.net.Pictures.Controls
             this.imageSizeCombo.Size = new System.Drawing.Size(75, 25);
             this.imageSizeCombo.Text = "100";
             this.imageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.imageSizeCombo_SelectedIndexChanged);
-// 
-// toolStripSelectAll
-// 
+            // 
+            // toolStripSelectAll
+            // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
             this.toolStripSelectAll.Text = "Select All";
             this.toolStripSelectAll.Click += new System.EventHandler(this.toolStripSelectAll_Click);
-// 
-// toolStripClearAll
-// 
+            // 
+            // toolStripClearAll
+            // 
             this.toolStripClearAll.Name = "toolStripClearAll";
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
-// 
-// copytofolderToolStripButton
-// 
+            // 
+            // copytofolderToolStripButton
+            // 
             this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
-// 
-// splitContainer2
-// 
+            // 
+            // splitContainer2
+            // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 25);
             this.splitContainer2.Name = "splitContainer2";
-// 
-// Panel2
-// 
+            // 
+            // splitContainer2.Panel2
+            // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Size = new System.Drawing.Size(566, 334);
             this.splitContainer2.SplitterDistance = 189;
             this.splitContainer2.TabIndex = 17;
             this.splitContainer2.Text = "splitContainer2";
-// 
-// splitContainer1
-// 
+            // 
+            // splitContainer1
+            // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-// 
-// Panel1
-// 
+            // 
+            // splitContainer1.Panel1
+            // 
             this.splitContainer1.Panel1.Controls.Add(this.pictureList1);
-// 
-// Panel2
-// 
+            // 
+            // splitContainer1.Panel2
+            // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2MinSize = 150;
             this.splitContainer1.Size = new System.Drawing.Size(373, 334);
             this.splitContainer1.SplitterDistance = 180;
             this.splitContainer1.TabIndex = 16;
             this.splitContainer1.Text = "splitContainer1";
-// 
-// panel1
-// 
-            this.panel1.Controls.Add(this.selectedPictures);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(373, 150);
-            this.panel1.TabIndex = 6;
-// 
-// pictureList1
-// 
+            // 
+            // pictureList1
+            // 
             this.pictureList1.BackColor = System.Drawing.Color.White;
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
@@ -531,18 +505,28 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.TabIndex = 0;
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
-// 
-// selectedPictures
-// 
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.selectedPictures);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(373, 150);
+            this.panel1.TabIndex = 6;
+            // 
+            // selectedPictures
+            // 
             this.selectedPictures.BackColor = System.Drawing.SystemColors.Control;
             this.selectedPictures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedPictures.Location = new System.Drawing.Point(0, 0);
             this.selectedPictures.Name = "selectedPictures";
             this.selectedPictures.Size = new System.Drawing.Size(373, 150);
             this.selectedPictures.TabIndex = 0;
-// 
-// fMain
-// 
+            // 
+            // fMain
+            // 
             this.ClientSize = new System.Drawing.Size(566, 375);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.statusBar1);
@@ -551,6 +535,8 @@ namespace msn2.net.Pictures.Controls
             this.Name = "fMain";
             this.Text = "Pic Admin";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
@@ -614,7 +600,10 @@ namespace msn2.net.Pictures.Controls
 
 		private void mnuPictureListEdit_Click(object sender, System.EventArgs e)
 		{
-            pictureList1_DoubleClick(null, null);
+            PictureItemEventArgs args = new PictureItemEventArgs(
+                pictureList1.GetSelectedPictureData());
+
+            pictureList1_DoubleClick(null, args);
 		}
 
 		private void mnuPictureListDelete_Click(object sender, System.EventArgs e)
@@ -940,8 +929,6 @@ namespace msn2.net.Pictures.Controls
             {
                 return;
             }
-
-            int pictureId = e.Picture.Id;
 
             Slideshow ss = new Slideshow(new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
                 new GetNextItemIdDelegate(pictureList1.GetNextPicture));

@@ -31,7 +31,8 @@ namespace msn2.net.Pictures.Controls
 
             if (this.listBox1.SelectedItems.Count > 0)
             {
-                category = (Category) this.listBox1.SelectedItem;
+                CategoryListItem listItem = (CategoryListItem) this.listBox1.SelectedItem;
+                category = listItem.Category;
             }
 
             return category;

@@ -27,74 +27,87 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Slideshow));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.closeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.sepToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.previousPictureToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.nextPictureToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.sepToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.propertiesToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addtocategoryToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolClose = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolPrevious = new System.Windows.Forms.ToolStripButton();
+            this.toolNext = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolProperties = new System.Windows.Forms.ToolStripButton();
+            this.toolAddToCategory = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-// 
-// toolStrip1
-// 
+            // 
+            // toolStrip1
+            // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripButton,
-            this.sepToolStripSeparator,
-            this.previousPictureToolStripButton,
-            this.nextPictureToolStripButton,
-            this.sepToolStripSeparator1,
-            this.propertiesToolStripButton,
-            this.addtocategoryToolStripButton});
+            this.toolClose,
+            this.toolStripSeparator1,
+            this.toolPrevious,
+            this.toolNext,
+            this.toolStripSeparator2,
+            this.toolProperties,
+            this.toolAddToCategory});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(703, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-// 
-// closeToolStripButton
-// 
-            this.closeToolStripButton.Name = "closeToolStripButton";
-            this.closeToolStripButton.Text = "&Close";
-            this.closeToolStripButton.Click += new System.EventHandler(this.closeToolStripButton_Click_1);
-// 
-// sepToolStripSeparator
-// 
-            this.sepToolStripSeparator.Name = "sepToolStripSeparator";
-// 
-// previousPictureToolStripButton
-// 
-            this.previousPictureToolStripButton.Name = "previousPictureToolStripButton";
-            this.previousPictureToolStripButton.Text = "&Previous Picture";
-            this.previousPictureToolStripButton.Click += new System.EventHandler(this.previousPictureToolStripButton_Click);
-// 
-// nextPictureToolStripButton
-// 
-            this.nextPictureToolStripButton.Name = "nextPictureToolStripButton";
-            this.nextPictureToolStripButton.Text = "&Next Picture";
-            this.nextPictureToolStripButton.Click += new System.EventHandler(this.nextPictureToolStripButton_Click);
-// 
-// sepToolStripSeparator1
-// 
-            this.sepToolStripSeparator1.Name = "sepToolStripSeparator1";
-// 
-// propertiesToolStripButton
-// 
-            this.propertiesToolStripButton.Name = "propertiesToolStripButton";
-            this.propertiesToolStripButton.Text = "Properties";
-            this.propertiesToolStripButton.Click += new System.EventHandler(this.propertiesToolStripButton_Click);
-// 
-// addtocategoryToolStripButton
-// 
-            this.addtocategoryToolStripButton.Name = "addtocategoryToolStripButton";
-            this.addtocategoryToolStripButton.Text = "&Add to category...";
-            this.addtocategoryToolStripButton.Click += new System.EventHandler(this.addtocategoryToolStripButton_Click);
-// 
-// Slideshow
-// 
+            // 
+            // toolClose
+            // 
+            this.toolClose.Image = msn2.net.Pictures.Controls.Properties.Resources.xp_close;
+            this.toolClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolClose.Name = "toolClose";
+            this.toolClose.Text = "Close";
+            this.toolClose.Click += new System.EventHandler(this.toolClose_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            // 
+            // toolPrevious
+            // 
+            this.toolPrevious.Image = ((System.Drawing.Image)(resources.GetObject("toolPrevious.Image")));
+            this.toolPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPrevious.Name = "toolPrevious";
+            this.toolPrevious.Text = "Previous";
+            this.toolPrevious.Click += new System.EventHandler(this.toolPrevious_Click);
+            // 
+            // toolNext
+            // 
+            this.toolNext.Image = ((System.Drawing.Image)(resources.GetObject("toolNext.Image")));
+            this.toolNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolNext.Name = "toolNext";
+            this.toolNext.Text = "Next";
+            this.toolNext.Click += new System.EventHandler(this.toolNext_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            // 
+            // toolProperties
+            // 
+            this.toolProperties.Image = ((System.Drawing.Image)(resources.GetObject("toolProperties.Image")));
+            this.toolProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProperties.Name = "toolProperties";
+            this.toolProperties.Text = "Properties";
+            this.toolProperties.Click += new System.EventHandler(this.toolProperties_Click);
+            // 
+            // toolAddToCategory
+            // 
+            this.toolAddToCategory.Image = ((System.Drawing.Image)(resources.GetObject("toolAddToCategory.Image")));
+            this.toolAddToCategory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAddToCategory.Name = "toolAddToCategory";
+            this.toolAddToCategory.Text = "Add to category...";
+            this.toolAddToCategory.Click += new System.EventHandler(this.toolAddToCategory_Click);
+            // 
+            // Slideshow
+            // 
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(703, 606);
+            this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Slideshow";
             this.Text = "Slideshow";
@@ -110,12 +123,13 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton closeToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator sepToolStripSeparator;
-        private System.Windows.Forms.ToolStripButton previousPictureToolStripButton;
-        private System.Windows.Forms.ToolStripButton nextPictureToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator sepToolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton propertiesToolStripButton;
-        private System.Windows.Forms.ToolStripButton addtocategoryToolStripButton;
+        private System.Windows.Forms.ToolStripButton toolClose;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolPrevious;
+        private System.Windows.Forms.ToolStripButton toolNext;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolProperties;
+        private System.Windows.Forms.ToolStripButton toolAddToCategory;
+
     }
 }

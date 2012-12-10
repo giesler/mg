@@ -22,6 +22,11 @@ namespace msn2.net.Pictures.Controls
         private PictureProperties editor;
         private Form sourceForm = null;
 
+        private Slideshow()
+        {
+            InitializeComponent();
+        }
+
         public Slideshow(GetPreviousItemIdDelegate getPreviousId, GetNextItemIdDelegate getNextId)
         {
             this.getPreviousId = getPreviousId;
@@ -30,17 +35,11 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
 
             this.KeyPreview = true;
-
         }
 
         public void SetSourceForm(Form sourceForm)
         {
             this.sourceForm = sourceForm;
-        }
-
-        private void closeToolStripButton_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
         }
 
         public void SetPicture(PictureData picture)
@@ -65,13 +64,21 @@ namespace msn2.net.Pictures.Controls
             UpdateControls();
         }
 
-        private void closeToolStripButton_Click_1(object sender, EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            this.Close();
+            base.OnClosing(e);
 
-            if (this.sourceForm != null)
+            if (e.Cancel == false)
             {
-                this.sourceForm.Focus();
+                if (this.editor != null)
+                {
+                    this.editor.Close();
+                }
+
+                if (this.sourceForm != null)
+                {
+                    this.sourceForm.Focus();
+                }
             }
         }
 
@@ -88,34 +95,39 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void previousPictureToolStripButton_Click(object sender, EventArgs e)
+        private void UpdateControls()
+        {
+            toolPrevious.Enabled = false;
+            toolNext.Enabled = false;
+
+            if (null != getPreviousId && getPreviousId(item.PictureId) != null)
+            {
+                toolPrevious.Enabled = true;
+            }
+            if (null != getNextId && getNextId(item.PictureId) != null)
+            {
+                toolNext.Enabled = true;
+            }
+        }
+
+        private void toolClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolPrevious_Click(object sender, EventArgs e)
         {
             PictureData picture = getPreviousId(item.PictureId);
             SetPicture(picture);
         }
 
-        private void nextPictureToolStripButton_Click(object sender, EventArgs e)
+        private void toolNext_Click(object sender, EventArgs e)
         {
             PictureData picture = getNextId(item.PictureId);
             SetPicture(picture);
         }
 
-        private void UpdateControls()
-        {
-            previousPictureToolStripButton.Enabled = false;
-            nextPictureToolStripButton.Enabled = false;
-
-            if (null != getPreviousId && getPreviousId(item.PictureId) != null)
-            {
-                previousPictureToolStripButton.Enabled = true;
-            }
-            if (null != getNextId && getNextId(item.PictureId) != null)
-            {
-                nextPictureToolStripButton.Enabled = true;
-            }
-        }
-
-        private void propertiesToolStripButton_Click(object sender, EventArgs e)
+        private void toolProperties_Click(object sender, EventArgs e)
         {
             if (null == this.editor)
             {
@@ -126,8 +138,8 @@ namespace msn2.net.Pictures.Controls
                 this.editor.Top = this.Top + this.Height - 100 - this.editor.Height;
             }
 
-            propertiesToolStripButton.Checked = !propertiesToolStripButton.Checked;
-            if (propertiesToolStripButton.Checked)
+            toolProperties.Checked = !toolProperties.Checked;
+            if (toolProperties.Checked)
             {
                 this.editor.Show(this);
             }
@@ -135,14 +147,17 @@ namespace msn2.net.Pictures.Controls
             {
                 this.editor.Hide();
             }
+
         }
 
-        private void addtocategoryToolStripButton_Click(object sender, EventArgs e)
+        private void toolAddToCategory_Click(object sender, EventArgs e)
         {
             fSelectCategory selCat = fSelectCategory.GetSelectCategoryDialog();
             if (selCat.ShowDialog(this) == DialogResult.OK)
             {
-                PicContext.Current.PictureManager.AddToCategory(this.picture.Id, selCat.SelectedCategory.CategoryId);
+                PicContext.Current.PictureManager.AddToCategory(
+                    this.picture.Id, 
+                    selCat.SelectedCategory.CategoryId);
             }
         }
 

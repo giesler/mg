@@ -87,6 +87,19 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
+        public PictureData GetSelectedPictureData()
+        {
+            PictureData val = null;
+
+            if (this.selectedItems.Count > 0)
+            {
+                PictureItem item = this.FindItem(this.selectedItems[0]);
+                val = item.Picture;
+            }
+
+            return val;
+        }
+
         private void ClearSelections()
         {
             foreach (PictureItem item in flowLayoutPanel1.Controls)
