@@ -133,6 +133,24 @@ namespace mn2.net.ShoppingList.sls {
         public void EndDeleteShoppingListItem(System.IAsyncResult asyncResult) {
             this.EndInvoke(asyncResult);
         }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IShoppingListService/UpdateShoppingListItem", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void UpdateShoppingListItem([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] ShoppingListItem listItem) {
+            this.Invoke("UpdateShoppingListItem", new object[] {
+                        listItem});
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginUpdateShoppingListItem(ShoppingListItem listItem, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("UpdateShoppingListItem", new object[] {
+                        listItem}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public void EndUpdateShoppingListItem(System.IAsyncResult asyncResult) {
+            this.EndInvoke(asyncResult);
+        }
     }
     
     /// <remarks/>

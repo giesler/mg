@@ -150,6 +150,34 @@ namespace msn2.net.ShoppingList
             return item;
         }
 
+        public void UpdateShoppingListItem(ShoppingListItem listItem)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode batchNode = doc.CreateElement("Batch");
+            
+            XmlNode methodNode = doc.CreateElement("Method");
+            AddAttribute(doc, methodNode, "Cmd", "Update");
+            AddAttribute(doc, methodNode, "ID", "1");
+            batchNode.AppendChild(methodNode);
+
+            XmlNode field0Node = doc.CreateElement("Field");
+            AddAttribute(doc, field0Node, "Name", "ID");
+            field0Node.InnerText = listItem.Id.ToString();
+            methodNode.AppendChild(field0Node);
+
+            XmlNode field1Node = doc.CreateElement("Field");
+            AddAttribute(doc, field1Node, "Name", "Title");
+            field1Node.InnerText = listItem.ListItem;
+            methodNode.AppendChild(field1Node);
+
+            XmlNode field2Node = doc.CreateElement("Field");
+            AddAttribute(doc, field2Node, "Name", "From");
+            field2Node.InnerText = listItem.Store;
+            methodNode.AppendChild(field2Node);
+
+            this.listsService.UpdateListItems("Shopping List", batchNode);
+        }
+
         public void DeleteShoppingListItem(ShoppingListItem listItem)
         {
             XmlDocument doc = new XmlDocument();

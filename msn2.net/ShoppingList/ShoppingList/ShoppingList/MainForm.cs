@@ -12,6 +12,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using mn2.net.ShoppingList.sls;
+using mn2.net.ShoppingList;
 
 namespace msn2.net.ShoppingList
 {
@@ -23,8 +24,6 @@ namespace msn2.net.ShoppingList
         private float defaultFontSize = 10;
         private float currentZoom = 1.0F;
         private ShoppingListService listService = null;
-        private List<ShoppingListItem> loadedItems = null;
-        private List<StoreItem> loadedStores = new List<StoreItem>();
         private bool loadAllItemsAfterStores = false;
 
         public MainForm()
@@ -39,12 +38,13 @@ namespace msn2.net.ShoppingList
                 }
                 catch (Exception)
                 {
-                    this.settings = new LocalSettings();
                 }
             }
-            else
+
+            if (this.settings == null)
             {
                 this.settings = new LocalSettings();
+                this.settings.Settings.Add("LastUpdate", DateTime.MinValue.ToString());
             }
 
             this.defaultFontSize = this.listView1.Font.Size;
@@ -73,24 +73,17 @@ namespace msn2.net.ShoppingList
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-
-            this.settings.Save("shoppingListSettings.xml");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.listView1.Enabled = false;
             this.menuRefresh.Enabled = false;
 
-            if (this.settings.LatestStores.Count > 0)
+            if (this.settings.LatestItems.Count > 0)
             {
-                foreach (string store in this.settings.LatestStores)
-                {
-                    this.store.Items.Add(new StoreItem(store));
-                }
-
-                this.store.SelectedIndex = 0;
-
+                this.DisplayStores(null);
+                this.LoadShoppingListItems(null);
+                this.listView1.CheckBoxes = false;
                 this.LoadAllItems();
                 // TODO: add flag to get latest list of stores after getting items
             }
@@ -101,8 +94,7 @@ namespace msn2.net.ShoppingList
                 this.store.Enabled = false;
                 this.loadAllItemsAfterStores = true;
 
-                this.store.Items.Add("Loading...");
-                this.store.SelectedIndex = 0;
+                this.statusLabel.Text = "Connecting...";
 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadStoreList), new object());
             }
@@ -116,8 +108,13 @@ namespace msn2.net.ShoppingList
 
                 foreach (string store in stores)
                 {
-                    this.loadedStores.Add(new StoreItem(store));
+                    if (this.settings.LatestItems.ContainsKey(store) == false)
+                    {
+                        this.settings.LatestItems.Add(store, new StoreItem(store));
+                    }
                 }
+
+                this.SaveSettings();
 
                 this.Invoke(new WaitCallback(this.DisplayStores), new object());
             }
@@ -131,7 +128,7 @@ namespace msn2.net.ShoppingList
         {
             this.store.Items.Clear();
 
-            foreach (StoreItem store in this.loadedStores)
+            foreach (StoreItem store in this.settings.LatestItems.Values)
             {
                 this.store.Items.Add(store);
             }
@@ -141,11 +138,64 @@ namespace msn2.net.ShoppingList
             this.add.Enabled = true;
             this.newItem.Enabled = true;
             this.storesLoaded = true;
+            this.UpdateStatus();
 
             if (this.loadAllItemsAfterStores == true)
             {
                 this.loadAllItemsAfterStores = false;
                 this.LoadAllItems();
+            }
+        }
+
+        private void UpdateStatus()
+        {
+            DateTime lastUpdate = DateTime.MinValue;
+            if (this.settings.Settings["LastUpdate"] != null)
+            {
+                lastUpdate = DateTime.Parse(this.settings.Settings["LastUpdate"]);
+            }
+
+            if (lastUpdate == DateTime.MinValue)
+            {
+                this.statusLabel.Text = "Last update: never";
+            }
+            else
+            {
+                TimeSpan duration = DateTime.Now - lastUpdate;
+
+                if (duration.TotalMinutes < 1)
+                {
+                    this.statusLabel.Text = "Last update: < 1 minute ago";
+                }
+                else if (duration.TotalMinutes == 1)
+                {
+                    this.statusLabel.Text = string.Format("Last update: 1 minute ago");
+                }
+                else if (duration.TotalMinutes < 60)
+                {
+                    this.statusLabel.Text = string.Format("Last update: {0:0} minutes ago", duration.TotalMinutes);
+                }
+                else if (duration.TotalHours == 1)
+                {
+                    this.statusLabel.Text = string.Format("Last update: 1 hour ago");
+                }
+                else if (duration.TotalHours < 24)
+                {
+                    this.statusLabel.Text = string.Format("Last update: {0:0} hours ago", duration.TotalHours);
+                }
+                else if (duration.TotalDays == 1)
+                {
+                    this.statusLabel.Text = string.Format("Last update: 1 day ago");
+                }
+                else
+                {
+                    this.statusLabel.Text = string.Format("Last update: {0:0} days ago", duration.TotalDays);
+                }
+            }
+
+            if (this.menuRefresh.Enabled == false)
+            {
+                this.statusLabel.Text += ".  Refreshing...";
             }
         }
 
@@ -159,10 +209,10 @@ namespace msn2.net.ShoppingList
         void LoadAllItems()
         {
             this.menuRefresh.Enabled = false;
-            this.listView1.Enabled = false;
+            this.add.Enabled = false;
             this.listView1.CheckBoxes = false;
-            this.listView1.Items.Clear();
-            this.listView1.Items.Add(new ListViewItem("Loading..."));
+
+            this.UpdateStatus();
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.GetAllItems), new object());
         }
@@ -172,8 +222,23 @@ namespace msn2.net.ShoppingList
             try
             {
                 ShoppingListItem[] items = this.listService.GetShoppingListItems();
-                
-                this.loadedItems = new List<ShoppingListItem>(items);
+
+                foreach (StoreItem store in this.settings.LatestItems.Values)
+                {
+                    store.Items.Clear();
+                }
+
+                foreach (ShoppingListItem item in items)
+                {
+                    if (this.settings.LatestItems.ContainsKey(item.Store) == false)
+                    {
+                        this.settings.LatestItems.Add(item.Store, new StoreItem(item.Store));
+                    }
+                    this.settings.LatestItems[item.Store].Items.Add(item);
+                }
+
+                this.settings.Settings["LastUpdate"] = DateTime.Now.ToString();
+                this.SaveSettings();
 
                 this.Invoke(new WaitCallback(this.LoadShoppingListItems), foo);
             }
@@ -185,36 +250,13 @@ namespace msn2.net.ShoppingList
 
         private void LoadShoppingListItems(object foo)
         {
-            foreach (StoreItem store in this.loadedStores)
-            {
-                store.Items.Clear();
-            }
-
-            foreach (ShoppingListItem item in this.loadedItems)
-            {
-                bool foundStore = false;
-                foreach (StoreItem store in this.store.Items)
-                {
-                    if (string.Equals(store.Name, item.Store, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        foundStore = true;
-                        store.Items.Add(item);
-                    }
-                }
-
-                if (foundStore == false)
-                {
-                    StoreItem newStore = new StoreItem(item.Store);
-                    newStore.Items.Add(item);
-                    this.store.Items.Add(newStore);
-                }
-            }
-
             this.ReloadItemList();
 
-            this.listView1.Enabled = true;
+            this.add.Enabled = true;
             this.listView1.CheckBoxes = true;
             this.menuRefresh.Enabled = true;
+
+            this.UpdateStatus();
         }
 
         private void ReloadItemList()
@@ -224,7 +266,10 @@ namespace msn2.net.ShoppingList
             StoreItem selectedStore = this.store.SelectedItem as StoreItem;
             if (selectedStore != null)
             {
-                foreach (ShoppingListItem item in selectedStore.Items)
+                var q = from i in selectedStore.Items
+                        orderby i.ListItem
+                        select i;
+                foreach (ShoppingListItem item in q)
                 {
                     this.listView1.Items.Add(new ShoppingListViewItem(item));
                 }
@@ -234,7 +279,7 @@ namespace msn2.net.ShoppingList
 
             this.store.Items.Clear();
 
-            foreach (StoreItem item in this.loadedStores)
+            foreach (StoreItem item in this.settings.LatestItems.Values)
             {
                 this.store.Items.Add(item);
 
@@ -244,22 +289,29 @@ namespace msn2.net.ShoppingList
                 }
             }
 
+            this.UpdateStatus();
+
             this.storesLoaded = true;
+        }
+
+        private void SaveSettings()
+        {
+            this.settings.Save("shoppingListSettings.xml");
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            this.listView1.Columns[0].Width = this.listView1.ClientSize.Width - 5;
+            this.listView1.Columns[0].Width = this.listView1.ClientSize.Width - 9;
         }
 
         private void add_Click(object sender, EventArgs e)
         {
             StoreItem selectedStore = this.store.SelectedItem as StoreItem;
-            if (selectedStore != null)
+            if (selectedStore != null && this.newItem.Text.Trim().Length > 0)
             {
                 ShoppingListItem item = new ShoppingListItem();
                 item.Store = selectedStore.Name;
-                item.ListItem = this.newItem.Text;
+                item.ListItem = this.newItem.Text.Trim();
                 selectedStore.Items.Add(item);
 
                 UpdateStoreCount(selectedStore);
@@ -328,13 +380,13 @@ namespace msn2.net.ShoppingList
                 store.Items.Remove(li.Item);
             }
 
-            this.loadedItems.Remove(li.Item);
+            this.settings.LatestItems[store.Name].Items.Remove(li.Item);
             if (store == this.store.SelectedItem)
             {
                 li.UpdateItem(newItem);
             }
-            this.loadedItems.Add(newItem);
-            
+            this.settings.LatestItems[store.Name].Items.Add(newItem);
+
             if (store != null)
             {
                 store.Items.Add(li.Item);
@@ -393,7 +445,7 @@ namespace msn2.net.ShoppingList
             ShoppingListViewItem item = (ShoppingListViewItem)listItem;
 
             this.listService.DeleteShoppingListItem(item.Item);
-            
+
             this.Invoke(new WaitCallback(this.DeleteCompleted), listItem);
         }
 
@@ -414,7 +466,7 @@ namespace msn2.net.ShoppingList
         {
             StoreItem match = null;
 
-            foreach (StoreItem store in this.loadedStores)
+            foreach (StoreItem store in this.settings.LatestItems.Values)
             {
                 if (string.Equals(store.Name, storeName, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -439,7 +491,7 @@ namespace msn2.net.ShoppingList
             {
                 string text = string.Format("'{0}' has been restored to '{1}'.", sli.Item.ListItem, sli.Item.Store);
                 MessageBox.Show(text, "Undo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
-            }            
+            }
 
             if (store != null)
             {
@@ -459,11 +511,15 @@ namespace msn2.net.ShoppingList
             p.StartInfo = new ProcessStartInfo("http://home.msn2.net/cab/ShoppingListCab.cab", "");
             p.Start();
 
+            this.Close();
+
             Application.Exit();
         }
 
         private void menuExit_Click(object sender, EventArgs e)
         {
+            this.Close();
+
             Application.Exit();
         }
 
@@ -519,7 +575,10 @@ namespace msn2.net.ShoppingList
         {
             if (this.InvokeRequired == true)
             {
-                this.Invoke(new ExceptionEventHandler(this.DisplayException), ex);
+                if (this.IsDisposed == false)
+                {
+                    this.Invoke(new ExceptionEventHandler(this.DisplayException), ex);
+                }
             }
             else
             {
@@ -528,5 +587,109 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        private void newItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                e.Handled = true;
+                this.add_Click(this, EventArgs.Empty);
+            }
+        }
+
+        private void updateTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Visible == false)
+            {
+                this.updateTimer.Enabled = false;
+            }
+
+            this.UpdateStatus();
+        }
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+
+            this.UpdateStatus();
+            this.updateTimer.Enabled = true;
+        }
+
+        private void listViewContextMenu_Popup(object sender, EventArgs e)
+        {
+            this.menuMoveToList.Enabled = false;
+            StoreItem selectedStore = this.store.SelectedItem as StoreItem;
+
+            if (this.listView1.SelectedIndices.Count > 0 && selectedStore != null)
+            {
+                this.menuMoveToList.Enabled = true;
+                this.menuMoveToList.MenuItems.Clear();
+
+                foreach (StoreItem store in this.settings.LatestItems.Values)
+                {
+                    if (store != selectedStore)
+                    {
+                        MenuItem storeItem = new MenuItem();
+                        storeItem.Text = store.Name;
+                        storeItem.Click += new EventHandler(storeItem_Click);
+                        this.menuMoveToList.MenuItems.Add(storeItem);
+                    }
+                }
+            }
+        }
+
+        void storeItem_Click(object sender, EventArgs e)
+        {
+            MenuItem storeMenuItem = (MenuItem)sender;
+            StoreItem currentStore = this.store.SelectedItem as StoreItem;
+
+            if (this.listView1.SelectedIndices.Count > 0 && currentStore != null)
+            {
+                StoreItem newStore = this.settings.LatestItems[storeMenuItem.Text];
+                ShoppingListViewItem moveItem = (ShoppingListViewItem)this.listView1.Items[this.listView1.SelectedIndices[0]];
+                
+                currentStore.Items.Remove(moveItem.Item);
+                newStore.Items.Add(moveItem.Item);
+
+                moveItem.Item.Store = newStore.Name;
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.UpdateListItem), moveItem.Item);
+                                
+                this.UpdateStoreCount(currentStore);
+                this.UpdateStoreCount(newStore);
+
+                this.listView1.Items.Remove(moveItem);
+            }
+        }
+
+        void UpdateListItem(object oItem)
+        {
+            ShoppingListItem item = (ShoppingListItem)oItem;
+
+            this.listService.UpdateShoppingListItem(item);
+        }
+
+        private void menuEdit_Click(object sender, EventArgs e)
+        {            
+            StoreItem store = this.store.SelectedItem as StoreItem;
+
+            if (this.listView1.SelectedIndices.Count > 0 && store != null)
+            {
+                ShoppingListViewItem editItem = (ShoppingListViewItem)this.listView1.Items[this.listView1.SelectedIndices[0]];
+
+                EditItemForm itemEditor = new EditItemForm();
+                itemEditor.Text = store.Name;
+                itemEditor.ItemText = editItem.Item.ListItem;
+                if (itemEditor.ShowDialog() == DialogResult.OK)
+                {
+                    if (editItem.Item.ListItem != itemEditor.ItemText)
+                    {
+                        editItem.Item.ListItem = itemEditor.ItemText;
+                        editItem.UpdateItem(editItem.Item);
+
+                        ThreadPool.QueueUserWorkItem(UpdateListItem, editItem.Item);
+                    }
+                }
+            }
+        }
     }
 }

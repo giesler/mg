@@ -27,18 +27,23 @@
             this.menuUpdateApp = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.menuTextBiggest = new System.Windows.Forms.MenuItem();
             this.menuTextBigger = new System.Windows.Forms.MenuItem();
             this.menuTextNormal = new System.Windows.Forms.MenuItem();
             this.menuTextSmall = new System.Windows.Forms.MenuItem();
+            this.menuTextSmallest = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuExit = new System.Windows.Forms.MenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Item = new System.Windows.Forms.ColumnHeader();
+            this.listViewContextMenu = new System.Windows.Forms.ContextMenu();
+            this.menuEdit = new System.Windows.Forms.MenuItem();
+            this.menuMoveToList = new System.Windows.Forms.MenuItem();
             this.newItem = new System.Windows.Forms.TextBox();
             this.add = new System.Windows.Forms.Button();
             this.store = new System.Windows.Forms.ComboBox();
-            this.menuTextSmallest = new System.Windows.Forms.MenuItem();
-            this.menuTextBiggest = new System.Windows.Forms.MenuItem();
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.updateTimer = new System.Windows.Forms.Timer();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -90,6 +95,11 @@
             this.menuItem2.MenuItems.Add(this.menuTextSmallest);
             this.menuItem2.Text = "Text Size";
             // 
+            // menuTextBiggest
+            // 
+            this.menuTextBiggest.Text = "&Biggest";
+            this.menuTextBiggest.Click += new System.EventHandler(this.menuTextBiggest_Click);
+            // 
             // menuTextBigger
             // 
             this.menuTextBigger.Text = "&Bigger";
@@ -105,6 +115,11 @@
             // 
             this.menuTextSmall.Text = "&Small";
             this.menuTextSmall.Click += new System.EventHandler(this.menuTextSmall_Click);
+            // 
+            // menuTextSmallest
+            // 
+            this.menuTextSmallest.Text = "Smallest";
+            this.menuTextSmallest.Click += new System.EventHandler(this.menuTextSmallest_Click);
             // 
             // menuItem4
             // 
@@ -122,11 +137,12 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.CheckBoxes = true;
             this.listView1.Columns.Add(this.Item);
+            this.listView1.ContextMenu = this.listViewContextMenu;
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(4, 58);
+            this.listView1.Location = new System.Drawing.Point(3, 50);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(233, 207);
+            this.listView1.Size = new System.Drawing.Size(234, 206);
             this.listView1.TabIndex = 0;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView1_ItemCheck);
@@ -136,19 +152,35 @@
             this.Item.Text = "item";
             this.Item.Width = 60;
             // 
+            // listViewContextMenu
+            // 
+            this.listViewContextMenu.MenuItems.Add(this.menuEdit);
+            this.listViewContextMenu.MenuItems.Add(this.menuMoveToList);
+            this.listViewContextMenu.Popup += new System.EventHandler(this.listViewContextMenu_Popup);
+            // 
+            // menuEdit
+            // 
+            this.menuEdit.Text = "&Edit";
+            this.menuEdit.Click += new System.EventHandler(this.menuEdit_Click);
+            // 
+            // menuMoveToList
+            // 
+            this.menuMoveToList.Text = "&Move to list";
+            // 
             // newItem
             // 
             this.newItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.newItem.Location = new System.Drawing.Point(4, 31);
+            this.newItem.Location = new System.Drawing.Point(3, 26);
             this.newItem.Name = "newItem";
             this.newItem.Size = new System.Drawing.Size(176, 21);
             this.newItem.TabIndex = 1;
+            this.newItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.newItem_KeyPress);
             // 
             // add
             // 
             this.add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.add.Location = new System.Drawing.Point(186, 31);
+            this.add.Location = new System.Drawing.Point(186, 26);
             this.add.Name = "add";
             this.add.Size = new System.Drawing.Size(51, 21);
             this.add.TabIndex = 2;
@@ -165,15 +197,21 @@
             this.store.TabIndex = 3;
             this.store.SelectedIndexChanged += new System.EventHandler(this.store_SelectedIndexChanged);
             // 
-            // menuTextSmallest
+            // statusLabel
             // 
-            this.menuTextSmallest.Text = "Smallest";
-            this.menuTextSmallest.Click += new System.EventHandler(this.menuTextSmallest_Click);
+            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusLabel.Font = new System.Drawing.Font("Tahoma", 6F, System.Drawing.FontStyle.Regular);
+            this.statusLabel.Location = new System.Drawing.Point(4, 257);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(233, 10);
+            this.statusLabel.Text = "Last update: never";
             // 
-            // menuTextBiggest
+            // updateTimer
             // 
-            this.menuTextBiggest.Text = "&Biggest";
-            this.menuTextBiggest.Click += new System.EventHandler(this.menuTextBiggest_Click);
+            this.updateTimer.Enabled = true;
+            this.updateTimer.Interval = 20000;
+            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
             // 
             // MainForm
             // 
@@ -181,6 +219,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.store);
             this.Controls.Add(this.add);
             this.Controls.Add(this.newItem);
@@ -216,6 +255,11 @@
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuTextBiggest;
         private System.Windows.Forms.MenuItem menuTextSmallest;
+        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.Timer updateTimer;
+        private System.Windows.Forms.ContextMenu listViewContextMenu;
+        private System.Windows.Forms.MenuItem menuMoveToList;
+        private System.Windows.Forms.MenuItem menuEdit;
     }
 }
 

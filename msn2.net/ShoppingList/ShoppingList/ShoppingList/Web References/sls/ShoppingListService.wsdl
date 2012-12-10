@@ -38,6 +38,12 @@
   <wsdl:message name="IShoppingListService_DeleteShoppingListItem_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteShoppingListItemResponse" />
   </wsdl:message>
+  <wsdl:message name="IShoppingListService_UpdateShoppingListItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateShoppingListItem" />
+  </wsdl:message>
+  <wsdl:message name="IShoppingListService_UpdateShoppingListItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateShoppingListItemResponse" />
+  </wsdl:message>
   <wsdl:portType name="IShoppingListService">
     <wsdl:operation name="GetStores">
       <wsdl:input wsaw:Action="http://tempuri.org/IShoppingListService/GetStores" message="tns:IShoppingListService_GetStores_InputMessage" />
@@ -58,6 +64,10 @@
     <wsdl:operation name="DeleteShoppingListItem">
       <wsdl:input wsaw:Action="http://tempuri.org/IShoppingListService/DeleteShoppingListItem" message="tns:IShoppingListService_DeleteShoppingListItem_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShoppingListService/DeleteShoppingListItemResponse" message="tns:IShoppingListService_DeleteShoppingListItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShoppingListItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShoppingListService/UpdateShoppingListItem" message="tns:IShoppingListService_UpdateShoppingListItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShoppingListService/UpdateShoppingListItemResponse" message="tns:IShoppingListService_UpdateShoppingListItem_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Binding1_IShoppingListService" type="tns:IShoppingListService">
@@ -100,6 +110,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteShoppingListItem">
       <soap:operation soapAction="http://tempuri.org/IShoppingListService/DeleteShoppingListItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShoppingListItem">
+      <soap:operation soapAction="http://tempuri.org/IShoppingListService/UpdateShoppingListItem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

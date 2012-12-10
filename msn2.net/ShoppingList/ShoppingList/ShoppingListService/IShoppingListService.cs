@@ -24,5 +24,8 @@ namespace msn2.net.ShoppingList
 
         [OperationContract]
         void DeleteShoppingListItem(ShoppingListItem listItem);
+        
+        [OperationContract]
+        void UpdateShoppingListItem(ShoppingListItem listItem);
     }
 }
