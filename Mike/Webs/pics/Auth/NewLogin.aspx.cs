@@ -41,6 +41,7 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.Panel pnlEmailFound;
 		protected System.Web.UI.WebControls.Button btnEmailLookup;
 		protected System.Web.UI.WebControls.Label lblEmail;
+		protected System.Web.UI.WebControls.Label foundEmail;
 		protected System.Web.UI.WebControls.Panel pnlInfo;
 	
 		public NewLogin()
@@ -55,7 +56,7 @@ namespace pics.Auth
 				if (Request.QueryString["email"] != null)
 				{
 					Trace.Write("found email in qs");
-					txtLookupEmail.Text = Request.QueryString["email"];
+					txtLookupEmail.Text = Server.HtmlEncode(Request.QueryString["email"]);
 					btnEmailLookup_Click(this, EventArgs.Empty);
 				}
 			}
@@ -77,8 +78,9 @@ namespace pics.Auth
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 			this.btnEmailLookup.Click += new System.EventHandler(this.btnEmailLookup_Click);
+			this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -112,21 +114,21 @@ namespace pics.Auth
 
 			// create the message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
-			sb.Append("<html><body><p>Someone used your name to request access to the pic site.  ");
-			sb.Append("The submitted details are below, and a link to activate the user is below as well.</p>");
-			sb.Append("<p>Name: <b>" + txtName.Text + "</b></p>");
-			sb.Append("<p>Email: <b>" + txtLookupEmail.Text + "</b></p>");
-			sb.Append("<p>&nbsp;</p>");
+			sb.Append("<p>Someone used your name to request a new login to msn2.net.  Wow, cool, huh!?!?  ");
+			sb.Append("</p>");
+			sb.Append("<p>Name: <b>" + txtName.Text + "</b></br>");
+			sb.Append("Email: <a href=\"mailto:" + txtLookupEmail.Text + "\"><b>" + Server.HtmlEncode(txtLookupEmail.Text) + "</a></b></p>");
 			sb.Append("<a href=\"http://" + Request.Url.Host + Request.ApplicationPath + "/Admin/AuthNewLogin.aspx");
 			sb.Append("?id=" + cmd.Parameters["@id"].Value.ToString() + "\">Click here to authorize</a>");
-			sb.Append("</body></html>");
+			sb.Append("<p>If you don't want to authorize them, just ignore this message.  They know who it was sent to, though.</p>");
 
 			// Send an email to correct person
 			MailMessage msg = new MailMessage();
-			msg.From	= txtName.Text + "<" + txtLookupEmail.Text + ">";
+			msg.From	= "MSN2 Login System <login@msn2.net>";
 			msg.To		= strSendTo;
+			msg.Headers.Add("Reply-To", txtName.Text + "<" + txtLookupEmail.Text + ">");
 			msg.Subject = "New User on pics.msn2.net";
-			msg.Body	= sb.ToString();
+			msg.Body	= Msn2Mail.BuildMessage(sb.ToString());
 			msg.BodyFormat = MailFormat.Html;
 
 			// Send the email message
@@ -167,19 +169,18 @@ namespace pics.Auth
 				// build message
 				String sGUID = cmd.Parameters["@guid"].Value.ToString().Substring(2);
 				System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
-				sb.Append("<html><body><p>Welcome to MSN2 pictures.</p>");
+				sb.Append("<p>Welcome to MSN2 pictures.</p>");
 				sb.Append("<p>Click <a href=\"http://" + Request.Url.Host);
 				sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + sGUID);
 				sb.Append("&email=" + Server.UrlEncode(txtLookupEmail.Text) + "\">here</a> to set your password and log on.</p>");
 				sb.Append("<p>If you did not make this request, you can ignore this email message.</p>");
-				sb.Append("</body></html>");
 
 				// Create the message object
 				MailMessage msg = new MailMessage();
 				msg.To		= txtLookupEmail.Text;
 				msg.From	= "MSN2 Pictures <pictures@msn2.net>";
 				msg.Subject	= "MSN2 Pictures - Login";
-				msg.Body	= sb.ToString();
+				msg.Body	= Msn2Mail.BuildMessage(sb.ToString());
 				msg.BodyFormat = MailFormat.Html;
 
 				// Send message

@@ -1,91 +1,79 @@
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="pics.Cdefault" %>
 <%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
-<%@ Register TagPrefix="pics" TagName="sidebar" Src="Controls/_sidebar.ascx" %>
+<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="pics.Cdefault" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
 		<title>msn2.net</title>
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
-		<pics:header id="ctlHeader" header="Pictures" size="small" runat="server"></pics:header>
-		<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
-			<tr>
-				<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
-			</tr>
-			<tr>
-				<td width="125" class="msn2sidebar">
-					<pics:sidebar runat="server" id="Sidebar1"></pics:sidebar>
-				</td>
-				<td width="4" class="msn2sidebarfade"></td>
-				<td class="msn2contentwindow" valign="top">
-					<!-- Main content -->
-					<table width="100%">
-						<tr>
-							<td align="left">
-								<p></p>
-								<p><b>Welcome to the MSN2 Pictures site.</b>
-								</p>
-								<P><B>Tip</B>: Press F11 to switch Internet Explorer to full screen mode - you 
-									won't have to scroll as much then. (Switch back to normal mode by hitting F11 
-									again.)
-								</P>
-								<P>
+		<form id="default" runat="server">
+			<pics:header id="ctlHeader" runat="server" size="small" header="Pictures"></pics:header>
+			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
+				<tr>
+					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="images/blank.gif"></td>
+				</tr>
+				<tr>
+					<td class="msn2sidebar" width="125" valign="top">
+						<picctls:Sidebar id="Sidebar1" runat="server">
+							<picctls:contentpanel id="searchPanel" title="Search" runat="server" align="center" width="100%">
+<asp:TextBox id="searchQuery" Runat="server" Width="100px"></asp:TextBox>&nbsp; 
+      <BR>
+<asp:Button id="search" Runat="server" Text=" Search " CssClass="smallButton"></asp:Button></picctls:contentpanel>
+						</picctls:Sidebar>
+					</td>
+					<td class="msn2sidebarfade" width="4"></td>
+					<td class="msn2contentwindow" valign="top">
+						<!-- Main content -->
+						<table width="100%">
+							<tr>
+								<td align="left">
+									<picctls:contentpanel id="welcomeMessage" runat="server" title="Welcome to the MSN2 pictures website!">
+										<P>To view pictures, click one of the recently updated categories below, or enter a 
+											name or description to search for on the left.
+										</P>
+									</picctls:contentpanel>
 									<HR color="gainsboro" SIZE="1">
-								</P>
-								<p><STRONG>You can view pictures in one of two ways:</STRONG>
-								</p>
-								<UL>
-									<li>
-										<A href="categories.aspx">View by Category</A>
-									- show all pictures sorted by category - similiar to an 'Album' type view.
-									<LI>
-										<A href="SearchCriteria.aspx">Search</A> - allows you to search for pictures by 
-										date, description, or people in the picture
-									</LI>
-								</UL>
-								<P></P>
-								<HR color="gainsboro" SIZE="1">
-								<table width="95%" align="center" cellpadding="8">
-									<tr>
-										<td vAlign="top" width="30%">
-											<p><strong>Random Picture</strong>
-											</p>
-											<asp:panel id="randomPicture" Runat="server"></asp:panel></td>
-										<td style="BORDER-RIGHT: gainsboro thin solid" width="10%">&nbsp;</td>
-										<td vAlign="top" width="60%">
-											<asp:datalist id="dlRecent" Runat="server" RepeatLayout="Flow">
-												<HeaderTemplate>
-													<p>
-														<STRONG>Recently added/updated categories... </STRONG>
-														<ul>
-												</HeaderTemplate>
-												<FooterTemplate>
-													</ul> </p>
-												</FooterTemplate>
-												<ItemTemplate>
-													<li>
-														<asp:HyperLink Runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "CategoryID", "Categories.aspx?r=1&c={0}") %>' ID="Hyperlink1" NAME="Hyperlink1">
-															<%# DataBinder.Eval(Container.DataItem, "CategoryName") %>
-														</asp:HyperLink>
-														(<%# DataBinder.Eval(Container.DataItem, "RecentDate", "{0:d}") %>)
-													</li>
-												</ItemTemplate>
-											</asp:datalist></td>
-									</tr>
-								</table>
-								<HR color="gainsboro" SIZE="1">
-								<p>Any comments on this site or pictures on the site, send to <A href="mailto:mike@giesler.org">
-										mike@giesler.org</A>.
-								</p>
-							</td>
-						</tr>
-					</table>
-					<!-- Begin footer -->
-				</td>
-			</tr>
-		</table>
+									<table cellPadding="8" width="95%" align="center">
+										<tr>
+											<td vAlign="top" width="30%">
+												<p><strong>Random Picture</strong>
+												</p>
+												<asp:panel id="randomPicture" Runat="server"></asp:panel></td>
+											<td style="BORDER-RIGHT: gainsboro thin solid" width="10%">&nbsp;</td>
+											<td vAlign="top" width="60%"><asp:datalist id="dlRecent" Runat="server" RepeatLayout="Flow">
+													<HeaderTemplate>
+														<p>
+															<STRONG>Recently added/updated categories... </STRONG>
+														</p>
+													</HeaderTemplate>
+													<FooterTemplate>
+													</FooterTemplate>
+													<ItemTemplate>
+														<li>
+															<asp:HyperLink Runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "CategoryID", "Categories.aspx?r=1&c={0}") %>' ID="Hyperlink1" NAME="Hyperlink1">
+																<%# DataBinder.Eval(Container.DataItem, "CategoryName") %>
+															</asp:HyperLink>
+															(<%# DataBinder.Eval(Container.DataItem, "RecentDate", "{0:d}") %>)
+														</li>
+													</ItemTemplate>
+												</asp:datalist></td>
+										</tr>
+									</table>
+									<HR color="gainsboro" SIZE="1">
+									<p>Any comments on this site or pictures on the site, send to <A href="mailto:mike@giesler.org">
+											mike@giesler.org</A>.
+									</p>
+								</td>
+							</tr>
+						</table>
+						<!-- Begin footer -->
+					</td>
+				</tr>
+			</table>
+		</form>
 	</body>
 </HTML>

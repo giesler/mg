@@ -1,6 +1,6 @@
 <%@ Page language="c#" Codebehind="picview.aspx.cs" AutoEventWireup="false" Inherits="pics.picview" %>
-<%@ Register TagPrefix="pics" TagName="sidebar" Src="Controls/_sidebar.ascx" %>
 <%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

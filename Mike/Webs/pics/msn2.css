@@ -55,6 +55,15 @@ A:hover
 	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='gray', EndColorStr='#ffffff')
 }
 
+.fadeExtension
+{
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='LightGrey');
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
 .msn2pagecontrols
 {
 	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='gray', EndColorStr='#ffffff')
@@ -208,6 +217,19 @@ A.headerLink
 	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#888888', EndColorStr='#dddddd');
 }
 
+.smallButton
+{
+	border-right: black thin solid;
+	border-top: silver thin solid;
+	font-weight: bold;
+	border-left: silver thin solid;
+	color: black;
+	border-bottom: black thin solid;
+	background-color: silver;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#888888', EndColorStr='#dddddd');
+	font-size: 8pt;
+}
+
 .btn:hover
 {
 	border-left: #570d0e thin solid;
@@ -219,14 +241,86 @@ A.headerLink
 .err
 {
 	color: red;
+	font-size: smaller;
 }
 
-.logintable
+
+.contentPanel
 {
-	BORDER-RIGHT: gray solid; 
-	BORDER-TOP: gray solid; 
-	BORDER-LEFT: gray solid; 
-	BORDER-BOTTOM: gray solid
+	border-right: black 1px solid;
+	border-top: silver 1px solid;
+	border-left: silver 1px solid;
+	border-bottom: black 1px solid;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#dddddd', EndColorStr='#ffffff');
+}
+
+.contentPanelTitleCell
+{
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= 'green' , EndColorStr= '#505050' );
+	color: White;
+	font-size: 12px;
+	font-weight: bold;
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.contentPanelContentCell
+{
+	padding-right: 3px;
+	padding-left: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-size: 12px;
+}
+
+
+.sidebar
+{
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.checkboxPanel
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+
+.loginTable
+{
+	border-right: black 1px solid;
+	border-top: silver 1px solid;
+	border-left: silver 1px solid;
+	border-bottom: black 1px solid;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#dddddd', EndColorStr='#ffffff');
+}
+
+.loginTableTitle
+{
+	font-weight: bold;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= 'green' , EndColorStr= '#505050' );
+	color: white;
+	border-bottom: gray 1px solid;
+}
+
+.loginTableNote
+{
+	font-size: 10px;
+}
+
+.loginTableContent
+{
+	font-size: 12px;
+}
+
+.loginTableText
+{
 }
 
 /************************************************

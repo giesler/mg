@@ -1,6 +1,6 @@
 <%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="Logout.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.Logout" %>
-<%@ Register TagPrefix="pics" TagName="sidebar" Src="../Controls/_sidebar.ascx" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -17,24 +17,24 @@
 					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
 				</tr>
 				<tr>
-					<td width="125" class="msn2sidebar">
-						<pics:sidebar runat="server" id="Sidebar1"></pics:sidebar>
+					<td class="msn2sidebar" width="125" valign="top">
+						<picctls:Sidebar id="Sidebar1" runat="server"></picctls:Sidebar>
 					</td>
 					<td width="4" class="msn2sidebarfade"></td>
 					<td class="msn2contentwindow" valign="top">
 						<!-- Main content -->
 						<blockquote>
-						<p>
-						</p>
-						<p>
-							&nbsp;
-						</p>
-						<p>
-							You have been signed out.
-						</p>
-						<p>
-							To sign in again, click <a href="../">here</a>.
-						</p>
+							<p>
+							</p>
+							<p>
+								&nbsp;
+							</p>
+							<p>
+								You have been signed out.
+							</p>
+							<p>
+								To sign in again, click <a href="../">here</a>.
+							</p>
 						</blockquote>
 						<!-- Begin footer -->
 					</td>

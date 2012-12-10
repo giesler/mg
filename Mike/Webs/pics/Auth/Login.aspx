@@ -1,4 +1,3 @@
-<%@ Register TagPrefix="pics" TagName="sidebar" Src="../Controls/_sidebar.ascx" %>
 <%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="Login.aspx.cs" AutoEventWireup="false" Inherits="pics.auth.Login" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
@@ -11,8 +10,10 @@
 		<LINK href="AuthStyles.css" type="text/css" rel="stylesheet">
 		<script language="javascript">
 			function setLoginFocus() {
-				if (document.Login.email)
+				if (document.Login.email && document.Login.email.value == '')
 					document.Login.email.focus();
+				else if (document.Login.password)
+					document.Login.password.focus();
 			}
 		</script>
 	</HEAD>
@@ -25,15 +26,12 @@
 					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="images/blank.gif"></td>
 				</tr>
 				<tr>
-					<td class="msn2sidebar" width="125"><pics:sidebar id="Sidebar1" runat="server"></pics:sidebar></td>
+					<td class="msn2sidebar" width="125" valign="top">
+						<picctls:Sidebar id="Sidebar1" runat="server"></picctls:Sidebar>
+					</td>
 					<td class="msn2sidebarfade" width="4"></td>
 					<td class="msn2contentwindow" vAlign="top">
 						<!-- Main content -->
-						<picctls:ErrorMessagePanel id="pnlBadPassword" runat="server" title="Incorrect Password" visible="false"><B>
-								The password you entered was not correct.</B> <BR>If you forgot your password, click 
-<asp:HyperLink id="lnkForgotPassword" Runat="server">here</asp:HyperLink>&nbsp;to 
-      find out how to change it. <BR>
-						</picctls:ErrorMessagePanel>
 						<table class="loginTable" id="loginTable" cellSpacing="0" cellPadding="5">
 							<tr>
 								<td class="loginTableTitle" colSpan="2">Sign In
@@ -82,8 +80,20 @@
 				&lt; 800px
 			</div>
 			<div style="LEFT: 800px; WIDTH: 2px; COLOR: blue; POSITION: absolute; HEIGHT: 100%; BACKGROUND-COLOR: black"></div>
-			<!-- Begin footer --></form>
-		<script language="javascript"><!--
+			<picctls:ErrorMessagePanel id="pnlBadPassword" title="Incorrect Password" runat="server" visible="false"><B>
+					The password you entered was not correct.</B> <BR>If you 
+forgot your password, click 
+<asp:HyperLink id="lnkForgotPassword" Runat="server">here</asp:HyperLink>&nbsp;to 
+find out how to change it. 
+<BR>
+			</picctls:ErrorMessagePanel>
+			<picctls:ErrorMessagePanel id="pnlBadEmail" title="Unrecognized Email" runat="server" visible="false"><B>
+					The email address you entered was not recognized.</B> <BR>If 
+this is your email address, click 
+<asp:HyperLink id="lnkNewLogin" Runat="server">here</asp:HyperLink>&nbsp;to set 
+your password. <BR>
+			</picctls:ErrorMessagePanel>
+			<script language="javascript"><!--
 			function getPageCoords (elementId) {
 				var el;
 				if (document.all)
@@ -103,21 +113,27 @@
 				return null;
 			}
 		
+			var loginTableCoords	= getPageCoords('loginTable');
+
 			// Position invalid password message	
 			if (document.all.pnlBadPassword)
 			{
 				var pwdCoords			= getPageCoords ('password');
-				var loginTableCoords	= getPageCoords('loginTable');
 				
-				document.all.pnlBadPassword.style.top		= pwdCoords.y;
+				document.all.pnlBadPassword.style.top		= pwdCoords.y + 'px';
 				document.all.pnlBadPassword.style.left		= loginTableCoords.x + loginTable.clientWidth + 10;
-
-				alert(pwdCoords.y + ', ' + loginTableCoords.y);
-				
 			}
 			
-//			itemCoordinates(document.all.email);
+			// Position invalid email message
+			if (document.all.pnlBadEmail)
+			{
+				var emailCoords			= getPageCoords ('email');
+				
+				document.all.pnlBadEmail.style.top			= emailCoords.y;
+				document.all.pnlBadEmail.style.left			= loginTableCoords.x + loginTable.clientWidth + 10;
+			}
 
 				// --> </script>
+			<!-- Begin footer --></form>
 	</body>
 </HTML>

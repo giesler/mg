@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="GetRanndomPictureConfigData.aspx.cs" AutoEventWireup="false" Inherits="pics.GetRanndomPictureConfigData" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>

@@ -26,6 +26,7 @@ namespace pics.Admin
 		protected System.Web.UI.WebControls.Button btnContinue;
 		protected System.Web.UI.WebControls.Panel pnlDone;
 		protected System.Web.UI.WebControls.Label lblError;
+		protected System.Web.UI.WebControls.Panel afterPersonSelectContent;
 		protected System.Web.UI.WebControls.Label lblEmail;
 	
 		public AuthNewLogin()
@@ -92,6 +93,7 @@ namespace pics.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.PersonPicker.PersonSelected += new System.EventHandler(this.PersonPicker_PersonSelected);
 			this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
@@ -148,6 +150,11 @@ namespace pics.Admin
 			// show message
 			pnlPerson.Visible = false;
 			pnlDone.Visible = true;
+		}
+
+		private void PersonPicker_PersonSelected(object sender, System.EventArgs e)
+		{
+			afterPersonSelectContent.Visible	= true;
 		}
 
 

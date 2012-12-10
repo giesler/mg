@@ -355,21 +355,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Auth\ForgotPassword.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Auth\ForgotPassword.aspx.cs"
-                    DependentUpon = "ForgotPassword.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Auth\ForgotPassword.aspx.resx"
-                    DependentUpon = "ForgotPassword.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Auth\Login.aspx"
                     BuildAction = "Content"
                 />
@@ -430,22 +415,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Auth\WebForm1.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Auth\WebForm1.aspx.cs"
-                    DependentUpon = "WebForm1.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Auth\WebForm1.aspx.resx"
-                    DependentUpon = "WebForm1.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Auth\why.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -490,22 +459,6 @@
                 <File
                     RelPath = "Controls\_header.ascx.resx"
                     DependentUpon = "_header.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Controls\_sidebar.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Controls\_sidebar.ascx.cs"
-                    DependentUpon = "_sidebar.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Controls\_sidebar.ascx.resx"
-                    DependentUpon = "_sidebar.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

@@ -1,3 +1,4 @@
+#region Using...
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Security.Cryptography;
+#endregion
 
 namespace pics.auth
 {
@@ -18,6 +20,7 @@ namespace pics.auth
 	/// </summary>
 	public class Login : System.Web.UI.Page
 	{
+		#region Declares
 		protected System.Web.UI.WebControls.CheckBox chkSave;
 		protected System.Web.UI.WebControls.HyperLink lnkForgotPassword;
 		protected System.Web.UI.WebControls.TextBox password;
@@ -28,14 +31,18 @@ namespace pics.auth
 		protected System.Web.UI.WebControls.Panel panelMessage;
 		protected System.Web.UI.WebControls.RadioButton radioPassword;
 		protected pics.Controls.ErrorMessagePanel pnlBadPassword;
-		protected System.Web.UI.WebControls.HyperLink Hyperlink1;
+		protected pics.Controls.ErrorMessagePanel pnlBadPassword1;
+		protected pics.Controls.ErrorMessagePanel pnlBadEmail;
+		protected System.Web.UI.WebControls.HyperLink lnkNewLogin;
 		protected System.Web.UI.WebControls.Button btnLogin;
-	
+		#endregion
+		#region Constructor
 		public Login()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
 		}
-
+		#endregion
+		#region Page Initialization/Loading
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if (!Page.IsPostBack)
@@ -54,7 +61,7 @@ namespace pics.auth
 			//
 			InitializeComponent();
 		}
-
+		#endregion
 		#region Web Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -67,13 +74,19 @@ namespace pics.auth
 
 		}
 		#endregion
-
+		#region Private Methods
 		private void btnLogin_Click(object sender, System.EventArgs e)
 		{
 			// Check if a new user - if so redirect to NewLogin.aspx
 			if (radioNewLogin.Checked)
 			{
 				Response.Redirect("NewLogin.aspx?email=" + Server.UrlEncode(email.Text));
+			}
+
+			// Check if unknown
+			if (radioHelpMe.Checked)
+			{
+				Response.Redirect("ForgotPassword.aspx?ref=3&email=" + Server.UrlEncode(email.Text));
 			}
 
 			// encrypt the password
@@ -93,12 +106,21 @@ namespace pics.auth
 
 				FormsAuthentication.RedirectFromLoginPage(pi.PersonID.ToString(), chkSave.Checked);
 			}
-			else 
+			else if (pi.ValidEmail)
 			{
-				panelMessage.Visible = false;
-				pnlBadPassword.Visible = true;
+				pnlBadPassword.Visible		= false;
+				pnlBadEmail.Visible			= true;
+
+				lnkNewLogin.NavigateUrl		= "NewLogin.aspx?email=" + Server.UrlEncode(email.Text);
+			}
+			else
+			{
+				pnlBadPassword.Visible		= true;
+				pnlBadEmail.Visible			= false;
+
 				lnkForgotPassword.NavigateUrl = "ForgotPassword.aspx?email=" + Server.UrlEncode(email.Text);
 			}
 		}
+		#endregion
 	}
 }

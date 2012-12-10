@@ -19,6 +19,11 @@ namespace pics
 	public class Cdefault : System.Web.UI.Page
 	{
 		protected System.Web.UI.WebControls.Panel randomPicture;
+		protected System.Web.UI.WebControls.TextBox searchQuery;
+		protected System.Web.UI.WebControls.Button search;
+		protected pics.Controls.ContentPanel searchPanel;
+		protected pics.Controls.Sidebar Sidebar1;
+		protected pics.Controls.ContentPanel welcomeMessage;
 		protected System.Web.UI.WebControls.DataList dlRecent;
 	
 		public Cdefault()

@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web;
 
 namespace pics
 {
@@ -63,6 +64,23 @@ namespace pics
 		#endregion
 	}
 
+	public class Msn2Mail
+	{
+		public static string BuildMessage(string messageHtml)
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
+			sb.Append("<html><body topmargin=\"0\" leftmargin=\"0\">");
+			sb.Append("<table width=\"100%\" style=\"");
+			sb.Append("filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#007300', EndColorStr='#000000'):");
+			sb.Append("\"><tr height=\"5\"><td></td></tr></table>");	
+			sb.Append("<blockquote>");
+			sb.Append(messageHtml);
+			sb.Append("</blockquote></body></html>");
+
+			return sb.ToString();
+		}
+	}
+
 	/// <summary>
 	/// Summary description for Utilities.
 	/// </summary>
@@ -81,12 +99,12 @@ namespace pics
 	/// </summary>
 	public class PersonInfo 
 	{
-
 		#region Declares
 		protected int _PersonID = 0;
 		protected String _Name;
 		protected String _Email;
 		protected bool _Valid;
+		protected bool _ValidEmail;
 		#endregion
 
 		#region Constructors/Loaders
@@ -125,12 +143,16 @@ namespace pics
 		public PersonInfo(String _email, String _password) 
 		{
 
+			System.Web.HttpContext.Current.Trace.Write("PersonInfo", "Starting");
+
 			// set up a connection and command to retreive info
 			SqlConnection cn	= new SqlConnection(ConfigurationSettings.AppSettings["ConnectionString"]);
 			SqlCommand cmd		= new SqlCommand("dbo.sp_Login", cn);
 			cmd.CommandType		= CommandType.StoredProcedure;
 			cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 150);
 			cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 150);
+			cmd.Parameters.Add("@ValidEmail", SqlDbType.Bit);
+			cmd.Parameters["@ValidEmail"].Direction	= ParameterDirection.Output;
 			cmd.Parameters["@Email"].Value	  = _email;
 			cmd.Parameters["@Password"].Value = _password;
 
@@ -138,10 +160,15 @@ namespace pics
 			{
 				cn.Open();
 				LoadProps(cmd);
+
+				// Find out if we had a valid email
+				_ValidEmail		= Convert.ToBoolean(cmd.Parameters["@ValidEmail"].Value);
+
+				System.Web.HttpContext.Current.Trace.Write("ValidEmail", _ValidEmail.ToString());
 			}
 			catch (Exception excep) 
 			{
-				System.Diagnostics.Trace.Write(excep.ToString());
+				HttpContext.Current.Trace.Warn("PersonInfo Constructor", excep.ToString(), excep);
 			}
 			finally 
 			{
@@ -174,6 +201,14 @@ namespace pics
 				_Valid = false;
 			}
 
+			System.Web.HttpContext.Current.Trace.Write("PersonInfo.LoadProps", "Loading");
+
+			// Check if a 'ValidEmail' param
+			if (cmd.Parameters.Contains("@ValidEmail"))
+			{
+				_ValidEmail		= Convert.ToBoolean(cmd.Parameters["@ValidEmail"].Value);
+			}
+
 			dr.Close();
 
 		}
@@ -199,6 +234,14 @@ namespace pics
 		public bool Valid 
 		{
 			get { return _Valid; }
+		}
+
+		public bool ValidEmail
+		{
+			get 
+			{
+				return _ValidEmail; 
+			}
 		}
 
 		#endregion

@@ -34,13 +34,26 @@ namespace pics.Auth
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-            // make sure an ID is passed
-			if (Request.QueryString["id"] == null || Request.QueryString["email"] == null)
-				Response.Redirect("../");
+			if (!Page.IsPostBack)
+			{
+				// make sure an ID is passed
+				if (Request.QueryString["id"] == null || Request.QueryString["email"] == null)
+					Response.Redirect("../");
 
-			// show the email address
-			lblEmail.Text = Request.QueryString["email"];
+				PersonInfo pi = new PersonInfo(Request.QueryString["email"], "");
 
+				// show the email address
+				if (pi != null)
+				{
+					lblEmail.Text = Request.QueryString["email"];
+				}
+				else
+				{
+					Response.Write("Invalid email address passed.");
+					Response.End();
+					return;
+				}
+			}
 		}
 
 		private void Page_Init(object sender, EventArgs e)

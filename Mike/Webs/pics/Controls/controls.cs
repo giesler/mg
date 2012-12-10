@@ -116,10 +116,13 @@ namespace pics.Controls
 	/// </summary>
 	public class ThumbnailList : System.Web.UI.Control, System.Web.UI.INamingContainer
 	{
+		#region Declares
 		protected System.Web.UI.WebControls.DataList thumbList;
 		protected String pageReturnURL;
 		protected String noPicturesMessage;
 		protected bool showRecordNumber;
+		protected bool showCheckBox;
+		#endregion
 
 		/// <summary>
 		/// Basic constructor
@@ -242,7 +245,6 @@ namespace pics.Controls
 				tcPic.Controls.Add(tPic);
 
 				tcPic.Style.Add("filter", "progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=8)");
-                
 
 				// container table row
 				TableRow trtPic = new TableRow();
@@ -255,7 +257,19 @@ namespace pics.Controls
 				tctPic.VerticalAlign	= VerticalAlign.Middle;
 				tctPic.Height			= 145;
 				tctPic.Width			= 145;
+				tctPic.Style.Add("POSITION", "relative");
 				trtPic.Controls.Add(tctPic);
+
+				if (showCheckBox)
+				{
+					Panel panel = new Panel();
+					panel.CssClass	= "checkboxPanel";
+					tctPic.Controls.Add(panel);
+
+					PictureCheckBox checkBox		= new PictureCheckBox(0);
+					checkBox.AutoPostBack			= true;
+					panel.Controls.Add(checkBox);
+				}
 
 				// Add link to cell for clicking on picture
 				HyperLink lnkPicZoomPic	= new HyperLink();
@@ -318,6 +332,7 @@ namespace pics.Controls
 
 		}
 
+		#region Properties
 		/// <summary>
 		/// Sets the datasource to display pictures
 		/// </summary>
@@ -376,7 +391,58 @@ namespace pics.Controls
 			}
 		}
 
+		public bool ShowCheckBox
+		{
+			get
+			{
+				return showCheckBox;
+			}
+			set
+			{
+				showCheckBox = value;
+			}
+		}
+		#endregion
+		#region Event Handlers
+		private void checkBox_Clicked(object sender, EventArgs e)
+		{
+			if (PictureCheckBoxClicked != null)
+			{
+				PictureCheckBox p = (PictureCheckBox) sender;
+				PictureCheckBoxClicked(sender, new PictureCheckBoxEventArgs(p.PicId));
+				HttpContext.Current.Trace.Write("clicked " + p.PicId);
+			}
+		}
+		#endregion
+		#region Events
+		public event PictureCheckBoxClickedEventHandler PictureCheckBoxClicked;
+		#endregion
 	}
+
+	public delegate void PictureCheckBoxClickedEventHandler(object sender, PictureCheckBoxEventArgs e);
+
+	public class PictureCheckBoxEventArgs: EventArgs
+	{
+		private int picId;
+
+		public PictureCheckBoxEventArgs(int picId)
+		{
+			this.PicId = picId;
+		}
+
+		public int PicId
+		{
+			get 
+			{
+				return picId;
+			}
+			set
+			{
+				picId = value;
+			}
+		}
+	}
+
 	#endregion
 
 	#region Paged Thumbnail Control
@@ -897,37 +963,6 @@ namespace pics.Controls
 	}
 	#endregion
 
-	#region Sidebar
-
-	public class Sidebar : System.Web.UI.Control, System.Web.UI.INamingContainer
-	{
-		public Sidebar()
-		{
-		}
-
-		protected override void CreateChildControls()
-		{
-			String strAppPath = HttpContext.Current.Request.ApplicationPath;
-			if (!strAppPath.Equals("/"))  
-				strAppPath = strAppPath + "/";
-
-			HtmlTable sideBarTable		= new HtmlTable();
-			sideBarTable.Width			= "130";
-			sideBarTable.Height			= "100%";
-						
-			HtmlTableRow row			= new HtmlTableRow();
-			sideBarTable.Rows.Add(row);
-
-			HtmlTableCell cell			= new HtmlTableCell();
-			//cell.					= "sidebarcell";
-			row.Cells.Add(cell);
-
-
-		}
-	}
-
-	#endregion
-
 	#region Error Message Panel
 
 	[ParseChildrenAttribute(ChildrenAsProperties = false)]
@@ -1009,7 +1044,7 @@ namespace pics.Controls
 
 		protected override void Render(HtmlTextWriter output)
 		{
-            output.Write("<div id=\"" + this.ID + "\">");
+            output.Write("<div id=\"" + this.ID + "\" style=\"position: absolute\">");
 
 			base.Render(output);
 
@@ -1017,15 +1052,6 @@ namespace pics.Controls
 		}
 
 		#endregion
-
-		public class HtmlLiteral: Literal
-		{
-			#region Constructors
-			public HtmlLiteral(string text)
-			{
-				base.Text			= text;
-			}
-		}
 
 		#region Properties
 		public string Title
@@ -1044,5 +1070,230 @@ namespace pics.Controls
 
 	#endregion
 
+	#region Content Panel
+
+	public class ContentPanel: Control, INamingContainer
+	{
+		#region Declares
+		private ArrayList	childControls;
+		private string		title;
+		private string		width;
+		private string		align;
+		#endregion
+
+		#region Constructors
+		public ContentPanel()
+		{
+			childControls			= new ArrayList();
+		}
+		#endregion
+
+		#region Private Methods
+		protected override void AddParsedSubObject(object obj)
+		{
+			childControls.Add(obj);
+		}
+
+		protected override void CreateChildControls()
+		{
+			Table t					= new Table();
+			t.CssClass				= "contentPanel";
+			t.CellPadding			= 0;
+			t.CellSpacing			= 0;
+			if (width != null)
+			{
+				t.Width				= Unit.Parse(width);
+			}
+			this.Controls.Add(t);
+            
+			#region Title Row
+
+			if (title != null)
+			{
+				TableRow titleRow		= new TableRow();
+				t.Rows.Add(titleRow);
+
+				TableCell titleCell		= new TableCell();
+				titleCell.CssClass		= "contentPanelTitleCell";
+				titleRow.Cells.Add(titleCell);
+
+				titleCell.Controls.Add(new HtmlLiteral(title));
+			}
+
+			#endregion
+
+			#region Content Row
+
+			TableRow contentRow			= new TableRow();
+			t.Rows.Add(contentRow);
+
+			TableCell contentCell		= new TableCell();
+			contentCell.CssClass		= "contentPanelContentCell";
+			contentCell.VerticalAlign	= VerticalAlign.Top;
+			if (align != null && align == "center")
+			{
+				contentCell.HorizontalAlign	= HorizontalAlign.Center;
+			}
+				
+			contentRow.Cells.Add(contentCell);
+
+			foreach (Control c in childControls)
+			{
+				contentCell.Controls.Add(c);
+			}
+
+			#endregion
+
+		}
+
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<div id=\"" + this.ID + "\"");
+			output.Write(">");
+			
+			base.Render(output);
+
+			output.Write("</div>");
+		}
+
+		#endregion
+
+		#region Properties
+		public string Title
+		{
+			get
+			{
+				return title;
+			}
+			set
+			{
+				title = value;
+			}
+		}
+		public string Width
+		{
+			get 
+			{
+				return width;
+			}
+			set
+			{
+				width = value;
+			}
+		}
+		public string Align
+		{
+			get
+			{
+				return align;
+			}
+			set
+			{
+				align = value;
+			}
+		}
+		#endregion
+
+	}
+
 	#endregion
+
+	#region Sidebar
+
+	public class Sidebar: Control, INamingContainer
+	{
+		#region Declares
+		private ArrayList	childControls;
+		#endregion
+
+		#region Constructors
+		public Sidebar()
+		{
+			childControls			= new ArrayList();
+		}
+		#endregion
+
+		#region Private Methods
+		protected override void AddParsedSubObject(object obj)
+		{
+			childControls.Add(obj);
+		}
+
+		protected override void CreateChildControls()
+		{
+			// Just copy the child controls into output collection
+			foreach (Control c in childControls)
+			{
+				this.Controls.Add(c);
+			}
+		}
+
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<div id=\"" + this.ID + "\" style=\"POSITION: relative\">");
+
+			// Image div
+			StringBuilder sb = new StringBuilder();
+			sb.Append("<div style=\"Z-INDEX: 1; LEFT: 18px; POSITION: absolute; TOP: 350px\">");
+			sb.Append("  <img src=\"" + HttpContext.Current.Request.ApplicationPath + "/Images/msn2needlewash.gif\">");
+			sb.Append("</div>");
+			output.Write(sb.ToString());
+
+			// Content div
+			output.Write("<div style=\"Z-INDEX: 2; POSITION: absolute\" class=\"sidebar\">");
+            
+			base.Render(output);
+
+			output.Write("</div>");
+
+			output.Write("</div>");
+		}
+
+		#endregion
+
+	}
+
+	#endregion
+
+	#region PictureCheckBox
+	public class PictureCheckBox: CheckBox
+	{
+		#region Constructor
+		public PictureCheckBox(int picId)
+		{
+			this.PicId = picId;
+		}
+		#endregion
+		#region Properties
+		public int PicId
+		{
+			get
+			{
+				if (ViewState["p"] != null)
+				{
+					return Convert.ToInt32(ViewState["p"]);
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			set
+			{
+				ViewState["p"] = value;
+			}
+		}
+		#endregion
+	}
+	#endregion
+
+	public class HtmlLiteral: Literal
+	{
+		#region Constructors
+		public HtmlLiteral(string text)
+		{
+			base.Text			= text;
+		}
+		#endregion
+	}
 }
