@@ -32,13 +32,20 @@ namespace ShoppingListTray
 
         private void LoadData(object foo)
         {
-            ShoppingListServiceClient listClient = new ShoppingListServiceClient();
+            try
+            {
+                ShoppingListServiceClient listClient = new ShoppingListServiceClient();
 
-            this.stores = listClient.GetStores();
-            this.listItems = listClient.GetShoppingListItems();
-            this.lastUpdate = DateTime.Now;
+                this.stores = listClient.GetStores();
+                this.listItems = listClient.GetShoppingListItems();
+                this.lastUpdate = DateTime.Now;
 
-            this.BeginInvoke(new MethodInvoker(this.DataLoadCompleted));
+                this.BeginInvoke(new MethodInvoker(this.DataLoadCompleted));
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         private void DataLoadCompleted()
