@@ -9,9 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerService", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerTest", "..\..\RelayControllerTest\RelayControllerTest.csproj", "{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerPhoneUtility", "..\RelayControllerPhoneUtility\RelayControllerPhoneUtility.csproj", "{046780DE-872B-4806-BFBD-C59487EB8AE0}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://kenny:8080/tfs/main
 		SccLocalPath0 = .
@@ -27,6 +29,9 @@ Global
 		SccProjectUniqueName4 = ..\\..\\RelayControllerTest\\RelayControllerTest.csproj
 		SccProjectName4 = ../../RelayControllerTest
 		SccLocalPath4 = ..\\..\\RelayControllerTest
+		SccProjectUniqueName5 = ..\\RelayControllerPhoneUtility\\RelayControllerPhoneUtility.csproj
+		SccProjectName5 = ../RelayControllerPhoneUtility
+		SccLocalPath5 = ..\\RelayControllerPhoneUtility
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +54,12 @@ Global
 		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,6 +21,7 @@ namespace msn2.net.BarMonkey.RelayController
 
         protected override void SendBatchGroup(List<BatchItem> batch)
         {
+            Log("SendBatchGroup start - {0} items", batch.Count);
             double maxSeconds = 0.0;
 
             var sortedList = from l in batch
@@ -57,25 +58,28 @@ namespace msn2.net.BarMonkey.RelayController
                     ProcessActiveList(activeRelays, startTime);
                 }
 
-                int loopCount = 0;
-                while (activeRelays.Count > 0 && loopCount < 20)
+                if (batch[0].Group != 0)
                 {
-                    ProcessActiveList(activeRelays, startTime);
+                    int loopCount = 0;
+                    while (activeRelays.Count > 0 && loopCount < 20)
+                    {
+                        ProcessActiveList(activeRelays, startTime);
+
+                        if (activeRelays.Count > 0)
+                        {
+                            Thread.Sleep(100);
+                        }
+                    }
 
                     if (activeRelays.Count > 0)
                     {
-                        Thread.Sleep(100);
+                        Log("WARNING: {0} relays remained active.", activeRelays.Count);
                     }
-                }
-
-                if (activeRelays.Count > 0)
-                {
-                    Console.WriteLine("WARNING: {0} relays remained active.", activeRelays.Count);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.ToString());
+                Log("Exception: " + ex.ToString());
             }
             finally
             {
@@ -88,6 +92,7 @@ namespace msn2.net.BarMonkey.RelayController
                 base.SendCommandAndFlush("flush", 37);
             }
 
+            Log("SendBatchGroup end");
         }
 
         private void ProcessActiveList(List<BatchItem> activeRelays, DateTime startTime)

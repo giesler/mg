@@ -36,9 +36,17 @@ namespace msn2.net.BarMonkey
             this.CloseSerialPort();
         }
 
+        protected void Log(string message, params object[] args)
+        {
+            string output = string.Format(message, args);
+            Console.WriteLine(DateTime.Now.ToShortTimeString() + ": " + output);
+        }
+        
+        // TODO: SendSingleBatch with completion after send so client UI can be updated
+
         public void SendBatch(List<BatchItem> batch)
         {
-            Console.WriteLine("Sending batch...");
+            Log("SendBatch() start - {0} items", batch.Count);
 
             try
             {
@@ -68,11 +76,11 @@ namespace msn2.net.BarMonkey
                     SendBatchGroup(pendingList);
                 }
 
-                Console.WriteLine("Send complete.");
+                Log("SendBatch complete.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error sending: " + ex.Message);
+                Log("Error sending: " + ex.Message);
             }
             finally
             {
@@ -140,7 +148,7 @@ namespace msn2.net.BarMonkey
         {
             if (this.serialPort != null && this.serialPort.IsOpen == true)
             {
-                Console.WriteLine("Closing serial port..");
+                Log("Closing serial port..");
 
                 this.SendCommandAndFlush("turn off all ports", 29);
 
@@ -153,7 +161,7 @@ namespace msn2.net.BarMonkey
 
                 this.serialPort.Close();
 
-                Console.WriteLine("Serial port closed.");
+                Log("Serial port closed.");
             }
 
             this.serialPort = null;
@@ -171,17 +179,17 @@ namespace msn2.net.BarMonkey
         {
             this.OpenAndConfigureSerialPort();
 
-            Console.Write("Sending '{0}': ", commandName);
+            Log("Sending '{0}': ", commandName);
 
             char[] chars = new char[charCodes.Length + 1];
             chars[0] = (char)254;
             for (int i = 0; i < charCodes.Length; i++)
             {
                 chars[i + 1] = (char)charCodes[i];
-                Console.Write(charCodes[i].ToString());
-                Console.Write(" ");
+//                Console.Write(charCodes[i].ToString());
+  //              Console.Write(" ");
             }
-            Console.WriteLine();
+    //        Log("");
 
             this.serialPort.Write(chars, 0, chars.Length);
         }
@@ -199,7 +207,7 @@ namespace msn2.net.BarMonkey
             }
             if (charsRead > 0)
             {
-                Console.WriteLine();
+                Log("");
             }
         }
 
