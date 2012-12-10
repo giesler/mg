@@ -5,7 +5,6 @@ using System.Runtime.Remoting;
 using System.Collections;
 using System.Data.SqlClient;
 using System.Web.Caching;
-using Microsoft.Data.SqlXml;
 using System.Diagnostics;
 using msn2.net.Common;
 
@@ -58,24 +57,10 @@ namespace msn2.net.Configuration
 		{
 			this.messenger				= messenger;
 
-			// Set up SP to retreive login IDs
-			SqlXmlCommand cmd			= new SqlXmlCommand(xmlConnectionString);
-			cmd.CommandText				= "EXEC dbo.s_Login ?, ?";
-			cmd.RootTag					= "Login";
+			ProjectFServices.DataService dataService = new ProjectFServices.DataService();
+			dataService.Url = storageUrl;
 
-			// Create needed params
-			SqlXmlParameter param;
-			param						= cmd.CreateParameter();
-			param.Value					= "all@msn2.net";  //messenger.MySigninName;
-			param						= cmd.CreateParameter();
-			param.Value					= System.Environment.MachineName;
-
-			// Create an adapter to fill a dataset
-			SqlXmlAdapter xmlAdapter	= new SqlXmlAdapter(cmd);
-			DataSet ds					= new DataSet();
-
-			// Fill the dataset
-			xmlAdapter.Fill(ds);
+			DataSet ds = dataService.Login("all@msn2.net", Environment.MachineName);
 
 			// Save config values
 			this.signinId				= new Guid(ds.Tables[0].Rows[0]["SigninId"].ToString());

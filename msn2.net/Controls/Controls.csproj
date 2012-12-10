@@ -344,6 +344,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "ShellLabel.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ShellLabel.resx"
+                    DependentUpon = "ShellLabel.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "ShellLaunch.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -424,6 +434,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Calander\Day.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Calander\Day.resx"
+                    DependentUpon = "Day.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Icons\Favorite.ico"
                     BuildAction = "EmbeddedResource"
                 />
@@ -438,6 +458,16 @@
                 <File
                     RelPath = "Icons\TopMost-true.ico"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Shell\UserControl.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Shell\UserControl.resx"
+                    DependentUpon = "UserControl.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <Folder
                     RelPath = "Web References\"

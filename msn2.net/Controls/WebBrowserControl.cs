@@ -52,6 +52,7 @@ namespace msn2.net.Controls
 		private DefaultClickBehavior defaultClickBehavior = DefaultClickBehavior.OpenLink;
 		private System.Windows.Forms.Label labelStatus;
 		private string url = "";
+		private System.Timers.Timer refreshTimer = null;
 
 		#endregion
 
@@ -66,6 +67,18 @@ namespace msn2.net.Controls
 		{
 			this.defaultClickBehavior = clickBehavior;
 			InternalConstructor();
+		}
+
+		public WebBrowserControl(DefaultClickBehavior clickBehavior, TimeSpan refresh)
+		{
+			this.defaultClickBehavior = clickBehavior;
+			InternalConstructor();
+
+			if (refresh.TotalMilliseconds > 0)
+			{
+				refreshTimer = new System.Timers.Timer(refresh.TotalMilliseconds);
+				refreshTimer.Elapsed += new System.Timers.ElapsedEventHandler(Refresh_Elapsed);
+			}
 		}
 
 		private void InternalConstructor()
@@ -159,6 +172,7 @@ namespace msn2.net.Controls
 			this.panelStatus.Size = new System.Drawing.Size(160, 48);
 			this.panelStatus.TabIndex = 1;
 			this.panelStatus.Visible = false;
+			this.panelStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.panelStatus_Paint);
 			// 
 			// labelStatus
 			// 
@@ -259,6 +273,11 @@ namespace msn2.net.Controls
 			if (NavigateComplete != null)
 				NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
 		
+			// Enable refresh timer if we have one
+			if (refreshTimer != null)
+			{
+				refreshTimer.Enabled = true;
+			}
 			// TODO: Save to history
 		}
 
@@ -274,6 +293,7 @@ namespace msn2.net.Controls
 		private void axDocumentV1_BeforeNavigate(string url, int flags, string targetFrameName, 
 			ref object postData, string headers, ref bool processed)
 		{
+
 			// If we are simply navigating in the current window, just set timer to show status
 			if (!isPopup)
 			{
@@ -428,6 +448,7 @@ namespace msn2.net.Controls
 					}
 					else
 					{
+						Debug.WriteLine("Parent: " + win.@event.srcElement.parentElement.ToString());
 						// bail - we aren't in the right place
 						return;
 					}
@@ -553,6 +574,23 @@ namespace msn2.net.Controls
 
 		#endregion
 
+		#region Refresh Timer
+
+		private void Refresh_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		{
+			if (this.url != null && this.url.Length > 0)
+			{
+				System.Diagnostics.Debug.WriteLine("Refreshing " + url);
+				this.RefreshPage();
+			}
+		}
+
+		#endregion
+
+		private void panelStatus_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.DimGray);
+		}
 
 	}
 

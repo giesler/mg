@@ -28,7 +28,7 @@ namespace msn2.net.Controls
 		private Guid dataId = new Guid("{40DEBAB8-3701-43d5-8447-223F8CC5763A}");
 		private System.Windows.Forms.Splitter splitter1;
 		private msn2.net.Controls.CategoryTreeView treeViewCategory;
-	//	private Crownwood.Magic.Docking.DockingManager dockingManager = null;
+		//	private Crownwood.Magic.Docking.DockingManager dockingManager = null;
 
 		#endregion
 
@@ -111,14 +111,14 @@ namespace msn2.net.Controls
 			shellListView.ParentShellForm		= this;
 
 			
-//			dockingManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
+			//			dockingManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 
-//			Crownwood.Magic.Docking.Content content;
+			//			Crownwood.Magic.Docking.Content content;
 			
-//			content = new Crownwood.Magic.Docking.Content(dockingManager, treeViewCategory, "Location");
-//			dockingManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockLeft);
-//			content.DisplaySize = new Size(200, 200);
-//			dockingManager.ShowContent(content);
+			//			content = new Crownwood.Magic.Docking.Content(dockingManager, treeViewCategory, "Location");
+			//			dockingManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockLeft);
+			//			content.DisplaySize = new Size(200, 200);
+			//			dockingManager.ShowContent(content);
 			
 		}
 
@@ -262,6 +262,7 @@ namespace msn2.net.Controls
 		private void treeViewCategory_CategoryTreeView_AfterSelect(object sender, msn2.net.Controls.CategoryTreeViewEventArgs e)
 		{
 			shellListView.Data	= e.Data;
+			//new MenuItem(
 		}
 
 		#endregion
@@ -301,9 +302,32 @@ namespace msn2.net.Controls
 		{
 			get { return 1; }
 		}
+
+		public FavoriteConfigData()
+		{
+
+		}
+
+		
 	}
 
 	#endregion
+
+	#region FileConfigData
+	
+	public class FileConfigData: ConfigData
+	{
+		public FileConfigData(): base()
+		{
+            base.AddShellAction(new ShellAction("Open", "Open file", "Opens the selected file", new EventHandler(OpenEventHandler)));
+		}
+
+		public void OpenEventHandler(object sender, EventArgs e)
+		{
+		}
+	}
+
+	#endregion	
 
 }
 

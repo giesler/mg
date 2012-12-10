@@ -137,6 +137,28 @@ namespace msn2.net.Configuration.ProjectFServices {
         public void EndDelete(System.IAsyncResult asyncResult) {
             this.EndInvoke(asyncResult);
         }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://services.msn2.net/ProjectFServices/2002/04/23/DataService/Login", RequestNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", ResponseNamespace="http://services.msn2.net/ProjectFServices/2002/04/23/DataService", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet Login(string signinName, string machineName) {
+            object[] results = this.Invoke("Login", new object[] {
+                        signinName,
+                        machineName});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginLogin(string signinName, string machineName, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("Login", new object[] {
+                        signinName,
+                        machineName}, callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet EndLogin(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((System.Data.DataSet)(results[0]));
+        }
     }
     
     [Serializable()]
@@ -277,6 +299,12 @@ namespace msn2.net.Configuration.ProjectFServices {
             
             private DataColumn columnItemKey;
             
+            private DataColumn columnHistoryItem;
+            
+            private DataColumn columnHistoryDate;
+            
+            private DataColumn columnTimestamp;
+            
             internal DataItemDataTable() : 
                     base("DataItem") {
                 this.InitClass();
@@ -359,6 +387,24 @@ namespace msn2.net.Configuration.ProjectFServices {
                 }
             }
             
+            internal DataColumn HistoryItemColumn {
+                get {
+                    return this.columnHistoryItem;
+                }
+            }
+            
+            internal DataColumn HistoryDateColumn {
+                get {
+                    return this.columnHistoryDate;
+                }
+            }
+            
+            internal DataColumn TimestampColumn {
+                get {
+                    return this.columnTimestamp;
+                }
+            }
+            
             public DataItemRow this[int index] {
                 get {
                     return ((DataItemRow)(this.Rows[index]));
@@ -377,7 +423,7 @@ namespace msn2.net.Configuration.ProjectFServices {
                 this.Rows.Add(row);
             }
             
-            public DataItemRow AddDataItemRow(System.Guid Id, string Name, System.Guid ParentId, System.Guid UserId, string ItemType, string ItemUrl, string ItemData, System.Guid ConfigTreeLocation, System.Guid ItemKey) {
+            public DataItemRow AddDataItemRow(System.Guid Id, string Name, System.Guid ParentId, System.Guid UserId, string ItemType, string ItemUrl, string ItemData, System.Guid ConfigTreeLocation, System.Guid ItemKey, bool HistoryItem, System.DateTime HistoryDate, System.DateTime Timestamp) {
                 DataItemRow rowDataItemRow = ((DataItemRow)(this.NewRow()));
                 rowDataItemRow.ItemArray = new object[] {
                         Id,
@@ -388,7 +434,10 @@ namespace msn2.net.Configuration.ProjectFServices {
                         ItemUrl,
                         ItemData,
                         ConfigTreeLocation,
-                        ItemKey};
+                        ItemKey,
+                        HistoryItem,
+                        HistoryDate,
+                        Timestamp};
                 this.Rows.Add(rowDataItemRow);
                 return rowDataItemRow;
             }
@@ -422,6 +471,9 @@ namespace msn2.net.Configuration.ProjectFServices {
                 this.columnItemData = this.Columns["ItemData"];
                 this.columnConfigTreeLocation = this.Columns["ConfigTreeLocation"];
                 this.columnItemKey = this.Columns["ItemKey"];
+                this.columnHistoryItem = this.Columns["HistoryItem"];
+                this.columnHistoryDate = this.Columns["HistoryDate"];
+                this.columnTimestamp = this.Columns["Timestamp"];
             }
             
             private void InitClass() {
@@ -443,6 +495,12 @@ namespace msn2.net.Configuration.ProjectFServices {
                 this.Columns.Add(this.columnConfigTreeLocation);
                 this.columnItemKey = new DataColumn("ItemKey", typeof(System.Guid), null, System.Data.MappingType.Element);
                 this.Columns.Add(this.columnItemKey);
+                this.columnHistoryItem = new DataColumn("HistoryItem", typeof(bool), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnHistoryItem);
+                this.columnHistoryDate = new DataColumn("HistoryDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnHistoryDate);
+                this.columnTimestamp = new DataColumn("Timestamp", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnTimestamp);
                 this.Constraints.Add(new UniqueConstraint("DataSetDataItemKey1", new DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -625,6 +683,48 @@ namespace msn2.net.Configuration.ProjectFServices {
                 }
             }
             
+            public bool HistoryItem {
+                get {
+                    try {
+                        return ((bool)(this[this.tableDataItem.HistoryItemColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataItem.HistoryItemColumn] = value;
+                }
+            }
+            
+            public System.DateTime HistoryDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableDataItem.HistoryDateColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataItem.HistoryDateColumn] = value;
+                }
+            }
+            
+            public System.DateTime Timestamp {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableDataItem.TimestampColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataItem.TimestampColumn] = value;
+                }
+            }
+            
             public bool IsNameNull() {
                 return this.IsNull(this.tableDataItem.NameColumn);
             }
@@ -687,6 +787,30 @@ namespace msn2.net.Configuration.ProjectFServices {
             
             public void SetItemKeyNull() {
                 this[this.tableDataItem.ItemKeyColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsHistoryItemNull() {
+                return this.IsNull(this.tableDataItem.HistoryItemColumn);
+            }
+            
+            public void SetHistoryItemNull() {
+                this[this.tableDataItem.HistoryItemColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsHistoryDateNull() {
+                return this.IsNull(this.tableDataItem.HistoryDateColumn);
+            }
+            
+            public void SetHistoryDateNull() {
+                this[this.tableDataItem.HistoryDateColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsTimestampNull() {
+                return this.IsNull(this.tableDataItem.TimestampColumn);
+            }
+            
+            public void SetTimestampNull() {
+                this[this.tableDataItem.TimestampColumn] = System.Convert.DBNull;
             }
         }
         

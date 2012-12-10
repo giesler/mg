@@ -10,10 +10,16 @@ namespace msn2.net.Controls
 {
 	public class ShellLaunch : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.Button buttonGo;
+		private msn2.net.Controls.ShellButton buttonGo;
 		private System.Windows.Forms.CheckBox checkBoxCommandPrompt;
 		private System.ComponentModel.IContainer components = null;
+
+		#endregion
+
+		#region Constructor
 
 		public ShellLaunch()
 		{
@@ -26,6 +32,10 @@ namespace msn2.net.Controls
 			InitializeComponent();
 		}
         
+		#endregion
+
+		#region Disposal
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -41,6 +51,8 @@ namespace msn2.net.Controls
 			base.Dispose( disposing );
 		}
 
+		#endregion
+
 		#region Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -49,9 +61,19 @@ namespace msn2.net.Controls
 		private void InitializeComponent()
 		{
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.buttonGo = new System.Windows.Forms.Button();
+			this.buttonGo = new msn2.net.Controls.ShellButton();
 			this.checkBoxCommandPrompt = new System.Windows.Forms.CheckBox();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// timerFadeOut
+			// 
+			this.timerFadeOut.Enabled = false;
+			// 
+			// timerFadeIn
+			// 
+			this.timerFadeIn.Enabled = false;
 			// 
 			// textBox1
 			// 
@@ -70,6 +92,7 @@ namespace msn2.net.Controls
 			this.buttonGo.Location = new System.Drawing.Point(224, 8);
 			this.buttonGo.Name = "buttonGo";
 			this.buttonGo.Size = new System.Drawing.Size(40, 24);
+			this.buttonGo.StartColor = System.Drawing.Color.LightGray;
 			this.buttonGo.TabIndex = 6;
 			this.buttonGo.Text = "go";
 			this.buttonGo.Click += new System.EventHandler(this.buttonGo_Click);
@@ -78,6 +101,7 @@ namespace msn2.net.Controls
 			// 
 			this.checkBoxCommandPrompt.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
+			this.checkBoxCommandPrompt.BackColor = System.Drawing.Color.Transparent;
 			this.checkBoxCommandPrompt.Checked = true;
 			this.checkBoxCommandPrompt.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBoxCommandPrompt.Location = new System.Drawing.Point(8, 32);
@@ -97,11 +121,17 @@ namespace msn2.net.Controls
 																		  this.textBox1});
 			this.Name = "ShellLaunch";
 			this.Text = "Shell Launcher";
+			this.TitleVisible = true;
 			this.Activated += new System.EventHandler(this.ShellLaunch_Activated);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShellLaunch_Paint);
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 		#endregion
+
+		#region Go button
 
 		private void buttonGo_Click(object sender, System.EventArgs e)
 		{
@@ -127,11 +157,26 @@ namespace msn2.net.Controls
 			this.textBox1.SelectAll();
 		}
 
+		#endregion
+
+		#region Activate
+
 		private void ShellLaunch_Activated(object sender, System.EventArgs e)
 		{
 			this.textBox1.SelectAll();
 			this.textBox1.Focus();
 		}
+
+		#endregion
+
+		#region Paint
+
+		private void ShellLaunch_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+		}
+
+		#endregion
 	}
 }
 

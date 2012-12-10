@@ -123,6 +123,16 @@ namespace msn2.net.Controls
 			this.Text		= formNode.Name;
 
 			ShellFormInternalConstructor();
+
+			if (formNode != null)
+			{
+				Trace.WriteLine("Reading config data for " + this.Name);
+
+				ShellFormConfigData defaultConfig = new ShellFormConfigData(this);
+				layoutData = formNode.Get("ShellFormConfigData", defaultConfig, typeof(ShellFormConfigData));
+				ShellFormConfigData layoutConfig = (ShellFormConfigData) layoutData.ConfigData;
+				layoutConfig.Apply(this);
+			}                
 		}
 
 		private void ShellFormInternalConstructor()
@@ -412,16 +422,6 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Load(object sender, System.EventArgs e)
 		{
-			if (formNode != null)
-			{
-				Trace.WriteLine("Reading config data for " + this.Name);
-
-				ShellFormConfigData defaultConfig = new ShellFormConfigData(this);
-				layoutData = formNode.Get("ShellFormConfigData", defaultConfig, typeof(ShellFormConfigData));
-				ShellFormConfigData layoutConfig = (ShellFormConfigData) layoutData.ConfigData;
-				layoutConfig.Apply(this);
-			}                
-
 			// Check if we should lock to another form based on position
 //			PerformLockingCheck();
 		}
@@ -434,7 +434,7 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
 		{
-			System.Diagnostics.Debug.WriteLine(this.Name + ": layout");
+			// System.Diagnostics.Debug.WriteLine(this.Name + ": layout");
 
 			// Add mouseover cursors if not in a fixed style
 			if (!DesignMode && this.Parent == null)
@@ -778,7 +778,7 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Activated(object sender, System.EventArgs e)
 		{
-			Debug.WriteLine("ShellForm_Activated", this.Name);
+			//Debug.WriteLine("ShellForm_Activated", this.Name);
 
 			if (enableOpacityChanges && !activating && !suspendOpacityChanges)
 			{
@@ -812,7 +812,7 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Deactivate(object sender, System.EventArgs e)
 		{
-			Debug.WriteLine("ShellForm_Deactivate", this.Name);
+			//Debug.WriteLine("ShellForm_Deactivate", this.Name);
 
 			if (enableOpacityChanges && !activating && !suspendOpacityChanges)
 			{
@@ -936,7 +936,7 @@ namespace msn2.net.Controls
 
 		private void LayoutForProjectF()
 		{
-			Trace.WriteLine("Laying out " + this.Text);
+			// Trace.WriteLine("Laying out " + this.Text);
 
 			// Bail if in design mode
 			if (!DesignMode)

@@ -15,6 +15,9 @@
               <xs:element minOccurs="0" name="ItemData" type="xs:string" />
               <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="ConfigTreeLocation" type="xs:string" />
               <xs:element msdata:DataType="System.Guid, mscorlib, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" minOccurs="0" name="ItemKey" type="xs:string" />
+              <xs:element minOccurs="0" name="HistoryItem" type="xs:boolean" />
+              <xs:element minOccurs="0" name="HistoryDate" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

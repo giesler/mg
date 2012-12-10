@@ -132,9 +132,9 @@ namespace msn2.net.Common
 				return;
 
 			// Figure out multipliers - amount to change each color for each line
-			float redDiff			= (startColor.R - endColor.R) / e.ClipRectangle.Height;
-			float greenDiff		= (startColor.G - endColor.G) / e.ClipRectangle.Height;
-			float blueDiff			= (startColor.B - endColor.B) / e.ClipRectangle.Height;
+			float redDiff			= ((float)startColor.R - (float)endColor.R) / (float)e.ClipRectangle.Height;
+			float greenDiff			= ((float)startColor.G - (float)endColor.G) / (float)e.ClipRectangle.Height;
+			float blueDiff			= ((float)startColor.B - (float)endColor.B) / (float)e.ClipRectangle.Height;
 
 			float currentRed		= startColor.R;
 			float currentGreen		= startColor.G;
@@ -142,6 +142,9 @@ namespace msn2.net.Common
 
 			for (int i = 0; i < e.ClipRectangle.Height; i++)
 			{
+				// Offset for top distance, if any
+				int topOffset = i - e.ClipRectangle.Top;
+
 				currentRed		-= redDiff;
 				currentGreen	-= greenDiff;
 				currentBlue		-= blueDiff;
@@ -149,7 +152,7 @@ namespace msn2.net.Common
 				Color color = Color.FromArgb((int) currentRed, (int) currentGreen, (int) currentBlue);
 				using (Pen pen = new Pen(new SolidBrush(color)))
 				{
-					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - i, e.ClipRectangle.Width, e.ClipRectangle.Height - i);
+					e.Graphics.DrawLine(pen, e.ClipRectangle.Left, e.ClipRectangle.Height - topOffset, e.ClipRectangle.Width, e.ClipRectangle.Height - topOffset);
 				}                
 			}
 		}

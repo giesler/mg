@@ -12,15 +12,18 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class Status : msn2.net.Controls.ShellForm
 	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
+		#region Declares
+
 		private System.ComponentModel.Container components = null;
 		private bool cancel;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Button buttonCancel;
-		private System.Windows.Forms.Label labelMessage;
+		private msn2.net.Controls.ShellLabel labelMessage;
 		private Thread thread = null;
+
+		#endregion
+
+		#region Constructors
 
 		public Status(string message)
 		{
@@ -53,6 +56,10 @@ namespace msn2.net.Controls
 			this.thread = thread;
 		}
 
+		#endregion
+
+		#region Disposal
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -66,6 +73,18 @@ namespace msn2.net.Controls
 				}
 			}
 			base.Dispose( disposing );
+		}
+
+		#endregion
+
+		#region Properties
+
+		public bool Cancel 
+		{
+			get 
+			{
+				return cancel;
+			}
 		}
 
 		public string Message 
@@ -85,10 +104,16 @@ namespace msn2.net.Controls
 			}
 		}
 
+		#endregion
+
+		#region Methods
+
 		public void Increment(int amount) 
 		{
 			this.progressBar1.Increment(amount);
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -100,7 +125,7 @@ namespace msn2.net.Controls
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Status));
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.buttonCancel = new System.Windows.Forms.Button();
-			this.labelMessage = new System.Windows.Forms.Label();
+			this.labelMessage = new msn2.net.Controls.ShellLabel();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -132,12 +157,10 @@ namespace msn2.net.Controls
 			// 
 			// labelMessage
 			// 
-			this.labelMessage.BackColor = System.Drawing.Color.Transparent;
 			this.labelMessage.Location = new System.Drawing.Point(5, 9);
 			this.labelMessage.Name = "labelMessage";
 			this.labelMessage.Size = new System.Drawing.Size(288, 32);
 			this.labelMessage.TabIndex = 6;
-			this.labelMessage.Text = "Loading...";
 			// 
 			// Status
 			// 
@@ -168,6 +191,8 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Button Handlers
+
 		private void buttonCancel_Click(object sender, System.EventArgs e)
 		{
 			cancel = true;
@@ -178,17 +203,16 @@ namespace msn2.net.Controls
 			}
 		}
 
+		#endregion
+
+		#region Paint
+
 		private void Status_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
 			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 
-		public bool Cancel 
-		{
-			get 
-			{
-				return cancel;
-			}
-		}
+		#endregion
+
 	}
 }

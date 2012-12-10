@@ -47,7 +47,7 @@ namespace msn2.net.Controls
 
 		}
 
-		public WebBrowser(string title, int width, int height): base()
+		public WebBrowser(Data data, string title, int width, int height): base(data)
 		{
 			InitializeComponent();
 
@@ -163,7 +163,12 @@ namespace msn2.net.Controls
 
 		public void AddStaticTab(string title, string url)
 		{
-			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(WebBrowserControl.DefaultClickBehavior.OpenInNewWindow);
+			AddStaticTab(title, url, new TimeSpan(0));
+		}
+
+		public void AddStaticTab(string title, string url, TimeSpan refresh)
+		{
+			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(WebBrowserControl.DefaultClickBehavior.OpenInNewWindow, refresh);
 
 			browser.NavigateComplete	+= new NavigateCompleteDelegate(webBrowserControl_NavigateComplete);
 			browser.OpenNewTabEvent		+= new OpenNewTabDelegate(OpenNewTab);

@@ -26,6 +26,7 @@ namespace msn2.net.Controls
 		private System.ComponentModel.IContainer components;
 		private ShellForm parentForm = null;
 		private Data data = null;
+		private ContextMenu contextMenu = null;
 
 		#endregion
 
@@ -33,20 +34,25 @@ namespace msn2.net.Controls
 
 		public ShellListView()
 		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
-
-			this.listViewFavorites.ContextMenu	= contextMenu1;
+			InternalConstructor();
 		}
 
 		public ShellListView(ShellForm parentForm, Data data)
 		{
+			InternalConstructor();
+			
+			this.parentForm			= parentForm;
+			this.data				= data;
+		}
+
+		private void InternalConstructor()
+		{
 			InitializeComponent();
 
-            this.parentForm			= parentForm;
-			this.data				= data;
-		
-			this.listViewFavorites.ContextMenu	= contextMenu1;
+			// Set up context menu
+			contextMenu = new ContextMenu();
+			contextMenu.Popup += new EventHandler(ContextMenu_Popup);
+			this.listViewFavorites.ContextMenu	= contextMenu;
 		}
 
 		#endregion
@@ -209,6 +215,20 @@ namespace msn2.net.Controls
 		#endregion
 
 		#region Context menu / mouse actions
+
+		private void ContextMenu_Popup(object sender, System.EventArgs e)
+		{
+			// Populate the context menu with this type's menu
+			if (listViewFavorites.SelectedItems.Count == 0)
+			{
+				contextMenu.MenuItems.Clear();
+				return;
+			}
+
+			DataListViewItem item = (DataListViewItem) listViewFavorites.SelectedItems[0];
+
+			//item.Data.ConfigData.IconIndex
+		}
 
 		private void menuItemAdd_Click(object sender, System.EventArgs e)
 		{

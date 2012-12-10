@@ -30,6 +30,7 @@ namespace msn2.net.Controls
 
 		public WebSearch(Data data): base(data)
 		{
+			this.Text = "Search";
 			InternalConstructor();
 		}
 
@@ -96,7 +97,7 @@ namespace msn2.net.Controls
 														   "Google Groups"});
 			this.comboBox1.Location = new System.Drawing.Point(8, 8);
 			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(272, 21);
+			this.comboBox1.Size = new System.Drawing.Size(288, 21);
 			this.comboBox1.TabIndex = 1;
 			// 
 			// textBox1
@@ -105,7 +106,7 @@ namespace msn2.net.Controls
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.textBox1.Location = new System.Drawing.Point(8, 32);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(224, 20);
+			this.textBox1.Size = new System.Drawing.Size(240, 20);
 			this.textBox1.TabIndex = 2;
 			this.textBox1.Text = "<search>";
 			// 
@@ -113,9 +114,10 @@ namespace msn2.net.Controls
 			// 
 			this.buttonGo.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonGo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonGo.Location = new System.Drawing.Point(240, 32);
+			this.buttonGo.Location = new System.Drawing.Point(256, 32);
 			this.buttonGo.Name = "buttonGo";
 			this.buttonGo.Size = new System.Drawing.Size(40, 24);
+			this.buttonGo.StartColor = System.Drawing.Color.LightGray;
 			this.buttonGo.TabIndex = 3;
 			this.buttonGo.Text = "go";
 			this.buttonGo.Click += new System.EventHandler(this.buttonGo_Click);
@@ -124,19 +126,19 @@ namespace msn2.net.Controls
 			// 
 			this.AcceptButton = this.buttonGo;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(288, 62);
+			this.ClientSize = new System.Drawing.Size(304, 62);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.buttonGo,
 																		  this.textBox1,
 																		  this.comboBox1});
 			this.KeyPreview = true;
-			this.MaximumSize = new System.Drawing.Size(312, 96);
 			this.Name = "WebSearch";
 			this.ShowInTaskbar = true;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Search";
 			this.TitleVisible = true;
 			this.Activated += new System.EventHandler(this.WebSearch_Activated);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebSearch_Paint);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.WebSearch_KeyUp);
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).EndInit();
@@ -185,6 +187,11 @@ namespace msn2.net.Controls
 			browser = new WebBrowser(searchData);
 			browser.Show();
 
+		}
+
+		private void WebSearch_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
 		}
 	}
 

@@ -178,7 +178,7 @@ namespace msn2.net.Configuration
 		/// <returns>Filtered children</returns>
 		public DataCollection GetChildren(Type[] types)
 		{
-			Trace.Write(String.Format("nodeId: {0}", this.id), "GetChildren");
+			Trace.WriteLine(String.Format("nodeId: {0}", this.id), "GetChildren");
 
 			string[] typeList = new string[types.Length];
 			for (int i = 0; i < types.Length; i++)

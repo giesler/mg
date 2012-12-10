@@ -12,17 +12,24 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class Graph : System.Windows.Forms.UserControl
 	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
+		#region Declares
+
 		private System.ComponentModel.Container components = null;
 		private ArrayList graphItems = new ArrayList();
-        		
+
+		#endregion
+		
+		#region Constructor
+
 		public Graph()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -38,6 +45,8 @@ namespace msn2.net.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Component Designer generated code
 		/// <summary> 
@@ -71,8 +80,12 @@ namespace msn2.net.Controls
 
 		#endregion
         
+		#region Paint
+
 		private void Graph_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
+			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+
 			// Draw horizontal lines
 			using (Pen pen = new Pen(new SolidBrush(Color.DarkGray)))
 			{
@@ -103,6 +116,9 @@ namespace msn2.net.Controls
 				}
 			}
 		}
+
+		#endregion
+
 	}
 
 	public class LineGraph
