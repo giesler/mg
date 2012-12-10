@@ -104,6 +104,11 @@ namespace msn2.net.Pictures.Controls
             this.loading = false;
 		}
 
+        public void HideIcons()
+        {
+            this.tvCategory.ImageList = null;
+        }
+
         private delegate void AddTreeNodeDelegate(CategoryTreeNode parentNode, TreeNode newNode);
 
         private void AddCategoryTreeNode(CategoryTreeNode parentNode, TreeNode newNode)

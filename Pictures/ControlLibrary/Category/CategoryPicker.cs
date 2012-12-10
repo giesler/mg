@@ -33,6 +33,7 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
+            this.categoryTree1.HideIcons();
 		}
 
 		/// <summary> 

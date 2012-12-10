@@ -846,7 +846,7 @@ namespace pics.Controls
 
 			// Background folder image
 			string imageUrl			= (recursivePicCount != 0 ? folderImage : "Images/folderEmpty.png");
-			if (folderWidth == 150 && category.PictureId != 0)
+			if (folderWidth == 150 && category.PictureId != 0 && category.PictureId != null)
 			{
 				PictureViewer pic		= new PictureViewer(category.PictureId.Value, navigateUrl, "", 0, false, false, false);
 				pic.CssClass			= "categoryPicture";

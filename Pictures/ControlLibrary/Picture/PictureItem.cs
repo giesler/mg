@@ -105,7 +105,7 @@ namespace msn2.net.Pictures.Controls
             set
             {
                 pictureOpacity = value;
-                Refresh();
+                this.Invalidate();
             }
         }
 
@@ -131,10 +131,7 @@ namespace msn2.net.Pictures.Controls
         }
 
         private bool resized;
-/*        private Image image;
-        private Image smallImage;
-        private Image sizedImage;
-  */      private bool selected;
+        private bool selected;
         private bool drawShadow = true;
         private bool drawBorder = true;
 
@@ -157,48 +154,62 @@ namespace msn2.net.Pictures.Controls
             try
             {
                 Picture picture = this.picture;
-                this.loadingPictureId = picture.Id;
-
-                ImageLoadSize loadSize = (ImageLoadSize) o;
-
-                this.imageReadError = false;
-                Image loadedImage = null;
-
-                if (loadSize == ImageLoadSize.Small)
+                if (picture != null)
                 {
-                        loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 125, 125);
-                        Trace.WriteLine("Loaded 125x125 for " + picture.Id.ToString());
-                }
-                else if (loadSize == ImageLoadSize.Medium)
-                {
-                    Thread.Sleep(100);
-                    loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 750, 700);
-                    Trace.WriteLine("Loaded 750x700 for " + picture.Id.ToString());
-                }
-                else if (loadSize == ImageLoadSize.Full)
-                {
-                    Thread.Sleep(250);
-                    string file = Path.Combine(PicContext.Current.Config.PictureDirectory, this.picture.Filename);
-                    loadedImage = Image.FromFile(file);
-                    Trace.WriteLine("Loaded " + file + " for " + this.picture.Id.ToString());
-                }
+                    this.loadingPictureId = picture.Id;
 
-                if (this.loadingPictureId == picture.Id)
-                {
-                    Image sizedImage = SizeImage(loadedImage, this.Width, this.Height);
+                    ImageLoadSize loadSize = (ImageLoadSize)o;
+
+                    this.imageReadError = false;
+                    Image loadedImage = null;
+                    lock (this.lockObject)
+                    {
+                        if (this.images.ContainsKey(loadSize))
+                        {
+                            loadedImage = this.images[loadSize];
+                            if (loadedImage != null)
+                            {
+                                this.images[loadSize] = null;
+                            }
+                        }
+                    }
+
+                    Trace.WriteLine("Loading " + loadSize.ToString() + " for " + picture.Id.ToString());
+
+                    if (loadedImage == null)
+                    {
+                        if (loadSize == ImageLoadSize.Small)
+                        {
+                            loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 125, 125);
+                        }
+                        else if (loadSize == ImageLoadSize.Medium)
+                        {
+                            loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 750, 700);
+                        }
+                        else if (loadSize == ImageLoadSize.Full)
+                        {
+                            string file = Path.Combine(PicContext.Current.Config.PictureDirectory, this.picture.Filename);
+                            loadedImage = Image.FromFile(file);
+                        }
+                    }
 
                     if (this.loadingPictureId == picture.Id)
                     {
-                        lock (this.lockObject)
-                        {
-                            if (this.loadingPictureId == picture.Id)
-                            {
-                                this.images[loadSize] = loadedImage;
-                                this.sizedImages.Add(loadSize, sizedImage);
-                            }
-                        }
+                        Image sizedImage = SizeImage(loadedImage, this.Width, this.Height);
 
-                        this.RepaintImage();
+                        if (this.loadingPictureId == picture.Id)
+                        {
+                            lock (this.lockObject)
+                            {
+                                if (this.loadingPictureId == picture.Id)
+                                {
+                                    this.images[loadSize] = loadedImage;
+                                    this.sizedImages[loadSize] = sizedImage;
+                                }
+                            }
+
+                            this.RepaintImage();
+                        }
                     }
                 }
             }
@@ -218,17 +229,19 @@ namespace msn2.net.Pictures.Controls
 
         public void SetPicture(Picture item)
         {
-            ReleaseImage();
+            this.ReleaseImages();
 
             lock (this.lockObject)
             {
                 this.picture = item;
             }
 
+            this.QueueReloads();
+
             this.RepaintImage();
         }
 
-        public void ReleaseImage()
+        public void ReleaseImages()
         {
             lock (this.lockObject)
             {
@@ -271,7 +284,10 @@ namespace msn2.net.Pictures.Controls
         void PictureItem_Resize(object sender, EventArgs e)
         {
             resized = true;
-            Refresh();
+
+            this.QueueReloads();
+
+            this.Invalidate();
         }
 
         public bool HideLoadingImage { get; set; }
@@ -389,22 +405,8 @@ namespace msn2.net.Pictures.Controls
                     {
                         this.loadingPictureId = this.picture.Id;
 
-                        this.ReleaseImage();
-
-                        this.images.Add(ImageLoadSize.Small, null);
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Small);
-                        
-                        if (this.Width > 125)
-                        {
-                            this.images.Add(ImageLoadSize.Medium, null);
-                            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Medium);
-
-                            if (this.Width > 700)
-                            {
-                                this.images.Add(ImageLoadSize.Full, null);
-                                ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Full);
-                            }
-                        }
+                        this.ReleaseImages();
+                        this.QueueReloads();
                     }
                 }
 
@@ -494,7 +496,7 @@ namespace msn2.net.Pictures.Controls
 
                 AddPictureInfo(e);
 
-                if (this.images.ContainsValue(null))
+                if (sizedImage == null)
                 {
                     PrintLoading(e);
                 }
@@ -502,6 +504,39 @@ namespace msn2.net.Pictures.Controls
             else
             {
                 PrintLoading(e);
+            }
+        }
+
+        void QueueReloads()
+        {
+            lock (this.lockObject)
+            {
+                if (this.images.ContainsKey(ImageLoadSize.Small) == false)
+                {
+                    this.images.Add(ImageLoadSize.Small, null);
+                    this.sizedImages.Add(ImageLoadSize.Small, null);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Small);
+                }
+
+                if (this.Width > 125)
+                {
+                    if (this.images.ContainsKey(ImageLoadSize.Medium) == false)
+                    {
+                        this.images.Add(ImageLoadSize.Medium, null);
+                        this.sizedImages.Add(ImageLoadSize.Medium, null);
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Medium);
+                    }
+
+                    if (this.Width > 700)
+                    {
+                        if (this.images.ContainsKey(ImageLoadSize.Full) == false)
+                        {
+                            this.images.Add(ImageLoadSize.Full, null);
+                            this.sizedImages.Add(ImageLoadSize.Full, null);
+                            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage), ImageLoadSize.Full);
+                        }
+                    }
+                }
             }
         }
 
@@ -609,7 +644,7 @@ namespace msn2.net.Pictures.Controls
         {
             lock (this.lockObject)
             {
-                this.ReleaseImage();
+                this.ReleaseImages();
             }
         }
 

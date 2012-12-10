@@ -330,7 +330,15 @@ namespace msn2.net.Pictures.Controls
 
         #endregion
 
-        public IQueryable<Picture> GetPictureQuery()
+        public enum RatingEquality
+        {
+            All,
+            GreaterThan,
+            Equals,
+            Unrated
+        }
+
+        public IQueryable<Picture> GetPictureQuery(RatingEquality ratingType, int ratingValue)
         {
             IQueryable<Picture> query = null;
 
@@ -340,7 +348,11 @@ namespace msn2.net.Pictures.Controls
 
                 query = from p in PicContext.Current.PictureManager.GetPictures()
                         where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
-//                            && p.PictureRatings.Any(pr => pr.Rating == 2)
+                            && ((ratingType == RatingEquality.All)
+                                || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
+                                || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
+                                || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
+                                )
                         select p;
             }
             else if (this.SelectedNode is DateFilterTreeNode)
@@ -356,6 +368,11 @@ namespace msn2.net.Pictures.Controls
                     query = from p in PicContext.Current.PictureManager.GetPictures()
                             where (dateAdded && p.PictureAddDate.Value.Date == fullDate.Date)
                                 || (!dateAdded && p.PictureDate.Date == fullDate.Date)
+                                && ((ratingType == RatingEquality.All)
+                                    || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
+                                    || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
+                                    || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
+                                    )
                             select p;
                 }
                 else if (filter.Level == 2)
@@ -370,6 +387,11 @@ namespace msn2.net.Pictures.Controls
                                         && p.PictureAddDate.Value.Year == year)
                                 || (!dateAdded && p.PictureDate.Month == month
                                         && p.PictureDate.Year == year)
+                                && ((ratingType == RatingEquality.All)
+                                    || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
+                                    || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
+                                    || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
+                                    )
                             select p;
                 }
                 else if (filter.Level == 1)
@@ -380,6 +402,11 @@ namespace msn2.net.Pictures.Controls
                     query = from p in PicContext.Current.PictureManager.GetPictures()
                             where (dateAdded && p.PictureAddDate.Value.Year == year)
                                 || (!dateAdded && p.PictureDate.Year == year)
+                                && ((ratingType == RatingEquality.All)
+                                    || (ratingType == RatingEquality.Equals && (p.AverageRating.Value > ratingValue || p.AverageRating.Value < (Convert.ToDecimal(ratingValue) + 0.99m)))
+                                    || (ratingType == RatingEquality.GreaterThan && (p.AverageRating >= ratingValue))
+                                    || (ratingType == RatingEquality.Unrated && p.AverageRating == 0)
+                                    )
                             select p;
                 }
             }

@@ -118,7 +118,7 @@ namespace msn2.net.Pictures.Controls
         public void ReleasePicture(int pictureId)
         {
             PictureItem item = FindItem(pictureId);
-            item.ReleaseImage();
+            item.ReleaseImages();
         }
 
         public void ReloadPicture(int pictureId)

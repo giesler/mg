@@ -68,14 +68,14 @@ namespace msn2.net.Pictures.Controls
             this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.peopleCtl1.Location = new System.Drawing.Point(0, 0);
             this.peopleCtl1.Name = "peopleCtl1";
-            this.peopleCtl1.Size = new System.Drawing.Size(210, 283);
+            this.peopleCtl1.Size = new System.Drawing.Size(182, 181);
             this.peopleCtl1.TabIndex = 0;
             this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAdd.Location = new System.Drawing.Point(5, 120);
+            this.btnAdd.Location = new System.Drawing.Point(5, 69);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(24, 23);
             this.btnAdd.TabIndex = 0;
@@ -87,9 +87,9 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Controls.Add(this.lvPeople);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(220, 0);
+            this.panel1.Location = new System.Drawing.Point(186, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 283);
+            this.panel1.Size = new System.Drawing.Size(162, 181);
             this.panel1.TabIndex = 2;
             // 
             // lvPeople
@@ -102,17 +102,18 @@ namespace msn2.net.Pictures.Controls
             this.lvPeople.HideSelection = false;
             this.lvPeople.Location = new System.Drawing.Point(32, 0);
             this.lvPeople.Name = "lvPeople";
-            this.lvPeople.Size = new System.Drawing.Size(288, 283);
+            this.lvPeople.Size = new System.Drawing.Size(130, 181);
             this.lvPeople.TabIndex = 1;
             this.lvPeople.UseCompatibleStateImageBehavior = false;
             this.lvPeople.View = System.Windows.Forms.View.Details;
+            this.lvPeople.Resize += new System.EventHandler(this.lvPeople_Resize);
             this.lvPeople.SelectedIndexChanged += new System.EventHandler(this.lvPeople_SelectedIndexChanged);
             this.lvPeople.DoubleClick += new System.EventHandler(this.lvPeople_DoubleClick);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "People";
-            this.columnHeader1.Width = 400;
+            this.columnHeader1.Text = "Selected People";
+            this.columnHeader1.Width = 150;
             // 
             // panel2
             // 
@@ -121,13 +122,13 @@ namespace msn2.net.Pictures.Controls
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(32, 283);
+            this.panel2.Size = new System.Drawing.Size(32, 181);
             this.panel2.TabIndex = 0;
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRemove.Location = new System.Drawing.Point(5, 149);
+            this.btnRemove.Location = new System.Drawing.Point(5, 98);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(24, 23);
             this.btnRemove.TabIndex = 0;
@@ -136,9 +137,9 @@ namespace msn2.net.Pictures.Controls
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(210, 0);
+            this.splitter1.Location = new System.Drawing.Point(182, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(10, 283);
+            this.splitter1.Size = new System.Drawing.Size(4, 181);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -148,7 +149,7 @@ namespace msn2.net.Pictures.Controls
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.peopleCtl1);
             this.Name = "PersonPicker";
-            this.Size = new System.Drawing.Size(540, 283);
+            this.Size = new System.Drawing.Size(348, 181);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -252,6 +253,11 @@ namespace msn2.net.Pictures.Controls
 
             this.btnAdd.Enabled = personSelected;
             this.btnRemove.Enabled = selectedPersonSelected;
+        }
+
+        private void lvPeople_Resize(object sender, EventArgs e)
+        {
+            this.lvPeople.Columns[0].Width = this.lvPeople.ClientSize.Width - 2;
         }
 
 	}

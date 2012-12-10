@@ -141,6 +141,10 @@ namespace msn2.net.Pictures.Controls.UserControls
                 temp += " " + ampmPicker.SelectedItem.ToString();
                 return DateTime.Parse(temp);
             }
+            set
+            {
+                this.SetDateTime(value);
+            }
         }
 
         private void SetDateTime(DateTime value)

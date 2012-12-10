@@ -94,6 +94,9 @@ namespace msn2.net.Pictures.Controls
         PictureControlSettings settings = new PictureControlSettings();
         MenuItem menuItem4;
         private Button closePanel;
+        private ToolStripLabel toolStripLabel3;
+        private ToolStripComboBox ratingFilterType;
+        private ToolStripComboBox ratingFilterValue;
         bool loading = true;
         #endregion
 
@@ -155,6 +158,8 @@ namespace msn2.net.Pictures.Controls
 
             this.maxPicCount.SelectedIndex = 1;
             this.imageSizeCombo.SelectedIndex = 1;
+            this.ratingFilterType.SelectedIndex = 0;
+            this.ratingFilterValue.SelectedIndex = 0;
 
             this.loading = false;
         }
@@ -222,6 +227,12 @@ namespace msn2.net.Pictures.Controls
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Categories", 2, 2);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Date Taken", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Date Added", 2, 2);
             this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
             this.cn = new System.Data.SqlClient.SqlConnection();
             this.mnuPictureListMoveDown = new System.Windows.Forms.MenuItem();
@@ -260,6 +271,9 @@ namespace msn2.net.Pictures.Controls
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.maxPicCount = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.ratingFilterType = new System.Windows.Forms.ToolStripComboBox();
+            this.ratingFilterValue = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -479,7 +493,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 368);
+            this.statusBar1.Location = new System.Drawing.Point(0, 326);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -510,6 +524,9 @@ namespace msn2.net.Pictures.Controls
             this.toolStripSeparator1,
             this.toolStripLabel2,
             this.maxPicCount,
+            this.toolStripLabel3,
+            this.ratingFilterType,
+            this.ratingFilterValue,
             this.toolStripSelectAll,
             this.toolStripClearAll,
             this.toolStripSeparator2,
@@ -566,6 +583,38 @@ namespace msn2.net.Pictures.Controls
             this.maxPicCount.Size = new System.Drawing.Size(75, 25);
             this.maxPicCount.SelectedIndexChanged += new System.EventHandler(this.maxPicCount_SelectedIndexChanged);
             // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel3.Text = "Rating:";
+            // 
+            // ratingFilterType
+            // 
+            this.ratingFilterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ratingFilterType.Items.AddRange(new object[] {
+            "all",
+            "greater than",
+            "equals",
+            "unrated"});
+            this.ratingFilterType.Name = "ratingFilterType";
+            this.ratingFilterType.Size = new System.Drawing.Size(100, 25);
+            this.ratingFilterType.SelectedIndexChanged += new System.EventHandler(this.ratingFilterType_SelectedIndexChanged);
+            // 
+            // ratingFilterValue
+            // 
+            this.ratingFilterValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ratingFilterValue.Enabled = false;
+            this.ratingFilterValue.Items.AddRange(new object[] {
+            "5",
+            "4",
+            "3",
+            "2",
+            "1"});
+            this.ratingFilterValue.Name = "ratingFilterValue";
+            this.ratingFilterValue.Size = new System.Drawing.Size(75, 25);
+            this.ratingFilterValue.Click += new System.EventHandler(this.ratingFilterValue_Click);
+            // 
             // toolStripSelectAll
             // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
@@ -615,7 +664,7 @@ namespace msn2.net.Pictures.Controls
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 343);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 301);
             this.mainSplitContainer.SplitterDistance = 167;
             this.mainSplitContainer.TabIndex = 17;
             this.mainSplitContainer.Text = "splitContainer2";
@@ -627,8 +676,39 @@ namespace msn2.net.Pictures.Controls
             this.filter.ImageIndex = 0;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
+            treeNode1.ImageIndex = 2;
+            treeNode1.Name = "";
+            treeNode1.SelectedImageIndex = 2;
+            treeNode1.Text = "Categories";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "Date Taken";
+            treeNode3.ImageIndex = 2;
+            treeNode3.Name = "";
+            treeNode3.SelectedImageIndex = 2;
+            treeNode3.Text = "Date Added";
+            treeNode4.ImageIndex = 2;
+            treeNode4.Name = "";
+            treeNode4.SelectedImageIndex = 2;
+            treeNode4.Text = "Categories";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "Date Taken";
+            treeNode6.ImageIndex = 2;
+            treeNode6.Name = "";
+            treeNode6.SelectedImageIndex = 2;
+            treeNode6.Text = "Date Added";
+            this.filter.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.filter.SelectedImageIndex = 0;
-            this.filter.Size = new System.Drawing.Size(167, 343);
+            this.filter.Size = new System.Drawing.Size(167, 301);
             this.filter.TabIndex = 0;
             this.filter.FilterChanged += new msn2.net.Pictures.Controls.FilterChangedHandler(this.filter_FilterChanged);
             // 
@@ -648,8 +728,8 @@ namespace msn2.net.Pictures.Controls
             // 
             this.rightListContainer.Panel2.Controls.Add(this.panel1);
             this.rightListContainer.Panel2MinSize = 50;
-            this.rightListContainer.Size = new System.Drawing.Size(847, 343);
-            this.rightListContainer.SplitterDistance = 133;
+            this.rightListContainer.Size = new System.Drawing.Size(847, 301);
+            this.rightListContainer.SplitterDistance = 91;
             this.rightListContainer.TabIndex = 16;
             this.rightListContainer.Text = "splitContainer1";
             // 
@@ -660,7 +740,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
             this.pictureList1.SelectedItems = ((System.Collections.Generic.List<int>)(resources.GetObject("pictureList1.SelectedItems")));
-            this.pictureList1.Size = new System.Drawing.Size(847, 133);
+            this.pictureList1.Size = new System.Drawing.Size(847, 91);
             this.pictureList1.TabIndex = 0;
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
@@ -699,7 +779,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // fMain
             // 
-            this.ClientSize = new System.Drawing.Size(1018, 384);
+            this.ClientSize = new System.Drawing.Size(1018, 342);
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
@@ -1107,7 +1187,22 @@ namespace msn2.net.Pictures.Controls
 
             this.selectedPictures.ClearPictures();
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), this.filter.GetPictureQuery());
+            msn2.net.Pictures.Controls.PictureFilterTreeView.RatingEquality equality = PictureFilterTreeView.RatingEquality.All;
+            if (this.ratingFilterType.SelectedIndex == 1)
+            {
+                equality = PictureFilterTreeView.RatingEquality.Equals;
+            }
+            else if (this.ratingFilterType.SelectedIndex == 2)
+            {
+                equality = PictureFilterTreeView.RatingEquality.GreaterThan;
+            }
+            else if (this.ratingFilterType.SelectedIndex == 3)
+            {
+                equality = PictureFilterTreeView.RatingEquality.Unrated;
+            }
+            int rating = int.Parse(this.ratingFilterValue.SelectedItem.ToString());
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), this.filter.GetPictureQuery(equality, rating));
         }
 
         void QueryPictures(object oQuery)
@@ -1241,50 +1336,61 @@ namespace msn2.net.Pictures.Controls
             {
                 string destFolder = dialog.SelectedPath;
 
-                foreach (int pictureId in pictureList1.SelectedItems)
+                fStatus status = new fStatus("Copying...", this.pictureList1.SelectedItems.Count);
+                status.Show(this);
+
+                try
                 {
-                    Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
-
-                    string sourceFilename = PicContext.Current.Config.PictureDirectory
-                        + @"\" + picture.Filename;
-
-                    string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
-
-                    string destFilename = destFolder + @"\" + SafeFilename(picture.Title) + "." + fileExtenstion;
-
-                    bool loop = true;
-                    bool abort = false;
-
-                    while (loop)
+                    foreach (int pictureId in pictureList1.SelectedItems)
                     {
-                        if (File.Exists(sourceFilename))
+                        Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+
+                        string sourceFilename = PicContext.Current.Config.PictureDirectory
+                            + @"\" + picture.Filename;
+
+                        string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
+
+                        string destFilename = destFolder + @"\" + SafeFilename(picture.Title) + "." + fileExtenstion;
+
+                        bool loop = true;
+                        bool abort = false;
+
+                        while (loop)
                         {
-                            File.Copy(sourceFilename, destFilename, true);
-                            loop = false;
-                        }
-                        else
-                        {
-                            DialogResult response = MessageBox.Show("Unable to find picture #" + picture.Id.ToString() + ": " + sourceFilename, "Can't find file", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Exclamation);
-                            if (response == DialogResult.Abort)
+                            if (File.Exists(sourceFilename))
                             {
-                                loop = false;
-                                abort = true;
-                            }
-                            else if (response == DialogResult.Ignore)
-                            {
+                                File.Copy(sourceFilename, destFilename, true);
                                 loop = false;
                             }
+                            else
+                            {
+                                DialogResult response = MessageBox.Show("Unable to find picture #" + picture.Id.ToString() + ": " + sourceFilename, "Can't find file", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Exclamation);
+                                if (response == DialogResult.Abort)
+                                {
+                                    loop = false;
+                                    abort = true;
+                                }
+                                else if (response == DialogResult.Ignore)
+                                {
+                                    loop = false;
+                                }
+                            }
                         }
-                    }
 
-                    if (abort)
-                    {
-                        break;
+                        if (abort)
+                        {
+                            break;
+                        }
+
+                        status.Current++;
                     }
+                }
+                finally
+                {
+                    status.Close();
                 }
             }
         }
-
         private string SafeFilename(string title)
         {
             // \ / ; * ? " < > |
@@ -1348,7 +1454,7 @@ namespace msn2.net.Pictures.Controls
             {
                 pm.RotateImage(ri.PictureId, ri.RotateType);
                 pictureList1.ReleasePicture(ri.PictureId);
-                
+
                 ImageUtilities iu = new ImageUtilities();
                 iu.CreateUpdateCache(ri.PictureId);
 
@@ -1567,6 +1673,23 @@ namespace msn2.net.Pictures.Controls
         {
             this.selectedPictures.Visible = false;
             this.rightListContainer.Panel2Collapsed = true;
+        }
+
+        private void ratingFilterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loading == false)
+            {
+                this.ratingFilterValue.Enabled = this.ratingFilterType.SelectedIndex == 1 || this.ratingFilterType.SelectedIndex == 2;
+                maxPicCount_SelectedIndexChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void ratingFilterValue_Click(object sender, EventArgs e)
+        {
+            if (loading == false)
+            {
+                maxPicCount_SelectedIndexChanged(this, EventArgs.Empty);
+            }
         }
     }
 }

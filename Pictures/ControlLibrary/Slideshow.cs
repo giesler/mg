@@ -22,7 +22,7 @@ namespace msn2.net.Pictures.Controls
         protected GetPreviousItemIdDelegate getPreviousId;
         protected GetNextItemIdDelegate getNextId;
         private Picture picture;
-        private PictureProperties editor;
+        private PictureDetails editor;
         private PeopleSelect peopleSelect;
         private GroupSelect groupSelect;
         private CategorySelect categorySelect;
@@ -88,7 +88,7 @@ namespace msn2.net.Pictures.Controls
 
             if (null != editor)
             {
-                editor.SetPicture(this.picture);
+                editor.SetPicture(this.picture.Id);
             }
             if (this.peopleSelect != null)
             {
@@ -397,10 +397,10 @@ namespace msn2.net.Pictures.Controls
         {
             if (null == this.editor)
             {
-                this.editor = new PictureProperties();
+                this.editor = new PictureDetails(PicContext.Current.Clone());
                 if (this.picture != null)
                 {
-                    this.editor.SetPicture(this.picture);
+                    this.editor.SetPicture(this.picture.Id);
                 }
                 this.editor.Left = PictureControlSettings.GetSafeLeft(this.editor, this.settings.Slideshow_Editor_Left);
                 this.editor.Top = PictureControlSettings.GetSafeTop(this.editor, this.settings.Slideshow_Editor_Top);
@@ -483,7 +483,7 @@ namespace msn2.net.Pictures.Controls
                 if (this.editor != null)
                 {
                     PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
-                    this.editor.Editor.AddPerson(person);
+                    //this.editor.Editor.AddPerson(person);
                 }
             }
         }
@@ -499,7 +499,7 @@ namespace msn2.net.Pictures.Controls
                 if (this.editor != null)
                 {
                     PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
-                    this.editor.Editor.RemovePerson(person);
+                    //this.editor.Editor.RemovePerson(person);
                 }
             }
         }
@@ -556,7 +556,7 @@ namespace msn2.net.Pictures.Controls
                 if (this.editor != null)
                 {
                     PersonGroupInfo group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
-                    this.editor.Editor.AddGroup(group);
+                    //this.editor.Editor.AddGroup(group);
                 }
             }
         }
@@ -572,7 +572,7 @@ namespace msn2.net.Pictures.Controls
                 if (this.editor != null)
                 {
                     PersonGroupInfo group = PicContext.Current.GroupManager.GetGroup(e.GroupID);
-                    this.editor.Editor.RemoveGroup(group);
+                    //this.editor.Editor.RemoveGroup(group);
                 }
             }
         }
@@ -628,7 +628,7 @@ namespace msn2.net.Pictures.Controls
 
                 if (this.editor != null)
                 {
-                    this.editor.Editor.AddCategory(e.Category);
+                    //this.editor.Editor.AddCategory(e.Category);
                 }
             }
         }
@@ -643,7 +643,7 @@ namespace msn2.net.Pictures.Controls
 
                 if (this.editor != null)
                 {
-                    this.editor.Editor.RemoveCategory(e.Category);
+                    //this.editor.Editor.RemoveCategory(e.Category);
                 }
             }
         }

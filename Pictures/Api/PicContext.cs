@@ -205,7 +205,7 @@ namespace msn2.net.Pictures
 
 		internal void SetCurrentUser(PersonInfo info)
 		{
-			currentUser = info;
+			this.currentUser = info;
 		}
 
 		#endregion
