@@ -1,0 +1,39 @@
+Version =19
+VersionRequired =19
+Checksum =1547132190
+Begin Form
+    AllowDesignChanges = NotDefault
+    DefaultView =0
+    AllowUpdating =4
+    TabularFamily =4
+    PictureAlignment =2
+    DatasheetGridlinesBehavior =3
+    GridX =24
+    GridY =24
+    DatasheetFontHeight =10
+    Left =930
+    Top =270
+    Right =9915
+    Bottom =5205
+    DatasheetGridlinesColor =12632256
+    RecSrcDt = Begin
+        0x0910ddccd74fe240
+    End
+    DatasheetFontName ="Arial"
+    Begin
+        Begin Section
+            Height =2880
+            BackColor =-2147483633
+            Name ="Detail"
+            GUID = Begin
+                0x1d861ca085ec5d4cb50486a3738816c7
+            End
+        End
+    End
+End
+CodeBehindForm
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Compare Database
