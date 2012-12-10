@@ -9,8 +9,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    SupportedOrientations="PortraitOrLandscape" 
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -30,16 +30,16 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
-            <TextBox Name="text" HorizontalAlignment="Left" VerticalAlignment="Top" TextChanged="text_TextChanged" Width="450" Height="532" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox Name="text" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.ColumnSpan="2" TextChanged="text_TextChanged" Margin="0,0,0,0" FontSize="20" />
+            <Button Content="Add" Margin="4" Name="ok" Click="ok_Click" Grid.Row="2" />
+            <Button Content="Cancel" Margin="4" Name="cancel" Click="cancel_Click" Grid.Row="2" Grid.Column="1" />
         </Grid>
     </Grid>
-
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
-            <shell:ApplicationBarIconButton x:Name="addButton" IconUri="/Images/appbar.add.rest.png" Text="add" Click="ok_Click" IsEnabled="True"/>
-            <shell:ApplicationBarIconButton x:Name="cancel" IconUri="/Images/appbar.cancel.rest.png" Text="cancel" Click="cancel_Click"/>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

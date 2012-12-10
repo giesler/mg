@@ -20,7 +20,7 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
-            this.storeList.ItemsSource = App.Lists;
+            this.storeList.ItemsSource = App.Lists.OrderBy(l => l.Name);
         }
 
         public List SelectedList { get; private set; }
@@ -30,8 +30,10 @@ namespace giesler.org.lists
             TextBlock tb = (TextBlock)sender;
             this.SelectedList = (List)tb.Tag;
 
-            Uri uri = new Uri("/MainPage.xaml?listUniqueId=" + this.SelectedList.UniqueId, UriKind.Relative);
-            NavigationService.Navigate(uri);
+            App.SelectedList = this.SelectedList.UniqueId;
+            App.Current.SaveSettings();
+
+            NavigationService.GoBack();
         }
     }
 }

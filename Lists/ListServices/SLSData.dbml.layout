@@ -14,7 +14,7 @@
         <elementListCompartment Id="38fa4a35-8eed-4424-9ce7-0771cfe5203e" absoluteBounds="3.515, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 1.56814697265625); (3.5 : 1.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.56814697265625); (3.5 : 1.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SLSDataDataContext/Store/Store_StoreItem" />
       <nodes>
         <classShapeMoniker Id="5c50c243-5f42-4e9b-8cbc-d41c09d83f99" />
@@ -33,7 +33,7 @@
         <elementListCompartment Id="e53a43a6-bf7c-44c6-9ddf-30f0af0c2912" absoluteBounds="6.015, 7.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6 : 8.54734537760417); (4.21875 : 8.54734537760417); (4.21875 : 9.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6 : 8.54734537760417); (4.21875 : 8.54734537760417); (4.21875 : 9.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SLSDataDataContext/Person/Person_ListPerson" />
       <nodes>
         <classShapeMoniker Id="265e9ee0-bdde-4e01-a3c1-f61a073d9b27" />
@@ -79,14 +79,14 @@
         <elementListCompartment Id="d04777bc-739f-4c25-890f-77812843787b" absoluteBounds="2.015, 6.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.1875 : 8.07859537760417); (3.1875 : 9.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.1875 : 8.07859537760417); (3.1875 : 9.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SLSDataDataContext/List/List_ListPerson" />
       <nodes>
         <classShapeMoniker Id="59c3bedf-c1e4-4f05-9cbc-5a9158497d40" />
         <classShapeMoniker Id="4c1fb238-adb3-4803-ac7c-73d9871117eb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4 : 6.71235270182292); (5.75 : 6.71235270182292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4 : 6.71235270182292); (5.75 : 6.71235270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SLSDataDataContext/List/List_ListItem" />
       <nodes>
         <classShapeMoniker Id="59c3bedf-c1e4-4f05-9cbc-5a9158497d40" />

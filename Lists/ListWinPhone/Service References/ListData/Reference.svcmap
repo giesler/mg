@@ -20,14 +20,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://svc.msn2.net/sl/lds.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://svc.listgo.mobi/lds.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="lds.xsd" MetadataType="Schema" ID="bbf5caa5-f64f-409c-9ed2-a9793c7ffe19" SourceId="1" SourceUrl="http://svc.msn2.net/sl/lds.svc?xsd=xsd2" />
-    <MetadataFile FileName="lds.disco" MetadataType="Disco" ID="bbfedfeb-d25f-4540-9a3e-c630110963c9" SourceId="1" SourceUrl="http://svc.msn2.net/sl/lds.svc?disco" />
-    <MetadataFile FileName="ListDataService.wsdl" MetadataType="Wsdl" ID="20098a33-5e22-4b06-a2ac-12bf36415d80" SourceId="1" SourceUrl="http://svc.msn2.net/sl/lds.svc?wsdl" />
-    <MetadataFile FileName="lds1.xsd" MetadataType="Schema" ID="21e4fc9e-c4d0-4bd1-87ce-3f0315760c02" SourceId="1" SourceUrl="http://svc.msn2.net/sl/lds.svc?xsd=xsd0" />
-    <MetadataFile FileName="lds2.xsd" MetadataType="Schema" ID="d60f2c04-8e7b-41d2-8dc7-d4dec8100c74" SourceId="1" SourceUrl="http://svc.msn2.net/sl/lds.svc?xsd=xsd1" />
+    <MetadataFile FileName="ListDataServiceEndpoint.wsdl" MetadataType="Wsdl" ID="9a24ee3b-3d0b-4f1c-9236-cf00d9b68e2e" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?wsdl" />
+    <MetadataFile FileName="lds3.xsd" MetadataType="Schema" ID="f8bf6214-a0d9-42b7-8762-b0330f65a7f7" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd0" />
+    <MetadataFile FileName="lds31.xsd" MetadataType="Schema" ID="ee7f4a1d-ce98-4c82-acca-eca2eba979d2" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd1" />
+    <MetadataFile FileName="lds32.xsd" MetadataType="Schema" ID="8ed91815-35b1-4f96-897f-b42cf4f0c0f9" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd2" />
+    <MetadataFile FileName="lds1.disco" MetadataType="Disco" ID="011a4f85-0d53-4761-803f-ffb507d38b66" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

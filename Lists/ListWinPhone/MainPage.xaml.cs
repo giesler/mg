@@ -15,21 +15,44 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Shell;
 using giesler.org.lists.ListData;
 using Microsoft.Phone.Info;
+using System.Diagnostics;
+using System.Threading;
 
 namespace giesler.org.lists
 {
     public partial class MainPage : PhoneApplicationPage
     {
         private bool backgroundOperationActive = false;
+        private bool loadedFromStorage = false;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            this.main.SelectionChanged += new SelectionChangedEventHandler(main_SelectionChanged);
         }
 
-        private void LoadLists(List<List> lists)
+        void main_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PivotItem item = this.main.SelectedItem as PivotItem;
+            List list = item.Tag as List;
+
+            if (list != null)
+            {
+                App.SelectedList = list.UniqueId;
+                App.Current.SaveSettings();
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            App.Current.LoadAll();
+        }
+
+        private void DisplayLoadedLists(List<List> lists)
         {
             App.Lists = lists;
             int clearCount = this.main.Items.Count;
@@ -50,12 +73,9 @@ namespace giesler.org.lists
 
                 this.main.Items.Add(item);
 
-                if (NavigationContext.QueryString.ContainsKey("listUniqueId"))
+                if (list.UniqueId == App.SelectedList)
                 {
-                    if (list.UniqueId.ToString() == NavigationContext.QueryString["listUniqueId"])
-                    {
-                        selectIndex = cur;
-                    }
+                    selectIndex = cur;
                 }
             }
 
@@ -69,43 +89,17 @@ namespace giesler.org.lists
                 this.main.SelectedIndex = selectIndex;
             }
 
-            this.loading.Visibility = System.Windows.Visibility.Collapsed;
+            this.LoadItems(App.Items);
 
-            if (App.Items == null)
+            if (this.loadedFromStorage == true)
             {
-                IListDataProvider svc2 = App.DataProvider;
-                svc2.GetAllListItemsCompleted += new EventHandler<GetAllListItemsCompletedEventArgs>(svc2_GetAllListItemsCompleted);
-                svc2.GetAllListItemsAsync(App.AuthDataList);
-                this.ToggleBackgroundOperationStatus(true);
+                this.refreshButton_Click(null, null);
+                this.loadedFromStorage = false;
             }
             else
             {
-                this.LoadItems(App.Items);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
             }
-        }
-
-        void svc2_GetAllListItemsCompleted(object sender, GetAllListItemsCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                List<ListItemEx> items = new List<ListItemEx>();
-                foreach (var i in e.Result)
-                {
-                    items.Add(new ListItemEx { UniqueId = i.UniqueId, Name = i.Name, ListUniqueId = i.ListUniqueId });
-                }
-
-                App.Items = items;
-                this.LoadItems(App.Items);
-            }
-            else
-            {
-                MessageBox.Show(e.Error.Message);
-            }
-
-            this.ToggleBackgroundOperationStatus(false);
-
-            IListDataProvider svc = (IListDataProvider)sender;
-            svc.CloseAsync();
         }
 
         private void LoadItems(List<ListItemEx> items)
@@ -127,7 +121,7 @@ namespace giesler.org.lists
 
         void listControl_DeleteListItem(ListItem item)
         {
-            IListDataProvider svc = App.DataProvider;
+            ListDataServiceClient svc = App.DataProvider;
             svc.DeleteListItemCompleted += new EventHandler<DeleteListItemCompletedEventArgs>(svc_DeleteListItemCompleted);
             svc.DeleteListItemAsync(App.AuthDataList, item.UniqueId);
 
@@ -143,7 +137,7 @@ namespace giesler.org.lists
 
             this.ToggleBackgroundOperationStatus(false);
 
-            IListDataProvider client = (IListDataProvider)sender;
+            ListDataServiceClient client = (ListDataServiceClient)sender;
             client.CloseAsync();
         }
 
@@ -157,47 +151,106 @@ namespace giesler.org.lists
         {
             bool loading = App.Items == null || App.Lists == null || this.backgroundOperationActive == true;
 
+            this.pbar.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
+
             if (this.ApplicationBar != null && this.ApplicationBar.Buttons.Count > 0)
             {
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = !loading;
-                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = !loading;
+                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[1]).IsEnabled = this.main.Items.Count > 1;
                 ((IApplicationBarIconButton)this.ApplicationBar.Buttons[2]).IsEnabled = !loading;
                 //((IApplicationBarIconButton)this.ApplicationBar.Buttons[3]).IsEnabled = !loading;
+            }
+
+            foreach (PivotItem item in this.main.Items)
+            {
+                StoreItemList list = item.Content as StoreItemList;
+                if (list != null)
+                {
+                    list.ToggleEnabled(loading == false);                    
+                }
             }
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
+            string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
+            Debug.WriteLine(msg);
+
+            this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
+            
+            if (!App.AttemptedStorageLoad)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadFromStorage), new object());
+                this.ToggleBackgroundOperationStatus(true);
+
+                this.updatingMessage.Text = "Loading...";
+
+#if DEBUG
+                this.updatingMessage.Text = "Loading from storage...";
+#endif
+            }
+            else if (App.AuthData == null || App.AuthData.PersonUniqueId == Guid.Empty || App.AuthData.DeviceUniqueId == Guid.Empty)
             {
                 NavigationService.Navigate(new Uri("/GetLiveIdPage.xaml", UriKind.Relative));
             }
             else if (App.Lists == null)
             {
-                IListDataProvider svc = App.DataProvider;
-                svc.GetListsCompleted += new EventHandler<GetListsCompletedEventArgs>(svc_GetListsCompleted);
-                svc.GetListsAsync(App.AuthDataList);
+                this.ReloadAll();
 
-                this.ToggleBackgroundOperationStatus(true);
+#if DEBUG
+                this.updatingMessage.Text = "Loading from service...";
+#endif
             }
             else
             {
-                this.LoadLists(App.Lists);
+                this.DisplayLoadedLists(App.Lists);
+                this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
             }
 
             this.UpdateControls();
         }
 
-        void svc_GetListsCompleted(object sender, GetListsCompletedEventArgs e)
+        void ReloadAll()
         {
+            ListDataServiceClient svc = App.DataProvider;
+            svc.GetAllCompleted += new EventHandler<GetAllCompletedEventArgs>(svc_GetAllCompleted);
+            svc.GetAllAsync(App.AuthDataList);
+
+            this.ToggleBackgroundOperationStatus(true);
+
+            this.updatingMessage.Text = "Updating...";
+            this.updatingMessage.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        void svc_GetAllCompleted(object sender, GetAllCompletedEventArgs e)
+        {
+            this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
+
             if (e.Error == null)
             {
+                List<Guid> uniqueLists = new List<Guid>();
                 List<List> lists = new List<List>();
+                List<ListItemEx> items = new List<ListItemEx>();
                 foreach (var i in e.Result)
                 {
-                    lists.Add(new List { Name = i.Name, UniqueId = i.UniqueId });
+                    if (uniqueLists.Contains(i.UniqueId) == false)
+                    {
+                        List list = new List { Name = i.Name, UniqueId = i.UniqueId };
+                        uniqueLists.Add(list.UniqueId);
+                        lists.Add(list);
+                    }
+
+                    if (i.ItemUniqueId.HasValue)
+                    {
+                        ListItemEx item = new ListItemEx { Name = i.ItemName, UniqueId = i.ItemUniqueId.Value, ListUniqueId = i.UniqueId };
+                        items.Add(item);
+                    }
                 }
-                LoadLists(lists);
+
+                App.Lists = lists;
+                App.Items = items;
+
+                DisplayLoadedLists(lists);
             }
             else
             {
@@ -206,8 +259,33 @@ namespace giesler.org.lists
 
             this.ToggleBackgroundOperationStatus(false);
 
-            IListDataProvider svc = (IListDataProvider)sender;
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
             svc.CloseAsync();
+        }
+
+        void LoadFromStorage(object sender)
+        {
+            try
+            {
+                App.Current.LoadAll();
+                this.loadedFromStorage = true;
+            }
+            catch (Exception ex)
+            {
+                // todo: log
+                App.Lists = null;
+                App.Items = null;
+                Debug.WriteLine(ex.ToString());
+            }
+
+            App.AttemptedStorageLoad = true;
+
+            Dispatcher.BeginInvoke(new RoutedEventHandler(this.MainPage_Loaded), null, null);
+        }
+
+        void SaveLists(object sender)
+        {
+            App.Current.SaveAll();
         }
 
         private void jumpButton_Click(object sender, EventArgs e)
@@ -233,7 +311,7 @@ namespace giesler.org.lists
             App.Lists = null;
             App.Items = null;
 
-            this.MainPage_Loaded(null, null);
+            this.ReloadAll();
         }
 
         private void aboutMenu_Click(object sender, EventArgs e)

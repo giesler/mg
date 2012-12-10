@@ -18,13 +18,14 @@ namespace SLExpress
 
             string cid = authInfo["UID"];
             string name = "New user";
-            msn2.net.ShoppingList.ListAuthentication auth = new msn2.net.ShoppingList.ListAuthentication();
-            Person p = auth.GetPerson(cid, name);
+            ListDataService lds = new ListDataService();
+
+            Person p = lds.GetPerson(cid, name);
 
             ClientAuthenticationData authData = new ClientAuthenticationData();
             authData.PersonUniqueId = p.UniqueId;
 
-            PersonDevice device = auth.AddDevice(authData, Environment.MachineName);
+            PersonDevice device = lds.AddDevice(authData, Environment.MachineName);
             authData.DeviceUniqueId = device.UniqueId;
 
             context.Session["l_authData"] = authData;

@@ -34,6 +34,14 @@ namespace giesler.org.lists
             }
         }
 
+        public void ToggleEnabled(bool isEnabled)
+        {
+            foreach (StoreItem item in this.list.Items)
+            {
+                item.IsEnabled = isEnabled;
+            }
+        }
+
         void display_OnRemove(object sender, EventArgs e)
         {
             StoreItem item = (StoreItem)sender;

@@ -53,9 +53,7 @@
   <ItemGroup>
     <Compile Include="ClientAuthenticationData.cs" />
     <Compile Include="DeleteListItemReturnData.cs" />
-    <Compile Include="IListAuthentication.cs" />
     <Compile Include="IListDataService.cs" />
-    <Compile Include="ListAuthentication.cs" />
     <Compile Include="ListDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

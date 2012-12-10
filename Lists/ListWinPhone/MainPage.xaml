@@ -7,13 +7,12 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696" 
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    mc:Ignorable="d" d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" Height="696" Width="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -24,7 +23,8 @@
                 <TextBlock />
             </controls:PivotItem>
         </controls:Pivot>
-        <TextBlock HorizontalAlignment="Center" Name="loading" Text="loading" VerticalAlignment="Center" />
+        <ProgressBar Height="7" HorizontalAlignment="Left" Margin="12,3,0,0" Name="pbar" VerticalAlignment="Top" Width="456" IsIndeterminate="True" />
+        <TextBlock Height="27" HorizontalAlignment="Left" Margin="216,17,0,0" Name="updatingMessage" Text="Starting..." VerticalAlignment="Top" Width="252" TextAlignment="Right" FontSize="20" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

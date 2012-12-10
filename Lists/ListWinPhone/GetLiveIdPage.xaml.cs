@@ -14,6 +14,7 @@ using Microsoft.Live;
 using System.Data.Services.Client;
 using System.Threading;
 using System.Diagnostics;
+using giesler.org.lists.ListData;
 
 namespace giesler.org.lists
 {
@@ -25,7 +26,7 @@ namespace giesler.org.lists
         LiveDataContext dataContext = new LiveDataContext();
         AppInformation appInfo;
         AppAuthentication appAuth;
-        ListAuth.ClientAuthenticationData listAuth;
+        ClientAuthenticationData listAuth;
 
         public GetLiveIdPage()
         {
@@ -92,26 +93,26 @@ namespace giesler.org.lists
 
             this.loading.Text = "loading profile...";
 
-            ListAuth.ListAuthenticationClient authClient = new ListAuth.ListAuthenticationClient();
-            authClient.GetPersonCompleted += new EventHandler<ListAuth.GetPersonCompletedEventArgs>(authClient_GetPersonCompleted);
+            ListDataServiceClient authClient = new ListDataServiceClient();
+            authClient.GetPersonCompleted += new EventHandler<GetPersonCompletedEventArgs>(authClient_GetPersonCompleted);
             authClient.GetPersonAsync(this.appAuth.UserId, string.Empty);
         }
 
-        void authClient_GetPersonCompleted(object sender, ListAuth.GetPersonCompletedEventArgs e)
+        void authClient_GetPersonCompleted(object sender, GetPersonCompletedEventArgs e)
         {
-            ListAuth.ListAuthenticationClient authClient = (ListAuth.ListAuthenticationClient)sender;
-            authClient.GetPersonCompleted -= new EventHandler<ListAuth.GetPersonCompletedEventArgs>(authClient_GetPersonCompleted);
+            ListDataServiceClient client = (ListDataServiceClient)sender;
+            client.GetPersonCompleted -= new EventHandler<GetPersonCompletedEventArgs>(authClient_GetPersonCompleted);
 
-            this.listAuth = new ListAuth.ClientAuthenticationData { PersonUniqueId = e.Result.UniqueId};
+            this.listAuth = new ClientAuthenticationData { PersonUniqueId = e.Result.UniqueId};
 
-            authClient.AddDeviceCompleted += new EventHandler<ListAuth.AddDeviceCompletedEventArgs>(authClient_AddDeviceCompleted);
-            authClient.AddDeviceAsync(this.listAuth, "WP7");
+            client.AddDeviceCompleted += new EventHandler<AddDeviceCompletedEventArgs>(authClient_AddDeviceCompleted);
+            client.AddDeviceAsync(this.listAuth, "WP7");
         }
 
-        void authClient_AddDeviceCompleted(object sender, ListAuth.AddDeviceCompletedEventArgs e)
+        void authClient_AddDeviceCompleted(object sender, AddDeviceCompletedEventArgs e)
         {
             this.listAuth.DeviceUniqueId = e.Result.UniqueId;
-            App.SetClientAuth(this.listAuth, this.appAuth);
+            App.Current.SetClientAuth(this.listAuth, this.appAuth);
 
             this.Dispatcher.BeginInvoke(new WaitCallback(CompleteLoad), new object());
         }

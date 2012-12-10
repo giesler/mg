@@ -23,6 +23,9 @@ namespace msn2.net.ShoppingList
         List<GetListsResult> GetLists(ClientAuthenticationData auth);
 
         [OperationContract]
+        List<GetAllResult> GetAll(ClientAuthenticationData auth);
+
+        [OperationContract]
         List<GetAllListItemsResult> GetListItems(ClientAuthenticationData auth, Guid listUniqueId);
 
         [OperationContract]
@@ -39,6 +42,19 @@ namespace msn2.net.ShoppingList
 
         [OperationContract]
         DateTime GetLastChangeTime(ClientAuthenticationData auth);
+
+        [OperationContract]
+        Person GetPerson(string liveUserId, string name);
+
+        [OperationContract]
+        void UpdatePerson(ClientAuthenticationData auth, Person person);
+
+        [OperationContract]
+        PersonDevice AddDevice(ClientAuthenticationData auth, string deviceName);
+
+        [OperationContract]
+        void RemoveDevice(ClientAuthenticationData auth, Guid deviceId);        
+
     }
 
     [DataContract]

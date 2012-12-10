@@ -17,12 +17,14 @@ using Microsoft.Live;
 using System.IO.IsolatedStorage;
 using System.Diagnostics;
 using giesler.org.lists.ListData;
+using System.IO;
+using System.Xml.Linq;
 
 namespace giesler.org.lists
 {
     public partial class App : Application
     {
-        private static IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        private IsolatedStorageSettings settings;
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -64,7 +66,7 @@ namespace giesler.org.lists
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            this.LoadSettings();
+            settings = IsolatedStorageSettings.ApplicationSettings;
         }
 
         string GetSetting(string name)
@@ -83,7 +85,7 @@ namespace giesler.org.lists
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
+            settings = IsolatedStorageSettings.ApplicationSettings;
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -154,18 +156,30 @@ namespace giesler.org.lists
 
         #endregion
 
+        public static bool AttemptedStorageLoad { get; set; }
+
         public static List<List> Lists { get; set; }
         public static List<ListItemEx> Items { get; set; }
-        public static ListAuth.ClientAuthenticationData AuthData { get; set; }
+        public static ClientAuthenticationData AuthData { get; set; }
         public static string LiveIdUserId { get; set; }
         public static string LiveIdAccessToken { get; set; }
         public static string LiveIdRefreshToken { get; set; }
         public static List<Contact> LiveContacts { get; set; }
-        internal static IListDataProvider DataProvider
+        public static Guid SelectedList { get; set; }
+
+        internal static ListDataServiceClient DataProvider
         {
             get
             {
                 return new ListDataServiceClient();
+            }
+        }
+
+        public static new App Current
+        {
+            get
+            {
+                return Application.Current as App;
             }
         }
 
@@ -184,7 +198,7 @@ namespace giesler.org.lists
             }
         }
 
-        public static void SetClientAuth(ListAuth.ClientAuthenticationData listAuth, AppAuthentication liveAuth)
+        public void SetClientAuth(ClientAuthenticationData listAuth, AppAuthentication liveAuth)
         {
             SetAppSetting("Auth.PersonUniqueId", listAuth.PersonUniqueId.ToString());
             SetAppSetting("Auth.DeviceUniqueId", listAuth.DeviceUniqueId.ToString());
@@ -198,52 +212,157 @@ namespace giesler.org.lists
             LiveIdAccessToken = liveAuth.AccessToken;
             LiveIdRefreshToken = liveAuth.RefreshToken;
 
-            settings.Save();
+            this.settings.Save();
         }
 
-        void LoadSettings()
+        void SetAppSetting(string name, string value)
         {
-            AuthData = new ListAuth.ClientAuthenticationData();
-            string temp = GetSetting("Auth.PersonUniqueId");
-            if (!string.IsNullOrEmpty(temp))
+            if (this.settings.Contains(name))
             {
-                AuthData.PersonUniqueId = new Guid(temp);
-            }
-            temp = GetSetting("Auth.DeviceUniqueId");
-            if (!string.IsNullOrEmpty(temp))
-            {
-                AuthData.DeviceUniqueId = new Guid(temp);
-            }
-            LiveIdUserId = GetSetting("LiveId.UserId");
-            LiveIdAccessToken = GetSetting("LiveId.AccessToken");
-            LiveIdRefreshToken = GetSetting("LiveId.RefreshToken");
-
-#if DEBUG
-            if (AuthData.PersonUniqueId == Guid.Empty)
-            {
-                AuthData.PersonUniqueId = new Guid("{feea96d5-3919-42af-8db2-eada650a7dec}"); // giesler@live.com
-            }
-            if (AuthData.DeviceUniqueId == Guid.Empty)
-            {
-                AuthData.DeviceUniqueId = new Guid("{0a0e9d2d-125c-4eef-b4e4-540ddedcf99e}");  // emulator
-            }
- 
-#endif
-
-            Debug.WriteLine(LiveIdUserId);
-            Debug.WriteLine(LiveIdAccessToken);
-            Debug.WriteLine(LiveIdRefreshToken);
-        }
-
-        static void SetAppSetting(string name, string value)
-        {
-            if (App.settings.Contains(name))
-            {
-                App.settings[name] = value;
+                this.settings[name] = value;
             }
             else
             {
-                App.settings.Add(name, value);
+                this.settings.Add(name, value);
+            }
+        }
+
+        const string settingFileName = "listgo.settings";
+
+        object settingsLockObject = new object();
+        object dataLockObject = new object();
+
+        public void SaveSettings()
+        {
+            lock (this.settingsLockObject)
+            {
+                settings.Save();
+            }
+        }
+
+        public void SaveAll()
+        {
+            SetAppSetting("SelectedList", App.SelectedList.ToString());
+            this.SaveSettings();
+
+            XDocument doc = new XDocument();
+
+            XElement root = new XElement("data");
+            doc.AddFirst(root);
+
+            XElement listsElement = new XElement("lists");
+            root.Add(listsElement);
+
+            foreach (var list in App.Lists)
+            {
+                XElement listElement = new XElement("list");
+                listElement.Add(new XElement("name", list.Name));
+                listElement.Add(new XAttribute("id", list.Id));
+                listElement.Add(new XAttribute("uniqueId", list.UniqueId));
+                listsElement.Add(listElement);
+
+                XElement itemsElement = new XElement("items");
+                listElement.Add(itemsElement);
+
+                foreach (var item in App.Items.Where(i => i.ListUniqueId == list.UniqueId))
+                {
+                    XElement itemElement = new XElement("item");
+                    itemElement.Add(new XElement("name", item.Name));
+                    itemElement.Add(new XAttribute("id", item.Id));
+                    itemElement.Add(new XAttribute("uniqueId", item.UniqueId));
+                    itemsElement.Add(itemElement);
+                }
+            }
+
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+            if (store.FileExists(settingFileName))
+            {
+                store.DeleteFile(settingFileName);
+            }
+
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Create, store))
+            {
+                doc.Save(stream);
+            }
+
+        }
+
+        private bool haveLoadedAll = false;
+
+        public void LoadAll()
+        {
+            if (this.haveLoadedAll == false)
+            {
+                this.haveLoadedAll = true;
+
+                AuthData = new ClientAuthenticationData();
+                string temp = GetSetting("Auth.PersonUniqueId");
+                if (!string.IsNullOrEmpty(temp))
+                {
+                    AuthData.PersonUniqueId = new Guid(temp);
+                }
+                temp = GetSetting("Auth.DeviceUniqueId");
+                if (!string.IsNullOrEmpty(temp))
+                {
+                    AuthData.DeviceUniqueId = new Guid(temp);
+                }
+                LiveIdUserId = GetSetting("LiveId.UserId");
+                LiveIdAccessToken = GetSetting("LiveId.AccessToken");
+                LiveIdRefreshToken = GetSetting("LiveId.RefreshToken");
+                temp = GetSetting("SelectedList");
+                if (!string.IsNullOrEmpty(temp))
+                {
+                    SelectedList = new Guid(temp);
+                }
+#if DEBUG
+                if (AuthData.PersonUniqueId == Guid.Empty)
+                {
+                    AuthData.PersonUniqueId = new Guid("{feea96d5-3919-42af-8db2-eada650a7dec}"); // giesler@live.com
+                }
+                if (AuthData.DeviceUniqueId == Guid.Empty)
+                {
+                    AuthData.DeviceUniqueId = new Guid("{0a0e9d2d-125c-4eef-b4e4-540ddedcf99e}");  // emulator
+                }
+
+#endif
+
+                Debug.WriteLine(LiveIdUserId);
+                Debug.WriteLine(LiveIdAccessToken);
+                Debug.WriteLine(LiveIdRefreshToken);
+
+
+                IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+
+                if (store.FileExists(settingFileName))
+                {
+                    IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Open, store);
+                    XDocument doc = XDocument.Load(stream);
+
+                    App.Lists = new List<List>();
+                    App.Items = new List<ListItemEx>();
+                    XElement dataElement = doc.Element("data");
+                    XElement listsElement = dataElement.Element("lists");
+                    foreach (XElement listElement in listsElement.Elements("list"))
+                    {
+                        string name = listElement.Element("name").Value;
+                        int id = int.Parse(listElement.Attribute("id").Value);
+                        Guid uniqueId = new Guid(listElement.Attribute("uniqueId").Value);
+
+                        List list = new List { Id = id, Name = name, UniqueId = uniqueId };
+                        App.Lists.Add(list);
+
+                        XElement itemsElement = listElement.Element("items");
+                        foreach (XElement itemElement in itemsElement.Elements("item"))
+                        {
+                            string itemName = itemElement.Element("name").Value;
+                            int itemId = int.Parse(itemElement.Attribute("id").Value);
+                            Guid itemUniqueId = new Guid(itemElement.Attribute("uniqueId").Value);
+
+                            ListItemEx item = new ListItemEx { Id = itemId, Name = itemName, UniqueId = itemUniqueId };
+                            App.Items.Add(item);
+                        }
+                    }
+                }
             }
         }
     }
