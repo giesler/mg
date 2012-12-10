@@ -25,11 +25,22 @@ namespace msn2.net.ShoppingList.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://home.msn2.net/_vti_bin/Lists.asmx")]
-        public string ShoppingListService_homenet_Lists {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=stan;Initial Catalog=ShoppingList;Integrated Security=True")]
+        public string ShoppingListConnectionString {
             get {
-                return ((string)(this["ShoppingListService_homenet_Lists"]));
+                return ((string)(this["ShoppingListConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=stan;Initial Catalog=ShoppingList;Persist Security Info=True;User ID=" +
+            "listuser;Password=d82kasd82!23")]
+        public string ShoppingListConnectionString1 {
+            get {
+                return ((string)(this["ShoppingListConnectionString1"]));
             }
         }
     }

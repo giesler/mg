@@ -55,7 +55,7 @@ namespace SLExpress {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox list;
+        protected global::System.Web.UI.WebControls.DropDownList list;
         
         /// <summary>
         /// itemPanel control.

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SLExpress._Default" %>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Import Namespace="System.Web.Configuration" %>
 <%@ Import Namespace="Microsoft.Live" %>
 <%@ Register TagPrefix="wl" Namespace="Microsoft.Live" Assembly="Microsoft.Live.AuthHandler, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" %>
@@ -37,7 +37,6 @@
         .left
         {
             text-align: left;
-            float: left;
             bottom: 0px;
             top: 0px;
             width: 10%;
@@ -83,7 +82,7 @@
     <asp:Panel runat="server" ID="main" CssClass="main">
         <div class="left">
             <asp:Panel runat="server" ID="topPanel">
-                <asp:ListBox ID="list" runat="server" AutoPostBack="true" Rows="15" CssClass="list" />
+                <asp:DropDownList ID="list" runat="server" AutoPostBack="true" CssClass="list" />
             </asp:Panel>
         </div>
         <div class="right">
