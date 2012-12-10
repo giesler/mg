@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1953216481
+Checksum =-1434321463
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -13,7 +13,7 @@ Begin Report
     GridY =24
     Width =10920
     DatasheetFontHeight =10
-    ItemSuffix =50
+    ItemSuffix =52
     Left =345
     Top =135
     Right =8595
@@ -127,7 +127,7 @@ Begin Report
                     TextAlign =2
                     TextFontFamily =34
                     Left =9120
-                    Top =2580
+                    Top =2640
                     Width =1140
                     Height =240
                     FontSize =10
@@ -157,7 +157,7 @@ Begin Report
                     TextAlign =2
                     TextFontFamily =34
                     Left =9120
-                    Top =2880
+                    Top =3000
                     Width =1140
                     Height =300
                     FontSize =10
@@ -288,7 +288,7 @@ Begin Report
                     TextAlign =2
                     TextFontFamily =34
                     Left =9120
-                    Top =360
+                    Top =420
                     Width =1680
                     Height =360
                     FontSize =10
@@ -355,16 +355,6 @@ Begin Report
                         0x7c5748db01fee9438cedf5a665ebfc95
                     End
                 End
-                Begin Rectangle
-                    Left =5760
-                    Top =840
-                    Width =5040
-                    Height =600
-                    Name ="Box48"
-                    GUID = Begin
-                        0x2b2bb68798eb2540bf7e3842680392f8
-                    End
-                End
                 Begin Line
                     Left =60
                     Top =1440
@@ -376,15 +366,27 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =4620
+                    Left =4680
                     Top =840
                     Width =1080
                     Height =300
                     FontSize =10
                     Name ="Label25"
-                    Caption ="Comments"
+                    Caption ="Comments:"
                     GUID = Begin
                         0x382d8390d432b04086ea7ffb6c1db3be
+                    End
+                End
+                Begin TextBox
+                    Left =5760
+                    Top =840
+                    Width =5040
+                    Height =540
+                    TabIndex =11
+                    Name ="Text50"
+                    ControlSource ="TrafficComments"
+                    GUID = Begin
+                        0x8e22de05110cc846b0b63903a6607d89
                     End
                 End
             End
