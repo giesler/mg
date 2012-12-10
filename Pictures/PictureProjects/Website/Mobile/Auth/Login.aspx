@@ -5,10 +5,18 @@
 <head runat="server">
     <title>pics.msn2.net Login</title>
 </head>
-<body>
+<body style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px">
+    <table style="height: 12px; width: 100%" cellpadding="0" cellspacing="0">
+        <tr style="background-color: #008000">
+            <td>
+                <a href="default.aspx">
+                    <img src="../images/mobileheadtitle.gif" border="0" />
+                </a>
+            </td>
+        </tr>
+    </table>
     <form id="form1" runat="server">
     <div>
-        pics.msn2.net Login
         <table>
             <tr>
                 <td>

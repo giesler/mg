@@ -15,9 +15,10 @@
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td>
-                    <a href="default.aspx">Home</a> |
+                    <a href="default.aspx">Home</a> | 
+                    <asp:HyperLink runat=server ID="detailsLink" Text="Details" /> | 
                     <asp:HyperLink runat="server" ID="categoryLink" Text="Back to list" />
-                    <asp:LinkButton runat="server" ID="nextRandom" Text="Random..." OnClick="nextRandom_Click" />
+                    <asp:LinkButton runat="server" ID="nextRandom" Text="Next..." OnClick="nextRandom_Click" />
                 </td>
                 <td align="right">
                     <asp:DropDownList runat="server" ID="size" AutoPostBack="true" OnSelectedIndexChanged="size_SelectedIndexChanged">

@@ -6,9 +6,17 @@
     <title>msn2.net Pictures</title>
     <link rel="Stylesheet" href="mobile.css" />
 </head>
-<body>
+<body style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px">
+    <table style="height: 12px; width: 100%" cellpadding="0" cellspacing="0">
+        <tr style="background-color: #008000">
+            <td>
+                <a href="default.aspx">
+                    <img src="../images/mobileheadtitle.gif" border="0" />
+                </a>
+            </td>
+        </tr>
+    </table>
     <form id="form1" runat="server">
-    <div>
         <div class="title">
             <asp:Label runat="server" ID="categoryHeading"></asp:Label>
         </div>
@@ -20,7 +28,6 @@
         <div class="footer">
             <a href="default.aspx">Home</a>
         </div>
-    </div>
     </form>
 </body>
 </html>

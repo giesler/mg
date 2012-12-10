@@ -1,6 +1,7 @@
 ﻿body
 {
 	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 .title
@@ -17,4 +18,22 @@
 .footer
 {
 	font-size: x-small;
+}
+
+a
+{ 
+  text-decoration: none;
+  color: Maroon;
+}
+
+a:visited
+{
+	text-decoration: none;
+	color: Navy;
+}
+
+.header
+{
+	background-repeat: repeat-x;
+	background-color: #008000;
 }

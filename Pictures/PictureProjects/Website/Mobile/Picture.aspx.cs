@@ -32,6 +32,8 @@ namespace pics.Controls.Mobile
             {
                 int pictureId = int.Parse(Request.QueryString["p"]);
 
+                this.detailsLink.NavigateUrl = "PictureDetails.aspx?p=" + pictureId.ToString();
+
                 if (Request.QueryString["c"] != null)
                 {
                     this.categoryLink.NavigateUrl = "Pictures.aspx?c=" + Request.QueryString["c"];
