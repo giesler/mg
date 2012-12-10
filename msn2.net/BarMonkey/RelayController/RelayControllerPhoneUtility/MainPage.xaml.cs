@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using RelayControllerPhoneUtility.RelayController;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
+using Microsoft.Phone.Shell;
 
 namespace RelayControllerPhoneUtility
 {
@@ -20,6 +21,7 @@ namespace RelayControllerPhoneUtility
     {
         DispatcherTimer timer = null;
         DateTime endTime;
+        bool ctor = true;
 
         // Constructor
         public MainPage()
@@ -38,6 +40,20 @@ namespace RelayControllerPhoneUtility
             this.timer = new DispatcherTimer();
             this.timer.Interval = TimeSpan.FromMilliseconds(100);
             this.timer.Tick += new EventHandler(this.OnTimerTick);
+
+            this.ctor = false;
+            /*
+            SystemTray.SetIsVisible(this, true);
+            SystemTray.SetOpacity(this, 0.5);
+            SystemTray.SetBackgroundColor(this, Colors.Purple);
+            SystemTray.SetForegroundColor(this, Colors.Yellow);
+
+            ProgressIndicator prog = new ProgressIndicator();
+            prog.IsVisible = true;
+            prog.IsIndeterminate = true;
+            prog.Text = "Click me...";
+            SystemTray.SetProgressIndicator(this, prog);
+            */
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -81,11 +97,11 @@ namespace RelayControllerPhoneUtility
             this.relay.IsEnabled = enable;
             this.seconds.IsEnabled = enable;
 
-            this.previousRelay.IsEnabled = enable;
-            this.nextRelay.IsEnabled = enable;
+            this.previousRelay.IsEnabled = enable && this.relay.SelectedIndex > 0;
+            this.nextRelay.IsEnabled = enable && this.relay.SelectedIndex < this.relay.Items.Count;
 
-            this.previousTime.IsEnabled = enable;
-            this.nextTime.IsEnabled = enable;
+            this.previousTime.IsEnabled = enable && this.seconds.SelectedIndex > 0;
+            this.nextTime.IsEnabled = enable && this.seconds.SelectedIndex < this.seconds.Items.Count;
 
             this.pbar.Visibility = enable ? Visibility.Collapsed : System.Windows.Visibility.Visible;
         }
@@ -132,25 +148,29 @@ namespace RelayControllerPhoneUtility
         
         private void relay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            if (e.AddedItems.Count > 0 && !this.ctor)
             {
                 App.Relay = int.Parse(e.AddedItems[0].ToString());
 
-                ListPicker picker = (ListPicker)sender;
-                this.previousRelay.IsEnabled = picker.SelectedIndex > 0;
-                this.nextRelay.IsEnabled = picker.SelectedIndex < picker.Items.Count;
+                if (this.relay.IsEnabled)
+                {
+                    this.previousRelay.IsEnabled = this.relay.SelectedIndex > 0;
+                    this.nextRelay.IsEnabled = this.relay.SelectedIndex < this.relay.Items.Count;
+                }
             }
         }
 
         private void seconds_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            if (e.AddedItems.Count > 0 && !this.ctor)
             {
                 App.SecondCount = int.Parse(e.AddedItems[0].ToString());
 
-                ListPicker picker = (ListPicker)sender;
-                this.previousTime.IsEnabled = picker.SelectedIndex > 0;
-                this.nextRelay.IsEnabled = picker.SelectedIndex < picker.Items.Count;
+                if (this.seconds.IsEnabled)
+                {
+                    this.previousTime.IsEnabled = this.seconds.SelectedIndex > 0;
+                    this.nextTime.IsEnabled = this.seconds.SelectedIndex < this.seconds.Items.Count;
+                }
             }
         }
 

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.IO;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace chickweb
 {
@@ -25,14 +26,23 @@ namespace chickweb
                 cam = Request.QueryString["c"];
             }
 
-            string address = "192.168.1.25:8888";
+            string address = string.Format("http://randy:5050{0}/webcam/jpg", cam);
             bool rotate = true;
 
             if (cam == "3")
             {
-                cam = "1";
-                address = "192.168.1.1:8080";
                 rotate = false;
+                address = string.Format("http://ned:50503/webcam/jpg", cam);
+            }
+            else if (cam == "dw1")
+            {
+                rotate = false;
+                address = "http://cams/image/dw1";
+            }
+            else if (cam.ToLower() == "front")
+            {
+                rotate = false;
+                address = "http://cams/image/Front";
             }
 
             if (Request.QueryString["r"] == "1")
@@ -40,7 +50,13 @@ namespace chickweb
                 rotate = true;
             }
 
-            string url = string.Format("http://{0}/cam_{1}.jpg?{2}",
+            int maxHeight = 0;
+            if (Request.QueryString["h"] != null)
+            {
+                maxHeight = int.Parse(Request.QueryString["h"]);
+            }
+
+            string url = string.Format("{0}?{1}",
                 address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = WebRequestMethods.Http.Get;
@@ -58,7 +74,20 @@ namespace chickweb
                                 img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
                             }
 
-                            img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            if (maxHeight == 0 || maxHeight > img.Height)
+                            {
+                                img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            }
+                            else
+                            {
+                                int w = (int)((double)img.Width / (double)img.Height * (double)maxHeight);
+
+                                using (Bitmap thumb = new Bitmap(img, new Size(w, maxHeight)))
+                                {
+                                    thumb.Save(Response.OutputStream, ImageFormat.Jpeg);
+                                }
+
+                            }
 
                             Response.End();
                         }

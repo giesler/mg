@@ -23,7 +23,7 @@ namespace msn2.net.BarMonkey.RelayController
             {
                 host.Open();
 
-                Console.WriteLine("Listening...");
+                Console.WriteLine("Listening at " + host.BaseAddresses[0].ToString());
                 try
                 {
                     Console.ReadLine();

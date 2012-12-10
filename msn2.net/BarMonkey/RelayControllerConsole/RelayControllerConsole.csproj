@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="app.manifest" />
   </ItemGroup>
@@ -156,7 +157,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(TargetDir)\* \\mgduo\BarNone\Relay</PostBuildEvent>
+    <PostBuildEvent>rem copy /y $(TargetDir)* \\mgduo\BarNone\Relay\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

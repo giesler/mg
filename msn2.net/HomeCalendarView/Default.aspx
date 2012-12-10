@@ -114,7 +114,7 @@
                                             </div>
                                         </div>
                                         <div class="dimText" runat="server" id="todayForecastLoading" style="width: 160px;
-                                            height: 60px; border: solid 1px gray; padding: 2px; vertical-align: middle; text-align: center">
+                                            height: 60px; padding: 2px; vertical-align: middle; text-align: center">
                                             loading...
                                         </div>
                                     </td>

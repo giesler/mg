@@ -18,6 +18,7 @@ namespace ChickPhone
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
+        public static ImageSource LastImage = null;
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.

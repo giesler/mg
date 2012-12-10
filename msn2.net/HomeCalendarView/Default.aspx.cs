@@ -351,16 +351,18 @@ namespace HomeCalendarView
                 {
                     int offset = 0;
                     //if (fcastList[0].Day != "Today" && fcastList[0].Day != "This Afternoon" && fcastList[0].Day != "Late Afternoon")
-                    {
+/*                    {
                         offset = -1;
                         this.todayLow.ImageAltText = fcastList[0].Forecast;
                     }
-                    //else
+  */                  //else
                     //{
                     //    this.todayHigh.ImageAltText = fcastList[0].Forecast;
                     //    this.todayLow.ImageAltText = fcastList[1].Forecast;
                     //}
 
+                    this.todayHigh.ImageAltText = fcastList[0].Forecast;
+                    this.todayLow.ImageAltText = fcastList[1].Forecast;
                     this.day1High.ImageAltText = fcastList[2 + offset].Forecast;
                     this.day1Low.ImageAltText = fcastList[3 + offset].Forecast;
                     this.day2High.ImageAltText = fcastList[4 + offset].Forecast;
@@ -505,11 +507,7 @@ namespace HomeCalendarView
                         string gusts = q.InnerText;
                         if (gusts != "NA")                        
                         {
-                            if (gusts == "0" || gusts == "0.0")
-                            {
-                                this.windLabel.Text += ",<br />calm";
-                            }
-                            else
+                            if (gusts != "0" && gusts != "0.0")
                             {
                                 this.windLabel.Text += ",<br />gusts&nbsp;to&nbsp;" + gusts;
                             }
@@ -520,7 +518,11 @@ namespace HomeCalendarView
                 XmlNode windChillNode = doc.DocumentElement.SelectSingleNode("windchill_f");
                 if (windChillNode != null && windChillNode.InnerText.Length > 0)
                 {
-                    this.windChill.Text = "Wind chill: " + windChillNode.InnerText + "&deg;<br />";
+                    int wc = 0;
+                    if (int.TryParse(windChillNode.InnerText, out wc) && wc < 32)
+                    {
+                        this.windChill.Text = "Wind chill: " + windChillNode.InnerText + "&deg;<br />";
+                    }
                 }
                 XmlNode visNode = doc.DocumentElement.SelectSingleNode("visibility_mi");
                 if (visNode != null)

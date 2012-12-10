@@ -35,7 +35,6 @@ namespace SLExpress
             if (Request.Browser.IsMobileDevice)
             {
                 this.editItemColumns = 25;
-
             }
         }
 
@@ -94,14 +93,30 @@ namespace SLExpress
 
                 this.moveItemList.Controls.Add(new Literal { Text = "<br />" });
             }
-
+            
             if (this.list.Items.Count > 0)
             {
                 this.list.SelectedIndex = selectedIndex;
 
                 if (this.list.SelectedIndex == -1)
                 {
-                    this.list.SelectedIndex = 0;
+                    HttpCookie cookie = Request.Cookies["LastListName"];
+                    if (cookie != null)
+                    {
+                        for (int i = 0; i < this.list.Items.Count; i++)
+                        {
+                            if (this.list.Items[i].Text.ToLower() == cookie.Value.ToLower())
+                            {
+                                this.list.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (this.list.SelectedIndex == -1)
+                    {
+                        this.list.SelectedIndex = 0;
+                    }
                 }
 
                 this.OnListSelectedIndexChanged(this, EventArgs.Empty);
@@ -165,6 +180,10 @@ namespace SLExpress
                     this.editItems.Controls.Add(new LiteralControl("<br />"));
                 }
             }
+
+            HttpCookie cookie = new HttpCookie("LastListName", this.list.SelectedItem.Text);
+            cookie.Expires = DateTime.Now.AddYears(3);
+            Response.Cookies.Add(cookie);
         }
 
         void OnDeleteItem(object sender, EventArgs e)

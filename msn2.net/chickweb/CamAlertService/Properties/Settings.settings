@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CamAlertService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LocalMonitorPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">d:\cams\</Value>
+    </Setting>
+    <Setting Name="ServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\randy\cams\</Value>
+    </Setting>
+    <Setting Name="ServerUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sp\mc</Value>
+    </Setting>
+    <Setting Name="ServerPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4362</Value>
+    </Setting>
+    <Setting Name="SmtpServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.25</Value>
+    </Setting>
+    <Setting Name="ErrorMailFrom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cams@msn2.net</Value>
+    </Setting>
+    <Setting Name="ErrorMailTo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mike@giesler.org</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

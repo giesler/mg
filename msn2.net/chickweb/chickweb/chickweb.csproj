@@ -178,6 +178,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\cc.msn2.net on randy.pubxml" />
     <None Include="Properties\PublishProfiles\chicks.msn2.net.pubxml" />
   </ItemGroup>
   <PropertyGroup>
