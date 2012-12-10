@@ -12,6 +12,7 @@ namespace msn2.net.Pictures.Controls
         public GroupLinkItem(PersonGroup group)
         {
             this.group = group;
+            this.Text = group.Name;
         }
 
         public PersonGroup Group

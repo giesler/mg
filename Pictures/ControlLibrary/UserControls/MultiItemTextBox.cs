@@ -17,7 +17,7 @@ namespace msn2.net.Pictures.Controls.UserControls
     public partial class MultiItemTextBox : UserControl
     {
         private List<StringItem> items;
-        private string textBeforeEdit;
+        private string textBeforeEdit = string.Empty;
         private bool displayMultipleItems;
 
         public MultiItemTextBox()

@@ -35,12 +35,12 @@
             this.multiPictureEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.multiPictureEdit1.Location = new System.Drawing.Point(0, 0);
             this.multiPictureEdit1.Name = "multiPictureEdit1";
-            this.multiPictureEdit1.Size = new System.Drawing.Size(326, 159);
+            this.multiPictureEdit1.Size = new System.Drawing.Size(326, 180);
             this.multiPictureEdit1.TabIndex = 0;
 // 
 // PictureProperties
 // 
-            this.ClientSize = new System.Drawing.Size(326, 129);
+            this.ClientSize = new System.Drawing.Size(326, 180);
             this.Controls.Add(this.multiPictureEdit1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PictureProperties";

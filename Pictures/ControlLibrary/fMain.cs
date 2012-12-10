@@ -75,12 +75,13 @@ namespace msn2.net.Pictures.Controls
         private ToolStripComboBox imageSizeCombo;
         private ToolStripButton toolStripSelectAll;
         private ToolStripButton toolStripClearAll;
-        private SplitContainer splitContainer2;
-        private SplitContainer splitContainer1;
+        private SplitContainer mainSplitContainer;
+        private SplitContainer rightListContainer;
         private Panel panel1;
         private PictureList pictureList1;
         private SelectedPicturePanel selectedPictures;
         private ToolStripButton copytofolderToolStripButton;
+        private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
 		#region Constructor
@@ -92,6 +93,8 @@ namespace msn2.net.Pictures.Controls
 			stat.Max				= 0;
 			stat.Show();
 			stat.Refresh();
+
+            settings.Reload();
 
 			//
 			// Required for Windows Form Designer support
@@ -109,7 +112,7 @@ namespace msn2.net.Pictures.Controls
             viewPanel = new ViewPanel();
             viewPanel.RefreshView += new EventHandler(viewPanel_RefreshView);
             viewPanel.Dock = DockStyle.Fill;
-            this.splitContainer2.Panel1.Controls.Add(viewPanel);
+            this.mainSplitContainer.Panel1.Controls.Add(viewPanel);
 
             stat.Hide();
 			stat = null;
@@ -193,25 +196,24 @@ namespace msn2.net.Pictures.Controls
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
             this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.rightListContainer = new System.Windows.Forms.SplitContainer();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.mainSplitContainer.Panel2.SuspendLayout();
+            this.mainSplitContainer.SuspendLayout();
+            this.rightListContainer.Panel1.SuspendLayout();
+            this.rightListContainer.Panel2.SuspendLayout();
+            this.rightListContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // sqlSelectCommand1
             // 
-            this.sqlSelectCommand1.CommandText = resources.GetString("sqlSelectCommand1.CommandText");
             this.sqlSelectCommand1.Connection = this.cn;
             // 
             // cn
@@ -363,14 +365,14 @@ namespace msn2.net.Pictures.Controls
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 359);
+            this.statusBar1.Location = new System.Drawing.Point(0, 599);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.statusBarPanel1,
             this.statusBarPanel2});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(566, 16);
+            this.statusBar1.Size = new System.Drawing.Size(1018, 16);
             this.statusBar1.TabIndex = 10;
             this.statusBar1.Text = "statusBar1";
             // 
@@ -384,7 +386,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.statusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.statusBarPanel2.Name = "statusBarPanel2";
-            this.statusBarPanel2.Width = 539;
+            this.statusBarPanel2.Width = 991;
             // 
             // toolStrip1
             // 
@@ -398,7 +400,7 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(566, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1018, 25);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.Click += new System.EventHandler(this.toolStrip1_Click);
@@ -461,39 +463,40 @@ namespace msn2.net.Pictures.Controls
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
             // 
-            // splitContainer2
+            // mainSplitContainer
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 25);
-            this.splitContainer2.Name = "splitContainer2";
+            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 25);
+            this.mainSplitContainer.Name = "mainSplitContainer";
             // 
-            // splitContainer2.Panel2
+            // mainSplitContainer.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer2.Size = new System.Drawing.Size(566, 334);
-            this.splitContainer2.SplitterDistance = 189;
-            this.splitContainer2.TabIndex = 17;
-            this.splitContainer2.Text = "splitContainer2";
+            this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 574);
+            this.mainSplitContainer.SplitterDistance = 167;
+            this.mainSplitContainer.TabIndex = 17;
+            this.mainSplitContainer.Text = "splitContainer2";
             // 
-            // splitContainer1
+            // rightListContainer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.rightListContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightListContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.rightListContainer.Location = new System.Drawing.Point(0, 0);
+            this.rightListContainer.Name = "rightListContainer";
+            this.rightListContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // rightListContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.pictureList1);
+            this.rightListContainer.Panel1.Controls.Add(this.pictureList1);
             // 
-            // splitContainer1.Panel2
+            // rightListContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(373, 334);
-            this.splitContainer1.SplitterDistance = 180;
-            this.splitContainer1.TabIndex = 16;
-            this.splitContainer1.Text = "splitContainer1";
+            this.rightListContainer.Panel2.Controls.Add(this.panel1);
+            this.rightListContainer.Panel2MinSize = 50;
+            this.rightListContainer.Size = new System.Drawing.Size(847, 574);
+            this.rightListContainer.SplitterDistance = 370;
+            this.rightListContainer.TabIndex = 16;
+            this.rightListContainer.Text = "splitContainer1";
             // 
             // pictureList1
             // 
@@ -501,7 +504,7 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
-            this.pictureList1.Size = new System.Drawing.Size(373, 180);
+            this.pictureList1.Size = new System.Drawing.Size(847, 370);
             this.pictureList1.TabIndex = 0;
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
@@ -513,7 +516,7 @@ namespace msn2.net.Pictures.Controls
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(373, 150);
+            this.panel1.Size = new System.Drawing.Size(847, 200);
             this.panel1.TabIndex = 6;
             // 
             // selectedPictures
@@ -522,27 +525,28 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedPictures.Location = new System.Drawing.Point(0, 0);
             this.selectedPictures.Name = "selectedPictures";
-            this.selectedPictures.Size = new System.Drawing.Size(373, 150);
+            this.selectedPictures.Size = new System.Drawing.Size(847, 200);
             this.selectedPictures.TabIndex = 0;
             // 
             // fMain
             // 
-            this.ClientSize = new System.Drawing.Size(566, 375);
-            this.Controls.Add(this.splitContainer2);
+            this.ClientSize = new System.Drawing.Size(1018, 615);
+            this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
             this.Name = "fMain";
-            this.Text = "Pic Admin";
+            this.Text = "MSN2 Pictures";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
+            this.mainSplitContainer.Panel2.ResumeLayout(false);
+            this.mainSplitContainer.ResumeLayout(false);
+            this.rightListContainer.Panel1.ResumeLayout(false);
+            this.rightListContainer.Panel2.ResumeLayout(false);
+            this.rightListContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -559,6 +563,11 @@ namespace msn2.net.Pictures.Controls
 			Application.Run(new fMain());
 		}
 		#endregion
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            settings.Save();
+        }
 
 		private void menuItem2_Click(object sender, System.EventArgs e)
 		{
@@ -930,7 +939,9 @@ namespace msn2.net.Pictures.Controls
                 return;
             }
 
-            Slideshow ss = new Slideshow(new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
+            Slideshow ss = new Slideshow(
+                this.settings,
+                new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
                 new GetNextItemIdDelegate(pictureList1.GetNextPicture));
             ss.SetPicture(e.Picture);
             ss.SetSourceForm(this);

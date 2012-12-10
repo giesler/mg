@@ -55,22 +55,28 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-			try
-			{
-				// Set the connection string
-                this.sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
-                this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
-
-                // Load all people
-				daPerson.Fill(dsPerson, "Person");
-			}
-			catch (SqlException ex)
-			{
-				MessageBox.Show(ex.Message);
-
-			}
-
             lvFind.ContextMenu = this.contextMenu1;
+
+            if (this.DesignMode == false)
+            {
+                try
+                {
+                    // Set the connection string
+                    if (PicContext.Current != null)
+                    {
+                        this.sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
+                        this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
+
+                        // Load all people
+                        daPerson.Fill(dsPerson, "Person");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
         }
 
 		/// <summary> 
@@ -95,350 +101,414 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.cn = new System.Data.SqlClient.SqlConnection();
-			this.dvPersonFullName = new System.Data.DataView();
-			this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
-			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
-			this.menuAddPerson = new System.Windows.Forms.MenuItem();
-			this.menuEditPerson = new System.Windows.Forms.MenuItem();
-			this.menuDeletePerson = new System.Windows.Forms.MenuItem();
-			this.dvPersonFirstName = new System.Data.DataView();
-			this.dvPersonLastName = new System.Data.DataView();
-			this.dvPersonFind = new System.Data.DataView();
-			this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
-			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPageFind = new System.Windows.Forms.TabPage();
-			this.lvFind = new System.Windows.Forms.ListView();
-			this.findString = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.tabPageBrowse = new System.Windows.Forms.TabPage();
-			this.lvBrowse = new System.Windows.Forms.ListView();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.tvBrowse = new System.Windows.Forms.TreeView();
-			this.tabPageGroups = new System.Windows.Forms.TabPage();
-			this.lvGroups = new System.Windows.Forms.ListView();
-			this.splitter2 = new System.Windows.Forms.Splitter();
-			this.tvGroups = new System.Windows.Forms.TreeView();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
-			this.tabControl1.SuspendLayout();
-			this.tabPageFind.SuspendLayout();
-			this.tabPageBrowse.SuspendLayout();
-			this.tabPageGroups.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// cn
-			// 
-			this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist security " +
-				"info=False;workstation id=CHEF;packet size=4096";
-			// 
-			// dvPersonFullName
-			// 
-			this.dvPersonFullName.RowFilter = "FullName IS NOT NULL";
-			this.dvPersonFullName.Sort = "FullName";
-			this.dvPersonFullName.Table = this.dsPerson.Person;
-			// 
-			// dsPerson
-			// 
-			this.dsPerson.DataSetName = "DataSetPicture";
-			this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
-			// 
-			// contextMenu1
-			// 
-			this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						 this.menuAddPerson,
-																						 this.menuEditPerson,
-																						 this.menuDeletePerson});
-			// 
-			// menuAddPerson
-			// 
-			this.menuAddPerson.Index = 0;
-			this.menuAddPerson.Text = "&Add Person";
-			this.menuAddPerson.Click += new System.EventHandler(this.menuAddPerson_Click);
-			// 
-			// menuEditPerson
-			// 
-			this.menuEditPerson.Index = 1;
-			this.menuEditPerson.Text = "&Edit Person";
-			this.menuEditPerson.Click += new System.EventHandler(this.menuEditPerson_Click);
-			// 
-			// menuDeletePerson
-			// 
-			this.menuDeletePerson.Index = 2;
-			this.menuDeletePerson.Text = "&Delete Person";
-			this.menuDeletePerson.Click += new System.EventHandler(this.menuDeletePerson_Click);
-			// 
-			// dvPersonFirstName
-			// 
-			this.dvPersonFirstName.RowFilter = "FirstName IS NOT NULL";
-			this.dvPersonFirstName.Sort = "FirstName";
-			this.dvPersonFirstName.Table = this.dsPerson.Person;
-			// 
-			// dvPersonLastName
-			// 
-			this.dvPersonLastName.RowFilter = "LastName IS NOT NULL";
-			this.dvPersonLastName.Sort = "LastName, FirstName";
-			this.dvPersonLastName.Table = this.dsPerson.Person;
-			// 
-			// dvPersonFind
-			// 
-			this.dvPersonFind.Table = this.dsPerson.Person;
-			// 
-			// daPerson
-			// 
-			this.daPerson.DeleteCommand = this.sqlDeleteCommand1;
-			this.daPerson.InsertCommand = this.sqlInsertCommand1;
-			this.daPerson.SelectCommand = this.sqlSelectCommand1;
-			this.daPerson.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
-																							   new System.Data.Common.DataTableMapping("Table", "Person", new System.Data.Common.DataColumnMapping[] {
-																																																		 new System.Data.Common.DataColumnMapping("PersonID", "PersonID"),
-																																																		 new System.Data.Common.DataColumnMapping("LastName", "LastName"),
-																																																		 new System.Data.Common.DataColumnMapping("FirstName", "FirstName"),
-																																																		 new System.Data.Common.DataColumnMapping("FullName", "FullName")})});
-			this.daPerson.UpdateCommand = this.sqlUpdateCommand1;
-			// 
-			// sqlDeleteCommand1
-			// 
-			this.sqlDeleteCommand1.CommandText = @"DELETE FROM Person WHERE (PersonID = @PersonID) AND (FirstName = @FirstName OR @FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @FullName OR @FullName1 IS NULL AND FullName IS NULL) AND (LastName = @LastName OR @LastName1 IS NULL AND LastName IS NULL)";
-			this.sqlDeleteCommand1.Connection = this.sqlConnection1;
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			// 
-			// sqlConnection1
-			// 
-			this.sqlConnection1.ConnectionString = "data source=picdbserver;integrated security=sspi;initial catalog=picdb;persist security " +
-				"info=False";
-			// 
-			// sqlInsertCommand1
-			// 
-			this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
-				"@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
-				"rsonID = @@IDENTITY)";
-			this.sqlInsertCommand1.Connection = this.sqlConnection1;
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
-			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
-			// 
-			// sqlSelectCommand1
-			// 
-			this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
-			this.sqlSelectCommand1.Connection = this.sqlConnection1;
-			// 
-			// sqlUpdateCommand1
-			// 
-			this.sqlUpdateCommand1.CommandText = @"UPDATE Person SET LastName = @LastName, FirstName = @FirstName, FullName = @FullName WHERE (PersonID = @Original_PersonID) AND (FirstName = @Original_FirstName OR @Original_FirstName1 IS NULL AND FirstName IS NULL) AND (FullName = @Original_FullName OR @Original_FullName1 IS NULL AND FullName IS NULL) AND (LastName = @Original_LastName OR @Original_LastName1 IS NULL AND LastName IS NULL); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (PersonID = @Select_PersonID)";
-			this.sqlUpdateCommand1.Connection = this.sqlConnection1;
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Current, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "FullName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "LastName", System.Data.DataRowVersion.Original, null));
-			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID"));
-			// 
-			// tabControl1
-			// 
-			this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-			this.tabControl1.Controls.Add(this.tabPageFind);
-			this.tabControl1.Controls.Add(this.tabPageBrowse);
-			this.tabControl1.Controls.Add(this.tabPageGroups);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.Location = new System.Drawing.Point(0, 0);
-			this.tabControl1.Multiline = true;
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(352, 288);
-			this.tabControl1.TabIndex = 4;
-			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-			// 
-			// tabPageFind
-			// 
-			this.tabPageFind.Controls.Add(this.lvFind);
-			this.tabPageFind.Controls.Add(this.findString);
-			this.tabPageFind.Controls.Add(this.button1);
-			this.tabPageFind.Location = new System.Drawing.Point(4, 4);
-			this.tabPageFind.Name = "tabPageFind";
-			this.tabPageFind.Size = new System.Drawing.Size(344, 262);
-			this.tabPageFind.TabIndex = 2;
-			this.tabPageFind.Text = "Find";
-			// 
-			// lvFind
-			// 
-			this.lvFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.lvFind.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			this.lvFind.HideSelection = false;
-			this.lvFind.Location = new System.Drawing.Point(0, 32);
-			this.lvFind.MultiSelect = false;
-			this.lvFind.Name = "lvFind";
-			this.lvFind.Size = new System.Drawing.Size(344, 230);
-			this.lvFind.TabIndex = 7;
-			this.lvFind.View = System.Windows.Forms.View.List;
-			this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
-			this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
-			// 
-			// findString
-			// 
-			this.findString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.findString.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-			this.findString.Location = new System.Drawing.Point(0, 8);
-			this.findString.Name = "findString";
-			this.findString.Size = new System.Drawing.Size(288, 20);
-			this.findString.TabIndex = 4;
-			this.findString.Text = "<enter name>";
-			this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
-			this.findString.Enter += new System.EventHandler(this.findString_Enter);
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.button1.Location = new System.Drawing.Point(299, 8);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(40, 23);
-			this.button1.TabIndex = 6;
-			this.button1.Text = "Find";
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// tabPageBrowse
-			// 
-			this.tabPageBrowse.Controls.Add(this.lvBrowse);
-			this.tabPageBrowse.Controls.Add(this.splitter1);
-			this.tabPageBrowse.Controls.Add(this.tvBrowse);
-			this.tabPageBrowse.Location = new System.Drawing.Point(4, 4);
-			this.tabPageBrowse.Name = "tabPageBrowse";
-			this.tabPageBrowse.Size = new System.Drawing.Size(344, 262);
-			this.tabPageBrowse.TabIndex = 0;
-			this.tabPageBrowse.Text = "Browse";
-			// 
-			// lvBrowse
-			// 
-			this.lvBrowse.ContextMenu = this.contextMenu1;
-			this.lvBrowse.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvBrowse.FullRowSelect = true;
-			this.lvBrowse.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			this.lvBrowse.HideSelection = false;
-			this.lvBrowse.Location = new System.Drawing.Point(107, 0);
-			this.lvBrowse.MultiSelect = false;
-			this.lvBrowse.Name = "lvBrowse";
-			this.lvBrowse.Size = new System.Drawing.Size(237, 262);
-			this.lvBrowse.TabIndex = 2;
-			this.lvBrowse.View = System.Windows.Forms.View.List;
-			this.lvBrowse.DoubleClick += new System.EventHandler(this.lvBrowse_DoubleClick);
-			this.lvBrowse.SelectedIndexChanged += new System.EventHandler(this.lvBrowse_SelectedIndexChanged);
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(104, 0);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 262);
-			this.splitter1.TabIndex = 1;
-			this.splitter1.TabStop = false;
-			// 
-			// tvBrowse
-			// 
-			this.tvBrowse.Dock = System.Windows.Forms.DockStyle.Left;
-			this.tvBrowse.ImageIndex = -1;
-			this.tvBrowse.Location = new System.Drawing.Point(0, 0);
-			this.tvBrowse.Name = "tvBrowse";
-			this.tvBrowse.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-																				 new System.Windows.Forms.TreeNode("Full Name", new System.Windows.Forms.TreeNode[] {
-																																										new System.Windows.Forms.TreeNode("A-D"),
-																																										new System.Windows.Forms.TreeNode("E-H"),
-																																										new System.Windows.Forms.TreeNode("I-L"),
-																																										new System.Windows.Forms.TreeNode("M-P"),
-																																										new System.Windows.Forms.TreeNode("Q-T"),
-																																										new System.Windows.Forms.TreeNode("U-Z")}),
-																				 new System.Windows.Forms.TreeNode("First Name", new System.Windows.Forms.TreeNode[] {
-																																										 new System.Windows.Forms.TreeNode("A-D"),
-																																										 new System.Windows.Forms.TreeNode("E-H"),
-																																										 new System.Windows.Forms.TreeNode("I-L"),
-																																										 new System.Windows.Forms.TreeNode("M-P"),
-																																										 new System.Windows.Forms.TreeNode("Q-T"),
-																																										 new System.Windows.Forms.TreeNode("U-Z")}),
-																				 new System.Windows.Forms.TreeNode("Last Name", new System.Windows.Forms.TreeNode[] {
-																																										new System.Windows.Forms.TreeNode("A-D"),
-																																										new System.Windows.Forms.TreeNode("E-H"),
-																																										new System.Windows.Forms.TreeNode("I-L"),
-																																										new System.Windows.Forms.TreeNode("M-P"),
-																																										new System.Windows.Forms.TreeNode("Q-T"),
-																																										new System.Windows.Forms.TreeNode("U-Z")})});
-			this.tvBrowse.SelectedImageIndex = -1;
-			this.tvBrowse.Size = new System.Drawing.Size(104, 262);
-			this.tvBrowse.TabIndex = 0;
-			this.tvBrowse.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBrowse_AfterSelect);
-			// 
-			// tabPageGroups
-			// 
-			this.tabPageGroups.Controls.Add(this.lvGroups);
-			this.tabPageGroups.Controls.Add(this.splitter2);
-			this.tabPageGroups.Controls.Add(this.tvGroups);
-			this.tabPageGroups.Location = new System.Drawing.Point(4, 4);
-			this.tabPageGroups.Name = "tabPageGroups";
-			this.tabPageGroups.Size = new System.Drawing.Size(344, 262);
-			this.tabPageGroups.TabIndex = 1;
-			this.tabPageGroups.Text = "Groups";
-			// 
-			// lvGroups
-			// 
-			this.lvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvGroups.Location = new System.Drawing.Point(91, 0);
-			this.lvGroups.Name = "lvGroups";
-			this.lvGroups.Size = new System.Drawing.Size(253, 262);
-			this.lvGroups.TabIndex = 2;
-			// 
-			// splitter2
-			// 
-			this.splitter2.Location = new System.Drawing.Point(88, 0);
-			this.splitter2.Name = "splitter2";
-			this.splitter2.Size = new System.Drawing.Size(3, 262);
-			this.splitter2.TabIndex = 1;
-			this.splitter2.TabStop = false;
-			// 
-			// tvGroups
-			// 
-			this.tvGroups.Dock = System.Windows.Forms.DockStyle.Left;
-			this.tvGroups.ImageIndex = -1;
-			this.tvGroups.Location = new System.Drawing.Point(0, 0);
-			this.tvGroups.Name = "tvGroups";
-			this.tvGroups.SelectedImageIndex = -1;
-			this.tvGroups.Size = new System.Drawing.Size(88, 262);
-			this.tvGroups.TabIndex = 0;
-			// 
-			// PeopleCtl
-			// 
-			this.Controls.Add(this.tabControl1);
-			this.Name = "PeopleCtl";
-			this.Size = new System.Drawing.Size(352, 288);
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
-			this.tabControl1.ResumeLayout(false);
-			this.tabPageFind.ResumeLayout(false);
-			this.tabPageBrowse.ResumeLayout(false);
-			this.tabPageGroups.ResumeLayout(false);
-			this.ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PeopleCtl));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("A-D");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("E-H");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("I-L");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("M-P");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Q-T");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("U-Z");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Full Name", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("A-D");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("E-H");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("I-L");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("M-P");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Q-T");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("U-Z");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("First Name", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("A-D");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("E-H");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("I-L");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("M-P");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Q-T");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("U-Z");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Last Name", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20});
+            this.cn = new System.Data.SqlClient.SqlConnection();
+            this.dvPersonFullName = new System.Data.DataView();
+            this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
+            this.contextMenu1 = new System.Windows.Forms.ContextMenu();
+            this.menuAddPerson = new System.Windows.Forms.MenuItem();
+            this.menuEditPerson = new System.Windows.Forms.MenuItem();
+            this.menuDeletePerson = new System.Windows.Forms.MenuItem();
+            this.dvPersonFirstName = new System.Data.DataView();
+            this.dvPersonLastName = new System.Data.DataView();
+            this.dvPersonFind = new System.Data.DataView();
+            this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
+            this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
+            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
+            this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+            this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageFind = new System.Windows.Forms.TabPage();
+            this.lvFind = new System.Windows.Forms.ListView();
+            this.findString = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabPageBrowse = new System.Windows.Forms.TabPage();
+            this.lvBrowse = new System.Windows.Forms.ListView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.tvBrowse = new System.Windows.Forms.TreeView();
+            this.tabPageGroups = new System.Windows.Forms.TabPage();
+            this.lvGroups = new System.Windows.Forms.ListView();
+            this.splitter2 = new System.Windows.Forms.Splitter();
+            this.tvGroups = new System.Windows.Forms.TreeView();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPageFind.SuspendLayout();
+            this.tabPageBrowse.SuspendLayout();
+            this.tabPageGroups.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // cn
+            // 
+            this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist se" +
+                "curity info=False;workstation id=CHEF;packet size=4096";
+            this.cn.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // dvPersonFullName
+            // 
+            this.dvPersonFullName.RowFilter = "FullName IS NOT NULL";
+            this.dvPersonFullName.Sort = "FullName";
+            this.dvPersonFullName.Table = this.dsPerson.Person;
+            // 
+            // dsPerson
+            // 
+            this.dsPerson.DataSetName = "DataSetPicture";
+            this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
+            // 
+            // contextMenu1
+            // 
+            this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuAddPerson,
+            this.menuEditPerson,
+            this.menuDeletePerson});
+            // 
+            // menuAddPerson
+            // 
+            this.menuAddPerson.Index = 0;
+            this.menuAddPerson.Text = "&Add Person";
+            this.menuAddPerson.Click += new System.EventHandler(this.menuAddPerson_Click);
+            // 
+            // menuEditPerson
+            // 
+            this.menuEditPerson.Index = 1;
+            this.menuEditPerson.Text = "&Edit Person";
+            this.menuEditPerson.Click += new System.EventHandler(this.menuEditPerson_Click);
+            // 
+            // menuDeletePerson
+            // 
+            this.menuDeletePerson.Index = 2;
+            this.menuDeletePerson.Text = "&Delete Person";
+            this.menuDeletePerson.Click += new System.EventHandler(this.menuDeletePerson_Click);
+            // 
+            // dvPersonFirstName
+            // 
+            this.dvPersonFirstName.RowFilter = "FirstName IS NOT NULL";
+            this.dvPersonFirstName.Sort = "FirstName";
+            this.dvPersonFirstName.Table = this.dsPerson.Person;
+            // 
+            // dvPersonLastName
+            // 
+            this.dvPersonLastName.RowFilter = "LastName IS NOT NULL";
+            this.dvPersonLastName.Sort = "LastName, FirstName";
+            this.dvPersonLastName.Table = this.dsPerson.Person;
+            // 
+            // dvPersonFind
+            // 
+            this.dvPersonFind.Table = this.dsPerson.Person;
+            // 
+            // daPerson
+            // 
+            this.daPerson.DeleteCommand = this.sqlDeleteCommand1;
+            this.daPerson.InsertCommand = this.sqlInsertCommand1;
+            this.daPerson.SelectCommand = this.sqlSelectCommand1;
+            this.daPerson.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
+            new System.Data.Common.DataTableMapping("Table", "Person", new System.Data.Common.DataColumnMapping[] {
+                        new System.Data.Common.DataColumnMapping("PersonID", "PersonID"),
+                        new System.Data.Common.DataColumnMapping("LastName", "LastName"),
+                        new System.Data.Common.DataColumnMapping("FirstName", "FirstName"),
+                        new System.Data.Common.DataColumnMapping("FullName", "FullName")})});
+            this.daPerson.UpdateCommand = this.sqlUpdateCommand1;
+            // 
+            // sqlDeleteCommand1
+            // 
+            this.sqlDeleteCommand1.CommandText = resources.GetString("sqlDeleteCommand1.CommandText");
+            this.sqlDeleteCommand1.Connection = this.sqlConnection1;
+            this.sqlDeleteCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
+            new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((byte)(0)), ((byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null)});
+            // 
+            // sqlConnection1
+            // 
+            this.sqlConnection1.ConnectionString = "data source=picdbserver;integrated security=sspi;initial catalog=picdb;persist se" +
+                "curity info=False";
+            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // sqlInsertCommand1
+            // 
+            this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
+                "@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
+                "rsonID = @@IDENTITY)";
+            this.sqlInsertCommand1.Connection = this.sqlConnection1;
+            this.sqlInsertCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
+            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Current, null),
+            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null),
+            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Current, null)});
+            // 
+            // sqlSelectCommand1
+            // 
+            this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
+            this.sqlSelectCommand1.Connection = this.sqlConnection1;
+            // 
+            // sqlUpdateCommand1
+            // 
+            this.sqlUpdateCommand1.CommandText = resources.GetString("sqlUpdateCommand1.CommandText");
+            this.sqlUpdateCommand1.Connection = this.sqlConnection1;
+            this.sqlUpdateCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
+            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Current, null),
+            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null),
+            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Current, null),
+            new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((byte)(0)), ((byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
+            new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID")});
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPageFind);
+            this.tabControl1.Controls.Add(this.tabPageBrowse);
+            this.tabControl1.Controls.Add(this.tabPageGroups);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(479, 383);
+            this.tabControl1.TabIndex = 4;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPageFind
+            // 
+            this.tabPageFind.Controls.Add(this.lvFind);
+            this.tabPageFind.Controls.Add(this.findString);
+            this.tabPageFind.Controls.Add(this.button1);
+            this.tabPageFind.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFind.Name = "tabPageFind";
+            this.tabPageFind.Size = new System.Drawing.Size(471, 357);
+            this.tabPageFind.TabIndex = 2;
+            this.tabPageFind.Text = "Search";
+            // 
+            // lvFind
+            // 
+            this.lvFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvFind.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvFind.HideSelection = false;
+            this.lvFind.Location = new System.Drawing.Point(0, 32);
+            this.lvFind.MultiSelect = false;
+            this.lvFind.Name = "lvFind";
+            this.lvFind.Size = new System.Drawing.Size(471, 325);
+            this.lvFind.TabIndex = 7;
+            this.lvFind.View = System.Windows.Forms.View.List;
+            this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
+            this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
+            // 
+            // findString
+            // 
+            this.findString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.findString.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.findString.Location = new System.Drawing.Point(0, 8);
+            this.findString.Name = "findString";
+            this.findString.Size = new System.Drawing.Size(400, 20);
+            this.findString.TabIndex = 4;
+            this.findString.Text = "<enter name>";
+            this.findString.Enter += new System.EventHandler(this.findString_Enter);
+            this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(407, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(59, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "&Search";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tabPageBrowse
+            // 
+            this.tabPageBrowse.Controls.Add(this.lvBrowse);
+            this.tabPageBrowse.Controls.Add(this.splitter1);
+            this.tabPageBrowse.Controls.Add(this.tvBrowse);
+            this.tabPageBrowse.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBrowse.Name = "tabPageBrowse";
+            this.tabPageBrowse.Size = new System.Drawing.Size(471, 357);
+            this.tabPageBrowse.TabIndex = 0;
+            this.tabPageBrowse.Text = "Browse Alphabetical List";
+            // 
+            // lvBrowse
+            // 
+            this.lvBrowse.ContextMenu = this.contextMenu1;
+            this.lvBrowse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBrowse.FullRowSelect = true;
+            this.lvBrowse.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvBrowse.HideSelection = false;
+            this.lvBrowse.Location = new System.Drawing.Point(107, 0);
+            this.lvBrowse.MultiSelect = false;
+            this.lvBrowse.Name = "lvBrowse";
+            this.lvBrowse.Size = new System.Drawing.Size(364, 357);
+            this.lvBrowse.TabIndex = 2;
+            this.lvBrowse.View = System.Windows.Forms.View.List;
+            this.lvBrowse.SelectedIndexChanged += new System.EventHandler(this.lvBrowse_SelectedIndexChanged);
+            this.lvBrowse.DoubleClick += new System.EventHandler(this.lvBrowse_DoubleClick);
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(104, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 357);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
+            // tvBrowse
+            // 
+            this.tvBrowse.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tvBrowse.Location = new System.Drawing.Point(0, 0);
+            this.tvBrowse.Name = "tvBrowse";
+            treeNode1.Name = "";
+            treeNode1.Text = "A-D";
+            treeNode2.Name = "";
+            treeNode2.Text = "E-H";
+            treeNode3.Name = "";
+            treeNode3.Text = "I-L";
+            treeNode4.Name = "";
+            treeNode4.Text = "M-P";
+            treeNode5.Name = "";
+            treeNode5.Text = "Q-T";
+            treeNode6.Name = "";
+            treeNode6.Text = "U-Z";
+            treeNode7.Name = "";
+            treeNode7.Text = "Full Name";
+            treeNode8.Name = "";
+            treeNode8.Text = "A-D";
+            treeNode9.Name = "";
+            treeNode9.Text = "E-H";
+            treeNode10.Name = "";
+            treeNode10.Text = "I-L";
+            treeNode11.Name = "";
+            treeNode11.Text = "M-P";
+            treeNode12.Name = "";
+            treeNode12.Text = "Q-T";
+            treeNode13.Name = "";
+            treeNode13.Text = "U-Z";
+            treeNode14.Name = "";
+            treeNode14.Text = "First Name";
+            treeNode15.Name = "";
+            treeNode15.Text = "A-D";
+            treeNode16.Name = "";
+            treeNode16.Text = "E-H";
+            treeNode17.Name = "";
+            treeNode17.Text = "I-L";
+            treeNode18.Name = "";
+            treeNode18.Text = "M-P";
+            treeNode19.Name = "";
+            treeNode19.Text = "Q-T";
+            treeNode20.Name = "";
+            treeNode20.Text = "U-Z";
+            treeNode21.Name = "";
+            treeNode21.Text = "Last Name";
+            this.tvBrowse.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode14,
+            treeNode21});
+            this.tvBrowse.Size = new System.Drawing.Size(104, 357);
+            this.tvBrowse.TabIndex = 0;
+            this.tvBrowse.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBrowse_AfterSelect);
+            // 
+            // tabPageGroups
+            // 
+            this.tabPageGroups.Controls.Add(this.lvGroups);
+            this.tabPageGroups.Controls.Add(this.splitter2);
+            this.tabPageGroups.Controls.Add(this.tvGroups);
+            this.tabPageGroups.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGroups.Name = "tabPageGroups";
+            this.tabPageGroups.Size = new System.Drawing.Size(471, 357);
+            this.tabPageGroups.TabIndex = 1;
+            this.tabPageGroups.Text = "Browse by Group";
+            // 
+            // lvGroups
+            // 
+            this.lvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvGroups.Location = new System.Drawing.Point(91, 0);
+            this.lvGroups.Name = "lvGroups";
+            this.lvGroups.Size = new System.Drawing.Size(380, 357);
+            this.lvGroups.TabIndex = 2;
+            // 
+            // splitter2
+            // 
+            this.splitter2.Location = new System.Drawing.Point(88, 0);
+            this.splitter2.Name = "splitter2";
+            this.splitter2.Size = new System.Drawing.Size(3, 357);
+            this.splitter2.TabIndex = 1;
+            this.splitter2.TabStop = false;
+            // 
+            // tvGroups
+            // 
+            this.tvGroups.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tvGroups.Location = new System.Drawing.Point(0, 0);
+            this.tvGroups.Name = "tvGroups";
+            this.tvGroups.Size = new System.Drawing.Size(88, 357);
+            this.tvGroups.TabIndex = 0;
+            // 
+            // PeopleCtl
+            // 
+            this.Controls.Add(this.tabControl1);
+            this.Name = "PeopleCtl";
+            this.Size = new System.Drawing.Size(479, 383);
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPageFind.ResumeLayout(false);
+            this.tabPageFind.PerformLayout();
+            this.tabPageBrowse.ResumeLayout(false);
+            this.tabPageGroups.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -471,14 +541,22 @@ namespace msn2.net.Pictures.Controls
 
 		private void menuEditPerson_Click(object sender, System.EventArgs e)
 		{
-			// make sure a person is selected
-			if (lvBrowse.SelectedItems.Count == 0)
-			{
-				MessageBox.Show("You must select a person to edit.", "Edit Person", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-				return;
-			}
+            ListViewItem person = null;
 
-			ListViewItem person = lvBrowse.SelectedItems[0];
+			// make sure a person is selected
+            if (lvBrowse.SelectedItems.Count == 0)
+            {
+                if (lvFind.SelectedItems.Count == 0)
+                {
+                    return;
+                }
+
+                person = lvFind.SelectedItems[0];
+            }
+            else
+            {
+                person = lvBrowse.SelectedItems[0];
+            }
 			
 			DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) person.Tag;
 			fEditPerson p = new fEditPerson();

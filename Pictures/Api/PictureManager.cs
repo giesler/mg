@@ -71,6 +71,42 @@ namespace msn2.net.Pictures
 
 		}
 
+        public void AddPerson(int pictureId, int personId)
+        {
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("p_Picture_AddPerson", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+            cmd.Parameters.Add("@personId", SqlDbType.Int);
+
+            cmd.Parameters["@pictureId"].Value = pictureId;
+            cmd.Parameters["@personId"].Value = personId;
+
+            cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+
+        }
+
+        public void RemovePerson(int pictureId, int personId)
+        {
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("p_Picture_RemovePerson", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+            cmd.Parameters.Add("@personId", SqlDbType.Int);
+
+            cmd.Parameters["@pictureId"].Value = pictureId;
+            cmd.Parameters["@personId"].Value = personId;
+
+            cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+
+        }
+
         public decimal RatePicture(int pictureId, int rating)
         {
             SqlConnection cn = new SqlConnection(connectionString);
@@ -477,19 +513,32 @@ namespace msn2.net.Pictures
 			return categories;
 		}
 
-		public DataSet GetPicturePeople(int pictureId)
+		public List<PersonInfo> GetPicturePeople(int pictureId)
 		{
 			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlDataAdapter da	= new SqlDataAdapter("sp_Picture_GetPeople", cn);
-			DataSet ds			= new DataSet();
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-			da.SelectCommand.Parameters.Add("@pictureId", SqlDbType.Int);
-			da.SelectCommand.Parameters["@pictureId"].Value	= pictureId;
+			SqlCommand cmd      = new SqlCommand("sp_Picture_GetPeople", cn);
+            SqlDataReader dr    = null;
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+			cmd.Parameters["@pictureId"].Value	= pictureId;
+
+            List<PersonInfo> people = new List<PersonInfo>();
 
 			try
 			{
 				cn.Open();
-				da.Fill(ds);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string email = (dr.IsDBNull(2) == true ? string.Empty : dr.GetString(2));
+
+                    PersonInfo person = new PersonInfo(
+                        dr.GetInt32(1),
+                        dr.GetString(0),
+                        email);
+                    people.Add(person);
+                }
 			}
 			catch (SqlException ex)
 			{
@@ -503,7 +552,7 @@ namespace msn2.net.Pictures
 				}
 			}
 
-			return ds;
+			return people;
 		}
 
 

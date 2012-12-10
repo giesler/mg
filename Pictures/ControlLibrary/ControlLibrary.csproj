@@ -160,6 +160,19 @@
     <Compile Include="Group\GroupLinkList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Person\PeopleSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Person\PeopleSelect.Designer.cs">
+      <DependentUpon>PeopleSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonLinkItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Person\PersonLinkList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PictureControlSettings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -318,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Person\PeopleSelect.resx">
+      <DependentUpon>PeopleSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture\MultiPictureEdit.resx">
       <DependentUpon>MultiPictureEdit.cs</DependentUpon>

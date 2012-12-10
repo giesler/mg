@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Text;
@@ -20,17 +21,24 @@ namespace msn2.net.Pictures.Controls
         private GetNextItemIdDelegate getNextId;
         private PictureData picture;
         private PictureProperties editor;
+        private PeopleSelect peopleSelect;
         private Form sourceForm = null;
+        private PictureControlSettings settings;
 
         private Slideshow()
         {
+            this.settings = new PictureControlSettings();
             InitializeComponent();
         }
 
-        public Slideshow(GetPreviousItemIdDelegate getPreviousId, GetNextItemIdDelegate getNextId)
+        public Slideshow(
+            PictureControlSettings settings,
+            GetPreviousItemIdDelegate getPreviousId, 
+            GetNextItemIdDelegate getNextId)
         {
             this.getPreviousId = getPreviousId;
             this.getNextId = getNextId;
+            this.settings = settings;
 
             InitializeComponent();
 
@@ -61,8 +69,37 @@ namespace msn2.net.Pictures.Controls
             {
                 editor.SetPicture(this.picture);
             }
+            if (this.peopleSelect != null)
+            {
+                LoadPeople();
+            }
 
             UpdateControls();
+        }
+
+        private void LoadPeople()
+        {
+            List<PersonInfo> people = PicContext.Current.PictureManager.GetPicturePeople(this.picture.Id);
+            peopleSelect.PersonPicker.ClearSelectedPeople();
+            foreach (PersonInfo person in people)
+            {
+                peopleSelect.PersonPicker.AddSelectedPerson(person.Id);
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (settings.Slideshow_Editor_IsOpen == true)
+            {
+                toolProperties_Click(this, EventArgs.Empty);
+            }
+
+            if (settings.Slideshow_People_IsOpen == true)
+            {
+                toolPeople_Click(this, EventArgs.Empty);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -73,7 +110,18 @@ namespace msn2.net.Pictures.Controls
             {
                 if (this.editor != null)
                 {
+                    this.settings.Slideshow_Editor_IsOpen = this.editor.Visible;
+                    this.settings.Slideshow_Editor_Left = this.editor.Left;
+                    this.settings.Slideshow_Editor_Top = this.editor.Top;
                     this.editor.Close();
+                }
+
+                if (this.peopleSelect != null)
+                {
+                    this.settings.Slideshow_People_IsOpen = this.peopleSelect.Visible;
+                    this.settings.Slideshow_People_Left = this.peopleSelect.Left;
+                    this.settings.Slideshow_People_Top = this.peopleSelect.Top;
+                    this.peopleSelect.Close();
                 }
 
                 if (this.sourceForm != null)
@@ -133,10 +181,13 @@ namespace msn2.net.Pictures.Controls
             if (null == this.editor)
             {
                 this.editor = new PictureProperties();
-                this.editor.SetPicture(this.picture);
+                if (this.picture != null)
+                {
+                    this.editor.SetPicture(this.picture);
+                }
                 this.editor.Opacity = 0.75f;
-                this.editor.Left = this.Left + this.Width - 100 - this.editor.Width;
-                this.editor.Top = this.Top + this.Height - 100 - this.editor.Height;
+                this.editor.Left = PictureControlSettings.GetSafeLeft(this.editor, this.settings.Slideshow_Editor_Left);
+                this.editor.Top = PictureControlSettings.GetSafeTop(this.editor, this.settings.Slideshow_Editor_Top);
                 this.editor.FormClosed += new FormClosedEventHandler(this.OnPropertiesClosed);
             }
 
@@ -169,6 +220,68 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        private void toolPeople_Click(object sender, EventArgs e)
+        {
+            if (this.peopleSelect == null)
+            {
+                this.peopleSelect = new PeopleSelect();
+                this.peopleSelect.Opacity = 0.75f;
+                this.peopleSelect.Left = PictureControlSettings.GetSafeLeft(this.peopleSelect, this.settings.Slideshow_People_Left);
+                this.peopleSelect.Top = PictureControlSettings.GetSafeTop(this.peopleSelect, this.settings.Slideshow_People_Top);
+                this.peopleSelect.FormClosed += new FormClosedEventHandler(peopleSelect_FormClosed);
+                this.peopleSelect.PersonPicker.AddedPerson += new AddedPersonEventHandler(PersonPicker_AddedPerson);
+                this.peopleSelect.PersonPicker.RemovedPerson += new RemovedPersonEventHandler(PersonPicker_RemovedPerson);
+
+                if (this.picture != null)
+                {
+                    LoadPeople();
+                }
+            }
+
+            toolPeople.Checked = !toolPeople.Checked;
+            if (toolPeople.Checked == true)
+            {
+                this.peopleSelect.Show(this);
+            }
+            else
+            {
+                this.peopleSelect.Hide();
+            }
+        }
+
+        void PersonPicker_AddedPerson(object sender, PersonPickerEventArgs e)
+        {
+            PicContext.Current.PictureManager.AddPerson(
+                this.picture.Id,
+                e.PersonID);
+
+            if (this.editor != null)
+            {
+                PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
+                this.editor.Editor.AddPerson(person);
+            }
+        }
+
+        void PersonPicker_RemovedPerson(object sender, PersonPickerEventArgs e)
+        {
+            PicContext.Current.PictureManager.RemovePerson(
+                this.picture.Id,
+                e.PersonID);
+
+            if (this.editor != null)
+            {
+                PersonInfo person = PicContext.Current.UserManager.GetPerson(e.PersonID);
+                this.editor.Editor.RemovePerson(person);
+            }
+        }
+
+        void peopleSelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.toolPeople.Checked = false;
+            this.peopleSelect = null;
+        }
+
+        
     }
 
     public delegate PictureData GetNextItemIdDelegate(int currentItem);

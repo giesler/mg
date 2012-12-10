@@ -36,6 +36,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolProperties = new System.Windows.Forms.ToolStripButton();
             this.toolAddToCategory = new System.Windows.Forms.ToolStripButton();
+            this.toolPeople = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@
             this.toolNext,
             this.toolStripSeparator2,
             this.toolProperties,
+            this.toolPeople,
             this.toolAddToCategory});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -103,6 +105,14 @@
             this.toolAddToCategory.Text = "Add to category...";
             this.toolAddToCategory.Click += new System.EventHandler(this.toolAddToCategory_Click);
             // 
+            // toolPeople
+            // 
+            this.toolPeople.Image = ((System.Drawing.Image)(resources.GetObject("toolPeople.Image")));
+            this.toolPeople.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPeople.Name = "toolPeople";
+            this.toolPeople.Text = "People";
+            this.toolPeople.Click += new System.EventHandler(this.toolPeople_Click);
+            // 
             // Slideshow
             // 
             this.BackColor = System.Drawing.Color.Black;
@@ -130,6 +140,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolProperties;
         private System.Windows.Forms.ToolStripButton toolAddToCategory;
+        private System.Windows.Forms.ToolStripButton toolPeople;
 
     }
 }

@@ -31,15 +31,18 @@
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.labelDateTaken = new System.Windows.Forms.Label();
             this.categoryLabel = new System.Windows.Forms.Label();
-            this.categoryList = new msn2.net.Pictures.Controls.CategoryLinkList();
             this.differentCategoriesLabel = new System.Windows.Forms.Label();
+            this.groupLabel = new System.Windows.Forms.Label();
+            this.peopleLabel = new System.Windows.Forms.Label();
+            this.personList = new msn2.net.Pictures.Controls.PersonLinkList();
+            this.differentPeopleLabel = new System.Windows.Forms.Label();
+            this.groups = new msn2.net.Pictures.Controls.GroupLinkList();
+            this.differentGroupsLabel = new System.Windows.Forms.Label();
+            this.categoryList = new msn2.net.Pictures.Controls.CategoryLinkList();
             this.dateTaken = new msn2.net.Pictures.Controls.UserControls.DateTimePicker();
             this.description = new msn2.net.Pictures.Controls.UserControls.MultiItemTextBox();
             this.title = new msn2.net.Pictures.Controls.UserControls.MultiItemTextBox();
-            this.groupLabel = new System.Windows.Forms.Label();
-            this.groups = new msn2.net.Pictures.Controls.GroupLinkList();
-            this.differentGroupsLabel = new System.Windows.Forms.Label();
-            this.categoryList.SuspendLayout();
+            this.personList.SuspendLayout();
             this.groups.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,30 +76,91 @@
             // categoryLabel
             // 
             this.categoryLabel.AutoSize = true;
-            this.categoryLabel.Location = new System.Drawing.Point(8, 94);
+            this.categoryLabel.Location = new System.Drawing.Point(5, 124);
             this.categoryLabel.Name = "categoryLabel";
             this.categoryLabel.Size = new System.Drawing.Size(56, 13);
             this.categoryLabel.TabIndex = 7;
             this.categoryLabel.Text = "Categories:";
             // 
-            // categoryList
-            // 
-            this.categoryList.Controls.Add(this.differentCategoriesLabel);
-            this.categoryList.Location = new System.Drawing.Point(75, 91);
-            this.categoryList.Name = "categoryList";
-            this.categoryList.Size = new System.Drawing.Size(313, 17);
-            this.categoryList.TabIndex = 8;
-            // 
             // differentCategoriesLabel
             // 
             this.differentCategoriesLabel.AutoSize = true;
             this.differentCategoriesLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.differentCategoriesLabel.Location = new System.Drawing.Point(3, 0);
+            this.differentCategoriesLabel.Location = new System.Drawing.Point(71, 117);
             this.differentCategoriesLabel.Name = "differentCategoriesLabel";
             this.differentCategoriesLabel.Size = new System.Drawing.Size(168, 13);
             this.differentCategoriesLabel.TabIndex = 9;
             this.differentCategoriesLabel.Text = "<pictures are in differnt categories>";
             this.differentCategoriesLabel.Visible = false;
+            // 
+            // groupLabel
+            // 
+            this.groupLabel.AutoSize = true;
+            this.groupLabel.Location = new System.Drawing.Point(5, 149);
+            this.groupLabel.Name = "groupLabel";
+            this.groupLabel.Size = new System.Drawing.Size(62, 13);
+            this.groupLabel.TabIndex = 9;
+            this.groupLabel.Text = "Shared with:";
+            // 
+            // peopleLabel
+            // 
+            this.peopleLabel.AutoSize = true;
+            this.peopleLabel.Location = new System.Drawing.Point(5, 94);
+            this.peopleLabel.Name = "peopleLabel";
+            this.peopleLabel.Size = new System.Drawing.Size(39, 13);
+            this.peopleLabel.TabIndex = 11;
+            this.peopleLabel.Text = "People:";
+            // 
+            // personList
+            // 
+            this.personList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personList.Controls.Add(this.differentPeopleLabel);
+            this.personList.Location = new System.Drawing.Point(72, 90);
+            this.personList.Name = "personList";
+            this.personList.Size = new System.Drawing.Size(313, 25);
+            this.personList.TabIndex = 12;
+            // 
+            // differentPeopleLabel
+            // 
+            this.differentPeopleLabel.AutoSize = true;
+            this.differentPeopleLabel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.differentPeopleLabel.Location = new System.Drawing.Point(3, 0);
+            this.differentPeopleLabel.Name = "differentPeopleLabel";
+            this.differentPeopleLabel.Size = new System.Drawing.Size(165, 13);
+            this.differentPeopleLabel.TabIndex = 10;
+            this.differentPeopleLabel.Text = "<pictures include different people>";
+            this.differentPeopleLabel.Visible = false;
+            // 
+            // groups
+            // 
+            this.groups.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groups.Controls.Add(this.differentGroupsLabel);
+            this.groups.Location = new System.Drawing.Point(72, 145);
+            this.groups.Name = "groups";
+            this.groups.Size = new System.Drawing.Size(313, 17);
+            this.groups.TabIndex = 10;
+            // 
+            // differentGroupsLabel
+            // 
+            this.differentGroupsLabel.AutoSize = true;
+            this.differentGroupsLabel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.differentGroupsLabel.Location = new System.Drawing.Point(3, 0);
+            this.differentGroupsLabel.Name = "differentGroupsLabel";
+            this.differentGroupsLabel.Size = new System.Drawing.Size(203, 13);
+            this.differentGroupsLabel.TabIndex = 10;
+            this.differentGroupsLabel.Text = "<pictures are shared with different people>";
+            this.differentGroupsLabel.Visible = false;
+            // 
+            // categoryList
+            // 
+            this.categoryList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryList.Location = new System.Drawing.Point(72, 121);
+            this.categoryList.Name = "categoryList";
+            this.categoryList.Size = new System.Drawing.Size(313, 17);
+            this.categoryList.TabIndex = 8;
             // 
             // dateTaken
             // 
@@ -136,36 +200,11 @@
             this.title.TabIndex = 3;
             this.title.StringItemChanged += new msn2.net.Pictures.Controls.UserControls.MultiItemTextBox.StringItemChangedEventHandler(this.title_StringItemChanged);
             // 
-            // groupLabel
-            // 
-            this.groupLabel.AutoSize = true;
-            this.groupLabel.Location = new System.Drawing.Point(8, 119);
-            this.groupLabel.Name = "groupLabel";
-            this.groupLabel.Size = new System.Drawing.Size(62, 13);
-            this.groupLabel.TabIndex = 9;
-            this.groupLabel.Text = "Shared with:";
-            // 
-            // groups
-            // 
-            this.groups.Controls.Add(this.differentGroupsLabel);
-            this.groups.Location = new System.Drawing.Point(75, 115);
-            this.groups.Name = "groups";
-            this.groups.Size = new System.Drawing.Size(313, 17);
-            this.groups.TabIndex = 10;
-            // 
-            // differentGroupsLabel
-            // 
-            this.differentGroupsLabel.AutoSize = true;
-            this.differentGroupsLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.differentGroupsLabel.Location = new System.Drawing.Point(3, 0);
-            this.differentGroupsLabel.Name = "differentGroupsLabel";
-            this.differentGroupsLabel.Size = new System.Drawing.Size(203, 13);
-            this.differentGroupsLabel.TabIndex = 10;
-            this.differentGroupsLabel.Text = "<pictures are shared with different people>";
-            this.differentGroupsLabel.Visible = false;
-            // 
             // MultiPictureEdit
             // 
+            this.Controls.Add(this.personList);
+            this.Controls.Add(this.peopleLabel);
+            this.Controls.Add(this.differentCategoriesLabel);
             this.Controls.Add(this.groups);
             this.Controls.Add(this.groupLabel);
             this.Controls.Add(this.categoryList);
@@ -177,9 +216,9 @@
             this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.titleLabel);
             this.Name = "MultiPictureEdit";
-            this.Size = new System.Drawing.Size(391, 158);
-            this.categoryList.ResumeLayout(false);
-            this.categoryList.PerformLayout();
+            this.Size = new System.Drawing.Size(391, 191);
+            this.personList.ResumeLayout(false);
+            this.personList.PerformLayout();
             this.groups.ResumeLayout(false);
             this.groups.PerformLayout();
             this.ResumeLayout(false);
@@ -201,5 +240,8 @@
         private System.Windows.Forms.Label groupLabel;
         private GroupLinkList groups;
         private System.Windows.Forms.Label differentGroupsLabel;
+        private PersonLinkList personList;
+        private System.Windows.Forms.Label differentPeopleLabel;
+        private System.Windows.Forms.Label peopleLabel;
     }
 }

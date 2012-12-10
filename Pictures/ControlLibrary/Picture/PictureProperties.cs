@@ -24,5 +24,13 @@ namespace msn2.net.Pictures.Controls
             this.multiPictureEdit1.ClearPictures();
             this.multiPictureEdit1.AddPicture(picture);
         }
+
+        public MultiPictureEdit Editor
+        {
+            get
+            {
+                return this.multiPictureEdit1;
+            }
+        }
     }
 }

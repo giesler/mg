@@ -18,6 +18,7 @@ namespace msn2.net.Pictures.Controls
         private List<int> pictures;
         private Hashtable pictureCategories = new Hashtable();
         private Hashtable pictureGroups = new Hashtable();
+        private Hashtable picturePeople = new Hashtable();
 
         public MultiPictureEdit()
         {
@@ -44,8 +45,13 @@ namespace msn2.net.Pictures.Controls
 
             UpdateControls();
 
-            this.pictureCategories.Clear();
             this.groups.Clear();
+            this.categoryList.Clear();
+            this.personList.Clear();
+
+            this.pictureGroups.Clear();
+            this.pictureCategories.Clear();
+            this.picturePeople.Clear();
         }
 
         public void AddPicture(PictureData picture)
@@ -65,6 +71,11 @@ namespace msn2.net.Pictures.Controls
             this.pictureGroups.Add(picture.Id, loadedGroups);
 
             this.UpdateGroups();
+
+            List<PersonInfo> loadedPeople = PicContext.Current.PictureManager.GetPicturePeople(picture.Id);
+            this.picturePeople.Add(picture.Id, loadedPeople);
+
+            this.UpdatePeople();
 
             UpdateControls();
         }
@@ -180,9 +191,7 @@ namespace msn2.net.Pictures.Controls
         #endregion
 
         #region Groups
-
-
-
+        
         private void UpdateGroups()
         {
             if (this.AllPicturesHaveSameGroups())
@@ -291,6 +300,117 @@ namespace msn2.net.Pictures.Controls
 
         #endregion
 
+        #region People
+
+        private void UpdatePeople()
+        {
+            if (this.AllPicturesHaveSamePeople())
+            {
+                this.personList.Visible = true;
+                this.differentPeopleLabel.Visible = false;
+                this.personList.Clear();
+
+                List<PersonInfo> firstPicturePersons = null;
+                foreach (List<PersonInfo> tempPersons in this.picturePeople.Values)
+                {
+                    firstPicturePersons = tempPersons;
+                    break;
+                }
+                if (firstPicturePersons != null)
+                {
+                    foreach (PersonInfo person in firstPicturePersons)
+                    {
+                        this.personList.Add(person);
+                    }
+                }
+            }
+            else
+            {
+                this.personList.Visible = false;
+                this.differentPeopleLabel.Visible = true;
+            }
+        }
+
+        private bool AllPicturesHaveSamePeople()
+        {
+            int count = 0;
+
+            foreach (List<PersonInfo> picturePersonInfos in this.picturePeople.Values)
+            {
+                if (count == 0)
+                {
+                    count = picturePersonInfos.Count;
+                }
+
+                if (picturePersonInfos.Count != count)
+                {
+                    return false;
+                }
+
+                // Check items against each other person collection
+                foreach (PersonInfo person in picturePersonInfos)
+                {
+                    // Make sure in all other picture person hash tables
+                    foreach (List<PersonInfo> tempPersons in this.picturePeople.Values)
+                    {
+                        bool found = false;
+                        foreach (PersonInfo tempPerson in tempPersons)
+                        {
+                            if (tempPerson.Id == person.Id)
+                            {
+                                found = true;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+            }
+
+            return true;
+        }
+
+        public void AddPerson(PersonInfo person)
+        {
+            if (!this.personList.Contains(person))
+            {
+                this.personList.Add(person);
+
+                foreach (List<PersonInfo> personPerson in this.picturePeople.Values)
+                {
+                    personPerson.Add(person);
+                }
+            }
+        }
+
+        public void RemovePerson(PersonInfo person)
+        {
+            this.personList.Remove(person);
+
+            foreach (List<PersonInfo> personPerson in this.picturePeople.Values)
+            {
+                personPerson.Remove(person);
+            }
+        }
+
+        public List<PersonInfo> GetCurrentPersons()
+        {
+            List<PersonInfo> personPerson = new List<PersonInfo>();
+
+            foreach (PersonLinkItem item in this.personList.Controls)
+            {
+                personPerson.Add(item.Person);
+            }
+
+            return personPerson;
+        }
+
+        #endregion
+
         public void RemovePicture(int pictureId)
         {
             pictures.Remove(pictureId);
@@ -300,9 +420,11 @@ namespace msn2.net.Pictures.Controls
             
             this.pictureCategories.Remove(pictureId);
             this.pictureGroups.Remove(pictureId);
+            this.picturePeople.Remove(pictureId);
 
             this.UpdateCategories();
             this.UpdateGroups();
+            this.UpdatePeople();
 
             UpdateControls();
         }
@@ -315,6 +437,7 @@ namespace msn2.net.Pictures.Controls
             labelDateTaken.ForeColor = labelColor;
             categoryLabel.ForeColor = labelColor;
             groupLabel.ForeColor = labelColor;
+            peopleLabel.ForeColor = labelColor;
         }
 
         private void title_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)
