@@ -11,30 +11,20 @@ namespace msn2.net.ShoppingList
 {
     public class ShoppingListService : IShoppingListService
     {
-        private homenet.Lists listsService;
+        private SLSDataDataContext dataContext;
 
         public ShoppingListService()
         {
-            this.listsService = new msn2.net.ShoppingList.homenet.Lists();
-            this.listsService.Credentials = new NetworkCredential("mc", "4362", "sp");
-            //this.listsService.Proxy = new WebProxy("http://192.168.1.1/");
+            this.dataContext = new SLSDataDataContext();
         }
 
         public List<string> GetStores()
         {
-            XmlNode list = this.listsService.GetList("Shopping List");
+            var q = from s in this.dataContext.Stores
+                    orderby s.SortOrder
+                    select s.Name;
 
-            XmlNode fieldsNode = list.ChildNodes[0];
-            XmlNode fieldNode = fieldsNode.ChildNodes[0];
-            XmlNode choicesNode = fieldNode.ChildNodes[1];
-
-            List<string> stores = new List<string>();
-            foreach (XmlNode choiceNode in choicesNode.ChildNodes)
-            {
-                stores.Add(choiceNode.InnerText);
-            }
-
-            return stores;
+            return q.ToList<string>();
         }
 
         public List<ShoppingListItem> GetShoppingListItems()
@@ -44,156 +34,54 @@ namespace msn2.net.ShoppingList
 
         public List<ShoppingListItem> GetShoppingListItemsForStore(string store)
         {
-            XmlDocument doc = new XmlDocument();
-
-            XmlNode query = doc.CreateElement("Query");
-            if (store != null)
-            {
-                query.InnerXml = "<Where><Eq><FieldRef Name='From' /><Value Type='Text'>" + store + "</Value></Eq></Where>";
-            }
-            else
-            {
-                query.InnerXml = string.Empty;
-            }
-
-            XmlNode viewFields = doc.CreateElement("ViewFields");
-            XmlNode field1 = doc.CreateElement("FieldRef");
-            AddAttribute(doc, field1, "Name", "Title");
-            viewFields.AppendChild(field1);
-            if (store == null)
-            {
-                XmlNode field2 = doc.CreateElement("FieldRef");
-                AddAttribute(doc, field2, "Name", "From");
-                viewFields.AppendChild(field2);
-            }
-
-            XmlNode queryNode = doc.CreateElement("QueryOptions");
-            queryNode.InnerXml = string.Empty;
-
-            XmlNode resultNode = this.listsService.GetListItems("Shopping List", "", query, viewFields, "100", queryNode, null);
+            var q = from si in this.dataContext.StoreItems
+                    where (store == null) || (si.Store.Name == store)
+                    orderby si.Name
+                    select si;
 
             List<ShoppingListItem> results = new List<ShoppingListItem>();
 
-            foreach (XmlNode dataNode in resultNode.ChildNodes)
+            foreach (var i in q)
             {
-                if (!(dataNode is XmlWhitespace))
-                {
-                    foreach (XmlNode rowNode in dataNode.ChildNodes)
-                    {
-                        if (!(rowNode is XmlWhitespace))
-                        {
-                            string title = rowNode.Attributes["ows_Title"].Value;
-                            int id = int.Parse(rowNode.Attributes["ows_ID"].Value);
-                            ShoppingListItem item = new ShoppingListItem();
-                            if (store == null)
-                            {
-                                string from = rowNode.Attributes["ows_From"].Value;
-                                item.Store = from;
-                            }
-                            else
-                            {
-                                item.Store = store;
-                            }
-                            item.ListItem = title;
-                            item.Id = id;
-                            results.Add(item);
-                        }
-                    }
-                }
-            }
+                ShoppingListItem item = new ShoppingListItem() { Id = i.Id, ListItem = i.Name, Store = i.Store.Name };
+                results.Add(item);
+            } 
 
             return results;
         }
 
-        public ShoppingListItem AddShoppingListItem(string store, string listItem)
+        public ShoppingListItem AddShoppingListItem(string storeName, string listItem)
         {
-            ShoppingListItem item = new ShoppingListItem();
-            item.Store = store;
-            item.ListItem = listItem;
+            Store store = (from s in this.dataContext.Stores
+                          where s.Name == storeName
+                          select s).First<Store>();
 
-            XmlDocument doc = new XmlDocument();
-            XmlNode batchNode = doc.CreateElement("Batch");
+            StoreItem item = new StoreItem() { Name = listItem, Store = store };
+            
+            this.dataContext.StoreItems.InsertOnSubmit(item);
+            this.dataContext.SubmitChanges();
 
-            XmlNode methodNode = doc.CreateElement("Method");
-            AddAttribute(doc, methodNode, "Cmd", "New");
-            AddAttribute(doc, methodNode, "ID", "1");
-            batchNode.AppendChild(methodNode);
-
-            XmlNode field1Node = doc.CreateElement("Field");
-            AddAttribute(doc, field1Node, "Name", "Title");
-            field1Node.InnerText = item.ListItem;
-            methodNode.AppendChild(field1Node);
-
-            XmlNode field2Node = doc.CreateElement("Field");
-            AddAttribute(doc, field2Node, "Name", "From");
-            field2Node.InnerText = item.Store;
-            methodNode.AppendChild(field2Node);
-
-            XmlNode resultNode = this.listsService.UpdateListItems("Shopping List", batchNode);
-
-            foreach (XmlNode childNode in resultNode.ChildNodes)
-            {
-                if (childNode.LocalName == "Result")
-                {
-                    foreach (XmlNode rowNode in childNode.ChildNodes)
-                    {
-                        if (rowNode.LocalName == "row")
-                        {
-                            item.Id = int.Parse(rowNode.Attributes["ows_ID"].Value);
-                            break;
-                        }
-                    }
-
-                }
-            }
-
-            return item;
+            return new ShoppingListItem { Id = item.Id, ListItem = item.Name, Store = item.Store.Name };
         }
 
         public void UpdateShoppingListItem(ShoppingListItem listItem)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode batchNode = doc.CreateElement("Batch");
+            StoreItem item = (from si in this.dataContext.StoreItems
+                             where si.Id == listItem.Id
+                             select si).First<StoreItem>();
 
-            XmlNode methodNode = doc.CreateElement("Method");
-            AddAttribute(doc, methodNode, "Cmd", "Update");
-            AddAttribute(doc, methodNode, "ID", "1");
-            batchNode.AppendChild(methodNode);
-
-            XmlNode field0Node = doc.CreateElement("Field");
-            AddAttribute(doc, field0Node, "Name", "ID");
-            field0Node.InnerText = listItem.Id.ToString();
-            methodNode.AppendChild(field0Node);
-
-            XmlNode field1Node = doc.CreateElement("Field");
-            AddAttribute(doc, field1Node, "Name", "Title");
-            field1Node.InnerText = listItem.ListItem;
-            methodNode.AppendChild(field1Node);
-
-            XmlNode field2Node = doc.CreateElement("Field");
-            AddAttribute(doc, field2Node, "Name", "From");
-            field2Node.InnerText = listItem.Store;
-            methodNode.AppendChild(field2Node);
-
-            this.listsService.UpdateListItems("Shopping List", batchNode);
+            item.Name = listItem.ListItem;
+            this.dataContext.SubmitChanges();
         }
 
         public void DeleteShoppingListItem(ShoppingListItem listItem)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode batchNode = doc.CreateElement("Batch");
+            StoreItem item = (from si in this.dataContext.StoreItems
+                              where si.Id == listItem.Id
+                              select si).First<StoreItem>();
 
-            XmlNode methodNode = doc.CreateElement("Method");
-            AddAttribute(doc, methodNode, "Cmd", "Delete");
-            AddAttribute(doc, methodNode, "ID", "1");
-            batchNode.AppendChild(methodNode);
-
-            XmlNode field1Node = doc.CreateElement("Field");
-            AddAttribute(doc, field1Node, "Name", "ID");
-            field1Node.InnerText = listItem.Id.ToString();
-            methodNode.AppendChild(field1Node);
-
-            this.listsService.UpdateListItems("Shopping List", batchNode);
+            this.dataContext.StoreItems.DeleteOnSubmit(item);
+            this.dataContext.SubmitChanges();
         }
 
         private void AddAttribute(XmlDocument doc, XmlNode node, string name, string val)

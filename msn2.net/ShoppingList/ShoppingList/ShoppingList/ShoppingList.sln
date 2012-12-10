@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList", "ShoppingList.csproj", "{FC3B1513-DEC5-4892-A619-955E5A11D9C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebService", "..\TestWebService\TestWebService.csproj", "{33106931-14D2-450A-82EF-DCB9422DE47F}"
-EndProject
 Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "ShoppingListCab", "..\ShoppingListCab\ShoppingListCab.vddproj", "{96F207AA-AEC6-4A00-B2CC-932E893844A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListApp", "..\ShoppingListApp\ShoppingListApp.csproj", "{0D18FDFB-BD2B-42B9-B83B-6813FDE23C3F}"
@@ -40,7 +38,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ShoppingListWebsite", "..\S
 EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 7
 		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
 		SccLocalPath0 = ..
 		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
@@ -51,23 +49,20 @@ Global
 		SccProjectUniqueName2 = ..\\ShoppingListCab\\ShoppingListCab.vddproj
 		SccLocalPath2 = ..
 		SccProjectFilePathRelativizedFromConnection2 = ShoppingListCab\\
-		SccProjectUniqueName3 = ..\\TestWebService\\TestWebService.csproj
+		SccProjectUniqueName3 = ..\\ShoppingListApp\\ShoppingListApp.csproj
 		SccLocalPath3 = ..
-		SccProjectFilePathRelativizedFromConnection3 = TestWebService\\
-		SccProjectUniqueName4 = ..\\ShoppingListApp\\ShoppingListApp.csproj
+		SccProjectFilePathRelativizedFromConnection3 = ShoppingListApp\\
+		SccProjectUniqueName4 = ..\\ShoppingListService\\ShoppingListService.csproj
 		SccLocalPath4 = ..
-		SccProjectFilePathRelativizedFromConnection4 = ShoppingListApp\\
-		SccProjectUniqueName5 = ..\\ShoppingListService\\ShoppingListService.csproj
+		SccProjectFilePathRelativizedFromConnection4 = ShoppingListService\\
+		SccProjectUniqueName5 = ..\\ShoppingListTray\\ShoppingListTray.csproj
 		SccLocalPath5 = ..
-		SccProjectFilePathRelativizedFromConnection5 = ShoppingListService\\
-		SccProjectUniqueName6 = ..\\ShoppingListTray\\ShoppingListTray.csproj
+		SccProjectFilePathRelativizedFromConnection5 = ShoppingListTray\\
+		SccWebProject6 = true
+		SccProjectUniqueName6 = ..\\ShoppingListWebsite
 		SccLocalPath6 = ..
-		SccProjectFilePathRelativizedFromConnection6 = ShoppingListTray\\
-		SccWebProject7 = true
-		SccProjectUniqueName7 = ..\\ShoppingListWebsite
-		SccLocalPath7 = ..
-		SccProjectFilePathRelativizedFromConnection7 = ShoppingListWebsite\\
-		SccProjectEnlistmentChoice7 = 2
+		SccProjectFilePathRelativizedFromConnection6 = ShoppingListWebsite\\
+		SccProjectEnlistmentChoice6 = 2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -118,28 +113,6 @@ Global
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugMobileOnly|.NET.ActiveCfg = DebugMobileOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugMobileOnly|Any CPU.ActiveCfg = DebugMobileOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugMobileOnly|Mixed Platforms.ActiveCfg = DebugMobileOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugMobileOnly|Mixed Platforms.Build.0 = DebugMobileOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugSite|.NET.ActiveCfg = DebugSite|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugSite|Any CPU.ActiveCfg = DebugSite|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugSite|Any CPU.Build.0 = DebugSite|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugSite|Mixed Platforms.ActiveCfg = DebugSite|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugTrayOnly|.NET.ActiveCfg = DebugTrayOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugTrayOnly|Any CPU.ActiveCfg = DebugTrayOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugTrayOnly|Mixed Platforms.ActiveCfg = DebugTrayOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.DebugTrayOnly|Mixed Platforms.Build.0 = DebugTrayOnly|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|.NET.ActiveCfg = Release|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Debug|.NET.ActiveCfg = DebugTrayOnly
 		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Debug|.NET.Build.0 = DebugTrayOnly
 		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Debug|Any CPU.ActiveCfg = Debug
