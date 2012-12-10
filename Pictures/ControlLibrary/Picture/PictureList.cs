@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace msn2.net.Pictures.Controls
 {
-    public partial class PictureList : UserControl
+    public partial class PictureList : UserControl, IPictureList
     {
         private List<int> selectedItems;
         private int imageSize = 100;

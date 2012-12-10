@@ -599,7 +599,7 @@ namespace msn2.net.Pictures.Controls
             }
 
             // close dialog
-            //this.stat.Invoke(new MethodInvoker(CloseStatus));
+            this.CloseStatus();
         }
 
         private void CloseStatus()
@@ -610,7 +610,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
-                stat.Close();
+                this.stat.Close();
             }
         }
 

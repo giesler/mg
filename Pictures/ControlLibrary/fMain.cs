@@ -14,6 +14,7 @@ using System.Xml;
 using System.Windows.Media.Imaging;
 using System.Drawing.Imaging;
 using System.Collections.Specialized;
+using System.Windows.Forms.Integration;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -79,7 +80,7 @@ namespace msn2.net.Pictures.Controls
         SplitContainer mainSplitContainer;
         SplitContainer rightListContainer;
         Panel panel1;
-        PictureList pictureList1;
+        IPictureList pictureList1;
         SelectedPicturePanel selectedPictures;
         MenuItem menuRandomSlideshow;
         ToolStripSeparator toolStripSeparator1;
@@ -120,6 +121,34 @@ namespace msn2.net.Pictures.Controls
             //
             InitializeComponent();
 
+            this.Left = PictureControlSettings.GetSafeLeft(this, this.settings.Main_Last_Left);
+            this.Top = PictureControlSettings.GetSafeTop(this, this.settings.Main_Last_Top);
+            this.WindowState = this.settings.Main_Last_WindowState;
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("%WinFormList%")))
+            {
+                PictureList list = new msn2.net.Pictures.Controls.PictureList();
+                this.pictureList1 = list;
+                list.BackColor = System.Drawing.Color.White;
+                list.Dock = System.Windows.Forms.DockStyle.Fill;
+                list.TabIndex = 0;
+                this.rightListContainer.Panel1.Controls.Add(list);
+            }
+            else
+            {
+                PictureDisplayList list = new PictureDisplayList();
+                this.pictureList1 = list;
+
+                ElementHost host = new ElementHost();
+                host.Dock = DockStyle.Fill;
+                host.Child = list;
+                this.rightListContainer.Panel1.Controls.Add(host);
+            }
+
+            this.pictureList1.SelectedChanged += new msn2.net.Pictures.Controls.PictureItemEventHandler(this.pictureList1_SelectedChanged);
+            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
+            this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
+                        
             // Login
             PictureConfig config = PictureConfig.Load();
             bool loginResult = PicContext.LoginWindowsUser(config);
@@ -147,7 +176,7 @@ namespace msn2.net.Pictures.Controls
             }
             this.filter.Load(PicContext.Current, category);
 
-            pictureList1.ContextMenu = mnuPictureList;
+            // TODO: pictureList1.ContextMenu = mnuPictureList;
 
             pictureList1.SelectedChanged += new PictureItemEventHandler(pictureList1_SelectedChanged);
             pictureList1.ItemSelected += new PictureItemEventHandler(pictureList1_ItemSelected);
@@ -291,16 +320,17 @@ namespace msn2.net.Pictures.Controls
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.filter = new msn2.net.Pictures.Controls.PictureFilterTreeView();
             this.rightListContainer = new System.Windows.Forms.SplitContainer();
-            this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closePanel = new System.Windows.Forms.Button();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rightListContainer)).BeginInit();
             this.rightListContainer.Panel1.SuspendLayout();
             this.rightListContainer.Panel2.SuspendLayout();
             this.rightListContainer.SuspendLayout();
@@ -716,10 +746,6 @@ namespace msn2.net.Pictures.Controls
             this.rightListContainer.Name = "rightListContainer";
             this.rightListContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // rightListContainer.Panel1
-            // 
-            this.rightListContainer.Panel1.Controls.Add(this.pictureList1);
-            // 
             // rightListContainer.Panel2
             // 
             this.rightListContainer.Panel2.Controls.Add(this.panel1);
@@ -728,19 +754,6 @@ namespace msn2.net.Pictures.Controls
             this.rightListContainer.SplitterDistance = 91;
             this.rightListContainer.TabIndex = 16;
             this.rightListContainer.Text = "splitContainer1";
-            // 
-            // pictureList1
-            // 
-            this.pictureList1.BackColor = System.Drawing.Color.White;
-            this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureList1.Location = new System.Drawing.Point(0, 0);
-            this.pictureList1.Name = "pictureList1";
-            this.pictureList1.SelectedItems = ((System.Collections.Generic.List<int>)(resources.GetObject("pictureList1.SelectedItems")));
-            this.pictureList1.Size = new System.Drawing.Size(847, 91);
-            this.pictureList1.TabIndex = 0;
-            this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
-            this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
-            this.pictureList1.SelectedChanged += new msn2.net.Pictures.Controls.PictureItemEventHandler(this.pictureList1_SelectedChanged);
             // 
             // panel1
             // 
@@ -791,9 +804,11 @@ namespace msn2.net.Pictures.Controls
             this.toolStrip1.PerformLayout();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
             this.rightListContainer.Panel1.ResumeLayout(false);
             this.rightListContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rightListContainer)).EndInit();
             this.rightListContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -836,6 +851,10 @@ namespace msn2.net.Pictures.Controls
             {
                 settings.Filter_Category = 0;
             }
+
+            settings.Main_Last_Left = this.Left;
+            settings.Main_Last_Top = this.Top;
+            settings.Main_Last_WindowState = this.WindowState;
 
             settings.Save();
         }
@@ -1001,7 +1020,7 @@ namespace msn2.net.Pictures.Controls
                     MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     cacheStatus = new fStatus(this, "Starting process...", 0);
-                    cacheStatus.Show(this);
+                    cacheStatus.Show();
 
                     Thread t = new Thread(new ThreadStart(ProcessCache));
                     t.Start();
@@ -1071,15 +1090,32 @@ namespace msn2.net.Pictures.Controls
                 cacheStatus.Current = index;
             }
 
-            if (cacheStatus.InvokeRequired)
+            cacheStatus.StatusText = "Creating missing cache items...";
+            List<Picture> pics = PicContext.Current.PictureManager.GetPictures().ToList();
+            cacheStatus.Max = pics.Count;
+            cacheStatus.Current = 0;
+
+            foreach (Picture picture in pics)
             {
-                cacheStatus.BeginInvoke(new MethodInvoker(cacheStatus.Close));
+                PicContext.Current.PictureManager.GetPictureImage(picture, 125, 125);
+                PicContext.Current.PictureManager.GetPictureImage(picture, 750, 700);
+                cacheStatus.Current++;                
+            }
+
+            this.CloseStatus(cacheStatus);
+        }
+
+        void CloseStatus(object sender)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new WaitCallback(this.CloseStatus), sender);
             }
             else
             {
-                cacheStatus.Close();
+                Form f = (Form)sender;
+                f.Close();
             }
-
         }
 
         void menuItem5_Click(object sender, System.EventArgs e)
@@ -1271,10 +1307,13 @@ namespace msn2.net.Pictures.Controls
                 this.settings,
                 new msn2.net.Pictures.Controls.Slideshow.GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
                 new msn2.net.Pictures.Controls.Slideshow.GetNextItemIdDelegate(pictureList1.GetNextPicture));
+            ss.FormClosed += new FormClosedEventHandler(OnPictureFormClosed);
             ss.SetPicture(e.Picture);
             ss.SetSourceForm(this);
             ss.Show();
-
+            
+            this.Visible = false;
+            
             //            fPicture f = new fPicture();
             //            f.NavigationControlsDataQuery = currentListViewQuery;
             //
@@ -1283,6 +1322,11 @@ namespace msn2.net.Pictures.Controls
             //            // Load the selected picture
             //            f.LoadPicture(pictureId);
             //            f.Show();
+        }
+
+        void OnPictureFormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Visible = true;
         }
 
         void pictureList1_SelectedChanged(object sender, PictureItemEventArgs e)

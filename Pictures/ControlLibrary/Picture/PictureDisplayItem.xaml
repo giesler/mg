@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="msn2.net.Pictures.Controls.PictureDisplayItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="281*" />
+            <ColumnDefinition Width="5" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="283*" />
+            <RowDefinition Height="5" />
+        </Grid.RowDefinitions>
+        <Image HorizontalAlignment="Center" Name="picImageSmall" Stretch="Uniform" VerticalAlignment="Center" Margin="0" Grid.Row="1" Grid.Column="1">
+            <Image.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="3" Softness="1" Opacity="0.5" x:Name="dropEffect" />
+            </Image.BitmapEffect>
+        </Image>
+        <Image HorizontalAlignment="Center" Name="picImageMedium" Stretch="Uniform" VerticalAlignment="Center" Margin="0" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+            <Image.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="3" Softness="1" Opacity="0.5" />
+            </Image.BitmapEffect>
+        </Image>
+        <Image HorizontalAlignment="Center" Name="picImageFull" Stretch="Uniform" VerticalAlignment="Center" Margin="0" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+            <Image.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Direction="320" ShadowDepth="3" Softness="1" Opacity="0.5" />
+            </Image.BitmapEffect>
+        </Image>
+        <Image Height="56" HorizontalAlignment="Left" Margin="97,107,0,120" Name="loadingImage" Stretch="Uniform"  VerticalAlignment="Center" Width="76" Grid.Column="1" Grid.Row="1" />
+    </Grid>
+</UserControl>

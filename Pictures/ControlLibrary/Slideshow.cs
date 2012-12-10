@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.Win32;
+using System.Windows.Forms.Integration;
 
 #endregion
 
@@ -18,7 +19,7 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class Slideshow : Form
     {
-        private PictureItem item;
+        private PictureDisplayItem item;
         protected GetPreviousItemIdDelegate getPreviousId;
         protected GetNextItemIdDelegate getNextId;
         private Picture picture;
@@ -49,14 +50,15 @@ namespace msn2.net.Pictures.Controls
 
             this.KeyPreview = true;
 
-            item = new PictureItem(picture);
+            item = new PictureDisplayItem();
+            item.SetPicture(picture);
             item.DrawShadow = false;
             item.DrawBorder = false;
-            item.PaintBackground = false;
-            item.PaintFullControlArea = false;
-            item.Dock = DockStyle.Fill;
-            item.Padding = new Padding(0);
-            this.Controls.Add(item);
+
+            ElementHost host = new ElementHost();
+            host.Dock = DockStyle.Fill;
+            host.Child = item;
+            this.Controls.Add(host);
 
             this.toolStip.ImageScalingSize = new Size(32, 32);
         }
@@ -310,7 +312,7 @@ namespace msn2.net.Pictures.Controls
 
             if (null != getPreviousId)
             {
-                Picture previousItem = getPreviousId(item.PictureId);
+                Picture previousItem = getPreviousId(item.Picture.Id);
 
                 if (previousItem != null)
                 {
@@ -370,7 +372,7 @@ namespace msn2.net.Pictures.Controls
 
         protected void Next()
         {
-            Picture picture = getNextId(item.PictureId);
+            Picture picture = getNextId(item.Picture.Id);
             if (picture != null)
             {
                 SetPicture(picture);
@@ -380,7 +382,7 @@ namespace msn2.net.Pictures.Controls
 
         protected void Previous()
         {
-            Picture picture = getPreviousId(item.PictureId);
+            Picture picture = getPreviousId(item.Picture.Id);
             if (picture != null)
             {
                 SetPicture(picture);
@@ -659,7 +661,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        protected PictureItem PictureItem
+        protected PictureDisplayItem PictureItem
         {
             get
             {
@@ -856,7 +858,7 @@ namespace msn2.net.Pictures.Controls
 
             if (System.IO.File.Exists(path) == true)
             {
-                string editCommand = Registry.GetValue(@"HKEY_CLASSES_ROOT\jpegfile\shell\edit\command", null, "iexplore.exe").ToString();
+                string editCommand = Registry.GetValue(@"HKEY_CLASSES_ROOT\jpegfile\shell\open\command", null, "iexplore.exe").ToString();
 
                 Process p = new Process();
                 if (editCommand.IndexOf("%1") > 0)

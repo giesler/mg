@@ -29,7 +29,7 @@
     <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
@@ -237,11 +237,18 @@
     <Compile Include="PictureFilterTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Picture\IPictureList.cs" />
     <Compile Include="Picture\PictureDetails.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Picture\PictureDetails.Designer.cs">
       <DependentUpon>PictureDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Picture\PictureDisplayItem.xaml.cs">
+      <DependentUpon>PictureDisplayItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Picture\PictureDisplayList.xaml.cs">
+      <DependentUpon>PictureDisplayList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Picture\PictureListView.cs">
       <SubType>Component</SubType>
@@ -528,6 +535,8 @@
     <EmbeddedResource Include="Resources\calendar.ico" />
     <EmbeddedResource Include="Resources\refresh.ico" />
     <EmbeddedResource Include="Resources\error.ico" />
+    <Resource Include="Resources\refreshwpf.ico" />
+    <Resource Include="Resources\errorwpf.ico" />
     <Content Include="Resources\FOLDER02.ICO" />
     <None Include="Resources\up.gif" />
     <None Include="Resources\user.bmp" />
@@ -569,6 +578,16 @@
       <Project>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</Project>
       <Name>Api</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Picture\PictureDisplayItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Picture\PictureDisplayList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

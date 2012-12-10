@@ -84,7 +84,7 @@ namespace msn2.net.Pictures.Controls
                     base.Previous();
                     break;
                 case Keys.I:
-                    this.PictureItem.DisplayPictureInfo = !this.PictureItem.DisplayPictureInfo;
+                    // TODO: this.PictureItem.DisplayPictureInfo = !this.PictureItem.DisplayPictureInfo;
                     this.Invalidate();
                     break;
                 default:
@@ -108,7 +108,7 @@ namespace msn2.net.Pictures.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.PictureItem.PaintPicture(e);
+            //base.PictureItem.PaintPicture(e);
 
             //Point debugLocation = new Point(10, this.Height - 30);
             //string debugMessage = string.Format(

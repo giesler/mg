@@ -7,6 +7,8 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Diagnostics;
+using System.Threading;
+using System.Windows.Media.Imaging;
 
 #endregion
 
@@ -42,63 +44,44 @@ namespace msn2.net.Pictures
             return targetFile;
         }
 
+        static HashSet<string> LoadingImages = new HashSet<string>();
+        static object loadingImagesLock = new object();
+
         public Image GetImage(Picture picture, int maxWidth, int maxHeight)
+        {
+            string targetFile = this.GetImagePath(picture, maxWidth, maxHeight);
+            Image image = Image.FromFile(targetFile);
+            return image;
+        }
+
+        public string GetImagePath(Picture picture, int maxWidth, int maxHeight)
         {
             string cacheName = this.GetCacheName(picture.Id, maxWidth, maxHeight);
             string sourceFile = this.context.Config.PictureDirectory + picture.Filename;
             string targetFile = this.context.Config.CacheDirectory + cacheName;
 
-            // Make sure target dir exists
-            string targetPath = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));
-            if (!Directory.Exists(targetPath))
+            try
             {
-                Directory.CreateDirectory(targetPath);
-            }
-
-            // Check if file is already cached but old
-            if (File.Exists(targetFile))
-            {
-                if (File.GetLastWriteTime(sourceFile) > File.GetLastWriteTime(targetFile))
+                // Make sure target dir exists
+                string targetPath = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));
+                if (!Directory.Exists(targetPath))
                 {
-                    try
-                    {
-                        File.Delete(targetFile);
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.WriteLine("Failed to delete " + targetFile + ": " + ex.ToString());
-                    }
+                    Directory.CreateDirectory(targetPath);
                 }
-            }
 
-            // Create file if needed
-            if (!File.Exists(targetFile))
-            {
-                // load the current file
-                using (Image img = Image.FromFile(sourceFile))
+                while (LoadingImages.Contains(targetFile) == true && LoadingImages.Contains(targetFile.ToLower()) == false)
                 {
-                    // read the current height and width
-                    int newWidth = img.Width;
-                    int newHeight = img.Height;
+                    Thread.Sleep(100);
+                }
 
-                    // see if image is wider then we want, if so resize
-                    if (newWidth > maxWidth)
-                    {
-                        newWidth = maxWidth;
-                        newHeight = (int)((float)img.Height * ((float)newWidth / (float)img.Width));
-                    }
+                lock (loadingImagesLock)
+                {
+                    LoadingImages.Add(targetFile.ToLower());
 
-                    // see if image height is greater then we want, if so, resize
-                    if (newHeight > maxHeight)
+                    // Check if file is already cached but old
+                    if (File.Exists(targetFile))
                     {
-                        newWidth = (int)((float)newWidth * ((float)maxHeight / (float)newHeight));
-                        newHeight = maxHeight;
-                    }
-
-                    // if new width and height aren't the same as the image, resize, createing a new image, then save
-                    if (newWidth != img.Width || newHeight != img.Height)
-                    {
-                        if (File.Exists(targetFile))
+                        if (File.GetLastWriteTime(sourceFile) > File.GetLastWriteTime(targetFile))
                         {
                             try
                             {
@@ -106,25 +89,115 @@ namespace msn2.net.Pictures
                             }
                             catch (Exception ex)
                             {
-                                Trace.WriteLine(ex.ToString());
+                                Trace.WriteLine("Failed to delete " + targetFile + ": " + ex.ToString());
                             }
                         }
-                        using (Bitmap bmp = new Bitmap(img, newWidth, newHeight))
+                    }
+
+                    // Create file if needed
+                    if (!File.Exists(targetFile))
+                    {
+                        // load the current file
+                        using (Image img = Image.FromFile(sourceFile))
                         {
-                            bmp.Save(targetFile, ImageFormat.Jpeg);
+                            // read the current height and width
+                            int newWidth = img.Width;
+                            int newHeight = img.Height;
+
+                            // see if image is wider then we want, if so resize
+                            if (newWidth > maxWidth)
+                            {
+                                newWidth = maxWidth;
+                                newHeight = (int)((float)img.Height * ((float)newWidth / (float)img.Width));
+                            }
+
+                            // see if image height is greater then we want, if so, resize
+                            if (newHeight > maxHeight)
+                            {
+                                newWidth = (int)((float)newWidth * ((float)maxHeight / (float)newHeight));
+                                newHeight = maxHeight;
+                            }
+
+                            // if new width and height aren't the same as the image, resize, createing a new image, then save
+                            if (newWidth != img.Width || newHeight != img.Height)
+                            {
+                                int count = 0;
+
+                                while (true)
+                                {
+                                    count++;
+
+                                    try
+                                    {
+                                        if (File.Exists(targetFile))
+                                        {
+                                            File.Delete(targetFile);
+                                        }
+                                        break;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Trace.WriteLine(ex.ToString());
+
+                                        if (count > 5)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Thread.Sleep(1000);
+                                        }
+                                    }
+                                }
+
+                                count = 0;
+
+                                while (true)
+                                {
+                                    count++;
+
+                                    try
+                                    {
+                                        using (Bitmap bmp = new Bitmap(img, newWidth, newHeight))
+                                        {
+                                            bmp.Save(targetFile, ImageFormat.Jpeg);
+                                        }
+                                        break;
+                                    }
+                                    catch (Exception)
+                                    {
+                                        if (count > 5)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Thread.Sleep(1000);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // simply output the file as it is, since it is already an okay size
+                                img.Save(targetFile, ImageFormat.Jpeg);
+                            }
                         }
                     }
-                    else
+                }
+            }
+            finally
+            {
+                lock (loadingImagesLock)
+                {
+                    if (LoadingImages.Contains(targetFile.ToLower()))
                     {
-                        // simply output the file as it is, since it is already an okay size
-                        img.Save(targetFile, ImageFormat.Jpeg);
+                        LoadingImages.Remove(targetFile.ToLower());
                     }
                 }
             }
 
-            // Read the targetFile and return
-            Image image = Image.FromFile(targetFile);
-            return image;
+            return targetFile;
         }
 
         private string GetCacheName(int pictureId, int maxWidth, int maxHeight)

@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Linq;
+using System.Diagnostics;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -106,7 +107,7 @@ namespace msn2.net.Pictures.Controls
                     Category rootCategory = this.picContext.CategoryManager.GetRootCategory();
 
                     // load first level
-                    FillChildren(rootCategory, this.categoryNode, 1);
+                    this.StartFillChildren(rootCategory, this.categoryNode, 1);
 
                     // Expand root node
                     if (noSelectPath == true)
@@ -129,32 +130,35 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        void FillChildren(Category parentCategory, TreeNode n, int intLevelsToGo)
+        void FillChildren(object sender)
         {
+            FillChildrenArgs args = (FillChildrenArgs)sender;
+
+            Trace.WriteLine("FillChildren: " + args.ParentCategory.Path);
+            
             // clear out all child nodes
             this.Invoke(new TreeNodeHandler(
                 delegate(TreeNode node)
                 {
                     node.Nodes.Clear();
                 }),
-                new object[] { n });
+                new object[] { args.Node });
 
             // load child nodes from dvCategory
             List<Category> categories = null;
-            categories = this.picContext.Clone().CategoryManager.GetChildrenCategories(
-                parentCategory.Id);
+            categories = this.picContext.Clone().CategoryManager.GetChildrenCategories(args.ParentCategory.Id);
 
             foreach (Category category in categories)
             {
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
                 childNode.ContextMenu = this.categoryContextMenu;
-                this.AddTreeNode(n, childNode);
+                this.AddTreeNode(args.Node, childNode);
 
                 bool inSelectPath = this.selectPath != null && this.selectPath.StartsWith(category.Path);
 
-                if (intLevelsToGo > 0 || inSelectPath)
+                if (args.LevelsToGo > 0 || inSelectPath)
                 {
-                    this.FillChildren(category, childNode, intLevelsToGo - 1);
+                    this.StartFillChildren(category, childNode, args.LevelsToGo - 1);
                 }
                 else
                 {
@@ -162,12 +166,28 @@ namespace msn2.net.Pictures.Controls
                     this.AddTreeNode(childNode, new LoadingTreeNode());
                 }
 
-                if (this.selectPath != null && category.Path == this.selectPath)
+                if (this.selectPath != null && (category.Path == this.selectPath || this.selectPath.StartsWith(category.Path)))
                 {
-                    this.selectPath = null;
+                    if (category.Path == this.selectPath)
+                    {
+                        this.selectPath = null;
+                    }
                     this.SelectAndExpandToNode(childNode);
                 }
             }
+        }
+
+        void StartFillChildren(Category parentCategory, TreeNode n, int levelsToGo)
+        {            
+            FillChildrenArgs args = new FillChildrenArgs { ParentCategory = parentCategory, Node = n, LevelsToGo = levelsToGo };
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.FillChildren), args);
+        }
+
+        struct FillChildrenArgs
+        {
+            public Category ParentCategory;
+            public TreeNode Node;
+            public int LevelsToGo;
         }
 
         void SelectAndExpandToNode(TreeNode node)
@@ -212,10 +232,10 @@ namespace msn2.net.Pictures.Controls
         {
             if (node.Nodes.Count == 1 && node.Nodes[0].Text == "<to load>")
             {
-                FillChildren(node.Category, node, 2);
+                this.StartFillChildren(node.Category, node, 2);
             }
         }
-
+        
         void OnCategoryAdd(object sender, EventArgs e)
         {
             TreeNode selectedNode = this.SelectedNode;
@@ -455,7 +475,7 @@ namespace msn2.net.Pictures.Controls
                 foreach (TreeNode childNode in node.Nodes)
                 {
                     CategoryTreeNode catNode = childNode as CategoryTreeNode;
-                    if (childNode != null)
+                    if (catNode != null)
                     {
                         ValidateChildrenLoaded(catNode);
                     }

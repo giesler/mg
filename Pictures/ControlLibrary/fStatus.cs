@@ -40,7 +40,6 @@ namespace msn2.net.Pictures.Controls
 
 			this.StatusText = status;
 			this.Max = max;
-			this.Refresh();
 
 			if (max <= 0) 
 				progressBar1.Visible = false;
@@ -54,8 +53,6 @@ namespace msn2.net.Pictures.Controls
 
             this.StatusText = status;
 			this.Max = max;
-			this.Show();
-			this.Refresh();
 
 			if (centerOn != null) 
 			{
@@ -148,11 +145,6 @@ namespace msn2.net.Pictures.Controls
 
             progressBar1.Value = current;
             Refresh();
-
-            if (current == this.progressBar1.Maximum)
-            {
-                this.Close();
-            }
         }
 
         public String StatusText 

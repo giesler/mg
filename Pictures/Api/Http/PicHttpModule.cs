@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Configuration;
 
 namespace msn2.net.Pictures
 {
@@ -52,6 +53,11 @@ namespace msn2.net.Pictures
                     HttpContext.Current.Trace.Write("Trying NT login...");
                     PicContext.Current.SetCurrentUser(GetPersonByWindowsLogin(userName));
                 }
+            }
+            
+            if (ConfigurationManager.AppSettings["PictureAutoLogin"] != null && PicContext.Current.CurrentUser == null)
+            {
+                PicContext.Current.SetCurrentUser(GetPersonById(1));
             }
         }
 
@@ -109,7 +115,7 @@ namespace msn2.net.Pictures
                 personInfo = PicContext.Current.UserManager.GetPerson(personId);
             }
 
-            if (httpContext != null)
+            if (httpContext != null && personInfo != null)
             {
                 httpContext.Cache.Add(
                     cacheKey,

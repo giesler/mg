@@ -325,16 +325,26 @@ namespace msn2.net.Pictures.Controls
 
         public static int GetSafeLeft(Form form, int suggestedLeft)
         {
-            Rectangle formRectange = Screen.FromControl(form).WorkingArea;
+            bool found = false;
 
-            if (suggestedLeft < formRectange.Left)
+            foreach (Screen screen in Screen.AllScreens)
             {
-                return 20;
+                Rectangle formRectange = screen.WorkingArea;
+
+                if (suggestedLeft >= screen.Bounds.Left && form.Right < suggestedLeft + form.Width)
+                {
+                    found = true;
+                }
             }
 
-            if (suggestedLeft > formRectange.Right - form.Width - 20)
+            if (!found)
             {
-                return formRectange.Right - form.Width - 20;
+                suggestedLeft = 20;
+            }
+
+            if (suggestedLeft > form.Right - form.Width - 20)
+            {
+                return form.Right - form.Width - 20;
             }
 
             return suggestedLeft;
@@ -357,5 +367,46 @@ namespace msn2.net.Pictures.Controls
             return suggestedTop;
         }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("")]
+        public int Main_Last_Left
+        {
+            get
+            {
+                return (int)this["Main_Last_Left"];
+            }
+            set
+            {
+                this["Main_Last_Left"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("")]
+        public int Main_Last_Top
+        {
+            get
+            {
+                return (int)this["Main_Last_Top"];
+            }
+            set
+            {
+                this["Main_Last_Top"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("")]
+        public FormWindowState Main_Last_WindowState
+        {
+            get
+            {
+                return (FormWindowState)this["Main_Last_WindowState"];
+            }
+            set
+            {
+                this["Main_Last_WindowState"] = value;
+            }
+        }
     }
 }

@@ -60,6 +60,11 @@ namespace msn2.net.Pictures.Controls
             tvCategory.Nodes.Clear();
 
             this.loading = true;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             ThreadPool.QueueUserWorkItem(
                 new WaitCallback(this.RefreshTreeThread),
@@ -365,31 +370,51 @@ namespace msn2.net.Pictures.Controls
         private void ValidateChildrenLoaded(CategoryTreeNode node)
         {
             if (node.Nodes.Count == 1 && node.Nodes[0].Text == "<to load>")
+            {
                 FillChildren(node, 2);
+            }
         }
 
         private delegate void ClearChildrenNodesDelegate(CategoryTreeNode node);
 
-		private void FillChildren(CategoryTreeNode n, int intLevelsToGo) 
-		{
-			// clear out all child nodes
-            ClearChildrenNodesDelegate clearDelegate = delegate(CategoryTreeNode node)
+        private void FillChildren(CategoryTreeNode n, int intLevelsToGo)
+        {
+            if (!n.IsLoadingChildren)
             {
-                node.Nodes.Clear();
-            };
-            this.Invoke(clearDelegate, new object[] { n });
+                // clear out all child nodes
+                ClearChildrenNodesDelegate clearDelegate = delegate(CategoryTreeNode node)
+                {
+                    node.Nodes.Clear();
+                };
+                this.Invoke(clearDelegate, new object[] { n });
+
+                n.IsLoadingChildren = true;
+
+                LoadNodeArgs args = new LoadNodeArgs { Node = n, LevelsToGo = intLevelsToGo };
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadChildrenNodes), args);
+            }
+        }
+
+        struct LoadNodeArgs
+        {
+            public CategoryTreeNode Node;
+            public int LevelsToGo;
+        }
+
+        void LoadChildrenNodes(object sender)
+        {
+            LoadNodeArgs args = (LoadNodeArgs)sender;
             
-			// load child nodes from dvCategory
             List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(
-                n.Category.Id);
+                args.Node.Category.Id);
 
-			foreach (Category category in categories) 
-			{
+            foreach (Category category in categories)
+            {
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
-                this.AddCategoryTreeNode(n, childNode);
+                this.AddCategoryTreeNode(args.Node, childNode);
 
-                if (intLevelsToGo > 0)
-                    this.FillChildren(childNode, intLevelsToGo - 1);
+                if (args.LevelsToGo > 0)
+                    this.FillChildren(childNode, args.LevelsToGo - 1);
                 else
                     // add a fake node to be filled in
                     this.AddCategoryTreeNode(childNode, new LoadingTreeNode());
@@ -397,9 +422,11 @@ namespace msn2.net.Pictures.Controls
 
             if (CategoryChildrenLoaded != null)
             {
-                CategoryChildrenLoaded(this, new CategoryTreeEventArgs(n.Category));
+                CategoryChildrenLoaded(this, new CategoryTreeEventArgs(args.Node.Category));
             }
-		}
+
+            args.Node.IsLoadingChildren = false;
+        }
 
         public void SetSelectedCategory(Category category)
         {

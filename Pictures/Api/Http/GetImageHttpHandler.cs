@@ -6,6 +6,7 @@ using System.Web;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace msn2.net.Pictures
 {
@@ -28,6 +29,14 @@ namespace msn2.net.Pictures
             {
                 backColor = Color.FromName(backColorString);
             }
+            if (maxWidth == 0)
+            {
+                maxWidth = 125;
+            }
+            if (maxHeight == 0)
+            {
+                maxHeight = 125;
+            }
 
             int sizeWidth = 0;
             int sizeHeight = 0;
@@ -46,10 +55,26 @@ namespace msn2.net.Pictures
             {
                 PictureCache cachedImage = PicContext.Current.PictureManager.GetPictureCache(pictureId, maxWidth, maxHeight);
 
+                if (cachedImage == null)
+                {
+                    throw new Exception("Unable to locate cached image. (id " + PicContext.Current.CurrentUser.Id + ")");
+                }
+
+                if (!string.IsNullOrEmpty(context.Request.QueryString["sb"]))
+                {
+                    sizeWidth = cachedImage.Width.Value;
+                    sizeHeight = cachedImage.Height.Value;
+                }
+
                 string strCache = PicContext.Current.Config.CacheDirectory;
-                string filename = strCache + cachedImage.Filename.Replace(@"\", @"/");
+                string filename = Path.Combine(strCache, cachedImage.Filename);
 
                 context.Response.ContentType = "image/jpeg";
+
+                if (!File.Exists(filename))
+                {
+                    throw new Exception("Unable to locate " + filename);
+                }
 
                 using (Bitmap img = new Bitmap(filename))
                 {
