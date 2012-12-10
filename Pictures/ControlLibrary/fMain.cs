@@ -90,7 +90,10 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuRotate180;
         private ToolStripButton toolFileInfo;
         private PictureFilterTreeView filter;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripComboBox maxPicCount;
         private PictureControlSettings settings = new PictureControlSettings();
+        private bool loading = true;
 		#endregion
 
 		#region Constructor
@@ -148,6 +151,9 @@ namespace msn2.net.Pictures.Controls
             stat.Close();
             stat = null;
 
+            this.maxPicCount.SelectedIndex = 1;
+            
+            this.loading = false;
         }
 
         private bool LoginUser(PictureConfig config, fStatus stat)
@@ -258,6 +264,8 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
+            this.maxPicCount = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -487,6 +495,8 @@ namespace msn2.net.Pictures.Controls
             this.toolStripLabel1,
             this.imageSizeCombo,
             this.toolStripSeparator1,
+            this.toolStripLabel2,
+            this.maxPicCount,
             this.toolStripSelectAll,
             this.toolStripClearAll,
             this.toolStripSeparator2,
@@ -641,6 +651,26 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Name = "selectedPictures";
             this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
+            // 
+            // maxPicCount
+            // 
+            this.maxPicCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.maxPicCount.Items.AddRange(new object[] {
+            "100",
+            "250",
+            "500",
+            "1000",
+            "2500",
+            "5000"});
+            this.maxPicCount.Name = "maxPicCount";
+            this.maxPicCount.Size = new System.Drawing.Size(75, 25);
+            this.maxPicCount.SelectedIndexChanged += new System.EventHandler(this.maxPicCount_SelectedIndexChanged);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel2.Text = "Max Pictures:";
             // 
             // fMain
             // 
@@ -1044,17 +1074,43 @@ namespace msn2.net.Pictures.Controls
         {
             this.currentListViewQuery = whereClause;
 
-            statusBar1.Panels[0].Text = "Loading pictures";
-
-            PictureCollection pictures = PicContext.Current.PictureManager.GetPictures(currentListViewQuery);
+            statusBar1.Panels[0].Text = "Finding pictures...";
 
             this.selectedPictures.ClearPictures();
 
-            statusBar1.Panels[0].Text = "Loading " + pictures.Count.ToString() + " pictures";
+            ThreadPool.QueueUserWorkItem(new WaitCallback(QueryPictures), currentListViewQuery);
+        }
 
-            pictureList1.LoadPictures(pictures);
+        private void QueryPictures(object query)
+        {
+            PictureCollection allPictures = PicContext.Current.PictureManager.GetPictures(query.ToString());
 
-            statusBar1.Panels[0].Text = pictures.Count + " pictures";
+            this.BeginInvoke(new WaitCallback(DisplayPictures), allPictures);
+        }
+
+        private void DisplayPictures(object pics)
+        {
+            PictureCollection allPictures = (PictureCollection)pics;
+            int maxCount = int.Parse(this.maxPicCount.SelectedItem.ToString());
+
+            if (allPictures.Count < maxCount)
+            {
+                statusBar1.Panels[0].Text = "Displaying " + allPictures.Count.ToString() + " pictures...";
+                pictureList1.LoadPictures(allPictures);
+                statusBar1.Panels[0].Text = allPictures.Count + " pictures";
+            }
+            else
+            {
+                statusBar1.Panels[0].Text = "Displaying " + maxCount.ToString() + "/" + allPictures.Count.ToString() + " pictures...";
+
+                PictureCollection displayPictures = new PictureCollection();
+                for (int i = 0; i < maxCount; i++)
+                {
+                    displayPictures.Add(allPictures[i]);
+                }
+                pictureList1.LoadPictures(displayPictures);
+                statusBar1.Panels[0].Text = string.Format("{0}/{1} pictures", displayPictures.Count, allPictures.Count);
+            }
         } 
 
 
@@ -1386,6 +1442,14 @@ namespace msn2.net.Pictures.Controls
             }
 
             return doc;
+        }
+
+        private void maxPicCount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loading == false)
+            {
+                this.filter_FilterChanged(this.filter.WhereClause);
+            }            
         }
 
     }

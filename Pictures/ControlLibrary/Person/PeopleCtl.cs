@@ -18,21 +18,9 @@ namespace msn2.net.Pictures.Controls
 	public class PeopleCtl : System.Windows.Forms.UserControl
 	{
 		private System.Windows.Forms.ContextMenu contextMenu1;
-		private System.Data.SqlClient.SqlConnection cn;
-		private System.Data.DataView dvPersonFullName;
-		private System.Data.DataView dvPersonLastName;
-		private System.Data.DataView dvPersonFirstName;
 		private System.Windows.Forms.MenuItem menuAddPerson;
 		private System.Windows.Forms.MenuItem menuEditPerson;
 		private System.Windows.Forms.MenuItem menuDeletePerson;
-		private msn2.net.Pictures.Controls.DataSetPerson dsPerson;
-		private System.Data.DataView dvPersonFind;
-		private System.Data.SqlClient.SqlDataAdapter daPerson;
-		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
-		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
-		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
-		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
         private msn2.net.Pictures.Controls.picsvc.PictureManager pictureManager1;
         private TextBox searchText;
         private SplitContainer splitContainer1;
@@ -41,7 +29,7 @@ namespace msn2.net.Pictures.Controls
         private Label matchCount;
         private Label label1;
         private FlowLayoutPanel recentList;
-        private List<Person> cachedPersonList = new List<Person>();
+        private List<Person> cachedPersonList;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -52,48 +40,28 @@ namespace msn2.net.Pictures.Controls
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             if (this.DesignMode == false)
             {
-                try
-                {
-                    // Set the connection string
-                    if (PicContext.Current != null)
-                    {
-                        this.sqlConnection1.ConnectionString = PicContext.Current.Config.ConnectionString;
-                        this.cn.ConnectionString = PicContext.Current.Config.ConnectionString;
-
-                        // Load all people
-                        ReloadPeople();
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                // Load all people
+                ReloadPeople();
             }
-
         }
 
         private void ReloadPeople()
         {
-            this.recentList.Controls.Clear();
-            this.matchList.Controls.Clear();
-
-            this.dsPerson = null;
-            this.cachedPersonList = null;
-
             ThreadPool.QueueUserWorkItem(new WaitCallback(ReloadThread), null);
         }
 
         private void ReloadThread(object state)
         {
-            DataSetPerson ds = new DataSetPerson();
-            daPerson.Fill(ds, "Person");
-
             this.cachedPersonList = (from p in PicContext.Current.DataContext.Persons
                                      select p).ToList<Person>();
-            this.dsPerson = ds;
         
             this.Invoke(new MethodInvoker(delegate (){
                 this.AddPersonList(PicContext.Current.UserManager.GetRecentUsers(), this.recentList);
@@ -123,23 +91,10 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PeopleCtl));
-            this.cn = new System.Data.SqlClient.SqlConnection();
-            this.dvPersonFullName = new System.Data.DataView();
-            this.dsPerson = new msn2.net.Pictures.Controls.DataSetPerson();
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.menuAddPerson = new System.Windows.Forms.MenuItem();
             this.menuEditPerson = new System.Windows.Forms.MenuItem();
             this.menuDeletePerson = new System.Windows.Forms.MenuItem();
-            this.dvPersonFirstName = new System.Data.DataView();
-            this.dvPersonLastName = new System.Data.DataView();
-            this.dvPersonFind = new System.Data.DataView();
-            this.daPerson = new System.Data.SqlClient.SqlDataAdapter();
-            this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
-            this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
-            this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
             this.pictureManager1 = new msn2.net.Pictures.Controls.picsvc.PictureManager();
             this.searchText = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -148,33 +103,10 @@ namespace msn2.net.Pictures.Controls
             this.matchCount = new System.Windows.Forms.Label();
             this.recentList = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cn
-            // 
-            this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist se" +
-                "curity info=False;workstation id=CHEF;packet size=4096";
-            this.cn.FireInfoMessageEventOnUserErrors = false;
-            // 
-            // dvPersonFullName
-            // 
-            this.dvPersonFullName.RowFilter = "FullName IS NOT NULL";
-            this.dvPersonFullName.Sort = "FullName";
-            this.dvPersonFullName.Table = this.dsPerson.Person;
-            // 
-            // dsPerson
-            // 
-            this.dsPerson.DataSetName = "DataSetPicture";
-            this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
-            this.dsPerson.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // contextMenu1
             // 
@@ -200,87 +132,6 @@ namespace msn2.net.Pictures.Controls
             this.menuDeletePerson.Index = 2;
             this.menuDeletePerson.Text = "&Delete Person";
             this.menuDeletePerson.Click += new System.EventHandler(this.menuDeletePerson_Click);
-            // 
-            // dvPersonFirstName
-            // 
-            this.dvPersonFirstName.RowFilter = "FirstName IS NOT NULL";
-            this.dvPersonFirstName.Sort = "FirstName";
-            this.dvPersonFirstName.Table = this.dsPerson.Person;
-            // 
-            // dvPersonLastName
-            // 
-            this.dvPersonLastName.RowFilter = "LastName IS NOT NULL";
-            this.dvPersonLastName.Sort = "LastName, FirstName";
-            this.dvPersonLastName.Table = this.dsPerson.Person;
-            // 
-            // dvPersonFind
-            // 
-            this.dvPersonFind.Table = this.dsPerson.Person;
-            // 
-            // daPerson
-            // 
-            this.daPerson.DeleteCommand = this.sqlDeleteCommand1;
-            this.daPerson.InsertCommand = this.sqlInsertCommand1;
-            this.daPerson.SelectCommand = this.sqlSelectCommand1;
-            this.daPerson.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
-            new System.Data.Common.DataTableMapping("Table", "Person", new System.Data.Common.DataColumnMapping[] {
-                        new System.Data.Common.DataColumnMapping("PersonID", "PersonID"),
-                        new System.Data.Common.DataColumnMapping("LastName", "LastName"),
-                        new System.Data.Common.DataColumnMapping("FirstName", "FirstName"),
-                        new System.Data.Common.DataColumnMapping("FullName", "FullName")})});
-            this.daPerson.UpdateCommand = this.sqlUpdateCommand1;
-            // 
-            // sqlDeleteCommand1
-            // 
-            this.sqlDeleteCommand1.CommandText = resources.GetString("sqlDeleteCommand1.CommandText");
-            this.sqlDeleteCommand1.Connection = this.sqlConnection1;
-            this.sqlDeleteCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
-            new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((byte)(0)), ((byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null)});
-            // 
-            // sqlConnection1
-            // 
-            this.sqlConnection1.ConnectionString = "data source=picdbserver;integrated security=sspi;initial catalog=picdb;persist se" +
-                "curity info=False";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
-            // 
-            // sqlInsertCommand1
-            // 
-            this.sqlInsertCommand1.CommandText = "INSERT INTO Person(LastName, FirstName, FullName) VALUES (@LastName, @FirstName, " +
-                "@FullName); SELECT PersonID, LastName, FirstName, FullName FROM Person WHERE (Pe" +
-                "rsonID = @@IDENTITY)";
-            this.sqlInsertCommand1.Connection = this.sqlConnection1;
-            this.sqlInsertCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
-            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Current, null),
-            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null),
-            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Current, null)});
-            // 
-            // sqlSelectCommand1
-            // 
-            this.sqlSelectCommand1.CommandText = "SELECT PersonID, LastName, FirstName, FullName FROM Person";
-            this.sqlSelectCommand1.Connection = this.sqlConnection1;
-            // 
-            // sqlUpdateCommand1
-            // 
-            this.sqlUpdateCommand1.CommandText = resources.GetString("sqlUpdateCommand1.CommandText");
-            this.sqlUpdateCommand1.Connection = this.sqlConnection1;
-            this.sqlUpdateCommand1.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
-            new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Current, null),
-            new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Current, null),
-            new System.Data.SqlClient.SqlParameter("@FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Current, null),
-            new System.Data.SqlClient.SqlParameter("@Original_PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((byte)(0)), ((byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_FirstName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_FirstName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FirstName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_FullName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_FullName1", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "FullName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_LastName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Original_LastName1", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, true, ((byte)(0)), ((byte)(0)), "LastName", System.Data.DataRowVersion.Original, null),
-            new System.Data.SqlClient.SqlParameter("@Select_PersonID", System.Data.SqlDbType.Int, 4, "PersonID")});
             // 
             // pictureManager1
             // 
@@ -336,6 +187,7 @@ namespace msn2.net.Pictures.Controls
             this.matchList.Name = "matchList";
             this.matchList.Size = new System.Drawing.Size(246, 95);
             this.matchList.TabIndex = 0;
+            this.matchList.Paint += new System.Windows.Forms.PaintEventHandler(this.matchList_Paint);
             // 
             // addLink
             // 
@@ -386,11 +238,6 @@ namespace msn2.net.Pictures.Controls
             this.Controls.Add(this.searchText);
             this.Name = "PeopleCtl";
             this.Size = new System.Drawing.Size(259, 313);
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsPerson)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -409,20 +256,27 @@ namespace msn2.net.Pictures.Controls
 
 			if (!p.Cancel) 
 			{
-				DataSetPerson.PersonRow pr = p.SelectedPerson;
+                Person person = new Person();
+                if (p.SelectedPerson.IsLastNameNull() == false)
+                {
+                    person.LastName = p.SelectedPerson.LastName;
+                }
+                if (p.SelectedPerson.IsFirstNameNull() == false)
+                {
+                    person.FirstName = p.SelectedPerson.FirstName;
+                }
+                if (p.SelectedPerson.IsFullNameNull() == false)
+                {
+                    person.FullName = p.SelectedPerson.FullName;
+                }
+                if (p.SelectedPerson.IsEmailNull() == false)
+                {
+                    person.Email = p.SelectedPerson.Email;
+                }
 
-				// add the new row to our ds
-				DataSetPerson.PersonRow prNew = dsPerson.Person.NewPersonRow();
-				if (!pr.IsLastNameNull())
-					prNew.LastName = pr.LastName;
-				if (!pr.IsFirstNameNull())
-					prNew.FirstName = pr.FirstName;
-				if (!pr.IsFullNameNull())
-					prNew.FullName  = pr.FullName;
-				prNew.PersonID  = pr.PersonID;
-				dsPerson.Person.AddPersonRow(prNew);
+                PicContext.Current.UserManager.AddPerson(person);
 
-                this.selectedPerson = prNew;
+                this.selectedPerson = person;
 
                 FireSelectPerson();
 
@@ -436,14 +290,14 @@ namespace msn2.net.Pictures.Controls
         {
             if (DoubleClickPerson != null)
             {
-                DoubleClickPerson(this, new PersonCtlEventArgs() { personRow = selectedPerson });
+                DoubleClickPerson(this, new PersonCtlEventArgs() { Person = selectedPerson });
             }
 
             LinkLabel match = null;
             foreach (LinkLabel ll in this.recentList.Controls)
             {
-                int id = (int)ll.Tag;
-                if (id == selectedPerson.PersonID)
+                Person person = (Person)ll.Tag;
+                if (person.PersonID == selectedPerson.PersonID)
                 {
                     match = ll;
                     break;
@@ -452,7 +306,7 @@ namespace msn2.net.Pictures.Controls
 
             if (match == null)
             {
-                match = CreatePersonLabel(selectedPerson.FullName, selectedPerson.PersonID);
+                match = CreatePersonLabel(selectedPerson);
                 this.recentList.Controls.Add(match);
                 match.BringToFront();
             }
@@ -464,19 +318,19 @@ namespace msn2.net.Pictures.Controls
 
 		private void menuEditPerson_Click(object sender, System.EventArgs e)
 		{
-            //ListViewItem person = null;
+            Person person = this.SelectedPerson;
+            if (person != null)
+            {
+                fEditPerson p = new fEditPerson();
+                p.PersonID = person.PersonID;
 
-            //DataSetPerson.PersonRow pr = (DataSetPerson.PersonRow) person.Tag;
-            //fEditPerson p = new fEditPerson();
-            //p.PersonID = pr.PersonID;
+                p.ShowDialog();
 
-            //p.ShowDialog();
-
-            //if (!p.Cancel) 
-            //{
-            //    pr = p.SelectedPerson;
-            //}
-
+                if (!p.Cancel)
+                {
+                    selectedPerson = PicContext.Current.UserManager.GetPersonA(p.PersonID);
+                }
+            }
 		}
 
 		private void menuDeletePerson_Click(object sender, System.EventArgs e)
@@ -502,14 +356,9 @@ namespace msn2.net.Pictures.Controls
 		}
 
 
-		public DataSetPerson.PersonRow FindPersonInfo(int PersonID) 
-		{
-			return (dsPerson.Person.FindByPersonID(PersonID));
-		}
+        private Person selectedPerson = null;
 
-        private DataSetPerson.PersonRow selectedPerson = null;
-
-		public DataSetPerson.PersonRow SelectedPerson
+		public Person SelectedPerson
 		{
 			get 
 			{
@@ -547,27 +396,28 @@ namespace msn2.net.Pictures.Controls
                 string fullName = p.FullName;
                 int id = p.PersonID;
 
-                LinkLabel ll = CreatePersonLabel(fullName, id);
+                LinkLabel ll = CreatePersonLabel(p);
                 parentControl.Controls.Add(ll);
             }
         }
 
-        private LinkLabel CreatePersonLabel(string fullName, int id)
+        private LinkLabel CreatePersonLabel(Person p)
         {
             LinkLabel ll = new LinkLabel();
             ll.Width = this.matchList.ClientSize.Width;
             ll.Height = 14;
             ll.Anchor = AnchorStyles.Left & AnchorStyles.Right;
-            ll.Text = fullName;
-            ll.Tag = id;
+            ll.Text = p.FullName;
+            ll.Tag = p;
             ll.Click += new EventHandler(ll_Click);
+            ll.ContextMenu = this.contextMenu1;
             return ll;
         }
 
         void ll_Click(object sender, EventArgs e)
         {
             LinkLabel ll = (LinkLabel)sender;
-            selectedPerson = FindPersonInfo((int)ll.Tag);
+            selectedPerson = ll.Tag as Person;
             this.FireSelectPerson();
         }
 
@@ -587,16 +437,19 @@ namespace msn2.net.Pictures.Controls
             this.searchText.SelectionStart = 0;
             this.searchText.SelectionLength = this.searchText.Text.Length;
         }
+
+        private void matchList_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
 	}
 
-	// events
 	public delegate void ClickPersonEventHandler(object sender, PersonCtlEventArgs e);
 	public delegate void DoubleClickPersonEventHandler(object sender, PersonCtlEventArgs e);
 	
-	// class for passing events up
 	public class PersonCtlEventArgs: EventArgs 
 	{
-		public DataSetPerson.PersonRow personRow;
+        public Person Person { get; set; }
 	}
 
 }

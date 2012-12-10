@@ -28,13 +28,13 @@ namespace msn2.net.Pictures.Controls
         private void login_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
-            this.Visible = false;
+            this.Close();
         }
 
         private void cancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-            this.Visible = false;
+            this.Close();
         }
 
         public string Email

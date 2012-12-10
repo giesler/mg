@@ -410,20 +410,7 @@ namespace msn2.net.Pictures.Controls
             int categoryId = row.CategoryID;
             this.category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 
-            Visible = false;
-/*			}
-			// otherwise we want to add a record
-			else
-			{
-				DataSetCategory.CategoryRow cr = dsCategory.Category.NewCategoryRow();
-				cr.CategoryName			= txtCategoryName.Text;
-				cr.CategoryDescription  = txtDescription.Text;
-				cr.CategoryParentID		= mintParentCategoryID;
-				dsCategory.Category.AddCategoryRow(cr);
-				daCategory.Update(dsCategory, "Category");
-				curCategoryRow = cr;
-			}
-*/			Visible = false;
+            this.Close();
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
@@ -431,7 +418,7 @@ namespace msn2.net.Pictures.Controls
 			buttonPushed = true;
 
 			mblnCancel = true;
-			Visible = false;
+            this.Close();
 		}
 
 		private void groupPicker1_AddedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)

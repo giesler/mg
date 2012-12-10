@@ -123,6 +123,13 @@ namespace msn2.net.Pictures
 
 		}
 
+        public Person GetPersonA(int id)
+        {
+            Person p = (from d in PicContext.Current.DataContext.Persons
+                        where d.PersonID == id
+                        select d).First<Person>();
+            return p;
+        }
 
 		public PersonInfo GetPerson(string userName)
 		{
@@ -384,6 +391,20 @@ namespace msn2.net.Pictures
 			cmd.ExecuteNonQuery();
 			cn.Close();
 		}
+
+        public void AddPerson(Person p)
+        {
+            if (p.WindowsUserName == null)
+            {
+                p.WindowsUserName = string.Empty;
+            }
+            if (p.Email == null)
+            {
+                p.Email = string.Empty;
+            }
+            PicContext.Current.DataContext.Persons.InsertOnSubmit(p);
+            PicContext.Current.DataContext.SubmitChanges();
+        }
 
         public bool ResetPassword(string email, string password)
         {

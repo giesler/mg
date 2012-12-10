@@ -118,13 +118,13 @@ namespace msn2.net.Pictures.Controls
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
 			mblnCancel = false;
-			Visible = false;
+            this.Close();
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			mblnCancel = true;
-			Visible = false;
+            this.Close();
 		}
 
 		public bool Cancel

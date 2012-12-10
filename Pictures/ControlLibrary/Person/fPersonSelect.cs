@@ -120,15 +120,15 @@ namespace msn2.net.Pictures.Controls
 			} 
 			else 
 			{
-				Visible = false;
+                this.Close();
 			}
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			mblnCancel = true;
-			Visible = false;
-		}
+            this.Close();
+        }
 
 		private void peopleCtl1_DoubleClickPerson(object sender, msn2.net.Pictures.Controls.PersonCtlEventArgs e)
 		{
@@ -143,7 +143,7 @@ namespace msn2.net.Pictures.Controls
 			}
 		}
 
-		public DataSetPerson.PersonRow SelectedPerson 
+		public Person SelectedPerson 
 		{
 			get 
 			{

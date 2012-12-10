@@ -423,7 +423,8 @@ namespace msn2.net.Pictures.Controls
 				this.BindingContext[dsPerson, "Person"].EndCurrentEdit();
 				daPerson.Update(dsPerson, "Person");
 				daPersonGroup.Update(dsPerson, "PersonGroup");
-				Visible = false;
+                this.Close();
+
 /*			}
 				// otherwise we want to add a record
 			else
@@ -440,14 +441,13 @@ namespace msn2.net.Pictures.Controls
 				curPersonRow = pr;
 			}
 */
-			Visible = false;
 		}
 
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			mblnCancel = true;
-			Visible = false;
-		}
+            this.Close();
+        }
 
 		private void txtLastName_Leave(object sender, System.EventArgs e)
 		{

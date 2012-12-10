@@ -139,7 +139,7 @@ namespace msn2.net.Pictures.Controls
 
 		private void cancel_Click(object sender, System.EventArgs e)
 		{
-			this.Visible = false;
+            this.Close();
 		}
 
 		private void save_Click(object sender, System.EventArgs e)

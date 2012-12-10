@@ -907,7 +907,8 @@ namespace msn2.net.Pictures.Controls
 			buttonPushed = true;
 
 			mblnCancel = true;
-			this.Visible = false;
+
+            this.Close();
 		}
 
 		private void btnOK_Click(object sender, System.EventArgs e)
@@ -973,7 +974,7 @@ namespace msn2.net.Pictures.Controls
 				}
 				else
 				{
-					this.Visible	= false;
+                    this.Close();
 				}
 			}
 			else

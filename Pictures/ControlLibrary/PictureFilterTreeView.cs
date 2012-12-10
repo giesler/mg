@@ -12,6 +12,8 @@ namespace msn2.net.Pictures.Controls
         private TreeNode dateTakenNode;
         private TreeNode dateAddedNode;
 
+        private ContextMenu categoryContextMenu;
+
         public event FilterChangedHandler FilterChanged;
 
         public PictureFilterTreeView()
@@ -32,6 +34,12 @@ namespace msn2.net.Pictures.Controls
                 this.ImageList.Images.Add(CommonImages.Folder);
                 this.ImageList.Images.Add(CommonImages.Calendar);
                 this.ImageList.Images.Add(CommonImages.Refresh);
+
+                this.categoryContextMenu = new ContextMenu();
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("&Edit", new EventHandler(OnCategoryEdit)));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("&Delete", new EventHandler(OnCategoryDelete)));
+
             }
         }
 
@@ -114,6 +122,7 @@ namespace msn2.net.Pictures.Controls
             foreach (CategoryInfo category in categories)
             {
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
+                childNode.ContextMenu = this.categoryContextMenu;
                 this.AddTreeNode(n, childNode);
 
                 if (intLevelsToGo > 0)
@@ -146,6 +155,51 @@ namespace msn2.net.Pictures.Controls
             {
                 FillChildren(node.Category, node, 2);
             }
+        }
+
+        private void OnCategoryAdd(object sender, EventArgs e)
+        {
+            CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
+            if (parentNode != null)
+            {
+                fEditCategory ec = new fEditCategory();
+
+                ec.NewCategory(parentNode.Category.CategoryId);
+
+                ec.ShowDialog();
+
+                if (!ec.Cancel)
+                {
+                    // add new tree node
+                    CategoryTreeNode newCategoryNode = new CategoryTreeNode(ec.SelectedCategory);
+                    newCategoryNode.ContextMenu = this.categoryContextMenu;
+                    parentNode.Nodes.Add(newCategoryNode);
+
+                    // expand parent node and select new node
+                    parentNode.Expand();
+                    this.SelectedNode = newCategoryNode;
+                }
+            }
+        }
+
+        private void OnCategoryEdit(object sender, EventArgs e)
+        {
+            CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
+            if (node != null)
+            {
+                fEditCategory ec = new fEditCategory();
+                ec.CategoryID = node.Category.CategoryId;
+                ec.ShowDialog();
+
+                if (!ec.Cancel)
+                {
+                    node.Update(ec.SelectedCategory);
+                }
+            }
+        }
+
+        private void OnCategoryDelete(object sender, EventArgs e)
+        {
         }
 
         #endregion
@@ -238,6 +292,13 @@ namespace msn2.net.Pictures.Controls
             {
                 return IsNodeAParent(currentNode.Parent, possibleParent);
             }
+        }
+
+
+
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
         }
     }
 

@@ -169,19 +169,20 @@ namespace msn2.net.Pictures.Controls
 		public event AddedPersonEventHandler AddedPerson;
         public event RemovedPersonEventHandler RemovedPerson;
 
-		public void AddSelectedPerson(int PersonID) 
-		{
-			DataSetPerson.PersonRow cr = peopleCtl1.FindPersonInfo(PersonID);
+        public void AddSelectedPerson(int PersonID)
+        {
+            Person person = PicContext.Current.UserManager.GetPersonA(PersonID);
 
-			if (cr == null) 
-			{
-				MessageBox.Show("Perosn information for id " + PersonID.ToString() + " was not found.");
-				return;
-			}
-
-			ListViewItem li = lvPeople.Items.Add(cr.FullName.ToString());
-			li.Tag = cr;
-		}
+            if (person == null)
+            {
+                MessageBox.Show("Perosn information for id " + PersonID.ToString() + " was not found.");
+            }
+            else
+            {
+                ListViewItem li = lvPeople.Items.Add(person.FullName.ToString());
+                li.Tag = person;
+            }
+        }
 
 		public void ClearSelectedPeople() 
 		{
@@ -190,7 +191,7 @@ namespace msn2.net.Pictures.Controls
 
 		private void btnAdd_Click(object sender, System.EventArgs e)
 		{
-            DataSetPerson.PersonRow cr = peopleCtl1.SelectedPerson;
+            Person cr = peopleCtl1.SelectedPerson;
 
 			if (cr == null) 
 			{
@@ -202,7 +203,7 @@ namespace msn2.net.Pictures.Controls
 			// make sure row isn't already added
 			foreach (ListViewItem liTemp in lvPeople.Items) 
 			{
-				if (((DataSetPerson.PersonRow)liTemp.Tag).PersonID == cr.PersonID) 
+				if (((Person)liTemp.Tag).PersonID == cr.PersonID) 
 				{
 					MessageBox.Show("'" + cr.FullName + "' has already been added.","Add Person", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 					return;
@@ -231,7 +232,7 @@ namespace msn2.net.Pictures.Controls
 			foreach (ListViewItem li in lvPeople.SelectedItems) 
 			{
 				PersonPickerEventArgs ex = new PersonPickerEventArgs();
-				ex.PersonID = ((DataSetPerson.PersonRow)li.Tag).PersonID;
+				ex.PersonID = ((Person)li.Tag).PersonID;
 				lvPeople.Items.Remove(li);
 				if (RemovedPerson != null)
 					RemovedPerson (this, ex);

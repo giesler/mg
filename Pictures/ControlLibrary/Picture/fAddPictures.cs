@@ -609,7 +609,7 @@ namespace msn2.net.Pictures.Controls
 		private void btnCancel_Click(object sender, System.EventArgs e)
 		{
 			mblnCancel = true;
-			Visible = false;
+            this.Close();
 		}
 
 		private void btnAdd_Click(object sender, System.EventArgs e)
@@ -639,9 +639,6 @@ namespace msn2.net.Pictures.Controls
 
 			Thread t	= new Thread(new ThreadStart(ImportFile));
 			t.Start();
-
-			//this.Visible = false;
-
 		}
 
 		private void ImportFile()
@@ -887,7 +884,7 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
-                this.Visible = false;
+                this.Close();
             }
         }
 

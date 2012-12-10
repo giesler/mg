@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.Win32;
 
 #endregion
 
@@ -51,6 +52,8 @@ namespace msn2.net.Pictures.Controls
             item = new PictureItem(picture);
             item.DrawShadow = false;
             item.DrawBorder = false;
+            item.PaintBackground = false;
+            item.PaintFullControlArea = true;
             item.Dock = DockStyle.Fill;
             item.Padding = new Padding(0);
             this.Controls.Add(item);
@@ -830,18 +833,46 @@ namespace msn2.net.Pictures.Controls
 
             if (System.IO.File.Exists(path) == true)
             {
+                string editCommand = Registry.GetValue(@"HKEY_CLASSES_ROOT\jpegfile\shell\edit\command", null, "iexplore.exe").ToString();
+                
                 Process p = new Process();
-                p.StartInfo = new ProcessStartInfo(path);
+                if (editCommand.IndexOf("%1") > 0)
+                {
+                    if (editCommand.IndexOf("rundll32.exe") > 0)
+                    {
+                        string dll = editCommand.Substring(0, editCommand.IndexOf("rundll32.exe") + 12).Trim();
+                        string file = editCommand.Substring(editCommand.IndexOf("rundll32.exe") + 13).Trim().Replace("%1", path);
+                        p.StartInfo = new ProcessStartInfo(dll, file);
+                        p.StartInfo.UseShellExecute = true;
+                    }
+                    else
+                    {
+                        p.StartInfo = new ProcessStartInfo("cmd", "/c " + editCommand.Replace("%1", path));
+                        p.StartInfo.UseShellExecute = true;
+                    }
+                }
+                else
+                {
+                    p.StartInfo = new ProcessStartInfo(editCommand, path);
+                }
                 p.Start();
 
+                Thread.Sleep(500);
                 while (p.HasExited == false)
                 {
-                    if (this.IsDisposed == false && this.picture != null)
+                    Thread.Sleep(100);
+
+                    if (this.IsDisposed == true)
                     {
-                        ImageUtilities util = new ImageUtilities();
-                        util.CreateUpdateCache(picture.Id);
-                        this.BeginInvoke(new ReloadImageDelegate(this.ReloadImage), picture);
+                        break;
                     }
+                }
+
+                if (this.IsDisposed == false && this.picture != null)
+                {
+                    ImageUtilities util = new ImageUtilities();
+                    util.CreateUpdateCache(picture.Id);
+                    this.BeginInvoke(new ReloadImageDelegate(this.ReloadImage), picture);
                 }
             }
             else
