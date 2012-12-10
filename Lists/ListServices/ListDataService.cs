@@ -9,11 +9,8 @@ namespace msn2.net.ShoppingList
 {
     public class ListDataService : IListDataService
     {
-        SLSDataDataContext context = null;
-
         public ListDataService()
         {
-            this.context = new SLSDataDataContext();
         }
 
         void WaitForServerCallSleepTime()
@@ -31,31 +28,34 @@ namespace msn2.net.ShoppingList
         public AddListReturnValue AddList(ClientAuthenticationData auth, string name)
         {
             this.WaitForServerCallSleepTime();
-            
+
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("name");
             }
-                        
+
             AddListReturnValue returnVal = new AddListReturnValue();
 
-            Person person = ValidateAuth(this.context, auth, true);
-
-            Guid listUniqueId = Guid.NewGuid();
-            bool? isDupe = false;
-            int? listId = 0;
-            this.context.AddList(person.Id, name.Trim(), listUniqueId, ref isDupe, ref listId);
-
-            if (isDupe.HasValue && isDupe.Value)
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                returnVal.IsDuplicate = true;
-            }
-            else
-            {
-                returnVal.List = new List { Id = listId.Value, Name = name.Trim(), UniqueId = listUniqueId };
-            }
+                Person person = ValidateAuth(context, auth, true);
 
-            return returnVal;
+                Guid listUniqueId = Guid.NewGuid();
+                bool? isDupe = false;
+                int? listId = 0;
+                context.AddList(person.Id, name.Trim(), listUniqueId, ref isDupe, ref listId);
+
+                if (isDupe.HasValue && isDupe.Value)
+                {
+                    returnVal.IsDuplicate = true;
+                }
+                else
+                {
+                    returnVal.List = new List { Id = listId.Value, Name = name.Trim(), UniqueId = listUniqueId };
+                }
+
+                return returnVal;
+            }
         }
 
         public UpdateListReturnValue UpdateList(ClientAuthenticationData auth, List list)
@@ -64,79 +64,81 @@ namespace msn2.net.ShoppingList
 
             UpdateListReturnValue returnVal = new UpdateListReturnValue();
 
-            Person person = ValidateAuth(this.context, auth, true);
-
-            bool? isDuplicate = false;
-            bool? isInvalidId = false;
-            this.context.UpdateList(person.Id, list.Name, list.UniqueId, ref isDuplicate, ref isInvalidId);
-
-            if (isDuplicate.HasValue && isDuplicate.Value)
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                returnVal.IsDuplicate = true;
-            }
-            else if (isInvalidId.HasValue && isInvalidId.Value)
-            {
-                returnVal.IsInvalidId = true;
-            }
+                Person person = ValidateAuth(context, auth, true);
 
-            return returnVal;
+                bool? isDuplicate = false;
+                bool? isInvalidId = false;
+                context.UpdateList(person.Id, list.Name, list.UniqueId, ref isDuplicate, ref isInvalidId);
+
+                if (isDuplicate.HasValue && isDuplicate.Value)
+                {
+                    returnVal.IsDuplicate = true;
+                }
+                else if (isInvalidId.HasValue && isInvalidId.Value)
+                {
+                    returnVal.IsInvalidId = true;
+                }
+
+                return returnVal;
+            }
         }
 
         public void DeleteList(ClientAuthenticationData auth, Guid uniqueId)
         {
             this.WaitForServerCallSleepTime();
 
-            Person person = ValidateAuth(this.context, auth, true);
-            this.context.DeleteList(person.Id, uniqueId);
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                context.DeleteList(person.Id, uniqueId);
+            }
         }
 
         public List<GetListsResult> GetLists(ClientAuthenticationData auth)
         {
             this.WaitForServerCallSleepTime();
 
-            Person person = ValidateAuth(this.context, auth, true);
-            var q = this.context.GetLists(person.Id);
-            return q.ToList();
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                var q = context.GetLists(person.Id);
+                return q.ToList();
+            }
         }
 
         public List<GetAllListItemsResult> GetListItems(ClientAuthenticationData auth, Guid listUniqueId)
         {
             this.WaitForServerCallSleepTime();
 
-            List<GetAllListItemsResult> items = null;
-
-            Person person = ValidateAuth(this.context, auth, true);
-            var q = this.context.GetAllListItems(person.Id).Where(l => l.ListUniqueId == listUniqueId);
-            items = q.ToList();
-            this.context.Dispose();
-
-            return items;
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                return context.GetAllListItems(person.Id).Where(l => l.ListUniqueId == listUniqueId).ToList();
+            }
         }
 
         public List<GetAllListItemsResult> GetAllListItems(ClientAuthenticationData auth)
         {
             this.WaitForServerCallSleepTime();
 
-            List<GetAllListItemsResult> items = null;
-
-            Person person = ValidateAuth(this.context, auth, true);
-            var q = this.context.GetAllListItems(person.Id);
-            items = q.ToList();
-
-            return items;
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                return context.GetAllListItems(person.Id).ToList();
+            }
         }
 
         public List<GetAllResult> GetAll(ClientAuthenticationData auth)
         {
             this.WaitForServerCallSleepTime();
 
-            List<GetAllResult> result = null;
-
-            Person person = ValidateAuth(this.context, auth, true);
-            var q = this.context.GetAll(person.Id);
-            result = q.ToList();
-
-            return result;        
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                return context.GetAll(person.Id).ToList();
+            }
         }
 
         public AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name)
@@ -145,23 +147,26 @@ namespace msn2.net.ShoppingList
 
             AddListItemReturnValue returnVal = new AddListItemReturnValue();
 
-            Person person = ValidateAuth(this.context, auth, true);
-            bool? isDuplicate = false;
-            Guid itemUniqueId = Guid.NewGuid();
-            int? listItemId = 0;
-
-            this.context.AddListItem(person.Id, auth.DeviceUniqueId, name, listUniqueId, itemUniqueId, ref isDuplicate, ref listItemId);
-
-            if (isDuplicate.HasValue && isDuplicate.Value)
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                returnVal.IsDuplicate = true;
-            }
-            else
-            {
-                returnVal.ListItem = new ListItem { Name = name, UniqueId = itemUniqueId };
-            }
+                Person person = ValidateAuth(context, auth, true);
+                bool? isDuplicate = false;
+                Guid itemUniqueId = Guid.NewGuid();
+                int? listItemId = 0;
 
-            return returnVal;
+                context.AddListItem(person.Id, auth.DeviceUniqueId, name, listUniqueId, itemUniqueId, ref isDuplicate, ref listItemId);
+
+                if (isDuplicate.HasValue && isDuplicate.Value)
+                {
+                    returnVal.IsDuplicate = true;
+                }
+                else
+                {
+                    returnVal.ListItem = new ListItem { Name = name, UniqueId = itemUniqueId };
+                }
+
+                return returnVal;
+            }
         }
 
         public UpdateListItemReturnData UpdateListItem(ClientAuthenticationData auth, ListItem item)
@@ -170,10 +175,12 @@ namespace msn2.net.ShoppingList
 
             UpdateListItemReturnData data = new UpdateListItemReturnData();
 
-            Person person = ValidateAuth(this.context, auth, true);
-            this.context.UpdateListItem(person.Id, 0, item.UniqueId, item.Name);
-
-            return data;
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                context.UpdateListItem(person.Id, 0, item.UniqueId, item.Name);
+                return data;
+            }
         }
 
         public DeleteListItemReturnData DeleteListItem(ClientAuthenticationData auth, Guid listItemUniqueId)
@@ -182,10 +189,12 @@ namespace msn2.net.ShoppingList
 
             DeleteListItemReturnData data = new DeleteListItemReturnData();
 
-            Person person = ValidateAuth(this.context, auth, true);
-            this.context.DeleteListItem(person.Id, listItemUniqueId);
-
-            return data;
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, true);
+                context.DeleteListItem(person.Id, listItemUniqueId);
+                return data;
+            }
         }
 
         public DateTime GetLastChangeTime(ClientAuthenticationData auth)
@@ -204,17 +213,20 @@ namespace msn2.net.ShoppingList
                 throw new ArgumentNullException("liveUserId");
             }
 
-            Person person = this.context.Persons.FirstOrDefault(p => p.LiveUserId == liveUserId);
-
-            if (person == null)
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                person = new Person { Name = name, LiveUserId = liveUserId };
-                person.UniqueId = Guid.NewGuid();
-                this.context.Persons.InsertOnSubmit(person);
-                this.context.SubmitChanges();
-            }
+                Person person = context.Persons.FirstOrDefault(p => p.LiveUserId == liveUserId);
 
-            return person;
+                if (person == null)
+                {
+                    person = new Person { Name = name, LiveUserId = liveUserId };
+                    person.UniqueId = Guid.NewGuid();
+                    context.Persons.InsertOnSubmit(person);
+                    context.SubmitChanges();
+                }
+
+                return person;
+            }
         }
 
         public void UpdatePerson(ClientAuthenticationData auth, Person person)
@@ -228,9 +240,9 @@ namespace msn2.net.ShoppingList
                 throw new ArgumentException("person");
             }
 
-            try
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                Person dbPerson = ValidateAuth(this.context, auth, true);
+                Person dbPerson = ValidateAuth(context, auth, true);
 
                 if (dbPerson.UniqueId != person.UniqueId)
                 {
@@ -243,11 +255,7 @@ namespace msn2.net.ShoppingList
                 }
 
                 dbPerson.Name = person.Name;
-                this.context.SubmitChanges();
-            }
-            finally
-            {
-                this.context.Dispose();
+                context.SubmitChanges();
             }
         }
 
@@ -262,16 +270,17 @@ namespace msn2.net.ShoppingList
                 throw new ArgumentException("deviceName");
             }
 
-            PersonDevice device = null;
-            Person person = ValidateAuth(this.context, auth, false);
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                Person person = ValidateAuth(context, auth, false);
 
-            device = new PersonDevice { Name = deviceName, LastConnectTime = DateTime.UtcNow };
-            device.PersonId = person.Id;
-            device.UniqueId = Guid.NewGuid();
-            this.context.PersonDevices.InsertOnSubmit(device);
-            this.context.SubmitChanges();
-
-            return device;
+                PersonDevice device = new PersonDevice { Name = deviceName, LastConnectTime = DateTime.UtcNow };
+                device.PersonId = person.Id;
+                device.UniqueId = Guid.NewGuid();
+                context.PersonDevices.InsertOnSubmit(device);
+                context.SubmitChanges();
+                return device;
+            }
         }
 
         public void RemoveDevice(ClientAuthenticationData auth, Guid deviceId)
@@ -285,13 +294,16 @@ namespace msn2.net.ShoppingList
                 throw new ArgumentException("deviceId");
             }
 
-            Person person = ValidateAuth(this.context, auth, true);
-
-            PersonDevice device = this.context.PersonDevices.FirstOrDefault(d => d.UniqueId == deviceId && d.PersonId == person.Id);
-            if (deviceId != null)
+            using (SLSDataDataContext context = new SLSDataDataContext())
             {
-                this.context.PersonDevices.DeleteOnSubmit(device);
-                this.context.SubmitChanges();
+                Person person = ValidateAuth(context, auth, true);
+
+                PersonDevice device = context.PersonDevices.FirstOrDefault(d => d.UniqueId == deviceId && d.PersonId == person.Id);
+                if (deviceId != null)
+                {
+                    context.PersonDevices.DeleteOnSubmit(device);
+                    context.SubmitChanges();
+                }
             }
         }
         

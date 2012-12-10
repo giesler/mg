@@ -70,6 +70,8 @@ namespace SLExpress
             System.Collections.Generic.List<GetListsResult> lists = lds.GetLists(authData);
             
             this.list.Items.Clear();
+            this.moveItemList.Controls.Clear();
+
             foreach (GetListsResult list in lists.OrderBy(l => l.Name))
             {
                 string name = list.Name;
@@ -79,6 +81,10 @@ namespace SLExpress
                 }
                 System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem(name, list.UniqueId.ToString());
                 this.list.Items.Add(li);
+
+                LinkButton button = new LinkButton { Text = list.Name, ID = list.UniqueId.ToString() };
+                button.Click += new EventHandler(OnMoveItemStart);
+                this.moveItemList.Controls.Add(button);
             }
 
             if (this.list.Items.Count > 0)
@@ -94,9 +100,27 @@ namespace SLExpress
             }
         }
 
+        void OnMoveItemSelectList(object sender, EventArgs e)
+        {
+            LinkButton button = (LinkButton)sender;
+
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
+            ListDataService lds = new ListDataService();
+
+            // TODO: get list items, update changed item...   lds.GetListItems()
+
+            this.LoadLists();
+
+            this.editItems.Visible = true;
+            this.moveItem.Visible = false;
+            this.addMode.Enabled = true;
+            this.viewMode.Enabled = true;            
+        }
+
         void OnListSelectedIndexChanged(object sender, EventArgs e)
         {
             this.itemPanel.Controls.Clear();
+            this.editItems.Controls.Clear();
 
             if (this.list.SelectedIndex >= 0)
             {
@@ -112,27 +136,65 @@ namespace SLExpress
                     cb.ID = i.UniqueId.ToString();
                     this.itemPanel.Controls.Add(cb);
                     this.itemPanel.Controls.Add(new LiteralControl("<br />"));
-                }
 
-                LinkButton add = new LinkButton { Text = "Add..." };
-                add.Click += new EventHandler(OnAddItem);
-                add.ID = "addLink";
-                this.itemPanel.Controls.Add(add);
+                    TextBox tb = new TextBox { Text = i.Name };
+                    tb.ID = "TB:" + i.UniqueId.ToString();
+                    this.editItems.Controls.Add(tb);
+                    
+                    Button btn = new Button { Text = "save" };
+                    btn.Click += new EventHandler(OnSaveItem);
+                    this.editPanel.Controls.Add(btn);
+
+                    Button move = new Button { Text = "move" };
+                    move.Click += new EventHandler(OnMoveItemStart);
+                    this.editPanel.Controls.Add(move);
+
+                    this.editPanel.Controls.Add(new LiteralControl("<br />"));
+                }
             }
         }
 
-        void OnAddItem(object sender, EventArgs e)
+        void OnMoveItemStart(object sender, EventArgs e)
         {
-            this.main.Visible = false;
-            this.addPanel.Visible = true;
+            Button btn = (Button)sender;
 
-            Page.ClientScript.RegisterStartupScript(typeof(_Default), "AddFocus", "if (document.all.add) document.all.add.focus();", true);
+            int index = btn.Parent.Controls.IndexOf(btn);
+            TextBox tb = (TextBox)btn.Parent.Controls[index - 1];
+            Guid itemId = new Guid(tb.ID.ToString().Substring(3));
+
+            this.editItems.Visible = false;
+            this.moveItemId.Value = itemId.ToString();
+
+            this.addMode.Enabled = false;
+            this.viewMode.Enabled = false;
+        }
+
+        void OnSaveItem(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            int index = btn.Parent.Controls.IndexOf(btn);
+            TextBox tb = (TextBox)btn.Parent.Controls[index - 1];
+
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
+            Guid selectedList = new Guid(this.list.SelectedValue); 
+            
+            Guid itemId = new Guid(tb.ID.ToString().Substring(3));
+            ListDataService lds = new ListDataService();
+            var listItems = lds.GetListItems(authData, selectedList);
+
+            var item = listItems.First(i => i.UniqueId == itemId);
+
+            string updatedName = Request.Form[tb.ID].ToString();
+            msn2.net.ShoppingList.ListItem updatedItem = new msn2.net.ShoppingList.ListItem { UniqueId = item.UniqueId, Name = updatedName.Trim() };
+            lds.UpdateListItem(authData, updatedItem);
+
+            this.LoadLists();
         }
 
         void cancelButton_Click(object sender, EventArgs e)
         {
-            this.main.Visible = true;
-            this.addPanel.Visible = false;
+            this.OnView(null, null);
         }
 
         void addButton_Click(object sender, EventArgs e)
@@ -142,14 +204,17 @@ namespace SLExpress
                 ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
                 Guid selectedList = new Guid(this.list.SelectedValue);
 
-                ListDataService lds = new ListDataService();
-                lds.AddListItem(authData, selectedList, this.add.Text.Trim());
+                foreach (string item in this.add.Text.Trim().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    ListDataService lds = new ListDataService();
+                    lds.AddListItem(authData, selectedList, item.Trim());
+                }
 
                 this.add.Text = string.Empty;
-                this.main.Visible = true;
-                this.addPanel.Visible = false;
 
                 this.LoadLists();
+                
+                this.OnView(null, null);
             }
         }
 
@@ -164,6 +229,59 @@ namespace SLExpress
             lds.DeleteListItem(authData, id);
 
             this.LoadLists();
-        }        
+        }
+
+        protected void OnAdd(object sender, EventArgs e)
+        {
+            this.addMode.Font.Bold = true;
+            this.addMode.Enabled = false;
+            this.editMode.Font.Bold = false;
+            this.editMode.Enabled = true;
+            this.viewMode.Font.Bold = false;
+            this.viewMode.Enabled = true;
+
+            this.addPanel.Visible = true;
+            this.editPanel.Visible = false;
+            this.main.Visible = false;
+
+            Page.ClientScript.RegisterStartupScript(typeof(_Default), "AddFocus", "if (document.all.add) document.all.add.focus();", true);
+        }
+
+        protected void OnEdit(object sender, EventArgs e)
+        {
+            this.addMode.Font.Bold = false;
+            this.addMode.Enabled = true;
+            this.editMode.Font.Bold = true;
+            this.editMode.Enabled = false;
+            this.viewMode.Font.Bold = false;
+            this.viewMode.Enabled = true;
+
+            this.addPanel.Visible = false;
+            this.editPanel.Visible = true;
+            this.main.Visible = false;
+        }
+
+        protected void OnView(object sender, EventArgs e)
+        {
+            this.addMode.Font.Bold = false;
+            this.addMode.Enabled = true;
+            this.editMode.Font.Bold = false;
+            this.editMode.Enabled = true;
+            this.viewMode.Font.Bold = true;
+            this.viewMode.Enabled = false;
+
+            this.addPanel.Visible = false;
+            this.editPanel.Visible = false;
+            this.main.Visible = true;
+        }
+
+        void OnCancelMove(object sender, EventArgs e)
+        {
+            this.addMode.Enabled = true;
+            this.viewMode.Enabled = true;
+
+            this.editItems.Visible = true;
+            this.moveItem.Visible = false;
+        }
     }
 }

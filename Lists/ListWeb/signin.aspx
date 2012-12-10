@@ -39,6 +39,7 @@
                         WL.login({ scope: "wl.signin"});
                     }
 
+                    document.all['message'].innerText = 'Authenticating...';
                     WL.Event.subscribe("auth.login", onLogin);
 
                     WL.init({

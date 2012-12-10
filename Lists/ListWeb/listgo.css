@@ -44,3 +44,7 @@ body
     font-family: Segoe UI, Arial, Tahoma;
     font-size: 10pt;
 }
+.modeLink
+{
+    text-decoration: none;
+}
