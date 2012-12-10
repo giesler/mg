@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Diagnostics;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -63,6 +64,7 @@ namespace msn2.net.Pictures.Controls
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
+		private fStatus stat;
 
 		public fAddPictures()
 		{
@@ -111,6 +113,7 @@ namespace msn2.net.Pictures.Controls
 			this.groupPicker1 = new msn2.net.Pictures.Controls.GroupPicker();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.checkBoxFilenameTitle = new System.Windows.Forms.CheckBox();
 			this.publishPictures = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -141,7 +144,6 @@ namespace msn2.net.Pictures.Controls
 			this.btnRemovePictures = new System.Windows.Forms.Button();
 			this.openFileDialogPic = new System.Windows.Forms.OpenFileDialog();
 			this.checkboxSortList = new System.Windows.Forms.CheckBox();
-			this.checkBoxFilenameTitle = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -152,7 +154,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnCancel.Location = new System.Drawing.Point(400, 384);
@@ -176,8 +178,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// personSelect1
 			// 
-			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.personSelect1.Location = new System.Drawing.Point(96, 112);
 			this.personSelect1.Name = "personSelect1";
 			this.personSelect1.SelectedPerson = null;
@@ -207,7 +209,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// btnAdd
 			// 
-			this.btnAdd.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnAdd.Location = new System.Drawing.Point(320, 384);
 			this.btnAdd.Name = "btnAdd";
@@ -219,19 +221,19 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.groupPicker1.AllowRemoveEveryone = true;
 			this.groupPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupPicker1.Location = new System.Drawing.Point(0, 0);
 			this.groupPicker1.Name = "groupPicker1";
-			this.groupPicker1.Size = new System.Drawing.Size(464, 166);
+			this.groupPicker1.Size = new System.Drawing.Size(464, 190);
 			this.groupPicker1.TabIndex = 0;
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.tabPage3,
-																					  this.tabPage1,
-																					  this.tabPage2});
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Location = new System.Drawing.Point(8, 160);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -240,17 +242,26 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.checkBoxFilenameTitle,
-																				   this.publishPictures,
-																				   this.label1,
-																				   this.personSelect1,
-																				   this.groupBox1});
+			this.tabPage3.Controls.Add(this.checkBoxFilenameTitle);
+			this.tabPage3.Controls.Add(this.publishPictures);
+			this.tabPage3.Controls.Add(this.label1);
+			this.tabPage3.Controls.Add(this.personSelect1);
+			this.tabPage3.Controls.Add(this.groupBox1);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Size = new System.Drawing.Size(464, 190);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Details";
+			// 
+			// checkBoxFilenameTitle
+			// 
+			this.checkBoxFilenameTitle.Checked = true;
+			this.checkBoxFilenameTitle.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxFilenameTitle.Location = new System.Drawing.Point(24, 160);
+			this.checkBoxFilenameTitle.Name = "checkBoxFilenameTitle";
+			this.checkBoxFilenameTitle.Size = new System.Drawing.Size(416, 24);
+			this.checkBoxFilenameTitle.TabIndex = 11;
+			this.checkBoxFilenameTitle.Text = "Use filename as title of picture";
 			// 
 			// publishPictures
 			// 
@@ -272,14 +283,13 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.groupBox1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					this.radioFilenameDate,
-																					this.dateTimePicker1,
-																					this.dtPictureDate,
-																					this.radioCustomDate,
-																					this.radioPictureDate});
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.radioFilenameDate);
+			this.groupBox1.Controls.Add(this.dateTimePicker1);
+			this.groupBox1.Controls.Add(this.dtPictureDate);
+			this.groupBox1.Controls.Add(this.radioCustomDate);
+			this.groupBox1.Controls.Add(this.radioPictureDate);
 			this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.groupBox1.Location = new System.Drawing.Point(8, 8);
 			this.groupBox1.Name = "groupBox1";
@@ -298,8 +308,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// dateTimePicker1
 			// 
-			this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+			this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.dateTimePicker1.Location = new System.Drawing.Point(168, 16);
 			this.dateTimePicker1.Name = "dateTimePicker1";
 			this.dateTimePicker1.Size = new System.Drawing.Size(264, 20);
@@ -307,8 +317,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// dtPictureDate
 			// 
-			this.dtPictureDate.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+			this.dtPictureDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.dtPictureDate.Location = new System.Drawing.Point(88, 160);
 			this.dtPictureDate.Name = "dtPictureDate";
 			this.dtPictureDate.Size = new System.Drawing.Size(248, 20);
@@ -329,41 +339,40 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.radioPictureDate.Location = new System.Drawing.Point(16, 40);
 			this.radioPictureDate.Name = "radioPictureDate";
-			this.radioPictureDate.Size = new System.Drawing.Size(256, 24);
+			this.radioPictureDate.Size = new System.Drawing.Size(408, 24);
 			this.radioPictureDate.TabIndex = 0;
-			this.radioPictureDate.Text = "Use date on picture file (Last Modified date)";
+			this.radioPictureDate.Text = "Use date on picture file (Date Picture Taken / Last Modified date)";
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.categoryPicker1});
+			this.tabPage1.Controls.Add(this.categoryPicker1);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Size = new System.Drawing.Size(464, 166);
+			this.tabPage1.Size = new System.Drawing.Size(464, 190);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Categories";
 			// 
 			// categoryPicker1
 			// 
 			this.categoryPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.categoryPicker1.Location = new System.Drawing.Point(0, 0);
 			this.categoryPicker1.Name = "categoryPicker1";
-			this.categoryPicker1.Size = new System.Drawing.Size(464, 166);
+			this.categoryPicker1.Size = new System.Drawing.Size(464, 190);
 			this.categoryPicker1.TabIndex = 5;
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.groupPicker1});
+			this.tabPage2.Controls.Add(this.groupPicker1);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(464, 166);
+			this.tabPage2.Size = new System.Drawing.Size(464, 190);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Security";
 			// 
 			// lstFiles
 			// 
-			this.lstFiles.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+			this.lstFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.lstFiles.Location = new System.Drawing.Point(8, 24);
 			this.lstFiles.Name = "lstFiles";
 			this.lstFiles.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -379,7 +388,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// btnAddPictures
 			// 
-			this.btnAddPictures.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+			this.btnAddPictures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnAddPictures.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnAddPictures.Location = new System.Drawing.Point(320, 128);
 			this.btnAddPictures.Name = "btnAddPictures";
@@ -547,11 +556,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.dsPicture.DataSetName = "DataSetPicture";
 			this.dsPicture.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsPicture.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
 			// 
 			// btnRemovePictures
 			// 
-			this.btnRemovePictures.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+			this.btnRemovePictures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnRemovePictures.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnRemovePictures.Location = new System.Drawing.Point(400, 128);
 			this.btnRemovePictures.Name = "btnRemovePictures";
@@ -570,8 +578,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// checkboxSortList
 			// 
-			this.checkboxSortList.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+			this.checkboxSortList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.checkboxSortList.Checked = true;
 			this.checkboxSortList.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkboxSortList.Location = new System.Drawing.Point(16, 128);
@@ -580,31 +588,20 @@ namespace msn2.net.Pictures.Controls
 			this.checkboxSortList.TabIndex = 11;
 			this.checkboxSortList.Text = "Sort list by filename before adding";
 			// 
-			// checkBoxFilenameTitle
-			// 
-			this.checkBoxFilenameTitle.Checked = true;
-			this.checkBoxFilenameTitle.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxFilenameTitle.Location = new System.Drawing.Point(24, 160);
-			this.checkBoxFilenameTitle.Name = "checkBoxFilenameTitle";
-			this.checkBoxFilenameTitle.Size = new System.Drawing.Size(416, 24);
-			this.checkBoxFilenameTitle.TabIndex = 11;
-			this.checkBoxFilenameTitle.Text = "Use filename as title of picture";
-			// 
 			// fAddPictures
 			// 
 			this.AcceptButton = this.btnAdd;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(496, 414);
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.checkboxSortList,
-																		  this.tabControl1,
-																		  this.btnRemovePictures,
-																		  this.btnCancel,
-																		  this.btnAdd,
-																		  this.btnAddPictures,
-																		  this.lstFiles,
-																		  this.lblFiles});
+			this.Controls.Add(this.checkboxSortList);
+			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.btnRemovePictures);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnAdd);
+			this.Controls.Add(this.btnAddPictures);
+			this.Controls.Add(this.lstFiles);
+			this.Controls.Add(this.lblFiles);
 			this.Name = "fAddPictures";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Add Pictures";
@@ -661,6 +658,11 @@ namespace msn2.net.Pictures.Controls
 			btnAdd.Enabled = false;
 			btnAddPictures.Enabled = false;
 
+			// open a status window, file copying could take time
+			stat = new fStatus("Adding pictures...", lstFiles.Items.Count);
+
+			this.Visible = false;
+
 			Thread t	= new Thread(new ThreadStart(ImportFile));
 			t.Start();
 
@@ -668,10 +670,6 @@ namespace msn2.net.Pictures.Controls
 
 		private void ImportFile()
 		{
-			// open a status window, file copying could take time
-			fStatus stat = new fStatus(this, "Adding pictures...", lstFiles.Items.Count);
-
-
 			// figure out the current max PictureSort val
 			cn.Open();
 			SqlCommand cmdMaxVal = new SqlCommand("select Max(PictureSort) from Picture", cn);
@@ -681,24 +679,39 @@ namespace msn2.net.Pictures.Controls
 				intCurPicSort = drMaxVal.GetInt32(0);
 			drMaxVal.Close();
 
-
 			// add pictures to dataset
 			int intFile = 0;
-			foreach (String file in lstFiles.Items) 
+			foreach (string file in lstFiles.Items) 
 			{				
 				// Figure out the directory based on either file date/time or custom date
 				DateTime date = DateTime.Now;
 				if (radioCustomDate.Checked) 
-					date = dtPictureDate.Value;
+					date = dateTimePicker1.Value;
 				else if (radioPictureDate.Checked)
+				{
+					// Default to last modified time
 					date = File.GetLastWriteTime(file);
+
+					try
+					{
+						// Get 'date picture taken' if available
+						Utilities.ExifMetadata ex				= new Utilities.ExifMetadata();
+						Utilities.ExifMetadata.Metadata data	= ex.GetExifMetadata(file);
+
+						date = DateTime.Parse(data.DatePictureTaken.DisplayValue);
+					}
+					catch (Exception ex)
+					{						
+						Trace.WriteLine(ex.Message);
+					}
+				}
 				else
 					date = ParseFilenameDateTime(file);
 				string dateString = date.Year.ToString("0000") + "\\" 
 					+ date.Month.ToString("00") + "\\" + date.Day.ToString("00") + "\\";
 
 				// Build the full directory to use, and create it if not there
-				string targetDirectory = "\\\\ike\\pictures\\" + dateString;
+				string targetDirectory = PicContext.Current.Config.PictureDirectory + dateString;
 				if (!Directory.Exists(targetDirectory))
 					Directory.CreateDirectory(targetDirectory);
 
@@ -801,8 +814,8 @@ namespace msn2.net.Pictures.Controls
 				string newFilename = directory + pr.PictureID.ToString("000000") + extension;
 
 				// rename the file
-				File.Move("\\\\ike\\pictures\\" + oldFilename,
-						  "\\\\ike\\pictures\\" + newFilename);
+				string picDirectory = PicContext.Current.Config.PictureDirectory;
+				File.Move(picDirectory + oldFilename, picDirectory + newFilename);
 
 				pr.Filename = newFilename;
 

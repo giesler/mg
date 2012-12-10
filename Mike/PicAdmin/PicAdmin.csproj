@@ -99,10 +99,25 @@
                     HintPath = "..\..\..\Program Files\Crownwood Consulting Ltd\Magic Library 1.7.4\Bin\MagicLibrary.DLL"
                     AssemblyFolderKey = "hklm\dn\magic library"
                 />
+                <Reference
+                    Name = "PicLibrary"
+                    Project = "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "AddPicturesToCategory.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AddPicturesToCategory.resx"
+                    DependentUpon = "AddPicturesToCategory.cs"
+                    BuildAction = "EmbeddedResource"
+                />
                 <File
                     RelPath = "app.config"
                     BuildAction = "None"
@@ -278,6 +293,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "fGroupSelect.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "fGroupSelect.resx"
+                    DependentUpon = "fGroupSelect.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "fMain.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -369,6 +394,11 @@
                 />
                 <File
                     RelPath = "ImageUtilities.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ImageUtils.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

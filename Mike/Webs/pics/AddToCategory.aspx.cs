@@ -8,40 +8,18 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Data.SqlClient;
-using System.Drawing.Imaging;
 using msn2.net.Pictures;
 
 namespace pics
 {
 	/// <summary>
-	/// Summary description for GetItem.
+	/// Summary description for AddToCategory.
 	/// </summary>
-	public class GetItem : System.Web.UI.Page
+	public class AddToCategory : System.Web.UI.Page
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			int pictureId		= Convert.ToInt32(Request.QueryString["p"]);
-			int maxWidth		= Convert.ToInt32(Request.QueryString["mw"]);
-			int maxHeight		= Convert.ToInt32(Request.QueryString["mh"]);
-			
-			DataSet ds			= PicContext.Current.PictureManager.GetPicture(pictureId, maxWidth, maxHeight);
-			DataRow dr			= ds.Tables[0].Rows[0];
-            
-			string strCache		= PicContext.Current.Config.CacheDirectory;
-
-			string filename = dr["FileName"].ToString();
-
-			filename = strCache + filename.Replace(@"\", @"/");
-
-			Response.ContentType	 = "image/jpeg";
-			using (Bitmap img = new Bitmap(filename))
-			{
-				img.Save(Response.OutputStream, ImageFormat.Jpeg);
-			}
-
-			Response.End();
-
+			// Put user code to initialize the page here
 		}
 
 		#region Web Form Designer generated code
@@ -63,6 +41,19 @@ namespace pics
 			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
+
+		private void AddPics(int categoryId)
+		{
+			PictureManager mgr = PicContext.Current.PictureManager;
+
+			// Add or remove from selected list
+			PictureIdCollection mySelectedList	= (PictureIdCollection) Session["MySelectedList"];
+
+			foreach (int pictureId in mySelectedList)
+			{
+				mgr.AddToCategory(pictureId, categoryId);
+			}
+
+		}
 	}
 }
-

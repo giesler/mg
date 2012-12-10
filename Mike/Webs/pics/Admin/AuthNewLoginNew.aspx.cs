@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using System.Web.Mail;
+using msn2.net.Pictures;
 
 namespace pics.Admin
 {
@@ -43,36 +44,24 @@ namespace pics.Admin
 
 			if (!Page.IsPostBack) 
 			{
-
 				// make sure we have an ID
 				if (Request.QueryString["id"] == null)
 					Response.Redirect("../");
 
 				// set up objects to get info
-				SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-				SqlCommand cmd   = new SqlCommand("sp_LoginRequest_Retreive", cn);
-				cmd.CommandType  = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@id", Request.QueryString["id"]);
-
-				// retreive info on this id
-				cn.Open();
-				SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+				int id			= int.Parse(Request.QueryString["id"]);
+				PersonInfo info	= PicContext.Current.UserManager.GetNewUserRequest(id);
 
 				// attempt to read record
-				if (dr.Read()) 
+				if (info != null) 
 				{
-					lblName.Text = dr["Name"].ToString();
-					lblEmail.Text = dr["Email"].ToString();
+					lblName.Text	= info.Name;
+					lblEmail.Text	= info.Email;
 				} 
 				else 
 				{
 					lblName.Text = "Unable to read user information.";
 				}
-
-				// close objects
-				dr.Close();
-				cn.Close();
-
 			}		
 		}
 
@@ -99,21 +88,8 @@ namespace pics.Admin
 
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
-            // set up connection, command
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-			SqlCommand cmd	 = new SqlCommand("sp_LoginRequest_NewPerson", cn);
-			cmd.CommandType	 = CommandType.StoredProcedure;
-
-			// Add params to send to SP
-			cmd.Parameters.Add("@RequestID", Request.QueryString["id"]);
-			cmd.Parameters.Add("@FirstName", txtFirstName.Text);
-			cmd.Parameters.Add("@LastName", txtLastName.Text);
-			cmd.Parameters.Add("@FullName", txtFullName.Text);
-			
-			// run sp
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+			int requestId	= int.Parse(Request.QueryString["id"]);
+			PicContext.Current.UserManager.AddNewPerson(requestId, txtFirstName.Text, txtLastName.Text, txtFullName.Text);
 
 			// create message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -132,7 +108,7 @@ namespace pics.Admin
 			msg.BodyFormat = MailFormat.Html;
 
 			// send message
-			SmtpMail.SmtpServer = pics.Config.SMTPServer;
+			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// show info

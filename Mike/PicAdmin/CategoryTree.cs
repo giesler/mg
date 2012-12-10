@@ -104,12 +104,12 @@ namespace msn2.net.Pictures.Controls
 			this.menuDelete = new System.Windows.Forms.MenuItem();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.menuRefresh = new System.Windows.Forms.MenuItem();
+			this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
 			this.menuDeleteCat = new System.Windows.Forms.MenuItem();
 			this.dvCategory = new System.Data.DataView();
 			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 			this.menuEditCatName = new System.Windows.Forms.MenuItem();
 			this.menuAddChildCat = new System.Windows.Forms.MenuItem();
-			this.menuSaveSlideshow = new System.Windows.Forms.MenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).BeginInit();
 			this.SuspendLayout();
@@ -192,7 +192,7 @@ namespace msn2.net.Pictures.Controls
 			this.tvCategory.Location = new System.Drawing.Point(0, 0);
 			this.tvCategory.Name = "tvCategory";
 			this.tvCategory.SelectedImageIndex = -1;
-			this.tvCategory.Size = new System.Drawing.Size(120, 10);
+			this.tvCategory.Size = new System.Drawing.Size(120, 112);
 			this.tvCategory.TabIndex = 0;
 			this.tvCategory.DoubleClick += new System.EventHandler(this.tvCategory_DoubleClick);
 			this.tvCategory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvCategory_AfterSelect);
@@ -238,6 +238,12 @@ namespace msn2.net.Pictures.Controls
 			this.menuRefresh.Text = "&Refresh";
 			this.menuRefresh.Click += new System.EventHandler(this.menuRefresh_Click);
 			// 
+			// menuSaveSlideshow
+			// 
+			this.menuSaveSlideshow.Index = 5;
+			this.menuSaveSlideshow.Text = "&Save slideshow...";
+			this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
+			// 
 			// menuDeleteCat
 			// 
 			this.menuDeleteCat.Index = -1;
@@ -265,17 +271,11 @@ namespace msn2.net.Pictures.Controls
 			this.menuAddChildCat.Text = "";
 			this.menuAddChildCat.Click += new System.EventHandler(this.menuAddChildCat_Click);
 			// 
-			// menuSaveSlideshow
-			// 
-			this.menuSaveSlideshow.Index = 5;
-			this.menuSaveSlideshow.Text = "&Save slideshow...";
-			this.menuSaveSlideshow.Click += new System.EventHandler(this.menuSaveSlideshow_Click);
-			// 
 			// CategoryTree
 			// 
 			this.Controls.Add(this.tvCategory);
 			this.Name = "CategoryTree";
-			this.Size = new System.Drawing.Size(120, 10);
+			this.Size = new System.Drawing.Size(120, 112);
 			((System.ComponentModel.ISupportInitialize)(this.dvCategory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).EndInit();
 			this.ResumeLayout(false);
@@ -512,13 +512,6 @@ namespace msn2.net.Pictures.Controls
 
 		private void menuSaveSlideshow_Click(object sender, System.EventArgs e)
 		{
-
-			if (SelectedCategory != null)
-			{
-				SaveSlideshow ss	= new SaveSlideshow();
-				ss.CategoryId		= SelectedCategory.CategoryID;
-				ss.ShowDialog();
-			}
 
 		}
 

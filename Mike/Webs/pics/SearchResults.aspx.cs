@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using pics.Controls;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -23,6 +24,12 @@ namespace pics
 		protected System.Web.UI.WebControls.Panel youAreHerePanel;
 		protected System.Web.UI.WebControls.Label searchDescription;
 		protected pics.Controls.Header header;
+		protected pics.Controls.PictureTasks picTaskList;
+		protected pics.Controls.ContentPanel picTasks;
+		protected pics.Controls.ContentPanel Contentpanel1;
+		protected pics.Controls.Sidebar Sidebar1;
+		protected System.Web.UI.WebControls.Panel childCategoryList;
+		protected System.Web.UI.WebControls.Label resultCount;
 		protected System.Web.UI.WebControls.Panel pnlthumbs;
 	
 		public SearchResults()
@@ -39,16 +46,15 @@ namespace pics
 					Response.Redirect("SearchCriteria.aspx");
 				
 				// set the URL to return to search criteria page
-				ReturnToCriteria.NavigateUrl = "SearchCriteria.aspx?id=" + Request.QueryString["id"].ToString();
+				// TODO: ReturnToCriteria.NavigateUrl = "SearchCriteria.aspx?id=" + Request.QueryString["id"].ToString();
 
 				// get the byte array from the guid passed
-				XMGuid.Init();
-				XMGuid g = new XMGuid(Request.QueryString["id"]);
+				Guid g = new Guid(Request.QueryString["id"]);
 
 				// get the search description
-				SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
+				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 				SqlCommand cmd   = new SqlCommand("select SearchDescription from Search where SearchID = @SearchID", cn);
-				cmd.Parameters.Add("@SearchID", g.Buffer);
+				cmd.Parameters.Add("@SearchID", g);
 				cn.Open();
 				SqlDataReader dr = cmd.ExecuteReader();
 				
@@ -89,14 +95,12 @@ namespace pics
 		
 		private void LoadPictures(int intStartRecord)
 		{
-			// load the person's info
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 			string id = Request.QueryString["id"];
+
+			int pageSize = 20;
 	
 			// get the byte array from the guid passed
-			XMGuid.Init();
-			XMGuid g = new XMGuid(id);
+			Guid g = new Guid(id);
 
 			// see if a start record is set in QS - this would override anything passed
 			if (Request.QueryString["sr"] != null)
@@ -106,17 +110,17 @@ namespace pics
 			if (intStartRecord < 1) intStartRecord = 1;
 
 			// init connection and command to get pictures
-			SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
+			SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
 
 			// Set up SP to retreive pictures
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Search_GetPictures", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
 			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@SearchID", g.Buffer);
+			daPics.SelectCommand.Parameters.Add("@SearchID", g);
 			daPics.SelectCommand.Parameters.Add("@StartRecord", intStartRecord);
-			daPics.SelectCommand.Parameters.Add("@ReturnCount", 15);
-			daPics.SelectCommand.Parameters.Add("@PersonID", pi.PersonID);
+			daPics.SelectCommand.Parameters.Add("@ReturnCount", pageSize);
+			daPics.SelectCommand.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
 			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
 			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
 			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
@@ -128,14 +132,16 @@ namespace pics
 			daPics.Fill(dsPics, "Pictures");
 			cn.Close();
 
+			int totalCount			= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);
+
 			// create new control
 			PagedThumbnailList thumbs = new PagedThumbnailList();
 			thumbs.PageReturnURL	= PicPageURL;
-			thumbs.ShowRecordNumber	= true;
+			thumbs.ShowRecordNumber	= false;
 			thumbs.ThumbsDataSource = dsPics.Tables["Pictures"].DefaultView;
-			thumbs.TotalRecords		= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);
+			thumbs.TotalRecords		= totalCount;
 			thumbs.StartRecord		= intStartRecord;
-			thumbs.RecordsPerPage	= 15;
+			thumbs.RecordsPerPage	= pageSize;
 			thumbs.NoPictureMessage	= "<b>There are no pictures in this category.</b><br>Please select another category from the left tree.";
 			thumbs.PageNavUrl		= Request.Path + "?id=" + id + "&sr={0}";
 			pnlthumbs.Controls.Add(thumbs);
@@ -143,9 +149,17 @@ namespace pics
 			// Show the slideshow link if there are pictures
 			if (thumbs.HasPictures) 
 			{
-				lnkSlideshow.Visible = true;
-				lnkSlideshow.NavigateUrl = String.Format(PicPageURL + "&ss=1", intStartRecord);
+				picTasks.Visible			= true;
+				picTaskList.SetSlideshowUrl(string.Format(PicPageURL + "&ss=1", intStartRecord));
 
+				if (totalCount == 1)
+				{
+					resultCount.Text	= "1 picture found";
+				}
+				else
+				{
+					resultCount.Text	= string.Format("{0} pictures found", totalCount);
+				}
 			}
 		}
 

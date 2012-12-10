@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using pics.Controls;
+using msn2.net.Pictures;
+using System.Text;
 
 namespace pics
 {
@@ -38,6 +40,16 @@ namespace pics
 		protected System.Web.UI.WebControls.Panel pictureLocation;
 		protected System.Web.UI.WebControls.Label nextBarNote;
 		protected System.Web.UI.WebControls.Panel editLinkPanel;
+		protected System.Web.UI.WebControls.DataList categoryList;
+		protected System.Web.UI.WebControls.DataList securityList;
+		protected System.Web.UI.WebControls.HyperLink Hyperlink1;
+		protected System.Web.UI.WebControls.HyperLink Hyperlink2;
+		protected System.Web.UI.WebControls.Panel Panel2;
+		protected System.Web.UI.WebControls.Label Label8;
+		protected System.Web.UI.WebControls.HyperLink Hyperlink3;
+		protected System.Web.UI.WebControls.Panel Panel3;
+		protected System.Web.UI.WebControls.Panel leftPanel;
+		protected System.Web.UI.WebControls.Panel taskList;
 		protected String m_HttpRefreshURL;
 		#endregion
 
@@ -63,14 +75,11 @@ namespace pics
 			} 
 			else 
 			{
-				// load the person's info
-				PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 				// figure out the source type
 				string sourceType = Request.QueryString["type"];
 
 				// init connection and command
-				SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
+				SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
 
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
@@ -111,10 +120,8 @@ namespace pics
 				}
 				else if (sourceType.Equals("search")) 
 				{
-					XMGuid.Init();
-					XMGuid g = new XMGuid(Request.QueryString["id"]);
-
-					cmdPic.Parameters.Add("@SearchID", g.Buffer);
+					Guid id = new Guid(Request.QueryString["id"]);
+					cmdPic.Parameters.Add("@SearchID", id);
 				} 
 				else if (sourceType.Equals("random")) 
 				{
@@ -124,7 +131,7 @@ namespace pics
 				cmdPic.Parameters.Add("@ReturnCount", 1);
 				cmdPic.Parameters.Add("@MaxHeight", 700);
 				cmdPic.Parameters.Add("@MaxWidth", 750);
-				cmdPic.Parameters.Add("@PersonID", pi.PersonID);
+				cmdPic.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
@@ -151,7 +158,8 @@ namespace pics
 				// now create the picture
 				Picture curPic = new Picture();
 				//curPic.Filename = dr["Filename"].ToString();
-				curPic.SetPictureById((int) dr["PictureId"], 700, 750);
+				int pictureId = (int) dr["PictureId"];
+				curPic.SetPictureById(pictureId, 700, 750);
 				curPic.Height   = Convert.ToInt32(dr["Height"]);
 				curPic.Width	= Convert.ToInt32(dr["Width"]);
 				curPic.ID		= "currentPicture";
@@ -161,31 +169,21 @@ namespace pics
 				{
 					PictureEditFormLink ef = new PictureEditFormLink( (int) dr["PictureId"] );
 					editLinkPanel.Controls.Add(ef);
+
+					leftPanel.Visible = true;
+
+					securityList.DataSource = PicContext.Current.PictureManager.GetPictureGroups(pictureId);
+					securityList.DataBind();
+
+					categoryList.DataSource = PicContext.Current.PictureManager.GetPictureCategories(pictureId);
+					categoryList.DataBind();
+
+					LoadTasks();
 				}
 
 				// now read people
-                SqlCommand cmdPerson = new SqlCommand();
-				cmdPerson.CommandText = "sp_Picture_GetPeople";
-				cmdPerson.CommandType = CommandType.StoredProcedure;
-				cmdPerson.Connection  = cn;
-
-				// set up params to SP
-				cmdPerson.Parameters.Add("@PictureID", Convert.ToInt32(dr["PictureID"]));
-
-				// now read the data
-                SqlDataReader drPerson = cmdPerson.ExecuteReader();
-				dlPerson.DataSource = drPerson;
+				dlPerson.DataSource = PicContext.Current.PictureManager.GetPicturePeople(pictureId);
 				dlPerson.DataBind();
-
-//				if (dlPerson.Items.Count == 0)
-//					pnlPeople.Visible = false;
-
-				// close people reader
-                drPerson.Close();
-
-				// close connection
-				cn.Close();
-
 
 				// Now set page controls
 				int intCurRec = Convert.ToInt32(Request.QueryString["r"]);
@@ -266,6 +264,50 @@ namespace pics
 
 		}
 
+		private void LoadTasks()
+		{
+			StringBuilder sb	= new StringBuilder();
+
+			sb.Append("<B>Tasks</B><BR>");
+			sb.Append("<a href=\"javascript:EditPic()\" class=\"infoPanelText\">Edit picture details</a><br />");
+			sb.Append("<a href=\"javascript:AddToCat()\" class=\"infoPanelText\">Add to category...</a><br />");
+			sb.Append("<a href=\"javascript:SetAsCatPic()\" class=\"infoPanelText\">Set as category index pic</a><br />");
+
+			taskList.Controls.Add(new HtmlLiteral(sb.ToString()));
+
+			// Server side task javascript
+			sb		= new StringBuilder();
+			int personId		= PicContext.Current.CurrentUser.Id;
+			sb.Append("<script language=\"javascript\">");
+			sb.Append("function SetAsCatPic() { ");
+			sb.Append(" if (document.all['pictureTasks'] != null) {");
+			sb.Append("   var pId  = " + personId.ToString() + ";");
+			sb.Append("   var t    = document.all['pictureTasks'];");
+			sb.Append("   t.SetAsCategoryPic(pId);");
+			sb.Append(" }");
+			sb.Append("}");
+			sb.Append("function EditPic() { ");
+			sb.Append(" if (document.all['pictureTasks'] != null) {");
+			sb.Append("   var pId  = " + personId.ToString() + ";");
+			sb.Append("   var t    = document.all['pictureTasks'];");
+			sb.Append("   t.EditPicture(pId);");
+			sb.Append("   document.location.href = document.location.href;");
+			sb.Append(" }");
+			sb.Append("}");
+			sb.Append("function AddToCat() { ");
+			sb.Append(" if (document.all['pictureTasks'] != null) {");
+			sb.Append("   var pId  = " + personId.ToString() + ";");
+			sb.Append("   var t    = document.all['pictureTasks'];");
+			sb.Append("   t.AddToCategory(pId);");
+			sb.Append("   document.location.href = document.location.href;");
+			sb.Append(" }");
+			sb.Append("}");
+			sb.Append("// </script>");
+
+			Page.RegisterClientScriptBlock("setCatPicScript", sb.ToString());
+
+		}
+
 		private void Page_Init(object sender, EventArgs e)
 		{
 			//
@@ -296,7 +338,7 @@ namespace pics
 		#region Private Methods
 		private void SetCategory(int categoryId)
 		{
-			CategoryManager catMan		= new CategoryManager();
+			CategoryManager catMan		= PicContext.Current.CategoryManager;
 			Category cat				= catMan.GetCategory(categoryId);
 			lblCategory.Text			= cat.Name;
 

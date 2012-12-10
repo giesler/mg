@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using System.Web.Mail;
+using msn2.net.Pictures;
 
 namespace pics.Admin
 {
@@ -18,6 +19,8 @@ namespace pics.Admin
 	/// </summary>
 	public class AuthNewLogin : System.Web.UI.Page
 	{
+		#region Declares
+
 		protected System.Web.UI.WebControls.Label lblName;
 		protected System.Web.UI.WebControls.Panel pnlNewLoginInfo;
 		protected System.Web.UI.WebControls.HyperLink lnkNewLogin;
@@ -30,44 +33,36 @@ namespace pics.Admin
 		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Label lblEmail;
 	
+		#endregion
+
+		#region Constructor
+
 		public AuthNewLogin()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
 		}
 
+		#endregion
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if (!Page.IsPostBack) 
 			{
-
 				// make sure we have an ID
 				if (Request.QueryString["id"] == null)
 					Response.Redirect("../");
 
-				// set up objects to get info
-				SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-				SqlCommand cmd   = new SqlCommand("sp_LoginRequest_Retreive", cn);
-				cmd.CommandType  = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@id", Request.QueryString["id"]);
-
-				// retreive info on this id
-				cn.Open();
-				SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
-
-				// attempt to read record
-				if (dr.Read()) 
+				int id = int.Parse(Request.QueryString["id"]);
+				PersonInfo info = PicContext.Current.UserManager.GetNewUserRequest(id);
+				if (info != null)
 				{
-					lblName.Text = dr["Name"].ToString();
-					lblEmail.Text = dr["Email"].ToString();
-				} 
+					lblName.Text	= info.Name;
+					lblEmail.Text	= info.Email;
+				}
 				else 
 				{
 					lblName.Text = "Unable to read user information.";
 				}
-
-				// close objects
-				dr.Close();
-				cn.Close();
 
 				// set up link to new user
 				lnkNewLogin.NavigateUrl = "AuthNewLoginNew.aspx?id=" + Request.QueryString["id"].ToString();
@@ -116,17 +111,8 @@ namespace pics.Admin
 				return;
 			}
 
-			// create conneciton, command
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-			SqlCommand cmd	 = new SqlCommand("dbo.sp_LoginRequest_Associate", cn);
-			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@RequestID", Request.QueryString["id"]);
-			cmd.Parameters.Add("@PersonID", PersonPicker.SelectedPerson);
-
-			// run command
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+			int requestId = int.Parse(Request.QueryString["id"]);
+			PicContext.Current.UserManager.AssociateRequestWithPerson(requestId, PersonPicker.SelectedPerson);
 
 			// create message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -145,7 +131,7 @@ namespace pics.Admin
 			msg.BodyFormat = MailFormat.Html;
 
 			// send message
-			SmtpMail.SmtpServer = pics.Config.SMTPServer;
+			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
 			// show message
@@ -157,7 +143,6 @@ namespace pics.Admin
 		{
 			afterPersonSelectContent.Visible	= true;
 		}
-
 
 	
 	}

@@ -1,3 +1,13 @@
+
+.areaPanel 
+{
+	PADDING-RIGHT: 2px; 
+	PADDING-LEFT: 2px; 
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#DAD8D8'); 
+	PADDING-BOTTOM: 2px; 
+	PADDING-TOP: 2px; 
+	BORDER-BOTTOM: black 1px solid 
+}
 BODY
 {
 	font-family: Arial, Verdana;
@@ -5,17 +15,15 @@ BODY
 }
 A
 {
-	color: #000099;
-	text-decoration: underline;
+	color: olive;
 }
 A:visited
 {
-	color: #0000cc;
-	text-decoration: underline;
+	color: darkgreen;
 }
 A:hover
 {
-	color: #0099ff;
+	color: gray;
 	text-decoration: underline;
 }
 
@@ -57,6 +65,17 @@ A.pipeCenterLink
 A:visited.pipeCenterLink
 {
 	text-decoration: none;
+}
+
+.categoryPicture
+{
+	left: 5px;
+	position: relative;
+	top: 5px;
+}
+
+.categoryFolder
+{
 }
 
 .progressBox
@@ -206,6 +225,26 @@ A.categorySmallLink
 	background-color:Gray;
 }
 
+.topInfoPanel
+{
+	filter: progid:DXImageTransform.Microsoft.Alpha( style=1,opacity=75,finishOpacity=60,startX=0,finishX=100,startY=0,finishY=100);
+	color: white;
+	position: absolute;
+	background-color: #606060;
+	top: 10%;
+	left: 70%;
+}
+
+.leftInfoPanel
+{
+	filter: progid:DXImageTransform.Microsoft.Alpha( style=1,opacity=75,finishOpacity=60,startX=0,finishX=100,startY=0,finishY=100);
+	color: white;
+	position: absolute;
+	background-color: #606060;
+	top: 70%;
+	left: 10%;
+}
+
 .infoPanel
 {
 	filter: progid:DXImageTransform.Microsoft.Alpha( style=1,opacity=75,finishOpacity=60,startX=0,finishX=100,startY=0,finishY=100);
@@ -225,10 +264,15 @@ A.categorySmallLink
 	width: 250px;
 	height: 175px;
 }
+
 A.infoPanelText
 {
-	color: yellow;
-	text-decoration: underline;
+	color: white;
+}
+
+A:visited.infoPanelText
+{
+	color: white;
 }
 
 .infoPanelText
@@ -300,6 +344,13 @@ A.headerLink
 {
 	font-size: 6pt;
 	color: White;
+	text-decoration: underline; 
+}
+
+A:visited.headerLink
+{
+	font-size: 6pt;
+	color: White;
 	text-decoration: underline;
 }
 
@@ -312,6 +363,11 @@ A.headerLink
 .picviewPictureBorder 
 {
 	filter:progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=8);
+}
+
+.picviewThumbBorder 
+{
+	filter:progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
 }
 
 .infoPanelCategoryBarFade
@@ -425,7 +481,7 @@ A.sidebarTaskLink
 
 .checkboxPanel
 {
-	position: absolute;
+	position: relative;
 	top: 0px;
 	left: 0px;
 	z-index: 1;

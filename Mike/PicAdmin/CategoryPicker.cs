@@ -7,16 +7,6 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-	// A delegate type for hooking up change notifications.
-	public delegate void AddedCategoryEventHandler(object sender, CategoryPickerEventArgs e);
-	public delegate void RemovedCategoryEventHandler(object sender, CategoryPickerEventArgs e);
-
-	// class for passing events up
-	public class CategoryPickerEventArgs: EventArgs 
-	{
-        public int CategoryID;
-	}
-
 
 	/// <summary>
 	/// Summary description for CategoryPicker.
@@ -87,7 +77,6 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.dsCategory.DataSetName = "DataSetCategory";
 			this.dsCategory.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsCategory.Namespace = "http://www.tempuri.org/DataSetCategory.xsd";
 			// 
 			// lvCategories
 			// 
@@ -96,8 +85,9 @@ namespace msn2.net.Pictures.Controls
 			this.lvCategories.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvCategories.HideSelection = false;
+			this.lvCategories.Location = new System.Drawing.Point(0, 0);
 			this.lvCategories.Name = "lvCategories";
-			this.lvCategories.Size = new System.Drawing.Size(216, 176);
+			this.lvCategories.Size = new System.Drawing.Size(184, 176);
 			this.lvCategories.TabIndex = 1;
 			this.lvCategories.View = System.Windows.Forms.View.Details;
 			this.lvCategories.Resize += new System.EventHandler(this.lvCategories_Resize);
@@ -121,7 +111,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(200, 0);
+			this.splitter1.Location = new System.Drawing.Point(232, 0);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(3, 176);
 			this.splitter1.TabIndex = 4;
@@ -129,26 +119,24 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.panel2,
-																				 this.btnRemoveCategory,
-																				 this.btnAddCategory});
+			this.panel1.Controls.Add(this.panel2);
+			this.panel1.Controls.Add(this.btnRemoveCategory);
+			this.panel1.Controls.Add(this.btnAddCategory);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(203, 0);
+			this.panel1.Location = new System.Drawing.Point(235, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(253, 176);
+			this.panel1.Size = new System.Drawing.Size(221, 176);
 			this.panel1.TabIndex = 3;
 			// 
 			// panel2
 			// 
-			this.panel2.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.panel2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.lvCategories});
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.panel2.Controls.Add(this.lvCategories);
 			this.panel2.Location = new System.Drawing.Point(40, 0);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(216, 176);
+			this.panel2.Size = new System.Drawing.Size(184, 176);
 			this.panel2.TabIndex = 3;
 			// 
 			// btnRemoveCategory
@@ -165,19 +153,20 @@ namespace msn2.net.Pictures.Controls
 			// categoryTree1
 			// 
 			this.categoryTree1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.categoryTree1.Location = new System.Drawing.Point(0, 0);
 			this.categoryTree1.Name = "categoryTree1";
-			this.categoryTree1.Size = new System.Drawing.Size(200, 176);
+			this.categoryTree1.Size = new System.Drawing.Size(232, 176);
 			this.categoryTree1.TabIndex = 0;
 			this.categoryTree1.DoubleClickCategory += new msn2.net.Pictures.Controls.DoubleClickCategoryEventHandler(this.categoryTree1_DoubleClickCategory);
 			// 
 			// CategoryPicker
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.panel1,
-																		  this.splitter1,
-																		  this.categoryTree1});
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.categoryTree1);
 			this.Name = "CategoryPicker";
 			this.Size = new System.Drawing.Size(456, 176);
+			this.Load += new System.EventHandler(this.CategoryPicker_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
@@ -212,7 +201,7 @@ namespace msn2.net.Pictures.Controls
 				}
 			}
 
-			ListViewItem li = lvCategories.Items.Add(cr.CategoryPath.ToString());
+			ListViewItem li = lvCategories.Items.Add(cr.CategoryName);
 			li.Tag = cr;
 
 			CategoryPickerEventArgs ex = new CategoryPickerEventArgs();
@@ -273,7 +262,7 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			ListViewItem li = lvCategories.Items.Add(cr.CategoryPath.ToString());
+			ListViewItem li = lvCategories.Items.Add(cr.CategoryName);
 			li.Tag = cr;
 
 			// add to dsCategory
@@ -310,6 +299,12 @@ namespace msn2.net.Pictures.Controls
 				lvCategories.Columns[0].Width = lvCategories.Width-20;
 		}
 
+		private void CategoryPicker_Load(object sender, System.EventArgs e)
+		{
+			// Set category tree to half form width
+			categoryTree1.Width = this.Width / 2 - panel1.Width / 2;
+		}
+
 		public DataSetCategory datasetCategory 
 		{
 			get 
@@ -343,4 +338,16 @@ namespace msn2.net.Pictures.Controls
 		}
 
 	}
+
+	// A delegate type for hooking up change notifications.
+	public delegate void AddedCategoryEventHandler(object sender, CategoryPickerEventArgs e);
+	public delegate void RemovedCategoryEventHandler(object sender, CategoryPickerEventArgs e);
+
+	// class for passing events up
+	public class CategoryPickerEventArgs: EventArgs 
+	{
+		public int CategoryID;
+	}
+
+
 }

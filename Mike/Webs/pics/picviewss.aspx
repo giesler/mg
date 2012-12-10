@@ -10,10 +10,6 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<meta http-equiv=refresh content="<%= HttpRefreshURL %>">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
-		<script language="javascript"><!--
-
-		
-		// --> </script>
 	</HEAD>
 	<body class="pictureMode" leftMargin="0" topMargin="0">
 		<form id="picview" method="post" runat="server">

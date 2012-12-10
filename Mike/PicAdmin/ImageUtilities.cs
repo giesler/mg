@@ -100,7 +100,6 @@ namespace msn2.net.Pictures.Controls
 
 		public void CreateUpdateCache(int pictureId) 
 		{
-
 			DataSetPicture dsPicture = new DataSetPicture();
 
 			// Set the picture ID we want to load
@@ -175,8 +174,8 @@ namespace msn2.net.Pictures.Controls
 			}
             
 			// figure out the filenames on the web server
-			string sourceFile = @"\\ike\Pictures\" + pictureRow.Filename;
-			string targetFile = @"\\ike\piccache\" + cacheRow.Filename;
+			string sourceFile = PicContext.Current.Config.PictureDirectory + pictureRow.Filename;
+			string targetFile = PicContext.Current.Config.CacheDirectory   + cacheRow.Filename;
 
 			// Make sure the target directory exists first
 			string path = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));

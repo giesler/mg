@@ -70,7 +70,7 @@ namespace msn2.net.Pictures.Controls
 				pbPic.Image = null;
 				strFile = strFile.Replace("/", "\\");
 
-				String strFullFile = "\\\\ike\\pictures\\" + strFile;
+				string strFullFile = PicContext.Current.Config.PictureDirectory + strFile;
 
 				// figure out the temp location, create directory if needed
 				String strTempFile = System.Environment.GetEnvironmentVariable("TEMP")

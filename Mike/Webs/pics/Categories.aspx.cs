@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using pics.Controls;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -20,8 +21,8 @@ namespace pics
 	{
 		#region Declares
 
-		protected string rootCategoryId;
-		protected string currentCategoryId;
+		protected int rootCategoryId;
+		protected int currentCategoryId;
 		protected int startRecord;
 		protected bool showEditControls;
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
@@ -49,23 +50,29 @@ namespace pics
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-				
 			showEditControls	= (bool) Session["editMode"];
 
 			// Figure out what to use as the root ID
-			rootCategoryId = Request.QueryString["r"];
-			currentCategoryId = Request.QueryString["c"];
-
-			// Defaults for root and category ID
-			if (rootCategoryId == null) 
-				rootCategoryId = "1";
-			if (currentCategoryId == null)
-				currentCategoryId = rootCategoryId;
+			if (Request.QueryString["r"] == null)
+			{
+				rootCategoryId	= 1;
+			}
+			else
+			{
+				rootCategoryId	= int.Parse(Request.QueryString["r"]);
+			}
+			if (Request.QueryString["c"] == null)
+			{
+				currentCategoryId	= rootCategoryId;
+			}
+			else
+			{
+				currentCategoryId	= int.Parse(Request.QueryString["c"]);
+			}
 
 			// Load the details of this category
-			CategoryManager catManager		= new CategoryManager();
-			Category currentCategory 		= catManager.GetCategory(Convert.ToInt32(currentCategoryId));
+			CategoryManager catManager		= PicContext.Current.CategoryManager;
+			Category currentCategory 		= catManager.GetCategory(currentCategoryId);
 			if (currentCategory == null)
 			{
 				throw new ApplicationException("The category specified in the querystring does not exist or you do not have permission to view it.");
@@ -75,7 +82,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-			CategoryCollection categories = catManager.GetCateogies(Convert.ToInt32(currentCategoryId), 1);
+			CategoryCollection categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
 
 			int columns				= 2;
 
@@ -89,7 +96,7 @@ namespace pics
             
 			// fill the child control list with links
 			int i = 0;
-			foreach (Category category in categories)
+			foreach (Category category in new EricUtility.Iterators.IterReverse(categories))
 			{
 				//BreakGroup( t);
 
@@ -102,6 +109,7 @@ namespace pics
 				string catNavUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + category.CategoryId.ToString();
 				
 				pics.Controls.CategoryListViewItem lvi = new pics.Controls.CategoryListViewItem(category.CategoryId, catNavUrl);
+				lvi.FolderWidth		= 150;
 				TableCell tc = new TableCell();
 				tc.Controls.Add(lvi);
 				catRow.Cells.Add(tc);
@@ -120,7 +128,7 @@ namespace pics
 			// Now load the 'you are here' control
 			CategoryCollection	cc	= new CategoryCollection();
 			Category parentCategory = currentCategory;
-			while (parentCategory.CategoryId != Convert.ToInt32(rootCategoryId)) 
+			while (parentCategory.CategoryId != rootCategoryId) 
 			{
 				parentCategory	= catManager.GetCategory(parentCategory.ParentCategoryId);
 
@@ -167,7 +175,7 @@ namespace pics
 				HyperLink link			= new HyperLink();
 				link.Text				= category.Name;
 				link.CssClass			= "categorySmallLink";
-				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId + "&c=" + category.CategoryId.ToString();
+				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId.ToString() + "&c=" + category.CategoryId.ToString();
 				tc.Controls.Add(link);
 
 				// add a divider if not at end
@@ -205,7 +213,7 @@ namespace pics
 
 			if (currentCategory.PictureId != 0)
 			{
-				t2r1.Controls.Add(new HtmlLiteral("pic: " + currentCategory.PictureId.ToString()));
+				//t2r1.Controls.Add(new HtmlLiteral("pic: " + currentCategory.PictureId.ToString()));
 			}
 			PngImage folderImage1 = new PngImage("Images/folder12x12.png", 10, 10);
 			t2r1c1.Controls.Add(folderImage1);
@@ -226,8 +234,9 @@ namespace pics
 
 			if (showEditControls)
 			{
+				int personId						= PicContext.Current.CurrentUser.Id;
 				t2r2c3.Width						= Unit.Pixel(50);
-				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.CategoryId, pi.PersonID);
+				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.CategoryId, personId);
 				t2r2c3.Controls.Add(editCat);
 			}
 
@@ -242,6 +251,23 @@ namespace pics
 			if (currentCategory.Description != null)
 			{
 				t2r1c3.Controls.Add(new HtmlLiteral(currentCategory.Description));
+			}
+
+			if (showEditControls)
+			{
+				string groups = "";
+				DataSet ds = PicContext.Current.CategoryManager.GetCategoryGroups(currentCategory.CategoryId);
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					if (groups.Length > 0) groups += ", ";
+					groups += dr["GroupName"].ToString();
+				}
+				groups = "Groups: " + groups + "<br />";
+				if (t2r1c3.Controls.Count > 0) 
+				{
+					groups = "<br />" + groups;
+				}
+				t2r1c3.Controls.Add(new HtmlLiteral(groups));
 			}
 
 			// Add the tasklist
@@ -272,9 +298,6 @@ namespace pics
 
 		private void LoadPictures()
 		{
-			// load the person's info
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 			// see if a start record is set in QS - this would override anything passed
 			if (Request.QueryString["sr"] != null)
 				startRecord = Convert.ToInt32(Request.QueryString["sr"]);
@@ -282,39 +305,21 @@ namespace pics
 			// make sure intStartRecord is at least 1
 			if (startRecord < 1) startRecord = 1;
 
-			// init connection and command to get pictures
-			SqlConnection cn  = new SqlConnection(Config.ConnectionString);
-
-			// Set up SP to retreive pictures
-			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_Category_GetPictures", cn);
-			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@CategoryID", Convert.ToInt32(currentCategoryId));
-			daPics.SelectCommand.Parameters.Add("@StartRecord", startRecord);
-			daPics.SelectCommand.Parameters.Add("@ReturnCount", 15);
-			daPics.SelectCommand.Parameters.Add("@PersonID", pi.PersonID);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
-			daPics.SelectCommand.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
-			daPics.SelectCommand.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
-
-            // run the SP, set datasource to the picture list
-			cn.Open();
-			DataSet dsPics = new DataSet();
-			daPics.Fill(dsPics, "Pictures");
-			cn.Close();
-
+			int categoryId		= Convert.ToInt32(currentCategoryId);
+			int count			= 0;
+			int pageSize		= 20;
+			DataSet dsPics		= PicContext.Current.PictureManager.GetPictures(categoryId, startRecord, pageSize, 125, 125, ref count); 
+            
 			// create new control
 			PagedThumbnailList thumbs		= new PagedThumbnailList();
-			thumbs.ShowRecordNumber			= true;
+			thumbs.ShowRecordNumber			= false;
 			thumbs.ShowCheckBox				= showEditControls;
 			thumbs.PictureCheckBoxClicked	+= new PictureCheckBoxClickedEventHandler(PictureCheckBoxClicked);
 			thumbs.PageReturnURL			= PicPageURL;
 			thumbs.ThumbsDataSource			= dsPics.Tables["Pictures"].DefaultView;
-			thumbs.TotalRecords				= Convert.ToInt32(daPics.SelectCommand.Parameters["@TotalCount"].Value);
+			thumbs.TotalRecords				= count;
 			thumbs.StartRecord				= startRecord;
-			thumbs.RecordsPerPage			= 15;
+			thumbs.RecordsPerPage			= pageSize;
 
 			// if there are children categories, point to that if no pics here
 			if (childCategoryList.Visible)
@@ -341,25 +346,17 @@ namespace pics
             
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(new HtmlLiteral("<hr style=\"border:1px\">"));
 
-			PictureManager mgr = new PictureManager();
-
-			// Add or remove from selected list
 			PictureIdCollection mySelectedList	= (PictureIdCollection) Session["MySelectedList"];
 			if (e.Checked)
 			{
-				mgr.AddToCategory(e.PicId, Sidebar1.SelectedWindow.CategoryId);
-				
 				mySelectedList.Add(e.PicId);
 				Label added = new Label();
 				added.Text	= "- Added 1 pic<br>";
 				added.Font.Size = FontUnit.Parse("8pt");
 				Sidebar1.SelectedWindow.ContentPanel.AddContent(added);
-			
 			}
 			else
 			{
-				mgr.RemoveFromCategory(e.PicId, Sidebar1.SelectedWindow.CategoryId);
-
 				mySelectedList.Remove(e.PicId);
 				Label removed = new Label();
 				removed.Text	= "- Removed 1 pic<br>";

@@ -6,6 +6,7 @@ using System.Data;
 using System.Windows.Forms;
 using Crownwood.Magic.Controls;
 using Crownwood.Magic.Menus;
+using msn2.net.Pictures;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -14,7 +15,6 @@ namespace msn2.net.Pictures.Controls
 	/// </summary>
 	public class EditPictureLink : System.Windows.Forms.UserControl
 	{
-		private System.Windows.Forms.Button button1;
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -52,84 +52,40 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.button1 = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-			// 
-			// button1
-			// 
-			this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button1.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(48, 16);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "Tasks...";
-			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// EditPictureLink
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.button1});
 			this.Name = "EditPictureLink";
-			this.Size = new System.Drawing.Size(48, 16);
-			this.ResumeLayout(false);
+			this.Size = new System.Drawing.Size(8, 8);
 
 		}
 		#endregion
 
-		private void button1_Click(object sender, System.EventArgs e)
+		public void SetAsCategoryPic(int personId)
 		{
-			MenuCommand editPic			= new MenuCommand("Edit details...");
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
 
-			MenuCommand addToCat		= new MenuCommand("Add to category...");
+			PictureDataSet picDs = context.PictureManager.GetPicture(pictureId);
+			PictureDataSet.PictureRow picture = (PictureDataSet.PictureRow) picDs.Tables[0].Rows[0];
 			
-			MenuCommand rotate			= new MenuCommand("Rotate");
-            MenuCommand rotate90		= new MenuCommand("&90 degrees");
-			MenuCommand rotate180		= new MenuCommand("&180 degrees");
-			MenuCommand rotate270		= new MenuCommand("&270 degrees");
-
-			rotate.MenuCommands.Add(rotate90);
-			rotate.MenuCommands.Add(rotate180);
-			rotate.MenuCommands.Add(rotate270);
-
-			MenuCommand tmp = new MenuCommand("nothing");
-
-			// Create popup menu
-			PopupMenu popup				= new PopupMenu();
-			popup.MenuCommands.Add(editPic);
-			popup.MenuCommands.Add(addToCat);
-
-			popup.MenuCommands.Add(rotate);
-
-			popup.MenuCommands.Add(tmp);
-
-			// Show menu
-			Point p						= button1.PointToScreen(new Point(button1.Left, button1.Top + button1.Height));
-			MenuCommand selected		= popup.TrackPopup(p);
-
-			if (selected != null)
+			DataSet ds	= context.PictureManager.GetPictureCategories(pictureId);
+			if (ds.Tables[0].Rows.Count == 0)
 			{
-				if (selected == editPic)
-				{
-					ShowDetailsForm(Convert.ToInt32(pictureId));
-				}
-				else if (selected == addToCat)
-				{
-
-				}
-				else if (selected == rotate90)
-				{
-					RotateImage(RotateFlipType.Rotate90FlipNone);
-				}
-				else if (selected == rotate180)
-				{
-					RotateImage(RotateFlipType.Rotate180FlipNone);
-				}
-				else if (selected == rotate270)
-				{
-					RotateImage(RotateFlipType.Rotate270FlipNone);
-				}
+				MessageBox.Show("Please add this picture to a category before setting it as a category picture.", "No category", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
-			
+			else if (ds.Tables[0].Rows.Count == 1)
+			{
+				int categoryId = (int) ds.Tables[0].Rows[0]["CategoryId"];
+				context.CategoryManager.SetCategoryPictureId(categoryId, pictureId);
+
+				MessageBox.Show("This picture is now the index picture for this category.", "Index Picture Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			else
+			{
+				// TODO: Implement multiple category select
+				MessageBox.Show("This picture is in more then one category.  This feature is not yet implemented.");
+			}
 
 		}
 
@@ -154,13 +110,35 @@ namespace msn2.net.Pictures.Controls
 
 			// Load the selected picture
 			f.LoadPicture(pictureId);
-			f.Show();
-		
+			f.ShowDialog();
 		}
 
-		private string pictureId;
+		public void AddToCategory(int personId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
 
-		public string PictureId
+			// Get categoyr id
+			fSelectCategory cat	= new fSelectCategory();
+			if (cat.ShowDialog() != DialogResult.OK)
+			{
+				return;
+			}
+
+			context.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryID);
+		}
+
+		public void EditPicture(int personId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+
+			ShowDetailsForm(pictureId);
+		}
+
+		private int pictureId;
+
+		public int PictureId
 		{
 			get
 			{

@@ -48,7 +48,6 @@ namespace msn2.net.Pictures.Controls
 		private bool m_blnMovePrevious;
 		private System.Windows.Forms.Button btnMoveNext;
 		private System.Windows.Forms.Button btnMovePrevious;
-		private String m_Filename;
 		private fMain m_fMain;
 
 		private int m_intLeft;
@@ -94,6 +93,9 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtTitle;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.ComboBox setCategoryPicSelection;
 
 		public string NavigationControlsDataQuery
 		{
@@ -137,6 +139,7 @@ namespace msn2.net.Pictures.Controls
 
 			// Set the connection string
 			cn.ConnectionString = Config.ConnectionString;
+			sqlConnection1.ConnectionString	= Config.ConnectionString;
 		}
 
 		/// <summary>
@@ -162,6 +165,7 @@ namespace msn2.net.Pictures.Controls
 		private void InitializeComponent()
 		{
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.cn = new System.Data.SqlClient.SqlConnection();
 			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
 			this.menuItem8 = new System.Windows.Forms.MenuItem();
 			this.menuItem9 = new System.Windows.Forms.MenuItem();
@@ -174,7 +178,6 @@ namespace msn2.net.Pictures.Controls
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.daPicturePerson = new System.Data.SqlClient.SqlDataAdapter();
 			this.sqlDeleteCommand3 = new System.Data.SqlClient.SqlCommand();
-			this.cn = new System.Data.SqlClient.SqlConnection();
 			this.sqlInsertCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand3 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand3 = new System.Data.SqlClient.SqlCommand();
@@ -186,6 +189,13 @@ namespace msn2.net.Pictures.Controls
 			this.sqlSelectCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand2 = new System.Data.SqlClient.SqlCommand();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPageBasicInfo = new System.Windows.Forms.TabPage();
+			this.pictureDatePicker = new System.Windows.Forms.DateTimePicker();
+			this.personSelect1 = new msn2.net.Pictures.Controls.PersonSelect();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtTitle = new System.Windows.Forms.TextBox();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.txtDescription = new System.Windows.Forms.TextBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -213,30 +223,32 @@ namespace msn2.net.Pictures.Controls
 			this.sqlInsertCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.sqlSelectCommand4 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand4 = new System.Data.SqlClient.SqlCommand();
-			this.tabPageBasicInfo = new System.Windows.Forms.TabPage();
-			this.pictureDatePicker = new System.Windows.Forms.DateTimePicker();
-			this.personSelect1 = new msn2.net.Pictures.Controls.PersonSelect();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.txtTitle = new System.Windows.Forms.TextBox();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.setCategoryPicSelection = new System.Windows.Forms.ComboBox();
+			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).BeginInit();
 			this.tabControl1.SuspendLayout();
+			this.tabPageBasicInfo.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.rating)).BeginInit();
 			this.panelPic.SuspendLayout();
-			this.tabPageBasicInfo.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// sqlSelectCommand1
 			// 
 			this.sqlSelectCommand1.CommandText = "SELECT PictureGroupID, PictureID, GroupID FROM PictureGroup WHERE (PictureID = @P" +
 				"ictureID)";
-			this.sqlSelectCommand1.Connection = this.sqlConnection1;
+			this.sqlSelectCommand1.Connection = this.cn;
 			this.sqlSelectCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, true, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Current, null));
+			// 
+			// cn
+			// 
+			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
+				"info=False;workstation id=CHEF;packet size=4096";
 			// 
 			// sqlConnection1
 			// 
@@ -252,8 +264,7 @@ namespace msn2.net.Pictures.Controls
 			// menuItem9
 			// 
 			this.menuItem9.Index = 0;
-			this.menuItem9.Text = "&View";
-			this.menuItem9.Click += new System.EventHandler(this.menuItem9_Click);
+			this.menuItem9.Text = "";
 			// 
 			// menuItem4
 			// 
@@ -322,11 +333,6 @@ namespace msn2.net.Pictures.Controls
 			this.sqlDeleteCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PersonID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PersonID", System.Data.DataRowVersion.Original, null));
 			this.sqlDeleteCommand3.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "PictureID", System.Data.DataRowVersion.Original, null));
 			// 
-			// cn
-			// 
-			this.cn.ConnectionString = "data source=kyle;initial catalog=picdb;integrated security=SSPI;persist security " +
-				"info=False;workstation id=CHEF;packet size=4096";
-			// 
 			// sqlInsertCommand3
 			// 
 			this.sqlInsertCommand3.CommandText = "INSERT INTO PicturePerson(PictureID, PersonID) VALUES (@PictureID, @PersonID); SE" +
@@ -360,14 +366,13 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.dsPicture.DataSetName = "DataSetPicture";
 			this.dsPicture.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsPicture.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(248, 224);
+			this.btnCancel.Location = new System.Drawing.Point(296, 224);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(64, 24);
 			this.btnCancel.TabIndex = 16;
@@ -423,24 +428,92 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.tabPageBasicInfo,
-																					  this.tabPage1,
-																					  this.tabPage3,
-																					  this.tabPage2,
-																					  this.tabPage4});
+			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.tabControl1.Controls.Add(this.tabPageBasicInfo);
+			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Location = new System.Drawing.Point(8, 8);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(304, 208);
+			this.tabControl1.Size = new System.Drawing.Size(352, 208);
 			this.tabControl1.TabIndex = 11;
+			// 
+			// tabPageBasicInfo
+			// 
+			this.tabPageBasicInfo.Controls.Add(this.pictureDatePicker);
+			this.tabPageBasicInfo.Controls.Add(this.personSelect1);
+			this.tabPageBasicInfo.Controls.Add(this.label3);
+			this.tabPageBasicInfo.Controls.Add(this.label2);
+			this.tabPageBasicInfo.Controls.Add(this.label1);
+			this.tabPageBasicInfo.Controls.Add(this.txtTitle);
+			this.tabPageBasicInfo.Location = new System.Drawing.Point(4, 22);
+			this.tabPageBasicInfo.Name = "tabPageBasicInfo";
+			this.tabPageBasicInfo.Size = new System.Drawing.Size(344, 182);
+			this.tabPageBasicInfo.TabIndex = 4;
+			this.tabPageBasicInfo.Text = "Picture Info";
+			// 
+			// pictureDatePicker
+			// 
+			this.pictureDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.pictureDatePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dsPicture, "Picture.PictureDate"));
+			this.pictureDatePicker.Location = new System.Drawing.Point(56, 32);
+			this.pictureDatePicker.Name = "pictureDatePicker";
+			this.pictureDatePicker.Size = new System.Drawing.Size(280, 20);
+			this.pictureDatePicker.TabIndex = 9;
+			// 
+			// personSelect1
+			// 
+			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.personSelect1.Location = new System.Drawing.Point(56, 56);
+			this.personSelect1.Name = "personSelect1";
+			this.personSelect1.SelectedPerson = null;
+			this.personSelect1.SelectedPersonID = 0;
+			this.personSelect1.Size = new System.Drawing.Size(280, 21);
+			this.personSelect1.TabIndex = 11;
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(8, 56);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(48, 16);
+			this.label3.TabIndex = 10;
+			this.label3.Text = "By:";
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(8, 32);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(48, 16);
+			this.label2.TabIndex = 8;
+			this.label2.Text = "Date:";
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(8, 8);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(48, 16);
+			this.label1.TabIndex = 6;
+			this.label1.Text = "Title:";
+			// 
+			// txtTitle
+			// 
+			this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.Title"));
+			this.txtTitle.Location = new System.Drawing.Point(56, 8);
+			this.txtTitle.Name = "txtTitle";
+			this.txtTitle.Size = new System.Drawing.Size(280, 20);
+			this.txtTitle.TabIndex = 7;
+			this.txtTitle.Text = "";
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.txtDescription});
+			this.tabPage1.Controls.Add(this.txtDescription);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Size = new System.Drawing.Size(296, 182);
@@ -452,6 +525,7 @@ namespace msn2.net.Pictures.Controls
 			this.txtDescription.AcceptsReturn = true;
 			this.txtDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.Description"));
 			this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtDescription.Location = new System.Drawing.Point(0, 0);
 			this.txtDescription.Multiline = true;
 			this.txtDescription.Name = "txtDescription";
 			this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -461,19 +535,19 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.personPicker1});
+			this.tabPage3.Controls.Add(this.personPicker1);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(296, 182);
+			this.tabPage3.Size = new System.Drawing.Size(344, 182);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "People";
 			// 
 			// personPicker1
 			// 
 			this.personPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.personPicker1.Location = new System.Drawing.Point(0, 0);
 			this.personPicker1.Name = "personPicker1";
-			this.personPicker1.Size = new System.Drawing.Size(296, 182);
+			this.personPicker1.Size = new System.Drawing.Size(344, 182);
 			this.personPicker1.TabIndex = 0;
 			this.personPicker1.Enter += new System.EventHandler(this.personPicker1_Enter);
 			this.personPicker1.RemovedPerson += new msn2.net.Pictures.Controls.RemovedPersonEventHandler(this.personPicker1_RemovedPerson);
@@ -482,30 +556,30 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.categoryPicker1});
+			this.tabPage2.Controls.Add(this.categoryPicker1);
+			this.tabPage2.Controls.Add(this.panel1);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(296, 182);
+			this.tabPage2.Size = new System.Drawing.Size(344, 182);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Categories";
 			// 
 			// categoryPicker1
 			// 
 			this.categoryPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.categoryPicker1.Location = new System.Drawing.Point(0, 0);
 			this.categoryPicker1.Name = "categoryPicker1";
-			this.categoryPicker1.Size = new System.Drawing.Size(296, 182);
+			this.categoryPicker1.Size = new System.Drawing.Size(344, 150);
 			this.categoryPicker1.TabIndex = 0;
 			this.categoryPicker1.AddedCategory += new msn2.net.Pictures.Controls.AddedCategoryEventHandler(this.categoryPicker1_AddedCategory);
 			this.categoryPicker1.RemovedCategory += new msn2.net.Pictures.Controls.RemovedCategoryEventHandler(this.categoryPicker1_RemovedCategory);
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.groupPicker1});
+			this.tabPage4.Controls.Add(this.groupPicker1);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Size = new System.Drawing.Size(296, 182);
+			this.tabPage4.Size = new System.Drawing.Size(344, 182);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Security";
 			// 
@@ -513,17 +587,18 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.groupPicker1.AllowRemoveEveryone = true;
 			this.groupPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupPicker1.Location = new System.Drawing.Point(0, 0);
 			this.groupPicker1.Name = "groupPicker1";
-			this.groupPicker1.Size = new System.Drawing.Size(296, 182);
+			this.groupPicker1.Size = new System.Drawing.Size(344, 182);
 			this.groupPicker1.TabIndex = 0;
 			this.groupPicker1.RemovedGroup += new msn2.net.Pictures.Controls.RemovedGroupEventHandler(this.groupPicker1_RemovedGroup);
 			this.groupPicker1.AddedGroup += new msn2.net.Pictures.Controls.AddedGroupEventHandler(this.groupPicker1_AddedGroup);
 			// 
 			// btnOK
 			// 
-			this.btnOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnOK.Location = new System.Drawing.Point(176, 224);
+			this.btnOK.Location = new System.Drawing.Point(224, 224);
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(64, 24);
 			this.btnOK.TabIndex = 15;
@@ -532,10 +607,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// btnMovePrevious
 			// 
-			this.btnMovePrevious.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnMovePrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnMovePrevious.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnMovePrevious.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnMovePrevious.Location = new System.Drawing.Point(80, 224);
+			this.btnMovePrevious.Location = new System.Drawing.Point(128, 224);
 			this.btnMovePrevious.Name = "btnMovePrevious";
 			this.btnMovePrevious.Size = new System.Drawing.Size(40, 24);
 			this.btnMovePrevious.TabIndex = 13;
@@ -592,10 +667,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// btnMoveNext
 			// 
-			this.btnMoveNext.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+			this.btnMoveNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnMoveNext.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnMoveNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnMoveNext.Location = new System.Drawing.Point(128, 224);
+			this.btnMoveNext.Location = new System.Drawing.Point(176, 224);
 			this.btnMoveNext.Name = "btnMoveNext";
 			this.btnMoveNext.Size = new System.Drawing.Size(40, 24);
 			this.btnMoveNext.TabIndex = 14;
@@ -639,23 +714,23 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panelPic
 			// 
-			this.panelPic.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.panelPic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
+				| System.Windows.Forms.AnchorStyles.Right)));
 			this.panelPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelPic.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.pictureDisplay1});
+			this.panelPic.Controls.Add(this.pictureDisplay1);
 			this.panelPic.Location = new System.Drawing.Point(16, 336);
 			this.panelPic.Name = "panelPic";
-			this.panelPic.Size = new System.Drawing.Size(0, 0);
+			this.panelPic.Size = new System.Drawing.Size(48, 0);
 			this.panelPic.TabIndex = 12;
 			this.panelPic.Visible = false;
 			// 
 			// pictureDisplay1
 			// 
 			this.pictureDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pictureDisplay1.Location = new System.Drawing.Point(0, 0);
 			this.pictureDisplay1.Name = "pictureDisplay1";
-			this.pictureDisplay1.Size = new System.Drawing.Size(0, 0);
+			this.pictureDisplay1.Size = new System.Drawing.Size(48, 0);
 			this.pictureDisplay1.TabIndex = 0;
 			// 
 			// daPictureGroup
@@ -745,93 +820,51 @@ namespace msn2.net.Pictures.Controls
 			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Title", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Title", System.Data.DataRowVersion.Original, null));
 			this.sqlUpdateCommand4.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PictureID", System.Data.SqlDbType.Int, 4, "PictureID"));
 			// 
-			// tabPageBasicInfo
+			// panel1
 			// 
-			this.tabPageBasicInfo.Controls.AddRange(new System.Windows.Forms.Control[] {
-																						   this.pictureDatePicker,
-																						   this.personSelect1,
-																						   this.label3,
-																						   this.label2,
-																						   this.label1,
-																						   this.txtTitle});
-			this.tabPageBasicInfo.Location = new System.Drawing.Point(4, 22);
-			this.tabPageBasicInfo.Name = "tabPageBasicInfo";
-			this.tabPageBasicInfo.Size = new System.Drawing.Size(296, 182);
-			this.tabPageBasicInfo.TabIndex = 4;
-			this.tabPageBasicInfo.Text = "Picture Info";
+			this.panel1.Controls.Add(this.setCategoryPicSelection);
+			this.panel1.Controls.Add(this.button1);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 150);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(344, 32);
+			this.panel1.TabIndex = 1;
 			// 
-			// pictureDatePicker
+			// setCategoryPicSelection
 			// 
-			this.pictureDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.pictureDatePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dsPicture, "Picture.PictureDate"));
-			this.pictureDatePicker.Location = new System.Drawing.Point(56, 32);
-			this.pictureDatePicker.Name = "pictureDatePicker";
-			this.pictureDatePicker.Size = new System.Drawing.Size(232, 20);
-			this.pictureDatePicker.TabIndex = 9;
+			this.setCategoryPicSelection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.setCategoryPicSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.setCategoryPicSelection.Location = new System.Drawing.Point(8, 8);
+			this.setCategoryPicSelection.Name = "setCategoryPicSelection";
+			this.setCategoryPicSelection.Size = new System.Drawing.Size(216, 21);
+			this.setCategoryPicSelection.TabIndex = 15;
 			// 
-			// personSelect1
+			// button1
 			// 
-			this.personSelect1.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.personSelect1.Location = new System.Drawing.Point(56, 56);
-			this.personSelect1.Name = "personSelect1";
-			this.personSelect1.SelectedPerson = null;
-			this.personSelect1.SelectedPersonID = 0;
-			this.personSelect1.Size = new System.Drawing.Size(232, 21);
-			this.personSelect1.TabIndex = 11;
-			// 
-			// label3
-			// 
-			this.label3.Location = new System.Drawing.Point(8, 56);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(48, 16);
-			this.label3.TabIndex = 10;
-			this.label3.Text = "By:";
-			// 
-			// label2
-			// 
-			this.label2.Location = new System.Drawing.Point(8, 32);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(48, 16);
-			this.label2.TabIndex = 8;
-			this.label2.Text = "Date:";
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(8, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(48, 16);
-			this.label1.TabIndex = 6;
-			this.label1.Text = "Title:";
-			// 
-			// txtTitle
-			// 
-			this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.txtTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dsPicture, "Picture.Title"));
-			this.txtTitle.Location = new System.Drawing.Point(56, 8);
-			this.txtTitle.Name = "txtTitle";
-			this.txtTitle.Size = new System.Drawing.Size(232, 20);
-			this.txtTitle.TabIndex = 7;
-			this.txtTitle.Text = "";
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.Location = new System.Drawing.Point(232, 8);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(112, 23);
+			this.button1.TabIndex = 14;
+			this.button1.Text = "Set as category pic";
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// fPicture
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(320, 254);
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.rating,
-																		  this.label4,
-																		  this.btnMovePrevious,
-																		  this.btnMoveNext,
-																		  this.chkPublish,
-																		  this.btnCancel,
-																		  this.btnOK,
-																		  this.panelPic,
-																		  this.tabControl1});
+			this.ClientSize = new System.Drawing.Size(368, 254);
+			this.Controls.Add(this.rating);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.btnMovePrevious);
+			this.Controls.Add(this.btnMoveNext);
+			this.Controls.Add(this.chkPublish);
+			this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.btnOK);
+			this.Controls.Add(this.panelPic);
+			this.Controls.Add(this.tabControl1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.MinimizeBox = false;
 			this.Name = "fPicture";
@@ -843,13 +876,14 @@ namespace msn2.net.Pictures.Controls
 			this.VisibleChanged += new System.EventHandler(this.fPicture_VisibleChanged);
 			((System.ComponentModel.ISupportInitialize)(this.dsPicture)).EndInit();
 			this.tabControl1.ResumeLayout(false);
+			this.tabPageBasicInfo.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.rating)).EndInit();
 			this.panelPic.ResumeLayout(false);
-			this.tabPageBasicInfo.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -975,6 +1009,7 @@ namespace msn2.net.Pictures.Controls
 			{
                 categoryPicker1.AddSelectedCategory(pcr.CategoryID);
 			}
+			UpdateCategoryList();
 
 			// load people
 			personPicker1.ClearSelectedPeople();
@@ -1012,6 +1047,8 @@ namespace msn2.net.Pictures.Controls
 			// add the category to the PictureCategory dataset
 			dsPicture.PictureCategory.AddPictureCategoryRow
 				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.CategoryID);
+
+			UpdateCategoryList();
 		}
 
 		private void categoryPicker1_RemovedCategory(object sender, msn2.net.Pictures.Controls.CategoryPickerEventArgs e)
@@ -1024,6 +1061,18 @@ namespace msn2.net.Pictures.Controls
                 pcr.Delete();
 			}
 
+			UpdateCategoryList();
+		}
+
+		private void UpdateCategoryList()
+		{
+			setCategoryPicSelection.Items.Clear();
+
+			foreach (int categoryId in categoryPicker1.selectedCategories)
+			{
+				Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+				setCategoryPicSelection.Items.Add(category);
+			}
 		}
 
 		private void personPicker1_AddedPerson(object sender, msn2.net.Pictures.Controls.PersonPickerEventArgs e)
@@ -1140,14 +1189,6 @@ namespace msn2.net.Pictures.Controls
 			RotateImage(RotateFlipType.RotateNoneFlipXY);
 		}
 
-		private void menuItem9_Click(object sender, System.EventArgs e)
-		{
-			fPV = new fPictureViewer();
-			fPV.LoadImage(m_Filename);
-			fPV.Visible = true;
-			
-		}
-
 		private void groupPicker1_AddedGroup(object sender, msn2.net.Pictures.Controls.GroupPickerEventArgs e)
 		{
 			// add the group to the PictureGroup dataset
@@ -1193,6 +1234,18 @@ namespace msn2.net.Pictures.Controls
 		private void personPicker1_Leave(object sender, System.EventArgs e)
 		{
 			this.AcceptButton = btnOK;
+		}
+
+		private void button1_Click(object sender, System.EventArgs e)
+		{
+			if (setCategoryPicSelection.SelectedIndex < 0)
+			{
+				return;
+			}
+
+			Category category = (Category) setCategoryPicSelection.SelectedItem;
+			
+			PicContext.Current.CategoryManager.SetCategoryPictureId(category.CategoryId, this.pictureId);
 		}
 
 		public bool MoveNext 

@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using msn2.net.Pictures;
 
 namespace pics.Auth
 {
@@ -18,6 +19,8 @@ namespace pics.Auth
 	/// </summary>
 	public class ResetPassword : System.Web.UI.Page
 	{
+		#region Declares
+
 		protected System.Web.UI.WebControls.TextBox txtNewPassword;
 		protected System.Web.UI.WebControls.TextBox txtConfirmNewPassword;
 		protected System.Web.UI.WebControls.Button btnOK;
@@ -28,6 +31,8 @@ namespace pics.Auth
 		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Panel pnlChanged;
 	
+		#endregion
+
 		public ResetPassword()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
@@ -41,19 +46,7 @@ namespace pics.Auth
 				if (Request.QueryString["id"] == null || Request.QueryString["email"] == null)
 					Response.Redirect("../");
 
-				PersonInfo pi = new PersonInfo(Request.QueryString["email"], "");
-
-				// show the email address
-				if (pi != null)
-				{
-					lblEmail.Text = Request.QueryString["email"];
-				}
-				else
-				{
-					Response.Write("Invalid email address passed.");
-					Response.End();
-					return;
-				}
+				lblEmail.Text = Request.QueryString["email"];
 			}
 		}
 
@@ -80,7 +73,6 @@ namespace pics.Auth
 
 		private void btnOK_Click(object sender, System.EventArgs e)
 		{
-
 			// make sure fields match
 			if (!txtNewPassword.Text.Equals(txtConfirmNewPassword.Text)) 
 			{
@@ -89,30 +81,15 @@ namespace pics.Auth
 			}
 
 			// get the byte array from the guid in the QS
-			XMGuid.Init();
-			XMGuid g = new XMGuid(Request.QueryString["id"]);
+			Guid resetKey	= new Guid(Request.QueryString["id"]);
 
 			// Encode the password
-			MD5 md5 = MD5.Create();
-			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtNewPassword.Text));
-
-			// set up a connection and command to update password
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-			SqlCommand cmd	 = new SqlCommand("dbo.sp_ResetPassword", cn);
-			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@email", lblEmail.Text);
-			cmd.Parameters.Add("@guid", g.Buffer);
-			cmd.Parameters.Add("@password", System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
-			cmd.Parameters.Add("@success", SqlDbType.Bit);
-			cmd.Parameters["@success"].Direction = ParameterDirection.Output;
-
-			// execute the command
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+			MD5 md5				= MD5.Create();
+			byte[] bPassword	= md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtNewPassword.Text));
+			string password		= System.Text.ASCIIEncoding.ASCII.GetString(bPassword);
 
 			// check result to make sure password changed
-			if (Convert.ToInt16(cmd.Parameters["@success"].Value) == 1) 
+			if (PicContext.Current.UserManager.ResetPassword(lblEmail.Text, password, resetKey))
 			{
 				loginLink.NavigateUrl = "Login.aspx?email=" + Server.UrlEncode(lblEmail.Text);
 				pnlPassword.Visible = false;

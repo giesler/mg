@@ -11,6 +11,7 @@ using System.Text;
 using System.Web;
 using System.Net;
 using System.Diagnostics;
+using msn2.net.Pictures;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -28,17 +29,17 @@ namespace msn2.net.Pictures.Controls
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
+		private PicContext picContext;
 
-		public SaveSlideshow()
+		public SaveSlideshow(PicContext picContext, int categoryId)
 		{
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
+			this.picContext = picContext;
+			this.categoryId	= categoryId;
 		}
 
 		/// <summary>
@@ -161,11 +162,18 @@ namespace msn2.net.Pictures.Controls
 			{
 				string folder				= textBoxSaveLocation.Text;
 
+				if (!Directory.Exists(folder))
+				{
+					Directory.CreateDirectory(folder);
+				}
+				if (!Directory.Exists(folder + @"\pics"))
+				{
+					Directory.CreateDirectory(folder + @"\pics");
+				}
+
 				// Create objects
-				picsvc.PictureDataSet ds	= new picsvc.PictureDataSet();
-				picsvc.PictureManager pm	= new picsvc.PictureManager();
-				pm.Url						= @"http://localhost/pics/PictureManager.asmx";
-				pm.Credentials				= System.Net.CredentialCache.DefaultCredentials;
+				PictureDataSet ds			= new PictureDataSet();
+				PictureManager pm			= picContext.PictureManager;
 
 				// Figure out how many pictures we have
 				ds							= pm.GetPicturesByCategory(categoryId);
@@ -175,7 +183,7 @@ namespace msn2.net.Pictures.Controls
 
 				// Loop through items
 				int recNumber				= 0;
-				foreach (picsvc.PictureDataSet.PictureRow picture in ds.Picture.Rows)
+				foreach (PictureDataSet.PictureRow picture in ds.Picture.Rows)
 				{
 					try
 					{
@@ -197,12 +205,12 @@ namespace msn2.net.Pictures.Controls
 						}
 
 						// Build request for page
-						string url				= String.Format(@"http://www.msn2.net/pictures/picviewss.aspx?r={0}&c={1}&type=category", recNumber, categoryId);
+						string url				= String.Format(@"http://pics.msn2.net/picviewss.aspx?r={0}&c={1}&type=category", recNumber, categoryId);
 //						MessageBox.Show("request url = " + url);
 						StringBuilder page		= new StringBuilder(GetUrl(url));
 
 						// Replace image source URL
-						int startPos			= page.ToString().IndexOf(@"/Pictures/GetItem.aspx");
+						int startPos			= page.ToString().IndexOf(@"/GetItem.aspx");
 //						MessageBox.Show("image source url startpos: " + startPos.ToString());
 						int endPos				= page.ToString().IndexOf("\"", startPos);
 						page.Remove(startPos, endPos - startPos);
@@ -213,7 +221,7 @@ namespace msn2.net.Pictures.Controls
 //						MessageBox.Show("new link startPos = " + startPos.ToString());
 						if (startPos > 0)
 						{
-							startPos			= page.ToString().IndexOf(@"/pictures/picviewss.aspx", startPos);
+							startPos			= page.ToString().IndexOf(@"/picviewss.aspx", startPos);
 							endPos				= page.ToString().IndexOf("\"", startPos);
 							page.Remove(startPos, endPos - startPos);
 							page.Insert(startPos, String.Format("pic{0:00}.html", recNumber+1));
@@ -224,7 +232,7 @@ namespace msn2.net.Pictures.Controls
 //						MessageBox.Show("prev link startPos = " + startPos.ToString());
 						if (startPos > 0)
 						{
-							startPos			= page.ToString().IndexOf(@"/pictures/picviewss.aspx", startPos);
+							startPos			= page.ToString().IndexOf(@"/picviewss.aspx", startPos);
 							endPos				= page.ToString().IndexOf("\"", startPos);
 							page.Remove(startPos, endPos - startPos);
 							page.Insert(startPos, String.Format("pic{0:00}.html", recNumber-1));
@@ -275,6 +283,17 @@ namespace msn2.net.Pictures.Controls
 				
 				}		
 			
+				// Get stylesheet
+				if (File.Exists(folder + @"\msn2.css"))
+				{
+					File.Delete(folder + @"\msn2.css");
+				}
+				string url1		= String.Format(@"http://pics.msn2.net/msn2.css");
+				StringBuilder pg		= new StringBuilder(GetUrl(url1));
+				StreamWriter css = File.CreateText(folder + @"\msn2.css");
+				css.Write(pg.ToString());
+                css.Close();
+
 				saveStatus.Close();
 				saveStatus.Dispose();
 				saveStatus					= null;
@@ -324,35 +343,12 @@ namespace msn2.net.Pictures.Controls
 
 		public string GetPictureFilename(int pictureId, int maxWidth, int maxHeight)
 		{
+			DataSet ds = picContext.PictureManager.GetPicture(pictureId, maxWidth, maxHeight);
 
-			SqlConnection cn = new SqlConnection(Config.ConnectionString);
 
-			// Set up SP to retreive picture
-			SqlCommand cmdPic    = new SqlCommand();
-			cmdPic.CommandText	 = "p_GetPicture";
-			cmdPic.CommandType   = CommandType.StoredProcedure;
-			cmdPic.Connection    = cn;
-			SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
-
-			// set up params on the SP
-			cmdPic.Parameters.Add("@PictureID", pictureId);
-			cmdPic.Parameters.Add("@StartRecord", 0);
-			cmdPic.Parameters.Add("@ReturnCount", 1);
-			cmdPic.Parameters.Add("@MaxHeight", maxHeight);
-			cmdPic.Parameters.Add("@MaxWidth", maxWidth);
-			cmdPic.Parameters.Add("@PersonID", 1);
-			cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
-			cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
-
-			// run the SP, set datasource to the picture list
-			cn.Open();
-			DataSet ds		= new DataSet();
-			daPic.Fill(ds, "Picture");
-			DataRow dr		= ds.Tables[0].Rows[0];
-            
 			String strAppPath = @"/";
 
-			string filename = dr["FileName"].ToString();
+			string filename = ds.Tables[0].Rows[0]["FileName"].ToString();
 
 			filename = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
 
@@ -360,16 +356,5 @@ namespace msn2.net.Pictures.Controls
 			
 		}
 
-		public int CategoryId
-		{
-			get
-			{
-				return categoryId;
-			}
-			set
-			{
-				categoryId = value;
-			}
-		}
 	}
 }

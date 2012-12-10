@@ -38,6 +38,21 @@ namespace msn2.net.Pictures.Controls
 			this.StatusText		= status;
 		}
 
+		public fStatus(string status, int max) 
+		{
+			InitializeComponent();
+
+			this.StatusText = status;
+			this.Max = max;
+			this.Show();
+			this.Refresh();
+
+			if (max <= 0) 
+				progressBar1.Visible = false;
+			
+			this.lblStatus.Refresh();
+		}
+
 		public fStatus(Form centerOn, string status, int max) 
 		{
 			InitializeComponent();

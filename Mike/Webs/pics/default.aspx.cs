@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using pics.Controls;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -18,6 +19,8 @@ namespace pics
 	/// </summary>
 	public class Cdefault : System.Web.UI.Page
 	{
+		#region Declares
+
 		protected System.Web.UI.WebControls.Panel randomPicture;
 		protected System.Web.UI.WebControls.TextBox searchQuery;
 		protected System.Web.UI.WebControls.Button search;
@@ -31,61 +34,33 @@ namespace pics
 		protected pics.Controls.ContentPanel browsePicturesContent;
 		protected pics.Controls.ContentPanel contentRandomPicture;
 		protected pics.Controls.OpenMainFormLink mainFormLink;
+		protected pics.Controls.ContentPanel searchContent;
+		protected System.Web.UI.WebControls.Panel adminMode;
 		protected System.Web.UI.WebControls.DataList dlRecent;
 	
+		#endregion
+
+		#region Constructor
+
 		public Cdefault()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
 		}
 
+		#endregion
+        
 		private void Page_Load(object sender, System.EventArgs e)
-		{
-			
-			// Check for edit mode entry
-			if (Request.QueryString["editMode"] == "42")
-			{
-				Session["editMode"] = true;
-			}
-
-			if ((bool) Session["editMode"])
-			{
-//				mainFormLink.Visible		= true;
-			}
-			// load the person's info
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
-			// open connection and command
-			SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
-            SqlCommand cmd    = new SqlCommand("dbo.sp_RecentCategories", cn);
-			cmd.CommandType   = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PersonID", pi.PersonID);
-
+		{			
 			Literal br = new Literal();
 			br.Text = "<br>";
 
-			cn.Open();
-			SqlDataReader dr = cmd.ExecuteReader();
+			DataSet ds = PicContext.Current.CategoryManager.RecentCategorires();
 
-			dlRecent.DataSource = dr;
+			dlRecent.DataSource = ds;
 			dlRecent.DataBind();
 
-			dr.Close();
-			cn.Close();
-
-			// Set up SP to retreive pictures
-			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
-			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@PersonID", pi.PersonID);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
-
 			// run the SP, set datasource to the picture list
-			cn.Open();
-			DataSet dsPics = new DataSet();
-			daPics.Fill(dsPics, "Pictures");
-			cn.Close();
+			DataSetPicture dsPics	= PicContext.Current.PictureManager.RandomImageData();
 
 			// create new control
 			ThumbnailList thumbs = new ThumbnailList();
@@ -99,9 +74,6 @@ namespace pics
 
 		private void Page_Init(object sender, EventArgs e)
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
 			InitializeComponent();
 		}
 
@@ -116,5 +88,6 @@ namespace pics
 
 		}
 		#endregion
+
 	}
 }

@@ -72,14 +72,14 @@ namespace msn2.net.Pictures.Controls
 				SqlDataReader dr = cmd.ExecuteReader();
 				if (dr.Read()) 
 				{
-					strFile = @"\\ike\piccache\" + dr["Filename"].ToString();
+					strFile = PicContext.Current.Config.CacheDirectory + dr["Filename"].ToString();
 				}
 				dr.Close();
 				cn.Close();
 
 				// save the filename
 				m_Filename = strFile;
-				String strFullFile = "\\\\ike\\pictures\\" + strFile;
+				string strFullFile = PicContext.Current.Config.PictureDirectory + strFile;
 
 				// Load the file
 				imgCurImage = Image.FromFile(strFile);

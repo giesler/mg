@@ -7,16 +7,6 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-	// A delegate type for hooking up change notifications.
-	public delegate void AddedGroupEventHandler(object sender, GroupPickerEventArgs e);
-	public delegate void RemovedGroupEventHandler(object sender, GroupPickerEventArgs e);
-
-	// class for passing events up
-	public class GroupPickerEventArgs: EventArgs 
-	{
-		public int GroupID;
-	}
-
 	/// <summary>
 	/// Summary description for GroupPicker.
 	/// </summary>
@@ -105,6 +95,7 @@ namespace msn2.net.Pictures.Controls
 			// groupControl
 			// 
 			this.groupControl.Dock = System.Windows.Forms.DockStyle.Left;
+			this.groupControl.Location = new System.Drawing.Point(0, 0);
 			this.groupControl.Name = "groupControl";
 			this.groupControl.Size = new System.Drawing.Size(150, 168);
 			this.groupControl.TabIndex = 0;
@@ -112,10 +103,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel2
 			// 
-			this.panel2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.btnRemove,
-																				 this.btnAdd});
+			this.panel2.Controls.Add(this.btnRemove);
+			this.panel2.Controls.Add(this.btnAdd);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panel2.Location = new System.Drawing.Point(0, 0);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(32, 168);
 			this.panel2.TabIndex = 0;
@@ -133,9 +124,8 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.selectedGroups,
-																				 this.panel2});
+			this.panel1.Controls.Add(this.selectedGroups);
+			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(153, 0);
 			this.panel1.Name = "panel1";
@@ -164,12 +154,12 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// GroupPicker
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.panel1,
-																		  this.splitter1,
-																		  this.groupControl});
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.groupControl);
 			this.Name = "GroupPicker";
 			this.Size = new System.Drawing.Size(440, 168);
+			this.Load += new System.EventHandler(this.GroupPicker_Load);
 			this.panel2.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -266,6 +256,13 @@ namespace msn2.net.Pictures.Controls
 			btnAdd_Click(sender, e);
 		}
 
+		private void GroupPicker_Load(object sender, System.EventArgs e)
+		{
+			// Set group tree to half form width
+			groupControl.Width = this.Width / 2 - panel2.Width / 2;
+
+		}
+
 		public bool AllowRemoveEveryone 
 		{
 			set 
@@ -294,4 +291,16 @@ namespace msn2.net.Pictures.Controls
 			}
 		}
 	}
+
+	// A delegate type for hooking up change notifications.
+	public delegate void AddedGroupEventHandler(object sender, GroupPickerEventArgs e);
+	public delegate void RemovedGroupEventHandler(object sender, GroupPickerEventArgs e);
+
+	// class for passing events up
+	public class GroupPickerEventArgs: EventArgs 
+	{
+		public int GroupID;
+	}
+
+
 }

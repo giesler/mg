@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
 using pics.Controls;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -69,7 +70,7 @@ namespace pics
 				string sourceType = Request.QueryString["type"];
 
 				// init connection and command
-				SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
+				SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
 
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
@@ -110,10 +111,8 @@ namespace pics
 				}
 				else if (sourceType.Equals("search")) 
 				{
-					XMGuid.Init();
-					XMGuid g = new XMGuid(Request.QueryString["id"]);
-
-					cmdPic.Parameters.Add("@SearchID", g.Buffer);
+					Guid id		= new Guid(Request.QueryString["id"]);
+					cmdPic.Parameters.Add("@SearchID", id);
 				} 
 				else if (sourceType.Equals("random")) 
 				{
@@ -289,7 +288,7 @@ namespace pics
 		#region Private Methods
 		private void SetCategory(int categoryId)
 		{
-			CategoryManager catMan		= new CategoryManager();
+			CategoryManager catMan		= PicContext.Current.CategoryManager;
 			Category cat				= catMan.GetCategory(categoryId);
 			lblCategory.Text			= cat.Name;
 

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using Crownwood.Magic.Menus;
+using msn2.net.Pictures;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -90,16 +91,18 @@ namespace msn2.net.Pictures.Controls
 
 		private void button1_Click(object sender, System.EventArgs e)
 		{
-			MenuCommand editPic	= new MenuCommand("Edit details");
-			MenuCommand addPics = new MenuCommand("Add new pictures...");
-			MenuCommand saveSlideshow = new MenuCommand("Save slideshow to computer...");
-			MenuCommand addCategory	= new MenuCommand("Add folder...");
+			MenuCommand editPic				= new MenuCommand("Edit details");
+			MenuCommand addPics				= new MenuCommand("Add new pictures...");
+			MenuCommand saveSlideshow		= new MenuCommand("Save slideshow to computer...");
+			MenuCommand addCategory			= new MenuCommand("Add folder...");
+			MenuCommand publishToRecentCats	= new MenuCommand("Publish to home page...");
 
-			PopupMenu popup		= new PopupMenu();
+			PopupMenu popup					= new PopupMenu();
 			popup.MenuCommands.Add(addCategory);
 			popup.MenuCommands.Add(editPic);
 			popup.MenuCommands.Add(addPics);
 			popup.MenuCommands.Add(saveSlideshow);
+			popup.MenuCommands.Add(publishToRecentCats);
 
 			Point p						= button1.PointToScreen(new Point(button1.Left, button1.Top + button1.Height));
 			MenuCommand selected	= popup.TrackPopup(p);
@@ -127,11 +130,85 @@ namespace msn2.net.Pictures.Controls
 				}
 				else if (selected == saveSlideshow)
 				{
-					SaveSlideshow ss	= new SaveSlideshow();
-					ss.CategoryId		= categoryId;
-					ss.ShowDialog();
+					SaveSlideshow(175, 1);
+				}
+				else if (selected == publishToRecentCats)
+				{
+					PublishCat(categoryId);
 				}
 			}
+		}
+
+		public void SaveSlideshow(int categoryId, int personId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+
+			SaveSlideshow ss	= new SaveSlideshow(context, categoryId);
+			ss.ShowDialog();
+		}
+
+		public void PublishCat(int categoryId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), 1);
+
+			context.CategoryManager.PublishCategory(categoryId);
+
+			MessageBox.Show("This category was published and will now appear on the home page of anyone with permission to view the category.", "Category Published", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		public bool AddPicsToCategory(string pictureList, int personId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+			
+			string[] ar = pictureList.Split(',');
+			int []  ids = new int[ar.Length];
+			for (int i = 0; i < ar.Length; i++)
+			{
+				ids[i] = int.Parse(ar[i]);
+			}
+
+			// Get a category
+			fSelectCategory cat	= new fSelectCategory();
+			if (cat.ShowDialog() == DialogResult.OK)
+			{
+				AddPicturesToCategory ap = new AddPicturesToCategory(ids, cat.SelectedCategory);
+				if (ap.ShowDialog() == DialogResult.OK)
+				{
+					return true;
+				}
+			}	
+		
+			return false;
+		}
+
+		public bool AddGroupsToPics(string pictureList, int personId)
+		{
+			// First log in
+			PicContext context	= PicContext.Load(Msn2Config.Load(), personId);
+			
+			string[] ar = pictureList.Split(',');
+			int []  ids = new int[ar.Length];
+			for (int i = 0; i < ar.Length; i++)
+			{
+				ids[i] = int.Parse(ar[i]);
+			}
+
+			fGroupSelect gs		= new fGroupSelect();
+			if (gs.ShowDialog() == DialogResult.OK)
+			{
+				int groupId		= gs.SelectedGroup.GroupID;
+				foreach (int id in ids)
+				{
+					context.PictureManager.AddToSecurityGroup(id, groupId);
+				}
+
+				return true;
+			}
+
+			return false;
 		}
 
 		public bool SignalRefresh
@@ -145,5 +222,6 @@ namespace msn2.net.Pictures.Controls
 				signalRefresh = value;
 			}
 		}
+
 	}
 }

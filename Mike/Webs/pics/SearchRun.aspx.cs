@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -17,6 +18,8 @@ namespace pics
 	/// </summary>
 	public class SearchRun : System.Web.UI.Page
 	{
+		protected pics.Controls.Header header;
+		protected pics.Controls.ContentPanel welcomeMessage;
 		protected string redirectHeader;
 
 		public SearchRun()
@@ -28,25 +31,18 @@ namespace pics
 		{
 			if (Request.QueryString["go"] != null) 
 			{
-				// load the person's info
-				PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 				// make sure we have a valid search id
 				if (Request.QueryString["id"] == null)
 					Response.Redirect("SearchCriteria.aspx");	
 
-				string id = Request.QueryString["id"];
-	
-				// get the byte array from the guid passed
-				XMGuid.Init();
-				XMGuid g = new XMGuid(id);
+				Guid id = new Guid(Request.QueryString["id"]);
 
 				// set up connection and such to run search
-				SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
+				SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 				SqlCommand cmd	 = new SqlCommand("sp_Search_RunSearch", cn);
 				cmd.CommandType	 = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@SearchID", g.Buffer);
-				cmd.Parameters.Add("@PersonID", pi.PersonID);
+				cmd.Parameters.Add("@SearchID", id);
+				cmd.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
 				cmd.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmd.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 	

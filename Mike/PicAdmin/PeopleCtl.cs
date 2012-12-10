@@ -8,15 +8,6 @@ using System.Data.SqlClient;
 
 namespace msn2.net.Pictures.Controls
 {
-	// events
-	public delegate void ClickPersonEventHandler(object sender, PersonCtlEventArgs e);
-	public delegate void DoubleClickPersonEventHandler(object sender, PersonCtlEventArgs e);
-	
-	// class for passing events up
-	public class PersonCtlEventArgs: EventArgs 
-	{
-		public DataSetPerson.PersonRow personRow;
-	}
 
 	/// <summary>
 	/// Summary description for PeopleCtl.
@@ -42,7 +33,6 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TextBox findString;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TreeView tvBrowse;
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.TreeView tvGroups;
@@ -120,6 +110,10 @@ namespace msn2.net.Pictures.Controls
 			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPageFind = new System.Windows.Forms.TabPage();
+			this.lvFind = new System.Windows.Forms.ListView();
+			this.findString = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.tabPageBrowse = new System.Windows.Forms.TabPage();
 			this.lvBrowse = new System.Windows.Forms.ListView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
@@ -128,20 +122,15 @@ namespace msn2.net.Pictures.Controls
 			this.lvGroups = new System.Windows.Forms.ListView();
 			this.splitter2 = new System.Windows.Forms.Splitter();
 			this.tvGroups = new System.Windows.Forms.TreeView();
-			this.tabPageFind = new System.Windows.Forms.TabPage();
-			this.lvFind = new System.Windows.Forms.ListView();
-			this.findString = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.label1 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dsPerson)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFirstName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).BeginInit();
 			this.tabControl1.SuspendLayout();
+			this.tabPageFind.SuspendLayout();
 			this.tabPageBrowse.SuspendLayout();
 			this.tabPageGroups.SuspendLayout();
-			this.tabPageFind.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// cn
@@ -159,7 +148,6 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.dsPerson.DataSetName = "DataSetPicture";
 			this.dsPerson.Locale = new System.Globalization.CultureInfo("en-US");
-			this.dsPerson.Namespace = "http://www.tempuri.org/DataSetPicture.xsd";
 			// 
 			// contextMenu1
 			// 
@@ -266,11 +254,11 @@ namespace msn2.net.Pictures.Controls
 			// tabControl1
 			// 
 			this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.tabPageFind,
-																					  this.tabPageBrowse,
-																					  this.tabPageGroups});
+			this.tabControl1.Controls.Add(this.tabPageFind);
+			this.tabControl1.Controls.Add(this.tabPageBrowse);
+			this.tabControl1.Controls.Add(this.tabPageGroups);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -278,12 +266,62 @@ namespace msn2.net.Pictures.Controls
 			this.tabControl1.TabIndex = 4;
 			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
+			// tabPageFind
+			// 
+			this.tabPageFind.Controls.Add(this.lvFind);
+			this.tabPageFind.Controls.Add(this.findString);
+			this.tabPageFind.Controls.Add(this.button1);
+			this.tabPageFind.Location = new System.Drawing.Point(4, 4);
+			this.tabPageFind.Name = "tabPageFind";
+			this.tabPageFind.Size = new System.Drawing.Size(344, 262);
+			this.tabPageFind.TabIndex = 2;
+			this.tabPageFind.Text = "Find";
+			// 
+			// lvFind
+			// 
+			this.lvFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.lvFind.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.lvFind.HideSelection = false;
+			this.lvFind.Location = new System.Drawing.Point(0, 32);
+			this.lvFind.MultiSelect = false;
+			this.lvFind.Name = "lvFind";
+			this.lvFind.Size = new System.Drawing.Size(344, 230);
+			this.lvFind.TabIndex = 7;
+			this.lvFind.View = System.Windows.Forms.View.List;
+			this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
+			this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
+			// 
+			// findString
+			// 
+			this.findString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.findString.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+			this.findString.Location = new System.Drawing.Point(0, 8);
+			this.findString.Name = "findString";
+			this.findString.Size = new System.Drawing.Size(288, 20);
+			this.findString.TabIndex = 4;
+			this.findString.Text = "<enter name>";
+			this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
+			this.findString.Enter += new System.EventHandler(this.findString_Enter);
+			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.button1.Location = new System.Drawing.Point(299, 8);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(40, 23);
+			this.button1.TabIndex = 6;
+			this.button1.Text = "Find";
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// tabPageBrowse
 			// 
-			this.tabPageBrowse.Controls.AddRange(new System.Windows.Forms.Control[] {
-																						this.lvBrowse,
-																						this.splitter1,
-																						this.tvBrowse});
+			this.tabPageBrowse.Controls.Add(this.lvBrowse);
+			this.tabPageBrowse.Controls.Add(this.splitter1);
+			this.tabPageBrowse.Controls.Add(this.tvBrowse);
 			this.tabPageBrowse.Location = new System.Drawing.Point(4, 4);
 			this.tabPageBrowse.Name = "tabPageBrowse";
 			this.tabPageBrowse.Size = new System.Drawing.Size(344, 262);
@@ -318,6 +356,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.tvBrowse.Dock = System.Windows.Forms.DockStyle.Left;
 			this.tvBrowse.ImageIndex = -1;
+			this.tvBrowse.Location = new System.Drawing.Point(0, 0);
 			this.tvBrowse.Name = "tvBrowse";
 			this.tvBrowse.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
 																				 new System.Windows.Forms.TreeNode("Full Name", new System.Windows.Forms.TreeNode[] {
@@ -348,10 +387,9 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPageGroups
 			// 
-			this.tabPageGroups.Controls.AddRange(new System.Windows.Forms.Control[] {
-																						this.lvGroups,
-																						this.splitter2,
-																						this.tvGroups});
+			this.tabPageGroups.Controls.Add(this.lvGroups);
+			this.tabPageGroups.Controls.Add(this.splitter2);
+			this.tabPageGroups.Controls.Add(this.tvGroups);
 			this.tabPageGroups.Location = new System.Drawing.Point(4, 4);
 			this.tabPageGroups.Name = "tabPageGroups";
 			this.tabPageGroups.Size = new System.Drawing.Size(344, 262);
@@ -378,76 +416,15 @@ namespace msn2.net.Pictures.Controls
 			// 
 			this.tvGroups.Dock = System.Windows.Forms.DockStyle.Left;
 			this.tvGroups.ImageIndex = -1;
+			this.tvGroups.Location = new System.Drawing.Point(0, 0);
 			this.tvGroups.Name = "tvGroups";
 			this.tvGroups.SelectedImageIndex = -1;
 			this.tvGroups.Size = new System.Drawing.Size(88, 262);
 			this.tvGroups.TabIndex = 0;
 			// 
-			// tabPageFind
-			// 
-			this.tabPageFind.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.lvFind,
-																					  this.findString,
-																					  this.button1,
-																					  this.label1});
-			this.tabPageFind.Location = new System.Drawing.Point(4, 4);
-			this.tabPageFind.Name = "tabPageFind";
-			this.tabPageFind.Size = new System.Drawing.Size(344, 262);
-			this.tabPageFind.TabIndex = 2;
-			this.tabPageFind.Text = "Find";
-			// 
-			// lvFind
-			// 
-			this.lvFind.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.lvFind.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			this.lvFind.HideSelection = false;
-			this.lvFind.Location = new System.Drawing.Point(0, 32);
-			this.lvFind.MultiSelect = false;
-			this.lvFind.Name = "lvFind";
-			this.lvFind.Size = new System.Drawing.Size(344, 230);
-			this.lvFind.TabIndex = 7;
-			this.lvFind.View = System.Windows.Forms.View.List;
-			this.lvFind.DoubleClick += new System.EventHandler(this.lvFind_DoubleClick);
-			this.lvFind.SelectedIndexChanged += new System.EventHandler(this.lvFind_SelectedIndexChanged);
-			// 
-			// findString
-			// 
-			this.findString.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right);
-			this.findString.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-			this.findString.Location = new System.Drawing.Point(40, 8);
-			this.findString.Name = "findString";
-			this.findString.Size = new System.Drawing.Size(251, 20);
-			this.findString.TabIndex = 4;
-			this.findString.Text = "<enter name>";
-			this.findString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.findString_KeyPress);
-			this.findString.Enter += new System.EventHandler(this.findString_Enter);
-			// 
-			// button1
-			// 
-			this.button1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.button1.Location = new System.Drawing.Point(299, 8);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(40, 23);
-			this.button1.TabIndex = 6;
-			this.button1.Text = "Find";
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(8, 8);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(32, 23);
-			this.label1.TabIndex = 5;
-			this.label1.Text = "Find:";
-			// 
 			// PeopleCtl
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.tabControl1});
+			this.Controls.Add(this.tabControl1);
 			this.Name = "PeopleCtl";
 			this.Size = new System.Drawing.Size(352, 288);
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFullName)).EndInit();
@@ -456,9 +433,9 @@ namespace msn2.net.Pictures.Controls
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonLastName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dvPersonFind)).EndInit();
 			this.tabControl1.ResumeLayout(false);
+			this.tabPageFind.ResumeLayout(false);
 			this.tabPageBrowse.ResumeLayout(false);
 			this.tabPageGroups.ResumeLayout(false);
-			this.tabPageFind.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -622,6 +599,17 @@ namespace msn2.net.Pictures.Controls
 			findString.SelectAll();
 			findString.Focus();
 		
+			// Select this person if the only one
+			if (dvPersonFind.Count == 1)
+			{
+				if (DoubleClickPerson != null)
+				{
+					PersonCtlEventArgs ex = new PersonCtlEventArgs();
+					ex.personRow = (DataSetPerson.PersonRow) dvPersonFind[0].Row;
+
+					DoubleClickPerson(this, ex);
+				}
+			}
 		}
 
 		private void findString_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -787,4 +775,15 @@ namespace msn2.net.Pictures.Controls
 		}
 
 	}
+
+	// events
+	public delegate void ClickPersonEventHandler(object sender, PersonCtlEventArgs e);
+	public delegate void DoubleClickPersonEventHandler(object sender, PersonCtlEventArgs e);
+	
+	// class for passing events up
+	public class PersonCtlEventArgs: EventArgs 
+	{
+		public DataSetPerson.PersonRow personRow;
+	}
+
 }

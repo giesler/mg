@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
 using System.Configuration;
+using msn2.net.Pictures;
 
 namespace pics 
 {
@@ -17,28 +18,39 @@ namespace pics
 			InitializeComponent();
 		}	
 
-		public static string PictureCacheLocation;
-		public static string PictureLocation;
-		
+		public static bool AdminMode
+		{
+			get
+			{
+				HttpSessionState session = HttpContext.Current.Session;
+				if (session["editMode"] == null)
+				{
+					return false;
+				}
+				
+				return (bool) session["editMode"];
+			}
+			set
+			{
+				HttpSessionState session = HttpContext.Current.Session;
+				if (session["editMode"] == null)
+				{
+					session["editMode"] = value;
+				}
+				else
+				{
+					session.Add("editMode", value);
+				}
+			}
+		}
+
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-            PictureCacheLocation		= ConfigurationSettings.AppSettings["PictureCacheLocation"];
-			PictureLocation				= ConfigurationSettings.AppSettings["PictureLocation"];
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)
 		{
-			// check if the user is authenticated
-			if (Request.IsAuthenticated) 
-			{
-				// load the user info into the session
-				PersonInfo pi = new PersonInfo(Convert.ToInt32(User.Identity.Name));
-				Session["PersonInfo"] = pi;
-
-			}
-
-			Session["MySelectedList"]		= new pics.Controls.PictureIdCollection();
-
+			Session["MySelectedList"]		= new PictureIdCollection();
 			Session["editMode"]				= false;
 
 		}

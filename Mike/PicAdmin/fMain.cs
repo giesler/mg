@@ -87,6 +87,7 @@ namespace msn2.net.Pictures.Controls
 		private System.ComponentModel.IContainer components;
 		private string currentListViewQuery;
 		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem menuItem6;
 		protected Crownwood.Magic.Docking.DockingManager dockingManager;
 		#endregion
 
@@ -191,6 +192,7 @@ namespace msn2.net.Pictures.Controls
 			this.toolBarButton1 = new System.Windows.Forms.ToolBarButton();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.splitter3 = new System.Windows.Forms.Splitter();
+			this.menuItem6 = new System.Windows.Forms.MenuItem();
 			this.panelPic.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -204,9 +206,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// pbPic
 			// 
-			this.pbPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left);
+			this.pbPic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left)));
 			this.pbPic.BackColor = System.Drawing.SystemColors.Window;
+			this.pbPic.Location = new System.Drawing.Point(0, 0);
 			this.pbPic.Name = "pbPic";
 			this.pbPic.Size = new System.Drawing.Size(152, 166);
 			this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -251,11 +254,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panelPic
 			// 
-			this.panelPic.Anchor = ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left);
+			this.panelPic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left)));
 			this.panelPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panelPic.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.pbPic});
+			this.panelPic.Controls.Add(this.pbPic);
 			this.panelPic.Location = new System.Drawing.Point(104, 8);
 			this.panelPic.Name = "panelPic";
 			this.panelPic.Size = new System.Drawing.Size(304, 168);
@@ -285,11 +287,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.tabPage1,
-																					  this.tabPage2,
-																					  this.tabPage4,
-																					  this.tabPage3});
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Location = new System.Drawing.Point(280, 112);
 			this.tabControl1.Multiline = true;
 			this.tabControl1.Name = "tabControl1";
@@ -299,8 +300,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.tvDates});
+			this.tabPage1.Controls.Add(this.tvDates);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Size = new System.Drawing.Size(248, 513);
@@ -313,6 +313,7 @@ namespace msn2.net.Pictures.Controls
 			this.tvDates.FullRowSelect = true;
 			this.tvDates.HideSelection = false;
 			this.tvDates.ImageIndex = -1;
+			this.tvDates.Location = new System.Drawing.Point(0, 0);
 			this.tvDates.Name = "tvDates";
 			this.tvDates.SelectedImageIndex = -1;
 			this.tvDates.Size = new System.Drawing.Size(248, 513);
@@ -321,8 +322,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.categoryTree1});
+			this.tabPage2.Controls.Add(this.categoryTree1);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Size = new System.Drawing.Size(248, 513);
@@ -332,6 +332,7 @@ namespace msn2.net.Pictures.Controls
 			// categoryTree1
 			// 
 			this.categoryTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.categoryTree1.Location = new System.Drawing.Point(0, 0);
 			this.categoryTree1.Name = "categoryTree1";
 			this.categoryTree1.Size = new System.Drawing.Size(248, 513);
 			this.categoryTree1.TabIndex = 0;
@@ -339,8 +340,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.tvAddedDate});
+			this.tabPage4.Controls.Add(this.tvAddedDate);
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Size = new System.Drawing.Size(248, 513);
@@ -353,6 +353,7 @@ namespace msn2.net.Pictures.Controls
 			this.tvAddedDate.FullRowSelect = true;
 			this.tvAddedDate.HideSelection = false;
 			this.tvAddedDate.ImageIndex = -1;
+			this.tvAddedDate.Location = new System.Drawing.Point(0, 0);
 			this.tvAddedDate.Name = "tvAddedDate";
 			this.tvAddedDate.SelectedImageIndex = -1;
 			this.tvAddedDate.Size = new System.Drawing.Size(248, 513);
@@ -361,8 +362,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				   this.peopleCtl1});
+			this.tabPage3.Controls.Add(this.peopleCtl1);
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Size = new System.Drawing.Size(248, 513);
@@ -372,6 +372,7 @@ namespace msn2.net.Pictures.Controls
 			// peopleCtl1
 			// 
 			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.peopleCtl1.Location = new System.Drawing.Point(0, 0);
 			this.peopleCtl1.Name = "peopleCtl1";
 			this.peopleCtl1.Size = new System.Drawing.Size(248, 513);
 			this.peopleCtl1.TabIndex = 0;
@@ -393,7 +394,8 @@ namespace msn2.net.Pictures.Controls
 																						   this.mnuPictureListDelete,
 																						   this.menuItem2,
 																						   this.mnuPictureListMoveUp,
-																						   this.mnuPictureListMoveDown});
+																						   this.mnuPictureListMoveDown,
+																						   this.menuItem6});
 			this.mnuPictureList.Popup += new System.EventHandler(this.mnuPictureList_Popup);
 			// 
 			// mnuPictureListEdit
@@ -442,9 +444,9 @@ namespace msn2.net.Pictures.Controls
 			this.lvPics.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvPics.HideSelection = false;
 			this.lvPics.LargeImageList = this.pictureList;
-			this.lvPics.Location = new System.Drawing.Point(3, 25);
+			this.lvPics.Location = new System.Drawing.Point(3, 28);
 			this.lvPics.Name = "lvPics";
-			this.lvPics.Size = new System.Drawing.Size(693, 352);
+			this.lvPics.Size = new System.Drawing.Size(693, 349);
 			this.lvPics.SmallImageList = this.pictureList;
 			this.lvPics.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.lvPics.TabIndex = 8;
@@ -453,7 +455,6 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// pictureList
 			// 
-			this.pictureList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
 			this.pictureList.ImageSize = new System.Drawing.Size(100, 100);
 			this.pictureList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
@@ -521,8 +522,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.panelPic});
+			this.panel1.Controls.Add(this.panelPic);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel1.Location = new System.Drawing.Point(3, 380);
 			this.panel1.Name = "panel1";
@@ -557,9 +557,10 @@ namespace msn2.net.Pictures.Controls
 			this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
 																						this.toolBarButton1});
 			this.toolBar1.DropDownArrows = true;
+			this.toolBar1.Location = new System.Drawing.Point(0, 0);
 			this.toolBar1.Name = "toolBar1";
 			this.toolBar1.ShowToolTips = true;
-			this.toolBar1.Size = new System.Drawing.Size(696, 25);
+			this.toolBar1.Size = new System.Drawing.Size(696, 28);
 			this.toolBar1.TabIndex = 11;
 			this.toolBar1.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
 			this.toolBar1.Visible = false;
@@ -571,9 +572,9 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(0, 25);
+			this.splitter1.Location = new System.Drawing.Point(0, 28);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 539);
+			this.splitter1.Size = new System.Drawing.Size(3, 536);
 			this.splitter1.TabIndex = 12;
 			this.splitter1.TabStop = false;
 			// 
@@ -586,19 +587,24 @@ namespace msn2.net.Pictures.Controls
 			this.splitter3.TabIndex = 13;
 			this.splitter3.TabStop = false;
 			// 
+			// menuItem6
+			// 
+			this.menuItem6.Index = 5;
+			this.menuItem6.Text = "&Picture Info";
+			this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
+			// 
 			// fMain
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(696, 589);
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.tabControl1,
-																		  this.lvPics,
-																		  this.splitter3,
-																		  this.panel1,
-																		  this.splitter1,
-																		  this.toolBar1,
-																		  this.statusBar1,
-																		  this.splitter2});
+			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.lvPics);
+			this.Controls.Add(this.splitter3);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.toolBar1);
+			this.Controls.Add(this.statusBar1);
+			this.Controls.Add(this.splitter2);
 			this.Menu = this.mainMenu1;
 			this.Name = "fMain";
 			this.Text = "Pic Admin";
@@ -728,6 +734,7 @@ namespace msn2.net.Pictures.Controls
 			Content c = dockingManager.Contents.Add(tabControl1, "Filter");
 			dockingManager.AddContentWithState(c, Crownwood.Magic.Docking.State.DockLeft);
 
+			PicContext.Load(Msn2Config.Load(), 1);
 		}
 
 		private void tvDates_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
@@ -775,14 +782,6 @@ namespace msn2.net.Pictures.Controls
 				for (int i = 0; i < lvPics.Columns.Count-1; i++)
 					li.SubItems.Add("");
 
-				/*
-				using (Image img = Image.FromFile(@"\\ike\piccache\" + dr["Filename"].ToString()) ) 
-				{
-					pictureList.Images.Add(img); 
-				}
-				li.ImageIndex = pictureList.Images.Count-1;
-				*/
-							
 				// Add fields
 				li.SubItems[1].Text = Convert.ToDateTime(dr["PictureDate"]).ToShortDateString();
 
@@ -828,11 +827,13 @@ namespace msn2.net.Pictures.Controls
 
 		public void LoadThumbs() 
 		{
+			string cacheFolder = PicContext.Current.Config.CacheDirectory;
+
 			foreach (ListViewItem li in lvPics.Items) 
 			{
 				string filename = li.SubItems[3].Text;                
                 
-				using (Image img = Image.FromFile(@"\\ike\piccache\" + filename) ) 
+				using (Image img = Image.FromFile(cacheFolder + filename) ) 
 				{
 					Image frameImage	= new Bitmap(125, 125);
 					pictureList.Images.Add(img); 
@@ -868,7 +869,7 @@ namespace msn2.net.Pictures.Controls
 				ListViewItem li;
 				li = lvPics.SelectedItems[0];
 
-				String strFile = @"\\ike\pictures\" + li.SubItems[3].Text;
+				string strFile = PicContext.Current.Config.PictureDirectory + li.SubItems[3].Text;
 				strFile = strFile.Replace("/", "\\");
 
 
@@ -881,7 +882,7 @@ namespace msn2.net.Pictures.Controls
 				
 				if (dr.Read()) 
 				{
-					strFile = @"\\ike\piccache\" + dr["Filename"].ToString();
+					strFile = PicContext.Current.Config.CacheDirectory + dr["Filename"].ToString();
 				}
 				dr.Close();
 
@@ -989,8 +990,7 @@ namespace msn2.net.Pictures.Controls
 
 				foreach (ListViewItem li in lvPics.SelectedItems) 
 				{
-					
-					String strPath = "\\\\kenny\\inetpub\\pictures\\" + li.SubItems[3].Text;
+					string strPath = PicContext.Current.Config.PictureDirectory + li.SubItems[3].Text;
 					try 
 					{
 						// Load the list of cached images
@@ -1001,7 +1001,7 @@ namespace msn2.net.Pictures.Controls
 						{
 							try 
 							{
-								string cachedFile = @"\\kenny\inetpub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+								string cachedFile = PicContext.Current.Config.CacheDirectory + @"\" + dr["Filename"].ToString();
 								if (File.Exists(cachedFile))
 									File.Delete(cachedFile);
 							} 
@@ -1189,7 +1189,8 @@ namespace msn2.net.Pictures.Controls
 			foreach (DataRow dr in ds.Tables["PictureCache"].Rows)
 			{
 				// Check if file exists
-				string filename		= @"\\kenny\InetPub\pics.msn2.net\piccache\" + dr["Filename"].ToString();
+				string filename		= PicContext.Current.Config.CacheDirectory + @"\" 
+										+ dr["Filename"].ToString();
 
 				if (!File.Exists(filename))
 				{
@@ -1210,7 +1211,7 @@ namespace msn2.net.Pictures.Controls
 		{
 			ImageUtilities util = new ImageUtilities();
 
-			SqlDataAdapter da = new SqlDataAdapter("select * from Picture", cn);
+			SqlDataAdapter da = new SqlDataAdapter("select * from Picture where PictureId not in (select PictureId from PictureCache where width = 750)", cn);
 			DataSetPicture dsPicture = new DataSetPicture();
 			da.Fill(dsPicture, "Picture");
 
@@ -1265,6 +1266,11 @@ namespace msn2.net.Pictures.Controls
 				MessageBox.Show("You cannot process cached images while they are already being processed on another thread.");
 			}
 
+		}
+
+		private void menuItem6_Click(object sender, System.EventArgs e)
+		{
+		
 		}
 
 	}	

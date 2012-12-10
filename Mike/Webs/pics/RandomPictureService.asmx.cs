@@ -9,6 +9,7 @@ using System.Web.Services;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -64,7 +65,7 @@ namespace pics
 		[WebMethod]
 		public byte[] RandomImage(int personId)
 		{
-			SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
+			SqlConnection cn  = new SqlConnection(PicContext.Current.Config.ConnectionString);
 			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
 			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
 
@@ -96,28 +97,6 @@ namespace pics
 			return memStream.GetBuffer();
 
 			// see http://www.xmlwebservices.cc/ - image retereival web service
-		}
-
-		[WebMethod]
-		public DataSetPicture RandomImageData(int personId)
-		{
-
-			SqlConnection cn  = new SqlConnection(pics.Config.ConnectionString);
-			SqlDataAdapter daPics = new SqlDataAdapter("dbo.p_RandomPicture", cn);
-			daPics.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-			// set up params on the SP
-			daPics.SelectCommand.Parameters.Add("@PersonID", personId);
-			daPics.SelectCommand.Parameters.Add("@MaxWidth", 125);
-			daPics.SelectCommand.Parameters.Add("@MaxHeight", 125);
-
-			// run the SP, set datasource to the picture list
-			cn.Open();
-			DataSetPicture dsPics = new DataSetPicture();
-			daPics.Fill(dsPics, "Pictures");
-			cn.Close();
-            
-            return dsPics;
 		}
 	
 	}

@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.Mail;
 using System.Data.SqlClient;
 using System.Configuration;
+using msn2.net.Pictures;
 
 namespace pics.Auth
 {
@@ -19,6 +20,8 @@ namespace pics.Auth
 	/// </summary>
 	public class ForgotPassword : System.Web.UI.Page
 	{
+		#region Declares
+
 		protected System.Web.UI.WebControls.TextBox txtEmail;
 		protected System.Web.UI.WebControls.Panel pnlConfirm;
 		protected System.Web.UI.WebControls.Label lblEmail;
@@ -28,6 +31,8 @@ namespace pics.Auth
 		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Button btnConfirm;
 	
+		#endregion
+
 		public ForgotPassword()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
@@ -67,23 +72,13 @@ namespace pics.Auth
 		{
 
 			// make sure email is valid, get guid
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
-			SqlCommand cmd	 = new SqlCommand("dbo.sp_ForgotPassword", cn);
-			cmd.CommandType	 = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@email", SqlDbType.NVarChar, 150);
-			cmd.Parameters["@email"].Value = txtEmail.Text;
-			cmd.Parameters.Add("@guid", SqlDbType.NVarChar, 50);
-			cmd.Parameters["@guid"].Direction = ParameterDirection.Output;
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+			Guid userId		= PicContext.Current.UserManager.GetPasswordResetKey(txtEmail.Text);
 		
 			// build message
-			String sGUID = cmd.Parameters["@guid"].Value.ToString().Substring(2);
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
 			sb.Append("<html><body><p>A request has been made to reset your MSN2 password.</p>");
 			sb.Append("<p>If you made this request, click <a href=\"http://" + Request.Url.Host);
-			sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + sGUID);
+			sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + userId.ToString());
 			sb.Append("&email=" + Server.UrlEncode(txtEmail.Text) + "\">here</a>.</p>");
 			sb.Append("<p>If you did not make this request, you can ignore this email message.</p>");
 			sb.Append("</body></html>");

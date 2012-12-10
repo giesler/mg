@@ -8,17 +8,6 @@ using System.Data.SqlClient;
 
 namespace msn2.net.Pictures.Controls
 {
-	// A delegate type for hooking up change notifications.
-	public delegate void AddedPersonEventHandler(object sender, PersonPickerEventArgs e);
-	public delegate void RemovedPersonEventHandler(object sender, PersonPickerEventArgs e);
-
-	// class for passing events up
-	public class PersonPickerEventArgs: EventArgs 
-	{
-        public int PersonID;
-	}
-
-
 	/// <summary>
 	/// Summary description for CategoryPicker.
 	/// </summary>
@@ -84,8 +73,9 @@ namespace msn2.net.Pictures.Controls
 			// peopleCtl1
 			// 
 			this.peopleCtl1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.peopleCtl1.Location = new System.Drawing.Point(0, 0);
 			this.peopleCtl1.Name = "peopleCtl1";
-			this.peopleCtl1.Size = new System.Drawing.Size(192, 192);
+			this.peopleCtl1.Size = new System.Drawing.Size(152, 192);
 			this.peopleCtl1.TabIndex = 0;
 			this.peopleCtl1.DoubleClickPerson += new msn2.net.Pictures.Controls.DoubleClickPersonEventHandler(this.peopleCtl1_DoubleClickPerson);
 			// 
@@ -102,13 +92,12 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.lvPeople,
-																				 this.panel2});
+			this.panel1.Controls.Add(this.lvPeople);
+			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(200, 0);
+			this.panel1.Location = new System.Drawing.Point(160, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(280, 192);
+			this.panel1.Size = new System.Drawing.Size(320, 192);
 			this.panel1.TabIndex = 2;
 			// 
 			// lvPeople
@@ -121,7 +110,7 @@ namespace msn2.net.Pictures.Controls
 			this.lvPeople.HideSelection = false;
 			this.lvPeople.Location = new System.Drawing.Point(32, 0);
 			this.lvPeople.Name = "lvPeople";
-			this.lvPeople.Size = new System.Drawing.Size(248, 192);
+			this.lvPeople.Size = new System.Drawing.Size(288, 192);
 			this.lvPeople.TabIndex = 1;
 			this.lvPeople.View = System.Windows.Forms.View.Details;
 			this.lvPeople.DoubleClick += new System.EventHandler(this.lvPeople_DoubleClick);
@@ -133,10 +122,10 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// panel2
 			// 
-			this.panel2.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.btnRemove,
-																				 this.btnAdd});
+			this.panel2.Controls.Add(this.btnRemove);
+			this.panel2.Controls.Add(this.btnAdd);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panel2.Location = new System.Drawing.Point(0, 0);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(32, 192);
 			this.panel2.TabIndex = 0;
@@ -154,7 +143,7 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(192, 0);
+			this.splitter1.Location = new System.Drawing.Point(152, 0);
 			this.splitter1.Name = "splitter1";
 			this.splitter1.Size = new System.Drawing.Size(8, 192);
 			this.splitter1.TabIndex = 1;
@@ -162,10 +151,9 @@ namespace msn2.net.Pictures.Controls
 			// 
 			// PersonPicker
 			// 
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.panel1,
-																		  this.splitter1,
-																		  this.peopleCtl1});
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.splitter1);
+			this.Controls.Add(this.peopleCtl1);
 			this.Name = "PersonPicker";
 			this.Size = new System.Drawing.Size(480, 192);
 			this.panel1.ResumeLayout(false);
@@ -261,4 +249,17 @@ namespace msn2.net.Pictures.Controls
 		}
 
 	}
+
+	// A delegate type for hooking up change notifications.
+	public delegate void AddedPersonEventHandler(object sender, PersonPickerEventArgs e);
+	public delegate void RemovedPersonEventHandler(object sender, PersonPickerEventArgs e);
+
+	// class for passing events up
+	public class PersonPickerEventArgs: EventArgs 
+	{
+		public int PersonID;
+	}
+
+
+
 }

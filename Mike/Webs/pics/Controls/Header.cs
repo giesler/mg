@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using msn2.net.Pictures;
 
 namespace pics.Controls
 {
@@ -134,9 +135,6 @@ namespace pics.Controls
 				// Now we want to create the login info in the right cell
 				if (_showUserInfo && httpContext.Request.IsAuthenticated) 
 				{
-					// load details on the logged in person
-					PersonInfo pi = (PersonInfo) httpContext.Session["PersonInfo"];
-
                     Table tLoginInfo = new Table();
 					tLoginInfo.Height	= Unit.Percentage(100);
 					tLoginInfo.Width	= Unit.Percentage(100);
@@ -174,7 +172,7 @@ namespace pics.Controls
 					// create user name
 					Label lblUserName	= new Label();
 					lblUserName.Font.Size = 8;
-					lblUserName.Text	= pi.Name + "<br>";
+					lblUserName.Text	= PicContext.Current.CurrentUser.Name + "<br>";
 					lblUserName.ForeColor = Color.LightGray;
 					tc.Controls.Add(lblUserName);
 
@@ -185,6 +183,31 @@ namespace pics.Controls
 					lnkLogout.Font.Size	= 8;
 					lnkLogout.NavigateUrl = strAppPath + "Auth/Logout.aspx";
 					tc.Controls.Add(lnkLogout);
+
+					bool showEditControls	= (bool) httpContext.Session["editMode"];
+					if (PicContext.Current.CurrentUser.Id < 3)
+					{
+						tc.Controls.Add(new HtmlLiteral("&nbsp;|&nbsp;"));
+						LinkButton adminMode	= new LinkButton();
+						adminMode.Text			= (showEditControls ? "Edit Mode Off" : "Edit Mode On");
+						adminMode.Click			+= new EventHandler(adminMode_Click);
+						adminMode.CssClass		= "headerLink";
+						adminMode.Font.Size		= 8;
+						tc.Controls.Add(adminMode);
+					}
+
+					// Add impersonate link
+					if (showEditControls)
+					{
+						tc.Controls.Add(new HtmlLiteral("&nbsp;|&nbsp;"));
+						HyperLink lnkImper	= new HyperLink();
+						lnkImper.Text		= "Impersonate";
+						lnkImper.CssClass	= "headerLink";
+						lnkImper.Font.Size	= 8;
+						lnkImper.NavigateUrl = strAppPath + "Impersonate.aspx";
+						tc.Controls.Add(lnkImper);
+					}
+					
 
 
 				}
@@ -220,5 +243,11 @@ namespace pics.Controls
 			}
 		}
 		#endregion
+
+		private void adminMode_Click(object sender, EventArgs e)
+		{
+			Global.AdminMode		= !Global.AdminMode;
+            HttpContext.Current.Response.Redirect(HttpContext.Current.Request.Url.ToString());
+		}
 	}
 }

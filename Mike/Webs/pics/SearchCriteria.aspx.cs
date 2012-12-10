@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
+using msn2.net.Pictures;
 
 namespace pics
 {
@@ -27,6 +28,10 @@ namespace pics
 		protected Label pictureDateStartBad;
 		protected System.Web.UI.WebControls.Label noResults;
 		protected pics.Controls.Header header;
+		protected pics.Controls.PictureTasks picTaskList;
+		protected pics.Controls.ContentPanel picTasks;
+		protected pics.Controls.Sidebar Sidebar1;
+		protected System.Web.UI.WebControls.Panel youAreHerePanel;
 		protected Label pictureDateEndBad;
 	
 		public SearchCriteria()
@@ -42,7 +47,7 @@ namespace pics
 				// check if we should load a search
 				if (Request.QueryString["id"] != null) 
 				{
-					LoadSearch(Request.QueryString["id"]);
+					LoadSearch(new Guid(Request.QueryString["id"]));
 
 					// check if no results
 					if (Request.QueryString["noresults"] != null) 
@@ -74,21 +79,16 @@ namespace pics
 		}
 		#endregion
 
-		private void LoadSearch(string id) 
+		private void LoadSearch(Guid id) 
 		{
-			// get the current person's info
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 			// get the byte array from the guid passed
-			XMGuid.Init();
-			XMGuid g = new XMGuid(id);
 
 			// create a connection and set up a command
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
+			SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_Search_Load", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@SearchID", g.Buffer);
-			cmd.Parameters.Add("@PersonID", pi.PersonID);
+			cmd.Parameters.Add("@SearchID", id);
+			cmd.Parameters.Add("@PersonID", PicContext.Current.CurrentUser.Id);
 
 			// run the command
 			cn.Open();
@@ -125,33 +125,30 @@ namespace pics
 			cn.Close();
 		}
 
-		private string SaveSearch() 
+		private Guid SaveSearch() 
 		{
 
 			// figure out a 'friendly' search description
 			string searchText = "";
 			
-			// get the current person's info
-			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
-
 			// create a connection and set up a command
-			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
+			SqlConnection cn = new SqlConnection(PicContext.Current.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("sp_Search_NewSearch", cn);
 			cmd.CommandType	 = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@SearchID", SqlDbType.NVarChar, 36);
+			cmd.Parameters.Add("@SearchID", SqlDbType.UniqueIdentifier);
 			cmd.Parameters["@SearchID"].Direction = ParameterDirection.Output;
 			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
 			cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 250);
 			cmd.Parameters.Add("@PictureDateStart", SqlDbType.SmallDateTime);
 			cmd.Parameters.Add("@PictureDateEnd", SqlDbType.SmallDateTime);
-			cmd.Parameters.Add("@PersonSearchOption", SqlDbType.Bit);
+			cmd.Parameters.Add("@PersonSearchOption", SqlDbType.SmallInt);
 
 			// set the params on the sp
-			cmd.Parameters["@PersonID"].Value = pi.PersonID;
+			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
 			if (description.Text.Length > 0) 
 			{
 				cmd.Parameters["@Description"].Value = description.Text;
-				searchText = searchText + "Description: <b>" + description.Text + "</b><br>";
+				searchText = searchText + "Description: " + description.Text + "<br>";
 			}
 			if (pictureDateStart.Text.Length > 0) 
 			{
@@ -166,15 +163,15 @@ namespace pics
 			// figure out date to show in friendly msg
 			if (pictureDateStart.Text.Length > 0 && pictureDateEnd.Text.Length > 0) 
 			{
-				searchText = searchText + "Date between <b>" + pictureDateStart.Text + "</b> and <b>" + pictureDateEnd.Text + "</b><br>";
+				searchText = searchText + "Date between " + pictureDateStart.Text + " and " + pictureDateEnd.Text + "<br>";
 			} 
 			else if (pictureDateStart.Text.Length > 0 && pictureDateEnd.Text.Length == 0) 
 			{
-				searchText = searchText + "Date after <b>" + pictureDateStart.Text + "</b><br>";
+				searchText = searchText + "Date after " + pictureDateStart.Text + "<br>";
 			} 
 			else if (pictureDateStart.Text.Length == 0 && pictureDateEnd.Text.Length > 0) 
 			{
-				searchText = searchText + "Date before <b>" + pictureDateEnd.Text + "</b><br>";
+				searchText = searchText + "Date before " + pictureDateEnd.Text + "<br>";
 			}
 			
 			// run the SP
@@ -182,14 +179,12 @@ namespace pics
 			cmd.ExecuteNonQuery();
 			
 			// get the guid returned
-			XMGuid.Init();
-			string searchid = cmd.Parameters["@SearchID"].Value.ToString();
-			XMGuid g = new XMGuid(searchid.Substring(2));
+			Guid searchId = (Guid) cmd.Parameters["@SearchID"].Value;
 
 			// now we want to do the selected people
 			SqlCommand cmdPerson = new SqlCommand("sp_Search_AddPerson", cn);
 			cmdPerson.CommandType = CommandType.StoredProcedure;
-			cmdPerson.Parameters.Add("@SearchID", g.Buffer);
+			cmdPerson.Parameters.Add("@SearchID", searchId);
 			cmdPerson.Parameters.Add("@PersonID", SqlDbType.Int);
             
 			// loop through selected people
@@ -199,19 +194,19 @@ namespace pics
 				cmdPerson.ExecuteNonQuery();
 
 				// add to friendly message
-				searchText = searchText + "<b>" + li.Text + "</b><br>";
+				searchText = searchText + li.Text + "<br>";
 			}
 			
 			// save the search text
 			SqlCommand cmdUpdate = new SqlCommand("dbo.sp_Search_UpdateDescription", cn);
 			cmdUpdate.CommandType = CommandType.StoredProcedure;
-			cmdUpdate.Parameters.Add("@SearchID", g.Buffer);
+			cmdUpdate.Parameters.Add("@SearchID", searchId);
 			cmdUpdate.Parameters.Add("@SearchDescription", searchText);
 			cmdUpdate.ExecuteNonQuery();
 
 			cn.Close();
             
-			return (cmd.Parameters["@SearchID"].Value.ToString().Substring(2));
+			return searchId;
 		}
 
 		private void search_Click(object sender, System.EventArgs e)
@@ -236,8 +231,8 @@ namespace pics
 				pictureDateEndBad.Visible = true;
 			}
 
-			String id = SaveSearch();
-			Response.Redirect("SearchRun.aspx?id=" + id);
+			Guid searchId = SaveSearch();
+			Response.Redirect("SearchRun.aspx?id=" + searchId.ToString());
 		}
 
 		private void reset_Click(object sender, System.EventArgs e)

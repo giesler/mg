@@ -98,10 +98,31 @@
                     AssemblyName = "Iterators"
                     HintPath = "..\..\..\vss\Iter\bin\Debug\Iterators.dll"
                 />
+                <Reference
+                    Name = "PicLibrary"
+                    Project = "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
             <Include>
+                <File
+                    RelPath = "AddToCategory.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AddToCategory.aspx.cs"
+                    DependentUpon = "AddToCategory.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AddToCategory.aspx.resx"
+                    DependentUpon = "AddToCategory.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
@@ -121,60 +142,6 @@
                     RelPath = "Categories.aspx.resx"
                     DependentUpon = "Categories.aspx.cs"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "CategoryManager.asmx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "CategoryManager.asmx.cs"
-                    DependentUpon = "CategoryManager.asmx"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CategoryManager.asmx.resx"
-                    DependentUpon = "CategoryManager.asmx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "DataSetCategory.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetCategory.cs"
-                />
-                <File
-                    RelPath = "DataSetCategory.cs"
-                    DependentUpon = "DataSetCategory.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetCategory.xsx"
-                    DependentUpon = "DataSetCategory.xsd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "DataSetPicture.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "DataSetPicture.cs"
-                />
-                <File
-                    RelPath = "DataSetPicture.cs"
-                    DependentUpon = "DataSetPicture.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "DataSetPicture.xsx"
-                    DependentUpon = "DataSetPicture.xsd"
-                    BuildAction = "None"
                 />
                 <File
                     RelPath = "default.aspx"
@@ -224,22 +191,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "GetRanndomPictureConfigData.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "GetRanndomPictureConfigData.aspx.cs"
-                    DependentUpon = "GetRanndomPictureConfigData.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "GetRanndomPictureConfigData.aspx.resx"
-                    DependentUpon = "GetRanndomPictureConfigData.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Global.asax"
                     SubType = "Component"
                     BuildAction = "Content"
@@ -256,9 +207,20 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "ImageUtilities.cs"
-                    SubType = "Code"
+                    RelPath = "Impersonate.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Impersonate.aspx.cs"
+                    DependentUpon = "Impersonate.aspx"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Impersonate.aspx.resx"
+                    DependentUpon = "Impersonate.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "mainform.aspx"
@@ -281,63 +243,16 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "PicAdmin.dll"
+                    RelPath = "msn2.net.Pictures.Controls.dll"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "msn2.net.Pictures.dll"
                     BuildAction = "Content"
                 />
                 <File
                     RelPath = "pics.vsdisco"
                     BuildAction = "None"
-                />
-                <File
-                    RelPath = "PicServices.asmx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "PicServices.asmx.cs"
-                    DependentUpon = "PicServices.asmx"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PicServices.asmx.resx"
-                    DependentUpon = "PicServices.asmx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "PictureDataSet.xsd"
-                    BuildAction = "Content"
-                    Generator = "MSDataSetGenerator"
-                    LastGenOutput = "PictureDataSet.cs"
-                />
-                <File
-                    RelPath = "PictureDataSet.cs"
-                    DependentUpon = "PictureDataSet.xsd"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "PictureDataSet.xsx"
-                    DependentUpon = "PictureDataSet.xsd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "PictureManager.asmx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "PictureManager.asmx.cs"
-                    DependentUpon = "PictureManager.asmx"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PictureManager.asmx.resx"
-                    DependentUpon = "PictureManager.asmx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "picview.aspx"
@@ -429,15 +344,6 @@
                     RelPath = "SearchRun.aspx.resx"
                     DependentUpon = "SearchRun.aspx.cs"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Utilities.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Web.config"
-                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "WebForm1.aspx"
@@ -623,6 +529,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "Controls\PictureViewer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Controls\TaskListControl.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
@@ -642,6 +553,10 @@
                 />
                 <File
                     RelPath = "Images\button_right.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\folder.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -722,6 +637,10 @@
                 />
                 <File
                     RelPath = "Images\prev.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\search.gif"
                     BuildAction = "Content"
                 />
                 <File

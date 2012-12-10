@@ -14,36 +14,47 @@
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body topmargin="0" leftmargin="0">
-		<picctls:Header id="header" runat="server" size="small" Text="Searching..."></picctls:Header>
 		<form id="Form1" method="post" runat="server">
-			<table align="left" cellpadding="0" cellspacing="0" width="100%">
+
+			<picctls:Header id="header" runat="server" size="small" Text="Picture Folders"></picctls:Header>
+			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
+					<td class="msn2headerfade" colSpan="4" height="3"><IMG height="3" src="images/blank.gif"></td>
+				</tr>
+				<tr>
+					<td class="msn2sidebar" vAlign="top" width="125" rowSpan="3">
+						<picctls:sidebar id="Sidebar1" runat="server">
+							<picctls:ContentPanel id="picTasks" title="Picture Tasks" runat="server" visible="false" Width="100%">
+								<picctls:PictureTasks id="picTaskList" runat="server" visible="true"></picctls:PictureTasks>
+							</picctls:ContentPanel>
+						</picctls:sidebar>
+					</td>
+				</tr>
+				<tr height="25">
 					<td>
-						<!-- Main content -->
-						<table width="100%">
+						<table class="areaPanel" cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td width="50">
-									&nbsp;
+								<td valign="top" width="16"><img src="Images/search.gif" width="16" height="16" /></td>
+								<td valign="top">
+									<b>Searching...</b>
 								</td>
-								<td align="left">
-									<p>
-									</p>
-									<p>
-									</p>
-									<picctls:contentpanel id="welcomeMessage" runat="server" title="Welcome to the MSN2 pictures website!">
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="msn2contentwindow" vAlign="top" style="MARGIN-TOP: 50px; MARGIN-LEFT: 50px">
+
+									<picctls:contentpanel id="welcomeMessage" runat="server" title="Please wait...">
 										<P>
 											Please wait while we look through pictures...
 										</P>
 									</picctls:contentpanel>
-									<P>
-									</P>
-								</td>
-							</tr>
-						</table>
-						<!-- Begin footer -->
+
 					</td>
 				</tr>
 			</table>
+
 		</form>
 	</body>
 </HTML>

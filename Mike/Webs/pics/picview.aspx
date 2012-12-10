@@ -1,6 +1,6 @@
-<%@ Register TagPrefix="uc1" TagName="AutoTimer" Src="Controls/AutoTimer.ascx" %>
-<%@ Page language="c#" Codebehind="picview.aspx.cs" AutoEventWireup="false" Inherits="pics.picview" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="picview.aspx.cs" AutoEventWireup="false" Inherits="pics.picview" %>
+<%@ Register TagPrefix="uc1" TagName="AutoTimer" Src="Controls/AutoTimer.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -10,10 +10,6 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<meta http-equiv=refresh content="<%= HttpRefreshURL %>">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
-		<script language="javascript"><!--
-
-		
-		// --> </script>
 	</HEAD>
 	<body class="pictureMode" leftMargin="0" topMargin="0">
 		<form id="picview" method="post" runat="server">
@@ -37,7 +33,8 @@
 						<td class="infoPanelCategoryBarFade" colSpan="2" height="3"><IMG height="3" src="Images/trans.gif"></td>
 					</tr>
 					<tr>
-						<td vAlign="top" colSpan="2"><asp:label id="lblTitle" Runat="server" CssClass="infoPanelTitle">[Title]</asp:label><asp:label id="lblPictureDate" Runat="server" CssClass="infoPanelDate">[Date]</asp:label><asp:datalist id="dlPerson" Width="100%" Runat="server" CssClass="infoPanelText" RepeatDirection="Horizontal" RepeatLayout="Flow">
+						<td vAlign="top" colSpan="2"><asp:label id="lblTitle" Runat="server" CssClass="infoPanelTitle">[Title]</asp:label><asp:label id="lblPictureDate" Runat="server" CssClass="infoPanelDate">[Date]</asp:label><asp:datalist id="dlPerson" Width="100%" Runat="server" CssClass="infoPanelText" RepeatDirection="Horizontal"
+								RepeatLayout="Flow">
 								<ItemTemplate>
 									<asp:Label ID="lblPersonFullName" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'>
 									</asp:Label>
@@ -59,15 +56,12 @@
 									<TD width="33%"><asp:hyperlink id="lnkPrevious" Runat="server" CssClass="infoPanelLink" Visible="False">
 											<img src="Images/button_left.gif" alt="Previous Picture" border="0">
 										</asp:hyperlink></TD>
-									<TD align="middle" width="34%">
+									<TD align="center" width="34%">
 										<asp:hyperlink id="lnkReturn" Runat="server" CssClass="infoPanelLink">
 											<img src="Images/button_return.gif" alt="Return to list" border="0">
 										</asp:hyperlink>
 									</TD>
-									<td>
-										<asp:Panel ID="editLinkPanel" Runat="server"></asp:Panel>
-									</td>
-									<TD align="right" width="33%" valign="center">
+									<TD align="right" width="33%" valign="middle">
 										<table cellpadding="0" cellspacing="0" border="0">
 											<tr>
 												<td height="7">
@@ -94,6 +88,50 @@
 					</tr>
 				</table>
 			</div>
+			<asp:Panel Runat="server" ID="leftPanel" Visible="False">
+				<DIV class="topInfoPanel">
+					<TABLE class="infoPanelTable" cellSpacing="0">
+						<TR>
+							<TD class="infoPanelCategoryBar" height="10">Details</TD>
+							<TD class="infoPanelCategoryBar" align="right" height="10"></TD>
+						</TR>
+						<TR>
+							<TD class="infoPanelCategoryBarFade" colSpan="2" height="3"><IMG height="3" src="Images/trans.gif"></TD>
+						</TR>
+						<TR>
+							<TD class="infoPanelText" vAlign="top" colSpan="2"><B>Categories</B><BR>
+								<asp:datalist id="categoryList" Runat="server" Width="100%" CssClass="infoPanelText" RepeatLayout="Flow"
+									RepeatDirection="Horizontal">
+									<ItemTemplate>
+										<asp:Label ID="Label6" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CategoryName") %>'>
+										</asp:Label>
+									</ItemTemplate>
+									<SeparatorTemplate>
+										,
+									</SeparatorTemplate>
+								</asp:datalist>
+								<HR noShade SIZE="1">
+								<B>Groups</B><BR>
+								<asp:datalist id="securityList" Runat="server" Width="100%" CssClass="infoPanelText" RepeatLayout="Flow"
+									RepeatDirection="Horizontal">
+									<ItemTemplate>
+										<asp:Label ID="Label1" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupName") %>'>
+										</asp:Label>
+									</ItemTemplate>
+									<SeparatorTemplate>
+										,
+									</SeparatorTemplate>
+								</asp:datalist>
+								<HR noShade SIZE="1">
+								<asp:Panel id="taskList" Runat="server"></asp:Panel></TD>
+						</TR>
+						<TR>
+							<TD class="infoPanelLinkBarFade" colSpan="2" height="3"><IMG height="3" src="Images/trans.gif"></TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</asp:Panel>
+			<asp:Panel Runat="server" ID="editLinkPanel"></asp:Panel>
 		</form>
 		<script language="javascript"><!--
 			

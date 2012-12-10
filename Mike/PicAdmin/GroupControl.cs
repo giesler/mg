@@ -7,16 +7,6 @@ using System.Windows.Forms;
 
 namespace msn2.net.Pictures.Controls
 {
-	// events
-	public delegate void ClickGroupEventHandler(object sender, GroupControlEventArgs e);
-	public delegate void DoubleClickGroupEventHandler(object sender, GroupControlEventArgs e);
-	
-	// class for passing events up
-	public class GroupControlEventArgs: EventArgs 
-	{
-		public DataSetGroup.GroupRow groupRow;
-	}
-
 	/// <summary>
 	/// Summary description for GroupControl.
 	/// </summary>
@@ -361,4 +351,16 @@ namespace msn2.net.Pictures.Controls
 		}
 
 	}
+
+	// events
+	public delegate void ClickGroupEventHandler(object sender, GroupControlEventArgs e);
+	public delegate void DoubleClickGroupEventHandler(object sender, GroupControlEventArgs e);
+	
+	// class for passing events up
+	public class GroupControlEventArgs: EventArgs 
+	{
+		public DataSetGroup.GroupRow groupRow;
+	}
+
+
 }
