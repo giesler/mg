@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <ProductVersion>9.0.20706</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EEF73540-B576-4BAA-A592-A288EBDEB6F4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -34,6 +34,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>full</DebugType>
@@ -53,66 +54,41 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="UI\IItem.cs" />
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Rss\RssChannel.cs" />
-    <Compile Include="Rss\RssItem.cs" />
-    <Compile Include="ScreenSaverForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ScreenSaverForm.Designer.cs">
-      <DependentUpon>ScreenSaverForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OptionsForm.Designer.cs">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="Settings.cs" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.designer.cs</LastGenOutput>
     </None>
-    <Compile Include="UI\ItemDescriptionView.cs">
-    </Compile>
-    <Compile Include="Rss\RssFeed.cs" />
-    <Compile Include="UI\ItemListView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="InstallScreenSaver.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\App.ico" />
-    <Content Include="Documentation\ScreenSaverStarterKit.htm" />
-    <Content Include="Documentation\Images\side-vc.gif" />
-    <Content Include="Documentation\Images\title.jpg" />
-    <Content Include="Documentation\Images\topjump-vc.gif" />
-    <Content Include="Documentation\Images\top-vc.gif" />
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="PictureAdmin.snk" />
-    <None Include="Resources\SSaverBackground2.jpg" />
-    <None Include="Resources\SSaverBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">
@@ -130,6 +106,12 @@
       <ProductName>.NET Framework 2.0 Beta</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

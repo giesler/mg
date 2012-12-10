@@ -4,9 +4,9 @@ using System.Globalization;
 using msn2.net.Pictures;
 using msn2.net.Pictures.Controls;
 
-namespace msn2PicturesScreenSaver
+namespace msn2.net.Pictures
 {
-    static class Program
+    static class PictureScreenSaverProgram
     {
         /// <summary>
         /// The main entry point for the application.
@@ -14,6 +14,8 @@ namespace msn2PicturesScreenSaver
         [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+
             PictureConfig config = PictureConfig.Load();
             if (PicContext.LoginWindowsUser(config) == true)
             {
@@ -50,13 +52,14 @@ namespace msn2PicturesScreenSaver
 
         static void ShowOptions()
         {
-            OptionsForm optionsForm = new OptionsForm();
-            Application.Run(optionsForm);
+            Options options = new Options();
+            Application.Run(options);
         }
 
         static void ShowScreenSaver()
         {
             PictureScreenSaver ss = new PictureScreenSaver();
+            ss.Interval = Properties.Settings.Default.SlideshowInterval;
             Application.Run(ss);
         }
     }

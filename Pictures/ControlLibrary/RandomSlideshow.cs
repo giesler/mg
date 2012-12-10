@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Configuration;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -26,7 +27,27 @@ namespace msn2.net.Pictures.Controls
             this.errorLabel.AutoSize = true;
             this.Controls.Add(this.errorLabel);
 
-            this.timer.Interval = 6 * 1000;
+            string interval = ConfigurationSettings.AppSettings["timerInterval"];
+            if (interval != null)
+            {
+                this.timer.Interval = int.Parse(interval) * 1000;
+            }
+            else
+            {
+                this.timer.Interval = 10 * 1000;
+            }
+        }
+
+        public int Interval
+        {
+            get
+            {
+                return this.timer.Interval / 1000;
+            }
+            set
+            {
+                this.timer.Interval = value * 1000;
+            }
         }
 
         protected override void OnLoad(EventArgs e)

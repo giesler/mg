@@ -329,7 +329,7 @@ namespace msn2.net.Pictures.Controls
                 {
                     toolNext.Enabled = true;
 
-                    if (this.toolNext.Enabled == true)
+                    if (this.toolNext.Visible == true)
                     {
                         using (Image nextImage = PicContext.Current.PictureCache.GetImage(
                                 nextItem,

@@ -1,14 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="msn2.net.Pictures.Properties" GeneratedClassName="Settings">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
+  <Profiles />
   <Settings>
-    <Setting Name="BackgroundImagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="RssFeedUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://msdn.microsoft.com/vcsharp/rss.xml</Value>
+    <Setting Name="SlideshowInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
     </Setting>
   </Settings>
 </SettingsFile>
