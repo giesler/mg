@@ -42,9 +42,9 @@
                 </tr>
                 <tr>
                     <td valign="top" colspan="2">
-                        <asp:Label ID="lblTitle" runat="server" CssClass="infoPanelTitle">[Title]</asp:Label><br />
-                        <asp:Label ID="lblPictureDate" runat="server" CssClass="infoPanelDate">[Date]</asp:Label><br />
-                        <asp:Label ID="pictureBy" runat="server" CssClass="infoPanelDate">[By]</asp:Label><br />
+                        <asp:Label ID="lblTitle" runat="server" CssClass="infoPanelTitle">[Title]</asp:Label>
+                        <asp:Label ID="lblPictureDate" runat="server" CssClass="infoPanelDate">[Date]</asp:Label>
+                        <asp:Label ID="pictureBy" runat="server" CssClass="infoPanelDate">[By]</asp:Label>
                         <asp:DataList ID="dlPerson" Width="100%" runat="server" CssClass="infoPanelText"
                             RepeatDirection="Horizontal" RepeatLayout="Flow">
                             <ItemTemplate>
@@ -55,8 +55,9 @@
                                 ,
                             </SeparatorTemplate>
                         </asp:DataList>
-                        <hr noshade size="1">
+                        <hr noshade size="1" />
                         <asp:Label ID="lblPictureDesc" runat="server" CssClass="infoPanelText">[Description]</asp:Label>
+                        <hr runat="server" id="descriptonBottomSplitter" noshade size="1" />
                     </td>
                 </tr>
                 <tr>

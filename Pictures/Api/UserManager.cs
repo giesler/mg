@@ -251,7 +251,7 @@ namespace msn2.net.Pictures
                     }
                 }
 
-                if (correctCount >= 8)
+                if (correctCount >= 7)
                 {
                     info = this.GetPersonByEmail(email);
                 }

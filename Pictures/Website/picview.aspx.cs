@@ -155,13 +155,18 @@ namespace pics
 				else
 					lblTitle.Visible = false;
 				if (!dr.IsNull("PictureDate"))
-					lblPictureDate.Text = Convert.ToDateTime(dr["PictureDate"]).ToLongDateString();
+					lblPictureDate.Text = Convert.ToDateTime(dr["PictureDate"]).ToString("ddd, MMM d \"'\"yy");
 				else
 					lblPictureDate.Visible = false;
-				if (!dr.IsNull("Description"))
-					lblPictureDesc.Text = dr["Description"].ToString();
-				else
-					lblPictureDesc.Text = "";
+                if (!dr.IsNull("Description") && dr["Description"].ToString().Length > 0)
+                {
+                    lblPictureDesc.Text = dr["Description"].ToString();
+                }
+                else
+                {
+                    lblPictureDesc.Text = "";
+                    descriptonBottomSplitter.Visible = false;
+                }
                 if (!dr.IsNull("Rating"))
                 {
                     Page.RegisterHiddenField("ratingValue", dr["Rating"].ToString());
@@ -175,7 +180,7 @@ namespace pics
                 }
                 if (!dr.IsNull("PictureByFullName"))
                 {
-                    pictureBy.Text = "Taken by: " + dr["PictureByFullName"].ToString();
+                    pictureBy.Text = "<br />Taken by: " + dr["PictureByFullName"].ToString();
                 }
                 else
                 {
