@@ -23,8 +23,7 @@ namespace msn2.net.Pictures.Controls
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 
 		private System.Collections.ArrayList arCategory = new System.Collections.ArrayList();
-		private msn2.net.Pictures.Controls.DataSetCategory dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
-
+		
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -59,7 +58,6 @@ namespace msn2.net.Pictures.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.dsCategory = new msn2.net.Pictures.Controls.DataSetCategory();
 			this.lvCategories = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.btnAddCategory = new System.Windows.Forms.Button();
@@ -68,15 +66,9 @@ namespace msn2.net.Pictures.Controls
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnRemoveCategory = new System.Windows.Forms.Button();
 			this.categoryTree1 = new msn2.net.Pictures.Controls.CategoryTree();
-			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// dsCategory
-			// 
-			this.dsCategory.DataSetName = "DataSetCategory";
-			this.dsCategory.Locale = new System.Globalization.CultureInfo("en-US");
 			// 
 			// lvCategories
 			// 
@@ -167,7 +159,6 @@ namespace msn2.net.Pictures.Controls
 			this.Name = "CategoryPicker";
 			this.Size = new System.Drawing.Size(456, 176);
 			this.Load += new System.EventHandler(this.CategoryPicker_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dsCategory)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);

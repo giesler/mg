@@ -254,20 +254,25 @@ namespace msn2.net.Pictures
 
 		}
 
-		public DataSet RecentCategorires()
+		public List<Category> RecentCategorires()
 		{
 			SqlConnection cn  = new SqlConnection(connectionString);
 			SqlCommand cmd    = new SqlCommand("dbo.sp_RecentCategories", cn);
+			SqlDataReader dr = null;
 			cmd.CommandType   = CommandType.StoredProcedure;
 			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
 			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
-            
-            DataSet ds	= new DataSet();
 
+			List<Category> categories = new List<Category>();
+            
 			try
 			{
-				SqlDataAdapter da = new SqlDataAdapter(cmd);
-				da.Fill(ds);
+				cn.Open();
+				dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
+				while (dr.Read())
+				{
+					categories.Add(new Category(dr, false));
+				}
 			}
 			catch (SqlException)
 			{
@@ -281,10 +286,10 @@ namespace msn2.net.Pictures
 				}
 			}
 
-			return ds;
+			return categories;
 		}
 
-		public DataSet GetCategoryGroups(int categoryId)
+		public string[] GetCategoryGroups(int categoryId)
 		{
 			SqlConnection cn	= new SqlConnection(connectionString);
 			SqlDataAdapter da	= new SqlDataAdapter("sp_CategoryManager_GetGruops", cn);
@@ -310,7 +315,13 @@ namespace msn2.net.Pictures
 				}
 			}
 
-			return ds;
+			string[] groups = new string[ds.Tables[0].Rows.Count];
+			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+			{
+				groups[i] = ds.Tables[0].Rows[i][0].ToString();
+			}
+
+			return groups;
 		}
 
 

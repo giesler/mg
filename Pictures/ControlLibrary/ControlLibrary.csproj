@@ -129,11 +129,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DataSetCategoryGroup.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataSetGroup.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -413,12 +408,6 @@
     <None Include="DataSetCategory.xsx">
       <DependentUpon>DataSetCategory.xsd</DependentUpon>
     </None>
-    <None Include="DataSetCategoryGroup.xsc">
-      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetCategoryGroup.xsx">
-      <DependentUpon>DataSetCategoryGroup.xsd</DependentUpon>
-    </None>
     <None Include="DataSetGroup.xsc">
       <DependentUpon>DataSetGroup.xsd</DependentUpon>
     </None>
@@ -454,14 +443,9 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="ClassDiagram1.cd" />
     <Content Include="DataSetCategory.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataSetCategoryGroup.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetCategoryGroup.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="DataSetGroup.xsd">
       <Generator>MSDataSetGenerator</Generator>

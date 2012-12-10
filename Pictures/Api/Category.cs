@@ -13,42 +13,83 @@ namespace msn2.net.Pictures
     [Serializable]
     public class Category
     {
-        public int CategoryId;
-        public string CategoryName;
-        public int CategoryParentId;
-        protected string description;
-        protected int parentCategoryId;
-        public int PictureId;
-        public DateTime FromDate;
-        public DateTime ToDate;
-        private string path;
+		private int categoryId;
 
-        public Category()
+		public int CategoryId
+		{
+			get { return categoryId; }
+		}
+
+		private string name;
+
+		private int parentId;
+
+		public int ParentId
+		{
+			get
+			{
+				return this.parentId;
+			}
+		}
+
+        private string description;
+        private int pictureId;
+
+		public int PictureId
+		{
+			get
+			{
+				return this.pictureId;
+			}
+		}
+
+		private DateTime fromDate;
+		private DateTime toDate;
+
+		public DateTime FromDate
+		{
+			get
+			{
+				return this.fromDate;
+			}
+		}
+
+		public DateTime ToDate
+		{
+			get
+			{
+				return this.toDate;
+			}
+		}
+
+        private string path;
+		private bool dirty;
+
+        internal Category()
         {
         }
 
         internal Category(SqlDataReader dr, bool includeDates)
         {
-            CategoryId = (int)dr["CategoryId"];
-            CategoryName = dr["CategoryName"].ToString();
-            CategoryParentId = (int)dr["CategoryParentId"];
-            PictureId = (int)dr["PictureId"];
+            this.categoryId = (int)dr["CategoryId"];
+            this.name = dr["CategoryName"].ToString();
+            this.parentId = (int)dr["CategoryParentId"];
+            this.pictureId = (int)dr["PictureId"];
             if (dr["CategoryDescription"] != null)
             {
-                Description = dr["CategoryDescription"].ToString();
+                this.description = dr["CategoryDescription"].ToString();
             }
-            parentCategoryId = (int)dr["CategoryParentId"];
             path = dr["CategoryPath"].ToString();
 
             if (includeDates)
             {
                 if (dr["FromDate"] != System.DBNull.Value)
                 {
-                    FromDate = Convert.ToDateTime(dr["FromDate"]);
+                    this.fromDate = Convert.ToDateTime(dr["FromDate"]);
                 }
                 if (dr["ToDate"] != System.DBNull.Value)
                 {
-                    ToDate = Convert.ToDateTime(dr["ToDate"]);
+                    this.toDate = Convert.ToDateTime(dr["ToDate"]);
                 }
             }
         }
@@ -77,29 +118,18 @@ namespace msn2.net.Pictures
         {
             get
             {
-                return CategoryName;
+                return this.name;
             }
             set
             {
-                CategoryName = value;
+				this.name = value;
+				this.dirty = true;
             }
         }
 
-        public int ParentCategoryId
+		public override string ToString()
         {
-            get
-            {
-                return parentCategoryId;
-            }
-            set
-            {
-                parentCategoryId = value;
-            }
-        }
-
-        public override string ToString()
-        {
-            return CategoryName;
+            return this.name;
         }
     }
 
