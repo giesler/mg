@@ -2437,16 +2437,16 @@ namespace pics.Controls
 	#endregion
 		/*
 				<TR>
-					<TD width="9"></TD>
-					<TD class="sidebarTaskLink">
-						<asp:HyperLink id="addToFolder" Runat="server" CssClass="sidebarTaskLink">Add to folder</asp:HyperLink></TD>
+					<td width="9"></td>
+					<td class="sidebarTaskLink">
+						<asp:HyperLink id="addToFolder" Runat="server" CssClass="sidebarTaskLink">Add to folder</asp:HyperLink></td>
 				</TR>
 				<TR>
-					<TD width="9"></TD>
-					<TD class="sidebarTaskLink">
-						<asp:HyperLink id="setCategoryPic" Runat="server" CssClass="sidebarTaskLink">Set folder pic</asp:HyperLink></TD>
+					<td width="9"></td>
+					<td class="sidebarTaskLink">
+						<asp:HyperLink id="setCategoryPic" Runat="server" CssClass="sidebarTaskLink">Set folder pic</asp:HyperLink></td>
 				</TR>
-			</TABLE>
+			</table>
 		</picctls:contentpanel>
 		*/
 

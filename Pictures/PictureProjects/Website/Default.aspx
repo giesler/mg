@@ -27,7 +27,7 @@
 					<td class="msn2contentwindow" vAlign="top"><!-- Main content -->
 						<table cellpadding="4" border="0" width="100%" align="center">
 							<tr>
-								<TD vAlign="top" width="50%">
+								<t vAlign="top" width="50%">
 									<asp:panel id="recentPictures" Runat="server"></asp:panel>
 									<picctls:contentpanel id="contentRecentPictures" title="What's New" runat="server" Width="100%">
 										<asp:datalist id="dlRecent" Runat="server" RepeatLayout="Flow">
@@ -45,9 +45,9 @@
 								<td vAlign="top" width="30%">
 									<picctls:contentpanel id="welcomeMessage" title="Welcome to the MSN2 pictures website!" runat="server"
 										width="100%">
-										<P>To view pictures, click one of the recently updated categories in the middle or 
+										<p>To view pictures, click one of the recently updated categories in the middle or 
 											search or browse the pictures below.
-										</P>
+										</p>
 									</picctls:contentpanel>
 									<br />
 									<picctls:contentpanel id="browsePicturesContent" runat="server" title="Browse Pictures" Width="100%">
@@ -56,16 +56,16 @@
 									</picctls:contentpanel>
 									<br />
 									<picctls:contentpanel id="searchContent" runat="server" title="Search Pictures" Width="100%">
-										<TABLE cellPadding="4" width="100%">
+										<table cellPadding="4" width="100%">
 											<tr>
-												<TD vAlign="middle" align="center"><A href="SearchCriteria.aspx"><IMG height="32" src="Images/search.gif" width="32" border="0"></A></td>
+												<td vAlign="middle" align="center"><A href="SearchCriteria.aspx"><IMG height="32" src="Images/search.gif" width="32" border="0"></A></td>
 												<td>
-													<P><A class="categoryLink" href="SearchCriteria.aspx">Search</A><br />
+													<p><A class="categoryLink" href="SearchCriteria.aspx">Search</A><br />
 														Search for pictures by date, description, or people in the picture.
-													</P>
+													</p>
 												</td>
 											</tr>
-										</TABLE>
+										</table>
 									</picctls:contentpanel>
 									<br />
 									<picctls:contentpanel id="contentRandomPicture" runat="server" title="Random Picture" Width="100%" Align="Center">
@@ -74,7 +74,7 @@
 									<asp:panel id="adminMode" runat="server" width="100%" visible="false"></asp:panel>
 								</td>
 							</tr>
-						</TABLE>
+						</table>
 						<HR color="gainsboro" SIZE="1">
 						<p>
 							Have any comments on this site? Send them to <A href="mailto:mike@giesler.org">mike@giesler.org</A>.

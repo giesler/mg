@@ -4,8 +4,8 @@
 <HTML>
 	<HEAD>
 		<title>msn2.net</title>
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
-		<LINK rel="stylesheet" type="text/css" href="../msn2.css">
+		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+		<link rel="stylesheet" type="text/css" href="../msn2.css" />
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
@@ -23,69 +23,69 @@
 					<td class="msn2contentwindow" valign="top">
 						<!-- Main content -->
 						<asp:Panel ID="pnlNewLoginInfo" Runat="server" Width="100%">
-							<TABLE class="logintable" cellSpacing="0" cellPadding="5">
+							<table class="logintable" cellSpacing="0" cellPadding="5">
 								<tr  class="loginTableContent">
-									<TD class="loginTableTitle" colSpan="2">New Login
-									</TD>
+									<td class="loginTableTitle" colSpan="2">New Login
+									</td>
 								</tr>
 								<tr  class="loginTableContent">
-									<TD class="loginTableText">Name:
-									</TD>
-									<TD class="loginTableText">
-										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></TD>
+									<td class="loginTableText">Name:
+									</td>
+									<td class="loginTableText">
+										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></td>
 								</tr>
 								<tr  class="loginTableContent">
-									<TD class="loginTableText">Email:
-									</TD>
-									<TD class="loginTableText">
-										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></TD>
+									<td class="loginTableText">Email:
+									</td>
+									<td class="loginTableText">
+										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></td>
 								</tr>
-							</TABLE>
+							</table>
 						</asp:Panel>
 						<asp:Panel ID="pnlNewUser" Runat="server" Width="100%">
-							<P>Enter the details of the new person here.
-							</P>
-							<TABLE>
+							<p>Enter the details of the new person here.
+							</p>
+							<table>
 								<tr>
-									<TD>
-										<TABLE class="logintable" cellSpacing="0" cellPadding="5">
+									<td>
+										<table class="logintable" cellSpacing="0" cellPadding="5">
 											<tr  class="loginTableContent">
-												<TD class="loginTableTitle" colSpan="2">New Login
-												</TD>
+												<td class="loginTableTitle" colSpan="2">New Login
+												</td>
 											</tr>
 											<tr  class="loginTableContent">
-												<TD class="loginTableText">First Name:
-													<asp:RequiredFieldValidator id="Requiredfieldvalidator1" Runat="server" Display="Dynamic" ControlToValidate="txtFirstName" ErrorMessage="First name is required." CssClass="err">*</asp:RequiredFieldValidator></TD>
-												<TD class="loginTableText">
-													<asp:TextBox id="txtFirstName" Width="175px" Runat="server"></asp:TextBox></TD>
+												<td class="loginTableText">First Name:
+													<asp:RequiredFieldValidator id="Requiredfieldvalidator1" Runat="server" Display="Dynamic" ControlToValidate="txtFirstName" ErrorMessage="First name is required." CssClass="err">*</asp:RequiredFieldValidator></td>
+												<td class="loginTableText">
+													<asp:TextBox id="txtFirstName" Width="175px" Runat="server"></asp:TextBox></td>
 											</tr>
 											<tr  class="loginTableContent">
-												<TD class="loginTableText">Last Name:
-													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLastName" ErrorMessage="Last name is required." CssClass="err">*</asp:RequiredFieldValidator></TD>
-												<TD class="loginTableText">
-													<asp:TextBox id="txtLastName" Width="175px" Runat="server"></asp:TextBox></TD>
+												<td class="loginTableText">Last Name:
+													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLastName" ErrorMessage="Last name is required." CssClass="err">*</asp:RequiredFieldValidator></td>
+												<td class="loginTableText">
+													<asp:TextBox id="txtLastName" Width="175px" Runat="server"></asp:TextBox></td>
 											</tr>
 											<tr  class="loginTableContent">
-												<TD class="loginTableText">Full Name:
-													<asp:RequiredFieldValidator id="NameValidator" Runat="server" Display="Dynamic" ControlToValidate="txtFullName" ErrorMessage="Name is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
-												<TD class="loginTableText">
-													<asp:TextBox id="txtFullName" Width="175px" Runat="server"></asp:TextBox></TD>
+												<td class="loginTableText">Full Name:
+													<asp:RequiredFieldValidator id="NameValidator" Runat="server" Display="Dynamic" ControlToValidate="txtFullName" ErrorMessage="Name is required!" CssClass="err">*</asp:RequiredFieldValidator></td>
+												<td class="loginTableText">
+													<asp:TextBox id="txtFullName" Width="175px" Runat="server"></asp:TextBox></td>
 											</tr>
 											<tr  class="loginTableContent">
-												<TD class="loginTableText" align="right" colSpan="2">
-													<asp:Button id="btnOK" Text=" OK " Runat="server" CssClass="btn" onclick="btnOK_Click"></asp:Button></TD>
+												<td class="loginTableText" align="right" colSpan="2">
+													<asp:Button id="btnOK" Text=" OK " Runat="server" CssClass="btn" onclick="btnOK_Click"></asp:Button></td>
 											</tr>
-										</TABLE>
-									</TD>
-									<TD>
-										<asp:ValidationSummary id="ValidSummary" Runat="server" CssClass="err" HeaderText="You must enter valid values for the following fields:" DisplayMode="BulletList"></asp:ValidationSummary></TD>
+										</table>
+									</td>
+									<td>
+										<asp:ValidationSummary id="ValidSummary" Runat="server" CssClass="err" HeaderText="You must enter valid values for the following fields:" DisplayMode="BulletList"></asp:ValidationSummary></td>
 								</tr>
-							</TABLE>
+							</table>
 						</asp:Panel>
 						<asp:Panel ID="pnlDone" Runat="server" Visible="False">
-							<P>The user above has been added. An email was sent telling them they can now use 
+							<p>The user above has been added. An email was sent telling them they can now use 
 								the website.
-							</P>
+							</p>
 						</asp:Panel>
 						<!-- Begin footer -->
 					</td>

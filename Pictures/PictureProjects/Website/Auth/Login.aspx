@@ -40,9 +40,9 @@
 							</tr>
 							<tr  class="loginTableContent">
 								<td class="loginTableText" colspan="2"><asp:panel id="panelMessage" Runat="server">
-										<P>In order to view pictures on this site, you must sign in.
+										<p>In order to view pictures on this site, you must sign in.
 											<br />
-											<A href="why.aspx">Why require logging in?</A></P>
+											<A href="why.aspx">Why require logging in?</A></p>
 									</asp:panel></td>
 							</tr>
 							<tr  class="loginTableContent">

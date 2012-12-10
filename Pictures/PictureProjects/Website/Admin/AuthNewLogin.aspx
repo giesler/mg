@@ -4,8 +4,8 @@
 <HTML>
 	<HEAD>
 		<title>msn2.net</title>
-		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-		<LINK href="../msn2.css" type="text/css" rel="stylesheet">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema" />
+		<link href="../msn2.css" type="text/css" rel="stylesheet" />
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
@@ -20,37 +20,37 @@
 					<td class="msn2sidebarfade" width="4"></td>
 					<td class="msn2contentwindow" vAlign="top">
 						<!-- Main content --><asp:panel id="pnlNewLoginInfo" Width="100%" Runat="server">
-							<TABLE class="logintable" cellSpacing="0" cellPadding="5">
+							<table class="logintable" cellSpacing="0" cellPadding="5">
 								<tr  class="loginTableContent">
-									<TD class="loginTableTitle" colSpan="2">New Login
-									</TD>
+									<td class="loginTableTitle" colSpan="2">New Login
+									</td>
 								</tr>
 								<tr  class="loginTableContent">
-									<TD class="loginTableText">Name:
-									</TD>
-									<TD class="loginTableText">
-										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></TD>
+									<td class="loginTableText">Name:
+									</td>
+									<td class="loginTableText">
+										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></td>
 								</tr>
 								<tr  class="loginTableContent">
-									<TD class="loginTableText">Email:
-									</TD>
-									<TD class="loginTableText">
-										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></TD>
+									<td class="loginTableText">Email:
+									</td>
+									<td class="loginTableText">
+										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></td>
 								</tr>
-							</TABLE>
+							</table>
 						</asp:panel>
 						<p></p>
 						<asp:panel id="pnlPerson" Width="100%" Runat="server">
-							<P>If you think the person above may already be a user on this site, you can search for 
+							<p>If you think the person above may already be a user on this site, you can search for 
 								them here. If you think the person is a new user, click
 								<asp:HyperLink id="lnkNewLogin" Runat="server">here</asp:HyperLink>.
-							</P>
-							<P>
+							</p>
+							<p>
 								<picctls:PersonPicker id="PersonPicker" runat="server" onpersonselected="PersonPicker_PersonSelected"></picctls:PersonPicker>
-								<asp:Label id="lblError" Runat="server" CssClass="err"></asp:Label></P>
+								<asp:Label id="lblError" Runat="server" CssClass="err"></asp:Label></p>
 							<asp:Panel id="afterPersonSelectContent" Runat="server" Visible="False">
-								<P>Click 'Continue' to match this person.
-									<asp:Button id="btnContinue" Text=" Continue " Runat="server" CssClass="btn" onclick="btnContinue_Click"></asp:Button></P>
+								<p>Click 'Continue' to match this person.
+									<asp:Button id="btnContinue" Text=" Continue " Runat="server" CssClass="btn" onclick="btnContinue_Click"></asp:Button></p>
 							</asp:Panel>
 						</asp:panel><asp:panel id="pnlDone" Runat="server" Visible="False">The 
       selected person's login has been activated. An email has also been sent. 

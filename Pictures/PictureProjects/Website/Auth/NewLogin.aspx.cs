@@ -1,17 +1,9 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
+using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Security.Cryptography;
-using System.Data.SqlClient;
 using msn2.net.Pictures;
-using System.Net.Mail;
 
 namespace pics.Auth
 {

@@ -32,18 +32,18 @@
 					<p>
 						<b>Personalization</b>
 					</p>
-					<P>By knowing who you are, this site can show you appropriate things.&nbsp; For 
-						example, people in my family will see family pictures on the main page.</P>
-					<P>&nbsp;</P>
-					<P><STRONG>And a bit on privacy...</STRONG></P>
-					<P>The information stored about you that you enter on this site, including your 
+					<p>By knowing who you are, this site can show you appropriate things.&nbsp; For 
+						example, people in my family will see family pictures on the main page.</p>
+					<p>&nbsp;</p>
+					<p><STRONG>And a bit on privacy...</STRONG></p>
+					<p>The information stored about you that you enter on this site, including your 
 						email address, are stored on a server at my house.&nbsp; I keep the server up 
-						to date and secure.</P>
-					<P>
+						to date and secure.</p>
+					<p>
 						<br />
 						<br />
 						<a href="Login.aspx">Return to login page</a> 
-						<!-- Begin footer --></P>
+						<!-- Begin footer --></p>
 				</td>
 			</tr>
 		</table>
