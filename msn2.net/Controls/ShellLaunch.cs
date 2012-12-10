@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using msn2.net.Configuration;
 
 namespace msn2.net.Controls
 {
@@ -20,6 +21,11 @@ namespace msn2.net.Controls
 			InitializeComponent();
 		}
 
+		public ShellLaunch(Data data): base(data)
+		{
+			InitializeComponent();
+		}
+        
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -101,15 +107,22 @@ namespace msn2.net.Controls
 		{
 			Process p = new Process();
 
-			if (checkBoxCommandPrompt.Checked)
+			try
 			{
-                p.StartInfo = new ProcessStartInfo("cmd.exe", @"/k " + textBox1.Text);
+				if (checkBoxCommandPrompt.Checked)
+				{
+					p.StartInfo = new ProcessStartInfo("cmd.exe", @"/k " + textBox1.Text);
+				}
+				else
+				{
+					p.StartInfo = new ProcessStartInfo(textBox1.Text);				
+				}
+				p.Start();
 			}
-			else
+			catch (Exception ex)
 			{
-				p.StartInfo = new ProcessStartInfo(textBox1.Text);				
+				MessageBox.Show(ex.Message, "Error starting program", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			p.Start();
 
 			this.textBox1.SelectAll();
 		}

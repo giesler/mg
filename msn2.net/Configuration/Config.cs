@@ -66,7 +66,7 @@ namespace msn2.net.Configuration
 			// Create needed params
 			SqlXmlParameter param;
 			param						= cmd.CreateParameter();
-			param.Value					= messenger.MySigninName;
+			param.Value					= "all@msn2.net";  //messenger.MySigninName;
 			param						= cmd.CreateParameter();
 			param.Value					= System.Environment.MachineName;
 

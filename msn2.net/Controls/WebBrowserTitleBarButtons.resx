@@ -96,13 +96,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="timerFadeOut.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTip1.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </data>
-  <data name="timerFadeIn.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>136, 17</value>
-  </data>
   <data name="$this.Name">
-    <value>WebSearch</value>
+    <value>WebBrowserTitleBarButtons</value>
+  </data>
+  <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk1GBQAAAAAAADYAAAAoAAAAEgAAABIAAAABACAAAAAAAAAAAAATCwAAEwsAAAAAAAAAAAAAa2trAGtr
+        awBra2sAa2trAGtrawBra2sAa2trAGtrawBra2sAa2trAGtrawBra2sAa2trAGtrawBra2sAa2trAGtr
+        awBra2sAc3NzAHNzcwBra2sAc3NzAHNzcwBzc3MAa2trAHNzcwBzc3MAa2trAHNzcwBzc3MAa2trAHNz
+        cwBzc3MAa2trAHNzcwBzc3MAe3t7AHt7ewBzc3MAe3t7AHt7ewBzc3MAe3t7AHt7ewBzc3MAe3t7AHt7
+        ewBzc3MAe3t7AHt7ewBzc3MAe3t7AHt7ewB7e3sAhISEAHt7ewCEhIQAhISEAHt7ewCEhIQAhISEAHt7
+        ewCEhIQAe3t7AISEhACEhIQAe3t7AISEhACEhIQAe3t7AISEhAB7e3sAhISEAIyMjACEhIQAjIyMAISE
+        hACMjIwAhISEAIyMjACEhIQAjIyMAISEhACMjIwAhISEAIyMjACEhIQAjIyMAISEhACMjIwAjIyMAIyM
+        jACMjIwAjIyMAIyMjACMjIwAjIyMAIyMjACMjIwAjIyMAIyMjACMjIwAjIyMAIyMjACMjIwAjIyMAIyM
+        jACMjIwAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSU
+        lACUlJQAlJSUAJSUlACUlJQAnJycAJSUlACcnJwAnJycAJSUlACcnJwAnJycAJSUlACcnJwAnJycAJSU
+        lACcnJwAnJycAJycnACUlJQAnJycAJSUlACcnJwAnJycAKWlpQCcnJwAnJycAKWlpQCcnJwAnJycAKWl
+        pQCcnJwApaWlAJycnAClpaUAnJycAJycnAClpaUAnJycAKWlpQCcnJwAnJycAJSUlACcnJwAnJycAJyc
+        nACUlJQAnJycAJycnACcnJwAlJSUAJycnACcnJwAlJSUAJycnACcnJwAnJycAJSUlACcnJwAlJSUAJSU
+        lACUlJQAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSUlACUlJQAlJSUAJSU
+        lACUlJQAjIyMAJSUlACMjIwAlJSUAIyMjACMjIwAlJSUAIyMjACMjIwAlJSUAIyMjACUlJQAjIyMAIyM
+        jACUlJQAjIyMAIyMjACUlJQAjIyMAIyMjACMjIwAjIyMAISEhACMjIwAjIyMAIyMjACMjIwAjIyMAIyM
+        jACMjIwAhISEAIyMjACMjIwAjIyMAIyMjACMjIwAhISEAISEhACEhIQAhISEAISEhACEhIQAhISEAISE
+        hACEhIQAhISEAISEhACEhIQAhISEAISEhACEhIQAhISEAISEhACEhIQAhISEAHt7ewCEhIQAe3t7AISE
+        hAB7e3sAhISEAHt7ewCEhIQAe3t7AISEhAB7e3sAhISEAHt7ewCEhIQAe3t7AISEhAB7e3sAe3t7AHt7
+        ewB7e3sAe3t7AHt7ewB7e3sAe3t7AHt7ewB7e3sAe3t7AHt7ewB7e3sAe3t7AHt7ewB7e3sAe3t7AHt7
+        ewB7e3sAc3NzAHNzcwBzc3MAc3NzAHNzcwBzc3MAc3NzAHNzcwBzc3MAc3NzAHNzcwBzc3MAc3NzAHNz
+        cwBzc3MAc3NzAHNzcwBzc3MAa2trAGtrawBra2sAa2trAGtrawBra2sAa2trAGtrawBra2sAa2trAGtr
+        awBra2sAa2trAGtrawBra2sAa2trAGtrawBra2sA
+</value>
   </data>
 </root>

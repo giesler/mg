@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using msn2.net.Configuration;
 
 namespace msn2.net.Controls
 {
@@ -11,29 +12,49 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class ComputerInfo : msn2.net.Controls.ShellForm
 	{
+		#region Declares
+
 		private Graph graph1;
 		private System.Diagnostics.PerformanceCounter procPerf;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.Timer timer1;
 		private LineGraph procLine;
+		private string machineName = System.Environment.MachineName;
+
+		#endregion
+
+		#region Constructors
 
 		public ComputerInfo()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
+			InternalConstructor();
+		}
+
+		public ComputerInfo(Data data): base(data)
+		{
+			InternalConstructor();
+		}
+
+		public ComputerInfo(Data data, string machineName): base(data)
+		{
+			this.machineName			= machineName;
+			InternalConstructor();
+		}
+
+		private void InternalConstructor()
+		{
 			InitializeComponent();
 
-			procPerf.MachineName	= System.Environment.MachineName;
-			this.Text				= System.Environment.MachineName;
+			procPerf.MachineName		= machineName;
+			this.Text					= machineName;
 
-            procLine = new LineGraph(100, 100, Color.Black);
-            graph1.AddGraphItem(procLine);
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
+			procLine = new LineGraph(100, 100, Color.Black);
+			graph1.AddGraphItem(procLine);
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -49,6 +70,8 @@ namespace msn2.net.Controls
 			}
 			base.Dispose( disposing );
 		}
+
+		#endregion
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -114,9 +137,13 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Event Handlers
+
 		private void timer1_Tick(object sender, System.EventArgs e)
 		{
 			procLine.AddToHistory(Convert.ToInt32(procPerf.NextValue()));
 		}
+
+		#endregion
 	}
 }

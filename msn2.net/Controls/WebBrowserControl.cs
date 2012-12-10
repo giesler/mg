@@ -17,13 +17,23 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class WebBrowserControl : System.Windows.Forms.UserControl
 	{
+		#region DefaultClickBehavior
+
+		public enum DefaultClickBehavior
+		{
+			OpenLink,
+			OpenInNewTab,
+			OpenInNewWindow
+		}
+
+		#endregion
+
 		#region Declares
 
 		public AxSHDocVw.AxWebBrowser axWebBrowser1;
 		private System.ComponentModel.IContainer components;
 		private string currentUrl = "";
 		private bool isPopup = false;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Timer timerShowStatus;
 		private System.Windows.Forms.Panel panelStatus;
 		private System.Windows.Forms.ContextMenu contextMenu1;
@@ -39,12 +49,26 @@ namespace msn2.net.Controls
 		private string newTitle = "New Window";
 		private System.Windows.Forms.MenuItem menuItemSaveTo;
 		private Crownwood.Magic.Controls.TabPage tabPage = null;
+		private DefaultClickBehavior defaultClickBehavior = DefaultClickBehavior.OpenLink;
+		private System.Windows.Forms.Label labelStatus;
+		private string url = "";
 
 		#endregion
 
 		#region Constructor / Disposal
 
 		public WebBrowserControl()
+		{
+			InternalConstructor();
+		}
+
+		public WebBrowserControl(DefaultClickBehavior clickBehavior)
+		{
+			this.defaultClickBehavior = clickBehavior;
+			InternalConstructor();
+		}
+
+		private void InternalConstructor()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
@@ -66,8 +90,8 @@ namespace msn2.net.Controls
 			}
 
 			// Now tie in to click event
-			Document.onclick = this;
-			Document.oncontextmenu = this;
+			Document.onclick		= this;
+			Document.oncontextmenu	= this;
 			
 		}
 
@@ -97,7 +121,7 @@ namespace msn2.net.Controls
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WebBrowserControl));
 			this.axWebBrowser1 = new AxSHDocVw.AxWebBrowser();
 			this.panelStatus = new System.Windows.Forms.Panel();
-			this.label1 = new System.Windows.Forms.Label();
+			this.labelStatus = new System.Windows.Forms.Label();
 			this.timerShowStatus = new System.Windows.Forms.Timer(this.components);
 			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
 			this.menuItemOpen = new System.Windows.Forms.MenuItem();
@@ -119,6 +143,7 @@ namespace msn2.net.Controls
 			this.axWebBrowser1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWebBrowser1.OcxState")));
 			this.axWebBrowser1.Size = new System.Drawing.Size(304, 288);
 			this.axWebBrowser1.TabIndex = 0;
+			this.axWebBrowser1.LocationChanged += new System.EventHandler(this.axWebBrowser1_LocationChanged);
 			this.axWebBrowser1.TitleChange += new AxSHDocVw.DWebBrowserEvents2_TitleChangeEventHandler(this.axWebBrowser1_TitleChange);
 			this.axWebBrowser1.NavigateComplete2 += new AxSHDocVw.DWebBrowserEvents2_NavigateComplete2EventHandler(this.axWebBrowser1_NavigateComplete2);
 			this.axWebBrowser1.NewWindow2 += new AxSHDocVw.DWebBrowserEvents2_NewWindow2EventHandler(this.axWebBrowser1_NewWindow2);
@@ -128,20 +153,21 @@ namespace msn2.net.Controls
 			this.panelStatus.BackColor = System.Drawing.Color.DimGray;
 			this.panelStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panelStatus.Controls.AddRange(new System.Windows.Forms.Control[] {
-																					  this.label1});
+																					  this.labelStatus});
 			this.panelStatus.Location = new System.Drawing.Point(72, 120);
 			this.panelStatus.Name = "panelStatus";
 			this.panelStatus.Size = new System.Drawing.Size(160, 48);
 			this.panelStatus.TabIndex = 1;
 			this.panelStatus.Visible = false;
 			// 
-			// label1
+			// labelStatus
 			// 
-			this.label1.ForeColor = System.Drawing.Color.White;
-			this.label1.Location = new System.Drawing.Point(24, 16);
-			this.label1.Name = "label1";
-			this.label1.TabIndex = 0;
-			this.label1.Text = "loading...";
+			this.labelStatus.ForeColor = System.Drawing.Color.White;
+			this.labelStatus.Location = new System.Drawing.Point(24, 16);
+			this.labelStatus.Name = "labelStatus";
+			this.labelStatus.Size = new System.Drawing.Size(128, 23);
+			this.labelStatus.TabIndex = 0;
+			this.labelStatus.Text = "loading...";
 			// 
 			// timerShowStatus
 			// 
@@ -228,11 +254,12 @@ namespace msn2.net.Controls
 			timerShowStatus.Enabled		= false;
 			panelStatus.Visible			= false;
 			
+			this.url = axWebBrowser1.LocationURL.ToString();
+
 			if (NavigateComplete != null)
 				NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
 		
-			// Save to history
-			
+			// TODO: Save to history
 		}
 
 		private void axWebBrowser1_TitleChange(object sender, AxSHDocVw.DWebBrowserEvents2_TitleChangeEvent e)
@@ -272,6 +299,10 @@ namespace msn2.net.Controls
 			e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
 		}
 
+		private void axWebBrowser1_LocationChanged(object sender, System.EventArgs e)
+		{
+		}
+
 		#endregion
 
 		#region Events
@@ -289,6 +320,12 @@ namespace msn2.net.Controls
 
 			object obj1 = 0; object obj2 = ""; object obj3 = ""; object obj4 = "";
 			axWebBrowser1.Navigate(url, ref obj1, ref obj2, ref obj3, ref obj4);
+		}
+
+		public void RefreshPage()
+		{
+			object level = 3;
+			axWebBrowser1.Refresh2(ref level);
 		}
 
 		#endregion
@@ -329,6 +366,18 @@ namespace msn2.net.Controls
 			}
 		}
 
+		public string Url
+		{
+			get
+			{
+				return url;
+			}
+			set
+			{
+				Navigate(value);
+			}
+		}
+
 		#endregion
 
 		#region Document handlers
@@ -336,39 +385,90 @@ namespace msn2.net.Controls
 		[DispId(0)]
 		public void DefaultMethod()
 		{
-			HTMLWindow2Class win = (HTMLWindow2Class) Document.parentWindow;
-			Debug.WriteLine("Object: " + win.@event.srcElement + ", Type: " + win.@event.type);
-
-			// Handle right click
-			if (win.@event.type == "contextmenu")
+			try
 			{
-				
+				HTMLWindow2Class win = (HTMLWindow2Class) Document.parentWindow;
+				Debug.WriteLine("Object: " + win.@event.srcElement + ", Type: " + win.@event.type);
+
 				HTMLAnchorElementClass anchor = null;
-				
-				// Gotta find out if we are right clicking a link
-				if (win.@event.srcElement.ToString() == "mshtml.HTMLAnchorElementClass")
+			
+				// Handle right click and click
+				if (win.@event.type == "contextmenu" || win.@event.type == "click")
 				{
-					anchor = (HTMLAnchorElementClass) win.@event.srcElement;
-				}
-				else if (win.@event.srcElement.parentElement.ToString() == "mshtml.HTMLAnchorElementClass")
-				{
-					anchor = (HTMLAnchorElementClass) win.@event.srcElement.parentElement;
-				}
-				else
-				{
-					// bail - we aren't in the right place
-					return;
-				}
-				newUrl			= anchor.href.Trim();
-				newTitle		= anchor.outerText.Trim();
-				timerShowContextMenu.Enabled = true;
-				x = win.@event.x;
-				y = win.@event.y;
-				//contextMenu1.Show(this.axWebBrowser1, new Point(win.@event.x, win.@event.y));
+					// Gotta find out if we are right clicking a link
+					if (win.@event.srcElement.ToString() == "mshtml.HTMLAnchorElementClass")
+					{
+						anchor = (HTMLAnchorElementClass) win.@event.srcElement;
+						newUrl = anchor.href.Trim();
+						
+						try
+						{
+							newTitle = anchor.outerText.ToString().Trim();
+						}
+						catch (Exception)
+						{}
+					}
+					else if (win.@event.srcElement.parentElement.ToString() == "mshtml.HTMLAnchorElementClass")
+					{
+						anchor = (HTMLAnchorElementClass) win.@event.srcElement.parentElement;
+						newUrl = anchor.href.Trim();
 
-				win.@event.returnValue	= false;
-				win.@event.cancelBubble	= true;
+						try
+						{
+							newTitle = anchor.outerText.ToString().Trim();
+						}
+						catch (Exception)
+						{}
+					}
+					else if (win.@event.srcElement.ToString() == "mshtml.HTMLAreaElementClass")
+					{
+                        HTMLAreaElementClass area = (HTMLAreaElementClass) win.@event.srcElement;
+						newUrl = area.href.Trim();
+						newTitle = area.alt.ToString();
+					}
+					else
+					{
+						// bail - we aren't in the right place
+						return;
+					}
 
+					// Now branch based on what the actual event was
+					switch (win.@event.type)
+					{
+						case "contextmenu":
+							timerShowContextMenu.Enabled = true;
+							x = win.@event.x;
+							y = win.@event.y;
+							break;
+						case "click":
+							// See what the default 'click' action is
+							switch (defaultClickBehavior)
+							{
+								case DefaultClickBehavior.OpenLink:
+									Navigate(newUrl);
+									break;
+								case DefaultClickBehavior.OpenInNewTab:
+									if (OpenNewTabEvent != null)
+										OpenNewTabEvent(this, new NavigateEventArgs(newTitle, newUrl));
+									break;
+								case DefaultClickBehavior.OpenInNewWindow:
+									WebBrowser b = new WebBrowser(newTitle, newUrl);
+									b.Show();		
+									break;
+							}
+							break;
+					}
+					//contextMenu1.Show(this.axWebBrowser1, new Point(win.@event.x, win.@event.y));
+
+					win.@event.returnValue	= false;
+					win.@event.cancelBubble	= true;
+
+				} 
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 
 		}
@@ -380,15 +480,22 @@ namespace msn2.net.Controls
 
 		#region Status display
 
+		public void ShowStatus(string text)
+		{
+			labelStatus.Text = text;
+			
+			panelStatus.Left	= this.Width / 2 - panelStatus.Width / 2;
+			panelStatus.Top		= this.Height / 2 - panelStatus.Height / 2;
+			panelStatus.Visible = true;
+		}
+
 		private void timerShowStatus_Tick(object sender, System.EventArgs e)
 		{
 			timerShowStatus.Enabled = false;
 
 			if (navigating)
 			{
-				panelStatus.Left	= this.Width / 2 - panelStatus.Width / 2;
-				panelStatus.Top		= this.Height / 2 - panelStatus.Height / 2;
-				panelStatus.Visible = true;
+				ShowStatus("loading...");
 			}
 		}
 
@@ -432,9 +539,8 @@ namespace msn2.net.Controls
 
 		private void timerShowContextMenu_Tick(object sender, System.EventArgs e)
 		{
-			// TODO: Get actual mouse coords
 			timerShowContextMenu.Enabled = false;
-			contextMenu1.Show(this, new Point(x, y));
+			contextMenu1.Show(this, this.PointToClient(Cursor.Position));
 		}
 
 		public OpenNewTabDelegate OpenNewTabEvent;
@@ -446,6 +552,7 @@ namespace msn2.net.Controls
 		}
 
 		#endregion
+
 
 	}
 

@@ -213,6 +213,7 @@ namespace msn2.net.Controls
 		private void menuItemAdd_Click(object sender, System.EventArgs e)
 		{
 			FavoriteEdit f = new FavoriteEdit(parentForm);
+			f.Dialog = true;
 
 			if (f.ShowDialog(this) == DialogResult.Cancel)
 				return;

@@ -194,7 +194,8 @@ namespace msn2.net.ProjectF
 		private void buttonNew_Click(object sender, System.EventArgs e)
 		{
             InputPrompt prompt = new InputPrompt("Enter a user name");
-			
+			prompt.Dialog = true;
+
 			while (prompt.ShowDialog(this) != DialogResult.Cancel)
 			{
 				bool inUse = false;
@@ -276,7 +277,8 @@ namespace msn2.net.ProjectF
 			UserListViewItem userItem = (UserListViewItem) listViewUsers.SelectedItems[0];
 
 			InputPrompt prompt = new InputPrompt("Enter a config name");
-			
+			prompt.Dialog = true;
+
 			while (prompt.ShowDialog(this) != DialogResult.Cancel)
 			{
 				bool inUse = false;

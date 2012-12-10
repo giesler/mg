@@ -103,6 +103,7 @@ namespace msn2.net.Controls
         private int		buttonHeight				= 8;
 		private System.Windows.Forms.PictureBox pictureBoxFormIcon;
 		private int		rollupHeight				= 18;
+		private bool	dialog						= false;
 
 		private int		fadeInTimerInterval			= 50;
 		private int		fadeOutTimerInterval		= 70;
@@ -113,9 +114,19 @@ namespace msn2.net.Controls
 
 		public ShellForm()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
+			ShellFormInternalConstructor();
+		}
+
+		public ShellForm(Data formNode)
+		{
+			this.formNode	= formNode;
+			this.Text		= formNode.Name;
+
+			ShellFormInternalConstructor();
+		}
+
+		private void ShellFormInternalConstructor()
+		{
 			if (!DesignMode)
 				InitializeComponent();
 
@@ -128,12 +139,6 @@ namespace msn2.net.Controls
 			panelMoreButtons.Width = 0;
 
 			AddInstance(this);
-		}
-
-		public ShellForm(Data formNode): this()
-		{
-			this.formNode	= formNode;
-			this.Text		= formNode.Name;
 		}
 
 		/// <summary>
@@ -164,6 +169,8 @@ namespace msn2.net.Controls
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ShellForm));
+
+			
 			this.panelTitle = new System.Windows.Forms.Panel();
 			this.panelTitleText = new System.Windows.Forms.Panel();
 			this.pictureBoxFormIcon = new System.Windows.Forms.PictureBox();
@@ -405,8 +412,6 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Load(object sender, System.EventArgs e)
 		{
-			panelTitle.BringToFront();
-			
 			if (formNode != null)
 			{
 				Trace.WriteLine("Reading config data for " + this.Name);
@@ -440,8 +445,6 @@ namespace msn2.net.Controls
 					actualFormBorderStyle = this.FormBorderStyle;
 					this.FormBorderStyle = FormBorderStyle.None;
 					savedBorderStyle = true;
-
-					LayoutForProjectF();
 				}
 
 				// If window is sizable, we want to show the cursors
@@ -454,18 +457,14 @@ namespace msn2.net.Controls
 					this.panelSizeNWSE.Cursor	= System.Windows.Forms.Cursors.SizeNWSE;
 				}
 			}		
+
+			LayoutForProjectF();
+
 		}
 
 		#endregion
 
 		#region Properties
-
-		[Category("Layout")]
-		public Size FixedSize
-		{
-			get { return fixedSize; }
-			set { fixedSize = value; }
-		}
 
 		public bool AllowUnload
 		{
@@ -483,10 +482,24 @@ namespace msn2.net.Controls
 			set
 			{
 				base.Text = value;
-				labelTitle.Text = value;
+				if (labelTitle != null)
+					labelTitle.Text = value;
 			}
 		}
 
+		[Category("Appearance")]
+		public bool Dialog
+		{
+			get
+			{
+				return this.dialog;
+			}
+			set
+			{
+				this.dialog = value;
+			}
+		}
+        
 		[Category("Appearance")]
 		public bool EnableOpacityChanges
 		{
@@ -527,6 +540,29 @@ namespace msn2.net.Controls
 			{
 				shadedBackground = value;
 			}
+		}
+
+		public new Size MaximumSize
+		{
+			get
+			{
+				return base.MaximumSize;
+			}
+			set
+			{
+				// Adjust fixed size for changes in size due to borders
+				if (value.Width > 0)
+				{
+					value			= new Size(value.Width + this.panelLeft.Width + this.panelRight.Width, value.Height);
+					this.Width		= value.Width;
+				}
+				if (value.Height > 0)
+				{
+					value			= new Size(value.Width, value.Height + this.panelTitle.Height + this.panelBottom.Height);
+					this.Height		= value.Height;
+				}
+				base.MaximumSize = value;
+			}		
 		}
 
 		public new Size Size
@@ -716,7 +752,11 @@ namespace msn2.net.Controls
 
 		private void ShellForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (!allowUnload)
+			if (dialog)
+			{
+				// we don't care
+			}
+			else if (!allowUnload)
 			{
 				e.Cancel = true;
 				this.Visible = false;
@@ -887,63 +927,74 @@ namespace msn2.net.Controls
 
 		#region Layout code
 
-		private bool layedOut = false;
+		private bool sized = false;
+
+		public void ForceLayout()
+		{
+			LayoutForProjectF();
+		}
 
 		private void LayoutForProjectF()
 		{
+			Trace.WriteLine("Laying out " + this.Text);
+
 			// Bail if in design mode
-			if (!DesignMode && !layedOut)
+			if (!DesignMode)
 			{
-				layedOut = true;
+				this.SuspendLayout();
 
-				// If we are in ProjectF style, move all controls down
-			{
-
-				panelTitle.Height = titleHeight;
 				panelTitle.SendToBack();
-
-				panelLeft.Width   = borderWidth;
 				panelLeft.SendToBack();
-
-				panelRight.Width  = borderWidth;
 				panelRight.SendToBack();
-				panelBottom.Height = borderWidth;
-				panelBottom.Top   = this.Height - panelBottom.Height - panelTitle.Height;
 				panelBottom.SendToBack();
 
-				this.Width = this.Width + panelLeft.Width + panelRight.Width;
-				if (rolledUp)
+				if (!sized)
 				{
-					this.Height = panelTitle.Height;
-					this.savedSize = new Size(this.Width, this.savedSize.Height + panelTitle.Height + panelBottom.Height);
-				}
-				else
-				{
-					this.Height = this.Height + panelTitle.Height + panelBottom.Height;
+					sized = true;                
+					panelTitle.Height = titleHeight;
+					panelBottom.Height = borderWidth;
+					panelRight.Width  = borderWidth;
+					panelLeft.Width   = borderWidth;
+					panelBottom.Top   = this.Height - panelBottom.Height - panelTitle.Height;
+					this.Width = this.Width + panelLeft.Width + panelRight.Width;
+					if (rolledUp)
+					{
+						this.Height = panelTitle.Height;
+						this.savedSize = new Size(this.Width, this.savedSize.Height + panelTitle.Height + panelBottom.Height);
+					}
+					else
+					{
+						this.Height = this.Height + panelTitle.Height + panelBottom.Height;
+					}
+
 				}
 
 				foreach (Control c in this.Controls)
 				{
-					if (c != panelTitle && c.Parent != panelTitle && c != panelBottom && c != panelLeft && c != panelRight
-						&& c.Dock == DockStyle.None)
+					if (c != panelTitle		&&	c.Parent != panelTitle		&& 
+						c != panelBottom	&&	c != panelLeft				&& 
+						c != panelRight		&&	c.Dock == DockStyle.None)
 					{
-						c.Top    = c.Top + panelTitle.Height;
-						c.Left   = c.Left + panelLeft.Width;
-
-						if (c.Dock != DockStyle.None)
+						if (!layoutControlList.Contains(c))
 						{
-							//								c.Width  = c.Width - panelLeft.Width - panelRight.Width;
-							//								c.Height = c.Height - panelTitle.Height - panelBottom.Height;
+							Trace.WriteLine(c.Name);
+
+							layoutControlList.Add(c);
+
+							c.Top    = c.Top + panelTitle.Height;
+							c.Left   = c.Left + panelLeft.Width;
+
+							if (c.Dock != DockStyle.None)
+							{
+								c.Width  = c.Width - panelLeft.Width - panelRight.Width;
+								c.Height = c.Height - panelTitle.Height - panelBottom.Height;
+							}
+							c.BringToFront();
 						}
 					}
 				}
-                    
-				if (this.FixedSize.Width > 0)
-					this.FixedSize = new Size(this.Width, this.FixedSize.Height);
-				if (this.FixedSize.Height > 0)
-					this.FixedSize = new Size(this.FixedSize.Width, this.Height);
-					
-			}
+
+				this.ResumeLayout();
 			}
 			else
 			{
@@ -953,6 +1004,8 @@ namespace msn2.net.Controls
 			PerformLockingCheck();
 
 		}
+
+		private ArrayList layoutControlList = new ArrayList();
 
 		#endregion
 

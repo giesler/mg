@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using msn2.net.Configuration;
+using System.Text;
+using System.IO;
 
 namespace msn2.net.Controls
 {
@@ -16,26 +18,48 @@ namespace msn2.net.Controls
 		public msn2.net.Controls.WebBrowserControl webBrowserControl1;
 		private System.ComponentModel.IContainer components = null;
 		private Crownwood.Magic.Controls.TabControl tabControl;
-		private Crownwood.Magic.Controls.TabPage resultsPage = null;
 		private int defaultWidth = 800;
 		private int defaultHeight = 700;
-		private Panel resultPanel = null;
+		private WebBrowserTitleBarButtons titleBarButtons = null;
 
 		#endregion
 
 		#region Constructors
 
-		public WebBrowser(string title, int width, int height)
+		public WebBrowser(Data data): base(data)
+		{
+			InitializeComponent();
+			InternalConstructor(data.Text);
+			
+			// If we have config data to use, then init based on it
+			if (Data.ConfigData != null)
+			{
+				// Check if a search config object
+				if (Data.ConfigData.GetType().IsSubclassOf(typeof(SearchConfigData)))
+				{
+					SearchConfigData searchData = (SearchConfigData) data.ConfigData;
+                    
+					Crownwood.Magic.Controls.TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
+					
+					searchData.Run(page);					
+				}
+			}
+
+		}
+
+		public WebBrowser(string title, int width, int height): base()
 		{
 			InitializeComponent();
 
 			defaultWidth = width;
 			defaultHeight = height;
 
+			this.MaximumSize = new Size(width, height);
+
 			InternalConstructor(title);
 		}
 
-		public WebBrowser(string title, string url)
+		public WebBrowser(string title, string url): base()
 		{
 			// This call is required by the Windows Form Designer.
 			InitializeComponent();
@@ -43,6 +67,15 @@ namespace msn2.net.Controls
 			InternalConstructor(title);
 
 			AddNewTab(title, url);
+		}
+
+		public WebBrowser(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior): base()
+		{
+			InitializeComponent();
+
+			InternalConstructor(title);
+
+			AddNewTab(title, url, defaultClickBehavior);
 		}
 
 		/// <summary>
@@ -62,55 +95,6 @@ namespace msn2.net.Controls
 
 		}
 
-		public WebBrowser(GoogleSearchSettings settings)
-		{
-			InternalConstructor("Search results: '" + settings.SearchString + "'");
-			
-			GoogleSearchService googleSearch = new GoogleSearchService();
-
-			//Instantiate an AsyncCallback delegate to use as a parameter
-			//in the BeginFactorize method.
-			//AsyncCallback cb = new AsyncCallback(GoogleSearchResultCallback);
-
-			// Begin the Async call to Factorize, passing in our
-			// AsyncCalback delegate and a reference
-			// to our instance of PrimeFactorizer.
-			//IAsyncResult ar = googleSearch.BegindoGoogleSearch(settings.Key, settings.SearchString, 50, 1000, false, "", false, "", "", "", cb, googleSearch);
-
-			GoogleSearchResult result = googleSearch.doGoogleSearch(settings.Key, settings.SearchString, 50, 10, false, "", false, "", "", "");
-
-			// create new results tab
-			resultPanel = new Panel();
-			resultPanel.AutoScroll = true;
-			resultsPage = new Crownwood.Magic.Controls.TabPage("'" + settings.SearchString + "'", resultPanel);
-			tabControl.TabPages.Add(resultsPage);
-
-			foreach (ResultElement resultElement in result.resultElements)
-			{
-				GoogleResultControl resultControl = new GoogleResultControl(resultElement);
-				resultControl.Width			= this.Width;
-				resultControl.Dock			= DockStyle.Top;
-				resultPanel.Controls.Add(resultControl);
-			}
-			
-		}
-
-		private void GoogleSearchResultCallback(IAsyncResult ar)
-		{
-			
-			GoogleSearchService googleSearch	= (GoogleSearchService) ar.AsyncState;
-			GoogleSearchResult result					=  googleSearch.EnddoGoogleSearch(ar);
-
-			foreach (ResultElement resultElement in result.resultElements)
-			{
-				GoogleResultControl resultControl = new GoogleResultControl(resultElement);
-				resultControl.Width			= this.Width;
-				resultControl.Dock			= DockStyle.Top;
-				resultPanel.Controls.Add(resultControl);
-			}
-			// TODO: Should history be added to a data object?  so constructors here need data objects...
-		}
-
 		private void InternalConstructor(string title)
 		{
 			// Create tabbed window with browsers
@@ -128,19 +112,61 @@ namespace msn2.net.Controls
 
 			this.Width = defaultWidth;
 			this.Height = defaultHeight;
+
+			titleBarButtons = new WebBrowserTitleBarButtons();
+			titleBarButtons.Refresh_Clicked += new EventHandler(Refresh_Clicked);
+			titleBarButtons.SaveTo_Clicked	+= new EventHandler(SaveTo_Clicked);
+			this.AddButtons(titleBarButtons, titleBarButtons.Width, true);
+
 		}
 
 		#endregion
 
 		#region Methods
 
-		public void AddNewTab(string title, string url)
+		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
 		{
-			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl();
+			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
 
 			browser.TitleChange += new msn2.net.Controls.TitleChangeDelegate(this.webBrowserControl1_TitleChange);
 			browser.NavigateComplete	+= new NavigateCompleteDelegate(webBrowserControl_NavigateComplete);
 			browser.OpenNewTabEvent += new OpenNewTabDelegate(OpenNewTab);
+			browser.ShowStatus("searching...");
+
+			// Add new tab
+			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
+			browser.TabPage = page;
+			tabControl.TabPages.Add(page);
+
+			return page;
+		}
+
+		public void AddNewTab(string title, string url)
+		{
+			AddNewTab(title, url, WebBrowserControl.DefaultClickBehavior.OpenLink);
+		}
+
+		public void AddNewTab(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
+		{
+			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
+
+			browser.TitleChange += new msn2.net.Controls.TitleChangeDelegate(this.webBrowserControl1_TitleChange);
+			browser.NavigateComplete	+= new NavigateCompleteDelegate(webBrowserControl_NavigateComplete);
+			browser.OpenNewTabEvent += new OpenNewTabDelegate(OpenNewTab);
+			browser.Navigate(url);
+
+			// Add new tab
+			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
+			browser.TabPage = page;
+			tabControl.TabPages.Add(page);
+		}
+
+		public void AddStaticTab(string title, string url)
+		{
+			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(WebBrowserControl.DefaultClickBehavior.OpenInNewWindow);
+
+			browser.NavigateComplete	+= new NavigateCompleteDelegate(webBrowserControl_NavigateComplete);
+			browser.OpenNewTabEvent		+= new OpenNewTabDelegate(OpenNewTab);
 			browser.Navigate(url);
 
 			// Add new tab
@@ -217,6 +243,7 @@ namespace msn2.net.Controls
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "WebBrowser";
 			this.ShowInTaskbar = true;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Web Browser";
 			this.TitleVisible = true;
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).EndInit();
@@ -226,51 +253,93 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Event Handlers
+
+		#region Title Bar buttons
+
+		private void Refresh_Clicked(object sender, EventArgs e)
+		{
+			if (tabControl.TabPages.Count == 0)
+				return;
+
+			// Get the current page
+			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Control;
+
+			if (browser != null)
+			{
+				browser.RefreshPage();
+			}
+		}
+
+		private void SaveTo_Clicked(object sender, EventArgs e)
+		{
+			if (tabControl.TabPages.Count == 0)
+				return;
+
+			// Get the current page
+			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Control;
+
+			if (browser != null)
+			{
+				ShellSave shellSave	= new ShellSave();
+				shellSave.Visible = false;
+				
+				if (shellSave.ShowDialog(this) == DialogResult.OK)
+				{
+					shellSave.Data.Get(page.Title, browser.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
+				}
+				shellSave.Dispose();
+			}
+		}
+
+		#endregion
+
 		private void webBrowserControl1_TitleChange(object sender, msn2.net.Controls.TitleChangeEventArgs e)
 		{
 			WebBrowserControl browser = (WebBrowserControl) sender;
 
 			if (browser.TabPage != null)
 				browser.TabPage.Title = e.Title;
-
-			if (tabControl.SelectedTab == browser.TabPage)
-			{
-				this.Text = e.Title;
-			}
 		}
 
 		private void webBrowserControl_NavigateComplete(object sender, NavigateCompleteEventArgs e)
 		{
 			
 		}
+
+		#endregion
+
+		#region Properties
+
+		public bool ShowClose
+		{
+			get
+			{
+				return tabControl.ShowClose;
+			}
+			set
+			{
+				tabControl.ShowClose = value;
+			}
+		}
+
+		public bool ShowArrows
+		{
+			get
+			{
+				return tabControl.ShowArrows;
+			}
+			set
+			{
+				tabControl.ShowArrows = value;
+			}
+		}
+
+		#endregion
+
 	}
 
-	#region GoogleSearchSettings
-
-	public class GoogleSearchSettings
-	{
-		private string searchString;
-		private string key;
-
-		public GoogleSearchSettings(string key, string searchString)
-		{
-			this.searchString		= searchString;
-			this.key				= key;
-		}
-
-		public string SearchString
-		{
-			get { return searchString; }
-			set { searchString = value; }
-		}
-
-		public string Key
-		{
-			get { return key; }
-			set { key = value; }
-		}
-	}
-
-	#endregion
 }
 

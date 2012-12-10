@@ -151,7 +151,7 @@ namespace msn2.net.Controls
 				node.Nodes.Add(childNode);
 
 				childNode.Nodes.Add(new TreeNode("<populateme>"));
-				//LoadChildCategories(childNode);
+				LoadChildCategories(childNode);
 			}
 		}
 
@@ -203,6 +203,8 @@ namespace msn2.net.Controls
 		{
 			// First get a new name
 			InputPrompt prompt = new InputPrompt("Enter the new category name:");
+			prompt.Dialog = true;
+
 			if (prompt.ShowDialog(this.parentShellForm) == DialogResult.Cancel)
 				return;
 

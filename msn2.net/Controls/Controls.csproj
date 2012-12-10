@@ -214,16 +214,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "GoogleResult.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "GoogleResult.resx"
-                    DependentUpon = "GoogleResult.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "GoogleSearchService.cs"
                     SubType = "code"
                     BuildAction = "Compile"
@@ -266,26 +256,6 @@
                 <File
                     RelPath = "MiniBrowser.resx"
                     DependentUpon = "MiniBrowser.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "MSNBCHeadlines.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MSNBCHeadlines.resx"
-                    DependentUpon = "MSNBCHeadlines.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "MSNBCWeather.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MSNBCWeather.resx"
-                    DependentUpon = "MSNBCWeather.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -431,6 +401,16 @@
                 <File
                     RelPath = "WebBrowserControl.resx"
                     DependentUpon = "WebBrowserControl.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WebBrowserTitleBarButtons.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WebBrowserTitleBarButtons.resx"
+                    DependentUpon = "WebBrowserTitleBarButtons.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

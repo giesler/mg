@@ -26,16 +26,17 @@ namespace msn2.net.Controls
 
 		public ShellSave()
 		{
-			InitializeComponent();
-
-			// Set to current mouse position
-			this.Left	= Cursor.Position.X - buttonOK.Left - (buttonOK.Width / 2);
-			this.Top	= Cursor.Position.Y - buttonCancel.Top - (buttonCancel.Width / 2);
-
-			categoryTreeView.RootData = ConfigurationSettings.Current.Data.Get("Favorites").Get("My Data");
+			InternalConstructor();
+			categoryTreeView.RootData = ConfigurationSettings.Current.Data.Get("Favorites").Get("msn2.net");
 		}
 
 		public ShellSave(msn2.net.Common.ConfigData configData)
+		{
+			InternalConstructor();
+			this.configData	= configData;
+		}
+
+		private void InternalConstructor()
 		{
 			InitializeComponent();
 
@@ -43,7 +44,11 @@ namespace msn2.net.Controls
 			this.Left	= Cursor.Position.X - buttonOK.Left - (buttonOK.Width / 2);
 			this.Top	= Cursor.Position.Y - buttonCancel.Top - (buttonCancel.Width / 2);
 
-			this.configData	= configData;
+			if (this.Left < 0)
+				this.Left = 0;
+
+			if (this.Top < 0)
+				this.Top = 0;
 		}
 
 		#endregion

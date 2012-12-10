@@ -12,19 +12,25 @@ namespace msn2.net.Controls
 	/// </summary>
 	public class ShellButton : System.Windows.Forms.Button
 	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
+		#region Declares
+
 		private System.ComponentModel.Container components = null;
+		private Color startColor = Color.LightGray;
+
+		#endregion
+
+		#region Constructors
 
 		public ShellButton()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-			// TODO: Add any initialization after the InitForm call
-
 		}
+
+		#endregion
+
+		#region Disposal
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -41,6 +47,8 @@ namespace msn2.net.Controls
 			base.Dispose( disposing );
 		}
 
+		#endregion
+
 		#region Component Designer generated code
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -56,9 +64,11 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Paint
+
 		private void ShellButton_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
 		{
-			msn2.net.Common.Drawing.ShadeRegion(e, Color.LightGray);
+			msn2.net.Common.Drawing.ShadeRegion(e, startColor);
 
 			if (this.Text.Length > 0)
 			{
@@ -66,11 +76,45 @@ namespace msn2.net.Controls
 				format.Alignment		= StringAlignment.Center;
 				format.LineAlignment	= StringAlignment.Center;
 
-
 				int y = this.Height - (this.Height - (this.Font.Height / 2));
+				string text = this.Text.Replace("&", "");
 
-				e.Graphics.DrawString(this.Text.Replace("&",""), this.Font, new SolidBrush(Color.Black), e.ClipRectangle, format);
+				bool cutOff = false;
+				while (e.Graphics.MeasureString(text, this.Font).Width > e.ClipRectangle.Width)
+				{
+					if (!cutOff)
+					{
+						cutOff = true;
+						text = text + text.Substring(0, text.Length - 3) +  "...";
+					}
+					else
+					{
+						text = text.Substring(0, text.Length - 5) + "...";
+					}
+				}
+
+				e.Graphics.DrawString(text, this.Font, new SolidBrush(Color.Black), e.ClipRectangle, format);
 			}
 		}
+
+		#endregion
+
+		#region Properties
+
+		public Color StartColor
+		{
+			get
+			{
+				return startColor;
+			}
+			set
+			{
+				startColor = value;
+				this.Refresh();
+			}
+		}
+
+		#endregion
+
 	}
 }

@@ -37,6 +37,7 @@ namespace msn2.net.ProjectF
 		private System.ComponentModel.Container components = null;
 		private MessengerAPI.MessengerClass messenger = null;
 		private Status status = null;
+		private System.Windows.Forms.Panel panelFormList;
 		private Crownwood.Magic.Docking.DockingManager dockManager = null;
 
 		#endregion
@@ -50,8 +51,10 @@ namespace msn2.net.ProjectF
 			//
 			InitializeComponent();
 
-			//			ShellForm.ShellForm_Added		+= new ShellForm_AddedDelegate(ShellForm_ItemAdded);
-			//			ShellForm.ShellForm_Removed		+= new ShellForm_RemovedDelegate(ShellForm_ItemRemoved);
+			ShellForm.ShellForm_Added		+= new ShellForm_AddedDelegate(ShellForm_ItemAdded);
+			ShellForm.ShellForm_Removed		+= new ShellForm_RemovedDelegate(ShellForm_ItemRemoved);
+
+			listView1.ItemActivate += new EventHandler(listView1_ItemActivate);
 
 			// THE NEXT LINES OF CODE ARE FROM MAGIC LIBRARY 
 			// Calculate the IDE background colour as only half as dark as the control colour
@@ -61,21 +64,21 @@ namespace msn2.net.ProjectF
 			listView1.BackColor = Color.FromArgb(red, green, blue);
 
 			// Need to sign in as current user
-			messenger = new MessengerAPI.MessengerClass();
+			//messenger = new MessengerAPI.MessengerClass();
 			//messenger.OnSignin		+= new MessengerAPI.DMessengerEvents_OnSigninEventHandler(Messenger_SignIn);
 			//messenger.OnSignout		+= new MessengerAPI.DMessengerEvents_OnSignoutEventHandler(Messenger_SignOut);
 
 			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.ProjectF);
 
 			// Make sure we are signed in, if not, sign in
-			if (messenger.MyStatus == MessengerAPI.MISTATUS.MISTATUS_ONLINE)
+			//if (messenger.MyStatus == MessengerAPI.MISTATUS.MISTATUS_ONLINE)
 			{
-				SignIn(messenger.MySigninName);				
+				SignIn("msn2.net");				
 			}
-			else
-			{
-				status = new Status("Waiting for you to sign in to Windows Messenger...");
-			}
+//			else
+//			{
+//				status = new Status("Waiting for you to sign in to Windows Messenger...");
+//			}
 			
 		}
 
@@ -104,6 +107,7 @@ namespace msn2.net.ProjectF
 		private void InitializeComponent()
 		{
 			this.listView1 = new System.Windows.Forms.ListView();
+			this.panelFormList = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeOut)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.timerFadeIn)).BeginInit();
 			this.SuspendLayout();
@@ -119,20 +123,29 @@ namespace msn2.net.ProjectF
 			// listView1
 			// 
 			this.listView1.CheckBoxes = true;
-			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.listView1.Location = new System.Drawing.Point(16, 112);
 			this.listView1.MultiSelect = false;
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(192, 158);
+			this.listView1.Size = new System.Drawing.Size(192, 150);
 			this.listView1.TabIndex = 1;
 			this.listView1.View = System.Windows.Forms.View.List;
+			this.listView1.Visible = false;
 			this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listView1_ItemCheck);
+			// 
+			// panelFormList
+			// 
+			this.panelFormList.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelFormList.Name = "panelFormList";
+			this.panelFormList.Size = new System.Drawing.Size(192, 158);
+			this.panelFormList.TabIndex = 5;
 			// 
 			// ProjectFConsole
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(192, 158);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.panelFormList,
 																		  this.listView1});
 			this.Name = "ProjectFConsole";
 			this.RolledUp = true;
@@ -158,6 +171,17 @@ namespace msn2.net.ProjectF
 
 		#endregion
 
+		#region Event Handlers
+
+		private void listView1_ItemActivate(object sender, EventArgs e)
+		{
+			FormListViewItem item = (FormListViewItem) listView1.SelectedItems[0];
+
+			item.ShellForm.BringToFront();
+		}
+
+		#endregion
+
 		#region Form Closing
 
 		private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -175,16 +199,23 @@ namespace msn2.net.ProjectF
 
 		private void ShellForm_ItemAdded(object sender, msn2.net.Controls.ShellFormAddedEventArgs e)
 		{
-			listView1.Items.Add(new FormListViewItem(e.Parent, e.ShellForm));
+			//TODO: if (e.ShellForm.Data != null)
+			{
+				ShellFormListItem item = new ShellFormListItem(e.ShellForm);
+				panelFormList.Controls.Add(item);
+				item.Width		= panelFormList.Width;
+				item.Dock		= DockStyle.Top;
+			}
+			//item.Visible = true;
 		}
 
 		private void ShellForm_ItemRemoved(object sender, msn2.net.Controls.ShellFormRemovedEventArgs e)
 		{
-			foreach (FormListViewItem item in listView1.Items)
+			foreach (ShellFormListItem item in panelFormList.Controls)
 			{
 				if (item.ShellForm == e.ShellForm)
 				{
-					listView1.Items.Remove(item);
+					panelFormList.Controls.Remove(item);
 					return;
 				}
 			}
@@ -196,7 +227,13 @@ namespace msn2.net.ProjectF
 
 		private class FormListViewItem: ListViewItem
 		{
+			#region Declares
+
 			private msn2.net.Controls.ShellForm page;
+
+			#endregion
+
+			#region Constructors
 
 			public FormListViewItem(msn2.net.Controls.ShellForm parent, msn2.net.Controls.ShellForm page): base(page.Text)
 			{
@@ -204,17 +241,30 @@ namespace msn2.net.ProjectF
 					parent.AddOwnedForm(page);
 
 				this.page = page;
-				page.VisibleChanged += new EventHandler(Page_VisibleChanged);
-				page.Show();
-
-                page.AllowUnload = false;				
-
+				page.VisibleChanged		+= new EventHandler(Page_VisibleChanged);
+				page.TextChanged		+= new EventHandler(Page_TextChanged);
+				
+                page.AllowUnload = false;	
 			}
+
+			#endregion
+
+			#region Event Handlers
 
 			private void Page_VisibleChanged(object sender, EventArgs e)
 			{
 				this.Checked = page.Visible;
 			}
+
+			private void Page_TextChanged(object sender, EventArgs e)
+			{
+				ShellForm form = (ShellForm) sender;
+				this.Text		= form.Text;
+			}
+
+			#endregion
+
+			#region Properties
 
 			public bool Visible
 			{
@@ -237,6 +287,9 @@ namespace msn2.net.ProjectF
 			{
 				get { return page; }
 			}
+
+			#endregion
+
 		}
 
 		#endregion
@@ -253,14 +306,21 @@ namespace msn2.net.ProjectF
 			}
 		}
 
+		private void ShellForm_AddedHandler(object sender, ShellFormAddedEventArgs e)
+		{
+			listView1.Items.Add(new FormListViewItem(e.Parent, e.ShellForm));
+		}
+
 		private void SignIn(string signinName)
 		{
 			if (status != null)
 			{
 				status.Hide();
 			}
-			status		= new Status("Logging in, " + messenger.MyFriendlyName + "...");
-			this.Text	= messenger.MyFriendlyName;
+			status		= new Status("Logging in..."); //, " + messenger.MyFriendlyName + "...");
+			this.Text	= "msn2.net"; // messenger.MyFriendlyName;
+
+			ShellForm.ShellForm_Added += new ShellForm_AddedDelegate(ShellForm_AddedHandler);
 
 			// TODO: Subscribe to new forms being added and removed
 
@@ -287,7 +347,7 @@ namespace msn2.net.ProjectF
 			//			}
 			
 			string storageUrl = System.Configuration.ConfigurationSettings.AppSettings["storageUrl"].ToString();
-			ConfigurationSettings.Current.Login(messenger, storageUrl);
+			ConfigurationSettings.Current.Login(null, storageUrl);
 
 			//			login l = new login();
 			//			if (l.showdialog(this) == dialogresult.cancel)
@@ -301,58 +361,47 @@ namespace msn2.net.ProjectF
 			//			listView1.Items.Add(
 			//				new FormListViewItem(this, new msn2.net.QueuePlayer.Client.UMPlayer()));
 
-			// MSNBC Headlines
-			string baseUrl = "http://www.msnbc.com/modules/story_stage/stages.asp?0st=S1&nstage=1&scss=e";
-			msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser("MSNBC Headlines", 300, 300);
-			browser.AddNewTab("Cover", String.Format(baseUrl, 1));
-			browser.AddNewTab("News", String.Format(baseUrl, 2));
-			browser.AddNewTab("Business", String.Format(baseUrl, 3));
-			browser.AddNewTab("Health", String.Format(baseUrl, 4));
-			browser.AddNewTab("Technology", String.Format(baseUrl, 5));
-			browser.AddNewTab("TV News", String.Format(baseUrl, 6));
-			browser.AddNewTab("Opinions", String.Format(baseUrl, 7));
-			listView1.Items.Add(new FormListViewItem(this, browser));
+			string baseUrl = "http://www.msnbc.com/modules/story_stage/stages.asp?0st=S{0}&nstage={0}&scss=e";
+			msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser("MSNBC Headlines", 400, 225);
+			browser.ShowClose	= false;
+			browser.ShowArrows	= false;
+			browser.AddStaticTab("Cover", String.Format(baseUrl, 1));
+			browser.AddStaticTab("News", String.Format(baseUrl, 2));
+			browser.AddStaticTab("Business", String.Format(baseUrl, 3));
+			browser.AddStaticTab("Health", String.Format(baseUrl, 4));
+			browser.AddStaticTab("Technology", String.Format(baseUrl, 5));
+			browser.AddStaticTab("TV News", String.Format(baseUrl, 6));
+			browser.AddStaticTab("Opinions", String.Format(baseUrl, 7));
+			browser.Show();
 				
-//			listView1.Items.Add(
-//				new FormListViewItem(this, new msn2.net.Controls.MSNBCHeadlines()));
+			baseUrl = "http://dev/home/weather.aspx?aid={0}";
+            browser = new WebBrowser("MSNBC Weather", 397, 200);
+			browser.ShowClose	= false;
+			browser.ShowArrows	= false;
+			browser.AddStaticTab("Kirkland", String.Format(baseUrl, "WAKI"));
+			browser.AddStaticTab("Seattle", String.Format(baseUrl, "SEA"));
+			browser.AddStaticTab("Madison", String.Format(baseUrl, "MSN"));
+			browser.Show();
+
+			Favorites favs = new Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
+			favs.Show();
+			ComputerInfo cInfo = new ComputerInfo(ConfigurationSettings.Current.Data.Get(Environment.MachineName));
+			cInfo.Show();
+			WebSearch webSearch = new WebSearch(ConfigurationSettings.Current.Data.Get("Search"));
+			webSearch.Show();
+			ShellLaunch shellLaunch = new ShellLaunch(ConfigurationSettings.Current.Data.Get("ShellLaunch"));
+			shellLaunch.Show();
 			
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.MSNBCWeather()));
-
-			Favorites favs = new msn2.net.Controls.Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
-			
-			//			Crownwood.Magic.Docking.Content content =
-			//				new Crownwood.Magic.Docking.Content(dockManager, favs, "Favorites");
-			//			dockManager.Contents.Add(content);
-			//	//dockManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockBottom);
-			//			dockManager.ShowContent(content);
-
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.Favorites(ConfigurationSettings.Current.Data.Get("Favorites"))));
-
-			//			ComputerInfo cInfo = new msn2.net.Controls.ComputerInfo();
-			//			dockManager.Contents.Add(cInfo, cInfo.Text);
-			//			dockManager.ShowContent(content);
-
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.ComputerInfo()));
-
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.Notes()));
-			//
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.WebSearch()));
-			
-			listView1.Items.Add(
-				new FormListViewItem(this, new msn2.net.Controls.ShellLaunch()));
-
-			//			listView1.Items.Add(
-			//				new FormListViewItem(this, new msn2.net.Controls.RandomPicture()));
-
 			this.Left = Screen.PrimaryScreen.Bounds.Width / 2 - 50;
 			this.Top  = 3;
 
-			status.Hide();
+			// Force layout
+			foreach (FormListViewItem item in listView1.Items)
+			{
+				item.ShellForm.ForceLayout();
+			}
+
+			status.Dispose();	
 		
 		}
 

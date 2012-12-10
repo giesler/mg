@@ -58,34 +58,37 @@ namespace msn2.net.Controls
 
 			treeViewCategory.CategoryTreeView_AfterSelect += new msn2.net.Controls.CategoryTreeView_AfterSelectDelegate(this.treeViewCategory_CategoryTreeView_AfterSelect);
 
-			Data rootNode = data.Get("My Data");
+			Data rootNode = data.Get("msn2.net");
 
 			#region Messenger Groups
 
-			// Make sure there are children for each Messenger Group
-			MessengerAPI.IMessengerGroups groups	= 
-				(MessengerAPI.IMessengerGroups) ConfigurationSettings.Current.Messenger.MyGroups;
-			DataCollection dataCollection			= rootNode.GetChildren(typeof(MessengerGroupData));
-			foreach (MessengerAPI.IMessengerGroup group in groups)
+			if (ConfigurationSettings.Current.Messenger != null)
 			{
-				if (!dataCollection.Contains(group.Name))
+				// Make sure there are children for each Messenger Group
+				MessengerAPI.IMessengerGroups groups	= 
+					(MessengerAPI.IMessengerGroups) ConfigurationSettings.Current.Messenger.MyGroups;
+				DataCollection dataCollection			= rootNode.GetChildren(typeof(MessengerGroupData));
+				foreach (MessengerAPI.IMessengerGroup group in groups)
 				{
-					dataCollection.Add(rootNode.Get(group.Name, typeof(MessengerGroupData)));
-				}
-
-				Data currentGroupData = dataCollection[group.Name];
-				DataCollection currentContacts = currentGroupData.GetChildren(typeof(MessengerContactData));
-
-				// Make sure all users in group are correctly listed
-				// Make sure contact list is correct
-				foreach (MessengerAPI.IMessengerContact contact in (MessengerAPI.IMessengerContacts) group.Contacts)
-				{
-					if (!currentContacts.Contains(contact.SigninName) && contact.SigninName != ConfigurationSettings.Current.MySigninName)
+					if (!dataCollection.Contains(group.Name))
 					{
-						MessengerContactData contactData = 
-							new MessengerContactData(
-							ConfigurationSettings.Current.GetSigninId(contact.SigninName));
-						currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
+						dataCollection.Add(rootNode.Get(group.Name, typeof(MessengerGroupData)));
+					}
+
+					Data currentGroupData = dataCollection[group.Name];
+					DataCollection currentContacts = currentGroupData.GetChildren(typeof(MessengerContactData));
+
+					// Make sure all users in group are correctly listed
+					// Make sure contact list is correct
+					foreach (MessengerAPI.IMessengerContact contact in (MessengerAPI.IMessengerContacts) group.Contacts)
+					{
+						if (!currentContacts.Contains(contact.SigninName) && contact.SigninName != ConfigurationSettings.Current.MySigninName)
+						{
+							MessengerContactData contactData = 
+								new MessengerContactData(
+								ConfigurationSettings.Current.GetSigninId(contact.SigninName));
+							currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
+						}
 					}
 				}
 			}
