@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList", "ShoppingList.csproj", "{FC3B1513-DEC5-4892-A619-955E5A11D9C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebService", "..\TestWebService\TestWebService.csproj", "{33106931-14D2-450A-82EF-DCB9422DE47F}"
+EndProject
+Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "ShoppingListCab", "..\ShoppingListCab\ShoppingListCab.vddproj", "{96F207AA-AEC6-4A00-B2CC-932E893844A5}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccProjectName0 = \u0022$/msn2.net/ShoppingList/ShoppingList\u0022,\u0020IIQAAAAA
+		SccLocalPath0 = ..
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectFilePathRelativizedFromConnection0 = ShoppingList\\
+		SccProjectUniqueName1 = ShoppingList.csproj
+		SccLocalPath1 = ..
+		SccProjectFilePathRelativizedFromConnection1 = ShoppingList\\
+		SccProjectUniqueName2 = ..\\ShoppingListCab\\ShoppingListCab.vddproj
+		SccLocalPath2 = ..
+		SccProjectFilePathRelativizedFromConnection2 = ShoppingListCab\\
+		SccProjectUniqueName3 = ..\\TestWebService\\TestWebService.csproj
+		SccLocalPath3 = ..
+		SccProjectFilePathRelativizedFromConnection3 = TestWebService\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3B1513-DEC5-4892-A619-955E5A11D9C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33106931-14D2-450A-82EF-DCB9422DE47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33106931-14D2-450A-82EF-DCB9422DE47F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Debug|Any CPU.ActiveCfg = Debug
+		{96F207AA-AEC6-4A00-B2CC-932E893844A5}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
