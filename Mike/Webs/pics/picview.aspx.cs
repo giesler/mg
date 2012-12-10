@@ -20,17 +20,20 @@ namespace pics
 	{
 		protected System.Web.UI.WebControls.Label lblTitle;
 		protected System.Web.UI.WebControls.Label lblPictureDate;
+		protected System.Web.UI.WebControls.Panel pnlPageControls;
+		protected System.Web.UI.WebControls.HyperLink lnkReturn;
+		protected System.Web.UI.HtmlControls.HtmlTableCell tdPicture;
+		protected System.Web.UI.WebControls.Panel pnlDescription;
+		protected System.Web.UI.WebControls.Panel pnlPeople;
+		protected System.Web.UI.WebControls.Panel Panel1;
 		protected System.Web.UI.WebControls.Label lblPictureDesc;
+		protected System.Web.UI.WebControls.DataList dlPerson;
 		protected System.Web.UI.WebControls.HyperLink lnkPrevious;
 		protected System.Web.UI.WebControls.Label lblPicture;
 		protected System.Web.UI.WebControls.Label lblPictures;
 		protected System.Web.UI.WebControls.HyperLink lnkNext;
-		protected System.Web.UI.WebControls.Panel pnlPageControls;
-		protected System.Web.UI.WebControls.HyperLink lnkReturn;
-		protected System.Web.UI.WebControls.DataList dlPerson;
-		protected System.Web.UI.HtmlControls.HtmlTableCell tdPicture;
-		protected System.Web.UI.WebControls.Panel pnlDescription;
-		protected System.Web.UI.WebControls.Panel pnlPeople;
+		protected System.Web.UI.WebControls.Label lblCategory;
+		protected System.Web.UI.HtmlControls.HtmlTableRow titleRow;
 	
 		protected String m_HttpRefreshURL;
 
@@ -45,7 +48,7 @@ namespace pics
 			// Set link to return to list
 			if (Request.QueryString["RefURL"] != null) 
 			{
-				lnkReturn.Text = "Return to list of pictures";
+				//lnkReturn.Text = "Return<br>to list";
 				lnkReturn.NavigateUrl = Request.QueryString["RefURL"];
 			}
 
@@ -68,7 +71,10 @@ namespace pics
 				// Set up SP to retreive pictures
 				SqlCommand cmdPic    = new SqlCommand();
 				if (sourceType.Equals("category"))
+				{
 					cmdPic.CommandText = "p_Category_GetPictures";	/// switch based on type
+					SetCategory(Convert.ToInt32(Request.QueryString["c"]));
+				}
 				else if (sourceType.Equals("search"))
 					cmdPic.CommandText = "p_Search_GetPictures";	/// switch based on type
 				else if (sourceType.Equals("random"))
@@ -108,18 +114,18 @@ namespace pics
 				DataRow dr = ds.Tables[0].Rows[0];
 
 				// now set the controls on the page
-				if (!dr.IsNull("Title"))
-					lblTitle.Text = dr["Title"].ToString();
+				if (!dr.IsNull("Title") && dr["Title"].ToString().Length > 0)
+					lblTitle.Text = dr["Title"].ToString() + "<br>";
 				else
 					lblTitle.Visible = false;
 				if (!dr.IsNull("PictureDate"))
-					lblPictureDate.Text = Convert.ToDateTime(dr["PictureDate"]).ToShortDateString();
+					lblPictureDate.Text = Convert.ToDateTime(dr["PictureDate"]).ToLongDateString();
 				else
 					lblPictureDate.Visible = false;
 				if (!dr.IsNull("Description"))
 					lblPictureDesc.Text = dr["Description"].ToString();
 				else
-					pnlDescription.Visible = false;
+					lblPictureDesc.Text = "";
 
 				// now create the picture
 				Picture curPic = new Picture();
@@ -143,8 +149,8 @@ namespace pics
 				dlPerson.DataSource = drPerson;
 				dlPerson.DataBind();
 
-				if (dlPerson.Items.Count == 0)
-					pnlPeople.Visible = false;
+//				if (dlPerson.Items.Count == 0)
+//					pnlPeople.Visible = false;
 
 				// close people reader
                 drPerson.Close();
@@ -232,6 +238,14 @@ namespace pics
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
 
+		}
+		#endregion
+		#region Private Methods
+		private void SetCategory(int categoryId)
+		{
+			PicServices svc = new PicServices();
+			DataSetCategory ds = svc.GetCategory(categoryId);
+			lblCategory.Text = ds.Tables[0].Rows[0]["CategoryName"].ToString();
 		}
 		#endregion
 	}

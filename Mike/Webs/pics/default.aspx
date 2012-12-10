@@ -1,37 +1,40 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="pics.Cdefault" %>
+<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
+<%@ Register TagPrefix="pics" TagName="sidebar" Src="Controls/_sidebar.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 		<title>msn2.net</title>
+		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body text="#ffffff" vLink="#ffff99" aLink="#ffcc99" link="#ffff00" bgColor="#650d00" leftMargin="0" topMargin="0" marginwidth="0" marginheight="0">
-		<!-- top table with MSN2 logo --><pics:header id="ctlHeader" header="Pictures" size="small" runat="server"></pics:header>
-		<table cellSpacing="0" cellPadding="0" width="100%" align="left">
+	<body leftMargin="0" topMargin="0">
+		<!-- top table with MSN2 logo -->
+		<pics:header id="ctlHeader" header="Pictures" size="small" runat="server"></pics:header>
+		<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 			<tr>
-				<td>
+				<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
+			</tr>
+			<tr>
+				<td width="125" class="msn2sidebar">
+					<pics:sidebar runat="server" id="Sidebar1"></pics:sidebar>
+				</td>
+				<td width="4" class="msn2sidebarfade"></td>
+				<td class="msn2contentwindow" valign="top">
 					<!-- Main content -->
 					<table width="100%">
 						<tr>
-							<td width="50">&nbsp;
-							</td>
 							<td align="left">
 								<p></p>
 								<p><b>Welcome to the MSN2 Pictures site.</b>
 								</p>
-								<p>Over the next few months, expect to see more and more pictures added to this 
-									site. <i>[I plan on adding all my pictures I have... eventually... -Mike]</i> And 
-									if you run into any errors or have any problems using this site, let one of us 
-									know. We plan on working on improving it to make it easier to use, and 
-									suggestions are welcome.
-								</p>
-								<p><b>Tip</b>: Press F11 to switch Internet Explorer to full screen mode - you 
+								<P><B>Tip</B>: Press F11 to switch Internet Explorer to full screen mode - you 
 									won't have to scroll as much then. (Switch back to normal mode by hitting F11 
 									again.)
-								</p>
-								<HR color="gainsboro" SIZE="1">
+								</P>
+								<P>
+									<HR color="gainsboro" SIZE="1">
+								</P>
 								<p><STRONG>You can view pictures in one of two ways:</STRONG>
 								</p>
 								<UL>
@@ -72,14 +75,16 @@
 												</ItemTemplate>
 											</asp:datalist></td>
 									</tr>
+								</table>
+								<HR color="gainsboro" SIZE="1">
+								<p>Any comments on this site or pictures on the site, send to <A href="mailto:mike@giesler.org">
+										mike@giesler.org</A>.
+								</p>
+							</td>
+						</tr>
 					</table>
-					<HR color="gainsboro" SIZE="1">
-					<p>Any comments on this site or pictures on the site, send to <A href="mailto:mike@giesler.org">
-							mike@giesler.org</A>.
-					</p>
+					<!-- Begin footer -->
 				</td>
-				</tr> </table> 
-				<!-- Begin footer --> </td>
 			</tr>
 		</table>
 	</body>

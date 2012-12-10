@@ -50,6 +50,15 @@ namespace pics.Auth
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if (!Page.IsPostBack)
+			{
+				if (Request.QueryString["email"] != null)
+				{
+					Trace.Write("found email in qs");
+					txtLookupEmail.Text = Request.QueryString["email"];
+					btnEmailLookup_Click(this, EventArgs.Empty);
+				}
+			}
 			// Put user code to initialize the page here
 		}
 
@@ -68,6 +77,8 @@ namespace pics.Auth
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
+			this.btnEmailLookup.Click += new System.EventHandler(this.btnEmailLookup_Click);
 
 		}
 		#endregion
@@ -129,9 +140,13 @@ namespace pics.Auth
 
 		private void btnEmailLookup_Click(object sender, System.EventArgs e)
 		{
+			Trace.Write("email lookup button start.");
+
 			this.Validate();
 
 			if (!Page.IsValid) return;
+
+			Trace.Write("page is valid.");
 
 			// connect to db and see if email is found
 			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);

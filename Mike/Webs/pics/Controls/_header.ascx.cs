@@ -38,89 +38,60 @@ namespace pics.Controls
 
 			if (mstrSize.Equals("small")) 
 			{
-				headerTable.Height = 75;
-				headerTable.Attributes["background"] = strAppPath + "Images/msn2_small_panel.jpg";
+				headerTable.Height = 30;
 
 				// Add first row
 				TableRow tr = new TableRow();
-				tr.Height = 37;
+#if DEBUG
+				tr.BorderWidth = 1;
+#endif
+				tr.Height = 30;
 				headerTable.Rows.Add(tr);
                 
-				// left cell
+				// left spacing cell
 				TableCell tc = new TableCell();
-				tc.Attributes["background"] = strAppPath + "Images/msn2_small.jpg";
-				tc.Width = 600;
-				tc.Height = 75;
+				tc.Width = 17;
+				tc.Height = 30;
 				tr.Cells.Add(tc);
 
-				// new table within cell with header
-				Table innerTable = new Table();
-				innerTable.CellPadding = 0;
-				innerTable.CellSpacing = 0;
-				innerTable.Width	   = Unit.Percentage(100);
-				tc.Controls.Add(innerTable);
-				TableRow trInner = new TableRow();
-				innerTable.Rows.Add(trInner);
-				TableCell tcNeedle = new TableCell();
-				tcNeedle.Height = 75;
-				tcNeedle.Width = 32;
-				tcNeedle.RowSpan = 2;
-				trInner.Cells.Add(tcNeedle);
-				
-				// Create false images in 'needle' cell for linking
-				HyperLink lnk = new HyperLink();
-				lnk.NavigateUrl = "http://www.msn2.net/";
-				HtmlImage htmlImage = new HtmlImage();
-				htmlImage.Src    = strAppPath + "images/trans.gif";
-				htmlImage.Height = 75;
-				htmlImage.Width  = 32;
-				htmlImage.Border = 0;
-				lnk.Controls.Add(htmlImage);
-				tcNeedle.Controls.Add(lnk);
+				// msn2 image cell
+				tc = new TableCell();
+				tc.Width				= 90;
+				tc.Height				= 30;
+				tr.Cells.Add(tc);
 
-				// new cell for 'msn2' image for clicking
-				TableCell tcMSN2 = new TableCell();
-				tcMSN2.Height = 35;
-				tcMSN2.ColumnSpan = 2;
-				trInner.Cells.Add(tcMSN2);
-				
-				// MSN2 fake link
-				lnk = new HyperLink();
-				lnk.NavigateUrl = "http://www.msn2.net/";
-				htmlImage = new HtmlImage();
-				htmlImage.Src    = strAppPath + "images/trans.gif";
-				htmlImage.Height = 35;
-				htmlImage.Width  = 80;
-				htmlImage.Border = 0;
-				lnk.Controls.Add(htmlImage);
-				tcMSN2.Controls.Add(lnk);
+				// msn2 image
+				HyperLink lnkmsn2		= new HyperLink();
+				lnkmsn2.NavigateUrl		= "http://www.msn2.net";
+				HtmlImage msn2image		= new HtmlImage();
+				msn2image.Src			= strAppPath + "images/msn2summer.gif";
+				msn2image.Height		= 27;
+				msn2image.Width			= 90;
+				msn2image.Border		= 0;
+				lnkmsn2.Controls.Add(msn2image);
+				tc.Controls.Add(lnkmsn2);
 
-				// Second row
-				trInner = new TableRow();
-				innerTable.Rows.Add(trInner);
-
-				// make sure this row's height is right
-				TableCell tcTemp = new TableCell();
-				tcTemp.Height = 40;
-				htmlImage = new HtmlImage();
-				htmlImage.Height = 40;
-				htmlImage.Width  = 2;
-				htmlImage.Src    = strAppPath + "Images/trans.gif";
-				tcTemp.Controls.Add(htmlImage);
-				trInner.Cells.Add(tcTemp);
+				// image right spacing cell
+				tc						= new TableCell();
+				tc.Width				= 17;
+				tc.Height				= 30;
+				tr.Cells.Add(tc);
 
 				// Cell with header
 				// Add cell with page title if applicable
 				TableCell tcTitle = new TableCell();
-				tcTitle.Height = 40;
-				tcTitle.VerticalAlign = VerticalAlign.Top;
-				trInner.Cells.Add(tcTitle);
+				tcTitle.Height = 30;
+				tcTitle.VerticalAlign = VerticalAlign.Bottom;
+				tr.Cells.Add(tcTitle);
 
 				// Create page title label
 				if (mstrHeader != null && mstrHeader.Length > 0) 
 				{
 					Label lbl = new Label();
 					lbl.Font.Bold = true;
+					lbl.Font.Name	= "Tahoma";
+					lbl.Font.Size = FontUnit.Large;
+					lbl.ForeColor	= Color.LightGray;
 					lbl.Text = mstrHeader;
 					tcTitle.Controls.Add(lbl);
 				}
@@ -139,17 +110,23 @@ namespace pics.Controls
 					PersonInfo pi = (PersonInfo) Session["PersonInfo"];
 
                     Table tLoginInfo = new Table();
+#if DEBUG
+					tLoginInfo.BorderWidth = 1;
+#endif
 					tLoginInfo.Height	= Unit.Percentage(100);
 					tLoginInfo.Width	= Unit.Percentage(100);
 					tc.Controls.Add(tLoginInfo);
 
 					// top row will have nav links
 					tr = new TableRow();
-					tr.Height = 35;
+#if DEBUG
+					tr.BorderWidth = 1;
+#endif
+					tr.Height = 30;
 					tLoginInfo.Rows.Add(tr);
 					tc = new TableCell();
 					tc.HorizontalAlign = HorizontalAlign.Right;
-					tc.Height = 35;
+					tc.Height = 30;
 					tc.Text = "&nbsp;";
 					tr.Cells.Add(tc);
 
@@ -166,11 +143,8 @@ namespace pics.Controls
 					lnkHome.Controls.Add(homeImage);
 
 					// last cell will have login name and logout link
-					tr					= new TableRow();
-					tr.Height			= 40;
-					tLoginInfo.Rows.Add(tr);
 					tc					= new TableCell();
-					tc.Height			= 40;
+					tc.Height			= 30;
 					tc.VerticalAlign	= VerticalAlign.Top;
 					tc.HorizontalAlign	= HorizontalAlign.Right;
 					tr.Cells.Add(tc);
@@ -179,14 +153,17 @@ namespace pics.Controls
 					Label lblUserName	= new Label();
 					lblUserName.Font.Size = 8;
 					lblUserName.Text	= pi.Name + "<br>";
+					lblUserName.ForeColor = Color.LightGray;
 					tc.Controls.Add(lblUserName);
 
 					// Create logout link
 					HyperLink lnkLogout	= new HyperLink();
-					lnkLogout.Text		= "Logout";
+					lnkLogout.Text		= "Sign Out";
+					lnkLogout.CssClass	= "headerLink";
 					lnkLogout.Font.Size	= 8;
 					lnkLogout.NavigateUrl = strAppPath + "Auth/Logout.aspx";
 					tc.Controls.Add(lnkLogout);
+
 
 				}
 

@@ -13,6 +13,8 @@ namespace pics.Controls
 	using System.Configuration;
 	using System.IO;
 	using System.Drawing.Imaging;
+	using System.Collections;
+	using System.Text;
 
 	#region Picture Display control
 	/// <summary>
@@ -231,12 +233,16 @@ namespace pics.Controls
 				tPic.Width			= 145;
 				tPic.CellPadding	= 5;
 				tPic.CellSpacing	= 0;
-				tPic.BorderColor	= Color.White;
-				tPic.BorderStyle	= BorderStyle.Solid;
-				tPic.BorderWidth	= 2;
-				tPic.BackColor		= Color.Black;
+				tPic.CssClass		= "pictureFrame";
+//				tPic.BorderColor	= Color.Black;
+//				tPic.BorderStyle	= BorderStyle.Solid;
+//				tPic.BorderWidth	= 1;
+//				tPic.BackColor		= Color.Black;
 				tPic.HorizontalAlign	= HorizontalAlign.Center;
 				tcPic.Controls.Add(tPic);
+
+				tcPic.Style.Add("filter", "progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=8)");
+                
 
 				// container table row
 				TableRow trtPic = new TableRow();
@@ -268,6 +274,7 @@ namespace pics.Controls
 				tPic.Rows.Add(noteRow);
 
 				TableCell noteCell = new TableCell();
+				noteCell.Font.Name = "Arial";
 				noteCell.BackColor = Color.White;
 				noteCell.ForeColor = Color.Black;
 				noteRow.Cells.Add(noteCell);
@@ -277,8 +284,8 @@ namespace pics.Controls
 					"RecNumber", pageReturnURL);
 				lnkPicZoom.CssClass		= "whitenote";
 				lnkPicZoom.Text			= System.Web.UI.DataBinder.Eval(e.Item.DataItem, "Title").ToString();
-				if (lnkPicZoom.Text.Length > 14)
-					lnkPicZoom.Text = lnkPicZoom.Text.Substring(0, 12) + "...";
+				if (lnkPicZoom.Text.Length > 15)
+					lnkPicZoom.Text = lnkPicZoom.Text.Substring(0, 13) + "...";
 				noteCell.Controls.Add(lnkPicZoom);
 
 				if (lnkPicZoom.Text.Length == 0) 
@@ -890,4 +897,152 @@ namespace pics.Controls
 	}
 	#endregion
 
+	#region Sidebar
+
+	public class Sidebar : System.Web.UI.Control, System.Web.UI.INamingContainer
+	{
+		public Sidebar()
+		{
+		}
+
+		protected override void CreateChildControls()
+		{
+			String strAppPath = HttpContext.Current.Request.ApplicationPath;
+			if (!strAppPath.Equals("/"))  
+				strAppPath = strAppPath + "/";
+
+			HtmlTable sideBarTable		= new HtmlTable();
+			sideBarTable.Width			= "130";
+			sideBarTable.Height			= "100%";
+						
+			HtmlTableRow row			= new HtmlTableRow();
+			sideBarTable.Rows.Add(row);
+
+			HtmlTableCell cell			= new HtmlTableCell();
+			//cell.					= "sidebarcell";
+			row.Cells.Add(cell);
+
+
+		}
+	}
+
+	#endregion
+
+	#region Error Message Panel
+
+	[ParseChildrenAttribute(ChildrenAsProperties = false)]
+	public class ErrorMessagePanel: Control, INamingContainer
+	{
+		#region Declares
+		private ArrayList	childControls;
+		private string		title;
+		#endregion
+
+		#region Constructors
+		public ErrorMessagePanel()
+		{
+			childControls			= new ArrayList();
+		}
+		#endregion
+
+		#region Private Methods
+		protected override void AddParsedSubObject(object obj)
+		{
+			childControls.Add(obj);
+		}
+
+		protected override void CreateChildControls()
+		{
+			Table t					= new Table();
+			t.CssClass				= "panelBadLogin";
+			t.CellPadding			= 0;
+			t.CellSpacing			= 0;
+			this.Controls.Add(t);
+            
+			#region Title Row
+
+			if (title != null)
+			{
+				TableRow titleRow		= new TableRow();
+				t.Rows.Add(titleRow);
+
+				TableCell titleCell		= new TableCell();
+				titleCell.ColumnSpan	= 2;
+				titleCell.CssClass		= "panelBadLoginTitle";
+				titleRow.Cells.Add(titleCell);
+
+				titleCell.Controls.Add(new HtmlLiteral(title));
+			}
+
+			#endregion
+
+			#region Content Row
+
+			TableRow contentRow			= new TableRow();
+			t.Rows.Add(contentRow);
+
+			TableCell imageCell			= new TableCell();
+			imageCell.CssClass			= "panelBadLoginImageCell";
+			imageCell.VerticalAlign		= VerticalAlign.Top;
+			contentRow.Cells.Add(imageCell);
+
+			StringBuilder sbImage		= new StringBuilder();
+			sbImage.Append("<div style=\"");
+			sbImage.Append("FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../Images/stop_icon.png'); ");
+			sbImage.Append("WIDTH: 24px;");
+			sbImage.Append("HEIGHT: 24px");
+			sbImage.Append("\"></div>");
+			imageCell.Controls.Add(new HtmlLiteral(sbImage.ToString()));
+
+			TableCell messageCell		= new TableCell();
+			messageCell.CssClass		= "pnlBadLoginTextCell";
+			contentRow.Cells.Add(messageCell);
+
+			foreach (Control c in childControls)
+			{
+				messageCell.Controls.Add(c);
+			}
+
+			#endregion
+
+		}
+
+		protected override void Render(HtmlTextWriter output)
+		{
+            output.Write("<div id=\"" + this.ID + "\">");
+
+			base.Render(output);
+
+			output.Write("</div>");
+		}
+
+		#endregion
+
+		public class HtmlLiteral: Literal
+		{
+			#region Constructors
+			public HtmlLiteral(string text)
+			{
+				base.Text			= text;
+			}
+		}
+
+		#region Properties
+		public string Title
+		{
+			get
+			{
+				return title;
+			}
+			set
+			{
+				title = value;
+			}
+		}
+		#endregion
+	}
+
+	#endregion
+
+	#endregion
 }

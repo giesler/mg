@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Web"
-        ProductVersion = "7.0.9372"
+        ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
         ProjectGuid = "{A6B66C7A-E524-4829-9D08-FCCF2FAD43CF}"
         SccProjectName = "SAK"
@@ -81,6 +81,11 @@
                     Name = "System.XML"
                     AssemblyName = "System.Xml"
                 />
+                <Reference
+                    Name = "System.Web.Services"
+                    AssemblyName = "System.Web.Services"
+                    HintPath = "D:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -159,6 +164,38 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "EditMyInfo.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "EditMyInfo.aspx.cs"
+                    DependentUpon = "EditMyInfo.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "EditMyInfo.aspx.resx"
+                    DependentUpon = "EditMyInfo.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "GetRanndomPictureConfigData.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "GetRanndomPictureConfigData.aspx.cs"
+                    DependentUpon = "GetRanndomPictureConfigData.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "GetRanndomPictureConfigData.aspx.resx"
+                    DependentUpon = "GetRanndomPictureConfigData.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Global.asax"
                     SubType = "Component"
                     BuildAction = "Content"
@@ -183,6 +220,22 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "PicServices.asmx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "PicServices.asmx.cs"
+                    DependentUpon = "PicServices.asmx"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PicServices.asmx.resx"
+                    DependentUpon = "PicServices.asmx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "picview.aspx"
                     BuildAction = "Content"
                 />
@@ -195,6 +248,22 @@
                 <File
                     RelPath = "picview.aspx.resx"
                     DependentUpon = "picview.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "RandomPictureService.asmx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RandomPictureService.asmx.cs"
+                    DependentUpon = "RandomPictureService.asmx"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RandomPictureService.asmx.resx"
+                    DependentUpon = "RandomPictureService.asmx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -282,6 +351,10 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Auth\AuthStyles.css"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Auth\ForgotPassword.aspx"
                     BuildAction = "Content"
                 />
@@ -357,6 +430,54 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Auth\WebForm1.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Auth\WebForm1.aspx.cs"
+                    DependentUpon = "WebForm1.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Auth\WebForm1.aspx.resx"
+                    DependentUpon = "WebForm1.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Auth\why.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Auth\why.aspx.cs"
+                    DependentUpon = "why.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Auth\why.aspx.resx"
+                    DependentUpon = "why.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\_contentbox.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\_contentbox.ascx.cs"
+                    DependentUpon = "_contentbox.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\_contentbox.ascx.resx"
+                    DependentUpon = "_contentbox.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\_header.ascx"
                     BuildAction = "Content"
                 />
@@ -372,9 +493,37 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\_sidebar.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\_sidebar.ascx.cs"
+                    DependentUpon = "_sidebar.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\_sidebar.ascx.resx"
+                    DependentUpon = "_sidebar.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\controls.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Images\button_left.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\button_return.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\button_right.gif"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Images\ie.jpg"
@@ -397,7 +546,31 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Images\msn2needlewash.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\msn2summer.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\msn2summer.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\msn2summer2.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\msn2summer3.png"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Images\sideVerticalLine.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Images\stop_icon.png"
                     BuildAction = "Content"
                 />
                 <File
@@ -416,6 +589,7 @@
                     RelPath = "Images\trans.gif"
                     BuildAction = "Content"
                 />
+                <Folder RelPath = "Images\Sidebar\" />
             </Include>
         </Files>
     </CSHARP>

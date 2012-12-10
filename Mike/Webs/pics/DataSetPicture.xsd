@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xs:schema id="DataSetPicture" targetNamespace="http://tempuri.org/DataSetPicture.xsd" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns="http://tempuri.org/DataSetPicture.xsd" xmlns:mstns="http://tempuri.org/DataSetPicture.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+<xs:schema id="DataSetPicture" targetNamespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns="http://schemas.msn2.net/Picture/DataSetPicture.xsd" xmlns:mstns="http://schemas.msn2.net/Picture/DataSetPicture.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
 	<xs:element name="DataSetPicture" msdata:IsDataSet="true">
 		<xs:complexType>
 			<xs:choice maxOccurs="unbounded">

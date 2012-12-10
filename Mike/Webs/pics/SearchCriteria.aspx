@@ -8,7 +8,7 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body text="#ffffff" vLink="#ffff99" aLink="#ffcc99" link="#ffff00" bgColor="#650d00" leftMargin="0" topMargin="0" marginwidth="0" marginheight="0">
+	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
 		<pics:header id="ctlHeader" runat="server" header="Pictures" size="small"></pics:header>
 		<form id="SearchCriteria" method="post" runat="server">

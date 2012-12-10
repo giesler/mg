@@ -24,6 +24,7 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.Panel pnlPassword;
 		protected System.Web.UI.WebControls.Label lblEmail;
 		protected System.Web.UI.WebControls.Label lblError;
+		protected System.Web.UI.WebControls.HyperLink loginLink;
 		protected System.Web.UI.WebControls.Panel pnlChanged;
 	
 		public ResetPassword()
@@ -85,7 +86,7 @@ namespace pics.Auth
 			SqlConnection cn = new SqlConnection(pics.Config.ConnectionString);
 			SqlCommand cmd	 = new SqlCommand("dbo.sp_ResetPassword", cn);
 			cmd.CommandType  = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@email", Request.QueryString["email"]);
+			cmd.Parameters.Add("@email", lblEmail.Text);
 			cmd.Parameters.Add("@guid", g.Buffer);
 			cmd.Parameters.Add("@password", System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
 			cmd.Parameters.Add("@success", SqlDbType.Bit);
@@ -99,6 +100,7 @@ namespace pics.Auth
 			// check result to make sure password changed
 			if (Convert.ToInt16(cmd.Parameters["@success"].Value) == 1) 
 			{
+				loginLink.NavigateUrl = "Login.aspx?email=" + Server.UrlEncode(lblEmail.Text);
 				pnlPassword.Visible = false;
 				pnlChanged.Visible	= true;
 			} 

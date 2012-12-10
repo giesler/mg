@@ -13,9 +13,8 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body topmargin="0" leftmargin="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Searching...">
-		</pics:header>
+	<body topmargin="0" leftmargin="0">
+		<pics:header id="ctlHeader" runat="server" size="small" header="Searching..."></pics:header>
 		<form id="Form1" method="post" runat="server">
 			<table align="left" cellpadding="0" cellspacing="0" width="100%">
 				<tr>

@@ -10,7 +10,7 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body topmargin="0" leftmargin="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
+	<body topmargin="0" leftmargin="0">
 		<pics:header id="ctlHeader" runat="server" size="small" header="Search Results"></pics:header>
 		<form id="Form1" method="post" runat="server">
 			<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">Below are the results of your search.</asp:panel>

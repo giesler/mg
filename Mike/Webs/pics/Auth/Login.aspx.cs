@@ -18,12 +18,17 @@ namespace pics.auth
 	/// </summary>
 	public class Login : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.HyperLink lnkNewLogin;
-		protected System.Web.UI.WebControls.TextBox txtEmail;
-		protected System.Web.UI.WebControls.TextBox txtPassword;
 		protected System.Web.UI.WebControls.CheckBox chkSave;
-		protected System.Web.UI.WebControls.Panel pnlBadLogin;
 		protected System.Web.UI.WebControls.HyperLink lnkForgotPassword;
+		protected System.Web.UI.WebControls.TextBox password;
+		protected System.Web.UI.WebControls.RadioButton radioNewLogin;
+		protected System.Web.UI.WebControls.TextBox email;
+		protected System.Web.UI.WebControls.RadioButton radioHelpMe;
+		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+		protected System.Web.UI.WebControls.Panel panelMessage;
+		protected System.Web.UI.WebControls.RadioButton radioPassword;
+		protected pics.Controls.ErrorMessagePanel pnlBadPassword;
+		protected System.Web.UI.WebControls.HyperLink Hyperlink1;
 		protected System.Web.UI.WebControls.Button btnLogin;
 	
 		public Login()
@@ -33,7 +38,13 @@ namespace pics.auth
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+			if (!Page.IsPostBack)
+			{
+				if (Request.QueryString["email"] != null)
+				{
+					email.Text = Request.QueryString["email"];
+				}
+			}
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -59,28 +70,34 @@ namespace pics.auth
 
 		private void btnLogin_Click(object sender, System.EventArgs e)
 		{
+			// Check if a new user - if so redirect to NewLogin.aspx
+			if (radioNewLogin.Checked)
+			{
+				Response.Redirect("NewLogin.aspx?email=" + Server.UrlEncode(email.Text));
+			}
 
 			// encrypt the password
 			MD5 md5 = MD5.Create();
-			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(txtPassword.Text));
+			byte[] bPassword = md5.ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(password.Text));
 			
 			// attempt to login
-			PersonInfo pi = new PersonInfo(txtEmail.Text, System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
+			PersonInfo pi = new PersonInfo(email.Text, System.Text.ASCIIEncoding.ASCII.GetString(bPassword));
 
 			// Check if login is valid
 			if (pi.Valid) 
 			{
 				Session["PersonInfo"] = pi;
 				System.Security.Cryptography.MD5 crypt = System.Security.Cryptography.MD5.Create();
-				byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(txtPassword.Text);
+				byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(password.Text);
 				byte[] bOut = crypt.ComputeHash(b);
 
 				FormsAuthentication.RedirectFromLoginPage(pi.PersonID.ToString(), chkSave.Checked);
 			}
 			else 
 			{
-				pnlBadLogin.Visible = true;
-				lnkForgotPassword.NavigateUrl = "ForgotPassword.aspx?email=" + Server.UrlEncode(txtEmail.Text);
+				panelMessage.Visible = false;
+				pnlBadPassword.Visible = true;
+				lnkForgotPassword.NavigateUrl = "ForgotPassword.aspx?email=" + Server.UrlEncode(email.Text);
 			}
 		}
 	}

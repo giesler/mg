@@ -1,0 +1,77 @@
+body
+{
+}
+
+.loginTable
+{
+	border-right: black 1px solid;
+	border-top: silver 1px solid;
+	border-left: silver 1px solid;
+	border-bottom: black 1px solid;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#dddddd', EndColorStr='#ffffff');
+}
+
+.loginTableTitle
+{
+	font-weight: bold;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= 'green' , EndColorStr= '#505050' );
+	color: white;
+	border-bottom: gray 1px solid;
+}
+
+.loginTableNote
+{
+	font-size: 10px;
+}
+
+.loginTableContent
+{
+	font-size: 12px;
+}
+
+.loginTableText
+{
+}
+
+.panelBadLogin
+{
+	border-right: gray thin solid;
+	border-top: gainsboro thin solid;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= '#ff8888' , EndColorStr= '#ffffff' );
+	left: 520;
+	top: 201;
+	border-left: gainsboro thin solid;
+	width: 250px;
+	border-bottom: gray thin solid;
+	position: absolute;
+}
+
+.panelBadLoginTitle
+{
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= '#000000' , EndColorStr= '#ff6666' );
+	color: White;
+	font-size: 12px;
+	font-weight: bold;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.panelBadLoginImageCell
+{
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	width: 30px;
+}
+
+.pnlBadLoginTextCell
+{
+	font-size: 12px;
+	padding-right: 6px;
+	padding-left: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}

@@ -11,12 +11,20 @@
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body text="#ffffff" vLink="#ffff99" aLink="#ffcc99" link="#ffff00" bgColor="#650d00" leftMargin="0" topMargin="0">
-		<pics:header id="ctlHeader" header="Pictures - By Category" size="small" runat="server"></pics:header>
+	<body leftMargin="0" topMargin="0">
 		<form id="Form1" method="post" runat="server">
+			<pics:header id="ctlHeader" header="Pictures - By Category" size="small" runat="server"></pics:header>
+			<table cellSpacing="0" cellPadding="0" width="100%" border="0" height="100%">
+				<tr>
+					<td height="3" class="msn2headerfade" colspan="3"></td>
+				</tr>
+				<tr>
+					<td colspan="3">
 			<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">You are here: </asp:panel>
 			<hr color="gainsboro" SIZE="1">
-			<table cellSpacing="2" cellPadding="0" width="100%" border="0" height="100%">
+					
+					</td>
+				</tr>
 				<tr>
 					<td style="BORDER-RIGHT: gainsboro thin solid" vAlign="top" width="100" rowSpan="3">
 						<P><asp:panel id="childCategoryList" CssClass="note" Runat="server"><I>

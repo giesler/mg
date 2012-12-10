@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="picview.aspx.cs" AutoEventWireup="false" Inherits="pics.picview" %>
+<%@ Register TagPrefix="pics" TagName="sidebar" Src="Controls/_sidebar.ascx" %>
 <%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -10,65 +11,71 @@
 		<meta http-equiv="refresh" content="<%= HttpRefreshURL %>">
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
-	<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#650d00" text="#ffffff" link="#ffff00" vlink="#ffff99" alink="#ffcc99">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Zoom In"></pics:header>
+	<body topmargin="0" leftmargin="0" class="pictureMode">
 		<form id="picview" method="post" runat="server">
-			<p align="center">
-				<a name="title">
-				<asp:Label ID="lblTitle" Runat="server">[Title]</asp:Label></a>
-				<br>
-				<i>
-					<asp:Label ID="lblPictureDate" Runat="server" Font-Size="smaller">[Date]</asp:Label>
-				</i>
-				<br>
-				<table border="0" cellpadding="0" cellspacing="0">
+			<div class="infoPanel">
+				<table cellspacing="0" class="infoPanelTable">
 					<tr>
-						<td runat="server" id="tdPicture" style="BORDER-RIGHT: silver thin solid; BORDER-TOP: silver thin solid; MARGIN: 2px; BORDER-LEFT: silver thin solid; BORDER-BOTTOM: silver thin solid">
+						<td class="infoPanelCategoryBar" height="10">
+							<asp:Label ID="lblCategory" Runat="server" Width="100%" Font-Bold="True">[category]</asp:Label>
+						</td>
+						<td class="infoPanelCategoryBar" align="right" height="10">
+							<asp:Label id="lblPicture" Runat="server">[Picture]</asp:Label>&nbsp;/&nbsp;<asp:Label id="lblPictures" runat="server">[Pictures]</asp:Label>
+						</td>
+					</tr>
+					<tr>
+						<td class="infoPanelCategoryBarFade" colspan="2" height="3"><img src="Images/trans.gif" height="3"></td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="top">
+							<asp:Label ID="lblTitle" Runat="server" CssClass="infoPanelTitle">[Title]</asp:Label>
+							<asp:Label ID="lblPictureDate" Runat="server" CssClass="infoPanelDate">[Date]</asp:Label>
+							<asp:DataList id="dlPerson" Runat="server" Width="100%" RepeatLayout="Flow" RepeatDirection="Horizontal" CssClass="infoPanelText">
+								<ItemTemplate>
+									<asp:Label ID="lblPersonFullName" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'>
+									</asp:Label>
+								</ItemTemplate>
+								<SeparatorTemplate>
+									,
+								</SeparatorTemplate>
+							</asp:DataList>
+							<hr size="1" noshade>
+							<asp:Label id="lblPictureDesc" Runat="server" CssClass="infoPanelText">[Description]</asp:Label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="infoPanelLinkBarFade" height="3"><img src="Images/trans.gif" height="3"></td>
+					</tr>
+					<tr>
+						<td class="infoPanelLinkBar" colspan="2" height="18">
+							<asp:panel id="pnlPageControls" runat="server" Width="100%" BackColor="Transparent" CssClass="infoPanelText">
+								<TABLE width="100%">
+									<TR>
+										<TD width="33%">
+											<asp:HyperLink id="lnkPrevious" CssClass="infoPanelLink" Runat="server" Visible="False">
+												<img src="Images/button_left.gif" alt="Previous Picture" border="0">
+											</asp:HyperLink></TD>
+										<TD align="middle" width="34%">
+											<asp:hyperlink id="lnkReturn" CssClass="infoPanelLink" Runat="server">
+												<img src="Images/button_return.gif" alt="Return to list" border="0">
+											</asp:hyperlink></TD>
+										<TD align="right" width="33%">
+											<asp:HyperLink id="lnkNext" CssClass="infoPanelLink" Runat="server" Visible="False">
+												<img src="Images/button_right.gif" alt="Next Picture" border="0">
+											</asp:HyperLink></TD>
+									</TR>
+								</TABLE>
+							</asp:panel>
 						</td>
 					</tr>
 				</table>
-			</p>
-			<asp:Panel ID="pnlDescription" Runat="server" Width="100%">
-				<P>
-					<asp:Label id="lblPictureDesc" Runat="server">[Description]</asp:Label>
-				</P>
-			</asp:Panel>
-			<hr color="gainsboro" SIZE="1">
-			<asp:Panel ID="pnlPeople" Runat="server" Width="100%">
-				<I>
-					<asp:DataList id="dlPerson" Runat="server" Width="100%" RepeatLayout="Flow" RepeatDirection="Horizontal">
-						<ItemTemplate>
-							<asp:Label ID="lblPersonFullName" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "FullName") %>'>
-							</asp:Label>
-						</ItemTemplate>
-						<SeparatorTemplate>
-							,
-						</SeparatorTemplate>
-					</asp:DataList>
-				</I>
-			</asp:Panel>
-			<br>
-			<asp:panel id="pnlPageControls" runat="server" Width="100%" DESIGNTIMEDRAGDROP="51" BackColor="Gray">
-				<TABLE width="100%">
-					<TR>
-						<TD width="33%">
-							<asp:HyperLink id="lnkPrevious" Runat="server" Visible="False">&lt;&lt; Previous</asp:HyperLink>
-						</TD>
-						<TD align="middle" width="34%">
-							Picture
-							<asp:Label id="lblPicture" Runat="server">[Picture]</asp:Label>
-							&nbsp;of
-							<asp:Label id="lblPictures" runat="server">[Pictures]</asp:Label>
-						</TD>
-						<TD align="right" width="33%">
-							<asp:HyperLink id="lnkNext" Runat="server" Visible="False">Next &gt;&gt;</asp:HyperLink>
-						</TD>
-					</TR>
-				</TABLE>
-			</asp:panel>
-			<P>
-				<asp:hyperlink id="lnkReturn" Runat="server"></asp:hyperlink>
-			</P>
+			</div>
+			<table border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td runat="server" id="tdPicture" class="picviewPictureBorder">
+					</td>
+				</tr>
+			</table>
 		</form>
 	</body>
 </HTML>
