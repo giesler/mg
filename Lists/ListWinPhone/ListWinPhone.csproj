@@ -197,22 +197,22 @@
     <None Include="Service References\ListData\giesler.org.lists.ListData.UpdateListReturnValue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ListData\lds3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ListData\lds31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ListData\lds32.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ListData\ListDataServiceEndpoint.wsdl" />
+    <None Include="Service References\ListData\lds.wsdl" />
     <None Include="Service References\ListData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ListData\lds1.disco" />
     <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\ListData\lds.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\lds1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\lds2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ListData\ListDataServiceEndpoint.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -227,9 +227,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ListData\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Externals\Microsoft.Live\Microsoft.Live.csproj">
       <Project>{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}</Project>
       <Name>Microsoft.Live</Name>
@@ -238,6 +235,9 @@
       <Project>{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}</Project>
       <Name>System.Data.Services.Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ListData\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

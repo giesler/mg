@@ -257,11 +257,11 @@ namespace giesler.org.lists
 
         public void SaveSettings()
         {
-            SetAppSetting("LastRefreshTime", lastRefreshTime.ToString());
-            SetAppSetting("SelectedList", App.SelectedList.ToString());
-
             lock (this.settingsLockObject)
             {
+                SetAppSetting("LastRefreshTime", lastRefreshTime.ToString());
+                SetAppSetting("SelectedList", App.SelectedList.ToString());
+
                 settings.Save();
             }
         }

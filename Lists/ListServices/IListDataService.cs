@@ -7,7 +7,7 @@ using System.Text;
 
 namespace msn2.net.ShoppingList
 {
-    [ServiceContract]
+    [ServiceContract(Namespace="http://svc.listgo.mobi")]
     public interface IListDataService
     {
         [OperationContract]

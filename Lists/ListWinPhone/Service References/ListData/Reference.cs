@@ -118,9 +118,9 @@ namespace giesler.org.lists.ListData {
         
         private System.Guid UniqueIdField;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListPerson> ListPersonsField;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListPerson> ListPersonsField;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItemsField;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItemsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id {
@@ -175,7 +175,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListPerson> ListPersons {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListPerson> ListPersons {
             get {
                 return this.ListPersonsField;
             }
@@ -188,7 +188,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItems {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItems {
             get {
                 return this.ListItemsField;
             }
@@ -883,13 +883,13 @@ namespace giesler.org.lists.ListData {
         
         private System.Guid UniqueIdField;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListPerson> ListPersonsField;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListPerson> ListPersonsField;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItemsField;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItemsField;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItems1Field;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItems1Field;
         
-        private System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.PersonDevice> PersonDevicesField;
+        private System.Collections.Generic.List<giesler.org.lists.ListData.PersonDevice> PersonDevicesField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id {
@@ -944,7 +944,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListPerson> ListPersons {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListPerson> ListPersons {
             get {
                 return this.ListPersonsField;
             }
@@ -957,7 +957,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItems {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItems {
             get {
                 return this.ListItemsField;
             }
@@ -970,7 +970,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.ListItem> ListItems1 {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ListItems1 {
             get {
                 return this.ListItems1Field;
             }
@@ -983,7 +983,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.PersonDevice> PersonDevices {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.PersonDevice> PersonDevices {
             get {
                 return this.PersonDevicesField;
             }
@@ -1096,80 +1096,80 @@ namespace giesler.org.lists.ListData {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ListData.IListDataService")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://svc.listgo.mobi", ConfigurationName="ListData.IListDataService")]
     public interface IListDataService {
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/AddList", ReplyAction="http://tempuri.org/IListDataService/AddListResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/AddList", ReplyAction="http://svc.listgo.mobi/IListDataService/AddListResponse")]
         System.IAsyncResult BeginAddList(giesler.org.lists.ListData.ClientAuthenticationData auth, string name, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.AddListReturnValue EndAddList(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/UpdateList", ReplyAction="http://tempuri.org/IListDataService/UpdateListResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/UpdateList", ReplyAction="http://svc.listgo.mobi/IListDataService/UpdateListResponse")]
         System.IAsyncResult BeginUpdateList(giesler.org.lists.ListData.ClientAuthenticationData auth, giesler.org.lists.ListData.List list, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.UpdateListReturnValue EndUpdateList(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/DeleteList", ReplyAction="http://tempuri.org/IListDataService/DeleteListResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/DeleteList", ReplyAction="http://svc.listgo.mobi/IListDataService/DeleteListResponse")]
         System.IAsyncResult BeginDeleteList(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid uniqueId, System.AsyncCallback callback, object asyncState);
         
         void EndDeleteList(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetLists", ReplyAction="http://tempuri.org/IListDataService/GetListsResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetLists", ReplyAction="http://svc.listgo.mobi/IListDataService/GetListsResponse")]
         System.IAsyncResult BeginGetLists(giesler.org.lists.ListData.ClientAuthenticationData auth, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> EndGetLists(System.IAsyncResult result);
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> EndGetLists(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetAll", ReplyAction="http://tempuri.org/IListDataService/GetAllResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetAll", ReplyAction="http://svc.listgo.mobi/IListDataService/GetAllResponse")]
         System.IAsyncResult BeginGetAll(giesler.org.lists.ListData.ClientAuthenticationData auth, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> EndGetAll(System.IAsyncResult result);
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> EndGetAll(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetListItems", ReplyAction="http://tempuri.org/IListDataService/GetListItemsResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetListItems", ReplyAction="http://svc.listgo.mobi/IListDataService/GetListItemsResponse")]
         System.IAsyncResult BeginGetListItems(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> EndGetListItems(System.IAsyncResult result);
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> EndGetListItems(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetAllListItems", ReplyAction="http://tempuri.org/IListDataService/GetAllListItemsResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetAllListItems", ReplyAction="http://svc.listgo.mobi/IListDataService/GetAllListItemsResponse")]
         System.IAsyncResult BeginGetAllListItems(giesler.org.lists.ListData.ClientAuthenticationData auth, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> EndGetAllListItems(System.IAsyncResult result);
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> EndGetAllListItems(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/AddListItem", ReplyAction="http://tempuri.org/IListDataService/AddListItemResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/AddListItem", ReplyAction="http://svc.listgo.mobi/IListDataService/AddListItemResponse")]
         System.IAsyncResult BeginAddListItem(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, string name, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.AddListItemReturnValue EndAddListItem(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/UpdateListItem", ReplyAction="http://tempuri.org/IListDataService/UpdateListItemResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/UpdateListItem", ReplyAction="http://svc.listgo.mobi/IListDataService/UpdateListItemResponse")]
         System.IAsyncResult BeginUpdateListItem(giesler.org.lists.ListData.ClientAuthenticationData auth, giesler.org.lists.ListData.ListItem item, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.UpdateListItemReturnData EndUpdateListItem(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/DeleteListItem", ReplyAction="http://tempuri.org/IListDataService/DeleteListItemResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/DeleteListItem", ReplyAction="http://svc.listgo.mobi/IListDataService/DeleteListItemResponse")]
         System.IAsyncResult BeginDeleteListItem(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listItemUniqueId, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.DeleteListItemReturnData EndDeleteListItem(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetLastChangeTime", ReplyAction="http://tempuri.org/IListDataService/GetLastChangeTimeResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetLastChangeTime", ReplyAction="http://svc.listgo.mobi/IListDataService/GetLastChangeTimeResponse")]
         System.IAsyncResult BeginGetLastChangeTime(giesler.org.lists.ListData.ClientAuthenticationData auth, System.AsyncCallback callback, object asyncState);
         
         System.DateTime EndGetLastChangeTime(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/GetPerson", ReplyAction="http://tempuri.org/IListDataService/GetPersonResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/GetPerson", ReplyAction="http://svc.listgo.mobi/IListDataService/GetPersonResponse")]
         System.IAsyncResult BeginGetPerson(string liveUserId, string name, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.Person EndGetPerson(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/UpdatePerson", ReplyAction="http://tempuri.org/IListDataService/UpdatePersonResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/UpdatePerson", ReplyAction="http://svc.listgo.mobi/IListDataService/UpdatePersonResponse")]
         System.IAsyncResult BeginUpdatePerson(giesler.org.lists.ListData.ClientAuthenticationData auth, giesler.org.lists.ListData.Person person, System.AsyncCallback callback, object asyncState);
         
         void EndUpdatePerson(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/AddDevice", ReplyAction="http://tempuri.org/IListDataService/AddDeviceResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/AddDevice", ReplyAction="http://svc.listgo.mobi/IListDataService/AddDeviceResponse")]
         System.IAsyncResult BeginAddDevice(giesler.org.lists.ListData.ClientAuthenticationData auth, string deviceName, System.AsyncCallback callback, object asyncState);
         
         giesler.org.lists.ListData.PersonDevice EndAddDevice(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IListDataService/RemoveDevice", ReplyAction="http://tempuri.org/IListDataService/RemoveDeviceResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/RemoveDevice", ReplyAction="http://svc.listgo.mobi/IListDataService/RemoveDeviceResponse")]
         System.IAsyncResult BeginRemoveDevice(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid deviceId, System.AsyncCallback callback, object asyncState);
         
         void EndRemoveDevice(System.IAsyncResult result);
@@ -1228,10 +1228,10 @@ namespace giesler.org.lists.ListData {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> Result {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult>)(this.results[0]));
+                return ((System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult>)(this.results[0]));
             }
         }
     }
@@ -1247,10 +1247,10 @@ namespace giesler.org.lists.ListData {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> Result {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult>)(this.results[0]));
+                return ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult>)(this.results[0]));
             }
         }
     }
@@ -1266,10 +1266,10 @@ namespace giesler.org.lists.ListData {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> Result {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult>)(this.results[0]));
+                return ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult>)(this.results[0]));
             }
         }
     }
@@ -1285,10 +1285,10 @@ namespace giesler.org.lists.ListData {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> Result {
+        public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult>)(this.results[0]));
+                return ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult>)(this.results[0]));
             }
         }
     }
@@ -1737,7 +1737,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> giesler.org.lists.ListData.IListDataService.EndGetLists(System.IAsyncResult result) {
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> giesler.org.lists.ListData.IListDataService.EndGetLists(System.IAsyncResult result) {
             return base.Channel.EndGetLists(result);
         }
         
@@ -1747,7 +1747,7 @@ namespace giesler.org.lists.ListData {
         }
         
         private object[] OnEndGetLists(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetLists(result);
+            System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetLists(result);
             return new object[] {
                     retVal};
         }
@@ -1783,7 +1783,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> giesler.org.lists.ListData.IListDataService.EndGetAll(System.IAsyncResult result) {
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> giesler.org.lists.ListData.IListDataService.EndGetAll(System.IAsyncResult result) {
             return base.Channel.EndGetAll(result);
         }
         
@@ -1793,7 +1793,7 @@ namespace giesler.org.lists.ListData {
         }
         
         private object[] OnEndGetAll(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetAll(result);
+            System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetAll(result);
             return new object[] {
                     retVal};
         }
@@ -1829,7 +1829,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> giesler.org.lists.ListData.IListDataService.EndGetListItems(System.IAsyncResult result) {
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> giesler.org.lists.ListData.IListDataService.EndGetListItems(System.IAsyncResult result) {
             return base.Channel.EndGetListItems(result);
         }
         
@@ -1840,7 +1840,7 @@ namespace giesler.org.lists.ListData {
         }
         
         private object[] OnEndGetListItems(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetListItems(result);
+            System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetListItems(result);
             return new object[] {
                     retVal};
         }
@@ -1877,7 +1877,7 @@ namespace giesler.org.lists.ListData {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> giesler.org.lists.ListData.IListDataService.EndGetAllListItems(System.IAsyncResult result) {
+        System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> giesler.org.lists.ListData.IListDataService.EndGetAllListItems(System.IAsyncResult result) {
             return base.Channel.EndGetAllListItems(result);
         }
         
@@ -1887,7 +1887,7 @@ namespace giesler.org.lists.ListData {
         }
         
         private object[] OnEndGetAllListItems(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetAllListItems(result);
+            System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndGetAllListItems(result);
             return new object[] {
                     retVal};
         }
@@ -2423,9 +2423,9 @@ namespace giesler.org.lists.ListData {
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> EndGetLists(System.IAsyncResult result) {
+            public System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> EndGetLists(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult> _result = ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetListsResult>)(base.EndInvoke("GetLists", _args, result)));
+                System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult> _result = ((System.Collections.Generic.List<giesler.org.lists.ListData.GetListsResult>)(base.EndInvoke("GetLists", _args, result)));
                 return _result;
             }
             
@@ -2436,9 +2436,9 @@ namespace giesler.org.lists.ListData {
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> EndGetAll(System.IAsyncResult result) {
+            public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> EndGetAll(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult> _result = ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllResult>)(base.EndInvoke("GetAll", _args, result)));
+                System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult> _result = ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllResult>)(base.EndInvoke("GetAll", _args, result)));
                 return _result;
             }
             
@@ -2450,9 +2450,9 @@ namespace giesler.org.lists.ListData {
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> EndGetListItems(System.IAsyncResult result) {
+            public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> EndGetListItems(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> _result = ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult>)(base.EndInvoke("GetListItems", _args, result)));
+                System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> _result = ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult>)(base.EndInvoke("GetListItems", _args, result)));
                 return _result;
             }
             
@@ -2463,9 +2463,9 @@ namespace giesler.org.lists.ListData {
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> EndGetAllListItems(System.IAsyncResult result) {
+            public System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> EndGetAllListItems(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult> _result = ((System.Collections.ObjectModel.ObservableCollection<giesler.org.lists.ListData.GetAllListItemsResult>)(base.EndInvoke("GetAllListItems", _args, result)));
+                System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult> _result = ((System.Collections.Generic.List<giesler.org.lists.ListData.GetAllListItemsResult>)(base.EndInvoke("GetAllListItems", _args, result)));
                 return _result;
             }
             
