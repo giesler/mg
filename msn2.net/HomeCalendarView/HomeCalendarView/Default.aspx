@@ -82,7 +82,7 @@
         }
         .cityName
         {
-        	font-size: 8pt;
+            font-size: 8pt;
         }
         .eventList
         {
@@ -138,32 +138,48 @@
             <div class="headerRow">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
                     <tr>
-                        <td width="90" valign="top">
+                        <td valign="top" width="80">
+                            <table border="1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:HyperLink ID="webcamUrl" runat="server" BorderWidth="0" NavigateUrl="~/Webcam.aspx" Target=_blank>
+                                            <asp:Image runat="server" ID="webcamPicture" AlternateText="Webcam" Height="60" Width="80" ImageUrl="~/Webcam.aspx" BorderWidth="0" />
+                                        </asp:HyperLink>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td rowspan="2" width="8">
+                            &nbsp;
+                        </td>
+                        <td width="150" valign="top">
                             <asp:Label runat="server" ID="todayLabel" CssClass="today">today</asp:Label><br />
                             <small>
                                 <asp:Label runat="server" ID="todayDateLabel" /></small>
+                                <br />
+                                <br />
+                                                        <asp:LinkButton runat="server" ID="selectKirkland" CssClass="cityName" Text="Kirkland"
+                            OnClick="onCityClick" />
+                        &nbsp;|&nbsp;<asp:LinkButton runat="server" ID="selectPackwood" CssClass="cityName"
+                            OnClick="onCityClick" Text="Packwood" />
+
                         </td>
                         <td rowspan="2" width="8">
                             &nbsp;
                         </td>
                         <td rowspan="2" valign="top">
                             <br />
-                            <uc1:CalendarItemDisplay ID="todaysEvents" runat="server" />
+                            <uc1:CalendarItemDisplay ID="todaysEvents" runat="server" Visible="false" />
                         </td>
-                        <td rowspan="2" width="250">
-                            <div style="text-align: center; vertical-align: middle; height: 100%; width: 100%;"
-                                class="dimText" runat="server" id="currentConditionsLoading">
-                                loading current weather...
-                            </div>
+                        <td rowspan="2" width="250" valign="top">
+                            <asp:Panel Style="text-align: center; vertical-align: middle; height: 100%; width: 100%;"
+                                class="dimText" runat="server" ID="currentConditionsLoading" runat="server">
+                                <asp:Label runat="server" ID="currentLoadingMessage">loading current conditions...</asp:Label>
+                            </asp:Panel>
                             <table cellpadding="2" cellspacing="0" runat="server" id="currentConditionsTable"
                                 visible="false">
                                 <tr>
                                     <td align="right" valign="top">
-                                        <asp:Panel runat=server Visible=false>
-                                        <asp:LinkButton runat="server" ID="selectKirkland" CssClass="cityName" Text="Kirkland" OnClick="onCityClick" />
-                                        &nbsp;|&nbsp;<asp:LinkButton runat="server" ID="selectRandle" CssClass="cityName" OnClick="onCityClick"
-                                            Text="Randle" />
-                                        </asp:Panel>
                                         <asp:Label runat="server" ID="currentTemp" CssClass="nowTemp">32</asp:Label>
                                         <br />
                                         <asp:Label runat="server" ID="tempUpdateTime" CssClass="propText" ForeColor="Gray" />
@@ -175,12 +191,11 @@
                                         <table cellpadding="1" cellspacing="0">
                                             <tr>
                                                 <td class="propText">
-                                                    <asp:Label runat="server" ID="currentConditionText">Cloudy</asp:Label><br />
+                                                    <asp:Label runat="server" ID="currentConditionText">Loading...</asp:Label><br />
                                                     Wind:
                                                     <div style="display: inline">
                                                         <asp:Label runat="server" ID="windLabel" /></div>
                                                     <br />
-                                                    Wind chill:
                                                     <asp:Label runat="server" ID="windChill" /><br />
                                                     Visibility:
                                                     <asp:Label runat="server" ID="visibility" />
@@ -192,7 +207,7 @@
                                 </tr>
                             </table>
                         </td>
-                        <td align="center" rowspan="2" width="120" id="warningCell" runat="server" visible="false">
+                        <td align="center" rowspan="2" width="120" id="warningCell" runat="server" visible="false" valign="top">
                             <table cellpadding="2" cellspacing="0">
                                 <tr>
                                     <td style="font-size: 8pt; color: Red; font-weight: bold">
@@ -206,7 +221,7 @@
                                 </tr>
                             </table>
                         </td>
-                        <td align="center" rowspan="2" width="170px">
+                        <td align="center" rowspan="2" width="170px" valign="top">
                             <table cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
@@ -271,7 +286,7 @@
                             <ucb:ForecastItem runat="server" ID="day1Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px;">
+                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
                         <uc1:CalendarItemDisplay ID="day1Events" runat="server" />
                     </div>
                 </div>
@@ -287,7 +302,7 @@
                             <ucb:ForecastItem runat="server" ID="day2Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px;">
+                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
                         <uc1:CalendarItemDisplay ID="day2Events" runat="server" />
                     </div>
                 </div>
@@ -303,7 +318,7 @@
                             <ucb:ForecastItem runat="server" ID="day3Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px;">
+                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
                         <uc1:CalendarItemDisplay ID="day3Events" runat="server" />
                     </div>
                 </div>
@@ -319,20 +334,19 @@
                             <ucb:ForecastItem runat="server" ID="day4Low" TemperatureExtreme="Low" Visible="false" />
                         </div>
                     </div>
-                    <div class="eventList" style="height: 16px;">
+                    <div class="eventList" style="height: 16px; visibility: hidden; position:fixed">
                         <uc1:CalendarItemDisplay ID="day4Events" runat="server" />
                     </div>
                 </div>
-                <div style="height: 15px; padding: 2px 2px 2px 2px; width: 100%; background-color: #B6BCC4;">
+                <div style="height: 15px; padding: 2px 2px 2px 2px; width: 100%; background-color: #B6BCC4; visibility: hidden; position: fixed">
                     <div style="float: left">
-                        Next&nbsp;2&nbsp;weeks:&nbsp;&nbsp;
+                        <!--Next&nbsp;2&nbsp;weeks:&nbsp;&nbsp;-->
                     </div>
                     <div style="float: left">
                         <asp:Panel runat="server" ID="upcomingEvents" />
                     </div>
                     <div style="float: right; padding: 2px 4px 2px 2px">
-                  Calendar: 
-                        <a href="http://home.msn2.net/Lists/Events/NewForm.aspx?RootFolder=%2FLists%2FEvents&Source=http%3A%2F%2Fhome%2Emsn2%2Enet%2FLists%2FEvents%2Fcalendar%2Easpx"
+                        Calendar: <a href="http://home.msn2.net/Lists/Events/NewForm.aspx?RootFolder=%2FLists%2FEvents&Source=http%3A%2F%2Fhome%2Emsn2%2Enet%2FLists%2FEvents%2Fcalendar%2Easpx"
                             target="_top">Add</a> | <a href="http://home.msn2.net/Lists/Events/" target="_top">View</a>
                     </div>
                 </div>
