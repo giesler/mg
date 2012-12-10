@@ -514,7 +514,11 @@ namespace msn2.net.Pictures.Controls
 
             this.autoRotateFlag = this.autoRotate.Checked;
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(CreateThumbs), added);
+            CreateThumbs(added);
+
+            this.CloseStatus();
+
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(CreateThumbs), added);
 
             FinishImport();
         }
@@ -589,12 +593,19 @@ namespace msn2.net.Pictures.Controls
             }
 
             // close dialog
-            this.stat.Invoke(new MethodInvoker(CloseStatus));
+            //this.stat.Invoke(new MethodInvoker(CloseStatus));
         }
 
         private void CloseStatus()
         {
-            stat.Close();
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(this.CloseStatus));
+            }
+            else
+            {
+                stat.Close();
+            }
         }
 
         private void MoveFile(string source, string dest)

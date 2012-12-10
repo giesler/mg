@@ -12,6 +12,7 @@ namespace msn2.net.Pictures.Controls
         TreeNode categoryNode;
         TreeNode dateTakenNode;
         TreeNode dateAddedNode;
+        PicContext picContext;
 
         ContextMenu categoryContextMenu;
 
@@ -51,8 +52,10 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public void Load()
+        public void Load(PicContext ctx)
         {
+            this.picContext = PicContext.Load(ctx.Config, ctx.CurrentUser.Id);
+
             if (this.DesignMode == false)
             {
                 this.ReloadCategories();
@@ -93,11 +96,12 @@ namespace msn2.net.Pictures.Controls
             try
             {
                 // clear tree
-                if (PicContext.Current != null)
+                if (this.picContext != null)
                 {
                     bool noSelectPath = this.selectPath == null;
                     // load first node
-                    Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+
+                    Category rootCategory = this.picContext.CategoryManager.GetRootCategory();
 
                     // load first level
                     FillChildren(rootCategory, this.categoryNode, 1);
@@ -134,7 +138,8 @@ namespace msn2.net.Pictures.Controls
                 new object[] { n });
 
             // load child nodes from dvCategory
-            List<Category> categories = PicContext.Current.CategoryManager.GetChildrenCategories(
+            List<Category> categories = null;
+            categories = this.picContext.CategoryManager.GetChildrenCategories(
                 parentCategory.Id);
 
             foreach (Category category in categories)
@@ -167,7 +172,7 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.InvokeRequired == true)
             {
-                this.Invoke(new TreeNodeHandler(this.SelectAndExpandToNode), node);
+                this.BeginInvoke(new TreeNodeHandler(this.SelectAndExpandToNode), node);
             }
             else
             {
@@ -193,7 +198,7 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.InvokeRequired == true)
             {
-                this.Invoke(new AddTreeNodeDelegate(this.AddTreeNode), parentNode, childNode);
+                this.BeginInvoke(new AddTreeNodeDelegate(this.AddTreeNode), parentNode, childNode);
             }
             else
             {
@@ -217,9 +222,9 @@ namespace msn2.net.Pictures.Controls
                 CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
                 Category category = new Category();
                 category.CategoryGroups.Add(new CategoryGroup { Category = category, GroupID = 1 });
-                category.ParentId = parentNode == null ? PicContext.Current.CategoryManager.GetRootCategory().Id : parentNode.Category.Id;
+                category.ParentId = parentNode == null ? this.picContext.CategoryManager.GetRootCategory().Id : parentNode.Category.Id;
 
-                CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, category);
+                CategoryEditDialog ec = new CategoryEditDialog(this.picContext, category);
                 if (ec.ShowDialog() == DialogResult.OK)
                 {
                     // add new tree node
@@ -239,7 +244,7 @@ namespace msn2.net.Pictures.Controls
             CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
             if (node != null)
             {
-                CategoryEditDialog ec = new CategoryEditDialog(PicContext.Current, node.Category);
+                CategoryEditDialog ec = new CategoryEditDialog(this.picContext, node.Category);
                 if (ec.ShowDialog() == DialogResult.OK)
                 {
                     node.Update(ec.Category);
@@ -257,8 +262,8 @@ namespace msn2.net.Pictures.Controls
                 {
                     try
                     {
-                        PicContext.Current.CategoryManager.MoveCategory(node.Category.Id, dialog.SelectedCategory.Id);
-                        Category movedCategory = PicContext.Current.CategoryManager.GetCategory(node.Category.Id);
+                        this.picContext.CategoryManager.MoveCategory(node.Category.Id, dialog.SelectedCategory.Id);
+                        Category movedCategory = this.picContext.CategoryManager.GetCategory(node.Category.Id);
 
                         this.SelectCategory(movedCategory);
                     }
@@ -301,16 +306,16 @@ namespace msn2.net.Pictures.Controls
         {
             TreeNode parentNode = (TreeNode)parentNodeObject;
 
-            DateCollection dates = null;
+            List<DateItem> dates = null;
             string fieldName = null;
             if (parentNode.Text.Contains("Taken") == true)
             {
-                dates = PicContext.Current.PictureManager.GetPictureDates();
+                dates = this.picContext.PictureManager.GetPictureDates();
                 fieldName = "PictureDate";
             }
             else
             {
-                dates = PicContext.Current.PictureManager.GetPictureAddedDates();
+                dates = this.picContext.PictureManager.GetPictureAddedDates();
                 fieldName = "PictureAddDate";
             }
 
@@ -321,7 +326,7 @@ namespace msn2.net.Pictures.Controls
             this.SetImageIndex(parentNode, 1);
         }
 
-        delegate void DateLoadDelegate(DateCollection dates, string fieldName, TreeNodeCollection nodes, int imageIndex);
+        delegate void DateLoadDelegate(List<DateItem> dates, string fieldName, TreeNodeCollection nodes, int imageIndex);
 
         #endregion
 
@@ -337,7 +342,48 @@ namespace msn2.net.Pictures.Controls
                         where p.PictureCategories.Any(pc => pc.Category.Path.StartsWith(category.Path))
                         select p;
             }
-            else
+            else if (this.SelectedNode is DateFilterTreeNode)
+            {
+                DateFilterTreeNode filter = (DateFilterTreeNode)this.SelectedNode;
+
+                if (filter.Level == 3)
+                {
+                    bool dateAdded = filter.Parent.Parent.Parent.Text.Contains("Added");
+
+                    DateTime fullDate = DateTime.Parse(filter.Text + ", " + filter.Parent.Parent.Text);
+
+                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                            where (dateAdded && p.PictureAddDate.Value.Date == fullDate.Date)
+                                || (!dateAdded && p.PictureDate.Date == fullDate.Date)
+                            select p;
+                }
+                else if (filter.Level == 2)
+                {
+                    bool dateAdded = filter.Parent.Parent.Text.Contains("Added");
+                    string tag = filter.Tag.ToString();
+                    int month = int.Parse(tag.Substring(tag.LastIndexOf("=") + 1));
+                    int year = int.Parse(filter.Parent.Text);
+
+                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                            where (dateAdded && p.PictureAddDate.Value.Month == month
+                                        && p.PictureAddDate.Value.Year == year)
+                                || (!dateAdded && p.PictureDate.Month == month
+                                        && p.PictureDate.Year == year)
+                            select p;
+                }
+                else if (filter.Level == 1)
+                {
+                    bool dateAdded = filter.Parent.Text.Contains("Added");
+                    int year = int.Parse(filter.Text);
+                    
+                    query = from p in PicContext.Current.PictureManager.GetPictures()
+                            where (dateAdded && p.PictureAddDate.Value.Year == year)
+                                || (!dateAdded && p.PictureDate.Year == year)
+                            select p;
+                }
+            }
+
+            if (query == null)
             {
                 query = from p in PicContext.Current.PictureManager.GetPictures()
                         select p;
@@ -429,4 +475,3 @@ namespace msn2.net.Pictures.Controls
     public delegate void FilterChangedHandler(string whereClause);
 
 }
-

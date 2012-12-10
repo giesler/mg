@@ -14,7 +14,7 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class DateSelector : UserControl
     {
-        public DateSelector(DateCollection dates, string fieldName)
+        public DateSelector(List<DateItem> dates, string fieldName)
         {
             InitializeComponent();
 
@@ -23,7 +23,7 @@ namespace msn2.net.Pictures.Controls
             this.tv.HideSelection = false;
         }
 
-        public static void LoadTreeView(DateCollection dates, string fieldName, TreeNodeCollection rootCollection, int imageIndex)
+        public static void LoadTreeView(List<DateItem> dates, string fieldName, TreeNodeCollection rootCollection, int imageIndex)
         {
             foreach (DateItem item in dates)
             {
@@ -34,7 +34,7 @@ namespace msn2.net.Pictures.Controls
                 //    nYear.Expand();
                 //}
 
-                DateFilterTreeNode nMonth = GetNode(nYear.Nodes, MonthString(item.Month), imageIndex);
+                DateFilterTreeNode nMonth = GetNode(nYear.Nodes, PictureManager.MonthString(item.Month), imageIndex);
                 nMonth.Tag = "DatePart(yyyy, " + fieldName + ") = " + nYear.Text + " AND "
                     + "DatePart(mm, " + fieldName + ") = " + item.Month.ToString();
 
@@ -43,26 +43,6 @@ namespace msn2.net.Pictures.Controls
                     + "DatePart(mm, " + fieldName + ") = " + item.Month.ToString() + " AND "
                     + "DatePart(dd, " + fieldName + ") = " + item.Day.ToString();
             }
-        }
-
-        private static string MonthString(int Month)
-        {
-            switch (Month)
-            {
-                case 1: { return "January"; }
-                case 2: { return "February"; }
-                case 3: { return "March"; }
-                case 4: { return "April"; }
-                case 5: { return "May"; }
-                case 6: { return "June"; }
-                case 7: { return "July"; }
-                case 8: { return "August"; }
-                case 9: { return "September"; }
-                case 10: { return "October"; }
-                case 11: { return "November"; }
-                case 12: { return "December"; }
-            }
-            return "Invalid Month";
         }
         
         private static DateFilterTreeNode GetNode(TreeNodeCollection cNodes, string sNode, int imageIndex)

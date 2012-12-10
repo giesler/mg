@@ -27,6 +27,13 @@ namespace msn2.net.Pictures
             return this.context.DataContext.Categories.FirstOrDefault(c => c.Id == categoryId);
         }
 
+        public Category RefreshCategory(Category category)
+        {
+            int id = category.Id;
+            this.context.DataContext.Refresh(RefreshMode.OverwriteCurrentValues, category);
+            return this.GetCategory(id);
+        }
+
         public Category GetRootCategory()
         {
             return this.GetCategory(1);

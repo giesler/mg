@@ -255,6 +255,20 @@ namespace msn2.net.Pictures
                     join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
                     join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
                     where pc.CategoryID == categoryId && per.PersonID == this.picContext.CurrentUser.Id
+                    orderby p.PictureDate
+                    select p;
+
+            return q.Distinct().ToList();
+        }
+
+        public List<Picture> GetPicturesByDate(DateTime fromTime, DateTime toTime)
+        {
+            var q = from p in this.picContext.DataContext.Pictures
+                    join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.PictureID
+                    join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
+                    join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
+                    where per.PersonID == this.picContext.CurrentUser.Id 
+                        && p.PictureDate > fromTime && p.PictureDate < toTime
                     select p;
 
             return q.Distinct().ToList();
@@ -418,30 +432,32 @@ namespace msn2.net.Pictures
             return people;
         }
 
-        public DateCollection GetPictureDates()
+        public List<DateItem> GetPictureDates()
         {
             return GetDates("p_GetPictureDates");
         }
 
-        public DateCollection GetPictureAddedDates()
+        public List<DateItem> GetPictureAddedDates()
         {
             return GetDates("p_GetPictureAddedDates");
         }
 
-        private DateCollection GetDates(string proc)
+        private List<DateItem> GetDates(string proc)
         {
             SqlConnection cn = new SqlConnection(this.picContext.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand(proc, cn);
+            cmd.Parameters.Add("@personId", SqlDbType.Int);
+            cmd.Parameters["@personId"].Value = this.picContext.CurrentUser.Id;
             cmd.CommandType = CommandType.StoredProcedure;
 
-            DateCollection col = new DateCollection();
+            List<DateItem> col = new List<DateItem>();
 
             cn.Open();
 
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                col.Add(dr.GetInt32(0), dr.GetInt32(1), dr.GetInt32(2));
+                col.Add(new DateItem() { Year = dr.GetInt32(0), Month = dr.GetInt32(1), Day = dr.GetInt32(2) });
             }
             dr.Close();
             cn.Close();
@@ -454,26 +470,27 @@ namespace msn2.net.Pictures
         {
             return this.picContext.DataContext.Pictures;
         }
-    }
 
-    public class DateCollection : ReadOnlyCollectionBase
-    {
-        internal void Add(int year, int month, int day)
+        public static string MonthString(int Month)
         {
-            DateItem item = new DateItem();
-            item.Year = year;
-            item.Month = month;
-            item.Day = day;
-            InnerList.Add(item);
-        }
-
-        public DateItem this[int index]
-        {
-            get
+            switch (Month)
             {
-                return this[index] as DateItem;
+                case 1: { return "January"; }
+                case 2: { return "February"; }
+                case 3: { return "March"; }
+                case 4: { return "April"; }
+                case 5: { return "May"; }
+                case 6: { return "June"; }
+                case 7: { return "July"; }
+                case 8: { return "August"; }
+                case 9: { return "September"; }
+                case 10: { return "October"; }
+                case 11: { return "November"; }
+                case 12: { return "December"; }
             }
+            return "Invalid Month";
         }
+
     }
 
     public class DateItem

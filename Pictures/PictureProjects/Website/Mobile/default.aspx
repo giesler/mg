@@ -36,6 +36,10 @@
         </table>
         <hr />
         <div class="title">
+            <asp:HyperLink runat=server NavigateUrl="~/Mobile/Search.aspx" Text="Search" />
+        </div>
+        <hr />
+        <div class="title">
             Random Picture</div>
         <table>
             <tr>

@@ -129,7 +129,7 @@ namespace msn2.net.Pictures.Controls
             // Set the connection string
             cn.ConnectionString = PicContext.Current.Config.ConnectionString;
 
-            this.filter.Load();
+            this.filter.Load(PicContext.Current);
 
             pictureList1.ContextMenu = mnuPictureList;
 
@@ -934,7 +934,7 @@ namespace msn2.net.Pictures.Controls
                 cacheStatus.Current++;
             }
 
-            ds.WriteXml(@"c:\deletes.xml");
+            ds.WriteXml(@"deletes.xml");
             da.Update(ds, "PictureCache");
 
             //			cacheStatus.Dispose();
@@ -952,14 +952,15 @@ namespace msn2.net.Pictures.Controls
                     select p;
 
             cacheStatus.StatusText = "Creating cached images...";
-            int count = q.Count();
+            cacheStatus.Max = q.Count();
+            int index = 0;
 
             foreach (Picture picture in q)
             {
                 util.CreateUpdateCache(picture.Id);
 
-                count++;
-                cacheStatus.Current = count;
+                index++;
+                cacheStatus.Current = index;
             }
 
             if (cacheStatus.InvokeRequired)

@@ -11,7 +11,7 @@
 namespace pics.Controls.Mobile {
     
     
-    public partial class Pictures {
+    public partial class Search {
         
         /// <summary>
         /// form1 control.
@@ -23,76 +23,67 @@ namespace pics.Controls.Mobile {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// categoryHeading control.
+        /// fromMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label categoryHeading;
+        protected global::System.Web.UI.WebControls.DropDownList fromMonth;
         
         /// <summary>
-        /// categoryDescription control.
+        /// fromDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label categoryDescription;
+        protected global::System.Web.UI.WebControls.DropDownList fromDay;
         
         /// <summary>
-        /// content control.
+        /// fromYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel content;
+        protected global::System.Web.UI.WebControls.DropDownList fromYear;
         
         /// <summary>
-        /// pager control.
+        /// toMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pager;
+        protected global::System.Web.UI.WebControls.DropDownList toMonth;
         
         /// <summary>
-        /// pictureCount control.
+        /// toDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label pictureCount;
+        protected global::System.Web.UI.WebControls.DropDownList toDay;
         
         /// <summary>
-        /// page control.
+        /// toYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList page;
+        protected global::System.Web.UI.WebControls.DropDownList toYear;
         
         /// <summary>
-        /// pagesCount control.
+        /// search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label pagesCount;
-        
-        /// <summary>
-        /// pageCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList pageCount;
+        protected global::System.Web.UI.WebControls.LinkButton search;
         
         /// <summary>
         /// categoryLink control.

@@ -123,6 +123,7 @@
     <Content Include="Mobile\Picture.aspx" />
     <Content Include="Mobile\PictureDetails.aspx" />
     <Content Include="Mobile\Pictures.aspx" />
+    <Content Include="Mobile\Search.aspx" />
     <Content Include="msn2.css" />
     <Content Include="picview.aspx" />
     <Content Include="picviewss.aspx" />
@@ -279,6 +280,13 @@
     </Compile>
     <Compile Include="Mobile\Pictures.aspx.designer.cs">
       <DependentUpon>Pictures.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="picview.aspx.cs">
       <DependentUpon>picview.aspx</DependentUpon>

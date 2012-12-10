@@ -276,9 +276,12 @@ namespace msn2.net.Pictures.Controls
                 else
                 {
                     removeGroups.ForEach(g => this.context.CategoryManager.RemoveGroup(this.category, g));
-                    this.context.SubmitChanges();
                 }
 
+                this.context.SubmitChanges();
+
+                this.category = this.context.CategoryManager.RefreshCategory(this.category);
+                
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

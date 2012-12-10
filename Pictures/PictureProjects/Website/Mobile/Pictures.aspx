@@ -24,6 +24,17 @@
         <asp:Label runat="server" ID="categoryDescription" />
     </div>
     <asp:Panel runat="server" ID="content" Width="100%" />
+    <div runat="server" id="pager">
+        <asp:Label runat="server" ID="pictureCount" />
+        pictures. Page
+        <asp:DropDownList runat="server" ID="page" OnSelectedIndexChanged="OnPageChanged"
+            AutoPostBack="true">
+        </asp:DropDownList>
+        of
+        <asp:Label runat="server" ID="pagesCount"></asp:Label>,
+        <asp:DropDownList runat="server" ID="pageCount" AutoPostBack="true" OnSelectedIndexChanged="OnPageChanged" />
+        pictures per page.
+    </div>
     <div class="footer">
         <hr />
         <a href="default.aspx">Home</a> |

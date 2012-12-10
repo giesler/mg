@@ -17,16 +17,93 @@ namespace pics.Controls.Mobile
 {
     public partial class Pictures : System.Web.UI.Page
     {
+        int categoryId = 0;
+        DateTime startTime = DateTime.MinValue;
+        DateTime endTime = DateTime.MaxValue;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            int categoryId = int.Parse(Request.QueryString["c"]);
+            if (Page.IsPostBack == false)
+            {
+                this.pageCount.Items.Add(new ListItem("10", "10"));
+                this.pageCount.Items.Add(new ListItem("20", "20"));
+                this.pageCount.Items.Add(new ListItem("50", "50"));
+                this.pageCount.Items.Add(new ListItem("100", "100"));
+                this.pageCount.SelectedIndex = 1;
+            }
 
-            Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
-            this.Page.Title = category.Name;
-            this.categoryHeading.Text = category.Name;
-            this.categoryDescription.Text = category.Description;
+            if (Request.QueryString["c"] != null)
+            {
+                this.categoryId = int.Parse(Request.QueryString["c"]);
 
-            List<Picture> pictures = PicContext.Current.PictureManager.GetPicturesByCategory(categoryId);
+                Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+                this.Page.Title = category.Name;
+                this.categoryHeading.Text = category.Name;
+                this.categoryDescription.Text = category.Description;
+            }
+            else
+            {
+                this.categoryHeading.Text = "Search Results";
+
+                this.startTime = DateTime.Parse(Request.QueryString["from"]).Date;
+                this.endTime = DateTime.Parse(Request.QueryString["to"]).Date;
+                this.endTime = this.endTime.AddDays(1).AddSeconds(-1);
+                                
+                this.categoryDescription.Text = this.startTime.Date.ToShortDateString() + " - " + this.endTime.Date.ToShortDateString();
+            }
+
+            if (this.IsPostBack == false)
+            {
+                LoadPictures(1);
+            }
+        }
+
+        void LoadPictures(int page)
+        {
+            List<Picture> pictures = null;
+
+            if (this.categoryId > 0)
+            {
+                pictures = PicContext.Current.PictureManager.GetPicturesByCategory(categoryId);
+            }
+            else
+            {
+                pictures = PicContext.Current.PictureManager.GetPicturesByDate(this.startTime, this.endTime);
+            }
+
+            this.pictureCount.Text = pictures.Count.ToString();
+            int pageCount = int.Parse(this.pageCount.SelectedValue);
+            if (pictures.Count > pageCount)
+            {
+                this.pager.Visible = true;
+
+                int totalPages = pictures.Count / pageCount;
+                if (pictures.Count % pageCount != 0)
+                {
+                    totalPages++;
+                }
+
+                this.page.Items.Clear();
+                this.pagesCount.Text = totalPages.ToString();
+                for (int i = 1; i <= totalPages; i++)
+                {
+                    ListItem item = new ListItem(i.ToString());
+                    this.page.Items.Add(item);
+                    if (i == page)
+                    {
+                        item.Selected = true;
+                    }
+                }
+
+                int skipCount = (page - 1) * 20;
+                pictures = pictures.Skip(skipCount).Take(pageCount).ToList();
+            }
+            else
+            {
+                this.pager.Visible = false;
+            }
+
+            this.content.Controls.Clear();
 
             Table t = new Table();
             t.CellPadding = 0;
@@ -79,6 +156,12 @@ namespace pics.Controls.Mobile
                 tc.Controls.Add(new HtmlLiteral("No pictures."));
             }
 
+        }
+
+        protected void OnPageChanged(object sender, EventArgs e)
+        {
+            int pageNumber = int.Parse(this.page.SelectedItem.Text);
+            LoadPictures(pageNumber);
         }
     }
 }

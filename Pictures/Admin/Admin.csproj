@@ -32,7 +32,7 @@
     <FallbackCulture>en-US</FallbackCulture>
     <UpdateUrlEnabled>false</UpdateUrlEnabled>
     <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>0AA922F2E16A3D625E641302FBDAF2D5BA4D9A77</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>72595102075B75A5E91B32DDF521C8CC7F4901FA</ManifestCertificateThumbprint>
     <ManifestKeyFile>
     </ManifestKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -57,7 +57,7 @@
     <WebPage>default.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>32</ApplicationRevision>
+    <ApplicationRevision>33</ApplicationRevision>
     <ApplicationVersion>2.5.125.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
