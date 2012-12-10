@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Documents;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Linq;
 using System.Diagnostics;
 
 namespace QSS
@@ -18,11 +19,16 @@ namespace QSS
         public string Path { get; private set; }
         public List<string> Files { get; private set; }
         public int CurrentIndex { get; private set; }
+        public List<string> SortedFiles { get; private set; }
+        public int CurrentSortedIndex { get; private set; }
         
         Timer timer = null;
+        bool showInfo = false;
         int interval = 6;
         bool loaded = false;
         Point? lastMousePoint = null;
+        bool randomMode = true;
+        bool paused = false;
 
         public MainWindow()
         {
@@ -35,15 +41,23 @@ namespace QSS
             this.ForceCursor = true;
         }
 
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            this.WindowState = System.Windows.WindowState.Maximized;
+        }
+
         void LoadPics(object sender)
         {
             string[] files =  Directory.GetFiles(this.Path, "*.jpg", SearchOption.AllDirectories);
             this.Files = new List<string>();
+            this.SortedFiles = new List<string>();
 
             List<string> random = new List<string>();
-            foreach (string file in files)
+            foreach (string file in files.OrderBy(s => s))
             {
                 random.Add(file);
+                this.SortedFiles.Add(file);
             }
 
             Random r = new Random();
@@ -81,25 +95,39 @@ namespace QSS
 
         void DisplayNextPicture(object sender)
         {
-            this.status.Visibility = Visibility.Collapsed;
-
-            while (true)
+            if (!this.paused)
             {
-                this.CurrentIndex++;
+                this.status.Visibility = Visibility.Collapsed;
 
-                Uri uri = new Uri(this.Files[this.CurrentIndex]);
+                if (this.randomMode)
+                {
+                    this.CurrentIndex++;
+                    this.SetImage(this.Files[this.CurrentIndex]);
+                }
+                else
+                {
+                    this.CurrentSortedIndex++;
+                    this.SetImage(this.SortedFiles[this.CurrentSortedIndex]);
+                }
+            }
+        }
 
-                try
-                {
-                    Trace.WriteLine("Setting image: " + uri.ToString());
-                    this.img.Source = new BitmapImage(uri);
-                    Trace.WriteLine("Image set");
-                    break;
-                }
-                catch (NotSupportedException ex)
-                {
-                    Trace.WriteLine("Not supported: " + uri.ToString());
-                }
+        void SetImage(string fileName)
+        {
+            Uri uri = new Uri(fileName);
+            this.img.Source = new BitmapImage(uri);
+            this.info.Content = fileName;
+
+            try
+            {
+                Trace.WriteLine("Setting image: " + uri.ToString());
+                this.img.Source = new BitmapImage(uri);
+                Trace.WriteLine("Image set");
+            }
+            catch (NotSupportedException)
+            {
+                Trace.WriteLine("Not supported: " + uri.ToString());
+                this.info.Content = "Error loading " + uri.ToString();
             }
         }
 
@@ -117,10 +145,21 @@ namespace QSS
             }
             else if (e.Key == System.Windows.Input.Key.Left)
             {
-                if (this.CurrentIndex > 0)
+                if (this.randomMode)
                 {
-                    this.CurrentIndex--;
-                    this.CurrentIndex--;
+                    if (this.CurrentIndex > 0)
+                    {
+                        this.CurrentIndex--;
+                        this.CurrentIndex--;
+                    }
+                }
+                else
+                {
+                    if (this.CurrentSortedIndex > 0)
+                    {
+                        this.CurrentSortedIndex--;
+                        this.CurrentSortedIndex--;
+                    }
                 }
                 this.CreateTimer(true);
             }
@@ -136,8 +175,38 @@ namespace QSS
             }
             else if (e.Key == System.Windows.Input.Key.Delete && this.CurrentIndex >= 0)
             {
-                this.DeletePic(this.Files[this.CurrentIndex]);
+                if (this.randomMode)
+                {
+                    this.DeletePic(this.Files[this.CurrentIndex]);
+                }
+                else
+                {
+                    this.DeletePic(this.SortedFiles[this.CurrentSortedIndex]);
+                }
                 this.CreateTimer(true);
+            }
+            else if (e.Key == Key.S || e.Key == Key.R)
+            {
+                if (this.randomMode)
+                {
+                    string currentFile = this.Files[this.CurrentSortedIndex];
+                    this.CurrentSortedIndex = this.SortedFiles.IndexOf(currentFile);
+                }
+                this.randomMode = !this.randomMode;
+            }
+            else if (e.Key == Key.Space)
+            {
+                this.paused = !this.paused;
+
+                if (!this.paused)
+                {
+                    this.CreateTimer(true);
+                }
+            }
+            else if (e.Key == Key.I)
+            {
+                this.showInfo = !this.showInfo;
+                this.info.Visibility = this.showInfo ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 

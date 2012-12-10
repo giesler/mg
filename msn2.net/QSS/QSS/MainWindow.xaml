@@ -1,7 +1,7 @@
 ﻿<Window x:Class="QSS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="QSS" WindowState="Maximized" Background="Black" WindowStyle="None" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0">
+        Title="QSS" WindowState="Normal" Background="Black" WindowStyle="None" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0" Padding="0">
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
@@ -10,5 +10,6 @@
         </Grid.RowDefinitions>
         <Label Content="loading" HorizontalAlignment="Center" Name="status" VerticalAlignment="Center" Grid.Row="1" Foreground="Gray"  />
         <Image Name="img" Stretch="Uniform" Grid.RowSpan="3" />
+        <Label Content="testing" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="2" Foreground="Gray" Background="Transparent" Visibility="Collapsed" FontSize="14" />
     </Grid>
 </Window>
