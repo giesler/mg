@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -15,6 +16,7 @@ namespace msn2.net.Pictures.Controls
         private Point mouseLocation;
 
         private Timer hideLoadingImageTimer = new Timer();
+        private bool displayPicInfo = false;
 
         public PictureScreenSaver()
         {
@@ -81,6 +83,10 @@ namespace msn2.net.Pictures.Controls
                 case Keys.Up:
                     this.SetHideImageTimer();
                     base.Previous();
+                    break;
+                case Keys.I:
+                    this.PictureItem.DisplayPictureInfo = !this.PictureItem.DisplayPictureInfo;
+                    this.Invalidate();
                     break;
                 default:
                     //Close();

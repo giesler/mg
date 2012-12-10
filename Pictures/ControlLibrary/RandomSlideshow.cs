@@ -66,10 +66,12 @@ namespace msn2.net.Pictures.Controls
 
         void timer_Tick(object sender, EventArgs e)
         {
-            // get next picture
-            PictureData picture = GetNextPicture(base.CurrentPicture.Id);
+            PictureData picture = null;
+
             try
             {
+                // get next picture
+                picture = GetNextPicture(base.CurrentPicture.Id);
                 base.SetPicture(picture);
                 this.errorLabel.Visible = false;
             }
@@ -77,7 +79,14 @@ namespace msn2.net.Pictures.Controls
             {
                 this.errorLabel.BringToFront();
                 this.errorLabel.Visible = true;
-                this.errorLabel.Text = "Error setting pic " + picture.Id.ToString() + ": " + ex.Message;
+                if (picture == null)
+                {
+                    this.errorLabel.Text = "Error loading next picture: " + ex.Message;
+                }
+                else
+                {
+                    this.errorLabel.Text = "Error setting pic " + picture.Id.ToString() + ": " + ex.Message;
+                }
                 this.errorLabel.Refresh();
             }
         }
@@ -117,7 +126,7 @@ namespace msn2.net.Pictures.Controls
 
             for (int index = this.pictures.Count - 1; index >= 0; index--)
             {
-                if (this.pictures[index].Id == pictureId)
+                if (this.pictures[index] != null && this.pictures[index].Id == pictureId)
                 {
                     match = index;
                     break;

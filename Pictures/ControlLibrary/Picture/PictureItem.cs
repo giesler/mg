@@ -24,6 +24,7 @@ namespace msn2.net.Pictures.Controls
         private bool loading = false;
         private bool sizing = false;
         private object lockObject = new object();
+        private bool displayPicInfo = false;
 
         public PictureItem(): this(null)
         {
@@ -49,6 +50,24 @@ namespace msn2.net.Pictures.Controls
             get
             {
                 return this.picture;
+            }
+        }
+
+        public bool DisplayPictureInfo
+        {
+            get
+            {
+                return this.displayPicInfo;
+            }
+            set
+            {
+                this.displayPicInfo = value;
+
+                Point infoLocation = new Point(10, this.Height - 40);
+
+                Rectangle rect = new Rectangle(infoLocation, new Size(200, 30));
+
+                this.Invalidate(rect);
             }
         }
 
@@ -418,10 +437,36 @@ namespace msn2.net.Pictures.Controls
                     new Rectangle(xOffset, yOffset, sizedImage.Width, sizedImage.Height),
                     0, 0, sizedImage.Width, sizedImage.Height, GraphicsUnit.Pixel, imageAtt);
 
+
+                AddPictureInfo(e);
             }
             else
             {
                 PrintLoading(e);
+            }
+        }
+
+        private void AddPictureInfo(PaintEventArgs e)
+        {
+            if (this.displayPicInfo == true && this.Picture != null)
+            {
+                Point infoLocation = new Point(10, this.Height - 40);
+
+                Rectangle rect = new Rectangle(infoLocation, new Size(200, 30));
+                e.Graphics.FillRectangle(Brushes.Black, rect);
+
+                StringFormat format = new StringFormat();
+                format.Alignment = StringAlignment.Near;
+                format.LineAlignment = StringAlignment.Center;
+                format.Trimming = StringTrimming.EllipsisCharacter;
+
+                string topText = string.Format("{0}", this.Picture.Title);
+                Rectangle topTextRect = new Rectangle(10, this.Height - 40, rect.Width, 12);
+                e.Graphics.DrawString(topText, new Font("Arial", 10, FontStyle.Bold), Brushes.White, topTextRect, format);
+
+                string bottomText = string.Format("{0}: #{1}", this.Picture.DateTaken.ToShortDateString(), this.Picture.Id);
+                Rectangle bottomTextRect = new Rectangle(10, this.Height - 25, rect.Width, 10);
+                e.Graphics.DrawString(bottomText, new Font("Arial", 10, FontStyle.Regular), Brushes.White, bottomTextRect, format);
             }
         }
 
