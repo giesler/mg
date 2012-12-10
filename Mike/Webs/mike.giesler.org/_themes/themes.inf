@@ -1,4 +1,3 @@
-
 ; 
 ; This file is encoded in UTF-8 
 ; 
@@ -7,7 +6,8 @@
 iso-2022-jp = shift_jis 
 x-euc-jp = shift_jis 
 shift-jis = shift_jis 
-x-sjis = shift_jis 
+x-sjis = shift_jis
+euc-kr = ks_c_5601-1987 
  
 shift_jis, ARIAL = ＭＳ Ｐゴシック 
 shift_jis, ARIAL BLACK = ＭＳ Ｐゴシック 
@@ -126,7 +126,7 @@ windows-1255, ARIAL = Arial
 windows-1255, ARIAL BLACK = Arial 
 windows-1255, ARIAL NARROW = Arial 
 windows-1255, ARIAL ROUNDED MT BOLD = Arial 
-windows-1255, BOOK ANTIQUA = Time New Roman 
+windows-1255, BOOK ANTIQUA = Times New Roman 
 windows-1255, BOOKMAN OLD STYLE = Times New Roman 
 windows-1255, BRUSH SCRIPT MT ITALIC = Times New Roman 
 windows-1255, CENTURY GOTHIC = Arial 
@@ -144,7 +144,7 @@ windows-1258, ARIAL = Arial
 windows-1258, ARIAL BLACK = Arial Black
 windows-1258, ARIAL NARROW = Arial Narrow
 windows-1258, ARIAL ROUNDED MT BOLD = Arial 
-windows-1258, BOOK ANTIQUA = Time New Roman 
+windows-1258, BOOK ANTIQUA = Times New Roman 
 windows-1258, BOOKMAN OLD STYLE = Bookman Old Style 
 windows-1258, BRUSH SCRIPT MT ITALIC = Arial 
 windows-1258, CENTURY GOTHIC = Times New Roman
@@ -158,23 +158,23 @@ windows-1258, TIMES NEW ROMAN = Times New Roman
 windows-1258, TREBUCHET MS = Arial 
 windows-1258, VERDANA = Verdana
 
-windows-874, ARIAL = Cordia New 
-windows-874, ARIAL BLACK = Cordia New
-windows-874, ARIAL NARROW = Cordia New
-windows-874, ARIAL ROUNDED MT BOLD = Cordia New 
-windows-874, BOOK ANTIQUA = Angsana New
-windows-874, BOOKMAN OLD STYLE = Browalia New 
-windows-874, BRUSH SCRIPT MT ITALIC = Cordia New
-windows-874, CENTURY GOTHIC = Angsana New
-windows-874, CENTURY SCHOOLBOOK = Angsana New 
-windows-874, COMIC SANS MS = Cordia New
-windows-874, GARAMOND = Browalia New 
-windows-874, GEORGIA = Cordia New 
-windows-874, HAETTENSCHWEILER = Cordia New 
-windows-874, IMPACT = Cordia New 
-windows-874, TIMES NEW ROMAN = Angsana New 
-windows-874, TREBUCHET MS = Cordia New 
-windows-874, VERDANA = Cordia New
+windows-874, ARIAL = Tahoma 
+windows-874, ARIAL BLACK = Tahoma
+windows-874, ARIAL NARROW = Tahoma
+windows-874, ARIAL ROUNDED MT BOLD = Tahoma 
+windows-874, BOOK ANTIQUA = Tahoma
+windows-874, BOOKMAN OLD STYLE = Tahoma
+windows-874, BRUSH SCRIPT MT ITALIC = Tahoma
+windows-874, CENTURY GOTHIC = Tahoma
+windows-874, CENTURY SCHOOLBOOK = Tahoma 
+windows-874, COMIC SANS MS = Tahoma
+windows-874, GARAMOND = Tahoma 
+windows-874, GEORGIA = Tahoma 
+windows-874, HAETTENSCHWEILER = Tahoma 
+windows-874, IMPACT = Tahoma 
+windows-874, TIMES NEW ROMAN = Tahoma 
+windows-874, TREBUCHET MS = Tahoma 
+windows-874, VERDANA = Tahoma
 
 [Families] 
  
