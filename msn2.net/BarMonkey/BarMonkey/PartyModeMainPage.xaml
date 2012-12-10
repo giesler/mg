@@ -12,20 +12,15 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60px" />
+            <RowDefinition Height="68px" />
             <RowDefinition Height="5px" />
             <RowDefinition />
             <RowDefinition Height="10px" />
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" >
-            <Rectangle.Fill>
-                <SolidColorBrush Color="DarkBlue" />
-            </Rectangle.Fill>
-        </Rectangle>
-        <StackPanel Orientation="Vertical">
-            <Label Name="barNoneTitle" Grid.Column="0" FontSize="12" Foreground="White" FontFamily="Segoe UI">BARNONE</Label>
-            <Label Name="pageTitle" FontSize="22" Foreground="White" FontFamily="Segoe UI" Margin="0,-6,0,0">page title</Label>
+        <StackPanel Orientation="Vertical" Margin="6">
+            <Label Name="barNoneTitle" Grid.Column="0" FontSize="12" FontFamily="Segoe UI">BARNONE</Label>
+            <Label Name="pageTitle" FontSize="22" FontFamily="Segoe UI" Margin="0,-6,0,0">page title</Label>
         </StackPanel>
-        <Frame Name="contentFrame" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Source="PartyModeHomePage.xaml" />
+        <Frame Name="contentFrame" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Source="PartyModeHomePage.xaml" Margin="6" />
     </Grid>
 </Page>

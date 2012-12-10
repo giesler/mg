@@ -27,7 +27,7 @@ namespace msn2.net.BarMonkey
 
         private void newDrink_Click(object sender, RoutedEventArgs e)
         {
-            Uri uri = new Uri("pack://application:,,,/Activities/NewDrink.xaml");
+            Uri uri = new Uri("pack://application:,,,/Activities/BrowseByAlpha.xaml");
             NavigationService.Navigate(uri);
         }
 

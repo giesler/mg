@@ -5,11 +5,9 @@
 
 	<Application.Resources>
 		<Style x:Key="DefaultTextStyle" TargetType="Control">
-			<Setter Property="Foreground" Value="White" />
 		</Style>
 		<Style x:Key="DefaultLabelListBoxStyle" TargetType="ListBox">
 			<Setter Property="Opacity" Value="0.90" />
-			<Setter Property="Foreground" Value="White" />
 			<Setter Property="FontSize" Value="18pt" />
 			<Setter Property="FontWeight" Value="SemiBold" />
 		</Style>
@@ -18,11 +16,9 @@
 		</Style>
 		<Style x:Key="DefaultTextBlockStyle" TargetType="TextBlock">
 			<Setter Property="FontSize" Value="16pt" />
-			<Setter Property="Foreground" Value="White" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 		</Style>
 		<Style x:Key="DefaultColumnHeaderStyle" TargetType="Label">
-			<Setter Property="Foreground" Value="White" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="FontSize" Value="20" />
 		</Style>
@@ -66,7 +62,7 @@
 			<Setter Property="FontSize" Value="16px"/>
 			<Setter Property="FontWeight" Value="Bold"/>
 			<Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
-			<Setter Property="Background" Value="Orange" />
+			<Setter Property="Background" Value="LightBlue" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
@@ -86,14 +82,14 @@
 								<Setter Property="Foreground" Value="White" />
 								<Setter Property="Background" >
 									<Setter.Value>
-										<SolidColorBrush Color="Red" />
+										<SolidColorBrush Color="DarkBlue" />
 									</Setter.Value>
 								</Setter>
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
 								<Setter Property="Background" >
 									<Setter.Value>
-										<SolidColorBrush Color="DarkRed" />
+										<SolidColorBrush Color="Black" />
 									</Setter.Value>
 								</Setter>
 								<Setter TargetName="content" Property="RenderTransform" >
@@ -126,7 +122,7 @@
 			<Setter Property="FontSize" Value="20px"/>
 			<Setter Property="VerticalContentAlignment" Value="Bottom" />
 			<Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
-			<Setter Property="Background" Value="Orange" />
+			<Setter Property="Background" Value="LightBlue" />
 			<Setter Property="Height" Value="125" />
 			<Setter Property="Width" Value="125" />
 			<Setter Property="Template">
@@ -148,14 +144,14 @@
 								<Setter Property="Foreground" Value="White" />
 								<Setter Property="Background" >
 									<Setter.Value>
-										<SolidColorBrush Color="Red" />
+										<SolidColorBrush Color="DarkBlue" />
 									</Setter.Value>
 								</Setter>
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
 								<Setter Property="Background" >
 									<Setter.Value>
-										<SolidColorBrush Color="DarkRed" />
+										<SolidColorBrush Color="Black" />
 									</Setter.Value>
 								</Setter>
 								<Setter TargetName="content" Property="RenderTransform" >
@@ -215,5 +211,28 @@
 			<GradientStop Color="#FFB5B7B8" Offset="0.02"/>
 			<GradientStop Color="#FF415A74" Offset="0.17"/>
 		</LinearGradientBrush>
-	</Application.Resources>
+        <Style x:Key="EmptyButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#00000000"/>
+            <Setter Property="BorderBrush" Value="#00000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="24pt"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter 
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                        Margin="{TemplateBinding Padding}" 
+                        RecognizesAccessKey="True" 
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
 </Application>

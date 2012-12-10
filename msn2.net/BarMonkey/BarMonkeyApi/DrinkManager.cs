@@ -13,6 +13,16 @@ namespace msn2.net.BarMonkey
         {
         }
 
+        public List<Drink> GetDrinks()
+        {
+            var q = from d in base.Context.Data.Drinks
+                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                    && d.DrinkActualIngredients.Count > 0
+                    orderby d.Name
+                    select d;
+            return q.ToList();
+        }
+
         public List<Drink> GetDrinks(char[] matchingChars)
         {
             var q = from d in base.Context.Data.Drinks
