@@ -68,7 +68,7 @@ namespace msn2.net.ProjectF
 			//messenger.OnSignin		+= new MessengerAPI.DMessengerEvents_OnSigninEventHandler(Messenger_SignIn);
 			//messenger.OnSignout		+= new MessengerAPI.DMessengerEvents_OnSignoutEventHandler(Messenger_SignOut);
 
-			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.ProjectF);
+			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 
 			// Make sure we are signed in, if not, sign in
 			//if (messenger.MyStatus == MessengerAPI.MISTATUS.MISTATUS_ONLINE)

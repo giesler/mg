@@ -189,12 +189,12 @@
                 />
                 <File
                     RelPath = "msn2Home.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "ProjectFConsole.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File

@@ -156,6 +156,8 @@ namespace msn2.net.Controls
 		}
 		#endregion
 
+		#region Methods
+
 		private void WebSearch_Activated(object sender, System.EventArgs e)
 		{
 			this.textBox1.Focus();
@@ -220,6 +222,8 @@ namespace msn2.net.Controls
 			this.Left = 100;
 			this.Top = 100;
 		}
+
+		#endregion
 	}
 
 	#region SearchConfigData

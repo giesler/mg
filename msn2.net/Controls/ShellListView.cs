@@ -29,6 +29,7 @@ namespace msn2.net.Controls
 		private ShellForm parentForm = null;
 		private Data data = null;
 		private ContextMenu contextMenu = null;
+		private msn2.net.Controls.WebBrowserControl webBrowserControl1;
 		private Type[] types = null;
 
 		#endregion
@@ -102,6 +103,7 @@ namespace msn2.net.Controls
 			this.menuItemAdd = new System.Windows.Forms.MenuItem();
 			this.menuItemEdit = new System.Windows.Forms.MenuItem();
 			this.menuItemDelete = new System.Windows.Forms.MenuItem();
+			this.webBrowserControl1 = new msn2.net.Controls.WebBrowserControl();
 			this.SuspendLayout();
 			// 
 			// listViewFavorites
@@ -166,9 +168,21 @@ namespace msn2.net.Controls
 			this.menuItemDelete.Text = "&Delete";
 			this.menuItemDelete.Click += new System.EventHandler(this.menuItemDelete_Click);
 			// 
+			// webBrowserControl1
+			// 
+			this.webBrowserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowserControl1.IsPopup = false;
+			this.webBrowserControl1.Name = "webBrowserControl1";
+			this.webBrowserControl1.Size = new System.Drawing.Size(150, 130);
+			this.webBrowserControl1.TabIndex = 9;
+			this.webBrowserControl1.TabPage = null;
+			this.webBrowserControl1.Url = "about:blank";
+			this.webBrowserControl1.Visible = false;
+			// 
 			// ShellListView
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.webBrowserControl1,
 																		  this.listViewFavorites});
 			this.Name = "ShellListView";
 			this.Size = new System.Drawing.Size(150, 130);

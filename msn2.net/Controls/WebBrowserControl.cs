@@ -571,10 +571,19 @@ namespace msn2.net.Controls
 
 		private void timerShowStatus_Tick(object sender, System.EventArgs e)
 		{
-			timerShowStatus.Enabled = false;
-
 			if (navigating)
 			{
+				// Check if we have a doc - if so, check if it is loaded
+				if (Document != null)
+				{
+					if (Document.readyState.ToString() == "complete")
+					{
+						timerShowStatus.Enabled = false;
+						return;
+					}
+				}
+
+				// We are still loading something
 				ShowStatus("loading...");
 			}
 		}

@@ -107,12 +107,12 @@
                 />
                 <File
                     RelPath = "Headlines.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Weater.cs"
-                    SubType = "Code"
+                    SubType = "Form"
                     BuildAction = "Compile"
                 />
             </Include>

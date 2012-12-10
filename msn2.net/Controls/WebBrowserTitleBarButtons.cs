@@ -59,7 +59,6 @@ namespace msn2.net.Controls
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WebBrowserTitleBarButtons));
 			this.buttonRefresh = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.buttonSaveTo = new System.Windows.Forms.Button();
@@ -70,9 +69,9 @@ namespace msn2.net.Controls
 			this.buttonRefresh.BackColor = System.Drawing.Color.Transparent;
 			this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonRefresh.ForeColor = System.Drawing.Color.LawnGreen;
+			this.buttonRefresh.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.buttonRefresh.Name = "buttonRefresh";
-			this.buttonRefresh.Size = new System.Drawing.Size(24, 16);
+			this.buttonRefresh.Size = new System.Drawing.Size(14, 14);
 			this.buttonRefresh.TabIndex = 0;
 			this.buttonRefresh.Text = "r";
 			this.toolTip1.SetToolTip(this.buttonRefresh, "Refresh web page");
@@ -83,10 +82,10 @@ namespace msn2.net.Controls
 			this.buttonSaveTo.BackColor = System.Drawing.Color.Transparent;
 			this.buttonSaveTo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonSaveTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonSaveTo.ForeColor = System.Drawing.Color.LawnGreen;
-			this.buttonSaveTo.Location = new System.Drawing.Point(24, 0);
+			this.buttonSaveTo.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.buttonSaveTo.Location = new System.Drawing.Point(16, 0);
 			this.buttonSaveTo.Name = "buttonSaveTo";
-			this.buttonSaveTo.Size = new System.Drawing.Size(24, 16);
+			this.buttonSaveTo.Size = new System.Drawing.Size(14, 14);
 			this.buttonSaveTo.TabIndex = 1;
 			this.buttonSaveTo.Text = "+";
 			this.toolTip1.SetToolTip(this.buttonSaveTo, "Save to...");
@@ -94,12 +93,11 @@ namespace msn2.net.Controls
 			// 
 			// WebBrowserTitleBarButtons
 			// 
-			this.BackgroundImage = ((System.Drawing.Bitmap)(resources.GetObject("$this.BackgroundImage")));
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.buttonSaveTo,
 																		  this.buttonRefresh});
 			this.Name = "WebBrowserTitleBarButtons";
-			this.Size = new System.Drawing.Size(56, 16);
+			this.Size = new System.Drawing.Size(32, 16);
 			this.ResumeLayout(false);
 
 		}

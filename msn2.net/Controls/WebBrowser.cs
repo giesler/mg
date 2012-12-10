@@ -21,6 +21,7 @@ namespace msn2.net.Controls
 		private int defaultWidth = 800;
 		private int defaultHeight = 700;
 		private WebBrowserTitleBarButtons titleBarButtons = null;
+		protected Crownwood.Magic.Docking.DockingManager dockManager = null;
 
 		#endregion
 		#region Constructors
@@ -114,6 +115,8 @@ namespace msn2.net.Controls
 
 		private void InternalConstructor(string title)
 		{
+			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
+			
 			// Create tabbed window with browsers
 			tabControl = new Crownwood.Magic.Controls.TabControl();
 			tabControl.Dock = DockStyle.Fill;
@@ -141,6 +144,7 @@ namespace msn2.net.Controls
 		#endregion
 		#region Methods
 
+		#region AddNewTab methods
 		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
 		{
 			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
@@ -167,12 +171,12 @@ namespace msn2.net.Controls
 			return page;
 		}
 
-		public void AddNewTab(string title, string url)
+		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, string url)
 		{
-			AddNewTab(title, url, WebBrowserControl.DefaultClickBehavior.OpenLink);
+			return AddNewTab(title, url, WebBrowserControl.DefaultClickBehavior.OpenLink);
 		}
 
-		public void AddNewTab(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
+		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
 		{
 			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
 
@@ -185,8 +189,12 @@ namespace msn2.net.Controls
 			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
 			browser.TabPage = page;
 			tabControl.TabPages.Add(page);
+
+			return page;
 		}
 
+		#endregion
+		#region AddStaticTab methods
 		public void AddStaticTab(string title, string url)
 		{
 			AddStaticTab(title, url, new TimeSpan(0));
@@ -206,6 +214,7 @@ namespace msn2.net.Controls
 			tabControl.TabPages.Add(page);
 		}
 
+		#endregion
 		public void ClosePressed(object sender, System.EventArgs e)
 		{
 			Crownwood.Magic.Controls.TabControl tabControl = (Crownwood.Magic.Controls.TabControl) sender;
