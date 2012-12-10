@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectFServices", "http://localhost/ProjectFServices/ProjectFServices.csproj", "{9DD174DE-8F1D-49FF-853A-6065D70CB20F}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {8269D5CF-6F4E-4DAA-BBB5-E9C416D7B142}
+		SccProjectUniqueName1 = http://localhost/ProjectFServices/ProjectFServices.csproj
+		SccLocalPath1 = d:\\inetpub\\wwwroot\\ProjectFServices
+		CanCheckoutShared = false
+		SccProjectEnlistmentChoice1 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9DD174DE-8F1D-49FF-853A-6065D70CB20F}.Debug.ActiveCfg = Debug|.NET
+		{9DD174DE-8F1D-49FF-853A-6065D70CB20F}.Debug.Build.0 = Debug|.NET
+		{9DD174DE-8F1D-49FF-853A-6065D70CB20F}.Release.ActiveCfg = Release|.NET
+		{9DD174DE-8F1D-49FF-853A-6065D70CB20F}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
