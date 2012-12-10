@@ -1163,6 +1163,7 @@ namespace msn2.net.ShoppingList
                 this.selectedStore = this.settings.LatestItems.Skip(index).First().Value;
                 this.storeLabel.Text = this.selectedStore.Name; 
                 this.ReloadItemList();
+                this.SetColumnWidth();
 
                 e.Handled = true;
             }

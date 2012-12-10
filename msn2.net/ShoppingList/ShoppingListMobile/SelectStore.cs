@@ -87,7 +87,7 @@ namespace mn2.net.ShoppingList
 
         void SetColumnWidth()
         {
-            int width = this.list.ClientSize.Width - this.countColumn.Width - 20;
+            int width = this.list.ClientSize.Width - this.countColumn.Width;
             if (width != this.nameColumn.Width)
             {
                 this.nameColumn.Width = width;

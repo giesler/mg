@@ -36,7 +36,10 @@ namespace msn2.net.ShoppingList
 
             if (this.DeleteRequested == true)
             {
-                this.ForeColor = Color.Gray;
+                if (this.ForeColor != Color.Gray)
+                {
+                    this.ForeColor = Color.Gray;
+                }
 
                 TimeSpan elapsedTime = DateTime.Now - this.DeleteRequestedTime;
                 if (elapsedTime.TotalSeconds < 60)
