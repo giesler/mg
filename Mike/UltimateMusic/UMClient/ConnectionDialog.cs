@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
@@ -75,6 +76,7 @@ namespace UMClient
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ConnectionDialog));
 			this.buttonConnect = new System.Windows.Forms.Button();
 			this.textBoxHost = new System.Windows.Forms.TextBox();
 			this.buttonCancel = new System.Windows.Forms.Button();
@@ -178,6 +180,7 @@ namespace UMClient
 																		  this.label1,
 																		  this.buttonConnect});
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "ConnectionDialog";
@@ -196,7 +199,7 @@ namespace UMClient
 			// if we need to start the server locally, do so
 			if (radioButtonLocal.Checked) 
 			{
-				string path = Application.ExecutablePath.Substring(0, Application.ExecutablePath.LastIndexOf(@"\"));
+				string path = Application.ExecutablePath.Substring(0, Application.ExecutablePath.LastIndexOf(Path.DirectorySeparatorChar));
                 status.Message = "Starting local server...";
 				textBoxHost.Text = "localhost";
 				System.Diagnostics.Process p = new System.Diagnostics.Process();

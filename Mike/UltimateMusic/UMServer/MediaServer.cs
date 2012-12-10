@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Threading;
 using System.IO;
+using UMShared;
 
 namespace UMServer
 {
@@ -14,14 +15,21 @@ namespace UMServer
 	/// </summary>
 	public class MediaServer: MarshalByRefObject
 	{
+		#region Declares
+
 		private DXPlayer dxPlayer;
 		private Thread playerThread;
 		private MediaCollection mediaCollection = new MediaCollection();
 		private MediaCollection mediaQueue = new MediaCollection();
 		private MediaCollection mediaHistory = new MediaCollection();
 		private PlayState playState;
-
+		private string connectionString;
+		private string dropDirectory;
+		private string watchDirectory;
+		private string shareDirectory;
 		private FileSystemWatcher fsWatcher;
+
+		#endregion
 
 		# region Enums
 
@@ -38,8 +46,13 @@ namespace UMServer
 
 		public MediaServer()
 		{
+            connectionString = "User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;";
+			watchDirectory   = @"\\sp\dfs\Music\new";
+			dropDirectory	 = @"\\sp\dfs\Music\drop";
+			shareDirectory   = @"\\sp\dfs\Music";
+
             fsWatcher = new FileSystemWatcher();
-			fsWatcher.Path = @"\\sp\dfs\music\new";
+			fsWatcher.Path = WatchDirectory;
 			fsWatcher.IncludeSubdirectories = true;
 			fsWatcher.Created += new FileSystemEventHandler(FileSystem_Created);
 			fsWatcher.Changed += new FileSystemEventHandler(FileSystem_Changed);
@@ -83,7 +96,7 @@ namespace UMServer
 		{
 			LogDiagnosticEvent("LoadMediaCollection", "Loading media collection.");
 
-			SqlConnection cn = new SqlConnection("User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+			SqlConnection cn = new SqlConnection(ConnectionString);
 			SqlCommand cmd = new SqlCommand("select MediaID, MediaFile from Media where Deleted=0", cn);
 			cn.Open();
 
@@ -154,6 +167,7 @@ namespace UMServer
 		#region Normal song actions
 
 		protected int currentMediaId;
+		private MediaCollectionEntry currentEntry;
 		public event PlayingSongEventHandler PlayingSongEvent;
 		public event PausedSongEventHandler  PausedSongEvent;
 		public event StoppedSongEventHandler StoppedSongEvent;
@@ -257,14 +271,15 @@ namespace UMServer
 		/// </summary>
 		public void Next() 
 		{
-			TryNext(10);
+			TryNext(10, true);
 		}
+
 
 		/// <summary>
 		/// Attempt to start the next song in the queue, if possible
 		/// </summary>
 		/// <param name="count">Recursive count</param>
-		private void TryNext(int count) {
+		private void TryNext(int count, bool addToHistory) {
 
 			// make sure we don't loop through more than 10 times trying 'next'
 			if (count == 0) 
@@ -275,34 +290,33 @@ namespace UMServer
 
 			LogDiagnosticEvent("Next", "(" + (0 - count).ToString() + ")");
 
-			// Pop the top queue entry, add to history
-			MediaCollectionEntry entry = mediaQueue.Dequeue();
-			mediaHistory.AddToCollection(entry, 0);
-			currentMediaId = entry.MediaId;
-
-			// Notify everyone a song was removed
-			if (RemovedFromQueueEvent != null) 
+			// Add current song to history
+			if (addToHistory)
 			{
-				LogDiagnosticEvent("Next.RemovedFromQueueEvent", entry.MediaId.ToString());
-				RemovedFromQueueEvent(this, new QueueEventArgs(entry.MediaId, 0));
+				AddToHistory(currentEntry);
 			}
-			FillQueue();
+
+			// Get the top song from the queue
+			MediaCollectionEntry entry = RemoveFromQueue();
+			currentMediaId = entry.MediaId;
+			currentEntry   = entry;
 
 			// Make sure media ID exists
-			if (!System.IO.File.Exists(entry.MediaFile)) 
+			if (!System.IO.File.Exists(entry.MediaFile)
+				&& !System.IO.File.Exists(shareDirectory + Path.DirectorySeparatorChar + entry.MediaFile)) 
 			{
 				MediaError(2, "File does not exist", null);
-				TryNext(count);
+				TryNext(count, true);
 				return;
 			}
 
-			dxPlayer.MediaFile = entry.MediaFile;
+			dxPlayer.MediaFile = shareDirectory + Path.DirectorySeparatorChar + entry.MediaFile;
 
-			
+			// Check if song is valid
 			if (!dxPlayer.IsValid) 
 			{
 				MediaError(1, "The file could not be loaded.", null);
-				TryNext(count);
+				TryNext(count, true);
 				return;
 			}
 
@@ -318,22 +332,41 @@ namespace UMServer
 
             // Get the currently playing song, and add to top of queue
 			if (currentMediaId != 0)
+			{
 				AddToQueue(currentMediaId, 0);
+			}
 
-			// Remove the top item from history - this is current song, so ignore
-			MediaCollectionEntry entry = mediaHistory.Dequeue();
-			entry = mediaHistory.Dequeue();
+			// Remove the top item from history and play it
+			MediaCollectionEntry entry = RemoveFromHistory();
 
 			if (entry != null)
 			{
-				PlayMediaId(entry.MediaId);
+				AddToQueue(entry, 0);
+				TryNext(10, false);
 			}
 			else
 			{
-				TryNext(10);
+				TryNext(10, true);
 				MediaError(4, "You cannot go back because there is no more history.", new Exception());
 			}
 			
+		}
+
+
+
+		public void AdvanceToSong(int mediaId)
+		{
+            // Advance to the 'mediaId' entry
+			do
+			{
+				AddToHistory(currentEntry);
+				currentEntry = RemoveFromQueue();
+
+			} while (currentEntry.MediaId != mediaId);
+
+			// Re-add the item we want to play to the queue
+			AddToQueue(currentEntry, 0);
+			TryNext(10, false);
 		}
 
 		/// <summary>
@@ -383,6 +416,8 @@ namespace UMServer
 
 		#region Queue related activities
 		
+		#region Queue Events
+
 		/// <summary>
 		/// Raised whenever something is added to the queue
 		/// </summary>
@@ -396,19 +431,18 @@ namespace UMServer
 		/// </summary>
 		public event MoveInQueueEventHandler MoveInQeuueEvent;
 
+		#endregion
+
+		# region Adding to a queue
+
 		/// <summary>
 		/// Add an entry to the queue
 		/// </summary>
 		/// <param name="mediaId">ID of the media entry to add</param>
 		public void AddToQueue(int mediaId) 
 		{
-			LogDiagnosticEvent("AddToQueue", "mediaId = " + mediaId.ToString());
-			MediaCollectionEntry entry = mediaCollection[mediaId];
-			mediaQueue.AddToCollection(entry);
-
-			// Notify everyone a song was added
-			if (AddedToQueueEvent != null)
-				AddedToQueueEvent(this, new QueueEventArgs(mediaId, mediaQueue.Count-1));  
+			// Add at end of queue
+			AddToQueue(mediaId, mediaQueue.Count-1);
 		}
 
 		/// <summary>
@@ -424,25 +458,79 @@ namespace UMServer
 
 			// Notify everyone a song was added
 			if (AddedToQueueEvent != null)
-				AddedToQueueEvent(this, new QueueEventArgs(mediaId, position));
+				AddedToQueueEvent(this, new QueueEventArgs(mediaId, entry.Guid, position));
 		}
+
+		private void AddToQueue(MediaCollectionEntry entry)
+		{
+			LogDiagnosticEvent("AddToQueue", "entry.Guid = " + entry.Guid.ToString());
+			mediaQueue.AddToCollection(entry);
+
+			// Notify everyone a song was added
+			if (AddedToQueueEvent != null)
+				AddedToQueueEvent(this, new QueueEventArgs(entry.MediaId, entry.Guid, mediaQueue.Count-1));
+		}
+
+		private void AddToQueue(MediaCollectionEntry entry, int position)
+		{
+			LogDiagnosticEvent("AddToQueue", "entry.Guid = " + entry.Guid.ToString() + ", position = " + position.ToString());
+			mediaQueue.AddToCollection(entry, position);
+
+			// Notify everyone a song was added
+			if (AddedToQueueEvent != null)
+				AddedToQueueEvent(this, new QueueEventArgs(entry.MediaId, entry.Guid, position));
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Removes an entry from the queue
 		/// </summary>
 		/// <param name="mediaId">ID of the media entry to move</param>
 		/// <param name="position">Position of the media entry to move</param>
-		public void RemoveFromQueue(int mediaId, int position) 
+		public void RemoveFromQueue(int mediaId, Guid guid) 
 		{
-			LogDiagnosticEvent("RemoveToQueue", "mediaId = " + mediaId.ToString() + ", position = " + position.ToString());
+			LogDiagnosticEvent("RemoveToQueue", "mediaId = " + mediaId.ToString() + ", guid = " + guid.ToString());
 
-			mediaQueue.RemoveFromCollection(mediaId, position);
+			foreach (MediaCollectionEntry entry in mediaQueue)
+			{
+				if (entry.Guid == guid) 
+				{
+					mediaQueue.RemoveFromCollection(entry);
 
-			// Notify everyone a song was added
-			if (RemovedFromQueueEvent != null)
-				RemovedFromQueueEvent(this, new QueueEventArgs(mediaId, position));
+					// Notify everyone a song was added
+					if (RemovedFromQueueEvent != null)
+						RemovedFromQueueEvent(this, new QueueEventArgs(entry.MediaId, guid));
 
+					// make sure queue is refilled
+					FillQueue();
+
+					break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Removes the top item from the queue and returns it
+		/// </summary>
+		/// <returns>Top queue item</returns>
+		private MediaCollectionEntry RemoveFromQueue()
+		{
+			LogDiagnosticEvent("RemoveFromQueue", "");
+
+            MediaCollectionEntry entry = mediaQueue.Dequeue();
+
+			if (entry != null)
+			{
+				// Notify everyone a song was added
+				if (RemovedFromQueueEvent != null)
+					RemovedFromQueueEvent(this, new QueueEventArgs(entry.MediaId, entry.Guid));
+			}
+			
+			// make sure queue is refilled
 			FillQueue();
+
+			return entry;
 		}
 
 		/// <summary>
@@ -451,32 +539,26 @@ namespace UMServer
 		/// <param name="mediaId">ID of the media entry to move</param>
 		/// <param name="oldPosition">Old queue position</param>
 		/// <param name="newPosition">New queue position</param>
-		public void MoveInQueue(int mediaId, int oldPosition, int newPosition) 
+		public void MoveInQueue(int mediaId, Guid guid, int newPosition) 
 		{
-			LogDiagnosticEvent("MoveInQueue", String.Format("mediaId = {0}, oldPosition = {1}, newPosition = {2}",
-				mediaId, oldPosition, newPosition));
+			LogDiagnosticEvent("MoveInQueue", String.Format("mediaId = {0}, guid = {1}, newPosition = {2}",
+				mediaId, guid, newPosition));
 			
-			mediaQueue.RemoveFromCollection(mediaId, oldPosition);
+			mediaQueue.RemoveFromCollection(mediaId, guid);
 			mediaQueue.AddToCollection(mediaCollection[mediaId], newPosition);
 
 			// Notify everyone a song was moved
 			if (MoveInQeuueEvent != null)
-				MoveInQeuueEvent(this, new QueueEventArgs(mediaId, oldPosition, newPosition));
+				MoveInQeuueEvent(this, new QueueEventArgs(mediaId, guid, -1, newPosition));
 		}
 
 		/// <summary>
 		/// All songs in the current queue
 		/// </summary>
 		/// <returns>An ordered list of songs</returns>
-		public ArrayList CurrentQueue() 
+		public MediaCollection CurrentQueue() 
 		{
-			ArrayList queue = new ArrayList();
-			foreach (MediaCollectionEntry entry in mediaQueue) 
-			{
-				queue.Add(entry.MediaId);
-			}
-
-			return queue;
+			return mediaQueue;
 		}
 
 		/// <summary>
@@ -487,13 +569,40 @@ namespace UMServer
 			// fill the queue
 			while (mediaQueue.Count < 15) 
 			{
-				MediaCollectionEntry entry = mediaCollection.RandomEntry();
-				mediaQueue.AddToCollection(entry);
-				if (AddedToQueueEvent != null) 
-				{
-					AddedToQueueEvent(this, new QueueEventArgs(entry.MediaId, mediaQueue.Count-1));
-				}
+				AddToQueue(mediaCollection.RandomEntry());
 			}
+		}
+
+		#endregion
+
+		#region History
+
+		public event AddToHistoryEventHandler AddToHistoryEvent;
+		public event RemoveFromHistoryEventHandler RemoveFromHistoryEvent;
+
+		private void AddToHistory(MediaCollectionEntry entry)
+		{
+			// add the current item to history
+			if (entry != null)
+			{
+				mediaHistory.AddToCollection(entry, 0);
+				if (AddToHistoryEvent != null)
+					AddToHistoryEvent(this, new HistoryEventArgs(entry.MediaId, entry.Guid));
+			}
+		}
+
+		private MediaCollectionEntry RemoveFromHistory()
+		{
+			MediaCollectionEntry entry = null;
+
+			entry = mediaHistory.Dequeue();
+
+			if (entry != null)
+			{
+				if (RemoveFromHistoryEvent != null)
+					RemoveFromHistoryEvent(this, new HistoryEventArgs(entry.MediaId, entry.Guid));
+			}
+			return entry;
 		}
 
 		#endregion
@@ -558,6 +667,20 @@ namespace UMServer
 				mediaCollection.RemoveFromCollection(mediaId);
 				mediaQueue.RemoveFromCollection(mediaId);
 				mediaHistory.RemoveFromCollection(mediaId);
+			}
+			else if (type == MediaItemUpdateType.Edit)
+			{
+				// reload filename in case it changed
+				SqlConnection cn = new SqlConnection(ConnectionString);
+				cn.Open();
+				SqlCommand cmd = new SqlCommand("select MediaFile from Media where MediaID = " + mediaId.ToString(), cn);
+				SqlDataReader dr = cmd.ExecuteReader();
+				if (dr.Read())
+				{
+                    mediaCollection[mediaId].MediaFile = dr[0].ToString();					
+				}
+				dr.Close();
+				cn.Close();
 			}
 
 			if (MediaItemUpdateEvent != null)
@@ -632,7 +755,7 @@ namespace UMServer
 		{
 			
 			// Connect to db to save update
-			SqlConnection cn = new SqlConnection("Persist Security Info=False;Initial Catalog=music;Data Source=kyle;User ID=sa;Password=tOO");
+			SqlConnection cn = new SqlConnection(ConnectionString);
 			SqlCommand cmd = new SqlCommand("dbo.s_AddMediaItem", cn);
 			cmd.CommandType = CommandType.StoredProcedure;
 
@@ -646,6 +769,7 @@ namespace UMServer
 			cmd.Parameters.Add("@MediaFile", SqlDbType.NVarChar, 500);
 			cmd.Parameters.Add("@Duration", SqlDbType.Decimal, 9);
 			cmd.Parameters.Add("@MediaId", SqlDbType.Int);
+			cmd.Parameters.Add("@MD5", SqlDbType.NVarChar, 50);
 			cmd.Parameters["@MediaId"].Direction = ParameterDirection.Output;
 
 			// parse file for short name
@@ -748,6 +872,7 @@ namespace UMServer
 			}
 			// Figure out destination filename - and if not there, then move it
 			string destFile = MediaUtilities.NameMediaFile(cmd, fullpath);
+			destFile = ShareDirectory + @"\" + destFile;
 			if (destFile.Length > 225)
 			{
 				destFile = destFile.Substring(0, 225) + destFile.Substring(destFile.LastIndexOf("."));
@@ -772,6 +897,7 @@ namespace UMServer
 				}
 			}
 			cmd.Parameters["@MediaFile"].Value	= destFile;
+			cmd.Parameters["@MD5"].Value		= MediaUtilities.MD5ToString(MediaUtilities.MD5Hash(destFile));
 
 			// Now load the file to get the duration
 			DXPlayer player = new DXPlayer();
@@ -804,6 +930,34 @@ namespace UMServer
 		}
 
 		#endregion
+
+		#region Server Properties
+
+		/// <summary>
+		/// Returns the database connection string the server is using
+		/// </summary>
+		public string ConnectionString
+		{
+			get { return connectionString; }
+		}
+
+		public string DropDirectory
+		{
+			get { return dropDirectory; }
+		}
+
+		public string WatchDirectory
+		{
+			get { return watchDirectory; }
+		}
+
+		public string ShareDirectory
+		{
+			get { return shareDirectory; }
+		}
+
+        #endregion
+
 	}
 
 	#region Events raised by MediaServer
@@ -830,6 +984,10 @@ namespace UMServer
 	public delegate void AddedToQueueEventHandler(object sender, QueueEventArgs e);
 	public delegate void RemovedFromQueueEventHandler(object sender, QueueEventArgs e);
 	public delegate void MoveInQueueEventHandler(object sender, QueueEventArgs e);
+
+	/* History related events */
+	public delegate void AddToHistoryEventHandler(object sender, HistoryEventArgs e);
+	public delegate void RemoveFromHistoryEventHandler(object sender, HistoryEventArgs e);
 
 	#endregion
 
@@ -960,19 +1118,28 @@ namespace UMServer
 	[Serializable]
 	public class QueueEventArgs: EventArgs 
 	{
-		private int mediaId   = -1;
+		private int mediaId		= -1;
 		private int newPosition = -1;
-		private int position = -1;
+		private int position    = -1;
+		private Guid guid		= Guid.Empty;
 
-		public QueueEventArgs(int mediaId, int position) 
+		public QueueEventArgs(int mediaId, Guid guid)
 		{
 			this.mediaId   = mediaId;
-			this.position = position;
+			this.guid	   = guid;
 		}
 
-		public QueueEventArgs(int mediaId, int position, int newPosition) 
+		public QueueEventArgs(int mediaId, Guid guid, int position) 
 		{
 			this.mediaId   = mediaId;
+			this.guid	   = guid;
+			this.position  = position;
+		}
+
+		public QueueEventArgs(int mediaId, Guid guid, int position, int newPosition) 
+		{
+			this.mediaId   = mediaId;
+			this.guid	   = guid;
 			this.position  = position;
 			this.newPosition = newPosition;
 		}
@@ -990,6 +1157,37 @@ namespace UMServer
 		public int NewPosition 
 		{
 			get { return newPosition; }
+		}
+
+		public Guid Guid
+		{
+			get { return guid; }
+		}
+	}
+
+	/// <summary>
+	/// History events details
+	/// </summary>
+	[Serializable]
+	public class HistoryEventArgs: EventArgs
+	{
+		private int mediaId = -1;
+		private Guid guid   = Guid.Empty;
+		
+		public HistoryEventArgs(int mediaId, Guid guid)
+		{
+			this.mediaId = mediaId;
+			this.guid    = guid;
+		}
+
+		public int MediaId
+		{
+			get { return mediaId; }
+		}
+
+		public Guid Guid
+		{
+			get { return guid; }
 		}
 	}
 
@@ -1102,15 +1300,16 @@ namespace UMServer
 	/// Collection of media entries
 	/// </summary>
 	[Serializable]
-	internal class MediaCollection: ReadOnlyCollectionBase 
+	public class MediaCollection: ReadOnlyCollectionBase 
 	{
 		private Random random = new Random();
+		private int currentIndex = 0;
 
 		/// <summary>
 		/// Add a media collection entry to the list
 		/// </summary>
 		/// <param name="entry">MediaCollectionEntry pre populated</param>
-		public void AddToCollection(MediaCollectionEntry entry) 
+		internal void AddToCollection(MediaCollectionEntry entry) 
 		{
 			InnerList.Add(entry);
 		}
@@ -1126,7 +1325,6 @@ namespace UMServer
 		/// <returns>A random entry</returns>
 		internal MediaCollectionEntry RandomEntry() 
 		{
-			
 			MediaCollectionEntry retEntry = new MediaCollectionEntry();
 			MediaCollectionEntry randomEntry = (MediaCollectionEntry) InnerList[random.Next(InnerList.Count)];
             
@@ -1136,29 +1334,31 @@ namespace UMServer
 			return retEntry;			
 		}
 
+		#region RemoveFromCollection
+
 		/// <summary>
 		/// Removes the item with given params from the list
 		/// </summary>
 		/// <param name="mediaId">ID of the media to remove</param>
 		/// <param name="instance">Occurence of the media to remove</param>
-		internal void RemoveFromCollection(int mediaId, int position) 
+		internal void RemoveFromCollection(int mediaId, Guid guid) 
 		{
-			if (position != -1) 
+			foreach (MediaCollectionEntry entry in new IterIsolate(InnerList))
 			{
-				InnerList.RemoveAt(position);
-			} 
-			else 
-			{
-				// find the first matching item
-				foreach (MediaCollectionEntry entry in InnerList) 
+				if (entry.Guid == guid)
 				{
-					if (entry.MediaId == mediaId) 
-					{
-						InnerList.Remove(entry);
-						return;
-					}
+					InnerList.Remove(entry);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Removes specific entry from list
+		/// </summary>
+		/// <param name="entry">Entry to remove</param>
+		internal void RemoveFromCollection(MediaCollectionEntry entry)
+		{
+			InnerList.Remove(entry);
 		}
 
 		/// <summary>
@@ -1173,6 +1373,8 @@ namespace UMServer
 					InnerList.Remove(entry);
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Dequeues the top item from the collection
@@ -1189,7 +1391,13 @@ namespace UMServer
 			return entry;
 		}
 
-		public MediaCollectionEntry this[int mediaId] 
+		public int CurrentIndex
+		{
+			get { return currentIndex; }
+			set { currentIndex = value; }
+		}
+
+		internal MediaCollectionEntry this[int mediaId] 
 		{
 			get 
 			{
@@ -1203,11 +1411,23 @@ namespace UMServer
 		}
 	}
 
-	internal class MediaCollectionEntry 
+	[Serializable]
+	public class MediaCollectionEntry 
 	{
 		private int mediaId;
 		private string mediaFile;
 		private double duration;
+		private Guid guid;
+
+		public MediaCollectionEntry()
+		{
+            this.guid = Guid.NewGuid();
+		}
+
+		public Guid Guid
+		{
+			get { return guid; }
+		}
 
 		public int MediaId 
 		{

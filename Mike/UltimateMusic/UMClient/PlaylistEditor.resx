@@ -97,28 +97,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="$this.Name">
-    <value>Status</value>
-  </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAIAEBAQAAAAAAAoAQAAJgAAACAgEAAAAAAA6AIAAE4BAAAoAAAAEAAAACAAAAABAAQAAAAAAIAA
-        AAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAICAgADAwMAAAAD/AAD/
-        AAAA//8A/wAAAP8A/wD//wAA////AAd3d3d3d3dwD////////wAPCqqoj///AA/3u4AA//8AD/f4hwCP
-        /wAP/3BwAP//AA//iPiA//8AD/e7jwj//wAP9/+PD/f/AA8AAAd/8P8AD///8P/w/wAP//+A/wD/AA//
-        /wAAD/8AD///AAf//wAP////////AA////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAA
-        AAAAAAAAEAAAABAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD/
-        /wD/AAAA/wD/AP//AAD///8AAAd3d3d3d3d3d3d3d3d3cAAAAAAAAAAAAAAAAAAAAHAAf///////////
-        //////BwAH/wAAAAAA/////////wcAB/8KqqqqoIiP//////8HAAf/AAAAAAAAAH//////BwAH//B7u7
-        eAAAAH/////wcAB//wf7uAgAAAAI////8HAAf/8H/7h4hwAACP////BwAH///3i4AAhwAAj////wcAB/
-        //8HsHeAAAAP////8HAAf///8L/3AAAAf/////BwAH///3i4D/iIAI/////wcAB///CLv4D/+Af/////
-        8HAAf/8Hu7v4//AI+Aj///BwAH//B/u/+P+Af/gH///wcAB//wf///j/cI//B///8HAAf/AiIiIiDwD/
-        /wf///BwAH/wAAAAAAcH//8A///wcAB////////3D///AI//8HAAf///////gA///wCP//BwAH//////
-        /3CP//cAf//wcAB///////gAj/9wAP//8HAAf//////3AAd3AAf///BwAH//////gAAAAAB////wcAB/
-        /////3AAAAAI////8HAAf/////8AAAAH//////BwAH/////3AAAHf//////wcAB/////////////////
-        8HAAf/////////////////BwAH/////////////////wcAB3d3d3d3d3d3d3d3d3dwAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
-</value>
+    <value>PlaylistEditor</value>
   </data>
 </root>

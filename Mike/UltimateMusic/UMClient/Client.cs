@@ -20,8 +20,9 @@ namespace UMClient
 		public MediaServer mediaServer;
 		public DataSetMedia	dsMedia = new DataSetMedia();
 		private bool logging;
-		public string FileSharePath = @"\\sp\dfs\Music";
 		private bool connected = false;
+
+		private string connectionString;
 
 		// This override ensures that if the object is idle for an extended 
 		// period, waiting for messages, it won't lose its lease. Without this 
@@ -45,14 +46,15 @@ namespace UMClient
 		{
 			this.umPlayer = umPlayer;
 
-			// Load the list of media
-			LoadMediaCollection();
-
 			// Create a server
 			mediaServer = new MediaServer();
 
 			try
 			{
+				connectionString = mediaServer.ConnectionString;
+
+				// Load the list of media
+				LoadMediaCollection();
 
 				// Subscribe to events
 				mediaServer.PlayingSongEvent += new PlayingSongEventHandler(PlayingEvent);
@@ -67,6 +69,9 @@ namespace UMClient
 				mediaServer.AddedToQueueEvent += new AddedToQueueEventHandler(AddedToQueueEvent);
 				mediaServer.RemovedFromQueueEvent += new RemovedFromQueueEventHandler(RemovedFromQueueEvent);
 				mediaServer.MoveInQeuueEvent += new MoveInQueueEventHandler(MovedInQueueEvent);
+
+				mediaServer.AddToHistoryEvent += new AddToHistoryEventHandler(AddedToHistoryEvent);
+				mediaServer.RemoveFromHistoryEvent += new RemoveFromHistoryEventHandler(RemovedFromHistoryEvent);
 
 				mediaServer.MediaCollectionReloadedEvent += new MediaCollectionReloadedEventHandler(MediaCollectionReloadedEvent);
 				mediaServer.MediaErrorEvent += new MediaErrorEventHandler(MediaErrorEvent);
@@ -102,6 +107,9 @@ namespace UMClient
 			mediaServer.AddedToQueueEvent -= new AddedToQueueEventHandler(AddedToQueueEvent);
 			mediaServer.RemovedFromQueueEvent -= new RemovedFromQueueEventHandler(RemovedFromQueueEvent);
 			mediaServer.MoveInQeuueEvent -= new MoveInQueueEventHandler(MovedInQueueEvent);
+
+			mediaServer.AddToHistoryEvent -= new AddToHistoryEventHandler(AddedToHistoryEvent);
+			mediaServer.RemoveFromHistoryEvent -= new RemoveFromHistoryEventHandler(RemovedFromHistoryEvent);
 
 			mediaServer.MediaCollectionReloadedEvent -= new MediaCollectionReloadedEventHandler(MediaCollectionReloadedEvent);
 			mediaServer.MediaErrorEvent -= new MediaErrorEventHandler(MediaErrorEvent);
@@ -165,19 +173,31 @@ namespace UMClient
 		[OneWay]
 		public void AddedToQueueEvent(object sender, QueueEventArgs e) 
 		{
-			umPlayer.AddToQueue(e.MediaId, e.Position);
+			umPlayer.AddToQueue(e.MediaId, e.Guid, e.Position);
 		}
 
 		[OneWay]
 		public void RemovedFromQueueEvent(object sender, QueueEventArgs e) 
 		{
-			umPlayer.RemoveFromQueue(e.MediaId, e.Position);
+			umPlayer.RemoveFromQueue(e.MediaId, e.Guid);
+		}
+
+		[OneWay]
+		public void AddedToHistoryEvent(object sender, HistoryEventArgs e)
+		{
+            umPlayer.AddToHistory(e.MediaId, e.Guid);
+		}
+
+		[OneWay]
+		public void RemovedFromHistoryEvent(object sender, HistoryEventArgs e)
+		{
+            umPlayer.RemoveFromHistory(e.MediaId, e.Guid);
 		}
 
 		[OneWay]
 		public void MovedInQueueEvent(object sender, QueueEventArgs e) 
 		{
-            umPlayer.MovedInQueue(e.MediaId, e.Position, e.NewPosition);
+            umPlayer.MovedInQueue(e.MediaId, e.Guid, e.NewPosition);
 		}
 
 		[OneWay]
@@ -195,12 +215,12 @@ namespace UMClient
 		[OneWay]
 		public void MediaItemUpdate(object sender, MediaItemUpdateEventArgs e)
 		{
-			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
-			cn.Open();
+			SqlConnection cn = new SqlConnection(ConnectionString);
 			int mediaId = 0;
 
 			// First get the row we will be using
 			DataSetMedia.MediaRow row = null;
+			cn.Open();
 			switch (e.Type)
 			{
 				case MediaItemUpdateType.Add:
@@ -224,62 +244,15 @@ namespace UMClient
 					row.Delete();
 					break;
 			}
+			cn.Close();
 			
-			// If we need to, load the affected row
+			// Notify anyone subscribed that an item was updated
 			if (e.Type != MediaItemUpdateType.Delete)
 			{
-/*
-				SqlCommand cmd = new SqlCommand("select * from media where mediaid = @MediaID", cn);
-				cmd.Parameters.Add("@MediaID", SqlDbType.Int);
-				cmd.Parameters["@MediaID"].Value = e.MediaId;
-
-				SqlDataReader dr = cmd.ExecuteReader();
-
-				if (dr.Read())
-				{
-					row.Artist  = dr["Artist"].ToString();
-					row.Name	= dr["Name"].ToString();
-					if (dr["Album"] != System.DBNull.Value)
-						row.Album = dr["Album"].ToString();
-					else
-						row.Album = "";
-					if (dr["Track"] != System.DBNull.Value)
-						row.Track = Convert.ToInt32(dr["Track"]);
-					else
-						row.Track = 0;
-					if (dr["Duration"] != System.DBNull.Value)
-						row.Duration = Convert.ToInt32(dr["Duration"]);
-					else
-						row.Duration = 0;
-					if (dr["Comments"] != System.DBNull.Value)
-						row.Comments = dr["Comments"].ToString();
-					else
-						row.Comments = "";
-					if (dr["Genre"] != System.DBNull.Value)
-						row.Genre = dr["Genre"].ToString();
-					else
-						row.Genre = "";
-					if (dr["DateChanged"] != System.DBNull.Value)
-						row.DateUpdated = Convert.ToDateTime(dr["DateChanged"]);
-					if (dr["DateAdded"] != System.DBNull.Value)
-						row.DateAdded = Convert.ToDateTime(dr["DateAdded"]);
-					row.MediaFile = dr["MediaFile"].ToString();
-				}                
-				dr.Close();
-*/				cn.Close();
-                
-				// done loading row, now add to ds
-				if (e.Type == MediaItemUpdateType.Add)
-				{
-					//dsMedia.Media.AddMediaRow(row);
-				}
-
-				// Notify clients
 				umPlayer.MediaItemUpdate(this, new MediaItemClientUpdateEventArgs(e.Type, row));
 			}
 			else
 			{
-				// Notify clients
 				umPlayer.MediaItemUpdate(this, new MediaItemClientUpdateEventArgs(e.Type, mediaId));
 			}
 
@@ -317,9 +290,14 @@ namespace UMClient
 		{
 			dsMedia.Clear();
 
-			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+			SqlConnection cn = new SqlConnection(ConnectionString);
 			SqlDataAdapter da = new SqlDataAdapter("select * from Media where Deleted=0", cn);
 			da.Fill(dsMedia, "Media");
+		}
+
+		public string ConnectionString
+		{
+			get { return connectionString; }
 		}
 
 	}

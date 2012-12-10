@@ -101,6 +101,7 @@ namespace UMClient
 				this.textBoxUpdated.DataBindings.Add("Text", row, "DateUpdated");
 			if (!row.IsDurationNull())
 				this.textBoxDuration.Text = ((int)(row.Duration / 60)).ToString() + ":" + ((int)(row.Duration % 60)).ToString("00");
+		
 		}
 
 		/// <summary>

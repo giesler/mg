@@ -115,8 +115,8 @@
                     WrapperTool = "tlbimp"
                 />
                 <Reference
-                    Name = "Magic"
-                    Project = "{35E9A845-E9D2-434F-81B7-78175606E477}"
+                    Name = "UMShared"
+                    Project = "{991038DB-5672-4709-88B9-A7453312CCF6}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
@@ -148,6 +148,16 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Log.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Log.resx"
+                    DependentUpon = "Log.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "MediaBar.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -156,6 +166,14 @@
                     RelPath = "MediaBar.resx"
                     DependentUpon = "MediaBar.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MediaBarIcon.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "MediaConnect.ico"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "MediaEditor.cs"
@@ -178,6 +196,24 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "MusicNote.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "MusicNoteWait.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "PlaylistEditor.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PlaylistEditor.resx"
+                    DependentUpon = "PlaylistEditor.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Status.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -188,18 +224,8 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Studio.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Studio.resx"
-                    DependentUpon = "Studio.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "UMPlayer.cs"
-                    SubType = "Form"
+                    SubType = "Component"
                     BuildAction = "Compile"
                 />
                 <File
