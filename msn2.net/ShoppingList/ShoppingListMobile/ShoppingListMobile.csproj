@@ -150,7 +150,6 @@
     <Compile Include="ShoppingListViewItem.cs" />
     <Compile Include="StoreItem.cs" />
     <Compile Include="StoreListItem.cs" />
-    <Compile Include="Timer.cs" />
     <Compile Include="Web References\sls\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

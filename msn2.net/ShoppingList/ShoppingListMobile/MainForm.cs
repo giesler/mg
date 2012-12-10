@@ -21,22 +21,34 @@ namespace msn2.net.ShoppingList
 {
     public partial class MainForm : Form
     {
+        public static Color[] ListColors = new Color[] { Color.White, Color.FromArgb(211, 255, 227) };
+
+        #region Declares
+
         LocalSettings settings = null;
-        ShoppingListItem undoItem = null;
+        object lockObject = new object();
+        
         float defaultFontSize = 10;
         float currentZoom = 1.0F;
         ShoppingListService listService = null;
         bool loadAllItemsAfterStores = false;
+        bool settingsLoaded = false;
+        bool reloadListOnDeleteComplete = false;
+        List<ShoppingListItem> pendingDeletes = new List<ShoppingListItem>();
         StoreItem selectedStore = null;
-        object lockObject = new object();
-        public static Color[] ListColors = new Color[] { Color.White, Color.FromArgb(211, 255, 227) };
-
+        ShoppingListItem undoItem = null;
+        
         IContainer components = null;
-        MainMenu mainMenu1;
-        ListView listView1;
-        ColumnHeader Item;
+        ListView listView;
         TextBox newItem;
         Button add;
+        Label statusLabel;
+        Button switchStore;
+        Label storeLabel;
+        InputPanel inputPanel1;
+        ProgressBar progressBar = null;
+
+        MainMenu mainMenu;
         MenuItem menuRefresh;
         MenuItem rightMenu;
         MenuItem menuUndo;
@@ -48,44 +60,34 @@ namespace msn2.net.ShoppingList
         MenuItem menuTextSmall;
         MenuItem menuTextBiggest;
         MenuItem menuTextSmallest;
-        Label statusLabel;
-        WinForms.Timer updateTimer;
         ContextMenu listViewContextMenu;
         MenuItem menuMoveToList;
         MenuItem menuEdit;
-        Button switchStore;
-        Label storeLabel;
+
+        WinForms.Timer updateTimer;
         WinForms.Timer timerRetryRefresh;
         WinForms.Timer timerResizeCheck;
         WinForms.Timer timerProgress;
         WinForms.Timer timerDelete;
-        InputPanel inputPanel1;
-        PerfTimer perfTimer = new PerfTimer();
-        bool settingsLoaded = false;
-        ProgressBar progressBar = null;
-        bool reloadListOnDeleteComplete = false;
-        List<ShoppingListItem> pendingDeletes = new List<ShoppingListItem>();
+
+        #endregion
 
         public MainForm()
         {
-            perfTimer.Start();
-
-            OutputTicks("Start");
-
             this.SuspendLayout();
 
-            this.mainMenu1 = new MainMenu();
-            this.Menu = this.mainMenu1;
+            this.mainMenu = new MainMenu();
+            this.Menu = this.mainMenu;
 
             this.menuRefresh = new MenuItem();
             this.menuRefresh.Enabled = false;
             this.menuRefresh.Text = "&Refresh";
             this.menuRefresh.Click += new EventHandler(this.menuRefresh_Click);
-            this.mainMenu1.MenuItems.Add(this.menuRefresh);
+            this.mainMenu.MenuItems.Add(this.menuRefresh);
 
             this.rightMenu = new MenuItem();
             this.rightMenu.Text = "&Menu";
-            this.mainMenu1.MenuItems.Add(this.rightMenu);
+            this.mainMenu.MenuItems.Add(this.rightMenu);
 
             #region Right Menu
 
@@ -143,17 +145,17 @@ namespace msn2.net.ShoppingList
 
             #endregion
 
-            this.listView1 = new ListView();
-            this.listView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = ColumnHeaderStyle.None;
-            this.listView1.Bounds = new Rectangle(3, 50, 235, 206);
-            this.listView1.TabIndex = 0;
-            this.listView1.View = View.Details;
-            this.listView1.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
-            this.listView1.KeyDown += new KeyEventHandler(listView1_KeyDown);
-            this.listView1.Parent = this;
-            this.defaultFontSize = this.listView1.Font.Size;
+            this.listView = new ListView();
+            this.listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.listView.FullRowSelect = true;
+            this.listView.HeaderStyle = ColumnHeaderStyle.None;
+            this.listView.Bounds = new Rectangle(3, 50, 235, 206);
+            this.listView.TabIndex = 0;
+            this.listView.View = View.Details;
+            this.listView.ItemCheck += new ItemCheckEventHandler(this.listView1_ItemCheck);
+            this.listView.KeyDown += new KeyEventHandler(listView1_KeyDown);
+            this.listView.Parent = this;
+            this.defaultFontSize = this.listView.Font.Size;
 
             this.newItem = new TextBox();
             this.newItem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -225,15 +227,11 @@ namespace msn2.net.ShoppingList
             
             this.ResumeLayout(false);
 
-            OutputTicks("init done");
-
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadSettings), new object());
 
             this.LoadAllItems();
 
             this.UpdateStatus();
-
-            OutputTicks("ctor done");
         }
 
         protected override void Dispose(bool disposing)
@@ -243,12 +241,6 @@ namespace msn2.net.ShoppingList
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        void OutputTicks(string name)
-        {
-            Int64 elapsed = this.perfTimer.ElapsedTime();
-            Trace.WriteLine(string.Format("{0} - {1}", name, elapsed));
         }
 
         void LoadSettings(object foo)
@@ -274,8 +266,6 @@ namespace msn2.net.ShoppingList
 
         void DisplayLoadedSettings(object foo)
         {
-            OutputTicks("CallbackFromSettingsLoaded");
-
             if (this.settings.Settings.ContainsKey("LastUpdate") == false)
             {
                 this.settings.Settings.Add("LastUpdate", DateTime.MinValue.ToString());
@@ -293,10 +283,8 @@ namespace msn2.net.ShoppingList
                 this.switchStore.Enabled = true;
 
                 this.DisplayStores(null);
-                OutputTicks("DisplayStores");
                 this.LoadShoppingListItems(false);
-                OutputTicks("LoadShoppingListItems");
-                this.listView1.CheckBoxes = false;
+                this.listView.CheckBoxes = false;
                 // TODO: add flag to get latest list of stores after getting items
             }
             else
@@ -307,8 +295,6 @@ namespace msn2.net.ShoppingList
 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadStoreList), foo);
             }
-
-            OutputTicks("DisplayLoadedSettingsEnd");
 
             this.settingsLoaded = true;
 
@@ -464,7 +450,7 @@ namespace msn2.net.ShoppingList
         {
             this.menuRefresh.Enabled = false;
             this.add.Enabled = false;
-            this.listView1.CheckBoxes = false;
+            this.listView.CheckBoxes = false;
 
             this.progressBar.Visible = true;
             this.progressBar.Value = 0;
@@ -490,7 +476,7 @@ namespace msn2.net.ShoppingList
 
         void FlushDeleteRequests()
         {
-            foreach (ShoppingListViewItem item in this.listView1.Items)
+            foreach (ShoppingListViewItem item in this.listView.Items)
             {
                 if (item.DeleteRequested == true)
                 {
@@ -579,7 +565,7 @@ namespace msn2.net.ShoppingList
 
             bool enableControls = (bool)oEnableControls;
             this.add.Enabled = enableControls;
-            this.listView1.CheckBoxes = enableControls;
+            this.listView.CheckBoxes = enableControls;
             this.menuRefresh.Enabled = enableControls;
 
             if (enableControls == true)
@@ -599,21 +585,21 @@ namespace msn2.net.ShoppingList
 
         void ReloadItemList()
         {
-            if (this.listView1.Columns.Count == 0)
+            if (this.listView.Columns.Count == 0)
             {
-                this.Item = new ColumnHeader();
-                this.Item.Text = "item";
-                this.Item.Width = this.listView1.ClientSize.Width - 9;
-                this.listView1.Columns.Add(this.Item);
+                ColumnHeader header = new ColumnHeader();
+                header.Text = "item";
+                header.Width = this.listView.ClientSize.Width - 9;
+                this.listView.Columns.Add(header);
 
                 this.listViewContextMenu = new ContextMenu();
                 this.listViewContextMenu.Popup += new EventHandler(this.listViewContextMenu_Popup);
-                this.listView1.ContextMenu = this.listViewContextMenu;
+                this.listView.ContextMenu = this.listViewContextMenu;
             }
 
-            int selectedIndex = this.listView1.SelectedIndices.Count > 0 ? this.listView1.SelectedIndices[0] : 0;
+            int selectedIndex = this.listView.SelectedIndices.Count > 0 ? this.listView.SelectedIndices[0] : 0;
 
-            this.listView1.Items.Clear();
+            this.listView.Items.Clear();
 
             if (this.selectedStore != null)
             {
@@ -621,23 +607,23 @@ namespace msn2.net.ShoppingList
                 var q = from i in this.selectedStore.Items
                         orderby i.ListItem
                         select i;
-                this.listView1.BeginUpdate();
+                this.listView.BeginUpdate();
                 foreach (ShoppingListItem item in q)
                 {
                     ShoppingListViewItem listItem = new ShoppingListViewItem(item);
                     listItem.BackColor = index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
-                    this.listView1.Items.Add(listItem);
+                    this.listView.Items.Add(listItem);
 
                     index++;
                 }
-                this.listView1.EndUpdate();
+                this.listView.EndUpdate();
             }
 
-            if (this.listView1.Items.Count > 0)
+            if (this.listView.Items.Count > 0)
             {
-                selectedIndex = this.listView1.Items.Count > selectedIndex ? selectedIndex : this.listView1.Items.Count - 1;
-                this.listView1.Items[selectedIndex].Selected = true;
-                this.listView1.Items[selectedIndex].Focused = true;
+                selectedIndex = this.listView.Items.Count > selectedIndex ? selectedIndex : this.listView.Items.Count - 1;
+                this.listView.Items[selectedIndex].Selected = true;
+                this.listView.Items[selectedIndex].Focused = true;
             }
 
             this.UpdateStatus();
@@ -647,7 +633,7 @@ namespace msn2.net.ShoppingList
         {
             int index = 0;
 
-            foreach (ShoppingListViewItem item in this.listView1.Items)
+            foreach (ShoppingListViewItem item in this.listView.Items)
             {
                 item.BackColor = index % 2 == 0 ? MainForm.ListColors[0] : MainForm.ListColors[1];
                 index++;
@@ -666,7 +652,7 @@ namespace msn2.net.ShoppingList
         {
             base.OnResize(e);
 
-            if (this.listView1.Columns.Count > 0)
+            if (this.listView.Columns.Count > 0)
             {
                 this.SetColumnWidth();
 
@@ -697,12 +683,12 @@ namespace msn2.net.ShoppingList
 
         void SetColumnWidth()
         {
-            int width = this.listView1.ClientSize.Width - 4;
-            if (this.listView1.Columns.Count > 0)
+            int width = this.listView.ClientSize.Width;
+            if (this.listView.Columns.Count > 0)
             {
-                if (this.listView1.Columns[0].Width != width)
+                if (this.listView.Columns[0].Width != width)
                 {
-                    this.listView1.Columns[0].Width = width;
+                    this.listView.Columns[0].Width = width;
                 }
             }
         }
@@ -720,7 +706,7 @@ namespace msn2.net.ShoppingList
 
                 int index = GetInsertIndex(item);
 
-                this.listView1.Items.Insert(index, sli);
+                this.listView.Items.Insert(index, sli);
                 this.UpdateRowColors();
                 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.AddItem), sli);
@@ -735,7 +721,7 @@ namespace msn2.net.ShoppingList
         private int GetInsertIndex(ShoppingListItem item)
         {
             int index = 0;
-            foreach (ShoppingListViewItem tempItem in this.listView1.Items)
+            foreach (ShoppingListViewItem tempItem in this.listView.Items)
             {
                 if (item.ListItem.CompareTo(tempItem.Text) < 0)
                 {
@@ -782,7 +768,7 @@ namespace msn2.net.ShoppingList
 
         void listView1_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ShoppingListViewItem item = (ShoppingListViewItem)this.listView1.Items[e.Index];
+            ShoppingListViewItem item = (ShoppingListViewItem)this.listView.Items[e.Index];
 
             if (item.Item.Id == 0)
             {
@@ -824,7 +810,7 @@ namespace msn2.net.ShoppingList
         {
             bool pending = false;
             List<ShoppingListViewItem> removeList = new List<ShoppingListViewItem>();
-            foreach (ShoppingListViewItem item in this.listView1.Items)
+            foreach (ShoppingListViewItem item in this.listView.Items)
             {
                 if (item.DeleteRequested)
                 {
@@ -852,7 +838,7 @@ namespace msn2.net.ShoppingList
 
                 this.menuUndo.Enabled = true;
 
-                this.listView1.Items.Remove(item);
+                this.listView.Items.Remove(item);
                 this.UpdateRowColors();
 
                 StoreItem store = GetStore(item.Item.Store);
@@ -924,7 +910,7 @@ namespace msn2.net.ShoppingList
             if (store == this.selectedStore)
             {
                 int index = this.GetInsertIndex(sli.Item);
-                this.listView1.Items.Insert(index, sli);
+                this.listView.Items.Insert(index, sli);
                 this.UpdateRowColors();
             }
             else
@@ -1037,7 +1023,7 @@ namespace msn2.net.ShoppingList
         void ZoomControls()
         {
             float newSize = this.defaultFontSize * this.currentZoom;
-            this.listView1.Font = new Font(this.listView1.Font.Name, newSize, this.listView1.Font.Style);
+            this.listView.Font = new Font(this.listView.Font.Name, newSize, this.listView.Font.Style);
         }
 
         delegate void ExceptionEventHandler(Exception ex);
@@ -1130,7 +1116,7 @@ namespace msn2.net.ShoppingList
             this.menuEdit.Enabled = false;
             this.menuMoveToList.Enabled = false;
 
-            if (this.listView1.SelectedIndices.Count > 0 && this.selectedStore != null && this.menuRefresh.Enabled == true)
+            if (this.listView.SelectedIndices.Count > 0 && this.selectedStore != null && this.menuRefresh.Enabled == true)
             {
                 this.menuEdit.Enabled = true;
                 this.menuMoveToList.Enabled = true;
@@ -1186,10 +1172,10 @@ namespace msn2.net.ShoppingList
         {
             MenuItem storeMenuItem = (MenuItem)sender;
 
-            if (this.listView1.SelectedIndices.Count > 0 && this.selectedStore != null)
+            if (this.listView.SelectedIndices.Count > 0 && this.selectedStore != null)
             {
                 StoreItem newStore = this.settings.LatestItems[storeMenuItem.Text];
-                ShoppingListViewItem moveItem = (ShoppingListViewItem)this.listView1.Items[this.listView1.SelectedIndices[0]];
+                ShoppingListViewItem moveItem = (ShoppingListViewItem)this.listView.Items[this.listView.SelectedIndices[0]];
 
                 this.selectedStore.Items.Remove(moveItem.Item);
                 newStore.Items.Add(moveItem.Item);
@@ -1198,7 +1184,7 @@ namespace msn2.net.ShoppingList
 
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.UpdateListItem), moveItem.Item);
 
-                this.listView1.Items.Remove(moveItem);
+                this.listView.Items.Remove(moveItem);
                 this.UpdateRowColors();
             }
         }
@@ -1212,9 +1198,9 @@ namespace msn2.net.ShoppingList
 
         void menuEdit_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedIndices.Count > 0 && this.selectedStore != null)
+            if (this.listView.SelectedIndices.Count > 0 && this.selectedStore != null)
             {
-                ShoppingListViewItem editItem = (ShoppingListViewItem)this.listView1.Items[this.listView1.SelectedIndices[0]];
+                ShoppingListViewItem editItem = (ShoppingListViewItem)this.listView.Items[this.listView.SelectedIndices[0]];
 
                 EditItemForm itemEditor = new EditItemForm(this.inputPanel1);
                 itemEditor.Text = this.selectedStore.Name;
@@ -1275,9 +1261,11 @@ namespace msn2.net.ShoppingList
                 pbarOffset = this.progressBar.Height + 4;
             }
 
-            this.listView1.Height = this.ClientSize.Height - this.listView1.Top - this.statusLabel.Height - offset;
+            this.listView.Height = this.ClientSize.Height - this.listView.Top - this.statusLabel.Height - offset;
 
-            this.statusLabel.Top = this.listView1.Top + this.listView1.Height + pbarOffset;
+            this.statusLabel.Top = this.listView.Top + this.listView.Height + pbarOffset;
+
+            this.SetColumnWidth();
         }
 
         void newItem_GotFocus(object sender, EventArgs e)
