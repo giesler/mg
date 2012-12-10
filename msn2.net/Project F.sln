@@ -9,9 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configurat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicLibrary", "MagicLibrary\MagicLibrary.csproj", "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSNBC", "..\MSNBC\MSNBCHeadlines\MSNBC.csproj", "{37358FDE-0356-4DB1-A374-3BFF3D034C00}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccLocalPath0 = .
 		CanCheckoutShared = false
 		SolutionUniqueID = {8B05E1D2-5B92-4D82-B515-DF9C3E84F263}
@@ -34,6 +36,10 @@ Global
 		SccProjectUniqueName5 = MagicLibrary\\MagicLibrary.csproj
 		SccProjectName5 = \u0022$/msn2.net/MagicLibrary\u0022,\u0020REOAAAAA
 		SccLocalPath5 = MagicLibrary
+		CanCheckoutShared = false
+		SccProjectUniqueName6 = ..\\MSNBC\\MSNBCHeadlines\\MSNBC.csproj
+		SccProjectName6 = \u0022$/msn2.net/MSNBC\u0022,\u0020FJOAAAAA
+		SccLocalPath6 = ..\\MSNBC\\MSNBCHeadlines
 		CanCheckoutShared = false
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
@@ -63,6 +69,10 @@ Global
 		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Debug.Build.0 = Debug|.NET
 		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.ActiveCfg = Release|.NET
 		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.Build.0 = Release|.NET
+		{37358FDE-0356-4DB1-A374-3BFF3D034C00}.Debug.ActiveCfg = Debug|.NET
+		{37358FDE-0356-4DB1-A374-3BFF3D034C00}.Debug.Build.0 = Debug|.NET
+		{37358FDE-0356-4DB1-A374-3BFF3D034C00}.Release.ActiveCfg = Release|.NET
+		{37358FDE-0356-4DB1-A374-3BFF3D034C00}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

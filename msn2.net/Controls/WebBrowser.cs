@@ -121,6 +121,7 @@ namespace msn2.net.Controls
 			tabControl.ShowArrows		= true;
 			tabControl.PositionTop		= true;
 			tabControl.ClosePressed		+= new EventHandler(ClosePressed);
+			tabControl.HideTabsUsingLogic = true;
 			this.Controls.Add(tabControl);
 
 			tabControl.Visible = true;

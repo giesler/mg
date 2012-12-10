@@ -8,6 +8,7 @@ using msn2.net.Configuration;
 using System.Text;
 using msn2.net.Common;
 using msn2.net.Configuration.ProjectFServices;
+using System.Threading;
 
 namespace msn2.net.Configuration
 {
@@ -29,7 +30,6 @@ namespace msn2.net.Configuration
 
 	public class Data //: System.Windows.Forms.TreeNode
 	{
-
 		#region Declares
 
 		private Guid			id;
@@ -49,7 +49,6 @@ namespace msn2.net.Configuration
 		ProjectFServices.DataService dataService = null;
 
 		#endregion
-
 		#region Constructors
 
 		// used for top level node
@@ -99,7 +98,6 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 		#region Properties
 
 		public Guid Id
@@ -151,7 +149,6 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 		#region GetChildren calls
 
 		#region Overloads
@@ -284,7 +281,6 @@ namespace msn2.net.Configuration
 		#endregion
 
 		#endregion
-
 		#region GetConfigTreeLocation
 
 		private Guid GetConfigTreeLocation(ConfigTreeLocation requested)
@@ -314,7 +310,6 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 		#region Get Calls
 
 		#region Overloads
@@ -432,13 +427,19 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 		#region Save
 
 		/// <summary>
 		/// Saves a node
 		/// </summary>
 		public void Save()
+		{
+			// Start a new thread to do actual save
+			Thread thread = new Thread(new ThreadStart(SaveThreadStart));
+			thread.Start();
+		}
+
+		private void SaveThreadStart()
 		{
 			string serializedData = null;
 			if (configData != null)
@@ -450,7 +451,6 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 		#region Delete
 
 		/// <summary>
@@ -459,11 +459,17 @@ namespace msn2.net.Configuration
 		/// <param name="itemId">Guid of item to delete</param>
 		public void Delete()
 		{
+			// Start delete on a new thread (don't block this request)
+			Thread thread = new Thread(new ThreadStart(DeleteThreadStart));
+			thread.Start();
+		}
+
+		private void DeleteThreadStart()
+		{
 			dataService.Delete(this.id);
 		}
 
 		#endregion
-
 		#region LookupTheirGroupId
 
 		private Hashtable cachedGroupIds = new Hashtable();
@@ -507,7 +513,6 @@ namespace msn2.net.Configuration
 		}
 
 		#endregion
-
 	}
 
 	#endregion

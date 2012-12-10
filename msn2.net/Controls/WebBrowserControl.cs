@@ -640,7 +640,7 @@ namespace msn2.net.Controls
 			if (this.url != null && this.url.Length > 0)
 			{
 				System.Diagnostics.Debug.WriteLine("Refreshing " + url);
-				this.RefreshPage();
+				this.Url = this.url;
 			}
 		}
 

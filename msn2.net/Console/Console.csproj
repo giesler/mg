@@ -134,6 +134,26 @@
                     AssemblyName = "msn2.net.QueuePlayer.Client"
                     HintPath = "..\QueuePlayer\main\Client\bin\Release\msn2.net.QueuePlayer.Client.dll"
                 />
+                <Reference
+                    Name = "MSNBC"
+                    Project = "{37358FDE-0356-4DB1-A374-3BFF3D034C00}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "AxInterop.SHDocVw"
+                    AssemblyName = "AxInterop.SHDocVw"
+                    HintPath = "..\Controls\bin\Release\AxInterop.SHDocVw.dll"
+                />
+                <Reference
+                    Name = "Interop.MessengerAPI"
+                    AssemblyName = "Interop.MessengerAPI"
+                    HintPath = "..\Configuration\bin\Release\Interop.MessengerAPI.dll"
+                />
+                <Reference
+                    Name = "Interop.SHDocVw"
+                    AssemblyName = "Interop.SHDocVw"
+                    HintPath = "..\Controls\bin\Release\Interop.SHDocVw.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -159,7 +179,7 @@
                 />
                 <File
                     RelPath = "Login.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -168,8 +188,13 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "msn2Home.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "ProjectFConsole.cs"
-                    SubType = "Form"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -186,6 +211,11 @@
                     RelPath = "ShellFormListItem.resx"
                     DependentUpon = "ShellFormListItem.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ShellLoadModulesConfigHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
             </Include>
         </Files>

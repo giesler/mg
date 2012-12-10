@@ -356,36 +356,27 @@ namespace msn2.net.ProjectF
 			//			listView1.Items.Add(
 			//				new FormListViewItem(this, new msn2.net.QueuePlayer.Client.UMPlayer()));
 
-			string baseUrl = "http://www.msnbc.com/modules/story_stage/stages.asp?0st=S{0}&nstage={0}&scss=e";
-			msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser(ConfigurationSettings.Current.Data.Get("MSNBCHeadlines"), "MSNBC Headlines", 400, 225);
-			browser.ShowClose	= false;
-			browser.ShowArrows	= false;
-			browser.AddStaticTab("Cover", String.Format(baseUrl, 1), new TimeSpan(0, 25, 0));
-			browser.AddStaticTab("News", String.Format(baseUrl, 2), new TimeSpan(1, 0, 2));
-			browser.AddStaticTab("Business", String.Format(baseUrl, 3, new TimeSpan(1, 0, 4)));
-			browser.AddStaticTab("Health", String.Format(baseUrl, 4, new TimeSpan(1, 0, 6)));
-			browser.AddStaticTab("Technology", String.Format(baseUrl, 5, new TimeSpan(1, 0, 8)));
-			browser.AddStaticTab("TV News", String.Format(baseUrl, 6, new TimeSpan(1, 0, 10)));
-			browser.AddStaticTab("Opinions", String.Format(baseUrl, 7, new TimeSpan(3, 0, 0)));
-				
-			baseUrl = "http://home.msn2.net/weather.aspx?aid={0}";
-            browser = new WebBrowser(ConfigurationSettings.Current.Data.Get("MSNBCWeather"), "MSNBC Weather", 397, 200);
-			browser.ShowClose	= false;
-			browser.ShowArrows	= false;
-			browser.AddStaticTab("Kirkland", String.Format(baseUrl, "WAKI", new TimeSpan(0, 30, 1)));
-			browser.AddStaticTab("Seattle", String.Format(baseUrl, "SEA"), new TimeSpan(2, 0, 0));
-			browser.AddStaticTab("Madison", String.Format(baseUrl, "MSN"), new TimeSpan(2, 0, 2));
+//			msn2.net.Controls.WebBrowser browser = new msn2.net.Controls.WebBrowser(ConfigurationSettings.Current.Data.Get("MSNBCHeadlines"));
+//				
+			// Get modules from settings
+			ArrayList arrayList = (ArrayList) System.Configuration.ConfigurationSettings.GetConfig("shellModules");
+			Type[] constructorParams = new Type[1];
+			constructorParams[0] = typeof(msn2.net.Configuration.Data);
+			foreach (Type type in arrayList)
+			{
+				status.Message = "Loading " + type.ToString() + "...";
+				ConstructorInfo info = type.GetConstructor(constructorParams);
+				object[] parameters = new object[1];
+				parameters[0] = ConfigurationSettings.Current.Data.Get(type.Name);
+				object newItem = info.Invoke(parameters);
+				ShellForm form = (ShellForm) newItem;
+				form.Hide();
+			}
 
-			msn2.net.QueuePlayer.Client.UMPlayer player = new msn2.net.QueuePlayer.Client.UMPlayer();
-			player.Show();
 
-			Favorites favs = new Favorites(ConfigurationSettings.Current.Data.Get("Favorites"));
-//			favs.Show();
-//			ComputerInfo cInfo = new ComputerInfo(ConfigurationSettings.Current.Data.Get(Environment.MachineName));
-//			cInfo.Show();
-			WebSearch webSearch = new WebSearch(ConfigurationSettings.Current.Data.Get("Search"));
-			webSearch.Show();
-			ShellLaunch shellLaunch = new ShellLaunch(ConfigurationSettings.Current.Data.Get("ShellLaunch"));
+//			WebSearch webSearch = new WebSearch(ConfigurationSettings.Current.Data.Get("Search"));
+//			webSearch.Show();
+//			ShellLaunch shellLaunch = new ShellLaunch(ConfigurationSettings.Current.Data.Get("ShellLaunch"));
 //			shellLaunch.Show();
 			
 			this.Left = Screen.PrimaryScreen.Bounds.Width / 2 - 50;

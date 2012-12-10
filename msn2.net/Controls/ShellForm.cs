@@ -106,9 +106,9 @@ namespace msn2.net.Controls
 		private int		rollupHeight				= 18;
 		private bool	dialog						= false;
 		
-		private int		fadeInTimerInterval			= 50;
-		private int		fadeOutTimerInterval		= 70;
-		protected bool	fadeInEnabled				= true;
+		private int		fadeInTimerInterval			= 1;
+		private int		fadeOutTimerInterval		= 1;
+		protected bool	fadeInEnabled				= false;
 		
 		private Crownwood.Magic.Controls.TabPage tabPage = null;
 		
@@ -840,8 +840,10 @@ namespace msn2.net.Controls
 
 		protected void FadeIn(ShellForm source)
 		{
-			timerFadeOut.Enabled = false;
-			timerFadeIn.Enabled  = true;
+			this.Opacity = 1;
+
+//			timerFadeOut.Enabled = false;
+//			timerFadeIn.Enabled  = true;
 
 			// Fade in any forms locked to me
 			foreach (ShellForm instance in instances)
@@ -869,8 +871,10 @@ namespace msn2.net.Controls
 
 		protected void FadeOut(ShellForm source)
 		{
-			timerFadeOut.Enabled = true;
-			timerFadeIn.Enabled  = false;
+			this.Opacity = 0.52;
+
+//			timerFadeOut.Enabled = true;
+//			timerFadeIn.Enabled  = false;
 
 			// Fade in any forms locked to me
 			foreach (ShellForm instance in instances)
@@ -1622,12 +1626,14 @@ namespace msn2.net.Controls
 
 	public class ShellFormConfigData: msn2.net.Configuration.ConfigData
 	{
+		#region Declares
 		private int left;
 		private int top;
 		private bool topmost;
 		private bool enableOpacityChanges;
 		private ShellForm form;
-
+		#endregion
+		#region Constructors
 		public ShellFormConfigData()
 		{}
 
@@ -1645,7 +1651,8 @@ namespace msn2.net.Controls
 			if (p.Y != 0)
 				this.top  = p.Y;
 		}
-
+		#endregion
+		#region Methods
 		public void Apply(ShellForm form)
 		{
 			if (form != null)
@@ -1674,7 +1681,8 @@ namespace msn2.net.Controls
 				form.EnableOpacityChanges	= this.enableOpacityChanges;
 			}
 		}
-
+		#endregion
+		#region Properties
 		public int Left
 		{
 			get { return left; }
@@ -1698,6 +1706,8 @@ namespace msn2.net.Controls
 			get { return enableOpacityChanges; }
 			set { enableOpacityChanges = value; }
 		}
+
+		#endregion
 
 	}
 
