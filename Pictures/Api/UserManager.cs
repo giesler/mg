@@ -125,7 +125,7 @@ namespace msn2.net.Pictures
 
         public Person GetPersonA(int id)
         {
-            Person p = (from d in PicContext.Current.DataContext.Persons
+            Person p = (from d in this.context.DataContext.Persons
                         where d.PersonID == id
                         select d).First<Person>();
             return p;
@@ -406,8 +406,8 @@ namespace msn2.net.Pictures
             {
                 p.Email = string.Empty;
             }
-            PicContext.Current.DataContext.Persons.InsertOnSubmit(p);
-            PicContext.Current.DataContext.SubmitChanges();
+            this.context.DataContext.Persons.InsertOnSubmit(p);
+            this.context.DataContext.SubmitChanges();
         }
 
         public bool ResetPassword(string email, string password)
@@ -516,7 +516,7 @@ namespace msn2.net.Pictures
 
         public List<Person> GetRecentUsers()
         {
-            var q = from p in PicContext.Current.DataContext.GetRecentlySelectedUsers()
+            var q = from p in this.context.DataContext.GetRecentlySelectedUsers()
                     select p;
             return q.ToList<Person>();
         }

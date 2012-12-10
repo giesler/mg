@@ -122,7 +122,7 @@ namespace msn2.net.Pictures
             cmd.Parameters["@averageRating"].Direction = ParameterDirection.Output;
 
             cmd.Parameters["@pictureId"].Value = pictureId;
-            cmd.Parameters["@personId"].Value = PicContext.Current.CurrentUser.Id;
+            cmd.Parameters["@personId"].Value = this.picContext.CurrentUser.Id;
             cmd.Parameters["@rating"].Value = rating;
 
             cn.Open();
@@ -172,7 +172,7 @@ namespace msn2.net.Pictures
             Picture data = GetPicture(pictureId);
 
             // Load iamge
-            string appPath = PicContext.Current.Config.PictureDirectory;
+            string appPath = this.picContext.Config.PictureDirectory;
             if (!appPath.Equals(@"\"))
                 appPath = appPath + @"\";
 
@@ -340,7 +340,7 @@ namespace msn2.net.Pictures
             }
 
             // set up params on the SP
-            int personId = PicContext.Current.CurrentUser.Id;
+            int personId = this.picContext.CurrentUser.Id;
             daPics.SelectCommand.Parameters.Add("@CategoryID", SqlDbType.Int);
             daPics.SelectCommand.Parameters.Add("@StartRecord", SqlDbType.Int);
             daPics.SelectCommand.Parameters.Add("@ReturnCount", SqlDbType.Int);

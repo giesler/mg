@@ -579,7 +579,7 @@ namespace msn2.net.Pictures.Controls
             Utilities.ExifMetadata ex = new Utilities.ExifMetadata();
 
             // Now create the thumbnails
-            ImageUtilities utils = new ImageUtilities();
+            ImageUtilities utils = new ImageUtilities(this.context);
             stat.Current = 0;
             stat.StatusText = "Creating thumbnail images...";
             foreach (Picture picture in addedPictures)

@@ -33,8 +33,6 @@ namespace msn2.net.Pictures
 				+= new FileSystemEventHandler(this.OnFileCreated);
 			this.fileSystemWatcher.EnableRaisingEvents = true;
 
-//			this.pictureManager = PicContext.Current.PictureManager;
-
 			//
 			// Start file processing thread
 			//

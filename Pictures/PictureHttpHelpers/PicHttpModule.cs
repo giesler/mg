@@ -46,18 +46,18 @@ namespace msn2.net.Pictures
                 if (Double.TryParse(userName, System.Globalization.NumberStyles.Integer, null, out result))
                 {
                     int personId = (int)result;
-                    PicContext.Current.SetCurrentUser(GetPersonById(personId));
+                    PicHttpContext.Current.SetCurrentUser(GetPersonById(personId));
                 }
                 else
                 {
                     HttpContext.Current.Trace.Write("Trying NT login...");
-                    PicContext.Current.SetCurrentUser(GetPersonByWindowsLogin(userName));
+                    PicHttpContext.Current.SetCurrentUser(GetPersonByWindowsLogin(userName));
                 }
             }
             
-            if (ConfigurationManager.AppSettings["PictureAutoLogin"] != null && PicContext.Current.CurrentUser == null)
+            if (ConfigurationManager.AppSettings["PictureAutoLogin"] != null && PicHttpContext.Current.CurrentUser == null)
             {
-                PicContext.Current.SetCurrentUser(GetPersonById(1));
+                PicHttpContext.Current.SetCurrentUser(GetPersonById(1));
             }
         }
 
@@ -79,7 +79,7 @@ namespace msn2.net.Pictures
 
             if (personInfo == null)
             {
-                personInfo = PicContext.Current.UserManager.GetPerson(personId);
+                personInfo = PicHttpContext.Current.UserManager.GetPerson(personId);
             }
 
             if (httpContext != null)
@@ -112,7 +112,7 @@ namespace msn2.net.Pictures
 
             if (personInfo == null)
             {
-                personInfo = PicContext.Current.UserManager.GetPerson(personId);
+                personInfo = PicHttpContext.Current.UserManager.GetPerson(personId);
             }
 
             if (httpContext != null && personInfo != null)

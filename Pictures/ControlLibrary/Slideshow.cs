@@ -895,7 +895,7 @@ namespace msn2.net.Pictures.Controls
 
                 if (this.IsDisposed == false && this.picture != null)
                 {
-                    ImageUtilities util = new ImageUtilities();
+                    ImageUtilities util = new ImageUtilities(PicContext.Current);
                     util.CreateUpdateCache(picture.Id);
                     this.BeginInvoke(new ReloadImageDelegate(this.ReloadImage), picture);
                 }

@@ -18,14 +18,16 @@ namespace msn2.net.Pictures
 	/// </summary>
 	public class ImageUtilities
 	{
-		
-		public ImageUtilities()
+        PicContext context;
+
+		public ImageUtilities(PicContext context)
 		{
+            this.context = context;
 		}
 
 		public void CreateUpdateCache(int pictureId)
         {
-            PicContext pc = PicContext.Current.Clone();
+            PicContext pc = this.context.Clone();
             
             Picture picture = pc.PictureManager.GetPicture(pictureId);
 

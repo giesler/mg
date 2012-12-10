@@ -49,15 +49,15 @@ namespace msn2.net.Pictures
                 sizeHeight = int.Parse(context.Request.QueryString["sh"]);
             }
 
-            Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+            Picture picture = PicHttpContext.Current.PictureManager.GetPicture(pictureId);
 
             if (picture != null)
             {
-                PictureCache cachedImage = PicContext.Current.PictureManager.GetPictureCache(pictureId, maxWidth, maxHeight);
+                PictureCache cachedImage = PicHttpContext.Current.PictureManager.GetPictureCache(pictureId, maxWidth, maxHeight);
 
                 if (cachedImage == null)
                 {
-                    throw new Exception("Unable to locate cached image. (id " + PicContext.Current.CurrentUser.Id + ")");
+                    throw new Exception("Unable to locate cached image. (id " + PicHttpContext.Current.CurrentUser.Id + ")");
                 }
 
                 if (!string.IsNullOrEmpty(context.Request.QueryString["sb"]))
@@ -66,7 +66,7 @@ namespace msn2.net.Pictures
                     sizeHeight = cachedImage.Height.Value;
                 }
 
-                string strCache = PicContext.Current.Config.CacheDirectory;
+                string strCache = PicHttpContext.Current.Config.CacheDirectory;
                 string filename = Path.Combine(strCache, cachedImage.Filename);
 
                 context.Response.ContentType = "image/jpeg";

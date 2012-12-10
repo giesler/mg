@@ -1070,7 +1070,7 @@ namespace msn2.net.Pictures.Controls
 
         void ProcessCache()
         {
-            ImageUtilities util = new ImageUtilities();
+            ImageUtilities util = new ImageUtilities(PicContext.Current);
 
             var q = from p in PicContext.Current.PictureManager.GetPictures()
                     where (from pc in p.PictureCaches
@@ -1534,7 +1534,7 @@ namespace msn2.net.Pictures.Controls
                 pm.RotateImage(ri.PictureId, ri.RotateType);
                 pictureList1.ReleasePicture(ri.PictureId);
 
-                ImageUtilities iu = new ImageUtilities();
+                ImageUtilities iu = new ImageUtilities(PicContext.Current);
                 iu.CreateUpdateCache(ri.PictureId);
 
                 pictureList1.ReloadPicture(ri.PictureId);
