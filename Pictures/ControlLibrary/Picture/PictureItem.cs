@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 using System.Drawing.Imaging;
+using System.IO;
 
 #endregion
 
@@ -120,10 +121,14 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        private bool imageReadError = false;
+
         private void LoadImage(object o)
         {
             try
             {
+                this.imageReadError = false;
+
                 // See if there is a resized image
                 if (this.Width < 125 && null == smallImage)
                 {
@@ -136,9 +141,17 @@ namespace msn2.net.Pictures.Controls
 
                 RepaintImage();
             }
-            catch (System.IO.FileNotFoundException fnfe)
+            catch (FileNotFoundException fnfe)
             {
+                this.imageReadError = true;
                 Trace.WriteLine(fnfe.ToString());
+                RepaintImage();
+            }
+            catch (DirectoryNotFoundException dnf)
+            {
+                this.imageReadError = true;
+                Trace.WriteLine(dnf.ToString());
+                RepaintImage();
             }
             finally
             {
@@ -179,17 +192,8 @@ namespace msn2.net.Pictures.Controls
             if (this.InvokeRequired)
             {
                 this.BeginInvoke(new MethodInvoker(RepaintImage));
-                return;
             }
-
-            //if (this.CustomPaint)
-            //{
-            //    if (null != RequestPaint)
-            //    {
-            //        RequestPaint(this, EventArgs.Empty);
-            //    }
-            //}
-            //else
+            else
             {
                 this.Invalidate();
             }
@@ -215,25 +219,26 @@ namespace msn2.net.Pictures.Controls
                     imageHeight = 32;
                 }
 
-                StringFormat format = new StringFormat();
-                format.Alignment = StringAlignment.Center;
-                format.LineAlignment = StringAlignment.Center;
-                Font font = new Font("Arial", 6);
-                RectangleF rect = new RectangleF(0, 0, this.Width, this.Height);
-                if (rect.Width > imageHeight && rect.Height > imageHeight)
+                DrawCenteredImage(e, imageHeight, CommonImages.Refresh);
+            }
+        }
+
+        private void DrawCenteredImage(PaintEventArgs e, int imageHeight, Image image)
+        {
+            RectangleF rect = new RectangleF(0, 0, this.Width, this.Height);
+            if (rect.Width > imageHeight && rect.Height > imageHeight)
+            {
+                rect.X = this.Width / 2 - (imageHeight / 2);
+                rect.Y = this.Height / 2 - (imageHeight / 2);
+                rect.Width = imageHeight;
+                rect.Height = imageHeight;
+                try
                 {
-                    rect.X = this.Width / 2 - (imageHeight / 2);
-                    rect.Y = this.Height / 2 - (imageHeight / 2);
-                    rect.Width = imageHeight;
-                    rect.Height = imageHeight;
-                    try
-                    {
-                        e.Graphics.DrawImage(CommonImages.Refresh, rect);
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.WriteLine("Exception writing Loading: " + ex.Message);
-                    }
+                    e.Graphics.DrawImage(image, rect);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Exception writing Loading: " + ex.Message);
                 }
             }
         }
@@ -355,7 +360,11 @@ namespace msn2.net.Pictures.Controls
                 return;
             }
 
-            if (null != sizedImage)
+            if (this.imageReadError == true)
+            {
+                this.DrawCenteredImage(e, 32, CommonImages.Error);
+            }
+            else if (null != sizedImage)
             {
                 // Initialize the color matrix.
                 // Note the value 0.8 in row 4, column 4.

@@ -55,5 +55,20 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+
+
+        private static Bitmap error;
+
+        public static Bitmap Error
+        {
+            get
+            {
+                if (error == null)
+                {
+                    error = new Bitmap(typeof(Resources.ResourceLocator), "error.ico");
+                }
+                return error;
+            }
+        }
     }
 }

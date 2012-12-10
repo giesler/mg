@@ -307,13 +307,16 @@ namespace msn2.net.Pictures.Controls
                 {
                     toolPrevious.Enabled = true;
 
-                    using (Image previousImage = PicContext.Current.PictureCache.GetImage(
+                    if (this.toolPrevious.Visible == true)
+                    {
+                        using (Image previousImage = PicContext.Current.PictureCache.GetImage(
                             previousItem,
                             32,
                             32))
-                    {
-                        Bitmap bmp = new Bitmap(previousImage, new Size(32, 32));
-                        toolPrevious.Image = bmp;
+                        {
+                            Bitmap bmp = new Bitmap(previousImage, new Size(32, 32));
+                            toolPrevious.Image = bmp;
+                        }
                     }
                 }
             }
@@ -326,13 +329,16 @@ namespace msn2.net.Pictures.Controls
                 {
                     toolNext.Enabled = true;
 
-                    using (Image nextImage = PicContext.Current.PictureCache.GetImage(
-                            nextItem,
-                            32,
-                            32))
+                    if (this.toolNext.Enabled == true)
                     {
-                        Bitmap bmp = new Bitmap(nextImage, new Size(32, 32));
-                        toolNext.Image = bmp;
+                        using (Image nextImage = PicContext.Current.PictureCache.GetImage(
+                                nextItem,
+                                32,
+                                32))
+                        {
+                            Bitmap bmp = new Bitmap(nextImage, new Size(32, 32));
+                            toolNext.Image = bmp;
+                        }
                     }
                 }
             }

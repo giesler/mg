@@ -532,6 +532,7 @@
     <None Include="Resources\Folder.bmp" />
     <EmbeddedResource Include="Resources\calendar.ico" />
     <EmbeddedResource Include="Resources\refresh.ico" />
+    <EmbeddedResource Include="Resources\error.ico" />
     <Content Include="Resources\FOLDER02.ICO" />
     <None Include="Resources\up.gif" />
     <None Include="Resources\user.bmp" />

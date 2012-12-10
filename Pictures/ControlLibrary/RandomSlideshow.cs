@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -9,12 +10,21 @@ namespace msn2.net.Pictures.Controls
     {
         private List<PictureData> pictures = new List<PictureData>();
         protected Timer timer = new Timer();
+        private Label errorLabel = new Label();
 
         public RandomSlideshow():
             base(new PictureControlSettings(), null, null)
         {
             base.getPreviousId = new GetPreviousItemIdDelegate(GetPreviousPicture);
             base.getNextId = new GetNextItemIdDelegate(GetNextPicture);
+
+            this.errorLabel = new Label();
+            this.errorLabel.ForeColor = Color.Red;
+            this.errorLabel.Location = new Point(20, 20);
+            this.errorLabel.Font = new Font("Calibri", 14, FontStyle.Bold);
+            this.errorLabel.BackColor = Color.Transparent;
+            this.errorLabel.AutoSize = true;
+            this.Controls.Add(this.errorLabel);
 
             this.timer.Interval = 6 * 1000;
         }
@@ -37,7 +47,18 @@ namespace msn2.net.Pictures.Controls
         {
             // get next picture
             PictureData picture = GetNextPicture(base.CurrentPicture.Id);
-            base.SetPicture(picture);
+            try
+            {
+                base.SetPicture(picture);
+                this.errorLabel.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                this.errorLabel.BringToFront();
+                this.errorLabel.Visible = true;
+                this.errorLabel.Text = "Error setting pic " + picture.Id.ToString() + ": " + ex.Message;
+                this.errorLabel.Refresh();
+            }
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
