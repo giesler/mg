@@ -131,6 +131,7 @@ namespace msn2.net.Pictures
             try
             {
                 msn2.net.Pictures.Controls.fMain f = new msn2.net.Pictures.Controls.fMain();
+
                 Application.Run(f);
             }
             catch (Exception ex)
