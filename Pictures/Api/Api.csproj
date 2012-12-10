@@ -165,6 +165,9 @@
     <None Include="DataSetPicture.xsc">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>
+    <None Include="DataSetPicture.xss">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
     <None Include="DataSetPicture.xsx">
       <DependentUpon>DataSetPicture.xsd</DependentUpon>
     </None>

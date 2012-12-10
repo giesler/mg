@@ -46,7 +46,7 @@
 											<TR class="loginTableContent">
 												<TD class="loginTableText">Email:
 													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLookupEmail" ErrorMessage="Email is required!" CssClass="err">*</asp:RequiredFieldValidator>
-													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" Display="Static" ControlToValidate="txtLookupEmail" ErrorMessage="Email is not a valid email address.<br>Must follow name@host.domain format." ValidationExpression="^[\w-]+@[\w-]+\.(com|net|org|edu|mil)$" Font-Name="Arial" Font-Size="11">*</asp:RegularExpressionValidator></TD>
+													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" Display="Static" ControlToValidate="txtLookupEmail" ErrorMessage="Email is not a valid email address.<br>Must follow name@host.domain format." ValidationExpression="^[\w-\.]+@[\w-]+\.(com|net|org|edu|mil)$" Font-Name="Arial" Font-Size="11">*</asp:RegularExpressionValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtLookupEmail" Width="175px" Runat="server"></asp:TextBox></TD>
 											</TR>
