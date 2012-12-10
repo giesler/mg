@@ -17,15 +17,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="net.tcp://localhost:8282/RelayController/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:8282/RelayController/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="f613a09b-4b8f-403f-a251-155159959b62" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="55362195-a19c-47b5-9c4f-cda6e7216c99" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="2d4ceeb7-173e-4a91-8a6c-30193ffb640b" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
-    <MetadataFile FileName="msn2.net.BarMonkey.RelayController.xsd" MetadataType="Schema" ID="9fae8c10-fbde-4f10-a1d1-b1a071519da1" SourceId="1" SourceUrl="net.tcp://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="03561210-b56a-4c80-850b-4782a73a2f23" SourceId="1" SourceUrl="http://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="906ba7bd-6656-4c4b-88ec-784cdc6b1f1b" SourceId="1" SourceUrl="http://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="c38fe327-267f-4c86-942f-2aa0a1d5d388" SourceId="1" SourceUrl="http://localhost:8282/RelayController/mex" />
+    <MetadataFile FileName="msn2.net.BarMonkey.RelayController1.xsd" MetadataType="Schema" ID="d82f0488-048c-4c32-be65-19c416d87a97" SourceId="1" SourceUrl="http://localhost:8282/RelayController/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
   </Extensions>
 </ReferenceGroup>

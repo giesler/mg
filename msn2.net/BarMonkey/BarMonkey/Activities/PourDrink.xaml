@@ -2,26 +2,46 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
-	Title="Pouring...">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition  />
-			<ColumnDefinition Width="150" />
-			<ColumnDefinition  />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="50px" />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition Height="50px" />
-			<RowDefinition Height="75" />
-		</Grid.RowDefinitions>
-		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource DefaultTextStyle}" />
-		<Label Name="statusLabel" FontSize="24" Content="[status]" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
+	Title="pouring..."
+     >
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="32" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="32" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64px" />
+            <RowDefinition />
+            <RowDefinition Height="64px" />
+        </Grid.RowDefinitions>
+        <StackPanel Name="statusPanel" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Name="statusLabel" FontSize="12" Content="[status]" Style="{DynamicResource DefaultTextStyle}" />
+            <ProgressBar Height="5" Name="pbar" Width="64" />
+        </StackPanel>
         <MediaElement Name="media" />
-        <Button Grid.Row="3" Grid.Column="1" Name="repeat" Content="Pour Again" FontSize="20" Click="repeat_Click" Style="{DynamicResource DefaultButtonStyle}" />
-		<bnc:NavigationBar Grid.Row="5" Grid.ColumnSpan="3" x:Name="navBar" />
-        <ProgressBar Grid.Row="1" Height="30" HorizontalAlignment="Left" Margin="0,16,0,0" Name="pbar" VerticalAlignment="Top" Width="171" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="3" />
+        <StackPanel Name="nextPanel" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Name="home" Click="gohome_Click" Style="{DynamicResource DefaultMetroButtonStyle}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                    </Grid.RowDefinitions>
+                    <Image Source="/Resources/drink.png" />
+                    <TextBlock Grid.Row="1" TextAlignment="Right" Text="home" FontSize="12" />
+                </Grid>
+            </Button>
+            <Button Name="repeat" Click="repeat_Click" Style="{DynamicResource DefaultMetroButtonStyle}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="16" />
+                    </Grid.RowDefinitions>
+                    <Image Source="/Resources/appbar.refresh.rest.png" />
+                    <TextBlock Grid.Row="1" TextAlignment="Right" Text="pour again" FontSize="12" />
+                </Grid>
+            </Button>
+        </StackPanel>
+        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />        
     </Grid>
 </Page>

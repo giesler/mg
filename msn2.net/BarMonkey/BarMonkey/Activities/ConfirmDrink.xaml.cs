@@ -43,17 +43,10 @@ namespace BarMonkey.Activities
                 this.container = (Container)this.containers.SelectedItem;
             }
 
-            if (BarMonkeyContext.Current.ImpersonateUser != null
-                || BarMonkeyContext.Current.CurrentUser.IsGuest == true)
-            {
-                this.favorite.Visibility = Visibility.Hidden;
-            }
-
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
             this.navBar.NextClicked += new EventHandler(navBar_NextClicked);
             this.navBar.NextEnabled = true;
-            this.navBar.NextContent = "POUR";
         }
 
         void navBar_NextClicked(object sender, EventArgs e)
@@ -68,8 +61,6 @@ namespace BarMonkey.Activities
             this.drink = drink;
 
             this.UpdateDrinkDetails();
-
-            this.favorite.IsChecked = BarMonkeyContext.Current.Drinks.IsFavorite(drink.Id);
         }
 
         private void UpdateDrinkDetails()
@@ -81,14 +72,6 @@ namespace BarMonkey.Activities
 
                 decimal totalSize = (from di in this.drink.DrinkIngredients select di.AmountOunces).Sum();
                 decimal offset = this.container.Size / totalSize;
-
-                this.ingredients.Items.Clear();
-                foreach (DrinkIngredient di in this.drink.DrinkIngredients)
-                {
-                    string amount = (di.AmountOunces * offset).ToString("0.0") + " oz";
-                    DrinkIngredientAmount a = new DrinkIngredientAmount { Name = di.Ingredient.Name, Amount = amount };
-                    this.ingredients.Items.Add(a);
-                }
             }
         }
 
@@ -96,11 +79,6 @@ namespace BarMonkey.Activities
         {
             public string Name { get; set; }
             public string Amount { get; set; }
-        }
-
-        private void addToFavorites_Click(object sender, RoutedEventArgs e)
-        {
-            BarMonkeyContext.Current.Drinks.SetFavorite(this.drink.Id, this.favorite.IsChecked);
         }
 
         private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)

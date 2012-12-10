@@ -68,7 +68,7 @@ namespace msn2.net.BarMonkey
             var q = from u in this.Data.Users
                     where u.Id == userId
                     select u;
-            
+
             this.currentUser = q.First<User>();
         }
 
@@ -90,5 +90,24 @@ namespace msn2.net.BarMonkey
                 return q.ToList<Setting>();
             }
         }
+
+        public List<SweetnessLevel> Sweetnesses
+        {
+            get
+            {
+                List<SweetnessLevel> list = new List<SweetnessLevel>();
+                list.Add(new SweetnessLevel { Id = 0, Name = "Normal", Description = "" });
+                list.Add(new SweetnessLevel { Id = 1, Name = "Sweet", Description = "" });
+                return list;
+            }
+        }
+    }
+
+    public class SweetnessLevel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
+

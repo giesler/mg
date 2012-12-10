@@ -26,6 +26,9 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.30816.0</ExpressionBlendVersion>
     <PublishUrl>\\sp\data\software\msn2.net\BarNone\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
@@ -45,7 +48,6 @@
     <ApplicationVersion>1.0.100.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +57,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -63,9 +66,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NoPhone|AnyCPU'">
     <OutputPath>bin\NoPhone\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -426,7 +431,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\Drink.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -442,11 +449,17 @@
     <None Include="Service References\BarMonkeyClientService\bmcs2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RelayControllerService\msn2.net.BarMonkey.RelayController.xsd" />
-    <None Include="Service References\RelayControllerService\service.wsdl" />
-    <None Include="Service References\RelayControllerService\service.xsd" />
-    <None Include="Service References\RelayControllerService\service1.xsd" />
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\RelayControllerService\msn2.net.BarMonkey.RelayController1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RelayControllerService\service1.wsdl" />
+    <None Include="Service References\RelayControllerService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RelayControllerService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -534,12 +547,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BarMonkeyApi\BarMonkeyApi.csproj">
-      <Project>{C2A4C92A-7BA8-48D9-9CEB-2CE4EC0343F6}</Project>
-      <Name>BarMonkeyApi</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\appbar.back.rest.png" />
   </ItemGroup>
   <ItemGroup>
@@ -551,8 +558,23 @@
   <ItemGroup>
     <Resource Include="Resources\drink.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RelayControllerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BarMonkeyApi\BarMonkeyApi.csproj">
+      <Project>{c2a4c92a-7ba8-48d9-9ceb-2ce4ec0343f6}</Project>
+      <Name>BarMonkeyApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\appbar.basecircle.rest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\appbar.refresh.rest.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem copy /y $(TargetDir)\* \\stan\software\msn2.net\BarNone\Client</PostBuildEvent>
+    <PostBuildEvent>copy /y $(TargetDir)\* \\mgduo\BarNone\UI\</PostBuildEvent>
   </PropertyGroup>
 </Project>

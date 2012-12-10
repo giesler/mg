@@ -18,8 +18,7 @@
             <RowDefinition Height="10px" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Margin="6">
-            <Label Name="barNoneTitle" Grid.Column="0" FontSize="12" FontFamily="Segoe UI">BARNONE</Label>
-            <Label Name="pageTitle" FontSize="22" FontFamily="Segoe UI" Margin="0,-6,0,0">page title</Label>
+            <Label Name="pageTitle" FontSize="32" FontFamily="Segoe UI" Margin="0,-6,0,0">page title</Label>
         </StackPanel>
         <Frame Name="contentFrame" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Source="PartyModeHomePage.xaml" Margin="6" />
     </Grid>

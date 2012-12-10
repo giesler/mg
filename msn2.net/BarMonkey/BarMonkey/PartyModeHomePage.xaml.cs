@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,6 +24,22 @@ namespace msn2.net.BarMonkey
         public PartyModeHomePage()
         {
             InitializeComponent();
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadDrinks), new object());
+        }
+
+        void LoadDrinks(object sender)
+        {
+            App.Drinks = BarMonkeyContext.Current.Drinks.GetDrinks();
+            App.Containers = BarMonkeyContext.Current.Containers.GetContainers();
+
+            this.Dispatcher.BeginInvoke(new WaitCallback(this.EnableActions), new object());
+        }
+
+        void EnableActions(object sender)
+        {
+            this.newDrink.IsEnabled = true;
+            this.settings.IsEnabled = true;
         }
 
         private void newDrink_Click(object sender, RoutedEventArgs e)

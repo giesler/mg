@@ -47,7 +47,7 @@ namespace BarMonkey.Activities
 
         void OnTimer(object sender, EventArgs e)
         {
-            if (this.pbar.Visibility == System.Windows.Visibility.Visible && this.pbar.Value < this.pbar.Maximum)
+            if (this.statusPanel.Visibility == System.Windows.Visibility.Visible && this.pbar.Value < this.pbar.Maximum)
             {
                 this.pbar.Value++;
             }
@@ -75,12 +75,15 @@ namespace BarMonkey.Activities
 
         void OnCompleted(object sender)
         {
-            this.statusLabel.Content = "Cheers!";
+            this.statusLabel.Content = "";
             this.repeat.Visibility = Visibility.Visible;
+            this.home.Visibility = System.Windows.Visibility.Visible;
             this.navBar.IsEnabled = true;
+            this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
             this.pbar.Visibility = System.Windows.Visibility.Collapsed;
             this.mediaPlayer.Stop();
             this.pbar.Value = 0;
+            this.Title = "cheers!";
         }
 
         void disp_OnPourStarted(object sender, EventArgs e)
@@ -90,10 +93,11 @@ namespace BarMonkey.Activities
 
         void OnPourStarted(object sender)
         {
-            this.statusLabel.Content = "pouring...";
+            this.statusLabel.Content = "dispensing...";
 
-            this.pbar.Visibility = System.Windows.Visibility.Visible;
+            this.statusPanel.Visibility = System.Windows.Visibility.Visible;
             this.pbar.Maximum = this.disp.EstimatedDuration.TotalSeconds + 10;
+            this.pbar.Visibility = System.Windows.Visibility.Visible;
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -109,12 +113,13 @@ namespace BarMonkey.Activities
             this.drink = drink;
             this.container = container;
 
-            this.drinkName.Content = this.drink.Name;
-
-            this.pbar.Visibility = System.Windows.Visibility.Collapsed;
+            this.statusPanel.Visibility = System.Windows.Visibility.Visible;
             this.repeat.Visibility = Visibility.Hidden;
+            this.home.Visibility = System.Windows.Visibility.Hidden;
             this.navBar.IsEnabled = false;
+            this.pbar.Visibility = System.Windows.Visibility.Collapsed;
 
+            this.Title = "pouring " + this.drink.Name.ToLower();
             this.statusLabel.Content = "connecting...";
 
             this.mediaPlayer.Play();

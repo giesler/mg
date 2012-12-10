@@ -3,33 +3,57 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
     Title="select a drink">
-    <Page.Resources>
-        <Style x:Name="alphaButtonUnselected" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="MinHeight" Value="20" />
-            <Setter Property="MinWidth" Value="30" />
-            <Setter Property="Padding" Value="4" />
-        </Style>
-    </Page.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="66*" />
-            <ColumnDefinition Width="33*" />
-        </Grid.ColumnDefinitions>
+    <Grid HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="6" />
             <RowDefinition Height="196*" />
-            <RowDefinition Height="42*" />
+            <RowDefinition Height="64" />
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="1" Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="6" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Row="1" Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Style="{DynamicResource DefaultLabelListBoxStyle}" Margin="6" Background="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" Style="{DynamicResource DefaultListBoxTextStyle}" />
+                    <Grid Margin="0,0,0,6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="42" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                        <Label Content="{Binding Path=Description}" Tag="{Binding Path=Id}" FontSize="14" Grid.Row="1" Margin="0,-9,0,0" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Grid.Row="1" Grid.Column="1" Name="description" Margin="5" Style="{DynamicResource DefaultTextBlockStyle}">Description of the drink goes here!</TextBlock>
-        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="2" x:Name="navBar" />
+        <Border BorderBrush="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="1">
+            <StackPanel>
+                <TextBlock Text="CONTAINER" />
+                <ListBox Name="containers" SelectionChanged="containers_SelectionChanged" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>                
+                <TextBlock Text="SWEETNESS" Margin="0,24,0,0" />
+                <ListBox Name="sweetness" Background="Transparent">
+<!--                    <ListBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Silver" />
+                    </ListBox.Resources>-->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="10pt" Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Border>
+        <bnc:NavigationBar Grid.Row="3" x:Name="navBar" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
+            <bnc:NavigationBar.NextContent>
+                <TextBlock Text="pour drink --&gt;" Foreground="Green" FontSize="32" />
+            </bnc:NavigationBar.NextContent>
+        </bnc:NavigationBar>
     </Grid>
 </Page>
