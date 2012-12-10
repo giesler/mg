@@ -32,6 +32,9 @@ public partial class _Default : System.Web.UI.Page
         this.GridView1.RowUpdating += new GridViewUpdateEventHandler(GridView1_RowUpdating);
         this.GridView1.RowCancelingEdit += new GridViewCancelEditEventHandler(GridView1_RowCancelingEdit);
         this.GridView1.RowDeleting += new GridViewDeleteEventHandler(GridView1_RowDeleting);
+        this.showBulkAdd.Click += new EventHandler(showBulkAdd_Click);
+        this.bulkAdd.Click += new EventHandler(bulkAdd_Click);
+        this.cancel.Click += new EventHandler(cancel_Click);
 
         this.addButton.Click += new EventHandler(addButton_Click);
 
@@ -56,20 +59,61 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    void cancel_Click(object sender, EventArgs e)
+    {
+        this.defaultView.Visible = true;
+        this.bulkAddPanel.Visible = false;
+        this.storeList.Enabled = true;
+    }
+
+    void bulkAdd_Click(object sender, EventArgs e)
+    {
+        string[] items = this.bulkText.Text.Trim().Split('\r');
+        foreach (string item in items)
+        {
+            if (item.Trim().Length > 0)
+            {
+                this.AddItem(item);
+            }
+        }
+
+        this.ReloadAll();
+
+        cancel_Click(this, EventArgs.Empty);
+    }
+
+    void showBulkAdd_Click(object sender, EventArgs e)
+    {
+        this.bulkText.Text = string.Empty;
+        this.defaultView.Visible = false;
+        this.bulkAddPanel.Visible = true;
+        this.storeList.Enabled = false;
+    }
+
     void addButton_Click(object sender, EventArgs e)
     {
         if (this.addItem.Text.Trim().Length > 0)
         {
-            ListItem item = this.storeList.Items[this.storeList.SelectedIndex];
-            string store = item.Value;
-
-            this.client.AddShoppingListItem(store, this.addItem.Text.Trim());
+            AddItem(this.addItem.Text);
 
             this.addItem.Text = string.Empty;
             this.addItem.Focus();
 
             this.ReloadAll();
         }
+    }
+
+    private void AddItem(string itemText)
+    {
+        if (this.storeList.SelectedIndex < 0)
+        {
+            this.storeList.SelectedIndex = 0;
+        }
+
+        ListItem item = this.storeList.Items[this.storeList.SelectedIndex];
+        string store = item.Value;
+
+        this.client.AddShoppingListItem(store, itemText.Trim());
     }
 
     void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -167,10 +211,12 @@ public partial class _Default : System.Web.UI.Page
 
         if (selectedStoreIndex >= 0)
         {
+            this.storeList.Items[selectedStoreIndex].Selected = true;
             this.storeList.SelectedIndex = selectedStoreIndex;
         }
         else
         {
+            this.storeList.Items[0].Selected = true;
             this.storeList.SelectedIndex = 0;
         }
 
