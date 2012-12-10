@@ -449,6 +449,7 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="FOLDER02.ICO" />
     <None Include="Web References\TerraServer\AreaBoundingBox.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
