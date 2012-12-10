@@ -10,8 +10,12 @@
         <requestedExecutionLevel  level="requireAdministrator" />
         <requestedExecutionLevel  level="highestAvailable" />
         -->
-<!--        <requestedExecutionLevel level="requireAdministrator" />-->
+        <!--        <requestedExecutionLevel level="requireAdministrator" />-->
       </requestedPrivileges>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
     </security>
   </trustInfo>
 </asmv1:assembly>

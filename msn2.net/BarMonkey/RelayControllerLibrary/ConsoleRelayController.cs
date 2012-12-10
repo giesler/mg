@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace msn2.net.BarMonkey.RelayController
 {
@@ -21,6 +22,8 @@ namespace msn2.net.BarMonkey.RelayController
             {
                 Console.WriteLine(" - Group {0}, Relay {1} for {2} seconds", item.Group, item.RelayNumber, item.Seconds);
             }
+
+            Thread.Sleep(3500);
         }
 
         public void TurnAllOff()

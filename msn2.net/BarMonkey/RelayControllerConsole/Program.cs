@@ -11,7 +11,13 @@ namespace msn2.net.BarMonkey.RelayController
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ProXRRelayPulseController)))
+            Type serviceType = typeof(ProXRRelayPulseController);
+            if (args.Length > 0 && args[0] == "/console")
+            {
+                serviceType = typeof(ConsoleRelayController);
+            }
+
+            using (ServiceHost host = new ServiceHost(serviceType))
             {
                 host.Open();
 
