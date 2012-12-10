@@ -101,17 +101,17 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Category\CategoryItem.cs">
+    <Compile Include="Base\BaseLinkItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Category\CategoryItem.Designer.cs">
-      <DependentUpon>CategoryItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Category\CategoryFlowLayoutPanel.cs">
+    <Compile Include="Base\BaseLinkList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Category\CategoryFlowLayoutPanel.Designer.cs">
-      <DependentUpon>CategoryFlowLayoutPanel.cs</DependentUpon>
+    <Compile Include="Category\CategoryLinkItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Category\CategoryLinkList.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Category\CategoryListDialog.cs">
       <SubType>Form</SubType>
@@ -153,6 +153,12 @@
     </Compile>
     <Compile Include="DateSelector.Designer.cs">
       <DependentUpon>DateSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Group\GroupLinkItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Group\GroupLinkList.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Picture\MultiPictureEdit.resx">
+      <DependentUpon>MultiPictureEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Slideshow.resx">
       <DependentUpon>Slideshow.cs</DependentUpon>

@@ -53,6 +53,7 @@ namespace msn2.net.Pictures.Controls
 
             item = new PictureItem(picture);
             item.DrawShadow = false;
+            item.DrawBorder = false;
             item.Dock = DockStyle.Fill;
             this.Controls.Add(item);
 
@@ -136,6 +137,7 @@ namespace msn2.net.Pictures.Controls
                 this.editor.Opacity = 0.75f;
                 this.editor.Left = this.Left + this.Width - 100 - this.editor.Width;
                 this.editor.Top = this.Top + this.Height - 100 - this.editor.Height;
+                this.editor.FormClosed += new FormClosedEventHandler(this.OnPropertiesClosed);
             }
 
             toolProperties.Checked = !toolProperties.Checked;
@@ -148,6 +150,12 @@ namespace msn2.net.Pictures.Controls
                 this.editor.Hide();
             }
 
+        }
+
+        void OnPropertiesClosed(object sender, FormClosedEventArgs e)
+        {
+            this.toolProperties.Checked = false;
+            this.editor = null;
         }
 
         private void toolAddToCategory_Click(object sender, EventArgs e)

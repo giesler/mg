@@ -403,33 +403,43 @@ namespace msn2.net.Pictures
 		}
 
 
-		public DataSet GetPictureGroups(int pictureId)
+		public List<PersonGroup> GetPictureGroups(int pictureId)
 		{
 			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlDataAdapter da	= new SqlDataAdapter("sp_Picture_GetGruops", cn);
-			DataSet ds			= new DataSet();
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-			da.SelectCommand.Parameters.Add("@pictureId", SqlDbType.Int);
-			da.SelectCommand.Parameters["@pictureId"].Value	= pictureId;
+			SqlCommand cmd = new SqlCommand("sp_Picture_GetGruops", cn);
+            SqlDataReader dr = null;
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
+			cmd.Parameters["@pictureId"].Value	= pictureId;
+
+            List<PersonGroup> list = new List<PersonGroup>();
 
 			try
 			{
 				cn.Open();
-				da.Fill(ds);
-			}
-			catch (SqlException ex)
-			{
-				throw ex;
+
+                dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
+                while (dr.Read())
+                {
+                    PersonGroup group = new PersonGroup(
+                        dr.GetInt32(1),
+                        dr.GetString(0));
+                    list.Add(group);
+                }                
 			}
 			finally
 			{
+                if (dr != null)
+                {
+                    dr.Close();
+                }
 				if (cn.State != ConnectionState.Closed)
 				{
 					cn.Close();
 				}
 			}
 
-			return ds;
+			return list;
 		}
 
 		public List<Category> GetPictureCategories(int pictureId)

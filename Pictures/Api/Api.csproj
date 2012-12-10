@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="PictureSystem.cs" />
     <Compile Include="PictureWatcher.cs" />
+    <Compile Include="PersonGroup.cs" />
     <Compile Include="UserManager.cs">
       <SubType>Code</SubType>
     </Compile>
