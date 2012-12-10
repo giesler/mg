@@ -1,4 +1,4 @@
-﻿namespace ShoppingList
+﻿namespace msn2.net.ShoppingList
 {
     partial class MainForm
     {
@@ -8,18 +8,7 @@
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.MainMenu mainMenu1;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
 
         #region Windows Form Designer generated code
 
@@ -37,17 +26,17 @@
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuUpdateApp = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.menuTextBigger = new System.Windows.Forms.MenuItem();
+            this.menuTextNormal = new System.Windows.Forms.MenuItem();
+            this.menuTextSmall = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuExit = new System.Windows.Forms.MenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Item = new System.Windows.Forms.ColumnHeader();
             this.newItem = new System.Windows.Forms.TextBox();
             this.add = new System.Windows.Forms.Button();
             this.store = new System.Windows.Forms.ComboBox();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.menuItem4 = new System.Windows.Forms.MenuItem();
-            this.menuTextBigger = new System.Windows.Forms.MenuItem();
-            this.menuTextNormal = new System.Windows.Forms.MenuItem();
-            this.menuTextSmall = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -89,6 +78,33 @@
             // menuItem5
             // 
             this.menuItem5.Text = "-";
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.MenuItems.Add(this.menuTextBigger);
+            this.menuItem2.MenuItems.Add(this.menuTextNormal);
+            this.menuItem2.MenuItems.Add(this.menuTextSmall);
+            this.menuItem2.Text = "Text Size";
+            // 
+            // menuTextBigger
+            // 
+            this.menuTextBigger.Text = "&Bigger";
+            this.menuTextBigger.Click += new System.EventHandler(this.menuTextBigger_Click);
+            // 
+            // menuTextNormal
+            // 
+            this.menuTextNormal.Checked = true;
+            this.menuTextNormal.Text = "&Normal";
+            this.menuTextNormal.Click += new System.EventHandler(this.menuTextNormal_Click);
+            // 
+            // menuTextSmall
+            // 
+            this.menuTextSmall.Text = "&Small";
+            this.menuTextSmall.Click += new System.EventHandler(this.menuTextSmall_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Text = "-";
             // 
             // menuExit
             // 
@@ -139,38 +155,12 @@
             // 
             this.store.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.store.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.store.Location = new System.Drawing.Point(3, 3);
             this.store.Name = "store";
             this.store.Size = new System.Drawing.Size(234, 22);
             this.store.TabIndex = 3;
             this.store.SelectedIndexChanged += new System.EventHandler(this.store_SelectedIndexChanged);
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.MenuItems.Add(this.menuTextBigger);
-            this.menuItem2.MenuItems.Add(this.menuTextNormal);
-            this.menuItem2.MenuItems.Add(this.menuTextSmall);
-            this.menuItem2.Text = "Text Size";
-            // 
-            // menuItem4
-            // 
-            this.menuItem4.Text = "-";
-            // 
-            // menuTextBigger
-            // 
-            this.menuTextBigger.Text = "&Bigger";
-            this.menuTextBigger.Click += new System.EventHandler(this.menuTextBigger_Click);
-            // 
-            // menuTextNormal
-            // 
-            this.menuTextNormal.Checked = true;
-            this.menuTextNormal.Text = "&Normal";
-            this.menuTextNormal.Click += new System.EventHandler(this.menuTextNormal_Click);
-            // 
-            // menuTextSmall
-            // 
-            this.menuTextSmall.Text = "&Small";
-            this.menuTextSmall.Click += new System.EventHandler(this.menuTextSmall_Click);
             // 
             // MainForm
             // 

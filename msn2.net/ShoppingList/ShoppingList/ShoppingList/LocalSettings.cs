@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace ShoppingList
+namespace msn2.net.ShoppingList
 {
     class LocalSettings
     {

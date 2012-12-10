@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ShoppingList
+namespace msn2.net.ShoppingList
 {
     static class Program
     {
@@ -13,9 +13,9 @@ namespace ShoppingList
         [MTAThread]
         static void Main()
         {
-            Application.Run(new MainForm());
-
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+            Application.Run(new MainForm());
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

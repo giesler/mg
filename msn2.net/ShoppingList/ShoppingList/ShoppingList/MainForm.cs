@@ -10,17 +10,22 @@ using System.Xml;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
+using mn2.net.ShoppingList.sls;
 
-namespace ShoppingList
+namespace msn2.net.ShoppingList
 {
     public partial class MainForm : Form
     {
-        private homenet.Lists lists = null;
         private bool storesLoaded = false;
         private LocalSettings settings = null;
-        private StoreListItem undoItem = null;
+        private ShoppingListItem undoItem = null;
         private float defaultFontSize = 10;
-        
+        private ShoppingListService listService = null;
+        private List<ShoppingListItem> loadedItems = null;
+        private List<StoreItem> loadedStores = new List<StoreItem>();
+        private bool loadAllItemsAfterStores = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -42,11 +47,27 @@ namespace ShoppingList
             }
 
             this.defaultFontSize = this.listView1.Font.Size;
+
+            this.listService = new mn2.net.ShoppingList.sls.ShoppingListService();
+            //this.listService.Proxy = new WebProxy("http://192.168.1.1:8080");
         }
 
-        protected override void OnClosed(EventArgs e)
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            base.OnClosed(e);
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
 
             this.settings.Save("shoppingListSettings.xml");
         }
@@ -60,7 +81,7 @@ namespace ShoppingList
             {
                 foreach (string store in this.settings.LatestStores)
                 {
-                    this.store.Items.Add(store);
+                    this.store.Items.Add(new StoreItem(store));
                 }
 
                 this.store.SelectedIndex = 0;
@@ -73,40 +94,53 @@ namespace ShoppingList
                 this.add.Enabled = false;
                 this.newItem.Enabled = false;
                 this.store.Enabled = false;
+                this.loadAllItemsAfterStores = true;
 
                 this.store.Items.Add("Loading...");
                 this.store.SelectedIndex = 0;
 
-                this.lists.BeginGetList("Shopping List", new AsyncCallback(StoreListLoaded), new object());
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.LoadStoreList), new object());
             }
         }
 
-        private void StoreListLoaded(IAsyncResult result)
+        private void LoadStoreList(object foo)
         {
-            if (this.InvokeRequired == true)
+            try
             {
-                this.BeginInvoke(new AsyncCallback(StoreListLoaded), result);
-            }
-            else
-            {
-                XmlNode list = lists.EndGetList(result);
+                string[] stores = this.listService.GetStores();
 
-                XmlNode fieldsNode = list.ChildNodes[0];
-                XmlNode fieldNode = fieldsNode.ChildNodes[0];
-                XmlNode choicesNode = fieldNode.ChildNodes[1];
-
-                this.store.Items.Clear();
-                foreach (XmlNode choiceNode in choicesNode.ChildNodes)
+                foreach (string store in stores)
                 {
-                    this.store.Items.Add(choiceNode.InnerText);
+                    this.loadedStores.Add(new StoreItem(store));
                 }
-                
-                this.store.Enabled = true;
-                this.add.Enabled = true;
-                this.newItem.Enabled = true;
-                this.storesLoaded = true;
 
-                this.store.SelectedIndex = 0;
+                this.Invoke(new WaitCallback(this.DisplayStores), new object());
+            }
+            catch (Exception ex)
+            {
+                DisplayException(ex);
+            }
+        }
+
+        private void DisplayStores(object foo)
+        {
+            this.store.Items.Clear();
+
+            foreach (StoreItem store in this.loadedStores)
+            {
+                this.store.Items.Add(store);
+            }
+            this.store.SelectedIndex = 0;
+
+            this.store.Enabled = true;
+            this.add.Enabled = true;
+            this.newItem.Enabled = true;
+            this.storesLoaded = true;
+
+            if (this.loadAllItemsAfterStores == true)
+            {
+                this.loadAllItemsAfterStores = false;
+                this.LoadAllItems();
             }
         }
 
@@ -117,147 +151,95 @@ namespace ShoppingList
             node.Attributes.Append(att);
         }
 
-        private void LoadStoreItems()
-        {
-            XmlDocument doc = new XmlDocument();
-
-            XmlNode query = doc.CreateElement("Query");
-            query.InnerXml = "<Where><Eq><FieldRef Name='From' /><Value Type='Text'>" + this.store.Text + "</Value></Eq></Where>";
-            
-            XmlNode viewFields = doc.CreateElement("ViewFields");
-            XmlNode field1 = doc.CreateElement("FieldRef");
-            AddAttribute(doc, field1, "Name", "Title");
-            viewFields.AppendChild(field1);
-
-            XmlNode queryNode = doc.CreateElement("QueryOptions");
-            queryNode.InnerXml = string.Empty;
-
-            this.menuRefresh.Enabled = false;
-            this.listView1.Enabled = false;
-            this.listView1.CheckBoxes = false;
-            this.listView1.Items.Clear();
-            this.listView1.Items.Add(new ListViewItem("Loading..."));
-            this.lists.BeginGetListItems("Shopping List", "", query, viewFields, "100", queryNode, null, new AsyncCallback(ListItemsLoaded), new object());
-        }
-
         void LoadAllItems()
         {
-            XmlDocument doc = new XmlDocument();
-
-            XmlNode query = doc.CreateElement("Query");
-            query.InnerXml = string.Empty;
-
-            XmlNode viewFields = doc.CreateElement("ViewFields");
-            XmlNode field1 = doc.CreateElement("FieldRef");
-            AddAttribute(doc, field1, "Name", "Title");
-            viewFields.AppendChild(field1);
-            XmlNode field2 = doc.CreateElement("FieldRef");
-            AddAttribute(doc, field2, "Name", "From");
-            viewFields.AppendChild(field2);
-
-            XmlNode queryNode = doc.CreateElement("QueryOptions");
-            queryNode.InnerXml = string.Empty;
-
             this.menuRefresh.Enabled = false;
             this.listView1.Enabled = false;
             this.listView1.CheckBoxes = false;
             this.listView1.Items.Clear();
             this.listView1.Items.Add(new ListViewItem("Loading..."));
-            this.lists.BeginGetListItems("Shopping List", "", query, viewFields, "100", queryNode, null, new AsyncCallback(AllListItemsLoaded), new object());
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.GetAllItems), new object());
         }
 
-        private void AllListItemsLoaded(IAsyncResult result)
+        private void GetAllItems(object foo)
         {
-            if (this.InvokeRequired)
+            try
             {
-                this.BeginInvoke(new AsyncCallback(AllListItemsLoaded), result);
+                ShoppingListItem[] items = this.listService.GetShoppingListItems();
+                
+                this.loadedItems = new List<ShoppingListItem>(items);
+
+                this.Invoke(new WaitCallback(this.LoadShoppingListItems), foo);
             }
-            else
+            catch (Exception ex)
             {
-                XmlNode results = this.lists.EndGetListItems(result);
-                foreach (XmlNode dataNode in results.ChildNodes)
-                {
-                    if (!(dataNode is XmlWhitespace))
-                    {
-                        foreach (XmlNode rowNode in dataNode.ChildNodes)
-                        {
-                            if (!(rowNode is XmlWhitespace))
-                            {
-                                string store = rowNode.Attributes["ows_From"].Value;
-
-                                if (store == this.store.Text)
-                                {
-                                    string title = rowNode.Attributes["ows_Title"].Value;
-                                    int id = int.Parse(rowNode.Attributes["ows_ID"].Value);
-                                    ListViewItem item = new ListViewItem(title);
-                                    item.Tag = id;
-                                    this.listView1.Items.Add(item);
-                                }
-                                else
-                                {
-                                    bool found = false;
-                                    foreach (string storeItem in this.store.Items)
-                                    {
-                                        if (storeItem == store)
-                                        {
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (found == false)
-                                    {
-                                        this.store.Items.Add(store);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                this.DisplayException(ex);
             }
         }
 
-        private void ListItemsLoaded(IAsyncResult result)
+        private void LoadShoppingListItems(object foo)
         {
-            if (this.InvokeRequired)
+            foreach (StoreItem store in this.loadedStores)
             {
-                this.BeginInvoke(new AsyncCallback(ListItemsLoaded), result);
+                store.Items.Clear();
             }
-            else
-            {
-                try
-                {
-                    this.listView1.Items.Clear();
 
-                    XmlNode results = this.lists.EndGetListItems(result);
-                    foreach (XmlNode dataNode in results.ChildNodes)
+            foreach (ShoppingListItem item in this.loadedItems)
+            {
+                bool foundStore = false;
+                foreach (StoreItem store in this.store.Items)
+                {
+                    if (string.Equals(store.Name, item.Store, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (!(dataNode is XmlWhitespace))
-                        {
-                            foreach (XmlNode rowNode in dataNode.ChildNodes)
-                            {
-                                if (!(rowNode is XmlWhitespace))
-                                {
-                                    string title = rowNode.Attributes["ows_Title"].Value;
-                                    int id = int.Parse(rowNode.Attributes["ows_ID"].Value);
-                                    ListViewItem item = new ListViewItem(title);
-                                    item.Tag = id;
-                                    this.listView1.Items.Add(item);
-                                }
-                            }
-                        }
+                        foundStore = true;
+                        store.Items.Add(item);
                     }
-
-                    this.listView1.Enabled = true;
-                    this.listView1.CheckBoxes = true;
-                    this.menuRefresh.Enabled = true;
                 }
-                catch (Exception ex)
+
+                if (foundStore == false)
                 {
-                    string msg = ex.ToString();
-                    this.listView1.Items.Add(new ListViewItem(msg));
+                    StoreItem newStore = new StoreItem(item.Store);
+                    newStore.Items.Add(item);
+                    this.store.Items.Add(newStore);
                 }
             }
+
+            this.ReloadItemList();
+
+            this.listView1.Enabled = true;
+            this.listView1.CheckBoxes = true;
+            this.menuRefresh.Enabled = true;
+        }
+
+        private void ReloadItemList()
+        {
+            this.listView1.Items.Clear();
+
+            StoreItem selectedStore = this.store.SelectedItem as StoreItem;
+            if (selectedStore != null)
+            {
+                foreach (ShoppingListItem item in selectedStore.Items)
+                {
+                    this.listView1.Items.Add(new ShoppingListViewItem(item));
+                }
+            }
+
+            this.storesLoaded = false;
+
+            this.store.Items.Clear();
+
+            foreach (StoreItem item in this.loadedStores)
+            {
+                this.store.Items.Add(item);
+
+                if (item == selectedStore)
+                {
+                    this.store.SelectedItem = item;
+                }
+            }
+
+            this.storesLoaded = true;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -267,86 +249,57 @@ namespace ShoppingList
 
         private void add_Click(object sender, EventArgs e)
         {
-            string store = this.store.Text;
-            string itemText = this.newItem.Text;
-            
-            AddItem(store, itemText);
-                        
-            this.newItem.Text = string.Empty;
-            this.newItem.Focus();
-        }
-
-        private void AddItem(string store, string itemText)
-        {
-            XmlDocument doc = new XmlDocument();
-            XmlNode batchNode = doc.CreateElement("Batch");
-
-            XmlNode methodNode = doc.CreateElement("Method");
-            AddAttribute(doc, methodNode, "Cmd", "New");
-            AddAttribute(doc, methodNode, "ID", "1");
-            batchNode.AppendChild(methodNode);
-
-            XmlNode field1Node = doc.CreateElement("Field");
-            AddAttribute(doc, field1Node, "Name", "Title");
-            field1Node.InnerText = itemText.Trim();
-            methodNode.AppendChild(field1Node);
-
-            XmlNode field2Node = doc.CreateElement("Field");
-            AddAttribute(doc, field2Node, "Name", "From");
-            field2Node.InnerText = store.Trim();
-            methodNode.AppendChild(field2Node);
-
-            ListViewItem item = new ListViewItem(itemText);
-            item.Tag = 0;
-
-            this.lists.BeginUpdateListItems("Shopping List", batchNode, new AsyncCallback(AddCompleted), item);
-
-            if (this.store.Text == store)
+            StoreItem selectedStore = this.store.SelectedItem as StoreItem;
+            if (selectedStore != null)
             {
-                this.listView1.Items.Add(item);
+                ShoppingListItem item = new ShoppingListItem();
+                item.Store = selectedStore.Name;
+                item.ListItem = this.newItem.Text;
+                selectedStore.Items.Add(item);
+
+                ShoppingListViewItem sli = new ShoppingListViewItem(item);
+                this.listView1.Items.Add(sli);
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.AddItem), sli);
+
+                this.newItem.Text = string.Empty;
+                this.newItem.Focus();
             }
         }
 
-        private void AddCompleted(IAsyncResult result)
+        private void AddItem(object listViewItem)
         {
-            if (this.InvokeRequired)
+            try
             {
-                this.BeginInvoke(new AsyncCallback(AddCompleted), result);
+                ShoppingListViewItem li = (ShoppingListViewItem)listViewItem;
+                ShoppingListItem item = this.listService.AddShoppingListItem(li.Item.Store, li.Item.ListItem);
+                this.BeginInvoke(new DisplayAddedDelegate(this.DisplayAddedItem), li, item);
             }
-            else
+            catch (Exception ex)
             {
-                ListViewItem item = (ListViewItem)result.AsyncState;
+                this.DisplayException(ex);
+            }
+        }
 
-                XmlNode resultsNode = this.lists.EndUpdateListItems(result);
-                foreach (XmlNode childNode in resultsNode)
-                {
-                    if (childNode.LocalName == "Result")
-                    {
-                        foreach (XmlNode rowNode in childNode.ChildNodes)
-                        {
-                            if (rowNode.LocalName == "row")
-                            {
-                                int id = int.Parse(rowNode.Attributes["ows_ID"].Value);
-                                item.Tag = id;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+        private delegate void DisplayAddedDelegate(ShoppingListViewItem li, ShoppingListItem newItem);
+
+        private void DisplayAddedItem(ShoppingListViewItem li, ShoppingListItem newItem)
+        {
+            li.UpdateItem(newItem);
+            this.loadedItems.Add(newItem);
         }
 
         private void store_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.storesLoaded == true)
             {
-                this.LoadStoreItems();
+                this.ReloadItemList();
             }
         }
 
         private void menuRefresh_Click(object sender, EventArgs e)
         {
-            this.LoadStoreItems();
+            this.LoadAllItems();
         }
 
         private void listView1_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -357,50 +310,44 @@ namespace ShoppingList
             }
             else
             {
-                ListViewItem item = this.listView1.Items[e.Index];
+                ShoppingListViewItem item = (ShoppingListViewItem) this.listView1.Items[e.Index];
 
-                XmlDocument doc = new XmlDocument();
-                XmlNode batchNode = doc.CreateElement("Batch");
-
-                XmlNode methodNode = doc.CreateElement("Method");
-                AddAttribute(doc, methodNode, "Cmd", "Delete");
-                AddAttribute(doc, methodNode, "ID", "1");
-                batchNode.AppendChild(methodNode);
-
-                XmlNode field1Node = doc.CreateElement("Field");
-                AddAttribute(doc, field1Node, "Name", "ID");
-                field1Node.InnerText = item.Tag.ToString();
-                methodNode.AppendChild(field1Node);
-
-                this.lists.BeginUpdateListItems("Shopping List", batchNode, new AsyncCallback(DeleteCompleted), item);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.DeleteItem), item);
 
                 item.ForeColor = Color.Gray;
                 item.Selected = false;
 
-                undoItem = new StoreListItem();
-                undoItem.Store = this.store.Text;
-                undoItem.Item = item.Text;
+                StoreItem selectedStore = this.store.SelectedItem as StoreItem;
+
+                undoItem = new ShoppingListItem();
+                undoItem.Store = selectedStore.Name;
+                undoItem.ListItem = item.Text;
 
                 this.menuUndo.Enabled = true;
             }
         }
 
-        void DeleteCompleted(IAsyncResult result)
+        void DeleteItem(object listItem)
         {
-            if (this.InvokeRequired == true)
-            {
-                this.BeginInvoke(new AsyncCallback(DeleteCompleted), result);
-            }
-            else
-            {
-                ListViewItem item = (ListViewItem) result.AsyncState;
-                this.listView1.Items.Remove(item);
-            }
+            ShoppingListViewItem item = (ShoppingListViewItem)listItem;
+
+            this.listService.DeleteShoppingListItem(item.Item);
+
+            this.Invoke(new WaitCallback(this.DeleteCompleted), listItem);
+        }
+
+        void DeleteCompleted(object listItem)
+        {
+            ShoppingListViewItem item = (ShoppingListViewItem)listItem;
+            this.listView1.Items.Remove(item);
         }
 
         private void menuUndo_Click(object sender, EventArgs e)
         {
-            AddItem(this.undoItem.Store, this.undoItem.Item);
+            ShoppingListViewItem sli = new ShoppingListViewItem(this.undoItem);
+            this.listView1.Items.Add(sli);
+
+            AddItem(sli);
 
             this.undoItem = null;
             this.menuUndo.Enabled = false;
@@ -445,6 +392,21 @@ namespace ShoppingList
             this.menuTextSmall.Checked = true;
 
             this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize - 2.0F, this.listView1.Font.Style);
+        }
+
+
+        private delegate void ExceptionEventHandler(Exception ex);
+        private void DisplayException(Exception ex)
+        {
+            if (this.InvokeRequired == true)
+            {
+                this.Invoke(new ExceptionEventHandler(this.DisplayException), ex);
+            }
+            else
+            {
+                ExceptionDialog dialog = new ExceptionDialog(ex);
+                dialog.ShowDialog();
+            }
         }
     }
 }
