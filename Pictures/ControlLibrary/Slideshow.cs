@@ -69,7 +69,7 @@ namespace msn2.net.Pictures.Controls
 
         public void SetPicture(PictureData picture)
         {
-            this.picture = picture;
+            this.picture = PicContext.Current.PictureManager.GetPicture(picture.Id);
 
             this.item.SetPicture(picture);
 
@@ -90,7 +90,7 @@ namespace msn2.net.Pictures.Controls
                 LoadCategories();
             }
 
-            this.DisplayStarRating(picture.UserRating);
+            this.DisplayStarRating(this.picture.UserRating);
             this.DisplayAverageRating();
 
             UpdateControls();
@@ -205,6 +205,36 @@ namespace msn2.net.Pictures.Controls
             Trace.WriteLine("OnKeyPress: " + e.KeyChar.ToString());
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Left || keyData == Keys.Up)
+            {
+                this.Previous();
+                return false;
+            }
+            else if (keyData == Keys.Right || keyData == Keys.Down)
+            {
+                this.Next();
+                return false;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override bool IsInputKey(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Right:
+                case Keys.Left:
+                    return true;
+            }
+
+            return base.IsInputKey(key);
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             Trace.WriteLine("OnKeyDown: " + e.KeyCode.ToString());
@@ -213,13 +243,33 @@ namespace msn2.net.Pictures.Controls
                 e.Handled = true;
                 this.Close();
             }
-            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Up)
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Up || e.KeyCode == Keys.PageUp)
             {
                 this.Previous();
             }
-            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Down || e.KeyCode == Keys.PageDown)
             {
                 this.Next();
+            }
+            else if (e.KeyCode == Keys.D1 || e.KeyCode == Keys.NumPad1)
+            {
+                this.SaveStarRating(1);
+            }
+            else if (e.KeyCode == Keys.D2 || e.KeyCode == Keys.NumPad2)
+            {
+                this.SaveStarRating(2);
+            }
+            else if (e.KeyCode == Keys.D3 || e.KeyCode == Keys.NumPad3)
+            {
+                this.SaveStarRating(3);
+            }
+            else if (e.KeyCode == Keys.D4 || e.KeyCode == Keys.NumPad4)
+            {
+                this.SaveStarRating(4);
+            }
+            else if (e.KeyCode == Keys.D5 || e.KeyCode == Keys.NumPad5)
+            {
+                this.SaveStarRating(5);
             }
             else
             {

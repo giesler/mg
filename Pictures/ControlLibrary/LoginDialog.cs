@@ -61,5 +61,20 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        private bool swappedFocus = false;
+
+        private void email_Enter(object sender, EventArgs e)
+        {
+            if (swappedFocus == false)
+            {
+                if (this.email.Text.Length > 0)
+                {
+                    this.password.Focus();
+                }
+
+                swappedFocus = true;
+            }
+        }
+
     }
 }

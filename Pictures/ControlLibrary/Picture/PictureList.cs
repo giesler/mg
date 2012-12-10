@@ -27,14 +27,23 @@ namespace msn2.net.Pictures.Controls
 
         public void LoadPictures(PictureCollection pictures)
         {
+            this.SuspendLayout();
+
+            Label label = new Label();
+            label.Dock = DockStyle.Fill;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            label.Text = string.Format("loading {0} pictures...", pictures.Count);
+            this.Controls.Add(label);
+
+            flowLayoutPanel1.Visible = false;
+
+            this.ResumeLayout(true);
+
             flowLayoutPanel1.SuspendLayout();
 
             selectedItems.Clear();
+
             flowLayoutPanel1.Controls.Clear();
-
-            flowLayoutPanel1.ResumeLayout(true);
-
-            flowLayoutPanel1.SuspendLayout();
 
             foreach (PictureData picture in pictures)
             {
@@ -48,6 +57,9 @@ namespace msn2.net.Pictures.Controls
             }
 
             flowLayoutPanel1.ResumeLayout();
+            flowLayoutPanel1.Visible = true;
+
+            this.Controls.Remove(label);
         }
 
         public List<int> SelectedItems
