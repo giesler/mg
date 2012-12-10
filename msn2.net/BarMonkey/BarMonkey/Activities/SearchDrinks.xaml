@@ -28,8 +28,8 @@
 		</ListBox>
 		<StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
 			<Label Style="{StaticResource DefaultTextStyle}" Content="Show:" />
-			<ToggleButton Content="Num Pad" Style="{StaticResource DefaultButtonStyle}" Click="ToggleNumPad_Click" IsChecked="True" Name="toggleNumPad" />
-			<ToggleButton Content="Keyboard" Style="{StaticResource DefaultButtonStyle}" Click="ToggleKeyboard_Click" Name="toggleKb" />
+            <ToggleButton Content="Num Pad" Style="{StaticResource DefaultButtonStyleOld}" Click="ToggleNumPad_Click" IsChecked="True" Name="toggleNumPad" />
+            <ToggleButton Content="Keyboard" Style="{StaticResource DefaultButtonStyleOld}" Click="ToggleKeyboard_Click" Name="toggleKb" />
 		</StackPanel>
         <bnc:NavigationBar Grid.Row="3" Grid.ColumnSpan="2" Height="Auto" Width="Auto" x:Name="navBar" />
     </Grid>

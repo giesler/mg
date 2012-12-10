@@ -14,6 +14,8 @@ namespace msn2.net.BarMonkey
         public event EventHandler OnPourStarted;
         public event EventHandler OnPourCompleted;
 
+        public TimeSpan EstimatedDuration { get; private set; }
+
         public void PourDrink(BarMonkeyContext context, Drink drink, Container container)
         {
             RelayControllerClient relayClient = new RelayControllerClient();
@@ -24,11 +26,11 @@ namespace msn2.net.BarMonkey
                 this.OnPourConnectCompleted(this, EventArgs.Empty);
             }
 
-            var q = from di in drink.DrinkIngredients
+            var q = from di in drink.DrinkActualIngredients
                     orderby di.Group, di.Sequence
                     select di;
 
-            decimal totalOunces = (from di in drink.DrinkIngredients select di.AmountOunces).Sum();
+            decimal totalOunces = (from di in drink.DrinkActualIngredients select di.AmountOunces).Sum();
             decimal offset = container.Size / totalOunces;
 
             List<BatchItem> items = new List<BatchItem>();
@@ -36,7 +38,7 @@ namespace msn2.net.BarMonkey
             decimal fullDuration = 0;
             decimal currentStageDuration = 0;
             int currentGroup = -1;
-            foreach (DrinkIngredient di in q)
+            foreach (DrinkActualIngredient di in q)
             {
                 if (currentGroup != di.Group)
                 {
@@ -51,18 +53,37 @@ namespace msn2.net.BarMonkey
                     currentStageDuration = duration;
                 }
             }
-            fullDuration += currentStageDuration;
+            fullDuration += currentStageDuration + 3;  // 3 second offset
 
-            int lightRelayNumber = 35;
-            int soundRelayNumber = 34;
+            this.EstimatedDuration = new TimeSpan(0, 0, (int)fullDuration);
+            
+            int lightRelayNumber = 36;
             items.Add(new BatchItem { Group = 0, RelayNumber = lightRelayNumber, Seconds = (double)fullDuration });
-            items.Add(new BatchItem { Group = 0, RelayNumber = soundRelayNumber, Seconds = (double)fullDuration });
 
-            foreach (DrinkIngredient di in q)
+            List<Ingredient> actualIngredients = new List<Ingredient>();
+
+            foreach (DrinkActualIngredient di in q)
             {
                 decimal duration = GetOutputDuration(offset, di);
 
-                int relayNumber = (int)di.Ingredient.RelayId;
+                int relayNumber = -1;
+                var subs = context.Data.IngredientSubstitutes.Where(i => i.Ingredient.Id == di.IngredientId).OrderBy(i => i.Priority);
+                if (subs.Count() > 0)
+                {
+                    int altId = subs.First().SubstitueIngredientId;
+                    Ingredient sub = context.Ingredients.GetIngredient(altId);
+                    relayNumber = sub.RelayId.Value;
+                    actualIngredients.Add(sub);
+                }
+                else
+                {
+                    actualIngredients.Add(di.Ingredient);
+                }
+
+                if (relayNumber == -1)
+                {
+                    relayNumber = (int)di.Ingredient.RelayId;
+                }
 
                 items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds = (double)duration });
             }
@@ -88,7 +109,7 @@ namespace msn2.net.BarMonkey
             }
             else
             {
-                context.Drinks.LogDrink(drink, offset);
+                context.Drinks.LogDrink(drink, offset, BarMonkeyContext.Current.CurrentUser.Id);
             }
 
             if (this.OnPourCompleted != null)
@@ -97,7 +118,7 @@ namespace msn2.net.BarMonkey
             }
         }
 
-        private static decimal GetOutputDuration(decimal offset, DrinkIngredient di)
+        private static decimal GetOutputDuration(decimal offset, DrinkActualIngredient di)
         {
             decimal outputAmount = di.AmountOunces * offset;
             decimal duration = outputAmount * di.Ingredient.OuncesPerSecond;

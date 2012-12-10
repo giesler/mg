@@ -12,6 +12,7 @@
       <Association Name="Drink_UserFavorite" Member="UserFavorites" ThisKey="Id" OtherKey="DrinkId" Type="UserFavorite" />
       <Association Name="Drink_DrinkIngredient" Member="DrinkIngredients" ThisKey="Id" OtherKey="DrinkId" Type="DrinkIngredient" />
       <Association Name="Drink_UserDrinkHistory" Member="UserDrinkHistories" ThisKey="Id" OtherKey="DrinkId" Type="UserDrinkHistory" />
+      <Association Name="Drink_DrinkActualIngredient" Member="DrinkActualIngredients" ThisKey="Id" OtherKey="DrinkId" Type="DrinkActualIngredient" />
     </Type>
   </Table>
   <Table Name="dbo.UserFavorite" Member="UserFavorites">
@@ -109,6 +110,7 @@
       <Association Name="Ingredient_IngredientSubstitute" Member="IngredientSubstitutes" ThisKey="Id" OtherKey="IngredientId" Type="IngredientSubstitute" />
       <Association Name="Ingredient_IngredientSubstitute1" Member="IngredientSubstitutes1" ThisKey="Id" OtherKey="SubstitueIngredientId" Type="IngredientSubstitute" />
       <Association Name="Ingredient_UserDrinkIngredientHistory" Member="UserDrinkIngredientHistories" ThisKey="Id" OtherKey="IngredientId" Type="UserDrinkIngredientHistory" />
+      <Association Name="Ingredient_DrinkActualIngredient" Member="DrinkActualIngredients" ThisKey="Id" OtherKey="IngredientId" Type="DrinkActualIngredient" />
       <Association Name="Relay_Ingredient" Member="Relay" ThisKey="RelayId" OtherKey="Id" Type="Relay" IsForeignKey="true" />
     </Type>
   </Table>
@@ -121,6 +123,18 @@
       <Column Name="Sequence" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Ingredient_UserDrinkIngredientHistory" Member="Ingredient" ThisKey="IngredientId" OtherKey="Id" Type="Ingredient" IsForeignKey="true" />
       <Association Name="UserDrinkHistory_UserDrinkIngredientHistory" Member="UserDrinkHistory" ThisKey="UserDrinkHistoryId" OtherKey="Id" Type="UserDrinkHistory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DrinkActualIngredient" Member="DrinkActualIngredients">
+    <Type Name="DrinkActualIngredient">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DrinkId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Group]" Member="Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AmountOunces" Type="System.Decimal" DbType="Decimal(4,3) NOT NULL" CanBeNull="false" />
+      <Column Name="IngredientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Drink_DrinkActualIngredient" Member="Drink" ThisKey="DrinkId" OtherKey="Id" Type="Drink" IsForeignKey="true" />
+      <Association Name="Ingredient_DrinkActualIngredient" Member="Ingredient" ThisKey="IngredientId" OtherKey="Id" Type="Ingredient" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.GetUsersFavoriteDrinks" Method="GetUsersFavoriteDrinks">

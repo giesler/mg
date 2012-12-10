@@ -44,7 +44,7 @@ namespace msn2.net.BarMonkey.Activities
 
             this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
             this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
-            
+
             List<decimal> ouncesItems = new List<decimal>();
             for (decimal i = 0.0M; i < 200.0M; i++)
             {
@@ -227,15 +227,23 @@ namespace msn2.net.BarMonkey.Activities
         {
             this.statusLabel.Text = "sending...";
 
-            double seconds = double.Parse(this.seconds.Text);
-            Relay relay = (Relay)this.relay.SelectedItem;
+            try
+            {
+                double seconds = double.Parse(this.seconds.Text);
+                Relay relay = (Relay)this.relay.SelectedItem;
 
-            List<BatchItem> items = new List<BatchItem>();
-            items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
+                List<BatchItem> items = new List<BatchItem>();
+                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
 
-            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
+                relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
 
-            this.statusLabel.Text = "pouring...";
+                this.statusLabel.Text = "pouring...";
+            }
+            catch (Exception ex)
+            {
+                this.statusLabel.Text = ex.Message;
+            }
+
         }
 
         private void pourComplete(IAsyncResult ar)
@@ -263,7 +271,6 @@ namespace msn2.net.BarMonkey.Activities
             this.minus.IsEnabled = true;
             this.allOff.IsEnabled = true;
         }
-
 
         private void displayException(object o)
         {

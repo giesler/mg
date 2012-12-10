@@ -19,6 +19,16 @@ namespace msn2.net.BarMonkey
             this.Relays = new RelayManager(this);
         }
 
+        public BarMonkeyContext Clone()
+        {
+            BarMonkeyContext context = new BarMonkeyContext();
+            if (this.currentUser != null)
+            {
+                context.Login(this.currentUser.Id);
+            }
+            return context;
+        }
+
         internal BarMonkeyDataContext Data
         {
             get { return dataContext; }

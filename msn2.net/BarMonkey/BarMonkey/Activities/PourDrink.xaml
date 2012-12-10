@@ -1,9 +1,9 @@
 ﻿<Page x:Class="BarMonkey.Activities.PourDrink"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
-    Title="Pouring...">
-    <Grid>
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
+	Title="Pouring...">
+	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition  />
 			<ColumnDefinition Width="150" />
@@ -15,12 +15,13 @@
 			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition Height="50px" />
-            <RowDefinition Height="75" />
-        </Grid.RowDefinitions>
+			<RowDefinition Height="75" />
+		</Grid.RowDefinitions>
 		<Label Name="drinkName" Content="[drink name]" FontSize="22pt" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource DefaultTextStyle}" />
 		<Label Name="statusLabel" FontSize="18" Content="[status]" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource DefaultTextStyle}" />
-
+        <MediaElement Name="media" />
         <Button Grid.Row="3" Grid.Column="1" Name="repeat" Content="Pour Again" FontSize="20" Click="repeat_Click" Style="{DynamicResource DefaultButtonStyle}" />
-        <bnc:NavigationBar Grid.Row="5" Grid.ColumnSpan="3" x:Name="navBar" />
+		<bnc:NavigationBar Grid.Row="5" Grid.ColumnSpan="3" x:Name="navBar" />
+        <ProgressBar Grid.Row="1" Height="11" HorizontalAlignment="Left" Margin="0,57,0,0" Name="pbar" VerticalAlignment="Top" Width="171" Grid.ColumnSpan="2" Grid.Column="1" />
     </Grid>
 </Page>

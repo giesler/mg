@@ -21,6 +21,15 @@ namespace msn2.net.BarMonkey
             return q.ToList<Ingredient>();
         }
 
+        public Ingredient GetIngredient(int id)
+        {
+            var q = from i in base.Context.Data.Ingredients
+                    where i.Id == id
+                    select i;
+
+            return q.First<Ingredient>();
+        }
+
         public Ingredient GetIngredient(string name)
         {
             var q = from i in base.Context.Data.Ingredients
@@ -33,7 +42,7 @@ namespace msn2.net.BarMonkey
         public Ingredient GetIngredientOnRelay(Relay relay)
         {
             var q = from i in base.Context.Data.Ingredients
-                    where i.Relay == relay
+                    where i.Relay.Id == relay.Id
                     select i;
 
             if (q.Count<Ingredient>() > 0)

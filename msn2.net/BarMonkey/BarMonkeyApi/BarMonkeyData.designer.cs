@@ -64,6 +64,9 @@ namespace msn2.net.BarMonkey
     partial void InsertUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void UpdateUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
     partial void DeleteUserDrinkIngredientHistory(UserDrinkIngredientHistory instance);
+    partial void InsertDrinkActualIngredient(DrinkActualIngredient instance);
+    partial void UpdateDrinkActualIngredient(DrinkActualIngredient instance);
+    partial void DeleteDrinkActualIngredient(DrinkActualIngredient instance);
     #endregion
 		
 		public BarMonkeyDataContext() : 
@@ -184,6 +187,14 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		public System.Data.Linq.Table<DrinkActualIngredient> DrinkActualIngredients
+		{
+			get
+			{
+				return this.GetTable<DrinkActualIngredient>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUsersFavoriteDrinks")]
 		public ISingleResult<GetUsersFavoriteDrinksResult> GetUsersFavoriteDrinks([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> userId)
 		{
@@ -218,6 +229,8 @@ namespace msn2.net.BarMonkey
 		private EntitySet<DrinkIngredient> _DrinkIngredients;
 		
 		private EntitySet<UserDrinkHistory> _UserDrinkHistories;
+		
+		private EntitySet<DrinkActualIngredient> _DrinkActualIngredients;
 		
 		private bool serializing;
 		
@@ -450,6 +463,25 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_DrinkActualIngredients", ThisKey="Id", OtherKey="DrinkId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
+		public EntitySet<DrinkActualIngredient> DrinkActualIngredients
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DrinkActualIngredients.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DrinkActualIngredients;
+			}
+			set
+			{
+				this._DrinkActualIngredients.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -506,11 +538,24 @@ namespace msn2.net.BarMonkey
 			entity.Drink = null;
 		}
 		
+		private void attach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = this;
+		}
+		
+		private void detach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Drink = null;
+		}
+		
 		private void Initialize()
 		{
 			this._UserFavorites = new EntitySet<UserFavorite>(new Action<UserFavorite>(this.attach_UserFavorites), new Action<UserFavorite>(this.detach_UserFavorites));
 			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
 			this._UserDrinkHistories = new EntitySet<UserDrinkHistory>(new Action<UserDrinkHistory>(this.attach_UserDrinkHistories), new Action<UserDrinkHistory>(this.detach_UserDrinkHistories));
+			this._DrinkActualIngredients = new EntitySet<DrinkActualIngredient>(new Action<DrinkActualIngredient>(this.attach_DrinkActualIngredients), new Action<DrinkActualIngredient>(this.detach_DrinkActualIngredients));
 			OnCreated();
 		}
 		
@@ -2343,6 +2388,8 @@ namespace msn2.net.BarMonkey
 		
 		private EntitySet<UserDrinkIngredientHistory> _UserDrinkIngredientHistories;
 		
+		private EntitySet<DrinkActualIngredient> _DrinkActualIngredients;
+		
 		private EntityRef<Relay> _Relay;
 		
 		private bool serializing;
@@ -2691,6 +2738,25 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ingredient_DrinkActualIngredient", Storage="_DrinkActualIngredients", ThisKey="Id", OtherKey="IngredientId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
+		public EntitySet<DrinkActualIngredient> DrinkActualIngredients
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DrinkActualIngredients.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DrinkActualIngredients;
+			}
+			set
+			{
+				this._DrinkActualIngredients.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Relay_Ingredient", Storage="_Relay", ThisKey="RelayId", OtherKey="Id", IsForeignKey=true)]
 		public Relay Relay
 		{
@@ -2793,12 +2859,25 @@ namespace msn2.net.BarMonkey
 			entity.Ingredient = null;
 		}
 		
+		private void attach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = this;
+		}
+		
+		private void detach_DrinkActualIngredients(DrinkActualIngredient entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ingredient = null;
+		}
+		
 		private void Initialize()
 		{
 			this._DrinkIngredients = new EntitySet<DrinkIngredient>(new Action<DrinkIngredient>(this.attach_DrinkIngredients), new Action<DrinkIngredient>(this.detach_DrinkIngredients));
 			this._IngredientSubstitutes = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes));
 			this._IngredientSubstitutes1 = new EntitySet<IngredientSubstitute>(new Action<IngredientSubstitute>(this.attach_IngredientSubstitutes1), new Action<IngredientSubstitute>(this.detach_IngredientSubstitutes1));
 			this._UserDrinkIngredientHistories = new EntitySet<UserDrinkIngredientHistory>(new Action<UserDrinkIngredientHistory>(this.attach_UserDrinkIngredientHistories), new Action<UserDrinkIngredientHistory>(this.detach_UserDrinkIngredientHistories));
+			this._DrinkActualIngredients = new EntitySet<DrinkActualIngredient>(new Action<DrinkActualIngredient>(this.attach_DrinkActualIngredients), new Action<DrinkActualIngredient>(this.detach_DrinkActualIngredients));
 			this._Relay = default(EntityRef<Relay>);
 			OnCreated();
 		}
@@ -3072,6 +3151,289 @@ namespace msn2.net.BarMonkey
 		{
 			this._Ingredient = default(EntityRef<Ingredient>);
 			this._UserDrinkHistory = default(EntityRef<UserDrinkHistory>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DrinkActualIngredient")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class DrinkActualIngredient : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _DrinkId;
+		
+		private int _Sequence;
+		
+		private int _Group;
+		
+		private decimal _AmountOunces;
+		
+		private System.Nullable<int> _IngredientId;
+		
+		private EntityRef<Drink> _Drink;
+		
+		private EntityRef<Ingredient> _Ingredient;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDrinkIdChanging(int value);
+    partial void OnDrinkIdChanged();
+    partial void OnSequenceChanging(int value);
+    partial void OnSequenceChanged();
+    partial void OnGroupChanging(int value);
+    partial void OnGroupChanged();
+    partial void OnAmountOuncesChanging(decimal value);
+    partial void OnAmountOuncesChanged();
+    partial void OnIngredientIdChanging(System.Nullable<int> value);
+    partial void OnIngredientIdChanged();
+    #endregion
+		
+		public DrinkActualIngredient()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DrinkId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int DrinkId
+		{
+			get
+			{
+				return this._DrinkId;
+			}
+			set
+			{
+				if ((this._DrinkId != value))
+				{
+					if (this._Drink.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDrinkIdChanging(value);
+					this.SendPropertyChanging();
+					this._DrinkId = value;
+					this.SendPropertyChanged("DrinkId");
+					this.OnDrinkIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sequence", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public int Sequence
+		{
+			get
+			{
+				return this._Sequence;
+			}
+			set
+			{
+				if ((this._Sequence != value))
+				{
+					this.OnSequenceChanging(value);
+					this.SendPropertyChanging();
+					this._Sequence = value;
+					this.SendPropertyChanged("Sequence");
+					this.OnSequenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Group]", Storage="_Group", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public int Group
+		{
+			get
+			{
+				return this._Group;
+			}
+			set
+			{
+				if ((this._Group != value))
+				{
+					this.OnGroupChanging(value);
+					this.SendPropertyChanging();
+					this._Group = value;
+					this.SendPropertyChanged("Group");
+					this.OnGroupChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AmountOunces", DbType="Decimal(4,3) NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public decimal AmountOunces
+		{
+			get
+			{
+				return this._AmountOunces;
+			}
+			set
+			{
+				if ((this._AmountOunces != value))
+				{
+					this.OnAmountOuncesChanging(value);
+					this.SendPropertyChanging();
+					this._AmountOunces = value;
+					this.SendPropertyChanged("AmountOunces");
+					this.OnAmountOuncesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IngredientId", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Nullable<int> IngredientId
+		{
+			get
+			{
+				return this._IngredientId;
+			}
+			set
+			{
+				if ((this._IngredientId != value))
+				{
+					if (this._Ingredient.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIngredientIdChanging(value);
+					this.SendPropertyChanging();
+					this._IngredientId = value;
+					this.SendPropertyChanged("IngredientId");
+					this.OnIngredientIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Drink_DrinkActualIngredient", Storage="_Drink", ThisKey="DrinkId", OtherKey="Id", IsForeignKey=true)]
+		public Drink Drink
+		{
+			get
+			{
+				return this._Drink.Entity;
+			}
+			set
+			{
+				Drink previousValue = this._Drink.Entity;
+				if (((previousValue != value) 
+							|| (this._Drink.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Drink.Entity = null;
+						previousValue.DrinkActualIngredients.Remove(this);
+					}
+					this._Drink.Entity = value;
+					if ((value != null))
+					{
+						value.DrinkActualIngredients.Add(this);
+						this._DrinkId = value.Id;
+					}
+					else
+					{
+						this._DrinkId = default(int);
+					}
+					this.SendPropertyChanged("Drink");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ingredient_DrinkActualIngredient", Storage="_Ingredient", ThisKey="IngredientId", OtherKey="Id", IsForeignKey=true)]
+		public Ingredient Ingredient
+		{
+			get
+			{
+				return this._Ingredient.Entity;
+			}
+			set
+			{
+				Ingredient previousValue = this._Ingredient.Entity;
+				if (((previousValue != value) 
+							|| (this._Ingredient.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ingredient.Entity = null;
+						previousValue.DrinkActualIngredients.Remove(this);
+					}
+					this._Ingredient.Entity = value;
+					if ((value != null))
+					{
+						value.DrinkActualIngredients.Add(this);
+						this._IngredientId = value.Id;
+					}
+					else
+					{
+						this._IngredientId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Ingredient");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._Drink = default(EntityRef<Drink>);
+			this._Ingredient = default(EntityRef<Ingredient>);
 			OnCreated();
 		}
 		

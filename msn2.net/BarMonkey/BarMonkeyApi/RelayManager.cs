@@ -12,6 +12,11 @@ namespace msn2.net.BarMonkey
         {
         }
 
+        public Relay GetRelay(int id)
+        {
+            return base.Context.Data.Relays.FirstOrDefault(i => i.Id == id);
+        }
+
         public List<Relay> GetRelays()
         {
             var q = from r in base.Context.Data.Relays
@@ -23,14 +28,18 @@ namespace msn2.net.BarMonkey
 
         public void SetIngredient(Relay relay, Ingredient ingredient)
         {
-            Ingredient current = BarMonkeyContext.Current.Ingredients.GetIngredientOnRelay(ingredient.Relay);
-            if (current != null)
+            if (ingredient.Relay != null)
             {
-                
-                current.RelayId = null;
+                Ingredient current = this.Context.Ingredients.GetIngredientOnRelay(relay);
+                if (current != null)
+                {
+                    current.RelayId = null;
+                }
             }
 
-            ingredient.Relay = relay;
+            ingredient = this.Context.Ingredients.GetIngredient(ingredient.Id);
+            Relay newRelay = this.GetRelay(relay.Id);
+            ingredient.Relay = newRelay;
             base.Context.Data.SubmitChanges();
         }
     }

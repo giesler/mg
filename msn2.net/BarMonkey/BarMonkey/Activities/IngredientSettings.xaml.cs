@@ -45,7 +45,16 @@ namespace msn2.net.BarMonkey.Activities
 
             this.ingredient.ItemsSource = BarMonkeyContext.Current.Ingredients.GetIngredients();
             this.relay.ItemsSource = BarMonkeyContext.Current.Relays.GetRelays();
-            
+
+            foreach (Ingredient i in this.ingredient.Items)
+            {
+                if (i.Name.ToString() == "Water")
+                {
+                    this.ingredient.SelectedItem = i;
+                    break;
+                }
+            }
+
             List<decimal> ouncesItems = new List<decimal>();
             for (decimal i = 0.0M; i < 200.0M; i++)
             {
@@ -97,7 +106,7 @@ namespace msn2.net.BarMonkey.Activities
                             MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
-                            BarMonkeyContext.Current.Relays.SetIngredient(relay, ingredient);
+                            BarMonkeyContext.Current.Clone().Relays.SetIngredient(relay, ingredient);
                         }
                         else
                         {
@@ -211,15 +220,22 @@ namespace msn2.net.BarMonkey.Activities
         {
             this.statusLabel.Text = "sending...";
 
-            double seconds = double.Parse(this.seconds.Text);
-            Relay relay = (Relay)this.relay.SelectedItem;
+            try
+            {
+                double seconds = double.Parse(this.seconds.Text);
+                Relay relay = (Relay)this.relay.SelectedItem;
 
-            List<BatchItem> items = new List<BatchItem>();
-            items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
+                List<BatchItem> items = new List<BatchItem>();
+                items.Add(new BatchItem() { RelayNumber = relay.Id, Seconds = seconds });
 
-            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
+                relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
 
-            this.statusLabel.Text = "pouring...";
+                this.statusLabel.Text = "pouring...";
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new WaitCallback(displayException), ex);
+            }
         }
 
         private void pourComplete(IAsyncResult ar)
@@ -230,6 +246,8 @@ namespace msn2.net.BarMonkey.Activities
         private void onPourCompleted(IAsyncResult ar)
         {
             this.statusLabel.Text = "done";
+
+            this.EnableControls();
         }
 
         private void EnableControls()
@@ -253,8 +271,6 @@ namespace msn2.net.BarMonkey.Activities
             this.statusLabel.Text = exception.ToString();
 
             this.EnableControls();
-
-            this.relayClient = new RelayControllerClient();
         }
 
         private void allOff_Click(object sender, RoutedEventArgs e)

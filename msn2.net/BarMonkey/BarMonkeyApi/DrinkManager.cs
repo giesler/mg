@@ -16,8 +16,8 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetDrinks(char[] matchingChars)
         {
             var q = from d in base.Context.Data.Drinks
-                    where d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
-                        && d.DrinkIngredients.Count > 0
+                    where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                        && d.DrinkActualIngredients.Count > 0
                         && matchingChars.Contains(d.Name[0])
                     orderby d.Name
                     select d;
@@ -37,9 +37,9 @@ namespace msn2.net.BarMonkey
                 {
                     drinks = (from d in drinks
                               //join di in base.Context.Data.DrinkIngredients on d.Id equals di.DrinkId
-                              where d.DrinkIngredients.Where(di => di.IngredientId == ingredient.Id).Any()
-                                && d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
-                                && d.DrinkIngredients.Count > 0
+                              where d.DrinkActualIngredients.Where(di => di.IngredientId == ingredient.Id).Any()
+                                && d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                                && d.DrinkActualIngredients.Count > 0
                               orderby d.Name
                               select d).Distinct<Drink>().ToList<Drink>();
                 }
@@ -52,8 +52,8 @@ namespace msn2.net.BarMonkey
         {
             var q = from d in base.Context.Data.Drinks
                     where (d.Name.Contains(searchText) || d.Description.Contains(searchText))
-                        && d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
-                        && d.DrinkIngredients.Count > 0
+                        && d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                        && d.DrinkActualIngredients.Count > 0
                     orderby d.Name
                     select d;
             return q.ToList<Drink>();
@@ -62,8 +62,8 @@ namespace msn2.net.BarMonkey
         public List<Drink> GetTopDrinks(int count)
         {
             var q = (from d in base.Context.Data.Drinks
-                     where d.DrinkIngredients.All(di => di.Ingredient.RemainingOunces > 5)
-                        && d.DrinkIngredients.Count > 0
+                     where d.DrinkActualIngredients.All(di => di.Ingredient.RemainingOunces > 5)
+                        && d.DrinkActualIngredients.Count > 0
                      orderby d.UserDrinkHistories.Count
                      select d).Take<Drink>(count);
 
@@ -95,11 +95,11 @@ namespace msn2.net.BarMonkey
 
             base.Context.Data.SubmitChanges();
 
-            foreach (DrinkIngredient ingredient in drink.DrinkIngredients)
+            foreach (DrinkActualIngredient ingredient in drink.DrinkActualIngredients)
             {
                 UserDrinkIngredientHistory udih = new UserDrinkIngredientHistory();
                 udih.UserDrinkHistory = udh;
-                udih.IngredientId = ingredient.IngredientId;
+                udih.IngredientId = ingredient.IngredientId.Value;
                 udih.AmountOunces = ingredient.AmountOunces * offset;
                 udih.Sequence = ingredient.Sequence;
                 base.Context.Data.UserDrinkIngredientHistories.InsertOnSubmit(udih);
@@ -107,9 +107,9 @@ namespace msn2.net.BarMonkey
 
             base.Context.Data.SubmitChanges();
 
-            foreach (DrinkIngredient di in drink.DrinkIngredients)
+            foreach (DrinkActualIngredient di in drink.DrinkActualIngredients)
             {
-                Ingredient i = di.Ingredient;
+                Ingredient i = base.Context.Ingredients.GetIngredient(di.IngredientId.Value);
                 i.RemainingOunces -= di.AmountOunces * offset;
             }
 

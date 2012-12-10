@@ -26,6 +26,8 @@ namespace BarMonkey.Activities
         private Drink drink;
         private Container container;
         private Dispenser disp;
+        private MediaPlayer mediaPlayer;
+        private DispatcherTimer timer;
 
         public PourDrink()
         {
@@ -35,6 +37,25 @@ namespace BarMonkey.Activities
             this.disp.OnPourStarted += new EventHandler(disp_OnPourStarted);
             this.disp.OnPourConnectCompleted += new EventHandler(disp_OnPourConnectCompleted);
             this.disp.OnPourCompleted += new EventHandler(disp_OnPourCompleted);
+
+            this.mediaPlayer = new MediaPlayer();
+            this.mediaPlayer.MediaEnded += new EventHandler(mediaPlayer_MediaEnded);
+            this.mediaPlayer.Open(new Uri("twilightzone.wav", UriKind.Relative));
+
+            this.timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, this.OnTimer, this.Dispatcher);
+        }
+
+        void OnTimer(object sender, EventArgs e)
+        {
+            if (this.pbar.Visibility == System.Windows.Visibility.Visible && this.pbar.Value < this.pbar.Maximum)
+            {
+                this.pbar.Value++;
+            }
+        }
+
+        void mediaPlayer_MediaEnded(object sender, EventArgs e)
+        {
+            this.mediaPlayer.Position = new TimeSpan(0, 0, 0);
         }
 
         void disp_OnPourCompleted(object sender, EventArgs e)
@@ -57,11 +78,22 @@ namespace BarMonkey.Activities
             this.statusLabel.Content = "Cheers!";
             this.repeat.Visibility = Visibility.Visible;
             this.navBar.IsEnabled = true;
+            this.pbar.Visibility = System.Windows.Visibility.Collapsed;
+            this.mediaPlayer.Stop();
+            this.pbar.Value = 0;
         }
 
         void disp_OnPourStarted(object sender, EventArgs e)
         {
-            Dispatcher.BeginInvoke(new WaitCallback(this.SetStatusText), "pouring...");
+            Dispatcher.BeginInvoke(new WaitCallback(this.OnPourStarted), new object());
+        }
+
+        void OnPourStarted(object sender)
+        {
+            this.statusLabel.Content = "pouring...";
+
+            this.pbar.Visibility = System.Windows.Visibility.Visible;
+            this.pbar.Maximum = this.disp.EstimatedDuration.TotalSeconds + 10;
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -79,10 +111,13 @@ namespace BarMonkey.Activities
 
             this.drinkName.Content = this.drink.Name;
 
+            this.pbar.Visibility = System.Windows.Visibility.Collapsed;
             this.repeat.Visibility = Visibility.Hidden;
             this.navBar.IsEnabled = false;
 
             this.statusLabel.Content = "connecting...";
+
+            this.mediaPlayer.Play();
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(PourThread), new object());
         }
