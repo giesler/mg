@@ -11,7 +11,7 @@
     <form id="form1" runat="server" style="height: 100%">
     <asp:ScriptManager runat="server" ID="scriptManager" />
     <div style="height: 100%">
-        <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/SLExpressControls.xap"
+        <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/SLExpressControls.xap" AutoUpgrade="true"
             Version="2.0" Width="100%" Height="100%" />
     </div>
     </form>
