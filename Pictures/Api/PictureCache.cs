@@ -98,6 +98,17 @@ namespace msn2.net.Pictures
                     // if new width and height aren't the same as the image, resize, createing a new image, then save
                     if (newWidth != img.Width || newHeight != img.Height)
                     {
+                        if (File.Exists(targetFile))
+                        {
+                            try
+                            {
+                                File.Delete(targetFile);
+                            }
+                            catch (Exception ex)
+                            {
+                                Trace.WriteLine(ex.ToString());
+                            }
+                        }
                         using (Bitmap bmp = new Bitmap(img, newWidth, newHeight))
                         {
                             bmp.Save(targetFile, ImageFormat.Jpeg);

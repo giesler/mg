@@ -65,17 +65,18 @@ namespace msn2.net.Pictures
                             }
 
                             int left = 0;
+                            int top = 0;
 
                             if (img.Height > img.Width)
                             {
-                                left = (maxWidth / 2) - (img.Width / 2);
+                                left = (maxWidth - img.Width) / 2;
                             }
                             else
                             {
-                                left = 0;
+                             //   top = (maxHeight - img.Height) / 2;
                             }
 
-                            g.DrawImage(img, left + 1, 1, img.Width, img.Height);
+                            g.DrawImage(img, left + 1, top + 1, img.Width, img.Height);
 
                             using (Pen pen = new Pen(Color.Silver))
                             {

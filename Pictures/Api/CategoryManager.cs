@@ -27,6 +27,30 @@ namespace msn2.net.Pictures
             return this.context.DataContext.Categories.FirstOrDefault(c => c.Id == categoryId);
         }
 
+        public int AddCategoryPath(string path)
+        {
+            Category current = this.GetRootCategory();
+            string[] subPaths = path.Split(new char[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string subPath in subPaths)
+            {
+                Category previous = current;
+                List<Category> children = this.GetChildrenCategories(current.Id);
+                current = children.FirstOrDefault(c => c.Name.ToLower().Trim() == subPath.ToLower().Trim());
+                if (current == null)
+                {
+                    current = new Category();
+                    current.Name = subPath.Trim();
+                    current.DateAdded = DateTime.Now;
+                    current.Description = string.Empty;
+                    current.ParentId = previous.Id;
+                    current.CategoryGroups.Add(new CategoryGroup { Category = current, GroupID = 1 });
+                    this.Add(current);
+                }
+            }
+
+            return current.Id;
+        }
+
         public Category RefreshCategory(Category category)
         {
             int id = category.Id;

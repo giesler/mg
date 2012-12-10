@@ -73,6 +73,8 @@ namespace msn2.net.Pictures
             if (loginInfo != null)
             {
                 Load(config, loginInfo.Id);
+
+                PicContext.context = context;
             }
 
             return (PicContext.Current != null);
