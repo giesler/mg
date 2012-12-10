@@ -15,6 +15,7 @@ namespace msn2.net.BarMonkey
         public List<User> GetUsers()
         {
             var users = from d in base.Context.Data.Users
+                        where d.IsGuest == false
                         select d;
             
             return users.ToList<User>();

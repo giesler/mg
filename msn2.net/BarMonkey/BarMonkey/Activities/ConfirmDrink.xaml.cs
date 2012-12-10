@@ -43,10 +43,24 @@ namespace BarMonkey.Activities
                 }
             }
 
-            if (BarMonkeyContext.Current.ImpersonateUser != null)
+            if (BarMonkeyContext.Current.ImpersonateUser != null
+                || BarMonkeyContext.Current.CurrentUser.IsGuest == true)
             {
                 this.favorite.Visibility = Visibility.Hidden;
             }
+
+            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
+            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
+            this.navBar.NextClicked += new EventHandler(navBar_NextClicked);
+            this.navBar.NextEnabled = true;
+            this.navBar.NextContent = "POUR";
+        }
+
+        void navBar_NextClicked(object sender, EventArgs e)
+        {
+            PourDrink pour = new PourDrink();
+            pour.SetDrink(this.drink, this.container);
+            this.NavigationService.Navigate(pour);
         }
 
         public void SetDrink(Drink drink)
@@ -84,23 +98,17 @@ namespace BarMonkey.Activities
             public string Amount { get; set; }
         }
 
-        private void go_Click(object sender, RoutedEventArgs e)
-        {
-            PourDrink pour = new PourDrink();
-            pour.SetDrink(this.drink, this.container);
-            this.NavigationService.Navigate(pour);
-        }
-
         private void addToFavorites_Click(object sender, RoutedEventArgs e)
         {
             BarMonkeyContext.Current.Drinks.SetFavorite(this.drink.Id, this.favorite.IsChecked);
         }
 
-        private void container_Click(object sender, RoutedEventArgs e)
+        private void containers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.container = this.containers.SelectedItem as Container;
             this.UpdateDrinkDetails();
         }
+
     }
 
     

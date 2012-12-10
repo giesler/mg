@@ -87,5 +87,17 @@ namespace msn2.net.BarMonkey
                 this.next.IsEnabled = value;
             }
         }
+
+        public object NextContent
+        {
+            get
+            {
+                return this.next.Content;
+            }
+            set
+            {
+                this.next.Content = value;
+            }
+        }
     }
 }

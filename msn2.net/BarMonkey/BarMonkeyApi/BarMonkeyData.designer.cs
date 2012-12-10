@@ -48,9 +48,6 @@ namespace msn2.net.BarMonkey
     partial void InsertRelay(Relay instance);
     partial void UpdateRelay(Relay instance);
     partial void DeleteRelay(Relay instance);
-    partial void InsertUser(User instance);
-    partial void UpdateUser(User instance);
-    partial void DeleteUser(User instance);
     partial void InsertUserDrinkHistory(UserDrinkHistory instance);
     partial void UpdateUserDrinkHistory(UserDrinkHistory instance);
     partial void DeleteUserDrinkHistory(UserDrinkHistory instance);
@@ -60,6 +57,9 @@ namespace msn2.net.BarMonkey
     partial void InsertContainer(Container instance);
     partial void UpdateContainer(Container instance);
     partial void DeleteContainer(Container instance);
+    partial void InsertUser(User instance);
+    partial void UpdateUser(User instance);
+    partial void DeleteUser(User instance);
     #endregion
 		
 		public BarMonkeyDataContext() : 
@@ -140,14 +140,6 @@ namespace msn2.net.BarMonkey
 			}
 		}
 		
-		public System.Data.Linq.Table<User> Users
-		{
-			get
-			{
-				return this.GetTable<User>();
-			}
-		}
-		
 		public System.Data.Linq.Table<UserDrinkHistory> UserDrinkHistories
 		{
 			get
@@ -169,6 +161,14 @@ namespace msn2.net.BarMonkey
 			get
 			{
 				return this.GetTable<Container>();
+			}
+		}
+		
+		public System.Data.Linq.Table<User> Users
+		{
+			get
+			{
+				return this.GetTable<User>();
 			}
 		}
 		
@@ -1615,292 +1615,6 @@ namespace msn2.net.BarMonkey
 		}
 	}
 	
-	[Table(Name="dbo.[User]")]
-	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Pin;
-		
-		private bool _IsAdmin;
-		
-		private string _Email;
-		
-		private string _TextMessageAddress;
-		
-		private string _ImageUrl;
-		
-		private System.Nullable<decimal> _RemainingOunces;
-		
-		private EntitySet<UserFavorite> _UserFavorites;
-		
-		private EntitySet<UserDrinkHistory> _UserDrinkHistories;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnPinChanging(string value);
-    partial void OnPinChanged();
-    partial void OnIsAdminChanging(bool value);
-    partial void OnIsAdminChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnTextMessageAddressChanging(string value);
-    partial void OnTextMessageAddressChanged();
-    partial void OnImageUrlChanging(string value);
-    partial void OnImageUrlChanged();
-    partial void OnRemainingOuncesChanging(System.Nullable<decimal> value);
-    partial void OnRemainingOuncesChanged();
-    #endregion
-		
-		public User()
-		{
-			this._UserFavorites = new EntitySet<UserFavorite>(new Action<UserFavorite>(this.attach_UserFavorites), new Action<UserFavorite>(this.detach_UserFavorites));
-			this._UserDrinkHistories = new EntitySet<UserDrinkHistory>(new Action<UserDrinkHistory>(this.attach_UserDrinkHistories), new Action<UserDrinkHistory>(this.detach_UserDrinkHistories));
-			OnCreated();
-		}
-		
-		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Pin", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Pin
-		{
-			get
-			{
-				return this._Pin;
-			}
-			set
-			{
-				if ((this._Pin != value))
-				{
-					this.OnPinChanging(value);
-					this.SendPropertyChanging();
-					this._Pin = value;
-					this.SendPropertyChanged("Pin");
-					this.OnPinChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_IsAdmin", DbType="Bit NOT NULL")]
-		public bool IsAdmin
-		{
-			get
-			{
-				return this._IsAdmin;
-			}
-			set
-			{
-				if ((this._IsAdmin != value))
-				{
-					this.OnIsAdminChanging(value);
-					this.SendPropertyChanging();
-					this._IsAdmin = value;
-					this.SendPropertyChanged("IsAdmin");
-					this.OnIsAdminChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_Email", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_TextMessageAddress", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string TextMessageAddress
-		{
-			get
-			{
-				return this._TextMessageAddress;
-			}
-			set
-			{
-				if ((this._TextMessageAddress != value))
-				{
-					this.OnTextMessageAddressChanging(value);
-					this.SendPropertyChanging();
-					this._TextMessageAddress = value;
-					this.SendPropertyChanged("TextMessageAddress");
-					this.OnTextMessageAddressChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_ImageUrl", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string ImageUrl
-		{
-			get
-			{
-				return this._ImageUrl;
-			}
-			set
-			{
-				if ((this._ImageUrl != value))
-				{
-					this.OnImageUrlChanging(value);
-					this.SendPropertyChanging();
-					this._ImageUrl = value;
-					this.SendPropertyChanged("ImageUrl");
-					this.OnImageUrlChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RemainingOunces", DbType="Decimal(3,3)")]
-		public System.Nullable<decimal> RemainingOunces
-		{
-			get
-			{
-				return this._RemainingOunces;
-			}
-			set
-			{
-				if ((this._RemainingOunces != value))
-				{
-					this.OnRemainingOuncesChanging(value);
-					this.SendPropertyChanging();
-					this._RemainingOunces = value;
-					this.SendPropertyChanged("RemainingOunces");
-					this.OnRemainingOuncesChanged();
-				}
-			}
-		}
-		
-		[Association(Name="User_UserFavorite", Storage="_UserFavorites", OtherKey="UserId")]
-		public EntitySet<UserFavorite> UserFavorites
-		{
-			get
-			{
-				return this._UserFavorites;
-			}
-			set
-			{
-				this._UserFavorites.Assign(value);
-			}
-		}
-		
-		[Association(Name="User_UserDrinkHistory", Storage="_UserDrinkHistories", OtherKey="UserId")]
-		public EntitySet<UserDrinkHistory> UserDrinkHistories
-		{
-			get
-			{
-				return this._UserDrinkHistories;
-			}
-			set
-			{
-				this._UserDrinkHistories.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_UserFavorites(UserFavorite entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_UserFavorites(UserFavorite entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
-		private void attach_UserDrinkHistories(UserDrinkHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_UserDrinkHistories(UserDrinkHistory entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-	}
-	
 	[Table(Name="dbo.UserDrinkHistory")]
 	public partial class UserDrinkHistory : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2492,6 +2206,316 @@ namespace msn2.net.BarMonkey
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[Table(Name="dbo.[User]")]
+	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Pin;
+		
+		private bool _IsAdmin;
+		
+		private bool _IsGuest;
+		
+		private string _Email;
+		
+		private string _TextMessageAddress;
+		
+		private string _ImageUrl;
+		
+		private System.Nullable<decimal> _RemainingOunces;
+		
+		private EntitySet<UserFavorite> _UserFavorites;
+		
+		private EntitySet<UserDrinkHistory> _UserDrinkHistories;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPinChanging(string value);
+    partial void OnPinChanged();
+    partial void OnIsAdminChanging(bool value);
+    partial void OnIsAdminChanged();
+    partial void OnIsGuestChanging(bool value);
+    partial void OnIsGuestChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnTextMessageAddressChanging(string value);
+    partial void OnTextMessageAddressChanged();
+    partial void OnImageUrlChanging(string value);
+    partial void OnImageUrlChanged();
+    partial void OnRemainingOuncesChanging(System.Nullable<decimal> value);
+    partial void OnRemainingOuncesChanged();
+    #endregion
+		
+		public User()
+		{
+			this._UserFavorites = new EntitySet<UserFavorite>(new Action<UserFavorite>(this.attach_UserFavorites), new Action<UserFavorite>(this.detach_UserFavorites));
+			this._UserDrinkHistories = new EntitySet<UserDrinkHistory>(new Action<UserDrinkHistory>(this.attach_UserDrinkHistories), new Action<UserDrinkHistory>(this.detach_UserDrinkHistories));
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Pin", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Pin
+		{
+			get
+			{
+				return this._Pin;
+			}
+			set
+			{
+				if ((this._Pin != value))
+				{
+					this.OnPinChanging(value);
+					this.SendPropertyChanging();
+					this._Pin = value;
+					this.SendPropertyChanged("Pin");
+					this.OnPinChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsAdmin", DbType="Bit NOT NULL")]
+		public bool IsAdmin
+		{
+			get
+			{
+				return this._IsAdmin;
+			}
+			set
+			{
+				if ((this._IsAdmin != value))
+				{
+					this.OnIsAdminChanging(value);
+					this.SendPropertyChanging();
+					this._IsAdmin = value;
+					this.SendPropertyChanged("IsAdmin");
+					this.OnIsAdminChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsGuest", DbType="Bit NOT NULL")]
+		public bool IsGuest
+		{
+			get
+			{
+				return this._IsGuest;
+			}
+			set
+			{
+				if ((this._IsGuest != value))
+				{
+					this.OnIsGuestChanging(value);
+					this.SendPropertyChanging();
+					this._IsGuest = value;
+					this.SendPropertyChanged("IsGuest");
+					this.OnIsGuestChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Email", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_TextMessageAddress", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TextMessageAddress
+		{
+			get
+			{
+				return this._TextMessageAddress;
+			}
+			set
+			{
+				if ((this._TextMessageAddress != value))
+				{
+					this.OnTextMessageAddressChanging(value);
+					this.SendPropertyChanging();
+					this._TextMessageAddress = value;
+					this.SendPropertyChanged("TextMessageAddress");
+					this.OnTextMessageAddressChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ImageUrl", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string ImageUrl
+		{
+			get
+			{
+				return this._ImageUrl;
+			}
+			set
+			{
+				if ((this._ImageUrl != value))
+				{
+					this.OnImageUrlChanging(value);
+					this.SendPropertyChanging();
+					this._ImageUrl = value;
+					this.SendPropertyChanged("ImageUrl");
+					this.OnImageUrlChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RemainingOunces", DbType="Decimal(3,3)")]
+		public System.Nullable<decimal> RemainingOunces
+		{
+			get
+			{
+				return this._RemainingOunces;
+			}
+			set
+			{
+				if ((this._RemainingOunces != value))
+				{
+					this.OnRemainingOuncesChanging(value);
+					this.SendPropertyChanging();
+					this._RemainingOunces = value;
+					this.SendPropertyChanged("RemainingOunces");
+					this.OnRemainingOuncesChanged();
+				}
+			}
+		}
+		
+		[Association(Name="User_UserFavorite", Storage="_UserFavorites", OtherKey="UserId")]
+		public EntitySet<UserFavorite> UserFavorites
+		{
+			get
+			{
+				return this._UserFavorites;
+			}
+			set
+			{
+				this._UserFavorites.Assign(value);
+			}
+		}
+		
+		[Association(Name="User_UserDrinkHistory", Storage="_UserDrinkHistories", OtherKey="UserId")]
+		public EntitySet<UserDrinkHistory> UserDrinkHistories
+		{
+			get
+			{
+				return this._UserDrinkHistories;
+			}
+			set
+			{
+				this._UserDrinkHistories.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UserFavorites(UserFavorite entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_UserFavorites(UserFavorite entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_UserDrinkHistories(UserDrinkHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_UserDrinkHistories(UserDrinkHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 	

@@ -36,7 +36,7 @@
     <PublisherName>msn2.net</PublisherName>
     <MinimumRequiredVersion>1.0.100.20</MinimumRequiredVersion>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>35</ApplicationRevision>
     <ApplicationVersion>1.0.100.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -93,9 +93,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
     <Page Include="Activities\Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Activities\DrinkByCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Activities\SelectDrink.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,6 +169,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Activities\Top10Drinks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
     <Page Include="KeyboardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -233,6 +238,9 @@
     </Compile>
     <Compile Include="Activities\DrinkByCategory.xaml.cs">
       <DependentUpon>DrinkByCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\SelectDrink.xaml.cs">
+      <DependentUpon>SelectDrink.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activities\SelectIngredients.xaml.cs">
       <DependentUpon>SelectIngredients.xaml</DependentUpon>
@@ -269,6 +277,12 @@
     </Compile>
     <Compile Include="Activities\ImpersonateUserHome.xaml.cs">
       <DependentUpon>ImpersonateUserHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\Top10Drinks.xaml.cs">
+      <DependentUpon>Top10Drinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="KeyboardControl.xaml.cs">
       <DependentUpon>KeyboardControl.xaml</DependentUpon>
@@ -347,7 +361,6 @@
     <None Include="Service References\RelayControllerService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BarMonkey_TemporaryKey.pfx" />
     <None Include="Service References\RelayControllerService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

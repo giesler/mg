@@ -37,6 +37,9 @@ namespace BarMonkey.Activities
             base.OnInitialized(e);
 
             // TODO: Close client
+
+            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
+            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
 
         public void SetDrink(Drink drink, Container container)
@@ -46,8 +49,8 @@ namespace BarMonkey.Activities
 
             this.drinkName.Content = this.drink.Name;
 
-            this.repeat.IsEnabled = false;
-            this.gohome.IsEnabled = false;
+            this.repeat.Visibility = Visibility.Hidden;
+            this.navBar.IsEnabled = false;
 
             this.statusLabel.Content = "connecting...";
 
@@ -71,6 +74,7 @@ namespace BarMonkey.Activities
         {
             Exception exception = (Exception)o;
             this.statusLabel.Content = exception.ToString();
+            this.navBar.IsEnabled = true;
         }
 
         private void onConnected(IAsyncResult ar)
@@ -95,7 +99,7 @@ namespace BarMonkey.Activities
                 items.Add(new BatchItem { Group = di.Group, RelayNumber = relayNumber, Seconds=duration});
             }
 
-            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, new object());
+            relayClient.BeginSendBatch(items.ToArray<BatchItem>(), pourComplete, null);
 
             this.statusLabel.Content = "pouring...";
 
@@ -118,21 +122,29 @@ namespace BarMonkey.Activities
         {
             this.statusLabel.Content = "Cheers!";
 
-            this.repeat.IsEnabled = true;
-            this.gohome.IsEnabled = true;
+            this.repeat.Visibility = Visibility.Visible;
+            this.navBar.IsEnabled = true;
         }
 
         private void repeat_Click(object sender, RoutedEventArgs e)
         {
             onConnected(null);
 
-            this.repeat.IsEnabled = true;
-            this.gohome.IsEnabled = true;
+            this.repeat.Visibility = Visibility.Hidden;
+            this.navBar.IsEnabled = false;
         }
 
         private void gohome_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new UserHome());
+            if (BarMonkeyContext.Current.CurrentUser.IsGuest == false)
+            {
+                this.NavigationService.Navigate(new UserHome());
+            }
+            else
+            {
+                PartyModeMainPage partyPage = new PartyModeMainPage();
+                this.NavigationService.Navigate(partyPage);
+            }            
         }        
 
     }

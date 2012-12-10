@@ -2,7 +2,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
-    Title="BrowseByAlpha">
+    Title="Browse">
+    <Page.Resources>
+        <Style x:Name="alphaButtonUnselected" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="MinWidth" Value="30" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="66*" />
@@ -13,17 +22,17 @@
             <RowDefinition Height="196*" />
             <RowDefinition Height="42*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button Content="&lt;" />
-            <Button Content="A B C" />
-            <Button Content="D - G" />
-            <Button Content="H - L" />
-            <Button Content="M - Q" />
-            <Button Content="R S T" />
-            <Button Content="U - 9" />
-            <Button Content="&gt;" />
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <Button Content="&lt;" Name="previousLetters" Click="previousLetters_Click" />
+            <TextBlock Name="blockA" Text="A B C" Style="{DynamicResource alphaButtonUnselected}" Tag="a,b,c" />
+            <TextBlock Name="blockD" Text="D - G" Style="{DynamicResource alphaButtonUnselected}" Tag="d,e,f,g" />
+            <TextBlock Name="blockH" Text="H - L" Style="{DynamicResource alphaButtonUnselected}" Tag="h,i,j,k,l" />
+            <TextBlock Name="blockM" Text="M - Q" Style="{DynamicResource alphaButtonUnselected}" Tag="m,n,o,p,q" />
+            <TextBlock Name="blockR" Text="R S T" Style="{DynamicResource alphaButtonUnselected}" Tag="r,s,t" />
+            <TextBlock Name="blockU" Text="U - 9" Style="{DynamicResource alphaButtonUnselected}" Tag="u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9" />
+            <Button Content="&gt;" Name="nextLetters" Click="nextLetters_Click" />
         </StackPanel>
-        <ListBox Grid.Row="1" Name="drinkList">
+        <ListBox Grid.Row="1" Name="drinkList" SelectionChanged="drinkList_SelectionChanged" Background="Transparent" Style="{DynamicResource DefaultTextStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />

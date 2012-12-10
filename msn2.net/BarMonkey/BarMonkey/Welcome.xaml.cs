@@ -45,6 +45,8 @@ namespace BarMonkeyControls
 
         private void partyMode_Click(object sender, RoutedEventArgs e)
         {
+            BarMonkeyContext.Current.Login(9);
+            
             PartyModeMainPage partyPage = new PartyModeMainPage();
             this.NavigationService.Navigate(partyPage);
         }

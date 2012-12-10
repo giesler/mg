@@ -12,6 +12,28 @@ namespace msn2.net.BarMonkey
         {
         }
 
+        public List<Drink> GetDrinks(char[] matchingChars)
+        {
+            var q = base.Context.Data.Drinks.Where(drink => matchingChars.Contains(drink.Name[0]));
+
+            return q.ToList<Drink>();      
+        }
+
+        public List<Drink> GetDrinks(List<Ingredient> ingredients)
+        {
+            List<Drink> drinks = (from d in base.Context.Data.Drinks select d).ToList<Drink>();
+            
+            foreach (Ingredient ingredient in ingredients)
+            {
+                drinks = (from d in drinks
+                          join di in base.Context.Data.DrinkIngredients on d.Id equals di.DrinkId
+                          where di.IngredientId == ingredient.Id
+                          select d).Distinct<Drink>().ToList<Drink>();
+            }
+
+            return drinks;
+        }
+
         public List<Drink> GetDrinks(string searchText)
         {
             var q = from d in base.Context.Data.Drinks
@@ -19,6 +41,15 @@ namespace msn2.net.BarMonkey
                         && d.DrinkIngredients.Count > 0                        
                     orderby d.Name
                     select d;
+            return q.ToList<Drink>();
+        }
+
+        public List<Drink> GetTopDrinks(int count)
+        {
+            var q = (from d in base.Context.Data.Drinks
+                     orderby d.UserDrinkHistories.Count
+                     select d).Take<Drink>(count);
+
             return q.ToList<Drink>();
         }
 

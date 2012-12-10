@@ -42,5 +42,10 @@ namespace msn2.net.BarMonkey.Activities
         {
             base.NavigationService.Navigate(new SelectIngredients());
         }
+
+        private void top10_Click(object sender, RoutedEventArgs e)
+        {
+            base.NavigationService.Navigate(new Top10Drinks());
+        }
     }
 }
