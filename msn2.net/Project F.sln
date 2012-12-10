@@ -5,9 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A267194C-A021-4267-A491-AD3919394F9A}"
+EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccLocalPath0 = .
 		CanCheckoutShared = false
 		SolutionUniqueID = {8B05E1D2-5B92-4D82-B515-DF9C3E84F263}
@@ -23,6 +25,10 @@ Global
 		SccLocalPath3 = .
 		CanCheckoutShared = false
 		SccProjectFilePathRelativizedFromConnection3 = Controls\\
+		SccProjectUniqueName4 = Common\\Common.csproj
+		SccLocalPath4 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection4 = Common\\
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug
@@ -43,6 +49,10 @@ Global
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
 		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.ActiveCfg = Debug|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.Build.0 = Debug|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release.ActiveCfg = Release|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
