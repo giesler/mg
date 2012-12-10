@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="167575b1-b014-4f51-9a7e-81a59769aa1d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/RelayController" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ProXRRelayController.wsdl" MetadataType="Wsdl" ID="c3a5731d-dc91-47fe-b1be-08cf648df1f4" SourceId="1" SourceUrl="http://localhost:8080/RelayController?wsdl" />
+    <MetadataFile FileName="RelayController.disco" MetadataType="Disco" ID="3d0e833c-1195-4082-89cf-db71fe987960" SourceId="1" SourceUrl="http://localhost:8080/RelayController?disco" />
+    <MetadataFile FileName="RelayController.xsd" MetadataType="Schema" ID="c5cf5c7f-d802-4b1e-8a23-49e5c6d217e8" SourceId="1" SourceUrl="http://localhost:8080/RelayController?xsd=xsd1" />
+    <MetadataFile FileName="RelayController1.xsd" MetadataType="Schema" ID="834f25a2-d324-4d25-95d8-9631678744c1" SourceId="1" SourceUrl="http://localhost:8080/RelayController?xsd=xsd0" />
+    <MetadataFile FileName="RelayController2.xsd" MetadataType="Schema" ID="f6a7a358-bff0-4b89-a87c-6ae122f6c899" SourceId="1" SourceUrl="http://localhost:8080/RelayController?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
