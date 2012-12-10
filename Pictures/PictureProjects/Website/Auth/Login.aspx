@@ -74,6 +74,7 @@
 								<td class="loginTableText" align="right" colSpan="2"><asp:button id="btnLogin" CssClass="btn" Runat="server" Width="100px" Text="Continue >" onclick="btnLogin_Click"></asp:button></td>
 							</tr>
 						</table>
+						<asp:HyperLink runat=server Text="Mobile Version" NavigateUrl="../mobile/auth/login.aspx" />
 					</td>
 				</tr>
 			</table>

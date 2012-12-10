@@ -79,6 +79,8 @@
     <Content Include="Images\folder.gif" />
     <Content Include="Images\folder.png" />
     <Content Include="Images\Folder12x12.png" />
+    <Content Include="Images\folder40.gif" />
+    <Content Include="Images\folder50.gif" />
     <Content Include="Images\folder64x64.png" />
     <Content Include="Images\folderEmpty.png" />
     <Content Include="Images\ie.jpg" />
@@ -109,6 +111,12 @@
     <Content Include="Images\top_panel.gif" />
     <Content Include="Images\trans.gif" />
     <Content Include="Impersonate.aspx" />
+    <Content Include="Mobile\Auth\Login.aspx" />
+    <Content Include="Mobile\Categories.aspx" />
+    <Content Include="Mobile\default.aspx" />
+    <Content Include="Mobile\mobile.css" />
+    <Content Include="Mobile\Picture.aspx" />
+    <Content Include="Mobile\Pictures.aspx" />
     <Content Include="msn2.css" />
     <Content Include="picview.aspx" />
     <Content Include="picviewss.aspx" />
@@ -223,6 +231,41 @@
     </Compile>
     <Compile Include="Impersonate.aspx.designer.cs">
       <DependentUpon>Impersonate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Auth\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Auth\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Picture.aspx.cs">
+      <DependentUpon>Picture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Picture.aspx.designer.cs">
+      <DependentUpon>Picture.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mobile\Pictures.aspx.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mobile\Pictures.aspx.designer.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
     </Compile>
     <Compile Include="picview.aspx.cs">
       <DependentUpon>picview.aspx</DependentUpon>

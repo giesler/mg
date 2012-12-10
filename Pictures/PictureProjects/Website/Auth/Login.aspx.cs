@@ -53,6 +53,12 @@ namespace pics.auth
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
+
+            string ua = Request.UserAgent.ToLower();
+            if (ua.IndexOf("iemobile") > 0 || ua.IndexOf("windows ce") > 0)
+            {
+                Response.Redirect(Request.ApplicationPath + "mobile/auth/login.aspx");
+            }
 		}
 		#endregion
 		#region Web Form Designer generated code

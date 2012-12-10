@@ -1,0 +1,26 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Pictures.aspx.cs" Inherits="pics.Controls.Mobile.Pictures" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>msn2.net Pictures</title>
+    <link rel="Stylesheet" href="mobile.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div class="title">
+            <asp:Label runat="server" ID="categoryHeading"></asp:Label>
+        </div>
+        <br />
+        <div class="description">
+            <asp:Label runat="server" ID="categoryDescription" />
+        </div>
+        <asp:Panel runat="server" ID="content" Width="100%" />
+        <div class="footer">
+            <a href="default.aspx">Home</a>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

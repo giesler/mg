@@ -18,6 +18,27 @@ namespace msn2.net.Pictures
             int pictureId = Convert.ToInt32(context.Request.QueryString["p"]);
             int maxWidth = Convert.ToInt32(context.Request.QueryString["mw"]);
             int maxHeight = Convert.ToInt32(context.Request.QueryString["mh"]);
+            string backColorString = "";
+            if (context.Request.QueryString["bc"] != null)
+            {
+                backColorString = context.Request.QueryString["bc"];
+            }
+            Color backColor = Color.FromArgb(93, 100, 109);
+            if (backColorString.Length > 0)
+            {
+                backColor = Color.FromName(backColorString);
+            }
+
+            int sizeWidth = 0;
+            int sizeHeight = 0;
+            if (context.Request.QueryString["sw"] != null)
+            {
+                sizeWidth = int.Parse(context.Request.QueryString["sw"]);
+            }
+            if (context.Request.QueryString["sh"] != null)
+            {
+                sizeHeight = int.Parse(context.Request.QueryString["sh"]);
+            }
 
             Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
 
@@ -32,34 +53,44 @@ namespace msn2.net.Pictures
 
                 using (Bitmap img = new Bitmap(filename))
                 {
-                    using (Bitmap baseBitmap = new Bitmap(maxWidth + 2, img.Height + 2))
+                    if (sizeWidth == 0 && sizeHeight == 0)
                     {
-                        Graphics g = Graphics.FromImage(baseBitmap);
-
-                        using (SolidBrush background = new SolidBrush(Color.FromArgb(93, 100, 109)))
+                        using (Bitmap baseBitmap = new Bitmap(maxWidth + 2, img.Height + 2))
                         {
-                            g.FillRectangle(background, 0, 0, maxWidth + 2, img.Height + 2);
+                            Graphics g = Graphics.FromImage(baseBitmap);
+
+                            using (SolidBrush background = new SolidBrush(backColor))
+                            {
+                                g.FillRectangle(background, 0, 0, maxWidth + 2, img.Height + 2);
+                            }
+
+                            int left = 0;
+
+                            if (img.Height > img.Width)
+                            {
+                                left = (maxWidth / 2) - (img.Width / 2);
+                            }
+                            else
+                            {
+                                left = 0;
+                            }
+
+                            g.DrawImage(img, left + 1, 1, img.Width, img.Height);
+
+                            using (Pen pen = new Pen(Color.Silver))
+                            {
+                                g.DrawRectangle(pen, left, 0, img.Width + 1, img.Height + 1);
+                            }
+
+                            baseBitmap.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                         }
-
-                        int left = 0;
-
-                        if (img.Height > img.Width)
+                    }
+                    else
+                    {
+                        using (Bitmap smallerBitmap = new Bitmap(img, new Size(sizeWidth, sizeHeight)))
                         {
-                            left = (maxWidth / 2) - (img.Width / 2);
+                            smallerBitmap.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                         }
-                        else
-                        {
-                            left = 0;
-                        }
-
-                        g.DrawImage(img, left + 1, 1, img.Width, img.Height);
-
-                        using (Pen pen = new Pen(Color.Silver))
-                        {
-                            g.DrawRectangle(pen, left, 0, img.Width + 1, img.Height + 1);
-                        }
-
-                        baseBitmap.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
                 }
             }

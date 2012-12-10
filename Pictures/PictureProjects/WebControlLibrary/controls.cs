@@ -31,49 +31,45 @@ namespace pics.Controls
 		private int pictureId;
 		private int maxHeight;
 		private int maxWidth;
+        public string BackgroundColor { get; set; }
+        public int SizedHeight { get; set; }
+        public int SizedWidth { get; set; }
+        System.Web.UI.WebControls.Image image;
 
 		/// <summary>
 		/// Creates a new Picture object
 		/// </summary>
         public PictureImageControl()
-		{}
+		{
+        }
 
 		public void SetPictureById(int id, int maxHeight, int maxWidth)
 		{
 			this.pictureId		= id;
 			this.maxHeight		= maxHeight;
 			this.maxWidth		= maxWidth;
-
-//			// load the person's info
-//			PersonInfo pi = (PersonInfo) HttpContext.Current.Session["PersonInfo"];
-//
-//			SqlConnection cn = new SqlConnection(Config.ConnectionString);
-//
-//			// Set up SP to retreive picture
-//			SqlCommand cmdPic    = new SqlCommand();
-//			cmdPic.CommandText = "p_GetPicture";
-//			cmdPic.CommandType   = CommandType.StoredProcedure;
-//			cmdPic.Connection    = cn;
-//			SqlDataAdapter daPic = new SqlDataAdapter(cmdPic);
-//
-//			// set up params on the SP
-//			cmdPic.Parameters.Add("@PictureID", id);
-//			cmdPic.Parameters.Add("@StartRecord", 0);
-//			cmdPic.Parameters.Add("@ReturnCount", 1);
-//			cmdPic.Parameters.Add("@MaxHeight", 125);
-//			cmdPic.Parameters.Add("@MaxWidth", 125);
-//			cmdPic.Parameters.Add("@PersonID", pi.PersonID);
-//			cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
-//			cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
-//
-//			// run the SP, set datasource to the picture list
-//			cn.Open();
-//			DataSet ds		= new DataSet();
-//			daPic.Fill(ds, "Picture");
-//			DataRow dr		= ds.Tables[0].Rows[0];
-//			filename		= dr["Filename"].ToString();
-
 		}
+
+        public void SetMaxPicSize(int picSize)
+        {
+            PictureCache pc = PicContext.Current.PictureManager.GetPictureCache(this.pictureId, 125, 125);
+            if (pc != null)
+            {
+                if (pc.Height.Value > pc.Width.Value)
+                {
+                    this.Height = picSize;
+                    this.Width = (int)(((float)this.Height * (float)pc.Width.Value) / (float)pc.Height.Value);
+                }
+                else
+                {
+                    this.Width = picSize;
+                    this.Height = (int)(((float)this.Width * (float)pc.Height.Value) / (float)pc.Width.Value);
+                }
+
+                this.SizedWidth = this.Width;
+                this.SizedHeight = this.Height;
+            }
+        }
 
 		protected override void CreateChildControls() 
 		{
@@ -82,21 +78,21 @@ namespace pics.Controls
 			if (!strAppPath.Equals("/"))  
 				strAppPath = strAppPath + "/";
 
-			System.Web.UI.WebControls.Image image = new System.Web.UI.WebControls.Image();
+			this.image = new System.Web.UI.WebControls.Image();
 			
 			// Create the image object
 			image.BorderWidth = Unit.Pixel(0);
 			image.BorderStyle = BorderStyle.None;
 
 			// see if file wasn't set
-			if (filename == null)
-			{
-				image.ImageUrl = strAppPath + "GetImage.axd?p=" + pictureId.ToString() + "&mw=" + maxWidth.ToString() + "&mh=" + maxHeight.ToString();
-			}
-			else
-			{
-				image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
-			}
+            if (filename == null)
+            {
+                image.ImageUrl = strAppPath + "GetImage.axd?p=" + pictureId.ToString() + "&mw=" + maxWidth.ToString() + "&mh=" + maxHeight.ToString();
+            }
+            else
+            {
+                image.ImageUrl = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
+            }
 
 			// If we have height / width, set them
 			if (height > 0)
@@ -109,6 +105,19 @@ namespace pics.Controls
 
 		protected override void Render(HtmlTextWriter writer)
 		{
+            if (this.SizedHeight > 0)
+            {
+                image.ImageUrl += "&sh=" + this.SizedHeight.ToString();
+            }
+            if (this.SizedWidth > 0)
+            {
+                image.ImageUrl += "&sw=" + this.SizedWidth.ToString();
+            }
+            if (this.BackgroundColor != null)
+            {
+                image.ImageUrl += "&bc=" + this.BackgroundColor;
+            }
+
 			writer.Write("<div id=\"" + this.ID + "\"");
 			if (cssClass != null)
 			{

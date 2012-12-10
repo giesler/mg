@@ -251,13 +251,13 @@ namespace msn2.net.Pictures
         public List<Picture> GetPicturesByCategory(int categoryId)
         {
             var q = from p in this.picContext.DataContext.Pictures
-                    join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.CategoryID
+                    join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.PictureID
                     join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
                     join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
                     where pc.CategoryID == categoryId && per.PersonID == this.picContext.CurrentUser.Id
                     select p;
 
-            return q.ToList();
+            return q.Distinct().ToList();
         }
 
         public static string GetSqlSortFieldName(PictureSortField sortField)
