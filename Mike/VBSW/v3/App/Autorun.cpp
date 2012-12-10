@@ -8,6 +8,7 @@
 #include "AutorunDlg.h"
 #include "SetupDlg.h"
 #include "util.h"
+#include "CommandLineInfoEx.h"
 
 CLog gLog;
 CUtilities gUtils;
@@ -39,6 +40,24 @@ CAutorunApp::CAutorunApp()
 	// Place all significant initialization in InitInstance
 }
 
+// Clean up after ourselves
+CAutorunApp::~CAutorunApp()
+{
+	// delete whole list since we are done with it
+	CComponent * pobjComp;
+	while (mlstComps.GetCount() > 0) {
+		pobjComp = mlstComps.RemoveHead();
+		delete pobjComp;
+	}
+
+	// delete buttons too
+	CDlgButton * pobjButton;
+	while (mlstButtons.GetCount() > 0) {
+		pobjButton = mlstButtons.RemoveHead();
+		delete pobjButton;
+	}
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // The one and only CAutorunApp object
 
@@ -49,16 +68,12 @@ CAutorunApp theApp;
 
 BOOL CAutorunApp::InitInstance()
 {
-
-	// Initialize things, get basic settings
-	gLog.Init(true);
-	gLog.LogEvent("Application: " + gUtils.EXEPath() + gUtils.EXEName());
-	m_blnCancel = false;
-
+	// Parse the command line
+	ParseCommandLine(cmdInfo);
+	
 	// make sure we have a valid settings.ini file
 	CString strSettingsPath = gUtils.EXEPath() + "ia\\settings.ini";
 	if (!gUtils.FileExists(strSettingsPath)) {
-		gLog.LogEvent("No settings.ini found at '" + strSettingsPath + "'.  Program terminated.");
 		CString strErrMsg; strErrMsg.Format(IDS_NOSETTINGS, strSettingsPath);
 		AfxMessageBox(strErrMsg, MB_ICONSTOP);
 		return false;
@@ -67,9 +82,46 @@ BOOL CAutorunApp::InitInstance()
 	// load basic settings
 	LoadSettings();
 
+	// Check OS
+	CString result;
+	if (!gUtils.ValidateOS("RequiredOS", result)) {
+		gLog.LogEvent("OS Validation returned: " + result);
+		result = gUtils.GetINIString("RequiredOS", "InvalidOSMessage", result);
+		AfxMessageBox(result, MB_ICONSTOP);
+		return false;
+	}
+
+	// Start the log
+	gLog.Init(cmdInfo.GetOption("log") || m_blnEnableLogging);
+	gLog.LogEvent("Application: " + gUtils.EXEPath() + gUtils.EXEName());
+
+	// Check if we care about single instance
+	if (mblnSingleInstance) {
+
+		// Check if any other instances before setting a mutex
+		HANDLE hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, "ia3_mutex");
+		if (hMutex != NULL && mblnSingleInstance) {
+			gLog.LogEvent("Another instance of this program is already running, and 'single instance' has been set.  Exiting.");
+			return false;
+		}
+
+		// No other instance is running, so set a mutex
+		CreateMutex(NULL, false, "ia3_mutex");
+	}
+
+	// Check if we care about a user defined mutex
+	if (mstrAbortMutex != "") {
+
+		if (OpenMutex(MUTEX_ALL_ACCESS, FALSE, mstrAbortMutex) != NULL ) {
+			gLog.LogEvent("The user defined mutex '" + mstrAbortMutex + "' was found.  Exiting.");
+			return false;
+		}
+	}
+
 	bool bIsSetup = false;
 	bool showDialog = true;
 	CDlgButton* pButton = NULL;
+	CString strTemp;
 
 	// Initialize dialog in case we need it below
 	CAutorunDlg dlg;
@@ -86,22 +138,11 @@ BOOL CAutorunApp::InitInstance()
 	}
 
 	// Handle command line options
-	if (m_lpCmdLine[0] != '\0') {
-		CString strCommand = m_lpCmdLine;
-
-		// If the command line starts with '/dialog' we just want to show the dialog again
-		if (strCommand.Left(7) == "/dialog") {
-			gLog.LogEvent("Showing splash dialog since button '" + strCommand.Mid(8) + "' completed");
-		} else if (strCommand.Left(9) == "/continue") {
-			gLog.LogEvent("Continuing system updates for button '" + strCommand.Mid(10) + "'");
-			CString id = strCommand.Mid(10);
-			id.TrimLeft();
-			id.TrimRight();
-			pButton = dlg.FindButtonById(id);
-		} else {
-			gLog.LogEvent("Ignoring unknown command line: " + strCommand);
-		}
-
+	if (cmdInfo.GetOption("dialog", strTemp)) { 
+		gLog.LogEvent("Showing splash dialog since button '" + strTemp + "' completed");
+	} else if (cmdInfo.GetOption("continue", strTemp)) {
+		gLog.LogEvent("Continuing system updates for button '" + strTemp + "'");
+		pButton = dlg.FindButtonById(strTemp);
 	}
 
 	// Finally, we may want to simply use the default button
@@ -133,6 +174,10 @@ BOOL CAutorunApp::InitInstance()
 		if (pButton == NULL)
 			pButton = dlg.FindDefaultButton();
 
+		// If no default button, abort
+		if (pButton == NULL)
+			return false;
+
 		// See if we need to do system updates
 		if (pButton->mblnComponentCheck) {
 			
@@ -143,10 +188,10 @@ BOOL CAutorunApp::InitInstance()
 				if (!InstallComponents()) {
 					
 					// check if user clicked cancel - if not, reboot needed
-					if (m_blnCancel) {
+					if (m_blnComponentCancel) {
 						gLog.LogEvent("Setup cancelled, application exiting.");
 						return false;
-					} else if (mblnRebootComputer) {
+					} else if (m_blnComponentRebootComputer) {
 						RebootComputer("/continue " + pButton->mstrId); 
 						return false;
 					} else {
@@ -163,11 +208,27 @@ BOOL CAutorunApp::InitInstance()
 		// Perform button action
 		CString sSetupCommand;
 		bool async = (pButton->mtypDialogAction == DialogActionShowWhenActionComplete);
+
+		if (!async)
+	 		gUtils.PlaySoundFile(gUtils.GetINIString("Settings", "OnCloseSound", ""));
+
 		switch (pButton->mtypDlgButtonType) {
 
 			case DlgButtonTypeRunProgram:
-				sSetupCommand = gUtils.EXEPath() + mstrSetup;
-				gUtils.Exec(sSetupCommand, mstrCmdLine, async, false);
+				
+				// replace any sys path, vars
+				gUtils.ReplaceDirs(pButton->mstrSetupCommand);
+				gUtils.ReplaceDirs(pButton->mstrSetupCommandLine);
+
+				// check if file exists without adding exe path
+				if (gUtils.FileExists(pButton->mstrSetupCommand)) {
+					// start the program
+					gUtils.Exec(pButton->mstrSetupCommand, pButton->mstrSetupCommandLine, async, false);
+				} else {
+					// start the program
+					gUtils.Exec(gUtils.EXEPath() + pButton->mstrSetupCommand, pButton->mstrSetupCommandLine, async, false);
+				}
+
 				// Check if we should restart
 				if (pButton->mblnRestartPrompt) {
 					RebootComputer("/dialog " + pButton->mstrId);
@@ -182,6 +243,8 @@ BOOL CAutorunApp::InitInstance()
 			case DlgButtonTypeShellExecute:
 				if (gUtils.FileExists(pButton->mstrFile)) {
 					ShellExecute(NULL, "open", pButton->mstrFile, NULL, NULL, SW_SHOWNORMAL);
+				} else if (gUtils.FileExists(gUtils.EXEPath() + pButton->mstrFile)) {
+					ShellExecute(NULL, "open", gUtils.EXEPath() + pButton->mstrFile, NULL, NULL, SW_SHOWNORMAL);
 				} else {
 					gLog.LogEvent("The file '" + pButton->mstrFile + "' could not be found.");
 					AfxMessageBox("The file '" + pButton->mstrFile + "' could not be found.", MB_ICONERROR);
@@ -200,13 +263,6 @@ BOOL CAutorunApp::InitInstance()
 
 	}
 
-	// delete whole list since we are done with it
-	CComponent * pobjComp;
-	while (mlstComps.GetCount() > 0) {
-		pobjComp = mlstComps.RemoveHead();
-		delete pobjComp;
-	}
-	
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	gLog.LogEvent("Application ending.");
@@ -219,46 +275,27 @@ bool CAutorunApp::SysUpdates() {
 
 	int intResult = 0;
 
-	// Read components, creating list
-	LPCTSTR lpAppName; TCHAR * lpReturnedString; 
-	lpReturnedString = (TCHAR*) malloc(1000);
+	gLog.LogEvent("OS: " + CurrentOS());
 
-	CString lpFileName = gUtils.EXEPath() + "ia\\settings.ini";
-	lpAppName = "Settings";
-	
-	// NOTE: must have called a get string before this due to win95/98 bug, Q198906
-	GetPrivateProfileSection("Components", lpReturnedString, 255, lpFileName);
+	int i; CComponent * pobjComp;
+	CString componentList[20][2];
+	int componentCount;
 
-	// now break up the string of components
-	CComponent * pobjComp; CString strCompName; CString strTemp;
-	TCHAR * lpTemp = lpReturnedString;
-	while (lpTemp != NULL) {
-		strCompName = lpTemp;
-		// check if component enabled
-		strTemp = strCompName.Mid(strCompName.Find("="),1);
-		if (strTemp.CompareNoCase("1")) {
-			if (strCompName.Right(1).CompareNoCase("0") == 0) {
-				 // skip this component
-			} else {
-				strCompName = strCompName.Left(strCompName.Find("="));
-				pobjComp = new CComponent;
-				if (pobjComp->LoadComponent(strCompName, lpFileName))
-					mlstComps.AddTail(pobjComp);
-			}
-			while (*lpTemp != '\0')		// advance to next section in string
-				lpTemp++;
-			if (*lpTemp == '\0')			// new sections
-				lpTemp++;
-			if (*lpTemp == '\0')			// if at second null in a row, done
-				break;
-		}	// end if enabled
-	}	// end while
+	componentCount = gUtils.GetINISection("Components", componentList);
 
-	// Free allocated strings
-	free(lpReturnedString);
+	// Loop through list, adding enabled components
+	for (i = 0; i < componentCount; i++) 
+	{
+		if (componentList[i][1] == "1") 
+		{
+			pobjComp = new CComponent();
+			if (pobjComp->Load(componentList[i][0]))
+				mlstComps.AddTail(pobjComp);
+		}
+	}
+
 
 	// now go though components
-	int i; 
 	POSITION pos = mlstComps.GetHeadPosition();
 	for (i = 0; i < mlstComps.GetCount(); i++) {
 		pobjComp = mlstComps.GetNext(pos);
@@ -282,17 +319,17 @@ bool CAutorunApp::SysUpdates() {
 		pobjComp = mlstComps.GetNext(pos);
 		if (pobjComp->mblnInstall && pobjComp->InstallAttempted()) {
 			// we have tried to install this component already
-			gLog.LogEvent(pobjComp->mstrId + ": Component install already attempted.  Prompting user.");
+			gLog.LogEvent(pobjComp->mstrName + ": Component install already attempted.  Prompting user.");
 			strCompMsg.Format(IDS_COMPABORTRETRY, pobjComp->mstrName);
 			intResult = MessageBox(NULL, strCompMsg, mstrAppName, MB_ABORTRETRYIGNORE | MB_ICONQUESTION | MB_TASKMODAL);
 			if (intResult == IDABORT)	{						// abort everything
-				gLog.LogEvent(pobjComp->mstrId + ": Aborting installation at user request.");
+				gLog.LogEvent(pobjComp->mstrName + ": Aborting installation at user request.");
 				return false;
 			} else if (intResult == IDIGNORE) {			// we don't care prev install failed, go on
-				gLog.LogEvent(pobjComp->mstrId + ": Ignoring component; will not attempt to install again.");
+				gLog.LogEvent(pobjComp->mstrName + ": Ignoring component; will not attempt to install again.");
 				pobjComp->mblnInstall = false;
 			}	else if (intResult ==  IDRETRY)
-				gLog.LogEvent(pobjComp->mstrId + ": Retrying component install.");
+				gLog.LogEvent(pobjComp->mstrName + ": Retrying component install.");
 		}
 	}
 
@@ -330,7 +367,7 @@ bool CAutorunApp::SysUpdates() {
 	for (i = 0; i < mlstComps.GetCount(); i++) {
 		pobjComp = mlstComps.GetNext(pos);
 		if (pobjComp->mblnInstall)
-			gLog.LogEvent(pobjComp->mstrId + ": Component on final list to install this run.");
+			gLog.LogEvent(pobjComp->mstrName + ": Component on final list to install this run.");
 	}
 
 	return true;
@@ -340,70 +377,42 @@ bool CAutorunApp::SysUpdates() {
 // Retreives basic settings from settings file
 void CAutorunApp::LoadSettings() {
 
-	TCHAR * lpReturnedString; 
-	lpReturnedString = (TCHAR*) malloc(1000);
-	CString sFileName = gUtils.EXEPath() + "ia\\settings.ini";
-
 	// Start by getting basic settings
-	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, sFileName);
-	mstrAppName = lpReturnedString;
-	gUtils.m_strAppName = mstrAppName;
+	mstrAppName			= gUtils.GetINIString("Settings", "ProgramName", mstrAppName);
 
 	// Reboot settings
-	GetPrivateProfileString("Settings", "RebootPromptType", mstrAppName, lpReturnedString, 255, sFileName);
-	int intTemp = GetPrivateProfileInt("Settings", "RebootPromptType", 1, sFileName);
-	if (intTemp == 1) 
-		mblnTimerReboot = false;
-	else
-		mblnTimerReboot = true;
-	mintTimerSeconds = GetPrivateProfileInt("Settings", "RebootPromptSeconds", 20, sFileName);
+	mblnTimerReboot		= gUtils.GetINIBool("Settings", "RebootPromptType", true);
+	mintTimerSeconds	= gUtils.GetINIInt("Settings", "RebootPromptSeconds", 20);
 
-	mtypDisplayType = (DisplayType) GetPrivateProfileInt("Settings", "DisplayType", 0, sFileName);
+	// Global settings
+	mblnSingleInstance	= gUtils.GetINIBool("Settings", "SingleInstance", false);
+	m_blnEnableLogging	= gUtils.GetINIBool("Settings", "EnableLogging", false);
+	mstrAbortMutex		= gUtils.GetINIString("Settings", "AbortMutex", "");
+	mstrSkipProgramName	= gUtils.GetINIString("Settings", "SkipProgramName", "");
+	mtypDisplayType		= (DisplayType) gUtils.GetINIInt("Settings", "DisplayType", 0);
 
-	//TODO: remove
-	GetPrivateProfileString("Settings", "Setup", "setup\\setup.exe", lpReturnedString, 255, sFileName);
-	mstrSetup   = lpReturnedString;
-
-	//TODO: remove
-	GetPrivateProfileString("Settings", "CmdLine", "", lpReturnedString, 255, sFileName);
-	mstrCmdLine = lpReturnedString;
-
-
-	GetPrivateProfileString("Settings", "SkipProgramName", "", lpReturnedString, 255, sFileName);
-	mstrSkipProgramName = lpReturnedString;
+	// Splash settings
 	
 
 	// Load buttons
 	// NOTE: must have called a get string before this due to win95/98 bug, Q198906
-	GetPrivateProfileSection("Buttons", lpReturnedString, 255, sFileName);
+	
+	CString buttonList[20][2];
+	int buttonCount;
 
-	// Now break up the string of buttons, and load info for each button
-	CDlgButton * pobjDlgButton; CString strButtonId; CString strTemp;
-	TCHAR * lpTemp = lpReturnedString;
-	while (lpTemp != NULL) {
-		strButtonId = lpTemp;
-		// check if button enabled
-		strTemp = strButtonId.Mid(strButtonId.Find("="),1);
-		if (strTemp.CompareNoCase("1")) {
-			if (strButtonId.Right(1).CompareNoCase("0") == 0) {
-				 // skip this component
-			} else {
-				strButtonId = strButtonId.Left(strButtonId.Find("="));
-				pobjDlgButton = new CDlgButton;
-				if (pobjDlgButton->Load(strButtonId, sFileName))
-					mlstButtons.AddTail(pobjDlgButton);
-			}
-			while (*lpTemp != '\0')		// advance to next section in string
-				lpTemp++;
-			if (*lpTemp == '\0')			// new sections
-				lpTemp++;
-			if (*lpTemp == '\0')			// if at second null in a row, done
-				break;
-		}	// end if enabled
-	}	// end while
+	buttonCount = gUtils.GetINISection("Buttons", buttonList);
 
-	// Free allocated strings
-	free(lpReturnedString);
+	// Loop through list, adding enabled buttons
+	for (int i = 0; i < buttonCount; i++) 
+	{
+		if (buttonList[i][1] == "1") 
+		{
+			CDlgButton * button = new CDlgButton();
+			if (button->Load(buttonList[i][0]))
+				mlstButtons.AddTail(button);
+		}
+	}
+
 
 }
 
@@ -423,7 +432,7 @@ bool CAutorunApp::DependsInstalled(CComponent *pobjComp)
 			pobjTemp = mlstComps.GetNext(lstPos);
 			if (pobjTemp->mblnInstall && pobjTemp->mstrId.CompareNoCase(strDependId) == 0) {
 				// we have a depend in the list that is not installed
-				gLog.LogEvent(pobjComp->mstrId + ": Dependency '" + pobjTemp->mstrId + "' not installed.");
+				gLog.LogEvent(pobjComp->mstrName + ": Dependency '" + pobjTemp->mstrName + "' not installed.");
 				return false;
 			}
 		}	// end looping through install list
@@ -448,6 +457,9 @@ bool CAutorunApp::InstallComponents()
 			intTotalTime += pobjComp->InstallTime();
 	}
 
+	// set global flag appropriately
+	m_blnComponentCancel = false;
+
 	// make sure there are components to install
 	if (intTotalTime == 0)
 		return true;
@@ -469,18 +481,18 @@ bool CAutorunApp::InstallComponents()
 		pobjComp = mlstComps.GetNext(pos);
 		
 		if (pobjComp->mblnInstall) {
-			gLog.LogEvent(pobjComp->mstrId + ": Component installation started: " + pobjComp->mstrSetupCommand);
+			gLog.LogEvent(pobjComp->mstrName + ": Component installation started: " + pobjComp->mstrSetupCommand);
 
 			// refresh dialog with current status
 			sDlg->m_CurStatus = pobjComp->mstrSetupMessage;
 			sDlg->UpdateData(false);
 			
 			if (!pobjComp->Install(sDlg) || sDlg->m_blnCancel) {
-				m_blnCancel = true;
+				m_blnComponentCancel = true;
 				return false;
 			}
 			if (pobjComp->mtypReboot != NoReboot) {
-				mblnRebootComputer = true;
+				m_blnComponentRebootComputer = true;
 				blnReturnValue = false;
 			}
 		}
@@ -509,9 +521,9 @@ bool CAutorunApp::RebootComputer(CString strCmdLine) {
 		h = RegSetValueEx(hRegKey, "VB Setup Program Autorun", 0, REG_SZ, (byte*)&chTemp, strlen(chTemp) + 1);
 		h = RegCloseKey(hRegKey);
 	} else {
-		gUtils.LogDLLError("Restart VBSW");
+		gUtils.LogDLLError("Restart IA");
 	}
-	gLog.LogEvent("VBSW set to resume on next startup.");
+	gLog.LogEvent("IA set to resume on next startup.");
 
 	CRestartDlg dlg;
 	dlg.m_strAppName = mstrAppName;
@@ -530,4 +542,36 @@ bool CAutorunApp::RebootComputer(CString strCmdLine) {
 		ExitWindowsEx(EWX_REBOOT, 0);
 	}
 	return true;
+}
+
+CString CAutorunApp::CurrentOS() {
+
+	OSVERSIONINFO osv; CString temp;
+	char * tempVersion;
+	tempVersion = (char*) malloc(25);
+	osv.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	GetVersionEx(&osv);
+
+	// Find out if WinNT or Win9x
+	if (osv.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+		temp = "WinNT: ";
+	} else {
+		temp = "Win9x: ";
+	}
+
+	// Append the actual version
+	itoa(osv.dwMajorVersion, tempVersion, 25);
+	temp = temp + tempVersion + ".";
+	free(tempVersion);
+	tempVersion = (char*) malloc(25);
+	itoa(osv.dwMinorVersion, tempVersion, 25);
+	temp = temp + tempVersion;
+	free(tempVersion);
+	tempVersion = (char*) malloc(25);
+	itoa(osv.dwBuildNumber, tempVersion, 25);
+	temp = temp + "." + tempVersion;
+	
+	// return the string
+	free(tempVersion);
+	return temp;
 }

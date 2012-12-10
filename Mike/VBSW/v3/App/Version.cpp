@@ -69,33 +69,6 @@ BOOL CFileVersion::Open(LPCTSTR lpszModuleName)
     return TRUE;
 }
 
-CString CFileVersion::QueryValue(LPCTSTR lpszValueName, 
-                                 DWORD dwLangCharset /* = 0*/)
-{
-    // Must call Open() first
-    ASSERT(m_lpVersionData != NULL);
-    if ( m_lpVersionData == NULL )
-        return (CString)_T("");
-
-    // If no lang-charset specified use default
-    if ( dwLangCharset == 0 )
-        dwLangCharset = m_dwLangCharset;
-
-    // Query version information value
-    UINT nQuerySize;
-    LPVOID lpData;
-    CString strValue, strBlockName;
-    strBlockName.Format(_T("\\StringFileInfo\\%08lx\\%s"), 
-	                     dwLangCharset, lpszValueName);
-    if ( ::VerQueryValue((void **)m_lpVersionData, strBlockName.GetBuffer(0), 
-	                     &lpData, &nQuerySize) )
-        strValue = (LPCTSTR)lpData;
-
-    strBlockName.ReleaseBuffer();
-
-    return strValue;
-}
-
 BOOL CFileVersion::GetFixedInfo(VS_FIXEDFILEINFO& vsffi)
 {
     // Must call Open() first
@@ -126,21 +99,6 @@ CString CFileVersion::GetFixedFileVersion()
             LOWORD(vsffi.dwFileVersionMS),
             HIWORD(vsffi.dwFileVersionLS),
             LOWORD(vsffi.dwFileVersionLS));
-    }
-    return strVersion;
-}
-
-CString CFileVersion::GetFixedProductVersion()
-{
-    CString strVersion;
-	VS_FIXEDFILEINFO vsffi;
-
-    if ( GetFixedInfo(vsffi) )
-    {
-        strVersion.Format ("%u,%u,%u,%u", HIWORD(vsffi.dwProductVersionMS),
-            LOWORD(vsffi.dwProductVersionMS),
-            HIWORD(vsffi.dwProductVersionLS),
-            LOWORD(vsffi.dwProductVersionLS));
     }
     return strVersion;
 }

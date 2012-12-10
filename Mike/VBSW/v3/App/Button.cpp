@@ -20,89 +20,73 @@ CDlgButton::~CDlgButton()
 
 }
 
-bool CDlgButton::Load(CString sButtonId, CString sFileName)
+bool CDlgButton::Load(CString sButtonId)
 {
-
-	// Initialize variables used to retreive settings
-	CString sTemp; int iTemp;
-	TCHAR * lpReturnedString;
-	DWORD nSize = 1500;
-	lpReturnedString = (TCHAR*) malloc(nSize);
 
 	// Save the ID passed in
 	mstrId = sButtonId;
 
 	// Get basic settings from INI file
-	iTemp				= GetPrivateProfileInt(sButtonId, "ComponentCheck", 0, sFileName);
-	mblnComponentCheck	= (iTemp == 1);
-	iTemp				= GetPrivateProfileInt(sButtonId, "Default", 0, sFileName);
-	mblnDefault			= (iTemp == 1);
-	iTemp				= GetPrivateProfileInt(sButtonId, "Cancel", 0, sFileName);
-	mblnCancel			= (iTemp == 1);
-	mtypDialogAction	= (DialogActionType) GetPrivateProfileInt(sButtonId, "DialogAction", 0, sFileName);
-	
+	mblnComponentCheck	= gUtils.GetINIBool(sButtonId, "ComponentCheck", 0);
+	mblnDefault			= gUtils.GetINIBool(sButtonId, "Default", 0);
+	mblnCancel			= gUtils.GetINIBool(sButtonId, "Cancel", 0);
+	mtypDialogAction	= (DialogActionType) gUtils.GetINIInt(sButtonId, "DialogAction", 0);
+
 	// Load image names
-	GetPrivateProfileString(sButtonId, "Standard", "", lpReturnedString, nSize, sFileName);
-	mstrStandard	= lpReturnedString;
-	GetPrivateProfileString(sButtonId, "MouseOver", "", lpReturnedString, nSize, sFileName);
-	mstrMouseOver	= lpReturnedString;
-	GetPrivateProfileString(sButtonId, "MouseClick", "", lpReturnedString, nSize, sFileName);
-	mstrMouseClick	= lpReturnedString;
+	mstrStandard		= gUtils.GetINIString(sButtonId, "Standard", "");
+	mstrMouseOver		= gUtils.GetINIString(sButtonId, "MouseOver", "");
+	mstrMouseClick		= gUtils.GetINIString(sButtonId, "MouseClick", "");
 
 	/// Load image positions
-	mintTop		= GetPrivateProfileInt(sButtonId, "Top", 0, sFileName);
-	mintLeft	= GetPrivateProfileInt(sButtonId, "Left", 0, sFileName);
+	mintTop				= gUtils.GetINIInt(sButtonId, "Top", 0);
+	mintLeft			= gUtils.GetINIInt(sButtonId, "Left", 0);
 
 	// Load button sounds
-	GetPrivateProfileString(sButtonId, "MouseEnter", "", lpReturnedString, nSize, sFileName);
-	mstrMouseEnter	= lpReturnedString;
-	GetPrivateProfileString(sButtonId, "MouseExit", "", lpReturnedString, nSize, sFileName);
-	mstrMouseExit	= lpReturnedString;
-	GetPrivateProfileString(sButtonId, "MouseUp", "", lpReturnedString, nSize, sFileName);
-	mstrMouseUp		= lpReturnedString;
-	GetPrivateProfileString(sButtonId, "MouseDown", "", lpReturnedString, nSize, sFileName);
-	mstrMouseDown	= lpReturnedString;
+	mstrMouseEnter		= gUtils.GetINIString(sButtonId, "MouseEnter", "");
+	mstrMouseExit		= gUtils.GetINIString(sButtonId, "MouseExit", "");
+	mstrMouseUp			= gUtils.GetINIString(sButtonId, "MouseUp", "");
+	mstrMouseDown		= gUtils.GetINIString(sButtonId, "MouseDown", "");
 
 	// Get button type
-	mtypDlgButtonType = (DlgButtonType) GetPrivateProfileInt(sButtonId, "ButtonType", 0, sFileName);
+	mtypDlgButtonType	= (DlgButtonType) gUtils.GetINIInt(sButtonId, "ButtonType", 0);
 
 	// Load settings for the type of button
 	switch (mtypDlgButtonType) {
 		case DlgButtonTypeRunProgram:
-			GetPrivateProfileString(sButtonId, "SetupCommand", "", lpReturnedString, nSize, sFileName);
-			mstrSetupCommand = lpReturnedString;
-			GetPrivateProfileString(sButtonId, "SetupCommandLine", "", lpReturnedString, nSize, sFileName);
-			mstrSetupCommandLine = lpReturnedString;
-			iTemp = GetPrivateProfileInt(sButtonId, "RestartPrompt", 0, sFileName);
-			mblnRestartPrompt = (iTemp == 1);
+			mstrSetupCommand		= gUtils.GetINIString(sButtonId, "SetupCommand", "");
+			mstrSetupCommandLine	= gUtils.GetINIString(sButtonId, "SetupCommandLine", "");
+			mblnRestartPrompt		= gUtils.GetINIBool(sButtonId, "RestartPrompt", false);
 			break;
 		case DlgButtonTypeLaunchUrl:
-			GetPrivateProfileString(sButtonId, "URL", "", lpReturnedString, nSize, sFileName);
-			mstrUrl = lpReturnedString;
+			mstrUrl					= gUtils.GetINIString(sButtonId, "URL", "");
 			break;
 		case DlgButtonTypeCancel:
 			break;
 		case DlgButtonTypeShellExecute:
-			GetPrivateProfileString(sButtonId, "File", "", lpReturnedString, nSize, sFileName);
-			mstrFile = lpReturnedString;
+			mstrFile				= gUtils.GetINIString(sButtonId, "File", "");
 			break;
 		default:
 			gLog.LogEvent(mstrId + ": Invalid/no button type specified, ignoring button.");
-			free(lpReturnedString);
 			return false;
 	}
 
 	// Load the images into memory
-	mbmpStandard	= (HBITMAP) ::LoadImage(NULL, gUtils.EXEPath() + mstrStandard, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	mbmpMouseOver	= (HBITMAP) ::LoadImage(NULL, gUtils.EXEPath() + mstrMouseOver, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	mbmpMouseClick	= (HBITMAP) ::LoadImage(NULL, gUtils.EXEPath() + mstrMouseClick, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	mbmpStandard	= (HBITMAP) ::LoadImage(NULL, mstrStandard, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	mbmpMouseOver	= (HBITMAP) ::LoadImage(NULL, mstrMouseOver, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	mbmpMouseClick	= (HBITMAP) ::LoadImage(NULL, mstrMouseClick, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-	//TODO: mbmpStandard.GetWindowRect(&mrect);
+	// Load the cursor if we can
+	mhMouseCursor = NULL;
+	mstrMouseCursor = gUtils.GetINIString(sButtonId, "MouseCursor", "");
+	if (mstrMouseCursor != "") {
+		HANDLE hCursor = LoadImage(NULL, mstrMouseCursor, IMAGE_CURSOR, 0, 0, LR_LOADFROMFILE);
+		if (hCursor != NULL)
+			mhMouseCursor = (HCURSOR) hCursor;
+	}
 
 	mblnMouseOver  = false;
 	mblnMouseClick = false;
 
 	// Cleanup variables
-	free(lpReturnedString);
 	return true;
 }

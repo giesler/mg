@@ -19,6 +19,7 @@
 #include "utilities.h"
 #include "log.h"
 #include "restartdlg.h"
+#include "CommandLineInfoEx.h"
 
 extern CLog gLog;
 extern CUtilities gUtils;
@@ -38,6 +39,7 @@ class CAutorunApp : public CWinApp
 {
 public:
 	CAutorunApp();
+	~CAutorunApp();
 
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -53,13 +55,11 @@ public:
 		void LoadSettings();
 		bool SysUpdates();
 		CString mstrAppName;
-		bool mblnRebootComputer;
 		bool RebootComputer(CString strCmdLine);
+		CString CurrentOS();
+		CCommandLineInfoEx cmdInfo;
 
 	private:
-		CString mstrSetup;		//TODO: remove
-		CString mstrCmdLine;	//TODO: remove
-		bool m_blnCancel;
 		bool mblnTimerReboot;
 		int  mintTimerSeconds;
 		CString mstrSkipProgramName;
@@ -67,6 +67,13 @@ public:
 		bool DependsInstalled(CComponent * pcComp);
 		CList<CComponent*, CComponent*> mlstComps;
 		CList<CDlgButton*, CDlgButton*> mlstButtons;
+		bool mblnSingleInstance;
+		CString mstrAbortMutex;
+		bool m_blnEnableLogging;
+
+		// returns from component install
+		bool m_blnComponentCancel;
+		bool m_blnComponentRebootComputer;
 
 	//{{AFX_MSG(CAutorunApp)
 		// NOTE - the ClassWizard will add and remove member functions here.

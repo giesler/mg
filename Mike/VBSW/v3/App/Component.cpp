@@ -32,8 +32,6 @@ CComponent::CComponent(const CComponent &src) {
 
 CComponent CComponent::operator =(CComponent &rhs) {
 	
-	mblnOSVersionNT = rhs.mblnOSVersionNT;
-	mblnOSVersion9x = rhs.mblnOSVersion9x;
 	mblnQuietInstall = rhs.mblnQuietInstall;
 	mstrNTServicePackCheckNumber = rhs.mstrNTServicePackCheckNumber;
 	mintSetupTime = rhs.mintSetupTime;
@@ -52,8 +50,6 @@ CComponent CComponent::operator =(CComponent &rhs) {
 	mstrFileVersionCheckVersion = rhs.mstrFileVersionCheckVersion;
 	mstrId = rhs.mstrId;
 	mstrName = rhs.mstrName;
-	mstrOSVersionMax = rhs.mstrOSVersionMax;
-	mstrOSVersionMin = rhs.mstrOSVersionMin;
 	mstrRegKeyCheckKey = rhs.mstrRegKeyCheckKey;
 	mstrRegKeyCheckValue = rhs.mstrRegKeyCheckValue;
 	mstrRegVersionCheckKey = rhs.mstrRegVersionCheckKey;
@@ -72,114 +68,68 @@ CComponent CComponent::operator =(CComponent &rhs) {
 //////////////////////////////////////////////////////////////////////
 
 // Loads settings for the current component into this class object
-bool CComponent::LoadComponent(CString sCompName, CString sFileName) {
+bool CComponent::Load(CString sCompName) {
 
 	// init vars
 	mblnInstall = false;
-
-	CString sTemp;
-	TCHAR * lpReturnedString;
-	DWORD nSize = 1500;
-	lpReturnedString = (TCHAR*) malloc(nSize);
-	int intTemp;
-
-	intTemp = GetPrivateProfileInt(sCompName, "OSVersion9x", 1, sFileName);
-	if (intTemp == 1)
-		mblnOSVersion9x = true;
-	else
-		mblnOSVersion9x = false;
-	intTemp = GetPrivateProfileInt(sCompName, "OSVersionNT", 1, sFileName);
-	if (intTemp == 1)
-		mblnOSVersionNT = true;
-	else
-		mblnOSVersionNT = false;
 
 	// Set component ID
 	mstrId = sCompName;
 
 	// Get basic settings from INI file
-	GetPrivateProfileString(sCompName, "Name", "", lpReturnedString, nSize, sFileName);
-	mstrName = lpReturnedString;
-	if (mstrName.IsEmpty()) {
-		gLog.LogEvent("No name specified for component '" + mstrId + "'.  Ignoring component.");
-//		AfxMessageBox("There was an error reading the settings file (" + sFileName + ") for ID: " + mstrId); 
-		// TODO: Remove above line.
-		free(lpReturnedString);
-		return false;
-	}
-	
-	// Get OS requirements
-	GetPrivateProfileString(sCompName, "OSVersionMin", "0.00", lpReturnedString, nSize, sFileName);
-	mstrOSVersionMin = lpReturnedString;
-	GetPrivateProfileString(sCompName, "OSVersionMax", "0.00", lpReturnedString, nSize, sFileName);
-	mstrOSVersionMax = lpReturnedString;
-	
+	mstrName			= gUtils.GetINIString(sCompName, "Name", mstrId);
 
 	// parse depends list
-	GetPrivateProfileString(sCompName, "Dependencies", "", lpReturnedString, nSize, sFileName);
-	sTemp = lpReturnedString;
-	while (sTemp.GetLength() > 0) {
-		if (sTemp.Find(" ") > 0)  {
-			mlstDepends.AddTail(sTemp.Left(sTemp.Find(" ")));
-			sTemp = sTemp.Mid(sTemp.Find(" ")+1);
+	CString strDepends	= gUtils.GetINIString(sCompName, "Dependencies", "");
+	while (strDepends.GetLength() > 0) {
+		if (strDepends.Find(" ") > 0)  {
+			mlstDepends.AddTail(strDepends.Left(strDepends.Find(" ")));
+			strDepends = strDepends.Mid(strDepends.Find(" ")+1);
 		} else {
-			mlstDepends.AddTail(sTemp);
-			sTemp = "";
+			mlstDepends.AddTail(strDepends);
+			strDepends = "";
 		}
 	}
-	GetPrivateProfileString(sCompName, "SetupCommand", "", lpReturnedString, nSize, sFileName);
-	mstrSetupCommand = lpReturnedString;
-	mstrSetupCommand = gUtils.EXEPath() + mstrSetupCommand;
-	GetPrivateProfileString(sCompName, "SetupCommandLine", "", lpReturnedString, nSize, sFileName);
-	mstrSetupCommandLine = lpReturnedString;
-	mintSetupTime = GetPrivateProfileInt(sCompName, "SetupTime", 30, sFileName);
-	GetPrivateProfileString(sCompName, "SetupMessage", "Installing...", lpReturnedString, nSize, sFileName);
-	mstrSetupMessage = lpReturnedString;
-	if (GetPrivateProfileInt(sCompName, "QuietInstall", 1, sFileName) == 1)
-		mblnQuietInstall = true;
-	else
-		mblnQuietInstall = false;
+
+	// Installation info
+	mstrSetupCommand	= gUtils.GetINIString(sCompName, "SetupCommand", "");
+	mstrSetupCommandLine = gUtils.GetINIString(sCompName, "SetupCommandLine", "");
+	mintSetupTime		= gUtils.GetINIInt(sCompName, "SetupTime", 30);
+	mstrSetupMessage	= gUtils.GetINIString(sCompName, "SetupMessage", "Installing...");
+	mblnQuietInstall	= gUtils.GetINIBool(sCompName, "QuietInstall", true);
 
 	// Get reboot setting, assume none
-	mtypReboot = (RebootType) GetPrivateProfileInt(sCompName, "RebootType", 0, sFileName);
+	mtypReboot = (RebootType) gUtils.GetINIInt(sCompName, "RebootType", 0);
 
 	// Get type of component and then associated settings
-	GetPrivateProfileString(sCompName, "Type", "", lpReturnedString, nSize, sFileName);
-	sTemp = lpReturnedString;
-	mtypComponentType = (ComponentType) GetPrivateProfileInt(sCompName, "ComponentType", 0, sFileName);
+	mtypComponentType	= (ComponentType) gUtils.GetINIInt(sCompName, "ComponentType", 0);
 	switch (mtypComponentType) {
 		case FileVersionCheck:
-			GetPrivateProfileString(sCompName, "FileVersionCheckDLL", "", lpReturnedString, nSize, sFileName);
-			mstrFileVersionCheckDLL = lpReturnedString;
-			ReplaceDirs(mstrFileVersionCheckDLL);
-			GetPrivateProfileString(sCompName, "FileVersionCheckVersion", "", lpReturnedString, nSize, sFileName);
-			mstrFileVersionCheckVersion = lpReturnedString;
+			mstrFileVersionCheckDLL			= gUtils.GetINIString(sCompName, "FileVersionCheckDLL", "");
+			mstrFileVersionCheckVersion		= gUtils.GetINIString(sCompName, "FileVersionCheckVersion", "");
+			gUtils.ReplaceDirs(mstrFileVersionCheckDLL);
 			break;
 		case RegVersionCheck:
-			GetPrivateProfileString(sCompName, "RegVersionCheckKey", "", lpReturnedString, nSize, sFileName);
-			mstrRegVersionCheckKey = lpReturnedString;
-			GetPrivateProfileString(sCompName, "RegVersionCheckVersion", "", lpReturnedString, nSize, sFileName);
-			mstrRegVersionCheckVersion = lpReturnedString;
+			mstrRegVersionCheckKey			= gUtils.GetINIString(sCompName, "RegVersionCheckKey", "");
+			mstrRegVersionCheckVersion		= gUtils.GetINIString(sCompName, "RegVersionCheckVersion", "");
 			break;
 		case RegKeyCheck:
-			GetPrivateProfileString(sCompName, "RegKeyCheckKey", "", lpReturnedString, nSize, sFileName);
-			mstrRegKeyCheckKey = lpReturnedString;
-			GetPrivateProfileString(sCompName, "RegKeyCheckValue", "", lpReturnedString, nSize, sFileName);
-			mstrRegKeyCheckValue = lpReturnedString;
+			mstrRegKeyCheckKey				= gUtils.GetINIString(sCompName, "RegKeyCheckKey", "");
+			mstrRegKeyCheckValue			= gUtils.GetINIString(sCompName, "RegKeyCheckValue", "");
 			break;
 		case NTServicePackCheck:
-			GetPrivateProfileString(sCompName, "NTServicePackCheckNumber", "", lpReturnedString, nSize, sFileName);
-			mstrNTServicePackCheckNumber = lpReturnedString;
+			mstrNTServicePackCheckNumber	= gUtils.GetINIString(sCompName, "NTServicePackCheckNumber", "");
 			break;
 		case NoCheck:
 			break;
+		case NetFrameworkCheck:
+			mstrNetFrameworkCheckVersion	= gUtils.GetINIString(sCompName, "NetFrameworkCheckVersion", "");
+			break;
 		default:
-			gLog.LogEvent(mstrId + ": Invalid/no check type specified, ignoring component.");
-			free(lpReturnedString);
+			gLog.LogEvent(mstrName + ": Invalid/no check type specified, ignoring component.");
 			return false;
 	}
 
-	free(lpReturnedString);
 	mblnInstall = true;
 	return true;
 }
@@ -201,8 +151,9 @@ void CComponent::CheckComponent()
 	mblnInstalled = true;
 
 	// first check OS to see if we are matching the OS
-	if (!IsCorrectOS()) {
-		gLog.LogEvent(mstrId + ": This component doesn't match OS requirements, skipping.");
+	CString result;
+	if (!gUtils.ValidateOS(mstrId, result)) {
+		gLog.LogEvent(mstrName + ": " + result);
 		return;
 	}
 
@@ -223,48 +174,13 @@ void CComponent::CheckComponent()
 		case NoCheck:
 			mblnInstalled = false;
 			break;
+		case NetFrameworkCheck:
+			mblnInstalled = RunNetFrameworkCheck();
+			break;
 		default:
 			return;
 	}
 	
-}
-
-bool CComponent::IsCorrectOS()
-{
-	OSVERSIONINFO osv; DWORD dwMajor; DWORD dwMinor;
-	osv.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx(&osv);
-
-	// first check if we want only Win9x or only WinNT
-	if (!mblnOSVersionNT && !mblnOSVersion9x)
-		return false;
-	// see if only NT reqd, but we aren't running nt
-	if (mblnOSVersionNT && !mblnOSVersion9x && osv.dwPlatformId != VER_PLATFORM_WIN32_NT)
-		return false;
-	// see if only 9x reqd, but we aren't running 9x
-	if (mblnOSVersion9x && !mblnOSVersionNT && osv.dwPlatformId != VER_PLATFORM_WIN32_WINDOWS)
-		return false;
-
-	// now check version info if we need to
-	if (mstrOSVersionMin.CompareNoCase("0") == 0 || mstrOSVersionMin.Find("0.") >= 0 ||
-			mstrOSVersionMax.CompareNoCase("0") == 0 || mstrOSVersionMax.Find("0.") >= 0)
-		return true;		// this means we should check this component
-
-	// now check actual version numbers
-	dwMajor = atoi(mstrOSVersionMin.Left(mstrOSVersionMin.Find(".")));
-	dwMinor = atoi(mstrOSVersionMin.Mid(mstrOSVersionMin.Find(".")));
-	if (osv.dwMajorVersion < dwMajor || 
-			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion < dwMinor))
-		return false;			// this OS is older then reqd
-
-	dwMajor = atoi(mstrOSVersionMax.Left(mstrOSVersionMin.Find(".")));
-	dwMinor = atoi(mstrOSVersionMax.Mid(mstrOSVersionMin.Find(".")));
-	if (osv.dwMajorVersion > dwMajor || 
-			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion > dwMinor))
-		return false;			// this OS is newer then reqd
-
-	// we have an OS between versions and such
-	return true;
 }
 
 bool CComponent::RunFileVersionCheck()
@@ -275,13 +191,13 @@ bool CComponent::RunFileVersionCheck()
 
 	// Check if file exists, if not, assume not installed
 	if (!gUtils.FileExists(mstrFileVersionCheckDLL)) {
-		gLog.LogEvent(mstrId + ": File " + mstrFileVersionCheckDLL + " not found.");
+		gLog.LogEvent(mstrName + ": File " + mstrFileVersionCheckDLL + " not found, assuming not installed.");
 		return false;
 	}
 
 	// Try to open the version info on the DLL
 	if (!fv.Open(mstrFileVersionCheckDLL)) {
-		gLog.LogEvent(mstrId + ": Failed checking '" + mstrFileVersionCheckDLL + "' version info");
+		gLog.LogEvent(mstrName + ": Failed checking '" + mstrFileVersionCheckDLL + "' version info, assuming not installed");
 		return false;
 	}
 	vinfo = fv.GetFixedFileVersionInfo();
@@ -291,7 +207,7 @@ bool CComponent::RunFileVersionCheck()
 		dwMinorVersion, dwBuildNumber, dwRevision);
 
 	// Log what versions were found
-	gLog.LogEvent(mstrId + ": File: " + mstrFileVersionCheckDLL + ", version: " 
+	gLog.LogEvent(mstrName + ": File: " + mstrFileVersionCheckDLL + ", version: " 
 			+ fv.GetFixedFileVersion() + "; required: " + mstrFileVersionCheckVersion);
 
 	if (vinfo.dwMajorVerison > dwMajorVersion)   // dll is newer than dwMajorVersion
@@ -322,16 +238,6 @@ bool CComponent::RunFileVersionCheck()
 	return true;
 }
 
-void CComponent::ReplaceDirs(CString &p_strIn)
-{
-	// check for directory macros
-	if (p_strIn.Find("%WinSysPath%") >= 0)
-		p_strIn.Replace("%WinSysPath%", gUtils.WinSysPath());
-	if (p_strIn.Find("%WinPath%") >= 0)
-		p_strIn.Replace("%WinPath%", gUtils.WinPath());
-	if (p_strIn.Find("%CommonFilesPath%") >= 0)
-		p_strIn.Replace("%CommonFilesPath%", gUtils.CommonFilesPath());
-}
 
 
 
@@ -378,28 +284,119 @@ void CComponent::SplitVersionString(CString p_strVersion, DWORD &dwMajorVersion,
 
 bool CComponent::RunNTServicePackCheck()
 {
+	return (gUtils.ValidateSP(mstrNTServicePackCheckNumber, mstrName, true));
+}
 
-	OSVERSIONINFO osv; CString strOSVersion;
 
-	// check if NT service pack check is set
-	if (mstrNTServicePackCheckNumber.GetLength() == 0) {
-		gLog.LogEvent(mstrId + ": Service Pack string not set, component assumed installed");
+//typedef HRESULT (WINAPI *FNGETCORVERSION) (LPWSTR buffer, DWORD ccBuffer, DWORD* pcBuffer);
+
+bool CComponent::RunNetFrameworkCheck()
+{
+
+	HRESULT hResult; HKEY hKey; char chData[255]; DWORD lDataLen = 255;
+	CString strSubKey, strValueName, strTemp;
+
+	// get common files directory
+	if (mstrNetFrameworkCheckVersion.GetLength() == 0) {
+		gLog.LogEvent(mstrName + ": Version not specified, assuming installed.");
 		return true;
 	}
 
-	osv.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx(&osv);
-	strOSVersion = osv.szCSDVersion;
+	CString mainVersion = mstrNetFrameworkCheckVersion.Left(mstrNetFrameworkCheckVersion.ReverseFind('.'));
+	CString buildNumber = mstrNetFrameworkCheckVersion.Mid(mstrNetFrameworkCheckVersion.ReverseFind('.')+1);
+	
+	if (mainVersion.Left(1) != "v")
+		mainVersion = "v" + mainVersion;
 
-	gLog.LogEvent(mstrId + ": Version Found: '" + strOSVersion + "', Required: '" + mstrNTServicePackCheckNumber + "'");
+	CString regKey = "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\.NETFramework\\policy\\" 
+		+ mainVersion + "\\" + buildNumber;
 
-	// check service pack string
-	if (mstrNTServicePackCheckNumber.CompareNoCase(osv.szCSDVersion) > 0)
+	SplitRegEntry(regKey, hKey, strSubKey, strValueName);
+	if (strSubKey.GetLength() == 0) return true;
+
+	hResult = RegOpenKeyEx(hKey, strSubKey, NULL, KEY_QUERY_VALUE, &hKey);
+	if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed
+		hResult = RegCloseKey(hKey); 
 		return false;
+	} else {
+		hResult = RegQueryValueEx(hKey, strValueName, NULL, NULL, (LPBYTE)&chData, &lDataLen);
+		if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed
+			hResult = RegCloseKey(hKey); 
+			return false;
+		}
+	}			
+	hResult = RegCloseKey(hKey);
 
-	// we have the specified service pack or newer
+	// We got a return value, so we are good to go - it is installed
+	gLog.LogEvent(mstrName + ": .Net framework version " + mstrNetFrameworkCheckVersion + " is installed.");
 	return true;
+
+	// Attempt to load the .Net framework DLL
+//	HMODULE hModule = LoadLibrary("mscoree.dll");
+
+	// Check if we could even load mscoree.dll
+//	if (hModule == NULL)  
+//		return false;
+	
+	// Attempt to find the function to retreive the version
+//	FNGETCORVERSION fnNetVersion = (FNGETCORVERSION) GetProcAddress(hModule, "GetCORVersion");
+
+	// Make sure we got a pointer
+//	if (fnNetVersion == NULL)
+//		return false;
+
+	// Alloc a string to retreive the version
+//	DWORD returnSize;
+//	LPWSTR tempVersion = (LPWSTR) malloc(1000);
+	//m_pReturnedString = (char*) malloc(25);
+
+//	(fnNetVersion)(tempVersion, 25, &returnSize);
+	
+//	CString strVersion = tempVersion;
+//	if (strVersion.Left(1) == "v")
+//		strVersion = strVersion.Mid(1);
+
+	// split version strings
+//	DWORD dwRMajorVersion=0, dwRMinorVersion=0, dwRBuildNumber=0, dwRRevision=0;
+//	DWORD dwIMajorVersion=0, dwIMinorVersion=0, dwIBuildNumber=0, dwIRevision=0;
+//	SplitVersionString(strVersion, dwIMajorVersion, dwIMinorVersion, dwIBuildNumber, dwIRevision);
+//	SplitVersionString(mstrNetFrameworkCheckVersion, dwRMajorVersion, dwRMinorVersion, dwRBuildNumber, dwRRevision);
+
+//	gLog.LogEvent(mstrName + ": Reg Version Check, current: " + strVersion + ", reqd: " + mstrNetFrameworkCheckVersion);
+	
+//	if (dwIMajorVersion > dwRMajorVersion)   // dll is newer than dwMajorVersion
+//		return true;
+//	else if (dwIMajorVersion < dwRMajorVersion) // dll is older than dwMajorVersion
+//		return false;
+//	else {  // dll is dwMajorVersion
+//		if (dwIMinorVersion > dwRMinorVersion) // newer than dwMinorVersion
+//			return true;
+//		else if (dwIMinorVersion < dwRMinorVersion) // older than dwMinorVersion
+//			return false;
+//		else { // dwMajorVersion.dwMinorVersion
+//			if (dwIBuildNumber > dwRBuildNumber) // newer than dwBuildNumber
+//				return true;
+//			else if (dwIBuildNumber < dwRBuildNumber) // older than dwBuildNumber
+//				return false;
+//			else { // dwMajorVersion.dwMinorVersion.dwBuildNumber
+//				if (dwIRevision > dwRRevision) // newer than dwRevision
+//					return true;
+//				else if (dwIRevision < dwRRevision) // older than dwRevision
+//					return false;
+//				else  // file is correct version
+//					return true;
+//			}		// end dwBuildNumber
+//		}			// end dwMinorVersion
+//	}       // end dwMajorVersion
+//	
+//	return true;
+//	free(tempVersion);
+
+
+	// we have the framework installed
+//	return true;
 }
+
 
 bool CComponent::RunRegKeyCheck()
 {
@@ -408,7 +405,7 @@ bool CComponent::RunRegKeyCheck()
 
 	// get common files directory
 	if (mstrRegKeyCheckKey.GetLength() == 0) {
-		gLog.LogEvent(mstrId + ": Reg Key not specified, assuming installed.");
+		gLog.LogEvent(mstrName + ": Reg Key not specified, assuming installed.");
 		return true;
 	}
 	SplitRegEntry(mstrRegKeyCheckKey, hKey, strSubKey, strValueName);
@@ -434,6 +431,7 @@ bool CComponent::RunRegKeyCheck()
 		return false;
 
 	// it is installed...
+	gLog.LogEvent(mstrName + ": Registry key found and matches required value.");
 	return true;
 
 }
@@ -453,7 +451,7 @@ void CComponent::SplitRegEntry(CString pstrKey, HKEY &hKey, CString &strSubKey,
 		strValueName = pstrKey.Mid(pstrKey.ReverseFind('\\') + 1);
 		strSubKey = strSubKey.Left(strSubKey.ReverseFind('\\'));
 	} else {
-		gLog.LogEvent(mstrId + ": Invalid key specified, no reg check ('" + pstrKey + "')");
+		gLog.LogEvent(mstrName + ": Invalid key specified, no reg check ('" + pstrKey + "')");
 	}
 }
 
@@ -468,16 +466,16 @@ bool CComponent::RunRegVersionCheck()
 
 	// check for valid settings
 	if (mstrRegVersionCheckKey.GetLength() == 0) {
-		gLog.LogEvent(mstrId + ": Reg Version Key not specified, assuming installed.");
+		gLog.LogEvent(mstrName + ": Reg Version Key not specified, assuming installed.");
 		return true;
 	}
 	if (mstrRegVersionCheckVersion.GetLength() == 0) {
-		gLog.LogEvent(mstrId + ": Reg Version value not specified, assuming installed.");
+		gLog.LogEvent(mstrName + ": Reg Version value not specified, assuming installed.");
 		return true;
 	}
 	SplitRegEntry(mstrRegVersionCheckKey, hKey, strSubKey, strValueName);
 	if (strSubKey.GetLength() == 0) {
-		gLog.LogEvent(mstrId + ": Reg subkey not split correctly by SplitRegEntry.");	
+		gLog.LogEvent(mstrName + ": Reg subkey not split correctly by SplitRegEntry.");	
 		return true;
 	}
 
@@ -501,7 +499,7 @@ bool CComponent::RunRegVersionCheck()
 	SplitVersionString(strTemp, dwIMajorVersion, dwIMinorVersion, dwIBuildNumber, dwIRevision);
 	SplitVersionString(mstrRegVersionCheckVersion, dwRMajorVersion, dwRMinorVersion, dwRBuildNumber, dwRRevision);
 
-	gLog.LogEvent(mstrId + ": Reg Version Check, current: " + strTemp + ", reqd: " + mstrRegVersionCheckVersion);
+	gLog.LogEvent(mstrName + ": Reg Version Check, current: " + strTemp + ", reqd: " + mstrRegVersionCheckVersion);
 
 	if (dwIMajorVersion > dwRMajorVersion)   // dll is newer than dwMajorVersion
 		return true;
@@ -540,6 +538,18 @@ bool CComponent::Install(CSetupDlg* &sDlg)
 	sDlg->m_CurStatus = mstrSetupMessage;
 	sDlg->UpdateData(false);
 
+	// Check for vars to replace
+	gUtils.ReplaceDirs(mstrSetupCommand);
+
+	// If the file mstrSetupCommand doesn't exist as is, prepend the EXE path (normal case)
+	if (!gUtils.FileExists(mstrSetupCommand))
+		mstrSetupCommand = gUtils.EXEPath() + mstrSetupCommand;
+
+	// check for explorer.exe
+	if (mstrSetupCommand.Find("explorer.exe", 0) != -1) {
+		mstrSetupCommand = gUtils.WinPath() + mstrSetupCommand;
+	}
+
 	// check for setup exe
 	while (!gUtils.FileExists(mstrSetupCommand)) {
 		strMsg.Format(IDS_COMPONENT_FNF, mstrName, mstrSetupCommand);
@@ -569,7 +579,7 @@ bool CComponent::Install(CSetupDlg* &sDlg)
 	hProcess = pInfo.hProcess;
 
 	if (!lReturn) {
-		gUtils.LogDLLError(mstrId + ": Create Process");
+		gUtils.LogDLLError(mstrName + ": Create Process");
 		return false;
 	}
 
@@ -601,20 +611,29 @@ bool CComponent::Install(CSetupDlg* &sDlg)
 	// done with task, stop timer
 	sDlg->StopTimer();
 	
+	// Get and log return code
+	DWORD returnCode;
+	if (GetExitCodeProcess(hProcess, &returnCode)) {
+		char * tempCode = (char*) malloc(25);
+		itoa(returnCode, tempCode, 25);
+		gLog.LogEvent(mstrName + ": Install returned code: " + tempCode);
+		free(tempCode);
+	}
+	
 	// open reg key, and set that we installed this component
 	long h; HKEY hRegKey; LPDWORD hResult = 0;
 	char chTemp[2] = "1";
-	LPCTSTR sKey = "Software\\giesler.org\\Install Assistant\\Installed Components";	
+	LPCTSTR sKey = "Software\\Install Assistant\\Installed Components";	
 	h = RegCreateKeyEx(HKEY_CURRENT_USER, sKey,0,NULL,REG_OPTION_NON_VOLATILE, KEY_SET_VALUE, NULL, &hRegKey, hResult);
 	if (h == ERROR_SUCCESS) {
 		h = RegSetValueEx(hRegKey, mstrId, 0, REG_SZ, (byte*)&chTemp, strlen(chTemp) + 1);
 		h = RegCloseKey(hRegKey);
 	} else {
-		gLog.LogEvent(mstrId + ": Error setting component to installed state in registry.");
+		gLog.LogEvent(mstrName + ": Error setting component to installed state in registry.");
 		h = RegCloseKey(hRegKey);
 	}
 
-	gLog.LogEvent(mstrId + ": Component installation complete.");
+	gLog.LogEvent(mstrName + ": Component installation complete.");
 
 	if (pInfo.hProcess) CloseHandle(pInfo.hProcess);
 	if (pInfo.hThread) CloseHandle(pInfo.hThread);
@@ -627,10 +646,14 @@ bool CComponent::Install(CSetupDlg* &sDlg)
 bool CComponent::InstallAttempted()
 {
 
+	// If an 'always install' component, ignore if an install was attempted
+	if (mtypComponentType == NoCheck)
+		return false;
+
 	// open the registry key and look for pstrComponentId
 	HRESULT hResult; HKEY hKey; char chData[255]; DWORD lDataLen = 255;
 	CString strSubKey;
-	LPCTSTR sKey = "Software\\giesler.org\\Install Assistant\\Installed Components";	
+	LPCTSTR sKey = "Software\\Install Assistant\\Installed Components";	
 
 	hResult = RegOpenKeyEx(HKEY_CURRENT_USER, sKey, NULL, KEY_QUERY_VALUE, &hKey);
 	if (hResult != ERROR_SUCCESS) {  // key not found, assume not installed

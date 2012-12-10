@@ -16,6 +16,7 @@ class CAutorunDlg : public CDialog
 // Construction
 public:
 	CAutorunDlg(CWnd* pParent = NULL);	// standard constructor
+	~CAutorunDlg();
 
 	void LoadButtons(CList<CDlgButton*, CDlgButton*> * mlstButtons);	// loads buttons for dialog
 	CDlgButton* FindButtonById(CString id);
@@ -23,8 +24,8 @@ public:
 
 	CDlgButton* selectedButton;
 	CList<CDlgButton*, CDlgButton*> * mlstButtons;
-
 	CList<CStatic*, CStatic*> mlstStatics;  // used to keep track of statics
+
 // Dialog Data
 	//{{AFX_DATA(CAutorunDlg)
 	enum { IDD = IDD_AUTORUN_DIALOG };
@@ -55,16 +56,13 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
-	void PlayButtonSound(CString sound);
-	CString GetINIString();
-	int GetINIInt(CString strName, int intDefault);
-	void LoadSettings();
 	CString mstrAppName;
-	CString EXEPath();
-	CString GetINIString(CString strName);
+	bool hideTitlebar;
+	bool onOpenSoundPlayed;
 };
 
 //{{AFX_INSERT_LOCATION}}

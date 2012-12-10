@@ -49,7 +49,7 @@ END_MESSAGE_MAP()
 
 BOOL CSetupDlg::Create(CWnd* pParentWnd) 
 {
-	// TODO: Add your specialized code here and/or call the base class
+	// Add your specialized code here and/or call the base class
 
 	return CDialog::Create(IDD, pParentWnd);
 }

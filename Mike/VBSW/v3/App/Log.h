@@ -19,6 +19,7 @@ public:
 
 private:
 	bool m_blnLogEvents;
+	CString mstrFilename;
 	CFile m_File;
 };
 

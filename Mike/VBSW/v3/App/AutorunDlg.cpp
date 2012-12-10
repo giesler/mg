@@ -7,7 +7,7 @@
 #include "util.h"
 #include "winsock2.h"
 #include "windows.h"
-#include "mmsystem.h"
+#include "Hyperlink.h"
 
 #ifdef _DEBUG
 	#define new DEBUG_NEW
@@ -27,6 +27,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CAboutDlg)
 	enum { IDD = IDD_ABOUTBOX };
+	CStatic	m_LinkControl;
 	//}}AFX_DATA
 
 	// ClassWizard generated virtual function overrides
@@ -52,6 +53,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAboutDlg)
+	DDX_Control(pDX, IDC_HYPERLINK, m_LinkControl);
 	//}}AFX_DATA_MAP
 }
 
@@ -74,10 +76,24 @@ CAutorunDlg::CAutorunDlg(CWnd* pParent /*=NULL*/)
 	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
-	// get defaults
+	// get settings
 	mstrAppName.LoadString(IDS_DEFAULTPROGRAMNAME);
-	LoadSettings();
+	mstrAppName		= gUtils.GetINIString("Settings", "ProgramName", mstrAppName);
+	hideTitlebar	= gUtils.GetINIBool("Settings", "HideTitleBar", false);
+	onOpenSoundPlayed = false;
+
 	selectedButton = NULL;
+}
+
+CAutorunDlg::~CAutorunDlg() {
+
+	// delete buttons
+	CStatic * pButton;
+	while (mlstStatics.GetCount() > 0) {
+		pButton = mlstStatics.RemoveHead();
+		delete pButton;
+	}
+
 }
 
 void CAutorunDlg::DoDataExchange(CDataExchange* pDX)
@@ -98,6 +114,7 @@ BEGIN_MESSAGE_MAP(CAutorunDlg, CDialog)
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_SETCURSOR()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -119,13 +136,10 @@ BOOL CAutorunDlg::OnInitDialog()
 	// check for splash picture
 	CString strTemp;
 	HBITMAP hBmp;
-	strTemp = GetINIString("Splash");
-	if (strTemp.GetLength() > 0) {
-		strTemp = EXEPath() + strTemp;
-		hBmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-		if (hBmp != NULL) 
-			m_pic.SetBitmap(hBmp);
-	}
+	strTemp = gUtils.GetINIString("Settings", "Splash", "");
+	hBmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	if (hBmp != NULL) 
+		m_pic.SetBitmap(hBmp);
 
 	// Get coords set up
 	CRect rect_pic;
@@ -173,8 +187,8 @@ BOOL CAutorunDlg::OnInitDialog()
 		// Save it
 		pobjDlgButton->mstatic = button;
 
-		gLog.LogEvent("Initialized dialog");
-//		mlstStatics.AddTail(button);
+		// Keep it for deleting on destruct
+		mlstStatics.AddTail(button);
 	}
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
@@ -186,6 +200,19 @@ BOOL CAutorunDlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
+
+	// Check if we want to hide the titlebar
+	if (hideTitlebar) {
+		ModifyStyle(WS_CAPTION, 0);		// hide title
+		ModifyStyleEx(WS_EX_DLGMODALFRAME, 0);  // hide frame
+	}
+
+	if (!onOpenSoundPlayed) {
+		onOpenSoundPlayed = true;
+ 		gUtils.PlaySoundFile(gUtils.GetINIString("Settings", "OnOpenSound", ""));
+	}
+
+	gLog.LogEvent("Initialized dialog");
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -244,14 +271,6 @@ void CAutorunDlg::OnOK()
 }
 
 
-CString CAutorunDlg::EXEPath()
-{
-	char chTemp[MAX_PATH];
-	GetModuleFileName(NULL, chTemp, MAX_PATH);
-	*(strrchr(chTemp, '\\')+1) = '\0';  // cut off .exe file
-	return (chTemp);
-}
-
 void CAutorunDlg::OnLButtonUp(UINT nFlags, CPoint point) 
 {
 	
@@ -265,7 +284,7 @@ void CAutorunDlg::OnLButtonUp(UINT nFlags, CPoint point)
 		pobjDlgButton = mlstButtons->GetNext(pos);
 		if (pobjDlgButton->mblnMouseClick) 
 		{
-			PlayButtonSound(pobjDlgButton->mstrMouseUp);
+			gUtils.PlaySoundFile(pobjDlgButton->mstrMouseUp);
 			
 			// We were in clicked state here, so check for an action
 			if (pobjDlgButton->mblnCancel)
@@ -314,7 +333,10 @@ void CAutorunDlg::OnMouseMove(UINT nFlags, CPoint point)
 				pobjDlgButton->mstatic->RedrawWindow();
 				pobjDlgButton->mblnMouseOver = true;
 
-				PlayButtonSound(pobjDlgButton->mstrMouseEnter);
+				if (pobjDlgButton->mhMouseCursor != NULL)
+					SetCursor(pobjDlgButton->mhMouseCursor);
+
+				gUtils.PlaySoundFile(pobjDlgButton->mstrMouseEnter);
 			}
 		}
 		// Since we aren't in region, make sure we weren't in it before
@@ -326,7 +348,10 @@ void CAutorunDlg::OnMouseMove(UINT nFlags, CPoint point)
 			pobjDlgButton->mstatic->RedrawWindow();
 			pobjDlgButton->mblnMouseOver = false;
 
-			PlayButtonSound(pobjDlgButton->mstrMouseExit);
+			// The OnSetCursor function will handle setting this correctly
+			//SetCursor(LoadCursor(NULL, IDC_ARROW));
+
+			gUtils.PlaySoundFile(pobjDlgButton->mstrMouseExit);
 		}
 
 	}
@@ -355,7 +380,7 @@ void CAutorunDlg::OnLButtonDown(UINT nFlags, CPoint point)
 			pobjDlgButton->mstatic->RedrawWindow();
 			pobjDlgButton->mblnMouseClick = true;
 
-			PlayButtonSound(pobjDlgButton->mstrMouseDown);
+			gUtils.PlaySoundFile(pobjDlgButton->mstrMouseDown);
 		}
 		// Since we aren't in region, make sure we weren't in it before
 		else if (pobjDlgButton->mblnMouseClick) 
@@ -369,56 +394,12 @@ void CAutorunDlg::OnLButtonDown(UINT nFlags, CPoint point)
 }
 
 
-void CAutorunDlg::LoadSettings()
-{
-
-	TCHAR * lpReturnedString; 
-	lpReturnedString = (TCHAR*) malloc(1000);
-
-	// Start by getting basic settings
-	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, gUtils.EXEPath() + "ia\\settings.ini");
-	mstrAppName = lpReturnedString;
-
-	// Free allocated strings
-	free(lpReturnedString);
-}
-
 // Loads the images and info for the buttons
 void CAutorunDlg::LoadButtons(CList<CDlgButton*, CDlgButton*> * lstButtons)
 {	
 	mlstButtons = lstButtons;
 }
 
-
-CString CAutorunDlg::GetINIString(CString strName)
-{
-
-	CString strReturn = "";
-	TCHAR * lpReturnedString; 
-	lpReturnedString = (TCHAR*) malloc(1000);
-
-	// Start by getting basic settings
-	GetPrivateProfileString("Settings", strName, strReturn, lpReturnedString, 255, gUtils.EXEPath() + "ia\\settings.ini");
-	strReturn = lpReturnedString;
-
-		// Free allocated strings
-	free(lpReturnedString);
-
-	return strReturn;
-
-}
-
-
-int CAutorunDlg::GetINIInt(CString strName, int intDefault)
-{		
-	return (GetPrivateProfileInt("Settings", strName, intDefault, gUtils.EXEPath() + "ia\\settings.ini"));
-}
-
-void CAutorunDlg::PlayButtonSound(CString sound) 
-{
-	if (!sound.IsEmpty())
-		PlaySound(gUtils.EXEPath() + sound, 0, SND_FILENAME | SND_ASYNC | SND_NOWAIT);
-}
 
 CDlgButton* CAutorunDlg::FindButtonById(CString id)
 {
@@ -458,4 +439,25 @@ CDlgButton* CAutorunDlg::FindDefaultButton()
 
 	gLog.LogEvent("Unable to find default button");
 	return NULL;
+}
+
+BOOL CAutorunDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) 
+{
+	
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// check if we are over a button, if so bail
+
+	// Loop through the button list
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+	
+		if (pobjDlgButton->mblnMouseOver)
+			return true;
+
+	}
+	
+	return CDialog::OnSetCursor(pWnd, nHitTest, message);
 }

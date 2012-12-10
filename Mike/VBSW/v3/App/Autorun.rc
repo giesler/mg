@@ -76,12 +76,11 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\17.ico"
 IDD_AUTORUN_DIALOG DIALOGEX 0, 0, 270, 118
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "Autorun Program"
-FONT 8, "MS Sans Serif", 0, 0, 0x1
+FONT 8, "MS Sans Serif"
 BEGIN
-    DEFPUSHBUTTON   "&Install",IDOK,150,100,50,14,NOT WS_VISIBLE | NOT 
+    DEFPUSHBUTTON   "&Install",IDOK,150,104,50,14,NOT WS_VISIBLE | NOT 
                     WS_TABSTOP
-    PUSHBUTTON      "&Close",IDCANCEL,205,100,49,14,NOT WS_VISIBLE | NOT 
+    PUSHBUTTON      "&Close",IDCANCEL,205,104,49,14,NOT WS_VISIBLE | NOT 
                     WS_TABSTOP,WS_EX_ACCEPTFILES | WS_EX_RTLREADING
     CONTROL         "",IDC_PIC,"Static",SS_BITMAP,0,0,15,13
 END
@@ -100,7 +99,7 @@ BEGIN
     PUSHBUTTON      "&Cancel",IDC_CANCEL,198,53,51,15
 END
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 186, 74
+IDD_ABOUTBOX DIALOGEX 0, 0, 186, 74
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About Install Assistant"
 FONT 8, "MS Sans Serif"
@@ -108,11 +107,11 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,131,57,50,14
     ICON            IDR_MAINFRAME,IDC_STATIC,8,8,20,20
     LTEXT           "Install Assistant",IDC_STATIC,39,7,122,8
-    LTEXT           "See http://giesler.org/vbsw for distribution information.",
-                    IDC_STATIC,9,51,118,20
+    LTEXT           "See",IDC_STATIC,9,52,13,9,0,WS_EX_TRANSPARENT
     LTEXT           "Version 3.00 ALPHA",IDC_STATIC,40,16,122,8
-    LTEXT           "(c) 2002, Mike Giesler - vbsw@giesler.org",IDC_STATIC,
-                    21,34,142,8
+    LTEXT           "© 2002, Mike Giesler",IDC_STATIC,10,38,91,8
+    LTEXT           "http://installassistant.com",IDC_HYPERLINK,25,52,89,10
+    LTEXT           "for distribution.",IDC_STATIC,9,62,108,9
 END
 
 IDD_RESTART DIALOG DISCARDABLE  0, 0, 264, 77
@@ -135,8 +134,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,50,0
- PRODUCTVERSION 3,0,50,0
+ FILEVERSION 3,0,60,0
+ PRODUCTVERSION 3,0,60,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -151,17 +150,17 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "Contact vbsw@giesler.org regarding distribution\0"
+            VALUE "Comments", "Contact help@installassistant.com regarding distribution\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Install Assistant 3.00\0"
-            VALUE "FileVersion", "3, 0, 50, 0\0"
-            VALUE "InternalName", "Autorun\0"
-            VALUE "LegalCopyright", "Copyright (C) 2002, Mike Giesler, vbsw@giesler.org, http://vbsw.giesler.org\0"
+            VALUE "FileVersion", "3, 0, 60, 0\0"
+            VALUE "InternalName", "Install Assitant\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002, Mike Giesler, http://installassistant.com\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "Autorun.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Install Assistant\0"
-            VALUE "ProductVersion", "3, 0, 50, 0\0"
+            VALUE "ProductVersion", "3, 0, 60, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

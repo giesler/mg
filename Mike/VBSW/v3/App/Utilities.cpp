@@ -5,12 +5,31 @@
 #include "stdafx.h"
 #include "autorun.h"
 #include "Utilities.h"
+#include "mmsystem.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
+
+CUtilities::CUtilities() 
+{
+	// set the filename used for getting settings
+	m_strFileName = EXEPath() + "ia\\settings.ini";
+
+	// allocate a string for INI values
+	m_pReturnedString = (TCHAR*) malloc(1000);
+
+	// get the current app's name
+	m_strAppName = GetINIString("Settings", "ProgramName", "Application");
+}
+
+CUtilities::~CUtilities() 
+{
+	// free allocated string
+	free(m_pReturnedString);
+}
 
 
 CString CUtilities::CommonFilesPath() {
@@ -173,6 +192,209 @@ bool CUtilities::Exec(CString strCommand, CString strCmdLine, bool waitForComple
 	if (pInfo.hProcess) CloseHandle(pInfo.hProcess);
 	if (pInfo.hThread) CloseHandle(pInfo.hThread);
 
+	return true;
+
+}
+
+CString CUtilities::GetINIString(CString sectionName, CString keyName, CString defaultValue = "")
+{
+	CString strTemp;
+	GetPrivateProfileString(sectionName, keyName, defaultValue, m_pReturnedString, 1000, m_strFileName);
+	strTemp = m_pReturnedString;
+	return strTemp;
+}
+
+bool CUtilities::GetINIBool(CString sectionName, CString keyName, bool defaultValue = false)
+{
+	int intTemp;
+	intTemp = (defaultValue ? 1 : 0);
+	intTemp = GetPrivateProfileInt(sectionName, keyName, intTemp, m_strFileName);
+	return (intTemp == 1);
+}
+
+int CUtilities::GetINIInt(CString sectionName, CString keyName, int defaultValue = 0)
+{
+	return GetPrivateProfileInt(sectionName, keyName, defaultValue, m_strFileName);
+}
+
+int CUtilities::GetINISection(CString sectionName, CString sectionContents[20][2]) 
+{
+	
+	CString strKey, strValue, strLine;
+	int intCount;
+	intCount = 0;
+
+	GetPrivateProfileSection(sectionName, m_pReturnedString, 255, m_strFileName);
+
+	// Now break up the string of buttons, and load info for each button
+	TCHAR * lpTemp = m_pReturnedString;
+	while (lpTemp != NULL) {
+
+		// get the info for this line
+		strLine		= lpTemp;
+		strKey		= strLine.Left(strLine.Find("="));
+		strValue	= strLine.Mid(strLine.Find("=")+1);
+		
+		sectionContents[intCount][0] = strKey;
+		sectionContents[intCount][1] = strValue;
+		intCount++;
+
+		while (*lpTemp != '\0')		// advance to next section in string
+			lpTemp++;
+		if (*lpTemp == '\0')			// new sections
+			lpTemp++;
+		if (*lpTemp == '\0')			// if at second null in a row, done
+			break;
+
+	}	// end while
+
+	return intCount;
+
+}
+
+void CUtilities::ReplaceDirs(CString &p_strIn)
+{
+	// check for directory macros
+	if (p_strIn.Find("%WinSysPath%") >= 0)
+		p_strIn.Replace("%WinSysPath%", gUtils.WinSysPath());
+	if (p_strIn.Find("%WinPath%") >= 0)
+		p_strIn.Replace("%WinPath%", gUtils.WinPath());
+	if (p_strIn.Find("%CommonFilesPath%") >= 0)
+		p_strIn.Replace("%CommonFilesPath%", gUtils.CommonFilesPath());
+	if (p_strIn.Find("%ExePath%") >= 0)
+		p_strIn.Replace("%ExePath%", gUtils.EXEPath());
+	if (p_strIn.Find("%TempPath%") >= 0)
+		p_strIn.Replace("%TempPath%", gUtils.TempPath());
+}
+
+void CUtilities::PlaySoundFile(CString sound) 
+{
+	if (!sound.IsEmpty())
+		PlaySound(gUtils.EXEPath() + sound, 0, SND_FILENAME | SND_ASYNC | SND_NOWAIT);
+}
+
+bool CUtilities::ValidateOS(CString iniSection, CString & result)
+{
+	OSVERSIONINFO osv; DWORD dwMajor; DWORD dwMinor;
+	osv.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	GetVersionEx(&osv);
+
+	// Check if we only want a certain 9x version
+	if (GetINIBool(iniSection, "Win9x", true) && osv.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) {
+		
+		// We are on a 9x system, check actual versions
+		if (GetINIBool(iniSection, "Windows95", true) && (osv.dwMajorVersion == 4) && (osv.dwMinorVersion == 0) )
+			return true;
+		if (GetINIBool(iniSection, "Windows98", true) && (osv.dwMajorVersion == 4) && (osv.dwMinorVersion == 10) )
+			return true;
+		if (GetINIBool(iniSection, "Windows98", true) && (osv.dwMajorVersion == 4) && (osv.dwMinorVersion == 90) )
+			return true;
+
+		// We are on a 9x system but not the right one
+		result = "This Win9x version does not apply to this component.";
+		return false;
+	}
+
+	// We must be on WinNT - so check versions if we need to
+	if (GetINIBool(iniSection, "WinNT", true) && osv.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+
+		// We are on an NT system, check actual version
+	
+		// MINIMUM VERSION
+		CString strNTVersionMin		= GetINIString(iniSection, "NTMinVersion", "0");
+
+		// see if the versions specified are 0's
+		if (strNTVersionMin.CompareNoCase("0") == 0 || strNTVersionMin.Find("0.") >= 0) {
+			dwMajor = osv.dwMajorVersion;
+			dwMinor = osv.dwMinorVersion;
+		}
+		else {
+			// read the actual version number
+			dwMajor = atoi(strNTVersionMin.Left(strNTVersionMin.Find(".")));
+			dwMinor = atoi(strNTVersionMin.Mid(strNTVersionMin.Find(".")+1));
+		}
+
+		// now check actual version numbers
+		if (osv.dwMajorVersion < dwMajor || 
+			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion < dwMinor)) {
+	
+			result = "Windows version is older then minimum version for this component";
+			return false;			// this OS is older then reqd
+		} else if (osv.dwMajorVersion == dwMajor && osv.dwMinorVersion == dwMinor) {
+			// correct win version, check SP level
+			CString strSPMin = GetINIString(iniSection, "NTMinServicePack", "");
+
+			if (!strSPMin.IsEmpty() && !ValidateSP(strSPMin, "", true)) {
+				result = "Windows service pack is older then required.";
+				return false;
+			} 
+		}
+
+		// MAXIMUM VERSION
+		CString strNTVersionMax		= GetINIString(iniSection, "NTMaxVersion", "0");
+
+		// see if the versions specified are 0's
+		if (strNTVersionMax.CompareNoCase("0") == 0 || strNTVersionMax.Find("0.") >= 0) {
+			dwMajor = osv.dwMajorVersion;
+			dwMinor	= osv.dwMinorVersion;
+		}
+		else {
+			// read the actual version number
+			dwMajor = atoi(strNTVersionMax.Left(strNTVersionMax.Find(".")));
+			dwMinor = atoi(strNTVersionMax.Mid(strNTVersionMax.Find(".")+1));
+		}
+
+		if (osv.dwMajorVersion > dwMajor || 
+			(osv.dwMajorVersion == dwMajor && osv.dwMinorVersion > dwMinor)) {
+
+			result = "Windows version is newer then maximum version for this component";
+			return false;			// this OS is newer then reqd
+		} else if (osv.dwMajorVersion == dwMajor && osv.dwMinorVersion == dwMinor) {
+			// correct win version, check SP level
+			CString strSPMax = GetINIString(iniSection, "NTMaxServicePack", "");
+		
+			if (!strSPMax.IsEmpty() && !ValidateSP(strSPMax, "", false)) {
+				result = "Windows service pack is newer then required.";
+				return false;
+			}
+		}
+
+		// We have an OS of the correct version
+		return true;
+
+	}
+
+	// fall through - neither Win9x nor WinNT was correct
+	result = "This component does not apply to this OS.";
+	return false;
+}
+
+bool CUtilities::ValidateSP(CString sp, CString componentId, bool minSP = true)
+{
+	OSVERSIONINFO osv; CString strOSVersion;
+
+	// check if NT service pack check is set
+	if (sp.GetLength() == 0) {
+		return true;
+	}
+
+	osv.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	GetVersionEx(&osv);
+	strOSVersion = osv.szCSDVersion;
+
+	if (!componentId.IsEmpty())
+		gLog.LogEvent(componentId + ": Version Found: '" + strOSVersion + "', Required: '" + sp + "'");
+
+	// check service pack string
+	if (minSP) {
+		if (sp.CompareNoCase(osv.szCSDVersion) > 0)
+			return false;
+	} else {
+		if (sp.CompareNoCase(osv.szCSDVersion) < 0)
+			return false;
+	}
+
+	// we have the specified service pack or newer
 	return true;
 
 }

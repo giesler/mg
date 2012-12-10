@@ -26,7 +26,7 @@ CLog::~CLog()
 
 	CString strTemp;
 	LogEvent("Application Ended.");
-	m_File.Close();
+
 }
 
 
@@ -36,24 +36,28 @@ void CLog::LogEvent(CString p_strEvent)
 	if (!m_blnLogEvents) return;
 
 	CString strOutput;
+	m_File.Open(mstrFilename, CFile::modeWrite);
+	m_File.SeekToEnd();
 
 	TCHAR * ptchTemp;
 	ptchTemp = (TCHAR*) malloc(1000);
 
 	GetDateFormat(NULL, LOCALE_NOUSEROVERRIDE, NULL, NULL, ptchTemp, MAX_PATH);
+	strOutput = "[";
 	strOutput += ptchTemp;
 	strOutput += " ";
 
 	GetTimeFormat(NULL, LOCALE_NOUSEROVERRIDE, NULL, NULL, ptchTemp, MAX_PATH);
 	strOutput += ptchTemp;
 
-	strOutput += " - ";
+	strOutput += "] - ";
 	strOutput += p_strEvent;
 	strOutput += "\r\n";
 
 	m_File.Write(strOutput, strOutput.GetLength());
 
 //	AfxMessageBox(strOutput, MB_OK);
+	m_File.Close();
 
 	free(ptchTemp);
 }
@@ -69,7 +73,7 @@ void CLog::Init(bool p_blnLogEvents)
 	TCHAR * ptchTemp;
 	ptchTemp = (TCHAR*) malloc(1000);
 
-	strFileName = "VBSW Log ";
+	strFileName = "IA Log ";
 	GetDateFormat(NULL, LOCALE_NOUSEROVERRIDE, NULL, NULL, ptchTemp, MAX_PATH);
 	strFileName += ptchTemp;
 	strFileName += " ";
@@ -79,10 +83,15 @@ void CLog::Init(bool p_blnLogEvents)
 	strFileName += ".txt";
 	strFileName.Replace("/", "-");
 	strFileName.Replace(":", "-");
-	strFileName =  gUtils.TempPath() + strFileName;
+	strFileName =  gUtils.TempPath() +  "ia.log"; //strFileName;
+	mstrFilename = strFileName;
 
-	if (!m_File.Open(strFileName, CFile::modeCreate | CFile::modeWrite, &ex))
-		ex.ReportError();
+	if (! gUtils.FileExists(strFileName) )
+	{
+		if (!m_File.Open(strFileName, CFile::modeCreate | CFile::modeWrite, &ex))
+			ex.ReportError();
+		m_File.Close();
+	}
 
 	LogEvent("Application Started - logging initialized.");
 	free (ptchTemp);

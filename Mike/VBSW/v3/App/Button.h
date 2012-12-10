@@ -25,7 +25,7 @@ enum DialogActionType {
 class CDlgButton  
 {
 public:
-	bool Load(CString sButtonId, CString sFileName);
+	bool Load(CString sButtonId);
 	CDlgButton();
 	virtual ~CDlgButton();
 
@@ -43,6 +43,9 @@ public:
 	HBITMAP mbmpMouseOver;
 	CString mstrMouseClick;
 	HBITMAP mbmpMouseClick;
+
+	CString mstrMouseCursor;
+	HCURSOR mhMouseCursor;
 	
 	// Dialog info
 	CRect mrect;

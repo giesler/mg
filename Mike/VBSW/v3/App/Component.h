@@ -14,7 +14,8 @@ enum ComponentType {
 	RegVersionCheck,
 	RegKeyCheck,
 	NTServicePackCheck,
-	NoCheck
+	NoCheck,
+	NetFrameworkCheck
 };
 
 enum RebootType {
@@ -30,6 +31,7 @@ public:
 	bool Install(CSetupDlg* &sDlg);
 	bool RunRegKeyCheck();
 	bool RunNTServicePackCheck();
+	bool RunNetFrameworkCheck();
 	void ReplaceDirs(CString &p_strIn);
 	bool RunFileVersionCheck();
 	bool mblnInstalled;
@@ -42,7 +44,7 @@ public:
 	CComponent operator=(CComponent& rhs);
 
 	bool IsComponentInstalled();
-	bool LoadComponent(CString sSectionName, CString sFileName);
+	bool Load(CString sSectionName);
 	int InstallTime();
 
 	// basic settings
@@ -57,12 +59,6 @@ public:
 	int mintSetupTime;
 	bool mblnQuietInstall;
 
-	// OS settings
-	bool  mblnOSVersionNT;
-	bool  mblnOSVersion9x;
-	CString mstrOSVersionMax;
-	CString mstrOSVersionMin;
-
 	// for CTFileVersionCheck
 	CString mstrFileVersionCheckDLL;
 	CString mstrFileVersionCheckVersion;
@@ -75,8 +71,11 @@ public:
 	CString mstrRegKeyCheckKey;
 	CString mstrRegKeyCheckValue;
 
-		// for NTServicePackCheck
+	// for NTServicePackCheck
 	CString mstrNTServicePackCheckNumber;
+
+	// for Net framework check
+	CString mstrNetFrameworkCheckVersion;
 
 	// whether or not to install this component
 	bool mblnInstall;
@@ -87,7 +86,6 @@ private:
 		CString & strValueName);
 	void SplitVersionString(CString p_strVersion, DWORD &dwMajorVersion, 
 		DWORD &dwMinorVersion, DWORD &dwBuildNumber, DWORD &dwRevision);
-	bool IsCorrectOS();
 };
 
 #endif // !defined(AFX_COMPONENT_H__8C1AD7E7_E03F_4309_89A7_C69AE1765DCE__INCLUDED_)
