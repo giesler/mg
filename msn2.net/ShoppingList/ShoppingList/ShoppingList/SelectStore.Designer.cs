@@ -78,8 +78,6 @@
             this.MinimizeBox = false;
             this.Name = "SelectStore";
             this.Text = "Select a store";
-            this.Load += new System.EventHandler(this.SelectStore_Load);
-            this.Activated += new System.EventHandler(this.SelectStore_Activated);
             this.Resize += new System.EventHandler(this.SelectStore_Resize);
             this.ResumeLayout(false);
 

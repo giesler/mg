@@ -41,7 +41,7 @@ namespace mn2.net.ShoppingList
                     store = (StoreItem)item.Tag;
                 }
 
-                return store;                
+                return store;
             }
             set
             {
@@ -62,30 +62,11 @@ namespace mn2.net.ShoppingList
 
         private void list_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        private void SelectStore_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SelectStore_Activated(object sender, EventArgs e)
-        {
-
-            //if (this.selectedStore != null)
-            //{
-            //    foreach (ListViewItem item in this.list.Items)
-            //    {
-            //        if (item.Tag == this.selectedStore)
-            //        {
-            //            item.Selected = true;
-            //            this.selectedStore = null;
-            //            break;
-            //        }
-            //    }
-            //}
+            if (this.list.SelectedIndices.Count > 0)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }
