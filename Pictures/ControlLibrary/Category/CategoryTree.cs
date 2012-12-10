@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -32,39 +33,99 @@ namespace msn2.net.Pictures.Controls
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
+        private bool loading = false;
 		
 		public CategoryTree()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-
-			RefreshTree();
-
             this.tvCategory.ImageList = new ImageList();
             this.tvCategory.ImageList.Images.Add(CommonImages.Folder);
         }
 
-		public void RefreshTree () 
-		{
-			// clear tree
-            if (PicContext.Current != null)
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            RefreshTree();
+        }
+
+        private void RefreshTree()
+        {
+            if (this.loading == true)
             {
-                tvCategory.Nodes.Clear();
-
-                // load first node
-                Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
-
-                CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
-                tvCategory.Nodes.Add(nRoot);
-
-                tvCategory.HideSelection = false;
-
-                // load first level
-                FillChildren(nRoot, 2);
-                nRoot.Expand();
+                MessageBox.Show("The tree is already loading.");
+                return;
             }
+
+            tvCategory.Nodes.Clear();
+
+            this.loading = true;
+
+            ThreadPool.QueueUserWorkItem(
+                new WaitCallback(this.RefreshTreeThread),
+                new object[] { });
+        }
+
+        private delegate void ExpandTreeNodeDelegate(TreeNode node);
+
+        private void RefreshTreeThread(object o) 
+		{
+            try
+            {
+                // clear tree
+                if (PicContext.Current != null)
+                {
+                    // load first node
+                    Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+
+                    CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
+                    AddCategoryTreeNode(null, nRoot);
+
+                    tvCategory.HideSelection = false;
+
+                    // load first level
+                    FillChildren(nRoot, 2);
+
+                    // Expand root node
+                    ExpandTreeNodeDelegate expandDelegate = delegate(TreeNode expandNode)
+                    {
+                        expandNode.Expand();
+                    };
+                    this.BeginInvoke(expandDelegate, new object[] { nRoot });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading category tree: " + ex.Message);
+            }
+
+            this.loading = false;
 		}
+
+        private delegate void AddTreeNodeDelegate(CategoryTreeNode parentNode, TreeNode newNode);
+
+        private void AddCategoryTreeNode(CategoryTreeNode parentNode, TreeNode newNode)
+        {
+            if (this.InvokeRequired == true)
+            {
+                this.BeginInvoke(
+                    new AddTreeNodeDelegate(this.AddCategoryTreeNode),
+                    new object[] { parentNode, newNode });
+            }
+            else
+            {
+                if (parentNode == null)
+                {
+                    this.tvCategory.Nodes.Add(newNode);
+                }
+                else
+                {
+                    parentNode.Nodes.Add(newNode);
+                }
+            }
+        }
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -309,10 +370,16 @@ namespace msn2.net.Pictures.Controls
                 FillChildren(node, 2);
         }
 
+        private delegate void ClearChildrenNodesDelegate(CategoryTreeNode node);
+
 		private void FillChildren(CategoryTreeNode n, int intLevelsToGo) 
 		{
 			// clear out all child nodes
-			n.Nodes.Clear();
+            ClearChildrenNodesDelegate clearDelegate = delegate(CategoryTreeNode node)
+            {
+                node.Nodes.Clear();
+            };
+            this.BeginInvoke(clearDelegate, new object[] { n });
             
 			// load child nodes from dvCategory
             List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
@@ -321,13 +388,13 @@ namespace msn2.net.Pictures.Controls
 			foreach (Category category in categories) 
 			{
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
-                n.Nodes.Add(childNode);
+                this.AddCategoryTreeNode(n, childNode);
 
                 if (intLevelsToGo > 0)
-					this.FillChildren(childNode, intLevelsToGo-1);
+                    this.FillChildren(childNode, intLevelsToGo - 1);
                 else
                     // add a fake node to be filled in
-                    childNode.Nodes.Add("<to load>");
+                    this.AddCategoryTreeNode(childNode, new LoadingTreeNode());
             }
 
             if (CategoryChildrenLoaded != null)
@@ -465,7 +532,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 	}
-
+    
     public class CategoryTreeNode : TreeNode
     {
         private Category category;
@@ -488,4 +555,13 @@ namespace msn2.net.Pictures.Controls
             this.Text = category.Name;
         }
     }
+
+    public class LoadingTreeNode : TreeNode
+    {
+        public LoadingTreeNode()
+        {
+            base.Text = "<to load>";
+        }
+    }
+
 }

@@ -71,9 +71,39 @@ namespace msn2.net.Pictures.Controls.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Folder {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("Folder", resourceCulture)));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap lock1 {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("lock1", resourceCulture)));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap move {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("move", resourceCulture)));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Properties {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("Properties", resourceCulture)));
+            }
+        }
+        
         internal static System.Drawing.Bitmap up {
             get {
                 return ((System.Drawing.Bitmap)(ResourceManager.GetObject("up", resourceCulture)));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap user {
+            get {
+                return ((System.Drawing.Bitmap)(ResourceManager.GetObject("user", resourceCulture)));
             }
         }
         

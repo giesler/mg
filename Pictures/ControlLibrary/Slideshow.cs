@@ -148,6 +148,11 @@ namespace msn2.net.Pictures.Controls
             {
                 toolPeople_Click(this, EventArgs.Empty);
             }
+
+            if (settings.Slideshow_Category_IsOpen == true)
+            {
+                toolCategories_Click(this, EventArgs.Empty);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -312,6 +317,7 @@ namespace msn2.net.Pictures.Controls
             else
             {
                 this.peopleSelect.Hide();
+                this.Focus();
             }
         }
 
@@ -383,6 +389,7 @@ namespace msn2.net.Pictures.Controls
             else
             {
                 this.groupSelect.Hide();
+                this.Focus();
             }
         }
 
@@ -454,6 +461,7 @@ namespace msn2.net.Pictures.Controls
             else
             {
                 this.categorySelect.Hide();
+                this.Focus();
             }
         }
 

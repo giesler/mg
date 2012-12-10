@@ -1224,6 +1224,7 @@ namespace msn2.net.Controls
 				rolledUp		= false;
 				rollupHover		= false;
 				buttonRollup.Refresh();
+                this.Refresh();
 
 				if (Rollup_Expand != null)
 					Rollup_Expand(this, EventArgs.Empty);

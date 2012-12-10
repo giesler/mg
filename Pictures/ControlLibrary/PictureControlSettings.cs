@@ -191,11 +191,11 @@ namespace msn2.net.Pictures.Controls
         {
             get
             {
-                return this.lastEmail;
+                return (string) this["Last_Login_Email"];
             }
             set
             {
-                this.lastEmail = value;
+                this["Last_Login_Email"] = value;
             }
         }
 

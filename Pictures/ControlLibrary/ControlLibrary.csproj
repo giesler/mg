@@ -499,8 +499,13 @@
       <LastGenOutput>DataSetPicture.Designer.cs</LastGenOutput>
     </Content>
     <None Include="Resources\down.gif" />
+    <None Include="Resources\Folder.bmp" />
     <Content Include="Resources\FOLDER02.ICO" />
     <None Include="Resources\up.gif" />
+    <None Include="Resources\user.bmp" />
+    <None Include="Resources\move.bmp" />
+    <None Include="Resources\Properties.bmp" />
+    <None Include="Resources\lock1.bmp" />
     <Content Include="xp_close.gif" />
     <EmbeddedResource Include="Resources\folder.ico" />
     <WebReferenceUrl Include="http://www.msn2.net/Pictures/PictureManager.asmx">

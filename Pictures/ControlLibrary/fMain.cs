@@ -80,8 +80,10 @@ namespace msn2.net.Pictures.Controls
         private Panel panel1;
         private PictureList pictureList1;
         private SelectedPicturePanel selectedPictures;
-        private ToolStripButton copytofolderToolStripButton;
         private MenuItem menuRandomSlideshow;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton copytofolderToolStripButton;
         private PictureControlSettings settings = new PictureControlSettings();
 		#endregion
 
@@ -245,6 +247,7 @@ namespace msn2.net.Pictures.Controls
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuAddPictures = new System.Windows.Forms.MenuItem();
+            this.menuRandomSlideshow = new System.Windows.Forms.MenuItem();
             this.menuUpdateCachedPictures = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.menuFileExit = new System.Windows.Forms.MenuItem();
@@ -258,13 +261,14 @@ namespace msn2.net.Pictures.Controls
             this.imageSizeCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripClearAll = new System.Windows.Forms.ToolStripButton();
-            this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.rightListContainer = new System.Windows.Forms.SplitContainer();
             this.pictureList1 = new msn2.net.Pictures.Controls.PictureList();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedPictures = new msn2.net.Pictures.Controls.SelectedPicturePanel();
-            this.menuRandomSlideshow = new System.Windows.Forms.MenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.copytofolderToolStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -410,6 +414,12 @@ namespace msn2.net.Pictures.Controls
             this.menuAddPictures.Text = "&Add Pictures";
             this.menuAddPictures.Click += new System.EventHandler(this.menuAddPictures_Click);
             // 
+            // menuRandomSlideshow
+            // 
+            this.menuRandomSlideshow.Index = 1;
+            this.menuRandomSlideshow.Text = "&Random slideshow";
+            this.menuRandomSlideshow.Click += new System.EventHandler(this.menuRandomSlideshow_Click);
+            // 
             // menuUpdateCachedPictures
             // 
             this.menuUpdateCachedPictures.Index = 2;
@@ -430,7 +440,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 515);
+            this.statusBar1.Location = new System.Drawing.Point(0, 389);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -460,8 +470,10 @@ namespace msn2.net.Pictures.Controls
             this.viewbyToolStripComboBox,
             this.toolStripLabel1,
             this.imageSizeCombo,
+            this.toolStripSeparator1,
             this.toolStripSelectAll,
             this.toolStripClearAll,
+            this.toolStripSeparator2,
             this.copytofolderToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -523,12 +535,6 @@ namespace msn2.net.Pictures.Controls
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
             // 
-            // copytofolderToolStripButton
-            // 
-            this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
-            this.copytofolderToolStripButton.Text = "Copy to folder";
-            this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
-            // 
             // mainSplitContainer
             // 
             this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -538,7 +544,7 @@ namespace msn2.net.Pictures.Controls
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 490);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 364);
             this.mainSplitContainer.SplitterDistance = 167;
             this.mainSplitContainer.TabIndex = 17;
             this.mainSplitContainer.Text = "splitContainer2";
@@ -559,8 +565,8 @@ namespace msn2.net.Pictures.Controls
             // 
             this.rightListContainer.Panel2.Controls.Add(this.panel1);
             this.rightListContainer.Panel2MinSize = 50;
-            this.rightListContainer.Size = new System.Drawing.Size(847, 490);
-            this.rightListContainer.SplitterDistance = 349;
+            this.rightListContainer.Size = new System.Drawing.Size(847, 364);
+            this.rightListContainer.SplitterDistance = 223;
             this.rightListContainer.TabIndex = 16;
             this.rightListContainer.Text = "splitContainer1";
             // 
@@ -570,8 +576,9 @@ namespace msn2.net.Pictures.Controls
             this.pictureList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureList1.Location = new System.Drawing.Point(0, 0);
             this.pictureList1.Name = "pictureList1";
-            this.pictureList1.Size = new System.Drawing.Size(847, 349);
+            this.pictureList1.Size = new System.Drawing.Size(847, 223);
             this.pictureList1.TabIndex = 0;
+            this.pictureList1.SelectedChanged += new msn2.net.Pictures.Controls.PictureItemEventHandler(this.pictureList1_SelectedChanged);
             this.pictureList1.MultiSelectStart += new System.EventHandler(this.pictureList1_MultiSelectStart);
             this.pictureList1.MultiSelectEnd += new System.EventHandler(this.pictureList1_MultiSelectEnd);
             // 
@@ -594,15 +601,24 @@ namespace msn2.net.Pictures.Controls
             this.selectedPictures.Size = new System.Drawing.Size(847, 137);
             this.selectedPictures.TabIndex = 0;
             // 
-            // menuRandomSlideshow
+            // toolStripSeparator1
             // 
-            this.menuRandomSlideshow.Index = 1;
-            this.menuRandomSlideshow.Text = "&Random slideshow";
-            this.menuRandomSlideshow.Click += new System.EventHandler(this.menuRandomSlideshow_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            // 
+            // copytofolderToolStripButton
+            // 
+            this.copytofolderToolStripButton.Image = msn2.net.Pictures.Controls.Properties.Resources.move;
+            this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
+            this.copytofolderToolStripButton.Text = "Copy to folder";
+            this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
             // 
             // fMain
             // 
-            this.ClientSize = new System.Drawing.Size(1018, 531);
+            this.ClientSize = new System.Drawing.Size(1018, 405);
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
@@ -1045,6 +1061,11 @@ namespace msn2.net.Pictures.Controls
 
         void pictureList1_SelectedChanged(object sender, PictureItemEventArgs e)
         {
+            bool itemSelected = (pictureList1.SelectedItems.Count > 0);
+
+            toolStripClearAll.Enabled = itemSelected;
+            toolStripSelectAll.Enabled = (pictureList1.SelectedItems.Count != pictureList1.Controls.Count);
+            copytofolderToolStripButton.Enabled = itemSelected;
         }
 
         private void imageSizeCombo_SelectedIndexChanged(object sender, EventArgs e)
