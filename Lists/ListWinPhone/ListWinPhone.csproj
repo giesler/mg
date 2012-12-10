@@ -245,11 +245,11 @@
     <WCFMetadataStorage Include="Service References\ListData\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Externals\Microsoft.Live\Microsoft.Live.csproj">
+    <ProjectReference Include="..\..\Externals\Microsoft.Live\Microsoft.Live.csproj">
       <Project>{E8FD7F2E-723B-4B1F-8C8D-4875E9831E1D}</Project>
       <Name>Microsoft.Live</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj">
+    <ProjectReference Include="..\..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj">
       <Project>{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}</Project>
       <Name>System.Data.Services.Client</Name>
     </ProjectReference>
