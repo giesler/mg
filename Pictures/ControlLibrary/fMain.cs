@@ -1067,8 +1067,8 @@ namespace msn2.net.Pictures.Controls
 
             Slideshow ss = new Slideshow(
                 this.settings,
-                new GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
-                new GetNextItemIdDelegate(pictureList1.GetNextPicture));
+                new msn2.net.Pictures.Controls.Slideshow.GetPreviousItemIdDelegate(pictureList1.GetPreviousPicture),
+                new msn2.net.Pictures.Controls.Slideshow.GetNextItemIdDelegate(pictureList1.GetNextPicture));
             ss.SetPicture(e.Picture);
             ss.SetSourceForm(this);
             ss.Show();

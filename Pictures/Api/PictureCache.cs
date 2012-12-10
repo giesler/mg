@@ -63,7 +63,7 @@ namespace msn2.net.Pictures
                     }
                     catch (Exception ex)
                     {
-                        Trace.WriteLine("Failed to delete " + targetFile);
+                        Trace.WriteLine("Failed to delete " + targetFile + ": " + ex.ToString());
                     }
                 }
             }

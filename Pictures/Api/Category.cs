@@ -142,6 +142,11 @@ namespace msn2.net.Pictures
 
             return returnValue;
         }
+        
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
 }

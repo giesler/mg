@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="msn2.net.Pictures.OptionsForm" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAQEKQBgAAAAACACMCCAgxEEgAAkAAAARAAACA=</HashCode>
+      <FileName>OptionsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.Pictures.ScreenSaverForm" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYCCAQAAACFIABgAAACAAhMCAACAFIAAgABBABBCAAA=</HashCode>
+      <FileName>ScreenSaverForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.Program" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.Pictures.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAABUAAAAQAAAAAAAAAAEAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2.net.Pictures.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIEAAAAgBAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.Rss.RssChannel" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAACEAAAAgAAAAAAAAAAAAAAAAAQAAAAEA=</HashCode>
+      <FileName>Rss\RssChannel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.Rss.RssFeed" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAQAAAAEAA=</HashCode>
+      <FileName>Rss\RssFeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.Rss.RssItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAgAEAAIAAAAAAAAAAAAAAAAAAAQAAAAEA=</HashCode>
+      <FileName>Rss\RssItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.UI.ItemDescriptionView&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAQAAACUAgAAEAIoAAAIikAAHIDAAEAAiAAEIAAA=</HashCode>
+      <FileName>UI\ItemDescriptionView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="msn2PicturesScreenSaver.UI.ItemListView&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GIEABRSASCEFgACAAIoBSACCAAEAgiAACJMkAAgLAAA=</HashCode>
+      <FileName>UI\ItemListView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="msn2PicturesScreenSaver.UI.IItem" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\IItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -42,7 +42,7 @@ namespace msn2.net.Pictures.Controls
         {
             PictureItem item = new PictureItem(picture);
             item.CustomPaint = true;
-            item.RequestPaint += new EventHandler(item_RequestPaint);
+            //item.RequestPaint += new EventHandler(item_RequestPaint);
             pictures.Add(item);
             this.Controls.Add(item);
             UpdateControls();
@@ -141,17 +141,17 @@ namespace msn2.net.Pictures.Controls
 
         }
 
-        void item_RequestPaint(object sender, EventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new MethodInvoker(this.Refresh));
-            }
-            else
-            {
-                this.Refresh();
-            }
-        }
+        //void item_RequestPaint(object sender, EventArgs e)
+        //{
+        //    if (this.InvokeRequired)
+        //    {
+        //        this.BeginInvoke(new MethodInvoker(this.Refresh));
+        //    }
+        //    else
+        //    {
+        //        this.Refresh();
+        //    }
+        //}
 
         bool suspendPaint = false;
         public bool SuspendPaint

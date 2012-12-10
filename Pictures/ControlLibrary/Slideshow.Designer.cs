@@ -258,7 +258,6 @@
             // Slideshow
             // 
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(988, 606);
             this.Controls.Add(this.toolStip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Slideshow";

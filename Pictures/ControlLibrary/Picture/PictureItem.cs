@@ -159,26 +159,28 @@ namespace msn2.net.Pictures.Controls
 
         void RepaintImage()
         {
+            this.resized = false;
+
             if (this.InvokeRequired)
             {
                 this.BeginInvoke(new MethodInvoker(RepaintImage));
                 return;
             }
 
-            if (this.CustomPaint)
-            {
-                if (null != RequestPaint)
-                {
-                    RequestPaint(this, EventArgs.Empty);
-                }
-            }
-            else
+            //if (this.CustomPaint)
+            //{
+            //    if (null != RequestPaint)
+            //    {
+            //        RequestPaint(this, EventArgs.Empty);
+            //    }
+            //}
+            //else
             {
                 this.Invalidate();
             }
         }
 
-        public event EventHandler RequestPaint;
+        //public event EventHandler RequestPaint;
 
         void PictureItem_Resize(object sender, EventArgs e)
         {
@@ -289,6 +291,8 @@ namespace msn2.net.Pictures.Controls
             if (null == smallImage && useSmallImage
                 || null == image && !useSmallImage)
             {
+                Trace.WriteLine("Printing loading...");
+
                 ThreadPool.QueueUserWorkItem(new WaitCallback(LoadImage));
                 PrintLoading(e.Graphics);
 
@@ -308,7 +312,12 @@ namespace msn2.net.Pictures.Controls
             if ((null != image || null != smallImage) && 
                 (resized || null == sizedImage))
             {
-                SizeImage(useSmallImage);
+                Trace.WriteLine("Printing loading 2...");
+
+                PrintLoading(e.Graphics);
+
+                ThreadPool.QueueUserWorkItem(new WaitCallback(SizeImage), useSmallImage);
+                return;
             }
 
             if (null != sizedImage)
@@ -334,7 +343,7 @@ namespace msn2.net.Pictures.Controls
                 {
                     RectangleDropShadow(e.Graphics, e.ClipRectangle, SystemColors.Highlight, 1, 150);
                 }
-                else
+                else if (this.drawBorder == true)
                 {
                     using (Brush brush = new SolidBrush(this.BackColor))
                     {
@@ -342,17 +351,21 @@ namespace msn2.net.Pictures.Controls
                     }
                 }
 
+                if (this.drawBorder == true && this.drawShadow == true)
+                {
+                    using (SolidBrush brush = new SolidBrush(Color.White))
+                    {
+                        using (Pen pen = new Pen(brush))
+                        {
+                            e.Graphics.DrawRectangle(pen, xOffset, yOffset, sizedImage.Width, sizedImage.Height);
+                        }
+                    }
+                }
+
                 e.Graphics.DrawImage(sizedImage,
                     new Rectangle(xOffset, yOffset, sizedImage.Width, sizedImage.Height),
                     0, 0, sizedImage.Width, sizedImage.Height, GraphicsUnit.Pixel, imageAtt);
 
-                using (SolidBrush brush = new SolidBrush(Color.White))
-                {
-                    using (Pen pen = new Pen(brush))
-                    {
-                        e.Graphics.DrawRectangle(pen, xOffset, yOffset, sizedImage.Width, sizedImage.Height);
-                    }
-                }
             }
             else
             {
@@ -363,10 +376,11 @@ namespace msn2.net.Pictures.Controls
         private int sizedX;
         private int sizedY;
 
-        private void SizeImage(bool useSamllImage)
+        private void SizeImage(object oUseSmallImage)
         {
-            float imageHeight = (useSamllImage ? smallImage.Height : image.Height);
-            float imageWidth = (useSamllImage ? smallImage.Width : image.Width);
+            bool useSmallImage = bool.Parse(oUseSmallImage.ToString());
+            float imageHeight = (useSmallImage ? smallImage.Height : image.Height);
+            float imageWidth = (useSmallImage ? smallImage.Width : image.Width);
 
             int newX = 0;
             int newY = 0;
@@ -398,6 +412,11 @@ namespace msn2.net.Pictures.Controls
             {
                 int padding = (this.Width > 75 ? 3 : 2);
 
+                if (this.drawBorder == false)
+                {
+                    padding = 0;
+                }
+
                 // Draw drop shadow
                 sizedImageRectangle = new Rectangle(newX + padding, newY + padding, newWidth - (padding * 2), newHeight - (padding * 2));
 
@@ -416,7 +435,7 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 // Draw actual image
-                if (useSamllImage)
+                if (useSmallImage)
                 {
                     g.DrawImage(smallImage, newX + imageBorder + padding, newY + imageBorder + padding,
                         newWidth - offset - imageBorder - (padding * 2), newHeight - offset - imageBorder - (padding * 2));
@@ -430,6 +449,8 @@ namespace msn2.net.Pictures.Controls
 
             sizedX = newX;
             sizedY = newY;
+
+            this.RepaintImage();
         }
 
         void PictureItem_Disposed(object sender, EventArgs e)

@@ -52,6 +52,7 @@ namespace msn2.net.Pictures.Controls
             item.DrawShadow = false;
             item.DrawBorder = false;
             item.Dock = DockStyle.Fill;
+            item.Padding = new Padding(0);
             this.Controls.Add(item);
 
             this.toolStip.ImageScalingSize = new Size(32, 32);
