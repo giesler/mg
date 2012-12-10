@@ -133,7 +133,7 @@ namespace pics.Controls
                 			
 				
 				// Now we want to create the login info in the right cell
-				if (_showUserInfo && httpContext.Request.IsAuthenticated) 
+				if (_showUserInfo && PicContext.Current.CurrentUser != null) 
 				{
                     Table tLoginInfo = new Table();
 					tLoginInfo.Height	= Unit.Percentage(100);
