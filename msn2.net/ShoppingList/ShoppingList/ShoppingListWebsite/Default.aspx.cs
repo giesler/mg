@@ -14,7 +14,7 @@ using System.Net;
 using ShoppingListService;
 using System.Threading;
 
-public partial class _Default : System.Web.UI.Page 
+public partial class _Default : System.Web.UI.Page
 {
     private ShoppingListService.ShoppingListServiceClient client = null;
 
@@ -38,6 +38,8 @@ public partial class _Default : System.Web.UI.Page
 
         this.addButton.Click += new EventHandler(addButton_Click);
 
+        Page.Form.DefaultButton = this.addButton.UniqueID;
+
         if (this.IsPostBack == false)
         {
             string script = "function initDataLoad() {" + ClientScript.GetPostBackEventReference(this.updatePanel, "onInitLoad") + "; }";
@@ -53,9 +55,24 @@ public partial class _Default : System.Web.UI.Page
             {
                 if (eventArg.Contains("onInitLoad") == true)
                 {
+                    this.defaultView.Visible = true;
+                    this.storeList.Visible = true;
+
                     this.ReloadAll();
+
+                    this.addItem.Focus();
                 }
             }
+        }
+    }
+
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+
+        if (this.storeList.SelectedIndex == -1)
+        {
+            this.storeList.SelectedIndex = 0;
         }
     }
 
@@ -64,6 +81,8 @@ public partial class _Default : System.Web.UI.Page
         this.defaultView.Visible = true;
         this.bulkAddPanel.Visible = false;
         this.storeList.Enabled = true;
+
+        this.addItem.Focus();
     }
 
     void bulkAdd_Click(object sender, EventArgs e)
@@ -80,6 +99,8 @@ public partial class _Default : System.Web.UI.Page
         this.ReloadAll();
 
         cancel_Click(this, EventArgs.Empty);
+
+        this.addItem.Focus();
     }
 
     void showBulkAdd_Click(object sender, EventArgs e)
@@ -88,6 +109,8 @@ public partial class _Default : System.Web.UI.Page
         this.defaultView.Visible = false;
         this.bulkAddPanel.Visible = true;
         this.storeList.Enabled = false;
+
+        this.bulkText.Focus();
     }
 
     void addButton_Click(object sender, EventArgs e)
@@ -177,6 +200,8 @@ public partial class _Default : System.Web.UI.Page
             this.GridView1.DataSource = q;
             this.GridView1.DataBind();
         }
+
+        this.addItem.Focus();
     }
 
     protected void ReloadAll()
@@ -188,15 +213,15 @@ public partial class _Default : System.Web.UI.Page
         List<string> stores = this.client.GetStores();
         List<ShoppingListService.ShoppingListItem> items = this.client.GetShoppingListItems();
         var allItems = from i in items
-                         group i by i.Store into g
-                         orderby g.Key
-                         select new { Name = g.Key, Items = g };
+                       group i by i.Store into g
+                       orderby g.Key
+                       select new { Name = g.Key, Items = g };
 
         foreach (string storeName in stores)
         {
             var q = from s in allItems
-                             where s.Name == storeName
-                             select s;
+                    where s.Name == storeName
+                    select s;
 
             string title = storeName;
             var storeItems = q.Count() > 0 ? q.First() : null;

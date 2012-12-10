@@ -24,7 +24,7 @@
                 <asp:Table ID="Table1" runat="server" Width="100%">
                     <asp:TableRow>
                         <asp:TableCell ID="TableCell2" runat="server" Width="20%" VerticalAlign="Top">
-                            <asp:ListBox ID="storeList" runat="server" AutoPostBack="True" Rows="10" Font-Names="Tahoma"
+                            <asp:ListBox ID="storeList" runat="server" AutoPostBack="True" Rows="10" Font-Names="Tahoma" Visible="false"
                                 Font-Size="Smaller"></asp:ListBox>
                         </asp:TableCell>
                         <asp:TableCell ID="TableCell3" runat="server" Width="80%" VerticalAlign="Top">
@@ -35,7 +35,7 @@
                                     </asp:Label>
                                 </ProgressTemplate>
                             </asp:UpdateProgress>
-                            <asp:Panel runat="server" ID="defaultView">
+                            <asp:Panel runat="server" ID="defaultView" Visible="false">
                                 <asp:Panel runat="server" ID="addPanel">
                                     <asp:TextBox runat="server" ID="addItem" /><asp:Button runat="server" ID="addButton"
                                         Text="Add" />

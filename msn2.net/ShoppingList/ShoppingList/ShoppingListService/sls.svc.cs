@@ -83,12 +83,5 @@ namespace msn2.net.ShoppingList
             this.dataContext.StoreItems.DeleteOnSubmit(item);
             this.dataContext.SubmitChanges();
         }
-
-        private void AddAttribute(XmlDocument doc, XmlNode node, string name, string val)
-        {
-            XmlAttribute att = doc.CreateAttribute(name);
-            att.Value = val;
-            node.Attributes.Append(att);
-        }
     }
 }

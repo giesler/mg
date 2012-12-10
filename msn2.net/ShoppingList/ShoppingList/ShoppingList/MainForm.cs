@@ -469,6 +469,8 @@ namespace msn2.net.ShoppingList
 
             this.UpdateStatus();
 
+            this.TriggerResizeCheck();
+
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.GetAllItems), new object());
         }
 
@@ -625,17 +627,22 @@ namespace msn2.net.ShoppingList
             {
                 this.SetColumnWidth();
 
-                if (this.timerResizeCheck == null)
-                {
-                    this.timerResizeCheck = new WinForms.Timer();
-                    this.timerResizeCheck.Tick += new EventHandler(timerResizeCheck_Tick);
-                    this.timerResizeCheck.Interval = 500;
-                }
+                TriggerResizeCheck();
+            }
+        }
 
-                if (this.timerResizeCheck.Enabled == false)
-                {
-                    this.timerResizeCheck.Enabled = true;
-                }
+        private void TriggerResizeCheck()
+        {
+            if (this.timerResizeCheck == null)
+            {
+                this.timerResizeCheck = new WinForms.Timer();
+                this.timerResizeCheck.Tick += new EventHandler(timerResizeCheck_Tick);
+                this.timerResizeCheck.Interval = 500;
+            }
+
+            if (this.timerResizeCheck.Enabled == false)
+            {
+                this.timerResizeCheck.Enabled = true;
             }
         }
 
