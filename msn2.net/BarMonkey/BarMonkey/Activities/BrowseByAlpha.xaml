@@ -1,16 +1,36 @@
 ﻿<Page x:Class="msn2.net.BarMonkey.Activities.BrowseByAlpha"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bnc="clr-namespace:msn2.net.BarMonkey"
     Title="BrowseByAlpha">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="214*" />
-            <ColumnDefinition Width="86*" />
+            <ColumnDefinition Width="66*" />
+            <ColumnDefinition Width="33*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="62*" />
             <RowDefinition Height="196*" />
             <RowDefinition Height="42*" />
         </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Content="&lt;" />
+            <Button Content="A B C" />
+            <Button Content="D - G" />
+            <Button Content="H - L" />
+            <Button Content="M - Q" />
+            <Button Content="R S T" />
+            <Button Content="U - 9" />
+            <Button Content="&gt;" />
+        </StackPanel>
+        <ListBox Grid.Row="1" Name="drinkList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Path=Name}" Tag="{Binding Path=Id}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Label Grid.Row="1" Grid.Column="1" Name="description" Margin="5" Style="{DynamicResource DefaultTextStyle}">Description of the drink goes here!</Label>
+        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="2" x:Name="navBar" />
     </Grid>
 </Page>

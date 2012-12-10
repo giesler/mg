@@ -15,7 +15,7 @@
             <RowDefinition Height="75" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <Label Name="viewby" FontSize="22" Content="view by" />
+            <Label Name="viewby" FontSize="22" Content="view by" Style="{DynamicResource DefaultTextStyle}" />
             <bnc:NavigationButtonStack x:Name="navStack" />
         </StackPanel>
         <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />

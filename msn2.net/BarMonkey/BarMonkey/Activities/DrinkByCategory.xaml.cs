@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace msn2.net.BarMonkey.Activities
 {
     /// <summary>
-    /// Interaction logic for BrowseByAlpha.xaml
+    /// Interaction logic for DrinkByCategory.xaml
     /// </summary>
-    public partial class BrowseByAlpha : Page
+    public partial class DrinkByCategory : Page
     {
-        public BrowseByAlpha()
+        public DrinkByCategory()
         {
             InitializeComponent();
         }
@@ -27,8 +27,6 @@ namespace msn2.net.BarMonkey.Activities
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-            this.drinkList.ItemsSource = BarMonkeyContext.Current.Drinks.GetDrinks("");
 
             this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
             this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };

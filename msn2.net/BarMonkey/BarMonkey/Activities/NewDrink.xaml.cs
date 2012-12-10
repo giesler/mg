@@ -35,7 +35,7 @@ namespace msn2.net.BarMonkey.Activities
 
         private void byName_Click(object sender, RoutedEventArgs e)
         {
-            base.NavigationService.Navigate(new SearchDrinks());
+            base.NavigationService.Navigate(new DrinkDisplayOptions());
         }
 
         private void byIngredient_Click(object sender, RoutedEventArgs e)

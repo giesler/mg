@@ -110,6 +110,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Activities\DrinkByCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Activities\SelectIngredients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +224,9 @@
     </Compile>
     <Compile Include="Activities\BrowseByAlpha.xaml.cs">
       <DependentUpon>BrowseByAlpha.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Activities\DrinkByCategory.xaml.cs">
+      <DependentUpon>DrinkByCategory.xaml</DependentUpon>
     </Compile>
     <Compile Include="Activities\SelectIngredients.xaml.cs">
       <DependentUpon>SelectIngredients.xaml</DependentUpon>
