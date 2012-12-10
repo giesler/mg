@@ -75,38 +75,113 @@ BOOL CAutorunApp::InitInstance()
 		gLog.LogEvent("Running in setup only mode");
 	}
 
-	// if no command line options, show dialog allowing cancel  (options are passed by RunOnce)
-	if (!bIsSetup && (m_lpCmdLine[0] == '\0')) {
-		gLog.LogEvent("Displaying autorun dialog.");
-		CAutorunDlg dlg;
-		int nResponse = dlg.DoModal();
-		if (nResponse != IDOK) {
-			gLog.LogEvent("User hit cancel on autorun dialog.");
-			return false;
+	bool showDialog = true;
+	CDlgButton* pButton = NULL;
+
+	// Initialize dialog in case we need it below
+	CAutorunDlg dlg;
+	dlg.LoadButtons(&mlstButtons);
+
+	// Handle command line options
+	if (m_lpCmdLine[0] != '\0') {
+		CString strCommand = m_lpCmdLine;
+
+		// If the command line starts with '/dialog' we just want to show the dialog again
+		if (strCommand.Left(7) == "/dialog") {
+			gLog.LogEvent("Showing splash dialog since button '" + strCommand.Mid(8) + "' completed");
+		} else if (strCommand.Left(9) == "/continue") {
+			gLog.LogEvent("Continuing system updates for button '" + strCommand.Mid(10) + "'");
+			CString id = strCommand.Mid(10);
+			id.TrimLeft();
+			id.TrimRight();
+			pButton = dlg.FindButtonById(id);
+		} else {
+			gLog.LogEvent("Ignoring unknown command line: " + strCommand);
 		}
+
 	}
 
-	// check system updates
-	if (SysUpdates()) {
+	// loop until we want to stop showing the dialog
+	while (showDialog) {
 
-		// now install components
-		if (InstallComponents()) {
-			// now run setup
-			gLog.LogEvent("All components installed, starting setup/msi.");
-			CString sSetupCommand = gUtils.EXEPath() + mstrSetup;
-			gUtils.Exec(sSetupCommand, mstrCmdLine);
-		} else {
-			// check if cancelled, otherwise we need to reboot
-			if (m_blnCancel) {
-				gLog.LogEvent("Setup cancelled, application exiting.");
+		// Show the dialog if we don't already have a button selected
+		if (pButton == NULL) {
+		
+			gLog.LogEvent("Displaying autorun dialog.");
+			int nResponse = dlg.DoModal();
+		
+			// Check if user hit a cancel button
+			if (nResponse != IDOK) {
+				gLog.LogEvent("User hit cancel on autorun dialog.");
 				return false;
 			}
-			// InstallComponents returned false, and we didn't cancel, so we must reboot
-			if (mblnRebootComputer)
-				RebootComputer("/continue");
-			else
-				gLog.LogEvent("SysUpdates returned false, possible error.");
+
+			// No cancel, so check what we should do now
+			pButton = dlg.selectedButton;
+
 		}
+
+		// See if we need to do system updates
+		if (pButton->mblnComponentCheck) {
+			
+			// check what is installed
+			if (SysUpdates()) {
+
+				// Try installing components
+				if (!InstallComponents()) {
+					
+					// check if user clicked cancel - if not, reboot needed
+					if (m_blnCancel) {
+						gLog.LogEvent("Setup cancelled, application exiting.");
+						return false;
+					} else if (mblnRebootComputer) {
+						RebootComputer("/continue " + pButton->mstrId); 
+						return false;
+					} else {
+						// InstallComponents returned false, and we didn't cancel, so we must reboot
+						gLog.LogEvent("SysUpdates returned false, possible error.");
+					}
+				}
+
+				// Any system updates have now been installed
+				gLog.LogEvent("All system updates installed.");
+			}
+		}	// done mblnComponentCheck
+
+		// Perform button action
+		CString sSetupCommand;
+		bool async = (pButton->mtypDialogAction == DialogActionShowWhenActionComplete);
+		switch (pButton->mtypDlgButtonType) {
+
+			case DlgButtonTypeRunProgram:
+				sSetupCommand = gUtils.EXEPath() + mstrSetup;
+				gUtils.Exec(sSetupCommand, mstrCmdLine, async, false);
+				// Check if we should restart
+				if (pButton->mblnRestartPrompt) {
+					RebootComputer("/dialog " + pButton->mstrId);
+					return false;
+				}
+				break;
+
+			case DlgButtonTypeLaunchUrl:
+				AfxMessageBox("Launch URL: " + pButton->mstrUrl, MB_OK);
+				break;
+
+			case DlgButtonTypeShellExecute:
+				AfxMessageBox("Shell Execute: " + pButton->mstrFile, MB_OK);
+				
+				break;
+
+			default:
+				gLog.LogEvent("Unknown button type.");
+				break;
+		}
+
+
+		// Check if we want to show the dialog again, and reset selected button
+		showDialog = (pButton->mtypDialogAction != DialogActionDoNotShowDialog);
+		pButton = NULL;
+
 	}
 
 	// delete whole list since we are done with it
@@ -251,19 +326,61 @@ void CAutorunApp::LoadSettings() {
 
 	TCHAR * lpReturnedString; 
 	lpReturnedString = (TCHAR*) malloc(1000);
+	CString sFileName = gUtils.EXEPath() + "vbsw\\settings.ini";
 
 	// Start by getting basic settings
-	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
+	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, sFileName);
 	mstrAppName = lpReturnedString;
 	gUtils.m_strAppName = mstrAppName;
 
-	GetPrivateProfileString("Settings", "Setup", "setup\\setup.exe", lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
+	// Reboot settings
+	GetPrivateProfileString("Settings", "RebootPromptType", mstrAppName, lpReturnedString, 255, sFileName);
+	int intTemp = GetPrivateProfileInt("Settings", "RebootPromptType", 1, sFileName);
+	if (intTemp == 1) 
+		mblnTimerReboot = false;
+	else
+		mblnTimerReboot = true;
+	mintTimerSeconds = GetPrivateProfileInt("Settings", "RebootPromptSeconds", 20, sFileName);
+
+
+	//TODO: remove
+	GetPrivateProfileString("Settings", "Setup", "setup\\setup.exe", lpReturnedString, 255, sFileName);
 	mstrSetup   = lpReturnedString;
 
-	GetPrivateProfileString("Settings", "CmdLine", "", lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
+	//TODO: remove
+	GetPrivateProfileString("Settings", "CmdLine", "", lpReturnedString, 255, sFileName);
 	mstrCmdLine = lpReturnedString;
 
-		// Free allocated strings
+	// Load buttons
+	// NOTE: must have called a get string before this due to win95/98 bug, Q198906
+	GetPrivateProfileSection("Buttons", lpReturnedString, 255, sFileName);
+
+	// Now break up the string of buttons, and load info for each button
+	CDlgButton * pobjDlgButton; CString strButtonId; CString strTemp;
+	TCHAR * lpTemp = lpReturnedString;
+	while (lpTemp != NULL) {
+		strButtonId = lpTemp;
+		// check if button enabled
+		strTemp = strButtonId.Mid(strButtonId.Find("="),1);
+		if (strTemp.CompareNoCase("1")) {
+			if (strButtonId.Right(1).CompareNoCase("0") == 0) {
+				 // skip this component
+			} else {
+				strButtonId = strButtonId.Left(strButtonId.Find("="));
+				pobjDlgButton = new CDlgButton;
+				if (pobjDlgButton->Load(strButtonId, sFileName))
+					mlstButtons.AddTail(pobjDlgButton);
+			}
+			while (*lpTemp != '\0')		// advance to next section in string
+				lpTemp++;
+			if (*lpTemp == '\0')			// new sections
+				lpTemp++;
+			if (*lpTemp == '\0')			// if at second null in a row, done
+				break;
+		}	// end if enabled
+	}	// end while
+
+	// Free allocated strings
 	free(lpReturnedString);
 
 }
@@ -376,6 +493,9 @@ bool CAutorunApp::RebootComputer(CString strCmdLine) {
 
 	CRestartDlg dlg;
 	dlg.m_strAppName = mstrAppName;
+	dlg.mblnTimerReboot = mblnTimerReboot;
+	dlg.mintTimerSeconds = mintTimerSeconds;
+
 	if (dlg.DoModal() == IDOK) {
 		// we want to reboot, but first adjust process privs
 		gLog.LogEvent("Restarting computer...");

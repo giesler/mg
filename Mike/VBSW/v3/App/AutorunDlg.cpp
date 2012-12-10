@@ -5,6 +5,9 @@
 #include "Autorun.h"
 #include "AutorunDlg.h"
 #include "util.h"
+#include "winsock2.h"
+#include "windows.h"
+#include "mmsystem.h"
 
 #ifdef _DEBUG
 	#define new DEBUG_NEW
@@ -80,9 +83,6 @@ void CAutorunDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAutorunDlg)
-	DDX_Control(pDX, IDC_BETAPIC, m_BetaBanner);
-	DDX_Control(pDX, IDC_B2, m_b2);
-	DDX_Control(pDX, IDC_B1, m_b1);
 	DDX_Control(pDX, IDOK, mbtnOK);
 	DDX_Control(pDX, IDCANCEL, mbtnCancel);
 	DDX_Control(pDX, IDC_PIC, m_pic);
@@ -107,7 +107,6 @@ BOOL CAutorunDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
 
-
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
@@ -116,7 +115,7 @@ BOOL CAutorunDlg::OnInitDialog()
 	SetWindowText(mstrAppName);
 	CString strSplash;
 
-	// check for picture
+	// check for splash picture
 	CString strTemp;
 	HBITMAP hBmp;
 	strTemp = GetINIString("Splash");
@@ -127,71 +126,55 @@ BOOL CAutorunDlg::OnInitDialog()
 			m_pic.SetBitmap(hBmp);
 	}
 
-	// Load button images
-	strTemp = EXEPath() + GetINIString("InstallStandard");
-	m_b1bmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	strTemp = EXEPath() + GetINIString("InstallMouseOver");
-	m_b1MObmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	strTemp = EXEPath() + GetINIString("InstallMouseClick");
-	m_b1MCbmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	strTemp = EXEPath() + GetINIString("CancelStandard");
-	m_b2bmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	strTemp = EXEPath() + GetINIString("CancelMouseOver");
-	m_b2MObmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	strTemp = EXEPath() + GetINIString("CancelMouseClick");
-	m_b2MCbmp = (HBITMAP)::LoadImage(NULL, strTemp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
-	if (m_b1bmp != NULL)  m_b1.SetBitmap(m_b1bmp);
-	if (m_b2bmp != NULL)  m_b2.SetBitmap(m_b2bmp);
-	m_b1MO = false; m_b2MO = false;
-	m_b1MC = false; m_b2MC = false;
-
 	// Get coords set up
 	CRect rect_pic;
-	m_b1.GetWindowRect(&m_b1rect);
-	m_b2.GetWindowRect(&m_b2rect);
 	m_pic.GetWindowRect(&rect_pic);
 
 	// adjust window position, sizes, etc.
 	MoveWindow(0, 0, rect_pic.Width(), rect_pic.Height());
-	int intTop = 0, intLeft = 0;
-	intTop = rect_pic.Height() - m_b1rect.Height() - 40;
-	intLeft = rect_pic.Width() - m_b1rect.Width() - m_b2rect.Width() - 40;
-	intTop = GetINIInt("InstallTop", intTop);
-	intLeft = GetINIInt("InstallLeft", intLeft);
-	m_b1.MoveWindow(intLeft, intTop, m_b1rect.Width(), m_b1rect.Height());
-
-	intLeft = rect_pic.Width() - m_b2rect.Width() - 20;
-	intTop = GetINIInt("CancelTop", intTop);
-	intLeft = GetINIInt("CancelLeft", intLeft);
-	m_b2.MoveWindow(intLeft, intTop, m_b2rect.Width(), m_b2rect.Height());
-	
-	m_b1.GetWindowRect(&m_b1rect);
-	m_b2.GetWindowRect(&m_b2rect);
-
-	// adjust coords
-	m_b1rect.left   = m_b1rect.left - rect_pic.left;
-	m_b1rect.right  = m_b1rect.right  - rect_pic.left;
-	m_b1rect.top    = m_b1rect.top  - rect_pic.top;
-	m_b1rect.bottom = m_b1rect.bottom - rect_pic.top;
-
-	m_b2rect.left   = m_b2rect.left - rect_pic.left;
-	m_b2rect.right  = m_b2rect.right  - rect_pic.left;
-	m_b2rect.top    = m_b2rect.top  - rect_pic.top;
-	m_b2rect.bottom = m_b2rect.bottom - rect_pic.top;
-
-	// beta stuff
-	m_BetaBanner.GetWindowRect(&m_betarect);
-	m_betarect.left   = m_betarect.left - rect_pic.left;
-	m_betarect.right  = m_betarect.right  - rect_pic.left;
-	m_betarect.top    = m_betarect.top  - rect_pic.top;
-	m_betarect.bottom = m_betarect.bottom - rect_pic.top;
 
 	// Add "About..." menu item to system menu.
-
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
+
+	CDlgButton * pobjDlgButton;
+
+	int i; 
+	POSITION pos = mlstButtons->GetHeadPosition();
+	for (i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+
+		// Create the button and add it to the dialog
+		CStatic * button;
+		button = new CStatic();
+		button->Create(pobjDlgButton->mstrId, SS_BITMAP | WS_GROUP | WS_TABSTOP, 
+			CRect(20,20,150,50), this, 0);
+
+		// Create the bitmap and set it for the button
+		if (pobjDlgButton->mbmpStandard != NULL)
+			button->SetBitmap(pobjDlgButton->mbmpStandard);
+
+		// Get the image size back
+		button->GetWindowRect(& (pobjDlgButton->mrect) );
+
+		// Now position correctly
+		button->MoveWindow(pobjDlgButton->mintLeft, pobjDlgButton->mintTop, pobjDlgButton->mrect.Width(), pobjDlgButton->mrect.Height());
+		button->ShowWindow(TRUE);
+
+		// Adjust coords
+		button->GetWindowRect(& (pobjDlgButton->mrect) );
+		pobjDlgButton->mrect.left	= pobjDlgButton->mrect.left - rect_pic.left;
+		pobjDlgButton->mrect.right	= pobjDlgButton->mrect.right  - rect_pic.left;
+		pobjDlgButton->mrect.top	= pobjDlgButton->mrect.top - rect_pic.top;
+		pobjDlgButton->mrect.bottom	= pobjDlgButton->mrect.bottom - rect_pic.top;
+
+		// Save it
+		pobjDlgButton->mstatic = button;
+
+		gLog.LogEvent("Initialized dialog");
+//		mlstStatics.AddTail(button);
+	}
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
 	if (pSysMenu != NULL) {
@@ -202,7 +185,7 @@ BOOL CAutorunDlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
-	
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -270,28 +253,31 @@ CString CAutorunDlg::EXEPath()
 
 void CAutorunDlg::OnLButtonUp(UINT nFlags, CPoint point) 
 {
+	
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// Check if any buttons are in the clicked state, if so, change to normal state
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
 
-	if (m_b1MC) {
-		m_b1MC = false;
-		OnMouseMove(nFlags, point);
-	} else if (m_b2MC) {
-		m_b2MC = false;
-		OnMouseMove(nFlags, point);
-	}
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		if (pobjDlgButton->mblnMouseClick) 
+		{
+			PlayButtonSound(pobjDlgButton->mstrMouseUp);
+			
+			// We were in clicked state here, so check for an action
+			if (pobjDlgButton->mblnCancel)
+			{
+				OnCancel();
+			} else {
+				selectedButton = pobjDlgButton;
+				OnOK();
+			}
 
-	// check if install button clicked
-	if (m_b1rect.left < point.x && m_b1rect.right > point.x &&
-		m_b1rect.top  < point.y && m_b1rect.bottom > point.y) {
-		OnOK();
-	} else if (m_b2rect.left < point.x && m_b2rect.right > point.x &&
-		m_b2rect.top  < point.y && m_b2rect.bottom > point.y) {
-		OnCancel();
-	}
-
-	// beta - check if beta region clicked
-	if (m_betarect.left < point.x && m_betarect.right > point.x &&
-		m_betarect.top  < point.y && m_betarect.bottom > point.y) {
-		AfxMessageBox("This program is currently in beta.  It should not be distributed.  For more details, visit http://giesler.org/vbsw.", MB_ICONINFORMATION);
+			pobjDlgButton->mblnMouseClick = false;
+			OnMouseMove(nFlags, point);
+		}
 	}
 
 	CDialog::OnLButtonUp(nFlags, point);
@@ -299,45 +285,49 @@ void CAutorunDlg::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CAutorunDlg::OnMouseMove(UINT nFlags, CPoint point) 
 {
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// Bail if any button is in 'click' state
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		if (pobjDlgButton->mblnMouseClick)
+			return;
+	}
 
-	// see if within install button region
-	if (m_b1MC || m_b2MC) {
-	} else if (m_b1rect.left < point.x && m_b1rect.right > point.x &&
-			m_b1rect.top  < point.y && m_b1rect.bottom > point.y) {
-		if (!m_b1MO) {
-			if (m_b1MObmp != NULL)  m_b1.SetBitmap(m_b1MObmp);
-			m_b1.RedrawWindow();
-			m_b1MO = true;
-		} else if (m_b2MO) {
-			if (m_b2bmp != NULL)  m_b2.SetBitmap(m_b2bmp);
-			m_b2.RedrawWindow();
-			m_b2MO = false;
+	// Loop through the button list
+	pos = mlstButtons->GetHeadPosition();
+	for (i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		CRect rect = pobjDlgButton->mrect;
+
+		// Check if we are within the region of current button
+		if (rect.left < point.x && rect.right  > point.x &&
+			rect.top  < point.y && rect.bottom > point.y)
+		{
+			if (!pobjDlgButton->mblnMouseOver) 
+			{
+				if (pobjDlgButton->mbmpMouseOver != NULL)
+					pobjDlgButton->mstatic->SetBitmap(pobjDlgButton->mbmpMouseOver);
+				pobjDlgButton->mstatic->RedrawWindow();
+				pobjDlgButton->mblnMouseOver = true;
+
+				PlayButtonSound(pobjDlgButton->mstrMouseEnter);
+			}
 		}
-	// check if in cancel button region
-	} else if (m_b2rect.left < point.x && m_b2rect.right > point.x &&
-						 m_b2rect.top  < point.y && m_b2rect.bottom > point.y) {
-		if (!m_b2MO) {
-			if (m_b2MObmp != NULL)  m_b2.SetBitmap(m_b2MObmp);
-			m_b2.RedrawWindow();
-			m_b2MO = true;
-		} else if (m_b1MO) {
-			if (m_b1bmp != NULL)  m_b1.SetBitmap(m_b1bmp);
-			m_b1.RedrawWindow();
-			m_b1MO = false;
+		// Since we aren't in region, make sure we weren't in it before
+		else if (pobjDlgButton->mblnMouseOver) 
+		{
+			// Change back to standard image
+			if (pobjDlgButton->mbmpStandard != NULL)
+				pobjDlgButton->mstatic->SetBitmap(pobjDlgButton->mbmpStandard);
+			pobjDlgButton->mstatic->RedrawWindow();
+			pobjDlgButton->mblnMouseOver = false;
+
+			PlayButtonSound(pobjDlgButton->mstrMouseExit);
 		}
-	} else {
-		// see if we were in install and now are out
-		if (m_b1MO) {
-			if (m_b1bmp != NULL)  m_b1.SetBitmap(m_b1bmp);
-			m_b1.RedrawWindow();
-			m_b1MO = false;
-		}
-		// see if we were in cancel and now are out
-		if (m_b2MO) {
-			if (m_b2bmp != NULL)  m_b2.SetBitmap(m_b2bmp);
-			m_b2.RedrawWindow();
-			m_b2MO = false;
-		}
+
 	}
 
 	CDialog::OnMouseMove(nFlags, point);
@@ -346,26 +336,32 @@ void CAutorunDlg::OnMouseMove(UINT nFlags, CPoint point)
 void CAutorunDlg::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 
-	// see if within install button region
-	if (m_b1rect.left < point.x && m_b1rect.right > point.x &&
-			m_b1rect.top  < point.y && m_b1rect.bottom > point.y) {
-		if (!m_b1MC) {
-			if (m_b1MCbmp != NULL)  m_b1.SetBitmap(m_b1MCbmp);
-			m_b1.RedrawWindow();
-			m_b1MC = true;
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// Loop through the button list
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		CRect rect = pobjDlgButton->mrect;
+
+		// Check if we are within the region of current button
+		if (rect.left < point.x && rect.right  > point.x &&
+			rect.top  < point.y && rect.bottom > point.y)
+		{
+			if (pobjDlgButton->mbmpMouseClick != NULL)
+				pobjDlgButton->mstatic->SetBitmap(pobjDlgButton->mbmpMouseClick);
+			pobjDlgButton->mstatic->RedrawWindow();
+			pobjDlgButton->mblnMouseClick = true;
+
+			PlayButtonSound(pobjDlgButton->mstrMouseDown);
 		}
-	// check if in cancel button region
-	} else if (m_b2rect.left < point.x && m_b2rect.right > point.x &&
-						 m_b2rect.top  < point.y && m_b2rect.bottom > point.y) {
-		if (!m_b2MC) {
-			if (m_b2MCbmp != NULL)  m_b2.SetBitmap(m_b2MCbmp);
-			m_b2.RedrawWindow();
-			m_b2MC = true;
+		// Since we aren't in region, make sure we weren't in it before
+		else if (pobjDlgButton->mblnMouseClick) 
+		{
+			pobjDlgButton->mblnMouseClick = false;
 		}
-	} else if (m_b1MC) {
-		m_b1MC = false;
-	} else if (m_b2MC) {
-		m_b2MC = false;
+
 	}
 	
 	CDialog::OnLButtonDown(nFlags, point);
@@ -382,9 +378,16 @@ void CAutorunDlg::LoadSettings()
 	GetPrivateProfileString("Settings", "ProgramName", mstrAppName, lpReturnedString, 255, gUtils.EXEPath() + "vbsw\\settings.ini");
 	mstrAppName = lpReturnedString;
 
-		// Free allocated strings
+	// Free allocated strings
 	free(lpReturnedString);
 }
+
+// Loads the images and info for the buttons
+void CAutorunDlg::LoadButtons(CList<CDlgButton*, CDlgButton*> * lstButtons)
+{	
+	mlstButtons = lstButtons;
+}
+
 
 CString CAutorunDlg::GetINIString(CString strName)
 {
@@ -408,4 +411,30 @@ CString CAutorunDlg::GetINIString(CString strName)
 int CAutorunDlg::GetINIInt(CString strName, int intDefault)
 {		
 	return (GetPrivateProfileInt("Settings", strName, intDefault, gUtils.EXEPath() + "vbsw\\settings.ini"));
+}
+
+void CAutorunDlg::PlayButtonSound(CString sound) 
+{
+	if (!sound.IsEmpty())
+		PlaySound(gUtils.EXEPath() + sound, 0, SND_FILENAME | SND_ASYNC | SND_NOWAIT);
+}
+
+CDlgButton* CAutorunDlg::FindButtonById(CString id)
+{
+
+	CDlgButton * pobjDlgButton;
+	POSITION pos;
+	
+	// Loop through the button list
+	pos = mlstButtons->GetHeadPosition();
+	for (int i = 0; i < mlstButtons->GetCount(); i++) {
+		pobjDlgButton = mlstButtons->GetNext(pos);
+		
+		if (pobjDlgButton->mstrId == id)
+			return pobjDlgButton;
+
+	}
+
+	gLog.LogEvent("Unable to find button " + id);
+	return NULL;
 }

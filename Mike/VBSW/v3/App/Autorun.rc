@@ -73,23 +73,17 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\17.ico"
 // Dialog
 //
 
-IDD_AUTORUN_DIALOG DIALOGEX 0, 0, 267, 121
+IDD_AUTORUN_DIALOG DIALOGEX 0, 0, 270, 118
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "Autorun Program"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&Install",IDOK,150,100,50,14,NOT WS_VISIBLE | NOT 
                     WS_TABSTOP
     PUSHBUTTON      "&Close",IDCANCEL,205,100,49,14,NOT WS_VISIBLE | NOT 
                     WS_TABSTOP,WS_EX_ACCEPTFILES | WS_EX_RTLREADING
-    CONTROL         "",IDC_PIC,"Static",SS_BITMAP,0,0,268,124
-    CONTROL         "",IDC_B1,"Static",SS_BITMAP | WS_GROUP | WS_TABSTOP,99,
-                    66,62,19
-    CONTROL         "",IDC_B2,"Static",SS_BITMAP | WS_GROUP | WS_TABSTOP,181,
-                    67,15,13
-    CONTROL         147,IDC_BETAPIC,"Static",SS_BITMAP | NOT WS_VISIBLE,0,0,
-                    200,15
+    CONTROL         "",IDC_PIC,"Static",SS_BITMAP,0,0,15,13
 END
 
 IDD_SETUP DIALOG DISCARDABLE  0, 0, 256, 74
@@ -141,8 +135,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,22,0
- PRODUCTVERSION 2,0,22,0
+ FILEVERSION 3,0,50,0
+ PRODUCTVERSION 3,0,50,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -159,15 +153,15 @@ BEGIN
         BEGIN
             VALUE "Comments", "Contact vbsw@giesler.org regarding distribution\0"
             VALUE "CompanyName", "\0"
-            VALUE "FileDescription", "Visual Basic Setup Wrapper 2.00\0"
-            VALUE "FileVersion", "2, 0, 22, 0\0"
+            VALUE "FileDescription", "Install Assist 3.00\0"
+            VALUE "FileVersion", "3, 0, 50, 0\0"
             VALUE "InternalName", "Autorun\0"
-            VALUE "LegalCopyright", "Copyright (C) 2001, Mike Giesler, vbsw@giesler.org, http://giesler.org/vbsw\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002, Mike Giesler, vbsw@giesler.org, http://vbsw.giesler.org\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "Autorun.exe\0"
             VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "Autorun Application\0"
-            VALUE "ProductVersion", "2, 0, 22, 0\0"
+            VALUE "ProductName", "Install Assist\0"
+            VALUE "ProductVersion", "3, 0, 50, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -217,22 +211,15 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Bitmap
-//
-
-IDB_BETABANNER          BITMAP  DISCARDABLE     "res\\beta_banner.bmp"
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // String Table
 //
 
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_ABOUTBOX            "About..."
-    IDS_DEFAULTPROGRAMNAME  "VB Setup Wrapper"
+    IDS_DEFAULTPROGRAMNAME  "Install Assist"
     IDS_DEFAULTSPLASH       "splash.bmp"
-    IDS_COMPABORTRETRY      "VBSW has already attempted to install component '%s'.  The install apparently failed.\n\n\tClick 'Abort' to end this program.\n\tClick 'Retry' to attempt to install the component again.\n\tClick 'Ignore' to ignore this component, not attempting to install it again."
+    IDS_COMPABORTRETRY      "Install Assist has already attempted to install component '%s'.  The install apparently failed.\n\n\tClick 'Abort' to end this program.\n\tClick 'Retry' to attempt to install the component again.\n\tClick 'Ignore' to ignore this component, not attempting to install it again."
     IDS_COMPONENT_FNF       "The installation program for component '%s' could not be found at '%s'.\n\n\tPress 'Abort' to cancel setup.\n\tPress 'Retry' to look for the file again.\n\tPress 'Ignore' to skip this component."
     IDS_SETUP_FNF           "The installation program could not be found at '%s'.\n\n\tPress 'Retry' to look for the file again.\n\tPress 'Cancel' to cancel setup."
     IDS_SETUPDLG_MSG        "Please wait while Setup updates system files..."

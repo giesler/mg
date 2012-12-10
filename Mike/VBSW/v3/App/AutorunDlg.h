@@ -17,12 +17,16 @@ class CAutorunDlg : public CDialog
 public:
 	CAutorunDlg(CWnd* pParent = NULL);	// standard constructor
 
+	void LoadButtons(CList<CDlgButton*, CDlgButton*> * mlstButtons);	// loads buttons for dialog
+	CDlgButton* FindButtonById(CString id);
+
+	CDlgButton* selectedButton;
+	CList<CDlgButton*, CDlgButton*> * mlstButtons;
+
+	CList<CStatic*, CStatic*> mlstStatics;  // used to keep track of statics
 // Dialog Data
 	//{{AFX_DATA(CAutorunDlg)
 	enum { IDD = IDD_AUTORUN_DIALOG };
-	CStatic	m_BetaBanner;
-	CStatic	m_b2;
-	CStatic	m_b1;
 	CButton	mbtnOK;
 	CButton	mbtnCancel;
 	CStatic	m_pic;
@@ -53,26 +57,9 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
+	void PlayButtonSound(CString sound);
 	CString GetINIString();
 	int GetINIInt(CString strName, int intDefault);
-	// button 1
-	bool m_b1MO;
-	bool m_b1MC;
-	CRect m_b1rect;
-	HBITMAP m_b1bmp;
-	HBITMAP m_b1MObmp;
-	HBITMAP m_b1MCbmp;
-	// button 2
-	bool m_b2MO;
-	bool m_b2MC;
-	CRect m_b2rect;
-	HBITMAP m_b2bmp;
-	HBITMAP m_b2MObmp;
-	HBITMAP m_b2MCbmp;
-	
-	// beta image rect
-	CRect m_betarect;
-
 	void LoadSettings();
 	CString mstrAppName;
 	CString EXEPath();

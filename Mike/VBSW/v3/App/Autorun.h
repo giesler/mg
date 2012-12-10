@@ -15,6 +15,7 @@
 #include "resource.h"		// main symbols
 #include "SetupDlg.h"
 #include "component.h"			// for item components
+#include "button.h"				// for buttons on autorun dialog
 #include "utilities.h"
 #include "log.h"
 #include "restartdlg.h"
@@ -50,11 +51,14 @@ public:
 		bool RebootComputer(CString strCmdLine);
 
 	private:
-		CString mstrSetup;
-		CString mstrCmdLine;
+		CString mstrSetup;		//TODO: remove
+		CString mstrCmdLine;	//TODO: remove
 		bool m_blnCancel;
+		bool mblnTimerReboot;
+		int  mintTimerSeconds;
 		bool DependsInstalled(CComponent * pcComp);
 		CList<CComponent*, CComponent*> mlstComps;
+		CList<CDlgButton*, CDlgButton*> mlstButtons;
 
 	//{{AFX_MSG(CAutorunApp)
 		// NOTE - the ClassWizard will add and remove member functions here.

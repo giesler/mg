@@ -21,7 +21,7 @@ public:
 	static CString WinSysPath();
 	static CString WinPath();
 	static CString CommonFilesPath();
-	bool Exec(CString, CString);
+	bool Exec(CString strCommand, CString strCmdLine, bool waitForCompletion, bool shellExecute);
 	CString m_strAppName;
 
 private:

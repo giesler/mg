@@ -62,12 +62,16 @@ BOOL CRestartDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	
-	m_intMaxProgress = 40;
-	m_intCurProgress = 0;
-	m_PBar.SetRange(0, m_intMaxProgress);
-	m_PBar.SetStep(1);
+	if (mblnTimerReboot) {
+		m_intMaxProgress = mintTimerSeconds * 10;
+		m_intCurProgress = 0;
+		m_PBar.SetRange(0, m_intMaxProgress);
+		m_PBar.SetStep(1);
+		m_nTimer = SetTimer(0, 100, 0);
+	} else {
+		m_PBar.MoveWindow(500, 500, 0, 0, false);
+	}
 
-	m_nTimer = SetTimer(0, 500, 0);
 	SetWindowText(m_strAppName);
 
 	return true;  // return TRUE unless you set the focus to a control

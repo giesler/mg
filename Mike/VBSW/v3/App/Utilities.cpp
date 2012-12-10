@@ -100,7 +100,7 @@ CString CUtilities::EXEName() {
 	return (cTemp);
 }
 
-bool CUtilities::Exec(CString strCommand, CString strCmdLine)
+bool CUtilities::Exec(CString strCommand, CString strCmdLine, bool waitForCompletion, bool shellExecute)
 {
 
 	CString strMsg; int intResult;
@@ -141,6 +141,32 @@ bool CUtilities::Exec(CString strCommand, CString strCmdLine)
 	if (!lReturn) {
 		gUtils.LogDLLError("Setup launch failed ('" + strCommand + ").");
 		return false;
+	}
+
+	// wait for process to finish if we want to
+	if (waitForCompletion) {
+		
+		while (true) {
+
+			// check if done with task
+			DWORD dwResult = WaitForSingleObject(hProcess, 0);
+			if (dwResult != WAIT_TIMEOUT) //we finished early
+				break;
+
+			// process messages
+			MSG msg;
+			while ( ::PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) )  { 
+				if ( !AfxGetApp()->PumpMessage( ) ) { 
+					::PostQuitMessage(0); 
+					break; 
+				} 
+			} 
+
+			// let MFC do its idle processing
+			LONG lIdle = 0;
+			while ( AfxGetApp()->OnIdle(lIdle++ ) )
+				;
+		}
 	}
 
 	// close handles

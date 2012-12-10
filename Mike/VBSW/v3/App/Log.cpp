@@ -53,6 +53,8 @@ void CLog::LogEvent(CString p_strEvent)
 
 	m_File.Write(strOutput, strOutput.GetLength());
 
+//	AfxMessageBox(strOutput, MB_OK);
+
 	free(ptchTemp);
 }
 

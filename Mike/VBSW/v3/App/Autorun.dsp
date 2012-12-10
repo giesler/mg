@@ -54,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /machine:I386
-# ADD LINK32 version.lib /nologo /subsystem:windows /machine:I386
+# ADD LINK32 version.lib WINMM.LIB /nologo /subsystem:windows /machine:I386
 
 !ELSEIF  "$(CFG)" == "Autorun - Win32 Debug"
 
@@ -81,7 +81,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 version.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 version.lib  WINMM.LIB /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 # SUBTRACT LINK32 /map
 
 !ELSEIF  "$(CFG)" == "Autorun - Win32 Release_Setup"
@@ -109,7 +109,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 version.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 version.lib /nologo /subsystem:windows /machine:I386 /out:"Release_Setup/setup.exe"
+# ADD LINK32 version.lib WINMM.LIB /nologo /subsystem:windows /machine:I386 /out:"Release_Setup/setup.exe"
 
 !ENDIF 
 
@@ -132,6 +132,10 @@ SOURCE=.\Autorun.rc
 # Begin Source File
 
 SOURCE=.\AutorunDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Button.cpp
 # End Source File
 # Begin Source File
 
@@ -173,6 +177,10 @@ SOURCE=.\Autorun.h
 # Begin Source File
 
 SOURCE=.\AutorunDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Button.h
 # End Source File
 # Begin Source File
 
@@ -221,6 +229,10 @@ SOURCE=.\res\Autorun.rc2
 # Begin Source File
 
 SOURCE=.\res\beta_banner.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\H_POINT.CUR
 # End Source File
 # End Group
 # Begin Source File
