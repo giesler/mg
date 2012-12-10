@@ -45,7 +45,7 @@
         <classShapeMoniker Id="f122e7c0-ddb4-4032-a97e-c925620f9af6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 8.10020182291667); (3.60416666666667 : 8.10020182291667 : JumpStart); (3.77083333333333 : 8.10020182291667 : JumpEnd); (6.25 : 8.10020182291667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 8.10020182291667); (3.60416666666667 : 8.10020182291667 : JumpStart); (3.77083333333333 : 8.10020182291667 : JumpEnd); (6.25 : 8.10020182291667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Drink/Drink_DrinkIngredient" />
       <nodes>
         <classShapeMoniker Id="141d00a3-ed9c-401c-8892-bb06ccf6b90d" />
@@ -72,7 +72,7 @@
         <classShapeMoniker Id="f122e7c0-ddb4-4032-a97e-c925620f9af6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.59375 : 10.25); (0.59375 : 9.73399933723958); (3.5 : 9.73399933723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.59375 : 10.25); (0.59375 : 9.73399933723958); (2.57291666666667 : 9.73399933723958 : JumpStart); (2.73958333333333 : 9.73399933723958 : JumpEnd); (3.5 : 9.73399933723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/User/User_UserDrinkHistory" />
       <nodes>
         <classShapeMoniker Id="68dafb98-ca8a-4438-b5b1-1fd9d5b4315f" />
@@ -97,28 +97,28 @@
         <elementListCompartment Id="aa2379d0-1708-411b-b522-8ee39b6f78bf" absoluteBounds="3.89, 5.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.875 : 7.08735270182292); (6.25 : 7.08735270182292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 7.08735270182292); (6.25 : 7.08735270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Ingredient/Ingredient_DrinkIngredient" />
       <nodes>
         <classShapeMoniker Id="a7081deb-5629-4f82-bf04-87e1b866fd85" />
         <classShapeMoniker Id="62a48989-5eb4-4df6-a90c-020670cef6a6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.875 : 5.03929768880208); (6.25 : 5.03929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 5.03929768880208); (6.25 : 5.03929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Ingredient/Ingredient_IngredientSubstitute" />
       <nodes>
         <classShapeMoniker Id="a7081deb-5629-4f82-bf04-87e1b866fd85" />
         <classShapeMoniker Id="1b336b23-53e3-4e7b-9afa-a183405ed242" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.875 : 4.76964884440104); (6.25 : 4.76964884440104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 4.76964884440104); (6.25 : 4.76964884440104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Ingredient/Ingredient_IngredientSubstitute1" />
       <nodes>
         <classShapeMoniker Id="a7081deb-5629-4f82-bf04-87e1b866fd85" />
         <classShapeMoniker Id="1b336b23-53e3-4e7b-9afa-a183405ed242" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.87584554036458); (3.60416666666667 : 4.87584554036458 : JumpStart); (3.77083333333333 : 4.87584554036458 : JumpEnd); (3.875 : 4.87584554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.87584554036458); (3.875 : 4.87584554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Relay/Relay_Ingredient" />
       <nodes>
         <classShapeMoniker Id="a116fc87-e9df-4d98-9582-f40db537bfdd" />
@@ -131,14 +131,14 @@
         <elementListCompartment Id="3002aead-1d0f-4fc8-a5b7-e7b9f1620a4f" absoluteBounds="5.765, 1.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.8124995 : 4.625); (4.8124995 : 2.38544840494792); (5.75 : 2.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.8124995 : 4.625); (4.8124995 : 2.38544840494792); (5.75 : 2.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/Ingredient/Ingredient_UserDrinkIngredientHistory" />
       <nodes>
         <classShapeMoniker Id="a7081deb-5629-4f82-bf04-87e1b866fd85" />
         <classShapeMoniker Id="843f6ea1-a725-48e1-8964-df0f30a426b1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.6875 : 8.75); (3.6875 : 2.85942510742187); (4.72916616666667 : 2.85942510742187 : JumpStart); (4.89583283333333 : 2.85942510742187 : JumpEnd); (5.75 : 2.85942510742187)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.6875 : 8.75); (3.6875 : 2.85942510742187); (5.75 : 2.85942510742187)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BarMonkeyDataContext/UserDrinkHistory/UserDrinkHistory_UserDrinkIngredientHistory" />
       <nodes>
         <classShapeMoniker Id="a7b1a456-ab0f-411e-bb19-1a92b5f21767" />

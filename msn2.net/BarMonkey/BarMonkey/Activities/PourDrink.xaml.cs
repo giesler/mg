@@ -89,10 +89,35 @@ namespace BarMonkey.Activities
             decimal offset = this.container.Size / totalOunces;
 
             List<BatchItem> items = new List<BatchItem>();
+
+            decimal fullDuration = 0;
+            decimal currentStageDuration = 0;
+            int currentGroup = -1;
             foreach (DrinkIngredient di in q)
             {
-                decimal outputAmount = di.AmountOunces * offset;
-                decimal duration = outputAmount * di.Ingredient.OuncesPerSecond;
+                if (currentGroup != di.Group)
+                {
+                    fullDuration += currentStageDuration;
+                    currentGroup = di.Group;
+                    currentStageDuration = 0;
+                }
+
+                decimal duration = GetOutputDuration(offset, di);
+                if (duration > currentStageDuration)
+                {
+                    currentStageDuration = duration;
+                }
+            }
+            fullDuration += currentStageDuration;
+
+            int lightRelayNumber = 35;
+            int soundRelayNumber = 34;
+            items.Add(new BatchItem { Group = 0, RelayNumber = lightRelayNumber, Seconds = (double)fullDuration });
+            items.Add(new BatchItem { Group = 0, RelayNumber = soundRelayNumber, Seconds = (double)fullDuration });
+
+            foreach (DrinkIngredient di in q)
+            {
+                decimal duration = GetOutputDuration(offset, di);
 
                 int relayNumber = (int)di.Ingredient.RelayId;
                 
@@ -131,6 +156,13 @@ namespace BarMonkey.Activities
                     BarMonkeyContext.Current.Drinks.LogDrink(drink, offset);
                 }
             }
+        }
+
+        private static decimal GetOutputDuration(decimal offset, DrinkIngredient di)
+        {
+            decimal outputAmount = di.AmountOunces * offset;
+            decimal duration = outputAmount * di.Ingredient.OuncesPerSecond;
+            return duration;
         }
 
         private void pourComplete(IAsyncResult ar)
