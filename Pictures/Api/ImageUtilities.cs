@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Data.Linq;
 using System.Linq;
+using System.Diagnostics;
 
 namespace msn2.net.Pictures
 {
@@ -22,17 +23,19 @@ namespace msn2.net.Pictures
 
 		public void CreateUpdateCache(int pictureId)
         {
-            Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+            PicContext pc = PicContext.Current.Clone();
+            
+            Picture picture = pc.PictureManager.GetPicture(pictureId);
 
-			CreateUpdateCachedImage(picture, 125, 125);
-			CreateUpdateCachedImage(picture, 750, 700);
+			CreateUpdateCachedImage(pc, picture, 125, 125);
+			CreateUpdateCachedImage(pc, picture, 750, 700);
 		}
 
-        private void CreateUpdateCachedImage(Picture picture, int maxWidth, int maxHeight)
+        private void CreateUpdateCachedImage(PicContext pc, Picture picture, int maxWidth, int maxHeight)
         {
-            PictureCache cacheRow = (from pc in picture.PictureCaches
-                                     where pc.Picture == picture && pc.MaxWidth == maxWidth && pc.MaxHeight == maxHeight
-                                     select pc).FirstOrDefault();
+            PictureCache cacheRow = (from pca in picture.PictureCaches
+                                     where pca.Picture == picture && pca.MaxWidth == maxWidth && pca.MaxHeight == maxHeight
+                                     select pca).FirstOrDefault();
 
             if (cacheRow == null)
             {
@@ -67,12 +70,12 @@ namespace msn2.net.Pictures
                 cacheRow.Height = 0;
                 cacheRow.Width = 0;
 
-                PicContext.Current.PictureManager.AddPictureCache(picture, cacheRow);
+                pc.PictureManager.AddPictureCache(picture, cacheRow);
             }
 
             // figure out the filenames on the web server
-            string sourceFile = PicContext.Current.Config.PictureDirectory + picture.Filename;
-            string targetFile = PicContext.Current.Config.CacheDirectory + cacheRow.Filename;
+            string sourceFile = pc.Config.PictureDirectory + picture.Filename;
+            string targetFile = pc.Config.CacheDirectory + cacheRow.Filename;
 
             // Make sure the target directory exists first
             string path = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));
@@ -83,7 +86,17 @@ namespace msn2.net.Pictures
             if (File.Exists(targetFile))
             {
                 if (File.GetLastWriteTime(sourceFile) > File.GetLastWriteTime(targetFile))
-                    File.Delete(targetFile);
+                {
+                    try
+                    {
+                        File.Delete(targetFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        // leave old image
+                        Trace.WriteLine(string.Format("Deleting {0}: {1}", targetFile, ex));
+                    }
+                }
             }
 
             // if the targetFile doesn't exist, we need to create it
@@ -129,7 +142,7 @@ namespace msn2.net.Pictures
                     // since we know these values, might as well set them
                     cacheRow.Height = newHeight;
                     cacheRow.Width = newWidth;
-                    PicContext.Current.SubmitChanges();
+                    pc.SubmitChanges();
 
                 }	// done using source image, let it be disposed automatically
 

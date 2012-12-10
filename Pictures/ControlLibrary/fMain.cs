@@ -115,6 +115,7 @@ namespace msn2.net.Pictures.Controls
             PictureConfig config = PictureConfig.Load();
             bool loginResult = PicContext.LoginWindowsUser(config);
             fStatus stat = new fStatus();
+            stat.Show(this);
             if (loginResult == false)
             {
                 // Prompt for email/pwd
@@ -799,48 +800,57 @@ namespace msn2.net.Pictures.Controls
                 if (cn.State == ConnectionState.Closed)
                     cn.Open();
 
-                foreach (int pictureId in pictureList1.SelectedItems)
+                fStatus status = new fStatus("Deleting...", this.pictureList1.SelectedItems.Count + 2);
+                status.Show(this);
+
+                try
                 {
-                    try
+                    foreach (int pictureId in pictureList1.SelectedItems)
                     {
-                        // remove the deleted item
-                        pictureList1.Remove(pictureId);
-
-                        // Load the list of cached images
-                        SqlCommand cmdCached = new SqlCommand("select * from PictureCache where PictureID = @PictureID", cn);
-                        cmdCached.Parameters.Add("@PictureID", SqlDbType.Int);
-                        cmdCached.Parameters["@PictureID"].Value = pictureId;
-                        SqlDataReader dr = cmdCached.ExecuteReader();
-                        while (dr.Read())
+                        try
                         {
-                            try
-                            {
-                                string cachedFile = PicContext.Current.Config.CacheDirectory + @"\" + dr["Filename"].ToString();
-                                if (File.Exists(cachedFile))
-                                    File.Delete(cachedFile);
-                            }
-                            catch (IOException ioe)
-                            {
-                                MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
+                            // remove the deleted item
+                            pictureList1.ReleasePicture(pictureId);
+                            pictureList1.Remove(pictureId);
 
+                            // Load the list of cached images
+                            SqlCommand cmdCached = new SqlCommand("select * from PictureCache where PictureID = @PictureID", cn);
+                            cmdCached.Parameters.Add("@PictureID", SqlDbType.Int);
+                            cmdCached.Parameters["@PictureID"].Value = pictureId;
+                            SqlDataReader dr = cmdCached.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                try
+                                {
+                                    string cachedFile = PicContext.Current.Config.CacheDirectory + @"\" + dr["Filename"].ToString();
+                                    if (File.Exists(cachedFile))
+                                        File.Delete(cachedFile);
+                                }
+                                catch (IOException ioe)
+                                {
+                                    Trace.WriteLine(ioe.Message);
+                                }
+
+                            }
+                            dr.Close();
+
+                            // we want to delete from db, but only if file delete worked
+                            SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + pictureId.ToString(), cn);
+                            cmd.ExecuteNonQuery();
                         }
-                        dr.Close();
+                        catch (IOException ioe)
+                        {
+                            MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
 
-                        // we want to delete from db, but only if file delete worked
-                        SqlCommand cmd = new SqlCommand("delete from Picture where PictureID = " + pictureId.ToString(), cn);
-                        cmd.ExecuteNonQuery();
-
+                        status.Current++;
                     }
-                    catch (IOException ioe)
-                    {
-                        MessageBox.Show(ioe.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-
-
                 }
-
-                cn.Close();
+                finally
+                {
+                    status.Close();
+                    cn.Close();
+                }
             }
 
         }
@@ -894,6 +904,7 @@ namespace msn2.net.Pictures.Controls
                     MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     cacheStatus = new fStatus(this, "Starting process...", 0);
+                    cacheStatus.Show(this);
 
                     Thread t = new Thread(new ThreadStart(ProcessCache));
                     t.Start();
@@ -984,6 +995,7 @@ namespace msn2.net.Pictures.Controls
                     MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     cacheStatus = new fStatus(this, "Starting process...", 0);
+                    cacheStatus.Show(this);
 
                     Thread t = new Thread(new ThreadStart(CheckForCacheFiles));
                     t.Start();
@@ -1006,9 +1018,20 @@ namespace msn2.net.Pictures.Controls
             fSelectCategory cat = fSelectCategory.GetSelectCategoryDialog();
             if (cat.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (int pictureId in pictureList1.SelectedItems)
+                fStatus status = new fStatus("Adding...", this.pictureList1.SelectedItems.Count + 2);
+                status.Show();
+
+                try
                 {
-                    PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.Id);
+                    foreach (int pictureId in pictureList1.SelectedItems)
+                    {
+                        PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.Id);
+                        status.Current++;
+                    }
+                }
+                finally
+                {
+                    status.Close();
                 }
 
             }
@@ -1019,9 +1042,20 @@ namespace msn2.net.Pictures.Controls
             fSelectCategory cat = new fSelectCategory();
             if (cat.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (int pictureId in pictureList1.SelectedItems)
+                fStatus status = new fStatus("Removing...", this.pictureList1.SelectedItems.Count + 2);
+                status.Show(this);
+
+                try
                 {
-                    PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.Id);
+                    foreach (int pictureId in pictureList1.SelectedItems)
+                    {
+                        PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.Id);
+                        status.Current++;
+                    }
+                }
+                finally
+                {
+                    status.Close();
                 }
             }
         }
@@ -1031,9 +1065,20 @@ namespace msn2.net.Pictures.Controls
             fGroupSelect sel = new fGroupSelect();
             if (sel.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (int pictureId in pictureList1.SelectedItems)
+                fStatus status = new fStatus("Adding...", this.pictureList1.SelectedItems.Count + 2);
+                status.Show();
+
+                try
                 {
-                    PicContext.Current.PictureManager.AddToSecurityGroup(pictureId, sel.SelectedGroup.GroupID);
+                    foreach (int pictureId in pictureList1.SelectedItems)
+                    {
+                        PicContext.Current.PictureManager.AddToSecurityGroup(pictureId, sel.SelectedGroup.GroupID);
+                        status.Current++;
+                    }
+                }
+                finally
+                {
+                    status.Close();
                 }
             }
 
@@ -1082,17 +1127,18 @@ namespace msn2.net.Pictures.Controls
             if (allPictures.Count < maxCount)
             {
                 statusBar1.Panels[0].Text = "Displaying " + allPictures.Count.ToString() + " pictures...";
-                pictureList1.LoadPictures(allPictures);
+                pictureList1.LoadPictures(allPictures.OrderBy(p => p.PictureDate).ToList());
                 statusBar1.Panels[0].Text = allPictures.Count + " pictures";
             }
             else
             {
                 statusBar1.Panels[0].Text = "Displaying " + maxCount.ToString() + "/" + allPictures.Count.ToString() + " pictures...";
 
+                var q = allPictures.OrderBy(p => p.PictureDate).ToList();
                 List<Picture> displayPictures = new List<Picture>();
                 for (int i = 0; i < maxCount; i++)
                 {
-                    displayPictures.Add(allPictures[i]);
+                    displayPictures.Add(q[i]);
                 }
                 pictureList1.LoadPictures(displayPictures);
                 statusBar1.Panels[0].Text = string.Format("{0}/{1} pictures", displayPictures.Count, allPictures.Count);
@@ -1202,8 +1248,7 @@ namespace msn2.net.Pictures.Controls
 
                     string fileExtenstion = sourceFilename.Substring(sourceFilename.LastIndexOf(".") + 1);
 
-                    string destFilename = destFolder + @"\" + picture.Id.ToString() + "_" +
-                        SafeFilename(picture.Title) + "." + fileExtenstion;
+                    string destFilename = destFolder + @"\" + SafeFilename(picture.Title) + "." + fileExtenstion;
 
                     bool loop = true;
                     bool abort = false;
@@ -1271,16 +1316,49 @@ namespace msn2.net.Pictures.Controls
 
         void RotateSelectedPictures(RotateFlipType rft)
         {
-            PictureManager pm = PicContext.Current.PictureManager;
+            fStatus status = new fStatus("Rotating...", this.pictureList1.SelectedItems.Count);
+            status.Show(this);
 
             foreach (int pictureId in pictureList1.SelectedItems)
             {
-                pm.RotateImage(pictureId, rft);
+                RotateImageArgs a = new RotateImageArgs();
+                a.Status = status;
+                a.PictureId = pictureId;
+                a.RotateType = rft;
 
+                ThreadPool.QueueUserWorkItem(new WaitCallback(RotateImage), a);
+            }
+        }
+
+        struct RotateImageArgs
+        {
+            public fStatus Status;
+            public int PictureId;
+            public RotateFlipType RotateType;
+        }
+
+        void RotateImage(object o)
+        {
+            RotateImageArgs ri = (RotateImageArgs)o;
+            PictureManager pm = PicContext.Current.Clone().PictureManager;
+
+            try
+            {
+                pm.RotateImage(ri.PictureId, ri.RotateType);
+                pictureList1.ReleasePicture(ri.PictureId);
+                
                 ImageUtilities iu = new ImageUtilities();
-                iu.CreateUpdateCache(pictureId);
+                iu.CreateUpdateCache(ri.PictureId);
 
-                pictureList1.ReloadPicture(pictureId);
+                pictureList1.ReloadPicture(ri.PictureId);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                ri.Status.Current++;
             }
         }
 

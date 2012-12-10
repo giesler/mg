@@ -241,6 +241,8 @@ namespace msn2.net.Pictures
 
         void ReloadCategoryCache(int categoryId)
         {
+            this.context = this.context.Clone();
+
             List<Category> subCats = this.GetChildrenCategories(categoryId);
             SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("sp_CategorySubCategoryUpdate", cn);

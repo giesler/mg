@@ -183,26 +183,31 @@ namespace msn2.net.Pictures.Controls
         {
             lock (this.lockObject)
             {
-                if (image != null)
-                {
-                    image.Dispose();
-                    image = null;
-                }
-                if (smallImage != null)
-                {
-                    smallImage.Dispose();
-                    smallImage = null;
-                }
-                if (sizedImage != null)
-                {
-                    sizedImage.Dispose();
-                    sizedImage = null;
-                }
+                ReleaseImage();
 
                 this.picture = item;
             }
 
             this.RepaintImage();
+        }
+
+        public void ReleaseImage()
+        {
+            if (image != null)
+            {
+                image.Dispose();
+                image = null;
+            }
+            if (smallImage != null)
+            {
+                smallImage.Dispose();
+                smallImage = null;
+            }
+            if (sizedImage != null)
+            {
+                sizedImage.Dispose();
+                sizedImage = null;
+            }
         }
 
         void RepaintImage()

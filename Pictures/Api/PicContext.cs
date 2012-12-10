@@ -217,7 +217,9 @@ namespace msn2.net.Pictures
 
         public PicContext Clone()
         {
-            return new PicContext(this.Config);
+            PicContext pc = new PicContext(this.Config);
+            pc.currentUser = this.currentUser;
+            return pc;
         }
 	}
 

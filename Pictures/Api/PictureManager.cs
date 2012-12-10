@@ -176,7 +176,7 @@ namespace msn2.net.Pictures
             if (!appPath.Equals(@"\"))
                 appPath = appPath + @"\";
 
-            string file = data.Filename;
+            string file = Path.Combine(appPath, data.Filename);
 
             using (Image image = Image.FromFile(file))
             {

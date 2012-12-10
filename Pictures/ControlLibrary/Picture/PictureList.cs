@@ -115,10 +115,16 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
+        public void ReleasePicture(int pictureId)
+        {
+            PictureItem item = FindItem(pictureId);
+            item.ReleaseImage();
+        }
+
         public void ReloadPicture(int pictureId)
         {
             PictureItem item = FindItem(pictureId);
-            Picture data = PicContext.Current.PictureManager.GetPicture(pictureId);
+            Picture data = PicContext.Current.Clone().PictureManager.GetPicture(pictureId);
             item.SetPicture(data);
         }
 
@@ -307,39 +313,44 @@ namespace msn2.net.Pictures.Controls
             PictureItem item = sender as PictureItem;
             bool selected = item.Selected;
 
-            if (Control.ModifierKeys != Keys.Control
-                && Control.ModifierKeys != Keys.Shift)
+            MouseEventArgs eArgs = (MouseEventArgs)e;
+
+            if (eArgs.Button == MouseButtons.Left)
             {
-                this.ClearAll(item);
-            }
-
-            if (selected == false)
-            {
-                item.Selected = true;
-
-                selectedItems.Add(item.PictureId);
-                if (null != ItemSelected)
+                if (Control.ModifierKeys != Keys.Control
+                    && Control.ModifierKeys != Keys.Shift)
                 {
-                    ItemSelected(this, new PictureItemEventArgs(item.Picture));
+                    this.ClearAll(item);
                 }
-                if (null != SelectedChanged)
-                {
-                    SelectedChanged(this, new PictureItemEventArgs(item.Picture));
-                }
-            }
-            else
-            {
-                item.Selected = false;
 
-                selectedItems.Remove(item.PictureId);
+                if (selected == false)
+                {
+                    item.Selected = true;
 
-                if (null != ItemUnselected)
-                {
-                    ItemUnselected(this, new PictureItemEventArgs(item.Picture));
+                    selectedItems.Add(item.PictureId);
+                    if (null != ItemSelected)
+                    {
+                        ItemSelected(this, new PictureItemEventArgs(item.Picture));
+                    }
+                    if (null != SelectedChanged)
+                    {
+                        SelectedChanged(this, new PictureItemEventArgs(item.Picture));
+                    }
                 }
-                if (null != SelectedChanged)
+                else
                 {
-                    SelectedChanged(this, new PictureItemEventArgs(item.Picture));
+                    item.Selected = false;
+
+                    selectedItems.Remove(item.PictureId);
+
+                    if (null != ItemUnselected)
+                    {
+                        ItemUnselected(this, new PictureItemEventArgs(item.Picture));
+                    }
+                    if (null != SelectedChanged)
+                    {
+                        SelectedChanged(this, new PictureItemEventArgs(item.Picture));
+                    }
                 }
             }
         }
