@@ -94,7 +94,7 @@ namespace msn2.net.Pictures.Controls
                 {
                     bool noSelectPath = this.selectPath == null;
                     // load first node
-                    CategoryInfo rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+                    Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
                     // load first level
                     FillChildren(rootCategory, this.categoryNode, 2);
@@ -120,7 +120,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void FillChildren(CategoryInfo parentCategory, TreeNode n, int intLevelsToGo)
+        private void FillChildren(Category parentCategory, TreeNode n, int intLevelsToGo)
         {
             // clear out all child nodes
             this.Invoke(new TreeNodeHandler(
@@ -131,10 +131,10 @@ namespace msn2.net.Pictures.Controls
                 new object[] { n });
 
             // load child nodes from dvCategory
-            List<CategoryInfo> categories = PicContext.Current.CategoryManager.GetCategories(
-                parentCategory.CategoryId);
+            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+                parentCategory.Id);
 
-            foreach (CategoryInfo category in categories)
+            foreach (Category category in categories)
             {
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
                 childNode.ContextMenu = this.categoryContextMenu;
@@ -216,11 +216,11 @@ namespace msn2.net.Pictures.Controls
                 CategoryTreeNode parentNode = this.SelectedNode as CategoryTreeNode;
                 if (parentNode != null)
                 {
-                    ec.NewCategory(parentNode.Category.CategoryId);
+                    ec.NewCategory(parentNode.Category.Id);
                 }
                 else
                 {
-                    ec.NewCategory(PicContext.Current.CategoryManager.GetRootCategory().CategoryId);
+                    ec.NewCategory(PicContext.Current.CategoryManager.GetRootCategory().Id);
                 }
 
                 ec.ShowDialog();
@@ -245,7 +245,7 @@ namespace msn2.net.Pictures.Controls
             if (node != null)
             {
                 fEditCategory ec = new fEditCategory();
-                ec.CategoryID = node.Category.CategoryId;
+                ec.CategoryID = node.Category.Id;
                 ec.ShowDialog();
 
                 if (!ec.Cancel)
@@ -265,8 +265,8 @@ namespace msn2.net.Pictures.Controls
                 {
                     try
                     {
-                        PicContext.Current.CategoryManager.MoveCategory(node.Category.CategoryId, dialog.SelectedCategory.CategoryId);
-                        CategoryInfo movedCategory = PicContext.Current.CategoryManager.GetCategory(node.Category.CategoryId);
+                        PicContext.Current.CategoryManager.MoveCategory(node.Category.Id, dialog.SelectedCategory.Id);
+                        Category movedCategory = PicContext.Current.CategoryManager.GetCategory(node.Category.Id);
 
                         this.SelectCategory(movedCategory);
                     }
@@ -292,7 +292,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public void SelectCategory(CategoryInfo category)
+        public void SelectCategory(Category category)
         {
             if (category != null)
             {
@@ -344,7 +344,7 @@ namespace msn2.net.Pictures.Controls
                     CategoryTreeNode categoryNode = (CategoryTreeNode)this.SelectedNode;
                     whereClause = string.Format(
                         "p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))",
-                        categoryNode.Category.CategoryId);
+                        categoryNode.Category.Id);
                 }
                 else if (this.SelectedNode is DateFilterTreeNode)
                 {
@@ -375,7 +375,7 @@ namespace msn2.net.Pictures.Controls
                 CategoryTreeNode categoryNode = (CategoryTreeNode)e.Node;
                 whereClause = string.Format(
                     "p.PictureID in (select PictureID from PictureCategory where CategoryID IN (select SubCategoryId from CategorySubCategory where CategoryId = {0}))",
-                    categoryNode.Category.CategoryId);
+                    categoryNode.Category.Id);
             }
             else if (e.Node is DateFilterTreeNode && e.Node.Tag != null)
             {

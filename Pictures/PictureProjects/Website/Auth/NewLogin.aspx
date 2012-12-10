@@ -37,28 +37,28 @@
 								password.
 							</P>
 							<TABLE>
-								<TR>
+								<tr>
 									<TD>
 										<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-											<TR>
+											<tr>
 												<TD class="loginTableTitle" colSpan="2">New Login</TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Email:
 													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLookupEmail" ErrorMessage="Email is required!" CssClass="err">*</asp:RequiredFieldValidator>
-													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" Display="Static" ControlToValidate="txtLookupEmail" ErrorMessage="Email is not a valid email address.<<br />>Must follow name@host.domain format." ValidationExpression="^[\w-\.]+@[\w-]+\.(com|net|org|edu|mil|us|tv|\w)$" Font-Name="Arial" Font-Size="11">*</asp:RegularExpressionValidator></TD>
+													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" Display="Static" ControlToValidate="txtLookupEmail" ErrorMessage="Email is not a valid email address.<br />Must follow name@host.domain format." ValidationExpression="^[\w-\.]+@[\w-]+\.(com|net|org|edu|mil|us|tv|\w)$" Font-Name="Arial" Font-Size="11">*</asp:RegularExpressionValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtLookupEmail" Width="175px" Runat="server"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText" align="right" colSpan="2">
 													<asp:Button id="btnEmailLookup" Text=" Lookup " Runat="server" CssClass="btn" onclick="btnEmailLookup_Click"></asp:Button></TD>
-											</TR>
+											</tr>
 										</TABLE>
 									</TD>
 									<TD>
 										<asp:ValidationSummary id="Validationsummary1" Runat="server" CssClass="err" HeaderText="You must enter valid values for the following fields:" DisplayMode="BulletList"></asp:ValidationSummary></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:panel>
 						<asp:panel id="pnlEmailFound" Runat="server" Visible="False" Width="100%">
@@ -82,39 +82,39 @@
 								below.
 							</P>
 							<TABLE>
-								<TR>
+								<tr>
 									<TD>
 										<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-											<TR class="loginTableContent">
+											<tr  class="loginTableContent">
 												<TD class="loginTableTitle" colSpan="2">New Login
 												</TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Your Full Name:
 													<asp:RequiredFieldValidator id="NameValidator" Runat="server" Display="Dynamic" ControlToValidate="txtName" ErrorMessage="Name is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtName" Width="175px" Runat="server"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Email: (<A style="COLOR: black" href="NewLogin.aspx">change</A>)
 												</TD>
 												<TD class="loginTableText">
 													<asp:Label id="lblEmail" Runat="server"></asp:Label></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Password:
 													<asp:RequiredFieldValidator id="PasswordValidator" Runat="server" Display="Dynamic" ControlToValidate="txtPassword" ErrorMessage="Password is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtPassword" Width="175px" Runat="server" TextMode="Password"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Confirm Password:
 													<asp:RequiredFieldValidator id="ConfirmPasswordValidator" Runat="server" Display="Dynamic" ControlToValidate="txtConfirmPassword" ErrorMessage="Confirmation Password is required!" CssClass="err">*</asp:RequiredFieldValidator>
 													<asp:CompareValidator id="CompareValidator1" Runat="server" Display="Dynamic" ControlToValidate="txtConfirmPassword" ErrorMessage="The confirmation password must match the password." CssClass="err" Operator="Equal" ControlToCompare="txtPassword">*</asp:CompareValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtConfirmPassword" Width="175px" Runat="server" TextMode="Password"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Send request to:
 												</TD>
 												<TD class="loginTableText">
@@ -124,16 +124,16 @@
 														<asp:ListItem Text="Neil"></asp:ListItem>
 														<asp:ListItem Text="Nick"></asp:ListItem>
 													</asp:DropDownList></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText" align="right" colSpan="2">
 													<asp:Button id="btnSend" Text=" Send " Runat="server" CssClass="btn" onclick="btnSend_Click"></asp:Button></TD>
-											</TR>
+											</tr>
 										</TABLE>
 									</TD>
 									<TD>
 										<asp:ValidationSummary id="ValidSummary" Runat="server" CssClass="err" DisplayMode="List"></asp:ValidationSummary></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:panel>
 						<asp:panel id="pnlInfo" Runat="server" Visible="False" Width="100%">

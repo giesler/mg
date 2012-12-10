@@ -23,7 +23,7 @@
 						<picctls:PictureTasks id="picTaskList" runat="server" visible="true"></picctls:PictureTasks>
 					</td>
 				</tr>
-				<tr height="25">
+				<tr  height="25">
 					<td>
 						<table class="areaPanel" cellSpacing="0" cellPadding="4" width="100%" border="0">
 							<tr>
@@ -39,10 +39,10 @@
 					<td class="msn2contentwindow" vAlign="top">
 						If more then one person is looking at the pictures, select the other people's 
 						names.
-						<<br />>
+						<br />
 						<picctls:PeopleSelector id="peopleSelector" runat="server" ForeColor="Black"></picctls:PeopleSelector>
-						<<br />>
-						<<br />>
+						<br />
+						<br />
 						<asp:Button ID="search" Runat="server" Text="OK" CssClass="btn" onclick="search_Click"></asp:Button>
 					</td>
 				</tr>

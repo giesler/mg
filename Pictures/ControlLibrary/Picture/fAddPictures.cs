@@ -967,11 +967,11 @@ namespace msn2.net.Pictures.Controls
 				lstFiles.Items.Add(file);
 		}
 
-        public CategoryInfo ImportCategory
+        public Category ImportCategory
         {
             get
             {
-                CategoryInfo category = null;
+                Category category = null;
                 if (this.categoryPicker1.selectedCategories.Count > 0)
                 {
                     category = PicContext.Current.CategoryManager.GetCategory(this.categoryPicker1.SelectedCategoryIds[0]);

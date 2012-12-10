@@ -21,7 +21,7 @@ namespace msn2.net.Pictures.Controls
         private PictureItem item;
         protected GetPreviousItemIdDelegate getPreviousId;
         protected GetNextItemIdDelegate getNextId;
-        private PictureData picture;
+        private Picture picture;
         private PictureProperties editor;
         private PeopleSelect peopleSelect;
         private GroupSelect groupSelect;
@@ -61,7 +61,7 @@ namespace msn2.net.Pictures.Controls
             this.toolStip.ImageScalingSize = new Size(32, 32);
         }
 
-        protected PictureData CurrentPicture
+        protected Picture CurrentPicture
         {
             get
             {
@@ -74,7 +74,7 @@ namespace msn2.net.Pictures.Controls
             this.sourceForm = sourceForm;
         }
 
-        public void SetPicture(PictureData picture)
+        public void SetPicture(Picture picture)
         {
             this.SetPicture(picture.Id);
         }
@@ -102,7 +102,11 @@ namespace msn2.net.Pictures.Controls
                 LoadCategories();
             }
 
-            this.DisplayStarRating(this.picture.UserRating);
+            byte? rating = PicContext.Current.PictureManager.GetUserRating(this.picture.Id);
+            if (rating != null)
+            {
+                this.DisplayStarRating((int)rating.Value);
+            }
             this.DisplayAverageRating();
 
             UpdateControls();
@@ -136,13 +140,13 @@ namespace msn2.net.Pictures.Controls
 
         private void LoadCategories()
         {
-            List<CategoryInfo> categories = PicContext.Current.PictureManager.GetPictureCategories(this.picture.Id);
+            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(this.picture.Id);
 
             this.loading = true;
             categorySelect.CategoryPicker.ClearSelectedCategories();
-            foreach (CategoryInfo category in categories)
+            foreach (Category category in categories)
             {
-                categorySelect.CategoryPicker.AddSelectedCategory(category.CategoryId);
+                categorySelect.CategoryPicker.AddSelectedCategory(category.Id);
             }
             this.loading = false;
         }
@@ -306,7 +310,7 @@ namespace msn2.net.Pictures.Controls
 
             if (null != getPreviousId)
             {
-                PictureData previousItem = getPreviousId(item.PictureId);
+                Picture previousItem = getPreviousId(item.PictureId);
 
                 if (previousItem != null)
                 {
@@ -328,7 +332,7 @@ namespace msn2.net.Pictures.Controls
 
             if (null != getNextId)
             {
-                PictureData nextItem = getNextId(this.picture.Id);
+                Picture nextItem = getNextId(this.picture.Id);
 
                 if (nextItem != null)
                 {
@@ -366,7 +370,7 @@ namespace msn2.net.Pictures.Controls
 
         protected void Next()
         {
-            PictureData picture = getNextId(item.PictureId);
+            Picture picture = getNextId(item.PictureId);
             if (picture != null)
             {
                 SetPicture(picture);
@@ -376,7 +380,7 @@ namespace msn2.net.Pictures.Controls
 
         protected void Previous()
         {
-            PictureData picture = getPreviousId(item.PictureId);
+            Picture picture = getPreviousId(item.PictureId);
             if (picture != null)
             {
                 SetPicture(picture);
@@ -426,7 +430,7 @@ namespace msn2.net.Pictures.Controls
             {
                 PicContext.Current.PictureManager.AddToCategory(
                     this.picture.Id,
-                    selCat.SelectedCategory.CategoryId);
+                    selCat.SelectedCategory.Id);
             }
         }
 
@@ -615,7 +619,7 @@ namespace msn2.net.Pictures.Controls
             {
                 PicContext.Current.PictureManager.AddToCategory(
                     this.picture.Id,
-                    e.Category.CategoryId);
+                    e.Category.Id);
 
                 if (this.editor != null)
                 {
@@ -630,7 +634,7 @@ namespace msn2.net.Pictures.Controls
             {
                 PicContext.Current.PictureManager.RemoveFromCategory(
                     this.picture.Id,
-                    e.Category.CategoryId);
+                    e.Category.Id);
 
                 if (this.editor != null)
                 {
@@ -742,7 +746,11 @@ namespace msn2.net.Pictures.Controls
         {
             if (this.picture != null)
             {
-                this.DisplayStarRating(this.picture.UserRating);
+                byte? rating = PicContext.Current.PictureManager.GetUserRating(this.picture.Id);
+                if (rating != null)
+                {
+                    this.DisplayStarRating((int)rating.Value);
+                }
             }
             else
             {
@@ -789,7 +797,7 @@ namespace msn2.net.Pictures.Controls
             averageLabel.Visible = false;
 
             // Only display if user has rated
-            if (this.picture != null && this.picture.UserRating > 0)
+            if (this.picture != null && PicContext.Current.PictureManager.GetUserRating(picture.Id) != null)
             {
                 averageLabel.Text = string.Format("Avg {0:0.0}", this.picture.AverageRating);
                 averageLabel.Visible = true;
@@ -806,7 +814,11 @@ namespace msn2.net.Pictures.Controls
 
             if (this.picture != null)
             {
-                DisplayStarRating(this.picture.UserRating);
+                byte? rating = PicContext.Current.PictureManager.GetUserRating(this.picture.Id);
+                if (rating != null)
+                {
+                    DisplayStarRating((int)rating);
+                }
                 DisplayAverageRating();
             }
         }
@@ -836,7 +848,7 @@ namespace msn2.net.Pictures.Controls
 
         private void OpenFileThread(object oPic)
         {
-            PictureData picture = (PictureData)oPic;
+            Picture picture = (Picture)oPic;
 
             string path = System.IO.Path.Combine(
                 PicContext.Current.Config.PictureDirectory,
@@ -845,7 +857,7 @@ namespace msn2.net.Pictures.Controls
             if (System.IO.File.Exists(path) == true)
             {
                 string editCommand = Registry.GetValue(@"HKEY_CLASSES_ROOT\jpegfile\shell\edit\command", null, "iexplore.exe").ToString();
-                
+
                 Process p = new Process();
                 if (editCommand.IndexOf("%1") > 0)
                 {
@@ -896,9 +908,9 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private delegate void ReloadImageDelegate(PictureData picture);
+        private delegate void ReloadImageDelegate(Picture picture);
 
-        private void ReloadImage(PictureData picture)
+        private void ReloadImage(Picture picture)
         {
             if (this.picture != null && picture.Id == this.picture.Id)
             {
@@ -906,7 +918,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public delegate PictureData GetNextItemIdDelegate(int currentItem);
-        public delegate PictureData GetPreviousItemIdDelegate(int currentItem);
+        public delegate Picture GetNextItemIdDelegate(int currentItem);
+        public delegate Picture GetPreviousItemIdDelegate(int currentItem);
     }
 }

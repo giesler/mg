@@ -10,7 +10,7 @@ namespace msn2.net.Pictures.Controls
 {
     public class RandomSlideshow : Slideshow
     {
-        private List<PictureData> pictures = new List<PictureData>();
+        private List<Picture> pictures = new List<Picture>();
         protected Timer timer = new Timer();
         private Label errorLabel = new Label();
         public string Path { get; set; }
@@ -81,7 +81,7 @@ namespace msn2.net.Pictures.Controls
 
         void timer_Tick(object sender, EventArgs e)
         {
-            PictureData picture = null;
+            Picture picture = null;
 
             try
             {
@@ -121,7 +121,7 @@ namespace msn2.net.Pictures.Controls
             this.timer = null;
         }
 
-        private PictureData GetPreviousPicture(int currentPictureId)
+        private Picture GetPreviousPicture(int currentPictureId)
         {
             int index = GetPictureIndex(currentPictureId);
             if (index > 0)
@@ -132,25 +132,23 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
-        private PictureData GetNextPicture(int currentPictureId)
+        private Picture GetNextPicture(int currentPictureId)
         {
             int index = GetPictureIndex(currentPictureId);
             int retryCount = 100;
             if (index < 0 || index == pictures.Count - 1)
             {
-                PictureData addedPicture = null;
+                Picture addedPicture = null;
                 do
                 {
                     Picture randomPicture = this.GetRandomPicture();
                     if (randomPicture != null)
                     {
-                        PictureData pd = PicContext.Current.PictureManager.GetPicture(randomPicture.Id);
-
-                        addedPicture = pictures.Find(p => p.Id == pd.Id);
+                        addedPicture = pictures.Find(p => p.Id == randomPicture.Id);
 
                         if (addedPicture == null)
                         {
-                            pictures.Add(pd);
+                            pictures.Add(randomPicture);
                         }
                     }
 
@@ -159,7 +157,7 @@ namespace msn2.net.Pictures.Controls
                 } while (addedPicture != null && retryCount > 0);
             }
 
-            PictureData pic = null;
+            Picture pic = null;
             if (retryCount == 0)
             {
                 this.pictures.Clear();

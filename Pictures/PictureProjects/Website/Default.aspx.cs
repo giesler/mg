@@ -33,28 +33,30 @@ namespace pics
 // 		}
 
 		#endregion
-        
-		private void Page_Load(object sender, System.EventArgs e)
-		{			
-			Literal br = new Literal();
-			br.Text = "<br />";
 
-			List<CategoryInfo> recentCategories = PicContext.Current.CategoryManager.RecentCategorires();
+        private void Page_Load(object sender, System.EventArgs e)
+        {
+            Literal br = new Literal();
+            br.Text = "<br />";
+
+            List<Category> recentCategories = PicContext.Current.CategoryManager.RecentCategorires();
 
             dlRecent.DataSource = recentCategories;
-			dlRecent.DataBind();
+            dlRecent.DataBind();
 
-			// run the SP, set datasource to the picture list
+            // run the SP, set datasource to the picture list
             Picture pic = PicContext.Current.PictureManager.GetRandomPicture();
-            PictureData ds = PicContext.Current.PictureManager.GetPicture(pic.Id);
-            List<PictureData> list = new List<PictureData>();
+            Picture ds = PicContext.Current.PictureManager.GetPicture(pic.Id);
+            List<Picture> list = new List<Picture>();
+
             list.Add(ds);
 
-			// create new control
+            // create new control
             if (pic != null)
             {
                 ThumbnailList thumbs = new ThumbnailList();
                 thumbs.PageReturnURL = BuildRandomPageUrl(pic.Id, "default.aspx");
+                thumbs.SkipRecordBind = true;
                 thumbs.ThumbsDataSource = list;
                 randomPicture.Controls.Add(thumbs);
             }
@@ -64,7 +66,7 @@ namespace pics
                 label.Text = "You do not have permission to view any pictures.";
                 contentRecentPictures.Controls.Add(label);
             }
-		}
+        }
 
         public static string BuildRandomPageUrl(int pictureId, string refUrl)
         {

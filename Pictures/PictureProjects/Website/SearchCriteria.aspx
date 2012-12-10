@@ -23,7 +23,7 @@
 						</picctls:sidebar>
 					</td>
 				</tr>
-				<tr height="25">
+				<tr  height="25">
 					<td>
 						<table class="areaPanel" cellSpacing="0" cellPadding="4" width="100%" border="0">
 							<tr>
@@ -42,7 +42,7 @@
 							the fields below. For Name and Description you can enter a part of a name.
 						</p>
 						<P>
-							<asp:Label ID="noResults" Runat="server" Visible="False" CssClass="err">There were no results found for your search below.  Please change your search and try again.<<br />><<br />></asp:Label>
+							<asp:Label ID="noResults" Runat="server" Visible="False" CssClass="err">There were no results found for your search below.  Please change your search and try again.<br /><br /></asp:Label>
 						</P>
 						<p>
 							<b>Picture Description</b>: You can search for pictures based on the picture 

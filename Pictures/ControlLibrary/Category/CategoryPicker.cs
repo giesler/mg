@@ -179,12 +179,12 @@ namespace msn2.net.Pictures.Controls
 		{
             if (btnAddCategory.Enabled == true)
             {
-                CategoryInfo category = categoryTree1.SelectedCategory;
+                Category category = categoryTree1.SelectedCategory;
 
                 // make sure row isn't already added
                 foreach (CategoryListViewItem liTemp in lvCategories.Items)
                 {
-                    if (liTemp.Category.CategoryId == category.CategoryId)
+                    if (liTemp.Category.Id == category.Id)
                     {
                         return;
                     }
@@ -200,8 +200,8 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 // add to arCategory if not there
-                if (!arCategory.Contains(category.CategoryId))
-                    arCategory.Add(category.CategoryId);
+                if (!arCategory.Contains(category.Id))
+                    arCategory.Add(category.Id);
             }
 		}
 
@@ -219,8 +219,8 @@ namespace msn2.net.Pictures.Controls
 				lvCategories.Items.Remove(li);
 
 				// remove from arCategory if there
-				if (arCategory.Contains(li.Category.CategoryId))
-                    arCategory.Remove(li.Category.CategoryId);
+				if (arCategory.Contains(li.Category.Id))
+                    arCategory.Remove(li.Category.Id);
 
                 // fire event
 				if (RemovedCategory != null)
@@ -231,16 +231,16 @@ namespace msn2.net.Pictures.Controls
 
 		public void AddSelectedCategory(int categoryId) 
 		{
-            CategoryInfo category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+            Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 
             if (category != null)
             {
                 CategoryListViewItem item = new CategoryListViewItem(category);
 
                 // add to arCategory if not there
-                if (!arCategory.Contains(category.CategoryId))
+                if (!arCategory.Contains(category.Id))
                 {
-                    arCategory.Add(category.CategoryId);
+                    arCategory.Add(category.Id);
                     lvCategories.Items.Add(item);
                 }
             }
@@ -307,7 +307,7 @@ namespace msn2.net.Pictures.Controls
 
             foreach (CategoryListViewItem item in lvCategories.Items) 
 			{
-				selected.Add(item.Category.CategoryId);
+				selected.Add(item.Category.Id);
 			}
 
             return selected;
@@ -344,14 +344,14 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryPickerEventArgs: EventArgs 
 	{
-        private CategoryInfo category;
+        private Category category;
 
-        public CategoryPickerEventArgs(CategoryInfo category)
+        public CategoryPickerEventArgs(Category category)
         {
             this.category = category;
         }
 
-        public CategoryInfo Category
+        public Category Category
         {
             get
             {
@@ -362,15 +362,15 @@ namespace msn2.net.Pictures.Controls
 
     public class CategoryListViewItem : ListViewItem
     {
-        private CategoryInfo category;
+        private Category category;
 
-        public CategoryListViewItem(CategoryInfo category)
+        public CategoryListViewItem(Category category)
         {
             this.category = category;
             this.Text = category.Name;
         }
 
-        public CategoryInfo Category
+        public Category Category
         {
             get
             {

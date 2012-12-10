@@ -24,62 +24,62 @@
 						<!-- Main content -->
 						<asp:Panel ID="pnlNewLoginInfo" Runat="server" Width="100%">
 							<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-								<TR class="loginTableContent">
+								<tr  class="loginTableContent">
 									<TD class="loginTableTitle" colSpan="2">New Login
 									</TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Name:
 									</TD>
 									<TD class="loginTableText">
 										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Email:
 									</TD>
 									<TD class="loginTableText">
 										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:Panel>
 						<asp:Panel ID="pnlNewUser" Runat="server" Width="100%">
 							<P>Enter the details of the new person here.
 							</P>
 							<TABLE>
-								<TR>
+								<tr>
 									<TD>
 										<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-											<TR class="loginTableContent">
+											<tr  class="loginTableContent">
 												<TD class="loginTableTitle" colSpan="2">New Login
 												</TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">First Name:
 													<asp:RequiredFieldValidator id="Requiredfieldvalidator1" Runat="server" Display="Dynamic" ControlToValidate="txtFirstName" ErrorMessage="First name is required." CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtFirstName" Width="175px" Runat="server"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Last Name:
 													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLastName" ErrorMessage="Last name is required." CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtLastName" Width="175px" Runat="server"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText">Full Name:
 													<asp:RequiredFieldValidator id="NameValidator" Runat="server" Display="Dynamic" ControlToValidate="txtFullName" ErrorMessage="Name is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtFullName" Width="175px" Runat="server"></asp:TextBox></TD>
-											</TR>
-											<TR class="loginTableContent">
+											</tr>
+											<tr  class="loginTableContent">
 												<TD class="loginTableText" align="right" colSpan="2">
 													<asp:Button id="btnOK" Text=" OK " Runat="server" CssClass="btn" onclick="btnOK_Click"></asp:Button></TD>
-											</TR>
+											</tr>
 										</TABLE>
 									</TD>
 									<TD>
 										<asp:ValidationSummary id="ValidSummary" Runat="server" CssClass="err" HeaderText="You must enter valid values for the following fields:" DisplayMode="BulletList"></asp:ValidationSummary></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:Panel>
 						<asp:Panel ID="pnlDone" Runat="server" Visible="False">

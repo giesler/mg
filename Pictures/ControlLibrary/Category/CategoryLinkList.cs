@@ -19,24 +19,24 @@ namespace msn2.net.Pictures.Controls
         {
         }
 
-        public CategoryLinkItem Add(CategoryInfo category)
+        public CategoryLinkItem Add(Category category)
         {
             CategoryLinkItem item = new CategoryLinkItem(category);
             this.Controls.Add(item);
             return item;
         }
 
-        public bool Contains(CategoryInfo category)
+        public bool Contains(Category category)
         {
             CategoryLinkItem item = this.Find(category);
             return (item != null);
         }
 
-        public CategoryLinkItem Find(CategoryInfo category)
+        public CategoryLinkItem Find(Category category)
         {
             foreach (CategoryLinkItem item in this.Controls)
             {
-                if (item.Category.CategoryId == category.CategoryId)
+                if (item.Category.Id == category.Id)
                 {
                     return item;
                 }
@@ -44,12 +44,12 @@ namespace msn2.net.Pictures.Controls
 
             return null;
         }
-        
-        public void Remove(CategoryInfo category)
+
+        public void Remove(Category category)
         {
             foreach (CategoryLinkItem item in this.Controls)
             {
-                if (item.Category.CategoryId == category.CategoryId)
+                if (item.Category.Id == category.Id)
                 {
                     this.Controls.Remove(item);
                     break;

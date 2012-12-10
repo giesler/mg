@@ -15,15 +15,15 @@ namespace msn2.net.Pictures.Controls
 {
     public class CategoryLinkItem : BaseLinkItem
     {
-        private CategoryInfo category;
+        private Category category;
 
-        public CategoryLinkItem(CategoryInfo category)
+        public CategoryLinkItem(Category category)
         {
             this.category = category;
             base.Text = category.Name;
         }
 
-        public CategoryInfo Category
+        public Category Category
         {
             get
             {

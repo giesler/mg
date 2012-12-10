@@ -20,7 +20,7 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class PictureItem : UserControl
     {
-        private PictureData picture;
+        private Picture picture;
         private bool loading = false;
         private bool sizing = false;
         private object lockObject = new object();
@@ -30,7 +30,7 @@ namespace msn2.net.Pictures.Controls
         {
         }
 
-        public PictureItem(PictureData picture): base()
+        public PictureItem(Picture picture): base()
         {
             this.picture = picture;
 
@@ -45,7 +45,7 @@ namespace msn2.net.Pictures.Controls
             this.Disposed += new EventHandler(PictureItem_Disposed);
         }
 
-        public PictureData Picture
+        public Picture Picture
         {
             get
             {
@@ -178,7 +178,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public void SetPicture(PictureData item)
+        public void SetPicture(Picture item)
         {
             lock (this.lockObject)
             {
@@ -464,7 +464,7 @@ namespace msn2.net.Pictures.Controls
                 Rectangle topTextRect = new Rectangle(10, this.Height - 40, rect.Width, 12);
                 e.Graphics.DrawString(topText, new Font("Arial", 10, FontStyle.Bold), Brushes.White, topTextRect, format);
 
-                string bottomText = string.Format("{0}: #{1}", this.Picture.DateTaken.ToShortDateString(), this.Picture.Id);
+                string bottomText = string.Format("{0}: #{1}", this.Picture.PictureDate.ToShortDateString(), this.Picture.Id);
                 Rectangle bottomTextRect = new Rectangle(10, this.Height - 25, rect.Width, 10);
                 e.Graphics.DrawString(bottomText, new Font("Arial", 10, FontStyle.Regular), Brushes.White, bottomTextRect, format);
             }

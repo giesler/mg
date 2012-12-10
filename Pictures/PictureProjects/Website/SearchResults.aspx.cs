@@ -131,7 +131,7 @@ namespace pics
 			thumbs.TotalRecords		= totalCount;
 			thumbs.StartRecord		= intStartRecord;
 			thumbs.RecordsPerPage	= pageSize;
-			thumbs.NoPictureMessage	= "<b>There are no pictures in this category.</b><<br />>Please select another category from the left tree.";
+			thumbs.NoPictureMessage	= "<b>There are no pictures in this category.</b><br />Please select another category from the left tree.";
 			thumbs.PageNavUrl		= Request.Path + "?id=" + id + "&sr={0}";
 			pnlthumbs.Controls.Add(thumbs);
 

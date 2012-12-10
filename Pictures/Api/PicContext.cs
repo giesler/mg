@@ -104,8 +104,8 @@ namespace msn2.net.Pictures
 			this.config		= config;
 
 			pictureManager	= new PictureManager(this);
-			categoryManager	= new CategoryManager(config.ConnectionString);
-            pictureCache = new PictureCacheInfo();
+			categoryManager	= new CategoryManager(this);
+            pictureCache = new PictureCacheInfo(this);
             userManager		= new UserManager(this);
             groupManager = new GroupManager(this);
 			currentUser		= null;
@@ -210,6 +210,10 @@ namespace msn2.net.Pictures
 
 		#endregion
 
+        public void SubmitChanges()
+        {
+            this.DataContext.SubmitChanges();
+        }
 	}
 
 }

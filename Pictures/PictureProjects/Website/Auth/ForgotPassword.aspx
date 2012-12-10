@@ -37,18 +37,18 @@
 								</LI>
 							</UL>
 							<TABLE class="loginTable" cellSpacing="0" cellPadding="5">
-								<TR class="loginTableContent">
+								<tr  class="loginTableContent">
 									<TD class="loginTableTitle"><B>Email</B>
 									</TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">
 										<asp:TextBox id="txtEmail" Runat="server" Width="175px"></asp:TextBox></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText" align="right">
 										<asp:Button id="btnConfirm" Text="Confirm" Runat="server" CssClass="btn" onclick="btnConfirm_Click"></asp:Button></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:Panel>
 						<asp:panel id="pnlBadLogin" Width="225" Visible="False" Runat="server" Height="29px" CssClass="errorPanel">

@@ -1054,7 +1054,7 @@ namespace msn2.net.Pictures.Controls
 		{
 			// add the category to the PictureCategory dataset
 			dsPicture.PictureCategory.AddPictureCategoryRow
-				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.Category.CategoryId);
+				((DataSetPicture.PictureRow) dsPicture.Picture.Rows[0], e.Category.Id);
 
 			UpdateCategoryList();
 		}
@@ -1062,7 +1062,7 @@ namespace msn2.net.Pictures.Controls
 		private void categoryPicker1_RemovedCategory(object sender, msn2.net.Pictures.Controls.CategoryPickerEventArgs e)
 		{
 			DataSetPicture.PictureCategoryRow pcr = 
-				dsPicture.PictureCategory.FindByPictureIDCategoryID(dsPicture.Picture[0].PictureID, e.Category.CategoryId);
+				dsPicture.PictureCategory.FindByPictureIDCategoryID(dsPicture.Picture[0].PictureID, e.Category.Id);
 			
 			if (pcr != null) 
 			{
@@ -1078,7 +1078,7 @@ namespace msn2.net.Pictures.Controls
 
 			foreach (int categoryId in categoryPicker1.selectedCategories)
 			{
-				CategoryInfo category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+				Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
 				setCategoryPicSelection.Items.Add(category);
 			}
 		}
@@ -1251,9 +1251,9 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			CategoryInfo category = (CategoryInfo) setCategoryPicSelection.SelectedItem;
+			Category category = (Category) setCategoryPicSelection.SelectedItem;
 			
-			PicContext.Current.CategoryManager.SetCategoryPictureId(category.CategoryId, this.pictureId);
+			PicContext.Current.CategoryManager.SetCategoryPictureId(category.Id, this.pictureId);
 		}
 
 		public bool MoveNext 

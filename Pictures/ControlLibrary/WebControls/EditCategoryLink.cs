@@ -24,9 +24,6 @@ namespace msn2.net.Pictures.Controls
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
-			// TODO: Add any initialization after the InitForm call
-
 		}
 
 		/// <summary> 

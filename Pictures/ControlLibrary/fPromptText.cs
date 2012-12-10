@@ -28,10 +28,7 @@ namespace msn2.net.Pictures.Controls
 			//
 			InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+	}
 
 		/// <summary>
 		/// Clean up any resources being used.

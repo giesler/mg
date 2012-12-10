@@ -84,7 +84,7 @@ namespace pics
 
 			// Load the details of this category
 			CategoryManager catManager		= PicContext.Current.CategoryManager;
-			CategoryInfo currentCategory 		= catManager.GetCategory(currentCategoryId);
+			Category currentCategory 		= catManager.GetCategory(currentCategoryId);
 			if (currentCategory == null)
 			{
 				throw new ApplicationException("The category specified in the querystring does not exist or you do not have permission to view it.");
@@ -94,7 +94,7 @@ namespace pics
 			editMode = (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "edit");
 
 			// Get the category table
-            List<CategoryInfo> categories = PicContext.Current.CategoryManager.GetCategories(currentCategoryId, 1);
+            List<Category> categories = PicContext.Current.CategoryManager.GetCategoriesWithPictures(currentCategoryId);
 
 			int columns				= 2;
 
@@ -108,7 +108,7 @@ namespace pics
             
 			// fill the child control list with links
 			int i = 0;
-			foreach (CategoryInfo category in new EricUtility.Iterators.IterReverse(categories))
+			foreach (Category category in categories)
 			{
 				//BreakGroup( t);
 
@@ -118,9 +118,9 @@ namespace pics
 					t.Rows.Add(catRow);
 				}
 
-				string catNavUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + category.CategoryId.ToString();
+				string catNavUrl = "Categories.aspx?r=" + rootCategoryId + "&c=" + category.Id.ToString();
 				
-				pics.Controls.CategoryListViewItem lvi = new pics.Controls.CategoryListViewItem(category.CategoryId, catNavUrl);
+				pics.Controls.CategoryListViewItem lvi = new pics.Controls.CategoryListViewItem(category.Id, catNavUrl);
 				lvi.FolderWidth		= 150;
 				TableCell tc = new TableCell();
 				tc.Controls.Add(lvi);
@@ -142,9 +142,9 @@ namespace pics
             }
 
 			// Now load the 'you are here' control
-            List<CategoryInfo> cc = new List<CategoryInfo>();
-			CategoryInfo parentCategory = currentCategory;
-			while (parentCategory.CategoryId != rootCategoryId) 
+            List<Category> cc = new List<Category>();
+			Category parentCategory = currentCategory;
+			while (parentCategory.Id != rootCategoryId) 
 			{
 				parentCategory	= catManager.GetCategory(parentCategory.ParentId);
 
@@ -174,7 +174,7 @@ namespace pics
 
 			// Now output in reverse order
 			int currentItem = 0;
-			foreach (CategoryInfo category in new EricUtility.Iterators.IterReverse(cc))
+			foreach (Category category in new EricUtility.Iterators.IterReverse(cc))
 			{
 				TableCell tc = new TableCell();
 				tc.Width = Unit.Pixel(10);
@@ -191,7 +191,7 @@ namespace pics
 				HyperLink link			= new HyperLink();
 				link.Text				= category.Name;
 				link.CssClass			= "categorySmallLink";
-				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId.ToString() + "&c=" + category.CategoryId.ToString();
+				link.NavigateUrl		= "Categories.aspx?r=" + rootCategoryId.ToString() + "&c=" + category.Id.ToString();
 				tc.Controls.Add(link);
 
 				// add a divider if not at end
@@ -252,7 +252,7 @@ namespace pics
 			{
 				int personId						= PicContext.Current.CurrentUser.Id;
 				t2r2c3.Width						= Unit.Pixel(50);
-				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.CategoryId, personId);
+				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.Id, personId);
 				t2r2c3.Controls.Add(editCat);
 			}
 
@@ -272,8 +272,7 @@ namespace pics
 			if (showEditControls)
 			{
 				string groups = "";
-				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(
-                    currentCategory.CategoryId);
+				string [] groupNames = PicContext.Current.CategoryManager.GetCategoryGroups(currentCategory.Id);
 				foreach (string groupName in groupNames)
 				{
 					if (groups.Length > 0) groups += ", ";
@@ -412,7 +411,7 @@ namespace pics
             }
             else
             {
-                thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><<br />>"
+                thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><br />"
                     + "We may have added the category and not published pictures yet, so please check back later.";
             }                
              
@@ -442,7 +441,7 @@ namespace pics
 			{
 				mySelectedList.Add(e.PicId);
 				Label added = new Label();
-				added.Text	= "- Added 1 pic<<br />>";
+				added.Text	= "- Added 1 pic<br />";
 				added.Font.Size = FontUnit.Parse("8pt");
 				Sidebar1.SelectedWindow.ContentPanel.AddContent(added);
 			}
@@ -450,7 +449,7 @@ namespace pics
 			{
 				mySelectedList.Remove(e.PicId);
 				Label removed = new Label();
-				removed.Text	= "- Removed 1 pic<<br />>";
+				removed.Text	= "- Removed 1 pic<br />";
 				removed.Font.Size = FontUnit.Parse("8pt");
 				Sidebar1.SelectedWindow.ContentPanel.AddContent(removed);
 			}
@@ -513,7 +512,7 @@ namespace pics
 			}
 
 			Label added = new Label();
-			added.Text	= "- Added all pic<<br />>";
+			added.Text	= "- Added all pic<br />";
 			added.Font.Size = FontUnit.Parse("8pt");
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(added);
 

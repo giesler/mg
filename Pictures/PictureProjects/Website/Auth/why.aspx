@@ -40,8 +40,8 @@
 						email address, are stored on a server at my house.&nbsp; I keep the server up 
 						to date and secure.</P>
 					<P>
-						<<br />>
-						<<br />>
+						<br />
+						<br />
 						<a href="Login.aspx">Return to login page</a> 
 						<!-- Begin footer --></P>
 				</td>

@@ -22,14 +22,17 @@ namespace msn2.net.Pictures
 
     public class PictureCacheInfo
     {
-        public PictureCacheInfo()
+        private PicContext context;
+
+        internal PictureCacheInfo(PicContext context)
         {
+            this.context = context;
         }
 
-        public string GetImageFileName(PictureData picture, int maxWidth, int maxHeight)
+        public string GetImageFileName(Picture picture, int maxWidth, int maxHeight)
         {
             string cacheName = this.GetCacheName(picture.Id, maxWidth, maxHeight);
-            string targetFile = PicContext.Current.Config.CacheDirectory + cacheName;
+            string targetFile = this.context.Config.CacheDirectory + cacheName;
 
             if (File.Exists(targetFile) == false)
             {
@@ -39,11 +42,11 @@ namespace msn2.net.Pictures
             return targetFile;
         }
 
-        public Image GetImage(PictureData picture, int maxWidth, int maxHeight)
+        public Image GetImage(Picture picture, int maxWidth, int maxHeight)
         {
             string cacheName = this.GetCacheName(picture.Id, maxWidth, maxHeight);
-            string sourceFile = PicContext.Current.Config.PictureDirectory + picture.Filename;
-            string targetFile = PicContext.Current.Config.CacheDirectory   + cacheName;
+            string sourceFile = this.context.Config.PictureDirectory + picture.Filename;
+            string targetFile = this.context.Config.CacheDirectory + cacheName;
 
             // Make sure target dir exists
             string targetPath = targetFile.Substring(0, targetFile.LastIndexOf(@"\"));
@@ -142,7 +145,7 @@ namespace msn2.net.Pictures
             return nameBuilder.ToString();
         }
 
-        public PictureCacheData GetPictureCacheData(PictureData picture, PictureCacheSize size)
+        public PictureCacheData GetPictureCacheData(Picture picture, PictureCacheSize size)
         {
             int maxWidth = 125;
             int maxHeight = 125;
@@ -155,7 +158,7 @@ namespace msn2.net.Pictures
 
             string cacheFile= GetImageFileName(picture, maxWidth, maxHeight);
 
-            return new PictureCacheData {PictureData = picture, Filename = cacheFile};
+            return new PictureCacheData {Picture = picture, Filename = cacheFile};
         }
     }
 
@@ -166,7 +169,7 @@ namespace msn2.net.Pictures
         {
         }
 
-        public PictureData PictureData { get; set; }
+        public Picture Picture { get; set; }
         public string Filename { get; set; }
     }
 }

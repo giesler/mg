@@ -133,7 +133,7 @@
                     </tr>
                     <tr>
                         <td class="infoPanelText" valign="top" colspan="2">
-                            <b>Categories</b><<br />>
+                            <b>Categories</b><br />
                             <asp:DataList ID="categoryList" runat="server" Width="100%" CssClass="infoPanelText"
                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
                                 <ItemTemplate>
@@ -145,7 +145,7 @@
                                 </SeparatorTemplate>
                             </asp:DataList>
                             <hr noshade size="1">
-                            <b>Groups</b><<br />>
+                            <b>Groups</b><br />
                             <asp:DataList ID="securityList" runat="server" Width="100%" CssClass="infoPanelText"
                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
                                 <ItemTemplate>

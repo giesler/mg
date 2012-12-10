@@ -45,7 +45,7 @@ namespace msn2.net.Pictures.Controls
 
             flowLayoutPanel1.Controls.Clear();
 
-            foreach (PictureData picture in pictures)
+            foreach (Picture picture in pictures)
             {
                 PictureItem pi = new PictureItem(picture);
                 pi.DoubleClick += new EventHandler(pi_DoubleClick);
@@ -110,13 +110,13 @@ namespace msn2.net.Pictures.Controls
         public void ReloadPicture(int pictureId)
         {
             PictureItem item = FindItem(pictureId);
-            PictureData data = PicContext.Current.PictureManager.GetPicture(pictureId);
+            Picture data = PicContext.Current.PictureManager.GetPicture(pictureId);
             item.SetPicture(data);
         }
 
-        public PictureData GetSelectedPictureData()
+        public Picture GetSelectedPictureData()
         {
-            PictureData val = null;
+            Picture val = null;
 
             if (this.selectedItems.Count > 0)
             {
@@ -143,7 +143,7 @@ namespace msn2.net.Pictures.Controls
         public event PictureItemEventHandler ItemSelected;
         public event PictureItemEventHandler ItemUnselected;
 
-        public PictureData GetNextPicture(int pictureId)
+        public Picture GetNextPicture(int pictureId)
         {
             bool found = false;
 
@@ -163,9 +163,9 @@ namespace msn2.net.Pictures.Controls
             return null;
         }
 
-        public PictureData GetPreviousPicture(int pictureId)
+        public Picture GetPreviousPicture(int pictureId)
         {
-            PictureData lastPicture = null;
+            Picture lastPicture = null;
 
             foreach (PictureItem item in flowLayoutPanel1.Controls)
             {
@@ -341,14 +341,14 @@ namespace msn2.net.Pictures.Controls
 
     public class PictureItemEventArgs : EventArgs
     {
-        private PictureData picture;
+        private Picture picture;
 
-        internal PictureItemEventArgs(PictureData picture)
+        internal PictureItemEventArgs(Picture picture)
         {
             this.picture = picture;
         }
 
-        public PictureData Picture
+        public Picture Picture
         {
             get
             {

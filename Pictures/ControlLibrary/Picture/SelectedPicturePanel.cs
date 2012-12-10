@@ -22,7 +22,7 @@ namespace msn2.net.Pictures.Controls
             UpdateControls();
         }
 
-        public void AddPicture(PictureData picture)
+        public void AddPicture(Picture picture)
         {
             this.pictureStack1.AddPicture(picture);
             this.pictureDetailEditor.AddPicture(picture);
@@ -134,7 +134,7 @@ namespace msn2.net.Pictures.Controls
             {
                 foreach (PictureItem item in this.pictureStack1.Pictures)
                 {
-                    PicContext.Current.PictureManager.AddToCategory(item.PictureId, selCat.SelectedCategory.CategoryId);
+                    PicContext.Current.PictureManager.AddToCategory(item.PictureId, selCat.SelectedCategory.Id);
                 }
                 this.pictureDetailEditor.AddCategory(selCat.SelectedCategory);
             }
@@ -149,12 +149,12 @@ namespace msn2.net.Pictures.Controls
             }
             else
             {
-                List<CategoryInfo> categories = this.pictureDetailEditor.GetCurrentCategories();
+                List<Category> categories = this.pictureDetailEditor.GetCurrentCategories();
 
                 if (categories.Count == 1)
                 {
                     PicContext.Current.CategoryManager.SetCategoryPictureId(
-                        categories[0].CategoryId,
+                        categories[0].Id,
                         this.pictureStack1.Pictures[0].PictureId);
                 }
                 else
@@ -163,9 +163,9 @@ namespace msn2.net.Pictures.Controls
                     dialog.SelectionMode = SelectionMode.One;
                     if (dialog.ShowDialog(this) == DialogResult.OK)
                     {
-                        CategoryInfo category = dialog.GetSelectedCategory();
+                        Category category = dialog.GetSelectedCategory();
                         PicContext.Current.CategoryManager.SetCategoryPictureId(
-                            category.CategoryId,
+                            category.Id,
                             this.pictureStack1.Pictures[0].PictureId);
                     }
                 }
@@ -174,17 +174,17 @@ namespace msn2.net.Pictures.Controls
 
         void removeFromCategory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            List<CategoryInfo> categories = this.pictureDetailEditor.GetAllCurrentCategories();
+            List<Category> categories = this.pictureDetailEditor.GetAllCurrentCategories();
 
             CategoryListDialog dialog = new CategoryListDialog(categories);
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                List<CategoryInfo> removeList = dialog.GetSelectedCategories();
-                foreach (CategoryInfo category in removeList)
+                List<Category> removeList = dialog.GetSelectedCategories();
+                foreach (Category category in removeList)
                 {
                     foreach (PictureItem item in this.pictureStack1.Pictures)
                     {
-                        PicContext.Current.PictureManager.RemoveFromCategory(item.PictureId, category.CategoryId);
+                        PicContext.Current.PictureManager.RemoveFromCategory(item.PictureId, category.Id);
                      }
                     this.pictureDetailEditor.RemoveCategory(category);
                 }

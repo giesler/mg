@@ -78,7 +78,7 @@ namespace msn2.net.Pictures.Controls
                 if (PicContext.Current != null)
                 {
                     // load first node
-                    CategoryInfo rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
+                    Category rootCategory = PicContext.Current.CategoryManager.GetRootCategory();
 
                     CategoryTreeNode nRoot = new CategoryTreeNode(rootCategory);
                     tvCategory.HideSelection = false;
@@ -287,7 +287,7 @@ namespace msn2.net.Pictures.Controls
 
 			fEditCategory ec = new fEditCategory();
             
-			ec.NewCategory(n.Category.CategoryId);
+			ec.NewCategory(n.Category.Id);
 
 			ec.ShowDialog();
 
@@ -318,7 +318,7 @@ namespace msn2.net.Pictures.Controls
 			}
 
 			fEditCategory ec = new fEditCategory();
-            ec.CategoryID = n.Category.CategoryId;
+            ec.CategoryID = n.Category.Id;
             ec.ShowDialog();
 
 			if (!ec.Cancel) 
@@ -353,7 +353,7 @@ namespace msn2.net.Pictures.Controls
             if (MessageBox.Show("Would you like to delete category '" + n.Text + "'?  No pictures will be deleted.",
                 "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                PicContext.Current.CategoryManager.DeleteCategory(n.Category.CategoryId);
+                PicContext.Current.CategoryManager.DeleteCategory(n.Category.Id);
                 n.Parent.Nodes.Remove(n);
             }
         }
@@ -390,10 +390,10 @@ namespace msn2.net.Pictures.Controls
             this.Invoke(clearDelegate, new object[] { n });
             
 			// load child nodes from dvCategory
-            List<CategoryInfo> categories = PicContext.Current.CategoryManager.GetCategories(
-                n.Category.CategoryId);
+            List<Category> categories = PicContext.Current.CategoryManager.GetCategories(
+                n.Category.Id);
 
-			foreach (CategoryInfo category in categories) 
+			foreach (Category category in categories) 
 			{
                 CategoryTreeNode childNode = new CategoryTreeNode(category);
                 this.AddCategoryTreeNode(n, childNode);
@@ -411,7 +411,7 @@ namespace msn2.net.Pictures.Controls
             }
 		}
 
-        public void SetSelectedCategory(CategoryInfo category)
+        public void SetSelectedCategory(Category category)
         {
             string path = category.Path;
             if (tvCategory.Nodes.Count > 0)
@@ -421,7 +421,7 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        private void SetSelectedCategory(CategoryTreeNode node, CategoryInfo selectCategory)
+        private void SetSelectedCategory(CategoryTreeNode node, Category selectCategory)
         {
             if (!node.IsExpanded)
             {
@@ -446,7 +446,7 @@ namespace msn2.net.Pictures.Controls
         }
 
 
-        public CategoryInfo SelectedCategory
+        public Category SelectedCategory
 		{
 			get 
 			{
@@ -516,7 +516,7 @@ namespace msn2.net.Pictures.Controls
             if (n == null)
                 return;
 
-            PicContext.Current.CategoryManager.PublishCategory(n.Category.CategoryId);
+            PicContext.Current.CategoryManager.PublishCategory(n.Category.Id);
         }
 
 	}
@@ -528,14 +528,14 @@ namespace msn2.net.Pictures.Controls
 	// class for passing events up
 	public class CategoryTreeEventArgs: EventArgs 
 	{
-        private CategoryInfo category;
+        private Category category;
 
-        public CategoryTreeEventArgs(CategoryInfo category)
+        public CategoryTreeEventArgs(Category category)
         {
             this.category = category;
         }
 
-        public CategoryInfo Category
+        public Category Category
         {
             get
             {
@@ -546,8 +546,8 @@ namespace msn2.net.Pictures.Controls
     
     public class CategoryTreeNode : TreeNode
     {
-        private CategoryInfo category;
-        public CategoryInfo Category
+        private Category category;
+        public Category Category
         {
             get
             {
@@ -555,12 +555,12 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
-        public CategoryTreeNode(CategoryInfo category)
+        public CategoryTreeNode(Category category)
         {
             this.Update(category);
         }
 
-        public void Update(CategoryInfo category)
+        public void Update(Category category)
         {
             this.category = category;
             this.Text = category.Name;

@@ -21,22 +21,22 @@
 					<td class="msn2contentwindow" vAlign="top">
 						<!-- Main content --><asp:panel id="pnlNewLoginInfo" Width="100%" Runat="server">
 							<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-								<TR class="loginTableContent">
+								<tr  class="loginTableContent">
 									<TD class="loginTableTitle" colSpan="2">New Login
 									</TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Name:
 									</TD>
 									<TD class="loginTableText">
 										<asp:Label id="lblName" Width="175px" Runat="server"></asp:Label></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Email:
 									</TD>
 									<TD class="loginTableText">
 										<asp:Label id="lblEmail" Width="175px" Runat="server"></asp:Label></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:panel>
 						<p></p>

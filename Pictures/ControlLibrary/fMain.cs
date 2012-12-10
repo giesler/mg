@@ -1037,7 +1037,7 @@ namespace msn2.net.Pictures.Controls
             {
                 foreach (int pictureId in pictureList1.SelectedItems)
                 {
-                    PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryId);
+                    PicContext.Current.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.Id);
                 }
                 
             }
@@ -1050,7 +1050,7 @@ namespace msn2.net.Pictures.Controls
             {
                 foreach (int pictureId in pictureList1.SelectedItems)
                 {
-                    PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.CategoryId);
+                    PicContext.Current.PictureManager.RemoveFromCategory(pictureId, cat.SelectedCategory.Id);
                 }
             }
         }
@@ -1208,7 +1208,7 @@ namespace msn2.net.Pictures.Controls
 
                 foreach (int pictureId in pictureList1.SelectedItems)
                 {
-                    PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+                    Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
 
                     string sourceFilename = PicContext.Current.Config.PictureDirectory
                         + @"\" + picture.Filename;
@@ -1311,7 +1311,7 @@ namespace msn2.net.Pictures.Controls
         {
             if (pictureList1.SelectedItems.Count > 0)
             {
-                PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureList1.SelectedItems[0]);
+                Picture picture = PicContext.Current.PictureManager.GetPicture(pictureList1.SelectedItems[0]);
                 string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
 
                 string xmp = GetXmpXmlDocFromImage(fileName);
@@ -1330,23 +1330,23 @@ namespace msn2.net.Pictures.Controls
 
             foreach (int pictureId in pictureList1.SelectedItems)
             {
-                PictureData picture = PicContext.Current.PictureManager.GetPicture(pictureId);
+                Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
                 string fileName = Path.Combine(PicContext.Current.Config.PictureDirectory, picture.Filename);
                 
                 string metaDataDate = ImageUtilities.GetDatePictureTaken(fileName);
                 if (metaDataDate != null)
                 {
                     DateTime dt = DateTime.Parse(metaDataDate);
-                    TimeSpan diff = picture.DateTaken - dt;
+                    TimeSpan diff = picture.PictureDate - dt;
                     if (diff.TotalHours > 3)
                     {
                         diffCount++;
                         if (result == DialogResult.Yes)
                         {
-                            picture.DateTaken = dt;
-                            PicContext.Current.PictureManager.Save(picture);
+                            picture.PictureDate = dt;
+                            PicContext.Current.SubmitChanges();
                         }
-                        Debug.WriteLine(picture.Id.ToString() + ": Current: " + picture.DateTaken.ToString() + ", actual: " + dt.ToString());
+                        Debug.WriteLine(picture.Id.ToString() + ": Current: " + picture.PictureDate.ToString() + ", actual: " + dt.ToString());
                     }
                 }
             }

@@ -15,7 +15,7 @@ namespace msn2.net.Pictures.Controls
 {
     public partial class MultiPictureEdit : UserControl
     {
-        private Dictionary<int, PictureData> pictures;
+        private Dictionary<int, Picture> pictures;
         private Hashtable pictureCategories = new Hashtable();
         private Hashtable pictureGroups = new Hashtable();
         private Hashtable picturePeople = new Hashtable();
@@ -23,7 +23,7 @@ namespace msn2.net.Pictures.Controls
         public MultiPictureEdit()
         {
             InitializeComponent();
-            pictures = new Dictionary<int, PictureData>();
+            pictures = new Dictionary<int, Picture>();
 
             description.DisplayMultipleItems = false;
             description.MultiLine = true;
@@ -54,15 +54,15 @@ namespace msn2.net.Pictures.Controls
             this.picturePeople.Clear();
         }
 
-        public void AddPicture(PictureData picture)
+        public void AddPicture(Picture picture)
         {
             pictures.Add(picture.Id, picture);
 
             title.AddItem(picture.Id, picture.Title);
             description.AddItem(picture.Id, picture.Description);
-            dateTaken.AddItem(picture.Id, picture.DateTaken);
+            dateTaken.AddItem(picture.Id, picture.PictureDate);
 
-            List<CategoryInfo> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
+            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(picture.Id);
             this.pictureCategories.Add(picture.Id, categories);
 
             this.UpdateCategories();
@@ -89,15 +89,15 @@ namespace msn2.net.Pictures.Controls
                 this.categoryList.Visible = true;
                 this.differentCategoriesLabel.Visible = false;
                 categoryList.Clear();
-                List<CategoryInfo> categories = null;
-                foreach (List<CategoryInfo> tempCategories in this.pictureCategories.Values)
+                List<Category> categories = null;
+                foreach (List<Category> tempCategories in this.pictureCategories.Values)
                 {
                     categories = tempCategories;
                     break;
                 }
                 if (categories != null)
                 {
-                    foreach (CategoryInfo category in categories)
+                    foreach (Category category in categories)
                     {
                         categoryList.Add(category);
                     }
@@ -114,7 +114,7 @@ namespace msn2.net.Pictures.Controls
         {
             int count = 0;
 
-            foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
+            foreach (List<Category> categories in this.pictureCategories.Values)
             {
                 if (count == 0)
                 {
@@ -127,15 +127,15 @@ namespace msn2.net.Pictures.Controls
                 }
 
                 // Check items against each other group collection
-                foreach (CategoryInfo category in categories)
+                foreach (Category category in categories)
                 {
                     // Make sure in all other picture group hash tables
-                    foreach (List<CategoryInfo> tempCategories in this.pictureCategories.Values)
+                    foreach (List<Category> tempCategories in this.pictureCategories.Values)
                     {
                         bool found = false;
-                        foreach (CategoryInfo tempCategory in tempCategories)
+                        foreach (Category tempCategory in tempCategories)
                         {
-                            if (tempCategory.CategoryId == category.CategoryId)
+                            if (tempCategory.Id == category.Id)
                             {
                                 found = true;
                             }
@@ -153,38 +153,38 @@ namespace msn2.net.Pictures.Controls
             return true;
         }
 
-        public void AddCategory(CategoryInfo category)
+        public void AddCategory(Category category)
         {
             if (!categoryList.Contains(category))
             {
                 categoryList.Add(category);
 
-                foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
+                foreach (List<Category> categories in this.pictureCategories.Values)
                 {
                     categories.Add(category);
                 }
             }
         }
 
-        public void RemoveCategory(CategoryInfo category)
+        public void RemoveCategory(Category category)
         {
             categoryList.Remove(category);
 
-            foreach (List<CategoryInfo> categories in this.pictureCategories.Values)
+            foreach (List<Category> categories in this.pictureCategories.Values)
             {
                 categories.Remove(category);
             }
         }
 
-        public List<CategoryInfo> GetAllCurrentCategories()
+        public List<Category> GetAllCurrentCategories()
         {
-            List<CategoryInfo> categories = new List<CategoryInfo>();
+            List<Category> categories = new List<Category>();
 
-            foreach (PictureData picture in this.pictures.Values)
+            foreach (Picture picture in this.pictures.Values)
             {
-                List<CategoryInfo> picCategories = PicContext.Current.PictureManager.GetPictureCategories(
+                List<Category> picCategories = PicContext.Current.PictureManager.GetPictureCategories(
                     picture.Id);
-                foreach (CategoryInfo category in picCategories)
+                foreach (Category category in picCategories)
                 {
                     if (categories.Contains(category) == false)
                     {
@@ -196,9 +196,9 @@ namespace msn2.net.Pictures.Controls
             return categories;
         }
 
-        public List<CategoryInfo> GetCurrentCategories()
+        public List<Category> GetCurrentCategories()
         {
-            List<CategoryInfo> categories = new List<CategoryInfo>();
+            List<Category> categories = new List<Category>();
 
             foreach (CategoryLinkItem item in this.categoryList.Controls)
             {
@@ -463,25 +463,25 @@ namespace msn2.net.Pictures.Controls
         private void title_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)
         {
             // Update the picture title
-            PictureData picture = this.pictures[e.Id];
+            Picture picture = this.pictures[e.Id];
             picture.Title = e.NewValue;
-            PicContext.Current.PictureManager.Save(picture);
+            PicContext.Current.SubmitChanges();
         }
 
         private void description_StringItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.StringItemChangedEventArgs e)
         {
             // Update the description
-            PictureData picture = this.pictures[e.Id];
+            Picture picture = this.pictures[e.Id];
             picture.Description = e.NewValue;
-            PicContext.Current.PictureManager.Save(picture);
+            PicContext.Current.SubmitChanges();
         }
 
         private void dateTaken_DateTimeItemChanged(object sender, msn2.net.Pictures.Controls.UserControls.DateTimeItemChangedEventArgs e)
         {
             // Update the date taken
-            PictureData picture = this.pictures[e.Id];
-            picture.DateTaken = dateTaken.Value;
-            PicContext.Current.PictureManager.Save(picture);
+            Picture picture = this.pictures[e.Id];
+            picture.PictureDate = dateTaken.Value;
+            PicContext.Current.SubmitChanges();
         }
 
     }

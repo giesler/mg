@@ -28,19 +28,19 @@
                     <!-- Main content -->
                     <asp:Panel ID="pnlNewLoginInfo" runat="server" Width="100%">
                         <table class="logintable" cellspacing="0" cellpadding="5">
-                            <tr class="loginTableContent">
+                            <tr  class="loginTableContent">
                                 <td class="loginTableTitle" colspan="2">
                                     New Login
                                 </td>
                             </tr>
-                            <tr class="loginTableContent">
+                            <tr  class="loginTableContent">
                                 <td class="loginTableText">
                                     Name:
                                 </td>
                                 <td class="loginTableText">
                                     <asp:Label ID="lblName" Width="175px" runat="server"></asp:Label></td>
                             </tr>
-                            <tr class="loginTableContent">
+                            <tr  class="loginTableContent">
                                 <td class="loginTableText">
                                     Email:
                                 </td>
@@ -57,12 +57,12 @@
                             <tr>
                                 <td>
                                     <table class="logintable" cellspacing="0" cellpadding="5">
-                                        <tr class="loginTableContent">
+                                        <tr  class="loginTableContent">
                                             <td class="loginTableTitle" colspan="2">
                                                 New Login
                                             </td>
                                         </tr>
-                                        <tr class="loginTableContent">
+                                        <tr  class="loginTableContent">
                                             <td class="loginTableText">
                                                 First Name:
                                                 <asp:RequiredFieldValidator ID="Requiredfieldvalidator1" runat="server" Display="Dynamic"
@@ -70,7 +70,7 @@
                                             <td class="loginTableText">
                                                 <asp:TextBox ID="txtFirstName" Width="175px" runat="server"></asp:TextBox></td>
                                         </tr>
-                                        <tr class="loginTableContent">
+                                        <tr  class="loginTableContent">
                                             <td class="loginTableText">
                                                 Last Name:
                                                 <asp:RequiredFieldValidator ID="Requiredfieldvalidator2" runat="server" Display="Dynamic"
@@ -78,7 +78,7 @@
                                             <td class="loginTableText">
                                                 <asp:TextBox ID="txtLastName" Width="175px" runat="server"></asp:TextBox></td>
                                         </tr>
-                                        <tr class="loginTableContent">
+                                        <tr  class="loginTableContent">
                                             <td class="loginTableText">
                                                 Full Name:
                                                 <asp:RequiredFieldValidator ID="NameValidator" runat="server" Display="Dynamic" ControlToValidate="txtFullName"
@@ -86,7 +86,7 @@
                                             <td class="loginTableText">
                                                 <asp:TextBox ID="txtFullName" Width="175px" runat="server"></asp:TextBox></td>
                                         </tr>
-                                        <tr class="loginTableContent">
+                                        <tr  class="loginTableContent">
                                             <td class="loginTableText" align="right" colspan="2">
                                                 <asp:Button ID="btnOK" Text=" OK " runat="server" CssClass="btn" OnClick="btnOK_Click">
                                                 </asp:Button></td>

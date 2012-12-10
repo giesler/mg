@@ -28,32 +28,32 @@
 							</P>
 							<asp:Label id="lblError" Runat="server" CssClass="err"></asp:Label>
 							<TABLE class="logintable" cellSpacing="0" cellPadding="5">
-								<TR>
+								<tr>
 									<TD class="loginTableTitle" colSpan="2"><B>Reset Password</B>
 									</TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Email:
 									</TD>
 									<TD class="loginTableText">
 										<asp:Label id="lblEmail" Runat="server"></asp:Label></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">New password:
 									</TD>
 									<TD class="loginTableText">
 										<asp:TextBox id="txtNewPassword" Runat="server" Width="175px" TextMode="Password"></asp:TextBox></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText">Confirm new password:
 									</TD>
 									<TD class="loginTableText">
 										<asp:TextBox id="txtConfirmNewPassword" Runat="server" Width="175px" TextMode="Password"></asp:TextBox></TD>
-								</TR>
-								<TR class="loginTableContent">
+								</tr>
+								<tr  class="loginTableContent">
 									<TD class="loginTableText" align="right" colSpan="2">
 										<asp:Button id="btnOK" Text=" OK " Runat="server" CssClass="btn" Width="100px" onclick="btnOK_Click"></asp:Button></TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</asp:Panel>
 						<asp:Panel Runat="server" ID="pnlChanged" Visible="False">

@@ -28,7 +28,7 @@ namespace msn2.net.Pictures.Controls
             this.PhotosListBox.ItemsSource = null;
 
             List<PictureCacheData> cacheList = new List<PictureCacheData>();
-            foreach (PictureData picture in pictures)
+            foreach (Picture picture in pictures)
             {
                 PictureCacheData cacheData = PicContext.Current.PictureCache.GetPictureCacheData(
                     picture, PictureCacheSize.Small);

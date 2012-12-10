@@ -132,7 +132,7 @@ namespace pics
 			if (description.Text.Length > 0) 
 			{
 				cmd.Parameters["@Description"].Value = description.Text;
-				searchText = searchText + "Description: " + description.Text + "<<br />>";
+				searchText = searchText + "Description: " + description.Text + "<br />";
 			}
 			if (pictureDateStart.Text.Length > 0) 
 			{
@@ -147,15 +147,15 @@ namespace pics
 			// figure out date to show in friendly msg
 			if (pictureDateStart.Text.Length > 0 && pictureDateEnd.Text.Length > 0) 
 			{
-				searchText = searchText + "Date between " + pictureDateStart.Text + " and " + pictureDateEnd.Text + "<<br />>";
+				searchText = searchText + "Date between " + pictureDateStart.Text + " and " + pictureDateEnd.Text + "<br />";
 			} 
 			else if (pictureDateStart.Text.Length > 0 && pictureDateEnd.Text.Length == 0) 
 			{
-				searchText = searchText + "Date after " + pictureDateStart.Text + "<<br />>";
+				searchText = searchText + "Date after " + pictureDateStart.Text + "<br />";
 			} 
 			else if (pictureDateStart.Text.Length == 0 && pictureDateEnd.Text.Length > 0) 
 			{
-				searchText = searchText + "Date before " + pictureDateEnd.Text + "<<br />>";
+				searchText = searchText + "Date before " + pictureDateEnd.Text + "<br />";
 			}
 			
 			// run the SP
@@ -178,7 +178,7 @@ namespace pics
 				cmdPerson.ExecuteNonQuery();
 
 				// add to friendly message
-				searchText = searchText + li.Text + "<<br />>";
+				searchText = searchText + li.Text + "<br />";
 			}
 			
 			// save the search text

@@ -30,7 +30,7 @@
 						</picctls:sidebar>
 					</td>
 				</tr>
-				<tr height="25">
+				<tr  height="25">
 					<td>
 						<table class="areaPanel" cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>

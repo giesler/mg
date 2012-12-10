@@ -22,55 +22,55 @@
 		<!-- top table with MSN2 logo -->
 		<form method="post" runat="server">
 			<picctls:Header id="header" runat="server" size="small" Text="Pictures - Sign In"></picctls:Header>
-			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
+			<table height="100%" cellspacing="0" cellpadding="0" width="100%" align="left" border="0">
 				<tr>
-					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="../images/blank.gif"></td>
+					<td class="msn2headerfade" colspan="3" height="3"><img height="3" src="../images/blank.gif" /></td>
 				</tr>
 				<tr>
 					<td class="msn2sidebar" width="125" valign="top">
 						<picctls:Sidebar id="Sidebar1" runat="server"></picctls:Sidebar>
 					</td>
 					<td class="msn2sidebarfade" width="4"></td>
-					<td class="msn2contentwindow" vAlign="top">
+					<td class="msn2contentwindow" valign="top">
 						<!-- Main content -->
-						<table class="loginTable" id="loginTable" cellSpacing="0" cellPadding="5">
+						<table class="loginTable" id="loginTable" cellspacing="0" cellpadding="5">
 							<tr>
-								<td class="loginTableTitle" colSpan="2">Sign In
+								<td class="loginTableTitle" colspan="2">Sign In
 								</td>
 							</tr>
-							<tr class="loginTableContent">
-								<td class="loginTableText" colSpan="2"><asp:panel id="panelMessage" Runat="server">
+							<tr  class="loginTableContent">
+								<td class="loginTableText" colspan="2"><asp:panel id="panelMessage" Runat="server">
 										<P>In order to view pictures on this site, you must sign in.
-											<<br />>
+											<br />
 											<A href="why.aspx">Why require logging in?</A></P>
 									</asp:panel></td>
 							</tr>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" colSpan="2">What is your email address? <font class="loginTableNote">
-										<<br />>
+										<br />
 										If you have multiple addresses, choose the one you think we used for you. </font>
 								</td>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" colSpan="2">
 									<blockquote>Email:
 										<asp:textbox id="email" Runat="server" Width="175px"></asp:textbox><asp:requiredfieldvalidator id="RequiredFieldValidator1" runat="server" Display="Dynamic" ControlToValidate="email" ErrorMessage="* Required"></asp:requiredfieldvalidator></blockquote>
 								</td>
 							</tr>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" colSpan="2">Do you have an MSN2 password?
 								</td>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" colSpan="2">
-									<blockquote><asp:radiobutton id="radioPassword" Runat="server" Checked="True" GroupName="havepassword" Text="Yes, my password is:"></asp:radiobutton><asp:textbox id="password" Runat="server" TextMode="Password"></asp:textbox><<br />>
-										<asp:radiobutton id="radioNewLogin" Runat="server" GroupName="havepassword" Text="No, I don't"></asp:radiobutton><<br />>
-										<asp:radiobutton id="radioHelpMe" Runat="server" GroupName="havepassword" Text="Maybe I do, but I don't remember it."></asp:radiobutton><<br />>
+									<blockquote><asp:radiobutton id="radioPassword" Runat="server" Checked="True" GroupName="havepassword" Text="Yes, my password is:"></asp:radiobutton><asp:textbox id="password" Runat="server" TextMode="Password"></asp:textbox><br />
+										<asp:radiobutton id="radioNewLogin" Runat="server" GroupName="havepassword" Text="No, I don't"></asp:radiobutton><br />
+										<asp:radiobutton id="radioHelpMe" Runat="server" GroupName="havepassword" Text="Maybe I do, but I don't remember it."></asp:radiobutton><br />
 									</blockquote>
 								</td>
 							</tr>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" colSpan="2"><asp:checkbox id="chkSave" Runat="server" Text="Always keep me signed in on this computer"></asp:checkbox></td>
 							</tr>
-							<tr class="loginTableContent">
+							<tr  class="loginTableContent">
 								<td class="loginTableText" align="right" colSpan="2"><asp:button id="btnLogin" CssClass="btn" Runat="server" Width="100px" Text="Continue >" onclick="btnLogin_Click"></asp:button></td>
 							</tr>
 						</table>
@@ -78,17 +78,17 @@
 				</tr>
 			</table>
 			<picctls:ErrorMessagePanel id="pnlBadPassword" title="Incorrect Password" runat="server" visible="false"><B>
-					The password you entered was not correct.</B> <<br />>If you 
+					The password you entered was not correct.</B> <br />If you 
 forgot your password, click 
 <asp:HyperLink id="lnkForgotPassword" Runat="server">here</asp:HyperLink>&nbsp;to 
 find out how to change it. 
-<<br />>
+<br />
 			</picctls:ErrorMessagePanel>
 			<picctls:ErrorMessagePanel id="pnlBadEmail" title="Unrecognized Email" runat="server" visible="false"><B>
-					The email address you entered was not recognized.</B> <<br />>Try another email address you may have, or if this 
+					The email address you entered was not recognized.</B> <br />Try another email address you may have, or if this 
 					is the correct address, click 
 <asp:HyperLink id="lnkNewLogin" Runat="server">here</asp:HyperLink>&nbsp;to set 
-your password. <<br />>
+your password. <br />
 			</picctls:ErrorMessagePanel>
 			<script language="javascript"><!--
 			function getPageCoords (elementId) {

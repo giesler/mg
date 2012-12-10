@@ -22,9 +22,9 @@ namespace msn2.net.Pictures.Controls
         /// </summary>
         private System.ComponentModel.Container components = null;
         private int[] pictures;
-        private CategoryInfo category;
+        private Category category;
 
-        public AddPicturesToCategory(int[] pictures, CategoryInfo category)
+        public AddPicturesToCategory(int[] pictures, Category category)
         {
             //
             // Required for Windows Form Designer support
@@ -133,7 +133,7 @@ namespace msn2.net.Pictures.Controls
 
             foreach (int pictureId in this.pictures)
             {
-                picMan.AddToCategory(pictureId, this.category.CategoryId);
+                picMan.AddToCategory(pictureId, this.category.Id);
             }
 
             this.DialogResult = DialogResult.OK;

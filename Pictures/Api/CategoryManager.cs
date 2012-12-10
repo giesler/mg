@@ -3,330 +3,190 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 
 namespace msn2.net.Pictures
 {
-	/// <summary>
-	/// Summary description for CategoryManager.
-	/// </summary>
-	public class CategoryManager
-	{
-		private string connectionString;
+    /// <summary>
+    /// Summary description for CategoryManager.
+    /// </summary>
+    public class CategoryManager
+    {
+        private PicContext context;
 
-		public CategoryManager(string connectionString)
-		{
-			this.connectionString	= connectionString;
-		}
+        internal CategoryManager(PicContext context)
+        {
+            this.context = context;
+        }
 
-		public CategoryInfo GetCategory(int categoryId)
-		{
-            int personId = PicContext.Current.CurrentUser.Id;
+        public Category GetCategory(int categoryId)
+        {
+            return this.context.DataContext.Categories.FirstOrDefault(c => c.Id == categoryId);
+        }
 
-            HttpContext context = HttpContext.Current;
-            CategoryInfo category = null;
-            string cacheKey = "Category." + categoryId.ToString() + ".Person." + personId.ToString();
-
-            if (context != null)
-            {
-                object cacheObject = context.Cache[cacheKey];
-                if (cacheObject != null)
-                {
-                    category = cacheObject as CategoryInfo;
-                    return category;
-                }
-            }            
-
-			SqlConnection cn				= new SqlConnection(connectionString);
-			SqlCommand cmd					= new SqlCommand("p_Category_Get", cn);
-			cmd.CommandType					= CommandType.StoredProcedure;
-
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-			cmd.Parameters["@categoryId"].Value	= categoryId;
-            cmd.Parameters.Add("@personId", SqlDbType.Int);
-            cmd.Parameters["@personId"].Value = personId;
-
-			cn.Open();
-			SqlDataReader dr				= cmd.ExecuteReader(CommandBehavior.SingleRow);
-
-			if (dr.Read())
-			{
-				category					= new CategoryInfo(dr, true);
-			}
-
-			dr.Close();
-			cn.Close();
-
-            if (context != null)
-            {
-                context.Cache.Add(cacheKey, category, null, DateTime.MaxValue, TimeSpan.FromMinutes(10), System.Web.Caching.CacheItemPriority.Normal, null);
-            }
-
-			return category;
-
-		}
-
-        public CategoryInfo GetRootCategory()
+        public Category GetRootCategory()
         {
             return this.GetCategory(1);
         }
 
-        public List<CategoryInfo> GetCategories(int categoryId)
+        public List<Category> GetCategories(int categoryId)
         {
-            return this.GetCategories(categoryId, 0);
+            var q = from c in this.context.DataContext.Categories
+                    where c.Id == categoryId &&
+                        (from cg in c.CategoryGroups
+                         where (from pg in cg.Group.PersonGroups
+                                where pg.PersonID == this.context.CurrentUser.Id
+                                select pg).Any()
+                         select cg).Any()
+                    select c;
+            return q.ToList();
         }
 
-        public List<CategoryInfo> GetCategories(int categoryId, int minPictures)
-		{
-			// get a dataset with categories
-			SqlConnection cn		= new SqlConnection(connectionString);
-			SqlCommand cmd			= new SqlCommand("dbo.p_CategoryManager_GetCategories", cn);
-			cmd.CommandType			= CommandType.StoredProcedure;
+        public List<Category> GetCategoriesWithPictures(int categoryId)
+        {
+            var q = from c in this.context.DataContext.Categories
+                    join cSubCat in this.context.DataContext.CategorySubCategories on c.Id equals cSubCat.CategoryID
+                    join cSubPic in this.context.DataContext.PictureCategories on cSubCat.SubCategoryID equals cSubPic.CategoryID
+                    where c.ParentId == categoryId && c.Id != categoryId
+                        &&
+                        (from cg in c.CategoryGroups
+                         where (from pg in cg.Group.PersonGroups
+                                where pg.PersonID == this.context.CurrentUser.Id
+                                select pg).Any()
+                         select cg).Any()
+                        &&
+                        (from pg in this.context.DataContext.PictureGroups
+                         where pg.PictureID == cSubPic.PictureID
+                           && pg.Group.PersonGroups.Any(p => p.PersonID == this.context.CurrentUser.Id)
+                         select pg).Any()
+                    select c;
 
-			cmd.Parameters.Add("@personId", SqlDbType.Int);
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-			cmd.Parameters.Add("@minPictures", SqlDbType.Int);
+            return q.Distinct().OrderBy(c=>c.Name).ToList();
+        }
 
-			cmd.Parameters["@personId"].Value		= PicContext.Current.CurrentUser.Id;
-			cmd.Parameters["@categoryId"].Value		= categoryId;
-			cmd.Parameters["@minPictures"].Value	= minPictures;
+        public int PictureCount(int categoryId)
+        {
+            return PictureCount(categoryId, false);
+        }
 
-			// Read data
-			cn.Open();
-			SqlDataReader dr		= cmd.ExecuteReader();
-			List<CategoryInfo> cc	= new List<CategoryInfo>();
-			while (dr.Read())
-			{
-				cc.Add(new CategoryInfo(dr, false));
-			}
-			dr.Close();
-			cn.Close();
+        public int PictureCount(int categoryId, bool recursive)
+        {
+            Category category = this.GetCategory(categoryId);
 
-			return cc;
-		}
+            var q = from pc in this.context.DataContext.PictureCategories
+                    join c in this.context.DataContext.Categories on pc.CategoryID equals c.Id
+                    where ((recursive == false && pc.CategoryID == categoryId) || (recursive == true && c.Path.StartsWith(category.Path))) &&
+                          (from cg in c.CategoryGroups
+                           where cg.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                           select cg).Any()
+                           && 
+                           (from picsec in this.context.DataContext.PictureGroups
+                            where picsec.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                                && picsec.PictureID == pc.PictureID
+                            select picsec).Any()
+                            && pc.Picture.Publish == true
+                    select pc;
 
-		public int PictureCount(int categoryId)
-		{
-			return PictureCount(categoryId, false);
-		}
+            return q.Count();
+        }
 
-		public int PictureCount(int categoryId, bool recursive)
-		{
-			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlCommand cmd		= new SqlCommand("p_Category_PictureCount", cn);
-			cmd.CommandType		= CommandType.StoredProcedure;
+        public int CategoryCount(int categoryId)
+        {
+            return CategoryCount(categoryId, false);
+        }
 
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-			cmd.Parameters.Add("@personId",  SqlDbType.Int);
-			cmd.Parameters.Add("@totalCount", SqlDbType.Int);
-			cmd.Parameters["@totalCount"].Direction	= ParameterDirection.Output;
-			cmd.Parameters.Add("@recursive", SqlDbType.Bit);
+        public int CategoryCount(int categoryId, bool recursive)
+        {
+            Category category = this.GetCategory(categoryId);
 
-			cmd.Parameters["@categoryId"].Value	= categoryId;
-			cmd.Parameters["@personId"].Value	= PicContext.Current.CurrentUser.Id;
-			cmd.Parameters["@recursive"].Value	= recursive;
+            var q = from c in this.context.DataContext.Categories
+                    where c.Id != categoryId &&
+                           ((recursive && c.Path.StartsWith(category.Path)) || (recursive == false && c.Id == categoryId)) &&
+                           (from pc in c.PictureCategories
+                            join cg in c.CategoryGroups on pc.CategoryID equals cg.CategoryID
+                            where cg.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                                && (from picgrp in this.context.DataContext.PictureGroups
+                                    where picgrp.Group.PersonGroups.Any(p=>p.PersonID == this.context.CurrentUser.Id)
+                                        && picgrp.PictureID == pc.PictureID
+                                    select picgrp).Any()
+                            select pc).Any()
+                    select c;
 
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+            return q.Count();
+        }
 
-			return (int) cmd.Parameters["@totalCount"].Value;
-		}
+        public void SetCategoryPictureId(int categoryId, int pictureId)
+        {
+            Category category = this.GetCategory(categoryId);
+            category.PictureId = pictureId;
+            this.context.SubmitChanges();
+        }
 
-		public int CategoryCount(int categoryId)
-		{
-			return CategoryCount(categoryId, false);
-		}
+        public void PublishCategory(int categoryId)
+        {
+            RecentCategory recent = new RecentCategory();
+            recent.CategoryId = categoryId;
+            recent.Date = DateTime.Now;
+            this.context.DataContext.RecentCategories.InsertOnSubmit(recent);
+            this.context.SubmitChanges();
+        }
 
-		public int CategoryCount(int categoryId, bool recursive)
-		{
-			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlCommand cmd		= new SqlCommand("p_Category_SubCategoryCount", cn);
-			cmd.CommandType		= CommandType.StoredProcedure;
+        public List<Category> RecentCategorires()
+        {
+            var q = from c in this.context.DataContext.Categories
+                    join r in this.context.DataContext.RecentCategories on c.Id equals r.CategoryId
+                    where (from cg in c.CategoryGroups
+                           where (from pg in cg.Group.PersonGroups
+                                  where pg.PersonID == this.context.CurrentUser.Id
+                                  select pg).Any()
+                           select cg).Any()
+                    orderby r.Date descending
+                    select c;
 
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-			cmd.Parameters.Add("@personId",  SqlDbType.Int);
-			cmd.Parameters.Add("@totalCount", SqlDbType.Int);
-			cmd.Parameters.Add("@recursive", SqlDbType.Bit);
-			cmd.Parameters["@totalCount"].Direction	= ParameterDirection.Output;
+            return q.Take(10).ToList();
+        }
 
-			cmd.Parameters["@categoryId"].Value	= categoryId;
-			cmd.Parameters["@personId"].Value	= PicContext.Current.CurrentUser.Id;
-			cmd.Parameters["@recursive"].Value	= recursive;
+        public string[] GetCategoryGroups(int categoryId)
+        {
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
+            SqlDataAdapter da = new SqlDataAdapter("sp_CategoryManager_GetGruops", cn);
+            DataSet ds = new DataSet();
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.Int);
+            da.SelectCommand.Parameters["@categoryId"].Value = categoryId;
 
-			cn.Open();
-			cmd.ExecuteNonQuery();
-			cn.Close();
+            try
+            {
+                cn.Open();
+                da.Fill(ds);
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cn.State != ConnectionState.Closed)
+                {
+                    cn.Close();
+                }
+            }
 
-			return (int) cmd.Parameters["@totalCount"].Value;
-		}
+            string[] groups = new string[ds.Tables[0].Rows.Count];
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                groups[i] = ds.Tables[0].Rows[i][0].ToString();
+            }
 
-		public PictureData RandomPicture(int categoryId, bool recursive)
-		{
-			SqlConnection cn		= new SqlConnection(connectionString);
-			SqlCommand cmd			= new SqlCommand("p_CategoryManager_RandomCategoryPicture", cn);
-			cmd.CommandType			= CommandType.StoredProcedure;
-
-			cmd.Parameters.Add("@PersonId", SqlDbType.Int);
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-			cmd.Parameters.Add("@maxWidth", SqlDbType.Int);
-			cmd.Parameters.Add("@maxHeight", SqlDbType.Int);
-			cmd.Parameters.Add("@recursive", SqlDbType.Bit);
-
-			cmd.Parameters["@PersonId"].Value		= PicContext.Current.CurrentUser.Id;
-			cmd.Parameters["@categoryId"].Value		= categoryId;
-			cmd.Parameters["@maxWidth"].Value		= 125;
-			cmd.Parameters["@maxHeight"].Value		= 125;
-			cmd.Parameters["@recursive"].Value		= recursive;
-
-			cn.Open();
-			SqlDataReader dr		= cmd.ExecuteReader();
-			PictureData picture			= null;
-
-			if (dr.Read())
-			{
-				picture	= new PictureData(dr);
-			}
-
-			dr.Close();
-			cn.Close();
-
-			return picture;
-
-		}
-
-		public void SetCategoryPictureId(int categoryId, int pictureId)
-		{
-			SqlConnection cn  = new SqlConnection(connectionString);
-			SqlCommand cmd    = new SqlCommand("dbo.sp_CategoryManager_SetCategoryPictureId", cn);
-			cmd.CommandType   = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@CategoryId", SqlDbType.Int);
-			cmd.Parameters.Add("@pictureId", SqlDbType.Int);
-
-			cmd.Parameters["@categoryId"].Value = categoryId;
-			cmd.Parameters["@pictureId"].Value	= pictureId;
-            
-			try
-			{
-				cn.Open();
-				cmd.ExecuteNonQuery();
-			}
-			catch (SqlException)
-			{
-				throw;
-			}
-			finally
-			{
-				if (cn.State != ConnectionState.Closed)
-				{
-					cn.Close();
-				}
-			}
-
-		}
-
-		public void PublishCategory(int categoryId)
-		{
-			SqlConnection cn  = new SqlConnection(connectionString);
-			SqlCommand cmd    = new SqlCommand("dbo.sp_CategoryManager_PublishCategory", cn);
-			cmd.CommandType   = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@categoryId", SqlDbType.Int);
-
-			cmd.Parameters["@categoryId"].Value = categoryId;
-            
-			try
-			{
-				cn.Open();
-				cmd.ExecuteNonQuery();
-			}
-			catch (SqlException)
-			{
-				throw;
-			}
-			finally
-			{
-				if (cn.State != ConnectionState.Closed)
-				{
-					cn.Close();
-				}
-			}
-
-		}
-
-		public List<CategoryInfo> RecentCategorires()
-		{
-			SqlConnection cn  = new SqlConnection(connectionString);
-			SqlCommand cmd    = new SqlCommand("dbo.sp_RecentCategories", cn);
-			SqlDataReader dr = null;
-			cmd.CommandType   = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@PersonID", SqlDbType.Int);
-			cmd.Parameters["@PersonID"].Value = PicContext.Current.CurrentUser.Id;
-
-			List<CategoryInfo> categories = new List<CategoryInfo>();
-            
-			try
-			{
-				cn.Open();
-				dr = cmd.ExecuteReader(CommandBehavior.SingleResult);
-				while (dr.Read())
-				{
-					categories.Add(new CategoryInfo(dr, false));
-				}
-			}
-			catch (SqlException)
-			{
-				throw;
-			}
-			finally
-			{
-				if (cn.State != ConnectionState.Closed)
-				{
-					cn.Close();
-				}
-			}
-
-			return categories;
-		}
-
-		public string[] GetCategoryGroups(int categoryId)
-		{
-			SqlConnection cn	= new SqlConnection(connectionString);
-			SqlDataAdapter da	= new SqlDataAdapter("sp_CategoryManager_GetGruops", cn);
-			DataSet ds			= new DataSet();
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-			da.SelectCommand.Parameters.Add("@categoryId", SqlDbType.Int);
-			da.SelectCommand.Parameters["@categoryId"].Value	= categoryId;
-
-			try
-			{
-				cn.Open();
-				da.Fill(ds);
-			}
-			catch (SqlException ex)
-			{
-				throw ex;
-			}
-			finally
-			{
-				if (cn.State != ConnectionState.Closed)
-				{
-					cn.Close();
-				}
-			}
-
-			string[] groups = new string[ds.Tables[0].Rows.Count];
-			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-			{
-				groups[i] = ds.Tables[0].Rows[i][0].ToString();
-			}
-
-			return groups;
-		}
+            return groups;
+        }
 
         public void DeleteCategory(int categoryId)
         {
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("up_Category_Delete", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -350,7 +210,7 @@ namespace msn2.net.Pictures
 
         public void MoveCategory(int categoryId, int newParentId)
         {
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("up_CategoryManager_MoveCategory", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -386,33 +246,64 @@ namespace msn2.net.Pictures
 
         public void ReloadCategoryCache()
         {
-            this.ReloadCategoryCache(this.GetRootCategory().CategoryId);
+            this.ReloadCategoryCache(this.GetRootCategory().Id);
         }
 
         void ReloadCategoryCache(int categoryId)
         {
-            List<CategoryInfo> subCats = this.GetCategories(categoryId);
-            SqlConnection cn = new SqlConnection(this.connectionString);
+            List<Category> subCats = this.GetCategories(categoryId);
+            SqlConnection cn = new SqlConnection(this.context.Config.ConnectionString);
             SqlCommand cmd = new SqlCommand("sp_CategorySubCategoryUpdate", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@categoryId", SqlDbType.Int);
 
             cn.Open();
-            foreach (CategoryInfo info in subCats)
+            foreach (Category info in subCats)
             {
-                cmd.Parameters["@categoryId"].Value = info.CategoryId;
+                cmd.Parameters["@categoryId"].Value = info.Id;
                 cmd.ExecuteNonQuery();
             }
             cn.Close();
 
-            foreach (CategoryInfo info in subCats)
+            foreach (Category info in subCats)
             {
-                this.ReloadCategoryCache(info.CategoryId);
+                this.ReloadCategoryCache(info.Id);
             }
         }
-	}
 
+        public CategoryStats GetCategoryStats(int categoryId)
+        {
+            Category category = this.GetCategory(categoryId);
 
+            var q = from pc in this.context.DataContext.PictureCategories
+                    join c in this.context.DataContext.Categories on pc.CategoryID equals c.Id
+                    join p in this.context.DataContext.Pictures on pc.PictureID equals p.PictureID
+                    where c.Path.StartsWith(category.Path) && c.Publish == true &&
+                          (from cg in c.CategoryGroups
+                           where (from pg in cg.Group.PersonGroups
+                                  where pg.PersonID == this.context.CurrentUser.Id
+                                  select pg).Any()
+                           select cg).Any()
+                    orderby p.PictureDate
+                    select p;
+
+            CategoryStats stats = new CategoryStats();
+            stats.PictureCount = q.Count();
+            if (stats.PictureCount > 0)
+            {
+                stats.StartTime = q.First().PictureDate;
+                stats.EndTime = q.Skip(stats.PictureCount - 1).First().PictureDate;
+            }
+            return stats;
+        }
+    }
+
+    public class CategoryStats
+    {
+        public int PictureCount { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+    }
 }
 

@@ -82,7 +82,7 @@ namespace RandomThumbSite
             if (random != null)
             {
                 string categories = string.Empty;
-                foreach (CategoryInfo cat in context.PictureManager.GetPictureCategories(random.Id))
+                foreach (Category cat in context.PictureManager.GetPictureCategories(random.Id))
                 {
                     if (categories.Length > 0)
                     {

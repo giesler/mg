@@ -24,9 +24,6 @@ namespace msn2.net.Pictures.Controls
 			// This call is required by the Windows.Forms Form Designer.
 
 			InitializeComponent();
-
-			// TODO: Add any initialization after the InitForm call
-
 		}
 
 		/// <summary> 
@@ -65,14 +62,14 @@ namespace msn2.net.Pictures.Controls
 			// First log in
 			PicContext context	= PicContext.Load(PictureConfig.Load(), personId);
 
-            List<CategoryInfo> categories = context.PictureManager.GetPictureCategories(pictureId);
+            List<Category> categories = context.PictureManager.GetPictureCategories(pictureId);
 			if (categories.Count == 0)
 			{
 				MessageBox.Show("Please add this picture to a category before setting it as a category picture.", "No category", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 			else if (categories.Count == 1)
 			{
-                int categoryId = categories[0].CategoryId;
+                int categoryId = categories[0].Id;
                 context.CategoryManager.SetCategoryPictureId(categoryId, pictureId);
 
 				MessageBox.Show("This picture is now the index picture for this category.", "Index Picture Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -121,7 +118,7 @@ namespace msn2.net.Pictures.Controls
 				return;
 			}
 
-			context.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.CategoryId);
+			context.PictureManager.AddToCategory(pictureId, cat.SelectedCategory.Id);
 		}
 
 		public void EditPicture(int personId)

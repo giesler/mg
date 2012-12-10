@@ -65,7 +65,7 @@ namespace pics.Auth
 			// make sure fields match
 			if (!txtNewPassword.Text.Equals(txtConfirmNewPassword.Text)) 
 			{
-				lblError.Text = "Your passwords must match!<<br />><<br />>";
+				lblError.Text = "Your passwords must match!<br /><br />";
 				return;
 			}
 

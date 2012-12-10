@@ -24,19 +24,19 @@
 							</picctls:ContentPanel>
 							<picctls:ContentPanel id="Contentpanel1" title="Search" runat="server" Width="100%" visible="true">
 								<asp:Label id="searchDescription" Runat="server"></asp:Label>
-								<<br />>
+								<br />
 								<asp:HyperLink id="ReturnToCriteria" Runat="server" NavigateUrl="SearchCriteria.aspx">New search...</asp:HyperLink>
 							</picctls:ContentPanel>
 						</picctls:sidebar></td>
 				</tr>
-				<tr height="25">
+				<tr  height="25">
 					<td>
 						<table class="areaPanel" cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
 								<td width="16" valign="top"><img src="Images/search.gif" width="16" height="16" /></td>
 								<td valign="top">
 									<b>Search Results</b>
-									<<br />>
+									<br />
 									<asp:label CssClass="categoryDesc" id="resultCount" Runat="server">[Result count]</asp:label>
 								</td>
 							</tr>

@@ -277,7 +277,9 @@ namespace pics.Controls
 			}
 
 		}
-		
+
+        public bool SkipRecordBind { get; set; }
+
 		private void PictureItemDataBind(object sender, DataListItemEventArgs e) 
 		{
 			ListItemType itemType = e.Item.ItemType;
@@ -286,13 +288,18 @@ namespace pics.Controls
 				(itemType != ListItemType.Footer) &&
 				(itemType != ListItemType.Separator))
 			{
+                int recNum = 0;
+                if (this.SkipRecordBind == false)
+                {
+                    recNum = int.Parse(DataBinder.Eval(e.Item.DataItem, "RecNumber").ToString());
+                }
+
 				// Create new picture view control 
-				string zoomUrl	= System.Web.UI.DataBinder.Eval(e.Item.DataItem, "RecNumber", pageReturnURL);
+				string zoomUrl	= string.Format(pageReturnURL, recNum);
 				int pictureId	= Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "PictureId"));
 				string caption	= DataBinder.Eval(e.Item.DataItem, "Title").ToString();
-                int recNumber	= Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "RecNumber").ToString());
 
-				PictureViewer viewer = new PictureViewer(pictureId, zoomUrl, caption, recNumber, showCheckBox, showRecordNumber, false);
+				PictureViewer viewer = new PictureViewer(pictureId, zoomUrl, caption, recNum, showCheckBox, showRecordNumber, false);
 				viewer.PictureCheckBoxClicked += new PictureCheckBoxClickedEventHandler(viewer_PictureCheckBoxClicked);
 
 				
@@ -707,7 +714,8 @@ namespace pics.Controls
 		#region Declares
 		private int categoryId;
 		private string navigateUrl;
-		private CategoryInfo category;
+		private Category category;
+        private CategoryStats stats;
 		protected int folderWidth = 64;
 		private string folderImage = @"Images/folder.png";
 		private bool adminMode;
@@ -723,7 +731,7 @@ namespace pics.Controls
 			this.navigateUrl		= navigateUrl;
 		}
 
-		public CategoryListViewItem(CategoryInfo category)
+		public CategoryListViewItem(Category category)
 		{
 			this.category			= category;
 		}
@@ -808,12 +816,13 @@ namespace pics.Controls
 			{
 				category					= catManager.GetCategory(categoryId);
 			}
+            stats = catManager.GetCategoryStats(category.Id);
 
 			// Get counts of sub items
-            int picCount = this.GetRecursivePictureCount(category.CategoryId, false);
-            int catCount = this.GetRecursiveCategoryCount(category.CategoryId, false);
-            int recursivePicCount = this.GetRecursivePictureCount(category.CategoryId, true);
-            int recursiveCatCount = this.GetRecursiveCategoryCount(category.CategoryId, true);
+            int picCount = this.GetRecursivePictureCount(category.Id, false);
+            int catCount = this.GetRecursiveCategoryCount(category.Id, false);
+            int recursivePicCount = this.GetRecursivePictureCount(category.Id, true);
+            int recursiveCatCount = this.GetRecursiveCategoryCount(category.Id, true);
 
 			TableCell catCell		= new TableCell();
 			catCell.Width			= Unit.Pixel(folderWidth);
@@ -829,7 +838,7 @@ namespace pics.Controls
 			string imageUrl			= (recursivePicCount != 0 ? folderImage : "Images/folderEmpty.png");
 			if (folderWidth == 150 && category.PictureId != 0)
 			{
-				PictureViewer pic		= new PictureViewer(category.PictureId, navigateUrl, "", 0, false, false, false);
+				PictureViewer pic		= new PictureViewer(category.PictureId.Value, navigateUrl, "", 0, false, false, false);
 				pic.CssClass			= "categoryPicture";
 				catCell.Controls.Add(pic);
 			}
@@ -865,36 +874,9 @@ namespace pics.Controls
 			}
 			catCell.Controls.Add(lnk);
 
-			bool prevText = false;
+            catCell.Controls.Add(new HtmlLiteral("<br>"));
 
-			// Date/time, if we have something
-			string dateFormatString	= "ddd, MMM d \"'\"yy";
-			if (category.FromDate == DateTime.MinValue)
-			{
-			}
-			else 
-			{
-				catCell.Controls.Add(new HtmlLiteral("<br>"));
-
-				if (prevText)
-				{
-					catCell.Controls.Add(new HtmlLiteral(" from "));
-				}
-//				prevText = true;
-				if (category.FromDate.Date == category.ToDate.Date)
-				{
-					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
-				}
-				else
-				{
-					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
-					catCell.Controls.Add(new HtmlLiteral(" to "));
-					catCell.Controls.Add(new HtmlLiteral(category.ToDate.ToString(dateFormatString)));
-				}
-				catCell.Controls.Add(new HtmlLiteral("<br>"));
-			}
-	
-			// Description
+            // Description
 			if (category.Description != null && category.Description.Length > 0)
 			{
 				Label lbl			= new Label();
@@ -929,48 +911,70 @@ namespace pics.Controls
 				groups = "Groups: " + groups + "<br />";
 				catCell.Controls.Add(new HtmlLiteral(groups));
 			}
-
-			string splitText = ", ";
-
+            
 			if (picCount > 0)
 			{	
-				if (prevText)
-				{
-					catCell.Controls.Add(new HtmlLiteral(splitText));
-				}
 				if (picCount == 1)
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString("#,##0") + " picture"));
+					catCell.Controls.Add(new HtmlLiteral(picCount.ToString("#,##0") + " picture"));
 				}
 				else
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString("#,##0") + " pictures"));
+					catCell.Controls.Add(new HtmlLiteral(picCount.ToString("#,##0") + " pictures"));
 				}
-//				prevText = true;
 			}
 
 			// Recursive picture count
 			if (picCount == 0)
 			{
-				if (prevText)
-				{
-					catCell.Controls.Add(new HtmlLiteral(splitText));
-				}
-				prevText = true;
-
 				if (recursivePicCount == 0)
 				{
 					catCell.Controls.Add(new HtmlLiteral("There are no pictures in this folder or subfolders.<br>"));
 				}
 				else if (recursivePicCount == 1)
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
+					catCell.Controls.Add(new HtmlLiteral(recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 				else
 				{
-					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
+					catCell.Controls.Add(new HtmlLiteral(recursivePicCount.ToString("#,##0") + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 			}
+            
+            // Date/time, if we have something
+            string dateFormatString = "ddd MMM d \"'\"yy";
+            string date2FormatString = dateFormatString;
+
+            if (this.stats.StartTime == DateTime.MinValue)
+            {
+            }
+            else
+            {
+                if (recursiveCatCount > 0 && picCount == 0)
+                {
+                    catCell.Controls.Add(new HtmlLiteral("<br>"));
+                }
+                else
+                {
+                    catCell.Controls.Add(new HtmlLiteral(" - "));
+                }
+
+                if (this.stats.StartTime.Year == this.stats.EndTime.Year && this.stats.StartTime.Date != this.stats.EndTime.Date)
+                {
+                    dateFormatString = "ddd MMM d";
+                }
+
+                if (this.stats.StartTime.Date == this.stats.EndTime.Date)
+                {
+                    catCell.Controls.Add(new HtmlLiteral(this.stats.StartTime.ToString(dateFormatString)));
+                }
+                else
+                {
+                    catCell.Controls.Add(new HtmlLiteral(this.stats.StartTime.ToString(dateFormatString)));
+                    catCell.Controls.Add(new HtmlLiteral(" to "));
+                    catCell.Controls.Add(new HtmlLiteral(this.stats.EndTime.ToString(date2FormatString)));
+                }
+            }
 
 //			catCell.Controls.Add(new HtmlLiteral("Latest Updates<br>"));
 
@@ -986,17 +990,17 @@ namespace pics.Controls
                 categoryId,
                 recursive);
 
-            if (context != null)
-            {
-                object cachedObject = context.Cache[cacheKey];
-                if (cachedObject != null)
-                {
-                    pictureCount = Convert.ToInt32(cachedObject.ToString());
-                    return pictureCount;
-                }
-            }
+            //if (context != null)
+            //{
+            //    object cachedObject = context.Cache[cacheKey];
+            //    if (cachedObject != null)
+            //    {
+            //        pictureCount = Convert.ToInt32(cachedObject.ToString());
+            //        return pictureCount;
+            //    }
+            //}
 
-            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.CategoryId, recursive);
+            pictureCount = PicContext.Current.CategoryManager.PictureCount(category.Id, recursive);
 
             if (context != null)
             {
@@ -1016,17 +1020,17 @@ namespace pics.Controls
                 categoryId,
                 recursive);
 
-            if (context != null)
-            {
-                object cachedObject = context.Cache[cacheKey];
-                if (cachedObject != null)
-                {
-                    categoryCount = Convert.ToInt32(cachedObject.ToString());
-                    return categoryCount;
-                }
-            }
+            //if (context != null)
+            //{
+            //    object cachedObject = context.Cache[cacheKey];
+            //    if (cachedObject != null)
+            //    {
+            //        categoryCount = Convert.ToInt32(cachedObject.ToString());
+            //        return categoryCount;
+            //    }
+            //}
 
-            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.CategoryId, recursive);
+            categoryCount = PicContext.Current.CategoryManager.CategoryCount(category.Id, recursive);
 
             if (context != null)
             {

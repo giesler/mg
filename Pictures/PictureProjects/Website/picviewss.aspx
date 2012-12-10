@@ -51,7 +51,7 @@
 					<tr>
 						<td class="infoPanelLinkBar" colSpan="2" height="18">
 							<TABLE id="Table1" width="100%" border="0">
-								<TR>
+								<tr>
 									<TD width="33%"><asp:hyperlink id="lnkPrevious" Runat="server" CssClass="infoPanelLink" Visible="False">
 											<img src="Images/button_left.gif" alt="Previous Picture" border="0">
 										</asp:hyperlink></TD>
@@ -84,7 +84,7 @@
 											</tr>
 										</table>
 									</TD>
-								</TR>
+								</tr>
 							</TABLE>
 						</td>
 					</tr>

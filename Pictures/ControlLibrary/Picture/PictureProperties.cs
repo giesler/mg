@@ -19,7 +19,7 @@ namespace msn2.net.Pictures.Controls
             InitializeComponent();
         }
 
-        public void SetPicture(PictureData picture)
+        public void SetPicture(Picture picture)
         {
             this.multiPictureEdit1.ClearPictures();
             this.multiPictureEdit1.AddPicture(picture);

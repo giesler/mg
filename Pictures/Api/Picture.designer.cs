@@ -69,6 +69,12 @@ namespace msn2.net.Pictures
     partial void InsertPictureRating(PictureRating instance);
     partial void UpdatePictureRating(PictureRating instance);
     partial void DeletePictureRating(PictureRating instance);
+    partial void InsertPictureGroup(PictureGroup instance);
+    partial void UpdatePictureGroup(PictureGroup instance);
+    partial void DeletePictureGroup(PictureGroup instance);
+    partial void InsertCategoryGroup(CategoryGroup instance);
+    partial void UpdateCategoryGroup(CategoryGroup instance);
+    partial void DeleteCategoryGroup(CategoryGroup instance);
     partial void InsertRecentCategory(RecentCategory instance);
     partial void UpdateRecentCategory(RecentCategory instance);
     partial void DeleteRecentCategory(RecentCategory instance);
@@ -208,6 +214,22 @@ namespace msn2.net.Pictures
 			}
 		}
 		
+		public System.Data.Linq.Table<PictureGroup> PictureGroups
+		{
+			get
+			{
+				return this.GetTable<PictureGroup>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CategoryGroup> CategoryGroups
+		{
+			get
+			{
+				return this.GetTable<CategoryGroup>();
+			}
+		}
+		
 		public System.Data.Linq.Table<RecentCategory> RecentCategories
 		{
 			get
@@ -259,22 +281,26 @@ namespace msn2.net.Pictures
 		
 		private EntitySet<PictureCategory> _PictureCategories;
 		
+		private EntitySet<CategoryGroup> _CategoryGroups;
+		
+		private EntitySet<RecentCategory> _RecentCategories;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnCategoryIDChanging(int value);
-    partial void OnCategoryIDChanged();
-    partial void OnCategoryParentIDChanging(int value);
-    partial void OnCategoryParentIDChanged();
-    partial void OnCategoryNameChanging(string value);
-    partial void OnCategoryNameChanged();
-    partial void OnCategoryPathChanging(string value);
-    partial void OnCategoryPathChanged();
-    partial void OnCategoryDescriptionChanging(string value);
-    partial void OnCategoryDescriptionChanged();
-    partial void OnCategoryDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCategoryDateChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnParentIdChanging(int value);
+    partial void OnParentIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPathChanging(string value);
+    partial void OnPathChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
     partial void OnPublishChanging(bool value);
     partial void OnPublishChanged();
     partial void OnLastModifiedChanging(System.Nullable<System.DateTime> value);
@@ -288,11 +314,13 @@ namespace msn2.net.Pictures
 		public Category()
 		{
 			this._PictureCategories = new EntitySet<PictureCategory>(new Action<PictureCategory>(this.attach_PictureCategories), new Action<PictureCategory>(this.detach_PictureCategories));
+			this._CategoryGroups = new EntitySet<CategoryGroup>(new Action<CategoryGroup>(this.attach_CategoryGroups), new Action<CategoryGroup>(this.detach_CategoryGroups));
+			this._RecentCategories = new EntitySet<RecentCategory>(new Action<RecentCategory>(this.attach_RecentCategories), new Action<RecentCategory>(this.detach_RecentCategories));
 			OnCreated();
 		}
 		
-		[Column(Storage="_CategoryID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CategoryID
+		[Column(Name="CategoryID", Storage="_CategoryID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
@@ -302,17 +330,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryID != value))
 				{
-					this.OnCategoryIDChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryID = value;
-					this.SendPropertyChanged("CategoryID");
-					this.OnCategoryIDChanged();
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_CategoryParentID", DbType="Int NOT NULL")]
-		public int CategoryParentID
+		[Column(Name="CategoryParentID", Storage="_CategoryParentID", DbType="Int NOT NULL")]
+		public int ParentId
 		{
 			get
 			{
@@ -322,17 +350,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryParentID != value))
 				{
-					this.OnCategoryParentIDChanging(value);
+					this.OnParentIdChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryParentID = value;
-					this.SendPropertyChanged("CategoryParentID");
-					this.OnCategoryParentIDChanged();
+					this.SendPropertyChanged("ParentId");
+					this.OnParentIdChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_CategoryName", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string CategoryName
+		[Column(Name="CategoryName", Storage="_CategoryName", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Name
 		{
 			get
 			{
@@ -342,17 +370,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryName != value))
 				{
-					this.OnCategoryNameChanging(value);
+					this.OnNameChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryName = value;
-					this.SendPropertyChanged("CategoryName");
-					this.OnCategoryNameChanged();
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_CategoryPath", DbType="NVarChar(2500)")]
-		public string CategoryPath
+		[Column(Name="CategoryPath", Storage="_CategoryPath", DbType="NVarChar(2500)")]
+		public string Path
 		{
 			get
 			{
@@ -362,17 +390,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryPath != value))
 				{
-					this.OnCategoryPathChanging(value);
+					this.OnPathChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryPath = value;
-					this.SendPropertyChanged("CategoryPath");
-					this.OnCategoryPathChanged();
+					this.SendPropertyChanged("Path");
+					this.OnPathChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_CategoryDescription", DbType="NVarChar(2500)")]
-		public string CategoryDescription
+		[Column(Name="CategoryDescription", Storage="_CategoryDescription", DbType="NVarChar(2500)")]
+		public string Description
 		{
 			get
 			{
@@ -382,17 +410,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryDescription != value))
 				{
-					this.OnCategoryDescriptionChanging(value);
+					this.OnDescriptionChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryDescription = value;
-					this.SendPropertyChanged("CategoryDescription");
-					this.OnCategoryDescriptionChanged();
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_CategoryDate", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> CategoryDate
+		[Column(Name="CategoryDate", Storage="_CategoryDate", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> Date
 		{
 			get
 			{
@@ -402,11 +430,11 @@ namespace msn2.net.Pictures
 			{
 				if ((this._CategoryDate != value))
 				{
-					this.OnCategoryDateChanging(value);
+					this.OnDateChanging(value);
 					this.SendPropertyChanging();
 					this._CategoryDate = value;
-					this.SendPropertyChanged("CategoryDate");
-					this.OnCategoryDateChanged();
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
 				}
 			}
 		}
@@ -491,7 +519,7 @@ namespace msn2.net.Pictures
 			}
 		}
 		
-		[Association(Name="Category_PictureCategory", Storage="_PictureCategories", OtherKey="CategoryID")]
+		[Association(Name="Category_PictureCategory", Storage="_PictureCategories", ThisKey="Id", OtherKey="CategoryID")]
 		public EntitySet<PictureCategory> PictureCategories
 		{
 			get
@@ -501,6 +529,32 @@ namespace msn2.net.Pictures
 			set
 			{
 				this._PictureCategories.Assign(value);
+			}
+		}
+		
+		[Association(Name="Category_CategoryGroup", Storage="_CategoryGroups", ThisKey="Id", OtherKey="CategoryID")]
+		public EntitySet<CategoryGroup> CategoryGroups
+		{
+			get
+			{
+				return this._CategoryGroups;
+			}
+			set
+			{
+				this._CategoryGroups.Assign(value);
+			}
+		}
+		
+		[Association(Name="Category_RecentCategory", Storage="_RecentCategories", ThisKey="Id", OtherKey="CategoryId")]
+		public EntitySet<RecentCategory> RecentCategories
+		{
+			get
+			{
+				return this._RecentCategories;
+			}
+			set
+			{
+				this._RecentCategories.Assign(value);
 			}
 		}
 		
@@ -531,6 +585,30 @@ namespace msn2.net.Pictures
 		}
 		
 		private void detach_PictureCategories(PictureCategory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Category = null;
+		}
+		
+		private void attach_CategoryGroups(CategoryGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Category = this;
+		}
+		
+		private void detach_CategoryGroups(CategoryGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Category = null;
+		}
+		
+		private void attach_RecentCategories(RecentCategory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Category = this;
+		}
+		
+		private void detach_RecentCategories(RecentCategory entity)
 		{
 			this.SendPropertyChanging();
 			entity.Category = null;
@@ -635,6 +713,10 @@ namespace msn2.net.Pictures
 		
 		private EntitySet<PersonGroup> _PersonGroups;
 		
+		private EntitySet<PictureGroup> _PictureGroups;
+		
+		private EntitySet<CategoryGroup> _CategoryGroups;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -648,6 +730,8 @@ namespace msn2.net.Pictures
 		public Group()
 		{
 			this._PersonGroups = new EntitySet<PersonGroup>(new Action<PersonGroup>(this.attach_PersonGroups), new Action<PersonGroup>(this.detach_PersonGroups));
+			this._PictureGroups = new EntitySet<PictureGroup>(new Action<PictureGroup>(this.attach_PictureGroups), new Action<PictureGroup>(this.detach_PictureGroups));
+			this._CategoryGroups = new EntitySet<CategoryGroup>(new Action<CategoryGroup>(this.attach_CategoryGroups), new Action<CategoryGroup>(this.detach_CategoryGroups));
 			OnCreated();
 		}
 		
@@ -704,6 +788,32 @@ namespace msn2.net.Pictures
 			}
 		}
 		
+		[Association(Name="Group_PictureGroup", Storage="_PictureGroups", OtherKey="GroupID")]
+		public EntitySet<PictureGroup> PictureGroups
+		{
+			get
+			{
+				return this._PictureGroups;
+			}
+			set
+			{
+				this._PictureGroups.Assign(value);
+			}
+		}
+		
+		[Association(Name="Group_CategoryGroup", Storage="_CategoryGroups", OtherKey="GroupID")]
+		public EntitySet<CategoryGroup> CategoryGroups
+		{
+			get
+			{
+				return this._CategoryGroups;
+			}
+			set
+			{
+				this._CategoryGroups.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -731,6 +841,30 @@ namespace msn2.net.Pictures
 		}
 		
 		private void detach_PersonGroups(PersonGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = null;
+		}
+		
+		private void attach_PictureGroups(PictureGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = this;
+		}
+		
+		private void detach_PictureGroups(PictureGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = null;
+		}
+		
+		private void attach_CategoryGroups(CategoryGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Group = this;
+		}
+		
+		private void detach_CategoryGroups(CategoryGroup entity)
 		{
 			this.SendPropertyChanging();
 			entity.Group = null;
@@ -1517,6 +1651,8 @@ namespace msn2.net.Pictures
 		
 		private EntitySet<PictureRating> _PictureRatings;
 		
+		private EntitySet<PictureGroup> _PictureGroups;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1554,6 +1690,7 @@ namespace msn2.net.Pictures
 			this._PictureComments = new EntitySet<PictureComment>(new Action<PictureComment>(this.attach_PictureComments), new Action<PictureComment>(this.detach_PictureComments));
 			this._PicturePersons = new EntitySet<PicturePerson>(new Action<PicturePerson>(this.attach_PicturePersons), new Action<PicturePerson>(this.detach_PicturePersons));
 			this._PictureRatings = new EntitySet<PictureRating>(new Action<PictureRating>(this.attach_PictureRatings), new Action<PictureRating>(this.detach_PictureRatings));
+			this._PictureGroups = new EntitySet<PictureGroup>(new Action<PictureGroup>(this.attach_PictureGroups), new Action<PictureGroup>(this.detach_PictureGroups));
 			OnCreated();
 		}
 		
@@ -1862,6 +1999,19 @@ namespace msn2.net.Pictures
 			}
 		}
 		
+		[Association(Name="Picture_PictureGroup", Storage="_PictureGroups", OtherKey="PictureID")]
+		public EntitySet<PictureGroup> PictureGroups
+		{
+			get
+			{
+				return this._PictureGroups;
+			}
+			set
+			{
+				this._PictureGroups.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1937,6 +2087,18 @@ namespace msn2.net.Pictures
 		}
 		
 		private void detach_PictureRatings(PictureRating entity)
+		{
+			this.SendPropertyChanging();
+			entity.Picture = null;
+		}
+		
+		private void attach_PictureGroups(PictureGroup entity)
+		{
+			this.SendPropertyChanging();
+			entity.Picture = this;
+		}
+		
+		private void detach_PictureGroups(PictureGroup entity)
 		{
 			this.SendPropertyChanging();
 			entity.Picture = null;
@@ -2293,7 +2455,7 @@ namespace msn2.net.Pictures
 			}
 		}
 		
-		[Association(Name="Category_PictureCategory", Storage="_Category", ThisKey="CategoryID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[Association(Name="Category_PictureCategory", Storage="_Category", ThisKey="CategoryID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Category Category
 		{
 			get
@@ -2316,7 +2478,7 @@ namespace msn2.net.Pictures
 					if ((value != null))
 					{
 						value.PictureCategories.Add(this);
-						this._CategoryID = value.CategoryID;
+						this._CategoryID = value.Id;
 					}
 					else
 					{
@@ -3164,6 +3326,390 @@ namespace msn2.net.Pictures
 		}
 	}
 	
+	[Table(Name="dbo.PictureGroup")]
+	public partial class PictureGroup : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PictureGroupID;
+		
+		private System.Nullable<int> _PictureID;
+		
+		private System.Nullable<int> _GroupID;
+		
+		private EntityRef<Group> _Group;
+		
+		private EntityRef<Picture> _Picture;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPictureGroupIDChanging(int value);
+    partial void OnPictureGroupIDChanged();
+    partial void OnPictureIDChanging(System.Nullable<int> value);
+    partial void OnPictureIDChanged();
+    partial void OnGroupIDChanging(System.Nullable<int> value);
+    partial void OnGroupIDChanged();
+    #endregion
+		
+		public PictureGroup()
+		{
+			this._Group = default(EntityRef<Group>);
+			this._Picture = default(EntityRef<Picture>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_PictureGroupID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PictureGroupID
+		{
+			get
+			{
+				return this._PictureGroupID;
+			}
+			set
+			{
+				if ((this._PictureGroupID != value))
+				{
+					this.OnPictureGroupIDChanging(value);
+					this.SendPropertyChanging();
+					this._PictureGroupID = value;
+					this.SendPropertyChanged("PictureGroupID");
+					this.OnPictureGroupIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PictureID", DbType="Int")]
+		public System.Nullable<int> PictureID
+		{
+			get
+			{
+				return this._PictureID;
+			}
+			set
+			{
+				if ((this._PictureID != value))
+				{
+					if (this._Picture.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPictureIDChanging(value);
+					this.SendPropertyChanging();
+					this._PictureID = value;
+					this.SendPropertyChanged("PictureID");
+					this.OnPictureIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_GroupID", DbType="Int")]
+		public System.Nullable<int> GroupID
+		{
+			get
+			{
+				return this._GroupID;
+			}
+			set
+			{
+				if ((this._GroupID != value))
+				{
+					if (this._Group.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGroupIDChanging(value);
+					this.SendPropertyChanging();
+					this._GroupID = value;
+					this.SendPropertyChanged("GroupID");
+					this.OnGroupIDChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Group_PictureGroup", Storage="_Group", ThisKey="GroupID", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Group Group
+		{
+			get
+			{
+				return this._Group.Entity;
+			}
+			set
+			{
+				Group previousValue = this._Group.Entity;
+				if (((previousValue != value) 
+							|| (this._Group.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Group.Entity = null;
+						previousValue.PictureGroups.Remove(this);
+					}
+					this._Group.Entity = value;
+					if ((value != null))
+					{
+						value.PictureGroups.Add(this);
+						this._GroupID = value.GroupID;
+					}
+					else
+					{
+						this._GroupID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Group");
+				}
+			}
+		}
+		
+		[Association(Name="Picture_PictureGroup", Storage="_Picture", ThisKey="PictureID", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Picture Picture
+		{
+			get
+			{
+				return this._Picture.Entity;
+			}
+			set
+			{
+				Picture previousValue = this._Picture.Entity;
+				if (((previousValue != value) 
+							|| (this._Picture.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Picture.Entity = null;
+						previousValue.PictureGroups.Remove(this);
+					}
+					this._Picture.Entity = value;
+					if ((value != null))
+					{
+						value.PictureGroups.Add(this);
+						this._PictureID = value.PictureID;
+					}
+					else
+					{
+						this._PictureID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Picture");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.CategoryGroup")]
+	public partial class CategoryGroup : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CategoryGroupID;
+		
+		private System.Nullable<int> _CategoryID;
+		
+		private System.Nullable<int> _GroupID;
+		
+		private EntityRef<Category> _Category;
+		
+		private EntityRef<Group> _Group;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCategoryGroupIDChanging(int value);
+    partial void OnCategoryGroupIDChanged();
+    partial void OnCategoryIDChanging(System.Nullable<int> value);
+    partial void OnCategoryIDChanged();
+    partial void OnGroupIDChanging(System.Nullable<int> value);
+    partial void OnGroupIDChanged();
+    #endregion
+		
+		public CategoryGroup()
+		{
+			this._Category = default(EntityRef<Category>);
+			this._Group = default(EntityRef<Group>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_CategoryGroupID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CategoryGroupID
+		{
+			get
+			{
+				return this._CategoryGroupID;
+			}
+			set
+			{
+				if ((this._CategoryGroupID != value))
+				{
+					this.OnCategoryGroupIDChanging(value);
+					this.SendPropertyChanging();
+					this._CategoryGroupID = value;
+					this.SendPropertyChanged("CategoryGroupID");
+					this.OnCategoryGroupIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CategoryID", DbType="Int")]
+		public System.Nullable<int> CategoryID
+		{
+			get
+			{
+				return this._CategoryID;
+			}
+			set
+			{
+				if ((this._CategoryID != value))
+				{
+					if (this._Category.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCategoryIDChanging(value);
+					this.SendPropertyChanging();
+					this._CategoryID = value;
+					this.SendPropertyChanged("CategoryID");
+					this.OnCategoryIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_GroupID", DbType="Int")]
+		public System.Nullable<int> GroupID
+		{
+			get
+			{
+				return this._GroupID;
+			}
+			set
+			{
+				if ((this._GroupID != value))
+				{
+					if (this._Group.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGroupIDChanging(value);
+					this.SendPropertyChanging();
+					this._GroupID = value;
+					this.SendPropertyChanged("GroupID");
+					this.OnGroupIDChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Category_CategoryGroup", Storage="_Category", ThisKey="CategoryID", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Category Category
+		{
+			get
+			{
+				return this._Category.Entity;
+			}
+			set
+			{
+				Category previousValue = this._Category.Entity;
+				if (((previousValue != value) 
+							|| (this._Category.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Category.Entity = null;
+						previousValue.CategoryGroups.Remove(this);
+					}
+					this._Category.Entity = value;
+					if ((value != null))
+					{
+						value.CategoryGroups.Add(this);
+						this._CategoryID = value.Id;
+					}
+					else
+					{
+						this._CategoryID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Category");
+				}
+			}
+		}
+		
+		[Association(Name="Group_CategoryGroup", Storage="_Group", ThisKey="GroupID", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Group Group
+		{
+			get
+			{
+				return this._Group.Entity;
+			}
+			set
+			{
+				Group previousValue = this._Group.Entity;
+				if (((previousValue != value) 
+							|| (this._Group.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Group.Entity = null;
+						previousValue.CategoryGroups.Remove(this);
+					}
+					this._Group.Entity = value;
+					if ((value != null))
+					{
+						value.CategoryGroups.Add(this);
+						this._GroupID = value.GroupID;
+					}
+					else
+					{
+						this._GroupID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Group");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[Table(Name="dbo.RecentCategories")]
 	public partial class RecentCategory : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3172,29 +3718,32 @@ namespace msn2.net.Pictures
 		
 		private int _RecentID;
 		
-		private string _RecentCategoryID;
+		private int _RecentCategoryID;
 		
-		private System.Nullable<System.DateTime> _RecentDate;
+		private System.DateTime _RecentDate;
+		
+		private EntityRef<Category> _Category;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnRecentIDChanging(int value);
-    partial void OnRecentIDChanged();
-    partial void OnRecentCategoryIDChanging(string value);
-    partial void OnRecentCategoryIDChanged();
-    partial void OnRecentDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnRecentDateChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCategoryIdChanging(int value);
+    partial void OnCategoryIdChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
     #endregion
 		
 		public RecentCategory()
 		{
+			this._Category = default(EntityRef<Category>);
 			OnCreated();
 		}
 		
-		[Column(Storage="_RecentID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RecentID
+		[Column(Name="RecentID", Storage="_RecentID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
@@ -3204,17 +3753,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._RecentID != value))
 				{
-					this.OnRecentIDChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
 					this._RecentID = value;
-					this.SendPropertyChanged("RecentID");
-					this.OnRecentIDChanged();
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_RecentCategoryID", DbType="NVarChar(50)")]
-		public string RecentCategoryID
+		[Column(Name="RecentCategoryID", Storage="_RecentCategoryID", DbType="Int NOT NULL")]
+		public int CategoryId
 		{
 			get
 			{
@@ -3224,17 +3773,17 @@ namespace msn2.net.Pictures
 			{
 				if ((this._RecentCategoryID != value))
 				{
-					this.OnRecentCategoryIDChanging(value);
+					this.OnCategoryIdChanging(value);
 					this.SendPropertyChanging();
 					this._RecentCategoryID = value;
-					this.SendPropertyChanged("RecentCategoryID");
-					this.OnRecentCategoryIDChanged();
+					this.SendPropertyChanged("CategoryId");
+					this.OnCategoryIdChanged();
 				}
 			}
 		}
 		
-		[Column(Storage="_RecentDate", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> RecentDate
+		[Column(Name="RecentDate", Storage="_RecentDate", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime Date
 		{
 			get
 			{
@@ -3244,11 +3793,45 @@ namespace msn2.net.Pictures
 			{
 				if ((this._RecentDate != value))
 				{
-					this.OnRecentDateChanging(value);
+					this.OnDateChanging(value);
 					this.SendPropertyChanging();
 					this._RecentDate = value;
-					this.SendPropertyChanged("RecentDate");
-					this.OnRecentDateChanged();
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Category_RecentCategory", Storage="_Category", ThisKey="CategoryId", OtherKey="Id", IsForeignKey=true)]
+		public Category Category
+		{
+			get
+			{
+				return this._Category.Entity;
+			}
+			set
+			{
+				Category previousValue = this._Category.Entity;
+				if (((previousValue != value) 
+							|| (this._Category.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Category.Entity = null;
+						previousValue.RecentCategories.Remove(this);
+					}
+					this._Category.Entity = value;
+					if ((value != null))
+					{
+						value.RecentCategories.Add(this);
+						this._RecentCategoryID = value.Id;
+					}
+					else
+					{
+						this._RecentCategoryID = default(int);
+					}
+					this.SendPropertyChanged("Category");
 				}
 			}
 		}
