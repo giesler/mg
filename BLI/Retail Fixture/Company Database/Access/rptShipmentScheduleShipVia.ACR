@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1651905972
+Checksum =53022224
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -13,7 +13,7 @@ Begin Report
     GridY =24
     Width =10807
     DatasheetFontHeight =10
-    ItemSuffix =42
+    ItemSuffix =50
     Left =345
     Top =135
     Right =8595
@@ -22,7 +22,7 @@ Begin Report
     OnNoData ="[Event Procedure]"
     Toolbar ="RFReportToolBar"
     RecSrcDt = Begin
-        0x0f4ea7969922e240
+        0x7a9c2de98c4ee240
     End
     InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\"), Ge"
         "tSPVar(\"Medite\"), GetSPVar(\"StoreSelName\"), GetSPVar(\"ShipVia\"), GetSPVar("
@@ -33,13 +33,13 @@ Begin Report
     MenuBar ="RFReportMenuBar"
     DatasheetFontName ="Arial"
     PrtMip = Begin
-        0xd0020000d0020000400200001a03000000000000372a0000d302000001000000 ,
+        0xd0020000d0020000400200001a03000000000000372a00005406000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     PrtDevMode = Begin
         0x5c5c6b796c655c4850204c617365724a65742032313030000000000000000000 ,
-        0x010400059c00340243ef800701000100ea0a6f08640001000f00680102000100 ,
-        0x6801020001004c65747465720000000000000000000000000000000000000000 ,
+        0x010400059c00340243ef800501000100ea0a6f08640001000f00580201000100 ,
+        0x5802030001004c65747465720000000000000000000000000000000000000000 ,
         0x0000000000000000000000000000000000000000010000000000000001000000 ,
         0x0200000001000000ffffffff0000000000000000000000000000000044494e55 ,
         0x2200000034020000114c35610000000000000000000000000000000000000000 ,
@@ -62,8 +62,9 @@ Begin Report
         0x00000000000000000000000000000000
     End
     PrtDevNames = Begin
-        0x08001900310001004850204c617365724a65742032313030005c5c6b796c655c ,
-        0x4850204c617365724a657420323130300049505f31302e31302e312e393000
+        0x080011002900010077696e73706f6f6c005c5c6b796c655c4850204c61736572 ,
+        0x4a657420323130300049505f31302e31302e312e393000000000000000000000 ,
+        0x00000000000000
     End
     Begin
         Begin Label
@@ -84,23 +85,25 @@ Begin Report
             ControlSource ="Ship_Via"
         End
         Begin PageHeader
-            Height =3240
+            Height =2940
             Name ="PageHeader"
             Begin
                 Begin Label
+                    TextAlign =2
                     TextFontFamily =34
-                    Top =2760
-                    Width =1500
+                    Left =1440
+                    Top =2400
+                    Width =2880
                     Height =360
                     FontSize =10
                     FontWeight =700
                     Name ="Label19"
-                    Caption ="CITY/STATE"
+                    Caption ="SHIP ADDRESS"
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =1500
-                    Top =2760
+                    Left =4320
+                    Top =2400
                     Width =1440
                     Height =360
                     FontSize =10
@@ -111,34 +114,34 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =2940
-                    Top =2640
-                    Width =840
-                    Height =480
+                    Left =5760
+                    Top =2160
+                    Width =1395
+                    Height =240
                     FontSize =10
                     FontWeight =700
                     Name ="Label22"
-                    Caption ="ARRIVE\015\012DATE"
+                    Caption ="ARRIVE DATE"
                 End
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3780
-                    Top =2640
-                    Width =840
-                    Height =480
+                    Left =5760
+                    Top =2460
+                    Width =1380
+                    Height =285
                     FontSize =10
                     FontWeight =700
                     Name ="Label23"
-                    Caption ="SHIP\015\012DATE"
+                    Caption ="SHIP DATE"
                 End
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4620
-                    Top =2760
-                    Width =960
-                    Height =360
+                    Left =7200
+                    Top =2160
+                    Width =1140
+                    Height =240
                     FontSize =10
                     FontWeight =700
                     Name ="Label24"
@@ -146,9 +149,9 @@ Begin Report
                 End
                 Begin Label
                     TextFontFamily =34
-                    Left =6480
-                    Top =2760
-                    Width =1980
+                    Left =8400
+                    Top =2400
+                    Width =2340
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -156,15 +159,14 @@ Begin Report
                     Caption ="COMMENTS"
                 End
                 Begin Line
-                    Top =3120
+                    Top =2880
                     Width =10800
                     Name ="Line26"
                 End
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =8460
-                    Top =2760
+                    Top =2400
                     Width =1440
                     Height =360
                     FontSize =10
@@ -175,10 +177,10 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5580
-                    Top =2640
-                    Width =795
-                    Height =480
+                    Left =7200
+                    Top =2460
+                    Width =1140
+                    Height =300
                     FontSize =10
                     FontWeight =700
                     Name ="Label38"
@@ -213,22 +215,8 @@ Begin Report
                 Begin Label
                     TextAlign =2
                     TextFontFamily =34
-                    Top =1920
-                    Width =10800
-                    Height =360
-                    FontSize =12
-                    FontWeight =700
-                    Name ="lblCriteria"
-                    GUID = Begin
-                        0x650a4f88cb190345a667c5068312c8a4
-                    End
-                End
-                Begin Label
-                    TextAlign =2
-                    TextFontFamily =34
-                    Left =9870
-                    Top =2760
-                    Width =885
+                    Top =2040
+                    Width =1440
                     Height =360
                     FontSize =10
                     FontWeight =700
@@ -243,38 +231,37 @@ Begin Report
         Begin Section
             KeepTogether = NotDefault
             CanGrow = NotDefault
-            Height =723
+            Height =1500
             Name ="Detail"
             Begin
                 Begin TextBox
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =3780
-                    Width =840
-                    Height =720
+                    Left =5760
+                    Top =360
+                    Width =1380
+                    Height =360
                     FontSize =10
                     Name ="Ship_Date"
                     ControlSource ="Ship_Date"
                     Format ="m/d/yy"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
                     TextFontFamily =34
-                    Width =1500
-                    Height =720
+                    Left =1440
+                    Top =960
+                    Width =2880
                     FontSize =10
                     TabIndex =1
                     Name ="CITY_STATE"
                     ControlSource ="CITY_STATE"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =2940
-                    Width =840
-                    Height =720
+                    Left =5760
+                    Width =1380
+                    Height =360
                     FontSize =10
                     TabIndex =2
                     Name ="Arrive_Date"
@@ -282,12 +269,11 @@ Begin Report
                     Format ="m/d/yy"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =4620
-                    Width =960
-                    Height =720
+                    Left =7200
+                    Width =1140
+                    Height =360
                     FontSize =10
                     TabIndex =3
                     Name ="txtExtendedWeight"
@@ -296,10 +282,9 @@ Begin Report
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
-                    OldBorderStyle =1
                     TextFontFamily =34
-                    Left =6300
-                    Width =2160
+                    Left =8400
+                    Width =2400
                     Height =723
                     FontSize =10
                     TabIndex =4
@@ -307,9 +292,8 @@ Begin Report
                     ControlSource ="Comments"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
                     TextFontFamily =34
-                    Left =1500
+                    Left =4320
                     Height =720
                     FontSize =11
                     TabIndex =5
@@ -319,23 +303,24 @@ Begin Report
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =8460
-                    Height =723
+                    Left =60
+                    Top =420
+                    Width =1380
+                    Height =783
                     FontSize =10
                     TabIndex =6
                     Name ="Priority"
                     ControlSource ="Ship_Name"
                 End
                 Begin TextBox
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =5580
-                    Width =720
-                    Height =720
+                    Left =7200
+                    Top =360
+                    Width =1140
+                    Height =360
                     FontSize =10
                     TabIndex =7
                     Name ="Text39"
@@ -344,18 +329,90 @@ Begin Report
                 Begin TextBox
                     EnterKeyBehavior = NotDefault
                     ScrollBars =2
-                    OldBorderStyle =1
                     TextAlign =2
                     TextFontFamily =34
-                    Left =9900
-                    Width =840
-                    Height =723
+                    Left =60
+                    Width =1380
+                    Height =363
                     FontSize =10
                     TabIndex =8
                     Name ="Text41"
                     ControlSource ="Ship_StoreNo"
                     GUID = Begin
                         0x9ab8b990efc2de48915bbabf63661820
+                    End
+                End
+                Begin TextBox
+                    Left =1440
+                    Width =2880
+                    TabIndex =9
+                    Name ="Attn"
+                    ControlSource ="Attn"
+                    GUID = Begin
+                        0x2882474187ba0249a96e9bff1b068dd7
+                    End
+                End
+                Begin TextBox
+                    Left =1440
+                    Top =240
+                    Width =2880
+                    TabIndex =10
+                    Name ="Phone"
+                    ControlSource ="Phone"
+                    GUID = Begin
+                        0x6a320697d7ad394ab6803eb4efcb25d8
+                    End
+                End
+                Begin TextBox
+                    Left =1440
+                    Top =480
+                    Width =2880
+                    TabIndex =11
+                    Name ="Address1"
+                    ControlSource ="Address1"
+                    GUID = Begin
+                        0x777c24a934e6b34e95148b1930855ecb
+                    End
+                End
+                Begin TextBox
+                    Left =1440
+                    Top =720
+                    Width =2880
+                    TabIndex =12
+                    Name ="Address2"
+                    ControlSource ="Address2"
+                    GUID = Begin
+                        0x7c5748db01fee9438cedf5a665ebfc95
+                    End
+                End
+                Begin Label
+                    Left =4380
+                    Top =840
+                    Width =1320
+                    Height =225
+                    Name ="Label47"
+                    Caption ="More Comments:"
+                    GUID = Begin
+                        0x0b0bda7a2fd7cd4584957953b2773ef9
+                    End
+                End
+                Begin Rectangle
+                    Left =5760
+                    Top =840
+                    Width =4980
+                    Height =480
+                    Name ="Box48"
+                    GUID = Begin
+                        0x2b2bb68798eb2540bf7e3842680392f8
+                    End
+                End
+                Begin Line
+                    Left =60
+                    Top =1440
+                    Width =10680
+                    Name ="Line49"
+                    GUID = Begin
+                        0x80ee5407350e3d4999ea20856c99e27a
                     End
                 End
             End
@@ -502,7 +559,7 @@ On Error GoTo errHandler
       If strCrit <> "" Then strCrit = strCrit + ", "
       strCrit = strCrit + "Ship Via: " + fC.cmbShipVia
     End If
-    Me.lblCriteria.Caption = strCrit
+    'Me.lblCriteria.Caption = strCrit
   End If
   
   Set fC = Nothing
