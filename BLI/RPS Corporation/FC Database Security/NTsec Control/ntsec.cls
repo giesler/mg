@@ -40,6 +40,43 @@ Exit Function
 
 End Function
 
+Public Sub UpdateUserList()
+
+  Dim sCompName As String, iSize As Long, uString As String
+  Dim lpBuff As String * 100, sError As String, sName As String
+  Dim lUsers As ListOfUserExt, i As Integer
+  
+  Dim cn As ADODB.Connection, rs As ADODB.Recordset
+  Set cn = New ADODB.Connection
+  Set rs = New ADODB.Recordset
+  
+  cn.Open "Provider=SQLOLEDB.1;Password=fcuser;Persist Security Info=True;User ID=fcuser;Initial Catalog=fcdata;Data Source=fcserver"
+
+  rs.Open "UserList", cn, adOpenDynamic, adLockOptimistic
+  
+  GetComputerName lpBuff, 100
+  sCompName = Left(lpBuff, InStr(lpBuff, Chr(0)) - 1)
+
+  lUsers = LongEnumUsers(sCompName, sError)
+
+  'GetUserString = o.GetUserString(sString, sError)
+
+  For i = 1 To UBound(lUsers.List)
+    sName = lUsers.List(i).Name
+        
+    rs.Find "UserID = '" + sName + "'"
+    If rs.EOF Then
+      rs.AddNew
+      rs.Fields("UserID").Value = sName
+      rs.Update
+    End If
+  Next i
+
+  rs.Close
+  cn.Close
+  
+yEnd Sub
+
 Public Function GetUserString(uString As String, sError As String) As Boolean
 On Error GoTo GetUserString_Err
 

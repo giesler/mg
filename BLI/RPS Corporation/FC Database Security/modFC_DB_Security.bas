@@ -397,33 +397,17 @@ End Function
 Public Function LoadUserList(fSU As frmSelectUsers)
 On Error GoTo LoadUserList_Err
 
-Dim r As New Recordset, cmd As New ADODB.Command
+Dim r As New Recordset
 Dim sUList As String, sName As String
 
-cmd.CommandText = "spGetNTUserList"
-cmd.CommandType = adCmdStoredProc
-cmd.ActiveConnection = cnn
-Set r = cmd.Execute
-
-If r.EOF Then Exit Function
+r.Open "select * from UserList where HideUser=0", cnn, adOpenForwardOnly, adLockReadOnly
 
 fSU.lvUsers.ListItems.Clear
-sUList = r!uList
-Do While InStr(sUList, "|") > 0
-  sName = Left(sUList, InStr(sUList, "|") - 1)
-  If InStr(sName, "USR") = 2 Or InStr(sName, "IWAM") Or InStr(sName, "SQL") Then
-  Else
-    fSU.lvUsers.ListItems.Add , , sName, , "user"
-  End If
-  sUList = Mid(sUList, InStr(sUList, "|") + 1)
+
+Do While Not r.EOF
+  fSU.lvUsers.ListItems.Add , , r!UserId, , "user"
+  r.MoveNext
 Loop
-If Len(sUList) > 0 Then
-  sName = sUList
-  If InStr(sName, "USR") = 2 Or InStr(sName, "IWAM") Or InStr(sName, "SQL") Then
-  Else
-    fSU.lvUsers.ListItems.Add , , sName, , "user"
-  End If
-End If
 
 r.Close
 Set r = Nothing
