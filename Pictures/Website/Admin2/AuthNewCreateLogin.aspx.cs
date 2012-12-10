@@ -15,52 +15,40 @@ using msn2.net.Pictures;
 namespace pics.Admin
 {
 	/// <summary>
-	/// Summary description for AuthNewLogin.
+    /// Summary description for AuthNewCreateLogin.
 	/// </summary>
-	public partial class AuthNewLogin 
+	public partial class AuthNewCreateLogin 
 	{
-		#region Declares
-
 	
-		#endregion
-
-		#region Constructor
-
-// 		public AuthNewLogin()
+// 		public AuthNewLoginNew()
 // 		{
 // 			Page.Init += new System.EventHandler(Page_Init);
 // 		}
 
-		#endregion
-
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+
 			if (!Page.IsPostBack) 
 			{
 				// make sure we have an ID
 				if (Request.QueryString["id"] == null)
 					Response.Redirect("../");
 
-				int id = int.Parse(Request.QueryString["id"]);
-				PersonInfo info = PicContext.Current.UserManager.GetNewUserRequest(id);
-				if (info != null)
+				// set up objects to get info
+				int id			= int.Parse(Request.QueryString["id"]);
+				PersonInfo info	= PicContext.Current.UserManager.GetNewUserRequest(id);
+
+				// attempt to read record
+				if (info != null) 
 				{
 					lblName.Text	= info.Name;
 					lblEmail.Text	= info.Email;
-				}
+				} 
 				else 
 				{
 					lblName.Text = "Unable to read user information.";
 				}
-
-				// set up link to new user
-				lnkNewLogin.NavigateUrl = "AuthNewCreateLogin.aspx?id=" + Request.QueryString["id"].ToString();
-
-				// catch the person picker picking a person
-				PersonPicker.PersonSelected += new System.EventHandler(this.FindPersonSelected);
-
-			}
-
+			}		
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -82,23 +70,10 @@ namespace pics.Admin
 		}
 		#endregion
 
-		private void FindPersonSelected(object sender, EventArgs e) 
+        protected void btnOK_Click(object sender, System.EventArgs e)
 		{
-			lblEmail.Text = "a person was selected.";
-
-		}
-
-        protected void btnContinue_Click(object sender, System.EventArgs e)
-		{
-			// make sure someone was selected
-			if (PersonPicker.SelectedPerson == -1)
-			{
-				lblError.Text = "You must select a person first.";
-				return;
-			}
-
-			int requestId = int.Parse(Request.QueryString["id"]);
-			PicContext.Current.UserManager.AssociateRequestWithPerson(requestId, PersonPicker.SelectedPerson);
+			int requestId	= int.Parse(Request.QueryString["id"]);
+			PicContext.Current.UserManager.AddNewPerson(requestId, txtFirstName.Text, txtLastName.Text, txtFullName.Text);
 
 			// create message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -120,17 +95,9 @@ namespace pics.Admin
 			SmtpMail.SmtpServer = PicContext.Current.Config.SmtpServer;
 			SmtpMail.Send(msg);
 
-			// show message
-			pnlPerson.Visible = false;
+			// show info
+			pnlNewUser.Visible = false;
 			pnlDone.Visible = true;
 		}
-
-		protected void PersonPicker_PersonSelected(object sender, System.EventArgs e)
-		{
-			afterPersonSelectContent.Visible	= true;
-			
-		}
-
-	
 	}
 }
