@@ -17,6 +17,7 @@
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
             <Label Name="view" FontSize="22" Content="settings" Style="{DynamicResource DefaultTextStyle}" />
             <bnc:NavigationButtonStack x:Name="navStack" />
+            <Button Name="exit" Content="Exit" Click="exit_Click_1" />
         </StackPanel>
         <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />
     </Grid>

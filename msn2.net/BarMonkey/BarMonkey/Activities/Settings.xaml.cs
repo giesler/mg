@@ -41,6 +41,7 @@ namespace msn2.net.BarMonkey.Activities
             List<Activity> list = new List<Activity>();
             list.Add(new Activity { Name = "Ingredients", PageUrl = "Activities/IngredientSettings.xaml" });
             list.Add(new Activity { Name = "Relays", PageUrl = "Activities/RelaySettings.xaml" });
+
             return list;
         }
 
@@ -52,6 +53,11 @@ namespace msn2.net.BarMonkey.Activities
         private void relay_Click(object sender, RoutedEventArgs e)
         {
             base.NavigationService.Navigate(new RelaySettings());
+        }
+
+        private void exit_Click_1(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

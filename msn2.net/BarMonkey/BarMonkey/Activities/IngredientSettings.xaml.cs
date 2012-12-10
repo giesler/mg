@@ -151,9 +151,12 @@ namespace msn2.net.BarMonkey.Activities
             this.ouncesPerSecond.SelectedItem = ingredient.OuncesPerSecond;
             this.changingFlowRate = false;
 
-            this.changingRemaining = true;
-            this.ouncesRemaining.SelectedIndex = (int)ingredient.RemainingOunces;
-            this.changingRemaining = false;
+            if (ingredient.RemainingOunces >= 0)
+            {
+                this.changingRemaining = true;
+                this.ouncesRemaining.SelectedIndex = (int)ingredient.RemainingOunces;
+                this.changingRemaining = false;
+            }
 
             this.changingIngredient = false;
         }

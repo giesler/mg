@@ -573,6 +573,11 @@
   <ItemGroup>
     <Resource Include="Resources\appbar.refresh.rest.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="motd.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /y $(TargetDir)\* \\mgduo\BarNone\UI\</PostBuildEvent>

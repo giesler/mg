@@ -40,6 +40,8 @@ namespace msn2.net.BarMonkey
         {
             this.newDrink.IsEnabled = true;
             this.settings.IsEnabled = true;
+            this.commands.Visibility = System.Windows.Visibility.Visible;
+            this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void newDrink_Click(object sender, RoutedEventArgs e)

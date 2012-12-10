@@ -123,8 +123,8 @@
 			<Setter Property="VerticalContentAlignment" Value="Bottom" />
 			<Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
 			<Setter Property="Background" Value="LightBlue" />
-			<Setter Property="Height" Value="125" />
-			<Setter Property="Width" Value="125" />
+			<Setter Property="Height" Value="200" />
+			<Setter Property="Width" Value="200" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">

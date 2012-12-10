@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using msn2.net.BarMonkey;
@@ -15,5 +16,16 @@ namespace BarMonkey
     {
         public static List<Drink> Drinks { get; set; }
         public static List<Container> Containers { get; set; }
+        public static string[] Messages {get; set;}
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            if (File.Exists("motd.txt"))
+            {
+                App.Messages = File.ReadAllLines("motd.txt");
+            }
+        }
     }
 }

@@ -42,15 +42,7 @@ namespace BarMonkey.Activities
             this.mediaPlayer.MediaEnded += new EventHandler(mediaPlayer_MediaEnded);
             this.mediaPlayer.Open(new Uri("twilightzone.wav", UriKind.Relative));
 
-            this.timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, this.OnTimer, this.Dispatcher);
-        }
-
-        void OnTimer(object sender, EventArgs e)
-        {
-            if (this.statusPanel.Visibility == System.Windows.Visibility.Visible && this.pbar.Value < this.pbar.Maximum)
-            {
-                this.pbar.Value++;
-            }
+            //this.timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, this.OnTimer, this.Dispatcher);
         }
 
         void mediaPlayer_MediaEnded(object sender, EventArgs e)
@@ -78,7 +70,6 @@ namespace BarMonkey.Activities
             this.statusLabel.Content = "";
             this.repeat.Visibility = Visibility.Visible;
             this.home.Visibility = System.Windows.Visibility.Visible;
-            this.navBar.IsEnabled = true;
             this.statusPanel.Visibility = System.Windows.Visibility.Collapsed;
             this.pbar.Visibility = System.Windows.Visibility.Collapsed;
             this.mediaPlayer.Stop();
@@ -96,16 +87,7 @@ namespace BarMonkey.Activities
             this.statusLabel.Content = "dispensing...";
 
             this.statusPanel.Visibility = System.Windows.Visibility.Visible;
-            this.pbar.Maximum = this.disp.EstimatedDuration.TotalSeconds + 10;
             this.pbar.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-
-            this.navBar.BackClicked += delegate(object o, EventArgs a) { base.NavigationService.GoBack(); };
-            this.navBar.HomeClicked += delegate(object o, EventArgs a) { base.NavigationService.Navigate(new PartyModeHomePage()); };
         }
 
         public void SetDrink(Drink drink, Container container)
@@ -116,13 +98,22 @@ namespace BarMonkey.Activities
             this.statusPanel.Visibility = System.Windows.Visibility.Visible;
             this.repeat.Visibility = Visibility.Hidden;
             this.home.Visibility = System.Windows.Visibility.Hidden;
-            this.navBar.IsEnabled = false;
             this.pbar.Visibility = System.Windows.Visibility.Collapsed;
 
             this.Title = "pouring " + this.drink.Name.ToLower();
             this.statusLabel.Content = "connecting...";
 
-            this.mediaPlayer.Play();
+            //this.mediaPlayer.Play();
+
+            while (true)
+            {
+                int random = new Random().Next(0, App.Messages.Length - 1);
+                this.motd.Text = App.Messages[random];
+                if (this.motd.Text.Length < 300)
+                {
+                    break;
+                }
+            }
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(PourThread), new object());
         }
@@ -143,7 +134,6 @@ namespace BarMonkey.Activities
         {
             Exception exception = (Exception)o;
             this.statusLabel.Content = exception.ToString();
-            this.navBar.IsEnabled = true;
         }
 
         private void repeat_Click(object sender, RoutedEventArgs e)
@@ -159,8 +149,9 @@ namespace BarMonkey.Activities
             }
             else
             {
-                PartyModeMainPage partyPage = new PartyModeMainPage();
-                this.NavigationService.Navigate(partyPage);
+                Uri uri = new Uri("pack://application:,,,/PartyModeHomePage.xaml");
+                
+                this.NavigationService.Navigate(uri);
             }            
         }        
 

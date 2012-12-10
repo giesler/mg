@@ -13,14 +13,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="64px" />
             <RowDefinition />
-            <RowDefinition Height="64px" />
+            <RowDefinition Height="220px" />
         </Grid.RowDefinitions>
-        <StackPanel Name="statusPanel" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Name="statusLabel" FontSize="12" Content="[status]" Style="{DynamicResource DefaultTextStyle}" />
-            <ProgressBar Height="5" Name="pbar" Width="64" />
+        <TextBlock Name="motd" FontSize="32" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" TextWrapping="WrapWithOverflow" TextAlignment="Center" />
+        <StackPanel Name="statusPanel" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Name="statusLabel" FontSize="22" Content="[status]" Style="{DynamicResource DefaultTextStyle}" HorizontalAlignment="Center" Foreground="DarkGray" />
+            <ProgressBar Height="6" Name="pbar" Width="200" IsIndeterminate="True" />
         </StackPanel>
-        <MediaElement Name="media" />
-        <StackPanel Name="nextPanel" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <MediaElement Name="media" />        
+        <StackPanel Name="nextPanel" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Name="home" Click="gohome_Click" Style="{DynamicResource DefaultMetroButtonStyle}" >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -42,6 +43,5 @@
                 </Grid>
             </Button>
         </StackPanel>
-        <bnc:NavigationBar Grid.Row="2" Grid.ColumnSpan="3" x:Name="navBar" />        
     </Grid>
 </Page>
