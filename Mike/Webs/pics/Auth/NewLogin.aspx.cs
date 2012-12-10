@@ -14,6 +14,12 @@ using System.Web.Mail;
 
 namespace pics.Auth
 {
+	public enum PasswordRequestType
+	{
+		Unknown,
+		NoPassword,
+		ForgotPassword
+	}
 	/// <summary>
 	/// Summary description for NewLogin.
 	/// </summary>
@@ -42,6 +48,8 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.Button btnEmailLookup;
 		protected System.Web.UI.WebControls.Label lblEmail;
 		protected System.Web.UI.WebControls.Label foundEmail;
+		protected pics.Controls.Header header;
+		protected pics.Controls.Sidebar Sidebar1;
 		protected System.Web.UI.WebControls.Panel pnlInfo;
 	
 		public NewLogin()
@@ -60,7 +68,28 @@ namespace pics.Auth
 					btnEmailLookup_Click(this, EventArgs.Empty);
 				}
 			}
-			// Put user code to initialize the page here
+
+		}
+
+
+		public PasswordRequestType PageRequestType
+		{
+			get
+			{
+				if (Request.QueryString["ref"] != null)
+				{
+					if (Request.QueryString["ref"] == "2")
+					{
+						return PasswordRequestType.NoPassword;
+					}
+					else if (Request.QueryString["ref"] == "3")
+					{
+						return PasswordRequestType.ForgotPassword;
+					}			
+				}
+
+				return PasswordRequestType.Unknown;
+			}
 		}
 
 		private void Page_Init(object sender, EventArgs e)
@@ -114,6 +143,7 @@ namespace pics.Auth
 
 			// create the message body
 			System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
+
 			sb.Append("<p>Someone used your name to request a new login to msn2.net.  Wow, cool, huh!?!?  ");
 			sb.Append("</p>");
 			sb.Append("<p>Name: <b>" + txtName.Text + "</b></br>");
@@ -169,11 +199,25 @@ namespace pics.Auth
 				// build message
 				String sGUID = cmd.Parameters["@guid"].Value.ToString().Substring(2);
 				System.Text.StringBuilder sb = new System.Text.StringBuilder(1000);
-				sb.Append("<p>Welcome to MSN2 pictures.</p>");
-				sb.Append("<p>Click <a href=\"http://" + Request.Url.Host);
-				sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + sGUID);
-				sb.Append("&email=" + Server.UrlEncode(txtLookupEmail.Text) + "\">here</a> to set your password and log on.</p>");
-				sb.Append("<p>If you did not make this request, you can ignore this email message.</p>");
+
+				Trace.Write("EmailLookup", "PasswordRequestType = " + PageRequestType.ToString());
+
+				if (PageRequestType == PasswordRequestType.Unknown || PageRequestType == PasswordRequestType.NoPassword)
+				{
+					sb.Append("<p>Welcome to MSN2 pictures.</p>");
+					sb.Append("<p>Click <a href=\"http://" + Request.Url.Host);
+					sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + sGUID);
+					sb.Append("&email=" + Server.UrlEncode(txtLookupEmail.Text) + "\">here</a> to set your password and log on.</p>");
+					sb.Append("<p>If you did not make this request, you can ignore this email message.</p>");
+				}
+				else
+				{
+					sb.Append("<p>This email allows you to reset your MSN2 password.</p>");
+					sb.Append("<p>Click <a href=\"http://" + Request.Url.Host);
+					sb.Append(Request.ApplicationPath + "/Auth/ResetPassword.aspx?id=" + sGUID);
+					sb.Append("&email=" + Server.UrlEncode(txtLookupEmail.Text) + "\">here</a> to set your password and log on.</p>");
+					sb.Append("<p>If you did not make this request, you can ignore this email message.</p>");
+				}
 
 				// Create the message object
 				MailMessage msg = new MailMessage();
@@ -190,6 +234,9 @@ namespace pics.Auth
 				// show correct panes for email found and message sent
 				pnlEmailLookup.Visible = false;
 				pnlEmailFound.Visible = true;
+
+				// Set email text
+				foundEmail.Text		= txtLookupEmail.Text;
 			} 
 			else 
 			{

@@ -25,6 +25,12 @@ namespace pics
 		protected pics.Controls.Sidebar Sidebar1;
 		protected pics.Controls.ContentPanel welcomeMessage;
 		protected pics.Controls.CategoryListViewItem rootCategory;
+		protected pics.Controls.Header header;
+		protected System.Web.UI.WebControls.Panel recentPictures;
+		protected pics.Controls.ContentPanel contentRecentPictures;
+		protected pics.Controls.ContentPanel browsePicturesContent;
+		protected pics.Controls.ContentPanel contentRandomPicture;
+		protected pics.Controls.OpenMainFormLink mainFormLink;
 		protected System.Web.UI.WebControls.DataList dlRecent;
 	
 		public Cdefault()
@@ -35,6 +41,16 @@ namespace pics
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			
+			// Check for edit mode entry
+			if (Request.QueryString["editMode"] == "42")
+			{
+				Session["editMode"] = true;
+			}
+
+			if ((bool) Session["editMode"])
+			{
+//				mainFormLink.Visible		= true;
+			}
 			// load the person's info
 			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
 

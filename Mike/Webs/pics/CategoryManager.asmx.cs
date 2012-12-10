@@ -36,8 +36,12 @@ namespace pics
 			Category category				= null;
 			if (dr.Read())
 			{
-				category					= new Category(dr);
+				category					= new Category(dr, true);
 			}
+
+			dr.Close();
+			cn.Close();
+
 			return category;
 
 		}
@@ -67,7 +71,7 @@ namespace pics
 			CategoryCollection cc	= new CategoryCollection();
 			while (dr.Read())
 			{
-				cc.Add(new Category(dr));
+				cc.Add(new Category(dr, false));
 			}
 			dr.Close();
 			cn.Close();
@@ -216,12 +220,14 @@ namespace pics
 		protected string description;
 		protected int parentCategoryId;
 		public int PictureId;
+		public DateTime FromDate;
+		public DateTime ToDate;
 
 		public Category()
 		{
 		}
 
-		public Category(SqlDataReader dr)
+		public Category(SqlDataReader dr, bool includeDates)
 		{
 			CategoryId			= (int) dr["CategoryId"];
 			CategoryName		= dr["CategoryName"].ToString();
@@ -232,6 +238,18 @@ namespace pics
 				Description	= dr["CategoryDescription"].ToString();
 			}
 			parentCategoryId	= (int) dr["CategoryParentId"];
+			
+			if (includeDates)
+			{
+				if (dr["FromDate"] != System.DBNull.Value)
+				{
+					FromDate	= Convert.ToDateTime(dr["FromDate"]);
+				}
+				if (dr["ToDate"] != System.DBNull.Value)
+				{
+					ToDate		= Convert.ToDateTime(dr["ToDate"]);
+				}
+			}
 		}
 		
 		public string Description

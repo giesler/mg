@@ -1,6 +1,5 @@
-<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="SearchCriteria.aspx.cs" AutoEventWireup="false" Inherits="pics.SearchCriteria" smartNavigation="False" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -10,7 +9,7 @@
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
-		<pics:header id="ctlHeader" runat="server" header="Pictures" size="small"></pics:header>
+		<picctls:Header id="header" runat="server" size="small" Text="Pictures Search"></picctls:Header>
 		<form id="SearchCriteria" method="post" runat="server">
 			<table cellSpacing="0" cellPadding="0" width="100%" align="left">
 				<tr>

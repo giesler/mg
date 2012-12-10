@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
+using System.Configuration;
 
 namespace pics 
 {
@@ -15,10 +16,14 @@ namespace pics
 		{
 			InitializeComponent();
 		}	
+
+		public static string PictureCacheLocation;
+		public static string PictureLocation;
 		
 		protected void Application_Start(Object sender, EventArgs e)
 		{
-			
+            PictureCacheLocation		= ConfigurationSettings.AppSettings["PictureCacheLocation"];
+			PictureLocation				= ConfigurationSettings.AppSettings["PictureLocation"];
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)
@@ -32,7 +37,9 @@ namespace pics
 
 			}
 
-			Session["MySelectedList"] = new pics.Controls.PictureIdCollection();
+			Session["MySelectedList"]		= new pics.Controls.PictureIdCollection();
+
+			Session["editMode"]				= false;
 
 		}
 

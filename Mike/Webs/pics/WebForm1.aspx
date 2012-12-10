@@ -11,6 +11,9 @@
 	<body MS_POSITIONING="GridLayout">
 		<form id="WebForm1" method="post" runat="server">
 			<asp:Button id="setCDMode" style="Z-INDEX: 101; LEFT: 211px; POSITION: absolute; TOP: 89px" runat="server" Text="Set CD Mode"></asp:Button>
+			<object id="editForm" classid="http:PicAdmin.dll#PicAdmin.EditPictureLink" height="100" width="200" VIEWASTEXT>
+				<param name="PictureId" value="1646">
+			</object>
 		</form>
 	</body>
 </HTML>

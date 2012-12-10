@@ -1,6 +1,5 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
-<%@ Page language="c#" Codebehind="Categories.aspx.cs" AutoEventWireup="false" Inherits="pics.Categories" smartNavigation="True" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="Categories.aspx.cs" AutoEventWireup="false" Inherits="pics.Categories" smartNavigation="False" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -16,7 +15,7 @@
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<form id="Form1" method="post" runat="server">
-			<pics:header id="ctlHeader" runat="server" header="Pictures" size="small"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Picture Folders"></picctls:Header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
 					<td class="msn2headerfade" colSpan="4" height="3"><IMG height="3" src="images/blank.gif"></td>
@@ -24,6 +23,9 @@
 				<tr>
 					<td class="msn2sidebar" vAlign="top" width="125" rowSpan="3">
 						<picctls:sidebar id="Sidebar1" runat="server">
+							<picctls:ContentPanel id="picTasks" title="Picture Tasks" runat="server" visible="false" Width="100%">
+								<picctls:PictureTasks id="picTaskList" runat="server" visible="true"></picctls:PictureTasks>
+							</picctls:ContentPanel>
 						</picctls:sidebar>
 					</td>
 				</tr>

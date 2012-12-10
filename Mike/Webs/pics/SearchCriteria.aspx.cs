@@ -26,6 +26,7 @@ namespace pics
 		protected Controls.PeopleSelector peopleSelector;
 		protected Label pictureDateStartBad;
 		protected System.Web.UI.WebControls.Label noResults;
+		protected pics.Controls.Header header;
 		protected Label pictureDateEndBad;
 	
 		public SearchCriteria()

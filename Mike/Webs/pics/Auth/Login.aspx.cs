@@ -34,6 +34,8 @@ namespace pics.auth
 		protected pics.Controls.ErrorMessagePanel pnlBadPassword1;
 		protected pics.Controls.ErrorMessagePanel pnlBadEmail;
 		protected System.Web.UI.WebControls.HyperLink lnkNewLogin;
+		protected pics.Controls.Header header;
+		protected pics.Controls.Sidebar Sidebar1;
 		protected System.Web.UI.WebControls.Button btnLogin;
 		#endregion
 		#region Constructor
@@ -51,6 +53,12 @@ namespace pics.auth
 				{
 					email.Text = Request.QueryString["email"];
 				}
+			}
+
+			// Check if we have username and pw
+			if (email.Text.Length > 0 && password.Text.Length > 0)
+			{
+				btnLogin_Click(this, EventArgs.Empty);
 			}
 		}
 
@@ -80,13 +88,13 @@ namespace pics.auth
 			// Check if a new user - if so redirect to NewLogin.aspx
 			if (radioNewLogin.Checked)
 			{
-				Response.Redirect("NewLogin.aspx?email=" + Server.UrlEncode(email.Text));
+				Response.Redirect("NewLogin.aspx?ref=2&email=" + Server.UrlEncode(email.Text));
 			}
 
 			// Check if unknown
 			if (radioHelpMe.Checked)
 			{
-				Response.Redirect("ForgotPassword.aspx?ref=3&email=" + Server.UrlEncode(email.Text));
+				Response.Redirect("NewLogin.aspx?ref=3&email=" + Server.UrlEncode(email.Text));
 			}
 
 			// encrypt the password

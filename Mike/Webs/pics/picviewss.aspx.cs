@@ -16,7 +16,7 @@ namespace pics
 	/// <summary>
 	/// Summary description for picview.
 	/// </summary>
-	public class picview : System.Web.UI.Page
+	public class picviewss : System.Web.UI.Page
 	{
 		#region Declares
 		protected System.Web.UI.WebControls.Label lblTitle;
@@ -41,7 +41,7 @@ namespace pics
 		protected String m_HttpRefreshURL;
 		#endregion
 
-		public picview()
+		public picviewss()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
 		}
@@ -64,7 +64,6 @@ namespace pics
 			else 
 			{
 				// load the person's info
-				PersonInfo pi = (PersonInfo) Session["PersonInfo"];
 
 				// figure out the source type
 				string sourceType = Request.QueryString["type"];
@@ -124,7 +123,7 @@ namespace pics
 				cmdPic.Parameters.Add("@ReturnCount", 1);
 				cmdPic.Parameters.Add("@MaxHeight", 700);
 				cmdPic.Parameters.Add("@MaxWidth", 750);
-				cmdPic.Parameters.Add("@PersonID", pi.PersonID);
+				cmdPic.Parameters.Add("@PersonID", 1);
 				cmdPic.Parameters.Add("@TotalCount", SqlDbType.Int, 4);
 				cmdPic.Parameters["@TotalCount"].Direction = ParameterDirection.Output;
 
@@ -156,12 +155,6 @@ namespace pics
 				curPic.Width	= Convert.ToInt32(dr["Width"]);
 				curPic.ID		= "currentPicture";
 				tdPicture.Controls.Add(curPic);
-
-				if ((bool) Session["editMode"])
-				{
-					PictureEditFormLink ef = new PictureEditFormLink( (int) dr["PictureId"] );
-					editLinkPanel.Controls.Add(ef);
-				}
 
 				// now read people
                 SqlCommand cmdPerson = new SqlCommand();

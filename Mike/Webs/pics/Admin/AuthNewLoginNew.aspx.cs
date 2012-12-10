@@ -30,6 +30,7 @@ namespace pics.Admin
 		protected System.Web.UI.WebControls.Button btnOK;
 		protected System.Web.UI.WebControls.ValidationSummary ValidSummary;
 		protected System.Web.UI.WebControls.Panel pnlDone;
+		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Panel pnlNewUser;
 	
 		public AuthNewLoginNew()

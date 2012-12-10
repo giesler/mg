@@ -51,20 +51,19 @@ namespace pics
 			DataSet ds		= new DataSet();
 			daPic.Fill(ds, "Picture");
 			DataRow dr		= ds.Tables[0].Rows[0];
+			cn.Close();
             
-			String strAppPath = HttpContext.Current.Request.ApplicationPath;
-			if (!strAppPath.Equals("/"))  
-				strAppPath = strAppPath + "/";
+			string strCache		= Global.PictureCacheLocation;
 
 			string filename = dr["FileName"].ToString();
 
-			filename = strAppPath + "piccache/" + filename.Replace(@"\", @"/");
-
-			Bitmap img = new Bitmap(HttpContext.Current.Request.MapPath(filename));
+			filename = strCache + filename.Replace(@"\", @"/");
 
 			Response.ContentType	 = "image/jpeg";
-
-			img.Save(Response.OutputStream, ImageFormat.Jpeg);
+			using (Bitmap img = new Bitmap(filename))
+			{
+				img.Save(Response.OutputStream, ImageFormat.Jpeg);
+			}
 
 			Response.End();
 

@@ -23,6 +23,22 @@ namespace pics {
         
         private PictureDataTable tablePicture;
         
+        private PictureCacheDataTable tablePictureCache;
+        
+        private PictureCategoryDataTable tablePictureCategory;
+        
+        private PictureGroupDataTable tablePictureGroup;
+        
+        private PicturePersonDataTable tablePicturePerson;
+        
+        private DataRelation relationPicturePictureCache;
+        
+        private DataRelation relationPicturePictureCategory;
+        
+        private DataRelation relationPicturePictureGroup;
+        
+        private DataRelation relationPicturePicturePerson;
+        
         public DataSetPicture() {
             this.InitClass();
             System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -37,6 +53,18 @@ namespace pics {
                 ds.ReadXmlSchema(new XmlTextReader(new System.IO.StringReader(strSchema)));
                 if ((ds.Tables["Picture"] != null)) {
                     this.Tables.Add(new PictureDataTable(ds.Tables["Picture"]));
+                }
+                if ((ds.Tables["PictureCache"] != null)) {
+                    this.Tables.Add(new PictureCacheDataTable(ds.Tables["PictureCache"]));
+                }
+                if ((ds.Tables["PictureCategory"] != null)) {
+                    this.Tables.Add(new PictureCategoryDataTable(ds.Tables["PictureCategory"]));
+                }
+                if ((ds.Tables["PictureGroup"] != null)) {
+                    this.Tables.Add(new PictureGroupDataTable(ds.Tables["PictureGroup"]));
+                }
+                if ((ds.Tables["PicturePerson"] != null)) {
+                    this.Tables.Add(new PicturePersonDataTable(ds.Tables["PicturePerson"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -64,6 +92,38 @@ namespace pics {
             }
         }
         
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PictureCacheDataTable PictureCache {
+            get {
+                return this.tablePictureCache;
+            }
+        }
+        
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PictureCategoryDataTable PictureCategory {
+            get {
+                return this.tablePictureCategory;
+            }
+        }
+        
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PictureGroupDataTable PictureGroup {
+            get {
+                return this.tablePictureGroup;
+            }
+        }
+        
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PicturePersonDataTable PicturePerson {
+            get {
+                return this.tablePicturePerson;
+            }
+        }
+        
         public override DataSet Clone() {
             DataSetPicture cln = ((DataSetPicture)(base.Clone()));
             cln.InitVars();
@@ -84,6 +144,18 @@ namespace pics {
             ds.ReadXml(reader);
             if ((ds.Tables["Picture"] != null)) {
                 this.Tables.Add(new PictureDataTable(ds.Tables["Picture"]));
+            }
+            if ((ds.Tables["PictureCache"] != null)) {
+                this.Tables.Add(new PictureCacheDataTable(ds.Tables["PictureCache"]));
+            }
+            if ((ds.Tables["PictureCategory"] != null)) {
+                this.Tables.Add(new PictureCategoryDataTable(ds.Tables["PictureCategory"]));
+            }
+            if ((ds.Tables["PictureGroup"] != null)) {
+                this.Tables.Add(new PictureGroupDataTable(ds.Tables["PictureGroup"]));
+            }
+            if ((ds.Tables["PicturePerson"] != null)) {
+                this.Tables.Add(new PicturePersonDataTable(ds.Tables["PicturePerson"]));
             }
             this.DataSetName = ds.DataSetName;
             this.Prefix = ds.Prefix;
@@ -107,20 +179,109 @@ namespace pics {
             if ((this.tablePicture != null)) {
                 this.tablePicture.InitVars();
             }
+            this.tablePictureCache = ((PictureCacheDataTable)(this.Tables["PictureCache"]));
+            if ((this.tablePictureCache != null)) {
+                this.tablePictureCache.InitVars();
+            }
+            this.tablePictureCategory = ((PictureCategoryDataTable)(this.Tables["PictureCategory"]));
+            if ((this.tablePictureCategory != null)) {
+                this.tablePictureCategory.InitVars();
+            }
+            this.tablePictureGroup = ((PictureGroupDataTable)(this.Tables["PictureGroup"]));
+            if ((this.tablePictureGroup != null)) {
+                this.tablePictureGroup.InitVars();
+            }
+            this.tablePicturePerson = ((PicturePersonDataTable)(this.Tables["PicturePerson"]));
+            if ((this.tablePicturePerson != null)) {
+                this.tablePicturePerson.InitVars();
+            }
+            this.relationPicturePictureCache = this.Relations["PicturePictureCache"];
+            this.relationPicturePictureCategory = this.Relations["PicturePictureCategory"];
+            this.relationPicturePictureGroup = this.Relations["PicturePictureGroup"];
+            this.relationPicturePicturePerson = this.Relations["PicturePicturePerson"];
         }
         
         private void InitClass() {
             this.DataSetName = "DataSetPicture";
             this.Prefix = "";
-            this.Namespace = "http://schemas.msn2.net/Picture/DataSetPicture.xsd";
+            this.Namespace = "http://tempuri.org/DataSetPicture.xsd";
             this.Locale = new System.Globalization.CultureInfo("en-US");
             this.CaseSensitive = false;
             this.EnforceConstraints = true;
             this.tablePicture = new PictureDataTable();
             this.Tables.Add(this.tablePicture);
+            this.tablePictureCache = new PictureCacheDataTable();
+            this.Tables.Add(this.tablePictureCache);
+            this.tablePictureCategory = new PictureCategoryDataTable();
+            this.Tables.Add(this.tablePictureCategory);
+            this.tablePictureGroup = new PictureGroupDataTable();
+            this.Tables.Add(this.tablePictureGroup);
+            this.tablePicturePerson = new PicturePersonDataTable();
+            this.Tables.Add(this.tablePicturePerson);
+            ForeignKeyConstraint fkc;
+            fkc = new ForeignKeyConstraint("PicturePictureCache", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureCache.PictureIDColumn});
+            this.tablePictureCache.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = AcceptRejectRule.None;
+            fkc.DeleteRule = Rule.Cascade;
+            fkc.UpdateRule = Rule.Cascade;
+            fkc = new ForeignKeyConstraint("PicturePictureCategory", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureCategory.PictureIDColumn});
+            this.tablePictureCategory.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = AcceptRejectRule.None;
+            fkc.DeleteRule = Rule.Cascade;
+            fkc.UpdateRule = Rule.Cascade;
+            fkc = new ForeignKeyConstraint("PicturePictureGroup", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureGroup.PictureIDColumn});
+            this.tablePictureGroup.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = AcceptRejectRule.None;
+            fkc.DeleteRule = Rule.Cascade;
+            fkc.UpdateRule = Rule.Cascade;
+            fkc = new ForeignKeyConstraint("PicturePicturePerson", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePicturePerson.PictureIDColumn});
+            this.tablePicturePerson.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = AcceptRejectRule.None;
+            fkc.DeleteRule = Rule.Cascade;
+            fkc.UpdateRule = Rule.Cascade;
+            this.relationPicturePictureCache = new DataRelation("PicturePictureCache", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureCache.PictureIDColumn}, false);
+            this.Relations.Add(this.relationPicturePictureCache);
+            this.relationPicturePictureCategory = new DataRelation("PicturePictureCategory", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureCategory.PictureIDColumn}, false);
+            this.Relations.Add(this.relationPicturePictureCategory);
+            this.relationPicturePictureGroup = new DataRelation("PicturePictureGroup", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePictureGroup.PictureIDColumn}, false);
+            this.Relations.Add(this.relationPicturePictureGroup);
+            this.relationPicturePicturePerson = new DataRelation("PicturePicturePerson", new DataColumn[] {
+                        this.tablePicture.PictureIDColumn}, new DataColumn[] {
+                        this.tablePicturePerson.PictureIDColumn}, false);
+            this.Relations.Add(this.relationPicturePicturePerson);
         }
         
         private bool ShouldSerializePicture() {
+            return false;
+        }
+        
+        private bool ShouldSerializePictureCache() {
+            return false;
+        }
+        
+        private bool ShouldSerializePictureCategory() {
+            return false;
+        }
+        
+        private bool ShouldSerializePictureGroup() {
+            return false;
+        }
+        
+        private bool ShouldSerializePicturePerson() {
             return false;
         }
         
@@ -131,6 +292,14 @@ namespace pics {
         }
         
         public delegate void PictureRowChangeEventHandler(object sender, PictureRowChangeEvent e);
+        
+        public delegate void PictureCacheRowChangeEventHandler(object sender, PictureCacheRowChangeEvent e);
+        
+        public delegate void PictureCategoryRowChangeEventHandler(object sender, PictureCategoryRowChangeEvent e);
+        
+        public delegate void PictureGroupRowChangeEventHandler(object sender, PictureGroupRowChangeEvent e);
+        
+        public delegate void PicturePersonRowChangeEventHandler(object sender, PicturePersonRowChangeEvent e);
         
         [System.Diagnostics.DebuggerStepThrough()]
         public class PictureDataTable : DataTable, System.Collections.IEnumerable {
@@ -346,6 +515,7 @@ namespace pics {
                 this.Constraints.Add(new UniqueConstraint("DataSetPictureKey1", new DataColumn[] {
                                 this.columnPictureID}, true));
                 this.columnPictureID.AutoIncrement = true;
+                this.columnPictureID.AutoIncrementStep = -1;
                 this.columnPictureID.AllowDBNull = false;
                 this.columnPictureID.ReadOnly = true;
                 this.columnPictureID.Unique = true;
@@ -622,6 +792,22 @@ namespace pics {
             public void SetPictureUpdateDateNull() {
                 this[this.tablePicture.PictureUpdateDateColumn] = System.Convert.DBNull;
             }
+            
+            public PictureCacheRow[] GetPictureCacheRows() {
+                return ((PictureCacheRow[])(this.GetChildRows(this.Table.ChildRelations["PicturePictureCache"])));
+            }
+            
+            public PictureCategoryRow[] GetPictureCategoryRows() {
+                return ((PictureCategoryRow[])(this.GetChildRows(this.Table.ChildRelations["PicturePictureCategory"])));
+            }
+            
+            public PictureGroupRow[] GetPictureGroupRows() {
+                return ((PictureGroupRow[])(this.GetChildRows(this.Table.ChildRelations["PicturePictureGroup"])));
+            }
+            
+            public PicturePersonRow[] GetPicturePersonRows() {
+                return ((PicturePersonRow[])(this.GetChildRows(this.Table.ChildRelations["PicturePicturePerson"])));
+            }
         }
         
         [System.Diagnostics.DebuggerStepThrough()]
@@ -637,6 +823,1126 @@ namespace pics {
             }
             
             public PictureRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCacheDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnPictureCacheID;
+            
+            private DataColumn columnPictureID;
+            
+            private DataColumn columnFilename;
+            
+            private DataColumn columnHeight;
+            
+            private DataColumn columnWidth;
+            
+            private DataColumn columnMaxHeight;
+            
+            private DataColumn columnMaxWidth;
+            
+            internal PictureCacheDataTable() : 
+                    base("PictureCache") {
+                this.InitClass();
+            }
+            
+            internal PictureCacheDataTable(DataTable table) : 
+                    base(table.TableName) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+                this.DisplayExpression = table.DisplayExpression;
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn PictureCacheIDColumn {
+                get {
+                    return this.columnPictureCacheID;
+                }
+            }
+            
+            internal DataColumn PictureIDColumn {
+                get {
+                    return this.columnPictureID;
+                }
+            }
+            
+            internal DataColumn FilenameColumn {
+                get {
+                    return this.columnFilename;
+                }
+            }
+            
+            internal DataColumn HeightColumn {
+                get {
+                    return this.columnHeight;
+                }
+            }
+            
+            internal DataColumn WidthColumn {
+                get {
+                    return this.columnWidth;
+                }
+            }
+            
+            internal DataColumn MaxHeightColumn {
+                get {
+                    return this.columnMaxHeight;
+                }
+            }
+            
+            internal DataColumn MaxWidthColumn {
+                get {
+                    return this.columnMaxWidth;
+                }
+            }
+            
+            public PictureCacheRow this[int index] {
+                get {
+                    return ((PictureCacheRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PictureCacheRowChangeEventHandler PictureCacheRowChanged;
+            
+            public event PictureCacheRowChangeEventHandler PictureCacheRowChanging;
+            
+            public event PictureCacheRowChangeEventHandler PictureCacheRowDeleted;
+            
+            public event PictureCacheRowChangeEventHandler PictureCacheRowDeleting;
+            
+            public void AddPictureCacheRow(PictureCacheRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public PictureCacheRow AddPictureCacheRow(PictureRow parentPictureRowByPicturePictureCache, string Filename, int Height, int Width, int MaxHeight, int MaxWidth) {
+                PictureCacheRow rowPictureCacheRow = ((PictureCacheRow)(this.NewRow()));
+                rowPictureCacheRow.ItemArray = new object[] {
+                        null,
+                        parentPictureRowByPicturePictureCache[0],
+                        Filename,
+                        Height,
+                        Width,
+                        MaxHeight,
+                        MaxWidth};
+                this.Rows.Add(rowPictureCacheRow);
+                return rowPictureCacheRow;
+            }
+            
+            public PictureCacheRow FindByPictureCacheID(int PictureCacheID) {
+                return ((PictureCacheRow)(this.Rows.Find(new object[] {
+                            PictureCacheID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            public override DataTable Clone() {
+                PictureCacheDataTable cln = ((PictureCacheDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            protected override DataTable CreateInstance() {
+                return new PictureCacheDataTable();
+            }
+            
+            internal void InitVars() {
+                this.columnPictureCacheID = this.Columns["PictureCacheID"];
+                this.columnPictureID = this.Columns["PictureID"];
+                this.columnFilename = this.Columns["Filename"];
+                this.columnHeight = this.Columns["Height"];
+                this.columnWidth = this.Columns["Width"];
+                this.columnMaxHeight = this.Columns["MaxHeight"];
+                this.columnMaxWidth = this.Columns["MaxWidth"];
+            }
+            
+            private void InitClass() {
+                this.columnPictureCacheID = new DataColumn("PictureCacheID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureCacheID);
+                this.columnPictureID = new DataColumn("PictureID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureID);
+                this.columnFilename = new DataColumn("Filename", typeof(string), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnFilename);
+                this.columnHeight = new DataColumn("Height", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnHeight);
+                this.columnWidth = new DataColumn("Width", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnWidth);
+                this.columnMaxHeight = new DataColumn("MaxHeight", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnMaxHeight);
+                this.columnMaxWidth = new DataColumn("MaxWidth", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnMaxWidth);
+                this.Constraints.Add(new UniqueConstraint("DataSetPictureKey2", new DataColumn[] {
+                                this.columnPictureCacheID}, true));
+                this.columnPictureCacheID.AutoIncrement = true;
+                this.columnPictureCacheID.AutoIncrementStep = -1;
+                this.columnPictureCacheID.AllowDBNull = false;
+                this.columnPictureCacheID.ReadOnly = true;
+                this.columnPictureCacheID.Unique = true;
+                this.columnPictureID.AllowDBNull = false;
+            }
+            
+            public PictureCacheRow NewPictureCacheRow() {
+                return ((PictureCacheRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                return new PictureCacheRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(PictureCacheRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PictureCacheRowChanged != null)) {
+                    this.PictureCacheRowChanged(this, new PictureCacheRowChangeEvent(((PictureCacheRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PictureCacheRowChanging != null)) {
+                    this.PictureCacheRowChanging(this, new PictureCacheRowChangeEvent(((PictureCacheRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PictureCacheRowDeleted != null)) {
+                    this.PictureCacheRowDeleted(this, new PictureCacheRowChangeEvent(((PictureCacheRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PictureCacheRowDeleting != null)) {
+                    this.PictureCacheRowDeleting(this, new PictureCacheRowChangeEvent(((PictureCacheRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemovePictureCacheRow(PictureCacheRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCacheRow : DataRow {
+            
+            private PictureCacheDataTable tablePictureCache;
+            
+            internal PictureCacheRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePictureCache = ((PictureCacheDataTable)(this.Table));
+            }
+            
+            public int PictureCacheID {
+                get {
+                    return ((int)(this[this.tablePictureCache.PictureCacheIDColumn]));
+                }
+                set {
+                    this[this.tablePictureCache.PictureCacheIDColumn] = value;
+                }
+            }
+            
+            public int PictureID {
+                get {
+                    return ((int)(this[this.tablePictureCache.PictureIDColumn]));
+                }
+                set {
+                    this[this.tablePictureCache.PictureIDColumn] = value;
+                }
+            }
+            
+            public string Filename {
+                get {
+                    try {
+                        return ((string)(this[this.tablePictureCache.FilenameColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureCache.FilenameColumn] = value;
+                }
+            }
+            
+            public int Height {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureCache.HeightColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureCache.HeightColumn] = value;
+                }
+            }
+            
+            public int Width {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureCache.WidthColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureCache.WidthColumn] = value;
+                }
+            }
+            
+            public int MaxHeight {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureCache.MaxHeightColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureCache.MaxHeightColumn] = value;
+                }
+            }
+            
+            public int MaxWidth {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureCache.MaxWidthColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureCache.MaxWidthColumn] = value;
+                }
+            }
+            
+            public PictureRow PictureRow {
+                get {
+                    return ((PictureRow)(this.GetParentRow(this.Table.ParentRelations["PicturePictureCache"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PicturePictureCache"]);
+                }
+            }
+            
+            public bool IsFilenameNull() {
+                return this.IsNull(this.tablePictureCache.FilenameColumn);
+            }
+            
+            public void SetFilenameNull() {
+                this[this.tablePictureCache.FilenameColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsHeightNull() {
+                return this.IsNull(this.tablePictureCache.HeightColumn);
+            }
+            
+            public void SetHeightNull() {
+                this[this.tablePictureCache.HeightColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsWidthNull() {
+                return this.IsNull(this.tablePictureCache.WidthColumn);
+            }
+            
+            public void SetWidthNull() {
+                this[this.tablePictureCache.WidthColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsMaxHeightNull() {
+                return this.IsNull(this.tablePictureCache.MaxHeightColumn);
+            }
+            
+            public void SetMaxHeightNull() {
+                this[this.tablePictureCache.MaxHeightColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsMaxWidthNull() {
+                return this.IsNull(this.tablePictureCache.MaxWidthColumn);
+            }
+            
+            public void SetMaxWidthNull() {
+                this[this.tablePictureCache.MaxWidthColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCacheRowChangeEvent : EventArgs {
+            
+            private PictureCacheRow eventRow;
+            
+            private DataRowAction eventAction;
+            
+            public PictureCacheRowChangeEvent(PictureCacheRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public PictureCacheRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCategoryDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnPictureID;
+            
+            private DataColumn columnCategoryID;
+            
+            internal PictureCategoryDataTable() : 
+                    base("PictureCategory") {
+                this.InitClass();
+            }
+            
+            internal PictureCategoryDataTable(DataTable table) : 
+                    base(table.TableName) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+                this.DisplayExpression = table.DisplayExpression;
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn PictureIDColumn {
+                get {
+                    return this.columnPictureID;
+                }
+            }
+            
+            internal DataColumn CategoryIDColumn {
+                get {
+                    return this.columnCategoryID;
+                }
+            }
+            
+            public PictureCategoryRow this[int index] {
+                get {
+                    return ((PictureCategoryRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PictureCategoryRowChangeEventHandler PictureCategoryRowChanged;
+            
+            public event PictureCategoryRowChangeEventHandler PictureCategoryRowChanging;
+            
+            public event PictureCategoryRowChangeEventHandler PictureCategoryRowDeleted;
+            
+            public event PictureCategoryRowChangeEventHandler PictureCategoryRowDeleting;
+            
+            public void AddPictureCategoryRow(PictureCategoryRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public PictureCategoryRow AddPictureCategoryRow(PictureRow parentPictureRowByPicturePictureCategory, int CategoryID) {
+                PictureCategoryRow rowPictureCategoryRow = ((PictureCategoryRow)(this.NewRow()));
+                rowPictureCategoryRow.ItemArray = new object[] {
+                        parentPictureRowByPicturePictureCategory[0],
+                        CategoryID};
+                this.Rows.Add(rowPictureCategoryRow);
+                return rowPictureCategoryRow;
+            }
+            
+            public PictureCategoryRow FindByPictureIDCategoryID(int PictureID, int CategoryID) {
+                return ((PictureCategoryRow)(this.Rows.Find(new object[] {
+                            PictureID,
+                            CategoryID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            public override DataTable Clone() {
+                PictureCategoryDataTable cln = ((PictureCategoryDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            protected override DataTable CreateInstance() {
+                return new PictureCategoryDataTable();
+            }
+            
+            internal void InitVars() {
+                this.columnPictureID = this.Columns["PictureID"];
+                this.columnCategoryID = this.Columns["CategoryID"];
+            }
+            
+            private void InitClass() {
+                this.columnPictureID = new DataColumn("PictureID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureID);
+                this.columnCategoryID = new DataColumn("CategoryID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnCategoryID);
+                this.Constraints.Add(new UniqueConstraint("DataSetPictureKey3", new DataColumn[] {
+                                this.columnPictureID,
+                                this.columnCategoryID}, true));
+                this.columnPictureID.AllowDBNull = false;
+                this.columnCategoryID.AllowDBNull = false;
+            }
+            
+            public PictureCategoryRow NewPictureCategoryRow() {
+                return ((PictureCategoryRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                return new PictureCategoryRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(PictureCategoryRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PictureCategoryRowChanged != null)) {
+                    this.PictureCategoryRowChanged(this, new PictureCategoryRowChangeEvent(((PictureCategoryRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PictureCategoryRowChanging != null)) {
+                    this.PictureCategoryRowChanging(this, new PictureCategoryRowChangeEvent(((PictureCategoryRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PictureCategoryRowDeleted != null)) {
+                    this.PictureCategoryRowDeleted(this, new PictureCategoryRowChangeEvent(((PictureCategoryRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PictureCategoryRowDeleting != null)) {
+                    this.PictureCategoryRowDeleting(this, new PictureCategoryRowChangeEvent(((PictureCategoryRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemovePictureCategoryRow(PictureCategoryRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCategoryRow : DataRow {
+            
+            private PictureCategoryDataTable tablePictureCategory;
+            
+            internal PictureCategoryRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePictureCategory = ((PictureCategoryDataTable)(this.Table));
+            }
+            
+            public int PictureID {
+                get {
+                    return ((int)(this[this.tablePictureCategory.PictureIDColumn]));
+                }
+                set {
+                    this[this.tablePictureCategory.PictureIDColumn] = value;
+                }
+            }
+            
+            public int CategoryID {
+                get {
+                    return ((int)(this[this.tablePictureCategory.CategoryIDColumn]));
+                }
+                set {
+                    this[this.tablePictureCategory.CategoryIDColumn] = value;
+                }
+            }
+            
+            public PictureRow PictureRow {
+                get {
+                    return ((PictureRow)(this.GetParentRow(this.Table.ParentRelations["PicturePictureCategory"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PicturePictureCategory"]);
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureCategoryRowChangeEvent : EventArgs {
+            
+            private PictureCategoryRow eventRow;
+            
+            private DataRowAction eventAction;
+            
+            public PictureCategoryRowChangeEvent(PictureCategoryRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public PictureCategoryRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureGroupDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnPictureGroupID;
+            
+            private DataColumn columnPictureID;
+            
+            private DataColumn columnGroupID;
+            
+            internal PictureGroupDataTable() : 
+                    base("PictureGroup") {
+                this.InitClass();
+            }
+            
+            internal PictureGroupDataTable(DataTable table) : 
+                    base(table.TableName) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+                this.DisplayExpression = table.DisplayExpression;
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn PictureGroupIDColumn {
+                get {
+                    return this.columnPictureGroupID;
+                }
+            }
+            
+            internal DataColumn PictureIDColumn {
+                get {
+                    return this.columnPictureID;
+                }
+            }
+            
+            internal DataColumn GroupIDColumn {
+                get {
+                    return this.columnGroupID;
+                }
+            }
+            
+            public PictureGroupRow this[int index] {
+                get {
+                    return ((PictureGroupRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PictureGroupRowChangeEventHandler PictureGroupRowChanged;
+            
+            public event PictureGroupRowChangeEventHandler PictureGroupRowChanging;
+            
+            public event PictureGroupRowChangeEventHandler PictureGroupRowDeleted;
+            
+            public event PictureGroupRowChangeEventHandler PictureGroupRowDeleting;
+            
+            public void AddPictureGroupRow(PictureGroupRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public PictureGroupRow AddPictureGroupRow(PictureRow parentPictureRowByPicturePictureGroup, int GroupID) {
+                PictureGroupRow rowPictureGroupRow = ((PictureGroupRow)(this.NewRow()));
+                rowPictureGroupRow.ItemArray = new object[] {
+                        null,
+                        parentPictureRowByPicturePictureGroup[0],
+                        GroupID};
+                this.Rows.Add(rowPictureGroupRow);
+                return rowPictureGroupRow;
+            }
+            
+            public PictureGroupRow FindByPictureGroupID(int PictureGroupID) {
+                return ((PictureGroupRow)(this.Rows.Find(new object[] {
+                            PictureGroupID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            public override DataTable Clone() {
+                PictureGroupDataTable cln = ((PictureGroupDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            protected override DataTable CreateInstance() {
+                return new PictureGroupDataTable();
+            }
+            
+            internal void InitVars() {
+                this.columnPictureGroupID = this.Columns["PictureGroupID"];
+                this.columnPictureID = this.Columns["PictureID"];
+                this.columnGroupID = this.Columns["GroupID"];
+            }
+            
+            private void InitClass() {
+                this.columnPictureGroupID = new DataColumn("PictureGroupID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureGroupID);
+                this.columnPictureID = new DataColumn("PictureID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureID);
+                this.columnGroupID = new DataColumn("GroupID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnGroupID);
+                this.Constraints.Add(new UniqueConstraint("DataSetPictureKey4", new DataColumn[] {
+                                this.columnPictureGroupID}, true));
+                this.columnPictureGroupID.AutoIncrement = true;
+                this.columnPictureGroupID.AutoIncrementStep = -1;
+                this.columnPictureGroupID.AllowDBNull = false;
+                this.columnPictureGroupID.ReadOnly = true;
+                this.columnPictureGroupID.Unique = true;
+            }
+            
+            public PictureGroupRow NewPictureGroupRow() {
+                return ((PictureGroupRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                return new PictureGroupRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(PictureGroupRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PictureGroupRowChanged != null)) {
+                    this.PictureGroupRowChanged(this, new PictureGroupRowChangeEvent(((PictureGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PictureGroupRowChanging != null)) {
+                    this.PictureGroupRowChanging(this, new PictureGroupRowChangeEvent(((PictureGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PictureGroupRowDeleted != null)) {
+                    this.PictureGroupRowDeleted(this, new PictureGroupRowChangeEvent(((PictureGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PictureGroupRowDeleting != null)) {
+                    this.PictureGroupRowDeleting(this, new PictureGroupRowChangeEvent(((PictureGroupRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemovePictureGroupRow(PictureGroupRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureGroupRow : DataRow {
+            
+            private PictureGroupDataTable tablePictureGroup;
+            
+            internal PictureGroupRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePictureGroup = ((PictureGroupDataTable)(this.Table));
+            }
+            
+            public int PictureGroupID {
+                get {
+                    return ((int)(this[this.tablePictureGroup.PictureGroupIDColumn]));
+                }
+                set {
+                    this[this.tablePictureGroup.PictureGroupIDColumn] = value;
+                }
+            }
+            
+            public int PictureID {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureGroup.PictureIDColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureGroup.PictureIDColumn] = value;
+                }
+            }
+            
+            public int GroupID {
+                get {
+                    try {
+                        return ((int)(this[this.tablePictureGroup.GroupIDColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Cannot get value because it is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePictureGroup.GroupIDColumn] = value;
+                }
+            }
+            
+            public PictureRow PictureRow {
+                get {
+                    return ((PictureRow)(this.GetParentRow(this.Table.ParentRelations["PicturePictureGroup"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PicturePictureGroup"]);
+                }
+            }
+            
+            public bool IsPictureIDNull() {
+                return this.IsNull(this.tablePictureGroup.PictureIDColumn);
+            }
+            
+            public void SetPictureIDNull() {
+                this[this.tablePictureGroup.PictureIDColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsGroupIDNull() {
+                return this.IsNull(this.tablePictureGroup.GroupIDColumn);
+            }
+            
+            public void SetGroupIDNull() {
+                this[this.tablePictureGroup.GroupIDColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PictureGroupRowChangeEvent : EventArgs {
+            
+            private PictureGroupRow eventRow;
+            
+            private DataRowAction eventAction;
+            
+            public PictureGroupRowChangeEvent(PictureGroupRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public PictureGroupRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            public DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PicturePersonDataTable : DataTable, System.Collections.IEnumerable {
+            
+            private DataColumn columnPictureID;
+            
+            private DataColumn columnPersonID;
+            
+            private DataColumn columnPicturePersonID;
+            
+            internal PicturePersonDataTable() : 
+                    base("PicturePerson") {
+                this.InitClass();
+            }
+            
+            internal PicturePersonDataTable(DataTable table) : 
+                    base(table.TableName) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+                this.DisplayExpression = table.DisplayExpression;
+            }
+            
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            internal DataColumn PictureIDColumn {
+                get {
+                    return this.columnPictureID;
+                }
+            }
+            
+            internal DataColumn PersonIDColumn {
+                get {
+                    return this.columnPersonID;
+                }
+            }
+            
+            internal DataColumn PicturePersonIDColumn {
+                get {
+                    return this.columnPicturePersonID;
+                }
+            }
+            
+            public PicturePersonRow this[int index] {
+                get {
+                    return ((PicturePersonRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PicturePersonRowChangeEventHandler PicturePersonRowChanged;
+            
+            public event PicturePersonRowChangeEventHandler PicturePersonRowChanging;
+            
+            public event PicturePersonRowChangeEventHandler PicturePersonRowDeleted;
+            
+            public event PicturePersonRowChangeEventHandler PicturePersonRowDeleting;
+            
+            public void AddPicturePersonRow(PicturePersonRow row) {
+                this.Rows.Add(row);
+            }
+            
+            public PicturePersonRow AddPicturePersonRow(PictureRow parentPictureRowByPicturePicturePerson, int PersonID) {
+                PicturePersonRow rowPicturePersonRow = ((PicturePersonRow)(this.NewRow()));
+                rowPicturePersonRow.ItemArray = new object[] {
+                        parentPictureRowByPicturePicturePerson[0],
+                        PersonID,
+                        null};
+                this.Rows.Add(rowPicturePersonRow);
+                return rowPicturePersonRow;
+            }
+            
+            public PicturePersonRow FindByPictureIDPersonID(int PictureID, int PersonID) {
+                return ((PicturePersonRow)(this.Rows.Find(new object[] {
+                            PictureID,
+                            PersonID})));
+            }
+            
+            public System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            public override DataTable Clone() {
+                PicturePersonDataTable cln = ((PicturePersonDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            protected override DataTable CreateInstance() {
+                return new PicturePersonDataTable();
+            }
+            
+            internal void InitVars() {
+                this.columnPictureID = this.Columns["PictureID"];
+                this.columnPersonID = this.Columns["PersonID"];
+                this.columnPicturePersonID = this.Columns["PicturePersonID"];
+            }
+            
+            private void InitClass() {
+                this.columnPictureID = new DataColumn("PictureID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPictureID);
+                this.columnPersonID = new DataColumn("PersonID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPersonID);
+                this.columnPicturePersonID = new DataColumn("PicturePersonID", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnPicturePersonID);
+                this.Constraints.Add(new UniqueConstraint("DataSetPictureKey5", new DataColumn[] {
+                                this.columnPictureID,
+                                this.columnPersonID}, true));
+                this.columnPictureID.AllowDBNull = false;
+                this.columnPersonID.AllowDBNull = false;
+                this.columnPicturePersonID.AutoIncrement = true;
+                this.columnPicturePersonID.AllowDBNull = false;
+                this.columnPicturePersonID.ReadOnly = true;
+            }
+            
+            public PicturePersonRow NewPicturePersonRow() {
+                return ((PicturePersonRow)(this.NewRow()));
+            }
+            
+            protected override DataRow NewRowFromBuilder(DataRowBuilder builder) {
+                return new PicturePersonRow(builder);
+            }
+            
+            protected override System.Type GetRowType() {
+                return typeof(PicturePersonRow);
+            }
+            
+            protected override void OnRowChanged(DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PicturePersonRowChanged != null)) {
+                    this.PicturePersonRowChanged(this, new PicturePersonRowChangeEvent(((PicturePersonRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowChanging(DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PicturePersonRowChanging != null)) {
+                    this.PicturePersonRowChanging(this, new PicturePersonRowChangeEvent(((PicturePersonRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleted(DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PicturePersonRowDeleted != null)) {
+                    this.PicturePersonRowDeleted(this, new PicturePersonRowChangeEvent(((PicturePersonRow)(e.Row)), e.Action));
+                }
+            }
+            
+            protected override void OnRowDeleting(DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PicturePersonRowDeleting != null)) {
+                    this.PicturePersonRowDeleting(this, new PicturePersonRowChangeEvent(((PicturePersonRow)(e.Row)), e.Action));
+                }
+            }
+            
+            public void RemovePicturePersonRow(PicturePersonRow row) {
+                this.Rows.Remove(row);
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PicturePersonRow : DataRow {
+            
+            private PicturePersonDataTable tablePicturePerson;
+            
+            internal PicturePersonRow(DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePicturePerson = ((PicturePersonDataTable)(this.Table));
+            }
+            
+            public int PictureID {
+                get {
+                    return ((int)(this[this.tablePicturePerson.PictureIDColumn]));
+                }
+                set {
+                    this[this.tablePicturePerson.PictureIDColumn] = value;
+                }
+            }
+            
+            public int PersonID {
+                get {
+                    return ((int)(this[this.tablePicturePerson.PersonIDColumn]));
+                }
+                set {
+                    this[this.tablePicturePerson.PersonIDColumn] = value;
+                }
+            }
+            
+            public int PicturePersonID {
+                get {
+                    return ((int)(this[this.tablePicturePerson.PicturePersonIDColumn]));
+                }
+                set {
+                    this[this.tablePicturePerson.PicturePersonIDColumn] = value;
+                }
+            }
+            
+            public PictureRow PictureRow {
+                get {
+                    return ((PictureRow)(this.GetParentRow(this.Table.ParentRelations["PicturePicturePerson"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PicturePicturePerson"]);
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThrough()]
+        public class PicturePersonRowChangeEvent : EventArgs {
+            
+            private PicturePersonRow eventRow;
+            
+            private DataRowAction eventAction;
+            
+            public PicturePersonRowChangeEvent(PicturePersonRow row, DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            public PicturePersonRow Row {
                 get {
                     return this.eventRow;
                 }

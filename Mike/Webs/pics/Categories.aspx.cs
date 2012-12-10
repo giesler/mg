@@ -23,6 +23,7 @@ namespace pics
 		protected string rootCategoryId;
 		protected string currentCategoryId;
 		protected int startRecord;
+		protected bool showEditControls;
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
 		protected System.Web.UI.WebControls.Label currentCategory;
 		protected System.Web.UI.WebControls.DataList subCategories;
@@ -35,6 +36,9 @@ namespace pics
 		protected pics.Controls.PngImage slideshowImage;
 		protected System.Web.UI.WebControls.HyperLink addToFolder;
 		protected System.Web.UI.WebControls.HyperLink setCategoryPic;
+		protected pics.Controls.Header header;
+		protected pics.Controls.PictureTasks picTaskList;
+		protected pics.Controls.ContentPanel picTasks;
 		protected bool editMode;
 		#endregion
 
@@ -45,6 +49,9 @@ namespace pics
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			PersonInfo pi = (PersonInfo) Session["PersonInfo"];
+				
+			showEditControls	= (bool) Session["editMode"];
 
 			// Figure out what to use as the root ID
 			rootCategoryId = Request.QueryString["r"];
@@ -79,7 +86,6 @@ namespace pics
 			childCategoryList.Controls.Add(t);
 
 			TableRow catRow			= null;
-
             
 			// fill the child control list with links
 			int i = 0;
@@ -106,8 +112,9 @@ namespace pics
 			// if no children, hide this control
 			if (categories.Count == 0)
 			{
-				childCategoryList.Visible = false;
+				childCategoryList.Visible	= false;
 				LoadPictures();
+				picTasks.Visible			= true;
 			}
 
 			// Now load the 'you are here' control
@@ -123,6 +130,7 @@ namespace pics
 			
 			Table tr = new Table();
 			tr.CellPadding = 0;
+			tr.Width	= Unit.Percentage(100);
 			tr.CellSpacing = 0;
 			youAreHerePanel.Controls.Add(tr);
 
@@ -183,12 +191,14 @@ namespace pics
 			trc.Cells.Add(currentCategoryCell);
 
 			Table t2 = new Table();
+			t2.Width	= Unit.Percentage(100);
 			currentCategoryCell.Controls.Add(t2);
 
 			TableRow t2r1 = new TableRow();
 			t2.Rows.Add(t2r1);
 
 			TableCell t2r1c1 = new TableCell();
+			t2r1c1.Width		= Unit.Pixel(10);
 			t2r1c1.RowSpan   = 2;
 			t2r1c1.VerticalAlign	= VerticalAlign.Top;
 			t2r1.Cells.Add(t2r1c1);
@@ -209,17 +219,34 @@ namespace pics
 			curCategory.Font.Bold = true;
 			t2r1c2.Controls.Add(curCategory);
 
+			// Add edit link
+			TableCell t2r2c3	= new TableCell();
+			t2r2c3.HorizontalAlign	= HorizontalAlign.Right;
+			t2r1.Cells.Add(t2r2c3);
+
+			if (showEditControls)
+			{
+				t2r2c3.Width						= Unit.Pixel(50);
+				CategoryEditFormLink editCat		= new CategoryEditFormLink(currentCategory.CategoryId, pi.PersonID);
+				t2r2c3.Controls.Add(editCat);
+			}
+
 			TableRow t2r2 = new TableRow();
 			t2.Rows.Add(t2r2);
 
 			// Add the description
 			TableCell t2r1c3	= new TableCell();
 			t2r1c3.CssClass		= "categoryDesc";
+			t2r1c3.ColumnSpan	= 2;
 			t2r2.Cells.Add(t2r1c3);
 			if (currentCategory.Description != null)
 			{
 				t2r1c3.Controls.Add(new HtmlLiteral(currentCategory.Description));
 			}
+
+			// Add the tasklist
+//			TaskListControl tl	= (TaskListControl) LoadControl(@"Controls/TaskListControl.ascx");
+//			Sidebar1.Controls.Add(tl);
 				
 		}
 
@@ -240,7 +267,6 @@ namespace pics
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
 		}
 		#endregion
 
@@ -282,7 +308,7 @@ namespace pics
 			// create new control
 			PagedThumbnailList thumbs		= new PagedThumbnailList();
 			thumbs.ShowRecordNumber			= true;
-			thumbs.ShowCheckBox				= true;
+			thumbs.ShowCheckBox				= showEditControls;
 			thumbs.PictureCheckBoxClicked	+= new PictureCheckBoxClickedEventHandler(PictureCheckBoxClicked);
 			thumbs.PageReturnURL			= PicPageURL;
 			thumbs.ThumbsDataSource			= dsPics.Tables["Pictures"].DefaultView;
@@ -296,14 +322,14 @@ namespace pics
 			else
 				thumbs.NoPictureMessage = "<b>There are no pictures currently available in this category.</b><br>"
 					+ "We may have added the category and not published pictures yet, so please check back later.";
-			thumbs.PageNavURL		= Request.Path + "?r=" + rootCategoryId	+ "&c=" + currentCategoryId + "&sr={0}";
+			thumbs.PageNavUrl		= Request.Path + "?r=" + rootCategoryId	+ "&c=" + currentCategoryId + "&sr={0}";
 			pnlthumbs.Controls.Add(thumbs);
 
 			// Show the slideshow link if there are pictures
 			if (thumbs.HasPictures) 
 			{
-//				pictureTaskPanel.Visible = true;
-//				lnkSlideshow.NavigateUrl = String.Format(PicPageURL + "&ss=1#title", startRecord.ToString());
+				picTasks.Visible			= true;
+				picTaskList.SetSlideshowUrl(String.Format(PicPageURL + "&ss=1#title", startRecord.ToString()));
 			}
 
 		}
@@ -311,8 +337,7 @@ namespace pics
 		private void PictureCheckBoxClicked(object sender, PictureCheckBoxEventArgs e)
 		{
 			// Ensure selected list visible
-//			selectedList.Visible		= true;
-
+			Sidebar1.SelectedWindow.Visible	= true;
             
 			Sidebar1.SelectedWindow.ContentPanel.AddContent(new HtmlLiteral("<hr style=\"border:1px\">"));
 
@@ -359,6 +384,11 @@ namespace pics
 
 			
 
+		}
+
+		private void picTasks_SlideshowTask(object sender, System.EventArgs e)
+		{
+		
 		}
 
 		public String PicPageURL 

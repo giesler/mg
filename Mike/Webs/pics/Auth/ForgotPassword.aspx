@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <%@ Page language="c#" Codebehind="ForgotPassword.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.ForgotPassword" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -47,7 +47,7 @@
 								</TR>
 								<TR class="loginTableContent">
 									<TD class="loginTableText" align="right">
-										<asp:Button id="btnConfirm" Runat="server" Text="Confirm" CssClass="btn"></asp:Button></TD>
+										<asp:Button id="btnConfirm" Text="Confirm" Runat="server" CssClass="btn"></asp:Button></TD>
 								</TR>
 							</TABLE>
 						</asp:Panel>
@@ -59,8 +59,8 @@
 						</asp:panel>
 						<asp:Panel Runat="server" ID="pnlSent" Visible="False">
 							<P>An email has been sent to <B>
-									<asp:Label id="lblEmail" Runat="server"></asp:Label></B>. You should 
-								receive it shortly.
+									<asp:Label id="lblEmail" Runat="server"></asp:Label></B>. It will include a 
+								link you can use to reset your password.&nbsp; You should receive it shortly.
 							</P>
 						</asp:Panel>
 						<!-- Begin footer -->

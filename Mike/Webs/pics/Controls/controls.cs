@@ -850,6 +850,8 @@ namespace pics.Controls
 		private int categoryId;
 		private string navigateUrl;
 		private Category category;
+		protected int folderWidth = 64;
+		private string folderImage = @"Images/folder.png";
 		#endregion
 		#region Constructors
 		public CategoryListViewItem()
@@ -890,14 +892,38 @@ namespace pics.Controls
 				navigateUrl = value;
 			}
 		}
+		public int FolderWidth
+		{
+			get
+			{
+				return folderWidth;
+			}
+			set
+			{
+				folderWidth = value;
+			}
+		}
+		public string FolderImage
+		{
+			get
+			{
+				return folderImage;
+			}
+			set
+			{
+				folderImage = value;
+			}
+		}
 		#endregion
 		#region Private Methods
 		protected override void CreateChildControls()
 		{
 			Table t					= new Table();
+			t.Width					= Unit.Percentage(100);
 			this.Controls.Add(t);
 
 			TableRow tr				= new TableRow();
+			tr.Attributes.Add("height", "20");
 			t.Rows.Add(tr);
 
 			// Load the category if we need to
@@ -916,6 +942,7 @@ namespace pics.Controls
 			TableCell catCell		= new TableCell();
 			catCell.Width			= Unit.Pixel(68);
 			catCell.VerticalAlign	= VerticalAlign.Top;
+			catCell.RowSpan			= 3;
 			tr.Cells.Add(catCell);
 
 			HyperLink folderClick	= new HyperLink();
@@ -923,8 +950,8 @@ namespace pics.Controls
 			catCell.Controls.Add(folderClick);
 
 			// Background folder image
-			string image			= (recursivePicCount != 0 ? "Images/folder.png" : "Images/folderEmpty.png");
-			PngImage pngImage		= new PngImage(image, 64, 64);
+			string image			= (recursivePicCount != 0 ? folderImage : "Images/folderEmpty.png");
+			PngImage pngImage		= new PngImage(image, folderWidth, folderWidth);
 			if (navigateUrl != null)
 			{
 				pngImage.OnClickScript	= "location.href='" + navigateUrl + "';";
@@ -934,8 +961,15 @@ namespace pics.Controls
 			// Text cell
 			catCell					= new TableCell();
 			catCell.CssClass		= "categoryTextCell";
+			catCell.VerticalAlign	= VerticalAlign.Top;
+			catCell.Attributes.Add("height", "20");
 			tr.Cells.Add(catCell);
-					
+
+			if (folderWidth > 60)
+			{
+				catCell.Controls.Add(new HtmlLiteral("<br>"));
+			}
+		
 			// Link to category
 			HyperLink lnk			= new HyperLink();
 			lnk.Text				= category.Name;
@@ -945,62 +979,125 @@ namespace pics.Controls
 				lnk.NavigateUrl		= navigateUrl; 
 			}
 			catCell.Controls.Add(lnk);
-				
-			catCell.Controls.Add(new HtmlLiteral("<br>"));
 
-			// Description
-			if (category.Description != null)
+			bool prevText = false;
+
+			// Date/time, if we have something
+			string dateFormatString	= "ddd, MMM d \"'\"yy";
+			if (category.FromDate == DateTime.MinValue)
 			{
-				catCell.Controls.Add(new HtmlLiteral(category.Description.ToString()));
+			}
+			else 
+			{
+				catCell.Controls.Add(new HtmlLiteral("<br>"));
+
+				if (prevText)
+				{
+					catCell.Controls.Add(new HtmlLiteral(" from "));
+				}
+//				prevText = true;
+				if (category.FromDate.Date == category.ToDate.Date)
+				{
+					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
+				}
+				else
+				{
+					catCell.Controls.Add(new HtmlLiteral(category.FromDate.ToString(dateFormatString)));
+					catCell.Controls.Add(new HtmlLiteral(" to "));
+					catCell.Controls.Add(new HtmlLiteral(category.ToDate.ToString(dateFormatString)));
+				}
 				catCell.Controls.Add(new HtmlLiteral("<br>"));
 			}
+	
+			// Description
+			if (category.Description != null && category.Description.Length > 0)
+			{
+				Label lbl			= new Label();
+				lbl.Text			= category.Description;
+				lbl.CssClass		= "categoryDescription";
 
+				catCell.Controls.Add(lbl);
+
+			}
 
 			// Contents
-			catCell.Controls.Add(new HtmlLiteral("<i>Contains:</i><br>"));
+			//catCell.Controls.Add(new HtmlLiteral("<i>Contains:</i><br>"));
+			tr						= new TableRow();
+			tr.Attributes.Add("height", "10");
+			t.Rows.Add(tr);
 
-			if (catCount == 0)
-			{
-			}
-			else if (catCount == 1)
-			{
-				catCell.Controls.Add(new HtmlLiteral("<li>" + catCount + " folder<br>"));
-			}
-			else
-			{
-				catCell.Controls.Add(new HtmlLiteral("<li>" + catCount + " folders<br>"));
-			}
-					
+			catCell					= new TableCell();
+			catCell.CssClass		= "categoryTextCell";
+			catCell.VerticalAlign	= VerticalAlign.Bottom;
+			catCell.Attributes.Add("height", "10");
+			tr.Cells.Add(catCell);
+
+			string splitText = ", ";
+
+//			if (catCount == 0)
+//			{
+//			}
+//			else if (catCount == 1)
+//			{
+//				if (prevText)
+//				{
+//					catCell.Controls.Add(new HtmlLiteral(splitText));
+//				}
+//				if (catCount == 1)
+//				{
+//					catCell.Controls.Add(new HtmlLiteral("Contains " + catCount + " folder"));
+//				}
+//				else
+//				{
+//					catCell.Controls.Add(new HtmlLiteral("Contains " + catCount + " folders"));
+//				}
+////				prevText = true;
+//			}
+
 			if (picCount == 0)
 			{
 			}
-			else if (picCount == 1)
-			{
-				catCell.Controls.Add(new HtmlLiteral("<li>" + picCount.ToString() + " picture<br>"));
-			}
-			else
-			{
-				catCell.Controls.Add(new HtmlLiteral("<li>" + picCount.ToString() + " pictures<br>"));
+			else 
+			{	
+				if (prevText)
+				{
+					catCell.Controls.Add(new HtmlLiteral(splitText));
+				}
+				if (picCount == 1)
+				{
+					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString() + " picture"));
+				}
+				else
+				{
+					catCell.Controls.Add(new HtmlLiteral("Contains " + picCount.ToString() + " pictures"));
+				}
+//				prevText = true;
 			}
 
 			// Recursive picture count
 			if (picCount == 0)
 			{
+				if (prevText)
+				{
+					catCell.Controls.Add(new HtmlLiteral(splitText));
+				}
+				prevText = true;
+
 				if (recursivePicCount == 0)
 				{
-					catCell.Controls.Add(new HtmlLiteral("<li>0 pictures in this folder and subfolders.<br>"));
+					catCell.Controls.Add(new HtmlLiteral("There are no pictures in this folder or subfolders.<br>"));
 				}
 				else if (recursivePicCount == 1)
 				{
-					catCell.Controls.Add(new HtmlLiteral("<li>" + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders<br>"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 				else
 				{
-					catCell.Controls.Add(new HtmlLiteral("<li>" + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders<br>"));
+					catCell.Controls.Add(new HtmlLiteral("Contains " + recursivePicCount.ToString() + " pictures in " + recursiveCatCount.ToString() + " subfolders"));
 				}
 			}
 
-			catCell.Controls.Add(new HtmlLiteral("Latest Updates<br>"));
+//			catCell.Controls.Add(new HtmlLiteral("Latest Updates<br>"));
 
 		}
 		#endregion
@@ -1016,7 +1113,7 @@ namespace pics.Controls
 		protected int totalRecords;
 		protected int startRecord;
 		protected int recordsPerPage;
-		protected String pageNavURL;
+		protected string pageNavUrl;
 
 		public PagedThumbnailList (): base()
 		{}
@@ -1024,95 +1121,12 @@ namespace pics.Controls
 
 		protected override void CreateChildControls() 
 		{
+			this.Controls.Add(new ThumbnailListPagingControl(pageNavUrl, recordsPerPage, startRecord, totalRecords));
+
 			// Add the thumbnail list from the base class to this object
 			base.CreateChildControls();
 
-			
-			// figure out number of pages we have
-			int pages = totalRecords / recordsPerPage ;
-			int page  = (startRecord / recordsPerPage) + 1;	// +1 to compensate for 0 being 1
-			if (totalRecords % recordsPerPage != 0) // if we have some odd pics left over, that makes another page
-				pages++;
-
-			// display page controls if more then one page
-			if (pages > 0) 
-			{
-				// Page controls table
-				Table t = new Table();
-				t.Width		= Unit.Percentage(100);
-				this.Controls.Add(t);
-
-				TableRow tr = new TableRow();
-				t.Rows.Add(tr);
-
-				// Now show the page and page count in the middle
-				TableCell tcPage = new TableCell();
-				tcPage.HorizontalAlign = HorizontalAlign.Right;
-				tr.Cells.Add(tcPage);
-
-				// 'Page ' prefix
-				Literal litPage = new Literal();
-				litPage.Text	= "Page ";
-				tcPage.Controls.Add(litPage);
-
-				// If not at the beginning, add a previous link
-				if (page > 1) 
-				{
-					HyperLink lnk = new HyperLink();
-					lnk.Text = "Previous";
-					lnk.Font.Bold = true;
-					lnk.NavigateUrl = String.Format(pageNavURL, (startRecord - recordsPerPage));
-					tcPage.Controls.Add(lnk);
-
-					// add a single space
-					Literal l = new Literal();
-					l.Text = "&nbsp;";
-					tcPage.Controls.Add(l);
-
-				}
-
-				// Loop through the pages we have
-				for (int i = 1; i <= pages; i++) 
-				{
-					// if we are on the i'th page, show page in bold
-					if (page == i) 
-					{
-						Label lbl = new Label();
-						lbl.Text = i.ToString();
-						lbl.Font.Bold = true;
-						tcPage.Controls.Add(lbl);
-					}
-					else 
-					{
-						HyperLink lnk = new HyperLink();
-						lnk.Text = i.ToString();
-						lnk.NavigateUrl = String.Format(pageNavURL, (page-1)*recordsPerPage);
-						tcPage.Controls.Add(lnk);
-					}
-
-					Literal l = new Literal();
-					l.Text = "&nbsp;";
-					tcPage.Controls.Add(l);
-						
-				}
-
-				// If not at the end, add a next link
-				if (page < pages) 
-				{
-					HyperLink lnk = new HyperLink();
-					lnk.Text = "Next";
-					lnk.Font.Bold = true;
-					lnk.NavigateUrl = String.Format(pageNavURL, (startRecord + recordsPerPage));
-					tcPage.Controls.Add(lnk);
-
-					// add a single space
-					Literal l = new Literal();
-					l.Text = "&nbsp;";
-					tcPage.Controls.Add(l);
-
-				}
-
-			}		
+			this.Controls.Add(new ThumbnailListPagingControl(pageNavUrl, recordsPerPage, startRecord, totalRecords));
 
 		}
 
@@ -1154,15 +1168,15 @@ namespace pics.Controls
 			}
 		}
 
-		public String PageNavURL 
+		public String PageNavUrl 
 		{
 			set 
 			{
-				pageNavURL = value;
+				pageNavUrl = value;
 			}
 			get 
 			{
-				return pageNavURL;
+				return pageNavUrl;
 			}
 		}
 		#endregion
@@ -1629,523 +1643,15 @@ namespace pics.Controls
 
 	#endregion
 
-	#region PngImage
+	#region PictureEditFormLink
 
-	public class PngImage: Control, INamingContainer
-	{
-		private string imageSrc;
-		private int width;
-		private int height;
-		private string		onClickScript;
-
-		public PngImage()
-		{
-		}
-
-		#region Properties
-		public PngImage(string imageSrc, int width, int height)
-		{
-			this.ImageSrc		= imageSrc;
-			this.width			= width;
-			this.height			= height;
-		}			
-
-		public string ImageSrc
-		{
-			get
-			{
-				return imageSrc;
-			}
-			set
-			{
-				imageSrc = value;
-			}
-		}
-
-		public int Height
-		{
-			get
-			{
-				return height;
-			}
-			set
-			{
-				height = value;
-			}
-		}
-
-		public int Width
-		{
-			get
-			{
-				return width;
-			}
-			set
-			{
-				width = value;
-			}
-		}
-
-				public string OnClickScript
-		{
-			get
-			{
-				return onClickScript;
-			}
-			set
-			{
-				onClickScript = value;
-			}
-		}
-
-		#endregion
-
-		protected override void Render(HtmlTextWriter output)
-		{
-			output.Write("<table><tr><td>");
-			output.Write("<div style=\"");
-			output.Write("FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + imageSrc + "'); ");
-			output.Write("WIDTH: " + width.ToString() + "px;");
-			output.Write("HEIGHT: " + height.ToString() + "px;");
-			if (onClickScript != null)
-			{
-				output.Write("CURSOR: hand;");
-			}
-			output.Write("\"");
-
-			// Check if we have an onClick= script
-			if (onClickScript != null)
-			{
-				output.Write(" onClick=\"" + onClickScript + "\"");
-			}
-			
-			output.Write("></div>");
-			output.Write("</td></tr></table>");
-		}
-
-	}
-
-	#endregion
-
-	#region Content Panel
-
-	public class ContentPanel: Control, INamingContainer
-	{
-		#region Declares
-		private ControlCollection	childControls;
-		private string		title;
-		private string		width;
-		private string		align;
-		#endregion
-
-		#region Constructors
-		public ContentPanel()
-		{
-			childControls			= new ControlCollection(this);
-		}
-		#endregion
-
-		#region Private Methods
-		protected override void AddParsedSubObject(object obj)
-		{
-			Control c = (Control) obj;
-
-			childControls.Add(c);
-		}
-
-		protected override void CreateChildControls()
-		{
-			HttpContext.Current.Trace.Write("ContentPanel", "CreateChildControls: " + this.ID);
-
-			Table t					= new Table();
-			t.CssClass				= "contentPanel";
-			t.CellPadding			= 0;
-			t.CellSpacing			= 0;
-			if (width != null)
-			{
-				t.Width				= Unit.Parse(width);
-			}
-			this.Controls.Add(t);
-            
-			
-			#region Title Row
-
-			if (title != null)
-			{
-				TableRow titleRow		= new TableRow();
-				t.Rows.Add(titleRow);
-
-				TableCell titleCell		= new TableCell();
-				titleCell.CssClass		= "contentPanelTitleCell";
-				titleRow.Cells.Add(titleCell);
-
-				titleCell.Controls.Add(new HtmlLiteral(title));
-			}
-
-			#endregion
-
-			#region Content Row
-
-			TableRow contentRow			= new TableRow();
-			t.Rows.Add(contentRow);
-
-			TableCell contentCell		= new TableCell();
-			contentCell.CssClass		= "contentPanelContentCell";
-			contentCell.VerticalAlign	= VerticalAlign.Top;
-			if (align != null && align == "center")
-			{
-				contentCell.HorizontalAlign	= HorizontalAlign.Center;
-			}
-				
-			contentRow.Cells.Add(contentCell);
-
-			foreach (Control c in childControls)
-			{
-				contentCell.Controls.Add(c);
-			}
-
-			foreach (Control c in this.Controls)
-			{
-				if (!contentCell.Controls.Contains(c))
-				{
-					HttpContext.Current.Trace.Write("Adding", c.ID + c.GetType().ToString());
-//					contentCell.Controls.Add(c);
-					HttpContext.Current.Trace.Write("Parent", c.Parent.ToString());
-					HttpContext.Current.Trace.Write("Done adding.");
-				}
-			}
-
-			#endregion
-
-		}
-
-		protected override void Render(HtmlTextWriter output)
-		{
-			// Move all child controls
-			output.Write("<div id=\"" + this.ID + "\"");
-			output.Write(">");
-			
-			base.Render(output);
-
-			output.Write("</div>");
-		}
-
-		#endregion
-
-		public void AddContent(Control c)
-		{
-			childControls.Add(c);
-		}
-
-		public void AddContent(Control c, int position)
-		{
-			childControls.AddAt(position, c);
-		}
-		#region Properties
-		public string Title
-		{
-			get
-			{
-				return title;
-			}
-			set
-			{
-				title = value;
-			}
-		}
-		public string Width
-		{
-			get 
-			{
-				return width;
-			}
-			set
-			{
-				width = value;
-			}
-		}
-		public string Align
-		{
-			get
-			{
-				return align;
-			}
-			set
-			{
-				align = value;
-			}
-		}
-		#endregion
-
-	}
-
-	#endregion
-
-	#region Sidebar
-
-	public class Sidebar: Control, INamingContainer
-	{
-		#region Declares
-		private ArrayList	childControls;
-		private SelectedWindow selectedWindow;
-		#endregion
-
-		#region Constructors
-		public Sidebar()
-		{
-			childControls			= new ArrayList();
-
-			// If logged in
-			if (HttpContext.Current.Request.IsAuthenticated) 
-			{
-				// get current task
-				string currentTask	= (string) ViewState["task"];
-				if (currentTask == null)
-				{
-					currentTask = "";
-				}
-
-				// show correct windows
-				switch (currentTask)
-				{
-					case "addToFolder":
-						selectedWindow = new SelectedWindow();
-						childControls.Add(selectedWindow);
-						break;
-					default:
-						
-						break;
-				}
-			}
-		}
-		
-		#endregion
-
-		#region Private Methods
-		protected override void AddParsedSubObject(object obj)
-		{
-			childControls.Add(obj);
-		}
-
-		protected override void CreateChildControls()
-		{
-			HttpContext.Current.Trace.Write("Sidebar", "CreatingChildControls");
-
-			// Just copy the child controls into output collection
-			foreach (Control c in childControls)
-			{
-				this.Controls.Add(c);
-			}
-
-			// Add selected window
-			if (selectedWindow != null)
-			{
-				HttpContext.Current.Trace.Write("Sidebar", "Adding selected window");
-				this.Controls.Add(selectedWindow);
-			}
-		}
-
-		protected override void Render(HtmlTextWriter output)
-		{
-			output.Write("<div id=\"" + this.ID + "\" style=\"POSITION: relative\">");
-
-			// Image div
-			StringBuilder sb = new StringBuilder();
-			sb.Append("<div style=\"Z-INDEX: 1; LEFT: 18px; POSITION: absolute; TOP: 350px;\">");
-			sb.Append("  <img src=\"" + HttpContext.Current.Request.ApplicationPath + "/Images/msn2needlewash.gif\">");
-			sb.Append("</div>");
-			output.Write(sb.ToString());
-
-			// Content div
-			output.Write("<div style=\"Z-INDEX: 2; POSITION: absolute\" class=\"sidebar\">");
-            
-			base.Render(output);
-
-			output.Write("</div>");
-
-			output.Write("</div>");
-		}
-
-		#endregion
-
-		#region Properties
-		public SelectedWindow SelectedWindow
-		{
-			get 
-			{
-				return selectedWindow;
-			}
-		}
-		#endregion
-
-	}
-
-	#endregion
-
-	#region PictureCheckBox
-	public class PictureCheckBox: CheckBox
-	{
-		#region Constructor
-		public PictureCheckBox(int picId)
-		{
-			this.PicId = picId;
-		}
-		#endregion
-		#region Properties
-		public int PicId
-		{
-			get
-			{
-				if (ViewState["p"] != null)
-				{
-					return Convert.ToInt32(ViewState["p"]);
-				}
-				else
-				{
-					return 0;
-				}
-			}
-			set
-			{
-				ViewState["p"] = value;
-			}
-		}
-		#endregion
-	}
-	#endregion
-
-	#region SelectedWindow
-
-	public class SelectedWindow: TaskPanel
-	{
-		#region Declares
-		private PictureIdCollection selectedList;
-		private int categoryId;
-		#endregion
-		#region Constructors
-		public SelectedWindow(): base("Select Pics")
-		{
-			categoryId		= 158;
-		}
-		#endregion
-		#region Public Methods
-		public void AddToSession()
-		{
-		}
-		public void RemoveFromSession()
-		{
-		}		
-		#endregion
-		protected override void CreateChildControls()
-		{
-			// if we logged off, bail
-			if (HttpContext.Current.Session["PersonInfo"] == null)
-				return;
-
-			// Retreive the list of seleted items
-			selectedList = (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
-
-			HttpContext.Current.Trace.Write("SelectedWindow", "Constructor");
-
-			CategoryManager mgr			= new CategoryManager();
-			Category category			= mgr.GetCategory(categoryId);
-
-			contentPanel.Title			= category.CategoryName;
-			
-
-			int picCount = mgr.PictureCount(categoryId);
-
-			// Show certain content for no selected
-			if (picCount == 0)
-			{
-				HtmlLiteral lit = new HtmlLiteral("Check any picture to add to this category.");
-				lit.ID = "nopicsselected";
-				contentPanel.AddContent(lit, 0);
-			}
-			else
-			{
-				StringBuilder sb = new StringBuilder();
-				///sb.Append(selectedList.Count.ToString());
-			
-				sb.Append(picCount.ToString());
-
-				if (picCount == 1)
-				{
-					sb.Append(" pic");
-				}
-				else
-				{
-					sb.Append(" pics");
-				}
-				sb.Append("<br>");
-				contentPanel.AddContent(new HtmlLiteral(sb.ToString()), 0);
-			}
-			
-			this.Controls.Add(contentPanel);
-
-		}
-
-		public int CategoryId
-		{
-			get
-			{
-				return categoryId;
-			}
-			set
-			{
-				categoryId = value;
-			}
-		}
-	}
-
-	#endregion
-
-	#region PictureIdCollection
-
-	public class PictureIdCollection: CollectionBase
-	{
-		public void Add(int pictureId)
-		{
-			if (!InnerList.Contains(pictureId))
-			{
-				InnerList.Add(pictureId);
-
-				if (ItemAddedEvent != null)
-				{
-					ItemAddedEvent(this, new PictureIdEventArgs(pictureId));
-				}
-			}
-		}
-
-		public void Remove(int pictureId)
-		{
-			InnerList.Remove(pictureId);
-		}
-
-		public bool Contains(int pictureId)
-		{
-			foreach (int i in InnerList)
-			{
-				if (i == pictureId)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public event ItemAddedEventHandler ItemAddedEvent;
-	}
-	
-	public delegate void ItemAddedEventHandler(object sender, PictureIdEventArgs e);
-
-	public class PictureIdEventArgs: EventArgs
+	public class PictureEditFormLink: Control, INamingContainer
 	{
 		private int pictureId;
 
-		public PictureIdEventArgs(int pictureId)
+		public PictureEditFormLink(int pictureId)
 		{
-            this.pictureId = pictureId;			
+			this.pictureId		= pictureId;
 		}
 
 		public int PictureId
@@ -2155,107 +1661,851 @@ namespace pics.Controls
 				return pictureId;
 			}
 		}
+
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<object id'\"" + this.UniqueID + "\" ");
+			output.Write("classid=\"http:PicAdmin.dll#PicAdmin.EditPictureLink\" ");
+			output.Write("height=\"20\" ");
+			output.Write("width=\"50\" ");
+			output.Write(">");
+
+			output.Write("<param name=\"PictureId\" ");
+			output.Write("value=\"" + pictureId.ToString() + "\" />");
+			output.Write("</object>");
+		}
 	}
+/*
+
+	<param name="PictureId" value="1646">
+</object>
+*/
+
+	#endregion
+
+	#region CategoryEditFormLink
+
+	public class CategoryEditFormLink: Control, INamingContainer
+	{
+		private int categoryId;
+		private int personId;
+
+		public CategoryEditFormLink(int categoryId, int personId)
+		{
+			this.categoryId		= categoryId;
+			this.personId		= personId;
+		}
+
+		public int CategoryId
+		{
+			get
+			{
+				return categoryId;
+			}
+		}
+
+		public int PersonId
+		{
+			get
+			{
+				return personId;
+			}
+		}
+
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.WriteLine("<object id'\"" + this.UniqueID + "\" ");
+			output.WriteLine("classid=\"http:PicAdmin.dll#PicAdmin.EditCategoryLink\" ");
+			output.WriteLine("height=\"15\" ");
+			output.WriteLine("width=\"50\" ");
+			output.WriteLine(">");
+
+			output.WriteLine("<param name=\"CategoryId\" ");
+			output.WriteLine("value=\"" + categoryId.ToString() + "\" />");
+			output.WriteLine("<param name=\"PersonId\" ");
+			output.WriteLine("value=\"" + personId.ToString() + "\" />");
+			output.WriteLine("<param name=\"SignalRefresh\" value=\"0\" />");
+			output.WriteLine("</object>");
+
+//			output.WriteLine("<script language=\"JavaScript\">");
+//			output.WriteLine("function checkRefresh() { ");
+//			output.WriteLine("  if (document.all." + this.UniqueID + ")  {");
+//			output.WriteLine("    if (document.all." + this.UniqueID + ".CategoryId)");
+//			//output.WriteLine("      document.all." + this.UniqueID + ".SignalRefresh = 0; ");
+//			output.WriteLine("      alert(document.all." + this.UniqueID + ".CategoryId);");
+//			output.WriteLine("    }");
+//			output.WriteLine("    else alert('no catid');");
+//			output.WriteLine("}");
+//			output.WriteLine("setInterval('checkRefresh()', 10000)");
+//			output.WriteLine("</script>");
+		}
+	}
+
+	#endregion
+
+	#region MainFormEditLink
+
+	public class OpenMainFormLink: Control, INamingContainer
+	{
+		protected override void Render(HtmlTextWriter output)
+		{
+			output.Write("<object id'\"" + this.UniqueID + "\" ");
+			output.Write("classid=\"http:PicAdmin.dll#PicAdmin.OpenMainFormLink\" ");
+			output.Write("height=\"15\" ");
+			output.Write("width=\"50\" ");
+			output.Write("></object>");
+		}
+	}
+    
+	#endregion
+
+
+	#region PngImage
+
+		public class PngImage: Control, INamingContainer
+		{
+			private string imageSrc;
+			private int width;
+			private int height;
+			private string		onClickScript;
+			public HorizontalAlign HorizontalAlign = HorizontalAlign.NotSet;
+			
+
+			public PngImage()
+			{
+			}
+
+		#region Properties
+			public PngImage(string imageSrc, int width, int height)
+			{
+				this.ImageSrc		= imageSrc;
+				this.width			= width;
+				this.height			= height;
+			}			
+
+			public string ImageSrc
+			{
+				get
+				{
+					return imageSrc;
+				}
+				set
+				{
+					imageSrc = value;
+				}
+			}
+
+			public int Height
+			{
+				get
+				{
+					return height;
+				}
+				set
+				{
+					height = value;
+				}
+			}
+
+			public int Width
+			{
+				get
+				{
+					return width;
+				}
+				set
+				{
+					width = value;
+				}
+			}
+
+			public string OnClickScript
+			{
+				get
+				{
+					return onClickScript;
+				}
+				set
+				{
+					onClickScript = value;
+				}
+			}
+
+		#endregion
+
+			protected override void Render(HtmlTextWriter output)
+			{
+				output.Write("<table><tr><td>");
+				output.Write("<div style=\"");
+				output.Write("FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + imageSrc + "'); ");
+				output.Write("WIDTH: " + width.ToString() + "px;");
+				output.Write("HEIGHT: " + height.ToString() + "px;");
+				if (onClickScript != null)
+				{
+					output.Write("CURSOR: hand;");
+				}
+				output.Write("\"");
+
+				// Check if we have an onClick= script
+				if (onClickScript != null)
+				{
+					output.Write(" onClick=\"" + onClickScript + "\"");
+				}
+			
+				output.Write("></div>");
+				output.Write("</td></tr></table>");
+			}
+
+		}
+
+	#endregion
+
+	#region Content Panel
+
+		[ParseChildren(false)]
+			public class ContentPanel: System.Web.UI.Control
+		{
+		#region Declares
+			private ArrayList parsedControls;
+			public	Unit				Width = Unit.Empty;
+			public	HorizontalAlign		Align = HorizontalAlign.NotSet;
+			private Control		titleControl;
+		#endregion
+
+		#region Constructors
+			public ContentPanel()
+			{
+				parsedControls			= new ArrayList();
+			}
+			public ContentPanel(string title)
+			{
+				parsedControls			= new ArrayList();
+				this.Title				= title;
+			}
+		#endregion
+
+		#region Private Methods
+			protected override void AddParsedSubObject(object obj)
+			{
+				if (obj is Control)
+				{
+					parsedControls.Add(obj);
+				}
+			}
+
+			protected override void CreateChildControls()
+			{
+
+				HttpContext.Current.Trace.Write("ContentPanel", "CreateChildControls: " + this.ID);
+
+				foreach (Control c in parsedControls)
+				{
+					this.Controls.Add(c);
+				}
+
+			}
+
+			protected override void Render(HtmlTextWriter output)
+			{
+				// Move all child controls
+				output.Write("<span id=\"" + this.ID + "\"");
+				output.Write(">");
+
+#if DEBUG
+			output.WriteLine("<!-- " + this.ID + " - Window table -->");
+#endif
+				output.Write("<table cellpadding=\"0\" cellspacing=\"0\"");
+				if (Width != Unit.Empty)
+				{
+					output.Write(" width=\"" + Width.ToString() + "\"");
+				}
+				output.Write(" class=\"contentPanel\">");
+			
+#if DEBUG
+			output.WriteLine("<!-- " + this.ID + " - Title Row -->");
+#endif
+				if (titleControl != null)
+				{
+					output.Write("<tr><td class=\"contentPanelTitleCell\">");
+					titleControl.RenderControl(output);
+					output.Write("</td></tr>");
+				}
+            
+#if DEBUG
+			output.WriteLine("<!-- " + this.ID + " - Content Row -->");
+#endif
+
+				// Content row
+				output.Write("<tr><td class=\"contentPanelContentCell\" valign=\"top\"");
+				if (Align != HorizontalAlign.NotSet)
+				{
+					output.Write(" align=\"" + Align.ToString() + "\"");
+				}
+				output.Write(">");
+
+				foreach (Control c in this.Controls)
+				{
+					c.RenderControl(output);
+				}
+
+				output.Write("</td></tr></table>");
+
+				output.Write("</span>");
+
+#if DEBUG
+			output.WriteLine("<!-- " + this.ID + " - End -->");
+#endif
+
+			}
+
+		#endregion
+
+			public void AddContent(Control c)
+			{
+				this.Controls.Add(c);
+			}
+
+			public void AddContent(Control c, int position)
+			{
+				this.Controls.AddAt(position, c);
+			}
+		#region Properties
+			public string Title
+			{
+				get
+				{
+					if (titleControl != null)
+					{
+						return titleControl.ToString();
+					}
+					else
+					{
+						return null;
+					}
+				}
+				set
+				{
+					titleControl = new HtmlLiteral(value);
+				}
+			}
+		#endregion
+
+		}
+
+	#endregion
+
+	#region Sidebar
+
+		public class Sidebar: Control, INamingContainer
+		{
+		#region Declares
+			private ArrayList	childControls;
+			private SelectedWindow selectedWindow;
+		#endregion
+
+		#region Constructors
+			public Sidebar()
+			{
+				// Get HTTP context
+				HttpContext httpContext	= HttpContext.Current;
+				if (httpContext == null)
+				{
+					this.Controls.Add(new HtmlLiteral("[Sidebar]"));
+					return;
+				}
+
+				childControls			= new ArrayList();
+            
+				// If logged in
+				if (httpContext.Request.IsAuthenticated) 
+				{
+					// get current task
+					string currentTask	= (string) ViewState["t"];
+					if (currentTask == null)
+					{
+						currentTask = "";
+					}
+
+//					// show correct windows
+//					switch (currentTask)
+//					{
+//						case "addToFolder":
+//							selectedWindow = new SelectedWindow();
+//							childControls.Add(selectedWindow);
+//							break;
+//					}
+
+					// Add go task list
+					ContentPanel goPanel	= new ContentPanel("Go to...");
+					goPanel.Width			= Unit.Percentage(100);
+					childControls.Add(goPanel);
+
+					GoTaskList goTasks		= new GoTaskList();
+					goPanel.Controls.Add(goTasks);
+
+					childControls.Add(new HtmlLiteral("<br><br>"));
+				}
+			}
+		
+		#endregion
+
+		#region Private Methods
+			protected override void AddParsedSubObject(object obj)
+			{
+				childControls.Add(obj);
+			}
+
+			protected override void CreateChildControls()
+			{
+				HttpContext context			= HttpContext.Current;
+				if (context != null)
+				{
+					context.Trace.Write("Sidebar", "CreatingChildControls");
+				}
+
+				// Just copy the child controls into output collection
+				foreach (Control c in childControls)
+				{
+					this.Controls.Add(c);
+				}
+
+				// Add selected window
+				if (selectedWindow != null && context != null)
+				{
+					context.Trace.Write("Sidebar", "Adding selected window");
+					this.Controls.Add(selectedWindow);
+				}
+
+
+			}
+
+			protected override void Render(HtmlTextWriter output)
+			{
+				HttpContext httpContext			= HttpContext.Current;
+
+				output.Write("<div id=\"" + this.ID + "\" style=\"POSITION: relative\">");
+
+				if (httpContext != null)
+				{
+					// Image div
+					StringBuilder sb = new StringBuilder();
+					sb.Append("<div style=\"Z-INDEX: 1; LEFT: 18px; POSITION: absolute; TOP: 350px;\">");
+					sb.Append("  <img src=\"" + httpContext.Request.ApplicationPath);
+					if (!httpContext.Request.ApplicationPath.EndsWith(@"/"))
+					{
+						sb.Append(@"/");
+					}
+					sb.Append("Images/msn2needlewash.gif\">");
+					sb.Append("</div>");
+					output.Write(sb.ToString());
+				}
+
+				// Content div
+				output.Write("<div style=\"Z-INDEX: 2; POSITION: absolute\" class=\"sidebar\">");
+            
+				base.Render(output);
+
+				output.Write("</div>");
+
+				output.Write("</div>");
+			}
+
+		#endregion
+
+		#region Properties
+			public SelectedWindow SelectedWindow
+			{
+				get 
+				{
+					return selectedWindow;
+				}
+			}
+			public string CurrentTask
+			{
+				get
+				{
+					return ViewState["t"].ToString();
+				}
+				set
+				{
+					ViewState["t"] = value;
+				}
+			}
+
+		#endregion
+
+		}
+
+	#endregion
+
+	#region PictureCheckBox
+		public class PictureCheckBox: CheckBox
+		{
+		#region Constructor
+			public PictureCheckBox(int picId)
+			{
+				this.PicId = picId;
+			}
+		#endregion
+		#region Properties
+			public int PicId
+			{
+				get
+				{
+					if (ViewState["p"] != null)
+					{
+						return Convert.ToInt32(ViewState["p"]);
+					}
+					else
+					{
+						return 0;
+					}
+				}
+				set
+				{
+					ViewState["p"] = value;
+				}
+			}
+		#endregion
+		}
+	#endregion
+
+	#region SelectedWindow
+
+		public class SelectedWindow: TaskPanel
+		{
+		#region Declares
+			private PictureIdCollection selectedList;
+			private int categoryId;
+		#endregion
+		#region Constructors
+			public SelectedWindow(): base("Select Pics")
+			{
+				categoryId		= 164;
+			}
+		#endregion
+		#region Public Methods
+		#endregion
+			protected override void CreateChildControls()
+			{
+				// if we logged off, bail
+				if (HttpContext.Current.Session["PersonInfo"] == null)
+					return;
+
+				// Retreive the list of seleted items
+				selectedList = (PictureIdCollection) HttpContext.Current.Session["MySelectedList"];
+
+				HttpContext.Current.Trace.Write("SelectedWindow", "Constructor");
+
+				CategoryManager mgr			= new CategoryManager();
+				Category category			= mgr.GetCategory(categoryId);
+
+				contentPanel.Title			= category.CategoryName;
+			
+
+				int picCount = mgr.PictureCount(categoryId);
+
+				// Show certain content for no selected
+				if (picCount == 0)
+				{
+					HtmlLiteral lit = new HtmlLiteral("Check any picture to add to this category.");
+					lit.ID = "nopicsselected";
+					contentPanel.AddContent(lit, 0);
+				}
+				else
+				{
+					StringBuilder sb = new StringBuilder();
+					///sb.Append(selectedList.Count.ToString());
+			
+					sb.Append(picCount.ToString());
+
+					if (picCount == 1)
+					{
+						sb.Append(" pic");
+					}
+					else
+					{
+						sb.Append(" pics");
+					}
+					sb.Append("<br>");
+					contentPanel.AddContent(new HtmlLiteral(sb.ToString()), 0);
+				}
+			
+				this.Controls.Add(contentPanel);
+
+			}
+
+			public int CategoryId
+			{
+				get
+				{
+					return categoryId;
+				}
+				set
+				{
+					categoryId = value;
+				}
+			}
+		}
+
+	#endregion
+
+	#region PictureIdCollection
+
+		public class PictureIdCollection: CollectionBase
+		{
+			public void Add(int pictureId)
+			{
+				if (!InnerList.Contains(pictureId))
+				{
+					InnerList.Add(pictureId);
+
+					if (ItemAddedEvent != null)
+					{
+						ItemAddedEvent(this, new PictureIdEventArgs(pictureId));
+					}
+				}
+			}
+
+			public void Remove(int pictureId)
+			{
+				InnerList.Remove(pictureId);
+			}
+
+			public bool Contains(int pictureId)
+			{
+				foreach (int i in InnerList)
+				{
+					if (i == pictureId)
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+
+			public event ItemAddedEventHandler ItemAddedEvent;
+		}
+	
+		public delegate void ItemAddedEventHandler(object sender, PictureIdEventArgs e);
+
+		public class PictureIdEventArgs: EventArgs
+		{
+			private int pictureId;
+
+			public PictureIdEventArgs(int pictureId)
+			{
+				this.pictureId = pictureId;			
+			}
+
+			public int PictureId
+			{
+				get
+				{
+					return pictureId;
+				}
+			}
+		}
 
 	#endregion
 
 	#region HtmlLiteral
 
-	public class HtmlLiteral: Literal
-	{
-		#region Constructors
-		public HtmlLiteral(string text)
+		public class HtmlLiteral: Literal
 		{
-			base.Text			= text;
-		}
+		#region Constructors
+			public HtmlLiteral(string text)
+			{
+				base.Text			= text;
+			}
 		#endregion
-	}
+		}
 
 	#endregion
 
 	#region TaskPanel
-	public class TaskPanel: Control, INamingContainer
-	{
+		public class TaskPanel: Control, INamingContainer
+		{
 		#region Declares
-		protected ContentPanel contentPanel;
+			protected ContentPanel contentPanel;
 		#endregion
 
 		#region Constructor
-		public TaskPanel(string title)
-		{
-			contentPanel			= new ContentPanel();
-			contentPanel.Width		= "100%";
-			contentPanel.Title		= title;
-		}
+			public TaskPanel(string title)
+			{
+				contentPanel			= new ContentPanel();
+				contentPanel.Width		= Unit.Percentage(100);
+				contentPanel.Title		= title;
+			}
 		#endregion
 
 		#region Private Methods
-		protected override void Render(HtmlTextWriter output)
-		{
-			output.Write("<div style=\"width: 100%\">");
+			protected override void Render(HtmlTextWriter output)
+			{
+				output.Write("<div style=\"width: 100%\">");
 
-			base.Render(output);
+				base.Render(output);
 
-			output.Write("</div>");
-		}
+				output.Write("</div>");
+			}
 		#endregion
 		#region Properties
-		public ContentPanel ContentPanel
-		{
-			get 
+			public ContentPanel ContentPanel
 			{
-				return contentPanel;
+				get 
+				{
+					return contentPanel;
+				}
+			}
+		#endregion
+			public void AddToSession()
+			{
+
+			}
+			public void RemoveFromSession()
+			{
+
 			}
 		}
-		#endregion
-		public void AddToSession()
-		{
-
-		}
-		public void RemoveFromSession()
-		{
-
-		}
-	}
 	#endregion
+
+	#region GoTaskList
+	
+		public class GoTaskList: TaskList
+		{
+			public GoTaskList()
+			{
+				string homeUrl				= "default.aspx";
+
+				TaskItem goHome				= new TaskItem("Picture Home", @"images/msn2_home.gif", 12, 12, homeUrl);
+				this.Controls.Add(goHome);
+
+			}
+		}
+
+	#endregion
+
 	#region TaskList
-	public class TaskList: TaskPanel
-	{
-		#region Constructor
-		public TaskList(string title): base(title)
+		public class TaskList: Control, INamingContainer
 		{
-		}
-		#endregion
 		#region Private Methods
-		protected override void CreateChildControls()
-		{
-			DataList dl		= new DataList();
+			protected override void Render(HtmlTextWriter output)
+			{
+				output.Write("<table width=\"100%\" cellpadding=\"0\" cellspacing=\"1\">");
 			
-		}
-		#endregion
-	}
-	#endregion
-/*
-<picctls:contentpanel id="pictureTaskPanel" title="Folder Tasks" runat="server" Visible="False" align="left" width="100%">
-	<TABLE cellSpacing="0" cellPadding="0">
-		<TR>
-			<TD width="9">
-				<picctls:PngImage id="slideshowImage" runat="server" width="9" height="12" ImageSrc="Images/slideshow12x9.png"></picctls:PngImage></TD>
-			<TD class="sidebarTaskLink">
-				<asp:hyperlink id="lnkSlideshow" Runat="server" Visible="True" CssClass="sidebarTaskLink">View Slideshow</asp:hyperlink></TD>
-		</TR>
-		<TR>
-			<TD width="9"></TD>
-			<TD class="sidebarTaskLink">
-				<asp:HyperLink id="addToFolder" Runat="server" CssClass="sidebarTaskLink">Add to folder</asp:HyperLink></TD>
-		</TR>
-		<TR>
-			<TD width="9"></TD>
-			<TD class="sidebarTaskLink">
-				<asp:HyperLink id="setCategoryPic" Runat="server" CssClass="sidebarTaskLink">Set folder pic</asp:HyperLink></TD>
-		</TR>
-	</TABLE>
-</picctls:contentpanel>
-*/
+				foreach (Control c in Controls)
+				{
+					c.RenderControl(output);
+				}
 
-}
+				output.Write("</table>");
+			}
+		#endregion
+		}
+	#endregion
+
+	#region PictureTasks
+
+		public class PictureTasks: TaskList
+		{
+			public PictureTasks()
+			{
+//				TaskItem addToCat			= new TaskItem("Add to category...", "Images/add.png", 9, 12);
+//				this.Controls.Add(addToCat);
+			}
+
+			public void SetSlideshowUrl(string url)
+			{
+				TaskItem slideshow			= new TaskItem("View Slideshow", "Images/slideshow12x9.png", 9, 12, url);
+				this.Controls.Add(slideshow);
+			}
+
+		}
+
+	#endregion
+
+	#region TaskItem
+
+		public class TaskItem: Control, INamingContainer
+		{
+			private PngImage image;
+			private LinkButton link;
+			private HyperLink hlink;
+
+			public TaskItem(string text, string imageUrl, int width, int height)
+			{
+				image						= new PngImage(imageUrl, width, height);
+			
+				link						= new LinkButton();
+				link.Text					= text;
+				link.CssClass				= "sidebarTaskLink";
+				link.Click					+= new EventHandler(link_Click);
+			}
+
+			public TaskItem(string text, string imageUrl, int width, int height, string navigateUrl)
+			{
+				image						= new PngImage(imageUrl, width, height);
+				hlink						= new HyperLink();
+				hlink.Text					= text;
+				hlink.CssClass				= "sidebarTaskLink";
+				hlink.NavigateUrl			= navigateUrl;
+			}
+
+			protected override void Render(HtmlTextWriter output)
+			{
+				output.Write("<tr>");
+				output.Write("<td>");
+				image.RenderControl(output);
+				output.Write("</td><td class=\"sidebarTaskLink\">");
+				if (link != null)
+				{
+					link.RenderControl(output);
+				}
+				else
+				{
+					hlink.RenderControl(output);
+				}
+				output.Write("</td></tr>");
+			}
+			protected override void CreateChildControls()
+			{
+				this.Controls.Add(image);
+				if (link != null)
+				{
+					this.Controls.Add(link);
+				}
+				else
+				{
+					this.Controls.Add(hlink);
+				}
+				this.Controls.Add(new HtmlLiteral("<br>"));
+			}
+
+			private void link_Click(object sender, EventArgs e)
+			{
+				if (Click != null)
+				{
+					Click(this, EventArgs.Empty);
+				}
+			}
+
+			public event EventHandler Click;
+		}
+
+	#endregion
+		/*
+				<TR>
+					<TD width="9"></TD>
+					<TD class="sidebarTaskLink">
+						<asp:HyperLink id="addToFolder" Runat="server" CssClass="sidebarTaskLink">Add to folder</asp:HyperLink></TD>
+				</TR>
+				<TR>
+					<TD width="9"></TD>
+					<TD class="sidebarTaskLink">
+						<asp:HyperLink id="setCategoryPic" Runat="server" CssClass="sidebarTaskLink">Set folder pic</asp:HyperLink></TD>
+				</TR>
+			</TABLE>
+		</picctls:contentpanel>
+		*/
+
+	}

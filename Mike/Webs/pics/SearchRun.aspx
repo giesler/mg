@@ -1,7 +1,7 @@
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Data.SqlClient" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="SearchRun.aspx.cs" AutoEventWireup="false" Inherits="pics.SearchRun" debug="true" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -14,7 +14,7 @@
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body topmargin="0" leftmargin="0">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Searching..."></pics:header>
+		<picctls:Header id="header" runat="server" size="small" Text="Searching..."></picctls:Header>
 		<form id="Form1" method="post" runat="server">
 			<table align="left" cellpadding="0" cellspacing="0" width="100%">
 				<tr>
@@ -29,8 +29,12 @@
 									<p>
 									</p>
 									<p>
-										Please wait while the search is performed...
 									</p>
+									<picctls:contentpanel id="welcomeMessage" runat="server" title="Welcome to the MSN2 pictures website!">
+										<P>
+											Please wait while we look through pictures...
+										</P>
+									</picctls:contentpanel>
 									<P>
 									</P>
 								</td>

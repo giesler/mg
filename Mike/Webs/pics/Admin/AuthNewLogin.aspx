@@ -1,5 +1,4 @@
 <%@ Page language="c#" Codebehind="AuthNewLogin.aspx.cs" AutoEventWireup="false" Inherits="pics.Admin.AuthNewLogin" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
@@ -11,7 +10,7 @@
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
 		<form id="Login" method="post" runat="server">
-			<pics:header id="ctlHeader" header="Pictures - New Login" size="small" runat="server"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - New Login"></picctls:Header>
 			<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 				<tr>
 					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>

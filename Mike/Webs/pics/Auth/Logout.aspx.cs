@@ -17,6 +17,8 @@ namespace pics.Auth
 	/// </summary>
 	public class Logout : System.Web.UI.Page
 	{
+		protected pics.Controls.Header header;
+	
 		public Logout()
 		{
 			Page.Init += new System.EventHandler(Page_Init);
@@ -47,6 +49,7 @@ namespace pics.Auth
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

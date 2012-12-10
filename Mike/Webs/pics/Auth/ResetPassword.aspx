@@ -1,6 +1,5 @@
-<%@ Page language="c#" Codebehind="ResetPassword.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.ResetPassword" %>
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="ResetPassword.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.ResetPassword" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -12,7 +11,7 @@
 	<body topmargin="0" leftmargin="0">
 		<!-- top table with MSN2 logo -->
 		<form runat="server" id="Login" method="post">
-			<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Reset Password" ShowUserInfo="false"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - New Login"></picctls:Header>
 			<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 				<tr>
 					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
@@ -43,17 +42,17 @@
 									<TD class="loginTableText">New password:
 									</TD>
 									<TD class="loginTableText">
-										<asp:TextBox id="txtNewPassword" Runat="server" TextMode="Password" Width="175px"></asp:TextBox></TD>
+										<asp:TextBox id="txtNewPassword" Runat="server" Width="175px" TextMode="Password"></asp:TextBox></TD>
 								</TR>
 								<TR class="loginTableContent">
 									<TD class="loginTableText">Confirm new password:
 									</TD>
 									<TD class="loginTableText">
-										<asp:TextBox id="txtConfirmNewPassword" Runat="server" TextMode="Password" Width="175px"></asp:TextBox></TD>
+										<asp:TextBox id="txtConfirmNewPassword" Runat="server" Width="175px" TextMode="Password"></asp:TextBox></TD>
 								</TR>
 								<TR class="loginTableContent">
-									<TD align="right" colSpan="2" class="loginTableText">
-										<asp:Button id="btnOK" Runat="server" CssClass="btn" Width="100px" Text=" OK "></asp:Button></TD>
+									<TD class="loginTableText" align="right" colSpan="2">
+										<asp:Button id="btnOK" Text=" OK " Runat="server" CssClass="btn" Width="100px"></asp:Button></TD>
 								</TR>
 							</TABLE>
 						</asp:Panel>
@@ -61,8 +60,7 @@
 							<P>Your password has been changed.
 							</P>
 							<P>To login, click
-								<asp:HyperLink Runat="server" ID="loginLink" Target="_top">here</asp:HyperLink>
-							</P>
+								<asp:HyperLink id="loginLink" Runat="server" Target="_top">here</asp:HyperLink></P>
 						</asp:Panel>
 						<!-- Begin footer -->
 					</td>

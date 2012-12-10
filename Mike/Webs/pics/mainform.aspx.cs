@@ -9,15 +9,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace pics.Auth
+namespace pics
 {
 	/// <summary>
-	/// Summary description for why.
+	/// Summary description for mainform.
 	/// </summary>
-	public class why : System.Web.UI.Page
+	public class mainform : System.Web.UI.Page
 	{
-		protected pics.Controls.Header header;
-	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -40,7 +38,6 @@ namespace pics.Auth
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
 		}
 		#endregion
 	}

@@ -1,6 +1,5 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
-<%@ Page language="c#" Codebehind="NewLogin.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.NewLogin" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="NewLogin.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.NewLogin" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -9,7 +8,7 @@
 		<LINK href="../msn2.css" type="text/css" rel="stylesheet">
 		<LINK href="AuthStyles.css" type="text/css" rel="stylesheet">
 		<script language="javascript">
-			function setLoginFocus() {
+			function setLoginFocus() { 
 				if (document.Login.txtName)
 					document.Login.txtName.focus();
 				if (document.Login.txtLookupEmail)
@@ -20,7 +19,7 @@
 	<body leftMargin="0" topMargin="0" onload="setLoginFocus();">
 		<!-- top table with MSN2 logo -->
 		<form id="Login" method="post" runat="server">
-			<pics:header id="ctlHeader" header="Pictures - New Login" size="small" runat="server"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - New Login"></picctls:Header>
 			<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 				<tr>
 					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
@@ -46,27 +45,27 @@
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText">Email:
-													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" CssClass="err" ErrorMessage="Email is required!" ControlToValidate="txtLookupEmail" Display="Dynamic">*</asp:RequiredFieldValidator>
-													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" ErrorMessage="Email is not a valid email address.<br>Must follow name@host.domain format." ControlToValidate="txtLookupEmail" Display="Static" Font-Size="11" Font-Name="Arial" ValidationExpression="^[\w-]+@[\w-]+\.(com|net|org|edu|mil)$">*</asp:RegularExpressionValidator></TD>
+													<asp:RequiredFieldValidator id="Requiredfieldvalidator2" Runat="server" Display="Dynamic" ControlToValidate="txtLookupEmail" ErrorMessage="Email is required!" CssClass="err">*</asp:RequiredFieldValidator>
+													<asp:RegularExpressionValidator id="Regularexpressionvalidator1" runat="server" Display="Static" ControlToValidate="txtLookupEmail" ErrorMessage="Email is not a valid email address.<br>Must follow name@host.domain format." ValidationExpression="^[\w-]+@[\w-]+\.(com|net|org|edu|mil)$" Font-Name="Arial" Font-Size="11">*</asp:RegularExpressionValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtLookupEmail" Width="175px" Runat="server"></asp:TextBox></TD>
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText" align="right" colSpan="2">
-													<asp:Button id="btnEmailLookup" Runat="server" CssClass="btn" Text=" Lookup "></asp:Button></TD>
+													<asp:Button id="btnEmailLookup" Text=" Lookup " Runat="server" CssClass="btn"></asp:Button></TD>
 											</TR>
 										</TABLE>
 									</TD>
 									<TD>
-										<asp:ValidationSummary id="Validationsummary1" Runat="server" CssClass="err" DisplayMode="BulletList" HeaderText="You must enter valid values for the following fields:"></asp:ValidationSummary></TD>
+										<asp:ValidationSummary id="Validationsummary1" Runat="server" CssClass="err" HeaderText="You must enter valid values for the following fields:" DisplayMode="BulletList"></asp:ValidationSummary></TD>
 								</TR>
 							</TABLE>
 						</asp:panel>
 						<asp:panel id="pnlEmailFound" Runat="server" Visible="False" Width="100%">
 							<P>Your email address -
-								<asp:Label id="foundEmail" Runat="server">someone@somewhere.com</asp:Label>was 
-								found in the MSN2 system. An email has been sent to you with a link you can use 
-								to set your password.
+								<asp:Label id="foundEmail" Runat="server">someone@somewhere.com</asp:Label>&nbsp;- 
+								was found in the MSN2 system. An email has been sent to you with a link you can 
+								use to set your password.
 							</P>
 							<P>When you receive the email, simply click the link in it to set your password, 
 								then you'll be able to login.</P>
@@ -92,7 +91,7 @@
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText">Your Full Name:
-													<asp:RequiredFieldValidator id="NameValidator" Runat="server" CssClass="err" ErrorMessage="Name is required!" ControlToValidate="txtName" Display="Dynamic">*</asp:RequiredFieldValidator></TD>
+													<asp:RequiredFieldValidator id="NameValidator" Runat="server" Display="Dynamic" ControlToValidate="txtName" ErrorMessage="Name is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtName" Width="175px" Runat="server"></asp:TextBox></TD>
 											</TR>
@@ -104,14 +103,14 @@
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText">Password:
-													<asp:RequiredFieldValidator id="PasswordValidator" Runat="server" CssClass="err" ErrorMessage="Password is required!" ControlToValidate="txtPassword" Display="Dynamic">*</asp:RequiredFieldValidator></TD>
+													<asp:RequiredFieldValidator id="PasswordValidator" Runat="server" Display="Dynamic" ControlToValidate="txtPassword" ErrorMessage="Password is required!" CssClass="err">*</asp:RequiredFieldValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtPassword" Width="175px" Runat="server" TextMode="Password"></asp:TextBox></TD>
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText">Confirm Password:
-													<asp:RequiredFieldValidator id="ConfirmPasswordValidator" Runat="server" CssClass="err" ErrorMessage="Confirmation Password is required!" ControlToValidate="txtConfirmPassword" Display="Dynamic">*</asp:RequiredFieldValidator>
-													<asp:CompareValidator id="CompareValidator1" Runat="server" CssClass="err" ErrorMessage="The confirmation password must match the password." ControlToValidate="txtConfirmPassword" Display="Dynamic" ControlToCompare="txtPassword" Operator="Equal">*</asp:CompareValidator></TD>
+													<asp:RequiredFieldValidator id="ConfirmPasswordValidator" Runat="server" Display="Dynamic" ControlToValidate="txtConfirmPassword" ErrorMessage="Confirmation Password is required!" CssClass="err">*</asp:RequiredFieldValidator>
+													<asp:CompareValidator id="CompareValidator1" Runat="server" Display="Dynamic" ControlToValidate="txtConfirmPassword" ErrorMessage="The confirmation password must match the password." CssClass="err" Operator="Equal" ControlToCompare="txtPassword">*</asp:CompareValidator></TD>
 												<TD class="loginTableText">
 													<asp:TextBox id="txtConfirmPassword" Width="175px" Runat="server" TextMode="Password"></asp:TextBox></TD>
 											</TR>
@@ -128,7 +127,7 @@
 											</TR>
 											<TR class="loginTableContent">
 												<TD class="loginTableText" align="right" colSpan="2">
-													<asp:Button id="btnSend" Runat="server" CssClass="btn" Text=" Send "></asp:Button></TD>
+													<asp:Button id="btnSend" Text=" Send " Runat="server" CssClass="btn"></asp:Button></TD>
 											</TR>
 										</TABLE>
 									</TD>

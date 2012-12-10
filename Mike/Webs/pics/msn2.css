@@ -1,6 +1,7 @@
 BODY
 {
 	font-family: Arial, Verdana;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#ffffff', EndColorStr='#dddddd');
 }
 A
 {
@@ -10,11 +11,52 @@ A
 A:visited
 {
 	color: #0000cc;
+	text-decoration: underline;
 }
 A:hover
 {
 	color: #0099ff;
 	text-decoration: underline;
+}
+
+.pipeLeft
+{
+	background-position: left center;
+	background-image: url(Images/pipe-left.gif);
+	background-repeat: repeat-y;
+	text-align: right;
+}
+
+.pipeTable
+{
+	background-image: url(Images/pipe-center.gif);
+}
+
+.pipeRight
+{
+	background-position: right center;
+	background-image: url(Images/pipe-right.gif);
+	background-repeat: no-repeat;
+}
+
+.pipeCenter
+{
+	font-size: 10pt;
+	background-image: url(Images/pipe-center.gif);
+	color: black;
+	font-family: Arial;
+	text-align: center;
+	text-decoration: none;
+}
+
+A.pipeCenterLink
+{
+	text-decoration: none;
+}
+
+A:visited.pipeCenterLink
+{
+	text-decoration: none;
 }
 
 .progressBox
@@ -87,6 +129,11 @@ A.categorySmallLink
 	text-decoration: none;
 }
 
+.categoryDescription
+{
+	font-size: 10pt;
+}
+
 .categoryTextCell
 {
 	font-size: 8pt;
@@ -109,10 +156,10 @@ A.categorySmallLink
 
 .msn2contentwindow
 {
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 10px;
-	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 .msn2sidebar
@@ -175,7 +222,6 @@ A.categorySmallLink
 	border-top: silver 1px solid;
 	border-left: silver 1px solid;
 	border-bottom: black 1px solid;
-	filter:progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
 	width: 250px;
 	height: 175px;
 }

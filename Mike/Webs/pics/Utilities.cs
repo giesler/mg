@@ -88,9 +88,6 @@ namespace pics
 	{
 		public Utilities()
 		{
-			//
-			// TODO: Add constructor logic here
-			//
 		}
 	}
 

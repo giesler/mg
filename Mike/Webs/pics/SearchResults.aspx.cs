@@ -22,6 +22,7 @@ namespace pics
 		protected System.Web.UI.WebControls.HyperLink lnkSlideshow;
 		protected System.Web.UI.WebControls.Panel youAreHerePanel;
 		protected System.Web.UI.WebControls.Label searchDescription;
+		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Panel pnlthumbs;
 	
 		public SearchResults()
@@ -136,7 +137,7 @@ namespace pics
 			thumbs.StartRecord		= intStartRecord;
 			thumbs.RecordsPerPage	= 15;
 			thumbs.NoPictureMessage	= "<b>There are no pictures in this category.</b><br>Please select another category from the left tree.";
-			thumbs.PageNavURL		= Request.Path + "?id=" + id + "&sr={0}";
+			thumbs.PageNavUrl		= Request.Path + "?id=" + id + "&sr={0}";
 			pnlthumbs.Controls.Add(thumbs);
 
 			// Show the slideshow link if there are pictures

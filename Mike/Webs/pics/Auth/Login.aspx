@@ -1,4 +1,3 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="Login.aspx.cs" AutoEventWireup="false" Inherits="pics.auth.Login" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
@@ -20,7 +19,7 @@
 	<body leftMargin="0" topMargin="0" onload="setLoginFocus();">
 		<!-- top table with MSN2 logo -->
 		<form id="Login" method="post" runat="server">
-			<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Sign In"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - Sign In"></picctls:Header>
 			<table height="100%" cellSpacing="0" cellPadding="0" width="100%" align="left" border="0">
 				<tr>
 					<td class="msn2headerfade" colSpan="3" height="3"><IMG height="3" src="images/blank.gif"></td>
@@ -76,10 +75,6 @@
 					</td>
 				</tr>
 			</table>
-			<div style="LEFT: 800px; MARGIN: 2px; COLOR: blue; POSITION: absolute; TOP: 0px; HEIGHT: 10px">
-				&lt; 800px
-			</div>
-			<div style="LEFT: 800px; WIDTH: 2px; COLOR: blue; POSITION: absolute; HEIGHT: 100%; BACKGROUND-COLOR: black"></div>
 			<picctls:ErrorMessagePanel id="pnlBadPassword" title="Incorrect Password" runat="server" visible="false"><B>
 					The password you entered was not correct.</B> <BR>If you 
 forgot your password, click 

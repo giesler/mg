@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="Controls/_header.ascx" %>
 <%@ Page language="c#" Codebehind="SearchResults.aspx.cs" AutoEventWireup="false" Inherits="pics.SearchResults" %>
+<%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -11,7 +11,7 @@
 		<LINK href="msn2.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body topmargin="0" leftmargin="0">
-		<pics:header id="ctlHeader" runat="server" size="small" header="Search Results"></pics:header>
+		<picctls:Header id="header" runat="server" size="small" Text="Pictures Search Results"></picctls:Header>
 		<form id="Form1" method="post" runat="server">
 			<asp:panel id="youAreHerePanel" CssClass="note" Runat="server" Width="100%">Below are the results of your search.</asp:panel>
 			<hr color="gainsboro" SIZE="1">

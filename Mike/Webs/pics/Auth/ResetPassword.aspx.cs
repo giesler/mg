@@ -25,6 +25,7 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.Label lblEmail;
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.HyperLink loginLink;
+		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Panel pnlChanged;
 	
 		public ResetPassword()

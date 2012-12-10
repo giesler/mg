@@ -27,6 +27,7 @@ namespace pics.Admin
 		protected System.Web.UI.WebControls.Panel pnlDone;
 		protected System.Web.UI.WebControls.Label lblError;
 		protected System.Web.UI.WebControls.Panel afterPersonSelectContent;
+		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Label lblEmail;
 	
 		public AuthNewLogin()

@@ -1,6 +1,5 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
-<%@ Page language="c#" Codebehind="Logout.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.Logout" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="Logout.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.Logout" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -11,7 +10,7 @@
 	<body topmargin="0" leftmargin="0">
 		<!-- top table with MSN2 logo -->
 		<form runat="server" id="Login" method="post">
-			<pics:header id="ctlHeader" runat="server" size="small" header="Pictures - Signout" ShowUserInfo="false"></pics:header>
+			<picctls:Header id="header" runat="server" size="small" Text="Pictures - Signed Out"></picctls:Header>
 			<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 				<tr>
 					<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
@@ -27,7 +26,6 @@
 							<p>
 							</p>
 							<p>
-								&nbsp;
 							</p>
 							<p>
 								You have been signed out.

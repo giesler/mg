@@ -86,6 +86,10 @@ namespace pics
 
 		}
 
+		public void AddToSecurityGroup(int pictureId, int groupId)
+		{
+		}
+
 		[WebMethod(true)]
 		public byte[] GetPictureImage(int pictureId, int maxWidth, int maxHeight)
 		{
@@ -131,9 +135,84 @@ namespace pics
 			img.Save(memStream, ImageFormat.Jpeg);
 
 			return memStream.GetBuffer();
-
 			
 		}
+
+		[WebMethod(true)]
+		public void RotateImage(int pictureId, RotateFlipType rft)
+		{
+
+			PictureDataSet ds	= GetPicture(pictureId);
+			DataRow row = ds.Tables[0].Rows[0];
+            
+			// Load image
+			String strFile = Global.PictureLocation + row["Filename"];
+			Image imgCurImage = Image.FromFile(strFile);
+
+			// Rotate amount passed
+			imgCurImage.RotateFlip(rft);
+			imgCurImage.Save(strFile);
+			imgCurImage.Dispose();	
+
+			ImageUtilities imageUtils = new ImageUtilities();
+			imageUtils.CreateUpdateCache(pictureId);
+		}
+
+
+		[WebMethod(true)]
+		public PictureDataSet GetPicture(int pictureId)
+		{
+			// load the person's info
+			PersonInfo pi			= (PersonInfo) Session["PersonInfo"];
+			if (pi == null)
+			{
+					pi				= new PersonInfo(1);
+			}
+
+			// init connection and command
+			SqlConnection cn		= new SqlConnection(pics.Config.ConnectionString);
+
+			// Set up SP to retreive pictures
+			SqlCommand cmdPic		= new SqlCommand("dbo.up_PictureManager_GetPicture", cn);
+			cmdPic.CommandType		= CommandType.StoredProcedure;
+			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
+
+			// Set up params for SP
+			cmdPic.Parameters.Add("@pictureId", pictureId);
+			cmdPic.Parameters.Add("@personId", pi.PersonID);
+
+			// run the SP, set datasource to the picture list
+			PictureDataSet ds		= new PictureDataSet();
+			daPic.Fill(ds, "Picture");
+
+			return ds;
+		}
+
+		[WebMethod(true)]
+		public PictureDataSet GetPicturesByCategory(int categoryId)
+		{
+			// load the person's info
+			PersonInfo pi			= (PersonInfo) Session["PersonInfo"];
+
+			// init connection and command
+			SqlConnection cn		= new SqlConnection(pics.Config.ConnectionString);
+
+			// Set up SP to retreive pictures
+			SqlCommand cmdPic		= new SqlCommand("up_PictureManager_GetPicturesByCategory", cn);
+			cmdPic.CommandType		= CommandType.StoredProcedure;
+			SqlDataAdapter daPic	= new SqlDataAdapter(cmdPic);
+
+			// Set up params for SP
+			cmdPic.Parameters.Add("@categoryId", categoryId);
+			cmdPic.Parameters.Add("@personId", pi.PersonID);	
+
+			// run the SP, set datasource to the picture list
+			PictureDataSet ds		= new PictureDataSet();
+			daPic.Fill(ds, "Picture");
+
+			return ds;
+		}
+
 	}
 
 	public class PictureCollection: CollectionBase

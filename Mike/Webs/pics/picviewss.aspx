@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="uc1" TagName="AutoTimer" Src="Controls/AutoTimer.ascx" %>
-<%@ Page language="c#" Codebehind="picview.aspx.cs" AutoEventWireup="false" Inherits="pics.picview" %>
+<%@ Page language="c#" Codebehind="picviewss.aspx.cs" AutoEventWireup="false" Inherits="pics.picviewss" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>

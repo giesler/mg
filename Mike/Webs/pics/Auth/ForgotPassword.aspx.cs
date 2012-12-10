@@ -25,6 +25,7 @@ namespace pics.Auth
 		protected System.Web.UI.WebControls.Panel pnlSent;
 		protected System.Web.UI.WebControls.HyperLink lnkForgotPassword;
 		protected System.Web.UI.WebControls.Panel pnlBadLogin;
+		protected pics.Controls.Header header;
 		protected System.Web.UI.WebControls.Button btnConfirm;
 	
 		public ForgotPassword()

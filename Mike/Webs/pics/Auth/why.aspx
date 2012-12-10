@@ -1,6 +1,5 @@
-<%@ Register TagPrefix="pics" TagName="header" Src="../Controls/_header.ascx" %>
-<%@ Page language="c#" Codebehind="why.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.why" %>
 <%@ Register TagPrefix="picctls" Namespace="pics.Controls" Assembly="pics" %>
+<%@ Page language="c#" Codebehind="why.aspx.cs" AutoEventWireup="false" Inherits="pics.Auth.why" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
@@ -10,7 +9,7 @@
 	</HEAD>
 	<body leftMargin="0" topMargin="0">
 		<!-- top table with MSN2 logo -->
-		<pics:header id="ctlHeader" header="Why require logging in?" size="small" runat="server"></pics:header>
+		<picctls:Header id="header" runat="server" size="small" Text="Why require logging in?"></picctls:Header>
 		<table cellSpacing="0" cellPadding="0" border="0" width="100%" align="left" height="100%">
 			<tr>
 				<td height="3" class="msn2headerfade" colspan="3"><img src="images/blank.gif" height="3"></td>
