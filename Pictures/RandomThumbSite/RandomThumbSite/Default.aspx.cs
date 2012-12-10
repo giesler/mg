@@ -98,8 +98,13 @@ namespace RandomThumbSite
                 this.image.ImageUrl = url;
                 this.image.AlternateText = imageInfo;
                                 
-                this.image.Height = Unit.Pixel((int) (scale * pc.Height));
-                this.image.Width = Unit.Pixel((int) (scale * pc.Width));
+                this.image.Height = Unit.Pixel((int) (scale * maxHeight));
+                this.image.Width = Unit.Pixel((int) (scale * maxWidth));
+
+                if (pc.Width > pc.Height)
+                {
+                    this.image.Height = Unit.Pixel((int)(scale * pc.Height));
+                }
 
                 if (maxHeightFixed  > 0 && maxHeightFixed > this.image.Height.Value)
                 {
