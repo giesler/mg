@@ -32,7 +32,7 @@ namespace pics.Controls.Mobile
                 this.pageCount.SelectedIndex = 1;
             }
 
-            if (Request.QueryString["c"] != null)
+            if (Request.QueryString["c"] != null && Request.QueryString["from"] == null)
             {
                 this.categoryId = int.Parse(Request.QueryString["c"]);
 
@@ -45,11 +45,22 @@ namespace pics.Controls.Mobile
             {
                 this.categoryHeading.Text = "Search Results";
 
+                if (Request.QueryString["c"] != null)
+                {
+                    this.categoryId = int.Parse(Request.QueryString["c"]);
+                }
+
                 this.startTime = DateTime.Parse(Request.QueryString["from"]).Date;
                 this.endTime = DateTime.Parse(Request.QueryString["to"]).Date;
                 this.endTime = this.endTime.AddDays(1).AddSeconds(-1);
                                 
                 this.categoryDescription.Text = this.startTime.Date.ToShortDateString() + " - " + this.endTime.Date.ToShortDateString();
+
+                if (categoryId > 0)
+                {
+                    Category category = PicContext.Current.CategoryManager.GetCategory(categoryId);
+                    this.categoryDescription.Text += ", " + category.Name;
+                }
             }
 
             if (this.IsPostBack == false)
@@ -64,7 +75,7 @@ namespace pics.Controls.Mobile
 
             if (this.categoryId > 0)
             {
-                pictures = PicContext.Current.PictureManager.GetPicturesByCategory(categoryId);
+                pictures = PicContext.Current.PictureManager.GetPictures(categoryId, this.startTime, this.endTime);
             }
             else
             {

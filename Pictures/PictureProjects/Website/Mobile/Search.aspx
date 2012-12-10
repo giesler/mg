@@ -18,6 +18,19 @@
     </table>
     <form id="form1" runat="server">
     <div class="title">
+        Category
+    </div>
+    <div>
+        <asp:DropDownList ID="category0" runat="server" AutoPostBack="true" OnSelectedIndexChanged="OnCategory0Changed" />
+        <asp:DropDownList ID="category1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="OnCategory1Changed"
+            Visible="false" />
+        <asp:DropDownList ID="category2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="OnCategory2Changed"
+            Visible="false" />
+        <asp:DropDownList ID="category3" runat="server" AutoPostBack="true" OnSelectedIndexChanged="OnCategory3Changed"
+            Visible="false" />
+        <asp:DropDownList ID="category4" runat="server" Visible="false" />
+    </div>
+    <div class="title">
         Date
     </div>
     <div>

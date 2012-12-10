@@ -24,16 +24,16 @@
         <asp:Label runat="server" ID="categoryDescription" />
     </div>
     <asp:Panel runat="server" ID="content" Width="100%" />
-    <div runat="server" id="pager">
+    <div runat="server" id="pager" class="description">
         <asp:Label runat="server" ID="pictureCount" />
-        pictures. Page
+        pics | Page
         <asp:DropDownList runat="server" ID="page" OnSelectedIndexChanged="OnPageChanged"
             AutoPostBack="true">
         </asp:DropDownList>
         of
-        <asp:Label runat="server" ID="pagesCount"></asp:Label>,
+        <asp:Label runat="server" ID="pagesCount"></asp:Label> | 
         <asp:DropDownList runat="server" ID="pageCount" AutoPostBack="true" OnSelectedIndexChanged="OnPageChanged" />
-        pictures per page.
+        pics per page.
     </div>
     <div class="footer">
         <hr />

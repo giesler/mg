@@ -35,6 +35,22 @@ namespace pics.Controls.Mobile
                 AddValues(this.toYear, toYears);
                 this.toYear.SelectedIndex = this.toYear.Items.Count - 1;
                 this.OnToYearChanged(this, EventArgs.Empty);
+
+                Category root = PicContext.Current.CategoryManager.GetRootCategory();
+                List<Category> topLevel = PicContext.Current.CategoryManager.GetChildrenCategories(root.Id);
+                AddCategories(this.category0, topLevel);
+            }
+        }
+
+        void AddCategories(DropDownList dd, IEnumerable<Category> list)
+        {
+            dd.Items.Clear();
+            dd.Items.Add(new ListItem("- All -", "0"));
+            dd.SelectedIndex = 0;
+
+            foreach (Category c in list)
+            {
+                dd.Items.Add(new ListItem(c.Name, c.Id.ToString()));
             }
         }
 
@@ -111,6 +127,65 @@ namespace pics.Controls.Mobile
             OnToMonthChanged(this, EventArgs.Empty);
         }
 
+        protected void OnCategory0Changed(object sender, EventArgs e)
+        {
+            this.category1.Visible = false;
+            this.category2.Visible = false;
+            this.category3.Visible = false;
+            this.category4.Visible = false;
+            if (this.category0.SelectedIndex > 0)
+            {
+                LoadCategoryDropdown(this.category0, this.category1);
+            }
+        }
+
+        protected void OnCategory1Changed(object sender, EventArgs e)
+        {
+            this.category2.Visible = false;
+            this.category3.Visible = false;
+            this.category4.Visible = false;
+
+            if (this.category1.SelectedIndex > 0)
+            {
+                LoadCategoryDropdown(this.category1, this.category2);
+            }
+        }
+
+        protected void OnCategory2Changed(object sender, EventArgs e)
+        {
+            this.category3.Visible = false;
+            this.category4.Visible = false;
+
+            if (this.category2.SelectedIndex > 0)
+            {
+                LoadCategoryDropdown(this.category2, this.category3);
+            }
+
+        }
+
+        protected void OnCategory3Changed(object sender, EventArgs e)
+        {
+            this.category4.Visible = false;
+
+            if (this.category3.SelectedIndex > 0)
+            {
+                LoadCategoryDropdown(this.category3, this.category4);
+            }
+
+        }
+
+        void LoadCategoryDropdown(DropDownList current, DropDownList next)
+        {
+            int categoryId = int.Parse(current.SelectedValue);
+            var q = PicContext.Current.CategoryManager.GetChildrenCategories(categoryId);
+
+            if (q.Count > 0)
+            {
+                next.Visible = true;
+                AddCategories(next, q);
+            }
+        }
+
         protected void OnSearchClick(object sender, EventArgs e)
         {
             string url = string.Format("Pictures.aspx?from={0}/{1}/{2}&to={3}/{4}/{5}",
@@ -120,6 +195,33 @@ namespace pics.Controls.Mobile
                 this.toMonth.SelectedValue,
                 this.toDay.SelectedValue,
                 this.toYear.SelectedValue);
+
+            if (this.category0.SelectedIndex > 0)
+            {
+                string categoryId = this.category0.SelectedValue;
+
+                if (this.category1.SelectedIndex > 0)
+                {
+                    categoryId = this.category1.SelectedValue;
+
+                    if (this.category2.SelectedIndex > 0)
+                    {
+                        categoryId = this.category2.SelectedValue;
+
+                        if (this.category3.SelectedIndex > 0)
+                        {
+                            categoryId = this.category3.SelectedValue;
+
+                            if (this.category4.SelectedIndex > 0)
+                            {
+                                categoryId = this.category4.SelectedValue;
+                            }
+                        }
+                    }
+                }
+
+                url += "&c=" + categoryId;
+            }
 
             Response.Redirect(url);
         }

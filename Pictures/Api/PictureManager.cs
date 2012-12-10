@@ -248,6 +248,32 @@ namespace msn2.net.Pictures
             return pc;
         }
 
+        public List<Picture> GetPictures(int categoryId, DateTime startTime, DateTime endTime)
+        {
+            DateTime minDate = DateTime.Parse("1/1/1900");
+            DateTime maxDate = DateTime.Parse("1/1/2100");
+            if (startTime < minDate)
+            {
+                startTime = minDate;
+            }
+            if (endTime > maxDate)
+            {
+                endTime = maxDate;
+            }
+            var q = from p in this.picContext.DataContext.Pictures
+                    join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.PictureID
+                    join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
+                    join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
+                    join csc in this.picContext.DataContext.CategorySubCategories on pc.CategoryID equals csc.SubCategoryID
+                    where csc.CategoryID == categoryId && per.PersonID == this.picContext.CurrentUser.Id
+                        && per.PersonID == this.picContext.CurrentUser.Id 
+                        && p.PictureDate > startTime && p.PictureDate < endTime
+                    orderby p.PictureDate
+                    select p;
+
+            return q.Distinct().ToList();
+        }
+
         public List<Picture> GetPicturesByCategory(int categoryId)
         {
             var q = from p in this.picContext.DataContext.Pictures
