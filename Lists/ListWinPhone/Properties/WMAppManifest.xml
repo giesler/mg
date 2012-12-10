@@ -3,20 +3,13 @@
   <App xmlns="" ProductID="{a894241c-dcdc-4b49-b5f7-6ec26e628b9d}" Title="ListGo" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Mike Giesler" Description="Customizable list application" Publisher="giesler.org">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
-      <Capability Name="ID_CAP_CAMERA" />
-      <Capability Name="ID_CAP_GAMERSERVICES" />
       <Capability Name="ID_CAP_IDENTITY_DEVICE" />
       <Capability Name="ID_CAP_IDENTITY_USER" />
-      <Capability Name="ID_CAP_INTEROPSERVICES" />
       <Capability Name="ID_CAP_LOCATION" />
       <Capability Name="ID_CAP_MEDIALIB" />
-      <Capability Name="ID_CAP_MICROPHONE" />
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_NETWORKING_ADMIN" />
-      <Capability Name="ID_CAP_PHONEDIALER" />
       <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
-      <Capability Name="ID_CAP_RINGTONE_ADD" />
-      <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>

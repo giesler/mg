@@ -20,6 +20,8 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
+            App.Current.LoadAll();
+
             this.LoadLists();
         }
         

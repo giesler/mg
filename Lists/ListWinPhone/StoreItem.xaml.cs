@@ -24,8 +24,10 @@ namespace giesler.org.lists
         private Point mouseDownPosition;
 
         public StoreItem()
-        {
+        {         
             InitializeComponent();
+
+            App.Current.LoadAll();
         }
         
         public ListItem Item { get; set; }

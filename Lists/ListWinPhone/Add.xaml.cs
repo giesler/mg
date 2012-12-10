@@ -22,6 +22,8 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
+            App.Current.LoadAll();
+
             Guid listId = App.SelectedList;
             List list = App.Lists.FirstOrDefault(l => l.UniqueId == listId);
 

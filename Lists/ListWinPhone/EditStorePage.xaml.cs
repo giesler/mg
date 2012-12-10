@@ -20,6 +20,8 @@ namespace giesler.org.lists
         public EditStorePage()
         {
             InitializeComponent();
+
+            App.Current.LoadAll();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

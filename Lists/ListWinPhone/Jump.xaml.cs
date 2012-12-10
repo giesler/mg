@@ -20,16 +20,18 @@ namespace giesler.org.lists
         {
             InitializeComponent();
 
+            App.Current.LoadAll();
+
             this.storeList.ItemsSource = App.Lists.OrderBy(l => l.Name);
         }
 
-        public List SelectedList { get; private set; }
+        public ListEx SelectedList { get; private set; }
         
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             TextBlock tb = (TextBlock)sender;
-            this.SelectedList = (List)tb.Tag;
-
+            this.SelectedList = (ListEx)tb.Tag;
+            
             App.SelectedList = this.SelectedList.UniqueId;
             App.Current.SaveSettings();
             App.IsJumpNavigation = true;

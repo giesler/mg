@@ -21,6 +21,8 @@ namespace giesler.org.lists
         public StoreItemList()
         {
             InitializeComponent();
+
+            App.Current.LoadAll();
         }
 
         public void Load(IEnumerable<ListItemEx> items)
