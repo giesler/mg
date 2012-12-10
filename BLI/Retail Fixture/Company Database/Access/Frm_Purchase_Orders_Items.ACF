@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =-1232956641
+Checksum =-1214302593
 Begin Form
     MaxButton = NotDefault
     MinButton = NotDefault
@@ -17,10 +17,10 @@ Begin Form
     Width =10920
     DatasheetFontHeight =10
     ItemSuffix =29
-    Left =210
-    Top =1695
-    Right =14490
-    Bottom =8715
+    Left =555
+    Top =5145
+    Right =11985
+    Bottom =7395
     DatasheetGridlinesColor =12632256
     AfterDelConfirm ="[Event Procedure]"
     RecSrcDt = Begin

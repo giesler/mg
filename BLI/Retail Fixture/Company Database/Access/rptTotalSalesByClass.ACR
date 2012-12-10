@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =1042402950
+Checksum =-1000925606
 Begin Report
     LayoutForPrint = NotDefault
     DefaultView =0
@@ -14,20 +14,20 @@ Begin Report
     Width =10695
     DatasheetFontHeight =10
     ItemSuffix =90
-    Left =1005
-    Top =720
-    Right =13470
-    Bottom =8595
+    Left =600
+    Top =330
+    Right =13065
+    Bottom =8205
     DatasheetGridlinesColor =12632256
     OnNoData ="[Event Procedure]"
     Toolbar ="RFReportToolBar"
     RecSrcDt = Begin
-        0xc59c66e490f6e140
+        0x36b055eab926e240
     End
     InputParameters ="GetSPVar(\"ShipFromDate\"), GetSPVar(\"ShipToDate\"), GetSPVar(\"SoldName\"), Ge"
-        "tSPVar(\"Classification\")"
+        "tSPVar(\"Classification\"), GetSPVar(\"StoreSelName\"), GetSPVar(\"RefNum\")"
     RecordSource ="dbo.sp_Report_TotalSalesByClass"
-    Caption ="PS Over Time by Priority (1/2)"
+    Caption ="Product Sales Over Time by Classification"
     OnOpen ="[Event Procedure]"
     MenuBar ="RFReportMenuBar"
     DatasheetFontName ="Arial"
@@ -452,6 +452,7 @@ On Error GoTo errHandler
     SetSPVar "SoldName", fC.cmbSoldName
     SetSPVar "Classification", fC.cmbClassification
     SetSPVar "StoreSelName", Null
+    SetSPVar "RefNum", fC.txtRefNum
     strCrit = FormatFromTo(fC.datFrom, fC.datTo)
     If strCrit <> "" Then strCrit = "Ship Date " + strCrit
     If fC.cmbSoldName <> "" Then
@@ -461,6 +462,10 @@ On Error GoTo errHandler
     If fC.cmbClassification <> "" Then
       If strCrit <> "" Then strCrit = strCrit + ", "
       strCrit = strCrit + "Classification: " + fC.cmbClassification
+    End If
+    If fC.txtRefNum <> "" Then
+      If strCrit <> "" Then strCrit = strCrit + ", "
+      strCrit = strCrit + "Ref Num: " + fC.txtRefNum
     End If
     'Store
     gConn.Execute "DELETE FROM ztmpStoreSel WHERE StoreSelName = '" + GetNTUserName() + "'"

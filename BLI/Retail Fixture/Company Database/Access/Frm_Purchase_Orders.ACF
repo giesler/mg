@@ -1,6 +1,6 @@
 Version =19
 VersionRequired =19
-Checksum =2106490714
+Checksum =977200605
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
@@ -802,12 +802,32 @@ Begin Form
                                 0x97e8b2a59d08bc4a848b06e856db9631
                             End
                             Begin
+                                Begin ComboBox
+                                    OverlapFlags =223
+                                    IMESentenceMode =3
+                                    Left =1560
+                                    Top =480
+                                    Width =2100
+                                    ColumnInfo ="\"\";\"\";\"10\";\"50\""
+                                    GUID = Begin
+                                        0x5a9b740776b7af47961345d36324f49e
+                                    End
+                                    Name ="txtShipName"
+                                    ControlSource ="Ship_Name"
+                                    RowSourceType ="Table/View/StoredProc"
+                                    RowSource ="dbo.sp_Util_ShipNameList"
+                                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
+                                    FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
+                                End
                                 Begin TextBox
                                     OldBorderStyle =1
                                     OverlapFlags =223
                                     Left =4020
                                     Top =480
                                     Width =1020
+                                    TabIndex =1
                                     Name ="txtShipStoreNo"
                                     ControlSource ="Ship_StoreNo"
                                     AfterUpdate ="[Event Procedure]"
@@ -817,23 +837,6 @@ Begin Form
                                     OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0xce0b39700f9f23459a8419a188c0c173
-                                    End
-                                End
-                                Begin TextBox
-                                    OldBorderStyle =1
-                                    OverlapFlags =223
-                                    Left =1560
-                                    Top =480
-                                    Width =2100
-                                    TabIndex =1
-                                    Name ="txtShipName"
-                                    ControlSource ="Ship_Name"
-                                    OnDblClick ="=OpenFind(\"Ship Name\",\"Start\",\"txtShipName\")"
-                                    FontName ="Arial"
-                                    OnGotFocus ="=ControlGotFocus()"
-                                    OnLostFocus ="=ControlLostFocus()"
-                                    GUID = Begin
-                                        0x07cacf765b62db4d95e3b9261aee724a
                                     End
                                 End
                                 Begin TextBox
@@ -923,22 +926,6 @@ Begin Form
                                         0xb4176c9df40e84439b4d8d652fd998e9
                                     End
                                 End
-                                Begin TextBox
-                                    OldBorderStyle =1
-                                    OverlapFlags =223
-                                    Left =1560
-                                    Top =1680
-                                    Width =3480
-                                    TabIndex =7
-                                    Name ="txtShipAttn"
-                                    ControlSource ="Ship_Attn"
-                                    FontName ="Arial"
-                                    OnGotFocus ="=ControlGotFocus()"
-                                    OnLostFocus ="=ControlLostFocus()"
-                                    GUID = Begin
-                                        0x9eb4538fbd861f4a855d3c992971c1a6
-                                    End
-                                End
                                 Begin Label
                                     FontUnderline = NotDefault
                                     OverlapFlags =215
@@ -989,7 +976,7 @@ Begin Form
                                     End
                                 End
                                 Begin Label
-                                    OverlapFlags =215
+                                    OverlapFlags =223
                                     TextAlign =3
                                     Left =240
                                     Top =1680
@@ -1071,6 +1058,22 @@ Begin Form
                                     OldBorderStyle =1
                                     OverlapFlags =215
                                     Left =1560
+                                    Top =1680
+                                    Width =3480
+                                    TabIndex =7
+                                    Name ="txtShipAttn"
+                                    ControlSource ="Ship_Attn"
+                                    FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
+                                    GUID = Begin
+                                        0x9eb4538fbd861f4a855d3c992971c1a6
+                                    End
+                                End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    Left =1560
                                     Top =1980
                                     Width =1860
                                     TabIndex =8
@@ -1082,23 +1085,6 @@ Begin Form
                                     OnLostFocus ="=ControlLostFocus()"
                                     GUID = Begin
                                         0x6489bc57d2afd046aa5b3e5c9b5fae1b
-                                    End
-                                End
-                                Begin TextBox
-                                    OldBorderStyle =1
-                                    OverlapFlags =215
-                                    TextAlign =2
-                                    Left =3480
-                                    Top =1980
-                                    Width =1560
-                                    TabIndex =9
-                                    Name ="txtShipAccountNum"
-                                    ControlSource ="Account#"
-                                    FontName ="Arial"
-                                    OnGotFocus ="=ControlGotFocus()"
-                                    OnLostFocus ="=ControlLostFocus()"
-                                    GUID = Begin
-                                        0xe8eae29a2d0bd14b828b8ebcbc1457c0
                                     End
                                 End
                                 Begin Label
@@ -1136,6 +1122,37 @@ Begin Form
                                         0x5144c66793ad9e41851d9a4413141344
                                     End
                                 End
+                                Begin TextBox
+                                    OldBorderStyle =1
+                                    OverlapFlags =215
+                                    TextAlign =2
+                                    Left =3480
+                                    Top =1980
+                                    Width =1560
+                                    TabIndex =9
+                                    Name ="txtShipAccountNum"
+                                    ControlSource ="Account#"
+                                    FontName ="Arial"
+                                    OnGotFocus ="=ControlGotFocus()"
+                                    OnLostFocus ="=ControlLostFocus()"
+                                    GUID = Begin
+                                        0xe8eae29a2d0bd14b828b8ebcbc1457c0
+                                    End
+                                End
+                                Begin Label
+                                    OverlapFlags =223
+                                    TextAlign =3
+                                    Left =240
+                                    Top =2700
+                                    Width =1320
+                                    Height =240
+                                    Name ="lblSoldAttn"
+                                    Caption ="Sold Attn:"
+                                    FontName ="Arial"
+                                    GUID = Begin
+                                        0x96aedbfb10b5ea42bcece42617466d40
+                                    End
+                                End
                                 Begin ComboBox
                                     LimitToList = NotDefault
                                     OverlapFlags =215
@@ -1160,18 +1177,15 @@ Begin Form
                                     OnLostFocus ="=ControlLostFocus()"
                                     OnNotInList ="[Event Procedure]"
                                 End
-                                Begin Label
-                                    OverlapFlags =223
-                                    TextAlign =3
+                                Begin Line
+                                    OverlapFlags =87
                                     Left =240
-                                    Top =2700
-                                    Width =1320
-                                    Height =240
-                                    Name ="lblSoldAttn"
-                                    Caption ="Sold Attn:"
-                                    FontName ="Arial"
+                                    Top =2304
+                                    Width =4800
+                                    BorderColor =8421504
+                                    Name ="Line258"
                                     GUID = Begin
-                                        0x96aedbfb10b5ea42bcece42617466d40
+                                        0x8acc6f6487b5304bba488ac492c9a60d
                                     End
                                 End
                                 Begin ComboBox
@@ -1195,17 +1209,6 @@ Begin Form
                                     OnKeyDown ="[Event Procedure]"
                                     OnGotFocus ="=ControlGotFocus()"
                                     OnLostFocus ="=ControlLostFocus()"
-                                End
-                                Begin Line
-                                    OverlapFlags =87
-                                    Left =240
-                                    Top =2304
-                                    Width =4800
-                                    BorderColor =8421504
-                                    Name ="Line258"
-                                    GUID = Begin
-                                        0x8acc6f6487b5304bba488ac492c9a60d
-                                    End
                                 End
                             End
                         End
@@ -1912,8 +1915,7 @@ Private Sub comSoldAttention_KeyDown(KeyCode As Integer, Shift As Integer)
 On Error Resume Next
 
     If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
-'        tb1.Value = 1
-'        txtSoldName.SetFocus
+      txtComments.SetFocus
     End If
 
 End Sub
@@ -2027,7 +2029,7 @@ Private Sub txtJobNumber_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If (KeyCode = vbKeyTab And Shift <> 1) Or KeyCode = vbKeyReturn Then
         tb1.Value = 0
-        txtShipStoreNo.SetFocus
+        txtShipName.SetFocus
     End If
     
 End Sub
@@ -2115,12 +2117,11 @@ On Error GoTo errHandler
   If IsNull(Me.txtShipStoreNo) Or Me.txtShipStoreNo = "" Then Exit Sub
   
   ' Look up store details based on store number entered
-  strSQL = "sp_Util_GetStoreInfo '" + Me.txtShipStoreNo + "'"
+  strSQL = "sp_Util_GetStoreInfo '" + Me.txtShipStoreNo + "', '" + DQ(Me.txtShipName) + "'"
   Set rst = New ADODB.Recordset
   With rst
     .Open strSQL, gConn, adOpenForwardOnly, adLockReadOnly
     If Not .EOF Then
-      Me.txtShipName = !Ship_Name
       Me.txtShipAddress1 = !Ship_Address1
       Me.txtShipAddress2 = !Ship_Address2
       Me.txtShipCity = !Ship_City
