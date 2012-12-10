@@ -48,25 +48,22 @@ namespace msn2.net.Configuration
 		private Guid policyId		= Guid.NewGuid();
 		private Guid configId		= Guid.NewGuid();
 		private Data data;
-		private MessengerAPI.MessengerClass messenger = null;
 		private Hashtable userList = new Hashtable();
 		
 		#endregion
 
 		#region Login
 
-		public void Login(MessengerAPI.MessengerClass messenger, string storageUrl)
+		public void Login(string storageUrl)
 		{
-			this.messenger				= messenger;
-
 			ProjectFServices.DataService dataService = new ProjectFServices.DataService();
 			dataService.Url = storageUrl;
 
-			DataSet ds = dataService.Login("all@msn2.net", Environment.MachineName);
+            //DataSet ds = dataService.Login("all@msn2.net", Environment.MachineName);
 
-			// Save config values
-			this.signinId				= new Guid(ds.Tables[0].Rows[0]["SigninId"].ToString());
-			this.machineId				= new Guid(ds.Tables[0].Rows[0]["MachineId"].ToString());
+            //// Save config values
+            //this.signinId				= new Guid(ds.Tables[0].Rows[0]["SigninId"].ToString());
+            //this.machineId				= new Guid(ds.Tables[0].Rows[0]["MachineId"].ToString());
 
 			this.configId	= configId;
 			this.policyId	= policyId;
@@ -130,15 +127,6 @@ namespace msn2.net.Configuration
 		public string MySigninName
 		{
 			get { return signinName; }
-		}
-
-		#endregion
-
-		#region Messenger
-
-		public MessengerAPI.MessengerClass Messenger
-		{
-			get { return messenger; }
 		}
 
 		#endregion

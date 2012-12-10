@@ -41,11 +41,9 @@ namespace msn2.net.ProjectF
 
 		private System.Windows.Forms.ListView listView1;
 		private System.ComponentModel.Container components = null;
-		private MessengerAPI.MessengerClass messenger = null;
 		private Status status = null;
 		private System.Windows.Forms.Panel panelFormList;
-		private Crownwood.Magic.Docking.DockingManager dockManager = null;
-
+		
 		#endregion
 		#region Constructor / Disposal
 
@@ -72,8 +70,6 @@ namespace msn2.net.ProjectF
 			//messenger = new MessengerAPI.MessengerClass();
 			//messenger.OnSignin		+= new MessengerAPI.DMessengerEvents_OnSigninEventHandler(Messenger_SignIn);
 			//messenger.OnSignout		+= new MessengerAPI.DMessengerEvents_OnSignoutEventHandler(Messenger_SignOut);
-
-			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
 
 			if (System.IO.File.Exists("msn2.net.ProjectF.exe.config"))
 			{
@@ -315,12 +311,12 @@ namespace msn2.net.ProjectF
 		
 		private void Messenger_SignIn(int hr)
 		{
-			// Check if we are signed in
-			if (hr == Convert.ToInt32(MessengerAPI.MSGRConstants.MSGR_S_OK))
-			{
-				// get root storage location
-				SignIn(messenger.MySigninName);
-			}
+            //// Check if we are signed in
+            //if (hr == Convert.ToInt32(MessengerAPI.MSGRConstants.MSGR_S_OK))
+            //{
+            //    // get root storage location
+            //    SignIn(messenger.MySigninName);
+            //}
 		}
 
 		private void ShellForm_AddedHandler(object sender, ShellFormAddedEventArgs e)
@@ -364,7 +360,7 @@ namespace msn2.net.ProjectF
 			//			}
 			
 			string storageUrl = System.Configuration.ConfigurationSettings.AppSettings["storageUrl"].ToString();
-			ConfigurationSettings.Current.Login(null, storageUrl);
+			ConfigurationSettings.Current.Login(storageUrl);
 
 			//			login l = new login();
 			//			if (l.ShowShellDialog(this) == dialogresult.cancel)

@@ -144,6 +144,48 @@ namespace msn2.net.Pictures.Controls
         }
 
         [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Category_Left
+        {
+            get
+            {
+                return (int)this["Slideshow_Category_Left"];
+            }
+            set
+            {
+                this["Slideshow_Category_Left"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("200")]
+        public int Slideshow_Category_Top
+        {
+            get
+            {
+                return (int)this["Slideshow_Category_Top"];
+            }
+            set
+            {
+                this["Slideshow_Category_Top"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("False")]
+        public bool Slideshow_Category_IsOpen
+        {
+            get
+            {
+                return (bool)this["Slideshow_Category_IsOpen"];
+            }
+            set
+            {
+                this["Slideshow_Category_IsOpen"] = value;
+            }
+        }
+
+        [UserScopedSetting()]
         [DefaultSettingValue("")]
         public string Last_Login_Email
         {

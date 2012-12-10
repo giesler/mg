@@ -3,6 +3,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace msn2.net.Controls
 {
@@ -19,7 +20,30 @@ namespace msn2.net.Controls
 		}
 	}
 
-	public class WebLinkPage: Crownwood.Magic.Controls.TabPage
+    public class ShellTabPage: TabPage
+    {
+        private Control control = null;
+
+        public ShellTabPage(string title): base(title)
+        {
+        }
+
+        public ShellTabPage(string title, Control control): base(title)
+        {
+            control.Dock = DockStyle.Fill;
+            this.Controls.Add(control);
+        }
+
+        public Control Control
+        {
+            get
+            {
+                return this.control;
+            }
+        }
+    }
+
+    public class WebLinkPage : ShellTabPage
 	{
 		private string key;
 		private WebBrowserControl browser;
@@ -29,11 +53,9 @@ namespace msn2.net.Controls
 
 		public WebLinkPage(string title, string key, WebBrowserControl browser): base(title, browser)
 		{
-			this.Title = title;
 			this.key   = key;
 			this.browser = browser;
 			browser.Visible = true;
-
 		}
 
 		public string Key

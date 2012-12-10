@@ -125,6 +125,12 @@
     <Compile Include="Category\CategoryTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Category\CategorySelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Category\CategorySelect.Designer.cs">
+      <DependentUpon>CategorySelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\DataSetCategory.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -344,6 +350,9 @@
       <DependentUpon>CategoryTree.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Category\CategorySelect.resx">
+      <DependentUpon>CategorySelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -502,6 +511,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\msn2.net\Controls\Controls.csproj">
+      <Project>{270EC567-4AB7-49F1-9466-D1BA35F704FD}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Api\Api.csproj">
       <Project>{9B8D6E06-DA69-466C-BCC1-0E3245756453}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>

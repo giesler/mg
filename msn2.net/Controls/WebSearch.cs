@@ -340,7 +340,7 @@ namespace msn2.net.Controls
 		#endregion
 		#region Methods
 
-		public virtual void Run(Crownwood.Magic.Controls.TabPage page)
+		public virtual void Run(TabPage page)
 		{
 		}
 
@@ -434,11 +434,11 @@ namespace msn2.net.Controls
 		#endregion
 		#region Methods
 
-		public override void Run(Crownwood.Magic.Controls.TabPage page)
+		public override void Run(TabPage page)
 		{
 			googleSearch = new GoogleSearchService();
 
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 			browser.BeforeNavigateEvent += new BeforeNavigateDelegate(OnBeforeNavigate);
 			browser.ShowStatus("searching...");
 			browser.Navigate("next:1");
@@ -573,12 +573,12 @@ namespace msn2.net.Controls
 
 		#region Methods
 
-		public override void Run(Crownwood.Magic.Controls.TabPage page)
+		public override void Run(TabPage page)
 		{
             string url	= searchUrl;
 			url			= String.Format(url, System.Web.HttpUtility.UrlEncode(this.SearchString));
 
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 			browser.BeforeNavigateEvent	 += new BeforeNavigateDelegate(OnBeforeNavigate);
 			browser.Navigate(url);
 		}
@@ -783,12 +783,12 @@ namespace msn2.net.Controls
 			name	= "Community";
 		}
 		
-		public override void Run(Crownwood.Magic.Controls.TabPage page)
+		public override void Run(TabPage page)
 		{
 			string url = "http://groups.google.com/groups?hl=en&q={0}";
 			url = String.Format(url, System.Web.HttpUtility.UrlEncode(this.SearchString));
 
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 			browser.Navigate(url);
 		}
 	}

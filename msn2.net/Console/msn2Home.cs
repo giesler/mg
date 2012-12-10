@@ -2,6 +2,7 @@ using System;
 using msn2.net.Controls;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace msn2.net.ProjectF
 {
@@ -23,10 +24,10 @@ namespace msn2.net.ProjectF
 			{
 				baseUrl = System.Configuration.ConfigurationSettings.AppSettings["homeUrl"];
 			}
-			Crownwood.Magic.Controls.TabPage page = base.AddNewTab("Home", baseUrl, msn2.net.Controls.WebBrowserControl.DefaultClickBehavior.OpenLink);
+			TabPage page = base.AddNewTab("Home", baseUrl, msn2.net.Controls.WebBrowserControl.DefaultClickBehavior.OpenLink);
 
 			// Hook into navigate event
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 			browser.BeforeNavigateEvent += new BeforeNavigateDelegate(OnBeforeNavigate);
 
 			// Bottom border controls

@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Diagnostics;
-using mshtml;
 using System.Runtime.InteropServices;
 using msn2.net.Configuration;
 using msn2.net.Controls;
@@ -31,7 +30,6 @@ namespace msn2.net.Controls
 
 		#region Declares
 
-		public AxSHDocVw.AxWebBrowser axWebBrowser1;
 		private System.ComponentModel.IContainer components;
 		private bool isPopup = false;
 		private System.Windows.Forms.Timer timerShowStatus;
@@ -48,13 +46,13 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.MenuItem menuItemOpenNewTab;
 		private string newTitle = "New Window";
 		private System.Windows.Forms.MenuItem menuItemSaveTo;
-		private Crownwood.Magic.Controls.TabPage tabPage = null;
 		private DefaultClickBehavior defaultClickBehavior = DefaultClickBehavior.OpenLink;
 		private System.Windows.Forms.Label labelStatus;
 		private string url = "";
 		private System.Timers.Timer refreshTimer = null;
 		private bool clickHandled = false;
 		private bool enableOpenInNewWindow = false;
+        private TabPage tabPage;
 
 		#endregion
 
@@ -90,24 +88,24 @@ namespace msn2.net.Controls
 
 			// workaround for BeforeNavigate2 event not firing
 			object o = null;
-			axWebBrowser1.Navigate("about:blank", ref o, ref o, ref o, ref o);
-			object oOcx = axWebBrowser1.GetOcx();
-			axWebBrowser1.NavigateError += new AxSHDocVw.DWebBrowserEvents2_NavigateErrorEventHandler(axWebBrowser1_NavigateError);
+//			axWebBrowser1.Navigate("about:blank", ref o, ref o, ref o, ref o);
+            //object oOcx = axWebBrowser1.GetOcx();
+            //axWebBrowser1.NavigateError += new AxSHDocVw.DWebBrowserEvents2_NavigateErrorEventHandler(axWebBrowser1_NavigateError);
 
-			try
-			{
-				SHDocVw.WebBrowser_V1 axDocumentV1 = oOcx as SHDocVw.WebBrowser_V1;
-				axDocumentV1.BeforeNavigate +=
-					new SHDocVw.DWebBrowserEvents_BeforeNavigateEventHandler(this.axDocumentV1_BeforeNavigate);
-			}
-			catch (Exception ex)
-			{
-				Trace.WriteLine("BeforeNavigate2 event registration failed. " + ex.ToString());
-			}
+            //try
+            //{
+            //    SHDocVw.WebBrowser_V1 axDocumentV1 = oOcx as SHDocVw.WebBrowser_V1;
+            //    axDocumentV1.BeforeNavigate +=
+            //        new SHDocVw.DWebBrowserEvents_BeforeNavigateEventHandler(this.axDocumentV1_BeforeNavigate);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.WriteLine("BeforeNavigate2 event registration failed. " + ex.ToString());
+            //}
 
 			// Now tie in to click event
-			Document.onclick		= this;
-			Document.oncontextmenu	= this;
+            //Document.onclick		= this;
+            //Document.oncontextmenu	= this;
 			
 		}
 
@@ -126,6 +124,19 @@ namespace msn2.net.Controls
 
 		#endregion
 
+
+        public TabPage TabPage
+        {
+            get
+            {
+                return this.tabPage;
+            }
+            set
+            {
+                this.tabPage = value;
+            }
+        }
+
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify 
@@ -135,7 +146,6 @@ namespace msn2.net.Controls
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WebBrowserControl));
-			this.axWebBrowser1 = new AxSHDocVw.AxWebBrowser();
 			this.panelStatus = new System.Windows.Forms.Panel();
 			this.labelStatus = new System.Windows.Forms.Label();
 			this.timerShowStatus = new System.Windows.Forms.Timer(this.components);
@@ -148,20 +158,8 @@ namespace msn2.net.Controls
 			this.menuItemCopyUrl = new System.Windows.Forms.MenuItem();
 			this.menuItemSaveTo = new System.Windows.Forms.MenuItem();
 			this.timerShowContextMenu = new System.Windows.Forms.Timer(this.components);
-			((System.ComponentModel.ISupportInitialize)(this.axWebBrowser1)).BeginInit();
 			this.panelStatus.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// axWebBrowser1
-			// 
-			this.axWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.axWebBrowser1.Enabled = true;
-			this.axWebBrowser1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWebBrowser1.OcxState")));
-			this.axWebBrowser1.Size = new System.Drawing.Size(304, 288);
-			this.axWebBrowser1.TabIndex = 0;
-			this.axWebBrowser1.TitleChange += new AxSHDocVw.DWebBrowserEvents2_TitleChangeEventHandler(this.axWebBrowser1_TitleChange);
-			this.axWebBrowser1.NavigateComplete2 += new AxSHDocVw.DWebBrowserEvents2_NavigateComplete2EventHandler(this.axWebBrowser1_NavigateComplete2);
-			this.axWebBrowser1.NewWindow2 += new AxSHDocVw.DWebBrowserEvents2_NewWindow2EventHandler(this.axWebBrowser1_NewWindow2);
 			// 
 			// panelStatus
 			// 
@@ -251,11 +249,9 @@ namespace msn2.net.Controls
 			// WebBrowserControl
 			// 
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.panelStatus,
-																		  this.axWebBrowser1});
+																		  this.panelStatus});
 			this.Name = "WebBrowserControl";
 			this.Size = new System.Drawing.Size(304, 288);
-			((System.ComponentModel.ISupportInitialize)(this.axWebBrowser1)).EndInit();
 			this.panelStatus.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -264,97 +260,92 @@ namespace msn2.net.Controls
 
 		#region WebBrowser control events
 
-		private void axWebBrowser1_NavigateError(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateErrorEvent e)
-		{
-			Debug.WriteLine(e.uRL + ": " + e.statusCode);
-		}
+        //private void axWebBrowser1_NavigateComplete2(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateComplete2Event e)
+        //{
+        //    navigating					= false;
+        //    timerShowStatus.Enabled		= false;
+        //    panelStatus.Visible			= false;
+        //    clickHandled				= false;
 
-		private void axWebBrowser1_NavigateComplete2(object sender, AxSHDocVw.DWebBrowserEvents2_NavigateComplete2Event e)
-		{
-			navigating					= false;
-			timerShowStatus.Enabled		= false;
-			panelStatus.Visible			= false;
-			clickHandled				= false;
+        //    this.url = axWebBrowser1.LocationURL.ToString();
 
-			this.url = axWebBrowser1.LocationURL.ToString();
-
-			if (NavigateComplete != null)
-				NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
+        //    if (NavigateComplete != null)
+        //        NavigateComplete(this, new NavigateCompleteEventArgs(e.uRL.ToString()));
 		
-			// Enable refresh timer if we have one
-			if (refreshTimer != null)
-			{
-				refreshTimer.Enabled = true;
-			}
+        //    // Enable refresh timer if we have one
+        //    if (refreshTimer != null)
+        //    {
+        //        refreshTimer.Enabled = true;
+        //    }
 			
-			// Now tie in to click event
-			Document.onclick		= this;
-			Document.oncontextmenu	= this;
+        //    // Now tie in to click event
+        //    Document.onclick		= this;
+        //    Document.oncontextmenu	= this;
 
-			// TODO: Save to history
-		}
+        //    // TODO: Save to history
+        //}
 
-		private void axWebBrowser1_TitleChange(object sender, AxSHDocVw.DWebBrowserEvents2_TitleChangeEvent e)
-		{
-			Document.onclick = this;
-			Document.oncontextmenu = this;
+        //private void axWebBrowser1_TitleChange(object sender, AxSHDocVw.DWebBrowserEvents2_TitleChangeEvent e)
+        //{
+        //    Document.onclick = this;
+        //    Document.oncontextmenu = this;
 
-			if (TitleChange != null)
-				TitleChange(this, new TitleChangeEventArgs(e.text));
-		}
+        //    if (TitleChange != null)
+        //        TitleChange(this, new TitleChangeEventArgs(e.text));
+        //}
 
 		public event BeforeNavigateDelegate BeforeNavigateEvent;
 
-		private void axDocumentV1_BeforeNavigate(string url, int flags, string targetFrameName, 
-			ref object postData, string headers, ref bool processed)
-		{
+//        private void axDocumentV1_BeforeNavigate(string url, int flags, string targetFrameName, 
+//            ref object postData, string headers, ref bool processed)
+//        {
 
-			// If we are simply navigating in the current window, just set timer to show status
-			if (!isPopup)
-			{
-				timerShowStatus.Enabled = true;
-				navigating = true;
+//            // If we are simply navigating in the current window, just set timer to show status
+//            if (!isPopup)
+//            {
+//                timerShowStatus.Enabled = true;
+//                navigating = true;
 
-				this.Visible = true;
-				return;
-			}
+//                this.Visible = true;
+//                return;
+//            }
 
-			if (MessageBox.Show(this, "Open popup to " + url + "?", "Popup Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-			{
-				processed = true;
-				return;
-			}
+//            if (MessageBox.Show(this, "Open popup to " + url + "?", "Popup Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+//            {
+//                processed = true;
+//                return;
+//            }
 
-			this.Parent.Show();
-		}
+//            this.Parent.Show();
+//        }
 
-		private void axWebBrowser1_NewWindow2(object sender, AxSHDocVw.DWebBrowserEvents2_NewWindow2Event e)
-		{
-			if (!clickHandled)
-			{
-				if (this.defaultClickBehavior == DefaultClickBehavior.OpenInNewTab)
-				{
-					e.cancel = true;
-				}
-				else
-				{
-					e.cancel = true;
-					Debug.WriteLine("Cancelled dialog pop.");
-//					WebBrowser b = new WebBrowser("Popup", true);
-//					e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
-//					b.Show();
-				}
-			}
-			else
-			{
-				e.cancel = true;
-			}
+//        private void axWebBrowser1_NewWindow2(object sender, AxSHDocVw.DWebBrowserEvents2_NewWindow2Event e)
+//        {
+//            if (!clickHandled)
+//            {
+//                if (this.defaultClickBehavior == DefaultClickBehavior.OpenInNewTab)
+//                {
+//                    e.cancel = true;
+//                }
+//                else
+//                {
+//                    e.cancel = true;
+//                    Debug.WriteLine("Cancelled dialog pop.");
+////					WebBrowser b = new WebBrowser("Popup", true);
+////					e.ppDisp = b.webBrowserControl1.axWebBrowser1.GetOcx();
+////					b.Show();
+//                }
+//            }
+//            else
+//            {
+//                e.cancel = true;
+//            }
 
-			if (enableOpenInNewWindow)
-			{
-				e.cancel = false;
-			}
-		}
+//            if (enableOpenInNewWindow)
+//            {
+//                e.cancel = false;
+//            }
+//        }
 
 		#endregion
 
@@ -382,27 +373,27 @@ namespace msn2.net.Controls
 				throw new ApplicationException("Navigate canceled before first navigate");
 			}
 						
-			object obj1 = 0; object obj2 = ""; object obj3 = ""; object obj4 = "";
-			axWebBrowser1.Navigate(args.Url, ref obj1, ref obj2, ref obj3, ref obj4);
+            //object obj1 = 0; object obj2 = ""; object obj3 = ""; object obj4 = "";
+            //axWebBrowser1.Navigate(args.Url, ref obj1, ref obj2, ref obj3, ref obj4);
 		}
 
 		public void RefreshPage()
 		{
-			object level = 3;
-			axWebBrowser1.Refresh2(ref level);
+            //object level = 3;
+            //axWebBrowser1.Refresh2(ref level);
 		}
 
 		public void Back()
 		{
-			try
-			{
-				axWebBrowser1.GoBack();
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-				Debug.WriteLine(ex.StackTrace);
-			}
+            //try
+            //{
+            //    axWebBrowser1.GoBack();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine(ex.Message);
+            //    Debug.WriteLine(ex.StackTrace);
+            //}
 		}
 		#endregion
 
@@ -411,34 +402,6 @@ namespace msn2.net.Controls
 		{
 			get { return isPopup; }
 			set { isPopup = value; }
-		}
-
-		public HTMLDocumentClass Document
-		{
-			get 
-			{
-				return (HTMLDocumentClass) axWebBrowser1.Document;
-			}
-		}
-
-		public HTMLBodyClass Body
-		{
-			get 
-			{
-				return (HTMLBodyClass) Document.body;
-			}
-		}
-
-		public Crownwood.Magic.Controls.TabPage TabPage
-		{
-			get 
-			{ 
-				return tabPage;
-			}
-			set 
-			{ 
-				tabPage = value;
-			}
 		}
 
 		public string Url
@@ -460,118 +423,118 @@ namespace msn2.net.Controls
 		[DispId(0)]
 		public void DefaultMethod()
 		{
-			try
-			{
-				clickHandled = false;
+            //try
+            //{
+            //    clickHandled = false;
 
-				HTMLWindow2Class win = (HTMLWindow2Class) Document.parentWindow;
-				Debug.WriteLine("Object: " + win.@event.srcElement + ", Type: " + win.@event.type);
+            //    HTMLWindow2Class win = (HTMLWindow2Class) Document.parentWindow;
+            //    Debug.WriteLine("Object: " + win.@event.srcElement + ", Type: " + win.@event.type);
 
-				HTMLAnchorElementClass anchor = null;
+            //    HTMLAnchorElementClass anchor = null;
 			
-				// Handle right click and click
-				if (win.@event.type == "contextmenu" || win.@event.type == "click")
-				{
-					// Gotta find out if we are right clicking a link
-					if (win.@event.srcElement.ToString() == "mshtml.HTMLAnchorElementClass")
-					{
-						anchor = (HTMLAnchorElementClass) win.@event.srcElement;
-						newUrl = anchor.href.Trim();
+            //    // Handle right click and click
+            //    if (win.@event.type == "contextmenu" || win.@event.type == "click")
+            //    {
+            //        // Gotta find out if we are right clicking a link
+            //        if (win.@event.srcElement.ToString() == "mshtml.HTMLAnchorElementClass")
+            //        {
+            //            anchor = (HTMLAnchorElementClass) win.@event.srcElement;
+            //            newUrl = anchor.href.Trim();
 						
-						try
-						{
-							newTitle = anchor.outerText.ToString().Trim();
-						}
-						catch (Exception)
-						{}
-					}
-					else if (win.@event.srcElement.parentElement.ToString() == "mshtml.HTMLAnchorElementClass")
-					{
-						anchor = (HTMLAnchorElementClass) win.@event.srcElement.parentElement;
-						newUrl = anchor.href.Trim();
+            //            try
+            //            {
+            //                newTitle = anchor.outerText.ToString().Trim();
+            //            }
+            //            catch (Exception)
+            //            {}
+            //        }
+            //        else if (win.@event.srcElement.parentElement.ToString() == "mshtml.HTMLAnchorElementClass")
+            //        {
+            //            anchor = (HTMLAnchorElementClass) win.@event.srcElement.parentElement;
+            //            newUrl = anchor.href.Trim();
 
-						try
-						{
-							newTitle = anchor.outerText.ToString().Trim();
-						}
-						catch (Exception)
-						{}
-					}
-					else if (win.@event.srcElement.ToString() == "mshtml.HTMLAreaElementClass")
-					{
-                        HTMLAreaElementClass area = (HTMLAreaElementClass) win.@event.srcElement;
-						newUrl = area.href.Trim();
-						if (area.alt != null)
-						{
-							newTitle = area.alt.ToString();
-						}
-						else
-						{
-							newTitle = "New Window";
-						}
-					}
-					else
-					{
-						Debug.WriteLine("Parent: " + win.@event.srcElement.parentElement.ToString());
-						// bail - we aren't in the right place
-						return;
-					}
+            //            try
+            //            {
+            //                newTitle = anchor.outerText.ToString().Trim();
+            //            }
+            //            catch (Exception)
+            //            {}
+            //        }
+            //        else if (win.@event.srcElement.ToString() == "mshtml.HTMLAreaElementClass")
+            //        {
+            //            HTMLAreaElementClass area = (HTMLAreaElementClass) win.@event.srcElement;
+            //            newUrl = area.href.Trim();
+            //            if (area.alt != null)
+            //            {
+            //                newTitle = area.alt.ToString();
+            //            }
+            //            else
+            //            {
+            //                newTitle = "New Window";
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Debug.WriteLine("Parent: " + win.@event.srcElement.parentElement.ToString());
+            //            // bail - we aren't in the right place
+            //            return;
+            //        }
 
-					// Now branch based on what the actual event was
-					switch (win.@event.type)
-					{
-						case "contextmenu":
-							timerShowContextMenu.Enabled = true;
-							x = win.@event.x;
-							y = win.@event.y;
-							break;
-						case "click":
-							DefaultClickBehavior clickBehavior = defaultClickBehavior;
+            //        // Now branch based on what the actual event was
+            //        switch (win.@event.type)
+            //        {
+            //            case "contextmenu":
+            //                timerShowContextMenu.Enabled = true;
+            //                x = win.@event.x;
+            //                y = win.@event.y;
+            //                break;
+            //            case "click":
+            //                DefaultClickBehavior clickBehavior = defaultClickBehavior;
 							
-							// call anyone to let them change click behavior
-							BeforeNavigateEventArgs args = new BeforeNavigateEventArgs(newUrl, this.defaultClickBehavior);
-							if (BeforeNavigateEvent != null)
-								BeforeNavigateEvent(this, args);
-							clickBehavior = args.ClickBehavior;
+            //                // call anyone to let them change click behavior
+            //                BeforeNavigateEventArgs args = new BeforeNavigateEventArgs(newUrl, this.defaultClickBehavior);
+            //                if (BeforeNavigateEvent != null)
+            //                    BeforeNavigateEvent(this, args);
+            //                clickBehavior = args.ClickBehavior;
 
-							if (!args.Cancel)
-							{
-								// We will, by default, handle this click
-								clickHandled = true;
+            //                if (!args.Cancel)
+            //                {
+            //                    // We will, by default, handle this click
+            //                    clickHandled = true;
 
-								// See what the default 'click' action is
-								switch (clickBehavior)
-								{
-									case DefaultClickBehavior.OpenLink:
-										Navigate(args.Url);
-										break;
-									case DefaultClickBehavior.OpenInNewTab:
-										if (OpenNewTabEvent != null)
-											OpenNewTabEvent(this, new NavigateEventArgs(newTitle, args.Url));
-										break;
-									case DefaultClickBehavior.OpenInNewWindow:
-										WebBrowser b = new WebBrowser(newTitle, args.Url);
-										b.Show();		
-										break;
-									default:
-										clickHandled = false;
-										break;
-								}
-							}
-							break;
-					}
-					//contextMenu1.Show(this.axWebBrowser1, new Point(win.@event.x, win.@event.y));
+            //                    // See what the default 'click' action is
+            //                    switch (clickBehavior)
+            //                    {
+            //                        case DefaultClickBehavior.OpenLink:
+            //                            Navigate(args.Url);
+            //                            break;
+            //                        case DefaultClickBehavior.OpenInNewTab:
+            //                            if (OpenNewTabEvent != null)
+            //                                OpenNewTabEvent(this, new NavigateEventArgs(newTitle, args.Url));
+            //                            break;
+            //                        case DefaultClickBehavior.OpenInNewWindow:
+            //                            WebBrowser b = new WebBrowser(newTitle, args.Url);
+            //                            b.Show();		
+            //                            break;
+            //                        default:
+            //                            clickHandled = false;
+            //                            break;
+            //                    }
+            //                }
+            //                break;
+            //        }
+            //        //contextMenu1.Show(this.axWebBrowser1, new Point(win.@event.x, win.@event.y));
 
-					win.@event.returnValue	= false;
-					win.@event.cancelBubble	= true;
+            //        win.@event.returnValue	= false;
+            //        win.@event.cancelBubble	= true;
 
-				} 
+            //    } 
 
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
 
 		}
 
@@ -597,15 +560,15 @@ namespace msn2.net.Controls
 		{
 			if (navigating)
 			{
-				// Check if we have a doc - if so, check if it is loaded
-				if (Document != null)
-				{
-					if (Document.readyState.ToString() == "complete")
-					{
-						timerShowStatus.Enabled = false;
-						return;
-					}
-				}
+                //// Check if we have a doc - if so, check if it is loaded
+                //if (Document != null)
+                //{
+                //    if (Document.readyState.ToString() == "complete")
+                //    {
+                //        timerShowStatus.Enabled = false;
+                //        return;
+                //    }
+                //}
 
 				// We are still loading something
 				ShowStatus("loading...");

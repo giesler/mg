@@ -38,6 +38,7 @@
             this.toolPeople = new System.Windows.Forms.ToolStripButton();
             this.toolAddToCategory = new System.Windows.Forms.ToolStripButton();
             this.toolGroups = new System.Windows.Forms.ToolStripButton();
+            this.toolCategories = new System.Windows.Forms.ToolStripButton();
             this.toolStip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             this.toolStripSeparator2,
             this.toolProperties,
             this.toolPeople,
+            this.toolCategories,
             this.toolAddToCategory,
             this.toolGroups});
             this.toolStip.Location = new System.Drawing.Point(0, 0);
@@ -113,6 +115,7 @@
             this.toolAddToCategory.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolAddToCategory.Name = "toolAddToCategory";
             this.toolAddToCategory.Text = "Add to category...";
+            this.toolAddToCategory.Visible = false;
             this.toolAddToCategory.Click += new System.EventHandler(this.toolAddToCategory_Click);
             // 
             // toolGroups
@@ -122,6 +125,14 @@
             this.toolGroups.Name = "toolGroups";
             this.toolGroups.Text = "Shared With";
             this.toolGroups.Click += new System.EventHandler(this.toolGroups_Click);
+            // 
+            // toolCategories
+            // 
+            this.toolCategories.Image = ((System.Drawing.Image)(resources.GetObject("toolCategories.Image")));
+            this.toolCategories.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolCategories.Name = "toolCategories";
+            this.toolCategories.Text = "Categories";
+            this.toolCategories.Click += new System.EventHandler(this.toolCategories_Click);
             // 
             // Slideshow
             // 
@@ -152,6 +163,7 @@
         protected System.Windows.Forms.ToolStripButton toolPeople;
         protected System.Windows.Forms.ToolStripButton toolAddToCategory;
         protected System.Windows.Forms.ToolStripButton toolGroups;
+        private System.Windows.Forms.ToolStripButton toolCategories;
 
     }
 }

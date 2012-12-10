@@ -17,10 +17,9 @@ namespace msn2.net.Controls
 
 		public msn2.net.Controls.WebBrowserControl webBrowserControl1;
 		private System.ComponentModel.IContainer components = null;
-		private Crownwood.Magic.Controls.TabControl tabControl;
+		private TabControl tabControl;
 		private int defaultWidth = 800;
 		private int defaultHeight = 700;
-		protected Crownwood.Magic.Docking.DockingManager dockManager = null;
 		protected TitleBarControl [] buttons = null;
 
 		#endregion
@@ -38,14 +37,14 @@ namespace msn2.net.Controls
 				if (Data.ConfigData.GetType().IsSubclassOf(typeof(CustomWebSearchConfigData)))
 				{
 					CustomWebSearchConfigData searchData = (CustomWebSearchConfigData) data.ConfigData;
-					Crownwood.Magic.Controls.TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
+					TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
 					searchData.Run(page);					
 				}
 				else if (Data.ConfigData.GetType().IsSubclassOf(typeof(SearchConfigData)))
 				{
 					SearchConfigData searchData = (SearchConfigData) data.ConfigData;
                     
-					Crownwood.Magic.Controls.TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
+					TabPage page = AddNewTab(Data.Text, searchData.DefaultClickBehavior);
 					
 					searchData.Run(page);					
 				}
@@ -115,16 +114,9 @@ namespace msn2.net.Controls
 
 		private void InternalConstructor(string title)
 		{
-			dockManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
-			
 			// Create tabbed window with browsers
-			tabControl = new Crownwood.Magic.Controls.TabControl();
+			tabControl = new TabControl();
 			tabControl.Dock = DockStyle.Fill;
-			tabControl.ShowClose		= true;
-			tabControl.ShowArrows		= true;
-			tabControl.PositionTop		= true;
-			tabControl.ClosePressed		+= new EventHandler(ClosePressed);
-			tabControl.HideTabsUsingLogic = true;
 			this.Controls.Add(tabControl);
 
 			tabControl.Visible = true;
@@ -156,7 +148,7 @@ namespace msn2.net.Controls
 		}
 
 		#region AddNewTab methods
-		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
+		public TabPage AddNewTab(string title, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
 		{
 			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
 
@@ -164,30 +156,33 @@ namespace msn2.net.Controls
 			browser.NavigateComplete	+= new NavigateCompleteDelegate(webBrowserControl_NavigateComplete);
 			browser.OpenNewTabEvent += new OpenNewTabDelegate(OpenNewTab);
 			browser.ShowStatus("searching...");
+            browser.Dock = DockStyle.Fill;
 
 			// Add new tab
-			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
+			TabPage page = new TabPage(title);
+            page.Controls.Add(browser);
 			browser.TabPage = page;
 			tabControl.TabPages.Add(page);
 
 			return page;
 		}
 
-		public Crownwood.Magic.Controls.TabPage AddNewTab(ShellForm form)
+		public TabPage AddNewTab(ShellForm form)
 		{
-			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(form.Text, form);
-			form.TabPage = page;
+			TabPage page = new TabPage(form.Text);
+            form.Dock = DockStyle.Fill;
+            page.Controls.Add(form);
 			tabControl.TabPages.Add(page);
 
 			return page;
 		}
 
-		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, string url)
+		public TabPage AddNewTab(string title, string url)
 		{
 			return AddNewTab(title, url, WebBrowserControl.DefaultClickBehavior.OpenLink);
 		}
 
-		public Crownwood.Magic.Controls.TabPage AddNewTab(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
+		public TabPage AddNewTab(string title, string url, WebBrowserControl.DefaultClickBehavior defaultClickBehavior)
 		{
 			msn2.net.Controls.WebBrowserControl browser = new msn2.net.Controls.WebBrowserControl(defaultClickBehavior);
 
@@ -197,8 +192,9 @@ namespace msn2.net.Controls
 			browser.Navigate(url);
 
 			// Add new tab
-			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
-			browser.TabPage = page;
+			TabPage page = new TabPage(title);
+            browser.Dock = DockStyle.Fill;
+            page.Controls.Add(browser);
 			tabControl.TabPages.Add(page);
 
 			return page;
@@ -220,26 +216,13 @@ namespace msn2.net.Controls
 			browser.Navigate(url);
 
 			// Add new tab
-			Crownwood.Magic.Controls.TabPage page = new Crownwood.Magic.Controls.TabPage(title, browser);
-			browser.TabPage = page;
-			tabControl.TabPages.Add(page);
+			TabPage page = new TabPage(title);
+            browser.Dock = DockStyle.Fill;
+            page.Controls.Add(browser);
+            tabControl.TabPages.Add(page);
 		}
 
 		#endregion
-		public void ClosePressed(object sender, System.EventArgs e)
-		{
-			Crownwood.Magic.Controls.TabControl tabControl = (Crownwood.Magic.Controls.TabControl) sender;
-
-			// Remove the reference to the TabPage on the browser object
-			WebBrowserControl browser = (WebBrowserControl) tabControl.SelectedTab.Control;
-			if (browser != null)
-			{
-				browser.TabPage = null;
-			}
-
-			tabControl.TabPages.Remove(tabControl.SelectedTab);
-
-		}
 
 		public void OpenNewTab(object sender, NavigateEventArgs e)
 		{
@@ -311,8 +294,8 @@ namespace msn2.net.Controls
 				return;
 
 			// Get the current page
-			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 
 			if (browser != null)
 			{
@@ -326,8 +309,8 @@ namespace msn2.net.Controls
 				return;
 
 			// Get the current page
-			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 
 			if (browser != null)
 			{
@@ -336,7 +319,7 @@ namespace msn2.net.Controls
 				
 				if (shellSave.ShowShellDialog(this) == DialogResult.OK)
 				{
-					shellSave.Data.Get(page.Title, browser.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
+					shellSave.Data.Get(page.Text, browser.Url, new FavoriteConfigData(), typeof(FavoriteConfigData));
 				}
 				shellSave.Dispose();
 			}
@@ -348,8 +331,8 @@ namespace msn2.net.Controls
 				return;
 
 			// Get the current page
-			Crownwood.Magic.Controls.TabPage page = tabControl.SelectedTab;
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			TabPage page = tabControl.SelectedTab;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 
 			if (browser != null)
 			{
@@ -365,51 +348,12 @@ namespace msn2.net.Controls
 			WebBrowserControl browser = (WebBrowserControl) sender;
 
 			if (browser.TabPage != null)
-				browser.TabPage.Title = e.Title;
+				browser.TabPage.Text = e.Title;
 		}
 
 		private void webBrowserControl_NavigateComplete(object sender, NavigateCompleteEventArgs e)
 		{
 			
-		}
-
-		#endregion
-		#region Properties
-
-		public bool ShowClose
-		{
-			get
-			{
-				return tabControl.ShowClose;
-			}
-			set
-			{
-				tabControl.ShowClose = value;
-			}
-		}
-
-		public bool ShowArrows
-		{
-			get
-			{
-				return tabControl.ShowArrows;
-			}
-			set
-			{
-				tabControl.ShowArrows = value;
-			}
-		}
-
-		public Crownwood.Magic.Controls.TabControl.VisualAppearance TabAppearance
-		{
-			get
-			{
-				return tabControl.Appearance;
-			}
-			set
-			{
-				tabControl.Appearance = value;
-			}
 		}
 
 		#endregion

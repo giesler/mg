@@ -410,17 +410,17 @@ namespace msn2.net.Configuration
 			}
 
 			// Load from service
-			DataSetDataItem ds = dataService.Get(this.id, this.userId, name, url, serializedData, itemType, itemKey);
+			//DataSetDataItem ds = dataService.Get(this.id, this.userId, name, url, serializedData, itemType, itemKey);
 
 			// Check for results
-			if (ds.DataItem.Rows.Count > 0)
-			{
-				Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type, storageUrl);
-				node.configData	= data;
-				node.dataType	= type;
-				return node;
-			}
-			else
+            //if (ds.DataItem.Rows.Count > 0)
+            //{
+            //    Data node = new Data((DataSetDataItem.DataItemRow) ds.DataItem.Rows[0], type, storageUrl);
+            //    node.configData	= data;
+            //    node.dataType	= type;
+            //    return node;
+            //}
+            //else
 			{
 				return null;
 			}

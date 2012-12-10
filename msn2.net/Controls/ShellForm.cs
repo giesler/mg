@@ -110,8 +110,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Button buttonOnTop;
 		private System.Windows.Forms.Button buttonHide;
 		private System.Windows.Forms.Panel panelTitle;
-		
-		private Crownwood.Magic.Controls.TabPage tabPage = null;
+        private TabPage tabPage = null;
 		
 		#endregion
 		#region Constructor and Disposal
@@ -479,7 +478,7 @@ namespace msn2.net.Controls
 			}		
 
 			// Hide the borders if we are in a tabpage
-			if (this.tabPage != null)
+			if (this.Parent != null)
 			{
 				this.panelTitle.Visible		= false;
 				this.panelLeft.Visible		= false;
@@ -500,22 +499,6 @@ namespace msn2.net.Controls
 
 		#endregion
 		#region Properties
-
-		public Crownwood.Magic.Controls.TabPage TabPage
-		{
-			get
-			{
-				return tabPage;
-			}
-			set
-			{
-				tabPage = value;
-
-				// Add and remove from shellform collection
-				ShellForm.RemoveInstance(this);
-				ShellForm.AddInstance(this);
-			}
-		}
 
 		public bool AllowUnload
 		{
@@ -679,6 +662,18 @@ namespace msn2.net.Controls
 		{
 			get { return this.Location; }
 		}
+
+        public TabPage TabPage
+        {
+            get
+            {
+                return this.tabPage;
+            }
+            set
+            {
+                this.tabPage = value;
+            }
+        }
 
 		#endregion
 		#region Form Moving code

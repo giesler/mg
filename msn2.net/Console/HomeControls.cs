@@ -3,6 +3,7 @@ using msn2.net.Common;
 using msn2.net.Configuration;
 using msn2.net.Controls;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace msn2.net.home
 {
@@ -20,10 +21,10 @@ namespace msn2.net.home
 		{
 			string baseUrl = "http://home/_vti_bin/owssvr.dll?Using=Lists%2fEvents%2fShellFormView%2ehtm";
 
-			Crownwood.Magic.Controls.TabPage page = base.AddNewTab("Calander", baseUrl, msn2.net.Controls.WebBrowserControl.DefaultClickBehavior.OpenLink);
+			TabPage page = base.AddNewTab("Calander", baseUrl, msn2.net.Controls.WebBrowserControl.DefaultClickBehavior.OpenLink);
 
 			// Hook into navigate event
-			WebBrowserControl browser = (WebBrowserControl) page.Control;
+			WebBrowserControl browser = (WebBrowserControl) page.Controls[0];
 			browser.BeforeNavigateEvent += new BeforeNavigateDelegate(OnBeforeNavigate);
 
 			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();

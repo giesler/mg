@@ -28,8 +28,7 @@ namespace msn2.net.Controls
 		private System.Windows.Forms.Splitter splitter1;
 		private msn2.net.Controls.ShellListView shellListView1;
 		private msn2.net.Controls.CategoryTreeView treeViewCategory;
-		//	private Crownwood.Magic.Docking.DockingManager dockingManager = null;
-
+		
 		#endregion
 
 		#region Constructor
@@ -60,40 +59,40 @@ namespace msn2.net.Controls
 
 			Data rootNode = data.Get("msn2.net");
 
-			#region Messenger Groups
+            //#region Messenger Groups
 
-			if (ConfigurationSettings.Current.Messenger != null)
-			{
-				// Make sure there are children for each Messenger Group
-				MessengerAPI.IMessengerGroups groups	= 
-					(MessengerAPI.IMessengerGroups) ConfigurationSettings.Current.Messenger.MyGroups;
-				DataCollection dataCollection			= rootNode.GetChildren(typeof(MessengerGroupData));
-				foreach (MessengerAPI.IMessengerGroup group in groups)
-				{
-					if (!dataCollection.Contains(group.Name))
-					{
-						dataCollection.Add(rootNode.Get(group.Name, typeof(MessengerGroupData)));
-					}
+            //if (ConfigurationSettings.Current.Messenger != null)
+            //{
+            //    // Make sure there are children for each Messenger Group
+            //    MessengerAPI.IMessengerGroups groups	= 
+            //        (MessengerAPI.IMessengerGroups) ConfigurationSettings.Current.Messenger.MyGroups;
+            //    DataCollection dataCollection			= rootNode.GetChildren(typeof(MessengerGroupData));
+            //    foreach (MessengerAPI.IMessengerGroup group in groups)
+            //    {
+            //        if (!dataCollection.Contains(group.Name))
+            //        {
+            //            dataCollection.Add(rootNode.Get(group.Name, typeof(MessengerGroupData)));
+            //        }
 
-					Data currentGroupData = dataCollection[group.Name];
-					DataCollection currentContacts = currentGroupData.GetChildren(typeof(MessengerContactData));
+            //        Data currentGroupData = dataCollection[group.Name];
+            //        DataCollection currentContacts = currentGroupData.GetChildren(typeof(MessengerContactData));
 
-					// Make sure all users in group are correctly listed
-					// Make sure contact list is correct
-					foreach (MessengerAPI.IMessengerContact contact in (MessengerAPI.IMessengerContacts) group.Contacts)
-					{
-						if (!currentContacts.Contains(contact.SigninName) && contact.SigninName != ConfigurationSettings.Current.MySigninName)
-						{
-							MessengerContactData contactData = 
-								new MessengerContactData(
-								ConfigurationSettings.Current.GetSigninId(contact.SigninName));
-							currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
-						}
-					}
-				}
-			}
+            //        // Make sure all users in group are correctly listed
+            //        // Make sure contact list is correct
+            //        foreach (MessengerAPI.IMessengerContact contact in (MessengerAPI.IMessengerContacts) group.Contacts)
+            //        {
+            //            if (!currentContacts.Contains(contact.SigninName) && contact.SigninName != ConfigurationSettings.Current.MySigninName)
+            //            {
+            //                MessengerContactData contactData = 
+            //                    new MessengerContactData(
+            //                    ConfigurationSettings.Current.GetSigninId(contact.SigninName));
+            //                currentGroupData.Get(contact.SigninName, contactData, typeof(MessengerContactData));
+            //            }
+            //        }
+            //    }
+            //}
 
-			#endregion
+            //#endregion
 
 			treeViewCategory.RootData			= rootNode;
 
@@ -109,16 +108,6 @@ namespace msn2.net.Controls
 
 			treeViewCategory.ParentShellForm	= this;
 			shellListView1.ParentShellForm		= this;
-
-			
-			//			dockingManager = new Crownwood.Magic.Docking.DockingManager(this, Crownwood.Magic.Common.VisualStyle.IDE);
-
-			//			Crownwood.Magic.Docking.Content content;
-			
-			//			content = new Crownwood.Magic.Docking.Content(dockingManager, treeViewCategory, "Location");
-			//			dockingManager.AddContentWithState(content, Crownwood.Magic.Docking.State.DockLeft);
-			//			content.DisplaySize = new Size(200, 200);
-			//			dockingManager.ShowContent(content);
 
 			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
 			System.Drawing.Icon icon = new System.Drawing.Icon(assembly.GetManifestResourceStream("msn2.net.Controls.Icons.Favorites.ico"));

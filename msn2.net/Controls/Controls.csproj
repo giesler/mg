@@ -1,590 +1,358 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Local"
-        ProductVersion = "7.10.3052"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
-        SccProjectName = "SAK"
-        SccLocalPath = "SAK"
-        SccAuxPath = "SAK"
-        SccProvider = "SAK"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "msn2.net.Controls"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "msn2.net.Controls"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "true"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\Debug\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\Release\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "System.Windows.Forms"
-                    AssemblyName = "System.Windows.Forms"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Windows.Forms.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
-                />
-                <Reference
-                    Name = "SHDocVw"
-                    Guid = "{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}"
-                    VersionMajor = "1"
-                    VersionMinor = "1"
-                    Lcid = "0"
-                    WrapperTool = "tlbimp"
-                />
-                <Reference
-                    Name = "AxSHDocVw"
-                    Guid = "{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}"
-                    VersionMajor = "1"
-                    VersionMinor = "1"
-                    Lcid = "0"
-                    WrapperTool = "aximp"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
-                />
-                <Reference
-                    Name = "System.Web.Services"
-                    AssemblyName = "System.Web.Services"
-                    HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
-                />
-                <Reference
-                    Name = "Configuration"
-                    Project = "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Common"
-                    Project = "{A267194C-A021-4267-A491-AD3919394F9A}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Microsoft.mshtml"
-                    AssemblyName = "Microsoft.mshtml"
-                    HintPath = "..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll"
-                />
-                <Reference
-                    Name = "MessengerAPI"
-                    Guid = "{E02AD29E-80F5-46C6-B416-9B3EBDDF057E}"
-                    VersionMajor = "1"
-                    VersionMinor = "0"
-                    Lcid = "0"
-                    WrapperTool = "tlbimp"
-                />
-                <Reference
-                    Name = "MagicLibrary"
-                    Project = "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CategoryBrowser.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CategoryBrowser.resx"
-                    DependentUpon = "CategoryBrowser.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "CategoryTreeView.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CategoryTreeView.resx"
-                    DependentUpon = "CategoryTreeView.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "CommonCode.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CommonCode.resx"
-                    DependentUpon = "CommonCode.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ComputerInfo.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ComputerInfo.resx"
-                    DependentUpon = "ComputerInfo.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "favicon.ico"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "FavoriteEdit.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "FavoriteEdit.resx"
-                    DependentUpon = "FavoriteEdit.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "FavoriteIcon.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Favorites.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Favorites.resx"
-                    DependentUpon = "Favorites.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "GoogleSearchService.cs"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Graph.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Graph.resx"
-                    DependentUpon = "Graph.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "InputPrompt.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "InputPrompt.resx"
-                    DependentUpon = "InputPrompt.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Label.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Label.resx"
-                    DependentUpon = "Label.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "MiniBrowser.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "MiniBrowser.resx"
-                    DependentUpon = "MiniBrowser.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Notes.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Notes.resx"
-                    DependentUpon = "Notes.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ProgressBar.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ProgressBar.resx"
-                    DependentUpon = "ProgressBar.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RandomPicture.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RandomPicture.resx"
-                    DependentUpon = "RandomPicture.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RDC.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RDC.resx"
-                    DependentUpon = "RDC.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Recipe.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Recipe.resx"
-                    DependentUpon = "Recipe.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ResultsControl.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ResultsControl.af.resx"
-                    DependentUpon = "ResultsControl.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ResultsControl.resx"
-                    DependentUpon = "ResultsControl.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "SaveLocation.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SaveLocation.resx"
-                    DependentUpon = "SaveLocation.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellButton.cs"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellButton.resx"
-                    DependentUpon = "ShellButton.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellForm.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellForm.resx"
-                    DependentUpon = "ShellForm.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellLabel.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellLabel.resx"
-                    DependentUpon = "ShellLabel.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellLaunch.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellLaunch.resx"
-                    DependentUpon = "ShellLaunch.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellListView.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellListView.resx"
-                    DependentUpon = "ShellListView.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellQuestion.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellQuestion.resx"
-                    DependentUpon = "ShellQuestion.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "ShellSave.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ShellSave.resx"
-                    DependentUpon = "ShellSave.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Status.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Status.resx"
-                    DependentUpon = "Status.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "TitleBarControl.cs"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebBrowser.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebBrowser.resx"
-                    DependentUpon = "WebBrowser.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "WebBrowserControl.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebBrowserControl.resx"
-                    DependentUpon = "WebBrowserControl.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "WebBrowserForm.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebBrowserForm.resx"
-                    DependentUpon = "WebBrowserForm.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "WebSearch.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WebSearch.resx"
-                    DependentUpon = "WebSearch.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "XmlEditor.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "XmlEditor.resx"
-                    DependentUpon = "XmlEditor.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Calander\Day.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Calander\Day.resx"
-                    DependentUpon = "Day.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\allrecipes.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\Favorite.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\Favorites.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\go.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\Google.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\MSDN.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\ShellLaunch.ico"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Icons\TopMost-false.ico"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Icons\TopMost-true.ico"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Icons\WebSearch.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Icons\Yahoo.ico"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Shell\UserControl.cs"
-                    SubType = "UserControl"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Shell\UserControl.resx"
-                    DependentUpon = "UserControl.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Web References\pics\DataSetPicture.xsd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Web References\pics\DataSetPicture.xsx"
-                    DependentUpon = "DataSetPicture.xsd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Web References\pics\RandomPictureService.disco"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Web References\pics\RandomPictureService.wsdl"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Web References\pics\Reference.map"
-                    BuildAction = "None"
-                    Generator = "MSDiscoCodeGenerator"
-                    LastGenOutput = "Reference.cs"
-                />
-                <File
-                    RelPath = "Web References\pics\Reference.cs"
-                    DependentUpon = "Reference.map"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <Folder
-                    RelPath = "Web References\pics\"
-                    WebReferenceUrl = "http://pics/RandomPictureService.asmx?op=RandomImageData"
-                    UrlBehavior = "Static"
-                />
-                <Folder
-                    RelPath = "Web References\"
-                    WebReferences = "TRUE"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50215</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{270EC567-4AB7-49F1-9466-D1BA35F704FD}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>msn2.net.Controls</AssemblyName>
+    <AssemblyOriginatorKeyFile>PictureAdmin.snk</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>msn2.net.Controls</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <WebReference_EnableProperties>true</WebReference_EnableProperties>
+    <WebReference_EnableSQLTypes>false</WebReference_EnableSQLTypes>
+    <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Calander\Day.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CategoryBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoryTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonCode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComputerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FavoriteEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Favorites.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoogleSearchService.cs">
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="Graph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InputPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Label.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MiniBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Notes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RandomPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResultsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SaveLocation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Shell\UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShellButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ShellForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShellLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShellLaunch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShellListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShellQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShellSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TitleBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Web References\pics\Reference.cs">
+      <DependentUpon>Reference.map</DependentUpon>
+      <SubType>code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="WebBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebBrowserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XmlEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="Calander\Day.resx">
+      <DependentUpon>Day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryBrowser.resx">
+      <DependentUpon>CategoryBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoryTreeView.resx">
+      <DependentUpon>CategoryTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonCode.resx">
+      <DependentUpon>CommonCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComputerInfo.resx">
+      <DependentUpon>ComputerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FavoriteEdit.resx">
+      <DependentUpon>FavoriteEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FavoriteIcon.ico" />
+    <EmbeddedResource Include="Favorites.resx">
+      <DependentUpon>Favorites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graph.resx">
+      <DependentUpon>Graph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons\allrecipes.ico" />
+    <EmbeddedResource Include="Icons\Favorite.ico" />
+    <EmbeddedResource Include="Icons\Favorites.ico" />
+    <EmbeddedResource Include="Icons\go.ico" />
+    <EmbeddedResource Include="Icons\Google.ico" />
+    <EmbeddedResource Include="Icons\MSDN.ico" />
+    <EmbeddedResource Include="Icons\WebSearch.ico" />
+    <EmbeddedResource Include="Icons\Yahoo.ico" />
+    <EmbeddedResource Include="InputPrompt.resx">
+      <DependentUpon>InputPrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Label.resx">
+      <DependentUpon>Label.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniBrowser.resx">
+      <DependentUpon>MiniBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notes.resx">
+      <DependentUpon>Notes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressBar.resx">
+      <DependentUpon>ProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RandomPicture.resx">
+      <DependentUpon>RandomPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDC.resx">
+      <DependentUpon>RDC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recipe.resx">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResultsControl.af.resx">
+      <DependentUpon>ResultsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResultsControl.resx">
+      <DependentUpon>ResultsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveLocation.resx">
+      <DependentUpon>SaveLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shell\UserControl.resx">
+      <DependentUpon>UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellButton.resx">
+      <DependentUpon>ShellButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellForm.resx">
+      <DependentUpon>ShellForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellLabel.resx">
+      <DependentUpon>ShellLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellLaunch.resx">
+      <DependentUpon>ShellLaunch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellListView.resx">
+      <DependentUpon>ShellListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellQuestion.resx">
+      <DependentUpon>ShellQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellSave.resx">
+      <DependentUpon>ShellSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Status.resx">
+      <DependentUpon>Status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowser.resx">
+      <DependentUpon>WebBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowserControl.resx">
+      <DependentUpon>WebBrowserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebSearch.resx">
+      <DependentUpon>WebSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlEditor.resx">
+      <DependentUpon>XmlEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="favicon.ico" />
+    <Content Include="Icons\ShellLaunch.ico" />
+    <Content Include="Icons\TopMost-false.ico" />
+    <Content Include="Icons\TopMost-true.ico" />
+    <None Include="PictureAdmin.snk" />
+    <None Include="Web References\pics\DataSetPicture.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\pics\DataSetPicture.xsd" />
+    <None Include="Web References\pics\DataSetPicture.xsx">
+      <DependentUpon>DataSetPicture.xsd</DependentUpon>
+    </None>
+    <None Include="Web References\pics\RandomPictureService.disco" />
+    <None Include="Web References\pics\RandomPictureService.wsdl" />
+    <None Include="Web References\pics\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <WebReferenceUrl Include="http://pics/RandomPictureService.asmx?op=RandomImageData">
+      <RelPath>Web References\pics\</RelPath>
+      <UrlBehavior>Static</UrlBehavior>
+    </WebReferenceUrl>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{A267194C-A021-4267-A491-AD3919394F9A}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
+      <Project>{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

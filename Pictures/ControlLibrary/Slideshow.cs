@@ -23,6 +23,7 @@ namespace msn2.net.Pictures.Controls
         private PictureProperties editor;
         private PeopleSelect peopleSelect;
         private GroupSelect groupSelect;
+        private CategorySelect categorySelect;
         private Form sourceForm = null;
         private PictureControlSettings settings;
         private bool loading = false;
@@ -87,6 +88,10 @@ namespace msn2.net.Pictures.Controls
             {
                 LoadGroups();
             }
+            if (this.categorySelect != null)
+            {
+                LoadCategories();
+            }
 
             UpdateControls();
         }
@@ -113,6 +118,19 @@ namespace msn2.net.Pictures.Controls
             foreach (PersonGroup group in groups)
             {
                 groupSelect.GroupPicker.AddSelectedGroup(group.Id);
+            }
+            this.loading = false;
+        }
+
+        private void LoadCategories()
+        {
+            List<Category> categories = PicContext.Current.PictureManager.GetPictureCategories(this.picture.Id);
+
+            this.loading = true;
+            categorySelect.CategoryPicker.ClearSelectedCategories();
+            foreach (Category category in categories)
+            {
+                categorySelect.CategoryPicker.AddSelectedCategory(category.CategoryId);
             }
             this.loading = false;
         }
@@ -160,6 +178,14 @@ namespace msn2.net.Pictures.Controls
                     this.settings.Slideshow_Group_Left = this.groupSelect.Left;
                     this.settings.Slideshow_People_Top = this.groupSelect.Top;
                     this.groupSelect.Close();
+                }
+                
+                if (this.categorySelect != null)
+                {
+                    this.settings.Slideshow_Category_IsOpen = this.categorySelect.Visible;
+                    this.settings.Slideshow_Category_Left = this.categorySelect.Left;
+                    this.settings.Slideshow_Category_Top = this.categorySelect.Top;
+                    this.categorySelect.Close();
                 }
 
                 if (this.sourceForm != null)
@@ -258,6 +284,8 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        #region People
+
         private void toolPeople_Click(object sender, EventArgs e)
         {
             if (this.peopleSelect == null)
@@ -324,6 +352,10 @@ namespace msn2.net.Pictures.Controls
             this.toolPeople.Checked = false;
             this.peopleSelect = null;
         }
+
+        #endregion
+
+        #region Groups
 
         private void toolGroups_Click(object sender, EventArgs e)
         {
@@ -392,7 +424,77 @@ namespace msn2.net.Pictures.Controls
             this.groupSelect = null;
         }
 
-        
+        #endregion
+
+        #region Categories
+
+        private void toolCategories_Click(object sender, EventArgs e)
+        {
+            if (this.categorySelect == null)
+            {
+                this.categorySelect = new CategorySelect();
+                this.categorySelect.Opacity = 0.75f;
+                this.categorySelect.Left = PictureControlSettings.GetSafeLeft(this.categorySelect, this.settings.Slideshow_Category_Left);
+                this.categorySelect.Top = PictureControlSettings.GetSafeTop(this.categorySelect, this.settings.Slideshow_Category_Top);
+                this.categorySelect.FormClosed += new FormClosedEventHandler(categorySelect_FormClosed);
+                this.categorySelect.CategoryPicker.AddedCategory += new AddedCategoryEventHandler(CategoryPicker_AddedCategory);
+                this.categorySelect.CategoryPicker.RemovedCategory += new RemovedCategoryEventHandler(CategoryPicker_RemovedCategory);
+
+                if (this.picture != null)
+                {
+                    LoadCategories();
+                }
+            }
+
+            toolCategories.Checked = !toolCategories.Checked;
+            if (toolCategories.Checked == true)
+            {
+                this.categorySelect.Show(this);
+            }
+            else
+            {
+                this.categorySelect.Hide();
+            }
+        }
+
+        void CategoryPicker_AddedCategory(object sender, CategoryPickerEventArgs e)
+        {
+            if (loading == false)
+            {
+                PicContext.Current.PictureManager.AddToCategory(
+                    this.picture.Id,
+                    e.Category.CategoryId);
+
+                if (this.editor != null)
+                {
+                    this.editor.Editor.AddCategory(e.Category);
+                }
+            }
+        }
+
+        void CategoryPicker_RemovedCategory(object sender, CategoryPickerEventArgs e)
+        {
+            if (loading == false)
+            {
+                PicContext.Current.PictureManager.RemoveFromCategory(
+                    this.picture.Id,
+                    e.Category.CategoryId);
+
+                if (this.editor != null)
+                {
+                    this.editor.Editor.RemoveCategory(e.Category);
+                }
+            }
+        }
+
+        void categorySelect_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.toolCategories.Checked = false;
+            this.categorySelect = null;
+        }
+
+        #endregion
+
     }
 
     public delegate PictureData GetNextItemIdDelegate(int currentItem);

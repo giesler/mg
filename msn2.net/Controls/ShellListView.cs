@@ -177,7 +177,6 @@ namespace msn2.net.Controls
 			this.webBrowserControl1.Name = "webBrowserControl1";
 			this.webBrowserControl1.Size = new System.Drawing.Size(150, 130);
 			this.webBrowserControl1.TabIndex = 9;
-			this.webBrowserControl1.TabPage = null;
 			this.webBrowserControl1.Url = "about:blank";
 			this.webBrowserControl1.Visible = false;
 			// 
