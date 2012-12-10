@@ -229,7 +229,31 @@ namespace pics.Auth
 
 				// Send message
 				SmtpMail.SmtpServer = pics.Config.SMTPServer;
-				SmtpMail.Send(msg);
+				try
+				{
+					SmtpMail.Send(msg);
+				}
+				catch (Exception ex)
+				{
+					Label errLabel = new Label();
+					errLabel.Text = "There was an error sending your email.  Please try again later.  If the problem continues please contact Mike.";
+					errLabel.Text += errLabel.Text + "<br /><br />Technical error details:<br />";
+					errLabel.Text += ex.Message + "<BR />";
+					Exception ex1 = ex.InnerException;
+					if (ex1 != null)
+					{
+						errLabel.Text += "(InnerException: " + ex1.Message + ")<br />";
+
+						Exception ex2 = ex1.InnerException;
+						if (ex2 != null)
+						{
+							errLabel.Text += "(InnerException2: " + ex2.Message + ")<br />";
+						}
+					}
+					errLabel.Text += "<br />Server: " + SmtpMail.SmtpServer;
+					pnlEmailFound.Controls.Add(errLabel);
+				}
+
 
 				// show correct panes for email found and message sent
 				pnlEmailLookup.Visible = false;

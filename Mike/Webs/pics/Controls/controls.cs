@@ -1665,7 +1665,7 @@ namespace pics.Controls
 		protected override void Render(HtmlTextWriter output)
 		{
 			output.Write("<object id'\"" + this.UniqueID + "\" ");
-			output.Write("classid=\"http:PicAdmin.dll#PicAdmin.EditPictureLink\" ");
+			output.Write("classid=\"http:msn2.net.Pictures.Controls.dll#msn2.net.Pictures.Controls.EditPictureLink\" ");
 			output.Write("height=\"20\" ");
 			output.Write("width=\"50\" ");
 			output.Write(">");
@@ -1715,7 +1715,7 @@ namespace pics.Controls
 		protected override void Render(HtmlTextWriter output)
 		{
 			output.WriteLine("<object id'\"" + this.UniqueID + "\" ");
-			output.WriteLine("classid=\"http:PicAdmin.dll#PicAdmin.EditCategoryLink\" ");
+			output.WriteLine("classid=\"http:msn2.net.Pictures.Controls.dll#msn2.net.Pictures.Controls.EditCategoryLink\" ");
 			output.WriteLine("height=\"15\" ");
 			output.WriteLine("width=\"50\" ");
 			output.WriteLine(">");
@@ -1750,7 +1750,7 @@ namespace pics.Controls
 		protected override void Render(HtmlTextWriter output)
 		{
 			output.Write("<object id'\"" + this.UniqueID + "\" ");
-			output.Write("classid=\"http:PicAdmin.dll#PicAdmin.OpenMainFormLink\" ");
+			output.Write("classid=\"http:msn2.net.Pictures.Controls.dll#msn2.net.Pictures.Controls.OpenMainFormLink\" ");
 			output.Write("height=\"15\" ");
 			output.Write("width=\"50\" ");
 			output.Write("></object>");
