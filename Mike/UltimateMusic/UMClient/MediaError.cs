@@ -91,7 +91,7 @@ namespace UMClient
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.description.Location = new System.Drawing.Point(136, 40);
 			this.description.Name = "description";
-			this.description.Size = new System.Drawing.Size(288, 24);
+			this.description.Size = new System.Drawing.Size(272, 24);
 			this.description.TabIndex = 2;
 			this.description.Text = "[description]";
 			// 
@@ -101,7 +101,7 @@ namespace UMClient
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.mediaFileInfo.Location = new System.Drawing.Point(136, 64);
 			this.mediaFileInfo.Name = "mediaFileInfo";
-			this.mediaFileInfo.Size = new System.Drawing.Size(288, 24);
+			this.mediaFileInfo.Size = new System.Drawing.Size(272, 24);
 			this.mediaFileInfo.TabIndex = 4;
 			this.mediaFileInfo.Text = "[media file info]";
 			// 
@@ -119,7 +119,7 @@ namespace UMClient
 				| System.Windows.Forms.AnchorStyles.Right);
 			this.filename.Location = new System.Drawing.Point(136, 88);
 			this.filename.Name = "filename";
-			this.filename.Size = new System.Drawing.Size(288, 24);
+			this.filename.Size = new System.Drawing.Size(272, 24);
 			this.filename.TabIndex = 6;
 			this.filename.Text = "[filename]";
 			// 
@@ -136,7 +136,7 @@ namespace UMClient
 			this.buttonOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.buttonOK.Location = new System.Drawing.Point(336, 120);
+			this.buttonOK.Location = new System.Drawing.Point(320, 120);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.TabIndex = 7;
 			this.buttonOK.Text = "&OK";
@@ -147,7 +147,7 @@ namespace UMClient
 			this.AcceptButton = this.buttonOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.buttonOK;
-			this.ClientSize = new System.Drawing.Size(432, 150);
+			this.ClientSize = new System.Drawing.Size(416, 158);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
 																		  this.buttonOK,
 																		  this.filename,
@@ -160,6 +160,7 @@ namespace UMClient
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "MediaError";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Error Playing Media";
 			this.Load += new System.EventHandler(this.MediaError_Load);
 			this.ResumeLayout(false);

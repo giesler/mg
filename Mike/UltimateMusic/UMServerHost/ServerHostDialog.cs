@@ -24,6 +24,9 @@ namespace UMServerHost
 	//		private HttpChannel channel = null;
 		private TcpChannel channel = null;
 
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ServerHostDialog()
 		{
 			//

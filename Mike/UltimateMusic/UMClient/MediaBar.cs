@@ -19,6 +19,7 @@ namespace UMClient
 		public System.Windows.Forms.Button buttonNext;
 		private System.Windows.Forms.Button buttonClose;
 		private bool moving = false;
+		public System.Windows.Forms.Button buttonPrevious;
 		private UMPlayer umPlayer;
 
 		public MediaBar(UMPlayer umPlayer)
@@ -64,6 +65,7 @@ namespace UMClient
 			this.buttonPause = new System.Windows.Forms.Button();
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.buttonClose = new System.Windows.Forms.Button();
+			this.buttonPrevious = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// labelNowPlaying
@@ -81,7 +83,7 @@ namespace UMClient
 			// 
 			this.buttonPlayStop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonPlayStop.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonPlayStop.Location = new System.Drawing.Point(208, 0);
+			this.buttonPlayStop.Location = new System.Drawing.Point(240, 0);
 			this.buttonPlayStop.Name = "buttonPlayStop";
 			this.buttonPlayStop.Size = new System.Drawing.Size(22, 16);
 			this.buttonPlayStop.TabIndex = 1;
@@ -92,7 +94,7 @@ namespace UMClient
 			// 
 			this.buttonPause.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonPause.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonPause.Location = new System.Drawing.Point(232, 0);
+			this.buttonPause.Location = new System.Drawing.Point(256, 0);
 			this.buttonPause.Name = "buttonPause";
 			this.buttonPause.Size = new System.Drawing.Size(20, 16);
 			this.buttonPause.TabIndex = 2;
@@ -103,7 +105,7 @@ namespace UMClient
 			// 
 			this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonNext.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonNext.Location = new System.Drawing.Point(256, 0);
+			this.buttonNext.Location = new System.Drawing.Point(272, 0);
 			this.buttonNext.Name = "buttonNext";
 			this.buttonNext.Size = new System.Drawing.Size(25, 16);
 			this.buttonNext.TabIndex = 3;
@@ -114,20 +116,32 @@ namespace UMClient
 			// 
 			this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.buttonClose.Location = new System.Drawing.Point(288, 0);
+			this.buttonClose.Location = new System.Drawing.Point(304, 0);
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.Size = new System.Drawing.Size(16, 16);
 			this.buttonClose.TabIndex = 4;
 			this.buttonClose.Text = "X";
 			this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
 			// 
+			// buttonPrevious
+			// 
+			this.buttonPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.buttonPrevious.Font = new System.Drawing.Font("Tahoma", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.buttonPrevious.Location = new System.Drawing.Point(216, 0);
+			this.buttonPrevious.Name = "buttonPrevious";
+			this.buttonPrevious.Size = new System.Drawing.Size(25, 16);
+			this.buttonPrevious.TabIndex = 5;
+			this.buttonPrevious.Text = "<<";
+			this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
+			// 
 			// MediaBar
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.BackColor = System.Drawing.Color.Black;
-			this.ClientSize = new System.Drawing.Size(304, 16);
+			this.ClientSize = new System.Drawing.Size(320, 16);
 			this.ControlBox = false;
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.buttonPrevious,
 																		  this.buttonClose,
 																		  this.buttonNext,
 																		  this.buttonPause,
@@ -173,7 +187,7 @@ namespace UMClient
 
 		private void MediaBar_Load(object sender, System.EventArgs e)
 		{
-			this.Width = 304;
+			this.Width = 325;
 			this.Height = 16;
 		}
 
@@ -200,6 +214,11 @@ namespace UMClient
 		private void buttonNext_Click(object sender, System.EventArgs e)
 		{
 			umPlayer.Next();
+		}
+
+		private void buttonPrevious_Click(object sender, System.EventArgs e)
+		{
+            umPlayer.Previous();			
 		}
 
 	}

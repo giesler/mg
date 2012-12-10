@@ -31,11 +31,34 @@ namespace UMClient
 		private DataSetMedia.MediaRow row;
 		private System.Windows.Forms.TextBox textBoxTrack;
 		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox textBoxAdded;
+		private System.Windows.Forms.TextBox textBoxUpdated;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.TextBox textBoxDuration;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
+		/// <summary>
+		/// Default constuctor
+		/// </summary>
+		public MediaEditor()
+		{
+			//
+			// Required for Windows Form Designer support
+			//
+			InitializeComponent();
+
+			this.textBoxName.Text = "Select a song.";
+		}
+
+		/// <summary>
+		/// Loads media editor with the passed media row
+		/// </summary>
+		/// <param name="row">Media row to load</param>
 		public MediaEditor(DataSetMedia.MediaRow row)
 		{
 			//
@@ -43,6 +66,23 @@ namespace UMClient
 			//
 			InitializeComponent();
 
+			if (row == null)
+			{
+				this.textBoxName.Text = "Select a song.";
+			}
+			else 
+			{
+				LoadMedia(row);
+			}
+
+		}
+
+		/// <summary>
+		/// Loads the specified entry into the form
+		/// </summary>
+		/// <param name="row">Media row to load</param>
+		public void LoadMedia(DataSetMedia.MediaRow row)
+		{
 			this.row = row;
 
 			this.textBoxName.DataBindings.Add("Text", row, "Name");
@@ -52,10 +92,15 @@ namespace UMClient
 			this.textBoxComments.DataBindings.Add("Text", row, "Comments");
 			this.textBoxFilename.DataBindings.Add("Text", row, "MediaFile");
 			if (!row.IsTrackNull())
-                this.textBoxTrack.DataBindings.Add("Text", row, "Track");
+				this.textBoxTrack.DataBindings.Add("Text", row, "Track");
 			if (!row.IsBitrateNull())
 				this.textBoxBitrate.DataBindings.Add("Text", row, "Bitrate");
-
+			if (!row.IsDateAddedNull())
+				this.textBoxAdded.DataBindings.Add("Text", row, "DateAdded");
+			if (!row.IsDateUpdatedNull())
+				this.textBoxUpdated.DataBindings.Add("Text", row, "DateUpdated");
+			if (!row.IsDurationNull())
+				this.textBoxDuration.Text = ((int)(row.Duration / 60)).ToString() + ":" + ((int)(row.Duration % 60)).ToString("00");
 		}
 
 		/// <summary>
@@ -98,6 +143,12 @@ namespace UMClient
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBoxTrack = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
+			this.textBoxAdded = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.textBoxUpdated = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.textBoxDuration = new System.Windows.Forms.TextBox();
+			this.label11 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -119,7 +170,7 @@ namespace UMClient
 			// label3
 			// 
 			this.label3.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-			this.label3.Location = new System.Drawing.Point(8, 176);
+			this.label3.Location = new System.Drawing.Point(8, 184);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(72, 23);
 			this.label3.TabIndex = 12;
@@ -149,7 +200,7 @@ namespace UMClient
 			// 
 			this.textBoxFilename.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxFilename.Location = new System.Drawing.Point(80, 176);
+			this.textBoxFilename.Location = new System.Drawing.Point(80, 184);
 			this.textBoxFilename.Name = "textBoxFilename";
 			this.textBoxFilename.ReadOnly = true;
 			this.textBoxFilename.Size = new System.Drawing.Size(416, 20);
@@ -162,7 +213,7 @@ namespace UMClient
 			this.buttonOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonOK.Location = new System.Drawing.Point(336, 224);
+			this.buttonOK.Location = new System.Drawing.Point(336, 264);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.TabIndex = 16;
 			this.buttonOK.Text = "&OK";
@@ -173,7 +224,7 @@ namespace UMClient
 			this.buttonCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonCancel.Location = new System.Drawing.Point(416, 224);
+			this.buttonCancel.Location = new System.Drawing.Point(416, 264);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.TabIndex = 17;
 			this.buttonCancel.Text = "&Cancel";
@@ -225,7 +276,7 @@ namespace UMClient
 			this.textBoxComments.Multiline = true;
 			this.textBoxComments.Name = "textBoxComments";
 			this.textBoxComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBoxComments.Size = new System.Drawing.Size(416, 64);
+			this.textBoxComments.Size = new System.Drawing.Size(416, 72);
 			this.textBoxComments.TabIndex = 11;
 			this.textBoxComments.Text = "";
 			// 
@@ -241,10 +292,10 @@ namespace UMClient
 			// 
 			this.textBoxBitrate.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right);
-			this.textBoxBitrate.Location = new System.Drawing.Point(80, 200);
+			this.textBoxBitrate.Location = new System.Drawing.Point(80, 208);
 			this.textBoxBitrate.Name = "textBoxBitrate";
 			this.textBoxBitrate.ReadOnly = true;
-			this.textBoxBitrate.Size = new System.Drawing.Size(416, 20);
+			this.textBoxBitrate.Size = new System.Drawing.Size(168, 20);
 			this.textBoxBitrate.TabIndex = 15;
 			this.textBoxBitrate.TabStop = false;
 			this.textBoxBitrate.Text = "";
@@ -252,7 +303,7 @@ namespace UMClient
 			// label7
 			// 
 			this.label7.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
-			this.label7.Location = new System.Drawing.Point(8, 200);
+			this.label7.Location = new System.Drawing.Point(8, 208);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(72, 23);
 			this.label7.TabIndex = 14;
@@ -276,13 +327,82 @@ namespace UMClient
 			this.label8.TabIndex = 6;
 			this.label8.Text = "Track:";
 			// 
+			// textBoxAdded
+			// 
+			this.textBoxAdded.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBoxAdded.Location = new System.Drawing.Point(80, 232);
+			this.textBoxAdded.Name = "textBoxAdded";
+			this.textBoxAdded.ReadOnly = true;
+			this.textBoxAdded.Size = new System.Drawing.Size(168, 20);
+			this.textBoxAdded.TabIndex = 19;
+			this.textBoxAdded.TabStop = false;
+			this.textBoxAdded.Text = "";
+			// 
+			// label9
+			// 
+			this.label9.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+			this.label9.Location = new System.Drawing.Point(8, 232);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(72, 23);
+			this.label9.TabIndex = 18;
+			this.label9.Text = "Added:";
+			// 
+			// textBoxUpdated
+			// 
+			this.textBoxUpdated.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBoxUpdated.Location = new System.Drawing.Point(328, 232);
+			this.textBoxUpdated.Name = "textBoxUpdated";
+			this.textBoxUpdated.ReadOnly = true;
+			this.textBoxUpdated.Size = new System.Drawing.Size(168, 20);
+			this.textBoxUpdated.TabIndex = 21;
+			this.textBoxUpdated.TabStop = false;
+			this.textBoxUpdated.Text = "";
+			// 
+			// label10
+			// 
+			this.label10.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+			this.label10.Location = new System.Drawing.Point(256, 232);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(72, 23);
+			this.label10.TabIndex = 20;
+			this.label10.Text = "Updated:";
+			// 
+			// textBoxDuration
+			// 
+			this.textBoxDuration.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right);
+			this.textBoxDuration.Location = new System.Drawing.Point(328, 208);
+			this.textBoxDuration.Name = "textBoxDuration";
+			this.textBoxDuration.ReadOnly = true;
+			this.textBoxDuration.Size = new System.Drawing.Size(168, 20);
+			this.textBoxDuration.TabIndex = 23;
+			this.textBoxDuration.TabStop = false;
+			this.textBoxDuration.Text = "";
+			// 
+			// label11
+			// 
+			this.label11.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+			this.label11.Location = new System.Drawing.Point(256, 208);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(72, 23);
+			this.label11.TabIndex = 22;
+			this.label11.Text = "Duration:";
+			// 
 			// MediaEditor
 			// 
 			this.AcceptButton = this.buttonOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(504, 254);
+			this.ClientSize = new System.Drawing.Size(504, 294);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
+																		  this.textBoxDuration,
+																		  this.label11,
+																		  this.textBoxUpdated,
+																		  this.label10,
+																		  this.textBoxAdded,
+																		  this.label9,
 																		  this.textBoxTrack,
 																		  this.label8,
 																		  this.textBoxBitrate,

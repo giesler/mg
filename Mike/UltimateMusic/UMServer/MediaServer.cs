@@ -5,6 +5,7 @@ using System.Runtime.Remoting;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Threading;
+using System.IO;
 
 namespace UMServer
 {
@@ -17,7 +18,12 @@ namespace UMServer
 		private Thread playerThread;
 		private MediaCollection mediaCollection = new MediaCollection();
 		private MediaCollection mediaQueue = new MediaCollection();
+		private MediaCollection mediaHistory = new MediaCollection();
 		private PlayState playState;
+
+		private FileSystemWatcher fsWatcher;
+
+		# region Enums
 
 		public enum PlayState 
 		{
@@ -26,8 +32,19 @@ namespace UMServer
 			Paused
 		}
 
+		#endregion
+
+		#region Constructors
+
 		public MediaServer()
 		{
+            fsWatcher = new FileSystemWatcher();
+			fsWatcher.Path = @"\\sp\dfs\music\new";
+			fsWatcher.IncludeSubdirectories = true;
+			fsWatcher.Created += new FileSystemEventHandler(FileSystem_Created);
+			fsWatcher.Changed += new FileSystemEventHandler(FileSystem_Changed);
+			fsWatcher.EnableRaisingEvents = true;
+
 			playerThread = new Thread(new ThreadStart(PlayerThreadStart));
 			playerThread.Start();
 
@@ -40,6 +57,10 @@ namespace UMServer
 			Next();
 #endif
 		}
+
+		#endregion
+
+		#region Initialization
 
 		private void PlayerThreadStart() 
 		{
@@ -62,8 +83,8 @@ namespace UMServer
 		{
 			LogDiagnosticEvent("LoadMediaCollection", "Loading media collection.");
 
-			SqlConnection cn = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
-			SqlCommand cmd = new SqlCommand("select MediaID, MediaFile from Media", cn);
+			SqlConnection cn = new SqlConnection("User ID=sa;Password=too;Persist Security Info=False;Initial Catalog=music;Data Source=kyle;");
+			SqlCommand cmd = new SqlCommand("select MediaID, MediaFile from Media where Deleted=0", cn);
 			cn.Open();
 
 			SqlDataReader dr = cmd.ExecuteReader();
@@ -88,6 +109,10 @@ namespace UMServer
 			return null;
 		}
 
+		#endregion
+
+		#region Diagnostics
+
 		public void LogDiagnosticEvent(string function, string message) 
 		{
 			if (LogEvent != null)
@@ -110,6 +135,12 @@ namespace UMServer
 
 		public event MediaErrorEventHandler MediaErrorEvent;
         
+		/// <summary>
+		/// Event when a media error event happens
+		/// </summary>
+		/// <param name="error">Error number</param>
+		/// <param name="message">Error message</param>
+		/// <param name="ex">Exception</param>
 		public void MediaError(int error, string message, Exception ex) 
 		{
 			if (MediaErrorEvent != null) 
@@ -117,6 +148,8 @@ namespace UMServer
 				MediaErrorEvent(this, new MediaErrorEventArgs(currentMediaId, error, message, ex));
 			}
 		}
+
+		#endregion
 
 		#region Normal song actions
 
@@ -240,10 +273,11 @@ namespace UMServer
 			}
 			count--;
 
-			LogDiagnosticEvent("Next", "");
+			LogDiagnosticEvent("Next", "(" + (0 - count).ToString() + ")");
 
-			// Pop the top queue entry
+			// Pop the top queue entry, add to history
 			MediaCollectionEntry entry = mediaQueue.Dequeue();
+			mediaHistory.AddToCollection(entry, 0);
 			currentMediaId = entry.MediaId;
 
 			// Notify everyone a song was removed
@@ -264,6 +298,7 @@ namespace UMServer
 
 			dxPlayer.MediaFile = entry.MediaFile;
 
+			
 			if (!dxPlayer.IsValid) 
 			{
 				MediaError(1, "The file could not be loaded.", null);
@@ -275,11 +310,39 @@ namespace UMServer
 		}
 
 		/// <summary>
+		/// Moves to the previous song
+		/// </summary>
+		public void Previous()
+		{
+			LogDiagnosticEvent("Previous", "");
+
+            // Get the currently playing song, and add to top of queue
+			if (currentMediaId != 0)
+				AddToQueue(currentMediaId, 0);
+
+			// Remove the top item from history - this is current song, so ignore
+			MediaCollectionEntry entry = mediaHistory.Dequeue();
+			entry = mediaHistory.Dequeue();
+
+			if (entry != null)
+			{
+				PlayMediaId(entry.MediaId);
+			}
+			else
+			{
+				TryNext(10);
+				MediaError(4, "You cannot go back because there is no more history.", new Exception());
+			}
+			
+		}
+
+		/// <summary>
 		/// Play the media now
 		/// </summary>
 		/// <param name="mediaId">ID of media to play</param>
 		public void PlayMediaId(int mediaId) 
 		{
+			LogDiagnosticEvent("PlayMediaId", "MediaId = " + mediaId.ToString());
             AddToQueue(mediaId, 0);
 			Next();
 		}
@@ -288,6 +351,12 @@ namespace UMServer
 		{
 			LogDiagnosticEvent("ChangePosition", "newPosition = " + newPosition.ToString());
 			dxPlayer.CurrentPosition = newPosition;
+		}
+
+		public void MoveTimeByAmount(double amount)
+		{
+			LogDiagnosticEvent("MoveTimeByAmount", "amount = " + amount.ToString());
+			dxPlayer.MoveTimeByAmount(amount);
 		}
 
 		private void DXEndOfStreamEvent(object sender, EventArgs e) 
@@ -410,6 +479,9 @@ namespace UMServer
 			return queue;
 		}
 
+		/// <summary>
+		/// Refills a queue to the fixed amount
+		/// </summary>
 		private void FillQueue() 
 		{
 			// fill the queue
@@ -436,22 +508,299 @@ namespace UMServer
 				RateChanged(this, new MediaRateEventArgs(e.Rate));
 		}
 
+		/// <summary>
+		/// Event occurs whenever a user changes the balance
+		/// </summary>
 		public event BalanceEventHandler BalanceChanged;
 
+		/// <summary>
+		/// Call when the balance has been changed
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void DXBalanceChanged(object sender, DXBalanceEventArgs e) 
 		{
 			if (BalanceChanged != null)
 				BalanceChanged(this, new MediaBalanceEventArgs(e.Balance));
 		}
 
+		/// <summary>
+		/// Subscribe to this event to known when to reload the collection
+		/// </summary>
 		public event MediaCollectionReloadedEventHandler MediaCollectionReloadedEvent;
 
+		/// <summary>
+		/// Reload the entire media collection
+		/// </summary>
 		public void ReloadMediaCollection() 
 		{
 			LoadMediaCollection();
 
 			if (MediaCollectionReloadedEvent != null) 
 				MediaCollectionReloadedEvent(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		/// Occurs whenever a media item is updated on a client or server
+		/// </summary>
+		public event MediaItemUpdateEventHandler MediaItemUpdateEvent;
+
+		/// <summary>
+		/// Instructs clients and server to load/reload the media item
+		/// </summary>
+		/// <param name="type">Type of update</param>
+		/// <param name="mediaId">Media ID</param>
+		public void UpdateMediaItem(MediaItemUpdateType type, int mediaId)
+		{
+			// Refresh our queues
+			if (type == MediaItemUpdateType.Delete)
+			{
+				mediaCollection.RemoveFromCollection(mediaId);
+				mediaQueue.RemoveFromCollection(mediaId);
+				mediaHistory.RemoveFromCollection(mediaId);
+			}
+
+			if (MediaItemUpdateEvent != null)
+				MediaItemUpdateEvent(this, new MediaItemUpdateEventArgs(type, mediaId));
+		}
+
+		#endregion
+
+		#region File system watching events
+
+		private Queue newSongs = new Queue();
+
+		private void FileSystem_Created(object sender, FileSystemEventArgs e)
+		{
+			LogDiagnosticEvent("FileSystem_Created", "New file detected: " + e.FullPath);
+
+            // Odds are we need to spawn a thread with this item      
+			lock (newSongs)
+			{
+				newSongs.Enqueue(e.FullPath);
+			}
+
+			Thread t = new Thread(new ThreadStart(WatchNewFile));
+			t.Start();
+		}
+
+		private void WatchNewFile()
+		{
+			bool available = false;
+			string newFile;
+			lock (newSongs)
+			{
+				newFile = newSongs.Dequeue().ToString();
+			}
+
+			// Loop here, trying to rename the file
+			FileStream s = null;
+			while (!available)
+			{
+				try 
+				{
+					// attempt to open the file exclusively
+					s = File.Open(newFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+					available = true;
+				}
+				catch (IOException)
+				{}
+				finally 
+				{
+					if (s != null)
+					{
+						s.Close();
+					}
+				}                
+
+				// Wait for file to close
+				Thread.Sleep(500);
+			}
+
+			// Add to media server and collection
+			AddMediaFile(newFile);
+
+            LogDiagnosticEvent("WatchNewFile", String.Format("File {0} is available.", newFile));
+
+		}
+
+		/// <summary>
+		/// Adds a media file to the database and local collection
+		/// </summary>
+		/// <param name="fullpath"></param>
+		public void AddMediaFile(string fullpath)
+		{
+			
+			// Connect to db to save update
+			SqlConnection cn = new SqlConnection("Persist Security Info=False;Initial Catalog=music;Data Source=kyle;User ID=sa;Password=tOO");
+			SqlCommand cmd = new SqlCommand("dbo.s_AddMediaItem", cn);
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			// Set up params for sp
+			cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Artist", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Album", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Track", SqlDbType.Int);
+			cmd.Parameters.Add("@Genre", SqlDbType.NVarChar, 250);
+			cmd.Parameters.Add("@Bitrate", SqlDbType.Int);
+			cmd.Parameters.Add("@MediaFile", SqlDbType.NVarChar, 500);
+			cmd.Parameters.Add("@Duration", SqlDbType.Decimal, 9);
+			cmd.Parameters.Add("@MediaId", SqlDbType.Int);
+			cmd.Parameters["@MediaId"].Direction = ParameterDirection.Output;
+
+			// parse file for short name
+			string file = fullpath.Substring(fullpath.LastIndexOf(@"\")+1);
+			file = file.Substring(0, file.LastIndexOf(".")).Trim();
+
+			// Set initial field values
+			cmd.Parameters["@Name"].Value	= file;
+			cmd.Parameters["@Artist"].Value = "unknown";
+				
+			// Check if a - in name, if so split name up
+			if (file.IndexOf("-") > 0) 
+			{
+
+				Array arSplit = file.Split('-');
+				int splits = arSplit.GetLength(0);
+
+				if (splits <= 6)
+				{
+					cmd.Parameters["@Artist"].Value = MediaUtilities.ProperCasing(arSplit.GetValue(0).ToString().Trim());
+
+					if (splits >= 2)
+						cmd.Parameters["@Name"].Value = MediaUtilities.ProperCasing(arSplit.GetValue(1).ToString().Trim());
+
+					if (splits >= 3)
+						cmd.Parameters["@Album"].Value = MediaUtilities.ProperCasing(arSplit.GetValue(2).ToString().Trim());
+
+					if (splits >= 4)
+					{
+						int track = 0;
+						try 
+						{
+							track = Convert.ToInt32(arSplit.GetValue(3));
+						}
+						catch (Exception) {}							
+						cmd.Parameters["@Track"].Value = track;
+					}
+
+					if (splits >= 5)
+						cmd.Parameters["@Genre"].Value = MediaUtilities.ProperCasing(arSplit.GetValue(4).ToString().Trim());
+
+					if (splits >= 6)
+					{
+						string temp = arSplit.GetValue(5).ToString().Trim();
+						if (temp.IndexOf(" ") > 0)
+							temp = temp.Substring(0, temp.IndexOf(" "));
+						int bitrate = 0;
+						try 
+						{
+							bitrate = Convert.ToInt32(temp);
+						}
+						catch (Exception) {}
+						cmd.Parameters["@Bitrate"].Value = bitrate;
+					}
+				} 
+				else
+				{
+					// we have more then 6 splits
+					string temp = file;
+
+					// start with artist and name
+					cmd.Parameters["@Name"].Value   = MediaUtilities.ProperCasing(arSplit.GetValue(1).ToString().Trim());
+					cmd.Parameters["@Artist"].Value = MediaUtilities.ProperCasing(arSplit.GetValue(0).ToString().Trim());
+
+					// Now get last things, starting with bitrate
+					int bitrate = 0;
+					try 
+					{
+						bitrate = Convert.ToInt32(temp.Substring(temp.LastIndexOf("-")+1));
+					} 
+					catch (Exception) { }
+					cmd.Parameters["@Bitrate"].Value = bitrate;
+					temp = temp.Substring(0, temp.LastIndexOf("-"));
+
+					// genre
+					cmd.Parameters["@Genre"].Value = MediaUtilities.ProperCasing(temp.Substring(temp.LastIndexOf("-")+1));
+					temp = temp.Substring(0, temp.LastIndexOf("-"));
+
+					// track
+					int track = 0;
+					try
+					{
+						track = Convert.ToInt32(temp.Substring(temp.LastIndexOf("-")+1));
+					}
+					catch (Exception) { }
+					cmd.Parameters["@Track"].Value = track;
+					temp = temp.Substring(0, temp.LastIndexOf("-"));
+
+					// Album = what is left after arSplit - 1, and before 'track' position
+					string name = arSplit.GetValue(1).ToString();
+					temp = temp.Substring(temp.IndexOf(name) + name.Length + 1);
+					if (temp.Trim().Substring(0, 1) == "-")
+					{
+						temp = (temp.Trim().Substring(1).Trim());
+					}
+					cmd.Parameters["@Album"].Value = MediaUtilities.ProperCasing(temp);
+
+				}
+
+			}
+			// Figure out destination filename - and if not there, then move it
+			string destFile = MediaUtilities.NameMediaFile(cmd, fullpath);
+			if (destFile.Length > 225)
+			{
+				destFile = destFile.Substring(0, 225) + destFile.Substring(destFile.LastIndexOf("."));
+			}
+			if (fullpath != destFile)
+			{
+				string targetDir = destFile.Substring(0, destFile.LastIndexOf(@"\"));
+				if (!Directory.Exists(targetDir))
+				{
+					// wrap it in case another thread creates the dir
+					try 
+					{
+						Directory.CreateDirectory(targetDir);
+					} 
+					catch (Exception) { }
+				}
+
+				if (!File.Exists(destFile))
+				{
+
+					File.Move(fullpath, destFile);
+				}
+			}
+			cmd.Parameters["@MediaFile"].Value	= destFile;
+
+			// Now load the file to get the duration
+			DXPlayer player = new DXPlayer();
+			player.MediaFile = destFile;
+			cmd.Parameters["@Duration"].Value = player.Duration;
+
+			// Add to database
+			cn.Open();
+			cmd.ExecuteNonQuery();
+
+			// figure out the mediaId added                    
+			int mediaId = Convert.ToInt32(cmd.Parameters["@MediaID"].Value);
+			cn.Close();
+
+			// tell the clients an entry was added
+			UpdateMediaItem(MediaItemUpdateType.Add, mediaId);
+
+			// add to server
+			MediaCollectionEntry entry = new MediaCollectionEntry();
+			entry.MediaId	= mediaId;
+			entry.MediaFile	= destFile;
+			mediaCollection.AddToCollection(entry);
+
+
+		}
+
+		private void FileSystem_Changed(object sender, FileSystemEventArgs e)
+		{            
+			LogDiagnosticEvent("Changed", String.Format("File: {0} [not handled]", e.FullPath));
 		}
 
 		#endregion
@@ -475,6 +824,7 @@ namespace UMServer
 	public delegate void RateEventHandler(object sender, MediaRateEventArgs e);
 	public delegate void BalanceEventHandler(object sender, MediaBalanceEventArgs e);
 	public delegate void MediaCollectionReloadedEventHandler(object sender, EventArgs e);
+	public delegate void MediaItemUpdateEventHandler(object sender, MediaItemUpdateEventArgs e);
 
 	/* Queue related events */
 	public delegate void AddedToQueueEventHandler(object sender, QueueEventArgs e);
@@ -489,6 +839,9 @@ namespace UMServer
 	 * EventArgs classes
 	 */
 
+	/// <summary>
+	/// Logging event arguments
+	/// </summary>
 	[Serializable]
 	public class LogEventArgs: EventArgs 
 	{
@@ -512,6 +865,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Media item progress event arguments
+	/// </summary>
 	[Serializable]
 	public class MediaProgressEventArgs: EventArgs 
 	{
@@ -527,6 +883,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Generic media event arguments
+	/// </summary>
 	[Serializable]
 	public class MediaEventArgs: EventArgs 
 	{
@@ -555,6 +914,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Generic media error event aguments
+	/// </summary>
 	[Serializable]
 	public class MediaErrorEventArgs: EventArgs 
 	{
@@ -592,6 +954,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Generic queue action event arguments
+	/// </summary>
 	[Serializable]
 	public class QueueEventArgs: EventArgs 
 	{
@@ -628,6 +993,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Volume change event arguments
+	/// </summary>
 	[Serializable]
 	public class MediaVolumeEventArgs: EventArgs
 	{
@@ -644,6 +1012,9 @@ namespace UMServer
 		}
 	}
 
+	/// <summary>
+	/// Rate change event arguments
+	/// </summary>
 	[Serializable]
 	public class MediaRateEventArgs: EventArgs
 	{
@@ -660,7 +1031,9 @@ namespace UMServer
 		}
 	}
 
-
+	/// <summary>
+	/// Balance change event arguments
+	/// </summary>
 	[Serializable]
 	public class MediaBalanceEventArgs: EventArgs
 	{
@@ -675,6 +1048,50 @@ namespace UMServer
 		{
 			get { return balance; }
 		}
+	}
+
+	/// <summary>
+	/// Type of the media file update
+	/// </summary>
+	public enum MediaItemUpdateType
+	{
+		Add,
+		Edit,
+		Delete
+	}
+
+	/// <summary>
+	/// Media item add/update/delete event arguments
+	/// </summary>
+	[Serializable]
+	public class MediaItemUpdateEventArgs: EventArgs
+	{
+        private MediaItemUpdateType type;
+		private int mediaId;
+
+		/// <summary>
+		/// Create new media update event args
+		/// </summary>
+		/// <param name="type">Type of update</param>
+		/// <param name="mediaId">Update media ID</param>
+		public MediaItemUpdateEventArgs(MediaItemUpdateType type, int mediaId)
+		{
+			this.type	 = type;
+			this.mediaId = mediaId;
+		}
+
+		public MediaItemUpdateType Type
+		{
+			get { return type; }
+			set { type = value; }
+		}
+
+		public int MediaId
+		{
+			get { return mediaId; }
+			set { mediaId = value; }
+		}
+
 	}
 	
 	#endregion
@@ -745,13 +1162,30 @@ namespace UMServer
 		}
 
 		/// <summary>
-		/// Pop the top of the queue
+		/// Removes all instances of a mediaId from the collection
 		/// </summary>
-		/// <returns></returns>
-		internal MediaCollectionEntry Dequeue() 
+		/// <param name="mediaId"></param>
+		internal void RemoveFromCollection(int mediaId)
 		{
-			MediaCollectionEntry entry = (MediaCollectionEntry) InnerList[0];
-			InnerList.Remove(entry);
+			foreach (MediaCollectionEntry entry in new IterIsolate(InnerList))
+			{
+				if (entry.MediaId == mediaId)
+					InnerList.Remove(entry);
+			}
+		}
+
+		/// <summary>
+		/// Dequeues the top item from the collection
+		/// </summary>
+		internal MediaCollectionEntry Dequeue()
+		{
+			MediaCollectionEntry entry = null;
+
+			if (InnerList.Count > 0)
+			{
+				entry = (MediaCollectionEntry) InnerList[0];
+				InnerList.Remove(entry);
+			}
 			return entry;
 		}
 
@@ -773,8 +1207,6 @@ namespace UMServer
 	{
 		private int mediaId;
 		private string mediaFile;
-		private string name;
-		private string artist;
 		private double duration;
 
 		public int MediaId 
@@ -787,18 +1219,6 @@ namespace UMServer
 		{
 			get { return mediaFile; }
 			set { mediaFile = value; }
-		}
-
-		public string Name
-		{
-			get { return name; }
-			set { name = value; }
-		}
-
-		public string Artist 
-		{
-			get { return artist; }
-			set { artist = value; }
 		}
 
 		public double Duration 

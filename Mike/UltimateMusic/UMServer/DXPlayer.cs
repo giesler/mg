@@ -42,6 +42,9 @@ namespace UMServer
 
 		public void Pause() 
 		{
+			if (!initialized)
+				return;
+
 			filegraphManager.Pause();
 			timer.Enabled = false;
 			if (PausedEvent != null) 
@@ -156,6 +159,8 @@ namespace UMServer
 			}
 			set 
 			{
+				if (value > 1.0)
+					value = 1.0;
 				mediaVolume = (int) (0 - ((1.0 - value) * 2000.0));
 				if (initialized)
 					filegraphManager.Volume = mediaVolume;
@@ -209,6 +214,26 @@ namespace UMServer
 			}
 		}
 
+		/// <summary>
+		/// Changes the current position by changeAmount
+		/// </summary>
+		/// <param name="changeAmount">Amount to change</param>
+		public void MoveTimeByAmount(double changeAmount)
+		{
+			if (changeAmount + filegraphManager.CurrentPosition > filegraphManager.Duration)
+			{
+				filegraphManager.CurrentPosition = filegraphManager.Duration;
+			}
+			else if (changeAmount + filegraphManager.CurrentPosition < 0)
+			{
+				filegraphManager.CurrentPosition = 0;
+			}
+			else
+			{
+				filegraphManager.CurrentPosition = filegraphManager.CurrentPosition + changeAmount;
+			}
+		}
+
 		public double CurrentPosition 
 		{
 			get 
@@ -217,7 +242,18 @@ namespace UMServer
 			}
 			set 
 			{
-				filegraphManager.CurrentPosition = (value * filegraphManager.Duration) ;
+				if (initialized)
+				{
+					double newPosition = value * filegraphManager.Duration;
+					if (newPosition > filegraphManager.Duration)
+					{
+						filegraphManager.CurrentPosition = filegraphManager.Duration;
+					}
+					else
+					{
+						filegraphManager.CurrentPosition = (value * filegraphManager.Duration) ;
+					}
+				}
 			}
 		}
 

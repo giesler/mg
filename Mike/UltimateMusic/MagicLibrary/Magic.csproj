@@ -3,7 +3,7 @@
         ProjectType = "Local"
         ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
-        ProjectGuid = "{C65B9943-58E6-4489-A48D-A77092CD4C95}"
+        ProjectGuid = "{35E9A845-E9D2-434F-81B7-78175606E477}"
         SccProjectName = "SAK"
         SccLocalPath = "SAK"
         SccAuxPath = "SAK"
@@ -11,16 +11,16 @@
     >
         <Build>
             <Settings
-                ApplicationIcon = "App.ico"
+                ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "UMClient"
+                AssemblyName = "Magic"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                OutputType = "WinExe"
-                RootNamespace = "UMClient"
+                OutputType = "Library"
+                RootNamespace = "Magic"
                 StartupObject = ""
             >
                 <Config
@@ -38,7 +38,7 @@
                     OutputPath = "..\bin\Debug\"
                     RegisterForComInterop = "false"
                     RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
+                    TreatWarningsAsErrors = "true"
                     WarningLevel = "4"
                 />
                 <Config
@@ -51,7 +51,7 @@
                     DocumentationFile = ""
                     DebugSymbols = "false"
                     FileAlignment = "4096"
-                    IncrementalBuild = "false"
+                    IncrementalBuild = "true"
                     Optimize = "true"
                     OutputPath = "..\bin\Release\"
                     RegisterForComInterop = "false"
@@ -70,6 +70,10 @@
                     AssemblyName = "System.Data"
                 />
                 <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                />
+                <Reference
                     Name = "System.Drawing"
                     AssemblyName = "System.Drawing"
                 />
@@ -77,134 +81,138 @@
                     Name = "System.Windows.Forms"
                     AssemblyName = "System.Windows.Forms"
                 />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                />
-                <Reference
-                    Name = "System.Runtime.Remoting"
-                    AssemblyName = "System.Runtime.Remoting"
-                />
-                <Reference
-                    Name = "UMServer"
-                    Project = "{7103E5AD-756D-4D71-A557-74C615B75475}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
-                <Reference
-                    Name = "Shell32"
-                    Guid = "{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}"
-                    VersionMajor = "1"
-                    VersionMinor = "0"
-                    Lcid = "0"
-                    WrapperTool = "tlbimp"
-                />
-                <Reference
-                    Name = "stdole"
-                    Guid = "{00020430-0000-0000-C000-000000000046}"
-                    VersionMajor = "2"
-                    VersionMinor = "0"
-                    Lcid = "0"
-                    WrapperTool = "primary"
-                />
-                <Reference
-                    Name = "MediaPlayer"
-                    Guid = "{22D6F304-B0F6-11D0-94AB-0080C74C7E95}"
-                    VersionMajor = "1"
-                    VersionMinor = "0"
-                    Lcid = "0"
-                    WrapperTool = "tlbimp"
-                />
-                <Reference
-                    Name = "Magic"
-                    Project = "{35E9A845-E9D2-434F-81B7-78175606E477}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
             </References>
         </Build>
         <Files>
             <Include>
-                <File
-                    RelPath = "App.ico"
-                    BuildAction = "Content"
-                />
                 <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Client.cs"
+                    RelPath = "Controls\HoverButton.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\HoverButton.resx"
+                    DependentUpon = "HoverButton.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Controls\InertButton.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\InertButton.resx"
+                    DependentUpon = "InertButton.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Docking\BorderForControl.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\BorderForControl.resx"
+                    DependentUpon = "BorderForControl.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Docking\ControlForForm.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingBase.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingBase.resx"
+                    DependentUpon = "DockingBase.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Docking\DockingContent.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ConnectionDialog.cs"
-                    SubType = "Form"
+                    RelPath = "Docking\DockingDefinitions.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "ConnectionDialog.resx"
-                    DependentUpon = "ConnectionDialog.cs"
+                    RelPath = "Docking\DockingDetailBase.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingDetailBase.resx"
+                    DependentUpon = "DockingDetailBase.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "MediaBar.cs"
-                    SubType = "Form"
+                    RelPath = "Docking\DockingDetailHandle.cs"
+                    SubType = "UserControl"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "MediaBar.resx"
-                    DependentUpon = "MediaBar.cs"
+                    RelPath = "Docking\DockingDetailResize.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingManagerBase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingManagerIDE.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingManagerPlain.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingRedocker.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingSingle.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Docking\DockingSingle.resx"
+                    DependentUpon = "DockingSingle.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "MediaEditor.cs"
+                    RelPath = "Docking\ExternalForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "MediaEditor.resx"
-                    DependentUpon = "MediaEditor.cs"
+                    RelPath = "Docking\ExternalForm.resx"
+                    DependentUpon = "ExternalForm.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "MediaError.cs"
+                    RelPath = "Docking\FloatingForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "MediaError.resx"
-                    DependentUpon = "MediaError.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Status.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Status.resx"
-                    DependentUpon = "Status.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "Studio.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Studio.resx"
-                    DependentUpon = "Studio.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "UMPlayer.cs"
-                    SubType = "Form"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "UMPlayer.resx"
-                    DependentUpon = "UMPlayer.cs"
+                    RelPath = "Docking\FloatingForm.resx"
+                    DependentUpon = "FloatingForm.cs"
                     BuildAction = "EmbeddedResource"
                 />
             </Include>

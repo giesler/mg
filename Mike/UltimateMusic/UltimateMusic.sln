@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMServerHost", "UMServerHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMClient", "UMClient\UMClient.csproj", "{C65B9943-58E6-4489-A48D-A77092CD4C95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMService", "UMService\UMService.csproj", "{BDE57386-3B56-4061-801A-F117620E237F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic", "MagicLibrary\Magic.csproj", "{35E9A845-E9D2-434F-81B7-78175606E477}"
 EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
@@ -25,16 +25,19 @@ Global
 		SccLocalPath3 = .
 		CanCheckoutShared = false
 		SccProjectFilePathRelativizedFromConnection3 = UMServerHost\\
-		SccProjectUniqueName4 = UMService\\UMService.csproj
+		SccProjectUniqueName4 = MagicLibrary\\Magic.csproj
 		SccLocalPath4 = .
 		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection4 = UMService\\
+		SccProjectFilePathRelativizedFromConnection4 = MagicLibrary\\
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug
 		ConfigName.1 = Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.0 = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.0 = {35E9A845-E9D2-434F-81B7-78175606E477}
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.1 = {7103E5AD-756D-4D71-A557-74C615B75475}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{7103E5AD-756D-4D71-A557-74C615B75475}.Debug.ActiveCfg = Debug|.NET
@@ -49,10 +52,10 @@ Global
 		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Debug.Build.0 = Debug|.NET
 		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.ActiveCfg = Release|.NET
 		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.Build.0 = Release|.NET
-		{BDE57386-3B56-4061-801A-F117620E237F}.Debug.ActiveCfg = Debug|.NET
-		{BDE57386-3B56-4061-801A-F117620E237F}.Debug.Build.0 = Debug|.NET
-		{BDE57386-3B56-4061-801A-F117620E237F}.Release.ActiveCfg = Release|.NET
-		{BDE57386-3B56-4061-801A-F117620E237F}.Release.Build.0 = Release|.NET
+		{35E9A845-E9D2-434F-81B7-78175606E477}.Debug.ActiveCfg = Debug|.NET
+		{35E9A845-E9D2-434F-81B7-78175606E477}.Debug.Build.0 = Debug|.NET
+		{35E9A845-E9D2-434F-81B7-78175606E477}.Release.ActiveCfg = Release|.NET
+		{35E9A845-E9D2-434F-81B7-78175606E477}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

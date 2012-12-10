@@ -49,6 +49,7 @@ namespace UMClient
 
 #if DEBUG
 			radioButtonInProcess.Checked = true;
+			buttonConnect_Click(this, EventArgs.Empty);
 #endif
 		}
 
@@ -182,6 +183,7 @@ namespace UMClient
 			this.Name = "ConnectionDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Ultimate Music Connection";
+			this.Load += new System.EventHandler(this.ConnectionDialog_Load);
 			this.ResumeLayout(false);
 
 		}
@@ -218,6 +220,10 @@ namespace UMClient
 					typeof(UMServer.MediaServer),
 					"tcp://" + textBoxHost.Text + ":777/RemotingMedia/MyMedia");
 			}
+			else
+			{
+                hostName = "localhost (in process)";
+			}
 
 			this.Visible = false;
 
@@ -250,6 +256,13 @@ namespace UMClient
 		private void radioButtonLocalRun_CheckedChanged(object sender, System.EventArgs e)
 		{
 			textBoxHost.Enabled = radioButtonRemote.Checked;
+		}
+
+		private void ConnectionDialog_Load(object sender, System.EventArgs e)
+		{
+#if DEBUG
+			buttonConnect_Click(this, e);
+#endif
 		}
 	}
 }

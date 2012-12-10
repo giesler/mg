@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.0.9372"
+        ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
         ProjectGuid = "{7103E5AD-756D-4D71-A557-74C615B75475}"
         SccProjectName = "SAK"
@@ -136,6 +136,11 @@
                 />
                 <File
                     RelPath = "MediaServer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MediaUtilities.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
