@@ -53,6 +53,13 @@ namespace ShoppingList
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
+
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+
+            writer.Flush();
+
+            writer.Close();
         }
 
         public static LocalSettings ReadFromFile(string fileName)
@@ -84,4 +91,5 @@ namespace ShoppingList
             return settings;
         }
     }
+
 }

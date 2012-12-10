@@ -84,6 +84,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StoreListItem.cs" />
     <Compile Include="Web References\homenet\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

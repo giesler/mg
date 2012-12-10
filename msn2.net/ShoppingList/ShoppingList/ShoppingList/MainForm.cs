@@ -18,19 +18,30 @@ namespace ShoppingList
         private homenet.Lists lists = null;
         private bool storesLoaded = false;
         private LocalSettings settings = null;
-
+        private StoreListItem undoItem = null;
+        private float defaultFontSize = 10;
+        
         public MainForm()
         {
             InitializeComponent();
 
             if (File.Exists("shoppingListSettings.xml"))
             {
-                this.settings = LocalSettings.ReadFromFile("shoppingListSettings.xml");
+                try
+                {
+                    this.settings = LocalSettings.ReadFromFile("shoppingListSettings.xml");
+                }
+                catch (Exception)
+                {
+                    this.settings = new LocalSettings();
+                }
             }
             else
             {
                 this.settings = new LocalSettings();
             }
+
+            this.defaultFontSize = this.listView1.Font.Size;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -42,10 +53,6 @@ namespace ShoppingList
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.lists = new ShoppingList.homenet.Lists();
-            this.lists.Credentials = new System.Net.NetworkCredential("mc", "4362", "sp");
-            //this.lists.Proxy = new WebProxy("http://192.168.1.1/");
-
             this.listView1.Enabled = false;
             this.menuRefresh.Enabled = false;
 
@@ -260,6 +267,17 @@ namespace ShoppingList
 
         private void add_Click(object sender, EventArgs e)
         {
+            string store = this.store.Text;
+            string itemText = this.newItem.Text;
+            
+            AddItem(store, itemText);
+                        
+            this.newItem.Text = string.Empty;
+            this.newItem.Focus();
+        }
+
+        private void AddItem(string store, string itemText)
+        {
             XmlDocument doc = new XmlDocument();
             XmlNode batchNode = doc.CreateElement("Batch");
 
@@ -270,23 +288,23 @@ namespace ShoppingList
 
             XmlNode field1Node = doc.CreateElement("Field");
             AddAttribute(doc, field1Node, "Name", "Title");
-            field1Node.InnerText = this.newItem.Text;
+            field1Node.InnerText = itemText.Trim();
             methodNode.AppendChild(field1Node);
 
             XmlNode field2Node = doc.CreateElement("Field");
             AddAttribute(doc, field2Node, "Name", "From");
-            field2Node.InnerText = this.store.Text;
+            field2Node.InnerText = store.Trim();
             methodNode.AppendChild(field2Node);
 
-            ListViewItem item = new ListViewItem(this.newItem.Text);
+            ListViewItem item = new ListViewItem(itemText);
             item.Tag = 0;
 
             this.lists.BeginUpdateListItems("Shopping List", batchNode, new AsyncCallback(AddCompleted), item);
 
-            this.listView1.Items.Add(item);
-                        
-            this.newItem.Text = string.Empty;
-            this.newItem.Focus();
+            if (this.store.Text == store)
+            {
+                this.listView1.Items.Add(item);
+            }
         }
 
         private void AddCompleted(IAsyncResult result)
@@ -358,6 +376,12 @@ namespace ShoppingList
 
                 item.ForeColor = Color.Gray;
                 item.Selected = false;
+
+                undoItem = new StoreListItem();
+                undoItem.Store = this.store.Text;
+                undoItem.Item = item.Text;
+
+                this.menuUndo.Enabled = true;
             }
         }
 
@@ -372,6 +396,55 @@ namespace ShoppingList
                 ListViewItem item = (ListViewItem) result.AsyncState;
                 this.listView1.Items.Remove(item);
             }
+        }
+
+        private void menuUndo_Click(object sender, EventArgs e)
+        {
+            AddItem(this.undoItem.Store, this.undoItem.Item);
+
+            this.undoItem = null;
+            this.menuUndo.Enabled = false;
+        }
+
+        private void menuUpdateApp_Click(object sender, EventArgs e)
+        {
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo("http://home.msn2.net/cab/ShoppingListCab.cab", "");
+            p.Start();
+
+            Application.Exit();
+        }
+
+        private void menuExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void menuTextNormal_Click(object sender, EventArgs e)
+        {
+            this.menuTextBigger.Checked = false;
+            this.menuTextNormal.Checked = true;
+            this.menuTextSmall.Checked = false;
+
+            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize, this.listView1.Font.Style);
+        }
+
+        private void menuTextBigger_Click(object sender, EventArgs e)
+        {
+            this.menuTextBigger.Checked = true;
+            this.menuTextNormal.Checked = false;
+            this.menuTextSmall.Checked = false;
+
+            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize + 2.0F, this.listView1.Font.Style);
+        }
+
+        private void menuTextSmall_Click(object sender, EventArgs e)
+        {
+            this.menuTextBigger.Checked = false;
+            this.menuTextNormal.Checked = false;
+            this.menuTextSmall.Checked = true;
+
+            this.listView1.Font = new Font(this.listView1.Font.Name, this.defaultFontSize - 2.0F, this.listView1.Font.Style);
         }
     }
 }

@@ -14,6 +14,13 @@ namespace ShoppingList
         static void Main()
         {
             Application.Run(new MainForm());
+
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Unhandled exception - tell Mike!: " + e.ExceptionObject.ToString());
         }
     }
 }
