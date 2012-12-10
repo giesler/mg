@@ -171,6 +171,8 @@ bool CComponent::LoadComponent(CString sCompName, CString sFileName) {
 			GetPrivateProfileString(sCompName, "NTServicePackCheckNumber", "", lpReturnedString, nSize, sFileName);
 			mstrNTServicePackCheckNumber = lpReturnedString;
 			break;
+		case NoCheck:
+			break;
 		default:
 			gLog.LogEvent(mstrId + ": Invalid/no check type specified, ignoring component.");
 			free(lpReturnedString);
@@ -217,6 +219,9 @@ void CComponent::CheckComponent()
 			break;
 		case NTServicePackCheck:
 			mblnInstalled = RunNTServicePackCheck();
+			break;
+		case NoCheck:
+			mblnInstalled = false;
 			break;
 		default:
 			return;

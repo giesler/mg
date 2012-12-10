@@ -13,7 +13,8 @@ enum ComponentType {
 	FileVersionCheck = 0,
 	RegVersionCheck,
 	RegKeyCheck,
-	NTServicePackCheck
+	NTServicePackCheck,
+	NoCheck
 };
 
 enum RebootType {
