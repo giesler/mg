@@ -29,20 +29,28 @@ namespace chickweb
             string address = string.Format("http://randy:5050{0}/webcam/jpg", cam);
             bool rotate = true;
 
-            if (cam == "3")
+            if (cam == "1")
+            {
+                address = "http://cams.sp.msn2.net/image/cc1";
+            }
+            else if (cam == "2")
+            {
+                address = "http://cams.sp.msn2.net/image/cc2";
+            }
+            else if (cam == "3")
             {
                 rotate = false;
-                address = string.Format("http://ned:50503/webcam/jpg", cam);
+                address = "http://cams.sp.msn2.net/image/cc3";
             }
             else if (cam == "dw1")
             {
                 rotate = false;
-                address = "http://cams/image/dw1";
+                address = "http://cams.sp.msn2.net/image/dw1";
             }
             else if (cam.ToLower() == "front")
             {
                 rotate = false;
-                address = "http://cams/image/Front";
+                address = "http://cams.sp.msn2.net/image/Front";
             }
 
             if (Request.QueryString["r"] == "1")
