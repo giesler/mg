@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="367a4103-e607-4673-9a76-d380003160d4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://mg7:8732/CamVideoStorage" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CamVideoStorage1.wsdl" MetadataType="Wsdl" ID="f5fa305e-49c4-4111-8c26-63202279f013" SourceId="1" SourceUrl="http://mg7:8732/CamVideoStorage?wsdl" />
+    <MetadataFile FileName="CamVideoStorage2.xsd" MetadataType="Schema" ID="f2140aa5-6969-42bc-9eae-5b5b2ce886a3" SourceId="1" SourceUrl="http://mg7:8732/CamVideoStorage?xsd=xsd1" />
+    <MetadataFile FileName="CamVideoStorage1.disco" MetadataType="Disco" ID="0e77e630-bd3c-411c-89e7-b36a5125e2e5" SourceId="1" SourceUrl="http://mg7:8732/CamVideoStorage?disco" />
+    <MetadataFile FileName="CamVideoStorage22.xsd" MetadataType="Schema" ID="8c67a669-63fa-4344-9667-17b6d363b104" SourceId="1" SourceUrl="http://mg7:8732/CamVideoStorage?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

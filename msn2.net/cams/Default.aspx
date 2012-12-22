@@ -25,14 +25,14 @@
             <asp:Image ID="cam6thumb" runat="server" Height="64" ImageUrl="http://cam5.msn2.net/getimg.aspx?c=side&h=64"
                 BorderWidth="0" />
         </asp:HyperLink>
+        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="?c=3">
+            <asp:Image ID="cam5thumb" runat="server" Height="64" ImageUrl="http://cam5.msn2.net/getimg.aspx?c=3&h=64"
+                BorderWidth="0" />
+        </asp:HyperLink>
         <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="?c=1">
             <asp:Image ID="cam3thumb" runat="server" Height="64" ImageUrl="http://cam3.msn2.net/getimg.aspx?c=1&h=64"
                 BorderWidth="0" />
             <asp:Image ID="cam4thumb" runat="server" Height="64" ImageUrl="http://cam3.msn2.net/getimg.aspx?c=2&h=64"
-                BorderWidth="0" />
-        </asp:HyperLink>
-        <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="?c=3">
-            <asp:Image ID="cam5thumb" runat="server" Height="64" ImageUrl="http://cam5.msn2.net/getimg.aspx?c=3&h=64"
                 BorderWidth="0" />
         </asp:HyperLink>
     </div>

@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chickweb", "chickweb\chickw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickWebApp", "ChickWebApp\ChickWebApp.csproj", "{F64F5E97-574B-4185-860A-55A2050BCE1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickPhone", "ChickPhone\ChickPhone.csproj", "{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "SAK"
@@ -39,9 +37,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CamAlertService", "CamAlert
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://vsts.sp.msn2.net:8080/tfs/main
+		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = chickweb\\chickweb.csproj
 		SccProjectName1 = chickweb
@@ -49,20 +47,17 @@ Global
 		SccProjectUniqueName2 = ChickWebApp\\ChickWebApp.csproj
 		SccProjectName2 = ChickWebApp
 		SccLocalPath2 = ChickWebApp
-		SccProjectUniqueName3 = ChickPhone\\ChickPhone.csproj
-		SccProjectName3 = ChickPhone
-		SccLocalPath3 = ChickPhone
-		SccWebProject4 = true
-		SccProjectUniqueName4 = ..\\cams
-		SccProjectName4 = ../cams
-		SccLocalPath4 = ..\\cams
-		SccProjectEnlistmentChoice4 = 2
-		SccProjectUniqueName5 = CamLib\\CamLib.csproj
-		SccProjectName5 = CamLib
-		SccLocalPath5 = CamLib
-		SccProjectUniqueName6 = CamAlertService\\CamAlertService.csproj
-		SccProjectName6 = CamAlertService
-		SccLocalPath6 = CamAlertService
+		SccWebProject3 = true
+		SccProjectUniqueName3 = ..\\cams
+		SccProjectName3 = ../cams
+		SccLocalPath3 = ..\\cams
+		SccProjectEnlistmentChoice3 = 2
+		SccProjectUniqueName4 = CamLib\\CamLib.csproj
+		SccProjectName4 = CamLib
+		SccLocalPath4 = CamLib
+		SccProjectUniqueName5 = CamAlertService\\CamAlertService.csproj
+		SccProjectName5 = CamAlertService
+		SccLocalPath5 = CamAlertService
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,27 +100,6 @@ Global
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|x86.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|ARM.ActiveCfg = Debug|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|ARM.Build.0 = Debug|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|ARM.Deploy.0 = Debug|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|ARM.ActiveCfg = Release|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|ARM.Build.0 = Release|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|ARM.Deploy.0 = Release|ARM
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|Windows Phone.ActiveCfg = Release|Any CPU
-		{8A91111E-52D8-4F59-AE5D-F7FB2FE40477}.Release|x86.ActiveCfg = Release|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|ARM.ActiveCfg = Debug|Any CPU

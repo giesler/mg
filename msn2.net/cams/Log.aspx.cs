@@ -60,6 +60,10 @@ public partial class Log : System.Web.UI.Page
             if (!skip)
             {
                 string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx", server);
+                if (Request.Url.IsLoopback)
+                {
+                    getUrl = "GetLogImage.aspx";
+                }
                 html.AppendFormat("<a href=\"AlertItem.aspx?a={0}\">", alert.Id);
                 html.AppendFormat("<img height=\"48\" width=\"64\" src=\"{2}?a={0}&h=48\" title=\"{1}\" border=\"0\" class=\"thumb\" /></a>", alert.Id, alert.Timestamp.ToString("h:mm"), getUrl);
 

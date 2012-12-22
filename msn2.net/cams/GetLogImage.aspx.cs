@@ -19,7 +19,7 @@ public partial class GetLogImage : System.Web.UI.Page
         CamAlertManager mgr = new CamAlertManager();
         Alert alert = mgr.GetAlert(alertId);
 
-        string fileName = Path.Combine(@"\\kenny.sp.msn2.net\camarchive", alert.Filename);
+        string fileName = Path.Combine(@"\\kenny.sp.msn2.net\camarchive\images", alert.Filename);
 
         using (Bitmap bmp = new Bitmap(fileName))
         {
