@@ -12,6 +12,8 @@ namespace CamLib
 {
     public class CamAlertManager
     {
+        object insertLock = new object();
+        
         public void InsertAlert(string fileName)
         {
             using (CamDataDataContext data = new CamDataDataContext())
@@ -22,24 +24,30 @@ namespace CamLib
 
                 if (id == 0)
                 {
-                    string name = Path.GetFileName(fileName);
-
-                    // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
-                    string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
-
-                    using (MemoryStream ms = new MemoryStream())
+                    lock (this.insertLock)
                     {
-                        Alert alert = new Alert
+                        id = (from d in data.Alerts
+                              where d.Filename == Path.GetFileName(fileName)
+                              select d.Id).FirstOrDefault();
+
+                        if (id == 0)
                         {
-                            Filename = Path.GetFileName(fileName),
-                            Timestamp = DateTime.Parse(dateStamp),
-                            ReceiveTime = DateTime.Now
-                        };
+                            string name = Path.GetFileName(fileName);
 
-                        data.Alerts.InsertOnSubmit(alert);
+                            // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
+                            string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
+
+                            Alert alert = new Alert
+                            {
+                                Filename = Path.GetFileName(fileName),
+                                Timestamp = DateTime.Parse(dateStamp),
+                                ReceiveTime = DateTime.Now
+                            };
+
+                            data.Alerts.InsertOnSubmit(alert);
+                            data.SubmitChanges();
+                        }
                     }
-
-                    data.SubmitChanges();
                 }
             }
         }
@@ -99,6 +107,18 @@ namespace CamLib
             return previousId;
         }
 
+        public List<Alert> GetAlertsBeforeDate(DateTime date)
+        {
+            List<Alert> alerts = null;
+
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                alerts = data.Alerts.Where(i => i.Timestamp < date).ToList();
+            }
+
+            return alerts;
+        }
+
         public List<Alert> GetAlertsSinceDate(DateTime date)
         {
             List<Alert> alerts = null;
@@ -109,6 +129,19 @@ namespace CamLib
             }
 
             return alerts;
+        }
+
+        public void DeleteAlert(int id)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                Alert alert = data.Alerts.FirstOrDefault(a => a.Id == id);
+                if (alert != null)
+                {
+                    data.Alerts.DeleteOnSubmit(alert);
+                    data.SubmitChanges();
+                }
+            }
         }
     }
 }

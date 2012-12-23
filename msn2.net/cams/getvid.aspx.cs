@@ -12,7 +12,6 @@ public partial class getvid : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Response.Clear();
-        Response.ContentType = "video/mpeg";
         
         string id = Request.QueryString["v"];
         if (string.IsNullOrEmpty(id))
@@ -27,12 +26,21 @@ public partial class getvid : System.Web.UI.Page
             Response.Redirect("Log.aspx");
         }
 
-        Response.AddHeader("content-disposition", "inline; filename=" + Path.GetFileNameWithoutExtension(video.Filename));
+        string fileName = Path.GetFileName(video.Filename);
 
-        CamVideoService.CamVideoStorageClient storage = new CamVideoService.CamVideoStorageClient();
-        byte[] file = storage.GetFile(video.Filename);
+        fileName = Path.Combine(@"\\kenny.sp.msn2.net\camarchive\videos", fileName);
 
-        Response.BinaryWrite(file);
+        if (File.Exists(fileName))
+        {
+            Response.AddHeader("content-disposition", "inline; filename=" + fileName);
+            Response.WriteFile(fileName);
+            Response.ContentType = "video/mpeg";
+        }
+        else
+        {
+            Response.Write("Unable to read the video file " + fileName);
+        }
+
         Response.End();
     }
 }

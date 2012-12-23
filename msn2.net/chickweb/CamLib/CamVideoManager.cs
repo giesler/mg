@@ -95,5 +95,18 @@ namespace CamLib
 
             return video;
         }
+
+        public void DeleteVideo(int id)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                Video video = data.Videos.FirstOrDefault(v => v.Id == id);
+                if (video != null)
+                {
+                    data.Videos.DeleteOnSubmit(video);
+                    data.SubmitChanges();
+                }
+            }
+        }
     }
 }
