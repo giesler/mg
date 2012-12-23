@@ -271,6 +271,9 @@
     <None Include="Service References\ListData\giesler.org.lists.ListData.AddListItemReturnValue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ListData\giesler.org.lists.ListData.AddListItemsReturnValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ListData\giesler.org.lists.ListData.AddListReturnValue.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -301,6 +304,9 @@
     <None Include="Service References\ListData\lds.disco" />
     <None Include="Service References\ListData\configuration91.svcinfo" />
     <None Include="Service References\ListData\configuration.svcinfo" />
+    <None Include="Service References\ListData\lds3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ListData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

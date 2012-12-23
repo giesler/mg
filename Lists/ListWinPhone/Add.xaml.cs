@@ -44,31 +44,89 @@ namespace giesler.org.lists
 
         private void OnAdd(object sender, EventArgs e)
         {
-            Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
-
             ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
             this.text.IsEnabled = false;
             this.pbar.Visibility = System.Windows.Visibility.Visible;
             this.status.Visibility = System.Windows.Visibility.Visible;
 
+            string[] items = this.text.Text.Trim().Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (items.Length == 1)
+            {
+                this.AddItem(items[0]);
+            }
+            else
+            {
+                this.AddItems(items);
+            }
+        }
+
+        private void AddItem(string item)
+        {
+            Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
+
             ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
-            ListItemEx newItem = new ListItemEx { Id = -1, Name = this.text.Text.Trim(), ListUniqueId = listUniqueId, UniqueId = Guid.NewGuid() };
+            ListItemEx newItem = new ListItemEx { Id = -1, Name = item.Trim(), ListUniqueId = listUniqueId, UniqueId = Guid.NewGuid() };
             list.Items.Add(newItem);
             list.Items = list.Items.OrderBy(i => i.Name).ToList();
 
             ListDataServiceClient svc = App.DataProvider;
             svc.AddListItemWithIdCompleted += new EventHandler<AddListItemWithIdCompletedEventArgs>(svc_AddListItemCompleted);
-            svc.AddListItemWithIdAsync(App.AuthDataList, listUniqueId, newItem.UniqueId, this.text.Text.Trim(), newItem.UniqueId);
+            svc.AddListItemWithIdAsync(App.AuthDataList, listUniqueId, newItem.UniqueId, item.Trim(), newItem.UniqueId);
         }
 
         void svc_AddListItemCompleted(object sender, AddListItemWithIdCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
-                this.text.IsEnabled = false;
-                this.pbar.Visibility = System.Windows.Visibility.Visible;
-                this.status.Visibility = System.Windows.Visibility.Visible;
+                this.OnAddError(e.Error);
+            }
+            else
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
+                NavigationService.GoBack();
+            }
+
+            ListDataServiceClient svc = (ListDataServiceClient)sender;
+            svc.CloseAsync();
+        }
+
+        void OnAddError(Exception ex)
+        {
+            ((IApplicationBarIconButton)this.ApplicationBar.Buttons[0]).IsEnabled = false;
+            this.text.IsEnabled = false;
+            this.pbar.Visibility = System.Windows.Visibility.Visible;
+            this.status.Visibility = System.Windows.Visibility.Visible;
+
+            MessageBox.Show(ex.Message);
+        }
+
+        private void AddItems(string[] items)
+        {
+            Guid listUniqueId = new Guid(NavigationContext.QueryString["listUniqueId"]);
+
+            ListEx list = App.Lists.FirstOrDefault(l => l.UniqueId == listUniqueId);
+            List<ListItem> addList = new List<ListItem>();
+
+            foreach (string item in items)
+            {
+                ListItemEx newItem = new ListItemEx { Id = -1, Name = item.Trim(), ListUniqueId = listUniqueId, UniqueId = Guid.NewGuid() };
+                list.Items.Add(newItem);
+                list.Items = list.Items.OrderBy(i => i.Name).ToList();
+
+                addList.Add(new ListItem{ UniqueId = newItem.UniqueId, Name = item.Trim()});
+            }
+
+            ListDataServiceClient svc = App.DataProvider;
+            svc.AddListItemsAsync(App.AuthDataList, listUniqueId, addList);
+            svc.AddListItemsCompleted += OnAddListItemsCompleted;
+        }
+
+        void OnAddListItemsCompleted(object sender, AddListItemsCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                this.OnAddError(e.Error);
             }
             else
             {

@@ -26,8 +26,9 @@
     <MetadataFile FileName="ListDataServiceEndpoint.wsdl" MetadataType="Wsdl" ID="5279c5ea-93e0-426e-95b4-80ff7875d8b5" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?wsdl" />
     <MetadataFile FileName="lds1.xsd" MetadataType="Schema" ID="bb480bc4-90a5-49b2-9470-7706e3bd899b" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd1" />
     <MetadataFile FileName="lds.wsdl" MetadataType="Wsdl" ID="4ef39e9c-90f2-4aa5-bfbd-0b08ab2a7c90" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="lds.xsd" MetadataType="Schema" ID="6721d30f-1236-4e62-81f4-4b1e7ce348d0" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd0" />
     <MetadataFile FileName="lds2.xsd" MetadataType="Schema" ID="9330de0e-626a-4e6f-b4c5-e18c22fb98ba" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd2" />
+    <MetadataFile FileName="lds.xsd" MetadataType="Schema" ID="6721d30f-1236-4e62-81f4-4b1e7ce348d0" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd0" />
+    <MetadataFile FileName="lds3.xsd" MetadataType="Schema" ID="d3f12aa0-fb02-4dc9-8037-276e5f64fa73" SourceId="1" SourceUrl="http://svc.listgo.mobi/lds.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

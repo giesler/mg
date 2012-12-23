@@ -38,6 +38,9 @@ namespace msn2.net.ShoppingList
         AddListItemReturnValue AddListItemWithId(ClientAuthenticationData auth, Guid listUniqueId, Guid itemUniqueId, string name);
 
         [OperationContract]
+        AddListItemsReturnValue AddListItems(ClientAuthenticationData auth, Guid listUniqueId, ListItem[] items);
+
+        [OperationContract]
         UpdateListItemReturnData UpdateListItem(ClientAuthenticationData auth, ListItem item);
 
         [OperationContract]
@@ -94,5 +97,17 @@ namespace msn2.net.ShoppingList
 
         [DataMember]
         public bool IsInvalidId { get; set; }
+    }
+
+    [DataContract]
+    public class AddListItemsReturnValue
+    {
+        public AddListItemsReturnValue() { }
+
+        [DataMember]
+        public ListItem[] Items { get; set; }
+
+        [DataMember]
+        public bool[] IsDuplicate { get; set; }
     }
 }

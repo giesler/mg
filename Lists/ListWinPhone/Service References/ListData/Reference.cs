@@ -812,6 +812,51 @@ namespace giesler.org.lists.ListData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AddListItemsReturnValue", Namespace="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList")]
+    public partial class AddListItemsReturnValue : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Collections.Generic.List<bool> IsDuplicateField;
+        
+        private System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> ItemsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<bool> IsDuplicate {
+            get {
+                return this.IsDuplicateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IsDuplicateField, value) != true)) {
+                    this.IsDuplicateField = value;
+                    this.RaisePropertyChanged("IsDuplicate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> Items {
+            get {
+                return this.ItemsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ItemsField, value) != true)) {
+                    this.ItemsField = value;
+                    this.RaisePropertyChanged("Items");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UpdateListItemReturnData", Namespace="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList")]
     public partial class UpdateListItemReturnData : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1144,6 +1189,11 @@ namespace giesler.org.lists.ListData {
         
         giesler.org.lists.ListData.AddListItemReturnValue EndAddListItemWithId(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/AddListItems", ReplyAction="http://svc.listgo.mobi/IListDataService/AddListItemsResponse")]
+        System.IAsyncResult BeginAddListItems(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items, System.AsyncCallback callback, object asyncState);
+        
+        giesler.org.lists.ListData.AddListItemsReturnValue EndAddListItems(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://svc.listgo.mobi/IListDataService/UpdateListItem", ReplyAction="http://svc.listgo.mobi/IListDataService/UpdateListItemResponse")]
         System.IAsyncResult BeginUpdateListItem(giesler.org.lists.ListData.ClientAuthenticationData auth, giesler.org.lists.ListData.ListItem item, System.AsyncCallback callback, object asyncState);
         
@@ -1338,6 +1388,25 @@ namespace giesler.org.lists.ListData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddListItemsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddListItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public giesler.org.lists.ListData.AddListItemsReturnValue Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((giesler.org.lists.ListData.AddListItemsReturnValue)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class UpdateListItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1489,6 +1558,12 @@ namespace giesler.org.lists.ListData {
         
         private System.Threading.SendOrPostCallback onAddListItemWithIdCompletedDelegate;
         
+        private BeginOperationDelegate onBeginAddListItemsDelegate;
+        
+        private EndOperationDelegate onEndAddListItemsDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddListItemsCompletedDelegate;
+        
         private BeginOperationDelegate onBeginUpdateListItemDelegate;
         
         private EndOperationDelegate onEndUpdateListItemDelegate;
@@ -1601,6 +1676,8 @@ namespace giesler.org.lists.ListData {
         public event System.EventHandler<AddListItemCompletedEventArgs> AddListItemCompleted;
         
         public event System.EventHandler<AddListItemWithIdCompletedEventArgs> AddListItemWithIdCompleted;
+        
+        public event System.EventHandler<AddListItemsCompletedEventArgs> AddListItemsCompleted;
         
         public event System.EventHandler<UpdateListItemCompletedEventArgs> UpdateListItemCompleted;
         
@@ -2049,6 +2126,56 @@ namespace giesler.org.lists.ListData {
                         listUniqueId,
                         itemUniqueId,
                         name}, this.onEndAddListItemWithIdDelegate, this.onAddListItemWithIdCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult giesler.org.lists.ListData.IListDataService.BeginAddListItems(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddListItems(auth, listUniqueId, items, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        giesler.org.lists.ListData.AddListItemsReturnValue giesler.org.lists.ListData.IListDataService.EndAddListItems(System.IAsyncResult result) {
+            return base.Channel.EndAddListItems(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddListItems(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            giesler.org.lists.ListData.ClientAuthenticationData auth = ((giesler.org.lists.ListData.ClientAuthenticationData)(inValues[0]));
+            System.Guid listUniqueId = ((System.Guid)(inValues[1]));
+            System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items = ((System.Collections.Generic.List<giesler.org.lists.ListData.ListItem>)(inValues[2]));
+            return ((giesler.org.lists.ListData.IListDataService)(this)).BeginAddListItems(auth, listUniqueId, items, callback, asyncState);
+        }
+        
+        private object[] OnEndAddListItems(System.IAsyncResult result) {
+            giesler.org.lists.ListData.AddListItemsReturnValue retVal = ((giesler.org.lists.ListData.IListDataService)(this)).EndAddListItems(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddListItemsCompleted(object state) {
+            if ((this.AddListItemsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddListItemsCompleted(this, new AddListItemsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddListItemsAsync(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items) {
+            this.AddListItemsAsync(auth, listUniqueId, items, null);
+        }
+        
+        public void AddListItemsAsync(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items, object userState) {
+            if ((this.onBeginAddListItemsDelegate == null)) {
+                this.onBeginAddListItemsDelegate = new BeginOperationDelegate(this.OnBeginAddListItems);
+            }
+            if ((this.onEndAddListItemsDelegate == null)) {
+                this.onEndAddListItemsDelegate = new EndOperationDelegate(this.OnEndAddListItems);
+            }
+            if ((this.onAddListItemsCompletedDelegate == null)) {
+                this.onAddListItemsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddListItemsCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddListItemsDelegate, new object[] {
+                        auth,
+                        listUniqueId,
+                        items}, this.onEndAddListItemsDelegate, this.onAddListItemsCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2581,6 +2708,21 @@ namespace giesler.org.lists.ListData {
             public giesler.org.lists.ListData.AddListItemReturnValue EndAddListItemWithId(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 giesler.org.lists.ListData.AddListItemReturnValue _result = ((giesler.org.lists.ListData.AddListItemReturnValue)(base.EndInvoke("AddListItemWithId", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginAddListItems(giesler.org.lists.ListData.ClientAuthenticationData auth, System.Guid listUniqueId, System.Collections.Generic.List<giesler.org.lists.ListData.ListItem> items, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
+                _args[0] = auth;
+                _args[1] = listUniqueId;
+                _args[2] = items;
+                System.IAsyncResult _result = base.BeginInvoke("AddListItems", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public giesler.org.lists.ListData.AddListItemsReturnValue EndAddListItems(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                giesler.org.lists.ListData.AddListItemsReturnValue _result = ((giesler.org.lists.ListData.AddListItemsReturnValue)(base.EndInvoke("AddListItems", _args, result)));
                 return _result;
             }
             

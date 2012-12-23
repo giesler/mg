@@ -26,7 +26,7 @@ xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
-        <TextBox Height="72" Margin="0,155,12,0" Name="text" VerticalAlignment="Top" Width="456" MaxLength="255" InputScope="Text" TextChanged="text_TextChanged" />
+        <TextBox Height="151" Margin="14,143,10,0" Name="text" VerticalAlignment="Top" MaxLength="255" InputScope="Text" TextChanged="text_TextChanged" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <ProgressBar Height="16" HorizontalAlignment="Left" Margin="6,-5,0,0" Name="pbar" VerticalAlignment="Top" Width="470" IsIndeterminate="True" Visibility="Collapsed" />
         <TextBlock Height="36" HorizontalAlignment="Right" Margin="237,15,0,0" Name="status" Text="adding..." VerticalAlignment="Top" Width="241" FontSize="20" Visibility="Collapsed" />
         

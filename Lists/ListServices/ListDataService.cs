@@ -173,6 +173,24 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        public AddListItemsReturnValue AddListItems(ClientAuthenticationData auth, Guid listUniqueId, ListItem[] items)
+        {
+            AddListItemsReturnValue val = new AddListItemsReturnValue();
+            val.Items = new ListItem[items.Length];
+            val.IsDuplicate = new bool[items.Length];
+
+            int index = 0;
+            foreach (ListItem item in items)
+            {
+                AddListItemReturnValue addItem = this.AddListItemWithId(auth, listUniqueId, item.UniqueId, item.Name);
+                val.Items[index] = addItem.ListItem;
+                val.IsDuplicate[index] = addItem.IsDuplicate;
+                index++;
+            }
+
+            return val;
+        }
+
         public UpdateListItemReturnData UpdateListItem(ClientAuthenticationData auth, ListItem item)
         {
             this.WaitForServerCallSleepTime();
