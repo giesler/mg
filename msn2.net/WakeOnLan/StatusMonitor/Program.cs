@@ -124,9 +124,16 @@ namespace StatusMonitor
 
         private static bool IsComputerAccessible(string hostNameOrAddress)
         {
-            Ping pingSender = new Ping();            
-            PingReply reply = pingSender.Send(hostNameOrAddress, PING_TIMEOUT);
-            return reply.Status == IPStatus.Success;
+            Ping pingSender = new Ping();
+            try
+            {
+                PingReply reply = pingSender.Send(hostNameOrAddress, PING_TIMEOUT);
+                return reply.Status == IPStatus.Success;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
