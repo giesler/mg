@@ -195,7 +195,7 @@ namespace CamAlertService
                         request.Credentials = new NetworkCredential("home", "4362");
                         request.UseBinary = true;
                         request.Proxy = null;
-                        
+
                         byte[] contents = File.ReadAllBytes(fileName);
 
                         using (Stream requestStream = request.GetRequestStream())
@@ -211,6 +211,11 @@ namespace CamAlertService
                         File.Delete(fileName);
 
                         lastDeleteException = null;
+                        break;
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        this.Log("{0} Upload&delete: {1}", fileName, ex);
                         break;
                     }
                     catch (Exception ex)

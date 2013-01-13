@@ -9,8 +9,6 @@ using System.IO;
 
 public partial class AlertItem : System.Web.UI.Page
 {
-    string video = null;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         HttpCookie cookie = Request.Cookies["Login"];
