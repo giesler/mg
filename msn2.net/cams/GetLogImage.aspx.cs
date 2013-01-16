@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web;
 using CamLib;
 
 public partial class GetLogImage : System.Web.UI.Page
@@ -9,6 +10,12 @@ public partial class GetLogImage : System.Web.UI.Page
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
+
+        HttpCookie cookie = Request.Cookies["Login"];
+        if (cookie == null || cookie.Value != "1")
+        {
+            throw new UnauthorizedAccessException("You must login to view log images.");
+        }
 
         Response.Clear();
         Response.ContentType = "image/jpeg";

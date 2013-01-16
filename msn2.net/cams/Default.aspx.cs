@@ -15,7 +15,7 @@ public partial class _Default : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        Cam coopBottom = new Cam("1") { HostPrefix="cam1", Orientation = Orientation.Vertical};
+        Cam coopBottom = new Cam("1") { HostPrefix = "cam1", Orientation = Orientation.Vertical };
         Cam coopTop = new Cam("2") { HostPrefix = "cam2", Orientation = Orientation.Vertical };
         Cam coopSide = new Cam("3") { HostPrefix = "cam3" };
         Cam driveway = new Cam("dw1") { HostPrefix = "cam4" };
@@ -114,7 +114,7 @@ public partial class _Default : System.Web.UI.Page
             this.main2.Visible = true;
             this.rightPanel.Visible = true;
 
-            this.leftPanel.Width = Unit.Percentage(50); 
+            this.leftPanel.Width = Unit.Percentage(50);
             this.rightPanel.Width = Unit.Percentage(50);
         }
     }
@@ -174,7 +174,7 @@ public partial class _Default : System.Web.UI.Page
         {
             bool isMobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
             int thumbHeight = isMobile ? 32 : 64;
-            
+
             HyperLink linkA = (HyperLink)e.Item.FindControl("thumbALink");
             Image imageA = (Image)e.Item.FindControl("thumbAImage");
             Image imageB = (Image)e.Item.FindControl("thumbBImage");

@@ -20,4 +20,5 @@ public class Cam
     public Orientation Orientation { get; set; }
 
     public string HostPrefix { get; set; }
+
 }

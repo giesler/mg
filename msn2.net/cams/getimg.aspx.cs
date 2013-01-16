@@ -22,6 +22,17 @@ public partial class getimg : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
+        // For a non-numeric camera verify auth
+        int numericCam = 0;
+        if (!int.TryParse(cam, out numericCam))
+        {
+            HttpCookie cookie = Request.Cookies["Login"];
+            if (cookie == null || cookie.Value != "1")
+            {
+                throw new UnauthorizedAccessException("You must login to view this camera.");
+            }
+        }
+
         string address = string.Format("http://randy.sp.msn2.net:5050{0}/webcam/jpg", cam);
         bool rotate = true;
 
