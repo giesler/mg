@@ -32,6 +32,15 @@ public partial class AlertItem : System.Web.UI.Page
         {
             this.name.Text = alert.Timestamp.ToString("ddd MMM d h:mm tt").ToUpper();
         }
+        if (alert.Timestamp.Date == DateTime.Today.Date)
+        {
+            this.name.Text = "TODAY " + alert.Timestamp.ToString("h:mm tt");
+        }
+        else if (alert.Timestamp.Date.AddDays(1) == DateTime.Today)
+        {
+            this.name.Text = "YESTERDAY " + alert.Timestamp.ToString("h:mm tt");
+        }
+
         this.img.ImageUrl = "GetLogImage.aspx?a=" + alert.Id.ToString();
 
         int nextId = mgr.GetNextAlertId(alert);

@@ -7,16 +7,100 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    string cam = "dw1";
+    string cam = "1";
+    List<CamView> thumbViews = new List<CamView>();
+    bool loggedIn = false;
+
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+
+        Cam coopBottom = new Cam("1") { HostPrefix="cam1", Orientation = Orientation.Vertical};
+        Cam coopTop = new Cam("2") { HostPrefix = "cam2", Orientation = Orientation.Vertical };
+        Cam coopSide = new Cam("3") { HostPrefix = "cam3" };
+        Cam driveway = new Cam("dw1") { HostPrefix = "cam4" };
+        Cam front = new Cam("front") { HostPrefix = "cam5" };
+        Cam side = new Cam("side") { HostPrefix = "cam6" };
+
+        CamView coopView = new CamView
+        {
+            MaxHeight = 64,
+            Name = "Coop",
+            Orientation = Orientation.Vertical,
+            RefreshInterval = TimeSpan.FromSeconds(20)
+        };
+        coopView.Cameras.Add(coopBottom);
+        coopView.Cameras.Add(coopTop);
+
+        CamView coopYardView = new CamView
+        {
+            MaxHeight = 64,
+            Name = "Outside Coop",
+            Orientation = Orientation.Horizontal,
+            RefreshInterval = TimeSpan.FromSeconds(20),
+        };
+        coopYardView.Cameras.Add(coopSide);
+
+        CamView drivewayView = new CamView
+        {
+            MaxHeight = 64,
+            Name = "Driveway",
+            Orientation = Orientation.Horizontal,
+            RefreshInterval = TimeSpan.FromSeconds(20)
+        };
+        drivewayView.Cameras.Add(driveway);
+
+        CamView frontView = new CamView
+        {
+            MaxHeight = 64,
+            Name = "Front",
+            Orientation = Orientation.Horizontal,
+            RefreshInterval = TimeSpan.FromSeconds(20)
+        };
+        frontView.Cameras.Add(front);
+
+        CamView sideView = new CamView
+        {
+            MaxHeight = 64,
+            Name = "Side",
+            Orientation = Orientation.Horizontal,
+            RefreshInterval = TimeSpan.FromSeconds(20)
+        };
+        sideView.Cameras.Add(side);
+
+
+        HttpCookie cookie = Request.Cookies["Login"];
+        if (cookie != null && cookie.Value == "1")
+        {
+            loggedIn = true;
+        }
+
+        if (!loggedIn)
+        {
+            this.thumbViews.Add(coopView);
+            this.thumbViews.Add(coopYardView);
+            this.cam = "1";
+        }
+        else
+        {
+            this.thumbViews.Add(drivewayView);
+            this.thumbViews.Add(frontView);
+            this.thumbViews.Add(sideView);
+            this.thumbViews.Add(coopYardView);
+            this.thumbViews.Add(coopView);
+
+            this.signInOutLink.Text = "SIGN OUT";
+            this.logLink.Visible = true;
+            this.logLinkSeperator.Visible = true;
+            this.cam = "dw1";
+        }
+
+        this.thumbs.DataSource = this.thumbViews;
+        this.thumbs.DataBind();
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        HttpCookie cookie = Request.Cookies["Login"];
-        if (cookie == null || cookie.Value != "1")
-        {
-            Response.Redirect("Login.aspx");
-        }
-
         if (Request.QueryString["c"] != null)
         {
             cam = Request.QueryString["c"];
@@ -32,23 +116,6 @@ public partial class _Default : System.Web.UI.Page
 
             this.leftPanel.Width = Unit.Percentage(50); 
             this.rightPanel.Width = Unit.Percentage(50);
-        }
-
-        if (Request.UserAgent.ToLower().IndexOf("mobile") > 0)
-        {
-            this.cam1thumb.Height = 32;
-            this.cam2thumb.Height = 32;
-            this.cam3thumb.Height = 32;
-            this.cam4thumb.Height = 32;
-            this.cam5thumb.Height = 32;
-            this.cam6thumb.Height = 32;
-
-            this.cam1thumb.ImageUrl = this.cam1thumb.ImageUrl.Replace("h=64", "h=32");
-            this.cam2thumb.ImageUrl = this.cam2thumb.ImageUrl.Replace("h=64", "h=32");
-            this.cam3thumb.ImageUrl = this.cam3thumb.ImageUrl.Replace("h=64", "h=32");
-            this.cam4thumb.ImageUrl = this.cam4thumb.ImageUrl.Replace("h=64", "h=32");
-            this.cam5thumb.ImageUrl = this.cam5thumb.ImageUrl.Replace("h=64", "h=32");
-            this.cam6thumb.ImageUrl = this.cam6thumb.ImageUrl.Replace("h=64", "h=32");
         }
     }
 
@@ -86,21 +153,43 @@ public partial class _Default : System.Web.UI.Page
 
     protected string GetBasePrefix()
     {
-        string basePrefix = "cam1";
+        Cam cam = null;
 
-        if (this.cam == "3" || this.cam == "front")
+        foreach (CamView view in this.thumbViews)
         {
-            basePrefix = "cam3";
-        }
-        else if (this.cam == "dw1")
-        {
-            basePrefix = "cam5";
-        }
-        else if (this.cam == "side")
-        {
-            basePrefix = "cam5";
+            cam = view.Cameras.FirstOrDefault(i => i.Id.ToLower() == this.cam);
+            if (cam != null)
+            {
+                return cam.HostPrefix;
+            }
         }
 
-        return basePrefix;
+        return "cams";
+    }
+
+    protected void thumbs_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        CamView view = e.Item.DataItem as CamView;
+        if (view != null)
+        {
+            bool isMobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
+            int thumbHeight = isMobile ? 32 : 64;
+            
+            HyperLink linkA = (HyperLink)e.Item.FindControl("thumbALink");
+            Image imageA = (Image)e.Item.FindControl("thumbAImage");
+            Image imageB = (Image)e.Item.FindControl("thumbBImage");
+
+            linkA.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
+            imageA.ImageUrl = string.Format("http://{0}.msn2.net/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
+
+            if (view.Cameras.Count > 1)
+            {
+                imageB.ImageUrl = string.Format("http://{0}.msn2.net/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
+            }
+            else
+            {
+                imageB.Visible = false;
+            }
+        }
     }
 }

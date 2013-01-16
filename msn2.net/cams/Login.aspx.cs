@@ -12,7 +12,9 @@ public partial class Login : System.Web.UI.Page
     {
         if (Request.Cookies["Login"] != null)
         {
+            Response.Cookies["Login"].Value = "0";
             Response.Cookies["Login"].Expires = DateTime.Now.AddYears(-5);
+            Response.Redirect(Request.ApplicationPath);
         }
     }
 
@@ -39,6 +41,8 @@ public partial class Login : System.Web.UI.Page
             else
             {
                 Session.Add("att", 1);
+
+                Thread.Sleep(1000 * 30);
             }
         }
     }
