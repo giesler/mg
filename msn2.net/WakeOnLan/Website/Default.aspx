@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableViewState="false" EnableEventValidation="false" EnableSessionState="False" ViewStateMode="Disabled" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -39,6 +40,8 @@
                                 <asp:Label ID="DisplayNameLabel" runat="server" Text='<%# Eval("DisplayName") %>'></asp:Label>
                                 <div class="computerWakeUp">
                                     <asp:LinkButton ID="lnkWakeUp" runat="server" Visible="False" CommandName="WakeUp">Wake Up</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkSuspend" runat="server" Visible="False" CommandName="Suspend">Suspend</asp:LinkButton>
+                                    <asp:Label ID="status" runat="server" Visible="false" />
                                 </div>
                             </div>
                             <div class="computerUptime">
