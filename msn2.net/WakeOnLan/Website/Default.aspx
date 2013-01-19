@@ -1,10 +1,9 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableViewState="false" EnableEventValidation="false" EnableSessionState="False" ViewStateMode="Disabled" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableViewState="false" EnableEventValidation="false" EnableSessionState="False" ViewStateMode="Disabled" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <link rel="Stylesheet" href="css/default.css" media="all" />
     <title>ts.msn2.net</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -25,7 +24,7 @@
                         <div>
                             <div style="width: 162px; height: 10px; float: left">&nbsp;</div>
                             <div class="computerUptime">
-                            <i>Uptime</i>
+                                <i>Uptime</i>
                             </div>
                         </div>
                     </HeaderTemplate>
@@ -45,12 +44,10 @@
                                 </div>
                             </div>
                             <div class="computerUptime">
-                        <asp:Label ID="UptimeTodayLabel" runat="server" Text='<%# Eval("UptimeToday") %>'></asp:Label>h today<br />                    
-                        <asp:Label ID="UptimeThisWeekLabel" runat="server" Text='<%# Eval("UptimeThisWeek") %>'></asp:Label>h this week<br />
-                        <asp:Label ID="UptimeTotalLabel" runat="server" Text='<%# Eval("UptimeTotal") %>'></asp:Label>h total
-                        
+                                <asp:Label ID="UptimeTodayLabel" runat="server" Text='<%# Eval("UptimeToday") %>'></asp:Label>h today<br />
+                                <asp:Label ID="UptimeThisWeekLabel" runat="server" Text='<%# Eval("UptimeThisWeek") %>'></asp:Label>h this week<br />
+                                <asp:Label ID="UptimeTotalLabel" runat="server" Text='<%# Eval("UptimeTotal") %>'></asp:Label>h total                        
                             </div>
-
                         </div>
                     </ItemTemplate>
                 </asp:DataList>
