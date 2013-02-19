@@ -59,8 +59,10 @@ namespace msn2.net.ShoppingList
         PersonDevice AddDevice(ClientAuthenticationData auth, string deviceName);
 
         [OperationContract]
-        void RemoveDevice(ClientAuthenticationData auth, Guid deviceId);        
+        void RemoveDevice(ClientAuthenticationData auth, Guid deviceId);
 
+        [OperationContract]
+        List<string> GetCommonItems(ClientAuthenticationData auth, Guid listUniqueId);
     }
 
     [DataContract]

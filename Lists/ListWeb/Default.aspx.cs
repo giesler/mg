@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
+﻿using msn2.net.ShoppingList;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
-using msn2.net.ShoppingList;
-using System.Text;
 
 namespace SLExpress
 {
@@ -73,7 +66,7 @@ namespace SLExpress
             ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
             ListDataService lds = new ListDataService();
             System.Collections.Generic.List<GetListsResult> lists = lds.GetLists(authData);
-            
+
             this.list.Items.Clear();
             this.moveItemList.Controls.Clear();
 
@@ -93,7 +86,7 @@ namespace SLExpress
 
                 this.moveItemList.Controls.Add(new Literal { Text = "<br />" });
             }
-            
+
             if (this.list.Items.Count > 0)
             {
                 this.list.SelectedIndex = selectedIndex;
@@ -137,7 +130,7 @@ namespace SLExpress
             this.editItems.Visible = true;
             this.moveItem.Visible = false;
             this.addMode.Enabled = true;
-            this.viewMode.Enabled = true;            
+            this.viewMode.Enabled = true;
         }
 
         void OnListSelectedIndexChanged(object sender, EventArgs e)
@@ -164,7 +157,7 @@ namespace SLExpress
                     tb.ID = "TB:" + i.UniqueId.ToString();
                     tb.Columns = this.editItemColumns;
                     this.editItems.Controls.Add(tb);
-                    
+
                     Button btn = new Button { Text = "save" };
                     btn.Click += new EventHandler(OnSaveItem);
                     this.editItems.Controls.Add(btn);
@@ -178,6 +171,27 @@ namespace SLExpress
                     //this.editItems.Controls.Add(move);
 
                     this.editItems.Controls.Add(new LiteralControl("<br />"));
+                }
+
+                this.common.Items.Clear();
+                IEnumerable<string> commonItems = lds.GetCommonItems(authData, listId).Take(10);
+
+                if (commonItems.Count() > 0)
+                {
+                    this.common.Items.Add("- select -");
+                    this.common.SelectedIndex = 0;
+
+                    foreach (string item in commonItems)
+                    {
+                        this.common.Items.Add(item);
+                    }
+
+                    this.common.Enabled = true;
+                }
+                else
+                {
+                    this.common.Items.Add("<none>");
+                    this.common.Enabled = false;
                 }
             }
 
@@ -194,7 +208,7 @@ namespace SLExpress
             TextBox tb = (TextBox)btn.Parent.Controls[index - 2];
             Guid itemId = new Guid(tb.ID.ToString().Substring(3));
 
-            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"]; 
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
             ListDataService lds = new ListDataService();
             lds.DeleteListItem(authData, itemId);
 
@@ -226,8 +240,8 @@ namespace SLExpress
             TextBox tb = (TextBox)btn.Parent.Controls[index - 1];
 
             ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
-            Guid selectedList = new Guid(this.list.SelectedValue); 
-            
+            Guid selectedList = new Guid(this.list.SelectedValue);
+
             Guid itemId = new Guid(tb.ID.ToString().Substring(3));
             ListDataService lds = new ListDataService();
             var listItems = lds.GetListItems(authData, selectedList);
@@ -262,7 +276,7 @@ namespace SLExpress
                 this.add.Text = string.Empty;
 
                 this.LoadLists();
-                
+
                 this.OnView(null, null);
             }
         }
@@ -298,7 +312,7 @@ namespace SLExpress
             this.addMode.Font.Bold = false;
             this.editMode.Font.Bold = true;
             this.viewMode.Font.Bold = false;
-            
+
             this.addPanel.Visible = false;
             this.editPanel.Visible = true;
             this.main.Visible = false;
@@ -323,6 +337,20 @@ namespace SLExpress
 
             this.editItems.Visible = true;
             this.moveItem.Visible = false;
+        }
+
+        protected void common_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.OnView(this, null);
+
+            DropDownList dd = (DropDownList)sender;
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
+            Guid selectedList = new Guid(this.list.SelectedValue);
+
+            ListDataService lds = new ListDataService();
+            lds.AddListItem(authData, selectedList, Request["common"]);
+
+            this.LoadLists();
         }
     }
 }

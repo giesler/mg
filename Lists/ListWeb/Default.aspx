@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <meta content="user-scalable=no, width=device-width" name="viewport" />
-    <meta name="MobileOptimized" content="width">
+    <meta name="MobileOptimized" content="width" />
     <title>ListGo</title>
     <script type="text/javascript">
         function startDelete(cbx) {
@@ -23,7 +23,7 @@
 <body>
     <form id="form1" runat="server">
     ListGo <a href="#" onclick="onSignOut();" id="signOut" class="rightTop">sign out</a>
-    <hr noshade />
+    <hr noshade="noshade" />
     <asp:Panel runat="server" CssClass="main">
         <asp:Panel ID="modePanel" runat="server">
             <asp:DropDownList ID="list" runat="server" AutoPostBack="true" CssClass="list" />
@@ -39,6 +39,8 @@
             <asp:Label ID="addLabel" runat="server" Text="Add items (one per line)" />
             <br />
             <asp:TextBox ID="add" runat="server" Rows="10" Columns="30" TextMode="MultiLine" />
+            <br />
+            Common items: <asp:DropDownList ID="common" runat="server" AutoPostBack="true" OnSelectedIndexChanged="common_SelectedIndexChanged" />
             <br />
             <asp:Button ID="addButton" runat="server" Text="Add" />
             <asp:Button ID="cancelButton" runat="server" Text="Cancel" />

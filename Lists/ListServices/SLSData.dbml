@@ -148,4 +148,10 @@
       <Column Name="ItemName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetCommonListItems" Method="GetCommonListItems">
+    <Parameter Name="listUniqueId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <ElementType Name="GetCommonListItemsResult">
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

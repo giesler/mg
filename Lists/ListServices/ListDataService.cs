@@ -141,6 +141,19 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        public List<string> GetCommonItems(ClientAuthenticationData auth, Guid listUniqueId)
+        {
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                ValidateAuth(context, auth, true);
+
+                var items = context.GetCommonListItems(listUniqueId);
+                List<string> list = new List<string>();
+                items.ToList().ForEach(i => list.Add(i.Name));
+                return list;
+            }
+        }
+
         public AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name)
         {
             return this.AddListItemWithId(auth, listUniqueId, Guid.NewGuid(), name);
