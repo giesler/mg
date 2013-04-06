@@ -127,16 +127,5 @@ namespace ChickPhone
 
         double initialScale = 0.0;
 
-        private void GestureListener_PinchStarted(object sender, PinchStartedGestureEventArgs e)
-        {
-            initialScale = transform.ScaleX;
-        }
-
-        private void GestureListener_PinchDelta(object sender, PinchGestureEventArgs e)
-        {
-            transform.ScaleX = initialScale * e.DistanceRatio;
-            transform.ScaleY = initialScale * e.DistanceRatio;
-        }
-
     }
 }

@@ -44,7 +44,6 @@ namespace ChickPhone
             InitializeComponent();
 
             // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
             this.timer = new DispatcherTimer();
@@ -98,10 +97,6 @@ namespace ChickPhone
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -382,6 +377,11 @@ namespace ChickPhone
             this.stop = true;
             this.cam6Zoom.Visibility = System.Windows.Visibility.Collapsed;
             this.OpenCam(this.img6a.Source, "side");
+        }
+
+        private void dateSelect_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

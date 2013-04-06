@@ -104,10 +104,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
-    <Reference Include="MultiTouch.Behaviors.Silverlight.WP71">
-      <HintPath>..\..\..\..\LocalData\SilverlightMultiTouch\Samples\Windows Phone 7.1\MultiTouch.Behaviors.Silverlight.WP7.Sample\Bin\Debug\MultiTouch.Behaviors.Silverlight.WP71.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
@@ -121,8 +117,6 @@
     <Compile Include="SingleCam.xaml.cs">
       <DependentUpon>SingleCam.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -133,10 +127,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <Page Include="SingleCam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -48,9 +48,6 @@
                     Scale="100"
                      />
             </i:Interaction.Behaviors>-->
-                <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener PinchStarted="GestureListener_PinchStarted" PinchDelta="GestureListener_PinchDelta" />
-                </toolkit:GestureService.GestureListener>
             </Grid>
         </ScrollViewer>
     </Grid>
