@@ -21,7 +21,6 @@ namespace CamAlertService
         string basePath;
         string serverPath;
         string videoPath;
-        ServiceHost videoService;
 
         public void Start()
         {
@@ -38,7 +37,6 @@ namespace CamAlertService
         public void Stop()
         {
             this.exit = true;
-            this.videoService.Close();
 
             while (!this.exit)
             {
@@ -49,12 +47,7 @@ namespace CamAlertService
         void Main()
         {
             Thread.Sleep(1000 * 15);
-
-
-            this.videoService = new ServiceHost(typeof(CamVideoStorage), new Uri[] { });
-            this.videoService.Open();
-
-
+            
             this.imageWatcher = new FileSystemWatcher(this.basePath, "*.jpg");
             this.imageWatcher.IncludeSubdirectories = false;
             this.imageWatcher.Created += new FileSystemEventHandler(OnFileCreated);

@@ -11,12 +11,6 @@ public partial class GetLogImage : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        HttpCookie cookie = Request.Cookies["Login"];
-        if (cookie == null || cookie.Value != "1")
-        {
-            throw new UnauthorizedAccessException("You must login to view log images.");
-        }
-
         Response.Clear();
         Response.ContentType = "image/jpeg";
 
