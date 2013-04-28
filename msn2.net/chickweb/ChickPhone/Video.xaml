@@ -18,12 +18,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="3" />
         </Grid.RowDefinitions>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <MediaElement Name="player" />
+            <MediaElement Name="player" MediaOpened="player_MediaOpened" MediaEnded="player_MediaEnded" />
+            <ProgressBar IsIndeterminate="True" x:Name="pb" />
         </Grid>
+        <ProgressBar IsIndeterminate="False" x:Name="progress" Grid.Row="2" Visibility="Collapsed" />
+        
     </Grid>
 
 </phone:PhoneApplicationPage>
