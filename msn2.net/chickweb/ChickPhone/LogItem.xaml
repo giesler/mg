@@ -13,7 +13,7 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="videoLink" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSmallStyle}">
+        <Style x:Key="videoLink" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
             <Setter Property="Margin" Value="0" />
             <Setter Property="Padding" Value="0" />
         </Style>
