@@ -81,6 +81,8 @@ namespace ChickPhone
                     return "CDMA";
                 case NetworkInterfaceType.Wireless80211:
                     return "WIFI";
+                case NetworkInterfaceType.MobileBroadbandGsm:
+                    return "GSM";
                 default:
                     return netType.ToString().ToUpper();
             }
@@ -282,8 +284,6 @@ namespace ChickPhone
 
         void CompleteRead(Image i1, Storyboard s1, Image i2, Storyboard s2, TextBlock txt, ProgressBar pb, OpenReadCompletedEventArgs e)
         {
-            Debugger.Log(0, "Info", "CompleteRead: " + i1.Name);
-
             pb.Visibility = System.Windows.Visibility.Collapsed;
             
             if (e.Error == null && e.Cancelled == false && !this.stop)
@@ -379,9 +379,9 @@ namespace ChickPhone
             this.OpenCam(this.img6a.Source, "side");
         }
 
-        private void dateSelect_Click_1(object sender, RoutedEventArgs e)
+        private void OnLogMenuItemClick(object sender, EventArgs e)
         {
-
+            NavigationService.Navigate(new Uri(string.Format("/Log.xaml"), UriKind.Relative));
         }
     }
 }

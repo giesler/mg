@@ -70,6 +70,10 @@ namespace CamLib
 
             using (CamDataDataContext data = new CamDataDataContext())
             {
+                var q = data.ExecuteQuery(typeof(Alert), "select * From dbo.Alert with (nolock) where id = " + id.ToString());
+                
+                
+
                 alert = data.Alerts.FirstOrDefault(i => i.Id == id);
             }
 
@@ -117,6 +121,14 @@ namespace CamLib
             }
 
             return alerts;
+        }
+
+        public List<Alert> GetAlertsOnDate(DateTime date)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                return data.Alerts.Where(i => i.Timestamp > date.Date && i.Timestamp < date.Date.AddDays(1)).ToList();
+            }
         }
 
         public List<Alert> GetAlertsSinceDate(DateTime date)

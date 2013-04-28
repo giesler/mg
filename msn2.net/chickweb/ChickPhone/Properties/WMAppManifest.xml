@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="" />
-  <App xmlns="" ProductID="{ddd20c51-de45-4ff6-b5f2-dfb7d1685914}" Title="cams.msn2.net" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ChickPhone author" Description="Sample description" Publisher="ChickPhone" PublisherID="{a595b5a9-33f7-4c31-ab52-0bcccb13fb63}">
+  <App xmlns="" ProductID="{ddd20c51-de45-4ff6-b5f2-dfb7d1685914}" Title="cams.msn2.net" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Mike Giesler" Description="Sample description" Publisher="msn2.net" PublisherID="{a595b5a9-33f7-4c31-ab52-0bcccb13fb63}">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -28,10 +28,14 @@
           <Count>0</Count>
           <BackgroundImageURI IsResource="false" IsRelative="true">Background.png</BackgroundImageURI>
           <Title>cams.msn2.net</Title>
-          <BackContent></BackContent>
-          <BackBackgroundImageURI></BackBackgroundImageURI>
-          <BackTitle></BackTitle>
-          <DeviceLockImageURI></DeviceLockImageURI>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
           <HasLarge>false</HasLarge>
         </TemplateFlip>
       </PrimaryToken>

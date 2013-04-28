@@ -213,40 +213,19 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Name="log">
-                <controls:PanoramaItem.Header>
-                    <Grid Width="404">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="log" />
-                    </Grid>
-                </controls:PanoramaItem.Header>
-                <Grid Margin="0,-18,0,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="44" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Button x:Name="dateSelect" Click="dateSelect_Click_1" Padding="0" Style="{StaticResource EmptyButtonStyle}" >
-                        <TextBlock Text="TODAY" />
-                    </Button>
-                    <ProgressBar Grid.Row="1" IsIndeterminate="True" Width="400" x:Name="pblog" />
-                    <ItemsControl x:Name="logPictures">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image x:Name="logImage" Height="32" Width="32" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    
-                </Grid>
-            </controls:PanoramaItem>
-
-            
         </controls:Panorama>
     </Grid>
 
     <!--Panorama-based applications should not show an ApplicationBar-->
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
+<!--            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>-->
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="log" Click="OnLogMenuItemClick"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
