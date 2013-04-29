@@ -25,7 +25,7 @@
   <xs:element name="GetPreviousAndNextLogItemsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetPreviousAndNextLogItemsResult" nillable="true" type="q2:ArrayOfLogItem" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetPreviousAndNextLogItemsResult" nillable="true" type="q2:PreviousAndNextLogItems" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

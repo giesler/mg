@@ -77,6 +77,51 @@ namespace ChickPhone.CamDataService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PreviousAndNextLogItems", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public partial class PreviousAndNextLogItems : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private ChickPhone.CamDataService.LogItem NextItemField;
+        
+        private ChickPhone.CamDataService.LogItem PreviousItemField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ChickPhone.CamDataService.LogItem NextItem {
+            get {
+                return this.NextItemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NextItemField, value) != true)) {
+                    this.NextItemField = value;
+                    this.RaisePropertyChanged("NextItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ChickPhone.CamDataService.LogItem PreviousItem {
+            get {
+                return this.PreviousItemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PreviousItemField, value) != true)) {
+                    this.PreviousItemField = value;
+                    this.RaisePropertyChanged("PreviousItem");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="VideoItem", Namespace="http://schemas.datacontract.org/2004/07/")]
     public partial class VideoItem : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -177,7 +222,7 @@ namespace ChickPhone.CamDataService {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItems", ReplyAction="http://tempuri.org/ICameraData/GetPreviousAndNextLogItemsResponse")]
         System.IAsyncResult BeginGetPreviousAndNextLogItems(string id, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetPreviousAndNextLogItems(System.IAsyncResult result);
+        ChickPhone.CamDataService.PreviousAndNextLogItems EndGetPreviousAndNextLogItems(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ICameraData/GetVideos", ReplyAction="http://tempuri.org/ICameraData/GetVideosResponse")]
         System.IAsyncResult BeginGetVideos(System.DateTime startTime, System.DateTime endTime, System.AsyncCallback callback, object asyncState);
@@ -219,10 +264,10 @@ namespace ChickPhone.CamDataService {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> Result {
+        public ChickPhone.CamDataService.PreviousAndNextLogItems Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem>)(this.results[0]));
+                return ((ChickPhone.CamDataService.PreviousAndNextLogItems)(this.results[0]));
             }
         }
     }
@@ -383,7 +428,7 @@ namespace ChickPhone.CamDataService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> ChickPhone.CamDataService.ICameraData.EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
+        ChickPhone.CamDataService.PreviousAndNextLogItems ChickPhone.CamDataService.ICameraData.EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
             return base.Channel.EndGetPreviousAndNextLogItems(result);
         }
         
@@ -393,7 +438,7 @@ namespace ChickPhone.CamDataService {
         }
         
         private object[] OnEndGetPreviousAndNextLogItems(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> retVal = ((ChickPhone.CamDataService.ICameraData)(this)).EndGetPreviousAndNextLogItems(result);
+            ChickPhone.CamDataService.PreviousAndNextLogItems retVal = ((ChickPhone.CamDataService.ICameraData)(this)).EndGetPreviousAndNextLogItems(result);
             return new object[] {
                     retVal};
         }
@@ -567,9 +612,9 @@ namespace ChickPhone.CamDataService {
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
+            public ChickPhone.CamDataService.PreviousAndNextLogItems EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> _result = ((System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem>)(base.EndInvoke("GetPreviousAndNextLogItems", _args, result)));
+                ChickPhone.CamDataService.PreviousAndNextLogItems _result = ((ChickPhone.CamDataService.PreviousAndNextLogItems)(base.EndInvoke("GetPreviousAndNextLogItems", _args, result)));
                 return _result;
             }
             

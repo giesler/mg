@@ -197,6 +197,9 @@
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\CamDataService\ChickPhone.CamDataService.PreviousAndNextLogItems.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\CamDataService\ChickPhone.CamDataService.VideoItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

@@ -14,6 +14,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LogItem" nillable="true" type="tns:LogItem" />
+  <xs:complexType name="PreviousAndNextLogItems">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NextItem" nillable="true" type="tns:LogItem" />
+      <xs:element minOccurs="0" name="PreviousItem" nillable="true" type="tns:LogItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PreviousAndNextLogItems" nillable="true" type="tns:PreviousAndNextLogItems" />
   <xs:complexType name="ArrayOfVideoItem">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="VideoItem" nillable="true" type="tns:VideoItem" />

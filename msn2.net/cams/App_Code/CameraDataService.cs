@@ -56,4 +56,27 @@ public class CameraDataService : ICameraData
 
         return items;
     }
+
+    public PreviousAndNextLogItems GetPreviousAndNextLogItems(string id)
+    {
+        CamAlertManager alerts = new CamAlertManager();
+        int idValue = int.Parse(id);
+        PreviousAndNextLogItems items = new PreviousAndNextLogItems();
+
+        int previousId = alerts.GetPreviousAlertIdById(idValue);
+        if (previousId > 0)
+        {
+            var previous = alerts.GetAlert(previousId);
+            items.PreviousItem = new LogItem { Id = previous.Id.ToString(), Timestamp = previous.Timestamp, Url = "http://cams.msn2.net/GetLogImage.aspx?a=" + previous.Id.ToString() };
+        }
+
+        int nextId = alerts.GetNextAlertIdById(idValue);
+        if (nextId > 0)
+        {
+            var next = alerts.GetAlert(nextId);
+            items.NextItem = new LogItem { Id = next.Id.ToString(), Timestamp = next.Timestamp, Url = "http://cams.msn2.net/GetLogImage.aspx?a=" + next.Id.ToString() };
+        }
+
+        return items;
+    }
 }

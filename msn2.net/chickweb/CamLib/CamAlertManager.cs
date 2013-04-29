@@ -80,6 +80,21 @@ namespace CamLib
             return alert;
         }
 
+        public int GetNextAlertIdById(int id)
+        {
+            int nextId = 0;
+
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                nextId = (from d in data.Alerts
+                          where d.Id > id
+                          orderby d.Id
+                          select d.Id).FirstOrDefault();
+            }
+
+            return nextId;
+        }
+
         public int GetNextAlertId(Alert alert)
         {
             int nextId = 0;
@@ -93,6 +108,21 @@ namespace CamLib
             }
 
             return nextId;
+        }
+
+        public int GetPreviousAlertIdById(int id)
+        {
+            int previousId = 0;
+
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                previousId = (from d in data.Alerts
+                              where d.Id < id
+                              orderby d.Id descending
+                              select d.Id).FirstOrDefault();
+            }
+
+            return previousId;
         }
 
         public int GetPreviousAlertId(Alert alert)

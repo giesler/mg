@@ -13,6 +13,9 @@ public interface ICameraData
     List<LogItem> GetItems(DateTime date);
 
     [OperationContract]
+    PreviousAndNextLogItems GetPreviousAndNextLogItems(string id);
+
+    [OperationContract]
     List<VideoItem> GetVideos(DateTime startTime, DateTime endTime);
 }
 
@@ -48,3 +51,12 @@ public class VideoItem
     public double Duration { get; set; }
 }
 
+[DataContract]
+public class PreviousAndNextLogItems
+{
+    [DataMember]
+    public LogItem PreviousItem { get; set; }
+
+    [DataMember]
+    public LogItem NextItem { get; set; }
+}

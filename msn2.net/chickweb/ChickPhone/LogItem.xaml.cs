@@ -16,7 +16,7 @@ namespace ChickPhone
 {
     public partial class LogItem : PhoneApplicationPage
     {
-        List<CamDataService.LogItem> previousAndNextItems = null;
+        CamDataService.PreviousAndNextLogItems previousAndNextItems = null;
         static readonly string GetLogImageBaseUri = "http://cams.msn2.net/GetLogImage.aspx?a=";
 
         public LogItem()
@@ -79,10 +79,10 @@ namespace ChickPhone
 
             if (e.Error == null)
             {
-                this.previousAndNextItems = e.Result.ToList();
+                this.previousAndNextItems = e.Result;
 
-                ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).IsEnabled = true;
-                ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = true;
+                ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).IsEnabled = this.previousAndNextItems.PreviousItem != null;
+                ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = this.previousAndNextItems.NextItem != null;
             }
 
             client.CloseAsync();
@@ -112,12 +112,12 @@ namespace ChickPhone
 
         private void OnPrevious(object sender, EventArgs e)
         {
-            this.LoadItem(this.previousAndNextItems[0].Id, this.previousAndNextItems[0].Timestamp);
+            this.LoadItem(this.previousAndNextItems.PreviousItem.Id, this.previousAndNextItems.PreviousItem.Timestamp);
         }
 
         private void OnNext(object sender, EventArgs e)
         {
-            this.LoadItem(this.previousAndNextItems[1].Id, this.previousAndNextItems[1].Timestamp);
+            this.LoadItem(this.previousAndNextItems.NextItem.Id, this.previousAndNextItems.NextItem.Timestamp);
         }
 
         private void imageButton_Click(object sender, RoutedEventArgs e)
