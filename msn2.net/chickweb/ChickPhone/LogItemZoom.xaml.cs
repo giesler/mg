@@ -41,5 +41,10 @@ namespace ChickPhone
             transform.ScaleX = initialScale * e.DistanceRatio;
             transform.ScaleY = initialScale * e.DistanceRatio;
         }
+
+        private void OnDragDelta(object sender, DragDeltaGestureEventArgs e)
+        {
+            
+        }
     }
 }

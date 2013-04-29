@@ -28,7 +28,7 @@
                     <CompositeTransform x:Name="transform" />
                 </Image.RenderTransform>
                 <toolkit:GestureService.GestureListener>
-                    <toolkit:GestureListener PinchStarted="OnPinchStarted" PinchDelta="OnPinchDelta" />
+                    <toolkit:GestureListener PinchStarted="OnPinchStarted" PinchDelta="OnPinchDelta" DragDelta="OnDragDelta" />
                 </toolkit:GestureService.GestureListener>
             </Image>
         </Grid>
