@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cp="clr-namespace:ChickPhone"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -17,6 +18,7 @@
             <Setter Property="Margin" Value="0" />
             <Setter Property="Padding" Value="0" />
         </Style>
+        <cp:UpperCaseConverter x:Key="upperCaseConverter" />
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -40,11 +42,11 @@
                                     <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Left">
                                         <TextBlock Text="{Binding Timestamp, StringFormat='h:mm tt'}" Style="{StaticResource videoLink}" />
                                         <TextBlock Text=" - " Style="{StaticResource videoLink}" />
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource videoLink}" />
-                                        <TextBlock Text=" - " Style="{StaticResource videoLink}" />
+                                        <TextBlock Text="{Binding Name, Converter={StaticResource upperCaseConverter}}" Style="{StaticResource videoLink}" />
+                                        <TextBlock Text=" - 0:" Style="{StaticResource videoLink}" />
                                         <TextBlock Text="{Binding Duration}" Style="{StaticResource videoLink}" />
-                                        <TextBlock Text="s, " Style="{StaticResource videoLink}" />
-                                        <TextBlock Text="{Binding MotionPercentage, StringFormat='0.0'}" Style="{StaticResource videoLink}" />
+                                        <TextBlock Text=", " Style="{StaticResource videoLink}" />
+                                        <TextBlock Text="{Binding MotionPercentage, StringFormat='0'}" Style="{StaticResource videoLink}" />
                                         <TextBlock Text="%" Style="{StaticResource videoLink}" />
                                     </StackPanel>
                                 </Button>

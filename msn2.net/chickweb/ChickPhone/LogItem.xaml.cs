@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChickPhone.CamDataService;
+using System.Windows.Data;
 
 namespace ChickPhone
 {
@@ -69,4 +70,18 @@ namespace ChickPhone
             }
         }
     }
+
+    public class UpperCaseConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return value == null ? null : value.ToString().ToUpper();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }
