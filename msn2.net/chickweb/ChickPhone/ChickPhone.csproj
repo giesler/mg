@@ -119,6 +119,9 @@
     <Compile Include="LogItem.xaml.cs">
       <DependentUpon>LogItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LogItemZoom.xaml.cs">
+      <DependentUpon>LogItemZoom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LogItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogItemZoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

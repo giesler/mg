@@ -17,6 +17,7 @@ namespace ChickPhone
     public partial class LogItem : PhoneApplicationPage
     {
         List<CamDataService.LogItem> previousAndNextItems = null;
+        static readonly string GetLogImageBaseUri = "http://cams.msn2.net/GetLogImage.aspx?a=";
 
         public LogItem()
         {
@@ -27,16 +28,26 @@ namespace ChickPhone
         {
             base.OnNavigatedTo(e);
 
-            string itemId = NavigationContext.QueryString["a"];
-            DateTime ts = DateTime.Parse(NavigationContext.QueryString["ts"]);
-            this.LoadItem(itemId, ts);
+            if (App.LogItem_LastImageId != null)
+            {
+                this.LoadItem(App.LogItem_LastImageId, App.LogItem_LastImageTimestamp);
+            }
+            else
+            {
+                string itemId = NavigationContext.QueryString["a"];
+                DateTime ts = DateTime.Parse(NavigationContext.QueryString["ts"]);
+                this.LoadItem(itemId, ts);
+            }
         }
 
         void LoadItem(string itemId, DateTime ts)
         {
-            this.image.Source = new BitmapImage(new Uri("http://cams.msn2.net/GetLogImage.aspx?a=" + itemId));
-            this.videos.ItemsSource = null;
+            App.LogItem_LastImageId = itemId;
+            App.LogItem_LastImageTimestamp = ts;
 
+            this.image.Source = new BitmapImage(new Uri(GetLogImageBaseUri + itemId));
+            this.videos.ItemsSource = null;
+            
             if (ts.Date == DateTime.Today.Date)
             {
                 this.timestamp.Text = "TODAY " + ts.ToString("h:mm tt");
@@ -107,6 +118,11 @@ namespace ChickPhone
         private void OnNext(object sender, EventArgs e)
         {
             this.LoadItem(this.previousAndNextItems[1].Id, this.previousAndNextItems[1].Timestamp);
+        }
+
+        private void imageButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri(string.Format("/LogItemZoom.xaml?url={0}", GetLogImageBaseUri + App.LogItem_LastImageId), UriKind.Relative));
         }
     }
 

@@ -30,7 +30,9 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Orientation="Vertical">
-                <Image Name="image" />
+                <Button Name="imageButton" BorderBrush="{x:Null}" Click="imageButton_Click">
+                    <Image Name="image" />
+                </Button>
                 <TextBlock Name="timestamp" Style="{StaticResource PhoneTextSmallStyle}" />
                 <TextBlock Text=" " />
                 <TextBlock Text="VIDEOS" Style="{StaticResource PhoneTextGroupHeaderStyle}" />
@@ -65,5 +67,5 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="Next" Click="OnNext" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-    
+
 </phone:PhoneApplicationPage>

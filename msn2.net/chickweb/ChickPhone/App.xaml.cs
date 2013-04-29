@@ -25,6 +25,9 @@ namespace ChickPhone
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
+        public static string LogItem_LastImageId { get; set; }
+        public static DateTime LogItem_LastImageTimestamp { get; set; }
+        
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

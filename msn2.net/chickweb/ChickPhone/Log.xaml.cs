@@ -28,6 +28,8 @@ namespace ChickPhone
             }
             this.dateSelect.ItemsSource = dates;
             this.dateSelect.SelectedIndex = 0;
+
+            App.LogItem_LastImageId = null;
         }
 
         void OnGetItemsCompleted(object sender, CamDataService.GetItemsCompletedEventArgs e)
