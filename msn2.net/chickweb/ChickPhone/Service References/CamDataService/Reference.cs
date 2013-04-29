@@ -174,6 +174,11 @@ namespace ChickPhone.CamDataService {
         
         System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetItems(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItems", ReplyAction="http://tempuri.org/ICameraData/GetPreviousAndNextLogItemsResponse")]
+        System.IAsyncResult BeginGetPreviousAndNextLogItems(string id, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetPreviousAndNextLogItems(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ICameraData/GetVideos", ReplyAction="http://tempuri.org/ICameraData/GetVideosResponse")]
         System.IAsyncResult BeginGetVideos(System.DateTime startTime, System.DateTime endTime, System.AsyncCallback callback, object asyncState);
         
@@ -191,6 +196,25 @@ namespace ChickPhone.CamDataService {
         private object[] results;
         
         public GetItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPreviousAndNextLogItemsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPreviousAndNextLogItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -231,6 +255,12 @@ namespace ChickPhone.CamDataService {
         private EndOperationDelegate onEndGetItemsDelegate;
         
         private System.Threading.SendOrPostCallback onGetItemsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPreviousAndNextLogItemsDelegate;
+        
+        private EndOperationDelegate onEndGetPreviousAndNextLogItemsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPreviousAndNextLogItemsCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetVideosDelegate;
         
@@ -293,6 +323,8 @@ namespace ChickPhone.CamDataService {
         
         public event System.EventHandler<GetItemsCompletedEventArgs> GetItemsCompleted;
         
+        public event System.EventHandler<GetPreviousAndNextLogItemsCompletedEventArgs> GetPreviousAndNextLogItemsCompleted;
+        
         public event System.EventHandler<GetVideosCompletedEventArgs> GetVideosCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
@@ -343,6 +375,52 @@ namespace ChickPhone.CamDataService {
             }
             base.InvokeAsync(this.onBeginGetItemsDelegate, new object[] {
                         date}, this.onEndGetItemsDelegate, this.onGetItemsCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult ChickPhone.CamDataService.ICameraData.BeginGetPreviousAndNextLogItems(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPreviousAndNextLogItems(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> ChickPhone.CamDataService.ICameraData.EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
+            return base.Channel.EndGetPreviousAndNextLogItems(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPreviousAndNextLogItems(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return ((ChickPhone.CamDataService.ICameraData)(this)).BeginGetPreviousAndNextLogItems(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPreviousAndNextLogItems(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> retVal = ((ChickPhone.CamDataService.ICameraData)(this)).EndGetPreviousAndNextLogItems(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPreviousAndNextLogItemsCompleted(object state) {
+            if ((this.GetPreviousAndNextLogItemsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPreviousAndNextLogItemsCompleted(this, new GetPreviousAndNextLogItemsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPreviousAndNextLogItemsAsync(string id) {
+            this.GetPreviousAndNextLogItemsAsync(id, null);
+        }
+        
+        public void GetPreviousAndNextLogItemsAsync(string id, object userState) {
+            if ((this.onBeginGetPreviousAndNextLogItemsDelegate == null)) {
+                this.onBeginGetPreviousAndNextLogItemsDelegate = new BeginOperationDelegate(this.OnBeginGetPreviousAndNextLogItems);
+            }
+            if ((this.onEndGetPreviousAndNextLogItemsDelegate == null)) {
+                this.onEndGetPreviousAndNextLogItemsDelegate = new EndOperationDelegate(this.OnEndGetPreviousAndNextLogItems);
+            }
+            if ((this.onGetPreviousAndNextLogItemsCompletedDelegate == null)) {
+                this.onGetPreviousAndNextLogItemsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPreviousAndNextLogItemsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPreviousAndNextLogItemsDelegate, new object[] {
+                        id}, this.onEndGetPreviousAndNextLogItemsDelegate, this.onGetPreviousAndNextLogItemsCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -479,6 +557,19 @@ namespace ChickPhone.CamDataService {
             public System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetItems(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> _result = ((System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem>)(base.EndInvoke("GetItems", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetPreviousAndNextLogItems(string id, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = id;
+                System.IAsyncResult _result = base.BeginInvoke("GetPreviousAndNextLogItems", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> EndGetPreviousAndNextLogItems(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem> _result = ((System.Collections.ObjectModel.ObservableCollection<ChickPhone.CamDataService.LogItem>)(base.EndInvoke("GetPreviousAndNextLogItems", _args, result)));
                 return _result;
             }
             

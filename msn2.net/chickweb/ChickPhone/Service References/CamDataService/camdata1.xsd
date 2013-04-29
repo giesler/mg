@@ -15,6 +15,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetPreviousAndNextLogItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPreviousAndNextLogItemsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetPreviousAndNextLogItemsResult" nillable="true" type="q2:ArrayOfLogItem" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetVideos">
     <xs:complexType>
       <xs:sequence>
@@ -26,7 +40,7 @@
   <xs:element name="GetVideosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetVideosResult" nillable="true" type="q2:ArrayOfVideoItem" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetVideosResult" nillable="true" type="q3:ArrayOfVideoItem" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

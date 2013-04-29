@@ -58,4 +58,12 @@
         </Grid>
     </Grid>
 
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="Previous" Click="OnPrevious"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="Next" Click="OnNext" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
 </phone:PhoneApplicationPage>

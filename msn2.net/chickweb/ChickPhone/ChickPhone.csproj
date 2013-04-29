@@ -162,6 +162,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\appbar.back.rest.png" />
+    <Content Include="Images\appbar.next.rest.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />

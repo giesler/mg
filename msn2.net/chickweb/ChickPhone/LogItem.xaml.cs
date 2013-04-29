@@ -16,6 +16,8 @@ namespace ChickPhone
 {
     public partial class LogItem : PhoneApplicationPage
     {
+        List<CamDataService.LogItem> previousAndNextItems = null;
+
         public LogItem()
         {
             InitializeComponent();            
@@ -27,8 +29,13 @@ namespace ChickPhone
 
             string itemId = NavigationContext.QueryString["a"];
             DateTime ts = DateTime.Parse(NavigationContext.QueryString["ts"]);
+            this.LoadItem(itemId, ts);
+        }
 
+        void LoadItem(string itemId, DateTime ts)
+        {
             this.image.Source = new BitmapImage(new Uri("http://cams.msn2.net/GetLogImage.aspx?a=" + itemId));
+            this.videos.ItemsSource = null;
 
             if (ts.Date == DateTime.Today.Date)
             {
@@ -43,9 +50,31 @@ namespace ChickPhone
                 this.timestamp.Text = ts.ToString("ddd MMM d h:mm tt").ToUpper();
             }
 
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).IsEnabled = false;
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = false;
+
             CameraDataClient client = new CameraDataClient();
             client.GetVideosCompleted += OnGetVideosCompleted;
             client.GetVideosAsync(ts.AddSeconds(-30), ts.AddMinutes(5));
+
+            CameraDataClient client2 = new CameraDataClient();
+            client2.GetPreviousAndNextLogItemsCompleted += OnGetPreviousAndNextCompleted;
+            client2.GetPreviousAndNextLogItemsAsync(itemId);
+        }
+
+        void OnGetPreviousAndNextCompleted(object sender, GetPreviousAndNextLogItemsCompletedEventArgs e)
+        {
+            CameraDataClient client = (CameraDataClient)sender;
+
+            if (e.Error == null)
+            {
+                this.previousAndNextItems = e.Result.ToList();
+
+                ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).IsEnabled = true;
+                ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = true;
+            }
+
+            client.CloseAsync();
         }
 
         void OnGetVideosCompleted(object sender, GetVideosCompletedEventArgs e)
@@ -68,6 +97,16 @@ namespace ChickPhone
                 VideoItem video = (VideoItem)button.DataContext;
                 NavigationService.Navigate(new Uri(string.Format("/Video.xaml?v={0}", video.Id), UriKind.Relative));
             }
+        }
+
+        private void OnPrevious(object sender, EventArgs e)
+        {
+            this.LoadItem(this.previousAndNextItems[0].Id, this.previousAndNextItems[0].Timestamp);
+        }
+
+        private void OnNext(object sender, EventArgs e)
+        {
+            this.LoadItem(this.previousAndNextItems[1].Id, this.previousAndNextItems[1].Timestamp);
         }
     }
 
