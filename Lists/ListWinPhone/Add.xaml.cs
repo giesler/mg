@@ -37,7 +37,10 @@ namespace giesler.org.lists
 
         void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            this.text.Focus();
+            if (!NavigationContext.QueryString.ContainsKey("voice"))
+            {
+                this.text.Focus();
+            }
         }
 
         protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
