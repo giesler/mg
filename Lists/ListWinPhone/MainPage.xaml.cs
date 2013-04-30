@@ -276,11 +276,23 @@ namespace giesler.org.lists
             if (NavigationContext.QueryString.ToString().Length > 0)
             {
                 StringBuilder sb = new StringBuilder();
-                NavigationContext.QueryString.ToList().ForEach(i => sb.AppendFormat("{0}={1}", i.Key, i.Value));
+                NavigationContext.QueryString.ToList().ForEach(i => sb.AppendFormat("{0}={1}{2}", i.Key, i.Value, Environment.NewLine));
 
                 if (sb.ToString().Trim().Length > 0)
                 {
                     MessageBox.Show(sb.ToString());
+                }
+
+                if (NavigationContext.QueryString.ContainsKey("voiceCommandName"))
+                {
+                    string commandName = NavigationContext.QueryString["voiceCommandName"];
+
+                    if (commandName == "add")
+                    {
+                        App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
+                        this.DisplayLoadedLists(App.Lists);
+                        NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + App.SelectedList, UriKind.Relative));
+                    }
                 }
             }
 
