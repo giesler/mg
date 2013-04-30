@@ -273,8 +273,10 @@ namespace giesler.org.lists
         {            
             App.Current.LoadAll();
 
-            if (NavigationContext.QueryString.ToString().Length > 0)
+            if (NavigationContext.QueryString.ToString().Length > 0 && !App.VoiceNavigationHandled)
             {
+                App.VoiceNavigationHandled = true;
+
                 StringBuilder sb = new StringBuilder();
                 NavigationContext.QueryString.ToList().ForEach(i => sb.AppendFormat("{0}={1}{2}", i.Key, i.Value, Environment.NewLine));
 
@@ -291,7 +293,7 @@ namespace giesler.org.lists
                     {
                         App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
                         this.DisplayLoadedLists(App.Lists);
-                        NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + App.SelectedList, UriKind.Relative));
+                        NavigationService.Navigate(new Uri("/Add.xaml?voice=1&listUniqueId=" + App.SelectedList, UriKind.Relative));
                     }
                 }
             }

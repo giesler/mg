@@ -13,11 +13,14 @@ using Microsoft.Phone.Controls;
 using giesler.org.lists.ListData;
 using Microsoft.Phone.Shell;
 using System.Threading;
+using Windows.Phone.Speech.Recognition;
 
 namespace giesler.org.lists
 {
     public partial class Add : PhoneApplicationPage
     {
+        private SpeechRecognizerUI reco;
+
         public Add()
         {
             InitializeComponent();
@@ -35,6 +38,18 @@ namespace giesler.org.lists
         void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             this.text.Focus();
+        }
+
+        protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (NavigationContext.QueryString.ContainsKey("voice"))
+            {
+                this.reco = new SpeechRecognizerUI();
+                SpeechRecognitionUIResult result = await this.reco.RecognizeWithUIAsync();
+                this.text.Text = result.RecognitionResult.Text;
+            }
         }
 
         private void text_TextChanged(object sender, TextChangedEventArgs e)

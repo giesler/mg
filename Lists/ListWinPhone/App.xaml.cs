@@ -185,7 +185,8 @@ namespace giesler.org.lists
             }
         }
         public static bool IsJumpNavigation { get; set; }
-        
+        public static bool VoiceNavigationHandled { get; set; }
+
         static Guid selectedList;
 
         public static DateTime lastRefreshTime = DateTime.MinValue;
