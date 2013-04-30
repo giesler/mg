@@ -54,6 +54,11 @@ namespace giesler.org.lists
                 this.reco.Settings.ShowConfirmation = false;
                 SpeechRecognitionUIResult result = await this.reco.RecognizeWithUIAsync();
                 this.text.Text = result.RecognitionResult.Text;
+                if (this.text.Text.EndsWith("."))
+                {
+                    this.text.Text = this.text.Text.Substring(0, this.text.Text.Length - 1);
+                }
+                this.text.SelectionStart = this.text.Text.Length;
                 this.reco.Dispose();
                 this.text.Focus();
             }
