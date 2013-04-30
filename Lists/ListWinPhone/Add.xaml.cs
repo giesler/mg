@@ -50,8 +50,12 @@ namespace giesler.org.lists
             if (NavigationContext.QueryString.ContainsKey("voice"))
             {
                 this.reco = new SpeechRecognizerUI();
+                this.reco.Settings.ReadoutEnabled = false;
+                this.reco.Settings.ShowConfirmation = false;
                 SpeechRecognitionUIResult result = await this.reco.RecognizeWithUIAsync();
                 this.text.Text = result.RecognitionResult.Text;
+                this.reco.Dispose();
+                this.text.Focus();
             }
         }
 
