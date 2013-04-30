@@ -13,8 +13,10 @@
     </Command>
 
     <Command Name="ShowList">
-      <Example> show groceries </Example>
+      <Example> groceries or show groceries </Example>
       <ListenFor> show {list} </ListenFor>
+      <ListenFor> go to {list} </ListenFor>
+      <ListenFor> {list} </ListenFor>
       <Feedback> Showing {list} </Feedback>
       <Navigate />
     </Command>
