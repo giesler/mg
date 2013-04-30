@@ -287,7 +287,7 @@ namespace giesler.org.lists
                 {
                     string commandName = NavigationContext.QueryString["voiceCommandName"];
 
-                    if (commandName == "add")
+                    if (commandName == "AddTo")
                     {
                         App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
                         this.DisplayLoadedLists(App.Lists);
