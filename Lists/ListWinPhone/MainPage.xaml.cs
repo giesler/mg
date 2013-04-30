@@ -282,7 +282,7 @@ namespace giesler.org.lists
 
                 if (sb.ToString().Trim().Length > 0)
                 {
-                    MessageBox.Show(sb.ToString());
+                    //MessageBox.Show(sb.ToString());
                 }
 
                 if (NavigationContext.QueryString.ContainsKey("voiceCommandName"))
@@ -294,6 +294,15 @@ namespace giesler.org.lists
                         App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
                         this.DisplayLoadedLists(App.Lists);
                         NavigationService.Navigate(new Uri("/Add.xaml?voice=1&listUniqueId=" + App.SelectedList, UriKind.Relative));
+                    }
+                    else if (commandName == "ShowList")
+                    {
+                        App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
+                    }
+                    else if (commandName == "ShowLists")
+                    {
+                        this.DisplayLoadedLists(App.Lists);
+                        jumpButton_Click(this, EventArgs.Empty);
                     }
                 }
             }

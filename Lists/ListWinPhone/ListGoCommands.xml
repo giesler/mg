@@ -15,14 +15,14 @@
     <Command Name="ShowList">
       <Example> show groceries </Example>
       <ListenFor> show {list} </ListenFor>
-      <Feedback> showing {list} </Feedback>
+      <Feedback> Showing {list} </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="AddTo">
       <Example> add to groceries </Example>
       <ListenFor> add to {list} </ListenFor>
-      <Feedback> adding to {list} </Feedback>
+      <Feedback> Adding to {list} </Feedback>
       <Navigate />
     </Command>
 
