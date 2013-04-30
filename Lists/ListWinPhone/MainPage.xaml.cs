@@ -11,6 +11,7 @@ using giesler.org.lists.ListData;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Shell;
+using Windows.Phone.Speech.VoiceCommands;
 
 namespace giesler.org.lists
 {
@@ -26,7 +27,7 @@ namespace giesler.org.lists
             InitializeComponent();
         }
 
-        public bool AttemptedStorageLoad { get; set; }
+                public bool AttemptedStorageLoad { get; set; }
         private bool isLoading = false;
         private StoreItemList listControl;
 
@@ -131,6 +132,12 @@ namespace giesler.org.lists
             {
                 this.updatingMessage.Visibility = System.Windows.Visibility.Collapsed;
             }
+
+            List<string> listNames = new List<string>();
+            lists.ForEach(i => listNames.Add(i.Name));
+
+            VoiceCommandSet widgetVcs = VoiceCommandService.InstalledCommandSets["en-US"];
+            widgetVcs.UpdatePhraseListAsync("list", listNames);
         }
 
         static string GetDurationString(TimeSpan duration)
@@ -265,6 +272,17 @@ namespace giesler.org.lists
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {            
             App.Current.LoadAll();
+
+            if (NavigationContext.QueryString.ToString().Length > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                NavigationContext.QueryString.ToList().ForEach(i => sb.AppendFormat("{0}={1}", i.Key, i.Value));
+
+                if (sb.ToString().Trim().Length > 0)
+                {
+                    MessageBox.Show(sb.ToString());
+                }
+            }
 
             //string msg = string.Format("MainPage_Loaded: App.Lists=null? {0}, App.AttemptedStorageLoad={1}", App.Lists == null, App.AttemptedStorageLoad);
             //MessageBox.Show(msg);

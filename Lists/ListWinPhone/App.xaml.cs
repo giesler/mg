@@ -19,6 +19,7 @@ using System.Diagnostics;
 using giesler.org.lists.ListData;
 using System.IO;
 using System.Xml.Linq;
+using Windows.Phone.Speech.VoiceCommands;
 
 namespace giesler.org.lists
 {
@@ -60,6 +61,8 @@ namespace giesler.org.lists
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            // Load voice commands
+            VoiceCommandService.InstallCommandSetsFromFileAsync(new Uri("ms-appx:///ListGoCommands.xml"));
         }
 
         // Code to execute when the application is launching (eg, from Start)
