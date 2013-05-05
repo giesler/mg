@@ -13,13 +13,13 @@ namespace DripDuino
             server.RequestRouting.Add("GET /status",
                         context => 
                             {
-                                context.SetResponse("zero", "text/plain");
+                                context.SetResponse(Dripper.IsOn.ToString(), "text/plain");
                             });
 
             server.RequestRouting.Add("GET /toggle",
                         context =>
                             {
-                                context.SetResponse("1", "text/plain");
+                                context.SetResponse("not yet implemented", "text/plain");
                             });
 
             server.Run();

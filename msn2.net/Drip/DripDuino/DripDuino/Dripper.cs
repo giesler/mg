@@ -15,13 +15,17 @@ namespace DripDuino
 
         static Dripper()
         {
-            DefaultDuration = new TimeSpan(0, 1, 0); // 1 minute
+            DefaultDuration = new TimeSpan(0, 15, 0); // 15 minutes
         }
 
         public static void Run()
         {
             InputPort switchPort = new InputPort(Pins.ONBOARD_SW1, false, Port.ResistorMode.Disabled);
             OutputPort ledPort = new OutputPort(Pins.ONBOARD_LED, false);
+            OutputPort externalLedPort = new OutputPort(Pins.GPIO_PIN_D7, false);
+            OutputPort switchPort1 = new OutputPort(Pins.GPIO_PIN_D9, true);
+            OutputPort switchPort2 = new OutputPort(Pins.GPIO_PIN_D10, true);
+
             bool wasClosed = false;
 
             while (true)
@@ -32,6 +36,9 @@ namespace DripDuino
                 if (IsOn && OffTime < DateTime.Now)
                 {
                     ledPort.Write(false);
+                    externalLedPort.Write(false);
+                    switchPort1.Write(true);
+                    switchPort2.Write(true);
                     IsOn = false;
                     OnTime = DateTime.MinValue;
                 }
@@ -39,14 +46,19 @@ namespace DripDuino
                 else if (isClosed && !wasClosed)
                 {
                     ledPort.Write(true);
+                    externalLedPort.Write(true);
+                    switchPort1.Write(false);
+                    switchPort2.Write(false);
                     OffTime = DateTime.Now.Add(Dripper.DefaultDuration);
                     OnTime = DateTime.Now;
                     IsOn = true;
                 }
-                // If switch was pressed on last loop but is not pressed now
-                else if (wasClosed && !isClosed)
+                else if (IsOn && isClosed && OnTime.AddSeconds(1) < DateTime.Now)
                 {
                     ledPort.Write(false);
+                    externalLedPort.Write(false);
+                    switchPort1.Write(true);
+                    switchPort2.Write(true);
                     OffTime = DateTime.Now;
                 }
 

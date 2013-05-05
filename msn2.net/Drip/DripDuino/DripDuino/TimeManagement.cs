@@ -50,6 +50,8 @@ namespace DripDuino
 
         private static int GetTimezoneOffset(int offset)
         {
+            return offset;
+            /*
             try
             {
                 HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=47.680265&lng=-122.172113&username=demo");
@@ -82,7 +84,7 @@ namespace DripDuino
                 Debug.Print("Error getting timezone offset: " + ex.Message);
             }
 
-            return offset;
+            return offset;*/
         }
 
         static DateTime NTPTime(String TimeServer, int UTC_offset)
