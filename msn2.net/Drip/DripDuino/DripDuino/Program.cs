@@ -81,7 +81,8 @@ namespace DripDuino
                 HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
                 using (Stream stream = webResponse.GetResponseStream())
                 {
-                    byte[] buffer = new byte[webResponse.ContentLength];
+                    int length = (int)webResponse.ContentLength;
+                    byte[] buffer = new byte[length];
                     int toRead = buffer.Length;
                     while (toRead > 0)
                     {
