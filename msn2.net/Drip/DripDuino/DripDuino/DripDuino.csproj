@@ -30,10 +30,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>DripDuino.Program</StartupObject>
+  </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="DripHttpServer.cs" />
+    <Compile Include="Dripper.cs" />
+    <Compile Include="Gsiot\Gsiot.HttpRiders.cs" />
+    <Compile Include="Gsiot\Representations.cs" />
+    <Compile Include="Gsiot\Resources.cs" />
+    <Compile Include="Gsiot\Server.cs" />
+    <Compile Include="Gsiot\Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="TimeManagement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
@@ -46,11 +57,5 @@
     <Reference Include="System" />
     <Reference Include="System.Http" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Externals\Gsiot.Server\Gsiot.Server.csproj">
-      <Project>{B49B59E3-5208-46B6-9E1D-FA3C276E98FF}</Project>
-      <Name>Gsiot.Server</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>
