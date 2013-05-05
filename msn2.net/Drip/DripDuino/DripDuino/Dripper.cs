@@ -15,10 +15,10 @@ namespace DripDuino
         public static DateTime OnTime { get; private set; }
 
         private static InputPort switchPort = new InputPort(Pins.ONBOARD_SW1, false, Port.ResistorMode.Disabled);
-        private static OutputPort ledPort = new OutputPort(Pins.ONBOARD_LED, false);
+        private static OutputPort internalLedPort = new OutputPort(Pins.ONBOARD_LED, false);
         private static OutputPort externalLedPort = new OutputPort(Pins.GPIO_PIN_D7, false);
-        private static OutputPort switchPort1 = new OutputPort(Pins.GPIO_PIN_D9, true);
-        private static OutputPort switchPort2 = new OutputPort(Pins.GPIO_PIN_D10, true);
+        private static OutputPort outPort1 = new OutputPort(Pins.GPIO_PIN_D9, true);
+        private static OutputPort outPort2 = new OutputPort(Pins.GPIO_PIN_D10, true);
         
         static Dripper()
         {
@@ -52,10 +52,10 @@ namespace DripDuino
 
         public static void Toggle(bool turnOn)
         {
-            ledPort.Write(turnOn);
+            internalLedPort.Write(turnOn);
             externalLedPort.Write(turnOn);
-            switchPort1.Write(!turnOn);
-            switchPort2.Write(!turnOn);
+            outPort1.Write(!turnOn);
+            outPort2.Write(!turnOn);
 
             IsOn = turnOn;
             OnTime = turnOn ? DateTime.Now : DateTime.MinValue;

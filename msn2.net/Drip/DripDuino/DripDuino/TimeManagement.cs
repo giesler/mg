@@ -5,11 +5,17 @@ using System.Threading;
 using System.IO;
 using System.Text;
 using System.Net.Sockets;
+using Microsoft.SPOT.Hardware;
 
 namespace DripDuino
 {
     class TimeManagement
     {
+        static readonly string NtpServerName = "ike.sp.msn2.net";
+        static readonly string Latitude = "47.680265";
+        static readonly string Longitude = "-122.172113";
+        static readonly int UtcOffset = -7;                     // default to summer PST
+
         public static bool TimeSet { get; private set; }
 
         public static void Run()
@@ -21,14 +27,14 @@ namespace DripDuino
                 while (true)
                 {
                     DateTime current = DateTime.Now;
-                    int offset = -7;        // default to PST summer
+                    int offset = UtcOffset;
 
                     try
                     {
                         offset = GetTimezoneOffset(offset);
 
-                        DateTime time = NTPTime("ike.sp.msn2.net", offset);
-                        Microsoft.SPOT.Hardware.Utility.SetLocalTime(time);
+                        DateTime time = GetNtpTime(NtpServerName, offset);
+                        Utility.SetLocalTime(time);
                         Debug.Print("Set time to " + time.ToString() + " from " + current.ToString());
                         TimeSet = true;
                         break;
@@ -52,7 +58,7 @@ namespace DripDuino
         {
             try
             {
-                HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=47.680265&lng=-122.172113&username=demo");
+                HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=" + Latitude + "&lng=" + Longitude + "&username=demo");
                 HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
                 using (Stream stream = webResponse.GetResponseStream())
                 {
@@ -85,7 +91,7 @@ namespace DripDuino
             return offset;
         }
 
-        static DateTime NTPTime(String TimeServer, int UTC_offset)
+        static DateTime GetNtpTime(String TimeServer, int UTC_offset)
         {
             // Find endpoint for timeserver
             IPEndPoint ep = new IPEndPoint(Dns.GetHostEntry(TimeServer).AddressList[0], 123);

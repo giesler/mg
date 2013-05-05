@@ -8,6 +8,8 @@ namespace DripDuino
     class Log
     {
         readonly static string BasePath = @"\SD\DripDuinoLog";
+        readonly static string LogFileFormatString = "yyyy-MM-dd";
+
         static Log()
         {
             if (!Directory.Exists(BasePath))
@@ -18,7 +20,7 @@ namespace DripDuino
 
         public static void AddEntry(string message)
         {
-            string logPath = Path.Combine(BasePath, DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
+            string logPath = Path.Combine(BasePath, DateTime.Now.ToString(LogFileFormatString) + ".txt");
             using (FileStream stream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.Read))
             {
                 string text = DateTime.Now.ToString("M/d/yy h:mm tt") + ": " + message + "\r\n";
@@ -31,7 +33,7 @@ namespace DripDuino
         public static string GetLog(DateTime date)
         {
             string log = string.Empty;
-            string logPath = Path.Combine(BasePath, date.ToString("yyyy-MM-dd") + ".txt");
+            string logPath = Path.Combine(BasePath, date.ToString(LogFileFormatString) + ".txt");
             if (File.Exists(logPath))
             {
                 using (StreamReader reader = new StreamReader(logPath))
@@ -42,6 +44,5 @@ namespace DripDuino
             }
             return log;
         }
-
     }
 }

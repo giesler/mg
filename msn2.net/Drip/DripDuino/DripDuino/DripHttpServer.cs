@@ -61,7 +61,7 @@ namespace DripDuino
 
         static string HtmlDoc(string title, string contents)
         {
-            string html = "<html><head><title>" + title + "</title><META HTTP-EQUIV=\"CACHE-CONTROL\" CONTENT=\"NO-CACHE\" /></head><body>" + contents + "</body></html>";
+            string html = "<html><head><title>" + title + "</title></head><body>" + contents + "</body></html>";
             return html;
         }
     }

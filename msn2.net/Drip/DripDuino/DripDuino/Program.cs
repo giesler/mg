@@ -13,13 +13,9 @@ namespace DripDuino
 {
     public class Program
     {
-        private static Thread timeThread;
-        private static Thread webServerThread;
-        private static Thread dripThread;
-
         public static void Main()
         {
-            timeThread = new Thread(new ThreadStart(TimeManagement.Run));
+            Thread timeThread = new Thread(new ThreadStart(TimeManagement.Run));
             timeThread.Start();
 
             while (!TimeManagement.TimeSet)
@@ -27,10 +23,10 @@ namespace DripDuino
                 Thread.Sleep(1000);
             }
 
-            webServerThread = new Thread(new ThreadStart(DripHttpServer.Run));
+            Thread webServerThread = new Thread(new ThreadStart(DripHttpServer.Run));
             webServerThread.Start();
 
-            dripThread = new Thread(new ThreadStart(Dripper.Run));
+            Thread dripThread = new Thread(new ThreadStart(Dripper.Run));
             dripThread.Start();
 
             while (true)
