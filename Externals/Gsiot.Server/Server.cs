@@ -106,7 +106,6 @@ namespace Gsiot.Server
         // request interface
 
         string requestUri;
-        string relativeUri;             // created lazily
 
         /// <summary>
         /// This property tells you which kind of request has been
