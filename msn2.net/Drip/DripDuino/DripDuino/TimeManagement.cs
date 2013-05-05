@@ -50,25 +50,23 @@ namespace DripDuino
 
         private static int GetTimezoneOffset(int offset)
         {
-            return offset;
-            /*
             try
             {
                 HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=47.680265&lng=-122.172113&username=demo");
                 HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
                 using (Stream stream = webResponse.GetResponseStream())
                 {
-                    int index = 0;
-                    byte[] buffer = new byte[2500];
-                    int b = stream.ReadByte();
-                    while (b > -1)
+                    byte[] buffer = new byte[500];
+                    int count = stream.Read(buffer, 0, buffer.Length);
+                    char[] chars = Encoding.UTF8.GetChars(buffer);
+
+                    string content = string.Empty;
+                    foreach (char c in chars)
                     {
-                        buffer[index] = (byte)b;
-                        b = stream.ReadByte();
+                        content += c;
                     }
 
-                    char[] chars = Encoding.UTF8.GetChars(buffer);
-                    string[] properties = chars.ToString().Split(new char[] { '{', ',', '}' });
+                    string[] properties = content.Split(new char[] { '{', ',', '}' });
                     foreach (string item in properties)
                     {
                         if (item.IndexOf("dstOffset") > 0)
@@ -84,7 +82,7 @@ namespace DripDuino
                 Debug.Print("Error getting timezone offset: " + ex.Message);
             }
 
-            return offset;*/
+            return offset;
         }
 
         static DateTime NTPTime(String TimeServer, int UTC_offset)
