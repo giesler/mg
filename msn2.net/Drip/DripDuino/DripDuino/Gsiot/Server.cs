@@ -595,7 +595,6 @@ namespace Gsiot.Server
             HttpReader reader = new HttpReader();
             HttpWriter writer = new HttpWriter();
             var context = new RequestHandlerContext(serviceRoot);
-            Debug.Print("memory available: " + Debug.GC(true));
             // Both client and server may request closing the connection.
 
             // Initially, we assume that neither one wants to close the
@@ -754,6 +753,10 @@ namespace Gsiot.Server
             }
             writer.WriteString("Content-Length: ");
             writer.WriteLine(responseLength.ToString());
+
+            writer.WriteLine("Pragma: no-cache");
+            writer.WriteLine("Cache-Control: no-cache, must-revalidate");
+            writer.WriteLine("Expires: Sat 26 Jul 1997 05:00:00 GMT");
 
             // content
             writer.WriteBeginOfContent();
