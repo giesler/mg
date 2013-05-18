@@ -44,5 +44,16 @@ namespace DripDuino
             }
             return log;
         }
+
+        public static void DeleteLog(DateTime date)
+        {
+            string logPath = Path.Combine(BasePath, date.ToString(LogFileFormatString) + ".txt");
+            if (File.Exists(logPath))
+            {
+                File.Delete(logPath);
+            }
+        }
+
+
     }
 }

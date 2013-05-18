@@ -24,7 +24,11 @@ namespace DripConsole
 
                 if (args.Length == 2 && args[0] == "drip")
                 {
-                    PostDrip(args[1]);
+                    Post("/toggle", args[1]);
+                }
+                else if (args.Length == 2 && args[0] == "deletelog")
+                {
+                    Post("/deletelog", args[1]);
                 }
                 else
                 {
@@ -35,11 +39,16 @@ namespace DripConsole
             {
                 Log(ex.ToString());
             }
+
+            if (Debugger.IsAttached)
+            {
+                Console.Read();
+            }
         }
 
-        static void PostDrip(string content)
+        static void Post(string relativeUrl, string content)
         {
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://" + DripAddress + "/toggle");
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://" + DripAddress + relativeUrl);
             webRequest.Method = "POST";
             webRequest.ContentType = "text/plain";
 

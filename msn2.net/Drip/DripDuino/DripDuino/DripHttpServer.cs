@@ -20,7 +20,7 @@ namespace DripDuino
                 context =>
                 {
                     Dripper.Toggle(!Dripper.IsOn);
-                    Redirect(context);
+                    Redirect(context, "Toggled drip");
                 });
 
             server.RequestRouting.Add("POST /toggle",
@@ -29,15 +29,23 @@ namespace DripDuino
                     string[] parts = context.RequestContent.Split(':');
                     TimeSpan duration = new TimeSpan(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
                     Dripper.Toggle(true, duration);
-                    Redirect(context);
+                    Redirect(context, "Toggled for " + duration.ToString());
+                });
+
+            server.RequestRouting.Add("POST /deletelog",
+                context =>
+                {
+                    string[] parts = context.RequestContent.Split('/');
+                    Log.DeleteLog(new DateTime(int.Parse(parts[2]), int.Parse(parts[0]), int.Parse(parts[1])));
+                    Redirect(context, "Deleted log " + context.RequestContent);
                 });
 
             server.Run();
         }
 
-        private static void Redirect(RequestHandlerContext context)
+        private static void Redirect(RequestHandlerContext context, string message)
         {
-            context.SetResponse(HtmlDoc("Redirect", "<script language=\"javascript\">window.location='/status';</script>"), "text/html");
+            context.SetResponse(HtmlDoc("Redirect", "<!--" + message + "--><script language=\"javascript\">window.location='/status';</script>"), "text/html");
         }
 
         private static void StatusPage(RequestHandlerContext context)
