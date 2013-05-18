@@ -27,6 +27,8 @@ public partial class _Default : System.Web.UI.Page
             loggedIn = true;
         }
 
+        bool mobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
+
         if (!loggedIn)
         {
             this.thumbViews.Add(coopView);
@@ -41,10 +43,16 @@ public partial class _Default : System.Web.UI.Page
             this.thumbViews.Add(coopYardView);
             this.thumbViews.Add(coopView);
 
-            this.signInOutLink.Text = "SIGN OUT";
-            this.logLink.Visible = true;
-            this.logLinkSeperator.Visible = true;
+            this.signInOutLink1.Text = "SIGN OUT";
+            this.signInOutLink2.Text = this.signInOutLink1.Text;
+            this.logLink1.Visible = true;
+            this.logLink2.Visible = true;
+            this.logLinkSeperator1.Visible = true;
+            this.logLinkSeperator2.Visible = true;
             this.cam = "dw1";
+
+            this.topLinks.Visible = !mobile;
+            this.bottomLinks.Visible = mobile;
         }
 
         this.thumbs.DataSource = this.thumbViews;

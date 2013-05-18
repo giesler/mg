@@ -17,6 +17,11 @@
             </asp:HyperLink>
         </ItemTemplate>
     </asp:Repeater>
+    <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
+        <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
+        <asp:Label runat="server" ID="logLinkSeperator1" Text=" | " Visible="false" />
+        <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="Login.aspx" Text="SIGN IN" />
+    </asp:Panel>
     <div style="height: 100%">
         <asp:Panel ID="rightPanel" runat="server" Visible="false" CssClass="rightFloat">
             <asp:Image ID="main2" runat="server" ClientIDMode="Static" Visible="false" CssClass="fullImage" />
@@ -25,11 +30,11 @@
             <asp:Image ID="main" runat="server" ClientIDMode="Static" CssClass="fullImage" />
         </asp:Panel>
     </div>
-    <div style="float: right; padding-right: 3px">
-        <asp:HyperLink runat="server" ID="logLink" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="signInOutLink" NavigateUrl="Login.aspx" Text="SIGN IN" />
-    </div>
+    <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
+        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
+        <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />
+        <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="Login.aspx" Text="SIGN IN" />
+    </asp:Panel>
 
     </form>
     <script language="javascript" type="text/javascript"><!--

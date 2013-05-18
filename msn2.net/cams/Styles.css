@@ -46,3 +46,8 @@ A.disabledLink
 {
     color: Gray;
 }
+
+.linkPanel {
+    float: right;
+    padding-right: 3px;
+}
