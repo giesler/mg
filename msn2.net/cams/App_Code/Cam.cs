@@ -15,7 +15,7 @@ public class Cam
         this.Orientation = Orientation.Horizontal;
 	}
 
-    public string Id { get; set; }
+    public string Id { get; private set; }
 
     public Orientation Orientation { get; set; }
 

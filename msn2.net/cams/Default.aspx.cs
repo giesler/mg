@@ -8,66 +8,18 @@ using System.Web.UI.WebControls;
 public partial class _Default : System.Web.UI.Page
 {
     string cam = "1";
-    List<CamView> thumbViews = new List<CamView>();
     bool loggedIn = false;
+    List<CamView> thumbViews = new List<CamView>();
 
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
 
-        Cam coopBottom = new Cam("1") { HostPrefix = "cam1", Orientation = Orientation.Vertical };
-        Cam coopTop = new Cam("2") { HostPrefix = "cam2", Orientation = Orientation.Vertical };
-        Cam coopSide = new Cam("3") { HostPrefix = "cam3" };
-        Cam driveway = new Cam("dw1") { HostPrefix = "cam4" };
-        Cam front = new Cam("front") { HostPrefix = "cam5" };
-        Cam side = new Cam("side") { HostPrefix = "cam6" };
-
-        CamView coopView = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Coop",
-            Orientation = Orientation.Vertical,
-            RefreshInterval = TimeSpan.FromSeconds(20)
-        };
-        coopView.Cameras.Add(coopBottom);
-        coopView.Cameras.Add(coopTop);
-
-        CamView coopYardView = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Outside Coop",
-            Orientation = Orientation.Horizontal,
-            RefreshInterval = TimeSpan.FromSeconds(20),
-        };
-        coopYardView.Cameras.Add(coopSide);
-
-        CamView drivewayView = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Driveway",
-            Orientation = Orientation.Horizontal,
-            RefreshInterval = TimeSpan.FromSeconds(20)
-        };
-        drivewayView.Cameras.Add(driveway);
-
-        CamView frontView = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Front",
-            Orientation = Orientation.Horizontal,
-            RefreshInterval = TimeSpan.FromSeconds(20)
-        };
-        frontView.Cameras.Add(front);
-
-        CamView sideView = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Side",
-            Orientation = Orientation.Horizontal,
-            RefreshInterval = TimeSpan.FromSeconds(20)
-        };
-        sideView.Cameras.Add(side);
-
+        CamView coopView = CamViews.GetCoopView();
+        CamView coopYardView = CamViews.GetCoopSideView();
+        CamView drivewayView = CamViews.GetDrivewayView();
+        CamView frontView = CamViews.GetFrontView();
+        CamView sideView = CamViews.GetSideView();
 
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie != null && cookie.Value == "1")
