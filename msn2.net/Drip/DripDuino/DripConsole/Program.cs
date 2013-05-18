@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace DripConsole
 {
@@ -14,27 +15,34 @@ namespace DripConsole
 
         static void Main(string[] args)
         {
-            Thread.Sleep(1000 * 10);
-
-            if (args.Length == 2 && args[0] == "drip")
+            try
             {
-                PostDrip();
-            }
-            else 
-            {
-                Console.WriteLine("usage: DripConsole drip hh:mm:ss");
-            }
+                if (Debugger.IsAttached)
+                {
+                    Thread.Sleep(1000 * 10);
+                }
 
-            Console.Read();
+                if (args.Length == 2 && args[0] == "drip")
+                {
+                    PostDrip(args[1]);
+                }
+                else
+                {
+                    Console.WriteLine("usage: DripConsole drip hh:mm:ss");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.ToString());
+            }
         }
 
-        static void PostDrip()
+        static void PostDrip(string content)
         {
             HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://" + DripAddress + "/toggle");
             webRequest.Method = "POST";
             webRequest.ContentType = "text/plain";
 
-            string content = "0:0:15";
             byte[] bytes = Encoding.UTF8.GetBytes(content);
             webRequest.ContentLength = bytes.Length;
 
