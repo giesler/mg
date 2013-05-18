@@ -11,19 +11,33 @@ namespace DripDuino
             HttpServer server = new HttpServer();
 
             server.RequestRouting.Add("GET /status",
-                        context => 
-                            {
-                                StatusPage(context);
-                            });
+                context =>
+                {
+                    StatusPage(context);
+                });
 
             server.RequestRouting.Add("POST /status",
-                        context =>
-                            {
-                                Dripper.Toggle(!Dripper.IsOn);
-                                context.SetResponse(HtmlDoc("Redirect", "<script language=\"javascript\">window.location='/status';</script>"), "text/html");
-                            });
+                context =>
+                {
+                    Dripper.Toggle(!Dripper.IsOn);
+                    Redirect(context);
+                });
+
+            server.RequestRouting.Add("POST /toggle",
+                context =>
+                {
+                    string[] parts = context.RequestContent.Split(':');
+                    TimeSpan duration = new TimeSpan(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
+                    Dripper.Toggle(true, duration);
+                    Redirect(context);
+                });
 
             server.Run();
+        }
+
+        private static void Redirect(RequestHandlerContext context)
+        {
+            context.SetResponse(HtmlDoc("Redirect", "<script language=\"javascript\">window.location='/status';</script>"), "text/html");
         }
 
         private static void StatusPage(RequestHandlerContext context)
@@ -39,24 +53,37 @@ namespace DripDuino
                     statusText += " " + duration.Seconds + " seconds";
                 }
             }
+
             statusText += "<br /><font size=\"smallest\">" + DateTime.Now.ToString("M/d/yy h:mm");
-            string log = Log.GetLog(DateTime.Now.Date);
+            statusText += "<br /><hr noshade />LOG<br />";
+            for (int i = 0; i < 7; i++)
+            {
+                statusText += AddLogEntries(DateTime.Now.Date.AddDays(-1 * i));
+            }
+
+            string content = "<form action=\"/status\" method=\"post\"><input type=\"submit\" value=\"" + buttonText + "\" />" + statusText + "</form>";
+            context.SetResponse(HtmlDoc("Drip Status", content), "text/html");
+        }
+
+        private static string AddLogEntries(DateTime date)
+        {
+            string statusText = string.Empty;
+            string log = Log.GetLog(date);
+
             if (log.Length > 0)
             {
-                statusText += "<br /><hr noshade />LOG<br />";
                 string[] entries = log.Split(new char[] { '\r', '\n' });
                 for (int i = entries.Length - 1; i >= 0; i--)
                 {
                     string entry = entries[i];
                     if (entry.Trim().Length > 0)
                     {
-                        statusText += entry.Substring(entry.IndexOf(" ")).Trim() + "<br />";
+                        statusText += entry + "<br />";
                     }
                 }
             }
 
-            string content = "<form action=\"/status\" method=\"post\"><input type=\"submit\" value=\"" + buttonText + "\" />" + statusText + "</form>";
-            context.SetResponse(HtmlDoc("Drip Status", content), "text/html");
+            return statusText;
         }
 
         static string HtmlDoc(string title, string contents)

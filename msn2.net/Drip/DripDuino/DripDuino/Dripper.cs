@@ -52,6 +52,11 @@ namespace DripDuino
 
         public static void Toggle(bool turnOn)
         {
+            Toggle(turnOn, Dripper.DefaultDuration);
+        }
+
+        public static void Toggle(bool turnOn, TimeSpan duration)
+        {
             internalLedPort.Write(turnOn);
             externalLedPort.Write(turnOn);
             outPort1.Write(!turnOn);
@@ -59,11 +64,11 @@ namespace DripDuino
 
             IsOn = turnOn;
             OnTime = turnOn ? DateTime.Now : DateTime.MinValue;
-            OffTime = turnOn ? DateTime.Now.Add(Dripper.DefaultDuration) : OffTime;
+            OffTime = turnOn ? DateTime.Now.Add(duration) : OffTime;
 
             if (IsOn)
             {
-                Log.AddEntry("Turned on for " + Dripper.DefaultDuration.Minutes + " minutes");
+                Log.AddEntry("Turned on for " + duration.Minutes + " minutes");
             }
             else
             {
