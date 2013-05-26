@@ -12,14 +12,16 @@
     <form id="form1" runat="server">
     <div style="float: right; padding-right: 3px">
         <a href="/">HOME</a> | 
+        <asp:LinkButton runat="server" ID="showHideVideos" OnClick="showHideVideos_Click" Text="SHOW VIDEOS" /> | 
         <a href="Login.aspx">SIGN OUT</a>
     </div>
     <div st>
     
         <asp:Repeater ID="data" runat="server">
             <ItemTemplate>
+                <div style="clear: both">
                 <%# DataBinder.Eval(Container.DataItem, "Day") %>
-                <br />
+                </div>
                 <%# GetPictures(DataBinder.Eval(Container.DataItem, "Date")) %>
                 <br />
             </ItemTemplate>

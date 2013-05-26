@@ -12,6 +12,7 @@ using System.Text;
 public partial class Log : System.Web.UI.Page
 {
     List<Alert> alerts = null;
+    bool videos = false;
 
     protected override void OnInit(EventArgs e)
     {
@@ -28,6 +29,9 @@ public partial class Log : System.Web.UI.Page
         {
             Response.Redirect("Login.aspx");
         }
+
+        this.videos = Request.QueryString["v"] == "1";
+        this.showHideVideos.Text = this.videos ? "HIDE VIDEOS" : "SHOW VIDEOS";
 
         List<DayPictures> dayPics = new List<DayPictures>();
         dayPics.Add(new DayPictures("TODAY", DateTime.Now.Date));
@@ -49,35 +53,70 @@ public partial class Log : System.Web.UI.Page
 
         var q = this.alerts.Where(i => i.Timestamp > date && i.Timestamp < date.AddDays(1).AddSeconds(-1));
         int server = 1;
-        foreach (Alert alert in q.OrderBy(i => i.Timestamp))
+        DateTime lastAlertTime = date.Date;
+        CamVideoManager mgr = new CamVideoManager();
+        List<Alert> alerts = q.OrderBy(i => i.Timestamp).ToList();
+
+        foreach (Alert alert in alerts)
         {
-            bool skip = false;
-            if (alert.Timestamp < DateTime.Parse("6/30/12") && (alert.Timestamp.Hour > 22 || alert.Timestamp.Hour < 5))
+            // Get all videos before this alert timestamp
+            if (this.videos)
             {
-                skip = true;
+                AddVideos(mgr, html, lastAlertTime, alert.Timestamp);
+                lastAlertTime = alert.Timestamp;
             }
 
-            if (!skip)
+            string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx", server);
+            if (Request.Url.IsLoopback)
             {
-                string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx", server);
-                if (Request.Url.IsLoopback)
-                {
-                    getUrl = "GetLogImage.aspx";
-                }
-                html.AppendFormat("<a href=\"AlertItem.aspx?a={0}\">", alert.Id);
-                html.AppendFormat("<img height=\"48\" width=\"64\" src=\"{2}?a={0}&h=48\" title=\"{1}\" border=\"0\" class=\"thumb\" /></a>", alert.Id, alert.Timestamp.ToString("h:mm"), getUrl);
+                getUrl = "GetLogImage.aspx";
+            }
+            html.AppendFormat("<div class=\"panel\"><a href=\"AlertItem.aspx?a={0}\">", alert.Id);
+            html.AppendFormat("<img height=\"48\" width=\"64\" src=\"{2}?a={0}&h=48\" title=\"{1}\" border=\"0\" class=\"thumb\" /></a></div>", alert.Id, alert.Timestamp.ToString("h:mm"), getUrl);
 
-                if (server == 3)
-                {
-                    server = 0;
-                }
+            if (server == 3)
+            {
+                server = 0;
+            }
 
-                server++;
+            server++;
+
+            if (this.videos)
+            {
+                // Add end of day videos
+                if (alert.Id == alerts[alerts.Count - 1].Id)
+                {
+                    AddVideos(mgr, html, alert.Timestamp, alert.Timestamp.Date.AddDays(1));
+                }
             }
         }
 
         return html.ToString();        
-    }    
+    }
+
+    private static void AddVideos(CamVideoManager mgr, StringBuilder html, DateTime startAlertTime, DateTime endAlertTime)
+    {
+        List<Video> videos = mgr.GetVideos(startAlertTime, endAlertTime);
+        foreach (Video video in videos)
+        {            
+            string name = video.Filename.Substring(29);
+            name = name.Substring(0, name.IndexOf(" ")).Trim();
+            html.AppendFormat("<div class=\"panel\"><a href=\"getvid.aspx?v={0}\">{1}</a>", video.Id, video.Timestamp.ToString("h:mm"));
+            html.AppendFormat("<br /><a href=\"getvid.aspx?v={0}\">{1}</a></div>", video.Id, name);
+        }
+    }
+
+    protected void showHideVideos_Click(object sender, EventArgs e)
+    {
+        if (Request.QueryString["v"] == "1")
+        {
+            Response.Redirect("log.aspx?v=0");
+        }
+        else
+        {
+            Response.Redirect("log.aspx?v=1");
+        }
+    }
 }
 
 public class DayPictures
