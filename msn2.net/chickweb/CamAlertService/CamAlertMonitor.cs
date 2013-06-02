@@ -264,7 +264,7 @@ namespace CamAlertService
             }
 
             CamVideoManager videoManager = new CamVideoManager();
-            List<Video> videos = videoManager.GetVideos(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-60));
+            List<Video> videos = videoManager.GetVideos(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-20));
             foreach (Video video in videos.OrderBy(v => v.Id))
             {
                 string fileName = Path.GetFileName(video.Filename);
