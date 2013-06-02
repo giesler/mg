@@ -91,14 +91,14 @@ namespace SLExpress
             {
                 this.list.SelectedIndex = selectedIndex;
 
-                if (this.list.SelectedIndex == -1)
+                if (!Page.IsPostBack)
                 {
-                    HttpCookie cookie = Request.Cookies["LastListName"];
+                    HttpCookie cookie = Request.Cookies["LastListId"];
                     if (cookie != null)
                     {
                         for (int i = 0; i < this.list.Items.Count; i++)
                         {
-                            if (this.list.Items[i].Text.ToLower() == cookie.Value.ToLower())
+                            if (this.list.Items[i].Value.ToLower() == cookie.Value.ToLower())
                             {
                                 this.list.SelectedIndex = i;
                                 break;
@@ -195,7 +195,7 @@ namespace SLExpress
                 }
             }
 
-            HttpCookie cookie = new HttpCookie("LastListName", this.list.SelectedItem.Text);
+            HttpCookie cookie = new HttpCookie("LastListId", this.list.SelectedItem.Value);
             cookie.Expires = DateTime.Now.AddYears(3);
             Response.Cookies.Add(cookie);
         }
@@ -351,6 +351,11 @@ namespace SLExpress
             lds.AddListItem(authData, selectedList, Request["common"]);
 
             this.LoadLists();
+        }
+
+        protected string GetServerName()
+        {
+            return Environment.MachineName;
         }
     }
 }

@@ -64,5 +64,6 @@
             window.location.href = "signout.aspx";
         }
         // --></script>
+    <!--<%=GetServerName() %> -->
 </body>
 </html>
