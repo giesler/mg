@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-23T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;div class="ExternalClassD458FCF3FB2345DB9A6A39BEE7D7020B"&gt; &lt;p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=b2133a95-07b4-4e8f-a7a9-b4708e026977&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt;&lt;/embed&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome June 24/video.wmv"&gt;Download&lt;/a&gt; (29 mb).&lt;/p&gt;&lt;/div&gt;</Content>
+      <Created>2008-06-24T11:50:53-07:00</Created>
+      <Modified>2008-07-11T21:06:45.0612583-07:00</Modified>
+      <EntryId>ee601b82-e07b-4df9-a5fe-14a78ff571ab</EntryId>
+      <Description />
+      <Title>June 24 Video</Title>
+      <Categories />
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

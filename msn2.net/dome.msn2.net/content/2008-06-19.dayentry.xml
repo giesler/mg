@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-18T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;div class="ExternalClass53EFA7017A23442FA629D491E1C7130F"&gt;   &lt;p&gt;We just had our first shower in 5 days. While I was checking my brother into his hotel room we snuck up to his room to shower. My brother, nephew, and Mike&amp;#8217;s dad are all arriving in about 20 minutes. This is very good news because we are running 6-8 hours behind schedule. The joist work has been going slower then anticipated &amp;#8211; mostly due to the sheer number of nails that every joist hanger requires. We got the back extension mostly finished with just some simple blocking left to do. The good news is that we are getting a routine down, the bad news is that we are losing Mike and Sara for about 3 hours tomorrow while they pick up some scaffolding and a new air compressor. For some reason my air compressor has started tripping the breaker of the generator when ever it turns on. Maybe some dirt or grime is seizing the motor and making it draw more current. What ever the case, we don&amp;#8217;t have time to troubleshoot it so it&amp;#8217;s worth renting a new one.&lt;/p&gt;    &lt;p&gt;&amp;#160;&lt;/p&gt;    &lt;p&gt;Tomorrow is going to be one busy day. We have to finish as must of the joist work as possible and hopefully get some of the subflooring installed to be ready for the riser wall installation on Friday. We&amp;#8217;ll also lose a bunch of time on Friday unloading and hauling the dome shell materials up to the top of the build site in my trailer. Mike&amp;#8217;s brothers should be getting here around 5-6 on Friday so we can put them to work right away. Right now I&amp;#8217;m off to dinner with everyone then back to the dome. The video today lost about 1-2 hours of time, so you&amp;#8217;ll see a jump in the beginning.&lt;/p&gt; &lt;/div&gt;</Content>
+      <Created>2008-06-19T00:27:30-07:00</Created>
+      <Modified>2008-07-02T22:16:28.25-07:00</Modified>
+      <EntryId>1cdc3f66-9aa3-4f26-af27-df8bbddb7079</EntryId>
+      <Description />
+      <Title>Refreshed</Title>
+      <Categories>Dome</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+    <Entry>
+      <Content>&lt;div class="ExternalClassEE664EA4B9904BF58A94E1F96498EEE3"&gt; &lt;p&gt;&lt;/p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=f587e056-2603-447f-88be-f7580de65e9e&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt; &lt;p&gt;&lt;/p&gt; &lt;p&gt;Joists, joists, and more joists! My brother and nephew as well as Mike's dad arrived today to help out.&lt;br&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_June_19/video.wmv"&gt;Download&lt;/a&gt; (28 mb)&lt;/p&gt;&lt;/div&gt;</Content>
+      <Created>2008-06-19T10:54:39-07:00</Created>
+      <Modified>2008-07-14T21:19:31.8455466-07:00</Modified>
+      <EntryId>5a6dd5fd-63da-46b4-b5bb-1efd14f0a39e</EntryId>
+      <Description />
+      <Title>June 19th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

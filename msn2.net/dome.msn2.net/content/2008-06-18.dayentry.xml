@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-17T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;div class="ExternalClass98FC637B02694C00836A760CEDABD549"&gt;&lt;embed src="http://images.video.msn.com/flash/soapbox1_1.swf" quality="high" base="http://images.video.msn.com" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" pluginspage="http://macromedia.com/go/getflashplayer" flashvars="c=v&amp;amp;v=62d7744e-f10a-4e44-8a2a-3b4c8b65590f&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" height="364" width="432"&gt;&lt;/div&gt;  &lt;div class="ExternalClass98FC637B02694C00836A760CEDABD549"&gt;&lt;br&gt;Assembling more foundation beams and putting up the rim joists.&lt;br&gt;&lt;br&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_June_17/video.wmv"&gt;Download&lt;/a&gt; (15 mb)&lt;/div&gt;</Content>
+      <Created>2008-06-18T02:54:43-07:00</Created>
+      <Modified>2008-07-14T21:16:29.8443818-07:00</Modified>
+      <EntryId>7c85ea5b-9b3f-4283-bdd5-a4d005a52921</EntryId>
+      <Description />
+      <Title>June 17th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+    <Entry>
+      <Content>&lt;div class="ExternalClass8BA6A54E42F144C3B3CC2930EFFB3F91"&gt;   &lt;p&gt;&lt;iframe src="http://silverlight.services.live.com/invoke/66324/Dome_June_16/iframe.html" scrolling="no" frameborder="0" style="width:500px; height:375px"&gt;&lt;/iframe&gt;&lt;/p&gt;    &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_June_16/video.wmv"&gt;Download&lt;/a&gt; (20 mb)&lt;/p&gt; &lt;/div&gt;</Content>
+      <Created>2008-06-17T19:01:19-07:00</Created>
+      <Modified>2008-07-14T21:14:23.312322-07:00</Modified>
+      <EntryId>feef5b74-8163-40d9-b776-90981ccdfc48</EntryId>
+      <Description />
+      <Title>June 16th Foundation Assembly Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

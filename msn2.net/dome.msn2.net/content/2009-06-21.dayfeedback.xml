@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayExtra xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2009-06-20T17:00:00-07:00</Date>
+  <Comments>
+    <Comment>
+      <Content>Nice pictures!</Content>
+      <Created>2009-06-22T12:29:42.5590403-07:00</Created>
+      <Modified>2009-06-22T12:29:42.5590403-07:00</Modified>
+      <EntryId>7d216b0e-cdf1-4991-887e-d29a59fb98cd</EntryId>
+      <TargetTitle>We struck water!</TargetTitle>
+      <TargetEntryId>EF4F80BE-FB2A-4A68-BF71-6B1F75B3F831</TargetEntryId>
+      <Author>Aunt Jeanie</Author>
+      <AuthorEmail>Lerman@comcast.net</AuthorEmail>
+      <AuthorHomepage />
+      <AuthorIPAddress>76.112.219.124</AuthorIPAddress>
+      <IsPublic>true</IsPublic>
+      <SpamState>NotChecked</SpamState>
+      <AuthorUserAgent>Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11 (.NET CLR 3.5.30729)</AuthorUserAgent>
+    </Comment>
+  </Comments>
+  <Trackings />
+</DayExtra>

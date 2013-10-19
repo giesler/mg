@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayExtra xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-10-24T17:00:00-07:00</Date>
+  <Comments>
+    <Comment>
+      <Content>*Cue music*  It's The Little Dome in the Big Woods! (Sara had to know that was coming eventually! ;)</Content>
+      <Created>2008-10-28T09:38:51.1391135-07:00</Created>
+      <Modified>2008-10-28T09:38:51.1391135-07:00</Modified>
+      <EntryId>0442042f-16ef-4b72-8b21-312f9ac0d059</EntryId>
+      <TargetTitle>Dome Roof Synth</TargetTitle>
+      <TargetEntryId>ECDFE2A7-C47B-4087-9E3D-03A3E7C1B0B3</TargetEntryId>
+      <Author>De</Author>
+      <AuthorEmail />
+      <AuthorHomepage />
+      <AuthorIPAddress>76.204.103.238</AuthorIPAddress>
+      <IsPublic>true</IsPublic>
+      <SpamState>NotChecked</SpamState>
+      <AuthorUserAgent>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1)</AuthorUserAgent>
+    </Comment>
+  </Comments>
+  <Trackings />
+</DayExtra>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayExtra xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2009-05-14T17:00:00-07:00</Date>
+  <Comments>
+    <Comment>
+      <Content>Take some pictures when your parents get there.</Content>
+      <Created>2009-05-20T20:03:07.0377953-07:00</Created>
+      <Modified>2009-05-20T20:03:07.0377953-07:00</Modified>
+      <EntryId>7a3f866d-643c-4ba4-8dea-fd2362690af9</EntryId>
+      <TargetTitle>Where are the updates?!?!</TargetTitle>
+      <TargetEntryId>10DF946E-D018-4D0C-B2C6-23EA04A4935F</TargetEntryId>
+      <Author>Aunt Jeanie</Author>
+      <AuthorEmail>Lerman@comcast.net</AuthorEmail>
+      <AuthorHomepage />
+      <AuthorIPAddress>76.112.219.124</AuthorIPAddress>
+      <IsPublic>true</IsPublic>
+      <SpamState>NotChecked</SpamState>
+      <AuthorUserAgent>Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)</AuthorUserAgent>
+    </Comment>
+  </Comments>
+  <Trackings />
+</DayExtra>

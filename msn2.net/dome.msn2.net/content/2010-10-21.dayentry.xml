@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2010-10-20T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;&amp;nbsp;&lt;/p&gt;   &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/Windows-Live-Writer/Indoor-Plumbing-sorta_13794/IMG_9811%20(2)_2.jpg"&gt;&lt;img style="background-image: none; border-bottom: 0px; border-left: 0px; margin: ; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="IMG_9811 (2)" border="0" alt="IMG_9811 (2)" src="http://dome.msn2.net/content/binary/Windows-Live-Writer/Indoor-Plumbing-sorta_13794/IMG_9811%20(2)_thumb.jpg" width="397" height="593"&gt;&lt;/a&gt;&lt;/p&gt;</Content>
+      <Created>2010-10-21T05:09:00-07:00</Created>
+      <Modified>2010-10-20T22:15:19.4401813-07:00</Modified>
+      <EntryId>917ab7e4-9950-440c-8397-36b19bd6b75d</EntryId>
+      <Description />
+      <Title>Indoor Plumbing! (sorta)</Title>
+      <Categories>Pictures</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

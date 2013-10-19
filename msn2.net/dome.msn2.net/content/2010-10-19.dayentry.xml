@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2010-10-18T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;We finally have some news-worthy updates to the dome blog. For the past 6 months or so we’ve been working on the inside structure, wiring, and plumbing, none of which makes for very interesting pictures (oh look, it’s the same wall, but this time there is a wire stapled to it!) The latest news is that the siding has been installed! It looks great and they even did some parts we were not expecting – like the fascia on the back extension and the inside of the front porch.&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;We are also getting close to having another inspection – this time for the interior structure, rough electrical and plumbing, and mechanical systems. We should have that scheduled in early November. After that, we can put up the rest of the insulation and vapor barrier. We’ll need another inspection before we can put drywall over it though. Hopefully the snow will hold off long enough to finish that up, because once it snows there is no hope in getting up our driveway with a vehicle.&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;At our current rate of progress, we should have a final occupancy permit by summer of 2011. The additional “big things” to finish include drywall, the septic field and tanks, the electric well pump, the solar power system, the shower and fireplace tile/brickwork, and the wood flooring. &lt;/p&gt;</Content>
+      <Created>2010-10-18T19:05:00-07:00</Created>
+      <Modified>2010-10-20T21:36:28.9387439-07:00</Modified>
+      <EntryId>69c84caf-551c-4393-9673-6d6ac01da5b3</EntryId>
+      <Description />
+      <Title>It’s starting to look like a real house!</Title>
+      <Categories>Dome</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>
