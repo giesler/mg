@@ -132,259 +132,168 @@ if(MSFPhover) { MSFPnav9n=MSFPpreload("../email/_derived/index.html_cmp_mikes-we
 					</p>
 					<div align="center">
 						<center>
-							</font>
-							<!--mstheme--></font><table border="0" cellpadding="5" cellspacing="0">
+							</font><!--mstheme--></font><table border="0" cellpadding="5" cellspacing="0">
 								<tr>
-									<td rowSpan="5" valign="top"><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-										<!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0">
+									<td rowSpan="5" valign="top"><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table border="0" cellpadding="0" cellspacing="0">
 											<tr>
-												<td width="200" align="center" valign="top"><!--mstheme--><font face="Arial, Helvetica">
-													</font>
-													<!--mstheme--></font><table cellpadding="0" cellspacing="3" border="0">
+												<td width="200" align="center" valign="top"><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="3" border="0">
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<font face="Verdana" size="2" color="#FFFFFF">Google</font> </font>
-																					<!--mstheme--></font></td>
+																						<font face="Verdana" size="2" color="#FFFFFF">Google</font> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="collapse.gif" id="GoogleImage" onclick="ShowHide('Google')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="collapse.gif" id="GoogleImage" onclick="ShowHide('Google')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="GoogleContent">
 																				<form method="GET" action="http://www.google.com/custom" name="frmGoogle" id="frmGoogle">
 																					<!--<input type="hidden" name="cof" VALUE="GIMP:#FFFF40;T:#FFFFFF;BIMG:http://mike.giesler.org/_themes/mikes-website/blackbg.gif;ALC:#FFCC99;GFNT:#FFFFC0;LC:#FFFF00;BGC:#000000;AH:center;VLC:#FFFF99;GL:2;GALT:#C0FFFF;AWFID:48f9c49ef451ce28;">-->
-																					</font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																					</font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
 																								<input TYPE="text" name="q" size="31" maxlength="255" value style="font-family: Verdana; font-size: 8pt" id="GoogleFocus">
-																								<input type="submit" name="sa" VALUE="Google Search"> </font>
-																							<!--mstheme--></font></td>
+																								<input type="submit" name="sa" VALUE="Google Search"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000" ID="Table3">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000" ID="Table3">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0" ID="Table4">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0" ID="Table4">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<font face="Verdana" size="2" color="#FFFFFF">Google Groups</font> </font>
-																					<!--mstheme--></font></td>
+																						<font face="Verdana" size="2" color="#FFFFFF">Google Groups</font> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="collapse.gif" id="Img1" onclick="ShowHide('GoogleGroups')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="collapse.gif" id="Img1" onclick="ShowHide('GoogleGroups')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="Span1">
 																				<form action="http://groups.google.com/groups" name="f">
 																					<input name=hl type=hidden value=en ID="Hidden1">
-																					</font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" ID="Table5">
+																					</font><!--mstheme--></font><table cellpadding="0" cellspacing="0" ID="Table5">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
 																								<input TYPE="text" name="q" size="31" maxlength="255" value style="font-family: Verdana; font-size: 8pt" id="Text1">
-																								<input type="submit" name="btnG" VALUE="Google Search" ID="Submit1"> </font>
-																							<!--mstheme--></font></td>
+																								<input type="submit" name="btnG" VALUE="Google Search" ID="Submit1"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<a href="http://www.av.com"><img src="av_logo.gif" border="0"></a> </font>
-																					<!--mstheme--></font></td>
+																						<a href="http://www.av.com"><img src="av_logo.gif" border="0"></a> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="AltaVistaImage" onclick="ShowHide('AltaVista')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="AltaVistaImage" onclick="ShowHide('AltaVista')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="AltaVistaContent" style="display: none">
 																				<form action="http://altavista.digital.com/cgi-bin/query" method="GET" name="frmAltaVista" id="frmAltaVista">
-																					<input type="hidden" name="pg" value="q"> </font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					<input type="hidden" name="pg" value="q"> </font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" size="15" maxlength="200" name="q" style="font-family: Verdana; font-size: 8pt" id="AltaVistaFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" size="15" maxlength="200" name="q" style="font-family: Verdana; font-size: 8pt" id="AltaVistaFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<a href="http://www.yahoo.com"><img src="iyahoo.gif" align="top" border="0" width="102" height="20"></a>
-																						</font>
-																					<!--mstheme--></font></td>
+																						<a href="http://www.yahoo.com"><img src="iyahoo.gif" align="top" border="0" width="102" height="20"></a> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="YahooImage" onclick="ShowHide('Yahoo')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="YahooImage" onclick="ShowHide('Yahoo')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="YahooContent" style="display: none">
 																				<form action="http://search.yahoo.com/bin/search" method="GET" name="frmYahoo" id="frmYahoo">
-																					</font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					</font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" size="15" name="p" style="font-family: Verdana; font-size: 8pt" id="YahooFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" size="15" name="p" style="font-family: Verdana; font-size: 8pt" id="YahooFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<a href="http://www.lycos.com"><img src="lycos.gif" border="0" width="64" height="20"></a>
-																						</font>
-																					<!--mstheme--></font></td>
+																						<a href="http://www.lycos.com"><img src="lycos.gif" border="0" width="64" height="20"></a> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="LycosImage" onclick="ShowHide('Lycos')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="LycosImage" onclick="ShowHide('Lycos')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="LycosContent" style="display: none">
 																				<form action="http://www.lycos.com/cgi-bin/pursuit" method="GET" name="frmLycos" id="frmLycos">
-																					</font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					</font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" size="15" name="query" style="font-family: Verdana; font-size: 8pt" id="LycosFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" size="15" name="query" style="font-family: Verdana; font-size: 8pt" id="LycosFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<a href="http://www.excite.com"><img src="excite.gif" border="0" width="51" height="20"></a>
-																						</font>
-																					<!--mstheme--></font></td>
+																						<a href="http://www.excite.com"><img src="excite.gif" border="0" width="51" height="20"></a> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="ExciteImage" onclick="ShowHide('Excite')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="ExciteImage" onclick="ShowHide('Excite')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="ExciteContent" style="display: none">
 																				<form action="http://www.excite.com/search.gw" method="get" name="frmExcite" id="frmExcite">
-																					<input type="hidden" name="trace" value="a"> </font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					<input type="hidden" name="trace" value="a"> </font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" size="15" name="search" style="font-family: Verdana; font-size: 8pt" id="ExciteFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" size="15" name="search" style="font-family: Verdana; font-size: 8pt" id="ExciteFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<font face="Verdana" size="2" color="#FFFFFF">Kirkland Yellow Pages</font> </font>
-																					<!--mstheme--></font></td>
+																						<font face="Verdana" size="2" color="#FFFFFF">Kirkland Yellow Pages</font> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="YellowPagesImage" onclick="ShowHide('YellowPages')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="YellowPagesImage" onclick="ShowHide('YellowPages')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="YellowPagesContent" style="display: none">
@@ -393,118 +302,79 @@ if(MSFPhover) { MSFPnav9n=MSFPpreload("../email/_derived/index.html_cmp_mikes-we
 																					<input NAME="HUSERFU" TYPE="HIDDEN" VALUE="0"> <input NAME="KWDT" TYPE="HIDDEN" VALUE="4">
 																					<input NAME="HCKWD" TYPE="HIDDEN" VALUE> <input type="hidden" name="UIS" value="72">
 																					<input NAME="CSZ" TYPE="HIDDEN" VALUE="KIRKLAND" SIZE="15" MAXLENGTH="255" VALUE>
-																					<input NAME="STATE" TYPE="HIDDEN" VALUE="WA"> </font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					<input NAME="STATE" TYPE="HIDDEN" VALUE="WA"> </font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" size="15" name="KWD" style="font-family: Verdana; font-size: 8pt" id="YellowPagesFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" size="15" name="KWD" style="font-family: Verdana; font-size: 8pt" id="YellowPagesFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																					<!--								<form method="get" action="http://yp.yahoo.com/py/ypBrowse.py?" name="frmYellowPages" id="frmYellowPages">								<input type="hidden" name="city" value="Redmond"><input type="hidden" name="state" value="WA">								<input type="hidden" name="zip" value="98052"><input type="hidden" name="stp" value="a">								</font><table cellpadding="0" cellspacing="0" width="100%" align="center">									<tr>										<td width="100%" align="center" height="20" bgcolor="#000000">											<input type="text" name="stx" size="15" maxlength="65" style="font-family: Verdana; font-size: 8pt" id="YellowPagesFocus">										</font></td>								  </tr>								</table>-->
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<font face="Verdana" size="2" color="#FFFFFF">Dictionary</font> </font>
-																					<!--mstheme--></font></td>
+																						<font face="Verdana" size="2" color="#FFFFFF">Dictionary</font> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="DictionaryImage" onclick="ShowHide('Dictionary')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="DictionaryImage" onclick="ShowHide('Dictionary')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="DictionaryContent" style="display: none">
 																				<form method="post" action="http://www.m-w.com/cgi-bin/dictionary" name="dict" id="frmDictionary">
-																					<input type="hidden" name="book" value="Dictionary"> </font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					<input type="hidden" name="book" value="Dictionary"> </font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
-																								<input type="text" name="va" size="15" style="font-family: Verdana; font-size: 8pt" id="DictionaryFocus">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input type="text" name="va" size="15" style="font-family: Verdana; font-size: 8pt" id="DictionaryFocus"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
 														<tr>
-															<td><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-																<!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
+															<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table width="200" cellpadding="0" cellspacing="0" bgColor="#000000">
 																	<tr>
-																		<td><!--mstheme--><font face="Arial, Helvetica">
-																			</font>
-																			<!--mstheme--></font><table cellpadding="0" cellspacing="0">
+																		<td><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table cellpadding="0" cellspacing="0">
 																				<tr>
 																					<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<font size="2" face="Verdana">Ask Jeeves</font></a> </font>
-																					<!--mstheme--></font></td>
+																						<font size="2" face="Verdana">Ask Jeeves</font></a> </font><!--mstheme--></font></td>
 																					<td align="right" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-																						<img src="expand.gif" id="AskJeevesImage" onclick="ShowHide('AskJeeves')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4">
-																						</font>
-																					<!--mstheme--></font></td>
+																						<img src="expand.gif" id="AskJeevesImage" onclick="ShowHide('AskJeeves')" WIDTH="9" HEIGHT="9"><img src="trans.gif" width="4"> </font><!--mstheme--></font></td>
 																				</tr>
 																			</table><!--mstheme--><font face="Arial, Helvetica">
 																			<span id="AskJeevesContent" style="display: none">
 																				<form METHOD="GET" ACTION="http://www.ask.com/main/askjeeves.asp" name="frmAskJeeves">
 																					<input NAME="origin" TYPE="hidden" VALUE="0"> <input NAME="site_name" TYPE="hidden" VALUE="Jeeves">
-																					<input NAME="metasearch" TYPE="hidden" VALUE="yes"> </font>
-																					<!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
+																					<input NAME="metasearch" TYPE="hidden" VALUE="yes"> </font><!--mstheme--></font><table cellpadding="0" cellspacing="0" width="100%" align="center">
 																						<tr>
 																							<td width="100%" align="center" height="20" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
 																								<input NAME="ask" SIZE="20" MAXSIZE="255" style="font-size: 8pt; font-family: Verdana" id="AskJeevesFocus">
-																								<input BORDER="0" SRC="Ask.gif" TYPE="image" name="Ask!" WIDTH="36" HEIGHT="23">
-																								</font>
-																							<!--mstheme--></font></td>
+																								<input BORDER="0" SRC="Ask.gif" TYPE="image" name="Ask!" WIDTH="36" HEIGHT="23"> </font><!--mstheme--></font></td>
 																						</tr>
 																					</table><!--mstheme--><font face="Arial, Helvetica">
 																				</form>
-																			</span></font>
-																		<!--mstheme--></font></td>
+																			</span></font><!--mstheme--></font></td>
 																	</tr>
-																</table><!--mstheme--><font face="Arial, Helvetica">
-																</font>
-															<!--mstheme--></font></td>
+																</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 														</tr>
-													</table><!--mstheme--><font face="Arial, Helvetica">
-													</font>
-												<!--mstheme--></font></td>
+													</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-									<!--mstheme--></font></td>
-									<td valign="top" colSpan="2"><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+										</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
+									<td valign="top" colSpan="2"><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
 													<font face="Verdana" size="2" color="#FFFFFF"><!-- | 
 							<a href="#" onclick="WeatherMain('SEA')">Seattle</a> |
 							<a href="#" onclick="WeatherMain('MKE')">Milwaukee</a>-->
 														<a href="#" onClick="WeatherMain('WAKI')">Kirkland</a> | <a href="#" onclick="WeatherMain('MSN')">
-															Madison</a> Weather</font></font>
-												<!--mstheme--></font></td>
+															Madison</a> Weather</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -515,17 +385,12 @@ if(MSFPhover) { MSFPnav9n=MSFPpreload("../email/_derived/index.html_cmp_mikes-we
 															<!--mstheme--></font><table border="0">
 																<tr>
 																	<td><!--mstheme--><font face="Arial, Helvetica">
-																		<img src="clogo.gif" height="30">
-																	<!--mstheme--></font></td>
+																		<img src="clogo.gif" height="30"> <!--mstheme--></font></td>
+																	<td><!--mstheme--><font face="Arial, Helvetica">&nbsp; <!--mstheme--></font></td>
 																	<td><!--mstheme--><font face="Arial, Helvetica">
-																		&nbsp;
-																	<!--mstheme--></font></td>
+																		<font size="-1">Loading...</font> <!--mstheme--></font></td>
 																	<td><!--mstheme--><font face="Arial, Helvetica">
-																		<font size="-1">Loading...</font>
-																	<!--mstheme--></font></td>
-																	<td><!--mstheme--><font face="Arial, Helvetica">
-																		<img src="trans.gif" height="37" width="1">
-																	<!--mstheme--></font></td>
+																		<img src="trans.gif" height="37" width="1"> <!--mstheme--></font></td>
 																</tr>
 															</table><!--mstheme--><font face="Arial, Helvetica">
 															<br>
@@ -640,17 +505,13 @@ function RenderWeather(oWea) {
 													</div>
 												<!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-									<!--mstheme--></font></td>
+										</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 								</tr>
 								<tr>
-									<td valign="top"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+									<td valign="top"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">Microsoft</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">Microsoft</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -664,18 +525,13 @@ function RenderWeather(oWea) {
 															TechNet</a> | <a href="http://www.microsoft.com/commerceserver">Commerce</a>
 														<br>
 														<a href="http://www.msn.com">MSN</a> | <a href="http://www.hotmail.msn.com">Hotmail</a>
-														| <a href="http://moneycentral.msn.com">Money</a> | <a href="http://slate.msn.com">Slate</a></font></font>
-												<!--mstheme--></font></td>
+														| <a href="http://moneycentral.msn.com">Money</a> | <a href="http://slate.msn.com">Slate</a></font> </font><!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
-									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
+									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">News</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">News</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -691,17 +547,13 @@ function RenderWeather(oWea) {
 													</font>
 												<!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-									<!--mstheme--></font></td>
+										</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 								</tr>
 								<tr>
-									<td valign="middle" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+									<td valign="middle" align="center"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">Other Sites</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">Other Sites</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -711,18 +563,13 @@ function RenderWeather(oWea) {
 															<a href="http://amazon.com">Amazon</a> | <a href="http://cws.internet.com/new.html">New Apps</a>
 															<br>
 															<a href="http://mail.giesler.org">mail.giesler.org</a> | <a href="https://mail.microsoft.com/exchange">
-																mail.ms.com</a></small></font>
-												<!--mstheme--></font></td>
+																mail.ms.com</a></small></font> <!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
-									<td align="center" valign="middle" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
+									<td align="center" valign="middle" align="center"><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">TV</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">TV</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -733,20 +580,15 @@ function RenderWeather(oWea) {
 															ABC</a> | <a href="http://www.cbs.com">CBS</a>
 														<br>
 														<a href="http://www.comedycentral.com">CC</a> | <a href="http://www.mtv.com">MTV</a>
-														| <a href="http://www.discovery.com">Discovery</a> </font></font>
-												<!--mstheme--></font></td>
+														| <a href="http://www.discovery.com">Discovery</a> </font></font><!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-										</font>
-									<!--mstheme--></font></td>
+										</table><!--mstheme--><font face="Arial, Helvetica"></font><!--mstheme--></font></td>
 								</tr>
 								<tr>
-									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">UW</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">UW</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -757,18 +599,13 @@ function RenderWeather(oWea) {
 															Union</a>
 														<br>
 														<a href="http://www.badgerherald.com">BH</a> | <a href="http://www.cardinal.wisc.edu">
-															Cardinal</a> | <a href="http://uwalumni.com/email">Alum Email</a></font>
-													</font>
-												<!--mstheme--></font></td>
+															Cardinal</a> | <a href="http://uwalumni.com/email">Alum Email</a></font> </font><!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
-									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
+									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">Seattle</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">Seattle</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -782,8 +619,7 @@ function RenderWeather(oWea) {
 													</font>
 												<!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
 								</tr>
 							<% 
 							dim sAddress, iOctetFour
@@ -791,19 +627,17 @@ function RenderWeather(oWea) {
 							iOctetFour = CInt(Mid(sAddress, InStrRev(sAddress, ".")+1))
 							if Left(sAddress, 6) = "10.10." and iOctetFour > 100 then %>
 								<tr>
-									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0" ID="Table1">
+									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0" ID="Table1">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">Financial Links</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">Financial Links</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
 													<font size="2" face="Verdana">
 														<a href="https://onlinebanking-nw.bankofamerica.com">Bank of America</a>
 														<br>
-														<a href="https://www.accountonline.com/CB/Login.jsp">Citibank</a> | 
+														<a href="https://www.citibank.com/us/cards/index.htm">Citibank</a> | 
 														<a href="https://www.aimfunds.com/inaccount/index.html">AIM</a> |
 														<a href="http://www.schwab.com">Schwab</a>
 														<br>
@@ -812,14 +646,11 @@ function RenderWeather(oWea) {
 													</font>
 												<!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
-									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica">
-										<!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0" ID="Table2">
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
+									<td valign="top" align="center"><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font><table border="0" width="100%" cellpadding="0" cellspacing="0" ID="Table2">
 											<tr>
 												<td bgcolor="black" width="100%" align="center" height="20" background="wash2020.gif"><!--mstheme--><font face="Arial, Helvetica">
-													<font face="Verdana" size="2" color="#FFFFFF">MSN2 Stuff</font></font>
-												<!--mstheme--></font></td>
+													<font face="Verdana" size="2" color="#FFFFFF">MSN2 Stuff</font> </font><!--mstheme--></font></td>
 											</tr>
 											<tr>
 												<td width="100%" align="center" bgcolor="#000000"><!--mstheme--><font face="Arial, Helvetica">
@@ -828,12 +659,12 @@ function RenderWeather(oWea) {
 														<br>
 														<a href="http://owa/">Mail (internal)</a>
 														<br>
-														<a href="\\sp\dfs\Software" target="_blank">Software</a> | <a href="\\kyle\public" target="_blank">Public share</a>
+														<a href="file://sp/dfs/Software" target="_blank">Software</a> | 
+                                                <a href="file://kyle/public" target="_blank">Public share</a>
 													</font>
 												<!--mstheme--></font></td>
 											</tr>
-										</table><!--mstheme--><font face="Arial, Helvetica">
-									<!--mstheme--></font></td>
+										</table><!--mstheme--><font face="Arial, Helvetica"><!--mstheme--></font></td>
 								</tr>	
 							<% end if %>
 							</table><!--mstheme--><font face="Arial, Helvetica">
@@ -845,9 +676,7 @@ function RenderWeather(oWea) {
 					<p>
 						&nbsp;
 					</p>
-					&nbsp;&nbsp;</font> 
-					 
-	<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="Arial, Helvetica">
+					&nbsp;&nbsp; </font><!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="Arial, Helvetica">
 
 <div align="center">
   <center>

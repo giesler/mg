@@ -16,6 +16,7 @@ namespace mike_giesler_org.home.widgets
 	/// </summary>
 	public class msnbc : System.Web.UI.Page
 	{
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -38,6 +39,7 @@ namespace mike_giesler_org.home.widgets
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
 	}

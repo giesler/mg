@@ -75,7 +75,8 @@ a:hover 	{color:red; TEXT-DECORATION: none;}
   <tr>
     <td width="50%" valign="bottom" align="left">
     </td>
-    <td width="50%" valign="bottom" align="right"><img border="0" src="images/w2k.gif" WIDTH="100" HEIGHT="33">
+    <td width="50%" valign="bottom" align="right">
+					<IMG height="50" src="images/wpowered.gif" border="0">
     </td>
   </tr>
 </table>

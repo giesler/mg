@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Web"
-        ProductVersion = "7.0.9254"
+        ProductVersion = "7.0.9466"
         SchemaVersion = "1.0"
         ProjectGuid = "{F7D71F56-EBD1-4104-94AC-A2006FF44F54}"
     >
@@ -15,7 +15,6 @@
                 DefaultHTMLPageLayout = "Grid"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
-                NoStandardLibraries = "true"
                 OutputType = "Library"
                 RootNamespace = "mike_giesler_org"
                 StartupObject = ""
@@ -57,7 +56,33 @@
                     WarningLevel = "1"
                 />
             </Settings>
-            <References/>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
+                />
+            </References>
         </Build>
         <Files>
             <Include>
@@ -95,6 +120,10 @@
                 />
                 <File
                     RelPath = "uw.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web.config"
                     BuildAction = "Content"
                 />
                 <File
@@ -1104,6 +1133,22 @@
                 <File
                     RelPath = "home\_overlay\links.html_nav_mikes-website010_hbtn.gif"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\widgets\msnbc.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "home\widgets\msnbc.aspx.cs"
+                    DependentUpon = "msnbc.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "home\widgets\msnbc.aspx.resx"
+                    DependentUpon = "msnbc.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <Folder RelPath = "images\" />
                 <File
