@@ -101,9 +101,15 @@ public partial class Log : System.Web.UI.Page
         {            
             string name = video.Filename.Substring(29);
             name = name.Substring(0, name.IndexOf(" ")).Trim();
-            html.AppendFormat("<div class=\"panel\"><a href=\"getvid.aspx?v={0}\">{1}</a>", video.Id, video.Timestamp.ToString("h:mm"));
-            html.AppendFormat("<br /><a href=\"getvid.aspx?v={0}\">{1}</a></div>", video.Id, name);
+            html.AppendFormat("<div class=\"panel\"><a href=\"{0}\">{1}</a>", GetVideoUrl(video.Id), video.Timestamp.ToString("h:mm"));
+            html.AppendFormat("<br /><a href=\"{0}\">{1}</a></div>", GetVideoUrl(video.Id), name);
         }
+    }
+
+    public static string GetVideoUrl(int id)
+    {
+        int server = new Random().Next(1, 5);
+        return string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, id);
     }
 
     protected void showHideVideos_Click(object sender, EventArgs e)

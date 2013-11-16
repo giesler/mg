@@ -103,7 +103,8 @@ public partial class AlertItem : System.Web.UI.Page
         string req = Request.Form["videos"];
         if (!string.IsNullOrEmpty(req))
         {
-            output = "getvid.aspx?v=" + req;
+            int server = new Random().Next(1, 5);
+            output = string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, req);
             img.Visible = false;
         }
         else
@@ -121,7 +122,9 @@ public partial class AlertItem : System.Web.UI.Page
         string req = Request.Form["videos"];
         if (!string.IsNullOrEmpty(req))
         {
-            output = "window.open('getvid.aspx?v=" + req + "');";
+            int server = new Random().Next(1, 5);
+            string url = string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, req);
+            output = "window.open('" + url + "');";
         }
 
         return output;
