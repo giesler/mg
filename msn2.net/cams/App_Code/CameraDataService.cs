@@ -170,7 +170,7 @@ public class CameraDataService : ICameraData
     {
         try
         {
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=" + Latitude + "&lng=" + Longitude + "&username=demo");
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=" + Latitude + "&lng=" + Longitude + "&username=giesler");
             HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
             using (Stream stream = webResponse.GetResponseStream())
             {
@@ -187,7 +187,7 @@ public class CameraDataService : ICameraData
                 string[] properties = content.Split(new char[] { '{', ',', '}' });
                 foreach (string item in properties)
                 {
-                    if (item.IndexOf("dstOffset") > 0)
+                    if (item.IndexOf("gmtOffset") > 0)
                     {
                         string[] parts = item.Split(new char[] { ':' });
                         offset = int.Parse(parts[1]);
