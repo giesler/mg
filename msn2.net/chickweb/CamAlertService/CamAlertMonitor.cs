@@ -9,7 +9,7 @@ using CamAlertService.Properties;
 using System.Net;
 using System.Diagnostics;
 using System.ServiceModel;
-using CamDataService.CamData;
+using CamDataService;
 
 namespace CamAlertService
 {
@@ -266,8 +266,8 @@ namespace CamAlertService
 
             FileInfo fileInfo = new FileInfo(fileName);
 
-            CameraDataClient data = new CameraDataClient();
-            data.AddVideo(timestamp.ToUniversalTime(), fileName, duration, motion, (int)fileInfo.Length % 1024);
+            CamDataService.CameraDataService data = new CameraDataService();
+            data.AddVideo(timestamp.ToUniversalTime(), true, fileName, duration, true, motion, true, (int)fileInfo.Length % 1024, true);
         }
 
         void AddAlert(string fileName)
@@ -277,19 +277,19 @@ namespace CamAlertService
             // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
             string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
 
-            using (CamDataService.CamData.CameraDataClient client = new CamDataService.CamData.CameraDataClient())
+            using (CameraDataService client = new  CameraDataService())
             {
-                client.AddAlert(DateTime.Parse(dateStamp).ToUniversalTime(), Path.GetFileName(fileName), DateTime.UtcNow);
+                client.AddAlert(DateTime.Parse(dateStamp).ToUniversalTime(), true, Path.GetFileName(fileName), DateTime.UtcNow, true);
             }
         }
 
         void PurgeFiles()
         {
-            CameraDataClient data = new CameraDataClient();
-            var alerts = data.GetAlertsBeforeDate(DateTime.UtcNow.AddDays(-60));
-            foreach (Alert alert in alerts)
+            CameraDataService data = new CameraDataService();
+            LogItem[] alerts = data.GetAlertsBeforeDate(DateTime.UtcNow.AddDays(-60), true);
+            foreach (LogItem alert in alerts)
             {
-                string fileName = Path.GetFileName(alert.Filename);
+                string fileName = Path.GetFileName(data.GetItemFilename(int.Parse(alert.Id), true));
                 try
                 {
                     try
@@ -300,7 +300,7 @@ namespace CamAlertService
                     {
                         this.Log("Error deleting {0}: {1}", fileName, ex.Message);
                     }
-                    data.DeleteAlert(alert.Id);
+                    data.DeleteAlert(int.Parse(alert.Id), true);
                 }
                 catch (Exception ex)
                 {
@@ -308,7 +308,7 @@ namespace CamAlertService
                 }
             }
 
-            var videos = data.GetVideos(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-20));
+            var videos = data.GetVideos(DateTime.Now.AddYears(-10), true, DateTime.Now.AddDays(-20), true);
             foreach (VideoItem video in videos.ToList<VideoItem>().OrderBy(v => v.Id))
             {
                 string fileName = Path.GetFileName(video.Name);
@@ -328,7 +328,7 @@ namespace CamAlertService
                         File.Delete(video.Name);
                     }
 
-                    data.DeleteVideo(int.Parse(video.Id));
+                    data.DeleteVideo(int.Parse(video.Id), true);
                 }
                 catch (Exception ex)
                 {
@@ -346,10 +346,20 @@ namespace CamAlertService
             request.UseBinary = true;
             request.Proxy = null;
 
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+            try
             {
-                this.Log("{0} FTP delete complete: {1} - {2}", fileName, response.StatusCode, response.StatusDescription.Trim());
-                response.Close();
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    this.Log("{0} FTP delete complete: {1} - {2}", fileName, response.StatusCode, response.StatusDescription.Trim());
+                    response.Close();
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Message.IndexOf("File unavilable") < 0 && ex.Message.IndexOf("file not found") < 0)
+                {
+                    throw;
+                }
             }
         }
 
