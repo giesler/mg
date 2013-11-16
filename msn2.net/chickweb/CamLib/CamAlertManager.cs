@@ -52,6 +52,32 @@ namespace CamLib
             }
         }
 
+        public void AddAlert(DateTime timestamp, string fileName, DateTime receiveTime)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                Alert current = data.Alerts.Where(i => i.Filename == fileName).FirstOrDefault();
+                if (current == null)
+                {
+                    lock (this.insertLock)
+                    {
+                        current = data.Alerts.Where(i => i.Filename == fileName).FirstOrDefault();
+                        if (current == null)
+                        {
+                            Alert alert = new Alert
+                            {
+                                Timestamp = timestamp,
+                                Filename = fileName,
+                                ReceiveTime = receiveTime
+                            };
+                            data.Alerts.InsertOnSubmit(alert);
+                            data.SubmitChanges();
+                        }
+                    }
+                }
+            }
+        }
+
         public Alert GetAlertByFilename(string fileName)
         {
             Alert alert = null;

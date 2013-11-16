@@ -10,6 +10,34 @@ namespace CamLib
     {
         object insertLock = new object();
 
+        public void AddVideo(DateTime timestamp, string fileName, int duration, int motion, int size)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                Video current = data.Videos.Where(i => i.Filename == fileName).FirstOrDefault();
+                if (current == null)
+                {
+                    lock (this.insertLock)
+                    {
+                        current = data.Videos.Where(i => i.Filename == fileName).FirstOrDefault();
+                        if (current == null)
+                        {
+                            Video video = new Video
+                            {
+                                Timestamp = timestamp,
+                                Filename = fileName,
+                                Duration = duration,
+                                Motion = motion,
+                                Size = size
+                            };
+                            data.Videos.InsertOnSubmit(video);
+                            data.SubmitChanges();
+                        }
+                    }
+                }
+            }
+        }
+
         public void InsertVideo(string fileName)
         {
             using (CamDataDataContext data = new CamDataDataContext())

@@ -79,4 +79,16 @@ public class CameraDataService : ICameraData
 
         return items;
     }
+
+    public void AddVideo(DateTime timestamp, string fileName, int duration, int motion, int size)
+    {
+        CamVideoManager videos = new CamVideoManager();
+        videos.AddVideo(timestamp, fileName, duration, motion, size);
+    }
+
+    public void AddAlert(DateTime timestamp, string fileName, DateTime receiveTime)
+    {
+        CamAlertManager alerts = new CamAlertManager();
+        alerts.AddAlert(timestamp, fileName, receiveTime);
+    }
 }
