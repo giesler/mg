@@ -10,10 +10,16 @@ using System.Text;
 public interface ICameraData
 {
     [OperationContract]
+    string GetItemFilename(int id);
+
+    [OperationContract]
     List<LogItem> GetItems(DateTime date);
 
     [OperationContract]
     PreviousAndNextLogItems GetPreviousAndNextLogItems(string id);
+
+    [OperationContract]
+    string GetVideoFilename(int id);
 
     [OperationContract]
     List<VideoItem> GetVideos(DateTime startTime, DateTime endTime);

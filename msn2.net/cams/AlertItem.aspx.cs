@@ -41,8 +41,9 @@ public partial class AlertItem : System.Web.UI.Page
             this.name.Text = "YESTERDAY " + alert.Timestamp.ToString("h:mm tt");
         }
 
-        this.img.ImageUrl = "GetLogImage.aspx?a=" + alert.Id.ToString();
-
+        int server = new Random().Next(1, 5);
+        this.img.ImageUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx?a={1}", server, alert.Id);
+        
         int nextId = mgr.GetNextAlertId(alert);
         if (nextId > 0)
         {

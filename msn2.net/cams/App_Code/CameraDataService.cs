@@ -10,6 +10,17 @@ using System.Text;
 [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
 public class CameraDataService : ICameraData
 {
+    public string GetItemFilename(int id)
+    {
+        CamAlertManager mgr = new CamAlertManager();
+        Alert alert = mgr.GetAlert(id);
+        if (alert != null)
+        {
+            return alert.Filename;
+        }
+        return null;
+    }
+
     public List<LogItem> GetItems(DateTime date)
     {
         CamAlertManager mgr = new CamAlertManager();
@@ -36,6 +47,17 @@ public class CameraDataService : ICameraData
         return items;
     }
 
+    public string GetVideoFilename(int id)
+    {
+        CamVideoManager mgr = new CamVideoManager();
+        Video video = mgr.GetVideo(id);
+        if (video != null)
+        {
+            return video.Filename;
+        }
+        return null;
+    }
+
     public List<VideoItem> GetVideos(DateTime startTime, DateTime endTime)
     {
         CamVideoManager mgr = new CamVideoManager();
@@ -52,18 +74,24 @@ public class CameraDataService : ICameraData
 
         foreach (var video in list)
         {
-            string name = video.Filename.Substring((@"C:\LOGITECH ALERT RECORDINGS\").Length);
-            name = name.Substring(0, name.IndexOf(" ")).Trim();
-
-            VideoItem item = new VideoItem();
-            item.Name = name;
-            item.Timestamp = video.Timestamp;
-            item.MotionPercentage = (double)video.Motion / 32375.0 * 100.0;
-            item.Duration = video.Duration / 1000;
-            item.Id = video.Id.ToString();
+            VideoItem item = CreateVideoItem(video);
             items.Add(item);
         }
         return items;
+    }
+
+    private static VideoItem CreateVideoItem(Video video)
+    {
+        string name = video.Filename.Substring((@"C:\LOGITECH ALERT RECORDINGS\").Length);
+        name = name.Substring(0, name.IndexOf(" ")).Trim();
+
+        VideoItem item = new VideoItem();
+        item.Name = name;
+        item.Timestamp = video.Timestamp;
+        item.MotionPercentage = (double)video.Motion / 32375.0 * 100.0;
+        item.Duration = video.Duration / 1000;
+        item.Id = video.Id.ToString();
+        return item;
     }
 
     public PreviousAndNextLogItems GetPreviousAndNextLogItems(string id)
