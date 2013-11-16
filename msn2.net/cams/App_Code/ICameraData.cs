@@ -17,6 +17,12 @@ public interface ICameraData
 
     [OperationContract]
     List<VideoItem> GetVideos(DateTime startTime, DateTime endTime);
+
+    [OperationContract]
+    void AddVideo(DateTime timestamp, string fileName, int duration, int motion, int size);
+
+    [OperationContract]
+    void AddAlert(DateTime timestamp, string fileName, DateTime receiveTime);
 }
 
 [DataContract]
