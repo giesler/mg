@@ -27,18 +27,19 @@ public partial class AlertItem : System.Web.UI.Page
         CamAlertManager mgr = new CamAlertManager();
         Alert alert = mgr.GetAlert(alertId);
 
-        this.name.Text = alert.Timestamp.ToString("dddd MMMM d h:mm tt").ToUpper();
+        DateTime ts = CameraDataService.ToPst(alert.Timestamp);
+        this.name.Text = ts.ToString("dddd MMMM d h:mm tt").ToUpper();
         if (Request.UserAgent.ToLower().Contains("mobile"))
         {
-            this.name.Text = alert.Timestamp.ToString("ddd MMM d h:mm tt").ToUpper();
+            this.name.Text = ts.ToString("ddd MMM d h:mm tt").ToUpper();
         }
-        if (alert.Timestamp.Date == DateTime.Today.Date)
+        if (ts.Date == DateTime.Today.Date)
         {
-            this.name.Text = "TODAY " + alert.Timestamp.ToString("h:mm tt");
+            this.name.Text = "TODAY " + ts.ToString("h:mm tt");
         }
-        else if (alert.Timestamp.Date.AddDays(1) == DateTime.Today)
+        else if (ts.Date.AddDays(1) == DateTime.Today)
         {
-            this.name.Text = "YESTERDAY " + alert.Timestamp.ToString("h:mm tt");
+            this.name.Text = "YESTERDAY " + ts.ToString("h:mm tt");
         }
 
         int server = new Random().Next(1, 5);
@@ -67,7 +68,7 @@ public partial class AlertItem : System.Web.UI.Page
         }
 
         CamVideoManager mgr2 = new CamVideoManager();
-        List<Video> videos = mgr2.GetVideos(alert.Timestamp.AddSeconds(-30), alert.Timestamp.AddMinutes(5));
+        List<Video> videos = mgr2.GetVideos(alert.Timestamp.AddSeconds(-30).ToUniversalTime(), alert.Timestamp.AddMinutes(5).ToUniversalTime());
 
         this.videos.Items.Add(string.Format("- {0} video{1} -", videos.Count, videos.Count == 1 ? "" : "s"));
         this.videos.SelectedIndex = 0;
@@ -81,9 +82,10 @@ public partial class AlertItem : System.Web.UI.Page
                 name = name.Substring(0, 1);
             }
             double motionPercent = (double)video.Motion / 32375.0 * 100.0;
+            ts = CameraDataService.ToPst(video.Timestamp);
             ListItem item = new ListItem
             {
-                Text = string.Format("{0} ({1} {2}s) {3:0}%", video.Timestamp.ToString("h:mm:ss"), name, video.Duration / 1000, motionPercent),
+                Text = string.Format("{0} ({1} {2}s) {3:0}%", ts.ToString("h:mm:ss"), name, video.Duration / 1000, motionPercent),
                 Value = video.Id.ToString()
             };
             this.videos.Items.Add(item);

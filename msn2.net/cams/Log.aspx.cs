@@ -19,7 +19,7 @@ public partial class Log : System.Web.UI.Page
         base.OnInit(e);
 
         CamAlertManager mgr = new CamAlertManager();
-        this.alerts = mgr.GetAlertsSinceDate(DateTime.Now.AddDays(-7));
+        this.alerts = mgr.GetAlertsSinceDate(DateTime.Now.AddDays(-7).ToUniversalTime());
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -65,14 +65,15 @@ public partial class Log : System.Web.UI.Page
                 AddVideos(mgr, html, lastAlertTime, alert.Timestamp);
                 lastAlertTime = alert.Timestamp;
             }
-
+            
             string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx", server);
             if (Request.Url.IsLoopback)
             {
                 getUrl = "GetLogImage.aspx";
             }
+            DateTime ts = CameraDataService.ToPst(alert.Timestamp);
             html.AppendFormat("<div class=\"panel\"><a href=\"AlertItem.aspx?a={0}\">", alert.Id);
-            html.AppendFormat("<img height=\"48\" width=\"64\" src=\"{2}?a={0}&h=48\" title=\"{1}\" border=\"0\" class=\"thumb\" /></a></div>", alert.Id, alert.Timestamp.ToString("h:mm"), getUrl);
+            html.AppendFormat("<img height=\"48\" width=\"64\" src=\"{2}?a={0}&h=48\" title=\"{1}\" border=\"0\" class=\"thumb\" /></a></div>", alert.Id, ts.ToString("h:mm"), getUrl);
 
             if (server == 3)
             {
@@ -101,7 +102,8 @@ public partial class Log : System.Web.UI.Page
         {            
             string name = video.Filename.Substring(29);
             name = name.Substring(0, name.IndexOf(" ")).Trim();
-            html.AppendFormat("<div class=\"panel\"><a href=\"{0}\">{1}</a>", GetVideoUrl(video.Id), video.Timestamp.ToString("h:mm"));
+            DateTime ts = CameraDataService.ToPst(video.Timestamp);
+            html.AppendFormat("<div class=\"panel\"><a href=\"{0}\">{1}</a>", GetVideoUrl(video.Id), ts.ToString("h:mm"));
             html.AppendFormat("<br /><a href=\"{0}\">{1}</a></div>", GetVideoUrl(video.Id), name);
         }
     }

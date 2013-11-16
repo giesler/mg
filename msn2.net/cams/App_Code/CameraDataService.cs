@@ -1,7 +1,10 @@
 ﻿using CamLib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
@@ -10,6 +13,16 @@ using System.Text;
 [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
 public class CameraDataService : ICameraData
 {
+    static readonly string Latitude = "47.680265";
+    static readonly string Longitude = "-122.172113";
+
+    static CameraDataService()
+    {
+        TimezoneOffset = GetTimezoneOffset(TimezoneOffset);
+    }
+
+    public static int TimezoneOffset = -7;  // default to summer dst
+
     public string GetItemFilename(int id)
     {
         CamAlertManager mgr = new CamAlertManager();
@@ -36,7 +49,7 @@ public class CameraDataService : ICameraData
         {
             string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx?a={1}", server, alert.Id);
 
-            items.Add(new LogItem { Id = alert.Id.ToString(), Timestamp = alert.Timestamp, Url = getUrl });
+            items.Add(new LogItem { Id = alert.Id.ToString(), Timestamp = ToPst(alert.Timestamp), Url = getUrl });
 
             server++;
             if (server > 4)
@@ -61,7 +74,7 @@ public class CameraDataService : ICameraData
     public List<VideoItem> GetVideos(DateTime startTime, DateTime endTime)
     {
         CamVideoManager mgr = new CamVideoManager();
-        var list = mgr.GetVideos(startTime, endTime);
+        var list = mgr.GetVideos(startTime.ToUniversalTime(), endTime.ToUniversalTime());
 
         List<VideoItem> items = CreateVideoItems(list);
 
@@ -87,7 +100,7 @@ public class CameraDataService : ICameraData
 
         VideoItem item = new VideoItem();
         item.Name = name;
-        item.Timestamp = video.Timestamp;
+        item.Timestamp = ToPst(video.Timestamp);
         item.MotionPercentage = (double)video.Motion / 32375.0 * 100.0;
         item.Duration = video.Duration / 1000;
         item.Id = video.Id.ToString();
@@ -147,4 +160,47 @@ public class CameraDataService : ICameraData
         CamVideoManager videos = new CamVideoManager();
         videos.DeleteVideo(id);
     }
+
+    public static DateTime ToPst(DateTime dateTime)
+    {
+        return dateTime.AddHours(TimezoneOffset);        
+    }
+
+    private static int GetTimezoneOffset(int offset)
+    {
+        try
+        {
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://api.geonames.org/timezoneJSON?lat=" + Latitude + "&lng=" + Longitude + "&username=demo");
+            HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+            using (Stream stream = webResponse.GetResponseStream())
+            {
+                byte[] buffer = new byte[500];
+                int count = stream.Read(buffer, 0, buffer.Length);
+                char[] chars = Encoding.UTF8.GetChars(buffer);
+
+                string content = string.Empty;
+                foreach (char c in chars)
+                {
+                    content += c;
+                }
+
+                string[] properties = content.Split(new char[] { '{', ',', '}' });
+                foreach (string item in properties)
+                {
+                    if (item.IndexOf("dstOffset") > 0)
+                    {
+                        string[] parts = item.Split(new char[] { ':' });
+                        offset = int.Parse(parts[1]);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine("Error getting timezone offset: " + ex.Message);
+        }
+
+        return offset;
+    }
+
 }
