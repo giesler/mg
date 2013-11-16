@@ -68,7 +68,7 @@ public partial class AlertItem : System.Web.UI.Page
         }
 
         CamVideoManager mgr2 = new CamVideoManager();
-        List<Video> videos = mgr2.GetVideos(alert.Timestamp.AddSeconds(-30).ToUniversalTime(), alert.Timestamp.AddMinutes(5).ToUniversalTime());
+        List<Video> videos = mgr2.GetVideos(alert.Timestamp.AddSeconds(-30), alert.Timestamp.AddMinutes(5));
 
         this.videos.Items.Add(string.Format("- {0} video{1} -", videos.Count, videos.Count == 1 ? "" : "s"));
         this.videos.SelectedIndex = 0;
