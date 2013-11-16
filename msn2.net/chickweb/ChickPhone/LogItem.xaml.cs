@@ -17,7 +17,7 @@ namespace ChickPhone
     public partial class LogItem : PhoneApplicationPage
     {
         CamDataService.PreviousAndNextLogItems previousAndNextItems = null;
-        static readonly string GetLogImageBaseUri = "http://cams.msn2.net/GetLogImage.aspx?a=";
+        static readonly string GetLogImageBaseUri = "http://cam1.msn2.net/GetLogImage.aspx?a=";
 
         public LogItem()
         {

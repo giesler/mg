@@ -19,7 +19,7 @@ namespace ChickPhone
     public partial class SingleCam : PhoneApplicationPage
     {
         DispatcherTimer timer;
-        string appRoot = "http://cc.msn2.net/";
+        string appRoot = "http://cam1.msn2.net/";
         bool inGet = false;
         string camera = "1";
 
@@ -32,6 +32,8 @@ namespace ChickPhone
             this.timer.Tick += new EventHandler(this.OnTick);
             this.timer.Start();
 
+            this.appRoot = string.Format("http://cam{0}.msn2.net/", new Random().Next(1, 6));
+            
             if (App.LastImage != null)
             {
                 this.imga.Source = App.LastImage;

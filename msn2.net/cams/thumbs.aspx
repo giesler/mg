@@ -12,9 +12,9 @@
     <form id="form1" runat="server">
         <asp:Repeater runat="server" ID="thumbsView" OnItemDataBound="thumbs_ItemDataBound">
             <ItemTemplate>
-                <asp:HyperLink runat="server" ID="thumbALink">
-                    <asp:Image runat="server" ID="thumbAImage" Height="64" BorderWidth="0" />
-                    <asp:Image runat="server" ID="thumbBImage" Height="64" BorderWidth="0" />
+                <asp:HyperLink runat="server" ID="thumbALink" CssClass="smallthumb">
+                    <asp:Image runat="server" ID="thumbAImage" Height="64" BorderWidth="0" CssClass="smallthumb" />
+                    <asp:Image runat="server" ID="thumbBImage" Height="64" BorderWidth="0" CssClass="smallthumb" />
                 </asp:HyperLink>
             </ItemTemplate>
         </asp:Repeater>

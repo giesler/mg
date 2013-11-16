@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickWebApp", "ChickWebApp\ChickWebApp.csproj", "{F64F5E97-574B-4185-860A-55A2050BCE1C}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "SAK"
@@ -26,6 +26,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A4
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "7978"
+		SlnRelativePath = "..\cams\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -39,30 +40,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChickPhone", "ChickPhone\Ch
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = ChickWebApp\\ChickWebApp.csproj
-		SccProjectName1 = ChickWebApp
-		SccLocalPath1 = ChickWebApp
-		SccWebProject2 = true
-		SccProjectUniqueName2 = ..\\cams
-		SccProjectName2 = ../cams
-		SccLocalPath2 = ..\\cams
-		SccProjectEnlistmentChoice2 = 2
-		SccProjectUniqueName3 = CamLib\\CamLib.csproj
-		SccProjectName3 = CamLib
-		SccLocalPath3 = CamLib
-		SccProjectUniqueName4 = CamAlertService\\CamAlertService.csproj
-		SccProjectName4 = CamAlertService
-		SccLocalPath4 = CamAlertService
-		SccProjectUniqueName5 = ..\\cams.msn2.net\\CamApp\\CamApp.csproj
-		SccProjectName5 = ../cams.msn2.net/CamApp
-		SccLocalPath5 = ..\\cams.msn2.net\\CamApp
-		SccProjectUniqueName6 = ChickPhone\\ChickPhone.csproj
-		SccProjectName6 = ChickPhone
-		SccLocalPath6 = ChickPhone
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ..\\cams
+		SccProjectName1 = ../cams
+		SccLocalPath1 = ..\\cams
+		SccProjectEnlistmentChoice1 = 2
+		SccProjectUniqueName2 = CamLib\\CamLib.csproj
+		SccProjectName2 = CamLib
+		SccLocalPath2 = CamLib
+		SccProjectUniqueName3 = CamAlertService\\CamAlertService.csproj
+		SccProjectName3 = CamAlertService
+		SccLocalPath3 = CamAlertService
+		SccProjectUniqueName4 = ..\\cams.msn2.net\\CamApp\\CamApp.csproj
+		SccProjectName4 = ../cams.msn2.net/CamApp
+		SccLocalPath4 = ..\\cams.msn2.net\\CamApp
+		SccProjectUniqueName5 = ChickPhone\\ChickPhone.csproj
+		SccProjectName5 = ChickPhone
+		SccLocalPath5 = ChickPhone
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,22 +77,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|ARM.ActiveCfg = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|Windows Phone.ActiveCfg = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|x64.ActiveCfg = Release|Any CPU
-		{F64F5E97-574B-4185-860A-55A2050BCE1C}.Release|x86.ActiveCfg = Release|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}.Debug|ARM.ActiveCfg = Debug|Any CPU

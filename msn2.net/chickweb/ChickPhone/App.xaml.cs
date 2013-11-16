@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Windows.Phone.Speech.VoiceCommands;
 
 namespace ChickPhone
 {
@@ -60,8 +61,7 @@ namespace ChickPhone
                 // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
-            }
-
+            }            
         }
 
         // Code to execute when the application is launching (eg, from Start)

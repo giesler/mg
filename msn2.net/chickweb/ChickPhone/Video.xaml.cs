@@ -28,7 +28,7 @@ namespace ChickPhone
 
             string video = NavigationContext.QueryString["v"];
 
-            this.player.Source = new Uri("http://cams.msn2.net/GetVid.aspx?v=" + video);
+            this.player.Source = new Uri("http://cam1.msn2.net/GetVid.aspx?v=" + video);
         }
 
         private void player_MediaOpened(object sender, System.Windows.RoutedEventArgs e)

@@ -43,6 +43,8 @@ namespace ChickPhone
         {
             InitializeComponent();
 
+            this.appRoot = string.Format("http://cam{0}.msn2.net/", new Random().Next(1, 6));
+
             // Set the data context of the listbox control to the sample data
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
