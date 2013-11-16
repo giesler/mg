@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ShoppingList" Class="SLSDataDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=randy;Initial Catalog=ShoppingList;Persist Security Info=True;User ID=listuser" SettingsObjectName="msn2.net.ShoppingList.Properties.Settings" SettingsPropertyName="ShoppingListConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=ListGo;Integrated Security=True" SettingsObjectName="msn2.net.ShoppingList.Properties.Settings" SettingsPropertyName="ShoppingListConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Store" Member="Stores">
     <Type Name="Store">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
