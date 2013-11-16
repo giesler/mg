@@ -23,6 +23,15 @@ public interface ICameraData
 
     [OperationContract]
     void AddAlert(DateTime timestamp, string fileName, DateTime receiveTime);
+
+    [OperationContract]
+    List<LogItem> GetAlertsBeforeDate(DateTime timestamp);
+
+    [OperationContract]
+    void DeleteAlert(int id);
+
+    [OperationContract]
+    void DeleteVideo(int id);
 }
 
 [DataContract]

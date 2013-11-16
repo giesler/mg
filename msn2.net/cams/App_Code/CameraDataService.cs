@@ -14,9 +14,12 @@ public class CameraDataService : ICameraData
     {
         CamAlertManager mgr = new CamAlertManager();
         var q = mgr.GetAlertsOnDate(date);
+        return ConvertAlerts(q);
+    }
 
+    private static List<LogItem> ConvertAlerts(List<Alert> q)
+    {
         List<LogItem> items = new List<LogItem>();
-
         int server = 1;
         foreach (Alert alert in q)
         {
@@ -38,6 +41,13 @@ public class CameraDataService : ICameraData
         CamVideoManager mgr = new CamVideoManager();
         var list = mgr.GetVideos(startTime, endTime);
 
+        List<VideoItem> items = CreateVideoItems(list);
+
+        return items;
+    }
+
+    private static List<VideoItem> CreateVideoItems(List<Video> list)
+    {
         List<VideoItem> items = new List<VideoItem>();
 
         foreach (var video in list)
@@ -53,7 +63,6 @@ public class CameraDataService : ICameraData
             item.Id = video.Id.ToString();
             items.Add(item);
         }
-
         return items;
     }
 
@@ -67,14 +76,14 @@ public class CameraDataService : ICameraData
         if (previousId > 0)
         {
             var previous = alerts.GetAlert(previousId);
-            items.PreviousItem = new LogItem { Id = previous.Id.ToString(), Timestamp = previous.Timestamp, Url = "http://cams.msn2.net/GetLogImage.aspx?a=" + previous.Id.ToString() };
+            items.PreviousItem = new LogItem { Id = previous.Id.ToString(), Timestamp = previous.Timestamp, Url = "http://cam1.msn2.net/GetLogImage.aspx?a=" + previous.Id.ToString() };
         }
 
         int nextId = alerts.GetNextAlertIdById(idValue);
         if (nextId > 0)
         {
             var next = alerts.GetAlert(nextId);
-            items.NextItem = new LogItem { Id = next.Id.ToString(), Timestamp = next.Timestamp, Url = "http://cams.msn2.net/GetLogImage.aspx?a=" + next.Id.ToString() };
+            items.NextItem = new LogItem { Id = next.Id.ToString(), Timestamp = next.Timestamp, Url = "http://cam2.msn2.net/GetLogImage.aspx?a=" + next.Id.ToString() };
         }
 
         return items;
@@ -90,5 +99,24 @@ public class CameraDataService : ICameraData
     {
         CamAlertManager alerts = new CamAlertManager();
         alerts.AddAlert(timestamp, fileName, receiveTime);
+    }
+
+    public List<LogItem> GetAlertsBeforeDate(DateTime timestamp)
+    {
+        CamAlertManager alerts = new CamAlertManager();
+        List<Alert> list = alerts.GetAlertsBeforeDate(timestamp);
+        return ConvertAlerts(list);
+    }
+
+    public void DeleteAlert(int id)
+    {
+        CamAlertManager alerts = new CamAlertManager();
+        alerts.DeleteAlert(id);
+    }
+
+    public void DeleteVideo(int id)
+    {
+        CamVideoManager videos = new CamVideoManager();
+        videos.DeleteVideo(id);
     }
 }
