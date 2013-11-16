@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading;
 using System.IO;
 using System.Net.Mail;
-using CamLib;
 using CamAlertService.Properties;
 using System.Net;
 using System.Diagnostics;
 using System.ServiceModel;
+using CamDataService.CamData;
 
 namespace CamAlertService
 {
@@ -21,6 +21,8 @@ namespace CamAlertService
         string basePath;
         string serverPath;
         string videoPath;
+        Dictionary<string, int> alertTracking = new Dictionary<string, int>();
+        object alertTrackingLock = new object();
 
         public void Start()
         {
@@ -31,7 +33,6 @@ namespace CamAlertService
             Thread t = new Thread(new ThreadStart(this.Main));
             t.Name = "Main Processing Thread";
             t.Start();
-
         }
 
         public void Stop()
@@ -147,14 +148,12 @@ namespace CamAlertService
 
                             if (extension == ".jpg")
                             {
-                                CamAlertManager alerts = new CamAlertManager();
-                                alerts.InsertAlert(fileName);
+                                AddAlert(fileName);
                                 this.Log("{0} Alert inserted in db", fileName);
                             }
                             else if (extension == ".mp4")
                             {
-                                CamVideoManager video = new CamVideoManager();
-                                video.InsertVideo(fileName);
+                                AddVideo(fileName);
                                 this.Log("{0} video inserted in db", fileName);
                                 subDirectory = "Videos";
                             }
@@ -238,10 +237,56 @@ namespace CamAlertService
             Trace.Flush();
         }
 
+        void AddVideo(string fileName)
+        {
+            string dir = Path.GetDirectoryName(fileName);
+            string name = Path.GetFileNameWithoutExtension(fileName);
+
+            // Extract month/day/year
+            int yearStart = dir.IndexOf("201");
+            string year = dir.Substring(yearStart, 4);
+            string month = dir.Substring(yearStart + 5, 2);
+            string day = dir.Substring(yearStart + 8, 2);
+
+            // Extract time
+            int timeStart = name.IndexOf("S");
+            string time = name.Substring(timeStart + 1, 2) + ":" + name.Substring(timeStart + 3, 2) + ":" + name.Substring(timeStart + 5, 2);
+
+            DateTime timestamp = DateTime.Parse(string.Format(@"{0}/{1}/{2} {3}", month, day, year, time));
+
+            // Extract duration
+            int durationStart = name.IndexOf("D");
+            int durationEnd = name.IndexOf(" ", durationStart);
+            int duration = int.Parse(name.Substring(durationStart + 1, durationEnd - durationStart - 1));
+
+            // Extract motion
+            int motionStart = name.IndexOf("A");
+            int motionEnd = name.IndexOf(" ", motionStart);
+            int motion = int.Parse(name.Substring(motionStart + 1, motionEnd - motionStart - 1));
+
+            FileInfo fileInfo = new FileInfo(fileName);
+
+            CameraDataClient data = new CameraDataClient();
+            data.AddVideo(timestamp.ToUniversalTime(), fileName, duration, motion, (int)fileInfo.Length % 1024);
+        }
+
+        void AddAlert(string fileName)
+        {
+            string name = Path.GetFileName(fileName);
+
+            // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
+            string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
+
+            using (CamDataService.CamData.CameraDataClient client = new CamDataService.CamData.CameraDataClient())
+            {
+                client.AddAlert(DateTime.Parse(dateStamp).ToUniversalTime(), Path.GetFileName(fileName), DateTime.UtcNow);
+            }
+        }
+
         void PurgeFiles()
         {
-            CamAlertManager alertManager = new CamAlertManager();
-            List<Alert> alerts = alertManager.GetAlertsBeforeDate(DateTime.Now.AddDays(-60));
+            CameraDataClient data = new CameraDataClient();
+            var alerts = data.GetAlertsBeforeDate(DateTime.UtcNow.AddDays(-60));
             foreach (Alert alert in alerts)
             {
                 string fileName = Path.GetFileName(alert.Filename);
@@ -255,7 +300,7 @@ namespace CamAlertService
                     {
                         this.Log("Error deleting {0}: {1}", fileName, ex.Message);
                     }
-                    alertManager.DeleteAlert(alert.Id);
+                    data.DeleteAlert(alert.Id);
                 }
                 catch (Exception ex)
                 {
@@ -263,11 +308,10 @@ namespace CamAlertService
                 }
             }
 
-            CamVideoManager videoManager = new CamVideoManager();
-            List<Video> videos = videoManager.GetVideos(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-20));
-            foreach (Video video in videos.OrderBy(v => v.Id))
+            var videos = data.GetVideos(DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-20));
+            foreach (VideoItem video in videos.ToList<VideoItem>().OrderBy(v => v.Id))
             {
-                string fileName = Path.GetFileName(video.Filename);
+                string fileName = Path.GetFileName(video.Name);
                 try
                 {
                     try
@@ -279,12 +323,12 @@ namespace CamAlertService
                         this.Log("Error deleting {0}: {1}", fileName, ex.Message);
                     }
 
-                    if (File.Exists(video.Filename))
+                    if (File.Exists(video.Name))
                     {
-                        File.Delete(video.Filename);
+                        File.Delete(video.Name);
                     }
 
-                    videoManager.DeleteVideo(video.Id);
+                    data.DeleteVideo(int.Parse(video.Id));
                 }
                 catch (Exception ex)
                 {
@@ -316,9 +360,30 @@ namespace CamAlertService
 
         void SendError(string fileName, Exception ex)
         {
-            string messageText = string.Format("{0}{1}{2}", fileName, Environment.NewLine, ex);
-            SmtpClient smtp = new SmtpClient(Settings.Default.SmtpServer);
-            smtp.Send(Settings.Default.ErrorMailFrom, Settings.Default.ErrorMailTo, "InsertAlert error: " + ex.Message, messageText);
+            bool send = true;
+            lock (this.alertTrackingLock)
+            {
+                if (this.alertTracking.ContainsKey(fileName))
+                {
+                    send = false;
+                    this.alertTracking[fileName]++;
+                }
+                else
+                {
+                    this.alertTracking.Add(fileName, 1);
+                }
+            }
+
+            if (send)
+            {
+                string messageText = string.Format("{0}{1}{2}", fileName, Environment.NewLine, ex);
+                SmtpClient smtp = new SmtpClient(Settings.Default.SmtpServer);
+                smtp.Send(Settings.Default.ErrorMailFrom, Settings.Default.ErrorMailTo, "InsertAlert error: " + ex.Message, messageText);
+            }
+            else
+            {
+                this.Log("Skipping send for {0} - {1} errors: {2}", fileName, this.alertTracking[fileName], ex.Message);
+            }
         }
     }
 }

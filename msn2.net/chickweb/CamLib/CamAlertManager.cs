@@ -14,44 +14,6 @@ namespace CamLib
     {
         object insertLock = new object();
         
-        public void InsertAlert(string fileName)
-        {
-            using (CamDataDataContext data = new CamDataDataContext())
-            {
-                int id = (from d in data.Alerts
-                          where d.Filename == Path.GetFileName(fileName)
-                          select d.Id).FirstOrDefault();
-
-                if (id == 0)
-                {
-                    lock (this.insertLock)
-                    {
-                        id = (from d in data.Alerts
-                              where d.Filename == Path.GetFileName(fileName)
-                              select d.Id).FirstOrDefault();
-
-                        if (id == 0)
-                        {
-                            string name = Path.GetFileName(fileName);
-
-                            // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
-                            string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
-
-                            Alert alert = new Alert
-                            {
-                                Filename = Path.GetFileName(fileName),
-                                Timestamp = DateTime.Parse(dateStamp),
-                                ReceiveTime = DateTime.Now
-                            };
-
-                            data.Alerts.InsertOnSubmit(alert);
-                            data.SubmitChanges();
-                        }
-                    }
-                }
-            }
-        }
-
         public void AddAlert(DateTime timestamp, string fileName, DateTime receiveTime)
         {
             using (CamDataDataContext data = new CamDataDataContext())
