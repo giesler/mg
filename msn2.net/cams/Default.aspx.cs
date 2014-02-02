@@ -66,11 +66,11 @@ public partial class _Default : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-        this.main.ImageUrl = string.Format("http://cam1.msn2.net/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
+        this.main.ImageUrl = string.Format("http://cam1.msn2.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
 
         if (cam == "1")
         {
-            this.main2.ImageUrl = string.Format("http://cam2.msn2.net/getimg.aspx?c=2&id={0}", Guid.NewGuid());
+            this.main2.ImageUrl = string.Format("http://cam2.msn2.net:8808/getimg.aspx?c=2&id={0}", Guid.NewGuid());
             this.main2.Visible = true;
             this.rightPanel.Visible = true;
 
@@ -140,11 +140,11 @@ public partial class _Default : System.Web.UI.Page
             Image imageB = (Image)e.Item.FindControl("thumbBImage");
 
             linkA.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
-            imageA.ImageUrl = string.Format("http://{0}.msn2.net/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
+            imageA.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
 
             if (view.Cameras.Count > 1)
             {
-                imageB.ImageUrl = string.Format("http://{0}.msn2.net/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
+                imageB.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
             }
             else
             {

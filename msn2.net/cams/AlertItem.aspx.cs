@@ -43,7 +43,7 @@ public partial class AlertItem : System.Web.UI.Page
         }
 
         int server = new Random().Next(1, 5);
-        this.img.ImageUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx?a={1}", server, alert.Id);
+        this.img.ImageUrl = string.Format("http://cam{0}.msn2.net:8808/GetLogImage.aspx?a={1}", server, alert.Id);
         
         int nextId = mgr.GetNextAlertId(alert);
         if (nextId > 0)
@@ -68,7 +68,7 @@ public partial class AlertItem : System.Web.UI.Page
         }
 
         CamVideoManager mgr2 = new CamVideoManager();
-        List<Video> videos = mgr2.GetVideos(alert.Timestamp.AddSeconds(-30), alert.Timestamp.AddMinutes(5));
+        List<Video> videos = mgr2.GetVideos(alert.Timestamp.ToLocalTime().AddSeconds(-30), alert.Timestamp.ToLocalTime().AddMinutes(5));
 
         this.videos.Items.Add(string.Format("- {0} video{1} -", videos.Count, videos.Count == 1 ? "" : "s"));
         this.videos.SelectedIndex = 0;
@@ -107,7 +107,7 @@ public partial class AlertItem : System.Web.UI.Page
         if (!string.IsNullOrEmpty(req))
         {
             int server = new Random().Next(1, 5);
-            output = string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, req);
+            output = string.Format("http://cam{0}.msn2.net:8808/getvid.aspx?v={1}", server, req);
             img.Visible = false;
         }
         else
@@ -126,7 +126,7 @@ public partial class AlertItem : System.Web.UI.Page
         if (!string.IsNullOrEmpty(req))
         {
             int server = new Random().Next(1, 5);
-            string url = string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, req);
+            string url = string.Format("http://cam{0}.msn2.net:8808/getvid.aspx?v={1}", server, req);
             output = "window.open('" + url + "');";
         }
 

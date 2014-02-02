@@ -48,12 +48,12 @@
 
         function RefreshMain() {
             var tmp = new Date();
-            tmp = "http://" + basePrefix + ".msn2.net/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
+            tmp = "http://" + basePrefix + ".msn2.net:8808/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
 
             var tmp2 = new Date();
             if (cam == "1")
             {
-                tmp2 = "http://cam2.msn2.net/getimg.aspx?" + tmp2.getTime() + "&c=2";
+                tmp2 = "http://cam2.msn2.net:8808/getimg.aspx?" + tmp2.getTime() + "&c=2";
             }
             
             window.status = "Auto refresh enabled";

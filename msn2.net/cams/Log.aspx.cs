@@ -19,7 +19,7 @@ public partial class Log : System.Web.UI.Page
         base.OnInit(e);
 
         CamAlertManager mgr = new CamAlertManager();
-        this.alerts = mgr.GetAlertsSinceDate(DateTime.Now.AddDays(-7).ToUniversalTime());
+        this.alerts = mgr.GetAlertsSinceDate(DateTime.Now.AddDays(-30).ToUniversalTime());
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -36,19 +36,18 @@ public partial class Log : System.Web.UI.Page
         List<DayPictures> dayPics = new List<DayPictures>();
         dayPics.Add(new DayPictures("TODAY", DateTime.Now.Date));
         dayPics.Add(new DayPictures("YESTERDAY", DateTime.Now.Date.AddDays(-1)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-2).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-2)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-3).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-3)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-4).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-4)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-5).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-5)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-6).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-6)));
-        dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-7).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-7)));
+        for (int i = 2; i < 31; i++)
+        {
+            dayPics.Add(new DayPictures(DateTime.Now.Date.AddDays(-1 * i).ToString("dddd MMMM d"), DateTime.Now.Date.AddDays(-1 * i)));
+        }
+        
         this.data.DataSource = dayPics;
         this.data.DataBind();
     }
 
     protected string GetPictures(object sender)
     {
-        DateTime date = (DateTime)sender;
+        DateTime date = ((DateTime)sender).AddHours(8);
         StringBuilder html = new StringBuilder();
 
         var q = this.alerts.Where(i => i.Timestamp > date && i.Timestamp < date.AddDays(1).AddSeconds(-1));
@@ -66,10 +65,10 @@ public partial class Log : System.Web.UI.Page
                 lastAlertTime = alert.Timestamp;
             }
             
-            string getUrl = string.Format("http://cam{0}.msn2.net/GetLogImage.aspx", server);
+            string getUrl = string.Format("http://cam{0}.msn2.net:8808/GetLogImage.aspx", server);
             if (Request.Url.IsLoopback)
             {
-                getUrl = "GetLogImage.aspx";
+ //               getUrl = "GetLogImage.aspx";
             }
             DateTime ts = CameraDataService.ToPst(alert.Timestamp);
             html.AppendFormat("<div class=\"panel\"><a href=\"AlertItem.aspx?a={0}\">", alert.Id);
@@ -111,7 +110,7 @@ public partial class Log : System.Web.UI.Page
     public static string GetVideoUrl(int id)
     {
         int server = new Random().Next(1, 5);
-        return string.Format("http://cam{0}.msn2.net/getvid.aspx?v={1}", server, id);
+        return string.Format("http://cam{0}.msn2.net:8808/getvid.aspx?v={1}", server, id);
     }
 
     protected void showHideVideos_Click(object sender, EventArgs e)
