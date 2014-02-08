@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.ServiceModel.Activation;
-using System.Text;
 
 [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
 public class WakeOnLanStatusService : IWakeOnLanStatusService

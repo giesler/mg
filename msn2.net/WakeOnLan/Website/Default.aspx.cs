@@ -88,6 +88,12 @@ public partial class _Default : System.Web.UI.Page
 
     protected void lstComputers_ItemCommand(object source, DataListCommandEventArgs e)
     {
+        string powerAccessKey = ConfigurationManager.AppSettings["powerManagerAccessKey"];
+        if (string.IsNullOrEmpty(powerAccessKey))
+        {
+            throw new Exception("No power manager access key is defined in web.config");
+        }
+
         if (e.CommandName == "WakeUp")
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["WakeOnLanConnectionString"].ConnectionString))
@@ -104,7 +110,8 @@ public partial class _Default : System.Web.UI.Page
                 if (!String.IsNullOrEmpty(macAddress))
                 {
                     //Wake up given PC
-                    PowerManager.WakeUp(macAddress);
+                    DevicePowerService.DevicePowerClient powerClient = new DevicePowerService.DevicePowerClient();
+                    powerClient.Resume(powerAccessKey, macAddress);
 
                     //Save powering up state to the DB                   
                     SetComputerState(sqlConnection, computerId, 3);
@@ -130,14 +137,10 @@ public partial class _Default : System.Web.UI.Page
 
                 if (!string.IsNullOrEmpty(ip))
                 {
-                    HttpWebRequest wr = WebRequest.CreateHttp(string.Format("http://{0}:4646/Suspend", ip));
-                    wr.Timeout = (int)TimeSpan.FromSeconds(5).TotalMilliseconds;
                     try
                     {
-                        using (WebResponse response = wr.GetResponse())
-                        {
-                            Trace.Write(response.ToString());
-                        }
+                        DevicePowerService.DevicePowerClient powerClient = new DevicePowerService.DevicePowerClient();
+                        powerClient.Suspend(powerAccessKey, ip);
 
                         //Save powering up state to the DB                   
                         SetComputerState(sqlConnection, computerId, 4);
