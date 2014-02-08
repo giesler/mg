@@ -69,6 +69,7 @@
 
             setTimeout("Refresh()", <%= GetRefreshInterval() %>);
 
+            // <%= GetMachineInfo() %>
             // -->
         </script>
     </div>

@@ -177,4 +177,9 @@ public partial class _Default : System.Web.UI.Page
     {
 //        Response.Redirect("./?ct=" + this.computerType.SelectedValue);
     }
+
+    protected string GetMachineInfo()
+    {
+        return "Served by: " + Environment.MachineName;
+    }
 }
