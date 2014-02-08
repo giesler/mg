@@ -34,17 +34,13 @@ namespace StatusMonitor
         {
             try
             {
-                //Open the database connection
-                using (SqlDataAdapter dataAdapter = new SqlDataAdapter("GetManagedComputers", Settings.Default.WakeOnLanConnectionString))
-                {
-                    DataSet computersDataSet = new DataSet();
-                    dataAdapter.Fill(computersDataSet);
+                WOLStatus.WakeOnLanStatusServiceClient service = new WOLStatus.WakeOnLanStatusServiceClient();
+                IEnumerable<WOLStatus.Device> devices = service.GetDevices();
 
-                    //Try to ping each computer
-                    foreach (DataRow computer in computersDataSet.Tables[0].Rows)
-                    {
-                        ProcessComputer((Int32)computer["ComputerID"], computer["IPAddress"] as string);
-                    }
+                //Try to ping each computer
+                foreach (WOLStatus.Device device in devices)
+                {
+                    ProcessComputer(device.Id, device.HostNameOrIPAddress);
                 }
             }
             catch (Exception ex)
@@ -60,26 +56,11 @@ namespace StatusMonitor
 
             //Try to obtain the MAC address
             string macAddress = null;
-            if (isActive)            
+            if (isActive)
                 macAddress = GetMACAddress(hostNameOrAddress);
-                
-            
-            using (SqlConnection sqlConnection = new SqlConnection(Settings.Default.WakeOnLanConnectionString))
-            {
-                sqlConnection.Open();
 
-                SqlCommand sqlCommand = new SqlCommand("SaveComputerState", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@ComputerId", computerId);
-                sqlCommand.Parameters.AddWithValue("@StateId", isActive ? 2 : 1);
-                if (!String.IsNullOrEmpty(macAddress))
-                    sqlCommand.Parameters.AddWithValue("@MACAddress", macAddress);
-
-                sqlCommand.ExecuteNonQuery();
-
-            }
-            
-
+            WOLStatus.WakeOnLanStatusServiceClient service = new WOLStatus.WakeOnLanStatusServiceClient();
+            service.UpdateDeviceStatus(computerId, isActive, macAddress);
         }
 
         private static string GetMACAddress(string hostNameOrAddress)
@@ -118,8 +99,8 @@ namespace StatusMonitor
 
                 macAddressString.AppendFormat("{0:x2}", macAddr[i]);
             }
-            
-            return macAddressString.ToString();            
+
+            return macAddressString.ToString();
         }
 
         private static bool IsComputerAccessible(string hostNameOrAddress)

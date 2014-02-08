@@ -169,4 +169,9 @@ public partial class _Default : System.Web.UI.Page
     {
         return switchingState ? 5000 : (int)TimeSpan.FromMinutes(5).TotalMilliseconds;
     }
+
+    protected void computerType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+//        Response.Redirect("./?ct=" + this.computerType.SelectedValue);
+    }
 }

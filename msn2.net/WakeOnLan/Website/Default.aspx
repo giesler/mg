@@ -22,7 +22,12 @@
                     Width="100%" OnItemDataBound="lstComputers_ItemDataBound" OnItemCommand="lstComputers_ItemCommand">
                     <HeaderTemplate>
                         <div>
-                            <div style="width: 162px; height: 10px; float: left">&nbsp;</div>
+                            <div style="width: 162px; height: 10px; float: left">
+                                <asp:DropDownList ID="computerType" runat="Server" AutoPostBack="true" OnSelectedIndexChanged="computerType_SelectedIndexChanged">
+                                    <asp:ListItem Text="Clients" Value="Clients" Selected="True" />
+                                    <asp:ListItem Text="Servers" Value="Servers" />
+                                </asp:DropDownList>
+                            </div>
                             <div class="computerUptime">
                                 <i>Uptime</i>
                             </div>
