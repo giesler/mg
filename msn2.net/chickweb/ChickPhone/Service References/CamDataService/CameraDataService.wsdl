@@ -7,11 +7,23 @@
       <xsd:import schemaLocation="http://cams.msn2.net/camdata.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ICameraData_GetItemFilename_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemFilename" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetItemFilename_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemFilenameResponse" />
+  </wsdl:message>
   <wsdl:message name="ICameraData_GetItems_InputMessage">
     <wsdl:part name="parameters" element="tns:GetItems" />
   </wsdl:message>
   <wsdl:message name="ICameraData_GetItems_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetItemsUtc_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemsUtc" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetItemsUtc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemsUtcResponse" />
   </wsdl:message>
   <wsdl:message name="ICameraData_GetPreviousAndNextLogItems_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPreviousAndNextLogItems" />
@@ -19,30 +31,116 @@
   <wsdl:message name="ICameraData_GetPreviousAndNextLogItems_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPreviousAndNextLogItemsResponse" />
   </wsdl:message>
+  <wsdl:message name="ICameraData_GetVideoFilename_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVideoFilename" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetVideoFilename_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVideoFilenameResponse" />
+  </wsdl:message>
   <wsdl:message name="ICameraData_GetVideos_InputMessage">
     <wsdl:part name="parameters" element="tns:GetVideos" />
   </wsdl:message>
   <wsdl:message name="ICameraData_GetVideos_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetVideosResponse" />
   </wsdl:message>
+  <wsdl:message name="ICameraData_AddVideo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddVideo" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_AddVideo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddVideoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_AddAlert_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAlert" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_AddAlert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAlertResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetAlertsBeforeDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlertsBeforeDate" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetAlertsBeforeDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlertsBeforeDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_DeleteAlert_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAlert" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_DeleteAlert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAlertResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_DeleteVideo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteVideo" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_DeleteVideo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteVideoResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICameraData">
+    <wsdl:operation name="GetItemFilename">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetItemFilename" message="tns:ICameraData_GetItemFilename_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetItemFilenameResponse" message="tns:ICameraData_GetItemFilename_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetItems">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetItems" message="tns:ICameraData_GetItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetItemsResponse" message="tns:ICameraData_GetItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItemsUtc">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetItemsUtc" message="tns:ICameraData_GetItemsUtc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetItemsUtcResponse" message="tns:ICameraData_GetItemsUtc_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPreviousAndNextLogItems">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItems" message="tns:ICameraData_GetPreviousAndNextLogItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItemsResponse" message="tns:ICameraData_GetPreviousAndNextLogItems_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetVideoFilename">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetVideoFilename" message="tns:ICameraData_GetVideoFilename_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetVideoFilenameResponse" message="tns:ICameraData_GetVideoFilename_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetVideos">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetVideos" message="tns:ICameraData_GetVideos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetVideosResponse" message="tns:ICameraData_GetVideos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AddVideo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/AddVideo" message="tns:ICameraData_AddVideo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/AddVideoResponse" message="tns:ICameraData_AddVideo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAlert">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/AddAlert" message="tns:ICameraData_AddAlert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/AddAlertResponse" message="tns:ICameraData_AddAlert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertsBeforeDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetAlertsBeforeDate" message="tns:ICameraData_GetAlertsBeforeDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetAlertsBeforeDateResponse" message="tns:ICameraData_GetAlertsBeforeDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlert">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/DeleteAlert" message="tns:ICameraData_DeleteAlert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/DeleteAlertResponse" message="tns:ICameraData_DeleteAlert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVideo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/DeleteVideo" message="tns:ICameraData_DeleteVideo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/DeleteVideoResponse" message="tns:ICameraData_DeleteVideo_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICameraData" type="tns:ICameraData">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetItemFilename">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/GetItemFilename" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetItems">
       <soap:operation soapAction="http://tempuri.org/ICameraData/GetItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemsUtc">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/GetItemsUtc" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -59,8 +157,62 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetVideoFilename">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/GetVideoFilename" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetVideos">
       <soap:operation soapAction="http://tempuri.org/ICameraData/GetVideos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddVideo">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/AddVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAlert">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/AddAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertsBeforeDate">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/GetAlertsBeforeDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlert">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/DeleteAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVideo">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/DeleteVideo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

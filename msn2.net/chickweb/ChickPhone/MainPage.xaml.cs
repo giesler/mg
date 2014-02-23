@@ -35,7 +35,7 @@ namespace ChickPhone
         DateTime lastRefresh5 = DateTime.MinValue;
         DateTime lastRefresh6 = DateTime.MinValue;
 
-        string appRoot = "http://cams.msn2.net/";
+        string appRoot = "http://cam1.msn2.net:8808/";
         bool stop = false;
 
         // Constructor
@@ -43,7 +43,7 @@ namespace ChickPhone
         {
             InitializeComponent();
 
-            this.appRoot = string.Format("http://cam{0}.msn2.net/", new Random().Next(1, 6));
+            this.appRoot = string.Format("http://cam{0}.msn2.net:8808/", new Random().Next(1, 4));
 
             // Set the data context of the listbox control to the sample data
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);

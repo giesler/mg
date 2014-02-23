@@ -17,7 +17,7 @@ namespace ChickPhone
     public partial class LogItem : PhoneApplicationPage
     {
         CamDataService.PreviousAndNextLogItems previousAndNextItems = null;
-        static readonly string GetLogImageBaseUri = "http://cam1.msn2.net/GetLogImage.aspx?a=";
+        static readonly string GetLogImageBaseUri = "http://cam1.msn2.net:8808/GetLogImage.aspx?a=";
 
         public LogItem()
         {
@@ -47,7 +47,7 @@ namespace ChickPhone
 
             this.image.Source = new BitmapImage(new Uri(GetLogImageBaseUri + itemId));
             this.videos.ItemsSource = null;
-            
+
             if (ts.Date == DateTime.Today.Date)
             {
                 this.timestamp.Text = "TODAY " + ts.ToString("h:mm tt");
@@ -112,12 +112,12 @@ namespace ChickPhone
 
         private void OnPrevious(object sender, EventArgs e)
         {
-            this.LoadItem(this.previousAndNextItems.PreviousItem.Id, this.previousAndNextItems.PreviousItem.Timestamp);
+            this.LoadItem(this.previousAndNextItems.PreviousItem.Id, this.previousAndNextItems.PreviousItem.Timestamp.ToLocalTime());
         }
 
         private void OnNext(object sender, EventArgs e)
         {
-            this.LoadItem(this.previousAndNextItems.NextItem.Id, this.previousAndNextItems.NextItem.Timestamp);
+            this.LoadItem(this.previousAndNextItems.NextItem.Id, this.previousAndNextItems.NextItem.Timestamp.ToLocalTime());
         }
 
         private void imageButton_Click(object sender, RoutedEventArgs e)

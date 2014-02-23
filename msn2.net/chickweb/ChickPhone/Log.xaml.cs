@@ -21,7 +21,7 @@ namespace ChickPhone
             dates.Add(new DateItem("TODAY", DateTime.Now.Date));
             dates.Add(new DateItem("YESTERDAY", DateTime.Now.Date.AddDays(-1)));
             DateTime temp = DateTime.Now.Date.AddDays(-2);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 30; i++)
             {
                 dates.Add(new DateItem(temp.ToString("dddd MMMM d").ToUpper(), temp));
                 temp = temp.Date.AddDays(-1);
@@ -35,41 +35,6 @@ namespace ChickPhone
             base.OnNavigatedTo(e);
         
             App.LogItem_LastImageId = null;        
-        }
-
-        void OnGetItemsCompleted(object sender, CamDataService.GetItemsCompletedEventArgs e)
-        {
-            CamDataService.CameraDataClient camClient = (CamDataService.CameraDataClient)sender;
-
-            if (e.Error == null)
-            {
-                this.logPictures.ItemHeight = 96;
-                this.logPictures.ItemWidth = 128;
-
-                var items = e.Result;
-                foreach (var item in items)
-                {
-                    Button button = new Button();
-                    button.Click += OnButtonClick;
-                    button.BorderBrush = null;
-                    button.DataContext = item;
-                    button.Margin = new Thickness(0);
-                    button.Padding = new Thickness(0);
-
-                    Image image = new Image();
-                    image.Source = new BitmapImage(new Uri(item.Url));
-                    image.Height = 96;
-                    image.Width = 128;
-                    image.Margin = new Thickness(0);
-                    button.Content = image;
-
-                    this.logPictures.Children.Add(button);
-                }
-            }
-
-            this.pblog.Visibility = Visibility.Collapsed;
-
-            camClient.CloseAsync();
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
@@ -89,12 +54,47 @@ namespace ChickPhone
                 DateItem item = e.AddedItems[0] as DateItem;
 
                 CamDataService.CameraDataClient camClient = new CamDataService.CameraDataClient();
-                camClient.GetItemsCompleted += OnGetItemsCompleted;
-                camClient.GetItemsAsync(item.Time);
+                camClient.GetItemsUtcCompleted += OnGetItemsUtcCompleted;
+                camClient.GetItemsUtcAsync(item.Time.ToUniversalTime(), item.Time.ToUniversalTime().AddHours(24));
 
                 this.logPictures.Children.Clear();
                 this.pblog.Visibility = System.Windows.Visibility.Visible;
             }
+        }
+
+        void OnGetItemsUtcCompleted(object sender, CamDataService.GetItemsUtcCompletedEventArgs e)
+        {
+            CamDataService.CameraDataClient camClient = (CamDataService.CameraDataClient)sender;
+
+            if (e.Error == null)
+            {
+                this.logPictures.ItemHeight = 96;
+                this.logPictures.ItemWidth = 128;
+
+                var items = e.Result;
+                foreach (var item in items)
+                {
+                    Button button = new Button();
+                    button.Click += OnButtonClick;
+                    button.BorderBrush = null;
+                    button.DataContext = item;
+                    button.Margin = new Thickness(0);
+                    button.Padding = new Thickness(-2);
+
+                    Image image = new Image();
+                    image.Source = new BitmapImage(new Uri(item.Url));
+                    image.Height = 96;
+                    image.Width = 128;
+                    image.Margin = new Thickness(0);
+                    button.Content = image;
+
+                    this.logPictures.Children.Add(button);
+                }
+            }
+
+            this.pblog.Visibility = Visibility.Collapsed;
+
+            camClient.CloseAsync();
         }
 
     }
