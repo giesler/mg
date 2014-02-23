@@ -16,6 +16,9 @@ public interface ICameraData
     List<LogItem> GetItems(DateTime date);
 
     [OperationContract]
+    List<LogItem> GetItemsUtc(DateTime dateTimeStartUtc, DateTime dateTimeEndUtc);
+
+    [OperationContract]
     PreviousAndNextLogItems GetPreviousAndNextLogItems(string id);
 
     [OperationContract]

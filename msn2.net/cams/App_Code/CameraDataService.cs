@@ -41,6 +41,13 @@ public class CameraDataService : ICameraData
         return ConvertAlerts(q);
     }
 
+    public List<LogItem> GetItemsUtc(DateTime dateTimeStartUtc, DateTime dateTimeEndUtc)
+    {
+        CamAlertManager mgr = new CamAlertManager();
+        var q = mgr.GetAlerts(dateTimeStartUtc, dateTimeEndUtc);
+        return ConvertAlerts(q);
+    }
+
     private static List<LogItem> ConvertAlerts(List<Alert> q)
     {
         List<LogItem> items = new List<LogItem>();

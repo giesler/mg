@@ -149,6 +149,14 @@ namespace CamLib
             }
         }
 
+        public List<Alert> GetAlerts(DateTime dateTimeStartUtc, DateTime dateTimeEndUtc)
+        {
+            using (CamDataDataContext data = new CamDataDataContext())
+            {
+                return data.Alerts.Where(i => i.Timestamp > dateTimeStartUtc && i.Timestamp < dateTimeEndUtc).ToList();
+            }
+        }
+
         public List<Alert> GetAlertsSinceDate(DateTime date)
         {
             List<Alert> alerts = null;
