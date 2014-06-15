@@ -194,7 +194,7 @@ public class CameraDataService : ICameraData
                 string[] properties = content.Split(new char[] { '{', ',', '}' });
                 foreach (string item in properties)
                 {
-                    if (item.IndexOf("gmtOffset") > 0)
+                    if (item.IndexOf("dstOffset") > 0)
                     {
                         string[] parts = item.Split(new char[] { ':' });
                         offset = int.Parse(parts[1]);
