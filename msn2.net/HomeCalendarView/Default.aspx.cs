@@ -44,7 +44,7 @@ namespace HomeCalendarView
             kirkland.Lattitude = 47.67881M;
             kirkland.Longitude = -122.20724M;
             kirkland.NoaaCurrentConditionsLocation = "KSEA";
-            kirkland.NoaaCurrentAlertsLocation = "WAZ505";
+            kirkland.NoaaCurrentAlertsLocation = "WAZ555";
             kirkland.CurrentConditionsUrl = "http://www.nws.noaa.gov/data/current_obs/KSEA.xml";
             this.locations.Add(kirkland);
 
@@ -52,7 +52,7 @@ namespace HomeCalendarView
             packwood.Lattitude = 46.4797M;
             packwood.Longitude = -121.822M;
             packwood.NoaaCurrentConditionsLocation = "WAZ519";
-            packwood.NoaaCurrentAlertsLocation = "WAZ519";
+            packwood.NoaaCurrentAlertsLocation = " WAZ569";
             packwood.CurrentConditionsUrl = "http://api.wunderground.com/weatherstation/WXCurrentObXML.asp?ID=MOHAW1";
             this.locations.Add(packwood);
 
