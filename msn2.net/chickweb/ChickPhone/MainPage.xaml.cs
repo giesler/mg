@@ -34,6 +34,7 @@ namespace ChickPhone
         DateTime lastRefresh4 = DateTime.MinValue;
         DateTime lastRefresh5 = DateTime.MinValue;
         DateTime lastRefresh6 = DateTime.MinValue;
+        DateTime loaded = DateTime.MinValue;
 
         string appRoot = "http://cam1.msn2.net:8808/";
         bool stop = false;
@@ -47,15 +48,6 @@ namespace ChickPhone
 
             // Set the data context of the listbox control to the sample data
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-
-            this.timer = new DispatcherTimer();
-            this.timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            this.timer.Tick += new EventHandler(this.OnTick);
-            this.timer.Start();
-
-            this.OnTick(null, null);
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.ConnectToNetwork), null);
         }
 
         void ConnectToNetwork(object sender)
@@ -101,6 +93,16 @@ namespace ChickPhone
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            this.timer = new DispatcherTimer();
+            this.timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            this.timer.Tick += new EventHandler(this.OnTick);
+            this.timer.Start();
+
+            this.OnTick(null, null);
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.ConnectToNetwork), null);
+
+            loaded = DateTime.Now;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -207,80 +209,116 @@ namespace ChickPhone
         }
 
         void imgLoader1_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {            
+        {
+            this.inGet1 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img1txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img1a, this.imgFadeTo1a, this.img1b, this.imgFadeTo1b, this.img1txt, this.pb1, e);
-                this.inGet1 = false;
             }
         }
 
         void imgLoader2_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
+            this.inGet2 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img2txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img2a, this.imgFadeTo2a, this.img2b, this.imgFadeTo2b, this.img2txt, this.pb2, e);
-                this.inGet2 = false;
             }
         }
 
         void imgLoader3_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
+            this.inGet3 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img3txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img3a, this.imgFadeTo3a, this.img3b, this.imgFadeTo3b, this.img3txt, this.pb3, e);
-                this.inGet3 = false;
             }
         }
         
         void imgLoader4_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
+            this.inGet4 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img4txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img4a, this.imgFadeTo4a, this.img4b, this.imgFadeTo4b, this.img4txt, this.pb4, e);
-                this.inGet4 = false;
             }
         }
         
         void imgLoader5_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
+            this.inGet5 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img5txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img5a, this.imgFadeTo5a, this.img5b, this.imgFadeTo5b, this.img5txt, this.pb5, e);
-                this.inGet5 = false;
             }
         }
         
         void imgLoader6_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
+            this.inGet6 = false;
+
             if (e.Error != null)
             {
                 this.SetError(this.img6txt, e.Error.Message);
+
+                if (e.Error is System.Net.WebException && this.loaded.AddMinutes(2) > DateTime.Now)
+                {
+                    this.GetImage();
+                }
             }
             else
             {
                 CompleteRead(this.img6a, this.imgFadeTo6a, this.img6b, this.imgFadeTo6b, this.img6txt, this.pb6, e);
-                this.inGet6 = false;
             }
         }
 
@@ -292,7 +330,7 @@ namespace ChickPhone
             {
                 if (e.Result.Length == 0)
                 {
-                    this.SetError(this.img2txt, "cannot connect to camera");
+                    this.SetError(txt, "cannot connect to camera");
                 }
                 else
                 {
