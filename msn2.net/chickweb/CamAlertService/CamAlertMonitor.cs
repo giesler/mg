@@ -277,6 +277,21 @@ namespace CamAlertService
             // format: do-not-reply@logitech.com Driveway - Home - 2012-06-18 12.34 pm.jpg
             string dateStamp = name.Substring(name.IndexOf("201")).Trim().Replace(".jpg", "").Replace(".", ":");
 
+            int indexAm = dateStamp.ToLower().IndexOf("am");
+            int indexPm = dateStamp.ToLower().IndexOf("pm");
+
+            if (indexAm + 2 != dateStamp.Length || indexPm + 2 != dateStamp.Length)
+            {
+                if (indexAm > 0)
+                {
+                    dateStamp = dateStamp.Substring(0, indexAm + 2);
+                }
+                else if (indexPm > 0)
+                {
+                    dateStamp = dateStamp.Substring(0, indexPm + 2);
+                }
+            }
+
             using (CameraDataService client = new  CameraDataService())
             {
                 client.AddAlert(DateTime.Parse(dateStamp).ToUniversalTime(), true, Path.GetFileName(fileName), DateTime.UtcNow, true);
