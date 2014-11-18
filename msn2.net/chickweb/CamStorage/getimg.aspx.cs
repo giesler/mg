@@ -31,7 +31,7 @@ public partial class getimg : System.Web.UI.Page
         }
         else if (cam == "2")
         {
-            address = "http://cams.sp.msn2.net/image/cc2";
+            address = "http://randy.sp.msn2.net/image/cc2";
         }
         else if (cam == "3")
         {
