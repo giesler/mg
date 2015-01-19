@@ -29,6 +29,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetItemsUtc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dateTimeStartUtc" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="dateTimeEndUtc" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetItemsUtcResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetItemsUtcResult" nillable="true" type="q2:ArrayOfLogItem" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetPreviousAndNextLogItems">
     <xs:complexType>
       <xs:sequence>
@@ -39,7 +54,7 @@
   <xs:element name="GetPreviousAndNextLogItemsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetPreviousAndNextLogItemsResult" nillable="true" type="q2:PreviousAndNextLogItems" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetPreviousAndNextLogItemsResult" nillable="true" type="q3:PreviousAndNextLogItems" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -68,7 +83,7 @@
   <xs:element name="GetVideosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetVideosResult" nillable="true" type="q3:ArrayOfVideoItem" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetVideosResult" nillable="true" type="q4:ArrayOfVideoItem" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -112,7 +127,7 @@
   <xs:element name="GetAlertsBeforeDateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetAlertsBeforeDateResult" nillable="true" type="q4:ArrayOfLogItem" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="GetAlertsBeforeDateResult" nillable="true" type="q5:ArrayOfLogItem" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

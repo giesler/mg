@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c3dfd2d8-0ffb-4aca-b6c4-eec4bf8cb8b2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f5acb815-0f5e-403c-b5fe-88f4f2b13573" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://cams.msn2.net/camdata.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="camdata.xsd" MetadataType="Schema" ID="59a70ff5-98a7-41f3-ab34-fa0bcb3a4e93" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd1" />
-    <MetadataFile FileName="camdata1.xsd" MetadataType="Schema" ID="3d4a1f32-3541-41c4-b39c-4f6c3b5016e2" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd0" />
-    <MetadataFile FileName="camdata.disco" MetadataType="Disco" ID="f087fbf7-d9d8-4e12-8531-6b973c895d12" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?disco" />
-    <MetadataFile FileName="CameraDataService.wsdl" MetadataType="Wsdl" ID="3cc07b6f-dde6-4dd5-9ca7-a0f5812dbe8b" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?wsdl" />
-    <MetadataFile FileName="camdata2.xsd" MetadataType="Schema" ID="c6b08253-f556-400b-85e2-8b8181543ff2" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd2" />
+    <MetadataFile FileName="camdata.xsd" MetadataType="Schema" ID="1c2d4a03-801c-4234-b6d6-db373c3caa10" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd1" />
+    <MetadataFile FileName="camdata1.xsd" MetadataType="Schema" ID="700978ed-1dcf-4c7a-aafa-9726768a95d8" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd0" />
+    <MetadataFile FileName="camdata.disco" MetadataType="Disco" ID="aa20a5aa-8922-41b0-8398-38b24eee6b20" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?disco" />
+    <MetadataFile FileName="CameraDataService.wsdl" MetadataType="Wsdl" ID="f0a44487-3ec5-4a97-aa3b-eb8ec6e03475" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?wsdl" />
+    <MetadataFile FileName="camdata2.xsd" MetadataType="Schema" ID="7ff05498-7028-4dd5-9923-cdf252abad40" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

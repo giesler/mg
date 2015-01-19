@@ -19,6 +19,12 @@
   <wsdl:message name="ICameraData_GetItems_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetItemsResponse" />
   </wsdl:message>
+  <wsdl:message name="ICameraData_GetItemsUtc_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemsUtc" />
+  </wsdl:message>
+  <wsdl:message name="ICameraData_GetItemsUtc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetItemsUtcResponse" />
+  </wsdl:message>
   <wsdl:message name="ICameraData_GetPreviousAndNextLogItems_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPreviousAndNextLogItems" />
   </wsdl:message>
@@ -76,6 +82,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetItems" message="tns:ICameraData_GetItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetItemsResponse" message="tns:ICameraData_GetItems_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetItemsUtc">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetItemsUtc" message="tns:ICameraData_GetItemsUtc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetItemsUtcResponse" message="tns:ICameraData_GetItemsUtc_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPreviousAndNextLogItems">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItems" message="tns:ICameraData_GetPreviousAndNextLogItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraData/GetPreviousAndNextLogItemsResponse" message="tns:ICameraData_GetPreviousAndNextLogItems_OutputMessage" />
@@ -122,6 +132,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetItems">
       <soap:operation soapAction="http://tempuri.org/ICameraData/GetItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemsUtc">
+      <soap:operation soapAction="http://tempuri.org/ICameraData/GetItemsUtc" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
