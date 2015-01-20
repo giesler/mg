@@ -18,6 +18,8 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
+        <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="~/control.aspx" Text="CONTROL" Visible="false" /> 
+        <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator1" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="Login.aspx" Text="SIGN IN" />
@@ -31,8 +33,10 @@
         </asp:Panel>
     </div>
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
+        <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="~/control.aspx" Text="CONTROL" Visible="false" /> 
+        <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />
+        <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />        
         <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="Login.aspx" Text="SIGN IN" />
     </asp:Panel>
 

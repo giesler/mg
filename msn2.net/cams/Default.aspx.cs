@@ -47,8 +47,12 @@ public partial class _Default : System.Web.UI.Page
             this.signInOutLink2.Text = this.signInOutLink1.Text;
             this.logLink1.Visible = true;
             this.logLink2.Visible = true;
+            this.controlLink1.Visible = true;
+            this.controlLink2.Visible = true;
             this.logLinkSeperator1.Visible = true;
             this.logLinkSeperator2.Visible = true;
+            this.logLinkSeperator3.Visible = true;
+            this.logLinkSeperator4.Visible = true;
             this.cam = "dw1";
 
             this.topLinks.Visible = !mobile;
