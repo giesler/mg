@@ -37,7 +37,7 @@ namespace HomeServices
                 if (prop.Attribute("uom").Value == "%/on/off")
                 {
                     string val = prop.Attribute("formatted").Value.Trim();
-                    if (val.Length > 0)
+                    if (val.Length > 0 && val.ToLower() != "off")
                     {
                         newNode.Level = int.Parse(val);
                         newNode.IsOn = newNode.Level > 0;
