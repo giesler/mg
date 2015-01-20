@@ -48,6 +48,8 @@ namespace HomeServices
         public bool? IsOn { get; set; }
         [DataMember]
         public int? Level { get; set; }
+        [DataMember]
+        public string Status { get; set; }
     }
 
     [DataContract]
@@ -57,6 +59,10 @@ namespace HomeServices
         public string Name { get; set; }
         [DataMember]
         public string Address { get; set; }
+        [DataMember]
+        public List<NodeData> Nodes { get; set; }
+        [DataMember]
+        public string Status { get; set; }
     }
 }
 
