@@ -12,6 +12,7 @@
       <xs:element minOccurs="0" name="IsOn" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="Level" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NodeData" nillable="true" type="tns:NodeData" />
@@ -25,6 +26,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nodes" nillable="true" type="tns:ArrayOfNodeData" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GroupData" nillable="true" type="tns:GroupData" />

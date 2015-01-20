@@ -36,8 +36,8 @@ namespace ChickPhone
         void updateTimer_Tick(object sender, EventArgs e)
         {
             IsyData.ISYClient isy = new IsyData.ISYClient();
-            isy.GetNodeCompleted += isy_GetNodeCompleted;
-            isy.GetNodeAsync(GarageSensorAddress);
+            isy.GetGroupsCompleted += isy_GetNodeCompleted;
+            isy.GetGroupsAsync(GarageSensorAddress);
 
             if (DateTime.Now.AddSeconds(33) > lastToggle)
             {
@@ -49,22 +49,24 @@ namespace ChickPhone
             }
         }
 
-        void isy_GetNodeCompleted(object sender, IsyData.GetNodeCompletedEventArgs e)
+        void isy_GetNodeCompleted(object sender, IsyData.GetGroupsCompletedEventArgs e)
         {
             if (e.Error == null)
             {
-                if (!e.Result.IsOn.HasValue)
-                {
-                    garageStatus.Text = "?";
-                }
-                else
-                {
-                    garageStatus.Text = e.Result.IsOn.Value ? "closed" : "open";
-                }
+                var garage = e.Result.First().Nodes.FirstOrDefault(i => i.Address == GarageSensorAddress);
+                garageStatus.Text = garage == null ? "unknown" : garage.Status;
+
+                var mediaRoom = e.Result.FirstOrDefault(i => i.Address == MediaRoomSideLightsAddress);
+                mediaRoomStatus.Text = mediaRoom == null ? "unkown" : mediaRoom.Status;
+
+                var upstairs = e.Result.FirstOrDefault(i => i.Address == UpstairHallwayAddress);
+                upstairsHallStatus.Text = upstairs == null ? "unkown" : upstairs.Status;
             }
             else
             {
-                garageStatus.Text = "unknown";                
+                garageStatus.Text = "error";
+                mediaRoomStatus.Text = "error";
+                upstairsHallStatus.Text = "error";
             }
         }
 

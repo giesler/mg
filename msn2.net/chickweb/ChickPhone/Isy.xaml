@@ -39,6 +39,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="17,269,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
             <Button x:Name="upstairHallOff" Content="off" HorizontalAlignment="Left" Margin="346,216,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOff_Click"/>
             <Button x:Name="upstairHallOn" Content="on" HorizontalAlignment="Left" Margin="258,216,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOn_Click"/>
+            <TextBlock x:Name="mediaRoomStatus" HorizontalAlignment="Left" Margin="17,171,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="17,274,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
 
         </Grid>
     </Grid>

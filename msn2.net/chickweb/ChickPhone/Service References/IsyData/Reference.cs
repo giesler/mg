@@ -28,6 +28,8 @@ namespace ChickPhone.IsyData {
         
         private string NameField;
         
+        private string StatusField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Address {
             get {
@@ -80,6 +82,19 @@ namespace ChickPhone.IsyData {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -98,6 +113,10 @@ namespace ChickPhone.IsyData {
         private string AddressField;
         
         private string NameField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<ChickPhone.IsyData.NodeData> NodesField;
+        
+        private string StatusField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Address {
@@ -121,6 +140,32 @@ namespace ChickPhone.IsyData {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<ChickPhone.IsyData.NodeData> Nodes {
+            get {
+                return this.NodesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NodesField, value) != true)) {
+                    this.NodesField = value;
+                    this.RaisePropertyChanged("Nodes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }
