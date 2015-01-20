@@ -74,6 +74,7 @@
     <Content Include="getimg.aspx" />
     <Content Include="GetLogImage.aspx" />
     <Content Include="getvid.aspx" />
+    <Content Include="ISY.svc" />
     <Content Include="Service References\CamData\HomeServices.CamData.LogItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -115,6 +116,11 @@
       <DependentUpon>getvid.aspx</DependentUpon>
     </Compile>
     <Compile Include="IDevicePower.cs" />
+    <Compile Include="IISY.cs" />
+    <Compile Include="ISY.svc.cs">
+      <DependentUpon>ISY.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IsyUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\CamData\Reference.cs">
       <AutoGen>True</AutoGen>
