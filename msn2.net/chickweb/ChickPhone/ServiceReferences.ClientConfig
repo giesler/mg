@@ -6,12 +6,19 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
+                <binding name="BasicHttpBinding_IISY" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
             </basicHttpBinding>
         </bindings>
         <client>
             <endpoint address="http://cams.msn2.net/camdata.svc" binding="basicHttpBinding"
                 bindingConfiguration="BasicHttpBinding_ICameraData" contract="CamDataService.ICameraData"
                 name="BasicHttpBinding_ICameraData" />
+            <endpoint address="http://hs.msn2.net:8808/ISY.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IISY" contract="IsyData.IISY"
+                name="BasicHttpBinding_IISY" />
         </client>
     </system.serviceModel>
 </configuration>

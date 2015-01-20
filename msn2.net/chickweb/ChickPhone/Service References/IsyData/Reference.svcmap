@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ad0b036f-ef8f-4193-8d9a-29ff758f6474" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="86a98f7b-22dd-4de9-99b7-4af36e8c9c63" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -20,14 +20,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://cams.msn2.net/camdata.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://hs.msn2.net:8808/isy.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="camdata.xsd" MetadataType="Schema" ID="fb2a4317-e961-4995-af2c-39bbe281df77" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd1" />
-    <MetadataFile FileName="camdata1.xsd" MetadataType="Schema" ID="88aa09e3-82cb-401b-b983-ee80cf18d4e5" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd0" />
-    <MetadataFile FileName="camdata.disco" MetadataType="Disco" ID="34aaeac9-0c70-4d2f-aefd-c3de5919bff3" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?disco" />
-    <MetadataFile FileName="CameraDataService.wsdl" MetadataType="Wsdl" ID="b1ad0a35-a339-4415-ba01-0d689e4e54f5" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?wsdl" />
-    <MetadataFile FileName="camdata2.xsd" MetadataType="Schema" ID="a2210f99-152e-4334-9fd5-cc3b407bfbb8" SourceId="1" SourceUrl="http://cams.msn2.net/camdata.svc?xsd=xsd2" />
+    <MetadataFile FileName="ISY.xsd" MetadataType="Schema" ID="fa43701e-7eab-4fe1-a289-bef744d488d5" SourceId="1" SourceUrl="http://hs.msn2.net:8808/ISY.svc?xsd=xsd0" />
+    <MetadataFile FileName="ISY1.xsd" MetadataType="Schema" ID="f3d6dd41-1da4-47f7-b6aa-16115fc7f7ad" SourceId="1" SourceUrl="http://hs.msn2.net:8808/ISY.svc?xsd=xsd2" />
+    <MetadataFile FileName="ISY.wsdl" MetadataType="Wsdl" ID="41ea90b0-95e6-4565-8f4c-1754c420d83e" SourceId="1" SourceUrl="http://hs.msn2.net:8808/ISY.svc?wsdl" />
+    <MetadataFile FileName="ISY.disco" MetadataType="Disco" ID="b934fd39-a978-44fc-b196-b5cb77a1a2ad" SourceId="1" SourceUrl="http://hs.msn2.net:8808/ISY.svc?disco" />
+    <MetadataFile FileName="ISY2.xsd" MetadataType="Schema" ID="124d956e-cab1-4426-9085-ce07d6e7f1b2" SourceId="1" SourceUrl="http://hs.msn2.net:8808/ISY.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

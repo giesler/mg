@@ -15,6 +15,7 @@ using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Net.NetworkInformation;
 using System.Diagnostics;
+using Windows.ApplicationModel.Background;
 
 namespace ChickPhone
 {
@@ -49,6 +50,8 @@ namespace ChickPhone
             // Set the data context of the listbox control to the sample data
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
+
+        
 
         void ConnectToNetwork(object sender)
         {
@@ -103,8 +106,54 @@ namespace ChickPhone
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.ConnectToNetwork), null);
 
             loaded = DateTime.Now;
-        }
 
+//            RegisterBackgroundTask();
+        }
+        /*
+        async void RegisterBackgroundTask()
+        {
+            // Get permission for a background task from the user. If the user has already answered once,
+            // this does nothing and the user must manually update their preference via PC Settings.
+            BackgroundAccessStatus backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+
+            // Regardless of the answer, register the background task. If the user later adds this application
+            // to the lock screen, the background task will be ready to run.
+            // Create a new background task builder
+            BackgroundTaskBuilder geofenceTaskBuilder = new BackgroundTaskBuilder();
+
+            geofenceTaskBuilder.Name = "MSN2Fence";
+            geofenceTaskBuilder.TaskEntryPoint = SampleBackgroundTaskEntryPoint;
+
+            // Create a new location trigger
+            var trigger = new LocationTrigger(LocationTriggerType.Geofence);
+
+            // Associate the locationi trigger with the background task builder
+            geofenceTaskBuilder.SetTrigger(trigger);
+
+            // If it is important that there is user presence and/or
+            // internet connection when OnCompleted is called
+            // the following could be called before calling Register()
+            // SystemCondition condition = new SystemCondition(SystemConditionType.UserPresent | SystemConditionType.InternetAvailable);
+            // geofenceTaskBuilder.AddCondition(condition);
+
+            // Register the background task
+            geofenceTask = geofenceTaskBuilder.Register();
+
+            // Associate an event handler with the new background task
+            geofenceTask.Completed += new BackgroundTaskCompletedEventHandler(OnCompleted);
+
+            BackgroundTaskState.RegisterBackgroundTask(BackgroundTaskState.LocationTriggerBackgroundTaskName);
+
+            switch (backgroundAccessStatus)
+            {
+                case BackgroundAccessStatus.Unspecified:
+                case BackgroundAccessStatus.Denied:
+                    rootPage.NotifyUser("This application must be added to the lock screen before the background task will run.", NotifyType.ErrorMessage);
+                    break;
+
+            }
+        }
+        */
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -422,6 +471,11 @@ namespace ChickPhone
         private void OnLogMenuItemClick(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri(string.Format("/Log.xaml"), UriKind.Relative));
+        }
+
+        private void OnHomeAutoClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri(string.Format("/Isy.xaml"), UriKind.Relative));
         }
     }
 }
