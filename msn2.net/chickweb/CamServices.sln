@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -40,9 +40,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeServices", "..\WakeOnLan\HomeServices\HomeServices.csproj", "{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomeControlApp", "HomeControlApp", "{F7CAFDFA-ED30-417E-907C-405EB008488B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HomeControlApp.Shared", "..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.shproj", "{44E3263D-BA0C-48E1-A12B-2BF9FC63B4E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeControlApp.Windows", "..\HomeControlApp\HomeControlApp.Windows\HomeControlApp.Windows.csproj", "{46A741DE-79AB-48F5-9016-F651D78B4A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeControlApp.WindowsPhone", "..\HomeControlApp\HomeControlApp.WindowsPhone\HomeControlApp.WindowsPhone.csproj", "{550D5970-560C-40D0-B717-E397D10E69ED}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{46a741de-79ab-48f5-9016-f651d78b4a1b}*SharedItemsImports = 4
+		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{44e3263d-ba0c-48e1-a12b-2bf9fc63b4e7}*SharedItemsImports = 13
+		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{550d5970-560c-40d0-b717-e397d10e69ed}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -66,6 +79,22 @@ Global
 		SccProjectUniqueName6 = ..\\WakeOnLan\\HomeServices\\HomeServices.csproj
 		SccProjectName6 = ../WakeOnLan/HomeServices
 		SccLocalPath6 = ..\\WakeOnLan\\HomeServices
+		SccProjectUniqueName7 = ..\\HomeControlApp\\HomeControlApp.Shared\\HomeControlApp.Shared.shproj
+		SccProjectTopLevelParentUniqueName7 = CamServices.sln
+		SccProjectName7 = ../HomeControlApp/HomeControlApp.Shared
+		SccLocalPath7 = ..\\HomeControlApp\\HomeControlApp.Shared
+		SccProjectUniqueName8 = ..\\HomeControlApp\\HomeControlApp.Shared\\HomeControlApp.Shared.projitems
+		SccProjectTopLevelParentUniqueName8 = CamServices.sln
+		SccProjectName8 = ../HomeControlApp/HomeControlApp.Shared
+		SccLocalPath8 = ..\\HomeControlApp\\HomeControlApp.Shared
+		SccProjectUniqueName9 = ..\\HomeControlApp\\HomeControlApp.Windows\\HomeControlApp.Windows.csproj
+		SccProjectTopLevelParentUniqueName9 = CamServices.sln
+		SccProjectName9 = ../HomeControlApp/HomeControlApp.Windows
+		SccLocalPath9 = ..\\HomeControlApp\\HomeControlApp.Windows
+		SccProjectUniqueName10 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone\\HomeControlApp.WindowsPhone.csproj
+		SccProjectTopLevelParentUniqueName10 = CamServices.sln
+		SccProjectName10 = ../HomeControlApp/HomeControlApp.WindowsPhone
+		SccLocalPath10 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,8 +219,73 @@ Global
 		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|x64.ActiveCfg = Release|Any CPU
 		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|x86.ActiveCfg = Release|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|ARM.Build.0 = Debug|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|ARM.Deploy.0 = Debug|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x64.ActiveCfg = Debug|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x64.Build.0 = Debug|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x64.Deploy.0 = Debug|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x86.ActiveCfg = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x86.Build.0 = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Debug|x86.Deploy.0 = Debug|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|ARM.ActiveCfg = Release|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|ARM.Build.0 = Release|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|ARM.Deploy.0 = Release|ARM
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Mixed Platforms.Build.0 = Release|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|Windows Phone.ActiveCfg = Release|Any CPU
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x64.ActiveCfg = Release|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x64.Build.0 = Release|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x64.Deploy.0 = Release|x64
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x86.ActiveCfg = Release|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x86.Build.0 = Release|x86
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B}.Release|x86.Deploy.0 = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|ARM.ActiveCfg = Debug|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|ARM.Build.0 = Debug|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|ARM.Deploy.0 = Debug|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|x86.ActiveCfg = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|x86.Build.0 = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Debug|x86.Deploy.0 = Debug|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|ARM.ActiveCfg = Release|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|ARM.Build.0 = Release|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|ARM.Deploy.0 = Release|ARM
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Mixed Platforms.Build.0 = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|Windows Phone.ActiveCfg = Release|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|x86.ActiveCfg = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|x86.Build.0 = Release|x86
+		{550D5970-560C-40D0-B717-E397D10E69ED}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44E3263D-BA0C-48E1-A12B-2BF9FC63B4E7} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
+		{46A741DE-79AB-48F5-9016-F651D78B4A1B} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
+		{550D5970-560C-40D0-B717-E397D10E69ED} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
 	EndGlobalSection
 EndGlobal
