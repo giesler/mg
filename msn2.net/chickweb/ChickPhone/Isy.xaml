@@ -28,19 +28,21 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="17,10,0,0" TextWrapping="Wrap" Text="garage" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <TextBlock x:Name="garageStatus" HorizontalAlignment="Left" Margin="17,63,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <Button x:Name="toggleGarage" Content="toggle" HorizontalAlignment="Left" Margin="258,10,0,0" VerticalAlignment="Top" Width="186" Click="toggleGarage_Click"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="17,113,0,0" TextWrapping="Wrap" Text="media room" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,121,0,0" TextWrapping="Wrap" Text="garage" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock x:Name="garageStatus" HorizontalAlignment="Left" Margin="19,174,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <Button x:Name="toggleGarage" Content="toggle" HorizontalAlignment="Left" Margin="260,121,0,0" VerticalAlignment="Top" Width="186" Click="toggleGarage_Click"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,224,0,0" TextWrapping="Wrap" Text="media room" VerticalAlignment="Top" Width="236" FontSize="36"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,166,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
-            <Button x:Name="mediaRoomOff" Content="off" HorizontalAlignment="Left" Margin="346,113,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOff_Click"/>
-            <Button x:Name="mediaRoomOn" Content="on" HorizontalAlignment="Left" Margin="258,113,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOn_Click"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="17,216,0,0" TextWrapping="Wrap" Text="upstairs hall" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <Button x:Name="mediaRoomOff" Content="off" HorizontalAlignment="Left" Margin="348,224,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOff_Click"/>
+            <Button x:Name="mediaRoomOn" Content="on" HorizontalAlignment="Left" Margin="260,224,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOn_Click"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,327,0,0" TextWrapping="Wrap" Text="upstairs hall" VerticalAlignment="Top" Width="236" FontSize="36"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,269,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
-            <Button x:Name="upstairHallOff" Content="off" HorizontalAlignment="Left" Margin="346,216,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOff_Click"/>
-            <Button x:Name="upstairHallOn" Content="on" HorizontalAlignment="Left" Margin="258,216,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOn_Click"/>
-            <TextBlock x:Name="mediaRoomStatus" HorizontalAlignment="Left" Margin="17,171,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="17,274,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <Button x:Name="upstairHallOff" Content="off" HorizontalAlignment="Left" Margin="348,327,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOff_Click"/>
+            <Button x:Name="upstairHallOn" Content="on" HorizontalAlignment="Left" Margin="260,327,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOn_Click"/>
+            <TextBlock x:Name="mediaRoomStatus" HorizontalAlignment="Left" Margin="19,282,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="19,385,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,20,0,0" TextWrapping="Wrap" Text="coop" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock x:Name="coopStatus" HorizontalAlignment="Left" Margin="19,73,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
 
         </Grid>
     </Grid>

@@ -62,10 +62,16 @@ namespace HomeServices
                         newNode.Status = "off";
                     }
 
-                    if (newNode.Name.ToLower().Contains("sensor")
+                    if ((newNode.Name.ToLower().Contains("sensor"))
                         && (newNode.Status == "on" || newNode.Status == "off"))
                     {
                         newNode.Status = newNode.Status == "on" ? "closed" : "open";
+                    }
+
+                    if ((newNode.Name.ToLower().Contains("coop"))
+                        && (newNode.Status == "on" || newNode.Status == "off"))
+                    {
+                        newNode.Status = newNode.Status == "on" ? "open" : "closed";
                     }
                 }
 

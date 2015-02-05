@@ -17,6 +17,7 @@ namespace ChickPhone
         const string MediaRoomSideLightsAddress = "58666";
         const string GarageSwitchAddress = "28 CA 15 2";  
         const string GarageSensorAddress = "28 CA 15 1";
+        const string CoopDoorAddress = "32 49 A5 1";
 
         DispatcherTimer updateTimer;
         DateTime lastToggle;
@@ -53,21 +54,34 @@ namespace ChickPhone
         {
             if (e.Error == null)
             {
-                var garage = e.Result.First().Nodes.FirstOrDefault(i => i.Address == GarageSensorAddress);
-                garageStatus.Text = garage == null ? "unknown" : garage.Status;
+                List<IsyData.GroupData> groups = e.Result.ToList();
 
-                var mediaRoom = e.Result.FirstOrDefault(i => i.Address == MediaRoomSideLightsAddress);
-                mediaRoomStatus.Text = mediaRoom == null ? "unkown" : mediaRoom.Status;
-
-                var upstairs = e.Result.FirstOrDefault(i => i.Address == UpstairHallwayAddress);
-                upstairsHallStatus.Text = upstairs == null ? "unkown" : upstairs.Status;
+                coopStatus.Text = GetStatus(groups, CoopDoorAddress);
+                garageStatus.Text = GetStatus(groups, GarageSensorAddress);
+                mediaRoomStatus.Text = GetStatus(groups, MediaRoomSideLightsAddress);
+                upstairsHallStatus.Text = GetStatus(groups, UpstairHallwayAddress);
             }
             else
             {
+                coopStatus.Text = "error";
                 garageStatus.Text = "error";
                 mediaRoomStatus.Text = "error";
                 upstairsHallStatus.Text = "error";
             }
+        }
+        
+        string GetStatus(List<IsyData.GroupData> groups, string address)
+        {
+            foreach (IsyData.GroupData group in groups)
+            {
+                IsyData.NodeData node = group.Nodes.FirstOrDefault(n => n.Address == address);
+                if (node != null)
+                {
+                    return node.Status;
+                }
+            }
+
+            return "unknown";
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -130,7 +144,7 @@ namespace ChickPhone
             mediaRoomOn.IsEnabled = false;
             mediaRoomOff.IsEnabled = false;
             isy.TurnOnCompleted += mediaRoom_TurnOnCompleted;
-            isy.TurnOnAsync(UpstairHallwayAddress);
+            isy.TurnOnAsync(MediaRoomSideLightsAddress);
         }
 
         void mediaRoom_TurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
