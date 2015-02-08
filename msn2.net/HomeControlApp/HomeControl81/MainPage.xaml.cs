@@ -1,28 +1,30 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Net.NetworkInformation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using System.Windows.Threading;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
 
-namespace ChickPhone
+namespace HomeControl81
 {
-    public partial class Isy : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage
     {
+
         const string UpstairHallwayAddress = "24060";
         const string MediaRoomSideLightsAddress = "58666";
-        const string GarageSwitchAddress = "28 CA 15 2";  
+        const string GarageSwitchAddress = "28 CA 15 2";
         const string GarageSensorAddress = "28 CA 15 1";
         const string CoopDoorAddress = "32 49 A5 1";
 
         DispatcherTimer updateTimer;
         DateTime lastToggle;
 
-        public Isy()
+        // Constructor
+        public MainPage()
         {
             InitializeComponent();
 
@@ -32,11 +34,28 @@ namespace ChickPhone
             this.updateTimer.Start();
 
             updateTimer_Tick(null, null);
+
+            NetworkInterface net = NetworkInterface.GetInternetInterface();
+            Console.Write(net.ToString());
         }
+
 
         void updateTimer_Tick(object sender, EventArgs e)
         {
+            bool isLocal = false;
+            foreach (HostName name in NetworkInformation.GetHostNames())
+            {
+                if (name.RawName != null && name.RawName.ToString().StartsWith("192.168.1."))
+                {
+                    isLocal = true;
+                }
+            }
+
             IsyData.ISYClient isy = new IsyData.ISYClient();
+            if (isLocal)
+            {
+                isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://192.168.1.25:8808/isy.svc");
+            }
             isy.GetGroupsCompleted += isy_GetNodeCompleted;
             isy.GetGroupsAsync(GarageSensorAddress);
 
@@ -69,7 +88,7 @@ namespace ChickPhone
                 upstairsHallStatus.Text = "error";
             }
         }
-        
+
         string GetStatus(List<IsyData.GroupData> groups, string address)
         {
             foreach (IsyData.GroupData group in groups)
@@ -122,7 +141,7 @@ namespace ChickPhone
             isy.TurnOffCompleted += upstairsHallTurnOnCompleted;
             isy.TurnOffAsync(UpstairHallwayAddress);
         }
-        
+
         private void toggleGarage_Click(object sender, RoutedEventArgs e)
         {
             IsyData.ISYClient isy = new IsyData.ISYClient();
@@ -130,7 +149,7 @@ namespace ChickPhone
             isy.TurnOnCompleted += onGarageToggleCompleted;
             isy.TurnOnAsync(GarageSwitchAddress);
         }
-        
+
         void onGarageToggleCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             toggleGarage.IsEnabled = true;
@@ -171,6 +190,5 @@ namespace ChickPhone
             isy.TurnOffCompleted += mediaRoom_TurnOnCompleted;
             isy.TurnOffAsync(MediaRoomSideLightsAddress);
         }
-        
     }
 }
