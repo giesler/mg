@@ -16,6 +16,14 @@
     </asp:Panel>
     <table style="width: 100%">
         <tr>
+            <td class="mainItem">coop</td>
+            <td rowspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="coopStatus" CssClass="smallNote" /></td>
+        </tr>
+
+        <tr>
             <td class="mainItem">garage</td>
             <td rowspan="2"><asp:Button runat="server" ID="toggleGarage" Text="toggle" OnClick="toggleGarage_Click" /></td>
         </tr>

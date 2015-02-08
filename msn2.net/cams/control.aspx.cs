@@ -11,6 +11,7 @@ public partial class control : System.Web.UI.Page
     const string MediaRoomSideLightsAddress = "58666";
     const string GarageSwitchAddress = "28 CA 15 2";
     const string GarageSensorAddress = "28 CA 15 1";
+    const string CoopDoorAddress = "32 49 A5 1";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,16 +26,30 @@ public partial class control : System.Web.UI.Page
             IsyData.ISYClient isy = new IsyData.ISYClient();
             List<IsyData.GroupData> groups = isy.GetGroups().ToList();
 
-            // first group contains all ISY nodes
-            var garage = groups.First().Nodes.FirstOrDefault(g => g.Address == GarageSensorAddress);
-            this.garageStatus.Text = garage.Status;
-
-            var mc = groups.FirstOrDefault(g => g.Address == MediaRoomSideLightsAddress);
-            this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
-
-            var upstairs = groups.FirstOrDefault(g => g.Address == UpstairHallwayAddress);
-            this.upstairsHallStatus.Text = upstairs != null ? upstairs.Status : "unkown status";            
+            this.garageStatus.Text = GetStatus(groups, GarageSensorAddress);
+            this.mediaRoomStatus.Text = GetStatus(groups, MediaRoomSideLightsAddress);
+            this.upstairsHallStatus.Text = GetStatus(groups, UpstairHallwayAddress);
+            this.coopStatus.Text = GetStatus(groups, CoopDoorAddress);
         }
+    }
+
+    string GetStatus(List<IsyData.GroupData> groups, string address)
+    {
+        foreach (IsyData.GroupData group in groups)
+        {
+            if (group.Address == address)
+            {
+                return group.Status;
+            }
+
+            IsyData.NodeData node = group.Nodes.FirstOrDefault(n => n.Address == address);
+            if (node != null)
+            {
+                return node.Status;
+            }
+        }
+
+        return "unknown";
     }
 
     protected void toggleGarage_Click(object sender, EventArgs e)
