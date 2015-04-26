@@ -61,15 +61,17 @@ namespace giesler.org.lists
             // Phone-specific initialization
             InitializePhoneApplication();
 
-            // Load voice commands
-            VoiceCommandService.InstallCommandSetsFromFileAsync(new Uri("ms-appx:///ListGoCommands.xml"));
         }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
+        async private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             settings = IsolatedStorageSettings.ApplicationSettings;
+
+            // Load voice commands
+            await VoiceCommandService.InstallCommandSetsFromFileAsync(new Uri("ms-appx:///ListGoCommands.xml"));
+            
         }
 
         string GetSetting(string name)
@@ -328,7 +330,14 @@ namespace giesler.org.lists
                 {
                     if (store.FileExists(settingFileName))
                     {
-                        store.DeleteFile(settingFileName);
+                        try
+                        {
+                            store.DeleteFile(settingFileName);
+                        }
+                        catch (IsolatedStorageException ex)
+                        {
+                            Debug.WriteLine("Error deleting {0}: {1}", settingFileName, ex);
+                        }
                     }
 
                     using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(settingFileName, FileMode.Create, store))

@@ -55,8 +55,8 @@ namespace giesler.org.lists
             {
                 ListEx newList = new ListEx();
                 newList.UniqueId = e.Result.List.UniqueId;
-                newList.Name = e.Result.List.Name;                
-                newList.ListItems = new List<ListItem>();
+                newList.Name = e.Result.List.Name;
+                newList.ListItems = new ListItem[0];
                 App.Lists.Add(newList);
                 App.Current.SaveAll();
 

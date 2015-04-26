@@ -10,7 +10,7 @@
         </bindings>
         <client>
             <endpoint address="http://svc.listgo.mobi/lds.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_IListDataService" contract="ListData.IListDataService"
+                bindingConfiguration="BasicHttpBinding_IListDataService" contract="giesler.org.lists.ListData.IListDataService"
                 name="BasicHttpBinding_IListDataService" />
         </client>
     </system.serviceModel>

@@ -171,6 +171,7 @@
     <Compile Include="Jump.xaml.cs">
       <DependentUpon>Jump.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListDataServiceEndpoint.cs" />
     <Compile Include="ListEx.cs" />
     <Compile Include="ListItemEx.cs" />
     <Compile Include="ListSummaryItemFormatter.cs" />

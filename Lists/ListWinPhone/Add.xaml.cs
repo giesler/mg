@@ -20,6 +20,7 @@ namespace giesler.org.lists
     public partial class Add : PhoneApplicationPage
     {
         private SpeechRecognizerUI reco;
+        static Dictionary<Guid, string[]> cachedCommonItems = new Dictionary<Guid, string[]>();
 
         public Add()
         {
@@ -33,6 +34,8 @@ namespace giesler.org.lists
             //this.PageTitle.Text = list.Name.ToLower();
 
             this.Loaded += new RoutedEventHandler(OnPageLoaded);
+
+            this.commonPivot.Header = "";
         }
 
         void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -41,27 +44,81 @@ namespace giesler.org.lists
             {
                 this.text.Focus();
             }
+
+            if (cachedCommonItems.ContainsKey(App.SelectedList))
+            {
+                this.LoadCommonItems();
+            }
+            else
+            {
+                ListDataServiceClient client = new ListDataServiceClient();
+                client.GetTopCommonItemsCompleted += client_GetTopCommonItemsCompleted;
+                client.GetTopCommonItemsAsync(App.AuthData, App.SelectedList, 10);
+            }
         }
 
-        protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        void client_GetTopCommonItemsCompleted(object sender, GetTopCommonItemsCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (!cachedCommonItems.ContainsKey(App.SelectedList))
+                {
+                    cachedCommonItems.Add(App.SelectedList, e.Result.ToArray());
+                }
+
+                this.LoadCommonItems();
+            }
+        }
+
+        void LoadCommonItems()
+        {
+            var items = cachedCommonItems[App.SelectedList].ToList();
+            if (items.Count > 0)
+            {
+                this.common.ItemsSource = items;
+                this.commonPivot.Header = "common";
+            }
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (NavigationContext.QueryString.ContainsKey("voice"))
+            if (NavigationContext.QueryString.ContainsKey("item"))
             {
-                this.reco = new SpeechRecognizerUI();
-                this.reco.Settings.ReadoutEnabled = false;
-                this.reco.Settings.ShowConfirmation = false;
-                SpeechRecognitionUIResult result = await this.reco.RecognizeWithUIAsync();
-                this.text.Text = result.RecognitionResult.Text;
-                if (this.text.Text.EndsWith("."))
-                {
-                    this.text.Text = this.text.Text.Substring(0, this.text.Text.Length - 1);
-                }
-                this.text.SelectionStart = this.text.Text.Length;
-                this.reco.Dispose();
+                this.text.Text = NavigationContext.QueryString["item"].ToString();
                 this.text.Focus();
             }
+
+            if (NavigationContext.QueryString.ContainsKey("voice"))
+            {
+                System.Diagnostics.Debugger.Break();
+
+                this.OnSpeak(null, null);
+            }
+        }
+
+        private async void OnSpeak(object sender, EventArgs e)
+        {
+            using (this.reco = new SpeechRecognizerUI())
+            {
+                this.reco.Settings.ReadoutEnabled = false;
+                this.reco.Settings.ShowConfirmation = false;
+                this.reco.Recognizer.Grammars.AddGrammarFromPredefinedType("websearch", SpeechPredefinedGrammar.WebSearch);
+                SpeechRecognitionUIResult result = await this.reco.RecognizeWithUIAsync();
+
+                if (result.ResultStatus == SpeechRecognitionUIStatus.Succeeded && result.RecognitionResult.TextConfidence != SpeechRecognitionConfidence.Rejected)
+                {
+                    this.text.Text = result.RecognitionResult.Text;
+                    if (this.text.Text.EndsWith("."))
+                    {
+                        this.text.Text = this.text.Text.Substring(0, this.text.Text.Length - 1);
+                    }
+                    this.text.SelectionStart = this.text.Text.Length;
+                }
+            }
+
+            this.text.Focus();
         }
 
         private void text_TextChanged(object sender, TextChangedEventArgs e)
@@ -113,9 +170,6 @@ namespace giesler.org.lists
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
                 NavigationService.GoBack();
             }
-
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
-            svc.CloseAsync();
         }
 
         void OnAddError(Exception ex)
@@ -145,7 +199,7 @@ namespace giesler.org.lists
             }
 
             ListDataServiceClient svc = App.DataProvider;
-            svc.AddListItemsAsync(App.AuthDataList, listUniqueId, addList);
+            svc.AddListItemsAsync(App.AuthDataList, listUniqueId, addList.ToArray());
             svc.AddListItemsCompleted += OnAddListItemsCompleted;
         }
 
@@ -160,9 +214,6 @@ namespace giesler.org.lists
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.SaveLists), new object());
                 NavigationService.GoBack();
             }
-
-            ListDataServiceClient svc = (ListDataServiceClient)sender;
-            svc.CloseAsync();
         }
 
         void SaveLists(object sender)
@@ -173,6 +224,20 @@ namespace giesler.org.lists
         private void OnCancel(object sender, EventArgs e)
         {
             NavigationService.GoBack();
+        }
+        
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tb = sender as TextBlock;
+            string newText = this.text.Text.Trim();
+            if (newText.Trim().Length > 0)
+            {
+                newText += Environment.NewLine;
+            }
+            newText += tb.Tag.ToString() + Environment.NewLine;
+            this.text.Text = newText;
+            this.text.SelectionStart = newText.Length - 1;
+            this.pivot.SelectedItem = this.addPivot;            
         }
     }
 }

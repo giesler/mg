@@ -1,4 +1,5 @@
-﻿using System;
+﻿using giesler.org.lists.ListData;
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,27 +16,27 @@ namespace giesler.org.lists.Data
     {
         #region IListDataProvider Members
 
-        public void AddListItemAsync(ListData.ClientAuthenticationData auth, Guid listUniqueId, string name)
+        public void AddListItemAsync(ClientAuthenticationData auth, Guid listUniqueId, string name)
         {
             throw new NotImplementedException();
         }
 
-        public void AddListAsync(ListData.ClientAuthenticationData auth, string name)
+        public void AddListAsync(ClientAuthenticationData auth, string name)
         {
             throw new NotImplementedException();
         }
 
-        public void GetListsAsync(ListData.ClientAuthenticationData auth)
+        public void GetListsAsync(ClientAuthenticationData auth)
         {
             throw new NotImplementedException();
         }
 
-        public void GetAllListItemsAsync(ListData.ClientAuthenticationData auth)
+        public void GetAllListItemsAsync(ClientAuthenticationData auth)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteListItemAsync(ListData.ClientAuthenticationData auth, Guid listItemUniqueId)
+        public void DeleteListItemAsync(ClientAuthenticationData auth, Guid listItemUniqueId)
         {
             throw new NotImplementedException();
         }
@@ -45,25 +46,25 @@ namespace giesler.org.lists.Data
             throw new NotImplementedException();
         }
 
-        public event EventHandler<ListData.AddListCompletedEventArgs> AddListCompleted;
+        public event EventHandler<AddListCompletedEventArgs> AddListCompleted;
 
-        public event EventHandler<ListData.UpdateListCompletedEventArgs> UpdateListCompleted;
+        public event EventHandler<UpdateListCompletedEventArgs> UpdateListCompleted;
 
         public event EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteListCompleted;
 
-        public event EventHandler<ListData.GetListsCompletedEventArgs> GetListsCompleted;
+        public event EventHandler<GetListsCompletedEventArgs> GetListsCompleted;
 
-        public event EventHandler<ListData.GetListItemsCompletedEventArgs> GetListItemsCompleted;
+        public event EventHandler<GetListItemsCompletedEventArgs> GetListItemsCompleted;
 
-        public event EventHandler<ListData.GetAllListItemsCompletedEventArgs> GetAllListItemsCompleted;
+        public event EventHandler<GetAllListItemsCompletedEventArgs> GetAllListItemsCompleted;
 
-        public event EventHandler<ListData.AddListItemCompletedEventArgs> AddListItemCompleted;
+        public event EventHandler<AddListItemCompletedEventArgs> AddListItemCompleted;
 
-        public event EventHandler<ListData.UpdateListItemCompletedEventArgs> UpdateListItemCompleted;
+        public event EventHandler<UpdateListItemCompletedEventArgs> UpdateListItemCompleted;
 
-        public event EventHandler<ListData.DeleteListItemCompletedEventArgs> DeleteListItemCompleted;
+        public event EventHandler<DeleteListItemCompletedEventArgs> DeleteListItemCompleted;
 
-        public event EventHandler<ListData.GetLastChangeTimeCompletedEventArgs> GetLastChangeTimeCompleted;
+        public event EventHandler<GetLastChangeTimeCompletedEventArgs> GetLastChangeTimeCompleted;
 
         public event EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
 
