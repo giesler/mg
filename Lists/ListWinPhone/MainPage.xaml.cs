@@ -136,8 +136,8 @@ namespace giesler.org.lists
             List<string> listNames = new List<string>();
             lists.ForEach(i => listNames.Add(i.Name));
 
-            VoiceCommandSet widgetVcs = VoiceCommandService.InstalledCommandSets["en-US"];
-            widgetVcs.UpdatePhraseListAsync("list", listNames);
+            VoiceCommandSet vSet = VoiceCommandService.InstalledCommandSets["en-US"];
+            vSet.UpdatePhraseListAsync("list", listNames);
         }
 
         static string GetDurationString(TimeSpan duration)
@@ -303,6 +303,23 @@ namespace giesler.org.lists
                     {
                         this.DisplayLoadedLists(App.Lists);
                         jumpButton_Click(this, EventArgs.Empty);
+                    }
+                    else if (commandName == "AddItem")
+                    {
+                        App.SelectedList = App.Lists.FirstOrDefault(i => i.Name.ToLower() == NavigationContext.QueryString["list"].ToLower()).UniqueId;
+
+                        string item = NavigationContext.QueryString["reco"];
+                        if (item.ToLower().IndexOf("add") > -1 && item.ToLower().IndexOf("to") > 0)
+                        {
+                            item = item.Substring(4, item.LastIndexOf(" ")).Trim();
+                            if (item.EndsWith("to"))
+                            {
+                                item = item.Substring(0, item.Length - 2);
+                            }
+                        }
+
+                        this.DisplayLoadedLists(App.Lists);
+                        NavigationService.Navigate(new Uri("/Add.xaml?listUniqueId=" + App.SelectedList + "&item=" + item, UriKind.Relative));
                     }
                 }
             }
