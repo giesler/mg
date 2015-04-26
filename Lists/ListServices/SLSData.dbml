@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ShoppingList" Class="SLSDataDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ListGo" Class="SLSDataDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=ListGo;Integrated Security=True" SettingsObjectName="msn2.net.ShoppingList.Properties.Settings" SettingsPropertyName="ShoppingListConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Store" Member="Stores">
     <Type Name="Store">
@@ -151,6 +151,13 @@
   <Function Name="dbo.GetCommonListItems" Method="GetCommonListItems">
     <Parameter Name="listUniqueId" Type="System.Guid" DbType="UniqueIdentifier" />
     <ElementType Name="GetCommonListItemsResult">
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTopCommonListItems" Method="GetTopCommonListItems">
+    <Parameter Name="listUniqueId" Type="System.Guid" DbType="UniqueIdentifier" />
+    <Parameter Name="topCount" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTopCommonListItemsResult">
       <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </ElementType>
   </Function>

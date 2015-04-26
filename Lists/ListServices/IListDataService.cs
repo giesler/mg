@@ -63,6 +63,9 @@ namespace msn2.net.ShoppingList
 
         [OperationContract]
         List<string> GetCommonItems(ClientAuthenticationData auth, Guid listUniqueId);
+
+        [OperationContract]
+        List<string> GetTopCommonItems(ClientAuthenticationData auth, Guid listUniqueId, int count);
     }
 
     [DataContract]

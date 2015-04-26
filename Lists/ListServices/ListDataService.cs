@@ -154,6 +154,19 @@ namespace msn2.net.ShoppingList
             }
         }
 
+        public List<string> GetTopCommonItems(ClientAuthenticationData auth, Guid listUniqueId, int count)
+        {
+            using (SLSDataDataContext context = new SLSDataDataContext())
+            {
+                ValidateAuth(context, auth, true);
+
+                var items = context.GetTopCommonListItems(listUniqueId, count);
+                List<string> list = new List<string>();
+                items.ToList().ForEach(i => list.Add(i.Name));
+                return list;
+            }
+        }
+
         public AddListItemReturnValue AddListItem(ClientAuthenticationData auth, Guid listUniqueId, string name)
         {
             return this.AddListItemWithId(auth, listUniqueId, Guid.NewGuid(), name);
