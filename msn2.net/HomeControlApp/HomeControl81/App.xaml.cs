@@ -18,11 +18,15 @@ namespace HomeControl81
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
+        public static TimeSpan Duration { get; set; }
+
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
         public App()
         {
+            Duration = TimeSpan.Zero;
+
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 

@@ -42,10 +42,10 @@
             <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="19,385,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
             <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,20,0,0" TextWrapping="Wrap" Text="coop" VerticalAlignment="Top" Width="236" FontSize="36"/>
             <TextBlock x:Name="coopStatus" HorizontalAlignment="Left" Margin="19,73,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,421,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,421,0,0" VerticalAlignment="Top" Width="98" Click="gardenDripOff_Click"/>
-            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,421,0,0" VerticalAlignment="Top" Width="98" Click="gardenDripOn_Click"/>
-            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="19,479,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,433,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,433,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOff_Click"/>
+            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,433,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOn_Click"/>
+            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="19,491,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
 
         </Grid>
 
