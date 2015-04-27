@@ -16,6 +16,24 @@ namespace DripDuino
                     StatusPage(context);
                 });
 
+            server.RequestRouting.Add("GET /statustext",
+                context =>
+                {
+                    string response = Dripper.IsOn ? "on" : "off";
+                    if (Dripper.IsOn)
+                    {
+                        response += " until " + Dripper.OffTime.ToString("h:mm");
+                    }
+                    context.SetResponse(response, "text/plain");
+                });
+
+            server.RequestRouting.Add("POST /turnoff",
+                context =>
+                {
+                    Dripper.Toggle(false);
+                    context.SetResponse("ok", "text/plain");
+                });
+
             server.RequestRouting.Add("POST /status",
                 context =>
                 {
