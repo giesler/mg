@@ -1,17 +1,24 @@
 ﻿<configuration>
-    <system.serviceModel>
-        <bindings>
-            <basicHttpBinding>
-                <binding name="BasicHttpBinding_IISY" maxBufferSize="2147483647"
-                    maxReceivedMessageSize="2147483647">
-                    <security mode="None" />
-                </binding>
-            </basicHttpBinding>
-        </bindings>
-        <client>
-            <endpoint address="http://hs.msn2.net:8808/ISY.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_IISY" contract="IsyData.IISY"
-                name="BasicHttpBinding_IISY" />
-        </client>
-    </system.serviceModel>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="BasicHttpBinding_IISY" maxBufferSize="2147483647"
+            maxReceivedMessageSize="2147483647">
+          <security mode="None" />
+        </binding>
+        <binding name="BasicHttpBinding_IDeviceControl" maxBufferSize="2147483647"
+            maxReceivedMessageSize="2147483647">
+          <security mode="None" />
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="http://hs.msn2.net:8808/ISY.svc" binding="basicHttpBinding"
+          bindingConfiguration="BasicHttpBinding_IISY" contract="IsyData.IISY"
+          name="BasicHttpBinding_IISY" />
+      <endpoint address="http://hs.msn2.net:8808/DeviceControl.svc"
+          binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IDeviceControl"
+          contract="HomeControl81.DeviceControl.IDeviceControl" name="BasicHttpBinding_IDeviceControl" />
+    </client>
+  </system.serviceModel>
 </configuration>

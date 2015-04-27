@@ -67,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DeviceControl.svc" />
     <Content Include="DevicePower.svc" />
     <None Include="Service References\CamData\camdata.disco" />
     <None Include="Service References\CamData\configuration91.svcinfo" />
@@ -91,6 +92,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceControl.svc.cs">
+      <DependentUpon>DeviceControl.svc</DependentUpon>
+    </Compile>
     <Compile Include="DevicePower.svc.cs">
       <DependentUpon>DevicePower.svc</DependentUpon>
     </Compile>
@@ -115,6 +119,7 @@
     <Compile Include="getvid.aspx.designer.cs">
       <DependentUpon>getvid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IDeviceControl.cs" />
     <Compile Include="IDevicePower.cs" />
     <Compile Include="IISY.cs" />
     <Compile Include="ISY.svc.cs">

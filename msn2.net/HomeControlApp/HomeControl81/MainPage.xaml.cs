@@ -3,11 +3,13 @@ using Microsoft.Phone.Net.NetworkInformation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
+
 
 namespace HomeControl81
 {
@@ -39,54 +41,87 @@ namespace HomeControl81
             Console.Write(net.ToString());
         }
 
+        void QueueUpdate()
+        {
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.Update), null);
+        }
+
+        void Update(object sender)
+        {
+            this.updateTimer_Tick(null, null);
+        }
 
         void updateTimer_Tick(object sender, EventArgs e)
         {
-            bool isLocal = false;
-            foreach (HostName name in NetworkInformation.GetHostNames())
-            {
-                if (name.RawName != null && name.RawName.ToString().StartsWith("192.168.1."))
+                bool isLocal = false;
+                foreach (HostName name in NetworkInformation.GetHostNames())
                 {
-                    isLocal = true;
+                    if (name.RawName != null && name.RawName.ToString().StartsWith("192.168.1."))
+                    {
+                        isLocal = true;
+                    }
                 }
-            }
 
-            IsyData.ISYClient isy = new IsyData.ISYClient();
-            if (isLocal)
-            {
-                isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://192.168.1.25:8808/isy.svc");
-            }
-            isy.GetGroupsCompleted += isy_GetNodeCompleted;
-            isy.GetGroupsAsync(GarageSensorAddress);
+                IsyData.ISYClient isy = new IsyData.ISYClient();
+                if (isLocal)
+                {
+                    isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://192.168.1.25:8808/isy.svc");
+                }
+                isy.GetGroupsCompleted += isy_GetNodeCompleted;
+                isy.GetGroupsAsync(GarageSensorAddress);
 
-            if (DateTime.Now.AddSeconds(33) > lastToggle)
+                DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
+                if (isLocal)
+                {
+                    dev = new DeviceControl.DeviceControlClient("BasicHttpBinding_IDeviceControl", "http://192.168.1.25:8808/DeviceControl.svc");
+                }
+                dev.GetDeviceStatusCompleted += dev_GetDeviceStatusCompleted;
+                dev.GetDeviceStatusAsync("Garden Drip");
+
+                if (DateTime.Now.AddSeconds(33) > lastToggle)
+                {
+                    Dispatcher.BeginInvoke(() => { updateTimer.Interval = TimeSpan.FromSeconds(1); });
+                    
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke(() => { updateTimer.Interval = TimeSpan.FromSeconds(5); });
+                }
+        }
+
+        void dev_GetDeviceStatusCompleted(object sender, DeviceControl.GetDeviceStatusCompletedEventArgs e)
+        {            
+            if (e.Error == null)
             {
-                updateTimer.Interval = TimeSpan.FromSeconds(1);
+                Dispatcher.BeginInvoke(() => { this.gardenDripStatus.Text = e.Result.StatusText; });
             }
             else
             {
-                updateTimer.Interval = TimeSpan.FromSeconds(5);
+                Dispatcher.BeginInvoke(() => { this.gardenDripStatus.Text = "error"; });
             }
         }
 
         void isy_GetNodeCompleted(object sender, IsyData.GetGroupsCompletedEventArgs e)
         {
-            if (e.Error == null)
+            Dispatcher.BeginInvoke(() =>
             {
-                List<IsyData.GroupData> groups = e.Result.ToList();
+                if (e.Error == null)
+                {
+                    List<IsyData.GroupData> groups = e.Result.ToList();
 
-                coopStatus.Text = GetStatus(groups, CoopDoorAddress);
-                garageStatus.Text = GetStatus(groups, GarageSensorAddress);
-                mediaRoomStatus.Text = GetStatus(groups, MediaRoomSideLightsAddress);
-                upstairsHallStatus.Text = GetStatus(groups, UpstairHallwayAddress);
-            }
-            else
-            {
-                coopStatus.Text = "error";
-                garageStatus.Text = "error";
-                mediaRoomStatus.Text = "error";
-                upstairsHallStatus.Text = "error";
-            }
+                    coopStatus.Text = GetStatus(groups, CoopDoorAddress);
+                    garageStatus.Text = GetStatus(groups, GarageSensorAddress);
+                    mediaRoomStatus.Text = GetStatus(groups, MediaRoomSideLightsAddress);
+                    upstairsHallStatus.Text = GetStatus(groups, UpstairHallwayAddress);
+                }
+                else
+                {
+                    coopStatus.Text = "error";
+                    garageStatus.Text = "error";
+                    mediaRoomStatus.Text = "error";
+                    upstairsHallStatus.Text = "error";
+                }
+            });
         }
 
         string GetStatus(List<IsyData.GroupData> groups, string address)
@@ -124,13 +159,18 @@ namespace HomeControl81
 
         void upstairsHallTurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            upstairHallOn.IsEnabled = true;
-            upstairHallOff.IsEnabled = true;
-
-            if (e.Error != null)
+            Dispatcher.BeginInvoke(() =>
             {
-                MessageBox.Show(e.Error.Message);
-            }
+                upstairHallOn.IsEnabled = true;
+                upstairHallOff.IsEnabled = true;
+
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                }
+
+                this.QueueUpdate();
+            });
         }
 
         private void upstairHallOff_Click(object sender, RoutedEventArgs e)
@@ -152,14 +192,17 @@ namespace HomeControl81
 
         void onGarageToggleCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            toggleGarage.IsEnabled = true;
-            if (e.Error != null)
+            Dispatcher.BeginInvoke(() =>
             {
-                MessageBox.Show(e.Error.Message);
-            }
+                toggleGarage.IsEnabled = true;
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                }
 
-            this.lastToggle = DateTime.Now;
-            updateTimer_Tick(null, null);
+                this.lastToggle = DateTime.Now;
+                this.QueueUpdate();
+            });
         }
 
         private void mediaRoomOn_Click(object sender, RoutedEventArgs e)
@@ -173,13 +216,18 @@ namespace HomeControl81
 
         void mediaRoom_TurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            mediaRoomOn.IsEnabled = true;
-            mediaRoomOff.IsEnabled = true;
-
-            if (e.Error != null)
+            Dispatcher.BeginInvoke(() =>
             {
-                MessageBox.Show(e.Error.Message);
-            }
+                mediaRoomOn.IsEnabled = true;
+                mediaRoomOff.IsEnabled = true;
+
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                }
+
+                this.QueueUpdate();
+            });
         }
 
         private void mediaRoomOff_Click(object sender, RoutedEventArgs e)
@@ -189,6 +237,64 @@ namespace HomeControl81
             mediaRoomOn.IsEnabled = false;
             isy.TurnOffCompleted += mediaRoom_TurnOnCompleted;
             isy.TurnOffAsync(MediaRoomSideLightsAddress);
+        }
+
+        private void gardenDripOff_Click(object sender, RoutedEventArgs e)
+        {
+            gardenDripOn.IsEnabled = false;
+            gardenDripOff.IsEnabled = false;
+
+            DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
+            dev.TurnOffCompleted += dev_TurnOffCompleted;
+            dev.TurnOffAsync("Garden drip");
+        }
+
+        void dev_TurnOffCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                    gardenDripOff.IsEnabled = true;
+                }
+                else
+                {
+                    gardenDripOn.IsEnabled = true;
+                }
+
+                this.QueueUpdate();
+            });
+        }
+
+        private void gardenDripOn_Click(object sender, RoutedEventArgs e)
+        {
+            gardenDripOn.IsEnabled = false;
+            gardenDripOff.IsEnabled = false;
+
+            DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
+            dev.TurnOnCompleted += dev_TurnOnCompleted;
+            dev.TurnOnAsync("Garden drip", TimeSpan.FromMinutes(15));
+        }
+
+        void dev_TurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                gardenDripOff.IsEnabled = true;
+                gardenDripOn.IsEnabled = true;
+
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                }
+                else
+                {
+                    gardenDripOn.IsEnabled = false;
+                }
+
+                this.QueueUpdate();
+            });
         }
     }
 }
