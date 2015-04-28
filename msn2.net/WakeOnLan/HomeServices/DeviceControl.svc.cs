@@ -16,28 +16,37 @@ namespace HomeServices
     {
         static string GardenDripAddress = "192.168.1.205";
 
-        public void ToggleDevice(string name)
+        public DeviceStatus ToggleDevice(string name)
         {
             if (string.Equals(name, "Garden Drip", StringComparison.InvariantCultureIgnoreCase))
             {
                 Post("/status", "status");
+                return GetDeviceStatus(name);
             }
+
+            throw new Exception("Unknown name");
         }
 
-        public void TurnOff(string name)
+        public DeviceStatus TurnOff(string name)
         {
             if (string.Equals(name, "Garden Drip", StringComparison.InvariantCultureIgnoreCase))
             {
                 Post("/turnoff", "off");
+                return GetDeviceStatus(name);
             }
+
+            throw new Exception("Unknown name");
         }
 
-        public void TurnOn(string name, TimeSpan duration)
+        public DeviceStatus TurnOn(string name, TimeSpan duration)
         {
             if (string.Equals(name, "Garden Drip", StringComparison.InvariantCultureIgnoreCase))
             {
                 Post("/toggle", duration.ToString());
+                return GetDeviceStatus(name);
             }
+
+            throw new Exception("Unknown name");
         }
 
         public DeviceStatus GetDeviceStatus(string name)

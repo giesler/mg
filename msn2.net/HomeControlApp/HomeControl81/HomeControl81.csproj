@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceControl.cs" />
+    <Compile Include="IsyData.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -111,11 +112,6 @@
     </Compile>
     <Compile Include="SelectTime.xaml.cs">
       <DependentUpon>SelectTime.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\IsyData\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,22 +137,6 @@
     <None Include="app.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\IsyData\HomeControl81.IsyData.GroupData.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\IsyData\HomeControl81.IsyData.NodeData.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\IsyData\ISY.wsdl" />
-    <None Include="Service References\IsyData\ISY.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\IsyData\ISY1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\IsyData\ISY2.xsd">
       <SubType>Designer</SubType>
     </None>
     <Content Include="ServiceReferences.ClientConfig" />
@@ -188,13 +168,6 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\IsyData\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\IsyData\configuration.svcinfo" />
-    <None Include="Service References\IsyData\configuration91.svcinfo" />
-    <None Include="Service References\IsyData\ISY.disco" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
@@ -204,9 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\IsyData\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

@@ -11,16 +11,16 @@ namespace HomeServices
     public interface IDeviceControl
     {
         [OperationContract]
-        void ToggleDevice(string name);
+        DeviceStatus ToggleDevice(string name);
 
         [OperationContract]
         DeviceStatus GetDeviceStatus(string name);
 
         [OperationContract]
-        void TurnOff(string name);
+        DeviceStatus TurnOff(string name);
 
         [OperationContract]
-        void TurnOn(string name, TimeSpan duration);
+        DeviceStatus TurnOn(string name, TimeSpan duration);
     }
 
     [DataContract]

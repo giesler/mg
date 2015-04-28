@@ -20,10 +20,10 @@ namespace HomeServices
         NodeData GetNode(string address);
 
         [OperationContract]
-        void TurnOff(string address);
+        NodeData TurnOff(string address);
 
         [OperationContract]
-        void TurnOn(string address);
+        NodeData TurnOn(string address);
 
         [OperationContract]
         bool GetStatus(string address);

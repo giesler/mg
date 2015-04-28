@@ -118,11 +118,17 @@ namespace HomeServices
 
         public NodeData GetNode(string address)
         {
-            List<GroupData> groups = new List<GroupData>();
-            List<NodeData> nodes = new List<NodeData>();
+            var groups = GetGroups();
 
-            ProcessNodeQuery("/rest/nodes/" + address, groups, nodes);
-            return nodes.FirstOrDefault();
+            foreach (var group in groups)
+            {
+                if (group.Address == address)
+                {
+                    return group.Nodes[0];
+                }
+            }
+
+            return null;
         }
 
         public IEnumerable<GroupData> GetGroups()
@@ -134,14 +140,42 @@ namespace HomeServices
             return groups;
         }
 
-        public void TurnOff(string address)
+        private NodeData GetAddressData(string address)
         {
-            IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DOF/");
+            IEnumerable<GroupData> groups = this.GetGroups();
+            foreach (GroupData group in groups)
+            {
+                if (group.Address == address)
+                {
+                    return new NodeData
+                    {
+                        Address = address,
+                        IsOn = group.Status.ToLower() != "off",
+                        Level = group.Nodes[0].Level,
+                        Name = group.Name,
+                        Status = group.Status
+                    };
+                }
+                NodeData node = group.Nodes.FirstOrDefault(a => a.Address == address);
+                if (node != null)
+                {
+                    return node;
+                }
+            }
+
+            return null;
         }
 
-        public void TurnOn(string address)
+        public NodeData TurnOff(string address)
+        {
+            IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DOF/");
+            return this.GetAddressData(address);
+        }
+
+        public NodeData TurnOn(string address)
         {
             IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DON/");
+            return this.GetAddressData(address);
         }
 
         public bool GetStatus(string address)

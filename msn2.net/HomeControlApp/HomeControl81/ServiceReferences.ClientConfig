@@ -14,7 +14,7 @@
     </bindings>
     <client>
       <endpoint address="http://hs.msn2.net:8808/ISY.svc" binding="basicHttpBinding"
-          bindingConfiguration="BasicHttpBinding_IISY" contract="IsyData.IISY"
+          bindingConfiguration="BasicHttpBinding_IISY" contract="HomeControl81.IsyData.IISY"
           name="BasicHttpBinding_IISY" />
       <endpoint address="http://hs.msn2.net:8808/DeviceControl.svc"
           binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IDeviceControl"

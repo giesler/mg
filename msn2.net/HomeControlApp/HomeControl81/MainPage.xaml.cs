@@ -183,12 +183,13 @@ namespace HomeControl81
             IsyData.ISYClient isy = new IsyData.ISYClient();
             upstairHallOn.IsEnabled = false;
             upstairHallOff.IsEnabled = false;
-            isy.TurnOnCompleted += upstairsHallTurnOnCompleted;
+            isy.TurnOnCompleted += upsairsHallOn_TurnOnCompleted;
             isy.TurnOnAsync(UpstairHallwayAddress);
             this.lastChange = DateTime.Now;
+            upstairsHallStatus.Text = "sending";
         }
 
-        void upstairsHallTurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        void upsairsHallOn_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -198,31 +199,53 @@ namespace HomeControl81
                 if (e.Error != null)
                 {
                     MessageBox.Show(e.Error.Message);
+                    upstairsHallStatus.Text = "error";
                 }
-
-                this.QueueUpdate();
+                else
+                {
+                    upstairsHallStatus.Text = e.Result.Status;
+                }
             });
         }
-
+        
         private void upstairHallOff_Click(object sender, RoutedEventArgs e)
         {
             IsyData.ISYClient isy = new IsyData.ISYClient();
             upstairHallOn.IsEnabled = false;
             upstairHallOff.IsEnabled = false;
-            isy.TurnOffCompleted += upstairsHallTurnOnCompleted;
+            isy.TurnOffCompleted += upstairsHall_TurnOffCompleted;
             isy.TurnOffAsync(UpstairHallwayAddress);
+        }
+
+        void upstairsHall_TurnOffCompleted(object sender, IsyData.TurnOffCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                upstairHallOn.IsEnabled = true;
+
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                    upstairsHallStatus.Text = "error";
+                }
+                else
+                {
+                    upstairsHallStatus.Text = e.Result.Status;
+                }
+            });
         }
 
         private void toggleGarage_Click(object sender, RoutedEventArgs e)
         {
             IsyData.ISYClient isy = new IsyData.ISYClient();
             toggleGarage.IsEnabled = false;
-            isy.TurnOnCompleted += onGarageToggleCompleted;
+            isy.TurnOnCompleted += toggleGarage_TurnOnCompleted;
             isy.TurnOnAsync(GarageSwitchAddress);
             this.lastChange = DateTime.Now;
+            garageStatus.Text = "sending";
         }
 
-        void onGarageToggleCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        void toggleGarage_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -230,10 +253,14 @@ namespace HomeControl81
                 if (e.Error != null)
                 {
                     MessageBox.Show(e.Error.Message);
+                    garageStatus.Text = "error";
+                }
+                else
+                {
+                    garageStatus.Text = e.Result.Status;
                 }
 
-                this.lastToggle = DateTime.Now;
-                this.QueueUpdate();
+                this.lastToggle = DateTime.Now;                
             });
         }
 
@@ -245,9 +272,10 @@ namespace HomeControl81
             isy.TurnOnCompleted += mediaRoom_TurnOnCompleted;
             isy.TurnOnAsync(MediaRoomSideLightsAddress);
             this.lastChange = DateTime.Now;
+            mediaRoomStatus.Text = "sending";
         }
 
-        void mediaRoom_TurnOnCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        void mediaRoom_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -257,9 +285,12 @@ namespace HomeControl81
                 if (e.Error != null)
                 {
                     MessageBox.Show(e.Error.Message);
+                    mediaRoomStatus.Text = "error";
                 }
-
-                this.QueueUpdate();
+                else
+                {
+                    mediaRoomStatus.Text = e.Result.Status;
+                }
             });
         }
 
@@ -268,9 +299,28 @@ namespace HomeControl81
             IsyData.ISYClient isy = new IsyData.ISYClient();
             mediaRoomOff.IsEnabled = false;
             mediaRoomOn.IsEnabled = false;
-            isy.TurnOffCompleted += mediaRoom_TurnOnCompleted;
+            isy.TurnOffCompleted += mediaRoomOff_TurnOffCompleted;
             isy.TurnOffAsync(MediaRoomSideLightsAddress);
             this.lastChange = DateTime.Now;
+        }
+
+        void mediaRoomOff_TurnOffCompleted(object sender, IsyData.TurnOffCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                mediaRoomOn.IsEnabled = true;
+                mediaRoomOff.IsEnabled = true;
+
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                    mediaRoomStatus.Text = "error";
+                }
+                else
+                {
+                    mediaRoomStatus.Text = e.Result.Status;
+                }
+            });
         }
 
         private void gardenDripOff_Click(object sender, RoutedEventArgs e)
@@ -300,8 +350,6 @@ namespace HomeControl81
                     gardenDripOn.IsEnabled = true;
                     gardenDripStatus.Text = e.Result.StatusText;
                 }
-
-                this.QueueUpdate();
             });
         }
 
@@ -329,8 +377,6 @@ namespace HomeControl81
                     gardenDripOn.IsEnabled = false;
                     gardenDripStatus.Text = e.Result.StatusText;
                 }
-
-                this.QueueUpdate();
             });
         }
     }
