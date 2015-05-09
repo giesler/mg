@@ -1,7 +1,8 @@
 <?php
 /**
- * Implements an optional custom header for Twenty Twelve.
- * See http://codex.wordpress.org/Custom_Headers
+ * Implement an optional custom header for Twenty Twelve
+ *
+ * See https://codex.wordpress.org/Custom_Headers
  *
  * @package WordPress
  * @subpackage Twenty_Twelve
@@ -9,7 +10,7 @@
  */
 
 /**
- * Sets up the WordPress core custom header arguments and settings.
+ * Set up the WordPress core custom header arguments and settings.
  *
  * @uses add_theme_support() to register support for 3.4 and up.
  * @uses twentytwelve_header_style() to style front-end.
@@ -47,11 +48,9 @@ function twentytwelve_custom_header_setup() {
 add_action( 'after_setup_theme', 'twentytwelve_custom_header_setup' );
 
 /**
- * Loads our special font CSS file.
+ * Load our special font CSS file.
  *
  * @since Twenty Twelve 1.2
- *
- * @return void
  */
 function twentytwelve_custom_header_fonts() {
 	$font_url = twentytwelve_get_font_url();
@@ -61,7 +60,7 @@ function twentytwelve_custom_header_fonts() {
 add_action( 'admin_print_styles-appearance_page_custom-header', 'twentytwelve_custom_header_fonts' );
 
 /**
- * Styles the header text displayed on the blog.
+ * Style the header text displayed on the blog.
  *
  * get_header_textcolor() options: 515151 is default, hide text (returns 'blank'), or any hex value.
  *
@@ -101,7 +100,7 @@ function twentytwelve_header_style() {
 }
 
 /**
- * Styles the header image displayed on the Appearance > Header admin panel.
+ * Style the header image displayed on the Appearance > Header admin panel.
  *
  * @since Twenty Twelve 1.0
  */
@@ -141,25 +140,24 @@ function twentytwelve_admin_header_style() {
 }
 
 /**
- * Outputs markup to be displayed on the Appearance > Header admin panel.
+ * Output markup to be displayed on the Appearance > Header admin panel.
+ *
  * This callback overrides the default markup displayed there.
  *
  * @since Twenty Twelve 1.0
  */
 function twentytwelve_admin_header_image() {
+	$style = 'color: #' . get_header_textcolor() . ';';
+	if ( ! display_header_text() ) {
+		$style = 'display: none;';
+	}
 	?>
 	<div id="headimg">
-		<?php
-		if ( ! display_header_text() )
-			$style = ' style="display:none;"';
-		else
-			$style = ' style="color:#' . get_header_textcolor() . ';"';
-		?>
-		<h1 class="displaying-header-text"><a id="name"<?php echo $style; ?> onclick="return false;" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-		<h2 id="desc" class="displaying-header-text"<?php echo $style; ?>><?php bloginfo( 'description' ); ?></h2>
+		<h1 class="displaying-header-text"><a id="name" style="<?php echo esc_attr( $style ); ?>" onclick="return false;" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+		<h2 id="desc" class="displaying-header-text" style="<?php echo esc_attr( $style ); ?>"><?php bloginfo( 'description' ); ?></h2>
 		<?php $header_image = get_header_image();
 		if ( ! empty( $header_image ) ) : ?>
-			<img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="" />
+			<img src="<?php echo esc_url( $header_image ); ?>" class="header-image" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" alt="" />
 		<?php endif; ?>
 	</div>
 <?php }
