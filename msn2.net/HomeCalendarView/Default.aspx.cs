@@ -291,7 +291,7 @@ namespace HomeCalendarView
             try
             {
                 string url = string.Format(
-                    "http://forecast.weather.gov/MapClick.php?site=sew&textField1={0}&textField2={1}&smap=1&FcstType=dwml",
+                    "http://graphical.weather.gov/xml/SOAP_server/ndfdXMLclient.php?whichClient=NDFDgen&lat={0}&lon={1}&listLatLon=&lat1=&lon1=&lat2=&lon2=&resolutionSub=&listLat1=&listLon1=&listLat2=&listLon2=&resolutionList=&endPoint1Lat=&endPoint1Lon=&endPoint2Lat=&endPoint2Lon=&listEndPoint1Lat=&listEndPoint1Lon=&listEndPoint2Lat=&listEndPoint2Lon=&zipCodeList=&listZipCodeList=&centerPointLat=&centerPointLon=&distanceLat=&distanceLon=&resolutionSquare=&listCenterPointLat=&listCenterPointLon=&listDistanceLat=&listDistanceLon=&listResolutionSquare=&citiesLevel=&listCitiesLevel=&sector=&gmlListLatLon=&featureType=&requestedTime=&startTime=&endTime=&compType=&propertyName=&product=time-series&begin=2004-01-01T00%3A00%3A00&end=2019-05-09T00%3A00%3A00&Unit=e&maxt=maxt&mint=mint&pop12=pop12&wx=wx&icons=icons&Submit=Submit",
                     this.currentLocation.Lattitude,
                     this.currentLocation.Longitude);
                 WebRequest req = WebRequest.Create(url);
