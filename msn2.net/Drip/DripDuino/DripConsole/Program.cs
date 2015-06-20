@@ -11,7 +11,7 @@ namespace DripConsole
 {
     class Program
     {
-        static string DripAddress = "dripduino.msn2.net";
+        static string DripAddress = "192.168.1.205";
 
         static void Main(string[] args)
         {
