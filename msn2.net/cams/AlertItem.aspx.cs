@@ -14,7 +14,7 @@ public partial class AlertItem : System.Web.UI.Page
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie == null || cookie.Value != "1")
         {
-            Response.Redirect("Login.aspx");
+            Response.Redirect("http://login.msn2.net/?r=http://cams.msn2.net/log.aspx");
         }
         if (Request.QueryString["a"] == null)
         {

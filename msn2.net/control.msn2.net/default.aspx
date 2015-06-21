@@ -12,7 +12,7 @@
     <form id="form1" runat="server" style="height: 100%">
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
         <a href="/">HOME</a> | 
-        <a href="Login.aspx">SIGN OUT</a>
+        <a href="http://login.msn2.net/logout.aspx?r=http://control.msn2.net">SIGN OUT</a>
     </asp:Panel>
     <table style="width: 100%">
         <tr>

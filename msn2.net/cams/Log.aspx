@@ -13,7 +13,7 @@
     <div style="float: right; padding-right: 3px">
         <a href="/">HOME</a> | 
         <asp:LinkButton runat="server" ID="showHideVideos" OnClick="showHideVideos_Click" Text="SHOW VIDEOS" /> | 
-        <a href="Login.aspx">SIGN OUT</a>
+        <a href="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net">SIGN OUT</a>
     </div>
     <div st>
     

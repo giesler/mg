@@ -22,7 +22,7 @@
         <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator1" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="Login.aspx" Text="SIGN IN" />
+        <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
     <div style="height: 100%">
         <asp:Panel ID="rightPanel" runat="server" Visible="false" CssClass="rightFloat">
@@ -37,7 +37,7 @@
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />        
-        <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="Login.aspx" Text="SIGN IN" />
+        <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
 
     </form>

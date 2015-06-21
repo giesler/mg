@@ -27,7 +27,7 @@ public partial class Log : System.Web.UI.Page
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie == null || cookie.Value != "1")
         {
-            Response.Redirect("Login.aspx");
+            Response.Redirect("http://login.msn2.net/?r=http://cams.msn2.net/log.aspx");
         }
 
         this.videos = Request.QueryString["v"] == "1";
