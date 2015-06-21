@@ -53,6 +53,20 @@ namespace QSS
                     this.Path = arg.Substring(3);
                 }
             }
+            
+            if (!Directory.Exists(this.Path))
+            {
+                DriveInfo[] drives = DriveInfo.GetDrives();
+                foreach (DriveInfo drive in drives)
+                {
+                    if (Directory.Exists(drive.Name + "nr"))
+                    {
+                        this.Path = drive.Name + "nr";
+                        break;
+                    }
+                }
+            }
+
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
 
             this.Cursor = Cursors.None;

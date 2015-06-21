@@ -39,7 +39,6 @@ namespace QSS
                     else
                     {
                         window.Owner = owner;
-                        window.Closed += new EventHandler(OnChildWindowClosed);
                     }
 
                     window.Show();
@@ -52,12 +51,6 @@ namespace QSS
 
                 index++;
             }
-        }
-
-        void OnChildWindowClosed(object sender, EventArgs e)
-        {
-            MainWindow window = (MainWindow)sender;
-            window.Owner.Close();
         }
     }
 }
