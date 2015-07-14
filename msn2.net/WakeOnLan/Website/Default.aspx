@@ -7,11 +7,47 @@
     <link rel="Stylesheet" href="css/default.css" media="all" />
     <title>ts.msn2.net</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width" /> 
+
+    <style type="text/css">
+        A:link
+        {
+            text-decoration: none;
+            color: navy;
+        }
+
+        .headerLink A:link
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .headerLink A:visited
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .subheader
+        {
+            font-size: x-small;
+            padding-top: 4px;
+            margin-bottom: -2px;
+        }
+
+        .topsubheader
+        {
+            font-size: x-small;
+            margin-bottom: -2px;
+        }
+    </style>
+
 </head>
 <body>
-    <div style="background: navy; color: white; padding: 6px; font-weight: bold" class="headerLink">
-        MSN2.NET: <a href="http://home.msn2.net">HOME</a><br />
+    <div style="background: black; color: white; padding: 6px; font-weight: bold" class="headerLink">
+        <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
+	    <a href="http://ts.msn2.net/">TS</a>
+        <br />
     </div>
     <div class="mainContent">
         <form id="form1" runat="server">

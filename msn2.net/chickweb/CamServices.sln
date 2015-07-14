@@ -96,6 +96,31 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "login.msn2.net(1)", "http:/
 		SlnRelativePath = "..\login.msn2.net\"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website", "http://localhost:1722", "{21402A8D-E532-485E-9716-847CAAB53B6F}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_1722"
+		Debug.AspNetCompiler.PhysicalPath = "..\WakeOnLan\Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1722\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_1722"
+		Release.AspNetCompiler.PhysicalPath = "..\WakeOnLan\Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1722\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\WakeOnLan\Website\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{46a741de-79ab-48f5-9016-f651d78b4a1b}*SharedItemsImports = 4
@@ -103,7 +128,7 @@ Global
 		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{550d5970-560c-40d0-b717-e397d10e69ed}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -150,6 +175,11 @@ Global
 		SccProjectName11 = ../login.msn2.net
 		SccLocalPath11 = ..\\login.msn2.net
 		SccProjectEnlistmentChoice11 = 2
+		SccWebProject12 = true
+		SccProjectUniqueName12 = http://localhost:1722
+		SccProjectName12 = ../WakeOnLan/Website
+		SccLocalPath12 = ..\\WakeOnLan\\Website
+		SccProjectEnlistmentChoice12 = 2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -430,6 +460,30 @@ Global
 		{4FC9A3EB-7C10-490D-9BC7-8B0FA4FD098E}.Release|Windows Phone.ActiveCfg = Debug|Any CPU
 		{4FC9A3EB-7C10-490D-9BC7-8B0FA4FD098E}.Release|x64.ActiveCfg = Debug|Any CPU
 		{4FC9A3EB-7C10-490D-9BC7-8B0FA4FD098E}.Release|x86.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|ARM.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|Mixed Platforms.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|Windows Phone.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|x64.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.NoPhone|x86.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|ARM.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Windows Phone.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|x64.ActiveCfg = Debug|Any CPU
+		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

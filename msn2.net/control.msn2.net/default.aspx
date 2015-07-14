@@ -7,14 +7,47 @@
     <title>msn2 home control</title>
     <link href="Styles.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" /> 
+    <style type="text/css">
+        A:link
+        {
+            text-decoration: none;
+            color: navy;
+        }
+
+        .headerLink A:link
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .headerLink A:visited
+        {
+            text-decoration: none;
+            color: white;
+        }
+
+        .subheader
+        {
+            font-size: x-small;
+            padding-top: 4px;
+            margin-bottom: -2px;
+        }
+
+        .topsubheader
+        {
+            font-size: x-small;
+            margin-bottom: -2px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" style="height: 100%">
-    <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
-        <a href="/">HOME</a> | 
-        <a href="http://login.msn2.net/logout.aspx?r=http://control.msn2.net">SIGN OUT</a>
-    </asp:Panel>
-    <table style="width: 100%">
+   <div style="background: black; color: white; padding: 6px; font-weight: bold" class="headerLink">
+        <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
+	    <a href="http://ts.msn2.net/">TS</a>
+        <br />
+    </div>
+     <table style="width: 100%">
         <tr>
             <td class="mainItem">garage</td>
             <td rowspan="2"><asp:Button runat="server" ID="toggleGarage" Text="toggle" OnClick="toggleGarage_Click" /></td>
