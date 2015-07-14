@@ -95,17 +95,23 @@ namespace HomeServices
 
             Debug.WriteLine("Requesting " + webRequest.RequestUri);
             HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-            byte[] responseBytes = new byte[response.ContentLength];
+            byte[] responseBytes = new byte[256];
+            int position = 0;
+            string responseString = string.Empty;
             using (Stream stream = response.GetResponseStream())
             {
-                stream.Read(responseBytes, 0, (int)response.ContentLength);
+                int readBytes = stream.Read(responseBytes, position, responseBytes.Length);
+                while (readBytes > 0)
+                {
+                    responseString = responseString + Encoding.UTF8.GetString(responseBytes, 0, readBytes);
+                    responseBytes = new byte[256];
+                    readBytes = stream.Read(responseBytes, position, responseBytes.Length);
+                }
             }
 
-            string responseString = Encoding.UTF8.GetString(responseBytes);
             Debug.WriteLine(response.StatusCode + " - " + responseString);
 
             return responseString;
         }
-
     }
 }

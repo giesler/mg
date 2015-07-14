@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,13 +12,14 @@ public partial class control : System.Web.UI.Page
     const string MediaRoomSideLightsAddress = "58666";
     const string GarageSwitchAddress = "28 CA 15 2";
     const string GarageSensorAddress = "28 CA 15 1";
+    const string GardenDripName = "Garden drip";
 
     protected void Page_Load(object sender, EventArgs e)
     {
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie == null || cookie.Value != "1")
         {
-            Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
+   //         Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
         }
 
         if (!Page.IsPostBack)
@@ -34,6 +36,13 @@ public partial class control : System.Web.UI.Page
 
             var upstairs = groups.FirstOrDefault(g => g.Address == UpstairHallwayAddress);
             this.upstairsHallStatus.Text = upstairs != null ? upstairs.Status : "unkown status";            
+
+            DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
+            var status = dc.GetDeviceStatus(GardenDripName);
+            
+            this.dripToggleOn.Enabled = !status.IsOn;
+            this.dripToggleOff.Enabled = status.IsOn;
+            this.dripStatus.Text = status.StatusText;
         }
     }
 
@@ -70,5 +79,23 @@ public partial class control : System.Web.UI.Page
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(UpstairHallwayAddress);
         Response.Redirect(Request.Url.ToString(), true);
+    }
+
+    protected void dripToggleOn_Click(object sender, EventArgs e)
+    {
+        DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
+        dc.TurnOn(GardenDripName, TimeSpan.FromMinutes(15));
+        
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+        Response.Redirect(Request.Url.ToString());
+    }
+
+    protected void dripToggleOff_Click(object sender, EventArgs e)
+    {
+        DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
+        dc.TurnOff(GardenDripName);
+
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+        Response.Redirect(Request.Url.ToString());
     }
 }

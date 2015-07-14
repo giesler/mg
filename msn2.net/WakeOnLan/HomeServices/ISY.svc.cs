@@ -39,7 +39,14 @@ namespace HomeServices
                     string val = prop.Attribute("formatted").Value.Trim();
                     if (val.Length > 0 && val.ToLower() != "off")
                     {
-                        newNode.Level = int.Parse(val);
+                        if (val == "On")
+                        {
+                            newNode.Level = 100;
+                        }
+                        else
+                        {
+                            newNode.Level = int.Parse(val);
+                        }
                         newNode.IsOn = newNode.Level > 0;
                         newNode.Status = string.Format("on @ {0}%", newNode.Level);
                     }

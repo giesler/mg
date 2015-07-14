@@ -43,6 +43,17 @@
             <td><asp:Label runat="server" ID="upstairsHallStatus" CssClass="smallNote" /></td>
         </tr>
 
+        <tr style="border-top: solid 2px silver">
+            <td class="mainItem">garden drip</td>
+            <td rowspan="2">
+                <asp:Button runat="server" ID="dripToggleOn" Text=" on " OnClick="dripToggleOn_Click" Enabled="false" /> 
+                <asp:Button runat="server" ID="dripToggleOff" Text=" off " OnClick="dripToggleOff_Click" Enabled="false" />
+            </td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="dripStatus" CssClass="smallNote" /></td>
+        </tr>
+
     </table>
     </form>
 </body>
