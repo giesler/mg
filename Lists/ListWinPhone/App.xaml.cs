@@ -20,6 +20,7 @@ using giesler.org.lists.ListData;
 using System.IO;
 using System.Xml.Linq;
 using Windows.Phone.Speech.VoiceCommands;
+using Microsoft.Phone.Tasks;
 
 namespace giesler.org.lists
 {
@@ -130,6 +131,14 @@ namespace giesler.org.lists
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+
+            MessageBox.Show("An unexpected error occurred.  Send me the details in the email that opens next.", "ListGo Error", MessageBoxButton.OK);
+            
+            EmailComposeTask mailTask = new EmailComposeTask();
+            mailTask.To = "mike@giesler.org";
+            mailTask.Subject = string.Format("ListGo Unhandled Error: {0}: {1}", e.ExceptionObject.GetType().Name, e.ExceptionObject.Message);
+            mailTask.Body = e.ExceptionObject.ToString();
+            mailTask.Show();
         }
 
         #region Phone application initialization
