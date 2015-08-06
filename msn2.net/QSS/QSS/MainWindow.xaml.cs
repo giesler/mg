@@ -28,7 +28,7 @@ namespace QSS
 
         Timer timer = null;
         bool showInfo = false;
-        int interval = 6;
+        int interval = 4;
         Point? lastMousePoint = null;
         bool randomMode = true;
         bool paused = false;

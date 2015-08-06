@@ -7,12 +7,12 @@
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden" x:Name="grid">
         <Grid.Resources>
             <Storyboard x:Key="itemFadeTo1" x:Name="itemFadeTo1" BeginTime="0">
-                <DoubleAnimation Storyboard.TargetName="item1" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.3" BeginTime="0:0:0.0" />
-                <DoubleAnimation Storyboard.TargetName="item2" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.3" BeginTime="0:0:0.0" />
+                <DoubleAnimation Storyboard.TargetName="item1" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:5" BeginTime="0:0:0.0" />
+                <DoubleAnimation Storyboard.TargetName="item2" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:5" BeginTime="0:0:0.0" />
             </Storyboard>
             <Storyboard x:Key="itemFadeTo2" x:Name="itemFadeTo2" BeginTime="0">
-                <DoubleAnimation Storyboard.TargetName="item2" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.3" BeginTime="0:0:0.0" />
-                <DoubleAnimation Storyboard.TargetName="item1" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.3" BeginTime="0:0:0.0" />
+                <DoubleAnimation Storyboard.TargetName="item2" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:5" BeginTime="0:0:0.0" />
+                <DoubleAnimation Storyboard.TargetName="item1" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:5" BeginTime="0:0:0.0" />
             </Storyboard>
         </Grid.Resources>
         <Grid.RowDefinitions>
