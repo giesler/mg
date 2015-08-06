@@ -105,7 +105,7 @@ namespace msn2.net.Pictures.Controls
 
                     Trace.WriteLine("Loading " + loadSize.ToString() + " for " + picture.Id.ToString());
 
-                    string baseUri = "http://svc.msn2.net/picsws/getimage.axd?p={0}&mw={1}&mh={2}&sb=0";
+                    string baseUri = "http://pics.msn2.net/getimage.axd?p={0}&mw={1}&mh={2}&sb=0";
                     string path = null;
                     if (loadSize == ImageLoadSize.Small)
                     {

@@ -10,7 +10,7 @@ using System.IO;
 
 namespace msn2.net.Pictures
 {
-    public class GetImageHttpHandler : IHttpHandler
+    public class GetImageHttpHandler : IHttpHandler, IHttpModule
     {
         #region IHttpHandler Members
 
@@ -47,6 +47,11 @@ namespace msn2.net.Pictures
             if (context.Request.QueryString["sh"] != null)
             {
                 sizeHeight = int.Parse(context.Request.QueryString["sh"]);
+            }
+
+            if (PicContext.Current == null)
+            {
+                PicContext.Load(PictureConfig.Load(), 1);
             }
 
             Picture picture = PicHttpContext.Current.PictureManager.GetPicture(pictureId);
@@ -131,5 +136,15 @@ namespace msn2.net.Pictures
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Init(HttpApplication context)
+        {
+            ProcessRequest(context.Context);
+        }
     }
 }
