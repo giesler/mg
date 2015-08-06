@@ -41,8 +41,8 @@ namespace HomeCalendarView
             base.OnInit(e);
 
             LocationData kirkland = new LocationData { Name = "KIRKLAND" };
-            kirkland.Lattitude = 47.67881M;
-            kirkland.Longitude = -122.20724M;
+            kirkland.Lattitude = 47.680210M;
+            kirkland.Longitude = -122.172225M;
             kirkland.NoaaCurrentConditionsLocation = "KSEA";
             kirkland.NoaaCurrentAlertsLocation = "WAZ555";
             kirkland.CurrentConditionsUrl = "http://www.nws.noaa.gov/data/current_obs/KSEA.xml";
