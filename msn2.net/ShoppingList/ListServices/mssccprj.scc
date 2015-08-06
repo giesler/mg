@@ -1,5 +1,0 @@
-SCC = This is a Source Code Control file
-
-[ListServices.csproj]
-SCC_Aux_Path = "\\chef\vss"
-SCC_Project_Name = "$/msn2.net/ShoppingList/ShoppingList/ShoppingList/ListServices", PBSAAAAA
