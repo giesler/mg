@@ -1,6 +1,7 @@
 using System;
 using Microsoft.SPOT;
 using Gsiot.Server;
+using System.Collections;
 
 namespace DripDuino
 {
@@ -23,6 +24,10 @@ namespace DripDuino
                     if (Dripper.IsOn)
                     {
                         response += " until " + Dripper.OffTime.ToString("h:mm");
+                    }
+                    else
+                    {
+                        response += "; " + GetHistoryString();
                     }
                     context.SetResponse(response, "text/plain");
                 });
@@ -79,6 +84,10 @@ namespace DripDuino
                     statusText += " " + duration.Seconds + " seconds";
                 }
             }
+            else
+            {
+                statusText = "<br /><br />" + GetHistoryString();
+            }
 
             statusText += "<br /><font size=\"smallest\">" + DateTime.Now.ToString("M/d/yy h:mm");
             statusText += "<br /><hr noshade />LOG<br />";
@@ -110,6 +119,78 @@ namespace DripDuino
             }
 
             return statusText;
+        }
+
+        static string GetHistoryString()
+        {
+            string log = string.Empty;
+            for (int i = 0; i < 2; i++)
+            {
+                log += Log.GetLog(DateTime.Now.AddDays(-1 * i));
+            }
+            string[] entries = log.Split(new char[] { '\r', '\n' });
+            ArrayList list = new ArrayList();
+            foreach (string entry in entries)
+            {
+                if (entry != null && entry.Length > 0)
+                {
+                    list.Add(entry);
+                }
+            }
+            int startIndex = 0;
+            if (entries[0].IndexOf("Turned off") >= 0)
+            {
+                startIndex = 1;
+            }
+            int today = 0, yesterday = 0;
+            entries = (string[]) list.ToArray(typeof(string));
+
+            for (int i = startIndex; i < entries.Length - 1; i++)
+            {
+                string timestampString = entries[i].Substring(0, entries[i].IndexOf(": "));
+                DateTime timeStamp = DateTimeParse(timestampString);
+
+                string nextTimestampString = entries[i + 1].Substring(0, entries[i + 1].IndexOf(": "));
+                DateTime nextTimeStamp = DateTimeParse(nextTimestampString);
+
+                if (nextTimeStamp.Date == DateTime.Now.Date)
+                {
+                    today += (nextTimeStamp - timeStamp).Minutes;
+                }
+                else if (nextTimeStamp.Date == DateTime.Now.Date.AddDays(-1))
+                {
+                    yesterday += (nextTimeStamp - timeStamp).Minutes;
+                }
+                else
+                {
+                    break;
+                }
+
+                i++;
+            }
+
+            string history = "On today " + today.ToString() + " mins, yesterday " + yesterday.ToString() + " mins";
+            return history;
+        }
+
+        static DateTime DateTimeParse(string dt)
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                     
+            string month = dt.Substring(0, dt.IndexOf("/"));
+            dt = dt.Substring(dt.IndexOf("/") + 1);
+            string day = dt.Substring(0, dt.IndexOf("/"));
+            dt = dt.Substring(dt.IndexOf("/") + 1);
+            string year = "20" + dt.Substring(0, dt.IndexOf(" "));
+            dt = dt.Substring(dt.IndexOf(" ") + 1);
+            string hour = dt.Substring(0, dt.IndexOf(":"));
+            dt = dt.Substring(dt.IndexOf(":") + 1);
+            string minute = dt.Substring(0, dt.IndexOf(" "));
+            dt = dt.Substring(dt.IndexOf(" ") + 1);
+            string ampm = dt.Substring(0, 2);
+            if (ampm.ToLower() == "pm")
+            {
+                hour = (int.Parse(hour) + 12).ToString();
+            }
+            return new DateTime(int.Parse(year), int.Parse(month), int.Parse(day), int.Parse(hour), int.Parse(minute), 0);
         }
 
         static string HtmlDoc(string title, string contents)
