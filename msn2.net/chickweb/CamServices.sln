@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -126,60 +126,6 @@ Global
 		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{46a741de-79ab-48f5-9016-f651d78b4a1b}*SharedItemsImports = 4
 		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{44e3263d-ba0c-48e1-a12b-2bf9fc63b4e7}*SharedItemsImports = 13
 		..\HomeControlApp\HomeControlApp.Shared\HomeControlApp.Shared.projitems*{550d5970-560c-40d0-b717-e397d10e69ed}*SharedItemsImports = 4
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccWebProject1 = true
-		SccProjectUniqueName1 = ..\\cams
-		SccProjectName1 = ../cams
-		SccLocalPath1 = ..\\cams
-		SccProjectEnlistmentChoice1 = 2
-		SccProjectUniqueName2 = CamLib\\CamLib.csproj
-		SccProjectName2 = CamLib
-		SccLocalPath2 = CamLib
-		SccProjectUniqueName3 = CamAlertService\\CamAlertService.csproj
-		SccProjectName3 = CamAlertService
-		SccLocalPath3 = CamAlertService
-		SccProjectUniqueName4 = ..\\Common\\Common.csproj
-		SccProjectName4 = ../Common
-		SccLocalPath4 = ..\\Common
-		SccProjectUniqueName5 = ..\\WakeOnLan\\HomeServices\\HomeServices.csproj
-		SccProjectName5 = ../WakeOnLan/HomeServices
-		SccLocalPath5 = ..\\WakeOnLan\\HomeServices
-		SccProjectUniqueName6 = ..\\HomeControlApp\\HomeControlApp.Shared\\HomeControlApp.Shared.shproj
-		SccProjectTopLevelParentUniqueName6 = CamServices.sln
-		SccProjectName6 = ../HomeControlApp/HomeControlApp.Shared
-		SccLocalPath6 = ..\\HomeControlApp\\HomeControlApp.Shared
-		SccProjectUniqueName7 = ..\\HomeControlApp\\HomeControlApp.Shared\\HomeControlApp.Shared.projitems
-		SccProjectTopLevelParentUniqueName7 = CamServices.sln
-		SccProjectName7 = ../HomeControlApp/HomeControlApp.Shared
-		SccLocalPath7 = ..\\HomeControlApp\\HomeControlApp.Shared
-		SccProjectUniqueName8 = ..\\HomeControlApp\\HomeControlApp.Windows\\HomeControlApp.Windows.csproj
-		SccProjectTopLevelParentUniqueName8 = CamServices.sln
-		SccProjectName8 = ../HomeControlApp/HomeControlApp.Windows
-		SccLocalPath8 = ..\\HomeControlApp\\HomeControlApp.Windows
-		SccProjectUniqueName9 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone\\HomeControlApp.WindowsPhone.csproj
-		SccProjectTopLevelParentUniqueName9 = CamServices.sln
-		SccProjectName9 = ../HomeControlApp/HomeControlApp.WindowsPhone
-		SccLocalPath9 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone
-		SccWebProject10 = true
-		SccProjectUniqueName10 = http://localhost:3340
-		SccProjectName10 = ../control.msn2.net
-		SccLocalPath10 = ..\\control.msn2.net
-		SccProjectEnlistmentChoice10 = 2
-		SccWebProject11 = true
-		SccProjectUniqueName11 = http://localhost:33326
-		SccProjectName11 = ../login.msn2.net
-		SccLocalPath11 = ..\\login.msn2.net
-		SccProjectEnlistmentChoice11 = 2
-		SccWebProject12 = true
-		SccProjectUniqueName12 = http://localhost:1722
-		SccProjectName12 = ../WakeOnLan/Website
-		SccLocalPath12 = ..\\WakeOnLan\\Website
-		SccProjectEnlistmentChoice12 = 2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -492,5 +438,55 @@ Global
 		{44E3263D-BA0C-48E1-A12B-2BF9FC63B4E7} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
 		{46A741DE-79AB-48F5-9016-F651D78B4A1B} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
 		{550D5970-560C-40D0-B717-E397D10E69ED} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 12
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ..\\cams
+		SccProjectName1 = ../cams
+		SccLocalPath1 = ..\\cams
+		SccProjectEnlistmentChoice1 = 2
+		SccProjectUniqueName2 = CamLib\\CamLib.csproj
+		SccProjectName2 = CamLib
+		SccLocalPath2 = CamLib
+		SccProjectUniqueName3 = CamAlertService\\CamAlertService.csproj
+		SccProjectName3 = CamAlertService
+		SccLocalPath3 = CamAlertService
+		SccProjectUniqueName4 = ..\\Common\\Common.csproj
+		SccProjectName4 = ../Common
+		SccLocalPath4 = ..\\Common
+		SccProjectUniqueName5 = ..\\WakeOnLan\\HomeServices\\HomeServices.csproj
+		SccProjectName5 = ../WakeOnLan/HomeServices
+		SccLocalPath5 = ..\\WakeOnLan\\HomeServices
+		SccWebProject6 = true
+		SccProjectUniqueName6 = http://localhost:3340
+		SccProjectName6 = ../control.msn2.net
+		SccLocalPath6 = ..\\control.msn2.net
+		SccProjectEnlistmentChoice6 = 2
+		SccWebProject7 = true
+		SccProjectUniqueName7 = http://localhost:33326
+		SccProjectName7 = ../login.msn2.net
+		SccLocalPath7 = ..\\login.msn2.net
+		SccProjectEnlistmentChoice7 = 2
+		SccWebProject8 = true
+		SccProjectUniqueName8 = http://localhost:1722
+		SccProjectName8 = ../WakeOnLan/Website
+		SccLocalPath8 = ..\\WakeOnLan\\Website
+		SccProjectEnlistmentChoice8 = 2
+		SccProjectUniqueName9 = ..\\HomeControlApp\\HomeControlApp.Shared\\HomeControlApp.Shared.shproj
+		SccProjectTopLevelParentUniqueName9 = CamServices.sln
+		SccProjectName9 = ../HomeControlApp/HomeControlApp.Shared
+		SccLocalPath9 = ..\\HomeControlApp\\HomeControlApp.Shared
+		SccProjectUniqueName10 = ..\\HomeControlApp\\HomeControlApp.Windows\\HomeControlApp.Windows.csproj
+		SccProjectTopLevelParentUniqueName10 = CamServices.sln
+		SccProjectName10 = ../HomeControlApp/HomeControlApp.Windows
+		SccLocalPath10 = ..\\HomeControlApp\\HomeControlApp.Windows
+		SccProjectUniqueName11 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone\\HomeControlApp.WindowsPhone.csproj
+		SccProjectTopLevelParentUniqueName11 = CamServices.sln
+		SccProjectName11 = ../HomeControlApp/HomeControlApp.WindowsPhone
+		SccLocalPath11 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone
 	EndGlobalSection
 EndGlobal

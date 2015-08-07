@@ -49,13 +49,21 @@
     </div>
      <table style="width: 100%">
         <tr>
-            <td class="mainItem">garage</td>
-            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage" Text="toggle" OnClick="toggleGarage_Click" /></td>
+            <td class="mainItem">garage 1</td>
+            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage1" Text="toggle" OnClick="toggleGarage1_Click" /></td>
         </tr>
         <tr>
-            <td><asp:Label runat="server" ID="garageStatus" CssClass="smallNote" /></td>
+            <td><asp:Label runat="server" ID="garage1Status" CssClass="smallNote" /></td>
         </tr>
                 
+        <tr style="border-top: solid 2px silver">
+            <td class="mainItem">garage 2</td>
+            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage2" Text="toggle" OnClick="toggleGarage2_Click" /></td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="garage2Status" CssClass="smallNote" /></td>
+        </tr>
+
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">media room</td>
             <td rowspan="2"><asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click"/> 

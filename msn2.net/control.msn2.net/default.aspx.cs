@@ -10,8 +10,10 @@ public partial class control : System.Web.UI.Page
 {
     const string UpstairHallwayAddress = "24060";
     const string MediaRoomSideLightsAddress = "58666";
-    const string GarageSwitchAddress = "28 CA 15 2";
-    const string GarageSensorAddress = "28 CA 15 1";
+    const string Garage1SwitchAddress = "28 CA 15 2";
+    const string Garage1SensorAddress = "28 CA 15 1";
+    const string Garage2SwitchAddress = "34 88 F9 2";
+    const string Garage2SensorAddress = "34 88 F9 1";
     const string GardenDripName = "Garden drip";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -28,8 +30,11 @@ public partial class control : System.Web.UI.Page
             List<IsyData.GroupData> groups = isy.GetGroups().ToList();
 
             // first group contains all ISY nodes
-            var garage = groups.First().Nodes.FirstOrDefault(g => g.Address == GarageSensorAddress);
-            this.garageStatus.Text = garage.Status;
+            var garage1 = groups.First().Nodes.FirstOrDefault(g => g.Address == Garage1SensorAddress);
+            this.garage1Status.Text = garage1.Status;
+
+            var garage2 = groups.First().Nodes.FirstOrDefault(g => g.Address == Garage2SensorAddress);
+            this.garage2Status.Text = garage2.Status;
 
             var mc = groups.FirstOrDefault(g => g.Address == MediaRoomSideLightsAddress);
             this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
@@ -46,10 +51,16 @@ public partial class control : System.Web.UI.Page
         }
     }
 
-    protected void toggleGarage_Click(object sender, EventArgs e)
+    protected void toggleGarage1_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
-        client.TurnOn(GarageSwitchAddress);
+        client.TurnOn(Garage1SwitchAddress);
+        Response.Redirect(Request.Url.ToString(), true);
+    }
+    protected void toggleGarage2_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOn(Garage2SwitchAddress);
         Response.Redirect(Request.Url.ToString(), true);
     }
 
