@@ -27,25 +27,28 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,121,0,0" TextWrapping="Wrap" Text="garage" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <TextBlock x:Name="garageStatus" HorizontalAlignment="Left" Margin="19,174,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <Button x:Name="toggleGarage" Content="toggle" HorizontalAlignment="Left" Margin="260,121,0,0" VerticalAlignment="Top" Width="186" Click="toggleGarage_Click"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,224,0,0" TextWrapping="Wrap" Text="media room" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,102,0,0" TextWrapping="Wrap" Text="garage 1" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock x:Name="garage1Status" HorizontalAlignment="Left" Margin="19,155,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <Button x:Name="toggleGarage1" Content="toggle" HorizontalAlignment="Left" Margin="260,96,0,0" VerticalAlignment="Top" Width="186" Click="toggleGarage1_Click"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,195,0,0" TextWrapping="Wrap" Text="garage 2" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock x:Name="garage2Status" HorizontalAlignment="Left" Margin="19,248,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <Button x:Name="toggleGarage2" Content="toggle" HorizontalAlignment="Left" Margin="260,189,0,0" VerticalAlignment="Top" Width="186" Click="toggleGarage2_Click"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="17,295,0,0" TextWrapping="Wrap" Text="media room" VerticalAlignment="Top" Width="236" FontSize="36"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,166,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
-            <Button x:Name="mediaRoomOff" Content="off" HorizontalAlignment="Left" Margin="348,224,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOff_Click"/>
-            <Button x:Name="mediaRoomOn" Content="on" HorizontalAlignment="Left" Margin="260,224,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOn_Click"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,327,0,0" TextWrapping="Wrap" Text="upstairs hall" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <Button x:Name="mediaRoomOff" Content="off" HorizontalAlignment="Left" Margin="348,289,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOff_Click"/>
+            <Button x:Name="mediaRoomOn" Content="on" HorizontalAlignment="Left" Margin="260,289,0,0" VerticalAlignment="Top" Width="98" Click="mediaRoomOn_Click"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="17,387,0,0" TextWrapping="Wrap" Text="upstairs hall" VerticalAlignment="Top" Width="238" FontSize="36"/>
             <TextBlock HorizontalAlignment="Left" Margin="17,269,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
-            <Button x:Name="upstairHallOff" Content="off" HorizontalAlignment="Left" Margin="348,327,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOff_Click"/>
-            <Button x:Name="upstairHallOn" Content="on" HorizontalAlignment="Left" Margin="260,327,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOn_Click"/>
-            <TextBlock x:Name="mediaRoomStatus" HorizontalAlignment="Left" Margin="19,282,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="19,385,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,20,0,0" TextWrapping="Wrap" Text="coop" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <TextBlock x:Name="coopStatus" HorizontalAlignment="Left" Margin="19,73,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,433,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,433,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOff_Click"/>
-            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,433,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOn_Click"/>
-            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="19,491,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <Button x:Name="upstairHallOff" Content="off" HorizontalAlignment="Left" Margin="348,381,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOff_Click"/>
+            <Button x:Name="upstairHallOn" Content="on" HorizontalAlignment="Left" Margin="260,381,0,0" VerticalAlignment="Top" Width="98" Click="upstairHallOn_Click" RenderTransformOrigin="0.421,0.08"/>
+            <TextBlock x:Name="mediaRoomStatus" HorizontalAlignment="Left" Margin="17,347,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="17,440,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,1,0,0" TextWrapping="Wrap" Text="coop" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <TextBlock x:Name="coopStatus" HorizontalAlignment="Left" Margin="19,54,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,484,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"/>
+            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOff_Click"/>
+            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOn_Click" RenderTransformOrigin="0.554,0.524"/>
+            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="17,536,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
 
         </Grid>
 

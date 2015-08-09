@@ -18,8 +18,10 @@ namespace HomeControl81
 
         const string UpstairHallwayAddress = "24060";
         const string MediaRoomSideLightsAddress = "58666";
-        const string GarageSwitchAddress = "28 CA 15 2";
-        const string GarageSensorAddress = "28 CA 15 1";
+        const string Garage1SwitchAddress = "28 CA 15 2";
+        const string Garage1SensorAddress = "28 CA 15 1";
+        const string Garage2SwitchAddress = "34 88 F9 2";
+        const string Garage2SensorAddress = "34 88 F9 1";
         const string CoopDoorAddress = "32 49 A5 1";
 
         DispatcherTimer updateTimer;
@@ -85,15 +87,15 @@ namespace HomeControl81
             IsyData.ISYClient isy = new IsyData.ISYClient();
             if (isLocal)
             {
-                isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://192.168.1.25:8808/isy.svc");
+                isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://iis.sp.msn2.net:8808/isy.svc");
             }
             isy.GetGroupsCompleted += isy_GetNodeCompleted;
-            isy.GetGroupsAsync(GarageSensorAddress);
+            isy.GetGroupsAsync(Garage1SensorAddress);
 
             DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
             if (isLocal)
             {
-                dev = new DeviceControl.DeviceControlClient("BasicHttpBinding_IDeviceControl", "http://192.168.1.25:8808/DeviceControl.svc");
+                dev = new DeviceControl.DeviceControlClient("BasicHttpBinding_IDeviceControl", "http://iis.sp.msn2.net:8808/DeviceControl.svc");
             }
             dev.GetDeviceStatusCompleted += dev_GetDeviceStatusCompleted;
             dev.GetDeviceStatusAsync("Garden Drip");
@@ -106,7 +108,7 @@ namespace HomeControl81
                 }
                 else
                 {
-                    updateTimer.Interval = TimeSpan.FromSeconds(5);
+                    updateTimer.Interval = TimeSpan.FromSeconds(10);
                 }
             });
         }
@@ -120,6 +122,10 @@ namespace HomeControl81
                     if (e.Error == null)
                     {
                         this.gardenDripStatus.Text = e.Result.StatusText;
+                        if (e.Result.StatusText.IndexOf(";") > 0)
+                        {
+                            this.gardenDripStatus.Text = e.Result.StatusText.Substring(e.Result.StatusText.IndexOf(";") + 1).Trim();
+                        }
                         this.gardenDripOff.IsEnabled = e.Result.IsOn;
                         this.gardenDripOn.IsEnabled = !e.Result.IsOn;
                     }
@@ -144,14 +150,16 @@ namespace HomeControl81
                         List<IsyData.GroupData> groups = e.Result.ToList();
 
                         coopStatus.Text = GetStatus(groups, CoopDoorAddress);
-                        garageStatus.Text = GetStatus(groups, GarageSensorAddress);
+                        garage1Status.Text = GetStatus(groups, Garage1SensorAddress);
+                        garage2Status.Text = GetStatus(groups, Garage2SensorAddress);
                         mediaRoomStatus.Text = GetStatus(groups, MediaRoomSideLightsAddress);
                         upstairsHallStatus.Text = GetStatus(groups, UpstairHallwayAddress);
                     }
                     else
                     {
                         coopStatus.Text = "error";
-                        garageStatus.Text = "error";
+                        garage1Status.Text = "error";
+                        garage2Status.Text = "error";
                         mediaRoomStatus.Text = "error";
                         upstairsHallStatus.Text = "error";
                     }
@@ -235,32 +243,61 @@ namespace HomeControl81
             });
         }
 
-        private void toggleGarage_Click(object sender, RoutedEventArgs e)
+        private void toggleGarage1_Click(object sender, RoutedEventArgs e)
         {
             IsyData.ISYClient isy = new IsyData.ISYClient();
-            toggleGarage.IsEnabled = false;
-            isy.TurnOnCompleted += toggleGarage_TurnOnCompleted;
-            isy.TurnOnAsync(GarageSwitchAddress);
+            toggleGarage1.IsEnabled = false;
+            isy.TurnOnCompleted += toggleGarage1_TurnOnCompleted;
+            isy.TurnOnAsync(Garage1SwitchAddress);
             this.lastChange = DateTime.Now;
-            garageStatus.Text = "sending";
+            garage1Status.Text = "sending";
         }
 
-        void toggleGarage_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
+        void toggleGarage1_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
         {
             Dispatcher.BeginInvoke(() =>
             {
-                toggleGarage.IsEnabled = true;
+                toggleGarage1.IsEnabled = true;
                 if (e.Error != null)
                 {
                     MessageBox.Show(e.Error.Message);
-                    garageStatus.Text = "error";
+                    garage1Status.Text = "error";
                 }
                 else
                 {
-                    garageStatus.Text = e.Result.Status;
+                    garage1Status.Text = e.Result.Status;
                 }
 
                 this.lastToggle = DateTime.Now;                
+            });
+        }
+
+        private void toggleGarage2_Click(object sender, RoutedEventArgs e)
+        {
+            IsyData.ISYClient isy = new IsyData.ISYClient();
+            toggleGarage2.IsEnabled = false;
+            isy.TurnOnCompleted += toggleGarage2_TurnOnCompleted;
+            isy.TurnOnAsync(Garage2SwitchAddress);
+            this.lastChange = DateTime.Now;
+            garage2Status.Text = "sending";
+        }
+
+        void toggleGarage2_TurnOnCompleted(object sender, IsyData.TurnOnCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                toggleGarage2.IsEnabled = true;
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                    garage2Status.Text = "error";
+                }
+                else
+                {
+                    garage2Status.Text = e.Result.Status;
+                }
+
+                this.lastToggle = DateTime.Now;
             });
         }
 
