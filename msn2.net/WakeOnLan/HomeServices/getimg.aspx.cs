@@ -26,36 +26,36 @@ namespace HomeServices
                 cam = Request.QueryString["c"];
             }
 
-            string address = string.Format("http://randy.sp.msn2.net:5050{0}/webcam/jpg", cam);
+            string address = "http://invalid/";
             bool rotate = true;
 
             if (cam == "1")
             {
-                address = "http://cams.sp.msn2.net/image/cc1";
+                address = "http://mc:81/image/cc1";
             }
             else if (cam == "2")
             {
-                address = "http://randy.sp.msn2.net/image/cc2";
+                address = "http://mc:81/image/cc2";
             }
             else if (cam == "3")
             {
                 rotate = false;
-                address = "http://cams.sp.msn2.net/image/cc3";
+                address = "http://mc:81/image/cc3";
             }
             else if (cam == "dw1")
             {
                 rotate = false;
-                address = "http://cams.sp.msn2.net/image/dw1";
+                address = "http://mc:81/image/dw1";
             }
             else if (cam.ToLower() == "front")
             {
                 rotate = false;
-                address = "http://cams.sp.msn2.net/image/Front";
+                address = "http://mc:81/image/Front";
             }
             else if (cam.ToLower() == "side")
             {
                 rotate = false;
-                address = "http://cams.sp.msn2.net/image/Side";
+                address = "http://mc:81/image/Side";
             }
 
             if (Request.QueryString["r"] == "1")
