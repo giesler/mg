@@ -53,7 +53,8 @@ public partial class control : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                this.dripStatus.Text = "error: " + ex.Message;
+                this.dripStatus.Text = "error: " + ex.GetType().Name;
+                this.dripStatus.ToolTip = ex.Message;
             }
         }
     }
