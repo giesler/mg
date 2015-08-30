@@ -25,6 +25,7 @@
     <SccProvider>SAK</SccProvider>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,6 +70,7 @@
   <ItemGroup>
     <Content Include="DeviceControl.svc" />
     <Content Include="DevicePower.svc" />
+    <None Include="Properties\PublishProfiles\mc.pubxml" />
     <None Include="Service References\CamData\camdata.disco" />
     <None Include="Service References\CamData\configuration91.svcinfo" />
     <None Include="Service References\CamData\configuration.svcinfo" />

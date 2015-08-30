@@ -13,7 +13,7 @@ namespace HomeServices
     {
         public static XDocument GetResponse(string urlSuffix)
         {            
-            string url = string.Format("{0}{1}", "http://isy.sp.msn2.net", urlSuffix);
+            string url = string.Format("{0}{1}", "http://192.168.1.55", urlSuffix);
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = WebRequestMethods.Http.Get;
             req.Credentials = new NetworkCredential("admin", "admin");
