@@ -23,10 +23,11 @@ namespace msn2.net.Pictures
         public static PictureConfig Load()
 		{
 			PictureConfig config;
-            config.ConnectionString = "data source=.;initial catalog=picdb;User ID=picuser;Password=89203adlkE;persist security info=False";
-            config.PictureDirectory = @"c:\pics.msn2.net\";
+//            config.ConnectionString = "Server=tcp:mgaz.cloudapp.net:1433;Database=picdb;User Id=picdbuser;Password=diLSDIels8l#298s;persist security info=False";
+            config.ConnectionString = "data source=localhost;initial catalog=picdb;Integrated Security=SSPI;persist security info=False";
+            config.PictureDirectory = @"\\ned\Pictures\pics.msn2.net\";
             config.SmtpServer		= "mail.sp.msn2.net";
-            config.CacheDirectory = @"c:\inetpub\pics.msn2.net\picCache\";
+            config.CacheDirectory = @"\\ned\picCache\";
             return config;
 		}
 	}

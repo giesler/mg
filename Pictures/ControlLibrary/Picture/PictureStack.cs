@@ -105,18 +105,18 @@ namespace msn2.net.Pictures.Controls
                 item.Width = itemWidth;
                 item.Height = itemHeight;
 
-                item.BringToFront();
+   //             item.BringToFront();
                 itemCount++;
             }
 
             // Hide remaining images
-            for (int pictureNumber = 0; pictureNumber < pictures.Count - pictureCount; pictureNumber++)
+/*            for (int pictureNumber = 0; pictureNumber < pictures.Count - pictureCount; pictureNumber++)
             {
                 Trace.WriteLine(string.Format("Hiding image {0}, picture ID {1}", pictureNumber, pictures[pictureNumber].PictureId));
                 this.pictures[pictureNumber].Visible = false;
                 this.pictures[pictureNumber].SendToBack();
             }
-
+            */
             this.ResumeLayout();
 
             this.Refresh();

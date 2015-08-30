@@ -180,10 +180,10 @@ namespace msn2.net.Pictures.Controls
 
                     if (loadedImage == null)
                     {
-                        if (loadSize == ImageLoadSize.Small)
+                       // if (loadSize == ImageLoadSize.Small)
                         {
                             loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 125, 125);
-                        }
+                        }/*
                         else if (loadSize == ImageLoadSize.Medium)
                         {
                             loadedImage = PicContext.Current.PictureManager.GetPictureImage(picture, 750, 700);
@@ -192,7 +192,7 @@ namespace msn2.net.Pictures.Controls
                         {
                             string file = Path.Combine(PicContext.Current.Config.PictureDirectory, this.picture.Filename);
                             loadedImage = Image.FromFile(file);
-                        }
+                        }*/
                     }
 
                     if (this.loadingPictureId == picture.Id)

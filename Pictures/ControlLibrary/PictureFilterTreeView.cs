@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Linq;
 using System.Diagnostics;
+using System.IO;
 
 namespace msn2.net.Pictures.Controls
 {
@@ -56,6 +57,8 @@ namespace msn2.net.Pictures.Controls
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Delete", new EventHandler(OnCategoryDelete)));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("-"));
                 this.categoryContextMenu.MenuItems.Add(new MenuItem("&Refresh", OnCategoryRefresh));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("-"));
+                this.categoryContextMenu.MenuItems.Add(new MenuItem("E&xport", OnCategoryExport));
 
                 this.categoryNode.ContextMenu = new ContextMenu();
                 this.categoryNode.ContextMenu.MenuItems.Add(new MenuItem("&Add", new EventHandler(OnCategoryAdd)));
@@ -300,6 +303,34 @@ namespace msn2.net.Pictures.Controls
         void OnCategoryRefresh(object sender, EventArgs e)
         {
             this.ReloadCategories();
+        }
+
+        void OnCategoryExport(object sender, EventArgs e)
+        {
+            CategoryTreeNode node = this.SelectedNode as CategoryTreeNode;
+            if (node != null)
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.ShowNewFolderButton = true;
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    List<Picture> pics = PicContext.Current.PictureManager.GetPicturesByCategoryPath(node.Category.Path);
+                    fStatus status = new fStatus(this.FindForm(), "Exporting...", pics.Count);
+                    status.Show();
+
+                    foreach (Picture pic in pics)
+                    {
+                        string path = Path.Combine(PicContext.Current.Config.PictureDirectory, pic.Filename);
+                        string dest = Path.Combine(dialog.SelectedPath, pic.Id.ToString() + ".jpg");
+                        File.Copy(path, dest, true);
+
+                        status.Current++;
+                    }
+
+                    status.Close();
+                }
+            }
         }
 
         void OnCategoryDelete(object sender, EventArgs e)

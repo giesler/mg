@@ -287,6 +287,19 @@ namespace msn2.net.Pictures
             return q.Distinct().OrderBy(d => d.PictureDate).ToList();
         }
 
+        public List<Picture> GetPicturesByCategoryPath(string categoryPath)
+        {
+            var q = from p in this.picContext.DataContext.Pictures
+                    join pc in this.picContext.DataContext.PictureCategories on p.PictureID equals pc.PictureID
+                    join pg in this.picContext.DataContext.PictureGroups on p.PictureID equals pg.PictureID
+                    join per in this.picContext.DataContext.PersonGroups on pg.GroupID equals per.GroupID
+                    where pc.Category.Path.StartsWith(categoryPath) && per.PersonID == this.picContext.CurrentUser.Id
+                    orderby p.PictureDate
+                    select p;
+
+            return q.Distinct().OrderBy(d => d.PictureDate).ToList();
+        }
+
         public List<Picture> GetPicturesByDate(DateTime fromTime, DateTime toTime)
         {
             var q = from p in this.picContext.DataContext.Pictures

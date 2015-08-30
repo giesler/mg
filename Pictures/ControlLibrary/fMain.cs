@@ -105,6 +105,9 @@ namespace msn2.net.Pictures.Controls
         private MenuItem menuItem11;
         bool loading = true;
         private fStatus statusDialog = new fStatus();
+        private MenuItem menuItem12;
+        List<Picture> allPictures = null;
+
         #endregion
 
         #region Constructor
@@ -298,6 +301,7 @@ namespace msn2.net.Pictures.Controls
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.menuItem9 = new System.Windows.Forms.MenuItem();
             this.menuItem10 = new System.Windows.Forms.MenuItem();
+            this.menuItem12 = new System.Windows.Forms.MenuItem();
             this.menuItem11 = new System.Windows.Forms.MenuItem();
             this.menuFileExit = new System.Windows.Forms.MenuItem();
             this.statusBar1 = new System.Windows.Forms.StatusBar();
@@ -331,7 +335,6 @@ namespace msn2.net.Pictures.Controls
             this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rightListContainer)).BeginInit();
-            this.rightListContainer.Panel1.SuspendLayout();
             this.rightListContainer.Panel2.SuspendLayout();
             this.rightListContainer.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -344,7 +347,7 @@ namespace msn2.net.Pictures.Controls
             // cn
             // 
             this.cn.ConnectionString = "data source=picdbserver;initial catalog=picdb;integrated security=SSPI;persist se" +
-                "curity info=False;workstation id=CHEF;packet size=4096";
+    "curity info=False;workstation id=CHEF;packet size=4096";
             this.cn.FireInfoMessageEventOnUserErrors = false;
             // 
             // mnuPictureListMoveDown
@@ -473,7 +476,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // menuItem3
             // 
-            this.menuItem3.Index = 8;
+            this.menuItem3.Index = 9;
             this.menuItem3.Text = "-";
             // 
             // mainMenu1
@@ -492,6 +495,7 @@ namespace msn2.net.Pictures.Controls
             this.menuItem5,
             this.menuItem9,
             this.menuItem10,
+            this.menuItem12,
             this.menuItem11,
             this.menuItem3,
             this.menuFileExit});
@@ -539,20 +543,26 @@ namespace msn2.net.Pictures.Controls
             this.menuItem10.Text = "Add Keyword...";
             this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
             // 
+            // menuItem12
+            // 
+            this.menuItem12.Index = 7;
+            this.menuItem12.Text = "Remove jpgs with cr2s in same folder";
+            this.menuItem12.Click += new System.EventHandler(this.menuItem12_Click);
+            // 
             // menuItem11
             // 
-            this.menuItem11.Index = 7;
+            this.menuItem11.Index = 8;
             this.menuItem11.Text = "&Write tags";
             // 
             // menuFileExit
             // 
-            this.menuFileExit.Index = 9;
+            this.menuFileExit.Index = 10;
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 326);
+            this.statusBar1.Location = new System.Drawing.Point(0, 497);
             this.statusBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
@@ -573,7 +583,7 @@ namespace msn2.net.Pictures.Controls
             // 
             this.statusBarPanel2.AutoSize = System.Windows.Forms.StatusBarPanelAutoSize.Spring;
             this.statusBarPanel2.Name = "statusBarPanel2";
-            this.statusBarPanel2.Width = 991;
+            this.statusBarPanel2.Width = 987;
             // 
             // toolStrip1
             // 
@@ -593,14 +603,14 @@ namespace msn2.net.Pictures.Controls
             this.toolFileInfo});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1018, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1018, 28);
             this.toolStrip1.TabIndex = 16;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(66, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(85, 25);
             this.toolStripLabel1.Text = "Image Size:";
             // 
             // imageSizeCombo
@@ -614,18 +624,18 @@ namespace msn2.net.Pictures.Controls
             "250",
             "300"});
             this.imageSizeCombo.Name = "imageSizeCombo";
-            this.imageSizeCombo.Size = new System.Drawing.Size(75, 25);
+            this.imageSizeCombo.Size = new System.Drawing.Size(75, 28);
             this.imageSizeCombo.SelectedIndexChanged += new System.EventHandler(this.imageSizeCombo_SelectedIndexChanged);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(95, 25);
             this.toolStripLabel2.Text = "Max Pictures:";
             // 
             // maxPicCount
@@ -639,13 +649,13 @@ namespace msn2.net.Pictures.Controls
             "2500",
             "5000"});
             this.maxPicCount.Name = "maxPicCount";
-            this.maxPicCount.Size = new System.Drawing.Size(75, 25);
+            this.maxPicCount.Size = new System.Drawing.Size(75, 28);
             this.maxPicCount.SelectedIndexChanged += new System.EventHandler(this.maxPicCount_SelectedIndexChanged);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(55, 25);
             this.toolStripLabel3.Text = "Rating:";
             // 
             // ratingFilterType
@@ -657,7 +667,7 @@ namespace msn2.net.Pictures.Controls
             "equals",
             "unrated"});
             this.ratingFilterType.Name = "ratingFilterType";
-            this.ratingFilterType.Size = new System.Drawing.Size(100, 25);
+            this.ratingFilterType.Size = new System.Drawing.Size(100, 28);
             this.ratingFilterType.SelectedIndexChanged += new System.EventHandler(this.ratingFilterType_SelectedIndexChanged);
             // 
             // ratingFilterValue
@@ -671,33 +681,33 @@ namespace msn2.net.Pictures.Controls
             "2",
             "1"});
             this.ratingFilterValue.Name = "ratingFilterValue";
-            this.ratingFilterValue.Size = new System.Drawing.Size(75, 25);
+            this.ratingFilterValue.Size = new System.Drawing.Size(75, 28);
             this.ratingFilterValue.Click += new System.EventHandler(this.ratingFilterValue_Click);
             // 
             // toolStripSelectAll
             // 
             this.toolStripSelectAll.Name = "toolStripSelectAll";
-            this.toolStripSelectAll.Size = new System.Drawing.Size(59, 22);
+            this.toolStripSelectAll.Size = new System.Drawing.Size(75, 25);
             this.toolStripSelectAll.Text = "Select All";
             this.toolStripSelectAll.Click += new System.EventHandler(this.toolStripSelectAll_Click);
             // 
             // toolStripClearAll
             // 
             this.toolStripClearAll.Name = "toolStripClearAll";
-            this.toolStripClearAll.Size = new System.Drawing.Size(55, 22);
+            this.toolStripClearAll.Size = new System.Drawing.Size(69, 25);
             this.toolStripClearAll.Text = "Clear All";
             this.toolStripClearAll.Click += new System.EventHandler(this.toolStripClearAll_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
             // copytofolderToolStripButton
             // 
             this.copytofolderToolStripButton.Image = global::msn2.net.Pictures.Controls.Properties.Resources.move;
             this.copytofolderToolStripButton.Name = "copytofolderToolStripButton";
-            this.copytofolderToolStripButton.Size = new System.Drawing.Size(103, 22);
+            this.copytofolderToolStripButton.Size = new System.Drawing.Size(125, 25);
             this.copytofolderToolStripButton.Text = "Copy to folder";
             this.copytofolderToolStripButton.Click += new System.EventHandler(this.copytofolderToolStripButton_Click);
             // 
@@ -706,14 +716,14 @@ namespace msn2.net.Pictures.Controls
             this.toolFileInfo.Image = ((System.Drawing.Image)(resources.GetObject("toolFileInfo.Image")));
             this.toolFileInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolFileInfo.Name = "toolFileInfo";
-            this.toolFileInfo.Size = new System.Drawing.Size(73, 22);
+            this.toolFileInfo.Size = new System.Drawing.Size(86, 25);
             this.toolFileInfo.Text = "Get XMP";
             this.toolFileInfo.Click += new System.EventHandler(this.toolFileInfo_Click);
             // 
             // mainSplitContainer
             // 
             this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainSplitContainer.Location = new System.Drawing.Point(0, 25);
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 28);
             this.mainSplitContainer.Name = "mainSplitContainer";
             // 
             // mainSplitContainer.Panel1
@@ -723,7 +733,7 @@ namespace msn2.net.Pictures.Controls
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightListContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 301);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1018, 469);
             this.mainSplitContainer.SplitterDistance = 167;
             this.mainSplitContainer.TabIndex = 17;
             this.mainSplitContainer.Text = "splitContainer2";
@@ -734,7 +744,7 @@ namespace msn2.net.Pictures.Controls
             this.filter.HideSelection = false;
             this.filter.Location = new System.Drawing.Point(0, 0);
             this.filter.Name = "filter";
-            this.filter.Size = new System.Drawing.Size(167, 301);
+            this.filter.Size = new System.Drawing.Size(167, 469);
             this.filter.TabIndex = 0;
             this.filter.FilterChanged += new msn2.net.Pictures.Controls.FilterChangedHandler(this.filter_FilterChanged);
             // 
@@ -750,8 +760,8 @@ namespace msn2.net.Pictures.Controls
             // 
             this.rightListContainer.Panel2.Controls.Add(this.panel1);
             this.rightListContainer.Panel2MinSize = 50;
-            this.rightListContainer.Size = new System.Drawing.Size(847, 301);
-            this.rightListContainer.SplitterDistance = 91;
+            this.rightListContainer.Size = new System.Drawing.Size(847, 469);
+            this.rightListContainer.SplitterDistance = 259;
             this.rightListContainer.TabIndex = 16;
             this.rightListContainer.Text = "splitContainer1";
             // 
@@ -788,7 +798,7 @@ namespace msn2.net.Pictures.Controls
             // 
             // fMain
             // 
-            this.ClientSize = new System.Drawing.Size(1018, 342);
+            this.ClientSize = new System.Drawing.Size(1018, 513);
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.toolStrip1);
@@ -806,7 +816,6 @@ namespace msn2.net.Pictures.Controls
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
-            this.rightListContainer.Panel1.ResumeLayout(false);
             this.rightListContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rightListContainer)).EndInit();
             this.rightListContainer.ResumeLayout(false);
@@ -1271,7 +1280,7 @@ namespace msn2.net.Pictures.Controls
 
         void DisplayPictures(object pics)
         {
-            List<Picture> allPictures = (List<Picture>)pics;
+            this.allPictures = (List<Picture>)pics;
             int maxCount = int.Parse(this.maxPicCount.SelectedItem.ToString());
 
             if (allPictures.Count < maxCount)
@@ -1397,14 +1406,19 @@ namespace msn2.net.Pictures.Controls
             {
                 string destFolder = dialog.SelectedPath;
 
-                fStatus status = new fStatus("Copying...", this.pictureList1.SelectedItems.Count);
+                DialogResult result = MessageBox.Show("Resize images to 1600x1200?", "Resize", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                DialogResult result2 = MessageBox.Show("Click 'Yes' to export all images for the selected filter, 'No' to only export selected items", "Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                List<int> items = result2 == System.Windows.Forms.DialogResult.Yes ? this.allPictures.Select(i => i.Id).ToList() : this.pictureList1.SelectedItems;
+                
+                fStatus status = new fStatus("Copying...", items.Count);
                 status.Show(this);
 
                 try
                 {
                     int current = 0;
 
-                    foreach (int pictureId in pictureList1.SelectedItems)
+                    foreach (int pictureId in items)
                     {
                         Picture picture = PicContext.Current.PictureManager.GetPicture(pictureId);
 
@@ -1432,11 +1446,18 @@ namespace msn2.net.Pictures.Controls
                         {
                             if (File.Exists(sourceFilename))
                             {
-                                using (Image source = Image.FromFile(sourceFilename))
+                                if (result == System.Windows.Forms.DialogResult.No)
                                 {
-                                    using (Image dest = PictureItem.SizeImage(source, 1600, 1200, false, false, false))
+                                    File.Copy(sourceFilename, destFilename, true);
+                                }
+                                else
+                                {
+                                    using (Image source = Image.FromFile(sourceFilename))
                                     {
-                                        dest.Save(destFilename, ImageFormat.Jpeg);
+                                        using (Image dest = PictureItem.SizeImage(source, 1600, 1200, false, false, false))
+                                        {
+                                            dest.Save(destFilename, ImageFormat.Jpeg);
+                                        }
                                     }
                                 }
                                 loop = false;
@@ -1811,5 +1832,57 @@ namespace msn2.net.Pictures.Controls
             }
         }
 
+        private void menuItem12_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            {
+                fStatus status = new fStatus("Scanning...");
+                status.Show(this);
+                status.Refresh();
+
+                string path = dialog.SelectedPath;
+                List<string> purge = new List<string>();
+
+                FindDupes(path, purge);
+
+                if (purge.Count > 0)
+                {
+                    string msg = string.Format("Purge {0} jpg files?", purge.Count);
+                    if (MessageBox.Show(msg, "Purge", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        status.SetStatus("Purging " + purge.Count + " files...");
+                        foreach (string file in purge)
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No files to purge", "Purge", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                status.Close();
+            }
+        }
+
+        private static void FindDupes(string path, List<string> purge)
+        {
+            string[] files = Directory.GetFiles(path, "*.cr2", SearchOption.TopDirectoryOnly);
+            foreach (string file in files)
+            {
+                string jpgFile = file.ToLower().Replace("cr2", "jpg");
+                if (File.Exists(jpgFile))
+                {
+                    purge.Add(jpgFile);
+                }
+            }
+
+            foreach (string subdir in Directory.GetDirectories(path))
+            {
+                FindDupes(subdir, purge);
+            }
+        }
     }
 }
