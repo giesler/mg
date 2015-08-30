@@ -18,11 +18,11 @@ public partial class control : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        HttpCookie cookie = Request.Cookies["Login"];
-        if (cookie == null || cookie.Value != "1")
-        {
-            Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
-        }
+        //HttpCookie cookie = Request.Cookies["Login"];
+        //if (cookie == null || cookie.Value != "1")
+        //{
+        //    Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
+        //}
 
         if (!Page.IsPostBack)
         {
@@ -40,14 +40,21 @@ public partial class control : System.Web.UI.Page
             this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
 
             var upstairs = groups.FirstOrDefault(g => g.Address == UpstairHallwayAddress);
-            this.upstairsHallStatus.Text = upstairs != null ? upstairs.Status : "unkown status";            
+            this.upstairsHallStatus.Text = upstairs != null ? upstairs.Status : "unkown status";
 
-            DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
-            var status = dc.GetDeviceStatus(GardenDripName);
-            
-            this.dripToggleOn.Enabled = !status.IsOn;
-            this.dripToggleOff.Enabled = status.IsOn;
-            this.dripStatus.Text = status.StatusText;
+            try
+            {
+                DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
+                var status = dc.GetDeviceStatus(GardenDripName);
+
+                this.dripToggleOn.Enabled = !status.IsOn;
+                this.dripToggleOff.Enabled = status.IsOn;
+                this.dripStatus.Text = status.StatusText;
+            }
+            catch (Exception ex)
+            {
+                this.dripStatus.Text = "error: " + ex.Message;
+            }
         }
     }
 
