@@ -33,7 +33,7 @@ namespace Gsiot.Server
             if (s.Length > 0)
             {
                 var r = 0;
-                foreach (char c in s)
+                foreach (char c in s.ToCharArray())
                 {
                     if ((c < '0') || (c > '9')) { return false; }
                     var n = (int)(c - '0');

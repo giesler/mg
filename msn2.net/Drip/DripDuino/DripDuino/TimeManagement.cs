@@ -11,7 +11,7 @@ namespace DripDuino
 {
     class TimeManagement
     {
-        static readonly string NtpServerName = "ike.sp.msn2.net";
+        static readonly string NtpServerName = "0.north-america.pool.ntp.org";
         static readonly string Latitude = "47.680265";
         static readonly string Longitude = "-122.172113";
         static readonly int UtcOffset = -7;                     // default to summer PST
