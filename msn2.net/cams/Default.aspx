@@ -35,7 +35,7 @@
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
         <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="~/control.aspx" Text="CONTROL" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="Log.aspx" Text="LOG" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />        
         <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
