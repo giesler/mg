@@ -31,31 +31,31 @@ namespace HomeServices
 
             if (cam == "1")
             {
-                address = "http://mc:81/image/cc1";
+                address = "http://192.168.1.212:81/image/cc1";
             }
             else if (cam == "2")
             {
-                address = "http://mc:81/image/cc2";
+                address = "http://192.168.1.212:81/image/cc2";
             }
             else if (cam == "3")
             {
                 rotate = false;
-                address = "http://mc:81/image/cc3";
+                address = "http://192.168.1.212:81/image/cc3";
             }
             else if (cam == "dw1")
             {
                 rotate = false;
-                address = "http://mc:81/image/dw1";
+                address = "http://192.168.1.212:81/image/dw1";
             }
             else if (cam.ToLower() == "front")
             {
                 rotate = false;
-                address = "http://mc:81/image/Front";
+                address = "http://192.168.1.212:81/image/Front";
             }
             else if (cam.ToLower() == "side")
             {
                 rotate = false;
-                address = "http://mc:81/image/Side";
+                address = "http://192.168.1.212:81/image/Side";
             }
 
             if (Request.QueryString["r"] == "1")
@@ -69,44 +69,64 @@ namespace HomeServices
                 maxHeight = int.Parse(Request.QueryString["h"]);
             }
 
-            string url = string.Format("{0}?{1}",
-                address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.Method = WebRequestMethods.Http.Get;
-            req.Credentials = new NetworkCredential("admin", "aaaCharlie", "sp");
-
-            using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
+            int retries = 3;
+            Exception error = null;
+            while (retries > 0)
             {
-                if (response.ContentLength > 0)
+                try
                 {
-                    using (Stream s = response.GetResponseStream())
+                    string url = string.Format("{0}?{1}",
+                        address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
+                    HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+                    req.Method = WebRequestMethods.Http.Get;
+                    req.Credentials = new NetworkCredential("admin", "aaaCharlie", "sp");
+
+                    using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
                     {
-                        using (System.Drawing.Image img = System.Drawing.Image.FromStream(s))
+                        if (response.ContentLength > 0)
                         {
-                            if (rotate)
+                            using (Stream s = response.GetResponseStream())
                             {
-                                img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
-                            }
-
-                            if (maxHeight == 0 || maxHeight > img.Height)
-                            {
-                                img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            }
-                            else
-                            {
-                                int w = (int)((double)img.Width / (double)img.Height * (double)maxHeight);
-
-                                using (Bitmap thumb = new Bitmap(img, new Size(w, maxHeight)))
+                                using (System.Drawing.Image img = System.Drawing.Image.FromStream(s))
                                 {
-                                    thumb.Save(Response.OutputStream, ImageFormat.Jpeg);
+                                    if (rotate)
+                                    {
+                                        img.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
+                                    }
+
+                                    if (maxHeight == 0 || maxHeight > img.Height)
+                                    {
+                                        img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        int w = (int)((double)img.Width / (double)img.Height * (double)maxHeight);
+
+                                        using (Bitmap thumb = new Bitmap(img, new Size(w, maxHeight)))
+                                        {
+                                            thumb.Save(Response.OutputStream, ImageFormat.Jpeg);
+                                        }
+
+                                    }
+
+                                    Response.End();
                                 }
-
                             }
-
-                            Response.End();
                         }
                     }
+
+                    error = null;
                 }
+                catch (Exception ex)
+                {
+                    error = ex;
+                    retries--;
+                }
+            }
+
+            if (error != null)
+            {
+                throw error;
             }
         }
     }
