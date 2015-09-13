@@ -5,27 +5,49 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Threading;
+using System.Net;
 
 public partial class Login : System.Web.UI.Page
 {
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+
+        IPAddress[] homeIps = null;
+
+        if (Cache["HomeIps"] != null)
+        {
+            homeIps = (IPAddress[])Cache["HomeIps"];
+        }
+        else
+        {
+            try
+            {
+                homeIps = Dns.GetHostAddresses("ddns.msn2.net");
+            }
+            catch (Exception ex)
+            {
+                Trace.Write(ex.ToString());
+            }
+        }
+
+        if (homeIps != null)
+        {
+            foreach (IPAddress address in homeIps)
+            {
+                if (string.Equals(address.ToString(), Request.UserHostAddress, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    LoginWithExpiration(DateTime.Now.AddDays(1));
+                }
+            }
+        }
+    }
+
     protected void OnLogin(object sender, EventArgs e)
     {
         if (this.username.Text.ToLower() == "home" && this.password.Text == "4362")
         {
-            HttpCookie cookie = new HttpCookie("Login", "1");
-            cookie.Expires = DateTime.Now.AddYears(1);
-            cookie.Domain = "msn2.net";
-
-            Response.AppendCookie(cookie);
-
-            if (Request.QueryString["r"] != null)
-            {
-                Response.Redirect(Request.QueryString["r"]);
-            }
-            else
-            {
-                Response.Redirect("http://www.msn2.net/");
-            }
+            LoginWithExpiration(DateTime.Now.AddYears(1));
         }
         else
         {
@@ -43,6 +65,24 @@ public partial class Login : System.Web.UI.Page
 
                 Thread.Sleep(1000 * 30);
             }
+        }
+    }
+
+    void LoginWithExpiration(DateTime expire)
+    {
+        HttpCookie cookie = new HttpCookie("Login", "1");
+        cookie.Expires = expire;
+        cookie.Domain = "msn2.net";
+
+        Response.AppendCookie(cookie);
+
+        if (Request.QueryString["r"] != null)
+        {
+            Response.Redirect(Request.QueryString["r"]);
+        }
+        else
+        {
+            Response.Redirect("http://www.msn2.net/");
         }
     }
 }
