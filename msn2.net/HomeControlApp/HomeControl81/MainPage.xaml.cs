@@ -75,30 +75,16 @@ namespace HomeControl81
 
         void updateTimer_Tick(object sender, EventArgs e)
         {
-            bool isLocal = false;
-            foreach (HostName name in NetworkInformation.GetHostNames())
-            {
-                if (name.RawName != null && name.RawName.ToString().StartsWith("192.168.1."))
-                {
-                    isLocal = true;
-                }
-            }
-
             IsyData.ISYClient isy = new IsyData.ISYClient();
-            if (isLocal)
-            {
-                isy = new IsyData.ISYClient("BasicHttpBinding_IISY", "http://iis.sp.msn2.net:8808/isy.svc");
-            }
             isy.GetGroupsCompleted += isy_GetNodeCompleted;
             isy.GetGroupsAsync(Garage1SensorAddress);
 
-            DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
-            if (isLocal)
+            if (this.gardenDripStatus.Visibility != Visibility.Collapsed)
             {
-                dev = new DeviceControl.DeviceControlClient("BasicHttpBinding_IDeviceControl", "http://iis.sp.msn2.net:8808/DeviceControl.svc");
+                DeviceControl.DeviceControlClient dev = new DeviceControl.DeviceControlClient();
+                dev.GetDeviceStatusCompleted += dev_GetDeviceStatusCompleted;
+                dev.GetDeviceStatusAsync("Garden Drip");
             }
-            dev.GetDeviceStatusCompleted += dev_GetDeviceStatusCompleted;
-            dev.GetDeviceStatusAsync("Garden Drip");
 
             Dispatcher.BeginInvoke(() =>
             {

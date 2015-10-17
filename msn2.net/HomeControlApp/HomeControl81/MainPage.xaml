@@ -45,10 +45,10 @@
             <TextBlock x:Name="upstairsHallStatus" HorizontalAlignment="Left" Margin="17,440,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
             <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,1,0,0" TextWrapping="Wrap" Text="coop" VerticalAlignment="Top" Width="236" FontSize="36"/>
             <TextBlock x:Name="coopStatus" HorizontalAlignment="Left" Margin="19,54,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
-            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,484,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"/>
-            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOff_Click"/>
-            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOn_Click" RenderTransformOrigin="0.554,0.524"/>
-            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="17,536,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}"/>
+            <TextBlock HorizontalAlignment="Left" Height="53" Margin="19,484,0,0" TextWrapping="Wrap" Text="garden drip" VerticalAlignment="Top" Width="236" FontSize="36"  Visibility="Collapsed"/>
+            <Button x:Name="gardenDripOff" Content="off" HorizontalAlignment="Left" Margin="348,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOff_Click" Visibility="Collapsed"/>
+            <Button x:Name="gardenDripOn" Content="on" HorizontalAlignment="Left" Margin="260,478,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" Click="gardenDripOn_Click" RenderTransformOrigin="0.554,0.524" Visibility="Collapsed"/>
+            <TextBlock x:Name="gardenDripStatus" HorizontalAlignment="Left" Margin="17,536,0,0" TextWrapping="Wrap" Text="loading" VerticalAlignment="Top" Foreground="{StaticResource PhoneDisabledBrush}" Visibility="Collapsed"/>
 
         </Grid>
 
