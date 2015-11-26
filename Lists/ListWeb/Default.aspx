@@ -38,7 +38,7 @@
         <asp:Panel runat="server" ID="addPanel" Visible="false" CssClass="add">
             <asp:Label ID="addLabel" runat="server" Text="Add items (one per line)" />
             <br />
-            <asp:TextBox ID="add" runat="server" Rows="10" Columns="30" TextMode="MultiLine" />
+            <asp:TextBox ID="add" runat="server" Rows="4" Columns="30" TextMode="MultiLine" />
             <br />
             Common items: <asp:DropDownList ID="common" runat="server" AutoPostBack="true" OnSelectedIndexChanged="common_SelectedIndexChanged" />
             <br />
@@ -53,9 +53,13 @@
                 <asp:Button ID="cancelMove" runat="server" OnClick="OnCancelMove" />
             </asp:Panel>
         </asp:Panel>
-        <asp:Panel runat="server" ID="main" Visible="true">
+        <asp:Panel runat="server" ID="main" Visible="true" CssClass="mainPanel">
             <asp:Panel runat="server" ID="itemPanel">
             </asp:Panel>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="undoPanel" Visible="false" CssClass="undoPanel">
+            <asp:LinkButton runat="server" ID="undo" OnClick="undo_Click" />
+            <asp:HiddenField runat="server" ID="undoContent" />
         </asp:Panel>
     </asp:Panel>
     </form>

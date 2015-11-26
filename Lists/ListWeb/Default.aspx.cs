@@ -44,6 +44,8 @@ namespace SLExpress
                 }
             }
 
+            this.undoPanel.Visible = false;
+            
             if (HttpContext.Current.Session["authData"] != null)
             {
                 if (!Page.IsPostBack)
@@ -114,6 +116,8 @@ namespace SLExpress
 
                 this.OnListSelectedIndexChanged(this, EventArgs.Empty);
             }
+
+            this.undoPanel.Visible = false;
         }
 
         void OnMoveItemSelectList(object sender, EventArgs e)
@@ -150,8 +154,9 @@ namespace SLExpress
                     cb.AutoPostBack = true;
                     cb.CheckedChanged += new EventHandler(OnCheckboxChanged);
                     cb.ID = i.UniqueId.ToString();
+
                     this.itemPanel.Controls.Add(cb);
-                    this.itemPanel.Controls.Add(new LiteralControl("<br />"));
+                    this.itemPanel.Controls.Add(new LiteralControl("<div style=\"margin: 5px\"></div>"));
 
                     TextBox tb = new TextBox { Text = i.Name };
                     tb.ID = "TB:" + i.UniqueId.ToString();
@@ -292,6 +297,11 @@ namespace SLExpress
             lds.DeleteListItem(authData, id);
 
             this.LoadLists();
+
+            string undoItem = cb.Text;
+            this.undoPanel.Visible = true;
+            this.undoContent.Value = undoItem;
+            this.undo.Text = "Re-add '" + undoItem + "'";
         }
 
         protected void OnAdd(object sender, EventArgs e)
@@ -356,6 +366,19 @@ namespace SLExpress
         protected string GetServerName()
         {
             return Environment.MachineName;
+        }
+
+        protected void undo_Click(object sender, EventArgs e)
+        {
+            ClientAuthenticationData authData = (ClientAuthenticationData)HttpContext.Current.Session["authData"];
+            Guid selectedList = new Guid(this.list.SelectedValue);
+
+            ListDataService lds = new ListDataService();
+            lds.AddListItem(authData, selectedList, this.undoContent.Value);
+            
+            this.LoadLists();
+            this.OnView(null, null);
+            this.undoContent.Value = string.Empty;
         }
     }
 }

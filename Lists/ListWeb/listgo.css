@@ -1,7 +1,6 @@
 ﻿
 html, body
 {
-    overflow: auto;
 }
 body
 {
@@ -48,4 +47,13 @@ body
 .modeLink
 {
     text-decoration: none;
+}
+.undoPanel {
+    height: 10px;
+    font-size: 8pt;
+    text-decoration: none;
+    padding-left: 4px;
+}
+.mainPanel  {
+    height: 100%;
 }
