@@ -39,9 +39,21 @@
             margin-bottom: -2px;
         }
     </style>
+    <script type="text/javascript">
+        function toggleItem()
+        {
+            document.all['sendingPanel'].style.visibility = 'visible';
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server" style="height: 100%">
+    <div id="sendingPanel" style="position: absolute; margin: 0px; height: 100%; width: 100%; visibility: hidden; background-color: #222222; text-align: center; vertical-align: middle; opacity: 0.9;">
+        <br />
+        <br />
+        <br />
+            <p>sending...</p>
+    </div>
    <div style="background: black; color: white; padding: 6px; font-weight: bold" class="headerLink">
         <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
 	    <a href="http://ts.msn2.net/">TS</a>
@@ -50,7 +62,7 @@
      <table style="width: 100%">
         <tr>
             <td class="mainItem">garage 1</td>
-            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage1" Text="toggle" OnClick="toggleGarage1_Click" /></td>
+            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage1" Text="toggle" OnClick="toggleGarage1_Click" OnClientClick="javascript:toggleItem();" /></td>
         </tr>
         <tr>
             <td><asp:Label runat="server" ID="garage1Status" CssClass="smallNote" /></td>
@@ -58,7 +70,7 @@
                 
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">garage 2</td>
-            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage2" Text="toggle" OnClick="toggleGarage2_Click" /></td>
+            <td rowspan="2"><asp:Button runat="server" ID="toggleGarage2" Text="toggle" OnClick="toggleGarage2_Click" OnClientClick="javascript:toggleItem();" /></td>
         </tr>
         <tr>
             <td><asp:Label runat="server" ID="garage2Status" CssClass="smallNote" /></td>
@@ -66,8 +78,8 @@
 
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">media room</td>
-            <td rowspan="2"><asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click"/> 
-                 <asp:Button runat="server" ID="mediaRoomOff" Text=" off " OnClick="mediaRoomOff_Click" />
+            <td rowspan="2"><asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click" OnClientClick="javascript:toggleItem();" /> 
+                 <asp:Button runat="server" ID="mediaRoomOff" Text=" off " OnClick="mediaRoomOff_Click" OnClientClick="javascript:toggleItem();"  />
             </td>
         </tr>
         <tr>
@@ -76,14 +88,32 @@
 
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">upstairs hall</td>
-            <td rowspan="2"><asp:Button runat="server" ID="upstairsHallOn" Text=" on " OnClick="upstairsHallOn_Click" />
-                 <asp:Button runat="server" ID="upstairsHallOff" Text=" off " OnClick="upstairsHallOff_Click" />
+            <td rowspan="2"><asp:Button runat="server" ID="upstairsHallOn" Text=" on " OnClick="upstairsHallOn_Click" OnClientClick="javascript:toggleItem();" />
+                 <asp:Button runat="server" ID="upstairsHallOff" Text=" off " OnClick="upstairsHallOff_Click" OnClientClick="javascript:toggleItem();" />
             </td>
         </tr>
         <tr>
             <td><asp:Label runat="server" ID="upstairsHallStatus" CssClass="smallNote" /></td>
         </tr>
-
+        <tr style="border-top: solid 2px silver">
+            <td class="mainItem">master sink light</td>
+            <td rowspan="2"><asp:Button runat="server" ID="masterSinkLightOn" Text=" on " OnClick="masterSinkLightOn_Click" OnClientClick="javascript:toggleItem();" />
+                 <asp:Button runat="server" ID="masterSinkLightOff" Text=" off " OnClick="masterSinkLightOff_Click" OnClientClick="javascript:toggleItem();" />
+            </td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="masterSinkLightStatus" CssClass="smallNote" /></td>
+        </tr>
+        <tr style="border-top: solid 2px silver">
+            <td class="mainItem">master bath fan</td>
+            <td rowspan="2"><asp:Button runat="server" ID="masterBathFanOn" Text=" on " OnClick="masterBathFanOn_Click" OnClientClick="javascript:toggleItem();" />
+                 <asp:Button runat="server" ID="masterBathFanOff" Text=" off " OnClick="masterBathFanOff_Click" OnClientClick="javascript:toggleItem();" />
+            </td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="masterBathFanStatus" CssClass="smallNote" /></td>
+        </tr>
+         <!--
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">garden drip</td>
             <td rowspan="2">
@@ -94,7 +124,7 @@
         <tr>
             <td><asp:Label runat="server" ID="dripStatus" CssClass="smallNote" /></td>
         </tr>
-
+         -->
     </table>
     </form>
 </body>
