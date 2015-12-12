@@ -33,11 +33,14 @@ public partial class Login : System.Web.UI.Page
 
         if (homeIps != null)
         {
-            foreach (IPAddress address in homeIps)
+            if (Request.QueryString["r"] != null)
             {
-                if (string.Equals(address.ToString(), Request.UserHostAddress, StringComparison.InvariantCultureIgnoreCase))
+                foreach (IPAddress address in homeIps)
                 {
-                    LoginWithExpiration(DateTime.Now.AddDays(1));
+                    if (string.Equals(address.ToString(), Request.UserHostAddress, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        LoginWithExpiration(DateTime.Now.AddDays(1));
+                    }
                 }
             }
         }
