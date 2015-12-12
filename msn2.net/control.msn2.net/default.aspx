@@ -16,6 +16,10 @@
             document.all['levelItem'].value = itemName;
             return false;
         }
+        function cancelLevel() {
+            document.all['levelPanel'].style.visibility = 'hidden';
+            return false;
+        }
     </script>
 </head>
 <body>
@@ -46,6 +50,8 @@
             <asp:Button runat="server" ID="level20" OnClick="level100_Click" Text=" 20% " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
             <asp:Button runat="server" ID="level10" OnClick="level100_Click" Text=" 10% " CssClass="popupButton" OnClientClick="toggleItem();" />
+            <br />
+            <asp:Button runat="server" ID="levelCancel" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelLevel();" />
             <asp:HiddenField runat="server" ID="levelItem" />
         </asp:Panel>
         <div style="background: black; color: white; padding: 6px; font-weight: bold" class="headerLink">

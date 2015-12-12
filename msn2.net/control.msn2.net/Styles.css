@@ -112,10 +112,13 @@ A:link {
     width: 100px;
     padding: 5px;
     margin: 5px;
+    height: 30px;
 }
 .onOffButton {
     width: 75px;
+    height: 30px;
 }
 .toggleButton {
     width: 150px;
+    height: 30px;
 }
