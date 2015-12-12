@@ -89,7 +89,7 @@
             <tr style="border-top: solid 2px silver">
                 <td class="mainItem">upstairs hall</td>
                 <td rowspan="2">
-                    <asp:Button runat="server" ID="upstairsHallOn" Text=" on " OnClick="upstairsHallOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="upstairsHallOn" Text=" on " OnClientClick="return toggleLevel('upstairs hall light');" CssClass="onOffButton" />
                     <asp:Button runat="server" ID="upstairsHallOff" Text=" off " OnClick="upstairsHallOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 </td>
             </tr>

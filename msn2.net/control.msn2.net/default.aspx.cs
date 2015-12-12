@@ -159,12 +159,21 @@ public partial class control : System.Web.UI.Page
     {
         if (this.levelItem.Value.ToLower() == "master sink light")
         {
-            Button button = (Button)sender;
-            int level = int.Parse(button.ID.Replace("level", ""));
-            IsyData.ISYClient client = new IsyData.ISYClient();
-            client.SetLevel(MasterSinkLightAddress, level);
-            this.Redirect();
+            SetLevel(sender, MasterSinkLightAddress);
         }
+        else if (this.levelItem.Value.ToLower() == "upstairs hall light")
+        {
+            SetLevel(sender, UpstairHallwayAddress);
+        }
+    }
+
+    private void SetLevel(object sender, string address)
+    {
+        Button button = (Button)sender;
+        int level = int.Parse(button.ID.Replace("level", ""));
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.SetLevel(address, level);
+        this.Redirect();
     }
 
     private void Redirect()
