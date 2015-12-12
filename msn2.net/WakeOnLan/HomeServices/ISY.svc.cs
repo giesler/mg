@@ -185,6 +185,13 @@ namespace HomeServices
             return this.GetAddressData(address);
         }
 
+        public NodeData SetLevel(string address, int level)
+        {
+            int adjustedLevel = (int)((double)level / 100.0 * 255.0);
+            IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DON/" + adjustedLevel.ToString());
+            return this.GetAddressData(address);
+        }
+
         public bool GetStatus(string address)
         {
             return false;

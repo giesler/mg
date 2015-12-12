@@ -71,41 +71,42 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(Garage1SwitchAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
+
     protected void toggleGarage2_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(Garage2SwitchAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void mediaRoomOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(MediaRoomSideLightsAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void mediaRoomOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MediaRoomSideLightsAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void upstairsHallOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(UpstairHallwayAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void upstairsHallOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(UpstairHallwayAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void dripToggleOn_Click(object sender, EventArgs e)
@@ -130,27 +131,45 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(MasterSinkLightAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void masterSinkLightOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MasterSinkLightAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void masterBathFanOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(MasterBathFanAddress);
-        Response.Redirect(Request.Url.ToString(), true);
+        this.Redirect();
     }
 
     protected void masterBathFanOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MasterBathFanAddress);
+        this.Redirect();
+    }
+
+    protected void level100_Click(object sender, EventArgs e)
+    {
+        if (this.levelItem.Value.ToLower() == "master sink light")
+        {
+            Button button = (Button)sender;
+            int level = int.Parse(button.ID.Replace("level", ""));
+            IsyData.ISYClient client = new IsyData.ISYClient();
+            client.SetLevel(MasterSinkLightAddress, level);
+            this.Redirect();
+        }
+    }
+
+    private void Redirect()
+    {
+        Thread.Sleep(1000);
         Response.Redirect(Request.Url.ToString(), true);
     }
 }

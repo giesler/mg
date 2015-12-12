@@ -27,5 +27,8 @@ namespace HomeServices
 
         [OperationContract]
         bool GetStatus(string address);
+
+        [OperationContract]
+        NodeData SetLevel(string address, int level);
     }
 }

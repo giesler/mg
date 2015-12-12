@@ -70,7 +70,7 @@
   <ItemGroup>
     <Content Include="DeviceControl.svc" />
     <Content Include="DevicePower.svc" />
-    <None Include="Properties\PublishProfiles\mc.pubxml" />
+    <None Include="Properties\PublishProfiles\server0.pubxml" />
     <None Include="Service References\CamData\camdata.disco" />
     <None Include="Service References\CamData\configuration91.svcinfo" />
     <None Include="Service References\CamData\configuration.svcinfo" />
@@ -136,7 +136,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\Kenny.pubxml" />
     <None Include="Service References\CamData\camdata.xsd">
       <SubType>Designer</SubType>
     </None>

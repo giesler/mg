@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -55,7 +56,7 @@ namespace HomeServices
             else if (cam.ToLower() == "side")
             {
                 rotate = false;
-                address = "http://192.168.1.212:81/image/Side";
+                address = "http://192.168.1.212:81/image/side";
             }
 
             if (Request.QueryString["r"] == "1")
@@ -69,17 +70,24 @@ namespace HomeServices
                 maxHeight = int.Parse(Request.QueryString["h"]);
             }
 
+            if (Environment.MachineName.ToLower() == "server0")
+            {
+                address = address.Replace("192.168.1.212", "127.0.0.1");
+            }
+
             int retries = 3;
             Exception error = null;
             while (retries > 0)
             {
                 try
                 {
-                    string url = string.Format("{0}?{1}",
-                        address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
+                    string url = string.Format("{0}?time={1}",
+                        address, new Random().Next(100000));
                     HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
                     req.Method = WebRequestMethods.Http.Get;
-                    req.Credentials = new NetworkCredential("admin", "aaaCharlie", "sp");
+                    req.Credentials = new NetworkCredential("admin", "aaaCharlie", "");
+
+                    Trace.Write("Requesting " + url);
 
                     using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
                     {
@@ -121,6 +129,11 @@ namespace HomeServices
                 {
                     error = ex;
                     retries--;
+                    if (retries > 0)
+                    {
+                        Trace.Write(string.Format("Retries left {0}: {1}", retries, ex.ToString()));
+                        Thread.Sleep(TimeSpan.FromSeconds(1));
+                    }
                 }
             }
 

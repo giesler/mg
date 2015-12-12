@@ -43,6 +43,12 @@
   <wsdl:message name="IISY_GetStatus_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStatusResponse" />
   </wsdl:message>
+  <wsdl:message name="IISY_SetLevel_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetLevel" />
+  </wsdl:message>
+  <wsdl:message name="IISY_SetLevel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetLevelResponse" />
+  </wsdl:message>
   <wsdl:portType name="IISY">
     <wsdl:operation name="GetNodes">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/GetNodes" message="tns:IISY_GetNodes_InputMessage" />
@@ -67,6 +73,10 @@
     <wsdl:operation name="GetStatus">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/GetStatus" message="tns:IISY_GetStatus_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IISY/GetStatusResponse" message="tns:IISY_GetStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetLevel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IISY/SetLevel" message="tns:IISY_SetLevel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IISY/SetLevelResponse" message="tns:IISY_SetLevel_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IISY" type="tns:IISY">
@@ -118,6 +128,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetStatus">
       <soap:operation soapAction="http://tempuri.org/IISY/GetStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetLevel">
+      <soap:operation soapAction="http://tempuri.org/IISY/SetLevel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
