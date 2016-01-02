@@ -54,7 +54,7 @@ public class CameraDataService : ICameraData
         int server = 1;
         foreach (Alert alert in q)
         {
-            string getUrl = string.Format("http://cam{0}.msn2.net:8808/GetLogImage.aspx?a={1}", server, alert.Id);
+            string getUrl = string.Format("http://cam{0}.msn2.net:8081/GetLogImage.aspx?a={1}", server, alert.Id);
 
             items.Add(new LogItem { Id = alert.Id.ToString(), Timestamp = ToPst(alert.Timestamp), Url = getUrl });
 
@@ -124,14 +124,14 @@ public class CameraDataService : ICameraData
         if (previousId > 0)
         {
             var previous = alerts.GetAlert(previousId);
-            items.PreviousItem = new LogItem { Id = previous.Id.ToString(), Timestamp = previous.Timestamp, Url = "http://cam1.msn2.net:8808/GetLogImage.aspx?a=" + previous.Id.ToString() };
+            items.PreviousItem = new LogItem { Id = previous.Id.ToString(), Timestamp = previous.Timestamp, Url = "http://cam1.msn2.net:8081/GetLogImage.aspx?a=" + previous.Id.ToString() };
         }
 
         int nextId = alerts.GetNextAlertIdById(idValue);
         if (nextId > 0)
         {
             var next = alerts.GetAlert(nextId);
-            items.NextItem = new LogItem { Id = next.Id.ToString(), Timestamp = next.Timestamp, Url = "http://cam2.msn2.net:8808/GetLogImage.aspx?a=" + next.Id.ToString() };
+            items.NextItem = new LogItem { Id = next.Id.ToString(), Timestamp = next.Timestamp, Url = "http://cam2.msn2.net:8081/GetLogImage.aspx?a=" + next.Id.ToString() };
         }
 
         return items;

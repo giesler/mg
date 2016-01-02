@@ -10,7 +10,7 @@ public partial class thumbs : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CamView coopView = CamViews.GetCoopView();
-        CamView coopYardView = CamViews.GetCoopSideView();
+        //CamView coopYardView = CamViews.GetCoopSideView();
         CamView drivewayView = CamViews.GetDrivewayView();
         CamView frontView = CamViews.GetFrontView();
         CamView sideView = CamViews.GetSideView();
@@ -27,14 +27,14 @@ public partial class thumbs : System.Web.UI.Page
         if (!loggedIn)
         {
             thumbViews.Add(coopView);
-            thumbViews.Add(coopYardView);
+            //thumbViews.Add(coopYardView);
         }
         else
         {
             thumbViews.Add(drivewayView);
             thumbViews.Add(frontView);
             thumbViews.Add(sideView);
-            thumbViews.Add(coopYardView);
+            //thumbViews.Add(coopYardView);
             thumbViews.Add(coopView);
         }
 
@@ -56,12 +56,12 @@ public partial class thumbs : System.Web.UI.Page
             Image imageB = (Image)e.Item.FindControl("thumbBImage");
 
             linkA.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
-            imageA.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
+            imageA.ImageUrl = string.Format("http://{0}.msn2.net:8081/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
             linkA.Target = "_top";
 
             if (view.Cameras.Count > 1)
             {
-                imageB.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
+                imageB.ImageUrl = string.Format("http://{0}.msn2.net:8081/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
             }
             else
             {

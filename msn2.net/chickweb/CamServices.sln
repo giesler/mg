@@ -71,7 +71,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "control.msn2.net", "http://
 		SlnRelativePath = "..\control.msn2.net\"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "login.msn2.net", "http://localhost:33326", "{4FC9A3EB-7C10-490D-9BC7-8B0FA4FD098E}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "login.msn2.net(1)", "http://localhost:33326", "{4FC9A3EB-7C10-490D-9BC7-8B0FA4FD098E}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "SAK"
 		SccAuxPath = "SAK"

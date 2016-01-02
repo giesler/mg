@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Net;
 
 public partial class getimg : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         Response.Clear();
         Response.ContentType = "image/jpeg";
 
@@ -23,7 +22,7 @@ public partial class getimg : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-        string address = string.Format("http://ddns.msn2.net:8081{0}/webcam/jpg", cam);
+        string address = string.Format("http://randy.sp.msn2.net:5050{0}/webcam/jpg", cam);
         bool rotate = true;
 
         if (cam == "1")
@@ -87,7 +86,7 @@ public partial class getimg : System.Web.UI.Page
 
                         if (maxHeight == 0 || maxHeight > img.Height)
                         {
-                            img.Save(Response.OutputStream, ImageFormat.Jpeg);
+                            img.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                         }
                         else
                         {

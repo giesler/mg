@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableViewState="false" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" EnableViewState="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -52,12 +53,12 @@
 
         function RefreshMain() {
             var tmp = new Date();
-            tmp = "http://" + basePrefix + ".msn2.net:8808/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
+            tmp = "http://" + basePrefix + ".msn2.net:8081/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
 
             var tmp2 = new Date();
             if (cam == "1")
             {
-                tmp2 = "http://cam2.msn2.net:8808/getimg.aspx?" + tmp2.getTime() + "&c=2";
+                tmp2 = "http://cam2.msn2.net:8081/getimg.aspx?" + tmp2.getTime() + "&c=2";
             }
             
             window.status = "Auto refresh enabled";

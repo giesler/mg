@@ -81,6 +81,18 @@
             </tr>
 
             <tr style="border-top: solid 2px silver">
+                <td class="mainItem">living room</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="livingRoomOn" Text=" on " OnClick="livingRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="livingRoomOff" Text=" off " OnClick="livingRoomOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="livingRoomStatus" CssClass="smallNote" /></td>
+            </tr>
+
+            <tr style="border-top: solid 2px silver">
                 <td class="mainItem">media room</td>
                 <td rowspan="2">
                     <asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />

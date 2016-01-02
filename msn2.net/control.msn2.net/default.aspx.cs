@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 public partial class control : System.Web.UI.Page
 {
     const string UpstairHallwayAddress = "24060";
+    const string LivingRoomSideLightsAddress = "18965";
     const string MediaRoomSideLightsAddress = "58666";
     const string MasterSinkLightAddress = "2B BD 8C 1";
     const string MasterBathFanAddress = "34 75 65 1";
@@ -37,6 +38,9 @@ public partial class control : System.Web.UI.Page
 
             var garage2 = groups.First().Nodes.FirstOrDefault(g => g.Address == Garage2SensorAddress);
             this.garage2Status.Text = garage2.Status;
+
+            var lr = groups.FirstOrDefault(g => g.Address == LivingRoomSideLightsAddress);
+            this.livingRoomStatus.Text = lr.Status;
 
             var mc = groups.FirstOrDefault(g => g.Address == MediaRoomSideLightsAddress);
             this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
@@ -80,6 +84,20 @@ public partial class control : System.Web.UI.Page
         client.TurnOn(Garage2SwitchAddress);
         this.Redirect();
     }
+    protected void livingRoomOn_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOn(LivingRoomSideLightsAddress);
+        this.Redirect();
+    }
+
+    protected void livingRoomOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOff(LivingRoomSideLightsAddress);
+        this.Redirect();
+    }
+
 
     protected void mediaRoomOn_Click(object sender, EventArgs e)
     {
