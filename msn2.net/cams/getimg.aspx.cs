@@ -23,36 +23,36 @@ public partial class getimg : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-        string address = string.Format("http://ddns.msn2.net:8081{0}/webcam/jpg", cam);
+        string address = string.Format("http://ddns.msn2.net:8808{0}/webcam/jpg", cam);
         bool rotate = true;
 
         if (cam == "1")
         {
-            address = "http://cam1.msn2.net:8081/image/cc1";
+            address = "http://cam1.msn2.net:8808/image/cc1";
         }
         else if (cam == "2")
         {
-            address = "http://cam2.msn2.net:8081/image/cc2";
+            address = "http://cam2.msn2.net:8808/image/cc2";
         }
         else if (cam == "3")
         {
             rotate = false;
-            address = "http://cam3.msn2.net:8081/image/cc3";
+            address = "http://cam3.msn2.net:8808/image/cc3";
         }
         else if (cam == "dw1")
         {
             rotate = false;
-            address = "http://cam4.msn2.net:8081/image/dw1";
+            address = "http://cam4.msn2.net:8808/image/dw1";
         }
         else if (cam.ToLower() == "front")
         {
             rotate = false;
-            address = "http://cam5.msn2.net:8081/image/Front";
+            address = "http://cam5.msn2.net:8808/image/Front";
         }
         else if (cam.ToLower() == "side")
         {
             rotate = false;
-            address = "http://cam1.msn2.net:8081/image/Side";
+            address = "http://cam1.msn2.net:8808/image/Side";
         }
 
         if (Request.QueryString["r"] == "1")
