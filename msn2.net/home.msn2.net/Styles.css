@@ -1,11 +1,11 @@
 ﻿body {
-    background: black;
-    font-size: .80em;
-    font-family: "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
-    margin: 0px 0px 0px 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 0px;
     color: white;
     height: 100%;
+    font-size: small;
+    border: 0px;
+    margin: 0px;
 }
 
 @media screen and (max-width: 320px) {
@@ -79,11 +79,19 @@ A:link {
 .headerLink A:link {
     text-decoration: none;
     color: white;
+    background: black;
+    color: white;
+    padding: 6px;
+    font-weight: bold;
 }
 
 .headerLink A:visited {
     text-decoration: none;
     color: white;
+    background: black;
+    color: white;
+    padding: 6px;
+    font-weight: bold;
 }
 
 .subheader {
@@ -108,17 +116,51 @@ A:link {
     vertical-align: middle;
     opacity: 0.9;
 }
+
 .popupButton {
     width: 100px;
     padding: 5px;
     margin: 5px;
     height: 30px;
 }
+
 .onOffButton {
     width: 75px;
     height: 30px;
 }
+
 .toggleButton {
     width: 150px;
     height: 30px;
+}
+
+A:link {
+    text-decoration: none;
+    color: navy;
+}
+
+.headerLink A:link {
+    text-decoration: none;
+    color: white;
+}
+
+.headerLink A:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.headerLink {
+    background-color: black;
+    color: white;
+}
+
+.subheader {
+    font-size: x-small;
+    padding-top: 4px;
+    margin-bottom: -2px;
+}
+
+.topsubheader {
+    font-size: x-small;
+    margin-bottom: -2px;
 }

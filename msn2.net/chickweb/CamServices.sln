@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cams", "..\cams", "{680E1A46-8817-45D2-9DEC-3B5A8FDACE19}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -119,6 +119,32 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website", "http://localhost
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "..\WakeOnLan\Website\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "home.msn2.net", "..\home.msn2.net", "{C2C0C9F1-965F-49B6-AC0F-52975F94E406}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_22968"
+		Debug.AspNetCompiler.PhysicalPath = "..\home.msn2.net\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_22968\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_22968"
+		Release.AspNetCompiler.PhysicalPath = "..\home.msn2.net\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_22968\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "22968"
+		SlnRelativePath = "..\home.msn2.net\"
+		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Global
@@ -430,6 +456,42 @@ Global
 		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|Windows Phone.ActiveCfg = Debug|Any CPU
 		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|x64.ActiveCfg = Debug|Any CPU
 		{21402A8D-E532-485E-9716-847CAAB53B6F}.Release|x86.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|Windows Phone.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|x64.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Debug|x86.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|ARM.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|ARM.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Windows Phone.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|Windows Phone.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|x64.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|x64.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|x86.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.NoPhone|x86.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|ARM.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|ARM.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Windows Phone.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|Windows Phone.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|x64.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|x64.Build.0 = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|x86.ActiveCfg = Debug|Any CPU
+		{C2C0C9F1-965F-49B6-AC0F-52975F94E406}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -440,7 +502,7 @@ Global
 		{550D5970-560C-40D0-B717-E397D10E69ED} = {F7CAFDFA-ED30-417E-907C-405EB008488B}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -488,5 +550,10 @@ Global
 		SccProjectTopLevelParentUniqueName11 = CamServices.sln
 		SccProjectName11 = ../HomeControlApp/HomeControlApp.WindowsPhone
 		SccLocalPath11 = ..\\HomeControlApp\\HomeControlApp.WindowsPhone
+		SccWebProject12 = true
+		SccProjectUniqueName12 = ..\\home.msn2.net
+		SccProjectName12 = ../home.msn2.net
+		SccLocalPath12 = ..\\home.msn2.net
+		SccProjectEnlistmentChoice12 = 2
 	EndGlobalSection
 EndGlobal

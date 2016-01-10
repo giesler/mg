@@ -19,9 +19,11 @@
         </ItemTemplate>
     </asp:Repeater>
     <asp:Panel runat="server" ID="topLinks" CssClass="linkPanel">
+        <asp:HyperLink runat="server" ID="homeLink1" NavigateUrl="http://home.msn2.net/" Visible="false" Text="HOME" />
+        <asp:Label runat="server" ID="logLinkSeperator0" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.msn2.net/" Text="CONTROL" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="http://ddns.msn2.net:8808/jpegpull.htm" Text="LOG" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator1" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
@@ -34,9 +36,11 @@
         </asp:Panel>
     </div>
     <asp:Panel runat="server" ID="bottomLinks" CssClass="linkPanel" Visible="false">
+        <asp:HyperLink runat="server" ID="homeLink2" NavigateUrl="http://home.msn2.net/" Visible="false" Text="HOME" />
+        <asp:Label runat="server" ID="logLinkSeperator5" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="~/control.aspx" Text="CONTROL" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8808/jpegpull.htm" Text="LOG" Visible="false" /> 
+        <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="LOG" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />        
         <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>

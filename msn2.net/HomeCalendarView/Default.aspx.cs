@@ -559,7 +559,7 @@ namespace HomeCalendarView
             try
             {
                 string url = string.Format(
-                    "http://www.weather.gov/alerts-beta/wwaatmget.php?x={0}",
+                    "http://alerts.weather.gov/cap/wwaatmget.php?x={0}&y=0",
                     this.currentLocation.NoaaCurrentAlertsLocation);
                 XElement alertFeed = XElement.Load(url);
                 cache.Add(this.CacheName("alerts"), alertFeed, null, DateTime.Now.AddMinutes(20), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);

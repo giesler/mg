@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>msn2 home control</title>
-    <link href="Styles.css" rel="stylesheet" type="text/css" />
+    <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" />
     <script type="text/javascript">
         function toggleItem() {
@@ -22,7 +22,7 @@
         }
     </script>
 </head>
-<body>
+<body style="background-color: black;">
     <form id="form1" runat="server" style="height: 100%">
         <asp:Panel runat="server" ID="sendingPanel" class="popupPanel">
             <br />
@@ -54,7 +54,7 @@
             <asp:Button runat="server" ID="levelCancel" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelLevel();" />
             <asp:HiddenField runat="server" ID="levelItem" />
         </asp:Panel>
-        <div style="background: black; color: white; padding: 6px; font-weight: bold" class="headerLink">
+        <div class="headerLink">
             <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
 	    <a href="http://ts.msn2.net/">TS</a>
             <br />

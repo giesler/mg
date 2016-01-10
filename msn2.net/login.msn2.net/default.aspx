@@ -5,8 +5,15 @@
 <head runat="server">
     <title>msn2.net Login</title>
     <meta name="viewport" content="width=device-width" /> 
+    <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class="bodyStyle" style="color: white; background-color: black">
+
+    <div class="headerLink">
+        <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
+	    <a href="http://ts.msn2.net/">TS</a>
+    </div>
+    <br />
     <form id="form1" runat="server">
     <div>
         <table>
@@ -37,8 +44,14 @@
     </div>
     </form>
     <script language="javascript" type="text/javascript"><!--
-        if (document.all.username)
-            document.all.username.focus();
+        if (document.all.username) {
+            if (document.all.username.value.length > 0) {
+                document.all.password.focus();
+            }
+            else {
+                document.all.username.focus();
+            }
+        }
     // --></script>
 </body>
 </html>
