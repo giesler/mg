@@ -1,10 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>msn2 home control</title>
     <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
+    <link rel="SHORTCUT ICON" href="favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <script type="text/javascript">
         function toggleItem() {
@@ -115,6 +117,19 @@
                 <td>
                     <asp:Label runat="server" ID="upstairsHallStatus" CssClass="smallNote" /></td>
             </tr>
+
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">kitchen</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="kitchenOn" Text=" on " OnClientClick="return toggleLevel('kitchen light');" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="kitchenOff" Text=" off " OnClick="kitchenOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="kitchenStatus" CssClass="smallNote" /></td>
+            </tr>
+
             <tr style="border-top: solid 2px silver">
                 <td class="mainItem">master sink light</td>
                 <td rowspan="2">
@@ -137,6 +152,15 @@
                 <td>
                     <asp:Label runat="server" ID="masterBathFanStatus" CssClass="smallNote" /></td>
             </tr>
+            
+        <tr style="border-top: solid 2px silver">
+            <td class="mainItem">coop door</td>
+            <td rowspan="2">
+            </td>
+        </tr>
+        <tr>
+            <td><asp:Label runat="server" ID="coopDoorStatus" CssClass="smallNote" /></td>
+        </tr>
             <!--
         <tr style="border-top: solid 2px silver">
             <td class="mainItem">garden drip</td>

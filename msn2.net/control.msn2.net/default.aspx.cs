@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 public partial class control : System.Web.UI.Page
 {
     const string UpstairHallwayAddress = "24060";
+    const string KitchenLightsAddress = "2B B8 3E 1";
     const string LivingRoomSideLightsAddress = "18965";
     const string MediaRoomSideLightsAddress = "58666";
     const string MasterSinkLightAddress = "2B BD 8C 1";
@@ -17,6 +18,7 @@ public partial class control : System.Web.UI.Page
     const string Garage1SensorAddress = "28 CA 15 1";
     const string Garage2SwitchAddress = "34 88 F9 2";
     const string Garage2SensorAddress = "34 88 F9 1";
+    const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -45,6 +47,9 @@ public partial class control : System.Web.UI.Page
             var mc = groups.FirstOrDefault(g => g.Address == MediaRoomSideLightsAddress);
             this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
 
+            var kitchen = groups.First().Nodes.FirstOrDefault(g => g.Address == KitchenLightsAddress);
+            this.kitchenStatus.Text = kitchen != null ? kitchen.Status : "unknown status";
+
             var upstairs = groups.FirstOrDefault(g => g.Address == UpstairHallwayAddress);
             this.upstairsHallStatus.Text = upstairs != null ? upstairs.Status : "unkown status";
 
@@ -53,6 +58,9 @@ public partial class control : System.Web.UI.Page
 
             var masterBathFan = groups.First().Nodes.FirstOrDefault(g => g.Address == MasterBathFanAddress);
             this.masterBathFanStatus.Text = masterBathFan != null ? masterBathFan.Status : "unknown status";
+
+            var coopDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == CoopDoorAddress);
+            this.coopDoorStatus.Text = coopDoor != null ? coopDoor.Status : "unknown status";
 
 /*            try
             {
@@ -120,6 +128,13 @@ public partial class control : System.Web.UI.Page
         this.Redirect();
     }
 
+    protected void kitchenOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOff(KitchenLightsAddress);
+        this.Redirect();
+    }
+
     protected void upstairsHallOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
@@ -182,6 +197,10 @@ public partial class control : System.Web.UI.Page
         else if (this.levelItem.Value.ToLower() == "upstairs hall light")
         {
             SetLevel(sender, UpstairHallwayAddress);
+        }
+        else if (this.levelItem.Value.ToLower() == "kitchen light")
+        {
+            SetLevel(sender, KitchenLightsAddress);
         }
     }
 
