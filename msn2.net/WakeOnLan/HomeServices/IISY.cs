@@ -30,5 +30,11 @@ namespace HomeServices
 
         [OperationContract]
         NodeData SetLevel(string address, int level);
+
+        [OperationContract]
+        NodeData Lock(string address);
+
+        [OperationContract]
+        NodeData Unlock(string address);
     }
 }
