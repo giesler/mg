@@ -33,56 +33,72 @@ namespace HomeServices
                     Status = "unknown"
                 };
 
-                XElement prop = node.Element("property");
-                if (prop.Attribute("uom").Value == "%/on/off")
+                if (nodes.FirstOrDefault(n => n.Name == newNode.Name) == null)
                 {
-                    string val = prop.Attribute("formatted").Value.Trim();
-                    if (val.Length > 0 && val.ToLower() != "off")
+                    XElement prop = node.Element("property");
+                    if (prop != null)
                     {
-                        if (val == "On")
+                        if (prop.Attribute("uom").Value == "%/on/off")
                         {
-                            newNode.Level = 100;
+                            string val = prop.Attribute("formatted").Value.Trim();
+                            if (val.Length > 0 && val.ToLower() != "off")
+                            {
+                                if (val == "On")
+                                {
+                                    newNode.Level = 100;
+                                }
+                                else
+                                {
+                                    newNode.Level = int.Parse(val);
+                                }
+                                newNode.IsOn = newNode.Level > 0;
+                                newNode.Status = string.Format("on @ {0}%", newNode.Level);
+                            }
+                            else
+                            {
+                                newNode.Status = "off";
+                            }
                         }
                         else
                         {
-                            newNode.Level = int.Parse(val);
+                            string val = prop.Attribute("formatted").Value.Trim();
+                            if (val == "On")
+                            {
+                                newNode.IsOn = true;
+                                newNode.Status = "on";
+                            }
+                            else if (val == "Off")
+                            {
+                                newNode.IsOn = false;
+                                newNode.Status = "off";
+                            }
+                            else if (val == "Locked")
+                            {
+                                newNode.IsOn = true;
+                                newNode.Status = "locked";
+                            }
+                            else if (val == "Unlocked") 
+                            {
+                                newNode.IsOn = false;
+                                newNode.Status = "unlocked";
+                            }
+
+                            if ((newNode.Name.ToLower().Contains("sensor"))
+                                && (newNode.Status == "on" || newNode.Status == "off"))
+                            {
+                                newNode.Status = newNode.Status == "on" ? "closed" : "open";
+                            }
+
+                            if ((newNode.Name.ToLower().Contains("coop"))
+                                && (newNode.Status == "on" || newNode.Status == "off"))
+                            {
+                                newNode.Status = newNode.Status == "on" ? "open" : "closed";
+                            }
                         }
-                        newNode.IsOn = newNode.Level > 0;
-                        newNode.Status = string.Format("on @ {0}%", newNode.Level);
-                    }
-                    else
-                    {
-                        newNode.Status = "off";
+
+                        nodes.Add(newNode);
                     }
                 }
-                else
-                {
-                    string val = prop.Attribute("formatted").Value.Trim();
-                    if (val == "On")
-                    {
-                        newNode.IsOn = true;
-                        newNode.Status = "on";
-                    }
-                    else if (val == "Off")
-                    {
-                        newNode.IsOn = false;
-                        newNode.Status = "off";
-                    }
-
-                    if ((newNode.Name.ToLower().Contains("sensor"))
-                        && (newNode.Status == "on" || newNode.Status == "off"))
-                    {
-                        newNode.Status = newNode.Status == "on" ? "closed" : "open";
-                    }
-
-                    if ((newNode.Name.ToLower().Contains("coop"))
-                        && (newNode.Status == "on" || newNode.Status == "off"))
-                    {
-                        newNode.Status = newNode.Status == "on" ? "open" : "closed";
-                    }
-                }
-
-                nodes.Add(newNode);
             }
 
             foreach (XElement node in doc.Root.Elements("group"))
@@ -99,28 +115,27 @@ namespace HomeServices
                 foreach (XElement childNode in node.Element("members").Descendants())
                 {
                     NodeData matchingNode = nodes.FirstOrDefault(i => i.Address == childNode.Value);
-                    if (matchingNode == null)
+                    if (matchingNode != null)
                     {
-                        throw new Exception("Unable to find node " + childNode.Value);
-                    }
-                    newGroup.Nodes.Add(matchingNode);
+                        newGroup.Nodes.Add(matchingNode);
 
-                    if (statusVaries == false)
-                    {
-                        if (status == string.Empty)
+                        if (statusVaries == false)
                         {
-                            status = matchingNode.Status;
-                        }
-                        else if (status != matchingNode.Status)
-                        {
-                            statusVaries = true;
-                            status = "mixed states";
+                            if (status == string.Empty)
+                            {
+                                status = matchingNode.Status;
+                            }
+                            else if (status != matchingNode.Status)
+                            {
+                                statusVaries = true;
+                                status = "mixed states";
+                            }
                         }
                     }
+                    newGroup.Status = status;
+                    groups.Add(newGroup);
                 }
-                newGroup.Status = status;
-                groups.Add(newGroup);
-            }
+            }            
         }
 
         public NodeData GetNode(string address)
@@ -185,6 +200,11 @@ namespace HomeServices
             return this.GetAddressData(address);
         }
 
+        public bool GetStatus(string address)
+        {
+            return false;
+        }
+
         public NodeData SetLevel(string address, int level)
         {
             int adjustedLevel = (int)((double)level / 100.0 * 255.0);
@@ -192,9 +212,16 @@ namespace HomeServices
             return this.GetAddressData(address);
         }
 
-        public bool GetStatus(string address)
+        public NodeData Lock(string address)
         {
-            return false;
+            IsyUtilities.GetResponse("/rest/nodes/" + address + "/cmd/SECMD/1");
+            return this.GetAddressData(address);
+        }
+
+        public NodeData Unlock(string address)
+        {
+            IsyUtilities.GetResponse("/rest/nodes/" + address + "/cmd/SECMD/0");
+            return this.GetAddressData(address);
         }
     }
 }
