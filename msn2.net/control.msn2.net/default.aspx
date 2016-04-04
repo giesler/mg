@@ -81,7 +81,17 @@
                 <td>
                     <asp:Label runat="server" ID="garage2Status" CssClass="smallNote" /></td>
             </tr>
-
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">garage entry door</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="garageEntryLock" Text=" lock " OnClick="garageEntryLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="garageEntryUnlock" Text=" unlock " OnClick="garageEntryUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="garageEntryStatus" CssClass="smallNote" /></td>
+            </tr>
             <tr style="border-top: solid 2px silver">
                 <td class="mainItem">living room</td>
                 <td rowspan="2">

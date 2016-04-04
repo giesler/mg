@@ -49,6 +49,18 @@
   <wsdl:message name="IISY_SetLevel_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetLevelResponse" />
   </wsdl:message>
+  <wsdl:message name="IISY_Lock_InputMessage">
+    <wsdl:part name="parameters" element="tns:Lock" />
+  </wsdl:message>
+  <wsdl:message name="IISY_Lock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IISY_Unlock_InputMessage">
+    <wsdl:part name="parameters" element="tns:Unlock" />
+  </wsdl:message>
+  <wsdl:message name="IISY_Unlock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnlockResponse" />
+  </wsdl:message>
   <wsdl:portType name="IISY">
     <wsdl:operation name="GetNodes">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/GetNodes" message="tns:IISY_GetNodes_InputMessage" />
@@ -77,6 +89,14 @@
     <wsdl:operation name="SetLevel">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/SetLevel" message="tns:IISY_SetLevel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IISY/SetLevelResponse" message="tns:IISY_SetLevel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Lock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IISY/Lock" message="tns:IISY_Lock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IISY/LockResponse" message="tns:IISY_Lock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Unlock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IISY/Unlock" message="tns:IISY_Unlock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IISY/UnlockResponse" message="tns:IISY_Unlock_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IISY" type="tns:IISY">
@@ -137,6 +157,24 @@
     </wsdl:operation>
     <wsdl:operation name="SetLevel">
       <soap:operation soapAction="http://tempuri.org/IISY/SetLevel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Lock">
+      <soap:operation soapAction="http://tempuri.org/IISY/Lock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Unlock">
+      <soap:operation soapAction="http://tempuri.org/IISY/Unlock" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
