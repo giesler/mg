@@ -139,6 +139,11 @@ A:link {
     color: navy;
 }
 
+a:visited {
+    text-decoration: none;
+    color: navy;
+}
+
 .headerLink A:link {
     text-decoration: none;
     color: white;

@@ -33,8 +33,9 @@
                 <a href="http://pics.msn2.net">Pics</a>
             <div class="subheader">SERVICES</div>
             <a href="http://192.168.1.55/WEB/udajax.htm#/nodes/scenes/" title="admin | admin">ISY</a> |
-                <a href="https://home.nest.com/" title="mike@giesler.org | camping">NEST</a> |
-                <a href="https://my.netatmo.com/app/station" title="giesler@live.com | sweet2Go">Netatmo</a>
+                <a href="https://home.nest.com/" title="mike@giesler.org | camping">NEST</a> <br />
+                <a href="https://my.netatmo.com/app/station" title="giesler@live.com | sweet2Go">Netatmo</a> | 
+                <a href="https://app.rach.io/" title="giesler | msndrips">Rachio</a>
             <div class="subheader">MEDIA</div>
             <a href="http://online.tivo.com" title="giesler@live.com | showtime">TiVo</a> |
                 <a href="https://app.plex.tv/web/app#" title="giesler@live.com | showtime">Plex</a> |
@@ -62,7 +63,7 @@
                 <a href="http://www.epicurious.com/">Epicurious</a> |
                 <a href="http://www.seriouseats.com/">Serious Eats</a>
             <div class="subheader">SHOPPING</div>
-            <a href="http://smile.amazon.com/">Amazon</a> |
+            <a href="http://smile.amazon.com/?tag=charity48-20">Amazon</a> |
                 <a href="http://www.newegg.com/">NewEgg</a>
             <div class="subheader">OTHER</div>
             <a href="http://www.facebook.com/">Facebook</a> |
@@ -122,16 +123,20 @@
             <div class="subheader">ENVIRONMENT</div>
             <a href="http://www.pscleanair.org/airq/status.aspx">Burning</a> | 
 				<a href="http://www.seattle.gov/util/EnvironmentConservation/OurWatersheds/index.htm">Water</a><br />
+            <div class="subheader">FOOD</div>
+            <a href="https://www.dinnerdeliveryplus.com/index.php?module=modRDS&op=restaurants" title="bills@giesler.org | newt44">Dinner Delivery</a> | 
+            <a href="http://www.bitesquad.com/search/?search%5Baddress%5D=12627+NE+87th+Pl%2C+Kirkland%2C+WA%2C+United+States&search%5Bdistance%5D=5&search%5BstreetAddress%5D=12627+Northeast+87th+Place&search%5BunitNumber%5D=&search%5Bcity%5D=Kirkland&search%5Bstate%5D=Washington&search%5BzipCode%5D=98033-5966&search%5Blatitude%5D=47.680706&search%5Blongitude%5D=-122.17140240000003&search%5BmaxResults%5D=20&search%5BfirstResult%5D=0&search%5BorderTypes%5D=1">Bite Squad</a> | 
+            <a href="http://pagliacci.com/menu" title="bills@giesler.org | feednowok">Pagliacci</a>
+            <br />
             <div class="subheader">MISC</div>
             <a href="http://seattle.citysearch.com/">CitySearch</a> | 
 				<a href="http://www.vegseattle.com/">VegSeattle</a> |
                 <a href="http://www.pegasuspizzakirkland.com/">Pegasus</a>
             <br />
             <div class="subheader">WORK</div>
-            <a href="https://icm.ad.msft.net/">IcM</a> |
                 <a href="http://outlook.com/owa/microsoft.com">OWA</a> |
-                <a href="https://microsoft.sharepoint.com/teams/dpeses/privatecloud/">PC</a> |
                 <a href="https://redmondts.microsoft.com/">TS</a>
+            <br />
         </div>
         <div style="float: left; padding-left: 3px">
             MEDIA
@@ -141,7 +146,8 @@
             <br />
             <div class="subheader">MOVIES</div>
             <a href="http://movies.msn.com/movies/finda.aspx?shloc=98033&amp;famsel=-1">Showtimes</a> |
-                    <a href="http://www.netflix.com/">NetFlix</a>
+                    <a href="http://www.netflix.com/">NetFlix</a> |
+            <a href="http://www.cinesift.com/">Cinesift</a>
             <br />
             <div class="subheader">VIDEO</div>
             <a href="http://www.youtube.com/">YouTube</a> |
