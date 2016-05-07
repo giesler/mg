@@ -84,8 +84,7 @@
 				<a href="http://news.google.com/">Google</a> |
 				<a href="http://t.msn.com/">MSN</a> | 
 				<a href="http://www.nbcnews.com/">NBC</a> | 
-				<a href="http://www.nytimes.com/">NYT</a> |
-				<a href="http://www.wsj.com/">WSJ</a>
+				<a href="http://www.nytimes.com/">NYT</a> 
             <div class="subheader">LOCAL</div>
             <a href="http://seattlepi.nwsource.com/">PI</a> | 
                 <a href="http://www.seattletimes.com/">Times</a> |
@@ -97,11 +96,9 @@
             <div class="subheader">OPINION</div>
             <a href="http://www.salon.com/">Salon</a> | 
 				<a href="http://slate.com/">Slate</a> | 
-				<a href="http://www.hillnews.com/">Hill</a> | 
 				<a href="http://www.theatlantic.com/">Atlantic</a> |
 				<a href="http://www.huffingtonpost.com/">HuffPo</a>
             <div class="subheader">POLITICS</div>
-            <a href="http://www.airamericaradio.com/">Air America</a> | 
 				<a href="http://mediamatters.org/">Media Matters</a> | 
 				<a href="http://washingtonvotes.org/">WA Votes </a>
         </div>
@@ -117,8 +114,7 @@
             <br />
             <div class="subheader">GOVERNMENT</div>
             <a href="http://www.kingcounty.gov/">King County</a> | 
-				<a href="http://www.ci.kirkland.wa.us/">Kirkland</a> | 
-				<a href="http://www.north-rosehill.org/">N. Rose Hill</a>
+				<a href="http://www.ci.kirkland.wa.us/">Kirkland</a>
             <br />
             <div class="subheader">ENVIRONMENT</div>
             <a href="http://www.pscleanair.org/airq/status.aspx">Burning</a> | 
