@@ -15,14 +15,13 @@
 <body class="bodyStyle" style="color: black">
 
     <div class="headerLink">
-        <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
-	    <a href="http://ts.msn2.net/">TS</a>
+        <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> 
     </div>
     <div style="height: 64px">
         <iframe frameborder="0" width="100%" height="100%" src="http://cams.msn2.net/thumbs.aspx" scrolling="no"></iframe>
     </div>
     <div style="height: 155px">
-        <iframe frameborder="0" width="100%" height="100%" src="http://svc.msn2.net/cal/"></iframe>
+        <iframe frameborder="0" width="100%" height="100%" src="http://cal.msn2.net/"></iframe>
     </div>
     <div>
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px">
@@ -64,10 +63,11 @@
                 <a href="http://www.seriouseats.com/">Serious Eats</a>
             <div class="subheader">SHOPPING</div>
             <a href="http://smile.amazon.com/?tag=charity48-20">Amazon</a> |
-                <a href="http://www.newegg.com/">NewEgg</a>
+                <a href="http://www.newegg.com/">NewEgg</a> |
+                <a href="https://www.wunderlist.com/webapp">Wunderlist</a>
             <div class="subheader">OTHER</div>
             <a href="http://www.facebook.com/">Facebook</a> |
-                <a href="http://listgo.mobi/">ListGo</a> |
+                <a href="http://www.linkedin.com/">LinkedIn</a> |
                 <a href="http://www.onedrive.com">OneDrive</a> | 
                 <a href="http://www.outlook.com/owa/giesler.org/">OWA</a>
             <div class="subheader">TECH</div>
@@ -132,11 +132,6 @@
             <a href="http://seattle.citysearch.com/">CitySearch</a> | 
 				<a href="http://www.vegseattle.com/">VegSeattle</a> |
                 <a href="http://www.pegasuspizzakirkland.com/">Pegasus</a>
-            <br />
-            <div class="subheader">WORK</div>
-                <a href="http://outlook.com/owa/microsoft.com">OWA</a> |
-                <a href="https://redmondts.microsoft.com/">TS</a>
-            <br />
         </div>
         <div style="float: left; padding-left: 3px">
             MEDIA
