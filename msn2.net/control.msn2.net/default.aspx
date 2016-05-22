@@ -1,5 +1,5 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" EnableViewState="false" EnableSessionState="False" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,8 +57,7 @@
             <asp:HiddenField runat="server" ID="levelItem" />
         </asp:Panel>
         <div class="headerLink">
-            <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> | 
-	    <a href="http://ts.msn2.net/">TS</a>
+            <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> 
             <br />
         </div>
         <table style="width: 100%">
@@ -91,6 +90,17 @@
             <tr>
                 <td>
                     <asp:Label runat="server" ID="garageEntryStatus" CssClass="smallNote" /></td>
+            </tr>
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">front door</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="frontDoorLock" Text=" lock " OnClick="frontDoorLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="frontDoorUnlock" Text=" unlock " OnClick="frontDoorUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="frontDoorStatus" CssClass="smallNote" /></td>
             </tr>
             <tr style="border-top: solid 2px silver">
                 <td class="mainItem">living room</td>
@@ -138,6 +148,18 @@
             <tr>
                 <td>
                     <asp:Label runat="server" ID="kitchenStatus" CssClass="smallNote" /></td>
+            </tr>
+
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">main rooms audio</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="mainRoomsAudioMute" Text=" mute " OnClick="mainRoomsAudioMute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="mainRoomsAudioUnmute" Text=" unmute " OnClick="mainRoomsAudioUnmute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="mainRoomsAudioStatus" CssClass="smallNote" /></td>
             </tr>
 
             <tr style="border-top: solid 2px silver">

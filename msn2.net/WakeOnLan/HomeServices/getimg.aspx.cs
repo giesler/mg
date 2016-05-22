@@ -32,31 +32,31 @@ namespace HomeServices
 
             if (cam == "1")
             {
-                address = "http://192.168.1.212:81/image/cc1";
+                address = "http://192.168.1.210:81/image/cc1";
             }
             else if (cam == "2")
             {
-                address = "http://192.168.1.212:81/image/cc2";
+                address = "http://192.168.1.210:81/image/cc2";
             }
             else if (cam == "3")
             {
                 rotate = false;
-                address = "http://192.168.1.212:81/image/cc3";
+                address = "http://192.168.1.210:81/image/cc3";
             }
             else if (cam == "dw1")
             {
                 rotate = false;
-                address = "http://192.168.1.212:81/image/dw1";
+                address = "http://192.168.1.210:81/image/dw1";
             }
             else if (cam.ToLower() == "front")
             {
                 rotate = false;
-                address = "http://192.168.1.212:81/image/Front";
+                address = "http://192.168.1.210:81/image/Front";
             }
             else if (cam.ToLower() == "side")
             {
                 rotate = false;
-                address = "http://192.168.1.212:81/image/side";
+                address = "http://192.168.1.210:81/image/side";
             }
 
             if (Request.QueryString["r"] == "1")
@@ -72,7 +72,7 @@ namespace HomeServices
 
             if (Environment.MachineName.ToLower() == "server0")
             {
-                address = address.Replace("192.168.1.212", "127.0.0.1");
+                address = address.Replace("192.168.1.210", "127.0.0.1");
             }
 
             int retries = 3;
@@ -85,12 +85,12 @@ namespace HomeServices
                         address, new Random().Next(100000));
                     HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
                     req.Method = WebRequestMethods.Http.Get;
-                    req.Credentials = new NetworkCredential("admin", "aaaCharlie", "");
+                    req.Credentials = new NetworkCredential("home", "4362", "");
 
                     Trace.Write("Requesting " + url);
 
                     using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
-                    {
+                    { 
                         if (response.ContentLength > 0)
                         {
                             using (Stream s = response.GetResponseStream())

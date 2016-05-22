@@ -36,5 +36,21 @@ namespace HomeServices
 
         [OperationContract]
         NodeData Unlock(string address);
+
+        [OperationContract]
+        void RunProgram(ProgramRunType programRunType, string programId);
+
+    }
+
+    public enum ProgramRunType
+    {
+        run,
+        runThen,
+        runElse,
+        stop,
+        enable,
+        disable,
+        enableRunAtStartup,
+        disableRunAtStartup
     }
 }

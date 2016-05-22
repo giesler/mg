@@ -61,6 +61,12 @@
   <wsdl:message name="IISY_Unlock_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnlockResponse" />
   </wsdl:message>
+  <wsdl:message name="IISY_RunProgram_InputMessage">
+    <wsdl:part name="parameters" element="tns:RunProgram" />
+  </wsdl:message>
+  <wsdl:message name="IISY_RunProgram_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RunProgramResponse" />
+  </wsdl:message>
   <wsdl:portType name="IISY">
     <wsdl:operation name="GetNodes">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/GetNodes" message="tns:IISY_GetNodes_InputMessage" />
@@ -97,6 +103,10 @@
     <wsdl:operation name="Unlock">
       <wsdl:input wsaw:Action="http://tempuri.org/IISY/Unlock" message="tns:IISY_Unlock_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IISY/UnlockResponse" message="tns:IISY_Unlock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RunProgram">
+      <wsdl:input wsaw:Action="http://tempuri.org/IISY/RunProgram" message="tns:IISY_RunProgram_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IISY/RunProgramResponse" message="tns:IISY_RunProgram_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IISY" type="tns:IISY">
@@ -175,6 +185,15 @@
     </wsdl:operation>
     <wsdl:operation name="Unlock">
       <soap:operation soapAction="http://tempuri.org/IISY/Unlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunProgram">
+      <soap:operation soapAction="http://tempuri.org/IISY/RunProgram" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

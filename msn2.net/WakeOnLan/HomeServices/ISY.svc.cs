@@ -223,5 +223,10 @@ namespace HomeServices
             IsyUtilities.GetResponse("/rest/nodes/" + address + "/cmd/SECMD/0");
             return this.GetAddressData(address);
         }
+
+        public void RunProgram(ProgramRunType programRunType, string programId)
+        {
+            IsyUtilities.GetResponse("/rest/programs/" + programId + "/" + programRunType.ToString());
+        }
     }
 }

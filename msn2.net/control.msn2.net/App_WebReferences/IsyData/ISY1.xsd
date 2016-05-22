@@ -31,4 +31,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GroupData" nillable="true" type="tns:GroupData" />
+  <xs:simpleType name="ProgramRunType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="run" />
+      <xs:enumeration value="runThen" />
+      <xs:enumeration value="runElse" />
+      <xs:enumeration value="stop" />
+      <xs:enumeration value="enable" />
+      <xs:enumeration value="disable" />
+      <xs:enumeration value="enableRunAtStartup" />
+      <xs:enumeration value="disableRunAtStartup" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ProgramRunType" nillable="true" type="tns:ProgramRunType" />
 </xs:schema>

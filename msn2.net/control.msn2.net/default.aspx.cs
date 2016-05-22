@@ -19,6 +19,7 @@ public partial class control : System.Web.UI.Page
     const string Garage2SwitchAddress = "34 88 F9 2";
     const string Garage2SensorAddress = "34 88 F9 1";
     const string GarageEntryDoorAddress = "ZW002_1";
+    const string FrontDoorAddress = "ZW003_1";
     const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
 
@@ -44,6 +45,9 @@ public partial class control : System.Web.UI.Page
 
             var garageEntryDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == GarageEntryDoorAddress);
             this.garageEntryStatus.Text = garageEntryDoor.Status;
+
+            var frontDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == FrontDoorAddress);
+            this.frontDoorStatus.Text = frontDoor.Status;
 
             var lr = groups.FirstOrDefault(g => g.Address == LivingRoomSideLightsAddress);
             this.livingRoomStatus.Text = lr.Status;
@@ -234,6 +238,34 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.Unlock(GarageEntryDoorAddress);
+        this.Redirect();
+    }
+
+    protected void frontDoorLock_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.Lock(FrontDoorAddress);
+        this.Redirect();
+    }
+
+    protected void frontDoorUnlock_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.Unlock(FrontDoorAddress);
+        this.Redirect();
+    }
+
+    protected void mainRoomsAudioUnmute_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.RunProgram(IsyData.ProgramRunType.run, "0011");
+        this.Redirect();
+    }
+
+    protected void mainRoomsAudioMute_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.RunProgram(IsyData.ProgramRunType.run, "0010");
         this.Redirect();
     }
 }
