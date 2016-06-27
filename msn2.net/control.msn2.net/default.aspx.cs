@@ -1,5 +1,7 @@
-﻿using System;
+﻿using msn2.net;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -25,10 +27,13 @@ public partial class control : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        HttpCookie cookie = Request.Cookies["Login"];
-        if (cookie == null || cookie.Value != "1")
+        if (!Debugger.IsAttached)
         {
-            Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
+            HttpCookie cookie = Request.Cookies["Login"];
+            if (cookie == null || cookie.Value != "1")
+            {
+                Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
+            }
         }
 
         if (!Page.IsPostBack)
@@ -70,20 +75,20 @@ public partial class control : System.Web.UI.Page
             var coopDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == CoopDoorAddress);
             this.coopDoorStatus.Text = coopDoor != null ? coopDoor.Status : "unknown status";
 
-/*            try
-            {
-                DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
-                var status = dc.GetDeviceStatus(GardenDripName);
+            /*            try
+                        {
+                            DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
+                            var status = dc.GetDeviceStatus(GardenDripName);
 
-                this.dripToggleOn.Enabled = !status.IsOn;
-                this.dripToggleOff.Enabled = status.IsOn;
-                this.dripStatus.Text = status.StatusText;
-            }
-            catch (Exception ex)
-            {
-                this.dripStatus.Text = "error: " + ex.GetType().Name;
-                this.dripStatus.ToolTip = ex.Message;
-            }*/
+                            this.dripToggleOn.Enabled = !status.IsOn;
+                            this.dripToggleOff.Enabled = status.IsOn;
+                            this.dripStatus.Text = status.StatusText;
+                        }
+                        catch (Exception ex)
+                        {
+                            this.dripStatus.Text = "error: " + ex.GetType().Name;
+                            this.dripStatus.ToolTip = ex.Message;
+                        }*/
         }
     }
 
@@ -154,7 +159,7 @@ public partial class control : System.Web.UI.Page
     {
         DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();
         dc.TurnOn(GardenDripName, TimeSpan.FromMinutes(15));
-        
+
         Thread.Sleep(TimeSpan.FromSeconds(2));
         Response.Redirect(Request.Url.ToString());
     }
@@ -266,6 +271,21 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.run, "0010");
+        this.Redirect();
+    }
+
+    protected void gardenDripOff_Click(object sender, EventArgs e)
+    {
+        RachioIntegration.StopDrip();
+        this.Redirect();
+    }
+
+    protected void duration1_Click(object sender, EventArgs e)
+    {
+        Button button = (Button)sender;
+        int level = int.Parse(button.ID.Replace("duration", ""));
+
+        RachioIntegration.StartDrip(TimeSpan.FromMinutes(level));
         this.Redirect();
     }
 }
