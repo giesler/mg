@@ -129,6 +129,12 @@ namespace msn2.net
 
         [DataMember(Name = "runtime")]
         public int Runtime { get; set; }
+
+        [DataMember(Name = "lastWateredDuration")]
+        public int LastWateredDuration { get; set; }
+
+        [DataMember(Name = "lastWateredDate")]
+        public long LastWateredDate { get; set; }
     }
 
     [DataContract]

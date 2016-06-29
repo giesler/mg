@@ -75,6 +75,31 @@ public partial class control : System.Web.UI.Page
             var coopDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == CoopDoorAddress);
             this.coopDoorStatus.Text = coopDoor != null ? coopDoor.Status : "unknown status";
 
+            Zone garden = RachioIntegration.GetZone();
+            string status = string.Empty;
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dt = dt.AddMilliseconds(garden.LastWateredDate).ToLocalTime();
+
+            if (dt.DayOfYear == DateTime.Now.DayOfYear && dt.Year == DateTime.Now.Year)
+            {
+                status = "today at " + dt.ToString("h:mm");
+            }
+            else if (dt.DayOfYear == DateTime.Now.DayOfYear - 1 && dt.Year == DateTime.Now.Year)
+            {
+                status = "yesterday at " + dt.ToString("h:mm");
+            }
+            else if (dt.DayOfYear > DateTime.Now.DayOfYear - 4 && dt.Year == DateTime.Now.Year)
+            {
+                status = dt.ToString("dddd") + " at " + dt.ToString("h:mm");
+            }
+            else
+            {
+                status = dt.ToString("M/d") + " at " + dt.ToString("h:mm");
+            }
+            this.gardenDripStatus.Text = "Last watered " + status + " for " + (garden.LastWateredDuration / 60).ToString("0") + " mins";
+
+            // shows 7:33 am - actual 11:33 am
+            // tomorrow 2:30 am, actual 6/28 7:22 pm
             /*            try
                         {
                             DeviceControlService.DeviceControlClient dc = new DeviceControlService.DeviceControlClient();

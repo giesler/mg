@@ -35,13 +35,13 @@
 </head>
 <body style="background-color: black;">
     <form id="form1" runat="server" style="height: 100%">
-        <asp:Panel runat="server" ID="sendingPanel" class="popupPanel">
+        <asp:Panel runat="server" ID="sendingPanel" CssClass="popupPanel">
             <br />
             <br />
             <br />
             <p>sending...</p>
         </asp:Panel>
-        <asp:Panel runat="server" ID="levelPanel" class="popupPanel">
+        <asp:Panel runat="server" ID="levelPanel" CssClass="popupPanel">
             <asp:Button runat="server" ID="level100" OnClick="level100_Click" Text=" 100% " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
             <asp:Button runat="server" ID="level90" OnClick="level100_Click" Text=" 90% " CssClass="popupButton" OnClientClick="toggleItem();" />
@@ -214,7 +214,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label runat="server" ID="Label1" CssClass="smallNote" /></td>
+                    <asp:Label runat="server" ID="gardenDripStatus" CssClass="smallNote" /></td>
             </tr>
             
         <tr style="border-top: solid 2px silver">
@@ -225,18 +225,6 @@
         <tr>
             <td><asp:Label runat="server" ID="coopDoorStatus" CssClass="smallNote" /></td>
         </tr>
-            <!--
-        <tr style="border-top: solid 2px silver">
-            <td class="mainItem">garden drip</td>
-            <td rowspan="2">
-                <asp:Button runat="server" ID="dripToggleOn" Text=" on " OnClick="dripToggleOn_Click" Enabled="false" /> 
-                <asp:Button runat="server" ID="dripToggleOff" Text=" off " OnClick="dripToggleOff_Click" Enabled="false" />
-            </td>
-        </tr>
-        <tr>
-            <td><asp:Label runat="server" ID="dripStatus" CssClass="smallNote" /></td>
-        </tr>
-         -->
         </table>
     </form>
 </body>
