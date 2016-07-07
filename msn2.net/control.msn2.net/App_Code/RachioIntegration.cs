@@ -3,6 +3,7 @@ using System.Text;
 using System.Runtime.Serialization.Json;
 using System.Net;
 using System.IO;
+using System.Linq;
 
 namespace msn2.net
 {
@@ -16,8 +17,6 @@ namespace msn2.net
         public static Zone GetZone()
         {
             HttpWebResponse response = Get("https://api.rach.io/1/public/zone/" + ZoneId);
-            DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings();
-            settings.UseSimpleDictionaryFormat = true;
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Zone));
             object zoneObject = json.ReadObject(response.GetResponseStream());
             return zoneObject as Zone;
@@ -35,7 +34,16 @@ namespace msn2.net
             Put("https://api.rach.io/1/public/device/stop_water", content);
         }
 
-        static HttpWebResponse Get(string url)
+        public static Event[] GetEvents(DateTime startTime, DateTime endTime)
+        {
+            string url = string.Format("https://api.rach.io/1/public/device/{0}/event?startTime={1}&endTime={2}", DeviceId, GetEpoch(startTime), GetEpoch(endTime));
+            HttpWebResponse response = Get(url);
+            DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Event[]));
+            object jsonObject = json.ReadObject(response.GetResponseStream());
+            return jsonObject as Event[];
+        }
+
+        public static HttpWebResponse Get(string url)
         {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "GET";
@@ -78,6 +86,73 @@ namespace msn2.net
             }
         }
 
+        public static DateTime GetDate(double milliseconds)
+        {
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            DateTime dt = epoch.AddMilliseconds(milliseconds).ToLocalTime();
+            return dt;
+        }
+
+        public static double GetEpoch(DateTime dt)
+        {
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan ts = dt - epoch;
+            return ts.TotalMilliseconds;
+        }
+
+        public static string GetCurrentStatus()
+        {
+            string status = "Unknown";
+
+            var items = RachioIntegration.GetEvents(DateTime.Now.Date.AddDays(0), DateTime.Now.Date.AddDays(1));
+
+            bool skipTotal = false;
+            if (items.Length > 0)
+            {
+                Event lastEvent = items[0];
+                if (lastEvent.Category == "SCHEDULE" && lastEvent.Type == "ZONE_STATUS")
+                {
+                    EventData statusData = lastEvent.EventData.FirstOrDefault(i => i.Key == "status");
+                    if (statusData.Value == "started")
+                    {
+                        // Zone currently running
+                        EventData durationData = lastEvent.EventData.FirstOrDefault(i => i.Key == "duration");
+                        int duration = int.Parse(durationData.Value);
+                        DateTime endTime = lastEvent.CreateDate.AddMinutes(duration);
+                        status = "Running until " + endTime.ToString("h:mm");
+                        skipTotal = true;
+                    }
+                }
+
+                if (lastEvent.Category == "WEATHER" && lastEvent.Type == "WEATHER_INTELLIGENCE")
+                {
+                    status = "Watering skipped today";
+                    skipTotal = true;
+                }
+
+                if (!skipTotal)
+                {
+                    int durationSecs = 0;
+                    foreach (Event e in items)
+                    {
+                        if (e.Category == "SCHEDULE" && e.Type == "ZONE_STATUS")
+                        {
+                            EventData st = e.EventData.FirstOrDefault(i => i.Key == "status");
+                            if (st != null && st.Value == "ZONE_COMPLETED")
+                            {
+                                EventData d = e.EventData.FirstOrDefault(i => i.Key == "durationInSeconds");
+                                durationSecs += int.Parse(d.Value);
+                            }
+                        }
+                    }
+
+                    TimeSpan ts = new TimeSpan(0, 0, durationSecs);
+                    status = string.Format("Watered today for {0} mins", ts.TotalMinutes);
+                }
+            }
+
+            return status;
+        }
     }
 }
 

@@ -9,7 +9,8 @@
     <meta http-equiv="refresh" content="1500" />
     <meta name="viewport" content="width=device-width" />
     <link href="Styles.css" rel="stylesheet" type="text/css" />
-    <title>home.msn2.net</title>
+    <title>MSN2 Home</title>
+    <link rel="SHORTCUT ICON" href="favicon.ico" />
 </head>
 
 <body class="bodyStyle" style="color: black">
@@ -18,7 +19,7 @@
         <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> 
     </div>
     <div style="height: 64px">
-        <iframe frameborder="0" width="100%" height="100%" src="http://cams.msn2.net/thumbs.aspx" scrolling="no"></iframe>
+        <iframe frameborder="0" width="100%" height="100%" src="http://cams.msn2.net/thumbs.aspx" scrolling="no" style="background-color: black"></iframe>
     </div>
     <div style="height: 155px">
         <iframe frameborder="0" width="100%" height="100%" src="http://cal.msn2.net/"></iframe>
@@ -66,7 +67,7 @@
                 <a href="http://www.newegg.com/">NewEgg</a> |
                 <a href="https://www.wunderlist.com/webapp">Wunderlist</a>
             <div class="subheader">OTHER</div>
-            <a href="http://www.facebook.com/">Facebook</a> |
+            <a href="http://facebook.com/?sk=h_chr">Facebook</a> |
                 <a href="http://www.linkedin.com/">LinkedIn</a> |
                 <a href="http://www.onedrive.com">OneDrive</a> | 
                 <a href="http://www.outlook.com/owa/giesler.org/">OWA</a>
@@ -74,7 +75,7 @@
             <a href="http://www.gizmodo.com/">Gizmodo</a> |
                 <a href="http://www.engadget.com/">Engadget</a> |
                 <a href="http://www.lifehacker.com/">Lifehacker</a> |
-                <a href="http://www.slashdot.org/">Slashdot</a>
+                <a href="http://www.slashdot.org/">/.</a>
         </div>
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px">
             NEWS
@@ -109,8 +110,8 @@
                 <hr />
             <div class="topsubheader">TRAFFIC</div>
             <a href="http://www.wsdot.wa.gov/traffic/seattle/flowmaps/bridges.htm">Maps</a> | 
-				<a href="http://autos.msn.com/everyday/TrafficReport.aspx?zipcode=98033&amp;src=CpEd">Incidents</a> | 
-				<a href="http://trafficmap.cityofbellevue.net/Default.aspx">Bellevue</a>
+				<a href="http://www.wsdot.com/traffic/seattle/incidents/default.aspx">Incidents</a> | 
+				<a href="http://www.bellevuewa.gov/trafficmap/">Bellevue</a>
             <br />
             <div class="subheader">GOVERNMENT</div>
             <a href="http://www.kingcounty.gov/">King County</a> | 
@@ -126,8 +127,13 @@
             <br />
             <div class="subheader">MISC</div>
             <a href="http://seattle.citysearch.com/">CitySearch</a> | 
-				<a href="http://www.vegseattle.com/">VegSeattle</a> |
-                <a href="http://www.pegasuspizzakirkland.com/">Pegasus</a>
+				<a href="http://www.vegseattle.com/">VegSeattle</a>
+            <br />
+            <div class="subheader">BUS STOPS</div>
+            <a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_73952">Mobile</a> | 
+            <a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_73845">Safeway</a> |
+            <a href="http://pugetsound.onebusaway.org/where/standard/stop.action?id=1_73953">McDonalds</a> | 
+            <a href="http://pugetsound.onebusaway.org/where/standard/#ll(47.6794,-122.1754)spn(0.0110,0.0187)">more...</a> 
         </div>
         <div style="float: left; padding-left: 3px">
             MEDIA

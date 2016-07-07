@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>msn2 home control</title>
+    <title>MSN2 Control</title>
     <link href="http://home.msn2.net/Styles.css" rel="stylesheet" type="text/css" />
     <link rel="SHORTCUT ICON" href="favicon.ico" />
     <meta name="viewport" content="width=device-width" />

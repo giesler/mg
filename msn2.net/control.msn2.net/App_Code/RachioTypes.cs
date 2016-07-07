@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace msn2.net
 {
@@ -58,10 +59,26 @@ namespace msn2.net
         public string SerialNumber { get; set; }
 
         [DataMember(Name = "rainDelayExpirationDate")]
-        public long RainDelayExpirationDate { get; set; }
+        public double RainDelayExpirationDateMS { get; set; }
+
+        public DateTime RainDelayExpirationDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(this.RainDelayExpirationDateMS);
+            }
+        }
 
         [DataMember(Name = "rainDelayStartDate")]
-        public long RainDelayStartDate { get; set; }
+        public double RainDelayStartDateMS { get; set; }
+
+        public DateTime RainDelayStartDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(this.RainDelayStartDateMS);
+            }
+        }
 
         [DataMember(Name = "macAddress")]
         public string MacAddress { get; set; }
@@ -171,4 +188,107 @@ namespace msn2.net
 
     [DataContract]
     public class FlexScheduleRules { }
+
+    [DataContract]
+    public class Event
+    {
+        [DataMember(Name = "createDate")]
+        public double CreateDateMS { get; set; }
+
+        public DateTime CreateDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(CreateDateMS);
+            }
+        }
+
+        [DataMember(Name = "lastUpdatedDate")]
+        public double LastUpdatedDateMS { get; set; }
+
+        public DateTime LastUpdatedDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(LastUpdatedDateMS);
+            }
+        }
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "deviceId")]
+        public string DeviceId { get; set; }
+
+        [DataMember(Name = "category")]
+        public string Category { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "eventDate")]
+        public double EventDateMS { get; set; }
+        
+        public DateTime EventDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(EventDateMS);
+            }
+        }
+
+        [DataMember(Name = "eventDatas")]
+        public EventData[] EventData { get; set; }
+
+        [DataMember(Name = "iconUrl")]
+        public string IconUrl { get; set; }
+
+        [DataMember(Name = "summary")]
+        public string Summary { get; set; }
+
+        public override string ToString()
+        {
+            return this.Summary;
+        }
+    }
+
+    [DataContract]
+    public class EventData
+    {
+        [DataMember(Name = "createDate")]
+        public double CreateDateMS { get; set; }
+
+        public DateTime CreateDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(CreateDateMS);
+            }
+        }
+
+        [DataMember(Name = "lastUpdatedDate")]
+        public double LastUpdatedDateMS { get; set; }
+        
+        public DateTime LastUpdatedDate
+        {
+            get
+            {
+                return RachioIntegration.GetDate(LastUpdatedDateMS);
+            }
+        }
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "key")]
+        public string Key { get; set; }
+
+        [DataMember(Name = "convertedValue")]
+        public string Value { get; set; }
+
+        public override string ToString()
+        {
+            return this.Key + " = " + this.Value;
+        }
+    }
 }
