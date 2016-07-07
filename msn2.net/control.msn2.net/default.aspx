@@ -1,5 +1,4 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" EnableViewState="false" EnableSessionState="False" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="control" EnableViewState="false" EnableSessionState="False" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,6 +30,10 @@
             document.all['durationPanel'].style.visibility = 'hidden';
             return false;
         }
+        function cancelDrip() {
+            document.all['durationPanel'].style.visibility = 'hidden';
+            return false;
+        }
     </script>
 </head>
 <body style="background-color: black;">
@@ -39,9 +42,13 @@
             <br />
             <br />
             <br />
+            <br />
             <p>sending...</p>
         </asp:Panel>
         <asp:Panel runat="server" ID="levelPanel" CssClass="popupPanel">
+            <br />
+            <br />
+            <br />
             <asp:Button runat="server" ID="level100" OnClick="level100_Click" Text=" 100% " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
             <asp:Button runat="server" ID="level90" OnClick="level100_Click" Text=" 90% " CssClass="popupButton" OnClientClick="toggleItem();" />
@@ -66,6 +73,9 @@
             <asp:HiddenField runat="server" ID="levelItem" />
         </asp:Panel>
         <asp:Panel runat="server" ID="durationPanel" CssClass="popupPanel">
+            <br />
+            <br />
+            <br />
             <asp:Button runat="server" ID="duration1" OnClick="duration1_Click" Text=" 1 min " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
             <asp:Button runat="server" ID="duration5" OnClick="duration1_Click" Text=" 5 mins " CssClass="popupButton" OnClientClick="toggleItem();" />
@@ -74,6 +84,7 @@
             <br />
             <asp:Button runat="server" ID="duration15" OnClick="duration1_Click" Text=" 15 mins " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
+            <asp:Button runat="server" ID="Button1" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelDrip();" />
         </asp:Panel>
         <div class="headerLink">
             <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> 
@@ -170,18 +181,6 @@
             </tr>
 
             <tr style="border-top: solid 2px silver">
-                <td class="mainItem">napping</td>
-                <td rowspan="2">
-                    <asp:Button runat="server" ID="mainRoomsAudioMute" Text=" on " OnClick="mainRoomsAudioMute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
-                    <asp:Button runat="server" ID="mainRoomsAudioUnmute" Text=" off " OnClick="mainRoomsAudioUnmute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label runat="server" ID="mainRoomsAudioStatus" CssClass="smallNote" /></td>
-            </tr>
-
-            <tr style="border-top: solid 2px silver">
                 <td class="mainItem">master sink light</td>
                 <td rowspan="2">
                     <asp:Button runat="server" ID="masterSinkLightOn" OnClientClick="return toggleLevel('master sink light');" Text=" on " CssClass="onOffButton" />
@@ -225,6 +224,19 @@
         <tr>
             <td><asp:Label runat="server" ID="coopDoorStatus" CssClass="smallNote" /></td>
         </tr>
+
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">napping</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="mainRoomsAudioMute" Text=" on " OnClick="mainRoomsAudioMute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="mainRoomsAudioUnmute" Text=" off " OnClick="mainRoomsAudioUnmute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="mainRoomsAudioStatus" CssClass="smallNote" /></td>
+            </tr>
+
         </table>
     </form>
 </body>

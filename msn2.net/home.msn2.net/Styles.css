@@ -106,10 +106,13 @@ A:link {
 }
 
 .popupPanel {
-    position: absolute;
+    position: fixed;
     margin: 0px;
     height: 100%;
     width: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
     visibility: hidden;
     background-color: #222222;
     text-align: center;

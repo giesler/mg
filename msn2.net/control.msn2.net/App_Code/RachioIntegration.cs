@@ -48,7 +48,7 @@ namespace msn2.net
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "GET";
             req.Proxy = null;
-            req.ContentType = "application/jason";
+            req.ContentType = "application/json";
 
             req.Headers.Add("Authorization", "Bearer " + ApiKey);
 
@@ -147,7 +147,7 @@ namespace msn2.net
                     }
 
                     TimeSpan ts = new TimeSpan(0, 0, durationSecs);
-                    status = string.Format("Watered today for {0} mins", ts.TotalMinutes);
+                    status = string.Format("Watered for {0} mins", ts.TotalMinutes);
                 }
             }
 
