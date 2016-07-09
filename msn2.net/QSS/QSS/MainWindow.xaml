@@ -1,4 +1,4 @@
-﻿<Window x:Class="QSS.MainWindow"
+﻿<Window x:Class="msn2.net.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="QSS" WindowState="Normal" Background="Black" WindowStyle="None" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0" Padding="0">
@@ -18,12 +18,50 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition Height="10*" />
+            <RowDefinition Height="130" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Label Content="loading" HorizontalAlignment="Center" Name="status" VerticalAlignment="Center" Grid.Row="1" Foreground="Gray"  />
-        <MediaElement Name="item1" Stretch="Uniform" Grid.Row="1" />
-        <MediaElement Name="item2" Stretch="Uniform" Grid.Row="1" />
-        <Label Content="testing" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="Gray" Background="Transparent" Visibility="Collapsed" FontSize="14" />
-        <ProgressBar Name="pbar" Grid.Row="2" Visibility="Collapsed" />
+        <MediaElement Name="item1" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
+        <MediaElement Name="item2" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
+        <Label Content="" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="Gray" Background="Transparent" Visibility="Collapsed" FontSize="14" />
+        <ProgressBar Name="pbar" Grid.Row="4" Visibility="Collapsed" Grid.ColumnSpan="3" />
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
+            <Grid Opacity=".75" Background="Gray" Name="outsideGrid" Width="150px" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Content="OUTSIDE" HorizontalAlignment="Center" Grid.Column="1" Foreground="DarkGreen" FontWeight="Bold" />
+                <Label Content="62" Grid.Column="1" Grid.Row="1" Name="outsideTemp" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkGreen" />
+                <Label Content="76 / 72" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Name="outsideMinMax" Foreground="DarkGreen" FontWeight="Bold" />
+                <Label Content="xx% Humidity" Grid.Row="3" Name="outsideHumidity" HorizontalAlignment="Center" Foreground="DarkGreen" FontWeight="Bold" />
+            </Grid>
+            <Grid Grid.Column="1" Opacity=".75" Background="Gray" Name="insideGrid" Width="150px" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Label Content="INSIDE" HorizontalAlignment="Center" Grid.Column="1" Foreground="DarkBlue" FontWeight="Bold" />
+                <Label Content="76" Grid.Column="1" Grid.Row="1" Name="insideTemp" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkBlue" />
+                <Label Content="76 / 72" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Name="insideMinMax" Foreground="DarkBlue" FontWeight="Bold" />
+                <Label Content="xx% Humidity" Grid.Row="3" Name="insideHumidity" HorizontalAlignment="Center" Foreground="DarkBlue" FontWeight="Bold" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

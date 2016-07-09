@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Shapes;
 
-namespace QSS
+namespace msn2.net
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -48,7 +48,6 @@ namespace QSS
                         break;
                     }
                 }
-
                 index++;
             }
         }

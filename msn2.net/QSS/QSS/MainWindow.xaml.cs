@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 
-namespace QSS
+namespace msn2.net
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -39,12 +39,13 @@ namespace QSS
         bool loadingImage = false;
         DispatcherTimer loadCompleteCheck = null;
         Storyboard storyboard = null;
+        bool weatherShown = false;
 
         public MainWindow(string[] args)
         {
             InitializeComponent();
 
-            this.Path = @"c:\nr";
+            this.Path = @"\\server0\Plex\MSN2";
 
             foreach (string arg in args)
             {
@@ -68,6 +69,10 @@ namespace QSS
             }
 
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
+            ThreadPool.QueueUserWorkItem(this.LoadWeatherData, null);
+
+            this.insideGrid.Visibility = Visibility.Collapsed;
+            this.outsideGrid.Visibility = Visibility.Collapsed;
 
             this.Cursor = Cursors.None;
             this.ForceCursor = true;
@@ -79,6 +84,63 @@ namespace QSS
             this.loadCompleteCheck = new DispatcherTimer();
             this.loadCompleteCheck.Interval = TimeSpan.FromMilliseconds(200);
             this.loadCompleteCheck.Tick += new EventHandler(this.OnLoadCompleteCheck);
+        }
+
+        private void LoadWeatherData(object j)
+        {
+            NetatmoIntegration netatmo = new NetatmoIntegration();
+            netatmo.Init();
+
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+            while (true)
+            {
+                Device data = netatmo.GetWeatherData();
+                this.Dispatcher.Invoke(new TimerCallback(this.ShowWeatherData), data);
+                Thread.Sleep(TimeSpan.FromMinutes(3));
+            }
+        }
+
+        private void ShowWeatherData(object d)
+        {
+            if (this.insideGrid.Visibility != Visibility.Visible && !this.weatherShown)
+            {
+                this.insideGrid.Visibility = Visibility.Visible;
+                this.outsideGrid.Visibility = Visibility.Visible;
+
+                this.weatherShown = true;
+            }
+
+            Device data = (Device)d;
+
+            Module outside = data.Modules.First(i => i.ModuleName == "Outdoor");
+            this.outsideTemp.Content = (NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature) + "° " + GetTrend(outside)).Trim();
+            this.outsideMinMax.Content = string.Format("{0}° / {1}°", NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp),
+                NetatmoIntegration.GetFahrenheit(outside.DashboardData.MinTemp));
+            this.outsideHumidity.Content = string.Format("{0}% Humidity", outside.DashboardData.Humidity);
+
+            Module inside = data.Modules.First(i => i.ModuleName == "Bedroom");
+            this.insideTemp.Content = (NetatmoIntegration.GetFahrenheit(inside.DashboardData.Temperature) + "° " + GetTrend(inside)).Trim();
+            this.insideMinMax.Content = string.Format("{0}° / {1}°", NetatmoIntegration.GetFahrenheit(inside.DashboardData.MaxTemp),
+                NetatmoIntegration.GetFahrenheit(inside.DashboardData.MinTemp));
+            this.insideHumidity.Content = string.Format("{0}% Humidity", inside.DashboardData.Humidity);
+
+        }
+
+        string GetTrend(Module module)
+        {
+            if (module.DashboardData.TempTrend == "up")
+            {
+                return "↑";
+            }
+            else if (module.DashboardData.TempTrend == "down")
+            {
+                return "↓";
+            }
+            else
+            {
+                return "";
+            }
         }
 
         protected override void OnActivated(EventArgs e)
@@ -370,6 +432,19 @@ namespace QSS
                 p.StartInfo = new ProcessStartInfo("explorer.exe", args);
                 p.Start();
                 this.Close();
+            }
+            else if (e.Key == Key.W)
+            {
+                if (this.insideGrid.Visibility == Visibility.Visible)
+                {
+                    this.insideGrid.Visibility = Visibility.Collapsed;
+                    this.outsideGrid.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    this.insideGrid.Visibility = Visibility.Visible;
+                    this.outsideGrid.Visibility = Visibility.Visible;
+                }
             }
         }
 
