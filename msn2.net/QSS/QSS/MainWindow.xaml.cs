@@ -120,16 +120,47 @@ namespace msn2.net
             Device data = (Device)d;
 
             Module outside = data.Modules.First(i => i.ModuleName == "Outdoor");
-            this.outsideTemp.Content = (NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature) + "° " + GetTrend(outside)).Trim();
-            this.outsideMinMax.Content = string.Format("{0}° / {1}°", NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp),
-                NetatmoIntegration.GetFahrenheit(outside.DashboardData.MinTemp));
-            this.outsideHumidity.Content = string.Format("{0}% Humidity", outside.DashboardData.Humidity);
+            float outsideF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature);
+            this.outsideTemp.Text = ((int)outsideF).ToString("0");
+            this.outsideTempDecimal.Text = "." + (outsideF % 1.0 * 10.0).ToString("0");
+            double outsideFrac = outsideF - ((float)((int)outsideF) * 1.0);
+            if (outsideFrac < 0.1)
+            {
+                this.outsideTempDecimal.Visibility = Visibility.Collapsed;
+            }
+            
+            this.outsideTrend.Text = GetTrend(outside).Trim();
+
+            float outsideMaxF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp);
+            this.outsideMax.Text = ((int)outsideMaxF).ToString("0");
+            this.outsideMaxDecimal.Text = (outsideMaxF % 1.0 * 10.0).ToString("0");
+
+            float outsideMinF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MinTemp);
+            this.outsideMin.Text = ((int)outsideMinF).ToString("0");
+            this.outsideMinDecimal.Text = (outsideMinF % 1.0 * 10.0).ToString("0");
+            this.outsideHumidity.Text = outside.DashboardData.Humidity.ToString();
 
             Module inside = data.Modules.First(i => i.ModuleName == "Bedroom");
-            this.insideTemp.Content = (NetatmoIntegration.GetFahrenheit(inside.DashboardData.Temperature) + "° " + GetTrend(inside)).Trim();
-            this.insideMinMax.Content = string.Format("{0}° / {1}°", NetatmoIntegration.GetFahrenheit(inside.DashboardData.MaxTemp),
-                NetatmoIntegration.GetFahrenheit(inside.DashboardData.MinTemp));
-            this.insideHumidity.Content = string.Format("{0}% Humidity", inside.DashboardData.Humidity);
+            float insideF = NetatmoIntegration.GetFahrenheit(inside.DashboardData.Temperature);
+            this.insideTemp.Text = ((int)insideF).ToString("0");
+            this.insideTempDecimal.Text = "." + (insideF % 1.0 * 10.0).ToString("0");
+            double insideFrac = insideF - ((float)((int)insideF) * 1.0);
+            if (insideFrac < 0.1)
+            {
+                this.insideTempDecimal.Visibility = Visibility.Collapsed;
+            }
+            this.insideTrend.Text = GetTrend(inside).Trim();
+
+            float insideMaxF = NetatmoIntegration.GetFahrenheit(inside.DashboardData.MaxTemp);
+            this.insideMax.Text = ((int)insideMaxF).ToString("0");
+            this.insideMaxDecimal.Text = (insideMaxF % 1.0 * 10.0).ToString("0");
+
+            float insideMinF = NetatmoIntegration.GetFahrenheit(inside.DashboardData.MinTemp);
+            this.insideMin.Text = ((int)insideMinF).ToString("0");
+            this.insideMinDecimal.Text = (insideMinF % 1.0 * 10.0).ToString("0");
+            this.insideHumidity.Text = inside.DashboardData.Humidity.ToString();
+
+            this.outsideDriveway.Source = new Uri("http://ddns.msn2.net:8808/getimg.aspx?c=dw1&h=64&id=qss" + new Random().Next(1000000).ToString("00000000"));
         }
 
         private void LoadSonosData(object d)
@@ -160,25 +191,35 @@ namespace msn2.net
         
         private void UpdateSonosData(object s)
         {
-            this.sonosGrid.Visibility = Visibility.Visible;
-
             SonosPlayingData data = (SonosPlayingData)s;
-            this.title.Content = data.Title;
-            this.album.Content = data.Album;
-            this.artist.Content = data.Artist;
-            if (data.AlbumArtUri != null)
+            if (data.Title == null)
             {
-                this.albumArt.Source = new Uri(data.AlbumArtUri);
+                this.sonosGrid.Visibility = Visibility.Hidden;
             }
             else
             {
-                this.albumArt.Source = null;
+                this.sonosGrid.Visibility = Visibility.Visible;
+                this.title.Text = data.Title;
+                this.album.Text = data.Album;
+                this.artist.Text = data.Artist;
+                if (data.AlbumArtUri != null)
+                {
+                    this.albumArt.Source = new Uri(data.AlbumArtUri);
+                }
+                else
+                {
+                    this.albumArt.Source = null;
+                }
             }
         }
 
         private SonosPlayingData GetPlayingData()
-        { 
-            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://192.168.1.63:1400/MediaRenderer/AVTransport/Control");
+        {
+            string zoneName = "Kitchen";
+            string zoneIp = "192.168.1.67";
+            string coordinatorIp = GetCoordinator(zoneName, zoneIp);
+
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://{0}:1400/MediaRenderer/AVTransport/Control", coordinatorIp));
             webRequest.ContentType = "text/xml";
             webRequest.Method = "POST";
             webRequest.Headers.Add("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#GetPositionInfo\"");
@@ -207,28 +248,81 @@ namespace msn2.net
                 XElement trackMetaData = body.Descendants(uns + "GetPositionInfoResponse").First().Descendants("TrackMetaData").First();
 
                 string xml = HttpUtility.UrlDecode(trackMetaData.Value);
-                XDocument playing = XDocument.Parse(xml);
-                XNamespace nsupnp = "urn:schemas-upnp-org:metadata-1-0/upnp/";
-                XNamespace nsr = "urn:schemas-rinconnetworks-com:metadata-1-0/";
-                XNamespace nsdc = "http://purl.org/dc/elements/1.1/";
-
-                XElement item = playing.Elements().First();
-
-                XElement albumArtUri = item.Descendants(nsupnp + "albumArtURI").FirstOrDefault();
-                XElement title = item.Descendants(nsdc + "title").First();
-                XElement album = item.Descendants(nsupnp + "album").First();
-                XElement artist = item.Descendants(nsr + "albumArtist").First();
-
-                SonosPlayingData data = new SonosPlayingData();
-                if (albumArtUri != null)
+                if (trackMetaData.Value == "NOT_IMPLEMENTED")
                 {
-                    data.AlbumArtUri = "http://192.168.1.63:1400" + albumArtUri.Value;
+                    return new SonosPlayingData();
                 }
-                data.Title = title.Value;
-                data.Album = album.Value;
-                data.Artist = artist.Value;
+                else
+                {
+                    XDocument playing = XDocument.Parse(xml.Replace(" & ", " &amp; "));
+                    XNamespace nsupnp = "urn:schemas-upnp-org:metadata-1-0/upnp/";
+                    XNamespace nsr = "urn:schemas-rinconnetworks-com:metadata-1-0/";
+                    XNamespace nsdc = "http://purl.org/dc/elements/1.1/";
 
-                return data;
+                    XElement item = playing.Elements().First();
+
+                    XElement albumArtUri = item.Descendants(nsupnp + "albumArtURI").FirstOrDefault();
+                    XElement title = item.Descendants(nsdc + "title").FirstOrDefault();
+                    XElement album = item.Descendants(nsupnp + "album").FirstOrDefault();
+                    XElement artist = item.Descendants(nsr + "albumArtist").FirstOrDefault();
+
+                    SonosPlayingData data = new SonosPlayingData();
+                    if (albumArtUri != null)
+                    {
+                        data.AlbumArtUri = string.Format("http://{0}:1400{1}", coordinatorIp, albumArtUri.Value);
+                    }
+                    if (title != null)
+                    {
+                        data.Title = title.Value;
+                    }
+                    if (album != null)
+                    {
+                        data.Album = album.Value;
+                    }
+                    if (artist != null)
+                    {
+                        data.Artist = artist.Value;
+                    }
+                    return data;
+                }
+            }
+        }
+
+        private string GetCoordinator(string zoneName, string zoneIp)
+        {
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create("http://" + zoneIp + ":1400/status/topology");
+            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+            using (Stream s = res.GetResponseStream())
+            {
+                using (StreamReader sr = new StreamReader(s))
+                {
+                    string xml = sr.ReadToEnd();
+                    XDocument topo = XDocument.Parse(xml);
+
+                    XElement players = topo.Root.Element("ZonePlayers");
+                    var target = players.Elements("ZonePlayer").Where(p => p.Value.ToLower() == zoneName.ToLower());
+                    if (target == null)
+                    {
+                        throw new Exception(string.Format("Unable to find Sonos player '{0}' listed in Sonos topology.", zoneName, zoneIp));
+                    }
+                    if (target.Attributes("coordinator").Where(a => a.Value == "true").Count() == 0)
+                    {
+                        string groupName = target.Attributes("group").First().Value;
+
+                        var newTarget = players.Elements("ZonePlayer").Where(p => p.Attribute("group").Value == groupName && p.Attribute("coordinator").Value == "true").First();
+
+                        // Location format: http://192.168.1.69:1400/xml/device_description.xml
+                        string location = newTarget.Attribute("location").Value;
+                        int startIndex = location.IndexOf("://");
+                        int endIndex = location.IndexOf(":1400");
+                        zoneIp = location.Substring(startIndex + 3, endIndex - startIndex - 3);
+                        return zoneIp;
+                    }
+                    else
+                    {
+                        throw new Exception("Unable to find coordinator for Sonos zone " + zoneName);
+                    }
+                }
             }
         }
 
@@ -603,6 +697,11 @@ namespace msn2.net
             }
 
             return this.Title == data.Title && this.Album == data.Album && this.Artist == data.Artist && this.AlbumArtUri == data.AlbumArtUri;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

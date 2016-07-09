@@ -23,7 +23,7 @@ namespace msn2.net
         public static float GetFahrenheit(float celsius)
         {
             float result = (celsius * 9 / 5) + 32;
-            return float.Parse(result.ToString("0.0"));
+            return result;
         }
 
         public void Init()

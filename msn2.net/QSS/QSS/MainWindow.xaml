@@ -32,35 +32,74 @@
         <Label Content="" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="Gray" Background="Transparent" Visibility="Collapsed" FontSize="14" />
         <ProgressBar Name="pbar" Grid.Row="4" Visibility="Collapsed" Grid.ColumnSpan="3" />
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
-            <Grid Opacity=".75" Background="Gray" Name="outsideGrid" Width="150px" Margin="5">
+            <Grid Opacity=".75" Background="Gray" Name="outsideGrid" Width="275px" Margin="5">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="60" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="45" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
-                <Label Content="OUTSIDE" HorizontalAlignment="Center" Grid.Column="1" Foreground="DarkGreen" FontWeight="Bold" />
-                <Label Content="62" Grid.Column="1" Grid.Row="1" Name="outsideTemp" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkGreen" />
-                <Label Content="76 / 72" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Name="outsideMinMax" Foreground="DarkGreen" FontWeight="Bold" />
-                <Label Content="xx% Humidity" Grid.Row="3" Name="outsideHumidity" HorizontalAlignment="Center" Foreground="DarkGreen" FontWeight="Bold" />
+                <TextBlock Text="OUTSIDE" HorizontalAlignment="Center" Grid.ColumnSpan="3" Foreground="White" FontWeight="Bold" />
+                <MediaElement Name="outsideDriveway" Grid.Row="1" Stretch="Uniform" Height="64" Width="85" Margin="5,0,0,0" />
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="76" Name="outsideTemp" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" />
+                    <TextBlock Text=".1" Name="outsideTempDecimal" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,27,0,0" />
+                    <TextBlock Text="↑" Name="outsideTrend" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="0,7,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="86" HorizontalAlignment="Center" Name="outsideMax" Foreground="White" FontWeight="Bold" FontSize="20" Margin="0,4,0,0" />
+                        <TextBlock Text="5" HorizontalAlignment="Center" Name="outsideMaxDecimal" Foreground="White" FontWeight="Bold" FontSize="10" Padding="1,14,0,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="50" HorizontalAlignment="Center" Name="outsideMin" Foreground="White" FontWeight="Bold" Margin="0,-5,0,0" FontSize="20"/>
+                        <TextBlock Text="5" HorizontalAlignment="Center" Name="outsideMinDecimal" Foreground="White" FontWeight="Bold" FontSize="10" Padding="1,5,0,0" />
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text=" Humidity" Foreground="White" FontWeight="Bold" FontSize="9" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.RowSpan="2" />
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="3"  HorizontalAlignment="Center" >
+                    <TextBlock Text="62" Name="outsideHumidity" Foreground="White" FontWeight="Bold" FontSize="14" />
+                    <TextBlock Text="%" Foreground="White" FontSize="8" FontWeight="Bold" Margin="1,6,0,0" />
+                </StackPanel>
             </Grid>
-            <Grid Grid.Column="1" Opacity=".75" Background="Gray" Name="insideGrid" Width="150px" Margin="5">
+            <Grid Grid.Column="1" Opacity=".75" Background="Gray" Name="insideGrid" Width="200px" Margin="5">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="60" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="45" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
-                <Label Content="INSIDE" HorizontalAlignment="Center" Grid.Column="1" Foreground="DarkBlue" FontWeight="Bold" />
-                <Label Content="76" Grid.Column="1" Grid.Row="1" Name="insideTemp" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="DarkBlue" />
-                <Label Content="76 / 72" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Name="insideMinMax" Foreground="DarkBlue" FontWeight="Bold" />
-                <Label Content="xx% Humidity" Grid.Row="3" Name="insideHumidity" HorizontalAlignment="Center" Foreground="DarkBlue" FontWeight="Bold" />
+                <TextBlock Text="INSIDE" HorizontalAlignment="Center" Grid.ColumnSpan="3" Foreground="White" FontWeight="Bold" />
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="76" Name="insideTemp" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" />
+                    <TextBlock Text=".5" Name="insideTempDecimal" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,27,0,0" />
+                    <TextBlock Text="↑" Name="insideTrend" FontSize="50" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="0,7,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="76" HorizontalAlignment="Center" Name="insideMax" Foreground="White" FontWeight="Bold" FontSize="20" Margin="0,4,0,0" />
+                        <TextBlock Text="5" HorizontalAlignment="Center" Name="insideMaxDecimal" Foreground="White" FontWeight="Bold" FontSize="10" Padding="1,14,0,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="70" HorizontalAlignment="Center" Name="insideMin" Foreground="White" FontWeight="Bold" Margin="0,-5,0,0" FontSize="20" />
+                        <TextBlock Text="5" HorizontalAlignment="Center" Name="insideMinDecimal" Foreground="White" FontWeight="Bold" FontSize="10" Padding="1,5,0,0" />
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text=" Humidity" Foreground="White" FontWeight="Bold" FontSize="9" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.RowSpan="2" />
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="3"  HorizontalAlignment="Center">
+                    <TextBlock Text="82" Name="insideHumidity" Foreground="White" FontWeight="Bold" FontSize="14" />
+                    <TextBlock Text="%" Foreground="White" FontSize="8" FontWeight="Bold" Margin="1,6,0,0" />
+                </StackPanel>
             </Grid>
         </StackPanel>
         <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Opacity=".75" Background="Gray" Name="sonosGrid" Width="375px" Margin="5" HorizontalAlignment="Right">
@@ -76,9 +115,9 @@
                 <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
             <MediaElement Name="albumArt" Height="107" Width="107" Grid.Row="1" Grid.RowSpan="4" Stretch="Uniform" />
-            <Label Name="title" FontWeight="Bold" Grid.Column="1" Grid.RowSpan="2" FontSize="18" />
-            <Label Name="album" Grid.Column="1" Grid.Row="2" />
-            <Label Name="artist" Grid.Column="1" Grid.Row="3" />
+            <TextBlock Name="title" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" FontSize="18" Foreground="White" />
+            <TextBlock Name="album" Grid.Column="1" Grid.Row="2" Foreground="White" />
+            <TextBlock Name="artist" Grid.Column="1" Grid.Row="3" Foreground="White" />
         </Grid>
         
     </Grid>
