@@ -63,5 +63,23 @@
                 <Label Content="xx% Humidity" Grid.Row="3" Name="insideHumidity" HorizontalAlignment="Center" Foreground="DarkBlue" FontWeight="Bold" />
             </Grid>
         </StackPanel>
+        <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Opacity=".75" Background="Gray" Name="sonosGrid" Width="375px" Margin="5" HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="115" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+            <MediaElement Name="albumArt" Height="107" Width="107" Grid.Row="1" Grid.RowSpan="4" Stretch="Uniform" />
+            <Label Name="title" FontWeight="Bold" Grid.Column="1" Grid.RowSpan="2" FontSize="18" />
+            <Label Name="album" Grid.Column="1" Grid.Row="2" />
+            <Label Name="artist" Grid.Column="1" Grid.Row="3" />
+        </Grid>
+        
     </Grid>
 </Window>

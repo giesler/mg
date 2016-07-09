@@ -12,6 +12,10 @@ using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
+using System.Net;
+using System.Text;
+using System.Xml.Linq;
+using System.Web;
 
 namespace msn2.net
 {
@@ -70,9 +74,11 @@ namespace msn2.net
 
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
             ThreadPool.QueueUserWorkItem(this.LoadWeatherData, null);
+            ThreadPool.QueueUserWorkItem(this.LoadSonosData, null);
 
             this.insideGrid.Visibility = Visibility.Collapsed;
             this.outsideGrid.Visibility = Visibility.Collapsed;
+            this.sonosGrid.Visibility = Visibility.Collapsed;
 
             this.Cursor = Cursors.None;
             this.ForceCursor = true;
@@ -124,7 +130,106 @@ namespace msn2.net
             this.insideMinMax.Content = string.Format("{0}° / {1}°", NetatmoIntegration.GetFahrenheit(inside.DashboardData.MaxTemp),
                 NetatmoIntegration.GetFahrenheit(inside.DashboardData.MinTemp));
             this.insideHumidity.Content = string.Format("{0}% Humidity", inside.DashboardData.Humidity);
+        }
 
+        private void LoadSonosData(object d)
+        {
+            SonosPlayingData lastData = null;
+
+            while (true)
+            {
+                try
+                {
+                    SonosPlayingData data = GetPlayingData();
+
+                    if (lastData == null || !lastData.Equals(data))
+                    {
+                        this.Dispatcher.Invoke(new TimerCallback(this.UpdateSonosData), data);
+                    }
+
+                    lastData = data;
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Error loading sonos data: " + ex.ToString());
+                }
+
+                Thread.Sleep(TimeSpan.FromSeconds(5));
+            }
+        }
+        
+        private void UpdateSonosData(object s)
+        {
+            this.sonosGrid.Visibility = Visibility.Visible;
+
+            SonosPlayingData data = (SonosPlayingData)s;
+            this.title.Content = data.Title;
+            this.album.Content = data.Album;
+            this.artist.Content = data.Artist;
+            if (data.AlbumArtUri != null)
+            {
+                this.albumArt.Source = new Uri(data.AlbumArtUri);
+            }
+            else
+            {
+                this.albumArt.Source = null;
+            }
+        }
+
+        private SonosPlayingData GetPlayingData()
+        { 
+            HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create("http://192.168.1.63:1400/MediaRenderer/AVTransport/Control");
+            webRequest.ContentType = "text/xml";
+            webRequest.Method = "POST";
+            webRequest.Headers.Add("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#GetPositionInfo\"");
+            webRequest.Headers.Add("X-SONOS-TARGET-UDN", "uuid:RINCON_000E58B1D54801400");
+
+            string soapRequestTemplate = "<s:Envelope s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body>{0}</s:Body></s:Envelope>";
+            string soap = string.Format(soapRequestTemplate, "<u:GetPositionInfo xmlns:u=\"urn:schemas-upnp-org:service:AVTransport:1\"><InstanceID>0</InstanceID><Channel>Master</Channel></u:GetPositionInfo>");
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(soap);
+            webRequest.ContentLength = byteArray.Length;
+            Stream stream = webRequest.GetRequestStream();
+            stream.Write(byteArray, 0, byteArray.Length);
+            stream.Close();
+
+            HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(dataStream);
+                string responseString = reader.ReadToEnd();
+                XDocument doc = XDocument.Parse(responseString);
+                XNamespace ns = "http://schemas.xmlsoap.org/soap/envelope/";
+                XNamespace uns = "urn:schemas-upnp-org:service:AVTransport:1";
+
+                XElement body = doc.Descendants(ns + "Body").First();
+                XElement trackMetaData = body.Descendants(uns + "GetPositionInfoResponse").First().Descendants("TrackMetaData").First();
+
+                string xml = HttpUtility.UrlDecode(trackMetaData.Value);
+                XDocument playing = XDocument.Parse(xml);
+                XNamespace nsupnp = "urn:schemas-upnp-org:metadata-1-0/upnp/";
+                XNamespace nsr = "urn:schemas-rinconnetworks-com:metadata-1-0/";
+                XNamespace nsdc = "http://purl.org/dc/elements/1.1/";
+
+                XElement item = playing.Elements().First();
+
+                XElement albumArtUri = item.Descendants(nsupnp + "albumArtURI").FirstOrDefault();
+                XElement title = item.Descendants(nsdc + "title").First();
+                XElement album = item.Descendants(nsupnp + "album").First();
+                XElement artist = item.Descendants(nsr + "albumArtist").First();
+
+                SonosPlayingData data = new SonosPlayingData();
+                if (albumArtUri != null)
+                {
+                    data.AlbumArtUri = "http://192.168.1.63:1400" + albumArtUri.Value;
+                }
+                data.Title = title.Value;
+                data.Album = album.Value;
+                data.Artist = artist.Value;
+
+                return data;
+            }
         }
 
         string GetTrend(Module module)
@@ -479,6 +584,25 @@ namespace msn2.net
                 {
                 }
             }
+        }
+    }
+
+    public class SonosPlayingData
+    {
+        public string Title { get; set; }
+        public string Album { get; set; }
+        public string Artist { get; set; }
+        public string AlbumArtUri { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            SonosPlayingData data = obj as SonosPlayingData;
+            if (data == null)
+            {
+                return false;
+            }
+
+            return this.Title == data.Title && this.Album == data.Album && this.Artist == data.Artist && this.AlbumArtUri == data.AlbumArtUri;
         }
     }
 }
