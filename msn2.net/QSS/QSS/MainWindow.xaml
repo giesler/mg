@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="QSS" WindowState="Normal" Background="Black" WindowStyle="None" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0" Padding="0">
     <Window.Resources>
+        <ImageBrush x:Key="backgroundImage" ImageSource="images.jpg" />
     </Window.Resources>
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Hidden" x:Name="grid">
         <Grid.Resources>
@@ -29,10 +30,10 @@
         <Label Content="loading" HorizontalAlignment="Center" Name="status" VerticalAlignment="Center" Grid.Row="1" Foreground="Gray"  />
         <MediaElement Name="item1" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
         <MediaElement Name="item2" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
-        <Label Content="" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="Gray" Background="Transparent" Visibility="Collapsed" FontSize="14" />
+        <Label Content="" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="White" Background="{DynamicResource backgroundImage}" Visibility="Collapsed" FontSize="14" />
         <ProgressBar Name="pbar" Grid.Row="4" Visibility="Collapsed" Grid.ColumnSpan="3" />
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
-            <Grid Opacity=".75" Background="Gray" Name="outsideGrid" Width="275px" Margin="5">
+            <Grid Opacity=".75" Background="{DynamicResource backgroundImage}" Name="outsideGrid" Width="275px" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="85" />
                     <ColumnDefinition />
@@ -61,13 +62,28 @@
                         <TextBlock Text="5" HorizontalAlignment="Center" Name="outsideMinDecimal" Foreground="White" FontWeight="Bold" FontSize="10" Padding="1,5,0,0" />
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Text=" Humidity" Foreground="White" FontWeight="Bold" FontSize="9" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.RowSpan="2" />
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="3"  HorizontalAlignment="Center" >
-                    <TextBlock Text="62" Name="outsideHumidity" Foreground="White" FontWeight="Bold" FontSize="14" />
-                    <TextBlock Text="%" Foreground="White" FontSize="8" FontWeight="Bold" Margin="1,6,0,0" />
-                </StackPanel>
+                <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Humidity" Foreground="White" FontWeight="Bold" FontSize="9" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" >
+                        <TextBlock Text="62" Name="outsideHumidity" Foreground="White" FontWeight="Bold" FontSize="14" />
+                        <TextBlock Text="%" Foreground="White" FontSize="8" FontWeight="Bold" Margin="1,6,0,0" />
+                    </StackPanel>
+                    <TextBlock Text="Feels Like" Foreground="White" FontWeight="Bold" FontSize="9" HorizontalAlignment="Center" Grid.Column="1" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" >
+                        <TextBlock Text="62" Name="feelsLike" Foreground="White" FontWeight="Bold" FontSize="14" />
+                        <TextBlock Text="5" Name="feelslikeDecimal" Foreground="White" FontSize="8" FontWeight="Bold" Margin="1,6,0,0" />
+                    </StackPanel>
+                </Grid>
             </Grid>
-            <Grid Grid.Column="1" Opacity=".75" Background="Gray" Name="insideGrid" Width="200px" Margin="5">
+            <Grid Grid.Column="1" Background="{DynamicResource backgroundImage}" Opacity=".75" Name="insideGrid" Width="200px" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
@@ -102,9 +118,9 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
-        <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Opacity=".75" Background="Gray" Name="sonosGrid" Width="375px" Margin="5" HorizontalAlignment="Right">
+        <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Opacity=".75" Background="{DynamicResource backgroundImage}" Name="sonosGrid" Width="375px" Margin="5" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="115" />
+                <ColumnDefinition Width="125" Name="albumArtColumn" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -115,10 +131,10 @@
                 <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
             <MediaElement Name="albumArt" Height="107" Width="107" Grid.Row="1" Grid.RowSpan="4" Stretch="Uniform" />
-            <TextBlock Name="title" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" FontSize="18" Foreground="White" />
-            <TextBlock Name="album" Grid.Column="1" Grid.Row="2" Foreground="White" />
-            <TextBlock Name="artist" Grid.Column="1" Grid.Row="3" Foreground="White" />
+            <TextBlock Name="title" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" FontSize="18" Foreground="White" Margin="0,2,0,0" />
+            <TextBlock Name="album" Grid.Column="1" Grid.Row="2" Foreground="White" FontSize="16" />
+            <TextBlock Name="artist" Grid.Column="1" Grid.Row="3" Foreground="White" FontSize="16" />
         </Grid>
-        
+
     </Grid>
 </Window>

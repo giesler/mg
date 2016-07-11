@@ -50,7 +50,7 @@ namespace msn2.net
             InitializeComponent();
 
             this.Path = @"\\server0\Plex\MSN2";
-
+            this.Path = @"d:\onedrive\pictures\store";
             foreach (string arg in args)
             {
                 if (arg.StartsWith("/p:"))
@@ -97,12 +97,39 @@ namespace msn2.net
             NetatmoIntegration netatmo = new NetatmoIntegration();
             netatmo.Init();
 
+            WeatherProvider weather = new WeatherProvider();
+            DateTime lastWeatherUpdate = DateTime.MinValue;
+
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             while (true)
             {
-                Device data = netatmo.GetWeatherData();
-                this.Dispatcher.Invoke(new TimerCallback(this.ShowWeatherData), data);
+                try
+                {
+                    Device data = netatmo.GetWeatherData();
+                    this.Dispatcher.Invoke(new TimerCallback(this.ShowWeatherData), data);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Error loading netatmo data: " + ex.ToString());
+                }
+
+                try
+                {
+                    if (lastWeatherUpdate.AddMinutes(10) < DateTime.Now) ;
+                    {
+                        lastWeatherUpdate = DateTime.Now;
+
+                        WeatherResponse wr = weather.GetWeatherData();
+                        this.Dispatcher.Invoke(new TimerCallback(this.ShowWeatherProviderData), wr);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Error loading weather provider data: " + ex.ToString());
+                }
+
+
                 Thread.Sleep(TimeSpan.FromMinutes(3));
             }
         }
@@ -128,7 +155,7 @@ namespace msn2.net
             {
                 this.outsideTempDecimal.Visibility = Visibility.Collapsed;
             }
-            
+
             this.outsideTrend.Text = GetTrend(outside).Trim();
 
             float outsideMaxF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.MaxTemp);
@@ -161,6 +188,14 @@ namespace msn2.net
             this.insideHumidity.Text = inside.DashboardData.Humidity.ToString();
 
             this.outsideDriveway.Source = new Uri("http://ddns.msn2.net:8808/getimg.aspx?c=dw1&h=64&id=qss" + new Random().Next(1000000).ToString("00000000"));
+        }
+
+        private void ShowWeatherProviderData(object s)
+        {
+            WeatherResponse wr = (WeatherResponse)s;
+
+            this.feelsLike.Text = ((int)wr.WeatherObservation.FeelLikeF).ToString();
+            this.feelslikeDecimal.Text = (wr.WeatherObservation.FeelLikeF % 1.0 * 10.0).ToString("0");
         }
 
         private void LoadSonosData(object d)
@@ -205,27 +240,62 @@ namespace msn2.net
                 if (data.AlbumArtUri != null)
                 {
                     this.albumArt.Source = new Uri(data.AlbumArtUri);
+                    this.albumArtColumn.Width = (GridLength)new GridLengthConverter().ConvertFromString("120px");
                 }
                 else
                 {
                     this.albumArt.Source = null;
+                    this.albumArtColumn.Width = (GridLength)new GridLengthConverter().ConvertFromString("10px");
                 }
             }
         }
 
         private SonosPlayingData GetPlayingData()
         {
+            string soapRequestTemplate = "<s:Envelope s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body>{0}</s:Body></s:Envelope>";
+            XNamespace ns = "http://schemas.xmlsoap.org/soap/envelope/";
+            XNamespace uns = "urn:schemas-upnp-org:service:AVTransport:1";
+
             string zoneName = "Kitchen";
             string zoneIp = "192.168.1.67";
             string coordinatorIp = GetCoordinator(zoneName, zoneIp);
+
+            HttpWebRequest statRequest = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://{0}:1400/MediaRenderer/AVTransport/Control", coordinatorIp));
+            statRequest.ContentType = "text/xml";
+            statRequest.Method = "POST";
+            statRequest.Headers.Add("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#GetTransportInfo\"");
+
+            string soapStatus = string.Format(soapRequestTemplate, "<u:GetTransportInfo xmlns:u=\"urn:schemas-upnp-org:service:AVTransport:1\"><InstanceID>0</InstanceID><Channel>Master</Channel></u:GetTransportInfo>");
+            byte[] byteStatus = Encoding.UTF8.GetBytes(soapStatus);
+            statRequest.ContentLength = byteStatus.Length;
+            using (Stream s = statRequest.GetRequestStream())
+            {
+                s.Write(byteStatus, 0, byteStatus.Length);
+                s.Close();
+            }
+
+            HttpWebResponse statResponse = (HttpWebResponse)statRequest.GetResponse();
+            using (Stream s = statResponse.GetResponseStream())
+            {
+                using (StreamReader sr = new StreamReader(s))
+                {
+                    string statusXml = sr.ReadToEnd();
+                    XDocument status = XDocument.Parse(statusXml);
+
+                    XElement body = status.Descendants(ns + "Body").First();
+                    XElement transportInfo = body.Descendants(uns + "GetTransportInfoResponse").First().Descendants("CurrentTransportState").First();
+                    if (transportInfo.Value.ToLower() != "playing" && transportInfo.Value.ToLower() != "paused_playback")
+                    {
+                        return new SonosPlayingData();
+                    }
+                }
+            }
 
             HttpWebRequest webRequest = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://{0}:1400/MediaRenderer/AVTransport/Control", coordinatorIp));
             webRequest.ContentType = "text/xml";
             webRequest.Method = "POST";
             webRequest.Headers.Add("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#GetPositionInfo\"");
-            webRequest.Headers.Add("X-SONOS-TARGET-UDN", "uuid:RINCON_000E58B1D54801400");
-
-            string soapRequestTemplate = "<s:Envelope s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body>{0}</s:Body></s:Envelope>";
+            
             string soap = string.Format(soapRequestTemplate, "<u:GetPositionInfo xmlns:u=\"urn:schemas-upnp-org:service:AVTransport:1\"><InstanceID>0</InstanceID><Channel>Master</Channel></u:GetPositionInfo>");
 
             byte[] byteArray = Encoding.UTF8.GetBytes(soap);
@@ -241,8 +311,7 @@ namespace msn2.net
                 StreamReader reader = new StreamReader(dataStream);
                 string responseString = reader.ReadToEnd();
                 XDocument doc = XDocument.Parse(responseString);
-                XNamespace ns = "http://schemas.xmlsoap.org/soap/envelope/";
-                XNamespace uns = "urn:schemas-upnp-org:service:AVTransport:1";
+                
 
                 XElement body = doc.Descendants(ns + "Body").First();
                 XElement trackMetaData = body.Descendants(uns + "GetPositionInfoResponse").First().Descendants("TrackMetaData").First();
