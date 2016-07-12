@@ -1,1 +1,0 @@
-sp_detach_db 'fcdata'

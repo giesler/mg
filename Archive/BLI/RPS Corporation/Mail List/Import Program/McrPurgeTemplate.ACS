@@ -1,7 +1,0 @@
-Version =196611
-ColumnsShown =3
-Begin
-    MacroName ="{F6}"
-    Action ="RunCode"
-    Argument ="ProcessTitles () "
-End
