@@ -147,7 +147,7 @@ namespace msn2.net
                     }
 
                     TimeSpan ts = new TimeSpan(0, 0, durationSecs);
-                    status = string.Format("Watered for {0} mins", ts.TotalMinutes);
+                    status = string.Format("Watered for {0:0} mins", ts.TotalMinutes);
                 }
             }
 
