@@ -79,6 +79,16 @@ namespace msn2.net
 
         [DataMember(Name = "modules")]
         public Module[] Modules { get; set; }
+
+        [DataMember(Name = "dashboard_data")]
+        public DashboardData DashboardData { get; set; }
+
+        [DataMember(Name = "station_name")]
+        public string StationName { get; set; }
+
+        [DataMember(Name = "module_name")]
+        public string ModuleName { get; set; }
+
     }
 
     [DataContract]
@@ -113,7 +123,7 @@ namespace msn2.net
         }
 
         [DataMember(Name = "dashboard_data")]
-        public ModuleDashboardData DashboardData { get; set; }
+        public DashboardData DashboardData { get; set; }
 
         [DataMember(Name = "data_type")]
         public string[] DataType { get; set; }
@@ -151,7 +161,7 @@ namespace msn2.net
     }
 
     [DataContract]
-    public class ModuleDashboardData
+    public class DashboardData
     {
         [DataMember(Name = "time_utc")]
         public double TimeUtcMS { get; set; }
@@ -200,6 +210,18 @@ namespace msn2.net
 
         [DataMember(Name = "max_temp")]
         public float MaxTemp { get; set; }
+
+        [DataMember(Name = "AbsolutePressure")]
+        public float AbsolutePresure { get; set; }
+
+        [DataMember(Name = "Noise")]
+        public int Noise { get; set; }
+
+        [DataMember(Name = "Pressure")]
+        public float Pressure { get; set; }
+
+        [DataMember(Name = "CO2")]
+        public float CO2 { get; set; }
 
     }
 }

@@ -27,7 +27,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label Content="loading" HorizontalAlignment="Center" Name="status" VerticalAlignment="Center" Grid.Row="1" Foreground="Gray"  />
+        <Label Content="loading" HorizontalAlignment="Center" Name="status" VerticalAlignment="Center" Grid.Row="1" Foreground="Gray" Grid.ColumnSpan="3"  />
         <MediaElement Name="item1" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
         <MediaElement Name="item2" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
         <Label Content="" HorizontalAlignment="Left" Name="info" VerticalAlignment="Bottom" Grid.Row="1" Foreground="White" Background="{DynamicResource backgroundImage}" Visibility="Collapsed" FontSize="14" />
