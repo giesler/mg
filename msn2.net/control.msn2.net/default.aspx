@@ -237,6 +237,19 @@
                     <asp:Label runat="server" ID="mainRoomsAudioStatus" CssClass="smallNote" /></td>
             </tr>
 
+            
+            <tr style="border-top: solid 2px silver">
+                <td class="mainItem">tv audio</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="tvAudioOn" Text=" on " OnClick="tvAudioOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="tvAudioOff" Text=" off " OnClick="tvAudioOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="Label1" CssClass="smallNote" /></td>
+            </tr>
+
         </table>
     </form>
 </body>

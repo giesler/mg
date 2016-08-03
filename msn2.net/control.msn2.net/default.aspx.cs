@@ -300,4 +300,18 @@ public partial class control : System.Web.UI.Page
         RachioIntegration.StartDrip(TimeSpan.FromMinutes(level));
         this.Redirect();
     }
+
+    protected void tvAudioOn_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.RunProgram(IsyData.ProgramRunType.runThen, "0015");
+        this.Redirect();
+    }
+
+    protected void tvAudioOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.RunProgram(IsyData.ProgramRunType.runElse, "0015");
+        this.Redirect();
+    }
 }
