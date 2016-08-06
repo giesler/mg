@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="HomeServices.Sonos" CodeBehind="Sonos.svc.cs" %>

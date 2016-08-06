@@ -91,6 +91,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Sonos.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +125,7 @@
     <Compile Include="IDeviceControl.cs" />
     <Compile Include="IDevicePower.cs" />
     <Compile Include="IISY.cs" />
+    <Compile Include="ISonos.cs" />
     <Compile Include="ISY.svc.cs">
       <DependentUpon>ISY.svc</DependentUpon>
     </Compile>
@@ -133,6 +135,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Sonos.svc.cs">
+      <DependentUpon>Sonos.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +159,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj">
-      <Project>{a267194c-a021-4267-a491-ad3919394f9a}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="..\..\HomeControl\HomeControl\HomeControl.csproj">
+      <Project>{01f4c656-be28-4241-beeb-42457c1a5dd1}</Project>
+      <Name>HomeControl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
