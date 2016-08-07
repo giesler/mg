@@ -35,6 +35,17 @@
             return false;
         }
     </script>
+    <style>
+        A:link {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
 </head>
 <body style="background-color: black;">
     <form id="form1" runat="server" style="height: 100%">
@@ -248,6 +259,12 @@
             <tr>
                 <td>
                     <asp:Label runat="server" ID="Label1" CssClass="smallNote" /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    MORE: <a href="Sonos.aspx">SONOS</a>
+                </td>
             </tr>
 
         </table>
