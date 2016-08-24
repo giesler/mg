@@ -35,7 +35,8 @@
             <a href="http://192.168.1.55/WEB/udajax.htm#/nodes/scenes/" title="admin | admin">ISY</a> |
                 <a href="https://home.nest.com/" title="mike@giesler.org | camping">NEST</a> <br />
                 <a href="https://my.netatmo.com/app/station" title="giesler@live.com | sweet2Go">Netatmo</a> | 
-                <a href="https://app.rach.io/" title="giesler | msndrips">Rachio</a>
+                <a href="https://app.rach.io/" title="giesler | msndrips">Rachio</a><br />
+                <a href="http://192.168.1.60:8081/">HA Bridge</a> | <a href="http://hplaserjet/">HP</a>
             <div class="subheader">MEDIA</div>
             <a href="http://online.tivo.com" title="giesler@live.com | showtime">TiVo</a> |
                 <a href="https://app.plex.tv/web/app#" title="giesler@live.com | showtime">Plex</a> |
