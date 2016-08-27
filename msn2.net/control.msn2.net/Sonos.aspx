@@ -39,6 +39,11 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Actions">
                         <ItemTemplate>
+<!--                            <asp:DropDownList runat="server" AutoPostBack="true" ID="action" OnSelectedIndexChanged="action_SelectedIndexChanged">
+                                <asp:ListItem Text="review" />
+                                <asp:ListItem Text="support" />
+                                <asp:ListItem Text="reboot" />
+                            </asp:DropDownList>-->
                             <asp:HyperLink runat="server" NavigateUrl="<%# GetSupportUrl(Item.IpAddress) %>" Text="review" Target="_blank" /> | 
                             <asp:HyperLink runat="server" NavigateUrl="<%# GetTopoUrl(Item.IpAddress) %>" Text="topo" Target="_blank" /> |
                             <asp:HyperLink runat="server" NavigateUrl="<%# GetRebootUrl(Item.IpAddress) %>" Text="reboot" Target="_blank" />

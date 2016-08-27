@@ -70,4 +70,8 @@ public partial class Sonos : System.Web.UI.Page
         //    }
         //}
     }
+
+    protected void action_SelectedIndexChanged(object sender, EventArgs e)
+    {
+    }
 }

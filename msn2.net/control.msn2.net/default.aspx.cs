@@ -24,6 +24,7 @@ public partial class control : System.Web.UI.Page
     const string FrontDoorAddress = "ZW003_1";
     const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
+    const string NeilsRoomLightAddress = "2B B6 38 1";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -74,6 +75,9 @@ public partial class control : System.Web.UI.Page
 
             var coopDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == CoopDoorAddress);
             this.coopDoorStatus.Text = coopDoor != null ? coopDoor.Status : "unknown status";
+
+            var neilLight = groups.First().Nodes.FirstOrDefault(g => g.Address == NeilsRoomLightAddress);
+            this.neilsRoomLightStatus.Text = neilLight != null ? neilLight.Status : "unknown status";
 
             try
             {
@@ -146,13 +150,6 @@ public partial class control : System.Web.UI.Page
         this.Redirect();
     }
 
-    protected void upstairsHallOn_Click(object sender, EventArgs e)
-    {
-        IsyData.ISYClient client = new IsyData.ISYClient();
-        client.TurnOn(UpstairHallwayAddress);
-        this.Redirect();
-    }
-
     protected void kitchenOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
@@ -184,14 +181,7 @@ public partial class control : System.Web.UI.Page
         Thread.Sleep(TimeSpan.FromSeconds(2));
         Response.Redirect(Request.Url.ToString());
     }
-
-    protected void masterSinkLightOn_Click(object sender, EventArgs e)
-    {
-        IsyData.ISYClient client = new IsyData.ISYClient();
-        client.TurnOn(MasterSinkLightAddress);
-        this.Redirect();
-    }
-
+    
     protected void masterSinkLightOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
@@ -226,6 +216,10 @@ public partial class control : System.Web.UI.Page
         else if (this.levelItem.Value.ToLower() == "kitchen light")
         {
             SetLevel(sender, KitchenLightsAddress);
+        }
+        else if (this.levelItem.Value.ToLower() == "neils room lights")
+        {
+            SetLevel(sender, NeilsRoomLightAddress);
         }
     }
 
@@ -312,6 +306,13 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.runElse, "0015");
+        this.Redirect();
+    }
+
+    protected void neilsRoomLightOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOff(NeilsRoomLightAddress);
         this.Redirect();
     }
 }

@@ -216,6 +216,18 @@
             
             
             <tr style="border-top: solid 2px silver">
+                <td class="mainItem">neils room light</td>
+                <td rowspan="2">
+                    <asp:Button runat="server" ID="neilsRoomLightOn" OnClientClick="return toggleLevel('neils room lights');" Text=" on " CssClass="onOffButton" />
+                    <asp:Button runat="server" ID="neilsRoomLightOff" Text=" off " OnClick="neilsRoomLightOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label runat="server" ID="neilsRoomLightStatus" CssClass="smallNote" /></td>
+            </tr>
+
+            <tr style="border-top: solid 2px silver">
                 <td class="mainItem">garden drip</td>
                 <td rowspan="2">
                     <asp:Button runat="server" ID="gardenDripOn" OnClientClick="return toggleDuration('garden drip');" Text=" on " CssClass="onOffButton" />
