@@ -114,7 +114,7 @@
         </div>
 
         <div style="font-weight: bolder; padding: 5px">
-            <a href="javascript:toggleGroup('lights')">LIGHTS</a> | 
+            <a href="javascript:toggleGroup('lights')">SWITCHES</a> | 
             <a href="javascript:toggleGroup('doors')">DOORS</a> | 
             <a href="javascript:toggleGroup('commands')">COMMANDS</a> | 
             <a href="Sonos.aspx">SONOS</a>
