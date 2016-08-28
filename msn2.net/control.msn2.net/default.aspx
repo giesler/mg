@@ -123,65 +123,65 @@
         <div id="lights">
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">living room</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="livingRoomOn" Text=" on " OnClick="livingRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="livingRoomOff" Text=" off " OnClick="livingRoomOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">living room</div>
             <div><asp:Label runat="server" ID="livingRoomStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">media room</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="mediaRoomOff" Text=" off " OnClick="mediaRoomOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">media room</div>
             <div><asp:Label runat="server" ID="mediaRoomStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">upstairs hall</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="upstairsHallOn" Text=" on " OnClientClick="return toggleLevel('upstairs hall light');" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="upstairsHallOff" Text=" off " OnClick="upstairsHallOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">upstairs hall</div>
             <div><asp:Label runat="server" ID="upstairsHallStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">kitchen</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="kitchenOn" Text=" on " OnClientClick="return toggleLevel('kitchen light');" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="kitchenOff" Text=" off " OnClick="kitchenOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">kitchen</div>
             <div><asp:Label runat="server" ID="kitchenStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">master sink light</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="masterSinkLightOn" OnClientClick="return toggleLevel('master sink light');" Text=" on " CssClass="onOffButton" />
                 <asp:Button runat="server" ID="masterSinkLightOff" Text=" off " OnClick="masterSinkLightOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">master sink light</div>
             <div><asp:Label runat="server" ID="masterSinkLightStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">master bath fan</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="masterBathFanOn" Text=" on " OnClick="masterBathFanOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="masterBathFanOff" Text=" off " OnClick="masterBathFanOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">master bath fan</div>
             <div><asp:Label runat="server" ID="masterBathFanStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">media room light</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="neilsRoomLightOn" OnClientClick="return toggleLevel('neils room lights');" Text=" on " CssClass="onOffButton" />
                 <asp:Button runat="server" ID="neilsRoomLightOff" Text=" off " OnClick="neilsRoomLightOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">media room light</div>
             <div><asp:Label runat="server" ID="neilsRoomLightStatus" CssClass="smallNote" /></div>
         </div>
 
@@ -190,43 +190,43 @@
         <div id="doors">
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">garage 1</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="toggleGarage1" Text="toggle" OnClick="toggleGarage1_Click" OnClientClick="javascript:toggleItem();" CssClass="toggleButton" />
             </div>
+            <div class="mainItem">garage 1</div>
             <div><asp:Label runat="server" ID="garage1Status" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">garage 2</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="toggleGarage2" Text="toggle" OnClick="toggleGarage2_Click" OnClientClick="javascript:toggleItem();" CssClass="toggleButton" />
             </div>
+            <div class="mainItem">garage 2</div>
             <div><asp:Label runat="server" ID="garage2Status" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">garage entry door</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="garageEntryLock" Text=" lock " OnClick="garageEntryLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="garageEntryUnlock" Text=" unlock " OnClick="garageEntryUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">garage entry door</div>
             <div><asp:Label runat="server" ID="garageEntryStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">front door</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="frontDoorLock" Text=" lock " OnClick="frontDoorLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="frontDoorUnlock" Text=" unlock " OnClick="frontDoorUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">front door</div>
             <div><asp:Label runat="server" ID="frontDoorStatus" CssClass="smallNote" /></div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">coop door</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
             </div>
+            <div class="mainItem">coop door</div>
             <div><asp:Label runat="server" ID="coopDoorStatus" CssClass="smallNote" /></div>
         </div>
         </div>
@@ -234,30 +234,30 @@
         <div id="commands">
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">garden drip</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="gardenDripOn" OnClientClick="return toggleDuration('garden drip');" Text=" on " CssClass="onOffButton" />
                 <asp:Button runat="server" ID="gardenDripOff" Text=" off " OnClick="gardenDripOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">garden drip</div>
             <div><asp:Label runat="server" ID="gardenDripStatus" CssClass="smallNote" /></div>
         </div>
 
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">napping</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="mainRoomsAudioMute" Text=" on " OnClick="mainRoomsAudioMute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="mainRoomsAudioUnmute" Text=" off " OnClick="mainRoomsAudioUnmute_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">napping</div>
             <div>&nbsp;</div>
         </div>
 
         <div class="itemGroup" style="padding: 5px">
-            <div class="mainItem">tv audio</div>
-            <div style="float: right">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="tvAudioOn" Text=" on " OnClick="tvAudioOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="tvAudioOff" Text=" off " OnClick="tvAudioOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
+            <div class="mainItem">tv audio</div>
             <div>&nbsp;</div>
         </div>
         </div>       
