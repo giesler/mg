@@ -181,7 +181,7 @@
                 <asp:Button runat="server" ID="neilsRoomLightOn" OnClientClick="return toggleLevel('neils room lights');" Text=" on " CssClass="onOffButton" />
                 <asp:Button runat="server" ID="neilsRoomLightOff" Text=" off " OnClick="neilsRoomLightOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
-            <div class="mainItem">neils room light</div>
+            <div class="mainItem">neils room lights</div>
             <div><asp:Label runat="server" ID="neilsRoomLightStatus" CssClass="smallNote" /></div>
         </div>
 
