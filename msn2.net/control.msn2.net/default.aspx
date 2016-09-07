@@ -113,16 +113,16 @@
             <br />
         </div>
 
-        <div style="font-weight: bolder; padding: 5px">
-            <a href="javascript:toggleGroup('lights')">SWITCHES</a> | 
-            <a href="javascript:toggleGroup('doors')">DOORS</a> | 
-            <a href="javascript:toggleGroup('commands')">COMMANDS</a> | 
-            <a href="Sonos.aspx">SONOS</a>
+        <div style="font-weight: bolder; padding: 5px; margin-top: 5px">
+            <a href="javascript:toggleGroup('lights')">SWITCHES</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('doors')">DOORS</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('commands')">COMMANDS</a>&nbsp; | 
+            &nbsp;<a href="Sonos.aspx">SONOS</a>
         </div>
         
         <div id="lights">
 
-        <div class="itemGroup" style="padding: 5px">
+        <div class="itemGroup" style="padding: 5px;">
             <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="livingRoomOn" Text=" on " OnClick="livingRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="livingRoomOff" Text=" off " OnClick="livingRoomOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
