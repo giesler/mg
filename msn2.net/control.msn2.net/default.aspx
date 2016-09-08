@@ -36,7 +36,7 @@
         }
         function toggleGroup(groupName) {
 
-            document.all['lights'].style.display = 'none';
+            document.all['switches'].style.display = 'none';
             document.all['doors'].style.display = 'none';
             document.all['commands'].style.display = 'none';
 
@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body style="background-color: black;" onload="toggleGroup('lights')">
+<body style="background-color: black;" onload="toggleGroup('<%=GetActiveGroup() %>')">
     <form id="form1" runat="server" style="height: 100%">
         <asp:Panel runat="server" ID="sendingPanel" CssClass="popupPanel">
             <br />
@@ -120,7 +120,7 @@
             &nbsp;<a href="Sonos.aspx">SONOS</a>
         </div>
         
-        <div id="lights">
+        <div id="switches">
 
         <div class="itemGroup" style="padding: 5px;">
             <div style="float: right; margin-top: 10px">

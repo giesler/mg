@@ -25,6 +25,7 @@ public partial class control : System.Web.UI.Page
     const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
     const string NeilsRoomLightAddress = "2B B6 38 1";
+    string activeGroup = "switches";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -35,6 +36,12 @@ public partial class control : System.Web.UI.Page
             {
                 Response.Redirect("http://login.msn2.net/?r=http://control.msn2.net/");
             }
+        }
+
+        object group = Request.QueryString["g"];
+        if (group != null)
+        {
+            this.activeGroup = group.ToString();
         }
 
         if (!Page.IsPostBack)
@@ -112,56 +119,55 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(Garage1SwitchAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
 
     protected void toggleGarage2_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(Garage2SwitchAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
     protected void livingRoomOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(LivingRoomSideLightsAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void livingRoomOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(LivingRoomSideLightsAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
-
-
+    
     protected void mediaRoomOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(MediaRoomSideLightsAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void mediaRoomOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MediaRoomSideLightsAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void kitchenOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(KitchenLightsAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void upstairsHallOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(UpstairHallwayAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void dripToggleOn_Click(object sender, EventArgs e)
@@ -170,7 +176,7 @@ public partial class control : System.Web.UI.Page
         dc.TurnOn(GardenDripName, TimeSpan.FromMinutes(15));
 
         Thread.Sleep(TimeSpan.FromSeconds(2));
-        Response.Redirect(Request.Url.ToString());
+        this.Redirect("commands");
     }
 
     protected void dripToggleOff_Click(object sender, EventArgs e)
@@ -179,28 +185,28 @@ public partial class control : System.Web.UI.Page
         dc.TurnOff(GardenDripName);
 
         Thread.Sleep(TimeSpan.FromSeconds(2));
-        Response.Redirect(Request.Url.ToString());
+        this.Redirect("commands");
     }
     
     protected void masterSinkLightOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MasterSinkLightAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void masterBathFanOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOn(MasterBathFanAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void masterBathFanOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MasterBathFanAddress);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
     protected void level100_Click(object sender, EventArgs e)
@@ -229,61 +235,61 @@ public partial class control : System.Web.UI.Page
         int level = int.Parse(button.ID.Replace("level", ""));
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.SetLevel(address, level);
-        this.Redirect();
+        this.Redirect("switches");
     }
 
-    private void Redirect()
+    private void Redirect(string activeGroup)
     {
         Thread.Sleep(1000);
-        Response.Redirect(Request.Url.ToString(), true);
+        Response.Redirect("/?g=" + activeGroup, true);
     }
 
     protected void garageEntryLock_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.Lock(GarageEntryDoorAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
 
     protected void garageEntryUnlock_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.Unlock(GarageEntryDoorAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
 
     protected void frontDoorLock_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.Lock(FrontDoorAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
 
     protected void frontDoorUnlock_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.Unlock(FrontDoorAddress);
-        this.Redirect();
+        this.Redirect("doors");
     }
 
     protected void mainRoomsAudioUnmute_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.run, "0011");
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void mainRoomsAudioMute_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.run, "0010");
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void gardenDripOff_Click(object sender, EventArgs e)
     {
         RachioIntegration.StopDrip();
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void duration1_Click(object sender, EventArgs e)
@@ -292,27 +298,32 @@ public partial class control : System.Web.UI.Page
         int level = int.Parse(button.ID.Replace("duration", ""));
 
         RachioIntegration.StartDrip(TimeSpan.FromMinutes(level));
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void tvAudioOn_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.runThen, "0015");
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void tvAudioOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.RunProgram(IsyData.ProgramRunType.runElse, "0015");
-        this.Redirect();
+        this.Redirect("commands");
     }
 
     protected void neilsRoomLightOff_Click(object sender, EventArgs e)
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(NeilsRoomLightAddress);
-        this.Redirect();
+        this.Redirect("switches");
+    }
+
+    protected string GetActiveGroup()
+    {
+        return this.activeGroup;
     }
 }
