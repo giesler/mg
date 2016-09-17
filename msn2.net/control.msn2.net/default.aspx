@@ -89,7 +89,7 @@
             <br />
             <asp:Button runat="server" ID="level20" OnClick="level100_Click" Text=" 20% " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
-            <asp:Button runat="server" ID="level10" OnClick="level100_Click" Text=" 10% " CssClass="popupButton" OnClientClick="toggleItem();" />
+            <asp:Button runat="server" ID="level7" OnClick="level100_Click" Text=" 7% " CssClass="popupButton" OnClientClick="toggleItem();" />
             <br />
             <asp:Button runat="server" ID="levelCancel" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelLevel();" />
             <asp:HiddenField runat="server" ID="levelItem" />
@@ -133,10 +133,19 @@
 
         <div class="itemGroup" style="padding: 5px">
             <div style="float: right; margin-top: 10px">
+                <asp:Button runat="server" ID="mediaRoomMainOn" Text=" on " OnClientClick="return toggleLevel('media room lights');" CssClass="onOffButton" />
+                <asp:Button runat="server" ID="mediaRoomMainOff" Text=" off " OnClick="mediaRoomMainOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+            </div>
+            <div class="mainItem">media room</div>
+            <div><asp:Label runat="server" ID="mediaRoomMainStatus" CssClass="smallNote" /></div>
+        </div>
+
+        <div class="itemGroup" style="padding: 5px">
+            <div style="float: right; margin-top: 10px">
                 <asp:Button runat="server" ID="mediaRoomOn" Text=" on " OnClick="mediaRoomOn_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="mediaRoomOff" Text=" off " OnClick="mediaRoomOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
-            <div class="mainItem">media room</div>
+            <div class="mainItem">media room side</div>
             <div><asp:Label runat="server" ID="mediaRoomStatus" CssClass="smallNote" /></div>
         </div>
 

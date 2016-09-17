@@ -25,6 +25,8 @@ public partial class control : System.Web.UI.Page
     const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
     const string NeilsRoomLightAddress = "2B B6 38 1";
+    const string MediaRoomMainLightsAddress = "2295";
+
     string activeGroup = "switches";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -64,6 +66,9 @@ public partial class control : System.Web.UI.Page
 
             var lr = groups.FirstOrDefault(g => g.Address == LivingRoomSideLightsAddress);
             this.livingRoomStatus.Text = lr.Status;
+
+            var mr = groups.FirstOrDefault(g => g.Address == MediaRoomMainLightsAddress);
+            this.mediaRoomMainStatus.Text = mr != null ? mr.Status : "unknown status";
 
             var mc = groups.FirstOrDefault(g => g.Address == MediaRoomSideLightsAddress);
             this.mediaRoomStatus.Text = mc != null ? mc.Status : "unkown status";
@@ -227,6 +232,12 @@ public partial class control : System.Web.UI.Page
         {
             SetLevel(sender, NeilsRoomLightAddress);
         }
+        else if (this.levelItem.Value.ToLower() == "media room lights")
+        {
+            SetLevel(sender, MediaRoomMainLightsAddress);
+        }
+
+        throw new Exception("Unrecognized value: " + this.levelItem.Value);
     }
 
     private void SetLevel(object sender, string address)
@@ -325,5 +336,12 @@ public partial class control : System.Web.UI.Page
     protected string GetActiveGroup()
     {
         return this.activeGroup;
+    }
+
+    protected void mediaRoomMainOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOff(MediaRoomMainLightsAddress);
+        this.Redirect("switches");
     }
 }
