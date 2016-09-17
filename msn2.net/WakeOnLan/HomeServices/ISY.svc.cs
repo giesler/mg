@@ -207,9 +207,22 @@ namespace HomeServices
 
         public NodeData SetLevel(string address, int level)
         {
-            int adjustedLevel = (int)((double)level / 100.0 * 255.0);
-            IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DON/" + adjustedLevel.ToString());
-            return this.GetAddressData(address);
+            if (address == "24060")                     // upstairs hallway group
+            {
+                SetLevel("29 D6 31 1", level);          // entry dimmer
+                return SetLevel("29 C2 A3 1", level);   // upstairs dimmer
+            }
+            else if (address == "2295")                 // media room group
+            {   
+                SetLevel("42 8C A5 1", level);          // entry dimmer
+                return SetLevel("42 A6 6C 1", level);   // stairs dimmer
+            }
+            else
+            {
+                int adjustedLevel = (int)((double)level / 100.0 * 255.0);
+                IsyUtilities.GetResponse("/rest/nodes/" + address + "/set/DON/" + adjustedLevel.ToString());
+                return this.GetAddressData(address);
+            }
         }
 
         public NodeData Lock(string address)

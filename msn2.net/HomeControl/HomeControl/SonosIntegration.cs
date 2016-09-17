@@ -16,6 +16,11 @@ namespace msn2.net
         static string defaultZoneName = "Kitchen";
         static string defaultZoneIp = "192.168.1.67";
 
+        public static SonosPlayingData GetPlayingData()
+        {
+            return GetPlayingData(defaultZoneName);
+        }
+
         public static SonosPlayingData GetPlayingData(string roomName)
         {
             return GetPlayingData(roomName, defaultZoneIp);
