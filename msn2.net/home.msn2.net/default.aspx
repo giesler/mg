@@ -33,13 +33,13 @@
                 <a href="http://pics.msn2.net">Pics</a>
             <div class="subheader">SERVICES</div>
             <a href="http://192.168.1.55/WEB/udajax.htm#/nodes/scenes/" title="admin | admin">ISY</a> |
-                <a href="https://home.nest.com/" title="mike@giesler.org | camping">NEST</a> <br />
+                <a href="https://home.nest.com/" title="giesler@live.com | Camping!2">Nest</a> <br />
                 <a href="https://my.netatmo.com/app/station" title="giesler@live.com | sweet2Go">Netatmo</a> | 
-                <a href="https://app.rach.io/" title="giesler | msndrips">Rachio</a><br />
+                <a href="https://app.rach.io/" title="giesler | MSN2drips">Rachio</a><br />
                 <a href="http://192.168.1.60:8081/">HA Bridge</a> | <a href="http://hplaserjet/">HP</a>
             <div class="subheader">MEDIA</div>
-            <a href="http://online.tivo.com" title="giesler@live.com | showtime">TiVo</a> |
-                <a href="https://app.plex.tv/web/app#" title="giesler@live.com | showtime">Plex</a> |
+            <a href="http://online.tivo.com" title="giesler@live.com | Showtime42">TiVo</a> |
+                <a href="https://app.plex.tv/web/app#" title="giesler@live.com | PlayOver2">Plex</a> |
                 <a href="http://xfinitytv.comcast.net" title="msn2@comcast.net | dropbike8">Xfinity</a>
             <div class="subheader">NETWORK</div>
             Main: <a href="http://msn2w1.sp.msn2.net/" title="192.168.1.1: admin | foobar32">router</a> |

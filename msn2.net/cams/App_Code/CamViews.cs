@@ -9,35 +9,35 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class CamViews
 {
-	public static CamView GetCoopView()
-	{
-        CamView view = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Coop",
-            Orientation = Orientation.Vertical,
-            RefreshInterval = TimeSpan.FromSeconds(20)
-        };
+	//public static CamView GetCoopView()
+	//{
+ //       CamView view = new CamView
+ //       {
+ //           MaxHeight = 64,
+ //           Name = "Coop",
+ //           Orientation = Orientation.Vertical,
+ //           RefreshInterval = TimeSpan.FromSeconds(20)
+ //       };
         
-        view.Cameras.Add(Cams.CoopBottom);
-        view.Cameras.Add(Cams.CoopTop);
+ //       view.Cameras.Add(Cams.CoopBottom);
+ //       view.Cameras.Add(Cams.CoopTop);
 
-        return view;
-    }
+ //       return view;
+ //   }
 
-    public static CamView GetCoopSideView()
-    {
-        CamView view = new CamView
-        {
-            MaxHeight = 64,
-            Name = "Outside Coop",
-            Orientation = Orientation.Horizontal,
-            RefreshInterval = TimeSpan.FromSeconds(20),
-        };
-        view.Cameras.Add(Cams.CoopSide);
+    //public static CamView GetCoopSideView()
+    //{
+    //    CamView view = new CamView
+    //    {
+    //        MaxHeight = 64,
+    //        Name = "Outside Coop",
+    //        Orientation = Orientation.Horizontal,
+    //        RefreshInterval = TimeSpan.FromSeconds(20),
+    //    };
+    //    view.Cameras.Add(Cams.CoopSide);
 
-        return view;
-    }
+    //    return view;
+    //}
 
     public static CamView GetDrivewayView()
     {

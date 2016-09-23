@@ -15,7 +15,7 @@ public partial class _Default : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        CamView coopView = CamViews.GetCoopView();
+        //CamView coopView = CamViews.GetCoopView();
         //CamView coopYardView = CamViews.GetCoopSideView();
         CamView drivewayView = CamViews.GetDrivewayView();
         CamView frontView = CamViews.GetFrontView();
@@ -31,7 +31,7 @@ public partial class _Default : System.Web.UI.Page
 
         if (!loggedIn)
         {
-            this.thumbViews.Add(coopView);
+            //this.thumbViews.Add(coopView);
             //this.thumbViews.Add(coopYardView);
             this.cam = "1";
         }
@@ -41,7 +41,7 @@ public partial class _Default : System.Web.UI.Page
             this.thumbViews.Add(frontView);
             this.thumbViews.Add(sideView);
             //this.thumbViews.Add(coopYardView);
-            this.thumbViews.Add(coopView);
+            //this.thumbViews.Add(coopView);
 
             this.signInOutLink1.Text = "SIGN OUT";
             this.signInOutLink2.Text = this.signInOutLink1.Text;

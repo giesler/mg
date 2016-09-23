@@ -9,7 +9,7 @@ public partial class thumbs : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        CamView coopView = CamViews.GetCoopView();
+        //CamView coopView = CamViews.GetCoopView();
         //CamView coopYardView = CamViews.GetCoopSideView();
         CamView drivewayView = CamViews.GetDrivewayView();
         CamView frontView = CamViews.GetFrontView();
@@ -26,7 +26,7 @@ public partial class thumbs : System.Web.UI.Page
 
         if (!loggedIn)
         {
-            thumbViews.Add(coopView);
+            //thumbViews.Add(coopView);
             //thumbViews.Add(coopYardView);
         }
         else
@@ -35,7 +35,7 @@ public partial class thumbs : System.Web.UI.Page
             thumbViews.Add(frontView);
             thumbViews.Add(sideView);
             //thumbViews.Add(coopYardView);
-            thumbViews.Add(coopView);
+            //thumbViews.Add(coopView);
         }
 
         this.thumbsView.DataSource = thumbViews;
