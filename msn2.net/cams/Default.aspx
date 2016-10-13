@@ -13,9 +13,8 @@
     <form id="form1" runat="server" style="height: 100%">
     <asp:Repeater runat="server" ID="thumbs" OnItemDataBound="thumbs_ItemDataBound">
         <ItemTemplate>
-            <asp:HyperLink runat="server" ID="thumbALink">
-                <asp:Image runat="server" ID="thumbAImage" Height="64" BorderWidth="0" />
-                <asp:Image runat="server" ID="thumbBImage" Height="64" BorderWidth="0" />
+            <asp:HyperLink runat="server" ID="thumbLink">
+                <asp:Image runat="server" ID="thumbImage" Height="64" BorderWidth="0" />
             </asp:HyperLink>
         </ItemTemplate>
     </asp:Repeater>
@@ -25,14 +24,9 @@
         <asp:HyperLink runat="server" ID="controlLink1" NavigateUrl="http://control.msn2.net/" Text="CONTROL" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator3" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink1" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="LOG" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator1" Text=" | " Visible="false" />
-        <asp:HyperLink runat="server" ID="signInOutLink1" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
     <div style="height: 100%">
-        <asp:Panel ID="rightPanel" runat="server" Visible="false" CssClass="rightFloat">
-            <asp:Image ID="main2" runat="server" ClientIDMode="Static" Visible="false" CssClass="fullImage" />
-        </asp:Panel>
-        <asp:Panel ID="leftPanel" runat="server" CssClass="leftFloat">
+        <asp:Panel ID="mainPanel" runat="server" CssClass="leftFloat">
             <asp:Image ID="main" runat="server" ClientIDMode="Static" CssClass="fullImage" />
         </asp:Panel>
     </div>
@@ -42,50 +36,45 @@
         <asp:HyperLink runat="server" ID="controlLink2" NavigateUrl="http://control.msn2.net/" Text="CONTROL" Visible="false" /> 
         <asp:Label runat="server" ID="logLinkSeperator4" Text=" | " Visible="false" />
         <asp:HyperLink runat="server" ID="logLink2" NavigateUrl="http://ddns.msn2.net:8081/jpegpull.htm" Text="LOG" Visible="false" /> 
-        <asp:Label runat="server" ID="logLinkSeperator2" Text=" | " Visible="false" />        
-        <asp:HyperLink runat="server" ID="signInOutLink2" NavigateUrl="http://login.msn2.net/logout.aspx?r=http://cams.msn2.net" Text="SIGN IN" />
     </asp:Panel>
 
     </form>
     <script language="javascript" type="text/javascript"><!--
 
         var count = 0;
+        var mainTimer = 0;
         var cam = '<%=GetCam() %>';
         var mainRefreshInterval = <%=GetRefreshInterval("main") %>;
         var thumbRefreshInterval = <%=GetRefreshInterval("thumb") %>;
         var basePrefix = '<%=GetBasePrefix() %>';
         var thumbHeight = <%=GetThumbHeight() %>;
-
+            
         function RefreshMain() {
             var tmp = new Date();
-            //tmp = "http://" + basePrefix + ".msn2.net:8808/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
 
-            tmp = "http://localhost:8808/getimg.aspx?" + tmp.getTime() + "&c=" + cam.toString();
-
-            var tmp2 = new Date();
-            if (cam == "1")
+            if (mainTimer != 0)
             {
-              //  tmp2 = "http://cam2.msn2.net:8808/getimg.aspx?" + tmp2.getTime() + "&c=2";
-                tmp2 = "http://localhost:8808/getimg.aspx?" + tmp2.getTime() + "&c=2";
+                clearTimeout(mainTimer);
+                mainTimer = 0;
             }
+                
+            tmp = "getimg.aspx?ts=" + tmp.getTime() + "&c=" + cam.toString();
             
             window.status = "Auto refresh enabled";
             try {
                 document.images["main"].src = tmp;
-                if (cam == "1")
-                {
-                    document.images["main2"].src = tmp2;
-                }
             }
             catch (e) {
             }
             count = count + 1;
             if (count < 5000) {
-                setTimeout("RefreshMain()", mainRefreshInterval);
+                mainTimer = setTimeout("RefreshMain()", mainRefreshInterval);
             }
             else {
                 window.status = "Hit F5 to refresh";
             }
+
+            inGet = false;
         }
 
         function RefresThumbs() {
@@ -106,7 +95,7 @@
             }
         }
 
-        setTimeout("RefreshMain()", 250);
+        mainTimer = setTimeout("RefreshMain()", 250);
         setTimeout("RefresThumbs()", 500);
             // -->
     </script>

@@ -15,53 +15,42 @@ public partial class _Default : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        //CamView coopView = CamViews.GetCoopView();
-        //CamView coopYardView = CamViews.GetCoopSideView();
         CamView drivewayView = CamViews.GetDrivewayView();
         CamView frontView = CamViews.GetFrontView();
         CamView sideView = CamViews.GetSideView();
+        CamView garageDoorView = CamViews.GetGarageDoorView();
+        CamView coopTopView = CamViews.GetCoopTopView();
+        CamView coopDoorView = CamViews.GetCoopDoorView();
 
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie != null && cookie.Value == "1")
         {
-            loggedIn = true;
+            Response.Redirect("http://login.msn2.net/logout.aspx?r=http://cams.msn2.net");
         }
 
         bool mobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
 
-        if (!loggedIn)
-        {
-            //this.thumbViews.Add(coopView);
-            //this.thumbViews.Add(coopYardView);
-            this.cam = "1";
-        }
-        else
-        {
-            this.thumbViews.Add(drivewayView);
-            this.thumbViews.Add(frontView);
-            this.thumbViews.Add(sideView);
-            //this.thumbViews.Add(coopYardView);
-            //this.thumbViews.Add(coopView);
+        this.thumbViews.Add(drivewayView);
+        this.thumbViews.Add(frontView);
+        this.thumbViews.Add(sideView);
+        this.thumbViews.Add(garageDoorView);
+        this.thumbViews.Add(coopDoorView);
+        this.thumbViews.Add(coopTopView);
 
-            this.signInOutLink1.Text = "SIGN OUT";
-            this.signInOutLink2.Text = this.signInOutLink1.Text;
-            this.logLink1.Visible = true;
-            this.logLink2.Visible = true;
-            this.homeLink1.Visible = true;
-            this.homeLink2.Visible = true;
-            this.controlLink1.Visible = true;
-            this.controlLink2.Visible = true;
-            this.logLinkSeperator0.Visible = true;
-            this.logLinkSeperator1.Visible = true;
-            this.logLinkSeperator2.Visible = true;
-            this.logLinkSeperator3.Visible = true;
-            this.logLinkSeperator4.Visible = true;
-            this.logLinkSeperator5.Visible = true;
-            this.cam = "dw1";
+        this.logLink1.Visible = true;
+        this.logLink2.Visible = true;
+        this.homeLink1.Visible = true;
+        this.homeLink2.Visible = true;
+        this.controlLink1.Visible = true;
+        this.controlLink2.Visible = true;
+        this.logLinkSeperator0.Visible = true;
+        this.logLinkSeperator3.Visible = true;
+        this.logLinkSeperator4.Visible = true;
+        this.logLinkSeperator5.Visible = true;
+        this.cam = "dw1";
 
-            this.topLinks.Visible = !mobile;
-            this.bottomLinks.Visible = mobile;
-        }
+        this.topLinks.Visible = !mobile;
+        this.bottomLinks.Visible = mobile;
 
         this.thumbs.DataSource = this.thumbViews;
         this.thumbs.DataBind();
@@ -75,16 +64,6 @@ public partial class _Default : System.Web.UI.Page
         }
 
         this.main.ImageUrl = string.Format("http://cam1.msn2.net:8808/getimg.aspx?c={0}&id={1}", this.cam, Guid.NewGuid());
-
-        if (cam == "1")
-        {
-            this.main2.ImageUrl = string.Format("http://cam2.msn2.net:8808/getimg.aspx?c=2&id={0}", Guid.NewGuid());
-            this.main2.Visible = true;
-            this.rightPanel.Visible = true;
-
-            this.leftPanel.Width = Unit.Percentage(50);
-            this.rightPanel.Width = Unit.Percentage(50);
-        }
     }
 
     protected string GetCam()
@@ -103,7 +82,7 @@ public partial class _Default : System.Web.UI.Page
 
         if (item == "main")
         {
-            interval = 1000;
+            interval = 3000;
         }
 
         if (Request.UserAgent.ToLower().IndexOf("mobile") > 0 && item == "thumb")
@@ -143,21 +122,11 @@ public partial class _Default : System.Web.UI.Page
             bool isMobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
             int thumbHeight = isMobile ? 32 : 64;
 
-            HyperLink linkA = (HyperLink)e.Item.FindControl("thumbALink");
-            Image imageA = (Image)e.Item.FindControl("thumbAImage");
-            Image imageB = (Image)e.Item.FindControl("thumbBImage");
-
-            linkA.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
-            imageA.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
-
-            if (view.Cameras.Count > 1)
-            {
-                imageB.ImageUrl = string.Format("http://{0}.msn2.net:8808/getimg.aspx?c={1}&h={2}&id=th", view.Cameras[1].HostPrefix, view.Cameras[1].Id, thumbHeight);
-            }
-            else
-            {
-                imageB.Visible = false;
-            }
+            HyperLink link = (HyperLink)e.Item.FindControl("thumbLink");
+            Image image = (Image)e.Item.FindControl("thumbImage");
+            
+            link.NavigateUrl = string.Format("./?c={0}", view.Cameras[0].Id);
+            image.ImageUrl = string.Format("getimg.aspx?c={1}&h={2}&id=th", view.Cameras[0].HostPrefix, view.Cameras[0].Id, thumbHeight);
         }
     }
 }

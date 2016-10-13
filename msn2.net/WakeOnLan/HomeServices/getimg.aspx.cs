@@ -28,40 +28,13 @@ namespace HomeServices
             }
 
             string address = "http://invalid/";
-            bool rotate = true;
+            bool rotate = false;
 
-            if (cam == "1")
-            {
-                address = "http://192.168.1.210:81/image/cc1";
-            }
-            else if (cam == "2")
-            {
-                address = "http://192.168.1.210:81/image/cc2";
-            }
-            else if (cam == "3")
-            {
-                rotate = false;
-                address = "http://192.168.1.210:81/image/cc3";
-            }
-            else if (cam == "dw1")
-            {
-                rotate = false;
-                address = "http://192.168.1.210:81/image/dw1";
-            }
-            else if (cam.ToLower() == "front")
-            {
-                rotate = false;
-                address = "http://192.168.1.210:81/image/Front";
-            }
-            else if (cam.ToLower() == "side")
-            {
-                rotate = false;
-                address = "http://192.168.1.210:81/image/side";
-            }
+            address = string.Format("http://192.168.1.210:81/image/{0}", cam);
 
-            if (Request.QueryString["r"] == "1")
+            if (Request.QueryString["r"] == "0")
             {
-                rotate = true;
+                rotate = false;
             }
 
             int maxHeight = 0;

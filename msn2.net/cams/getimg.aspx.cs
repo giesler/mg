@@ -23,52 +23,22 @@ public partial class getimg : System.Web.UI.Page
             cam = Request.QueryString["c"];
         }
 
-        string address = string.Format("http://ddns.msn2.net:8808{0}/webcam/jpg", cam);
-        bool rotate = true;
-
-        if (cam == "1")
-        {
-            address = "http://cam1.msn2.net:8808/image/cc1";
-        }
-        else if (cam == "2")
-        {
-            address = "http://cam2.msn2.net:8808/image/cc2";
-        }
-        else if (cam == "3")
-        {
-            rotate = false;
-            address = "http://cam3.msn2.net:8808/image/cc3";
-        }
-        else if (cam == "dw1")
-        {
-            rotate = false;
-            address = "http://cam4.msn2.net:8808/image/dw1";
-        }
-        else if (cam.ToLower() == "front")
-        {
-            rotate = false;
-            address = "http://cam5.msn2.net:8808/image/Front";
-        }
-        else if (cam.ToLower() == "side")
-        {
-            rotate = false;
-            address = "http://cam1.msn2.net:8808/image/Side";
-        }
-
+        bool rotate = false;
         if (Request.QueryString["r"] == "1")
         {
             rotate = true;
         }
 
+        int random = new Random().Next(1, 5);
+        string address = string.Format("http://cam{0}.msn2.net:8808/getimg.aspx?c={1}&r={2}&ts={3}", random, cam, rotate ? "1" : "0", DateTime.Now.ToString("yymmddhhmmsstt"));
+        
         int maxHeight = 0;
         if (Request.QueryString["h"] != null)
         {
             maxHeight = int.Parse(Request.QueryString["h"]);
         }
 
-        string url = string.Format("{0}?{1}",
-            address, cam, DateTime.Now.ToString("yymmddhhmmsstt"));
-        HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+        HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(address);
         req.Method = WebRequestMethods.Http.Get;
         req.Credentials = new NetworkCredential("home", "4362");
 
