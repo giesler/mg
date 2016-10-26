@@ -15,13 +15,6 @@ public partial class _Default : System.Web.UI.Page
     {
         base.OnInit(e);
 
-        CamView drivewayView = CamViews.GetDrivewayView();
-        CamView frontView = CamViews.GetFrontView();
-        CamView sideView = CamViews.GetSideView();
-        CamView garageDoorView = CamViews.GetGarageDoorView();
-        CamView coopTopView = CamViews.GetCoopTopView();
-        CamView coopDoorView = CamViews.GetCoopDoorView();
-
         HttpCookie cookie = Request.Cookies["Login"];
         if (cookie == null || cookie.Value != "1")
         {
@@ -30,13 +23,8 @@ public partial class _Default : System.Web.UI.Page
 
         bool mobile = Request.UserAgent.ToLower().IndexOf("mobile") > 0;
 
-        this.thumbViews.Add(drivewayView);
-        this.thumbViews.Add(frontView);
-        this.thumbViews.Add(sideView);
-        this.thumbViews.Add(garageDoorView);
-        this.thumbViews.Add(coopDoorView);
-        this.thumbViews.Add(coopTopView);
-
+        this.thumbViews = CamViews.GetAll();
+        
         this.logLink1.Visible = true;
         this.logLink2.Visible = true;
         this.homeLink1.Visible = true;

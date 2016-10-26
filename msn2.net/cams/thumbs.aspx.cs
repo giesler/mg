@@ -9,38 +9,15 @@ public partial class thumbs : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //CamView coopView = CamViews.GetCoopView();
-        //CamView coopYardView = CamViews.GetCoopSideView();
-        CamView drivewayView = CamViews.GetDrivewayView();
-        CamView frontView = CamViews.GetFrontView();
-        CamView sideView = CamViews.GetSideView();
-
         HttpCookie cookie = Request.Cookies["Login"];
-        bool loggedIn = false;
-        if (cookie != null && cookie.Value == "1")
+        if (cookie == null || cookie.Value != "1")
         {
-            loggedIn = true;
+            Response.Redirect("http://login.msn2.net/?r=http://cams.msn2.net");
         }
 
-        List<CamView> thumbViews = new List<CamView>();
-
-        if (!loggedIn)
-        {
-            //thumbViews.Add(coopView);
-            //thumbViews.Add(coopYardView);
-        }
-        else
-        {
-            thumbViews.Add(drivewayView);
-            thumbViews.Add(frontView);
-            thumbViews.Add(sideView);
-            //thumbViews.Add(coopYardView);
-            //thumbViews.Add(coopView);
-        }
-
+        List<CamView> thumbViews = CamViews.GetAll();
         this.thumbsView.DataSource = thumbViews;
         this.thumbsView.DataBind();
-
     }
     
     protected void thumbs_ItemDataBound(object sender, RepeaterItemEventArgs e)

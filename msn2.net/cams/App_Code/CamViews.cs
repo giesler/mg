@@ -9,6 +9,20 @@ using System.Web.UI.WebControls;
 /// </summary>
 public class CamViews
 {
+
+    public static List<CamView> GetAll()
+    {
+        List<CamView> views = new List<CamView>();
+
+        views.Add(CamViews.GetDrivewayView());
+        views.Add(CamViews.GetFrontView());
+        views.Add(CamViews.GetSideView());
+        views.Add(CamViews.GetGarageDoorView());
+        views.Add(CamViews.GetCoopTopView());
+        views.Add(CamViews.GetCoopDoorView());
+
+        return views;
+    }
     public static CamView GetCoopTopView()
     {
         CamView view = new CamView
