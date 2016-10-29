@@ -51,6 +51,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+            <asp:Button runat="server" ID="rebootAll" Text="REBOOT ALL" OnClick="rebootAll_Click" />
         </asp:Panel>
     </form>
 </body>

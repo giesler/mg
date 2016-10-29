@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Sonos : System.Web.UI.Page
 {
+    SonosService.ZonePlayerStatus[] zps = null;
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         SonosService.SonosClient client = new SonosService.SonosClient();
-        this.players.DataSource = client.GetPlayers();
+        this.zps = client.GetPlayers();
+
+        this.players.DataSource = this.zps;
         this.players.DataBind();
     }
 
@@ -73,5 +78,18 @@ public partial class Sonos : System.Web.UI.Page
 
     protected void action_SelectedIndexChanged(object sender, EventArgs e)
     {
+    }
+
+    protected void rebootAll_Click(object sender, EventArgs e)
+    {
+        foreach (var player in this.zps)
+        {
+            string url = this.GetUrl(player.IpAddress, "reboot");
+
+            HttpWebRequest req = HttpWebRequest.CreateHttp(url);
+            req.GetResponse();
+        }
+
+        Response.Redirect("sonos.aspx");
     }
 }
