@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListServices", "ListServices\ListServices.csproj", "{34776231-5CCB-4DE2-8C81-1F7C3CDDFC8E}"
 EndProject
@@ -19,30 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Data.Services.Client", "..\Externals\System.Data.Services.Client\System.Data.Services.Client.csproj", "{5BCABA9D-F44C-458A-BE85-0BD69EEC2E4F}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ListWeb\\ListWeb.csproj
-		SccProjectName1 = ListWeb
-		SccLocalPath1 = ListWeb
-		SccProjectUniqueName2 = ListServiceSite\\ListServiceSite.csproj
-		SccProjectName2 = ListServiceSite
-		SccLocalPath2 = ListServiceSite
-		SccProjectUniqueName3 = ListServices\\ListServices.csproj
-		SccProjectName3 = ListServices
-		SccLocalPath3 = ListServices
-		SccProjectUniqueName4 = ..\\Externals\\System.Data.Services.Client\\System.Data.Services.Client.csproj
-		SccProjectName4 = ../Externals/System.Data.Services.Client
-		SccLocalPath4 = ..\\Externals\\System.Data.Services.Client
-		SccProjectUniqueName5 = ..\\Externals\\Microsoft.Live\\Microsoft.Live.csproj
-		SccProjectName5 = ../Externals/Microsoft.Live
-		SccLocalPath5 = ..\\Externals\\Microsoft.Live
-		SccProjectUniqueName6 = ListWinPhone\\ListWinPhone.csproj
-		SccProjectName6 = ListWinPhone
-		SccLocalPath6 = ListWinPhone
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -204,5 +180,29 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ListWeb\\ListWeb.csproj
+		SccProjectName1 = ListWeb
+		SccLocalPath1 = ListWeb
+		SccProjectUniqueName2 = ListServiceSite\\ListServiceSite.csproj
+		SccProjectName2 = ListServiceSite
+		SccLocalPath2 = ListServiceSite
+		SccProjectUniqueName3 = ListServices\\ListServices.csproj
+		SccProjectName3 = ListServices
+		SccLocalPath3 = ListServices
+		SccProjectUniqueName4 = ..\\Externals\\System.Data.Services.Client\\System.Data.Services.Client.csproj
+		SccProjectName4 = ../Externals/System.Data.Services.Client
+		SccLocalPath4 = ..\\Externals\\System.Data.Services.Client
+		SccProjectUniqueName5 = ..\\Externals\\Microsoft.Live\\Microsoft.Live.csproj
+		SccProjectName5 = ../Externals/Microsoft.Live
+		SccLocalPath5 = ..\\Externals\\Microsoft.Live
+		SccProjectUniqueName6 = ListWinPhone\\ListWinPhone.csproj
+		SccProjectName6 = ListWinPhone
+		SccLocalPath6 = ListWinPhone
 	EndGlobalSection
 EndGlobal

@@ -32,7 +32,7 @@ namespace msn2.net
 
         Timer timer = null;
         bool showInfo = false;
-        int interval = 4;
+        int interval = 30;
         Point? lastMousePoint = null;
         bool randomMode = true;
         bool paused = false;
@@ -52,6 +52,7 @@ namespace msn2.net
             this.Path = @"\\server0\Plex\MSN2";
             //this.Path = @"d:\localdata\xm";
             this.Path = @"d:\onedrive\pictures\store";
+            this.Path = @"c:\pictures";
 
             foreach (string arg in args)
             {
@@ -60,7 +61,7 @@ namespace msn2.net
                     this.Path = arg.Substring(3);
                 }
             }
-            
+
             if (!Directory.Exists(this.Path))
             {
                 DriveInfo[] drives = DriveInfo.GetDrives();
@@ -73,6 +74,8 @@ namespace msn2.net
                     }
                 }
             }
+
+            Trace.WriteLine("Using path " + this.Path);
 
             ThreadPool.QueueUserWorkItem(this.LoadPics, null);
             ThreadPool.QueueUserWorkItem(this.LoadWeatherData, null);
@@ -92,6 +95,8 @@ namespace msn2.net
             this.loadCompleteCheck = new DispatcherTimer();
             this.loadCompleteCheck.Interval = TimeSpan.FromMilliseconds(200);
             this.loadCompleteCheck.Tick += new EventHandler(this.OnLoadCompleteCheck);
+
+            Trace.WriteLine("MainWindow ctor complete");
         }
 
         private void LoadWeatherData(object j)
@@ -131,6 +136,7 @@ namespace msn2.net
                     Trace.WriteLine("Error loading weather provider data: " + ex.ToString());
                 }
 
+                Trace.WriteLine("Weather data load complete");
 
                 Thread.Sleep(TimeSpan.FromMinutes(3));
             }
@@ -220,7 +226,7 @@ namespace msn2.net
                 {
                     Trace.WriteLine("Error loading sonos data: " + ex.ToString());
                 }
-
+                
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
         }
