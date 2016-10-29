@@ -1,9 +1,0 @@
-SCC = This is a Source Code Control file
-
-[libjpeg.dsp]
-SCC_Aux_Path = "\\kyle\vss\"
-SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/libjpeg", HYFAAAAA
-
-[libjpeg.vcproj]
-SCC_Aux_Path = "\\kyle\vss\"
-SCC_Project_Name = "$/AMS/Client/Source/Paintlib/win/libjpeg", HYFAAAAA
