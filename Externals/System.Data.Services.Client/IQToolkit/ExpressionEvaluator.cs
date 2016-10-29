@@ -871,7 +871,7 @@
             class ExternalReferenceGatherer : OldExpressionVisitor
             {
                 EvaluatorBuilder builder;
-                HashSet<ParameterExpression> external = new HashSet<ParameterExpression>();
+                System.Collections.Generic.HashSet<ParameterExpression> external = new System.Collections.Generic.HashSet<ParameterExpression>();
 
                 private ExternalReferenceGatherer(EvaluatorBuilder builder)
                 {
