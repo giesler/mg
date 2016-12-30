@@ -16,7 +16,8 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>msn2.net.Common</AssemblyName>
-    <AssemblyOriginatorKeyFile>PictureAdmin.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -131,65 +132,6 @@
     <Compile Include="Common.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Config.cs" />
-    <Compile Include="ConfigData.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Data.cs" />
-    <Compile Include="DataSetCategory.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetDataItem.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="PowerManager.cs" />
-    <Compile Include="ServerMarshalByRefObject.cs" />
-    <Compile Include="ShellCategory.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataSetCategory.xsc">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetCategory.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetCategory.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSetCategory.xss">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetCategory.xsx">
-      <DependentUpon>DataSetCategory.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetDataItem.xsc">
-      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetDataItem.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetDataItem.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSetDataItem.xss">
-      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetDataItem.xsx">
-      <DependentUpon>DataSetDataItem.xsd</DependentUpon>
-    </None>
-    <None Include="PictureAdmin.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data.resx">
-      <DependentUpon>Data.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ShellCategory.resx">
-      <DependentUpon>ShellCategory.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
