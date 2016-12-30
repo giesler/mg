@@ -32,20 +32,20 @@
             <a href="http://dome.msn2.net">Dome</a> |
                 <a href="http://pics.msn2.net">Pics</a>
             <div class="subheader">SERVICES</div>
-            <a href="http://192.168.1.55/WEB/udajax.htm#/nodes/scenes/" title="admin | admin">ISY</a> |
-                <a href="https://home.nest.com/" title="giesler@live.com | Camping!2">Nest</a> <br />
-                <a href="https://my.netatmo.com/app/station" title="giesler@live.com | sweet2Go">Netatmo</a> | 
-                <a href="https://app.rach.io/" title="giesler | MSN2drips">Rachio</a><br />
+            <a href="http://192.168.1.55/WEB/had.htm">ISY</a> |
+                <a href="https://home.nest.com/">Nest</a> <br />
+                <a href="https://my.netatmo.com/app/station">Netatmo</a> | 
+                <a href="https://app.rach.io/">Rachio</a><br />
                 <a href="http://192.168.1.60:8081/">HA Bridge</a> | <a href="http://hplaserjet/">HP</a>
             <div class="subheader">MEDIA</div>
-            <a href="http://online.tivo.com" title="giesler@live.com | Showtime42">TiVo</a> |
-                <a href="https://app.plex.tv/web/app#" title="giesler@live.com | PlayOver2">Plex</a> |
-                <a href="http://xfinitytv.comcast.net" title="msn2@comcast.net | dropbike8">Xfinity</a>
+            <a href="http://online.tivo.com">TiVo</a> |
+                <a href="https://app.plex.tv/web/app#">Plex</a> |
+                <a href="http://xfinitytv.comcast.net">Xfinity</a>
             <div class="subheader">NETWORK</div>
-            Main: <a href="http://msn2w1.sp.msn2.net/" title="192.168.1.1: admin | foobar32">router</a> |
-                <a href="http://msn2s1.sp.msn2.net/" title="192.168.1.7: light3Up">switch</a><br />
-            <a href="http://10.0.0.1" title="admin | longShot">Modem</a> |
-                <a href="http://msn2w2.sp.msn2.net/" title="192.168.1.2: admin | foobar32">2nd AP</a>
+            Main: <a href="http://msn2w1.sp.msn2.net/">router</a> |
+                <a href="http://msn2s1.sp.msn2.net/">switch</a><br />
+            <a href="http://10.0.0.1">Modem</a> |
+                <a href="http://msn2w2.sp.msn2.net/">2nd AP</a>
         </div>
         <div style="float: left; padding-right: 5px; padding-bottom: 10px; padding-left: 3px">
             TOP LINKS
@@ -68,8 +68,6 @@
                 <a href="http://www.newegg.com/">NewEgg</a> |
                 <a href="https://www.wunderlist.com/webapp">Wunderlist</a>
             <div class="subheader">OTHER</div>
-            <a href="http://facebook.com/?sk=h_chr">Facebook</a> |
-                <a href="http://www.linkedin.com/">LinkedIn</a> |
                 <a href="http://www.onedrive.com">OneDrive</a> | 
                 <a href="http://www.outlook.com/owa/giesler.org/">OWA</a>
             <div class="subheader">TECH</div>
@@ -103,6 +101,11 @@
             <div class="subheader">POLITICS</div>
 				<a href="http://mediamatters.org/">Media Matters</a> | 
 				<a href="http://washingtonvotes.org/">WA Votes </a>
+            <div class="subheader">SOCIAL</div>
+                <a href="http://facebook.com/?sk=h_chr">Facebook</a> |
+                <a href="http://www.linkedin.com/">LinkedIn</a> |
+                <a href="http://www.twitter.com/">Twitter</a> |
+                <a href="http://www.instagram.com/">Instagram</a>
         </div>
     </div>
     <div style="width: 100%">
@@ -122,9 +125,9 @@
             <a href="http://www.pscleanair.org/airq/status.aspx">Burning</a> | 
 				<a href="http://www.seattle.gov/util/EnvironmentConservation/OurWatersheds/index.htm">Water</a><br />
             <div class="subheader">FOOD</div>
-            <a href="https://www.dinnerdeliveryplus.com/index.php?module=modRDS&op=restaurants" title="bills@giesler.org | newt44">Dinner Delivery</a> | 
+            <a href="https://www.dinnerdeliveryplus.com/index.php?module=modRDS&op=restaurants">Dinner Delivery</a> | 
             <a href="http://www.bitesquad.com/search/?search%5Baddress%5D=12627+NE+87th+Pl%2C+Kirkland%2C+WA%2C+United+States&search%5Bdistance%5D=5&search%5BstreetAddress%5D=12627+Northeast+87th+Place&search%5BunitNumber%5D=&search%5Bcity%5D=Kirkland&search%5Bstate%5D=Washington&search%5BzipCode%5D=98033-5966&search%5Blatitude%5D=47.680706&search%5Blongitude%5D=-122.17140240000003&search%5BmaxResults%5D=20&search%5BfirstResult%5D=0&search%5BorderTypes%5D=1">Bite Squad</a> | 
-            <a href="http://pagliacci.com/menu" title="bills@giesler.org | feednowok">Pagliacci</a>
+            <a href="http://pagliacci.com/menu">Pagliacci</a>
             <br />
             <div class="subheader">MISC</div>
             <a href="http://seattle.citysearch.com/">CitySearch</a> | 
