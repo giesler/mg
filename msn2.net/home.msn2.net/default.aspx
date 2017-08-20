@@ -90,7 +90,7 @@
             <div class="subheader">LOCAL</div>
                 <a href="http://seattlepi.nwsource.com/" target="_blank">PI</a> | 
                 <a href="http://www.seattletimes.com/" target="_blank">Times</a> |
-				<a href="http://www.pnwlocalnews.com/east_king/kir" target="_blank">Kirkland</a>
+				<a href="http://www.kirklandreporter.com/" target="_blank">Kirkland</a>
             <div class="subheader">OTHER</div>
                 <a href="http://www.npr.org/" target="_blank">NPR</a> | 
 				<a href="http://www.newscientist.com/news/" target="_blank">New Scientist </a>|
@@ -161,7 +161,8 @@
                 <a href="http://www.1037themountain.com/" target="_blank" title="103.7 The Mountain">KMTT</a><br />
             <div class="subheader">OTHER</div>
                 <a href="http://www.feedly.com/" target="_blank">Feedly</a> | 
-                <a href="http://www.instapaper.com/" target="_blank">Instapaper</a>
+                <a href="http://www.instapaper.com/" target="_blank">Instapaper</a> |
+                <a href="https://play.pocketcasts.com/web/podcasts/index#/podcasts/new_releases" target="_blank">Casts</a>
         </div>
     </div>
 </body>
