@@ -1,0 +1,45 @@
+﻿body
+{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+form
+{
+	margin: 0px 0px 0px 0px; 
+	padding: 0px 0px 0px 0px;
+}
+
+.title
+{
+	font-size: medium;
+	font-weight: bold;
+}
+
+.description
+{
+	font-size: smaller;
+}
+
+.footer
+{
+	font-size: x-small;
+}
+
+a
+{ 
+  text-decoration: none;
+  color: Maroon;
+}
+
+a:visited
+{
+	text-decoration: none;
+	color: Navy;
+}
+
+.header
+{
+	background-repeat: repeat-x;
+	background-color: #008000;
+}

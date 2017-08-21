@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://tempuri.org/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:i0="http://schemas.msn2.net/Picture/DataSetPicture.xsd" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <import namespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" location="http://pics/RandomPictureService.asmx?schema=DataSetPicture" />
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" />
+      <s:element name="RandomImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="personId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RandomImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RandomImageResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RandomImageData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="personId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RandomImageDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RandomImageDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any namespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
+      <s:element name="DataSetPicture" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any namespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </types>
+  <message name="RandomImageSoapIn">
+    <part name="parameters" element="s0:RandomImage" />
+  </message>
+  <message name="RandomImageSoapOut">
+    <part name="parameters" element="s0:RandomImageResponse" />
+  </message>
+  <message name="RandomImageDataSoapIn">
+    <part name="parameters" element="s0:RandomImageData" />
+  </message>
+  <message name="RandomImageDataSoapOut">
+    <part name="parameters" element="s0:RandomImageDataResponse" />
+  </message>
+  <message name="RandomImageHttpGetIn">
+    <part name="personId" type="s:string" />
+  </message>
+  <message name="RandomImageHttpGetOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <message name="RandomImageDataHttpGetIn">
+    <part name="personId" type="s:string" />
+  </message>
+  <message name="RandomImageDataHttpGetOut">
+    <part name="Body" element="s0:DataSetPicture" />
+  </message>
+  <message name="RandomImageHttpPostIn">
+    <part name="personId" type="s:string" />
+  </message>
+  <message name="RandomImageHttpPostOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <message name="RandomImageDataHttpPostIn">
+    <part name="personId" type="s:string" />
+  </message>
+  <message name="RandomImageDataHttpPostOut">
+    <part name="Body" element="s0:DataSetPicture" />
+  </message>
+  <portType name="RandomPictureServiceSoap">
+    <operation name="RandomImage">
+      <input message="s0:RandomImageSoapIn" />
+      <output message="s0:RandomImageSoapOut" />
+    </operation>
+    <operation name="RandomImageData">
+      <input message="s0:RandomImageDataSoapIn" />
+      <output message="s0:RandomImageDataSoapOut" />
+    </operation>
+  </portType>
+  <portType name="RandomPictureServiceHttpGet">
+    <operation name="RandomImage">
+      <input message="s0:RandomImageHttpGetIn" />
+      <output message="s0:RandomImageHttpGetOut" />
+    </operation>
+    <operation name="RandomImageData">
+      <input message="s0:RandomImageDataHttpGetIn" />
+      <output message="s0:RandomImageDataHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="RandomPictureServiceHttpPost">
+    <operation name="RandomImage">
+      <input message="s0:RandomImageHttpPostIn" />
+      <output message="s0:RandomImageHttpPostOut" />
+    </operation>
+    <operation name="RandomImageData">
+      <input message="s0:RandomImageDataHttpPostIn" />
+      <output message="s0:RandomImageDataHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="RandomPictureServiceSoap" type="s0:RandomPictureServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="RandomImage">
+      <soap:operation soapAction="http://tempuri.org/RandomImage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RandomImageData">
+      <soap:operation soapAction="http://tempuri.org/RandomImageData" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="RandomPictureServiceHttpGet" type="s0:RandomPictureServiceHttpGet">
+    <http:binding verb="GET" />
+    <operation name="RandomImage">
+      <http:operation location="/RandomImage" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="RandomImageData">
+      <http:operation location="/RandomImageData" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="RandomPictureServiceHttpPost" type="s0:RandomPictureServiceHttpPost">
+    <http:binding verb="POST" />
+    <operation name="RandomImage">
+      <http:operation location="/RandomImage" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="RandomImageData">
+      <http:operation location="/RandomImageData" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="RandomPictureService">
+    <port name="RandomPictureServiceSoap" binding="s0:RandomPictureServiceSoap">
+      <soap:address location="http://pics/RandomPictureService.asmx" />
+    </port>
+    <port name="RandomPictureServiceHttpGet" binding="s0:RandomPictureServiceHttpGet">
+      <http:address location="http://pics/RandomPictureService.asmx" />
+    </port>
+    <port name="RandomPictureServiceHttpPost" binding="s0:RandomPictureServiceHttpPost">
+      <http:address location="http://pics/RandomPictureService.asmx" />
+    </port>
+  </service>
+</definitions>

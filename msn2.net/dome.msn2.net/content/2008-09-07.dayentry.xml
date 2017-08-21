@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-09-06T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;embed src="http://images.video.msn.com/flash/soapbox1_1.swf" quality="high" width="432" height="364" base="http://images.video.msn.com" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" pluginspage="http://macromedia.com/go/getflashplayer" flashvars="c=v&amp;v=03ef0395-9b5e-4578-99d1-78293efb11bd&amp;ifs=true&amp;fr=msnvideo&amp;mkt=en-US&amp;brand="&gt;&lt;/embed&gt;&lt;br /&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_September_6/video.wmv"&gt;Download&lt;/a&gt; (8.5 mb)</Content>
+      <Created>2008-09-07T02:01:00-07:00</Created>
+      <Modified>2008-09-09T19:00:59.5061878-07:00</Modified>
+      <EntryId>2bdaca2f-a3ef-4a34-8da4-f7d117132706</EntryId>
+      <Description />
+      <Title>September 6 Video</Title>
+      <Categories>Videos</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

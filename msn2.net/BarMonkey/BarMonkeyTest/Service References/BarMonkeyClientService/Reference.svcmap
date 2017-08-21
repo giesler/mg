@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="28deb728-b00e-4da9-9868-8736065a3344" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://chef/bm/bmcs.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BarMonkeyClientService.wsdl" MetadataType="Wsdl" ID="e20a49c6-2912-4aa0-9b7d-4a94394806a5" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?wsdl" />
+    <MetadataFile FileName="bmcs.disco" MetadataType="Disco" ID="4027becf-372c-44e7-9015-d8877b2350fb" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?disco" />
+    <MetadataFile FileName="bmcs.xsd" MetadataType="Schema" ID="a77fb29c-d4e1-4231-a9b4-b89297236a69" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd0" />
+    <MetadataFile FileName="bmcs1.xsd" MetadataType="Schema" ID="a3287e30-a16d-4ecb-adf0-5d4b88c1787d" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd1" />
+    <MetadataFile FileName="bmcs2.xsd" MetadataType="Schema" ID="b7faef2d-04ef-4119-a8b1-3812c26c65dc" SourceId="1" SourceUrl="http://chef/bm/bmcs.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

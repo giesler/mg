@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetPerson" targetNamespace="http://tempuri.org/DataSetPerson.xsd" xmlns:mstns="http://tempuri.org/DataSetPerson.xsd" xmlns="http://tempuri.org/DataSetPerson.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetPerson" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DataSetPerson" msprop:Generator_DataSetName="DataSetPerson">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Person" msprop:Generator_UserTableName="Person" msprop:Generator_RowDeletedName="PersonRowDeleted" msprop:Generator_TableClassName="PersonDataTable" msprop:Generator_RowChangedName="PersonRowChanged" msprop:Generator_RowClassName="PersonRow" msprop:Generator_RowChangingName="PersonRowChanging" msprop:Generator_RowEvArgName="PersonRowChangeEvent" msprop:Generator_RowEvHandlerName="PersonRowChangeEventHandler" msprop:Generator_TablePropName="Person" msprop:Generator_TableVarName="tablePerson" msprop:Generator_RowDeletingName="PersonRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="PersonID" msprop:Generator_ColumnPropNameInRow="PersonID" msprop:Generator_ColumnVarNameInTable="columnPersonID" msprop:Generator_ColumnPropNameInTable="PersonIDColumn" type="xs:int" />
+              <xs:element name="LastName" msprop:Generator_UserColumnName="LastName" msprop:Generator_ColumnPropNameInRow="LastName" msprop:Generator_ColumnVarNameInTable="columnLastName" msprop:Generator_ColumnPropNameInTable="LastNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="FirstName" msprop:Generator_UserColumnName="FirstName" msprop:Generator_ColumnPropNameInRow="FirstName" msprop:Generator_ColumnVarNameInTable="columnFirstName" msprop:Generator_ColumnPropNameInTable="FirstNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="FullName" msprop:Generator_UserColumnName="FullName" msprop:Generator_ColumnPropNameInRow="FullName" msprop:Generator_ColumnVarNameInTable="columnFullName" msprop:Generator_ColumnPropNameInTable="FullNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Email" msprop:Generator_UserColumnName="Email" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInTable="EmailColumn" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="Password" msprop:Generator_UserColumnName="Password" msprop:Generator_ColumnPropNameInRow="Password" msprop:Generator_ColumnVarNameInTable="columnPassword" msprop:Generator_ColumnPropNameInTable="PasswordColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ResetPWGuid" msprop:Generator_UserColumnName="ResetPWGuid" msprop:Generator_ColumnPropNameInRow="ResetPWGuid" msprop:Generator_ColumnVarNameInTable="columnResetPWGuid" msprop:Generator_ColumnPropNameInTable="ResetPWGuidColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ResetPWExpire" msprop:Generator_UserColumnName="ResetPWExpire" msprop:Generator_ColumnPropNameInRow="ResetPWExpire" msprop:Generator_ColumnVarNameInTable="columnResetPWExpire" msprop:Generator_ColumnPropNameInTable="ResetPWExpireColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PersonGroup" msprop:Generator_UserTableName="PersonGroup" msprop:Generator_RowDeletedName="PersonGroupRowDeleted" msprop:Generator_TableClassName="PersonGroupDataTable" msprop:Generator_RowChangedName="PersonGroupRowChanged" msprop:Generator_RowClassName="PersonGroupRow" msprop:Generator_RowChangingName="PersonGroupRowChanging" msprop:Generator_RowEvArgName="PersonGroupRowChangeEvent" msprop:Generator_RowEvHandlerName="PersonGroupRowChangeEventHandler" msprop:Generator_TablePropName="PersonGroup" msprop:Generator_TableVarName="tablePersonGroup" msprop:Generator_RowDeletingName="PersonGroupRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PersonGroupID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="PersonGroupID" msprop:Generator_ColumnPropNameInRow="PersonGroupID" msprop:Generator_ColumnVarNameInTable="columnPersonGroupID" msprop:Generator_ColumnPropNameInTable="PersonGroupIDColumn" type="xs:int" />
+              <xs:element name="PersonID" msprop:Generator_UserColumnName="PersonID" msprop:Generator_ColumnPropNameInRow="PersonID" msprop:Generator_ColumnVarNameInTable="columnPersonID" msprop:Generator_ColumnPropNameInTable="PersonIDColumn" type="xs:int" />
+              <xs:element name="GroupID" msprop:Generator_UserColumnName="GroupID" msprop:Generator_ColumnPropNameInRow="GroupID" msprop:Generator_ColumnVarNameInTable="columnGroupID" msprop:Generator_ColumnPropNameInTable="GroupIDColumn" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="DataSetPersonKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Person" />
+      <xs:field xpath="mstns:PersonID" />
+    </xs:unique>
+    <xs:unique name="DataSetPersonKey2" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PersonGroup" />
+      <xs:field xpath="mstns:PersonID" />
+      <xs:field xpath="mstns:GroupID" />
+    </xs:unique>
+    <xs:keyref name="PersonPersonGroup" refer="DataSetPersonKey1" msprop:rel_Generator_UserRelationName="PersonPersonGroup" msprop:rel_Generator_RelationVarName="relationPersonPersonGroup" msprop:rel_Generator_UserChildTable="PersonGroup" msprop:rel_Generator_UserParentTable="Person" msprop:rel_Generator_ParentPropName="PersonRow" msprop:rel_Generator_ChildPropName="GetPersonGroupRows">
+      <xs:selector xpath=".//mstns:PersonGroup" />
+      <xs:field xpath="mstns:PersonID" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

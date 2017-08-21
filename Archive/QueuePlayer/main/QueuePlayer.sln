@@ -1,0 +1,195 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.Server", "Server\QueuePlayer.Server.csproj", "{7103E5AD-756D-4D71-A557-74C615B75475}"
+	ProjectSection(ProjectDependencies) = postProject
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9} = {78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9} = {78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.ServerHost", "ServerHost\QueuePlayer.ServerHost.csproj", "{7FE8E12B-4150-469E-B733-0EE68271EF69}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.Client", "Client\QueuePlayer.Client.csproj", "{C65B9943-58E6-4489-A48D-A77092CD4C95}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.Shared", "Shared\QueuePlayer.Shared.csproj", "{991038DB-5672-4709-88B9-A7453312CCF6}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.SpeakerHost", "PlayerHost\QueuePlayer.SpeakerHost.csproj", "{E3954411-1DFB-4ED5-8C85-AB49DF6D1DF4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{7103E5AD-756D-4D71-A557-74C615B75475} = {7103E5AD-756D-4D71-A557-74C615B75475}
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9} = {78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9} = {78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueuePlayer.Speaker", "Player\QueuePlayer.Speaker.csproj", "{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+		{991038DB-5672-4709-88B9-A7453312CCF6} = {991038DB-5672-4709-88B9-A7453312CCF6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectXPlayer", "..\DirectXPlayer\DirectXPlayer.csproj", "{FA24EC8D-1927-4D9C-8796-02D715D7047E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\Common\Common.csproj", "{A267194C-A021-4267-A491-AD3919394F9A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "..\..\Controls\Controls.csproj", "{270EC567-4AB7-49F1-9466-D1BA35F704FD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "..\..\Configuration\Configuration.csproj", "{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicLibrary", "..\..\MagicLibrary\MagicLibrary.csproj", "{92F94EA0-9910-4895-B8A1-FED1543A9DA1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "..\..\Console\Console.csproj", "{45988AEB-8FB0-4964-93FE-43CCC7713511}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 12
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {BBA91EA9-D29E-443A-80C6-37410388E876}
+		SccProjectUniqueName1 = Client\\QueuePlayer.Client.csproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = Client\\
+		SccProjectUniqueName2 = Player\\QueuePlayer.Speaker.csproj
+		SccLocalPath2 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = Player\\
+		SccProjectUniqueName3 = PlayerHost\\QueuePlayer.SpeakerHost.csproj
+		SccLocalPath3 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection3 = PlayerHost\\
+		SccProjectUniqueName4 = Server\\QueuePlayer.Server.csproj
+		SccLocalPath4 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection4 = Server\\
+		SccProjectUniqueName5 = ServerHost\\QueuePlayer.ServerHost.csproj
+		SccLocalPath5 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection5 = ServerHost\\
+		SccProjectUniqueName6 = Shared\\QueuePlayer.Shared.csproj
+		SccLocalPath6 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection6 = Shared\\
+		SccProjectUniqueName7 = ..\\DirectXPlayer\\DirectXPlayer.csproj
+		SccProjectName7 = \u0022$/msn2.net/QueuePlayer/DirectXPlayer\u0022,\u0020KBOAAAAA
+		SccLocalPath7 = ..\\DirectXPlayer
+		CanCheckoutShared = false
+		SccProjectUniqueName8 = ..\\..\\Common\\Common.csproj
+		SccProjectName8 = \u0022$/msn2.net/Common\u0022,\u0020JWNAAAAA
+		SccLocalPath8 = ..\\..\\Common
+		CanCheckoutShared = false
+		SccProjectUniqueName9 = ..\\..\\Controls\\Controls.csproj
+		SccProjectName9 = \u0022$/msn2.net/Controls\u0022,\u0020RTNAAAAA
+		SccLocalPath9 = ..\\..\\Controls
+		CanCheckoutShared = false
+		SccProjectUniqueName10 = ..\\..\\Configuration\\Configuration.csproj
+		SccProjectName10 = \u0022$/msn2.net/Configuration\u0022,\u0020NTNAAAAA
+		SccLocalPath10 = ..\\..\\Configuration
+		CanCheckoutShared = false
+		SccProjectUniqueName11 = ..\\..\\Console\\Console.csproj
+		SccProjectName11 = \u0022$/msn2.net/Console\u0022,\u0020PTNAAAAA
+		SccLocalPath11 = ..\\..\\Console
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Debug.ActiveCfg = Debug|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Debug.Build.0 = Debug|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Release.ActiveCfg = Release|.NET
+		{7103E5AD-756D-4D71-A557-74C615B75475}.Release.Build.0 = Release|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Debug.ActiveCfg = Debug|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Debug.Build.0 = Debug|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Release.ActiveCfg = Release|.NET
+		{7FE8E12B-4150-469E-B733-0EE68271EF69}.Release.Build.0 = Release|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Debug.ActiveCfg = Debug|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Debug.Build.0 = Debug|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.ActiveCfg = Release|.NET
+		{C65B9943-58E6-4489-A48D-A77092CD4C95}.Release.Build.0 = Release|.NET
+		{991038DB-5672-4709-88B9-A7453312CCF6}.Debug.ActiveCfg = Debug|.NET
+		{991038DB-5672-4709-88B9-A7453312CCF6}.Debug.Build.0 = Debug|.NET
+		{991038DB-5672-4709-88B9-A7453312CCF6}.Release.ActiveCfg = Release|.NET
+		{991038DB-5672-4709-88B9-A7453312CCF6}.Release.Build.0 = Release|.NET
+		{E3954411-1DFB-4ED5-8C85-AB49DF6D1DF4}.Debug.ActiveCfg = Debug|.NET
+		{E3954411-1DFB-4ED5-8C85-AB49DF6D1DF4}.Debug.Build.0 = Debug|.NET
+		{E3954411-1DFB-4ED5-8C85-AB49DF6D1DF4}.Release.ActiveCfg = Release|.NET
+		{E3954411-1DFB-4ED5-8C85-AB49DF6D1DF4}.Release.Build.0 = Release|.NET
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}.Debug.ActiveCfg = Debug|.NET
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}.Debug.Build.0 = Debug|.NET
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}.Release.ActiveCfg = Release|.NET
+		{78A62CF6-6EAF-42D7-9228-A7FF2C5342A9}.Release.Build.0 = Release|.NET
+		{FA24EC8D-1927-4D9C-8796-02D715D7047E}.Debug.ActiveCfg = Debug|.NET
+		{FA24EC8D-1927-4D9C-8796-02D715D7047E}.Debug.Build.0 = Debug|.NET
+		{FA24EC8D-1927-4D9C-8796-02D715D7047E}.Release.ActiveCfg = Release|.NET
+		{FA24EC8D-1927-4D9C-8796-02D715D7047E}.Release.Build.0 = Release|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.ActiveCfg = Debug|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug.Build.0 = Debug|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release.ActiveCfg = Release|.NET
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release.Build.0 = Release|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.ActiveCfg = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Debug.Build.0 = Debug|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.ActiveCfg = Release|.NET
+		{270EC567-4AB7-49F1-9466-D1BA35F704FD}.Release.Build.0 = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.ActiveCfg = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Debug.Build.0 = Debug|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.ActiveCfg = Release|.NET
+		{61D00AAB-949C-4C7F-91E1-ACDCA53DD19E}.Release.Build.0 = Release|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Debug.ActiveCfg = Debug|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Debug.Build.0 = Debug|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.ActiveCfg = Release|.NET
+		{92F94EA0-9910-4895-B8A1-FED1543A9DA1}.Release.Build.0 = Release|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.ActiveCfg = Debug|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Debug.Build.0 = Debug|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.ActiveCfg = Release|.NET
+		{45988AEB-8FB0-4964-93FE-43CCC7713511}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2011-04-24T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>Here is a copy of the cabin floor plan. There are some minor changes, but the layout is the same.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;img src="http://dome.msn2.net/content/binary/Cabin%20Plan%202.jpg" border="0" width="989" height="741"&gt;</Content>
+      <Created>2011-04-24T17:54:10.892-07:00</Created>
+      <Modified>2011-04-24T22:10:35.6733512-07:00</Modified>
+      <EntryId>00280a58-47ba-4876-ae43-1392791bba95</EntryId>
+      <Description />
+      <Title>Cabin Floorplan</Title>
+      <Categories>Dome;Pictures</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

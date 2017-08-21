@@ -1,0 +1,111 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicWeb", "PicWeb\PicWeb.csproj", "{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureHttpHelpers", "PictureHttpHelpers\PictureHttpHelpers.csproj", "{D64690E2-39E4-49EF-89C0-95A1B30B64AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{051F201A-911A-441D-B249-5857DB882AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{713EE988-88C2-4E72-8F5B-333B3D078CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebService", "http://localhost:1183", "{605B9E27-29CF-4927-B3A3-1FD0346E60AF}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{9b8d6e06-da69-466c-bcc1-0e3245756453}|msn2.net.Pictures.dll;{d64690e2-39e4-49ef-89c0-95a1b30b64ab}|PictureHttpHelpers.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_1183"
+		Debug.AspNetCompiler.PhysicalPath = "WebService\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1183\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_1183"
+		Release.AspNetCompiler.PhysicalPath = "WebService\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1183\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "WebService\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PicWeb\\PicWeb.csproj
+		SccProjectName1 = PicWeb
+		SccLocalPath1 = PicWeb
+		SccProjectUniqueName2 = Api\\Api.csproj
+		SccProjectName2 = Api
+		SccLocalPath2 = Api
+		SccProjectUniqueName3 = PictureHttpHelpers\\PictureHttpHelpers.csproj
+		SccProjectName3 = PictureHttpHelpers
+		SccLocalPath3 = PictureHttpHelpers
+		SccProjectUniqueName4 = ControlLibrary\\ControlLibrary.csproj
+		SccProjectName4 = ControlLibrary
+		SccLocalPath4 = ControlLibrary
+		SccProjectUniqueName5 = Admin\\Admin.csproj
+		SccProjectName5 = Admin
+		SccLocalPath5 = Admin
+		SccProjectUniqueName6 = Service\\Service.csproj
+		SccProjectName6 = Service
+		SccLocalPath6 = Service
+		SccWebProject7 = true
+		SccProjectUniqueName7 = http://localhost:1183
+		SccProjectName7 = WebService
+		SccLocalPath7 = WebService
+		SccProjectEnlistmentChoice7 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605B9E27-29CF-4927-B3A3-1FD0346E60AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605B9E27-29CF-4927-B3A3-1FD0346E60AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605B9E27-29CF-4927-B3A3-1FD0346E60AF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{605B9E27-29CF-4927-B3A3-1FD0346E60AF}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

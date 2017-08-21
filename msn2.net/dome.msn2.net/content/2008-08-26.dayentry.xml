@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-08-25T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6251.jpg"&gt;&lt;img title="IMG_6251" style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="398" alt="IMG_6251" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6251_thumb.jpg" width="596" border="0"&gt;&lt;/a&gt; &lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6254.jpg"&gt;&lt;img title="IMG_6254" style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="399" alt="IMG_6254" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6254_thumb.jpg" width="596" border="0"&gt;&lt;/a&gt; &lt;/p&gt; &lt;p&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6270.jpg"&gt;&lt;img title="IMG_6270" style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="398" alt="IMG_6270" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6270_thumb.jpg" width="595" border="0"&gt;&lt;/a&gt; &lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6281.jpg"&gt;&lt;img title="IMG_6281" style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="398" alt="IMG_6281" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/BackExtensionPart1_86AE/IMG_6281_thumb.jpg" width="595" border="0"&gt;&lt;/a&gt;&lt;/p&gt;</Content>
+      <Created>2008-08-25T17:50:07-07:00</Created>
+      <Modified>2008-08-29T09:37:45.7986258-07:00</Modified>
+      <EntryId>04a8d7de-7453-488c-a448-1118aceeb9c5</EntryId>
+      <Description />
+      <Title>Front Extension – Part 1</Title>
+      <Categories>Dome</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

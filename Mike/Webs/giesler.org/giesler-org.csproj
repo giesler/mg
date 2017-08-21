@@ -1,0 +1,147 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Web"
+        ProductVersion = "7.0.9254"
+        SchemaVersion = "1.0"
+        ProjectGuid = "{EF16A920-5EB8-4256-A4FC-E944B9598F26}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "giesler-org"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                NoStandardLibraries = "true"
+                OutputType = "Library"
+                RootNamespace = "giesler_org"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "bin\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+            </Settings>
+            <References/>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "favicon.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "feedback.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "index.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "submit.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\giesler.org.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\giesler.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\giesler.psp"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "images\w2k.gif"
+                    BuildAction = "Content"
+                />
+                <Folder RelPath = "mike\" />
+                <Folder RelPath = "sara\" />
+                <File
+                    RelPath = "tsweb\bluebarh.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\bluebarv.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\connect.asp"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\default.htm"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\manyservers.htm"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\mstscax.cab"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\readme.htm"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\setup.inf"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\webclient.doc"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "tsweb\win2000l.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "tsweb\win2000r.gif"
+                    BuildAction = "Content"
+                />
+                <Folder RelPath = "vbsw\" />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

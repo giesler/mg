@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerLibrary", "..\..\RelayControllerLibrary\RelayControllerLibrary.csproj", "{64AD3109-8D57-40EC-A48F-4D387F3CEE59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerConsole", "..\..\RelayControllerConsole\RelayControllerConsole.csproj", "{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerService", "..\..\RelayControllerService\RelayControllerService.csproj", "{1A03BBB8-D214-4591-A3AD-23EFC323C584}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerTest", "..\..\RelayControllerTest\RelayControllerTest.csproj", "{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayControllerPhoneUtility", "..\RelayControllerPhoneUtility\RelayControllerPhoneUtility.csproj", "{046780DE-872B-4806-BFBD-C59487EB8AE0}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://kenny:8080/tfs/main
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\RelayControllerLibrary\\RelayControllerLibrary.csproj
+		SccProjectName1 = ../../RelayControllerLibrary
+		SccLocalPath1 = ..\\..\\RelayControllerLibrary
+		SccProjectUniqueName2 = ..\\..\\RelayControllerConsole\\RelayControllerConsole.csproj
+		SccProjectName2 = ../../RelayControllerConsole
+		SccLocalPath2 = ..\\..\\RelayControllerConsole
+		SccProjectUniqueName3 = ..\\..\\RelayControllerService\\RelayControllerService.csproj
+		SccProjectName3 = ../../RelayControllerService
+		SccLocalPath3 = ..\\..\\RelayControllerService
+		SccProjectUniqueName4 = ..\\..\\RelayControllerTest\\RelayControllerTest.csproj
+		SccProjectName4 = ../../RelayControllerTest
+		SccLocalPath4 = ..\\..\\RelayControllerTest
+		SccProjectUniqueName5 = ..\\RelayControllerPhoneUtility\\RelayControllerPhoneUtility.csproj
+		SccProjectName5 = ../RelayControllerPhoneUtility
+		SccLocalPath5 = ..\\RelayControllerPhoneUtility
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AD3109-8D57-40EC-A48F-4D387F3CEE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E627DF6-7AA1-4B73-8F99-1E96C9F2E325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A03BBB8-D214-4591-A3AD-23EFC323C584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF3E5B34-BEDA-4E38-8F0C-EE5FF6C6973C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046780DE-872B-4806-BFBD-C59487EB8AE0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

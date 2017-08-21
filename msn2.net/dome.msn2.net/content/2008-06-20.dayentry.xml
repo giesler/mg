@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-19T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;div class="ExternalClass2DC012D8BB57477D85A0B72CAB013750"&gt;We are a bit behind on publishing videos, but here is yesterday's. We'll try to get more pictures posted today.&lt;/div&gt;  &lt;div class="ExternalClass2DC012D8BB57477D85A0B72CAB013750"&gt;&amp;#160;&lt;/div&gt;  &lt;div class="ExternalClass2DC012D8BB57477D85A0B72CAB013750"&gt;&lt;embed src="http://images.video.msn.com/flash/soapbox1_1.swf" quality="high" width="432" height="364" base="http://images.video.msn.com" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" pluginspage="http://macromedia.com/go/getflashplayer" flashvars="c=v&amp;v=6afaade5-f227-45da-969a-4dcd17622d8d&amp;ifs=true&amp;fr=msnvideo&amp;mkt=en-US&amp;brand="&gt;&lt;/embed&gt;&lt;/div&gt;  &lt;div class="ExternalClass2DC012D8BB57477D85A0B72CAB013750"&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_June_18/video.wmv"&gt;Download&lt;/a&gt; (14 mb)&lt;/div&gt;</Content>
+      <Created>2008-06-20T05:57:56-07:00</Created>
+      <Modified>2008-07-11T20:27:59.6319762-07:00</Modified>
+      <EntryId>56e5f1d9-e8d8-41ca-8d4d-7d04fd377112</EntryId>
+      <Description />
+      <Title>June 18th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+    <Entry>
+      <Content>&lt;div class="ExternalClass96DFC17F2F394F04BB95392A84E7CA49"&gt; &lt;p&gt;&lt;/p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=34040b3d-9dc4-4b0d-808b-ca1e9607f31f&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt; &lt;p&gt;&lt;/p&gt; &lt;p&gt;More "joisting". We also closed up the last part of the foundation wall that we were using for easy access.&lt;a href="http://silverlight.services.live.com/66324/Dome_June_20/video.wmv"&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_June_20/video.wmv"&gt;Download&lt;/a&gt; (27 mb)&lt;/p&gt;&lt;/div&gt;</Content>
+      <Created>2008-06-20T10:54:01-07:00</Created>
+      <Modified>2008-07-14T21:22:29.2998073-07:00</Modified>
+      <EntryId>2e2dbb92-127b-4879-b571-116cb179f166</EntryId>
+      <Description />
+      <Title>June 20th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

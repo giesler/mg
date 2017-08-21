@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2009-09-25T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;script src="http://seadragon.com/embed/bex.js?width=auto&amp;amp;height=400px"&gt;&lt;/script&gt;</Content>
+      <Created>2009-09-25T21:23:00-07:00</Created>
+      <Modified>2009-09-26T14:23:37.7732738-07:00</Modified>
+      <EntryId>b2191cfb-c99c-450c-8524-878c025592f4</EntryId>
+      <Description />
+      <Title>Ceiling panel progress - panoramic view</Title>
+      <Categories>Pictures</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

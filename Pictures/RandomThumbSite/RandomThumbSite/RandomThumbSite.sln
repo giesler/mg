@@ -1,0 +1,105 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomThumbSite", "RandomThumbSite.csproj", "{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "..\Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\..\msn2.net\Common\Common.csproj", "{A267194C-A021-4267-A491-AD3919394F9A}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "pics", "http://localhost/pics", "{BA36E648-92E1-4247-9FA3-8C29FF5EF447}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""$/Pictures/Website", LBPAAAAA"
+		SccAuxPath = ""
+		SccLocalPath = "."
+		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/pics"
+		Debug.AspNetCompiler.PhysicalPath = "..\Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\pics\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/pics"
+		Release.AspNetCompiler.PhysicalPath = "..\Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\pics\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\Website\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = RandomThumbSite.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = ..\\Api\\Api.csproj
+		SccProjectName2 = \u0022$/Pictures/Api\u0022,\u0020KBPAAAAA
+		SccLocalPath2 = ..\\Api
+		SccProjectUniqueName3 = ..\\..\\msn2.net\\Common\\Common.csproj
+		SccProjectName3 = \u0022$/msn2.net/Common\u0022,\u0020JWNAAAAA
+		SccLocalPath3 = ..\\..\\msn2.net\\Common
+		SccWebProject4 = true
+		SccProjectUniqueName4 = http://localhost/pics
+		SccProjectName4 = \u0022$/Pictures/Website\u0022,\u0020LBPAAAAA
+		SccLocalPath4 = C:\\vss\\Pictures\\Website
+		SccProjectEnlistmentChoice4 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|.NET.ActiveCfg = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|.NET.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|.NET.ActiveCfg = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Debug|.NET.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Debug|.NET.Build.0 = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Release|.NET.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Release|.NET.Build.0 = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{BA36E648-92E1-4247-9FA3-8C29FF5EF447}.Release|Mixed Platforms.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace msn2.net.Pictures.Controls
+{
+    public partial class LoginDialog : Form
+    {
+        public LoginDialog()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (this.email.Text.Length > 0)
+            {
+                this.password.Focus();
+            }
+        }
+
+        private void login_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        public string Email
+        {
+            get
+            {
+                return this.email.Text;
+            }
+            set
+            {
+                this.email.Text = value;
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return this.password.Text;
+            }
+            set
+            {
+                this.password.Text = value;
+            }
+        }
+
+        private bool swappedFocus = false;
+
+        private void email_Enter(object sender, EventArgs e)
+        {
+            if (swappedFocus == false)
+            {
+                if (this.email.Text.Length > 0)
+                {
+                    this.password.Focus();
+                }
+
+                swappedFocus = true;
+            }
+        }
+
+    }
+}

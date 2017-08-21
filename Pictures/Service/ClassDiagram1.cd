@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" MajorVersion="1" MinorVersion="1" xmlns="http://www.microsoft.com/VisualStudio/EnterpriseTools/ClassDesigner/V1.1/DiagramSchema.xsd">
+  <View FilterFieldProperty="false" LastOpened="true" Name="Main">
+    <AbsoluteBounds X="0" Y="0" Height="8.5" Width="11" />
+    <Font Name="Tahoma" Size="0.1145833358168602" />
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="0.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>PictureService.ImageProvider</FullName>
+        <FileName>ImageProvider.cs</FileName>
+        <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="2.5" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>PictureService.Program</FullName>
+        <FileName>Program.cs</FileName>
+        <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="0.75" Y="4.25" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>PictureService.Properties.Resources</FullName>
+        <FileName>Properties\Resources.cs</FileName>
+        <HashCode>AAAAAAAAAAAAAAEAAAAAEAAAAQAAAAAgAAAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="true">
+      <AbsoluteBounds X="4.75" Y="0.75" Height="0.45" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>PictureService.Properties.Settings</FullName>
+        <FileName>Properties\Settings.cs</FileName>
+        <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAgAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+    <Class Collapsed="false">
+      <AbsoluteBounds X="4.75" Y="2.5" Height="2.4842401149868962" Width="1.5" />
+      <TypeIdentifier>
+        <FullName>PictureService.Service1</FullName>
+        <FileName>Service1.cs</FileName>
+        <HashCode>AAAAAAAAACACAAAAEACIAAACAAAAAEAAAEAAAAAAAAA=</HashCode>
+      </TypeIdentifier>
+    </Class>
+  </View>
+</Diagram>

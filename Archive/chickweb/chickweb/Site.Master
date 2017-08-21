@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="chickweb.SiteMaster" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+        <tr style="background-image: url('images/msn2header.jpg'); height: 36px;">
+            <td style="padding-left: 8px">
+                <a href="http://www.msn2.net">
+                    <img src="images/msn2summer.gif" height="27" width="90" border="0" alt="msn2.net" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="main">
+                    <form id="Form1" runat="server">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--
+        <%=GetRequestInfo() %>
+        -->
+</body>
+</html>

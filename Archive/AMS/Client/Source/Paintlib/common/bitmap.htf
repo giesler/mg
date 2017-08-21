@@ -1,0 +1,33 @@
+<PRE>
+<B>MAX_BITMAP_SIZE</B>
+</PRE>
+
+<P>
+This constant defines the maximum amount of memory that a bitmap
+may use. If more memory would be used by one bitmap, an exception
+is raised. If MAX_BITMAP_SIZE
+isn't defined, no checks for huge bitmaps are performed. This is the
+current default.
+<P>
+This constant was defined to prevent inefficient virtual memory
+systems (Windows 95 ;-) from thrashing when huge bitmaps are loaded.
+
+<PRE>
+<B>RGBA_BLUE, RGBA_GREEN, RGBA_RED, and RGBA_ALPHA</B>
+</PRE>
+
+<P>
+These constants define the order of the channels in an image.
+To reference a particular channel in a pixel, add one of these
+constants to the pixel address. The constants can be changed if
+nessesary to change the channel ordering. The contents of RGBA_ALPHA
+are only valid if HasAlpha() is TRUE.
+<PRE>
+<B>RGBAPIXEL</B>
+</PRE>
+
+<P>
+The data type for a 32-bit pixel. The channels in this pixel are
+arranged according to the constants RGBA_BLUE, RGBA_GREEN, RGBA_RED,
+and RGBA_ALPHA.
+

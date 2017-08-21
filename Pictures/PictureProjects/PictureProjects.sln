@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{713EE988-88C2-4E72-8F5B-333B3D078CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{051F201A-911A-441D-B249-5857DB882AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\msn2.net\Common\Common.csproj", "{A267194C-A021-4267-A491-AD3919394F9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenSaver", "ScreenSaver\ScreenSaver.csproj", "{EEF73540-B576-4BAA-A592-A288EBDEB6F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomThumbSite", "RandomThumbSite\RandomThumbSite.csproj", "{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{FC0705C3-099F-404A-A3A4-FBDA6ED93323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebControlLibrary", "WebControlLibrary\WebControlLibrary.csproj", "{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccProjectUniqueName0 = Admin\\Admin.csproj
+		SccProjectName0 = \u0022$/Pictures/Admin\u0022,\u0020OBPAAAAA
+		SccLocalPath0 = Admin
+		SccProjectUniqueName1 = ControlLibrary\\ControlLibrary.csproj
+		SccProjectName1 = \u0022$/Pictures/ControlLibrary\u0022,\u0020NBPAAAAA
+		SccLocalPath1 = ControlLibrary
+		SccProjectUniqueName2 = Api\\Api.csproj
+		SccProjectName2 = \u0022$/Pictures/Api\u0022,\u0020KBPAAAAA
+		SccLocalPath2 = Api
+		SccProjectUniqueName3 = ..\\msn2.net\\Common\\Common.csproj
+		SccProjectName3 = \u0022$/msn2.net/Common\u0022,\u0020JWNAAAAA
+		SccLocalPath3 = ..\\msn2.net\\Common
+		SccProjectUniqueName4 = ScreenSaver\\ScreenSaver.csproj
+		SccProjectName4 = \u0022$/Pictures/ScreenSaver\u0022,\u0020TVPAAAAA
+		SccLocalPath4 = ScreenSaver
+		SccProjectUniqueName5 = RandomThumbSite\\RandomThumbSite.csproj
+		SccProjectName5 = \u0022$/Pictures/RandomThumbSite/RandomThumbSite\u0022,\u0020BTQAAAAA
+		SccLocalPath5 = RandomThumbSite
+		SccLocalPath6 = .
+		SccProjectUniqueName7 = Website\\Website.csproj
+		SccLocalPath7 = .
+		SccProjectFilePathRelativizedFromConnection7 = Website\\
+		SccProjectUniqueName8 = WebControlLibrary\\WebControlLibrary.csproj
+		SccLocalPath8 = .
+		SccProjectFilePathRelativizedFromConnection8 = WebControlLibrary\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8D6E06-DA69-466C-BCC1-0E3245756453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A267194C-A021-4267-A491-AD3919394F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF73540-B576-4BAA-A592-A288EBDEB6F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF73540-B576-4BAA-A592-A288EBDEB6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF73540-B576-4BAA-A592-A288EBDEB6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF73540-B576-4BAA-A592-A288EBDEB6F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAD0272-459E-4928-BF3E-8EF3B40FC9C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0705C3-099F-404A-A3A4-FBDA6ED93323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FB889B-490E-40DA-9BD0-B15D0A4D5F2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

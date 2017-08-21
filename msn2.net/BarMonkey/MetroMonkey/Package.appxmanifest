@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+
+  <Identity Name="c6d6c3f6-762e-46d9-a3cc-f8249eddb06b"
+            Publisher="CN=Mike"
+            Version="1.0.0.0" />
+
+  <Properties>
+    <DisplayName>MetroMonkey</DisplayName>
+    <PublisherDisplayName>Mike</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>MetroMonkey</Description>
+  </Properties>
+
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+        Executable="$targetnametoken$.exe"
+        EntryPoint="MetroMonkey.App">
+        <VisualElements
+            DisplayName="MetroMonkey"
+            Logo="Assets\Logo.png"
+            SmallLogo="Assets\SmallLogo.png"
+            Description="MetroMonkey"
+            ForegroundText="light"
+            BackgroundColor="#222222">
+            <DefaultTile ShowName="allLogos" />
+            <SplashScreen Image="Assets\SplashScreen.png" />
+        </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

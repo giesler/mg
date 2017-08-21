@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayExtra xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2009-12-31T16:00:00-08:00</Date>
+  <Comments>
+    <Comment>
+      <Content>This is so cool!  I am so eager to get out there to see the dome in the summer!</Content>
+      <Created>2010-01-31T16:10:40.3544354-08:00</Created>
+      <Modified>2010-01-31T16:10:40.3544354-08:00</Modified>
+      <EntryId>ee32c3e2-6b0a-4f6d-ade7-1af2574069de</EntryId>
+      <TargetTitle>Second floor</TargetTitle>
+      <TargetEntryId>C111A88E-274B-4510-97FC-D9DC17251D9D</TargetEntryId>
+      <Author>Dick</Author>
+      <AuthorEmail>rg1213@hotmail.com</AuthorEmail>
+      <AuthorHomepage />
+      <AuthorIPAddress>98.227.96.36</AuthorIPAddress>
+      <IsPublic>true</IsPublic>
+      <OpenId>false</OpenId>
+      <SpamState>NotChecked</SpamState>
+      <AuthorUserAgent>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6.4; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)</AuthorUserAgent>
+    </Comment>
+  </Comments>
+  <Trackings />
+</DayExtra>

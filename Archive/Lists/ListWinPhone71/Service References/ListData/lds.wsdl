@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://svc.listgo.mobi" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://svc.listgo.mobi" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://svc.listgo.mobi/Imports">
+      <xsd:import schemaLocation="http://svc.listgo.mobi/lds.svc?xsd=xsd0" namespace="http://svc.listgo.mobi" />
+      <xsd:import schemaLocation="http://svc.listgo.mobi/lds.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://svc.listgo.mobi/lds.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/msn2.net.ShoppingList" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IListDataService_AddList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddList" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdateList_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateList" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdateList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_DeleteList_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteList" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_DeleteList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetLists_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLists" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetLists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAll" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetListItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListItems" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetListItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetAllListItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllListItems" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetAllListItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllListItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItem" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItemWithId_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItemWithId" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddListItemWithId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListItemWithIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdateListItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateListItem" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdateListItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateListItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_DeleteListItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteListItem" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_DeleteListItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteListItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetLastChangeTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastChangeTime" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetLastChangeTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLastChangeTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPerson" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_GetPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdatePerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePerson" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_UpdatePerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddDevice_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDevice" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_AddDevice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDeviceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_RemoveDevice_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDevice" />
+  </wsdl:message>
+  <wsdl:message name="IListDataService_RemoveDevice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDeviceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IListDataService">
+    <wsdl:operation name="AddList">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddList" message="tns:IListDataService_AddList_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListResponse" message="tns:IListDataService_AddList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateList">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdateList" message="tns:IListDataService_UpdateList_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdateListResponse" message="tns:IListDataService_UpdateList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteList">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/DeleteList" message="tns:IListDataService_DeleteList_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/DeleteListResponse" message="tns:IListDataService_DeleteList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLists">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetLists" message="tns:IListDataService_GetLists_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetListsResponse" message="tns:IListDataService_GetLists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAll">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetAll" message="tns:IListDataService_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetAllResponse" message="tns:IListDataService_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListItems">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetListItems" message="tns:IListDataService_GetListItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetListItemsResponse" message="tns:IListDataService_GetListItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllListItems">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetAllListItems" message="tns:IListDataService_GetAllListItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetAllListItemsResponse" message="tns:IListDataService_GetAllListItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListItem">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItem" message="tns:IListDataService_AddListItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemResponse" message="tns:IListDataService_AddListItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListItemWithId">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemWithId" message="tns:IListDataService_AddListItemWithId_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddListItemWithIdResponse" message="tns:IListDataService_AddListItemWithId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateListItem">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdateListItem" message="tns:IListDataService_UpdateListItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdateListItemResponse" message="tns:IListDataService_UpdateListItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteListItem">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/DeleteListItem" message="tns:IListDataService_DeleteListItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/DeleteListItemResponse" message="tns:IListDataService_DeleteListItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastChangeTime">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetLastChangeTime" message="tns:IListDataService_GetLastChangeTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetLastChangeTimeResponse" message="tns:IListDataService_GetLastChangeTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPerson">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/GetPerson" message="tns:IListDataService_GetPerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/GetPersonResponse" message="tns:IListDataService_GetPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePerson">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdatePerson" message="tns:IListDataService_UpdatePerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/UpdatePersonResponse" message="tns:IListDataService_UpdatePerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDevice">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/AddDevice" message="tns:IListDataService_AddDevice_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/AddDeviceResponse" message="tns:IListDataService_AddDevice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDevice">
+      <wsdl:input wsaw:Action="http://svc.listgo.mobi/IListDataService/RemoveDevice" message="tns:IListDataService_RemoveDevice_InputMessage" />
+      <wsdl:output wsaw:Action="http://svc.listgo.mobi/IListDataService/RemoveDeviceResponse" message="tns:IListDataService_RemoveDevice_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-08-23T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;embed src="http://images.video.msn.com/flash/soapbox1_1.swf" quality="high" width="432" height="364" base="http://images.video.msn.com" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" pluginspage="http://macromedia.com/go/getflashplayer" flashvars="c=v&amp;v=9f9a4251-0ec4-4440-a5d5-f16816bf8968&amp;ifs=true&amp;fr=msnvideo&amp;mkt=en-US&amp;brand="&gt;&lt;/embed&gt;&lt;br /&gt;
+&lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome_August_23/video.wmv"&gt;Download (21 mb)&lt;/a&gt;&lt;/p&gt;</Content>
+      <Created>2008-08-23T20:31:24.398-07:00</Created>
+      <Modified>2008-08-30T20:31:24.3981796-07:00</Modified>
+      <EntryId>47243700-16e0-4b0d-a4bd-40b5837815f3</EntryId>
+      <Description />
+      <Title>August 23</Title>
+      <Categories>Videos</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

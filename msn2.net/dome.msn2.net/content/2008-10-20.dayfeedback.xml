@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayExtra xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-10-19T17:00:00-07:00</Date>
+  <Comments>
+    <Comment>
+      <Content>Oooh, I love that top picture! Which one of you took that one? Didja photoshop it?</Content>
+      <Created>2008-10-28T09:37:21.1679538-07:00</Created>
+      <Modified>2008-10-28T09:37:21.1679538-07:00</Modified>
+      <EntryId>954ab830-dc7d-4321-9433-192e35aa4c4a</EntryId>
+      <TargetTitle>Complete Roof</TargetTitle>
+      <TargetEntryId>375FC1C1-7234-4AE5-936E-87765EC9BC72</TargetEntryId>
+      <Author>De</Author>
+      <AuthorEmail />
+      <AuthorHomepage />
+      <AuthorIPAddress>76.204.103.238</AuthorIPAddress>
+      <IsPublic>true</IsPublic>
+      <SpamState>NotChecked</SpamState>
+      <AuthorUserAgent>Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1)</AuthorUserAgent>
+    </Comment>
+  </Comments>
+  <Trackings />
+</DayExtra>

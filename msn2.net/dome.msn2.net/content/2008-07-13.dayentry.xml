@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-07-12T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;We started the back extension. &lt;/p&gt; &lt;p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=e24bf6ff-88aa-4176-94f4-52efb08f459d&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt;&lt;/embed&gt;&lt;/p&gt; &lt;p&gt; &lt;a href="http://silverlight.services.live.com/66324/Dome_July_12/video.wmv"&gt;Download&lt;/a&gt; (13 mb)&lt;/p&gt;</Content>
+      <Created>2008-07-12T17:53:24-07:00</Created>
+      <Modified>2008-07-31T18:20:16.8854196-07:00</Modified>
+      <EntryId>2883ec0c-02fa-4ad5-8854-dca6ffa66fe7</EntryId>
+      <Description />
+      <Title>July 12th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

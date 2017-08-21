@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:mstns="http://schemas.msn2.net/Picture/DataSetPicture.xsd" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns="http://schemas.msn2.net/Picture/DataSetPicture.xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.msn2.net/Picture/DataSetPicture.xsd" id="DataSetPicture" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element msdata:IsDataSet="true" name="DataSetPicture">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Picture">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element msdata:ReadOnly="true" msdata:AutoIncrement="true" name="PictureID" type="xs:int" />
+              <xs:element minOccurs="0" name="Filename" type="xs:string" />
+              <xs:element minOccurs="0" name="PictureDate" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="Title" type="xs:string" />
+              <xs:element minOccurs="0" name="Description" type="xs:string" />
+              <xs:element minOccurs="0" name="Publish" type="xs:boolean" />
+              <xs:element minOccurs="0" name="Rating" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" name="PictureBy" type="xs:int" />
+              <xs:element name="PictureSort" type="xs:int" />
+              <xs:element minOccurs="0" name="PictureAddDate" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="PictureUpdateDate" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique msdata:PrimaryKey="true" name="DataSetPictureKey1">
+      <xs:selector xpath=".//mstns:Picture" />
+      <xs:field xpath="mstns:PictureID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

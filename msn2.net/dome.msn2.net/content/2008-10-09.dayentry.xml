@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-10-08T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;So we passed our first framing inspection on Monday. I say 'first' since we will need another framing inspection when the interior walls are up. &lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;We initially failed the framing inspection a few weeks earlier. Our shear schedule (the nailing pattern in the plywood) didn't match what was called for in the engineering drawings for high wind/seismic areas. I only looked at our floor plans, not the generic engineering drawings. We weren't the only ones who missed it though - the foundation wall pieces needed additional nailing as well to match the specs. In addition we added additional blocking in the foundation where the two pieces of plywood meet, put additional strapping over the plywood to anchor the dome to it's foundation, and added A35 clips to every 2x4 "mini" stud in the riser wall. I doubt we needed to do the A35 clips as the plywood extends past the studs and into the rim joists. We had already argued and gotten waived on needing additional tie plates between the plywood since we meet on the rim joist so I wasn't going to push that too. On the plus side, the dome should be able to take any winds or earthquake that mother nature throws at it now.&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;We also got to see our roof 95% completed this last weekend! Allan had a patch of it done the previous weekend which gave us a little taste, but we left on Monday a few hours before he finished. We'll get some more aerial shots this coming weekend from the manlift (40 foot height.) Allan did a great job on it and it looks beautiful.&lt;/p&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;p&gt;This coming weekend we'll be putting the waterproofing on the foundation and laying the drainage tubing all around. If we finish, Jim Ashe will head out there to backfill with pea gravel and dirt. Then we'll just have to wait for the siding to be installed to be completely weatherproof!&lt;/p&gt;</Content>
+      <Created>2008-10-08T20:45:01-07:00</Created>
+      <Modified>2008-10-09T16:45:20.9620812-07:00</Modified>
+      <EntryId>c08ab5ac-efa1-4e59-841d-04737a6f7df1</EntryId>
+      <Description />
+      <Title>Passed Framing Inspection!</Title>
+      <Categories>Dome</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

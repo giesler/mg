@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BarMonkey.Activities.Admin.Editors.IngredientEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="300" Width="300">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="150px" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Label Content="Name:" Grid.Column="0" Grid.Row="0" />
+		<TextBox Grid.Column="1" Grid.Row="0" />
+		<Label Content="Ounces remaining:" Grid.Column="0" Grid.Row="1" />
+		<Label Content="Relay:" Grid.Column="0" Grid.Row="2" />
+		<Label Content="Properties:" Grid.Column="0" Grid.Row="3" />
+		<StackPanel Grid.Column="1" Grid.Row="3">
+			<CheckBox Content="Alcholic drink" />
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Warn at" />
+				<ScrollViewer Name="warnThreshold" />
+				<Label Content="oz" />
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

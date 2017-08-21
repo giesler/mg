@@ -1,0 +1,44 @@
+body
+{
+}
+
+.panelBadLogin
+{
+	border-right: gray thin solid;
+	border-top: gainsboro thin solid;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= '#ff8888' , EndColorStr= '#ffffff' );
+	border-left: gainsboro thin solid;
+	width: 250px;
+	border-bottom: gray thin solid;
+	position: absolute;
+}
+
+.panelBadLoginTitle
+{
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr= '#000000' , EndColorStr= '#ff6666' );
+	color: White;
+	font-size: 12px;
+	font-weight: bold;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.panelBadLoginImageCell
+{
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	width: 30px;
+}
+
+.pnlBadLoginTextCell
+{
+	font-size: 12px;
+	padding-right: 6px;
+	padding-left: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}

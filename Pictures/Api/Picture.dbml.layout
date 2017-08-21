@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.875, 14.625" name="PicDataClasses">
+  <DataContextMoniker Name="/PictureDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e4e47d56-e281-433f-8086-2bc6c01e29d1" absoluteBounds="1.125, 1.375, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PictureDataContext/Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="586e20da-9072-4a9b-911d-d6b202b8f156" absoluteBounds="1.1400000000000001, 1.835, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="88600375-f6bb-4763-897f-356b0d0d575e" absoluteBounds="0.75, 7.625, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/PictureDataContext/CategorySubCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dfd00b2b-3e15-4325-a332-188539feced4" absoluteBounds="0.765, 8.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="af09c75d-1148-4553-857c-1c62b97794bb" absoluteBounds="8, 1.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PictureDataContext/Group" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8b474790-5fed-441d-934a-ae639a0706e1" absoluteBounds="8.015, 1.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c8d5a6f9-1856-49f3-8c2d-b11ba2cbcd4b" absoluteBounds="0.75, 9.625, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/PictureDataContext/LoginRequest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="540b26e1-58a7-4f06-a9b6-7fb68a61e000" absoluteBounds="0.765, 10.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8c307ebd-5fe4-467e-9f85-dfc9e006be46" absoluteBounds="7.5, 5.875, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/PictureDataContext/Person" />
+      <nestedChildShapes>
+        <elementListCompartment Id="62640d33-9472-456b-bd9c-a8e590ec2d17" absoluteBounds="7.515, 6.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c53ac608-d9d2-4a36-b6c7-2e08e0c1d37e" absoluteBounds="10.5, 3.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PictureDataContext/PersonGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5dab5ec6-96c4-4003-a98e-b7f0d667518f" absoluteBounds="10.515, 3.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" absoluteBounds="4.75, 8.5, 2, 3.1170068359374987">
+      <DataClassMoniker Name="/PictureDataContext/Picture" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8c4978e0-d2cb-4f18-ab50-d24332d2584e" absoluteBounds="4.765, 8.96, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d8a534e2-b508-428b-84b7-6cd01d79df9e" absoluteBounds="5.125, 12.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PictureDataContext/PictureCache" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0292a88e-b503-474e-b77d-3f2f8e1e8e0a" absoluteBounds="5.14, 12.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="723794a0-885a-40ae-8a9e-585005025e25" absoluteBounds="4, 3.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/PictureDataContext/PictureCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d01b140b-5ed1-4165-bf37-47f7efb4ad8b" absoluteBounds="4.015, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="01199db6-fcbf-47f6-a9f1-378276c32394" absoluteBounds="8.25, 8.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PictureDataContext/PictureComment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bcfb650b-6370-4f4e-90c5-0bf1167ce0cd" absoluteBounds="8.265, 9.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1b50bedf-dca9-440c-b84d-816dc6663dd5" absoluteBounds="0.75, 12.625, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/PictureDataContext/PictureLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7e522d28-88b4-4564-bc95-f4fbbc47979b" absoluteBounds="0.765, 13.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="94e7f0e8-68bc-474d-a0df-4a855f64c660" absoluteBounds="4.875, 6.25, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/PictureDataContext/PicturePerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b7a51ef1-1660-4812-ba48-4a06e7d70562" absoluteBounds="4.89, 6.7100000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9ea326e0-0be4-401a-ba89-af28156b34dd" absoluteBounds="10.625, 7.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PictureDataContext/PictureRating" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f438a42a-748c-4160-bb1c-8f37fbe05041" absoluteBounds="10.64, 7.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(10 : 1.84699625651042); (11.5 : 1.84699625651042); (11.5 : 3.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Group/Group_PersonGroup" />
+      <nodes>
+        <classShapeMoniker Id="af09c75d-1148-4553-857c-1c62b97794bb" />
+        <classShapeMoniker Id="c53ac608-d9d2-4a36-b6c7-2e08e0c1d37e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.15625 : 5.875); (9.15625 : 3.53125); (10.5 : 3.53125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Person/Person_PersonGroup" />
+      <nodes>
+        <classShapeMoniker Id="8c307ebd-5fe4-467e-9f85-dfc9e006be46" />
+        <classShapeMoniker Id="c53ac608-d9d2-4a36-b6c7-2e08e0c1d37e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.9375 : 11.6170068359375); (5.9375 : 12.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PictureCache" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="d8a534e2-b508-428b-84b7-6cd01d79df9e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.125 : 3.28689647265625); (4.46875 : 3.28689647265625); (4.46875 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Category/Category_PictureCategory" />
+      <nodes>
+        <classShapeMoniker Id="e4e47d56-e281-433f-8086-2bc6c01e29d1" />
+        <classShapeMoniker Id="723794a0-885a-40ae-8a9e-585005025e25" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.78125 : 8.5); (4.78125 : 5.2612939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PictureCategory" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="723794a0-885a-40ae-8a9e-585005025e25" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.875 : 8.4151025390625); (8.875 : 8.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Person/Person_PictureComment" />
+      <nodes>
+        <classShapeMoniker Id="8c307ebd-5fe4-467e-9f85-dfc9e006be46" />
+        <classShapeMoniker Id="01199db6-fcbf-47f6-a9f1-378276c32394" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.75 : 9.66429768880208); (7.10416666666667 : 9.66429768880208 : JumpStart); (7.27083333333333 : 9.66429768880208 : JumpEnd); (8.25 : 9.66429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PictureComment" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="01199db6-fcbf-47f6-a9f1-378276c32394" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.5 : 6.94314697265625); (7.27083333333333 : 6.94314697265625 : JumpStart); (7.10416666666667 : 6.94314697265625 : JumpEnd); (6.875 : 6.94314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Person/Person_PicturePerson" />
+      <nodes>
+        <classShapeMoniker Id="8c307ebd-5fe4-467e-9f85-dfc9e006be46" />
+        <classShapeMoniker Id="94e7f0e8-68bc-474d-a0df-4a855f64c660" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.8125 : 8.5); (5.8125 : 7.6362939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PicturePerson" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="94e7f0e8-68bc-474d-a0df-4a855f64c660" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.5 : 7.83255126953125); (10.625 : 7.83255126953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Person/Person_PictureRating" />
+      <nodes>
+        <classShapeMoniker Id="8c307ebd-5fe4-467e-9f85-dfc9e006be46" />
+        <classShapeMoniker Id="9ea326e0-0be4-401a-ba89-af28156b34dd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.75 : 11.0665511067708); (11.625 : 11.0665511067708); (11.625 : 8.82859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PictureRating" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="9ea326e0-0be4-401a-ba89-af28156b34dd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1d3ea096-5bc3-487c-8850-e13ed65737fd" absoluteBounds="6.75, 3.625, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PictureDataContext/PictureGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8317f7f-c491-4643-b1d9-84a8a641991e" absoluteBounds="6.7650000000000006, 4.0850000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.375 : 2.44399251302083); (8.375 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Group/Group_PictureGroup" />
+      <nodes>
+        <classShapeMoniker Id="af09c75d-1148-4553-857c-1c62b97794bb" />
+        <classShapeMoniker Id="1d3ea096-5bc3-487c-8850-e13ed65737fd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.75 : 10.7600707421875); (7.1875 : 10.7600707421875); (7.1875 : 5.0112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Picture/Picture_PictureGroup" />
+      <nodes>
+        <classShapeMoniker Id="1f6e2b8a-8338-4ecb-aa75-652c9a597ead" />
+        <classShapeMoniker Id="1d3ea096-5bc3-487c-8850-e13ed65737fd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e457a423-e509-4d0d-a811-650e68f9c8b0" absoluteBounds="5, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PictureDataContext/CategoryGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="174a5d75-cdc3-4962-9256-a0b7e7f47a49" absoluteBounds="5.015, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.125 : 1.96875); (5 : 1.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Category/Category_CategoryGroup" />
+      <nodes>
+        <classShapeMoniker Id="e4e47d56-e281-433f-8086-2bc6c01e29d1" />
+        <classShapeMoniker Id="e457a423-e509-4d0d-a811-650e68f9c8b0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8 : 1.84699625651042); (7 : 1.84699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Group/Group_CategoryGroup" />
+      <nodes>
+        <classShapeMoniker Id="af09c75d-1148-4553-857c-1c62b97794bb" />
+        <classShapeMoniker Id="e457a423-e509-4d0d-a811-650e68f9c8b0" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6a16910d-955b-430a-b3cc-39bc96360d10" absoluteBounds="1.125, 4.625, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PictureDataContext/RecentCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d01a6fb4-d62f-497f-9f68-2b3cbd3003b9" absoluteBounds="1.1399999999999997, 5.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.125 : 4.10740397135417); (2.125 : 4.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PictureDataContext/Category/Category_RecentCategory" />
+      <nodes>
+        <classShapeMoniker Id="e4e47d56-e281-433f-8086-2bc6c01e29d1" />
+        <classShapeMoniker Id="6a16910d-955b-430a-b3cc-39bc96360d10" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

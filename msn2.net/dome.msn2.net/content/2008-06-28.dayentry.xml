@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-27T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;div class="ExternalClass8F88EFD09490449B8CF722CCF466348E"&gt;   &lt;div&gt;&lt;font size="2"&gt;       &lt;p&gt;Another day, another shower. This time we are using Mary Kay and Tony's hotel room.&lt;/p&gt;        &lt;p&gt;Much to my amazement we managed to get all of the skylights installed. Tony crafted a platform for everyone to stand on while hoisting them up. There was one problem - The kitchen window was mismarked (56&amp;quot; instead of 51&amp;quot;) so we ended up having to demolish that triangle. That was a chore - it was held in with 3&amp;quot; ring shank nails every three inches around the perimeter plus we already had the bituthene waterproofing (thick rubberized tar adhesive) up which gumed up the sawzall blade. luckily we have a sheet of tongue and groove left over from the subfloor to make a replacement with.&lt;/p&gt;        &lt;p&gt;It is supposed to hit record high temperatures tomorrow and Sunday so we are saving the remaining foundation work for then. It is probably going to take most of our day on Sunday to pack up the worksite. Mike and Sara will be dropping off the scaffolding by 5:00 on Saturday since the rental place is closed on Sunday. Because of that we'll be spending most of the day tomorrow getting the dome watertight. My main concern is to keep the back extension deck dry since we have no roof over it. we have a bunch of building wrap that we can use to cover it as well as other holes.&lt;/p&gt;     &lt;/font&gt;&lt;/div&gt; &lt;/div&gt;</Content>
+      <Created>2008-06-28T02:50:53-07:00</Created>
+      <Modified>2008-07-04T14:27:45.109375-07:00</Modified>
+      <EntryId>64636724-e859-4276-8eac-c15ca308e6bd</EntryId>
+      <Description />
+      <Title>Wrapping Up</Title>
+      <Categories />
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+    <Entry>
+      <Content>&lt;p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=652d0fe2-eeb1-482e-9c49-483e6d3c5c8c&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt;&lt;/embed&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome%20June%2027sd/video.wmv"&gt;Download&lt;/a&gt; (24 mb)&lt;/p&gt;</Content>
+      <Created>2008-06-28T05:42:14-07:00</Created>
+      <Modified>2008-07-11T21:11:12.8163991-07:00</Modified>
+      <EntryId>bb5124c7-9e0d-4824-b0ba-44b8497f616e</EntryId>
+      <Description />
+      <Title>June 27th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

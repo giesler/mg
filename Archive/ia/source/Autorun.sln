@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app", "Autorun.vcproj", "{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccProjectUniqueName0 = Autorun.vcproj
+		SccProjectName0 = \u0022$/ia/app\u0022,\u0020AWOAAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+		ConfigName.2 = Release_Setup
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Debug.ActiveCfg = Debug|Win32
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Debug.Build.0 = Debug|Win32
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Release.ActiveCfg = Release|Win32
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Release.Build.0 = Release|Win32
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Release_Setup.ActiveCfg = Release_Setup|Win32
+		{22F0B935-AE9F-4EDF-B3B9-D616FAD7676B}.Release_Setup.Build.0 = Release_Setup|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

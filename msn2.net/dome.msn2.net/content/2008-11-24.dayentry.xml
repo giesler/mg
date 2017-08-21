@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-11-23T16:00:00-08:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/DoorsandMoldRemoval_ED85/IMG_7790%20(2)_2.jpg"&gt;&lt;img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="IMG_7790 (2)" border="0" alt="IMG_7790 (2)" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/DoorsandMoldRemoval_ED85/IMG_7790%20(2)_thumb.jpg" width="443" height="297"&gt;&lt;/a&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/DoorsandMoldRemoval_ED85/IMG_7799%20(2)_2.jpg"&gt;&lt;img style="border-right-width: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" title="IMG_7799 (2)" border="0" alt="IMG_7799 (2)" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/DoorsandMoldRemoval_ED85/IMG_7799%20(2)_thumb.jpg" width="449" height="301"&gt;&lt;/a&gt;&lt;/p&gt;</Content>
+      <Created>2008-11-24T00:53:00-08:00</Created>
+      <Modified>2008-11-30T16:54:49.9325766-08:00</Modified>
+      <EntryId>48e27e58-e542-4e48-8c4e-fb8ae468bb84</EntryId>
+      <Description />
+      <Title>Doors and Mold Removal</Title>
+      <Categories>Pictures</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

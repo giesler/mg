@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-10-24T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;About 350 photos of our dome and surrounding area combined into a 3d model you can navigate.&amp;nbsp; Requires Windows, a relatively recent computer, and Photosynth - a free plugin from Microsoft.  &lt;/p&gt;  &lt;iframe frameborder="0" src="http://photosynth.net/embed.aspx?cid=7A93C8E1-F7D3-4F2B-AE7F-C6C2F82B7016&amp;amp;wa=wsignin1.0" width="650" height="550"&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href="http://photosynth.net/view.aspx?cid=7a93c8e1-f7d3-4f2b-ae7f-c6c2f82b7016" target="_new"&gt;Full screen&lt;/a&gt;</Content>
+      <Created>2008-10-25T01:15:00-07:00</Created>
+      <Modified>2008-10-24T21:04:32.6463184-07:00</Modified>
+      <EntryId>ecdfe2a7-c47b-4087-9e3d-03a3e7c1b0b3</EntryId>
+      <Description />
+      <Title>Dome Roof Synth</Title>
+      <Categories>Pictures</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

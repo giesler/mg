@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "control.msn2.net", "http://localhost:3340", "{37504C27-BE71-466E-812F-2ABE969CAA2D}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_3340"
+		Debug.AspNetCompiler.PhysicalPath = "..\control.msn2.net\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3340\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_3340"
+		Release.AspNetCompiler.PhysicalPath = "..\control.msn2.net\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3340\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\control.msn2.net\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeServices", "..\WakeOnLan\HomeServices\HomeServices.csproj", "{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeControl", "..\HomeControl\HomeControl\HomeControl.csproj", "{01F4C656-BE28-4241-BEEB-42457C1A5DD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		NoPhone|Any CPU = NoPhone|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.NoPhone|Any CPU.ActiveCfg = Debug|Any CPU
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.NoPhone|Any CPU.Build.0 = Debug|Any CPU
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{37504C27-BE71-466E-812F-2ABE969CAA2D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.NoPhone|Any CPU.ActiveCfg = NoPhone|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.NoPhone|Any CPU.Build.0 = NoPhone|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD521A5A-7E39-40A0-91C6-361BF26DDD8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.NoPhone|Any CPU.ActiveCfg = Release|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.NoPhone|Any CPU.Build.0 = Release|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://giesler.visualstudio.com/
+		SccWebProject0 = true
+		SccProjectUniqueName0 = http://localhost:3340
+		SccLocalPath0 = .
+		SccProjectEnlistmentChoice0 = 2
+		SccProjectUniqueName1 = ..\\WakeOnLan\\HomeServices\\HomeServices.csproj
+		SccProjectName1 = ../WakeOnLan/HomeServices
+		SccLocalPath1 = ..\\WakeOnLan\\HomeServices
+		SccProjectUniqueName2 = ..\\HomeControl\\HomeControl\\HomeControl.csproj
+		SccProjectName2 = ../HomeControl/HomeControl
+		SccLocalPath2 = ..\\HomeControl\\HomeControl
+		SccLocalPath3 = .
+	EndGlobalSection
+EndGlobal

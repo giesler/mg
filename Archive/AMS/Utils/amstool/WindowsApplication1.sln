@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMAdmin", "XMAdmin.csproj", "{096118D3-54E5-457F-9940-F57DE096CB69}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{096118D3-54E5-457F-9940-F57DE096CB69}.Debug.ActiveCfg = Debug|.NET
+		{096118D3-54E5-457F-9940-F57DE096CB69}.Debug.Build.0 = Debug|.NET
+		{096118D3-54E5-457F-9940-F57DE096CB69}.Release.ActiveCfg = Release|.NET
+		{096118D3-54E5-457F-9940-F57DE096CB69}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

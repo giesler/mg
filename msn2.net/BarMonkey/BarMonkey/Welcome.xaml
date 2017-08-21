@@ -1,0 +1,34 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="BarMonkeyControls.Welcome"
+    Title="Welcome" x:Name="Welcome1" xmlns:d="http://schemas.microsoft.com/expression/blend/2006" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:msn2_net_BarMonkey="clr-namespace:msn2.net.BarMonkey;assembly=msn2.net.BarMonkey">
+	<Page.Background>
+        <SolidColorBrush Color="Silver" />
+	</Page.Background>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="39" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="46" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+			<Label Name="welcome" FontSize="22" Content="welcome"/>
+			<ItemsControl Name="userList" FontSize="22" Background="Transparent" HorizontalContentAlignment="Stretch">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Style="{DynamicResource DefaultListButtonStyle}" Click="user_click" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+        <Button Style="{DynamicResource DefaultButtonStyle}" Grid.Row="1" Grid.Column="2" Click="partyMode_Click" Height="46" Margin="0,0,0,3" Grid.RowSpan="2" VerticalAlignment="Bottom" Name="partyMode">Party Mode</Button>
+	</Grid>
+
+</Page>

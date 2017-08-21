@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-11-30T16:00:00-08:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/InsulationPart1_EE88/IMG_7832%20(2)_2.jpg"&gt;&lt;img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="IMG_7832 (2)" border="0" alt="IMG_7832 (2)" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/InsulationPart1_EE88/IMG_7832%20(2)_thumb.jpg" width="533" height="271"&gt;&lt;/a&gt; &lt;/p&gt; &lt;p&gt;&lt;a href="http://dome.msn2.net/content/binary/WindowsLiveWriter/InsulationPart1_EE88/IMG_7833%20(2)_2.jpg"&gt;&lt;img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="IMG_7833 (2)" border="0" alt="IMG_7833 (2)" src="http://dome.msn2.net/content/binary/WindowsLiveWriter/InsulationPart1_EE88/IMG_7833%20(2)_thumb.jpg" width="533" height="357"&gt;&lt;/a&gt;&lt;/p&gt;</Content>
+      <Created>2008-12-01T00:57:00-08:00</Created>
+      <Modified>2008-11-30T16:58:37.8700766-08:00</Modified>
+      <EntryId>a10253ca-1304-4d40-8b7d-4dd57704dfa0</EntryId>
+      <Description />
+      <Title>Insulation Levels 1 + 4</Title>
+      <Categories>Pictures</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>

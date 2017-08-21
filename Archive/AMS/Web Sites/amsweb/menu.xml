@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" ?>
+<menu>
+	<m name="Home" path="home" url="" />
+	<m name="About" path="about" url="about/">
+		<m name="Safe Surfing" url="about/safe/" />
+		<m name="Privacy Policy" url="about/privacy/" />
+	</m>
+	<m name="Download" url="download/" />
+	<m name="News" url="news/" />
+	<m name="Support" url="support/">
+		<m name="System Status" url="support/status/" />
+		<m name="Known Issues" url="support/known/" />
+		<m name="Software Support" url="support/software/">
+			<m name="FAQ" url="support/software/faq/" />
+			<m name="Requirements" url="support/software/req/" />
+			<m name="Knowledge Base" url="support/software/kb/" />
+			<m name="Tutorial" url="support/software/tutorial/" />
+			<m name="Indexing Files" url="support/software/indexing/" />
+			<m name="Online Manual" url="support/software/manual/" />
+			<m name="Technical Info" url="support/software/techinfo/" />
+			<m name="Suggestions" url="support/software/suggest/" />
+		</m>
+		<m name="Copyright Protection" url="support/copyright/" />
+	</m>
+	<m name="Account Info" url="account/">
+		<m name="Modify" url="account/modify/" />
+	</m>
+	<m name="Contest" url="contest/" />
+	<m name="Webmasters" url="webmasters/" />
+</menu>

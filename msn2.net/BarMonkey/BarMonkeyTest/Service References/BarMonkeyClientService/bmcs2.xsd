@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/msn2.net.BarMonkey" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/msn2.net.BarMonkey" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfDrink">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Drink" nillable="true" type="tns:Drink" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDrink" nillable="true" type="tns:ArrayOfDrink" />
+  <xs:complexType name="Drink">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedBy" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IsPublished" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ImageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserFavorites" nillable="true" type="tns:ArrayOfUserFavorite">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DrinkIngredients" nillable="true" type="tns:ArrayOfDrinkIngredient">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="UserDrinkHistories" nillable="true" type="tns:ArrayOfUserDrinkHistory">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Drink" nillable="true" type="tns:Drink" />
+  <xs:complexType name="ArrayOfUserFavorite">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserFavorite" nillable="true" type="tns:UserFavorite" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserFavorite" nillable="true" type="tns:ArrayOfUserFavorite" />
+  <xs:complexType name="UserFavorite">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="DrinkId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserFavorite" nillable="true" type="tns:UserFavorite" />
+  <xs:complexType name="ArrayOfDrinkIngredient">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DrinkIngredient" nillable="true" type="tns:DrinkIngredient" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDrinkIngredient" nillable="true" type="tns:ArrayOfDrinkIngredient" />
+  <xs:complexType name="DrinkIngredient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="DrinkId" type="xs:int" />
+      <xs:element minOccurs="0" name="IngredientId" type="xs:int" />
+      <xs:element minOccurs="0" name="Sequence" type="xs:int" />
+      <xs:element minOccurs="0" name="Group" type="xs:int" />
+      <xs:element minOccurs="0" name="AmountOunces" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DrinkIngredient" nillable="true" type="tns:DrinkIngredient" />
+  <xs:complexType name="ArrayOfUserDrinkHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserDrinkHistory" nillable="true" type="tns:UserDrinkHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserDrinkHistory" nillable="true" type="tns:ArrayOfUserDrinkHistory" />
+  <xs:complexType name="UserDrinkHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="DrinkId" type="xs:int" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserDrinkIngredientHistories" nillable="true" type="tns:ArrayOfUserDrinkIngredientHistory">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserDrinkHistory" nillable="true" type="tns:UserDrinkHistory" />
+  <xs:complexType name="ArrayOfUserDrinkIngredientHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserDrinkIngredientHistory" nillable="true" type="tns:UserDrinkIngredientHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserDrinkIngredientHistory" nillable="true" type="tns:ArrayOfUserDrinkIngredientHistory" />
+  <xs:complexType name="UserDrinkIngredientHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UserDrinkHistoryId" type="xs:int" />
+      <xs:element minOccurs="0" name="IngredientId" type="xs:int" />
+      <xs:element minOccurs="0" name="AmountOunces" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Sequence" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserDrinkIngredientHistory" nillable="true" type="tns:UserDrinkIngredientHistory" />
+</xs:schema>

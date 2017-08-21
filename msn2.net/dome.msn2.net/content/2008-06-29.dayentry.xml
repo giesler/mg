@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DayEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:newtelligence-com:dasblog:runtime:data">
+  <Date>2008-06-28T17:00:00-07:00</Date>
+  <Entries>
+    <Entry>
+      <Content>&lt;p&gt;&lt;/p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" quality="high" base="http://images.video.msn.com" allowfullscreen="true" allowscriptaccess="always" flashvars="c=v&amp;amp;v=b1f70d43-5143-4e9b-9e12-8ab256b2e764&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand="&gt;  &lt;p&gt;&lt;/p&gt; &lt;p&gt;Clean up day. We are finally going home.&lt;br&gt;&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome%20June%2029/video.wmv"&gt;Download&lt;/a&gt; (11 mb)&lt;/p&gt;`</Content>
+      <Created>2008-06-29T11:49:48-07:00</Created>
+      <Modified>2008-07-14T21:10:48.3890614-07:00</Modified>
+      <EntryId>b7ab8b4c-74da-461d-a366-09bd05b901a6</EntryId>
+      <Description />
+      <Title>June 29th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>neil</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+    <Entry>
+      <Content>&lt;p&gt;&lt;embed pluginspage="http://macromedia.com/go/getflashplayer" src="http://images.video.msn.com/flash/soapbox1_1.swf" width="432" height="364" type="application/x-shockwave-flash" flashvars="c=v&amp;amp;v=f19f22ce-83d8-436e-afb9-fa825016a45d&amp;amp;ifs=true&amp;amp;fr=msnvideo&amp;amp;mkt=en-US&amp;amp;brand=" allowscriptaccess="always" allowfullscreen="true" base="http://images.video.msn.com" quality="high"&gt;&lt;/embed&gt;&lt;br&gt;Time to climb on top and install the cupola. In addition, some of the rear riser wall paneling is being installed.&lt;/p&gt; &lt;p&gt;&lt;a href="http://silverlight.services.live.com/66324/Dome%20June%2028/video.wmv"&gt;Download&lt;/a&gt; (30 mb)&lt;/p&gt;</Content>
+      <Created>2008-06-28T17:40:20-07:00</Created>
+      <Modified>2008-07-31T18:26:59.7317478-07:00</Modified>
+      <EntryId>9153fa4e-611c-4429-afbb-1dd15f15eff4</EntryId>
+      <Description />
+      <Title>June 28th Video</Title>
+      <Categories>Videos</Categories>
+      <Author>mike</Author>
+      <IsPublic>true</IsPublic>
+      <Syndicated>true</Syndicated>
+      <ShowOnFrontPage>true</ShowOnFrontPage>
+      <AllowComments>true</AllowComments>
+      <Attachments />
+      <Crossposts />
+      <Latitude xsi:nil="true" />
+      <Longitude xsi:nil="true" />
+    </Entry>
+  </Entries>
+</DayEntry>
