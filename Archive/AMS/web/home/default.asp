@@ -1,4 +1,0 @@
-<%@ Language=VBScript %>
-<%
-Response.Redirect("../")
-%>
