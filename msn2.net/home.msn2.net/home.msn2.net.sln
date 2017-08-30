@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "home.msn2.net", ".", "{BEC5B3B6-F2E3-4F5B-A216-192DCF2F51F3}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		ProjectReferences = "{01f4c656-be28-4241-beeb-42457c1a5dd1}|HomeControl.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61739"
+		Debug.AspNetCompiler.PhysicalPath = "..\home.msn2.net\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61739\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61739"
+		Release.AspNetCompiler.PhysicalPath = "..\home.msn2.net\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61739\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61739"
+		SlnRelativePath = "..\home.msn2.net\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeControl", "..\HomeControl\HomeControl\HomeControl.csproj", "{01F4C656-BE28-4241-BEEB-42457C1A5DD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEC5B3B6-F2E3-4F5B-A216-192DCF2F51F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC5B3B6-F2E3-4F5B-A216-192DCF2F51F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC5B3B6-F2E3-4F5B-A216-192DCF2F51F3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC5B3B6-F2E3-4F5B-A216-192DCF2F51F3}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F4C656-BE28-4241-BEEB-42457C1A5DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2046CF1C-89D3-4B79-B1F4-8B01A84487FA}
+	EndGlobalSection
+EndGlobal
