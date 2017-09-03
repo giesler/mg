@@ -54,7 +54,7 @@ A.disabledLink
 
 .linkPanel {
     float: right;
-    padding-right: 3px;
+    padding: 4px;
 }
 
 .panel {
