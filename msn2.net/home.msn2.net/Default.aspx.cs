@@ -65,12 +65,6 @@ public partial class _Default : System.Web.UI.Page
         Module outside = deviceData.Modules.First(i => i.ModuleName == "Outdoor");
         float outsideF = NetatmoIntegration.GetFahrenheit(outside.DashboardData.Temperature);
         this.outsideCurrent.Text = ((int)outsideF).ToString("0");
-        this.outsideCurrentDecimal.Text = "." + (outsideF % 1.0 * 10.0).ToString("0");
-        double outsideFrac = outsideF - ((float)((int)outsideF) * 1.0);
-        if (outsideFrac < 0.14)
-        {
-            this.outsideCurrentDecimal.Visible = false;
-        }
 
         outsideImage.ImageUrl = weatherData.WeatherObservation.IconUrl;
         outsideImage.AlternateText = weatherData.WeatherObservation.Weather;
@@ -88,21 +82,8 @@ public partial class _Default : System.Web.UI.Page
 
         float insideF = NetatmoIntegration.GetFahrenheit(deviceData.DashboardData.Temperature);
         this.mediaRoomCurrent.Text = ((int)insideF).ToString("0");
-        this.mediaRoomCurrentDecimal.Text = "." + (insideF % 1.0 * 10.0).ToString("0");
-        double insideFrac = insideF - ((float)((int)insideF) * 1.0);
-        if (insideFrac < 0.14)
-        {
-            this.mediaRoomCurrentDecimal.Visible = false;
-        }
         //this.insideTrend.Text = GetTrend(data.DashboardData).Trim();
 
-        float insideMaxF = NetatmoIntegration.GetFahrenheit(deviceData.DashboardData.MaxTemp);
-        this.mediaRoomHigh.Text = ((int)insideMaxF).ToString("0");
-        this.mediaRoomHighDecimal.Text = (insideMaxF % 1.0 * 10.0).ToString("0");
-
-        float insideMinF = NetatmoIntegration.GetFahrenheit(deviceData.DashboardData.MinTemp);
-        this.mediaRoomLow.Text = ((int)insideMinF).ToString("0");
-        this.mediaRoomLowDecimal.Text = (insideMinF % 1.0 * 10.0).ToString("0");
         //this.insideHumidity.Text = data.DashboardData.Humidity.ToString();
 
 
@@ -110,22 +91,9 @@ public partial class _Default : System.Web.UI.Page
         Module bedroom = deviceData.Modules.First(i => i.ModuleName == "Bedroom");
         float bedroomF = NetatmoIntegration.GetFahrenheit(bedroom.DashboardData.Temperature);
         this.bedroomCurrent.Text = ((int)bedroomF).ToString("0");
-        this.bedroomCurrentDecimal.Text = "." + (bedroomF % 1.0 * 10.0).ToString("0");
-        double bedroomFrac = bedroomF - ((float)((int)bedroomF) * 1.0);
-        if (bedroomFrac < 0.14)
-        {
-            this.bedroomCurrentDecimal.Visible = false;
-        }
 
         //        this.bedroomTrend.Text = GetTrend(bedroom.DashboardData).Trim();
 
-        float bedroomMaxF = NetatmoIntegration.GetFahrenheit(bedroom.DashboardData.MaxTemp);
-        this.bedroomHigh.Text = ((int)bedroomMaxF).ToString("0");
-        this.bedroomHighDecimal.Text = (bedroomMaxF % 1.0 * 10.0).ToString("0");
-
-        float bedroomMinF = NetatmoIntegration.GetFahrenheit(bedroom.DashboardData.MinTemp);
-        this.bedroomLow.Text = ((int)bedroomMinF).ToString("0");
-        this.bedroomLowDecimal.Text = (bedroomMinF % 1.0 * 10.0).ToString("0");
         //this.outsideHumidity.Text = outside.DashboardData.Humidity.ToString();
 
         var day = DateTime.Now.DayOfWeek;
