@@ -108,16 +108,15 @@
             <br />
             <asp:Button runat="server" ID="Button1" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelDrip();" />
         </asp:Panel>
-        <div class="headerLink">
-            <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a> 
-            <br />
+        <div class="headerLink" style="padding: 4px">
+            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
         </div>
 
-        <div style="font-weight: bolder; padding: 5px; margin-top: 5px">
-            <a href="javascript:toggleGroup('lights')">SWITCHES</a>&nbsp; | 
-            &nbsp;<a href="javascript:toggleGroup('doors')">DOORS</a>&nbsp; | 
-            &nbsp;<a href="javascript:toggleGroup('commands')">COMMANDS</a>&nbsp; | 
-            &nbsp;<a href="Sonos.aspx">SONOS</a>
+        <div style="font-weight: bolder; padding: 6px; margin-top: 5px">
+            <a href="javascript:toggleGroup('lights')">switches</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('doors')">doors</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('commands')">commands</a>&nbsp; | 
+            &nbsp;<a href="Sonos.aspx">sonos</a>
         </div>
         
         <div id="switches">

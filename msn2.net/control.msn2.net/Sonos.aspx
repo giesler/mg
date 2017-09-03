@@ -22,12 +22,11 @@
 </head>
 <body style="background-color: black;">
     <form id="form1" runat="server">
-        <div class="headerLink">
-            <a href="http://www.msn2.net/">MSN2.NET</a>: <a href="http://home.msn2.net">HOME</a> | <a href="http://cams.msn2.net/">CAMS</a> |  <a href="http://control.msn2.net/">CONTROL</a>
-            <br />
+        <div class="headerLink" style="padding: 4px">
+            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
         </div>
         <asp:Panel runat="server">
-            <div style="font-size: larger; font-weight: bold; padding-left:5px"> SONOS PLAYERS</div>
+            <div style="font-size: larger; font-weight: bold; padding:4px"> devices </div>
             <asp:GridView runat="server" ID="players" ItemType="SonosService.ZonePlayerStatus" DataKeyNames="Name" AutoGenerateColumns="false" CellPadding="7" BorderWidth="0" GridLines="None" OnDataBound="players_DataBound">
                 <Columns>
                     <asp:DynamicField HeaderText="Group" DataField="GroupNumber" ItemStyle-HorizontalAlign="Center" />
