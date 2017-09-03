@@ -18,6 +18,10 @@
             text-decoration: none;
             color: white;
         }
+        .sonosGrid {
+            padding: 6px;
+            margin-left: 4px;
+        }
     </style>
 </head>
 <body style="background-color: black;">
@@ -26,17 +30,17 @@
             <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
         </div>
         <asp:Panel runat="server">
-            <div style="font-size: larger; font-weight: bold; padding:4px"> devices </div>
-            <asp:GridView runat="server" ID="players" ItemType="SonosService.ZonePlayerStatus" DataKeyNames="Name" AutoGenerateColumns="false" CellPadding="7" BorderWidth="0" GridLines="None" OnDataBound="players_DataBound">
+            <div style="font-size: larger; font-weight: bold; padding:10px">sonos devices</div>
+            <asp:GridView runat="server" ID="players" ItemType="SonosService.ZonePlayerStatus" DataKeyNames="Name" AutoGenerateColumns="false" CellPadding="7" BorderWidth="0" GridLines="None" OnDataBound="players_DataBound" CssClass="sonosGrid">
                 <Columns>
-                    <asp:DynamicField HeaderText="Group" DataField="GroupNumber" ItemStyle-HorizontalAlign="Center" />
-                    <asp:HyperLinkField HeaderText="Name" DataNavigateUrlFields="Location" DataTextField="Name" HeaderStyle-HorizontalAlign="Left" Target="_blank" />
-                    <asp:TemplateField HeaderText="Settings" ItemStyle-HorizontalAlign="Center">
+                    <asp:DynamicField HeaderText="group" DataField="GroupNumber" ItemStyle-HorizontalAlign="Center" />
+                    <asp:HyperLinkField HeaderText="name" DataNavigateUrlFields="Location" DataTextField="Name" HeaderStyle-HorizontalAlign="Left" Target="_blank" />
+                    <asp:TemplateField HeaderText="settings" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
                             <asp:Label runat="server" Text="<%# GetCaps(Item) %>" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Actions">
+                    <asp:TemplateField HeaderText="actions">
                         <ItemTemplate>
 <!--                            <asp:DropDownList runat="server" AutoPostBack="true" ID="action" OnSelectedIndexChanged="action_SelectedIndexChanged">
                                 <asp:ListItem Text="review" />

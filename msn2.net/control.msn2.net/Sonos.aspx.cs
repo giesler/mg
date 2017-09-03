@@ -79,10 +79,17 @@ public partial class Sonos : System.Web.UI.Page
     {
         foreach (var player in this.zps)
         {
-            string url = this.GetUrl(player.IpAddress, "reboot");
+            try
+            {
+                string url = this.GetUrl(player.IpAddress, "reboot");
 
-            HttpWebRequest req = HttpWebRequest.CreateHttp(url);
-            req.GetResponse();
+                HttpWebRequest req = HttpWebRequest.CreateHttp(url);
+                req.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                Trace.Write(ex.ToString());
+            }
         }
 
         Response.Redirect("sonos.aspx");

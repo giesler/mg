@@ -187,3 +187,8 @@ a:visited {
 .loTemp {
     color: darkred
 }
+.buttonDiv {
+    float: right; 
+    margin-top: 10px; 
+    margin-right: 10px;
+}
