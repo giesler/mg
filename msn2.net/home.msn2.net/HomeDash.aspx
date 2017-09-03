@@ -8,16 +8,17 @@
 </head>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0px">
     <form id="form1" runat="server">
+        <div style="float: left">
         <table style="padding: 5px; width: 500px">
             <tr>
                 <td style="width: 200px; align-content: center">
-                    OUTSIDE
+                    outside
                 </td>
                 <td style="width: 150px; align-content: center">
-                    MEDIA ROOM
+                    media room
                 </td>
                 <td style="width: 150px; align-content: center">
-                    BEDROOM
+                    bedroom
                 </td>
             </tr>
             <tr>
@@ -72,6 +73,73 @@
                 </td>
             </tr>
         </table>
+        </div>
+        <div style="float: left">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td colspan="3" style="border-bottom: 1px solid black">kirkland forecast</td>
+                            </tr>
+                            <tr>
+                                <td>today</td>
+                                <td>tomorrow</td>
+                                <td><asp:Label runat="server" ID="day2Label" /></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Image runat="server" ID="day0icon" ImageAlign="Left" />
+                                    <asp:Label runat="server" ID="day0hi" /> / <asp:Label runat="server" ID="day0low" /> <br />
+                                    <div style="font-size: x-small"><asp:Label runat="server" ID="day0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day0precip"/></div>
+                                </td>
+                                <td>
+                                    <asp:Image runat="server" ID="day1icon" ImageAlign="Left" />
+                                    <asp:Label runat="server" ID="day1hi" /> / <asp:Label runat="server" ID="day1low" /> <br />
+                                    <div style="font-size: x-small"><asp:Label runat="server" ID="day1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day1precip"/></div>
+                                </td>
+                                <td>
+                                    <asp:Image runat="server" ID="day2icon" ImageAlign="Left" />
+                                    <asp:Label runat="server" ID="day2hi" /> / <asp:Label runat="server" ID="day2low" /> <br />
+                                    <div style="font-size: x-small"><asp:Label runat="server" ID="day2pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day2precip" /></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="float: left">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td colspan="2" style="border-bottom: 1px solid black"><asp:Label runat="server" ID="randleHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td><asp:Label runat="server" ID="randleDay0Name" /></td>
+                                <td><asp:Label runat="server" ID="randleDay1Name" /></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Image runat="server" ID="randleDay0Icon" ImageAlign="Left" />
+                                    <asp:Label runat="server" ID="randleDay0Hi" /> / <asp:Label runat="server" ID="randleDay0Low" /> <br />
+                                    <div style="font-size: x-small"><asp:Label runat="server" ID="randleDay0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay0precip"/></div>
+                                </td>
+                                <td>
+                                    <asp:Image runat="server" ID="randleDay1Icon" ImageAlign="Left" />
+                                    <asp:Label runat="server" ID="randleDay1Hi" /> / <asp:Label runat="server" ID="randleDay1Low" /> <br />
+                                    <div style="font-size: x-small"><asp:Label runat="server" ID="randleDay1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="randleDay1precip"/></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </form>
 </body>
 </html>
