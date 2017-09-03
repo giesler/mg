@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<discovery xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://dev/FavoritesService/FavoritesService.asmx?wsdl" docRef="http://dev/FavoritesService/FavoritesService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="http://dev/FavoritesService/FavoritesService.asmx" xmlns:q1="http://webservices.msn2.net/" binding="q1:FavoritesServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-</discovery>

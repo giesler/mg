@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicWeb", "PicWeb\PicWeb.csproj", "{ACABB032-4BB3-4BDB-BFE4-8DD42767EA55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{9B8D6E06-DA69-466C-BCC1-0E3245756453}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureHttpHelpers", "PictureHttpHelpers\PictureHttpHelpers.csproj", "{D64690E2-39E4-49EF-89C0-95A1B30B64AB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{051F201A-911A-441D-B249-5857DB882AA7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{713EE988-88C2-4E72-8F5B-333B3D078CF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}"
 EndProject
@@ -42,35 +38,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebService", "http://localh
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://giesler.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = PicWeb\\PicWeb.csproj
-		SccProjectName1 = PicWeb
-		SccLocalPath1 = PicWeb
-		SccProjectUniqueName2 = Api\\Api.csproj
-		SccProjectName2 = Api
-		SccLocalPath2 = Api
-		SccProjectUniqueName3 = PictureHttpHelpers\\PictureHttpHelpers.csproj
-		SccProjectName3 = PictureHttpHelpers
-		SccLocalPath3 = PictureHttpHelpers
-		SccProjectUniqueName4 = ControlLibrary\\ControlLibrary.csproj
-		SccProjectName4 = ControlLibrary
-		SccLocalPath4 = ControlLibrary
-		SccProjectUniqueName5 = Admin\\Admin.csproj
-		SccProjectName5 = Admin
-		SccLocalPath5 = Admin
-		SccProjectUniqueName6 = Service\\Service.csproj
-		SccProjectName6 = Service
-		SccLocalPath6 = Service
-		SccWebProject7 = true
-		SccProjectUniqueName7 = http://localhost:1183
-		SccProjectName7 = WebService
-		SccLocalPath7 = WebService
-		SccProjectEnlistmentChoice7 = 2
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -88,14 +55,6 @@ Global
 		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D64690E2-39E4-49EF-89C0-95A1B30B64AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{051F201A-911A-441D-B249-5857DB882AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{051F201A-911A-441D-B249-5857DB882AA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{713EE988-88C2-4E72-8F5B-333B3D078CF7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAEEE275-91F9-4628-8B4A-7CF06EC3FA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,5 +66,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A59AA253-C267-4DB5-B4BB-2D40F49FF051}
 	EndGlobalSection
 EndGlobal

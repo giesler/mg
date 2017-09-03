@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DiscoveryClientResultsFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Results>
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://dev/FavoritesService/FavoritesService.asmx?wsdl" filename="FavoritesService.wsdl" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://dev/FavoritesService/FavoritesService.asmx?schema=DataSetItem" filename="DataSetItem.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://dev/FavoritesService/FavoritesService.asmx?disco" filename="FavoritesService.disco" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://dev/FavoritesService/FavoritesService.asmx?schema=DataSetCategory" filename="DataSetCategory.xsd" />
-  </Results>
-</DiscoveryClientResultsFile>
