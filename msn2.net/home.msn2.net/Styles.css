@@ -41,6 +41,7 @@ A {
 .smallthumb {
     padding: 0px;
     margin: 0px;
+    border-width: 0px;
 }
 
 A.disabledLink {
