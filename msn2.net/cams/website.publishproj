@@ -44,7 +44,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     </AssemblyAttributes>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Archive\chickweb\CamLib\CamLib.csproj">
+    <ProjectReference Include="..\CamLib\CamLib.csproj">
       <Project>{4DD27D96-4BAB-4A39-8871-7AF16C3BFF4A}</Project>
       <Name>CamLib</Name>
     </ProjectReference>
