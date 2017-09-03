@@ -27,10 +27,16 @@
 <body style="background-color: black;">
     <form id="form1" runat="server">
         <div class="headerLink" style="padding: 4px">
-            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
+            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="/" style="color:deepskyblue">control</a>
         </div>
+        <div style="font-weight: bolder; padding: 6px; margin-top: 5px; margin-bottom: 5px">
+            <a href="/?g=switches" style="padding: 4px">switches</a>&nbsp; | 
+            &nbsp;<a href="/?g=doors" style="padding: 4px">doors</a>&nbsp; | 
+            &nbsp;<a href="/?g=commands" style="padding: 4px">commands</a>&nbsp; | 
+            &nbsp;<a href="Sonos.aspx" style="color: deepskyblue">sonos</a>
+        </div>
+
         <asp:Panel runat="server">
-            <div style="font-size: larger; font-weight: bold; padding:10px">sonos devices</div>
             <asp:GridView runat="server" ID="players" ItemType="SonosService.ZonePlayerStatus" DataKeyNames="Name" AutoGenerateColumns="false" CellPadding="7" BorderWidth="0" GridLines="None" OnDataBound="players_DataBound" CssClass="sonosGrid">
                 <Columns>
                     <asp:DynamicField HeaderText="group" DataField="GroupNumber" ItemStyle-HorizontalAlign="Center" />
@@ -54,7 +60,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:Button runat="server" ID="rebootAll" Text="REBOOT ALL" OnClick="rebootAll_Click" />
+            <asp:LinkButton runat="server" ID="rebootAll" Text="reboot all" OnClick="rebootAll_Click"  CssClass="sonosGrid" />
         </asp:Panel>
     </form>
 </body>

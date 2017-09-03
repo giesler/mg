@@ -16,7 +16,7 @@
 <body class="bodyStyle" style="color: black">
 
     <div class="headerLink" style="padding: 4px">
-        <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
+        <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net" style="color:deepskyblue">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
     </div>
     <div style="width: 100%; clear: both; background-color: black">
         <a class="smallthumb" href="http://cams.msn2.net/?c=dw1" target="_top">

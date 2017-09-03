@@ -37,10 +37,14 @@
         function toggleGroup(groupName) {
 
             document.all['switches'].style.display = 'none';
+            document.all['switchesTab'].style.color = 'white';
             document.all['doors'].style.display = 'none';
+            document.all['doorsTab'].style.color = 'white';
             document.all['commands'].style.display = 'none';
+            document.all['commandsTab'].style.color = 'white';
 
             document.all[groupName].style.display = 'inline';
+            document.all[groupName + 'Tab'].style.color = 'deepskyblue';
         }
     </script>
     <style>
@@ -52,9 +56,8 @@
             text-decoration: none;
             color: white;
         }
-        itemGroup {
+        .itemGroup {
             margin: 5px;
-            padding: 5px;
         }
     </style>
 </head>
@@ -109,13 +112,13 @@
             <asp:Button runat="server" ID="Button1" Text=" cancel " CssClass="popupButton" OnClientClick="return cancelDrip();" />
         </asp:Panel>
         <div class="headerLink" style="padding: 4px">
-            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="http://control.msn2.net/">control</a>
+            <a href="http://www.msn2.net/">msn2.net</a>: <a href="http://home.msn2.net">home</a> | <a href="http://cams.msn2.net/">cams</a> |  <a href="/" style="color:deepskyblue">control</a>
         </div>
 
         <div style="font-weight: bolder; padding: 6px; margin-top: 5px; margin-bottom: 5px">
-            <a href="javascript:toggleGroup('lights')" style="padding: 4px">switches</a>&nbsp; | 
-            &nbsp;<a href="javascript:toggleGroup('doors')" style="padding: 4px">doors</a>&nbsp; | 
-            &nbsp;<a href="javascript:toggleGroup('commands')" style="padding: 4px">commands</a>&nbsp; | 
+            <a href="javascript:toggleGroup('switches')" style="padding: 4px" id="switchesTab">switches</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('doors')" style="padding: 4px" id="doorsTab">doors</a>&nbsp; | 
+            &nbsp;<a href="javascript:toggleGroup('commands')" style="padding: 4px" id="commandsTab">commands</a>&nbsp; | 
             &nbsp;<a href="Sonos.aspx">sonos</a>
         </div>
         

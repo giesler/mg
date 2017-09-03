@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 
 public partial class Sonos : System.Web.UI.Page
 {
@@ -77,21 +80,82 @@ public partial class Sonos : System.Web.UI.Page
 
     protected void rebootAll_Click(object sender, EventArgs e)
     {
+        Dictionary<string, Exception> errors = new Dictionary<string, Exception>();
+
         foreach (var player in this.zps)
         {
             try
             {
                 string url = this.GetUrl(player.IpAddress, "reboot");
+                string csrf = null;
 
                 HttpWebRequest req = HttpWebRequest.CreateHttp(url);
-                req.GetResponse();
+                req.Method = "GET";
+                HttpWebResponse rsp = req.GetResponse() as HttpWebResponse;
+
+                using (var stream = rsp.GetResponseStream())
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string txt = reader.ReadToEnd();
+                        Trace.Write(txt);
+
+                        int tokenStart = txt.IndexOf("csrfToken") + 18;
+                        int tokenEnd = txt.Substring(tokenStart).IndexOf("\"");
+                        csrf = txt.Substring(tokenStart, tokenEnd);
+                    }
+                }
+
+                req = HttpWebRequest.CreateHttp(url);
+                req.Headers.Add("Upgrade-Insecure-Requests", "1");
+                req.Headers.Add(HttpRequestHeader.CacheControl, "max-age=0");
+
+                req.Headers.Add("DNT", "1");
+                req.Method = "POST";
+                req.ContentType = "application/x-www-form-urlencoded";
+                Stream s = req.GetRequestStream();
+                using (var writer = new StreamWriter(s))
+                {
+                    writer.WriteLine("csrfToken=" + csrf);
+                }
+
+                rsp = req.GetResponse() as HttpWebResponse;
+
+                using (var stream = rsp.GetResponseStream())
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string txt = reader.ReadToEnd();
+                        Trace.Write(txt);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Trace.Write(ex.ToString());
+                errors.Add(player.Name + "(" + player.UUID + ")", ex);
             }
         }
 
-        Response.Redirect("sonos.aspx");
+        if (errors.Count > 0)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<html><title>Reboot Errors</title><body>Errors during reboot:");
+            sb.AppendLine("<table><tr><td>Name</td><td>Error</td>");
+
+            foreach (string name in errors.Keys)
+            {
+                sb.AppendLine("<tr><td>" + name + "</td><td>" + errors[name].Message + "</td></tr>");
+            }
+
+            sb.AppendLine("</table><br /><a href=sonos.aspx>Return</a>");
+            sb.AppendLine("</body></html>");
+
+            Response.Write(sb.ToString());
+            Response.End();
+        }
+        else
+        {
+            Response.Redirect("sonos.aspx");
+        }
     }
 }
