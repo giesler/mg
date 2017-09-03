@@ -173,3 +173,17 @@ a:visited {
     font-size: x-small;
     margin-bottom: -2px;
 }
+.weatherImg {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+.minSpace {
+    border-spacing: 0px;
+}
+.hiTemp {
+    color: darkblue
+}
+.loTemp {
+    color: darkred
+}
