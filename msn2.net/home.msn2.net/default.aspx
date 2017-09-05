@@ -63,7 +63,7 @@
                             <tr>
                                 <td>media room</td>
                                 <td>&nbsp;</td>
-                                <td>mastr bdrm</td>
+                                <td>mstr bdrm</td>
                             </tr>
                             <tr>
                                 <td align="center">
@@ -93,7 +93,7 @@
                                 <asp:Label runat="server" ID="day2Label" /></td>
                         </tr>
                         <tr>
-                            <td style="width: 100px">
+                            <td style="width: 110px">
                                 <asp:Image runat="server" ID="day0icon" ImageAlign="Left" />
                                 <asp:Label runat="server" ID="day0hi" CssClass="hiTemp" />
                                 /
@@ -103,7 +103,7 @@
                                     <asp:Label runat="server" ID="day0pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day0precip" />
                                 </div>
                             </td>
-                            <td style="width: 100px">
+                            <td style="width: 110px">
                                 <asp:Image runat="server" ID="day1icon" ImageAlign="Left" />
                                 <asp:Label runat="server" ID="day1hi" CssClass="hiTemp" />
                                 /
@@ -113,7 +113,7 @@
                                     <asp:Label runat="server" ID="day1pop" />&nbsp;/&nbsp;<asp:Label runat="server" ID="day1precip" />
                                 </div>
                             </td>
-                            <td style="width: 100px">
+                            <td style="width: 110px">
                                 <asp:Image runat="server" ID="day2icon" ImageAlign="Left" />
                                 <asp:Label runat="server" ID="day2hi" CssClass="hiTemp" />
                                 /
