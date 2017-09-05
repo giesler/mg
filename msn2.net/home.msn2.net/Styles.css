@@ -181,10 +181,10 @@ a:visited {
 .minSpace {
     border-spacing: 0px;
 }
-.hiTemp {
+.loTemp {
     color: darkblue
 }
-.loTemp {
+.hiTemp {
     color: darkred
 }
 .buttonDiv {
