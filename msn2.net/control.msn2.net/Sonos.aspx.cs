@@ -109,14 +109,22 @@ public partial class Sonos : System.Web.UI.Page
                 req = HttpWebRequest.CreateHttp(url);
                 req.Headers.Add("Upgrade-Insecure-Requests", "1");
                 req.Headers.Add(HttpRequestHeader.CacheControl, "max-age=0");
-
+                req.Headers.Add("Origin", url.Substring(0, url.LastIndexOf("/")));
+                req.Referer = url;
                 req.Headers.Add("DNT", "1");
                 req.Method = "POST";
+
+                req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
+                req.Headers.Add("Accept-Encoding", "gzip,deflate");
+                req.Headers.Add("Accept-Language", "en-US,en;q=0.8");
+
+                
                 req.ContentType = "application/x-www-form-urlencoded";
                 Stream s = req.GetRequestStream();
                 using (var writer = new StreamWriter(s))
                 {
-                    writer.WriteLine("csrfToken=" + csrf);
+                    string token = Server.UrlEncode(csrf);
+                    writer.WriteLine("csrfToken=" + token);
                 }
 
                 rsp = req.GetResponse() as HttpWebResponse;
