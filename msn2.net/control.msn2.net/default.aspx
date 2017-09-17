@@ -218,10 +218,19 @@
 
         <div class="itemGroup">
             <div class="buttonDiv">
+                <asp:Button runat="server" ID="garageOutsideLock" Text=" lock " OnClick="garageOutsideLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                <asp:Button runat="server" ID="garageOutsideUnlock" Text=" unlock " OnClick="garageOutsideUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+            </div>
+            <div class="mainItem">garage outside door</div>
+            <div><asp:Label runat="server" ID="garageOutsideStatus" CssClass="smallNote" /></div>
+        </div>
+
+        <div class="itemGroup">
+            <div class="buttonDiv">
                 <asp:Button runat="server" ID="garageEntryLock" Text=" lock " OnClick="garageEntryLock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
                 <asp:Button runat="server" ID="garageEntryUnlock" Text=" unlock " OnClick="garageEntryUnlock_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
             </div>
-            <div class="mainItem">garage entry door</div>
+            <div class="mainItem">garage inside door</div>
             <div><asp:Label runat="server" ID="garageEntryStatus" CssClass="smallNote" /></div>
         </div>
 
