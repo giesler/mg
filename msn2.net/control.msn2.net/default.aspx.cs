@@ -21,6 +21,7 @@ public partial class control : System.Web.UI.Page
     const string Garage2SwitchAddress = "34 88 F9 2";
     const string Garage2SensorAddress = "34 88 F9 1";
     const string GarageEntryDoorAddress = "ZW002_1";
+    const string GarageOutsideDoorAddress = "ZW008_1";
     const string FrontDoorAddress = "ZW003_1";
     const string CoopDoorAddress = "32 49 A5 1";
     const string GardenDripName = "Garden drip";
@@ -60,6 +61,9 @@ public partial class control : System.Web.UI.Page
 
             var garageEntryDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == GarageEntryDoorAddress);
             this.garageEntryStatus.Text = garageEntryDoor.Status;
+
+            var garageOutsideDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == GarageOutsideDoorAddress);
+            this.garageOutsideStatus.Text = garageOutsideDoor.Status;
 
             var frontDoor = groups.First().Nodes.FirstOrDefault(g => g.Address == FrontDoorAddress);
             this.frontDoorStatus.Text = frontDoor.Status;
@@ -253,6 +257,21 @@ public partial class control : System.Web.UI.Page
     {
         Thread.Sleep(1000);
         Response.Redirect("/?g=" + activeGroup, true);
+    }
+
+
+    protected void garageOutsideUnlock_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.Unlock(GarageOutsideDoorAddress);
+        this.Redirect("doors");
+    }
+
+    protected void garageOutsideLock_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.Lock(GarageOutsideDoorAddress);
+        this.Redirect("doors");
     }
 
     protected void garageEntryLock_Click(object sender, EventArgs e)
