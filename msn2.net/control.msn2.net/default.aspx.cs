@@ -27,7 +27,8 @@ public partial class control : System.Web.UI.Page
     const string GardenDripName = "Garden drip";
     const string NeilsRoomLightAddress = "2B B6 38 1";
     const string MediaRoomMainLightsAddress = "2295";
-
+    const string OutsideFrontLightsAddress = "34 75 DD 1";
+    
     string activeGroup = "switches";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -94,6 +95,9 @@ public partial class control : System.Web.UI.Page
 
             var neilLight = groups.First().Nodes.FirstOrDefault(g => g.Address == NeilsRoomLightAddress);
             this.neilsRoomLightStatus.Text = neilLight != null ? neilLight.Status : "unknown status";
+
+            var outsideFrontLights = groups.First().Nodes.FirstOrDefault(g => g.Address == OutsideFrontLightsAddress);
+            this.outsideFrontLightStatus.Text = outsideFrontLights != null ? outsideFrontLights.Status : "unknown status";
 
             try
             {
@@ -361,6 +365,20 @@ public partial class control : System.Web.UI.Page
     {
         IsyData.ISYClient client = new IsyData.ISYClient();
         client.TurnOff(MediaRoomMainLightsAddress);
+        this.Redirect("switches");
+   }
+
+    protected void outsideFrontLightsOn_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOn(OutsideFrontLightsAddress);
+        this.Redirect("switches");
+    }
+
+    protected void outsideFrontLightsOff_Click(object sender, EventArgs e)
+    {
+        IsyData.ISYClient client = new IsyData.ISYClient();
+        client.TurnOff(OutsideFrontLightsAddress);
         this.Redirect("switches");
     }
 }
