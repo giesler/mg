@@ -196,6 +196,15 @@
             <div><asp:Label runat="server" ID="neilsRoomLightStatus" CssClass="smallNote" /></div>
         </div>
 
+        <div class="itemGroup">
+            <div class="buttonDiv">
+                <asp:Button runat="server" ID="outsideFrontLightsOn" Text=" on " OnClick="outsideFrontLightsOn_Click"  OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+                <asp:Button runat="server" ID="outsideFrontLightsOff" Text=" off " OnClick="outsideFrontLightsOff_Click" OnClientClick="javascript:toggleItem();" CssClass="onOffButton" />
+            </div>
+            <div class="mainItem">outside front lights</div>
+            <div><asp:Label runat="server" ID="outsideFrontLightStatus" CssClass="smallNote" /></div>
+        </div>
+
         </div>
 
         <div id="doors" style="padding-left: 8px; position: fixed; width: 100%;">
